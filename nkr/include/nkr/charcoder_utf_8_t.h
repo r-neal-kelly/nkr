@@ -19,4 +19,4 @@ namespace nkr {
 
 }
 
-#include "nkr/charcoder_utf_8_i.h"
+#include "nkr/charcoder_utf_8_t.inl"

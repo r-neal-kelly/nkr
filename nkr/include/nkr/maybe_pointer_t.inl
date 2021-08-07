@@ -68,13 +68,13 @@ namespace nkr {
     }
 
     template <typename T>
-    inline none_t<T*>::pointer_t none_t<T*>::operator ()()
+    inline typename none_t<T*>::pointer_t none_t<T*>::operator ()()
     {
         return nullptr;
     }
 
     template <typename T>
-    inline const none_t<T*>::pointer_t none_t<T*>::operator ()() const
+    inline typename const none_t<T*>::pointer_t none_t<T*>::operator ()() const
     {
         return nullptr;
     }
@@ -159,61 +159,61 @@ namespace nkr {
     }
 
     template <typename T>
-    inline maybe_t<T*>::pointer_t maybe_t<T*>::operator ()()
+    inline typename maybe_t<T*>::pointer_t maybe_t<T*>::operator ()()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline const maybe_t<T*>::pointer_t maybe_t<T*>::operator ()() const
+    inline typename const maybe_t<T*>::pointer_t maybe_t<T*>::operator ()() const
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline maybe_t<T*>::pointer_t maybe_t<T*>::operator ->()
+    inline typename maybe_t<T*>::pointer_t maybe_t<T*>::operator ->()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline const maybe_t<T*>::pointer_t maybe_t<T*>::operator ->() const
+    inline typename const maybe_t<T*>::pointer_t maybe_t<T*>::operator ->() const
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline maybe_t<T*>::pointer_t* maybe_t<T*>::operator &()
+    inline typename maybe_t<T*>::pointer_t* maybe_t<T*>::operator &()
     {
         return &this->pointer;
     }
 
     template <typename T>
-    inline const maybe_t<T*>::pointer_t* maybe_t<T*>::operator &() const
+    inline typename const maybe_t<T*>::pointer_t* maybe_t<T*>::operator &() const
     {
         return &this->pointer;
     }
 
     template <typename T>
-    inline maybe_t<T*>::value_t& maybe_t<T*>::operator *()
+    inline typename maybe_t<T*>::value_t& maybe_t<T*>::operator *()
     {
         return *this->pointer;
     }
 
     template <typename T>
-    inline const maybe_t<T*>::value_t& maybe_t<T*>::operator *() const
+    inline typename const maybe_t<T*>::value_t& maybe_t<T*>::operator *() const
     {
         return *this->pointer;
     }
 
     template <typename T>
-    inline maybe_t<T*>::value_t& maybe_t<T*>::operator [](size_t index)
+    inline typename maybe_t<T*>::value_t& maybe_t<T*>::operator [](size_t index)
     {
         return this->pointer[index];
     }
 
     template <typename T>
-    inline const maybe_t<T*>::value_t& maybe_t<T*>::operator [](size_t index) const
+    inline typename const maybe_t<T*>::value_t& maybe_t<T*>::operator [](size_t index) const
     {
         return this->pointer[index];
     }
@@ -292,61 +292,61 @@ namespace nkr {
     }
 
     template <typename T>
-    inline some_t<T*>::pointer_t some_t<T*>::operator ()()
+    inline typename some_t<T*>::pointer_t some_t<T*>::operator ()()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline const some_t<T*>::pointer_t some_t<T*>::operator ()() const
+    inline typename const some_t<T*>::pointer_t some_t<T*>::operator ()() const
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline some_t<T*>::pointer_t some_t<T*>::operator ->()
+    inline typename some_t<T*>::pointer_t some_t<T*>::operator ->()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline const some_t<T*>::pointer_t some_t<T*>::operator ->() const
+    inline typename const some_t<T*>::pointer_t some_t<T*>::operator ->() const
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline some_t<T*>::pointer_t* some_t<T*>::operator &()
+    inline typename some_t<T*>::pointer_t* some_t<T*>::operator &()
     {
         return &this->pointer;
     }
 
     template <typename T>
-    inline const some_t<T*>::pointer_t* some_t<T*>::operator &() const
+    inline typename const some_t<T*>::pointer_t* some_t<T*>::operator &() const
     {
         return &this->pointer;
     }
 
     template <typename T>
-    inline some_t<T*>::value_t& some_t<T*>::operator *()
+    inline typename some_t<T*>::value_t& some_t<T*>::operator *()
     {
         return *this->pointer;
     }
 
     template <typename T>
-    inline const some_t<T*>::value_t& some_t<T*>::operator *() const
+    inline typename const some_t<T*>::value_t& some_t<T*>::operator *() const
     {
         return *this->pointer;
     }
 
     template <typename T>
-    inline some_t<T*>::value_t& some_t<T*>::operator [](size_t index)
+    inline typename some_t<T*>::value_t& some_t<T*>::operator [](size_t index)
     {
         return this->pointer[index];
     }
 
     template <typename T>
-    inline const some_t<T*>::value_t& some_t<T*>::operator [](size_t index) const
+    inline typename const some_t<T*>::value_t& some_t<T*>::operator [](size_t index) const
     {
         return this->pointer[index];
     }

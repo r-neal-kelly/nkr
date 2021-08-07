@@ -39,10 +39,10 @@
     <ClInclude Include="include\nkr\charcoder_i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\charcoder_utf_8_i.h">
+    <ClInclude Include="include\nkr\charcoder_utf_8_t.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\maybe_pointer_i.h">
+    <ClInclude Include="include\nkr\maybe_pointer_t.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

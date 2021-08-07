@@ -130,4 +130,4 @@ namespace nkr {
 
 }
 
-#include "nkr/maybe_pointer_i.h"
+#include "nkr/maybe_pointer_t.inl"
