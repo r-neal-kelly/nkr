@@ -56,9 +56,11 @@ namespace nkr { namespace test {
 
         void_t  operator_increment_pre() const;
         void_t  operator_increment_post() const;
-
         void_t  operator_decrement_pre() const;
         void_t  operator_decrement_post() const;
+
+        void_t  operator_increment_assign() const;
+        void_t  operator_decrement_assign() const;
 
     public:
         void_t  address() const;

@@ -200,6 +200,30 @@ namespace nkr {
     }
 
     template <sized_t unit>
+    template <integral_t integer>
+    inline pointer_i<unit>& pointer_i<unit>::operator +=(integer count)
+    {
+        assert(this->units != nullptr);
+
+        this->units += count;
+        this->unit_count -= count;
+
+        return *this;
+    }
+
+    template <sized_t unit>
+    template <integral_t integer>
+    inline pointer_i<unit>& pointer_i<unit>::operator -=(integer count)
+    {
+        assert(this->units != nullptr);
+
+        this->units -= count;
+        this->unit_count += count;
+
+        return *this;
+    }
+
+    template <sized_t unit>
     inline address_t pointer_i<unit>::address() const
     {
         return reinterpret_cast<address_t>(this->units);

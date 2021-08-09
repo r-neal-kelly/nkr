@@ -62,9 +62,13 @@ namespace nkr {
 
         pointer_i&      operator ++();
         pointer_i       operator ++(int);
-
         pointer_i&      operator --();
         pointer_i       operator --(int);
+
+        template <integral_t integer>
+        pointer_i&      operator +=(integer count);
+        template <integral_t integer>
+        pointer_i&      operator -=(integer count);
 
     public:
         address_t   address() const;

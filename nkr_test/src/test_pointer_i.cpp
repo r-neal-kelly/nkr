@@ -50,10 +50,12 @@ namespace nkr { namespace test {
 
         NKR_TEST_METHOD(operator_increment_pre);
         NKR_TEST_METHOD(operator_increment_post);
-        wprintf(L"\n");
-
         NKR_TEST_METHOD(operator_decrement_pre);
         NKR_TEST_METHOD(operator_decrement_post);
+        wprintf(L"\n");
+
+        NKR_TEST_METHOD(operator_increment_assign);
+        NKR_TEST_METHOD(operator_decrement_assign);
         wprintf(L"\n");
 
         NKR_TEST_METHOD(address);
@@ -426,6 +428,48 @@ namespace nkr { namespace test {
         while (pointer-- < 4) {
             NKR_TEST(*pointer == 100);
         }
+    }
+
+    void_t test_pointer_i::operator_increment_assign() const
+    {
+        wprintf(L"should increment units and decrement unit_count by count. returns itself");
+
+        word_t words[4];
+        words[0] = 0;
+        words[1] = 1;
+        words[2] = 2;
+        words[3] = 3;
+        NKR_TEST(*(pointer_i(words, 4) += 0) == 0);
+        NKR_TEST(*(pointer_i(words, 4) += 1) == 1);
+        NKR_TEST(*(pointer_i(words, 4) += 2) == 2);
+        NKR_TEST(*(pointer_i(words, 4) += 3) == 3);
+
+        pointer_i pointer(words - 1, 5);
+        NKR_TEST(*(pointer += 1) == 0);
+        NKR_TEST(*(pointer += 1) == 1);
+        NKR_TEST(*(pointer += 1) == 2);
+        NKR_TEST(*(pointer += 1) == 3);
+    }
+
+    void_t test_pointer_i::operator_decrement_assign() const
+    {
+        wprintf(L"should decrement units and increment unit_count by count. returns itself");
+
+        word_t words[4];
+        words[0] = 0;
+        words[1] = 1;
+        words[2] = 2;
+        words[3] = 3;
+        NKR_TEST(*(pointer_i(words + 4, 0) -= 1) == 3);
+        NKR_TEST(*(pointer_i(words + 4, 0) -= 2) == 2);
+        NKR_TEST(*(pointer_i(words + 4, 0) -= 3) == 1);
+        NKR_TEST(*(pointer_i(words + 4, 0) -= 4) == 0);
+
+        pointer_i pointer(words + 4, 0);
+        NKR_TEST(*(pointer -= 1) == 3);
+        NKR_TEST(*(pointer -= 1) == 2);
+        NKR_TEST(*(pointer -= 1) == 1);
+        NKR_TEST(*(pointer -= 1) == 0);
     }
 
     void_t test_pointer_i::address() const
