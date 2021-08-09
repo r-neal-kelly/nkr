@@ -7,7 +7,7 @@
 
 #include "intrinsic.h"
 #include "test_maybe_pointer_t.h"
-#include "test_pointer_i.h"
+#include "test_pointer_t.h"
 #include "test_string_t.h"
 
 int main(int argument_count, char* arguments[])
@@ -19,7 +19,7 @@ int main(int argument_count, char* arguments[])
         assert(0);
     }
 
-    nkr::test::test_pointer_i();
+    nkr::test::test_pointer_t();
     nkr::test::test_string_t();
 
     wprintf(L"\npress any key to continue...\n");

@@ -4,21 +4,21 @@
 
 #pragma once
 
-#include "nkr/pointer_i.h"
+#include "nkr/pointer_t.h"
 
 #include "intrinsic.h"
 
 namespace nkr { namespace test {
 
-    class test_pointer_i
+    class test_pointer_t
     {
     public:
-        test_pointer_i();
-        test_pointer_i(const test_pointer_i& other)                 = delete;
-        test_pointer_i(test_pointer_i&& other) noexcept             = delete;
-        test_pointer_i& operator =(const test_pointer_i& other)     = delete;
-        test_pointer_i& operator =(test_pointer_i&& other) noexcept = delete;
-        ~test_pointer_i();
+        test_pointer_t();
+        test_pointer_t(const test_pointer_t& other)                 = delete;
+        test_pointer_t(test_pointer_t&& other) noexcept             = delete;
+        test_pointer_t& operator =(const test_pointer_t& other)     = delete;
+        test_pointer_t& operator =(test_pointer_t&& other) noexcept = delete;
+        ~test_pointer_t();
 
     public:
         void_t  unit_size() const;
@@ -40,9 +40,6 @@ namespace nkr { namespace test {
 
         void_t  operator_units_t_ref() const;
         void_t  operator_const_units_t_ref() const;
-
-        void_t  operator_count_t_ref() const;
-        void_t  operator_const_count_t_ref() const;
 
     public:
         void_t  operator_logical_not() const;

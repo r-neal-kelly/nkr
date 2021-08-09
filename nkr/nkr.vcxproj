@@ -151,7 +151,7 @@
     <ClInclude Include="include\nkr\maybe_pointer_t.inl" />
     <ClInclude Include="include\nkr\maybe_t.h" />
     <ClInclude Include="include\nkr\maybe_pointer_t.h" />
-    <ClInclude Include="include\nkr\pointer_i.h" />
+    <ClInclude Include="include\nkr\pointer_t.h" />
     <ClInclude Include="include\nkr\string_static_t.h" />
     <ClInclude Include="include\nkr\string_dynamic_t.h" />
     <ClInclude Include="include\nkr\string_t.h" />
@@ -162,7 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\array_i.inl" />
-    <None Include="include\nkr\pointer_i.inl" />
+    <None Include="include\nkr\pointer_t.inl" />
     <None Include="include\nkr\string_static_t.inl" />
     <None Include="include\nkr\string_dynamic_t.inl" />
   </ItemGroup>

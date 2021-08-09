@@ -10,13 +10,13 @@
 namespace nkr {
 
     /*
-        pointer_i in no way restricts the user from altering any unit_t that units points to.
+        pointer_t in no way restricts the user from altering any unit_t that units points to.
         If you want units to point to const unit_t, you can simply pass a const unit_t in the
         template. void_t is not useable by this type. I recommend using byte_t instead.
     */
 
-    template <sized_t unit>
-    class pointer_i
+    template <trait::sized unit>
+    class pointer_t
     {
     public:
         using unit_t    = unit;
@@ -31,14 +31,14 @@ namespace nkr {
         count_t unit_count;
 
     public:
-        pointer_i();
-        pointer_i(unit_t* unit_pointer);
-        pointer_i(units_t units, count_t unit_count);
-        pointer_i(const pointer_i& other);
-        pointer_i(pointer_i&& other) noexcept;
-        pointer_i& operator =(const pointer_i& other);
-        pointer_i& operator =(pointer_i&& other) noexcept;
-        ~pointer_i();
+        pointer_t();
+        pointer_t(unit_t* unit_pointer);
+        pointer_t(units_t units, count_t unit_count);
+        pointer_t(const pointer_t& other);
+        pointer_t(pointer_t&& other) noexcept;
+        pointer_t& operator =(const pointer_t& other);
+        pointer_t& operator =(pointer_t&& other) noexcept;
+        ~pointer_t();
 
     public:
         explicit operator   bool_t();
@@ -46,9 +46,6 @@ namespace nkr {
 
         operator            units_t&();
         operator            const units_t&() const;
-
-        operator            count_t&();
-        operator            const count_t&() const;
 
     public:
         const bool_t    operator !() const;
@@ -60,20 +57,20 @@ namespace nkr {
         unit_t&         operator *() const;
         unit_t&         operator [](index_t index) const;
 
-        pointer_i&      operator ++();
-        pointer_i       operator ++(int);
-        pointer_i&      operator --();
-        pointer_i       operator --(int);
+        pointer_t&      operator ++();
+        pointer_t       operator ++(int);
+        pointer_t&      operator --();
+        pointer_t       operator --(int);
 
-        template <integral_t integer>
-        pointer_i&      operator +=(integer count);
-        template <integral_t integer>
-        pointer_i&      operator -=(integer count);
+        template <trait::integral integer>
+        pointer_t&      operator +=(integer count);
+        template <trait::integral integer>
+        pointer_t&      operator -=(integer count);
 
-        template <integral_t integer>
-        pointer_i       operator +(integer count) const;
-        template <integral_t integer>
-        pointer_i       operator -(integer count) const;
+        template <trait::integral integer>
+        pointer_t       operator +(integer count) const;
+        template <trait::integral integer>
+        pointer_t       operator -(integer count) const;
 
     public:
         units_t&        raw();
@@ -87,4 +84,4 @@ namespace nkr {
 
 }
 
-#include "nkr/pointer_i.inl"
+#include "nkr/pointer_t.inl"
