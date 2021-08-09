@@ -71,6 +71,36 @@ namespace nkr {
     }
 
     template <trait::sized unit>
+    inline typename pointer_t<unit>::units_t& pointer_t<unit>::raw()
+    {
+        return this->units;
+    }
+
+    template <trait::sized unit>
+    inline typename const pointer_t<unit>::units_t& pointer_t<unit>::raw() const
+    {
+        return this->units;
+    }
+
+    template <trait::sized unit>
+    inline count_t& pointer_t<unit>::count()
+    {
+        return this->unit_count;
+    }
+
+    template <trait::sized unit>
+    inline const count_t& pointer_t<unit>::count() const
+    {
+        return this->unit_count;
+    }
+
+    template <trait::sized unit>
+    inline address_t pointer_t<unit>::address() const
+    {
+        return reinterpret_cast<address_t>(this->units);
+    }
+
+    template <trait::sized unit>
     inline pointer_t<unit>::operator bool_t()
     {
         return this->units != nullptr;
@@ -227,36 +257,6 @@ namespace nkr {
         assert(this->units != nullptr);
 
         return pointer_t(this->units - count, this->unit_count + count);
-    }
-
-    template <trait::sized unit>
-    inline typename pointer_t<unit>::units_t& pointer_t<unit>::raw()
-    {
-        return this->units;
-    }
-
-    template <trait::sized unit>
-    inline typename const pointer_t<unit>::units_t& pointer_t<unit>::raw() const
-    {
-        return this->units;
-    }
-
-    template <trait::sized unit>
-    inline count_t& pointer_t<unit>::count()
-    {
-        return this->unit_count;
-    }
-
-    template <trait::sized unit>
-    inline const count_t& pointer_t<unit>::count() const
-    {
-        return this->unit_count;
-    }
-
-    template <trait::sized unit>
-    inline address_t pointer_t<unit>::address() const
-    {
-        return reinterpret_cast<address_t>(this->units);
     }
 
 }

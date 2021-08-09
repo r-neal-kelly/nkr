@@ -24,6 +24,17 @@ namespace nkr { namespace test {
         NKR_TEST_METHOD(destructor);
         wprintf(L"\n");
 
+        NKR_TEST_METHOD(raw);
+        NKR_TEST_METHOD(raw_const);
+        wprintf(L"\n");
+
+        NKR_TEST_METHOD(count);
+        NKR_TEST_METHOD(count_const);
+        wprintf(L"\n");
+
+        NKR_TEST_METHOD(address);
+        wprintf(L"\n");
+
         NKR_TEST_METHOD(operator_bool_t);
         NKR_TEST_METHOD(operator_const_bool_t);
         wprintf(L"\n");
@@ -56,17 +67,6 @@ namespace nkr { namespace test {
 
         NKR_TEST_METHOD(operator_add);
         NKR_TEST_METHOD(operator_subtract);
-        wprintf(L"\n");
-
-        NKR_TEST_METHOD(raw);
-        NKR_TEST_METHOD(raw_const);
-        wprintf(L"\n");
-
-        NKR_TEST_METHOD(count);
-        NKR_TEST_METHOD(count_const);
-        wprintf(L"\n");
-
-        NKR_TEST_METHOD(address);
         wprintf(L"\n");
     }
 
@@ -182,6 +182,58 @@ namespace nkr { namespace test {
         NKR_TEST(pointer.unit_count == 0);
         NKR_TEST(const_pointer.units == nullptr);
         NKR_TEST(const_pointer.unit_count == 0);
+    }
+
+    void_t test_pointer_t::raw() const
+    {
+        wprintf(L"should return assignable units");
+
+        word_t word_1 = 0;
+        pointer_t pointer(&word_1);
+        NKR_TEST(pointer.raw() == &word_1);
+
+        word_t word_2 = 1;
+        pointer.raw() = &word_2;
+        NKR_TEST(pointer.raw() == &word_2);
+    }
+
+    void_t test_pointer_t::raw_const() const
+    {
+        wprintf(L"should return unassignable units");
+
+        word_t word = 0;
+        const pointer_t pointer(&word);
+        NKR_TEST(pointer.raw() == &word);
+    }
+
+    void_t test_pointer_t::count() const
+    {
+        wprintf(L"should return assignable unit_count");
+
+        word_t word = 0;
+        pointer_t pointer(&word);
+        NKR_TEST(pointer.count() == 1);
+
+        pointer.count() = 2;
+        NKR_TEST(pointer.count() == 2);
+    }
+
+    void_t test_pointer_t::count_const() const
+    {
+        wprintf(L"should return unassignable unit_count");
+
+        word_t word = 0;
+        const pointer_t pointer(&word);
+        NKR_TEST(pointer.count() == 1);
+    }
+
+    void_t test_pointer_t::address() const
+    {
+        wprintf(L"should return a cast of units_t to address_t");
+
+        word_t word = 0;
+        pointer_t<word_t> pointer = &word;
+        NKR_TEST(pointer.address() == reinterpret_cast<address_t>(&word));
     }
 
     void_t test_pointer_t::operator_bool_t() const
@@ -444,58 +496,6 @@ namespace nkr { namespace test {
         NKR_TEST(*(pointer - 2) == 2);
         NKR_TEST(*(pointer - 3) == 1);
         NKR_TEST(*(pointer - 4) == 0);
-    }
-
-    void_t test_pointer_t::raw() const
-    {
-        wprintf(L"should return assignable units");
-
-        word_t word_1 = 0;
-        pointer_t pointer(&word_1);
-        NKR_TEST(pointer.raw() == &word_1);
-        
-        word_t word_2 = 1;
-        pointer.raw() = &word_2;
-        NKR_TEST(pointer.raw() == &word_2);
-    }
-
-    void_t test_pointer_t::raw_const() const
-    {
-        wprintf(L"should return unassignable units");
-
-        word_t word = 0;
-        const pointer_t pointer(&word);
-        NKR_TEST(pointer.raw() == &word);
-    }
-
-    void_t test_pointer_t::count() const
-    {
-        wprintf(L"should return assignable unit_count");
-
-        word_t word = 0;
-        pointer_t pointer(&word);
-        NKR_TEST(pointer.count() == 1);
-
-        pointer.count() = 2;
-        NKR_TEST(pointer.count() == 2);
-    }
-
-    void_t test_pointer_t::count_const() const
-    {
-        wprintf(L"should return unassignable unit_count");
-
-        word_t word = 0;
-        const pointer_t pointer(&word);
-        NKR_TEST(pointer.count() == 1);
-    }
-
-    void_t test_pointer_t::address() const
-    {
-        wprintf(L"should return a cast of units_t to address_t");
-
-        word_t word = 0;
-        pointer_t<word_t> pointer = &word;
-        NKR_TEST(pointer.address() == reinterpret_cast<address_t>(&word));
     }
 
 }}

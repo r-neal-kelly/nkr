@@ -41,6 +41,15 @@ namespace nkr {
         ~pointer_t();
 
     public:
+        units_t&        raw();
+        const units_t&  raw() const;
+
+        count_t&        count();
+        const count_t&  count() const;
+
+        address_t       address() const;
+
+    public:
         explicit operator   bool_t();
         explicit operator   const bool_t() const;
 
@@ -71,15 +80,6 @@ namespace nkr {
         pointer_t       operator +(integer count) const;
         template <trait::integral integer>
         pointer_t       operator -(integer count) const;
-
-    public:
-        units_t&        raw();
-        const units_t&  raw() const;
-
-        count_t&        count();
-        const count_t&  count() const;
-
-        address_t       address() const;
     };
 
 }

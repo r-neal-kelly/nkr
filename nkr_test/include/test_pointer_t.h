@@ -35,6 +35,15 @@ namespace nkr { namespace test {
         void_t  destructor() const;
 
     public:
+        void_t  raw() const;
+        void_t  raw_const() const;
+
+        void_t  count() const;
+        void_t  count_const() const;
+
+        void_t  address() const;
+
+    public:
         void_t  operator_bool_t() const;
         void_t  operator_const_bool_t() const;
 
@@ -61,15 +70,6 @@ namespace nkr { namespace test {
 
         void_t  operator_add() const;
         void_t  operator_subtract() const;
-
-    public:
-        void_t  raw() const;
-        void_t  raw_const() const;
-
-        void_t  count() const;
-        void_t  count_const() const;
-
-        void_t  address() const;
     };
 
 }}
