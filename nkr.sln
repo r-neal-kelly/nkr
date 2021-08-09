@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr", "nkr\nkr.vcxproj", "{260DD159-A788-4BBB-9690-628AA81AAA9C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test", "nkr_test\nkr_test.vcxproj", "{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{260DD159-A788-4BBB-9690-628AA81AAA9C}.Release|x64.Build.0 = Release|x64
 		{260DD159-A788-4BBB-9690-628AA81AAA9C}.Release|x86.ActiveCfg = Release|Win32
 		{260DD159-A788-4BBB-9690-628AA81AAA9C}.Release|x86.Build.0 = Release|Win32
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Debug|x64.ActiveCfg = Debug|x64
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Debug|x64.Build.0 = Debug|x64
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Debug|x86.ActiveCfg = Debug|Win32
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Debug|x86.Build.0 = Debug|Win32
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Release|x64.ActiveCfg = Release|x64
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Release|x64.Build.0 = Release|x64
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Release|x86.ActiveCfg = Release|Win32
+		{D8AD7E71-89FD-40CD-AE60-5B6977E4B59E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

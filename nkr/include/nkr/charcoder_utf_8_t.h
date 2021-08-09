@@ -11,10 +11,13 @@ namespace nkr {
     class charcoder_utf_8_t
     {
     public:
-        using value_t   = u8_t;
+        using unit_t    = u8_t;
 
     public:
-        static inline size_t    value_size();
+        static constexpr const size_t   UNIT_SIZE = sizeof(unit_t);
+
+    public:
+        static inline size_t    unit_size();
     };
 
 }

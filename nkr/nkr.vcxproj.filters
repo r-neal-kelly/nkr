@@ -45,6 +45,15 @@
     <ClInclude Include="include\nkr\maybe_pointer_t.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\array_i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\pointer_i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\traits.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\temp.cpp">
@@ -56,6 +65,12 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\string_dynamic_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\array_i.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\pointer_i.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

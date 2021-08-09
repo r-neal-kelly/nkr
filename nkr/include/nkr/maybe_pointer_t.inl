@@ -159,13 +159,13 @@ namespace nkr {
     }
 
     template <typename T>
-    inline typename maybe_t<T*>::pointer_t maybe_t<T*>::operator ()()
+    inline typename maybe_t<T*>::pointer_t& maybe_t<T*>::operator ()()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline typename const maybe_t<T*>::pointer_t maybe_t<T*>::operator ()() const
+    inline typename const maybe_t<T*>::pointer_t& maybe_t<T*>::operator ()() const
     {
         return this->pointer;
     }
@@ -292,13 +292,13 @@ namespace nkr {
     }
 
     template <typename T>
-    inline typename some_t<T*>::pointer_t some_t<T*>::operator ()()
+    inline typename some_t<T*>::pointer_t& some_t<T*>::operator ()()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline typename const some_t<T*>::pointer_t some_t<T*>::operator ()() const
+    inline typename const some_t<T*>::pointer_t& some_t<T*>::operator ()() const
     {
         return this->pointer;
     }

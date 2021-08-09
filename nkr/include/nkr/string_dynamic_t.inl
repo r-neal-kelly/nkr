@@ -4,11 +4,15 @@
 
 #pragma once
 
-#include "nkr/intrinsic.h"
 #include "nkr/string_dynamic_t.h"
 
 namespace nkr {
 
-
+    template <typename charcoder>
+    requires charcoder_i<charcoder>
+    inline string_dynamic_t<charcoder>::string_dynamic_t() :
+        string_static_t<charcoder>()
+    {
+    }
 
 }

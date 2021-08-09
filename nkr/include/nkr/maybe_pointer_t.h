@@ -66,8 +66,8 @@ namespace nkr {
     public:
         bool_t              operator !() const;
 
-        pointer_t           operator ()();
-        const pointer_t     operator ()() const;
+        pointer_t&          operator ()();
+        const pointer_t&    operator ()() const;
 
         pointer_t           operator ->();
         const pointer_t     operator ->() const;
@@ -112,8 +112,8 @@ namespace nkr {
     public:
         bool_t              operator !() const;
 
-        pointer_t           operator ()();
-        const pointer_t     operator ()() const;
+        pointer_t&          operator ()();
+        const pointer_t&    operator ()() const;
 
         pointer_t           operator ->();
         const pointer_t     operator ->() const;

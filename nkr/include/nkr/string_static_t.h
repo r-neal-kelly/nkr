@@ -12,17 +12,23 @@
 namespace nkr {
 
     template <typename charcoder = charcoder_utf_8_t>
-        requires charcoder_i<charcoder>
+    requires charcoder_i<charcoder>
     class string_static_t
     {
     public:
-        using charcoder_t = charcoder;
-
-    protected:
-        some_t<typename charcoder_t::value_t*>  c_string;
+        using charcoder_t   = charcoder;
 
     public:
-        string_static_t() = default;
+        static size_t   unit_size();
+
+    protected:
+        some_t<typename charcoder_t::unit_t*>   units;
+
+    public:
+        string_static_t();
+
+    public:
+
     };
 
 }

@@ -8,9 +8,9 @@
 
 namespace nkr {
 
-    inline size_t charcoder_utf_8_t::value_size()
+    inline size_t charcoder_utf_8_t::unit_size()
     {
-        return sizeof(value_t);
+        return UNIT_SIZE;
     }
 
 }
