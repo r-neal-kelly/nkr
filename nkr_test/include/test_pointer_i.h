@@ -66,8 +66,8 @@ namespace nkr { namespace test {
         void_t  operator_subtract() const;
 
     public:
-        void_t  pointer() const;
-        void_t  pointer_const() const;
+        void_t  raw() const;
+        void_t  raw_const() const;
 
         void_t  count() const;
         void_t  count_const() const;

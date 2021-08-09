@@ -62,8 +62,8 @@ namespace nkr { namespace test {
         NKR_TEST_METHOD(operator_subtract);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(pointer);
-        NKR_TEST_METHOD(pointer_const);
+        NKR_TEST_METHOD(raw);
+        NKR_TEST_METHOD(raw_const);
         wprintf(L"\n");
 
         NKR_TEST_METHOD(count);
@@ -480,26 +480,26 @@ namespace nkr { namespace test {
         NKR_TEST(*(pointer - 4) == 0);
     }
 
-    void_t test_pointer_i::pointer() const
+    void_t test_pointer_i::raw() const
     {
         wprintf(L"should return assignable units");
 
         word_t word_1 = 0;
         pointer_i pointer(&word_1);
-        NKR_TEST(pointer.pointer() == &word_1);
+        NKR_TEST(pointer.raw() == &word_1);
         
         word_t word_2 = 1;
-        pointer.pointer() = &word_2;
-        NKR_TEST(pointer.pointer() == &word_2);
+        pointer.raw() = &word_2;
+        NKR_TEST(pointer.raw() == &word_2);
     }
 
-    void_t test_pointer_i::pointer_const() const
+    void_t test_pointer_i::raw_const() const
     {
         wprintf(L"should return unassignable units");
 
         word_t word = 0;
         const pointer_i pointer(&word);
-        NKR_TEST(pointer.pointer() == &word);
+        NKR_TEST(pointer.raw() == &word);
     }
 
     void_t test_pointer_i::count() const

@@ -10,9 +10,9 @@
 namespace nkr {
 
     /*
-        pointer_i in no way restricts the user from altering the unit_t that units points to.
-        If you want units to point to const unit_t, you can simply pass a const sized_t.
-        void_t is not useable by this type. I recommend using byte_t instead.
+        pointer_i in no way restricts the user from altering any unit_t that units points to.
+        If you want units to point to const unit_t, you can simply pass a const unit_t in the
+        template. void_t is not useable by this type. I recommend using byte_t instead.
     */
 
     template <sized_t unit>
@@ -76,8 +76,8 @@ namespace nkr {
         pointer_i       operator -(integer count) const;
 
     public:
-        units_t&        pointer();
-        const units_t&  pointer() const;
+        units_t&        raw();
+        const units_t&  raw() const;
 
         count_t&        count();
         const count_t&  count() const;

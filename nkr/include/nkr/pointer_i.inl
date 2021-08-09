@@ -242,13 +242,13 @@ namespace nkr {
     }
 
     template <sized_t unit>
-    inline typename pointer_i<unit>::units_t& pointer_i<unit>::pointer()
+    inline typename pointer_i<unit>::units_t& pointer_i<unit>::raw()
     {
         return this->units;
     }
 
     template <sized_t unit>
-    inline typename const pointer_i<unit>::units_t& pointer_i<unit>::pointer() const
+    inline typename const pointer_i<unit>::units_t& pointer_i<unit>::raw() const
     {
         return this->units;
     }
