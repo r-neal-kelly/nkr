@@ -23,7 +23,8 @@ namespace nkr {
         using units_t   = unit_t*;
 
     public:
-        static constexpr const size_t   UNIT_SIZE = sizeof(unit_t);
+        static constexpr const size_t   UNIT_SIZE       = sizeof(unit_t);
+        static constexpr const count_t  MAX_UNIT_COUNT  = std::numeric_limits<count_t>::max();
 
     public:
         units_t units;
@@ -31,7 +32,6 @@ namespace nkr {
 
     public:
         pointer_i();
-        pointer_i(unit_t& unit_reference);
         pointer_i(unit_t* unit_pointer);
         pointer_i(units_t units, count_t unit_count);
         pointer_i(const pointer_i& other);
@@ -59,6 +59,15 @@ namespace nkr {
         const units_t&  operator ->() const;
         unit_t&         operator *() const;
         unit_t&         operator [](index_t index) const;
+
+        pointer_i&      operator ++();
+        pointer_i       operator ++(int);
+
+        pointer_i&      operator --();
+        pointer_i       operator --(int);
+
+    public:
+        address_t   address() const;
     };
 
 }

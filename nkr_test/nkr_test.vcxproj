@@ -148,15 +148,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\maybe_pointer_t.cpp" />
-    <ClCompile Include="src\pointer_i.cpp" />
-    <ClCompile Include="src\string_t.cpp" />
+    <ClCompile Include="src\test_maybe_pointer_t.cpp" />
+    <ClCompile Include="src\test_pointer_i.cpp" />
+    <ClCompile Include="src\test_string_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsic.h" />
-    <ClInclude Include="include\maybe_pointer_t.h" />
-    <ClInclude Include="include\pointer_i.h" />
-    <ClInclude Include="include\string_t.h" />
+    <ClInclude Include="include\test_maybe_pointer_t.h" />
+    <ClInclude Include="include\test_pointer_i.h" />
+    <ClInclude Include="include\test_string_t.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

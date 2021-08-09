@@ -2,7 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "string_t.h"
+#include "test_string_t.h"
 
 namespace nkr { namespace test {
 

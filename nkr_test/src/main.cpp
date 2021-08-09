@@ -6,9 +6,9 @@
 #include <io.h>
 
 #include "intrinsic.h"
-#include "maybe_pointer_t.h"
-#include "pointer_i.h"
-#include "string_t.h"
+#include "test_maybe_pointer_t.h"
+#include "test_pointer_i.h"
+#include "test_string_t.h"
 
 int main(int argument_count, char* arguments[])
 {

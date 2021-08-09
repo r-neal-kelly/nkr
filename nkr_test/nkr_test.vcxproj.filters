@@ -18,27 +18,27 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\maybe_pointer_t.cpp">
+    <ClCompile Include="src\test_maybe_pointer_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\string_t.cpp">
+    <ClCompile Include="src\test_string_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\pointer_i.cpp">
+    <ClCompile Include="src\test_pointer_i.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\maybe_pointer_t.h">
+    <ClInclude Include="include\test_maybe_pointer_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\intrinsic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\string_t.h">
+    <ClInclude Include="include\test_string_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\pointer_i.h">
+    <ClInclude Include="include\test_pointer_i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

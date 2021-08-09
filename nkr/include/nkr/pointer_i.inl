@@ -16,18 +16,10 @@ namespace nkr {
     }
 
     template <sized_t unit>
-    inline pointer_i<unit>::pointer_i(unit_t& unit_reference) :
-        units(&unit_reference),
-        unit_count(1)
-    {
-    }
-
-    template <sized_t unit>
     inline pointer_i<unit>::pointer_i(unit_t* unit_pointer) :
         units(unit_pointer),
-        unit_count(1)
+        unit_count(unit_pointer ? 1 : 0)
     {
-        assert(this->units);
     }
 
     template <sized_t unit>
@@ -35,7 +27,6 @@ namespace nkr {
         units(units),
         unit_count(unit_count)
     {
-        assert(this->units ? this->unit_count > 0 : this->unit_count == 0);
     }
 
     template <sized_t unit>
@@ -82,7 +73,7 @@ namespace nkr {
     template <sized_t unit>
     inline pointer_i<unit>::operator bool_t()
     {
-        return this->units != nullptr && this->unit_count > 0;
+        return this->units != nullptr;
     }
 
     template <sized_t unit>
@@ -158,6 +149,60 @@ namespace nkr {
         assert(index < this->unit_count);
 
         return this->units[index];
+    }
+
+    template <sized_t unit>
+    inline pointer_i<unit>& pointer_i<unit>::operator ++()
+    {
+        assert(this->units != nullptr);
+
+        this->units += 1;
+        this->unit_count -= 1;
+
+        return *this;
+    }
+
+    template <sized_t unit>
+    inline pointer_i<unit> pointer_i<unit>::operator ++(int)
+    {
+        assert(this->units != nullptr);
+
+        pointer_i initial = *this;
+
+        this->units += 1;
+        this->unit_count -= 1;
+
+        return std::move(initial);
+    }
+
+    template <sized_t unit>
+    inline pointer_i<unit>& pointer_i<unit>::operator --()
+    {
+        assert(this->units != nullptr);
+
+        this->units -= 1;
+        this->unit_count += 1;
+
+        return *this;
+    }
+
+    template <sized_t unit>
+    inline pointer_i<unit> pointer_i<unit>::operator --(int)
+    {
+        assert(this->units != nullptr);
+
+        pointer_i initial = *this;
+
+        this->units -= 1;
+        this->unit_count += 1;
+
+        return std::move(initial);
+    }
+
+    template <sized_t unit>
+    inline address_t pointer_i<unit>::address() const
+    {
+        return reinterpret_cast<address_t>(this->units);
     }
 
 }
