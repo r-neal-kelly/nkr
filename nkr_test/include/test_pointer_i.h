@@ -59,10 +59,19 @@ namespace nkr { namespace test {
         void_t  operator_decrement_pre() const;
         void_t  operator_decrement_post() const;
 
-        void_t  operator_increment_assign() const;
-        void_t  operator_decrement_assign() const;
+        void_t  operator_add_assign() const;
+        void_t  operator_subtract_assign() const;
+
+        void_t  operator_add() const;
+        void_t  operator_subtract() const;
 
     public:
+        void_t  pointer() const;
+        void_t  pointer_const() const;
+
+        void_t  count() const;
+        void_t  count_const() const;
+
         void_t  address() const;
     };
 

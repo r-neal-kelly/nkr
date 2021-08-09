@@ -224,6 +224,48 @@ namespace nkr {
     }
 
     template <sized_t unit>
+    template <integral_t integer>
+    inline pointer_i<unit> pointer_i<unit>::operator +(integer count) const
+    {
+        assert(this->units != nullptr);
+
+        return pointer_i(this->units + count, this->unit_count - count);
+    }
+
+    template <sized_t unit>
+    template <integral_t integer>
+    inline pointer_i<unit> pointer_i<unit>::operator -(integer count) const
+    {
+        assert(this->units != nullptr);
+
+        return pointer_i(this->units - count, this->unit_count + count);
+    }
+
+    template <sized_t unit>
+    inline typename pointer_i<unit>::units_t& pointer_i<unit>::pointer()
+    {
+        return this->units;
+    }
+
+    template <sized_t unit>
+    inline typename const pointer_i<unit>::units_t& pointer_i<unit>::pointer() const
+    {
+        return this->units;
+    }
+
+    template <sized_t unit>
+    inline count_t& pointer_i<unit>::count()
+    {
+        return this->unit_count;
+    }
+
+    template <sized_t unit>
+    inline const count_t& pointer_i<unit>::count() const
+    {
+        return this->unit_count;
+    }
+
+    template <sized_t unit>
     inline address_t pointer_i<unit>::address() const
     {
         return reinterpret_cast<address_t>(this->units);

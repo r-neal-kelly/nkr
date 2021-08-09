@@ -54,8 +54,20 @@ namespace nkr { namespace test {
         NKR_TEST_METHOD(operator_decrement_post);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_increment_assign);
-        NKR_TEST_METHOD(operator_decrement_assign);
+        NKR_TEST_METHOD(operator_add_assign);
+        NKR_TEST_METHOD(operator_subtract_assign);
+        wprintf(L"\n");
+
+        NKR_TEST_METHOD(operator_add);
+        NKR_TEST_METHOD(operator_subtract);
+        wprintf(L"\n");
+
+        NKR_TEST_METHOD(pointer);
+        NKR_TEST_METHOD(pointer_const);
+        wprintf(L"\n");
+
+        NKR_TEST_METHOD(count);
+        NKR_TEST_METHOD(count_const);
         wprintf(L"\n");
 
         NKR_TEST_METHOD(address);
@@ -355,11 +367,7 @@ namespace nkr { namespace test {
     {
         wprintf(L"should subscript const units_t& and return the unit_t& at the given index");
 
-        word_t words[4];
-        words[0] = 0;
-        words[1] = 1;
-        words[2] = 2;
-        words[3] = 3;
+        word_t words[4] = { 0, 1, 2, 3 };
         pointer_i<word_t> pointer(words, 4);
         for (index_t idx = 0, end = 4; idx < end; idx += 1) {
             NKR_TEST(pointer[idx] == words[idx]);
@@ -370,13 +378,9 @@ namespace nkr { namespace test {
 
     void_t test_pointer_i::operator_increment_pre() const
     {
-        wprintf(L"should increment the units and decrement the unit_count. returns resultant pointer_i");
+        wprintf(L"should increment the units and decrement the unit_count. returns itself");
 
-        word_t words[4];
-        words[0] = 100;
-        words[1] = 100;
-        words[2] = 100;
-        words[3] = 100;
+        word_t words[4] = { 100, 100, 100, 100 };
         pointer_i<word_t> pointer(words, 4);
         --pointer;
         while (++pointer >= 1) {
@@ -388,11 +392,7 @@ namespace nkr { namespace test {
     {
         wprintf(L"should increment the units and decrement the unit_count. returns initial pointer_i");
 
-        word_t words[4];
-        words[0] = 100;
-        words[1] = 100;
-        words[2] = 100;
-        words[3] = 100;
+        word_t words[4] = { 100, 100, 100, 100 };
         pointer_i<word_t> pointer(words, 4);
         --pointer;
         while (pointer++ > 1) {
@@ -402,13 +402,9 @@ namespace nkr { namespace test {
 
     void_t test_pointer_i::operator_decrement_pre() const
     {
-        wprintf(L"should decrement the units and increment the unit_count. returns resultant pointer_i");
+        wprintf(L"should decrement the units and increment the unit_count. returns itself");
 
-        word_t words[4];
-        words[0] = 100;
-        words[1] = 100;
-        words[2] = 100;
-        words[3] = 100;
+        word_t words[4] = { 100, 100, 100, 100 };
         pointer_i<word_t> pointer(words + 4, 0);
         while (--pointer <= 4) {
             NKR_TEST(*pointer == 100);
@@ -419,26 +415,18 @@ namespace nkr { namespace test {
     {
         wprintf(L"should decrement the units and increment the unit_count. returns initial pointer_i");
 
-        word_t words[4];
-        words[0] = 100;
-        words[1] = 100;
-        words[2] = 100;
-        words[3] = 100;
+        word_t words[4] = { 100, 100, 100, 100 };
         pointer_i<word_t> pointer(words + 4, 0);
         while (pointer-- < 4) {
             NKR_TEST(*pointer == 100);
         }
     }
 
-    void_t test_pointer_i::operator_increment_assign() const
+    void_t test_pointer_i::operator_add_assign() const
     {
         wprintf(L"should increment units and decrement unit_count by count. returns itself");
 
-        word_t words[4];
-        words[0] = 0;
-        words[1] = 1;
-        words[2] = 2;
-        words[3] = 3;
+        word_t words[4] = { 0, 1, 2, 3 };
         NKR_TEST(*(pointer_i(words, 4) += 0) == 0);
         NKR_TEST(*(pointer_i(words, 4) += 1) == 1);
         NKR_TEST(*(pointer_i(words, 4) += 2) == 2);
@@ -451,15 +439,11 @@ namespace nkr { namespace test {
         NKR_TEST(*(pointer += 1) == 3);
     }
 
-    void_t test_pointer_i::operator_decrement_assign() const
+    void_t test_pointer_i::operator_subtract_assign() const
     {
         wprintf(L"should decrement units and increment unit_count by count. returns itself");
 
-        word_t words[4];
-        words[0] = 0;
-        words[1] = 1;
-        words[2] = 2;
-        words[3] = 3;
+        word_t words[4] = { 0, 1, 2, 3 };
         NKR_TEST(*(pointer_i(words + 4, 0) -= 1) == 3);
         NKR_TEST(*(pointer_i(words + 4, 0) -= 2) == 2);
         NKR_TEST(*(pointer_i(words + 4, 0) -= 3) == 1);
@@ -470,6 +454,73 @@ namespace nkr { namespace test {
         NKR_TEST(*(pointer -= 1) == 2);
         NKR_TEST(*(pointer -= 1) == 1);
         NKR_TEST(*(pointer -= 1) == 0);
+    }
+
+    void_t test_pointer_i::operator_add() const
+    {
+        wprintf(L"should increment units and decrement unit_count by count. returns result");
+
+        word_t words[4] = { 0, 1, 2, 3 };
+        pointer_i pointer(words, 4);
+        NKR_TEST(*(pointer + 0) == 0);
+        NKR_TEST(*(pointer + 1) == 1);
+        NKR_TEST(*(pointer + 2) == 2);
+        NKR_TEST(*(pointer + 3) == 3);
+    }
+
+    void_t test_pointer_i::operator_subtract() const
+    {
+        wprintf(L"should decrement units and increment unit_count by count. returns result");
+
+        word_t words[4] = { 0, 1, 2, 3 };
+        pointer_i pointer(words + 4, 0);
+        NKR_TEST(*(pointer - 1) == 3);
+        NKR_TEST(*(pointer - 2) == 2);
+        NKR_TEST(*(pointer - 3) == 1);
+        NKR_TEST(*(pointer - 4) == 0);
+    }
+
+    void_t test_pointer_i::pointer() const
+    {
+        wprintf(L"should return assignable units");
+
+        word_t word_1 = 0;
+        pointer_i pointer(&word_1);
+        NKR_TEST(pointer.pointer() == &word_1);
+        
+        word_t word_2 = 1;
+        pointer.pointer() = &word_2;
+        NKR_TEST(pointer.pointer() == &word_2);
+    }
+
+    void_t test_pointer_i::pointer_const() const
+    {
+        wprintf(L"should return unassignable units");
+
+        word_t word = 0;
+        const pointer_i pointer(&word);
+        NKR_TEST(pointer.pointer() == &word);
+    }
+
+    void_t test_pointer_i::count() const
+    {
+        wprintf(L"should return assignable unit_count");
+
+        word_t word = 0;
+        pointer_i pointer(&word);
+        NKR_TEST(pointer.count() == 1);
+
+        pointer.count() = 2;
+        NKR_TEST(pointer.count() == 2);
+    }
+
+    void_t test_pointer_i::count_const() const
+    {
+        wprintf(L"should return unassignable unit_count");
+
+        word_t word = 0;
+        const pointer_i pointer(&word);
+        NKR_TEST(pointer.count() == 1);
     }
 
     void_t test_pointer_i::address() const

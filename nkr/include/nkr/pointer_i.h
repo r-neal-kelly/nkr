@@ -70,8 +70,19 @@ namespace nkr {
         template <integral_t integer>
         pointer_i&      operator -=(integer count);
 
+        template <integral_t integer>
+        pointer_i       operator +(integer count) const;
+        template <integral_t integer>
+        pointer_i       operator -(integer count) const;
+
     public:
-        address_t   address() const;
+        units_t&        pointer();
+        const units_t&  pointer() const;
+
+        count_t&        count();
+        const count_t&  count() const;
+
+        address_t       address() const;
     };
 
 }
