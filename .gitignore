@@ -1,4 +1,6 @@
 /.git
 /.vs
 /nkr/x64
+/nkr/Win32
 /nkr_test/x64
+/nkr_test/Win32
