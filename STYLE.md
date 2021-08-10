@@ -10,27 +10,27 @@ Snake case is used for all names and uppercase characters are currently to be av
 
 - Namespaces have no postfix. They are exceptional because this is the only label where short names are encouraged although not required:
 
-```cpp
+    ```cpp
     namespace nkr {
 
 
 
     }
-```
+    ```
 
 - Variables have no postfix:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         count_t my_variable;
 
     }
-```
+    ```
 
 - Concrete and template classes (types) have the "_t" postfix. They should be named after nouns:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         class my_class_t
@@ -42,11 +42,11 @@ Snake case is used for all names and uppercase characters are currently to be av
         {
         };
     }
-```
+    ```
 
 - Unions have the "_u" postfix. They should be named after nouns to indicate the commonality between types:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         union my_number_u
@@ -58,11 +58,11 @@ Snake case is used for all names and uppercase characters are currently to be av
         };
 
     }
-```
+    ```
 
 - Template type parameters have no postfix and are effectively meta variables:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         template <typename my_template_parameter>
@@ -71,11 +71,11 @@ Snake case is used for all names and uppercase characters are currently to be av
         };
 
     }
-```
+    ```
 
 - Traits (concepts refining template parameters) have the "_tr" postfix and are effectively meta types. They should be named after adjectives:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         template <typename type>
@@ -91,11 +91,11 @@ Snake case is used for all names and uppercase characters are currently to be av
         };
 
     }
-```
+    ```
 
 - Types publically aliased in another type's scope, especially in templates, have the "_t" postfix just like regular types:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         template <my_describable_tr template_parameter>
@@ -106,11 +106,11 @@ Snake case is used for all names and uppercase characters are currently to be av
         };
 
     }
-```
+    ```
 
 - Interfaces, whether C++20 concepts defined by requires-expressions, abstract virtual classes, structs of function pointers, or anything else that genuinely qualifies as an interface all have the "_i" postfix:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         template <typename type>
@@ -133,7 +133,7 @@ Snake case is used for all names and uppercase characters are currently to be av
         };
 
     }
-```
+    ```
 
 
 ### Namespaces
@@ -141,7 +141,7 @@ ______________
 
 - Namespaces should always have a space after their opening brace and before their closing brace, and at least a third line, either of code or space:
 
-```cpp
+    ```cpp
     namespace nkr {
 
         // either a space or something else has to be here.
@@ -153,11 +153,11 @@ ______________
             
 
     }
-```
+    ```
 
 - Nested namespaces must be on one line, and so namespaces should end up only having one indentation. When working with multiple namespaces, each namespace should have its own block:
 
-```cpp
+    ```cpp
     namespace nkr { namespace a {
 
 
@@ -169,7 +169,7 @@ ______________
 
 
     }}}
-```
+    ```
 
 
 
