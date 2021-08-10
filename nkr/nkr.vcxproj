@@ -143,14 +143,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\nkr\array_i.h" />
+    <ClInclude Include="include\nkr\allocator_heap_t.h" />
+    <ClInclude Include="include\nkr\allocator_i.h" />
+    <ClInclude Include="include\nkr\array_dynamic_t.h" />
     <ClInclude Include="include\nkr\charcoder_i.h" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.h" />
     <ClInclude Include="include\nkr\intrinsic.h" />
-    <ClInclude Include="include\nkr\maybe_pointer_t.inl" />
-    <ClInclude Include="include\nkr\maybe_t.h" />
     <ClInclude Include="include\nkr\maybe_pointer_t.h" />
+    <ClInclude Include="include\nkr\maybe_t.h" />
     <ClInclude Include="include\nkr\pointer_t.h" />
     <ClInclude Include="include\nkr\string_static_t.h" />
     <ClInclude Include="include\nkr\string_dynamic_t.h" />
@@ -161,7 +162,9 @@
     <ClCompile Include="src\temp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="include\nkr\array_i.inl" />
+    <None Include="include\nkr\allocator_heap_t.inl" />
+    <None Include="include\nkr\array_dynamic_t.inl" />
+    <None Include="include\nkr\maybe_pointer_t.inl" />
     <None Include="include\nkr\pointer_t.inl" />
     <None Include="include\nkr\string_static_t.inl" />
     <None Include="include\nkr\string_dynamic_t.inl" />
