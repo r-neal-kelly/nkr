@@ -13,7 +13,7 @@
 namespace nkr {
 
     template <
-        sized_tr unit           = pointer_t<>::unit_t,
+        sized_tr    unit        = pointer_t<>::unit_t,
         allocator_i allocator   = allocator_heap_t<unit>
     > class array_dynamic_t
     {

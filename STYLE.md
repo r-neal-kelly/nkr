@@ -1,14 +1,14 @@
 # Style Guidelines
-This is a work in progress as it's incomplete and some guidelines may change over time with the expectation that the code-base will need to be updated in order to remain consistent.
+This is a work in progress as it's incomplete and some guidelines may change over time, however consistent code is an ever-present goal.
 
 
 
-### Naming
+### Names
 __________
 
-Snake case is used for all names and uppercase characters are currently to be avoided. Names are intended to follow natural grammars such that they are more easily discerned when trying to understand any particular piece of code. Thus short names, especially single character names, are usually unacceptable (with a major exception). Descriptive names are the key to understanding the code, however postfix notation is sometimes employed to indicate differences between types of objects.
+Snake case is used for all names. Uppercase characters are currently completely avoided. Names are intended to follow natural grammars such that they are more easily discerned when trying to understand any particular piece of code. Thus short names, especially single character names, are usually unacceptable (with some exceptions). Descriptive names are the key to understanding code, however short postfix notation is sometimes employed to indicate differences between types of objects.
 
-- Namespaces have no postfix. They are exceptional because this is the only label where short names are encouraged although not required:
+- Namespaces have no postfix. They are exceptional in that they are the only labels where short names are encouraged, although not required:
 
     ```cpp
     namespace nkr {
@@ -28,7 +28,7 @@ Snake case is used for all names and uppercase characters are currently to be av
     }
     ```
 
-- Concrete and template classes (types) have the "_t" postfix. They should be named after nouns:
+- Concrete and template classes (types) have the **_t** postfix. They should be named after nouns:
 
     ```cpp
     namespace nkr {
@@ -44,7 +44,7 @@ Snake case is used for all names and uppercase characters are currently to be av
     }
     ```
 
-- Unions have the "_u" postfix. They should be named after nouns to indicate the commonality between types:
+- Unions have the **_u** postfix. They should be named after nouns to indicate the commonality between types:
 
     ```cpp
     namespace nkr {
@@ -73,7 +73,7 @@ Snake case is used for all names and uppercase characters are currently to be av
     }
     ```
 
-- Traits (concepts refining template parameters) have the "_tr" postfix and are effectively meta types. They should be named after adjectives:
+- Traits (concepts refining template parameters) have the **_tr** postfix and are effectively meta types. They should be named after adjectives:
 
     ```cpp
     namespace nkr {
@@ -93,7 +93,7 @@ Snake case is used for all names and uppercase characters are currently to be av
     }
     ```
 
-- Types publically aliased in another type's scope, especially in templates, have the "_t" postfix just like regular types:
+- Types publically aliased in another type's scope, especially in templates, have the **_t** postfix just like regular types:
 
     ```cpp
     namespace nkr {
@@ -108,7 +108,7 @@ Snake case is used for all names and uppercase characters are currently to be av
     }
     ```
 
-- Interfaces, whether C++20 concepts defined by requires-expressions, abstract virtual classes, structs of function pointers, or anything else that genuinely qualifies as an interface all have the "_i" postfix:
+- Interfaces, whether C++20 concepts defined by requires-expressions, abstract virtual classes, structs of function pointers, or anything else that genuinely qualifies as an interface all have the **_i** postfix:
 
     ```cpp
     namespace nkr {
