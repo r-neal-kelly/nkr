@@ -50,13 +50,13 @@ namespace nkr {
     }
 
     template <typename T>
-    inline none_t<T*>::operator none_t<T*>::pointer_t()
+    inline none_t<T*>::operator typename none_t<T*>::pointer_t()
     {
         return nullptr;
     }
 
     template <typename T>
-    inline none_t<T*>::operator const none_t<T*>::pointer_t() const
+    inline none_t<T*>::operator typename const none_t<T*>::pointer_t() const
     {
         return nullptr;
     }
@@ -141,13 +141,13 @@ namespace nkr {
     }
 
     template <typename T>
-    inline maybe_t<T*>::operator maybe_t<T*>::pointer_t&()
+    inline maybe_t<T*>::operator typename maybe_t<T*>::pointer_t&()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline maybe_t<T*>::operator const maybe_t<T*>::pointer_t&() const
+    inline maybe_t<T*>::operator typename const maybe_t<T*>::pointer_t&() const
     {
         return this->pointer;
     }
@@ -274,13 +274,13 @@ namespace nkr {
     }
 
     template <typename T>
-    inline some_t<T*>::operator some_t<T*>::pointer_t&()
+    inline some_t<T*>::operator typename some_t<T*>::pointer_t&()
     {
         return this->pointer;
     }
 
     template <typename T>
-    inline some_t<T*>::operator const some_t<T*>::pointer_t&() const
+    inline some_t<T*>::operator typename const some_t<T*>::pointer_t&() const
     {
         return this->pointer;
     }
