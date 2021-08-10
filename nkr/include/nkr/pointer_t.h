@@ -15,7 +15,7 @@ namespace nkr {
         template. void_t is not useable by this type. I recommend using byte_t instead.
     */
 
-    template <trait::sized unit>
+    template <sized_tr unit>
     class pointer_t
     {
     public:
@@ -71,14 +71,14 @@ namespace nkr {
         pointer_t&      operator --();
         pointer_t       operator --(int);
 
-        template <trait::integral integer>
+        template <integral_tr integer>
         pointer_t&      operator +=(integer count);
-        template <trait::integral integer>
+        template <integral_tr integer>
         pointer_t&      operator -=(integer count);
 
-        template <trait::integral integer>
+        template <integral_tr integer>
         pointer_t       operator +(integer count) const;
-        template <trait::integral integer>
+        template <integral_tr integer>
         pointer_t       operator -(integer count) const;
     };
 

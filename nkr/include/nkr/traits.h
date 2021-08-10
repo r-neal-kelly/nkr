@@ -6,12 +6,12 @@
 
 #include "nkr/intrinsic.h"
 
-namespace nkr { namespace trait {
+namespace nkr {
 
     template <typename type>
-    concept sized       = sizeof(type) > 0;
+    concept sized_tr    = sizeof(type) > 0;
 
     template <typename type>
-    concept integral    = std::is_integral<type>::value;
+    concept integral_tr = std::is_integral<type>::value;
 
-}}
+}
