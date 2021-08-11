@@ -57,9 +57,12 @@
     <ClInclude Include="include\nkr\maybe_pointer_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\temp.cpp">
+    <ClCompile Include="src\os.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,6 +83,9 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\allocator_heap_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\os.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

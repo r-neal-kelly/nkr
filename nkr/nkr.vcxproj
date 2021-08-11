@@ -160,6 +160,7 @@
     <ClInclude Include="include\nkr\intrinsic.h" />
     <ClInclude Include="include\nkr\maybe_pointer_t.h" />
     <ClInclude Include="include\nkr\maybe_t.h" />
+    <ClInclude Include="include\nkr\os.h" />
     <ClInclude Include="include\nkr\pointer_t.h" />
     <ClInclude Include="include\nkr\string_static_t.h" />
     <ClInclude Include="include\nkr\string_dynamic_t.h" />
@@ -167,12 +168,13 @@
     <ClInclude Include="include\nkr\traits.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\temp.cpp" />
+    <ClCompile Include="src\os.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\allocator_heap_t.inl" />
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\maybe_pointer_t.inl" />
+    <None Include="include\nkr\os.inl" />
     <None Include="include\nkr\pointer_t.inl" />
     <None Include="include\nkr\string_static_t.inl" />
     <None Include="include\nkr\string_dynamic_t.inl" />

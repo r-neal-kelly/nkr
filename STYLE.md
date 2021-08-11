@@ -6,9 +6,9 @@ This is a work in progress as it's incomplete and some guidelines may change ove
 ### Names
 __________
 
-Snake case is used for all names. Uppercase characters are currently completely avoided. Names are intended to follow natural grammars such that they are more easily discerned when trying to understand any particular piece of code. Thus short names, especially single character names, are usually unacceptable (with some exceptions). Descriptive names are the key to understanding code, however short postfix notation is sometimes employed to indicate differences between types of objects.
+Snake case is used for all names. Names are intended to follow natural grammars such that they are more easily discerned when trying to understand any particular piece of code. Thus short names, especially single character names, are usually unacceptable (with some exceptions). Descriptive names are the key to understanding code, however short postfix notation is sometimes employed to indicate differences between types of objects but especially to avoid name collisions.
 
-- Namespaces have no postfix. They are exceptional in that they are the only labels where short names are encouraged, although not required:
+- **Namespaces**: *lower_case*. Short names are encouraged but not required:
 
     ```cpp
     namespace nkr {
@@ -18,38 +18,28 @@ Snake case is used for all names. Uppercase characters are currently completely 
     }
     ```
 
-- Variables have no postfix:
+- **Classes (Types)**: *lower_case*, *_t postfix*. These should usually be named after nouns:
 
     ```cpp
     namespace nkr {
 
-        count_t my_variable;
-
-    }
-    ```
-
-- Concrete and template classes (types) have the **_t** postfix. They should be named after nouns:
-
-    ```cpp
-    namespace nkr {
-
-        class my_class_t
+        class class_t
         {
         };
 
         template <typename = void_t>
-        class my_template_t
+        class template_t
         {
         };
     }
     ```
 
-- Unions have the **_u** postfix. They should be named after nouns to indicate the commonality between types:
+- **Unions**: *lower_case*, *_u postfix*. These should usually be named after nouns indicating the commonality between its types:
 
     ```cpp
     namespace nkr {
 
-        union my_number_u
+        union unsigned_integer_u
         {
             u8_t    u8;
             u16_t   u16;
@@ -60,81 +50,236 @@ Snake case is used for all names. Uppercase characters are currently completely 
     }
     ```
 
-- Template type parameters have no postfix and are effectively meta variables:
+- **Template Parameters**: *lower_case*, *_p postfix*. These are effectively meta variables and thus do not have the type postfix:
 
     ```cpp
     namespace nkr {
 
-        template <typename my_template_parameter>
-        class my_template_t
+        template <typename template_parameter_p>
+        class template_t
         {
         };
 
     }
     ```
 
-- Traits (concepts refining template parameters) have the **_tr** postfix and are effectively meta types. They should be named after adjectives:
+- **Aliased Types**: *lower_case*, *_t postfix*. The same as regular types. Notice how the _p postfix for type parameters makes aliasing the same name easy:
 
     ```cpp
     namespace nkr {
 
-        template <typename type>
-        concept my_describable_tr = true;
-
-    }
-
-    namespace nkr {
-
-        template <my_describable_tr template_parameter>
-        class my_template_t
-        {
-        };
-
-    }
-    ```
-
-- Types publically aliased in another type's scope, especially in templates, have the **_t** postfix just like regular types:
-
-    ```cpp
-    namespace nkr {
-
-        template <my_describable_tr template_parameter>
-        class my_template_t
+        template <typename template_parameter_p>
+        class template_t
         {
         public:
-            using template_parameter_t  = template_parameter;
+            using template_parameter_t = template_parameter_p;
         };
 
     }
     ```
 
-- Interfaces, whether C++20 concepts defined by requires-expressions, abstract virtual classes, structs of function pointers, or anything else that genuinely qualifies as an interface all have the **_i** postfix:
+- **Traits (Concepts Refining Template Parameters)**: *lower_case*, *_tr postfix*. These are effectively meta types and thus have a postfix, albeit distinct from regular types. These should usually be named after adjectives:
 
     ```cpp
     namespace nkr {
 
-        template <typename type>
-        concept my_concept_i = requires(type value)
-        {
-            { value.my_method() } -> std::same_as<void_t>;
-        };
+        template <typename type_p>
+        concept describable_tr = true;
 
-        class my_virtual_i
+        template <describable_tr template_parameter_p>
+        class template_t
         {
-        public:
-            virtual         ~my_virtual_i() = default;
-            virtual void_t  my_method()     = 0;
-        };
-
-        struct my_struct_i
-        {
-        public:
-            void_t  (*my_method)();
         };
 
     }
     ```
 
+- **Functions**: *Upper_Case*. Functions should usually be named after verbs:
+
+    ```cpp
+    namespace nkr {
+
+        void_t  Do_Function();
+
+        template <typename = void_t>
+        void_t  Do_Template_Function();
+
+    }
+    ```
+
+- **Methods**: *Upper_Case*. Methods should usually be named after verbs except if they are a getter or a setter, in whice case they can simply be the capitalized name of the data member:
+
+    ```cpp
+    namespace nkr {
+
+        class class_t
+        {
+        private:
+            u64_t   data;
+
+        public:
+            class_t():
+                data(0)
+            {
+            }
+
+        public:
+            void_t Do_Method()
+            {
+            }
+
+            u64_t Data() const
+            {
+                return this->data;
+            }
+
+            void_t Data(u64_t data)
+            {
+                this->data = data;
+            }
+        };
+
+    }
+    ```
+
+- **Pointer to Function or Method**: *Upper_Case*. These are exactly the same as their Function and Method counter-parts:
+
+    ```cpp
+    namespace nkr {
+
+        class class_t
+        {
+        public:
+            static void_t Do_Function()
+            {
+            }
+        public:
+            void_t Do_Method()
+            {
+            }
+        };
+
+        void Do()
+        {
+            void (*Do_Function)()           = &class_t::Do_Function;
+            void (class_t::*Do_Method)()    = &class_t::Do_Method;
+
+            Do_Function();
+            (class_t().*Do_Method)();
+        }
+
+    }
+    ```
+
+- **Interfaces**: *lower_case*, *_i postfix*. Whether C++20 concepts defined by requires-expressions, abstract virtual classes, structs of function pointers, or anything else that genuinely qualifies as an interface:
+
+    ```cpp
+    namespace nkr {
+
+        template <typename type_p>
+        concept concept_i = requires(type_p value)
+        {
+            { value.Method() } -> std::same_as<void_t>;
+        };
+
+        class virtual_i
+        {
+        public:
+            virtual ~virtual_i()    = default;
+
+        public:
+            virtual void_t  Method()    = 0;
+        };
+
+        struct struct_i
+        {
+        public:
+            void_t  (*Method)();
+        };
+
+    }
+    ```
+
+- **Variables**: *lower_case*:
+
+    ```cpp
+    namespace nkr {
+
+        count_t variable;
+
+    }
+    ```
+
+- **Constants**: *lower_case*:
+
+    ```cpp
+    namespace nkr {
+
+        const bool_t constant = true;
+
+    }
+    ```
+
+- **Constexprs**: *CAPITAL_CASE*:
+
+    ```cpp
+    namespace nkr {
+
+        constexpr const bool_t CONSTANT = true;
+
+    }
+    ```
+
+- **Enums**: *CAPITAL_CASE*.
+
+    ```cpp
+    namespace nkr {
+
+        enum : u8_t
+        {
+            ENUM,
+        };
+
+    }
+    ```
+
+- **Enum Types**: *lower_case*, *_e postfix*.
+
+    ```cpp
+    namespace nkr {
+
+        enum c_type_e : u8_t
+        {
+        };
+
+        enum class cpp_type_e : u8_t
+        {
+        };
+
+        class nkr_type_e :
+            public enum_t<u8_t>
+        {
+            enum : u8_t
+            {
+            };
+        };
+
+    }
+    ```
+
+- **Macros**: *CAPITAL_CASE*, *nkr_ prefix*. In order to not pollute namespace, every single macro without exception shall be prefixed with the name of the library.
+
+    ```cpp
+    namespace nkr {
+
+    #define nkr_HAS_MACRO true
+
+        constexpr const bool_t HAS_MACRO = nkr_HAS_MACRO;
+
+    #undef nkr_HAS_MACRO
+
+    }
+    ```
 
 ### Namespaces
 ______________
@@ -176,8 +321,14 @@ ______________
 ### Glossary
 ____________
 
+#### **_e**:
+> *enum*
+
 #### **_i**:
 > *interface*
+
+#### **_p**
+> *parameter for template*
 
 #### **_t**:
 > *type*
