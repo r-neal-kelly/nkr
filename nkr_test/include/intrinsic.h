@@ -10,17 +10,19 @@
 
 #include "nkr/intrinsic.h"
 
-#define NKR_TEST_METHOD(METHOD_)        \
+#define nkr_TEST_METHOD(METHOD_p)       \
 {                                       \
-    wprintf(L"    " L#METHOD_ L": ");   \
-    METHOD_();                          \
+    wprintf(L"    " L#METHOD_p L": ");  \
+    METHOD_p();                         \
     wprintf(L"... ok!\n");              \
 }
 
-#define NKR_TEST(EXPRESSION_)                                       \
+#define nkr_TEST_FUNCTION nkr_TEST_METHOD
+
+#define nkr_TEST(EXPRESSION_p)                                      \
 {                                                                   \
-    if (!(EXPRESSION_)) {                                           \
-        wprintf(L"\n\nfailed test: " L#EXPRESSION_ L"\n");          \
+    if (!(EXPRESSION_p)) {                                          \
+        wprintf(L"\n\nfailed test: " L#EXPRESSION_p L"\n");         \
         wprintf(L"in file '%s' on line %i", __FILEW__, __LINE__);   \
         wchar_t unused = std::getwc(stdin);                         \
         std::exit(1);                                               \

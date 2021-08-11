@@ -28,6 +28,9 @@
     #error "Cannot compile with this architecture."
 #endif
 
+#define nkr_M do {
+#define nkr_W } while(false);
+
 namespace nkr {
 
     using void_t    = void;

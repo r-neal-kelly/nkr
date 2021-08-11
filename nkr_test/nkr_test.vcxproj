@@ -157,12 +157,14 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\test_maybe_pointer_t.cpp" />
+    <ClCompile Include="src\test_os.cpp" />
     <ClCompile Include="src\test_pointer_t.cpp" />
     <ClCompile Include="src\test_string_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsic.h" />
     <ClInclude Include="include\test_maybe_pointer_t.h" />
+    <ClInclude Include="include\test_os.h" />
     <ClInclude Include="include\test_pointer_t.h" />
     <ClInclude Include="include\test_string_t.h" />
   </ItemGroup>

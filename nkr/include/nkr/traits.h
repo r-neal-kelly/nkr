@@ -9,11 +9,6 @@
 namespace nkr {
 
     template <typename type_p>
-    concept bool_tr =
-        std::same_as<type_p, bool_t> &&
-        (sizeof(type_p) == sizeof(u8_t));
-
-    template <typename type_p>
     concept integral_tr =
         std::is_integral<type_p>::value;
 
@@ -49,6 +44,7 @@ namespace nkr {
 
     template <typename type_p>
     concept pointer_tr =
+        std::is_null_pointer<type_p>::value ||
         std::is_pointer<type_p>::value;
 
     template <typename type_p>

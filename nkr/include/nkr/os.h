@@ -9,43 +9,98 @@
 
 namespace nkr { namespace os { namespace atomic {
 
-    inline bool_tr auto             Exchange_Assign(volatile bool_tr auto& atom, bool_tr auto with);
-    inline integral_8_bit_tr auto   Exchange_Assign(volatile integral_8_bit_tr auto& atom, integral_tr auto with);
-    inline integral_16_bit_tr auto  Exchange_Assign(volatile integral_16_bit_tr auto& atom, integral_tr auto with);
-    inline integral_32_bit_tr auto  Exchange_Assign(volatile integral_32_bit_tr auto& atom, integral_tr auto with);
-    inline integral_64_bit_tr auto  Exchange_Assign(volatile integral_64_bit_tr auto& atom, integral_tr auto with);
-    inline pointer_tr auto          Exchange_Assign(volatile pointer_tr auto& atom, pointer_tr auto with);
-
-    /*
-    template <typename atom_p>
-    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, atom_p with, atom_p target);
-    template <typename atom_p>
-    inline atom_p   Exchange_Add(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Exchange_Subtract(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Exchange_Or(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Exchange_And(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Exchange_Xor(volatile atom_p& atom, atom_p with);
-
-    template <typename atom_p>
-    inline atom_p   Assign(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Add(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Subtract(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Or(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   And(volatile atom_p& atom, atom_p with);
-    template <typename atom_p>
-    inline atom_p   Xor(volatile atom_p& atom, atom_p with);
-
-    template <typename atom_p>
+    template <integral_tr atom_p>
     inline atom_p   Access(const volatile atom_p& atom);
-    */
+    template <pointer_tr atom_p>
+    inline atom_p   Access(const volatile atom_p& atom);
+
+    template <integral_tr atom_p>
+    inline atom_p   Assign(volatile atom_p& atom, integral_tr auto with);
+    template <pointer_tr atom_p>
+    inline atom_p   Assign(volatile atom_p& atom, pointer_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    template <pointer_tr atom_p>
+    inline atom_p   Exchange_Assign(volatile atom_p& atom, pointer_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    template <pointer_tr atom_p>
+    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, pointer_tr auto with, pointer_tr auto target);
+
+    template <integral_tr atom_p>
+    inline atom_p   Add(volatile atom_p& atom, integral_tr auto with);
+    template <pointer_tr atom_p>
+    inline atom_p   Add(volatile atom_p& atom, integral_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
+    template <pointer_tr atom_p>
+    inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
+
+    template <integral_tr atom_p>
+    inline atom_p   Subtract(volatile atom_p& atom, integral_tr auto with);
+    template <pointer_tr atom_p>
+    inline atom_p   Subtract(volatile atom_p& atom, integral_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
+    template <pointer_tr atom_p>
+    inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
+
+    template <integral_tr atom_p>
+    inline atom_p   Or(volatile atom_p& atom, integral_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_Or(volatile atom_p& atom, integral_tr auto with);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_Or(volatile atom_p& atom, integral_tr auto with);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_Or(volatile atom_p& atom, integral_tr auto with);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_Or(volatile atom_p& atom, integral_tr auto with);
+
+    template <integral_tr atom_p>
+    inline atom_p   And(volatile atom_p& atom, integral_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_And(volatile atom_p& atom, integral_tr auto with);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_And(volatile atom_p& atom, integral_tr auto with);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_And(volatile atom_p& atom, integral_tr auto with);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_And(volatile atom_p& atom, integral_tr auto with);
+
+    template <integral_tr atom_p>
+    inline atom_p   Xor(volatile atom_p& atom, integral_tr auto with);
+    template <integral_8_bit_tr atom_p>
+    inline atom_p   Exchange_Xor(volatile atom_p& atom, integral_tr auto with);
+    template <integral_16_bit_tr atom_p>
+    inline atom_p   Exchange_Xor(volatile atom_p& atom, integral_tr auto with);
+    template <integral_32_bit_tr atom_p>
+    inline atom_p   Exchange_Xor(volatile atom_p& atom, integral_tr auto with);
+    template <integral_64_bit_tr atom_p>
+    inline atom_p   Exchange_Xor(volatile atom_p& atom, integral_tr auto with);
 
 }}}
 

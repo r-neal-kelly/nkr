@@ -7,6 +7,7 @@
 
 #include "intrinsic.h"
 #include "test_maybe_pointer_t.h"
+#include "test_os.h"
 #include "test_pointer_t.h"
 #include "test_string_t.h"
 
@@ -19,6 +20,7 @@ int main(int argument_count, char* arguments[])
         assert(0);
     }
 
+    nkr::test::os::Execute();
     nkr::test::test_pointer_t();
     nkr::test::test_string_t();
 

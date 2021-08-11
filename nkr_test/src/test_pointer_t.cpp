@@ -10,63 +10,63 @@ namespace nkr { namespace test {
     {
         wprintf(L"test_pointer_t\n");
 
-        NKR_TEST_METHOD(unit_size);
-        NKR_TEST_METHOD(max_unit_count);
+        nkr_TEST_METHOD(unit_size);
+        nkr_TEST_METHOD(max_unit_count);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(constructor_default);
-        NKR_TEST_METHOD(constructor_unit_pointer);
-        NKR_TEST_METHOD(constructor_units_and_unit_count);
-        NKR_TEST_METHOD(constructor_copy);
-        NKR_TEST_METHOD(constructor_move);
-        NKR_TEST_METHOD(assigner_copy);
-        NKR_TEST_METHOD(assigner_move);
-        NKR_TEST_METHOD(destructor);
+        nkr_TEST_METHOD(constructor_default);
+        nkr_TEST_METHOD(constructor_unit_pointer);
+        nkr_TEST_METHOD(constructor_units_and_unit_count);
+        nkr_TEST_METHOD(constructor_copy);
+        nkr_TEST_METHOD(constructor_move);
+        nkr_TEST_METHOD(assigner_copy);
+        nkr_TEST_METHOD(assigner_move);
+        nkr_TEST_METHOD(destructor);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(raw);
-        NKR_TEST_METHOD(raw_const);
+        nkr_TEST_METHOD(raw);
+        nkr_TEST_METHOD(raw_const);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(count);
-        NKR_TEST_METHOD(count_const);
+        nkr_TEST_METHOD(count);
+        nkr_TEST_METHOD(count_const);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(address);
+        nkr_TEST_METHOD(address);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_bool_t);
-        NKR_TEST_METHOD(operator_const_bool_t);
+        nkr_TEST_METHOD(operator_bool_t);
+        nkr_TEST_METHOD(operator_const_bool_t);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_units_t_ref);
-        NKR_TEST_METHOD(operator_const_units_t_ref);
+        nkr_TEST_METHOD(operator_units_t_ref);
+        nkr_TEST_METHOD(operator_const_units_t_ref);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_logical_not);
+        nkr_TEST_METHOD(operator_logical_not);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_invoke);
-        NKR_TEST_METHOD(operator_invoke_const);
+        nkr_TEST_METHOD(operator_invoke);
+        nkr_TEST_METHOD(operator_invoke_const);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_access_const);
-        NKR_TEST_METHOD(operator_dereference_const);
-        NKR_TEST_METHOD(operator_subscript_const);
+        nkr_TEST_METHOD(operator_access_const);
+        nkr_TEST_METHOD(operator_dereference_const);
+        nkr_TEST_METHOD(operator_subscript_const);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_increment_pre);
-        NKR_TEST_METHOD(operator_increment_post);
-        NKR_TEST_METHOD(operator_decrement_pre);
-        NKR_TEST_METHOD(operator_decrement_post);
+        nkr_TEST_METHOD(operator_increment_pre);
+        nkr_TEST_METHOD(operator_increment_post);
+        nkr_TEST_METHOD(operator_decrement_pre);
+        nkr_TEST_METHOD(operator_decrement_post);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_add_assign);
-        NKR_TEST_METHOD(operator_subtract_assign);
+        nkr_TEST_METHOD(operator_add_assign);
+        nkr_TEST_METHOD(operator_subtract_assign);
         wprintf(L"\n");
 
-        NKR_TEST_METHOD(operator_add);
-        NKR_TEST_METHOD(operator_subtract);
+        nkr_TEST_METHOD(operator_add);
+        nkr_TEST_METHOD(operator_subtract);
         wprintf(L"\n");
     }
 
@@ -78,14 +78,14 @@ namespace nkr { namespace test {
     {
         wprintf(L"should have the same size as unit");
 
-        NKR_TEST(pointer_t<word_t>::UNIT_SIZE == sizeof(word_t));
+        nkr_TEST(pointer_t<word_t>::UNIT_SIZE == sizeof(word_t));
     }
 
     void_t test_pointer_t::max_unit_count() const
     {
         wprintf(L"should have a max_unit_count matching the max of count_t");
         
-        NKR_TEST(pointer_t<word_t>::MAX_UNIT_COUNT == std::numeric_limits<count_t>::max());
+        nkr_TEST(pointer_t<word_t>::MAX_UNIT_COUNT == std::numeric_limits<count_t>::max());
     }
 
     void_t test_pointer_t::constructor_default() const
@@ -93,8 +93,8 @@ namespace nkr { namespace test {
         wprintf(L"should set units to nullptr and unit_count to 0");
 
         pointer_t<word_t> pointer;
-        NKR_TEST(pointer.units == nullptr);
-        NKR_TEST(pointer.unit_count == 0);
+        nkr_TEST(pointer.units == nullptr);
+        nkr_TEST(pointer.unit_count == 0);
     }
 
     void_t test_pointer_t::constructor_unit_pointer() const
@@ -103,8 +103,8 @@ namespace nkr { namespace test {
         
         word_t word = 0;
         pointer_t<word_t> pointer(&word);
-        NKR_TEST(pointer.units == &word);
-        NKR_TEST(pointer.unit_count == 1);
+        nkr_TEST(pointer.units == &word);
+        nkr_TEST(pointer.unit_count == 1);
     }
 
     void_t test_pointer_t::constructor_units_and_unit_count() const
@@ -113,8 +113,8 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         pointer_t<word_t> pointer(&word, 1);
-        NKR_TEST(pointer.units == &word);
-        NKR_TEST(pointer.unit_count == 1);
+        nkr_TEST(pointer.units == &word);
+        nkr_TEST(pointer.unit_count == 1);
     }
 
     void_t test_pointer_t::constructor_copy() const
@@ -124,10 +124,10 @@ namespace nkr { namespace test {
         word_t word = 0;
         pointer_t<word_t> pointer_1(&word, 1);
         pointer_t<word_t> pointer_2(pointer_1);
-        NKR_TEST(pointer_1.units == &word);
-        NKR_TEST(pointer_1.unit_count == 1);
-        NKR_TEST(pointer_2.units == &word);
-        NKR_TEST(pointer_2.unit_count == 1);
+        nkr_TEST(pointer_1.units == &word);
+        nkr_TEST(pointer_1.unit_count == 1);
+        nkr_TEST(pointer_2.units == &word);
+        nkr_TEST(pointer_2.unit_count == 1);
     }
 
     void_t test_pointer_t::constructor_move() const
@@ -137,10 +137,10 @@ namespace nkr { namespace test {
         word_t word = 0;
         pointer_t<word_t> pointer_1(&word, 1);
         pointer_t<word_t> pointer_2(std::move(pointer_1));
-        NKR_TEST(pointer_1.units == nullptr);
-        NKR_TEST(pointer_1.unit_count == 0);
-        NKR_TEST(pointer_2.units == &word);
-        NKR_TEST(pointer_2.unit_count == 1);
+        nkr_TEST(pointer_1.units == nullptr);
+        nkr_TEST(pointer_1.unit_count == 0);
+        nkr_TEST(pointer_2.units == &word);
+        nkr_TEST(pointer_2.unit_count == 1);
     }
 
     void_t test_pointer_t::assigner_copy() const
@@ -150,10 +150,10 @@ namespace nkr { namespace test {
         word_t word = 0;
         pointer_t<word_t> pointer_1(&word, 1);
         pointer_t<word_t> pointer_2 = pointer_1;
-        NKR_TEST(pointer_1.units == &word);
-        NKR_TEST(pointer_1.unit_count == 1);
-        NKR_TEST(pointer_2.units == &word);
-        NKR_TEST(pointer_2.unit_count == 1);
+        nkr_TEST(pointer_1.units == &word);
+        nkr_TEST(pointer_1.unit_count == 1);
+        nkr_TEST(pointer_2.units == &word);
+        nkr_TEST(pointer_2.unit_count == 1);
     }
 
     void_t test_pointer_t::assigner_move() const
@@ -163,10 +163,10 @@ namespace nkr { namespace test {
         word_t word = 0;
         pointer_t<word_t> pointer_1(&word, 1);
         pointer_t<word_t> pointer_2 = std::move(pointer_1);
-        NKR_TEST(pointer_1.units == nullptr);
-        NKR_TEST(pointer_1.unit_count == 0);
-        NKR_TEST(pointer_2.units == &word);
-        NKR_TEST(pointer_2.unit_count == 1);
+        nkr_TEST(pointer_1.units == nullptr);
+        nkr_TEST(pointer_1.unit_count == 0);
+        nkr_TEST(pointer_2.units == &word);
+        nkr_TEST(pointer_2.unit_count == 1);
     }
 
     void_t test_pointer_t::destructor() const
@@ -178,10 +178,10 @@ namespace nkr { namespace test {
         const pointer_t<word_t> const_pointer(&word, 1);
         pointer.~pointer_t();
         const_pointer.~pointer_t();
-        NKR_TEST(pointer.units == nullptr);
-        NKR_TEST(pointer.unit_count == 0);
-        NKR_TEST(const_pointer.units == nullptr);
-        NKR_TEST(const_pointer.unit_count == 0);
+        nkr_TEST(pointer.units == nullptr);
+        nkr_TEST(pointer.unit_count == 0);
+        nkr_TEST(const_pointer.units == nullptr);
+        nkr_TEST(const_pointer.unit_count == 0);
     }
 
     void_t test_pointer_t::raw() const
@@ -190,11 +190,11 @@ namespace nkr { namespace test {
 
         word_t word_1 = 0;
         pointer_t pointer(&word_1);
-        NKR_TEST(pointer.raw() == &word_1);
+        nkr_TEST(pointer.raw() == &word_1);
 
         word_t word_2 = 1;
         pointer.raw() = &word_2;
-        NKR_TEST(pointer.raw() == &word_2);
+        nkr_TEST(pointer.raw() == &word_2);
     }
 
     void_t test_pointer_t::raw_const() const
@@ -203,7 +203,7 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         const pointer_t pointer(&word);
-        NKR_TEST(pointer.raw() == &word);
+        nkr_TEST(pointer.raw() == &word);
     }
 
     void_t test_pointer_t::count() const
@@ -212,10 +212,10 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         pointer_t pointer(&word);
-        NKR_TEST(pointer.count() == 1);
+        nkr_TEST(pointer.count() == 1);
 
         pointer.count() = 2;
-        NKR_TEST(pointer.count() == 2);
+        nkr_TEST(pointer.count() == 2);
     }
 
     void_t test_pointer_t::count_const() const
@@ -224,7 +224,7 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         const pointer_t pointer(&word);
-        NKR_TEST(pointer.count() == 1);
+        nkr_TEST(pointer.count() == 1);
     }
 
     void_t test_pointer_t::address() const
@@ -233,7 +233,7 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         pointer_t<word_t> pointer = &word;
-        NKR_TEST(pointer.address() == reinterpret_cast<address_t>(&word));
+        nkr_TEST(pointer.address() == reinterpret_cast<address_t>(&word));
     }
 
     void_t test_pointer_t::operator_bool_t() const
@@ -242,20 +242,20 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         pointer_t<word_t> pointer(&word, 1);
-        NKR_TEST(static_cast<bool_t>(pointer) == true);
-        NKR_TEST(pointer);
+        nkr_TEST(static_cast<bool_t>(pointer) == true);
+        nkr_TEST(pointer);
 
         pointer.units = nullptr;
-        NKR_TEST(static_cast<bool_t>(pointer) == false);
+        nkr_TEST(static_cast<bool_t>(pointer) == false);
 
         pointer.units = &word;
         pointer.unit_count = 0;
-        NKR_TEST(static_cast<bool_t>(pointer) == true);
+        nkr_TEST(static_cast<bool_t>(pointer) == true);
 
         pointer.units = &word;
         pointer.unit_count = 1;
         pointer.~pointer_t();
-        NKR_TEST(static_cast<bool_t>(pointer) == false);
+        nkr_TEST(static_cast<bool_t>(pointer) == false);
     }
 
     void_t test_pointer_t::operator_const_bool_t() const
@@ -264,11 +264,11 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         const pointer_t<word_t> pointer(&word, 1);
-        NKR_TEST(static_cast<bool_t>(pointer) == true);
-        NKR_TEST(pointer);
+        nkr_TEST(static_cast<bool_t>(pointer) == true);
+        nkr_TEST(pointer);
 
         pointer.~pointer_t();
-        NKR_TEST(static_cast<bool_t>(pointer) == false);
+        nkr_TEST(static_cast<bool_t>(pointer) == false);
     }
 
     void_t test_pointer_t::operator_units_t_ref() const
@@ -277,17 +277,17 @@ namespace nkr { namespace test {
 
         word_t word_1 = 0;
         pointer_t<word_t> pointer(&word_1, 1);
-        NKR_TEST(static_cast<pointer_t<word_t>::units_t&>(pointer) == &word_1);
+        nkr_TEST(static_cast<pointer_t<word_t>::units_t&>(pointer) == &word_1);
 
         pointer_t<word_t>::units_t& units_1 = pointer;
-        NKR_TEST(units_1 == &word_1);
+        nkr_TEST(units_1 == &word_1);
 
         word_t word_2 = 0;
         static_cast<pointer_t<word_t>::units_t&>(pointer) = &word_2;
-        NKR_TEST(static_cast<pointer_t<word_t>::units_t&>(pointer) == &word_2);
+        nkr_TEST(static_cast<pointer_t<word_t>::units_t&>(pointer) == &word_2);
 
         pointer_t<word_t>::units_t& units_2 = pointer;
-        NKR_TEST(units_2 == &word_2);
+        nkr_TEST(units_2 == &word_2);
     }
 
     void_t test_pointer_t::operator_const_units_t_ref() const
@@ -296,10 +296,10 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         const pointer_t<word_t> pointer(&word, 1);
-        NKR_TEST(static_cast<const pointer_t<word_t>::units_t&>(pointer) == &word);
+        nkr_TEST(static_cast<const pointer_t<word_t>::units_t&>(pointer) == &word);
 
         const pointer_t<word_t>::units_t& units = pointer;
-        NKR_TEST(units == &word);
+        nkr_TEST(units == &word);
     }
 
     void_t test_pointer_t::operator_logical_not() const
@@ -308,19 +308,19 @@ namespace nkr { namespace test {
 
         word_t word = 0;
         pointer_t<word_t> pointer(&word, 1);
-        NKR_TEST(!pointer == false);
+        nkr_TEST(!pointer == false);
 
         pointer.units = nullptr;
-        NKR_TEST(!pointer == true);
+        nkr_TEST(!pointer == true);
 
         pointer.units = &word;
         pointer.unit_count = 0;
-        NKR_TEST(!pointer == false);
+        nkr_TEST(!pointer == false);
 
         pointer.units = &word;
         pointer.unit_count = 1;
         pointer.~pointer_t();
-        NKR_TEST(!pointer == true);
+        nkr_TEST(!pointer == true);
     }
 
     void_t test_pointer_t::operator_invoke() const
@@ -330,12 +330,12 @@ namespace nkr { namespace test {
         word_t word_1 = 0;
         pointer_t<word_t> pointer(&word_1, 1);
         pointer_t<word_t>::units_t& units = pointer();
-        NKR_TEST(units == &word_1);
-        NKR_TEST(&units == &pointer.units);
+        nkr_TEST(units == &word_1);
+        nkr_TEST(&units == &pointer.units);
 
         word_t word_2 = 0;
         pointer() = &word_2;
-        NKR_TEST(pointer.units == &word_2);
+        nkr_TEST(pointer.units == &word_2);
     }
 
     void_t test_pointer_t::operator_invoke_const() const
@@ -345,8 +345,8 @@ namespace nkr { namespace test {
         word_t word = 0;
         const pointer_t<word_t> pointer(&word, 1);
         const pointer_t<word_t>::units_t& units = pointer();
-        NKR_TEST(units == &word);
-        NKR_TEST(&units == &pointer.units);
+        nkr_TEST(units == &word);
+        nkr_TEST(&units == &pointer.units);
     }
 
     void_t test_pointer_t::operator_access_const() const
@@ -356,19 +356,19 @@ namespace nkr { namespace test {
         word_t word_1 = 0;
         pointer_t<word_t> pointer(&word_1, 1);
         const pointer_t<pointer_t<word_t>> pointer_pointer_1(&pointer, 1);
-        NKR_TEST(pointer_pointer_1->units == &word_1);
-        NKR_TEST(pointer_pointer_1->unit_count == 1);
+        nkr_TEST(pointer_pointer_1->units == &word_1);
+        nkr_TEST(pointer_pointer_1->unit_count == 1);
 
         word_t word_2 = 0;
         pointer_pointer_1->units = &word_2;
         pointer_pointer_1->unit_count = 2;
-        NKR_TEST(pointer.units == &word_2);
-        NKR_TEST(pointer.unit_count == 2);
-        NKR_TEST((&pointer_pointer_1)->units == &pointer);
+        nkr_TEST(pointer.units == &word_2);
+        nkr_TEST(pointer.unit_count == 2);
+        nkr_TEST((&pointer_pointer_1)->units == &pointer);
 
         const pointer_t<const pointer_t<word_t>> pointer_pointer_2(&pointer, 1);
-        NKR_TEST(pointer_pointer_2->units == &word_2);
-        NKR_TEST(pointer_pointer_2->unit_count == 2);
+        nkr_TEST(pointer_pointer_2->units == &word_2);
+        nkr_TEST(pointer_pointer_2->unit_count == 2);
     }
 
     void_t test_pointer_t::operator_dereference_const() const
@@ -378,7 +378,7 @@ namespace nkr { namespace test {
         word_t word_1 = 0;
         pointer_t<word_t> pointer(&word_1, 1);
         *pointer = 1;
-        NKR_TEST(word_1 == 1);
+        nkr_TEST(word_1 == 1);
     }
 
     void_t test_pointer_t::operator_subscript_const() const
@@ -388,9 +388,9 @@ namespace nkr { namespace test {
         word_t words[4] = { 0, 1, 2, 3 };
         pointer_t<word_t> pointer(words, 4);
         for (index_t idx = 0, end = 4; idx < end; idx += 1) {
-            NKR_TEST(pointer[idx] == words[idx]);
+            nkr_TEST(pointer[idx] == words[idx]);
             pointer[idx] += 1;
-            NKR_TEST(words[idx] == idx + 1);
+            nkr_TEST(words[idx] == idx + 1);
         }
     }
 
@@ -402,7 +402,7 @@ namespace nkr { namespace test {
         pointer_t<word_t> pointer(words, 4);
         --pointer;
         while ((++pointer).count() >= 1) {
-            NKR_TEST(*pointer == 100);
+            nkr_TEST(*pointer == 100);
         }
     }
 
@@ -414,7 +414,7 @@ namespace nkr { namespace test {
         pointer_t<word_t> pointer(words, 4);
         --pointer;
         while ((pointer++).count() > 1) {
-            NKR_TEST(*pointer == 100);
+            nkr_TEST(*pointer == 100);
         }
     }
 
@@ -425,7 +425,7 @@ namespace nkr { namespace test {
         word_t words[4] = { 100, 100, 100, 100 };
         pointer_t<word_t> pointer(words + 4, 0);
         while ((--pointer).count() <= 4) {
-            NKR_TEST(*pointer == 100);
+            nkr_TEST(*pointer == 100);
         }
     }
 
@@ -436,7 +436,7 @@ namespace nkr { namespace test {
         word_t words[4] = { 100, 100, 100, 100 };
         pointer_t<word_t> pointer(words + 4, 0);
         while ((pointer--).count() < 4) {
-            NKR_TEST(*pointer == 100);
+            nkr_TEST(*pointer == 100);
         }
     }
 
@@ -445,16 +445,16 @@ namespace nkr { namespace test {
         wprintf(L"should increment units and decrement unit_count by count. returns itself");
 
         word_t words[4] = { 0, 1, 2, 3 };
-        NKR_TEST(*(pointer_t(words, 4) += 0) == 0);
-        NKR_TEST(*(pointer_t(words, 4) += 1) == 1);
-        NKR_TEST(*(pointer_t(words, 4) += 2) == 2);
-        NKR_TEST(*(pointer_t(words, 4) += 3) == 3);
+        nkr_TEST(*(pointer_t(words, 4) += 0) == 0);
+        nkr_TEST(*(pointer_t(words, 4) += 1) == 1);
+        nkr_TEST(*(pointer_t(words, 4) += 2) == 2);
+        nkr_TEST(*(pointer_t(words, 4) += 3) == 3);
 
         pointer_t pointer(words - 1, 5);
-        NKR_TEST(*(pointer += 1) == 0);
-        NKR_TEST(*(pointer += 1) == 1);
-        NKR_TEST(*(pointer += 1) == 2);
-        NKR_TEST(*(pointer += 1) == 3);
+        nkr_TEST(*(pointer += 1) == 0);
+        nkr_TEST(*(pointer += 1) == 1);
+        nkr_TEST(*(pointer += 1) == 2);
+        nkr_TEST(*(pointer += 1) == 3);
     }
 
     void_t test_pointer_t::operator_subtract_assign() const
@@ -462,16 +462,16 @@ namespace nkr { namespace test {
         wprintf(L"should decrement units and increment unit_count by count. returns itself");
 
         word_t words[4] = { 0, 1, 2, 3 };
-        NKR_TEST(*(pointer_t(words + 4, 0) -= 1) == 3);
-        NKR_TEST(*(pointer_t(words + 4, 0) -= 2) == 2);
-        NKR_TEST(*(pointer_t(words + 4, 0) -= 3) == 1);
-        NKR_TEST(*(pointer_t(words + 4, 0) -= 4) == 0);
+        nkr_TEST(*(pointer_t(words + 4, 0) -= 1) == 3);
+        nkr_TEST(*(pointer_t(words + 4, 0) -= 2) == 2);
+        nkr_TEST(*(pointer_t(words + 4, 0) -= 3) == 1);
+        nkr_TEST(*(pointer_t(words + 4, 0) -= 4) == 0);
 
         pointer_t pointer(words + 4, 0);
-        NKR_TEST(*(pointer -= 1) == 3);
-        NKR_TEST(*(pointer -= 1) == 2);
-        NKR_TEST(*(pointer -= 1) == 1);
-        NKR_TEST(*(pointer -= 1) == 0);
+        nkr_TEST(*(pointer -= 1) == 3);
+        nkr_TEST(*(pointer -= 1) == 2);
+        nkr_TEST(*(pointer -= 1) == 1);
+        nkr_TEST(*(pointer -= 1) == 0);
     }
 
     void_t test_pointer_t::operator_add() const
@@ -480,10 +480,10 @@ namespace nkr { namespace test {
 
         word_t words[4] = { 0, 1, 2, 3 };
         pointer_t pointer(words, 4);
-        NKR_TEST(*(pointer + 0) == 0);
-        NKR_TEST(*(pointer + 1) == 1);
-        NKR_TEST(*(pointer + 2) == 2);
-        NKR_TEST(*(pointer + 3) == 3);
+        nkr_TEST(*(pointer + 0) == 0);
+        nkr_TEST(*(pointer + 1) == 1);
+        nkr_TEST(*(pointer + 2) == 2);
+        nkr_TEST(*(pointer + 3) == 3);
     }
 
     void_t test_pointer_t::operator_subtract() const
@@ -492,10 +492,10 @@ namespace nkr { namespace test {
 
         word_t words[4] = { 0, 1, 2, 3 };
         pointer_t pointer(words + 4, 0);
-        NKR_TEST(*(pointer - 1) == 3);
-        NKR_TEST(*(pointer - 2) == 2);
-        NKR_TEST(*(pointer - 3) == 1);
-        NKR_TEST(*(pointer - 4) == 0);
+        nkr_TEST(*(pointer - 1) == 3);
+        nkr_TEST(*(pointer - 2) == 2);
+        nkr_TEST(*(pointer - 3) == 1);
+        nkr_TEST(*(pointer - 4) == 0);
     }
 
 }}

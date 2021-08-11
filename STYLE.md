@@ -267,7 +267,7 @@ Snake case is used for all names. Names are intended to follow natural grammars 
     }
     ```
 
-- **Macros**: *CAPITAL_CASE*, *nkr_ prefix*. In order to not pollute namespace, every single macro without exception shall be prefixed with the name of the library.
+- **Macros**: *CAPITAL_CASE*, *nkr_ prefix*. In order to not pollute the namespace, every single macro without exception shall be prefixed with the name of the library:
 
     ```cpp
     namespace nkr {
@@ -277,6 +277,22 @@ Snake case is used for all names. Names are intended to follow natural grammars 
         constexpr const bool_t HAS_MACRO = nkr_HAS_MACRO;
 
     #undef nkr_HAS_MACRO
+
+    }
+    ```
+
+- **Macro Parameters**: *CAPITAL_CASE*, *_p postfix*:
+
+    ```cpp
+    namespace nkr {
+
+    #define nkr_DO_MACRO(MACRO_PARAMETER_p) \
+    nkr_M                                   \
+    nkr_W
+
+        nkr_DO_MACRO(0);
+
+    #undef nkr_DO_MACRO
 
     }
     ```
