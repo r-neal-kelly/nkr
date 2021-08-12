@@ -107,6 +107,18 @@ Snake case is used for all names. Names are intended to follow natural grammars 
     }
     ```
 
+- **Function Acronyms and Idioms**: *CAPITAL_CASE*. When a function name has an acronym, it should be in all caps. Special idiomatic expressions may also be in all caps:
+
+    ```cpp
+    namespace nkr {
+
+        void_t  Do_CPP();   // a 'C Plus Plus' oriented function
+
+        void_t  Do_XOR();   // a logical XOR operation
+
+    }
+    ```
+
 - **Methods**: *Upper_Case*. Methods should usually be named after verbs except if they are a getter or a setter, in whice case they can simply be the capitalized name of the data member:
 
     ```cpp

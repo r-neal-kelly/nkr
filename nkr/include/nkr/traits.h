@@ -23,24 +23,29 @@ namespace nkr {
         std::is_signed<type_p>::value;
 
     template <typename type_p>
-    concept integral_8_bit_tr =
+    concept integral_8_tr =
         std::is_integral<type_p>::value &&
         (sizeof(type_p) == sizeof(u8_t));
 
     template <typename type_p>
-    concept integral_16_bit_tr =
+    concept integral_16_tr =
         std::is_integral<type_p>::value &&
         (sizeof(type_p) == sizeof(u16_t));
 
     template <typename type_p>
-    concept integral_32_bit_tr =
+    concept integral_32_tr =
         std::is_integral<type_p>::value &&
         (sizeof(type_p) == sizeof(u32_t));
 
     template <typename type_p>
-    concept integral_64_bit_tr =
+    concept integral_64_tr =
         std::is_integral<type_p>::value &&
         (sizeof(type_p) == sizeof(u64_t));
+
+    template <typename type_p>
+    concept integral_word_tr =
+        std::is_integral<type_p>::value &&
+        (sizeof(type_p) == sizeof(word_t));
 
     template <typename type_p>
     concept pointer_tr =
