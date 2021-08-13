@@ -39,7 +39,7 @@ nkr_M                                                   \
         std::lock_guard<std::mutex> locker(lock);       \
         if (!is_initialized) {                          \
             INITIALIZER_p();                            \
-            os::atomic::Assign(is_initialized, true);   \
+            is_initialized = true;                      \
         }                                               \
     }                                                   \
 nkr_W
