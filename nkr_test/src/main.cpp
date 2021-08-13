@@ -6,6 +6,7 @@
 #include <io.h>
 
 #include "intrinsic.h"
+#include "test_atomic_t.h"
 #include "test_os.h"
 #include "test_pointer_t.h"
 
@@ -19,6 +20,7 @@ int main(int argument_count, char* arguments[])
     }
 
     nkr::test_os::Execute();
+    nkr::test_atomic_t::Execute();
     nkr::test_pointer_t::Execute();
 
     wprintf(L"\npress any key to continue...\n");

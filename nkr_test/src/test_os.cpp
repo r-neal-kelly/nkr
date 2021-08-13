@@ -719,32 +719,32 @@ namespace nkr { namespace test_os { namespace heap {
 
     void_t Allocate()
     {
-        wprintf(L"should allocate a pointer to have the byte_count on the heap");
+        //wprintf(L"should allocate a pointer to have the byte_count on the heap");
     }
 
     void_t Reallocate()
     {
-        wprintf(L"should reallocate the pointer to have the new_byte_count on the heap");
+        //wprintf(L"should reallocate the pointer to have the new_byte_count on the heap");
     }
 
     void_t Deallocate()
     {
-        wprintf(L"should deallocate the pointer");
+        //wprintf(L"should deallocate the pointer");
     }
 
     void_t Callocate()
     {
-        wprintf(L"should allocate a pointer to have the byte_count on the heap and set all data to 0");
+        //wprintf(L"should allocate a pointer to have the byte_count on the heap and set all data to 0");
     }
 
     void_t Recallocate()
     {
-        wprintf(L"should reallocate the pointer to have the new_byte_count on the heap and set all data to 0");
+        //wprintf(L"should reallocate the pointer to have the new_byte_count on the heap and set all data to 0");
     }
 
     void_t Decallocate()
     {
-        wprintf(L"should deallocate the pointer");
+        //wprintf(L"should deallocate the pointer");
     }
 
 }}}
