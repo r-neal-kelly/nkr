@@ -106,8 +106,8 @@ namespace nkr { namespace os { namespace atomic {
 
 namespace nkr { namespace os { namespace endian {
 
-    inline bool_t   Is_Big();
-    inline bool_t   Is_Little();
+    bool_t          Is_Big();
+    bool_t          Is_Little();
 
     inline u16_t    Swap(u16_t bytes);
     inline u32_t    Swap(u32_t bytes);

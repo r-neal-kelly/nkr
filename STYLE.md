@@ -8,7 +8,7 @@ __________
 
 Snake case is used for all names. Names are intended to follow natural grammars such that they are more easily discerned when trying to understand any particular piece of code. Thus short names, especially single character names, are usually unacceptable (with some exceptions). Descriptive names are the key to understanding code, however short postfix notation is sometimes employed to indicate differences between types of objects but especially to avoid name collisions.
 
-- **Namespaces**: *lower_case*. Short names are encouraged but not required:
+- **Namespaces**: *lower_case*. Short names are encouraged but not required. On occasion a namespace may contain a label with a postfix such as a type name:
 
     ```cpp
     namespace nkr {
@@ -16,6 +16,12 @@ Snake case is used for all names. Names are intended to follow natural grammars 
 
 
     }
+
+    namespace nkr { namespace test_type_t {
+
+
+
+    }}
     ```
 
 - **Classes (Types)**: *lower_case*, *_t postfix*. These should usually be named after nouns:
@@ -94,7 +100,7 @@ Snake case is used for all names. Names are intended to follow natural grammars 
     }
     ```
 
-- **Functions**: *Upper_Case*. Functions should usually be named after verbs:
+- **Functions**: *Upper_Case*. Functions should usually be named after verbs. There may be rare occasions where other type labels are included in a function name, and they too should be written in lower case, with the postfix remaining lower case:
 
     ```cpp
     namespace nkr {
@@ -103,6 +109,8 @@ Snake case is used for all names. Names are intended to follow natural grammars 
 
         template <typename = void_t>
         void_t  Do_Template_Function();
+
+        void_t  Do_Type_t_Function();
 
     }
     ```
@@ -140,6 +148,12 @@ Snake case is used for all names. Names are intended to follow natural grammars 
             {
             }
 
+        #if defined(nkr_SIMPLE_GETTER_SETTER)
+            u64_t& Data()
+            {
+                return this->data;
+            }
+        #elif defined(nkr_COMPLEX_GETTER_SETTER)
             u64_t Data() const
             {
                 return this->data;
@@ -149,6 +163,7 @@ Snake case is used for all names. Names are intended to follow natural grammars 
             {
                 this->data = data;
             }
+        #endif
         };
 
     }
@@ -300,6 +315,7 @@ Snake case is used for all names. Names are intended to follow natural grammars 
 
     #define nkr_DO_MACRO(MACRO_PARAMETER_p) \
     nkr_M                                   \
+        (MACRO_PARAMETER_p);                \
     nkr_W
 
         nkr_DO_MACRO(0);
@@ -307,6 +323,20 @@ Snake case is used for all names. Names are intended to follow natural grammars 
     #undef nkr_DO_MACRO
 
     }
+    ```
+
+- **Collisions**: On occasion there will be name collisions with lower case labels and keywords. In those instances, it is recommended to prefix a *$* before the label name:
+
+    ```cpp
+    namespace nkr { namespace $static {
+
+        class type_t
+        {
+        public:
+            word_t $operator;
+        };
+
+    }}
     ```
 
 ### Namespaces

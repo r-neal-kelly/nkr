@@ -31,6 +31,19 @@
 #define nkr_M do {
 #define nkr_W } while(false);
 
+#define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p)     \
+nkr_M                                                   \
+    static volatile bool_t is_initialized = false;      \
+    if (os::atomic::Access(is_initialized) == false) {  \
+        static std::mutex lock;                         \
+        std::lock_guard<std::mutex> locker(lock);       \
+        if (!is_initialized) {                          \
+            INITIALIZER_p();                            \
+            os::atomic::Assign(is_initialized, true);   \
+        }                                               \
+    }                                                   \
+nkr_W
+
 namespace nkr {
 
     using void_t    = void;

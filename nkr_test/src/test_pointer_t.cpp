@@ -4,91 +4,95 @@
 
 #include "test_pointer_t.h"
 
-namespace nkr { namespace test {
+namespace nkr { namespace test_pointer_t {
 
-    test_pointer_t::test_pointer_t()
+    void_t Execute()
     {
-        wprintf(L"test_pointer_t\n");
+        wprintf(L"pointer_t\n");
 
-        nkr_TEST_METHOD(unit_size);
-        nkr_TEST_METHOD(max_unit_count);
+        nkr_TEST_METHOD($static::Unit_Size);
+        nkr_TEST_METHOD($static::Max_Unit_Count);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(constructor_default);
-        nkr_TEST_METHOD(constructor_unit_pointer);
-        nkr_TEST_METHOD(constructor_units_and_unit_count);
-        nkr_TEST_METHOD(constructor_copy);
-        nkr_TEST_METHOD(constructor_move);
-        nkr_TEST_METHOD(assigner_copy);
-        nkr_TEST_METHOD(assigner_move);
-        nkr_TEST_METHOD(destructor);
+        nkr_TEST_METHOD($object::Constructor_Default);
+        nkr_TEST_METHOD($object::Constructor_Unit_Pointer);
+        nkr_TEST_METHOD($object::Constructor_Units_And_Unit_Count);
+        nkr_TEST_METHOD($object::Constructor_Copy);
+        nkr_TEST_METHOD($object::Constructor_Move);
+        nkr_TEST_METHOD($object::Assigner_Copy);
+        nkr_TEST_METHOD($object::Assigner_Move);
+        nkr_TEST_METHOD($object::Destructor);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(raw);
-        nkr_TEST_METHOD(raw_const);
+        nkr_TEST_METHOD($method::Units);
+        nkr_TEST_METHOD($method::Units_Const);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(count);
-        nkr_TEST_METHOD(count_const);
+        nkr_TEST_METHOD($method::Unit_Count);
+        nkr_TEST_METHOD($method::Unit_Count_Const);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(address);
+        nkr_TEST_METHOD($method::Address);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_bool_t);
-        nkr_TEST_METHOD(operator_const_bool_t);
+        nkr_TEST_METHOD($cast::Bool_t);
+        nkr_TEST_METHOD($cast::Const_Bool_t);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_units_t_ref);
-        nkr_TEST_METHOD(operator_const_units_t_ref);
+        nkr_TEST_METHOD($cast::Units_t_Ref);
+        nkr_TEST_METHOD($cast::Const_Units_t_Ref);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_logical_not);
+        nkr_TEST_METHOD($operator::Logical_Not);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_invoke);
-        nkr_TEST_METHOD(operator_invoke_const);
+        nkr_TEST_METHOD($operator::Invoke);
+        nkr_TEST_METHOD($operator::Invoke_Const);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_access_const);
-        nkr_TEST_METHOD(operator_dereference_const);
-        nkr_TEST_METHOD(operator_subscript_const);
+        nkr_TEST_METHOD($operator::Access_Const);
+        nkr_TEST_METHOD($operator::Dereference_Const);
+        nkr_TEST_METHOD($operator::Subscript_Const);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_increment_pre);
-        nkr_TEST_METHOD(operator_increment_post);
-        nkr_TEST_METHOD(operator_decrement_pre);
-        nkr_TEST_METHOD(operator_decrement_post);
+        nkr_TEST_METHOD($operator::Increment_Pre);
+        nkr_TEST_METHOD($operator::Increment_Post);
+        nkr_TEST_METHOD($operator::Decrement_Pre);
+        nkr_TEST_METHOD($operator::Decrement_Post);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_add_assign);
-        nkr_TEST_METHOD(operator_subtract_assign);
+        nkr_TEST_METHOD($operator::Add_Assign);
+        nkr_TEST_METHOD($operator::Subtract_Assign);
         wprintf(L"\n");
 
-        nkr_TEST_METHOD(operator_add);
-        nkr_TEST_METHOD(operator_subtract);
+        nkr_TEST_METHOD($operator::Add);
+        nkr_TEST_METHOD($operator::Subtract);
         wprintf(L"\n");
     }
 
-    test_pointer_t::~test_pointer_t()
-    {
-    }
+}}
 
-    void_t test_pointer_t::unit_size() const
+namespace nkr { namespace test_pointer_t { namespace $static {
+
+    void_t Unit_Size()
     {
         wprintf(L"should have the same size as unit");
 
         nkr_TEST(pointer_t<word_t>::UNIT_SIZE == sizeof(word_t));
     }
 
-    void_t test_pointer_t::max_unit_count() const
+    void_t Max_Unit_Count()
     {
         wprintf(L"should have a max_unit_count matching the max of count_t");
-        
+
         nkr_TEST(pointer_t<word_t>::MAX_UNIT_COUNT == std::numeric_limits<count_t>::max());
     }
 
-    void_t test_pointer_t::constructor_default() const
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $object {
+
+    void_t Constructor_Default()
     {
         wprintf(L"should set units to nullptr and unit_count to 0");
 
@@ -97,17 +101,17 @@ namespace nkr { namespace test {
         nkr_TEST(pointer.unit_count == 0);
     }
 
-    void_t test_pointer_t::constructor_unit_pointer() const
+    void_t Constructor_Unit_Pointer()
     {
         wprintf(L"should set units to unit_pointer and unit_count to 1");
-        
+
         word_t word = 0;
         pointer_t<word_t> pointer(&word);
         nkr_TEST(pointer.units == &word);
         nkr_TEST(pointer.unit_count == 1);
     }
 
-    void_t test_pointer_t::constructor_units_and_unit_count() const
+    void_t Constructor_Units_And_Unit_Count()
     {
         wprintf(L"should set units and unit_count");
 
@@ -117,7 +121,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer.unit_count == 1);
     }
 
-    void_t test_pointer_t::constructor_copy() const
+    void_t Constructor_Copy()
     {
         wprintf(L"should copy units and unit_count without changing original");
 
@@ -130,7 +134,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer_2.unit_count == 1);
     }
 
-    void_t test_pointer_t::constructor_move() const
+    void_t Constructor_Move()
     {
         wprintf(L"should move units and unit_count and default original");
 
@@ -143,7 +147,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer_2.unit_count == 1);
     }
 
-    void_t test_pointer_t::assigner_copy() const
+    void_t Assigner_Copy()
     {
         wprintf(L"should copy units and unit_count without changing original");
 
@@ -156,7 +160,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer_2.unit_count == 1);
     }
 
-    void_t test_pointer_t::assigner_move() const
+    void_t Assigner_Move()
     {
         wprintf(L"should move units and unit_count and default original");
 
@@ -169,7 +173,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer_2.unit_count == 1);
     }
 
-    void_t test_pointer_t::destructor() const
+    void_t Destructor()
     {
         wprintf(L"should set units to nullptr and unit_count to 0");
 
@@ -184,59 +188,67 @@ namespace nkr { namespace test {
         nkr_TEST(const_pointer.unit_count == 0);
     }
 
-    void_t test_pointer_t::raw() const
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $method {
+
+    void_t Units()
     {
         wprintf(L"should return assignable units");
 
         word_t word_1 = 0;
         pointer_t pointer(&word_1);
-        nkr_TEST(pointer.raw() == &word_1);
+        nkr_TEST(pointer.Units() == &word_1);
 
         word_t word_2 = 1;
-        pointer.raw() = &word_2;
-        nkr_TEST(pointer.raw() == &word_2);
+        pointer.Units() = &word_2;
+        nkr_TEST(pointer.Units() == &word_2);
     }
 
-    void_t test_pointer_t::raw_const() const
+    void_t Units_Const()
     {
         wprintf(L"should return unassignable units");
 
         word_t word = 0;
         const pointer_t pointer(&word);
-        nkr_TEST(pointer.raw() == &word);
+        nkr_TEST(pointer.Units() == &word);
     }
 
-    void_t test_pointer_t::count() const
+    void_t Unit_Count()
     {
         wprintf(L"should return assignable unit_count");
 
         word_t word = 0;
         pointer_t pointer(&word);
-        nkr_TEST(pointer.count() == 1);
+        nkr_TEST(pointer.Unit_Count() == 1);
 
-        pointer.count() = 2;
-        nkr_TEST(pointer.count() == 2);
+        pointer.Unit_Count() = 2;
+        nkr_TEST(pointer.Unit_Count() == 2);
     }
 
-    void_t test_pointer_t::count_const() const
+    void_t Unit_Count_Const()
     {
         wprintf(L"should return unassignable unit_count");
 
         word_t word = 0;
         const pointer_t pointer(&word);
-        nkr_TEST(pointer.count() == 1);
+        nkr_TEST(pointer.Unit_Count() == 1);
     }
 
-    void_t test_pointer_t::address() const
+    void_t Address()
     {
         wprintf(L"should return a cast of units_t to address_t");
 
         word_t word = 0;
         pointer_t<word_t> pointer = &word;
-        nkr_TEST(pointer.address() == reinterpret_cast<address_t>(&word));
+        nkr_TEST(pointer.Address() == reinterpret_cast<address_t>(&word));
     }
 
-    void_t test_pointer_t::operator_bool_t() const
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $cast {
+
+    void_t Bool_t()
     {
         wprintf(L"should convert to true if units != nullptr");
 
@@ -258,7 +270,7 @@ namespace nkr { namespace test {
         nkr_TEST(static_cast<bool_t>(pointer) == false);
     }
 
-    void_t test_pointer_t::operator_const_bool_t() const
+    void_t Const_Bool_t()
     {
         wprintf(L"should convert to true if units != nullptr");
 
@@ -271,7 +283,7 @@ namespace nkr { namespace test {
         nkr_TEST(static_cast<bool_t>(pointer) == false);
     }
 
-    void_t test_pointer_t::operator_units_t_ref() const
+    void_t Units_t_Ref()
     {
         wprintf(L"should convert to units_t& and should be assignable");
 
@@ -290,7 +302,7 @@ namespace nkr { namespace test {
         nkr_TEST(units_2 == &word_2);
     }
 
-    void_t test_pointer_t::operator_const_units_t_ref() const
+    void_t Const_Units_t_Ref()
     {
         wprintf(L"should convert to const units_t&");
 
@@ -302,7 +314,11 @@ namespace nkr { namespace test {
         nkr_TEST(units == &word);
     }
 
-    void_t test_pointer_t::operator_logical_not() const
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $operator {
+
+    void_t Logical_Not()
     {
         wprintf(L"should convert to true if units == nullptr");
 
@@ -323,7 +339,7 @@ namespace nkr { namespace test {
         nkr_TEST(!pointer == true);
     }
 
-    void_t test_pointer_t::operator_invoke() const
+    void_t Invoke()
     {
         wprintf(L"should return units_t& and should be assignable");
 
@@ -338,7 +354,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer.units == &word_2);
     }
 
-    void_t test_pointer_t::operator_invoke_const() const
+    void_t Invoke_Const()
     {
         wprintf(L"should return const units_t&");
 
@@ -349,7 +365,7 @@ namespace nkr { namespace test {
         nkr_TEST(&units == &pointer.units);
     }
 
-    void_t test_pointer_t::operator_access_const() const
+    void_t Access_Const()
     {
         wprintf(L"should access const units_t&, making the members of first unit_t& assignable");
 
@@ -371,7 +387,7 @@ namespace nkr { namespace test {
         nkr_TEST(pointer_pointer_2->unit_count == 2);
     }
 
-    void_t test_pointer_t::operator_dereference_const() const
+    void_t Dereference_Const()
     {
         wprintf(L"should dereference const units_t& and return the first unit_t&");
 
@@ -381,7 +397,7 @@ namespace nkr { namespace test {
         nkr_TEST(word_1 == 1);
     }
 
-    void_t test_pointer_t::operator_subscript_const() const
+    void_t Subscript_Const()
     {
         wprintf(L"should subscript const units_t& and return the unit_t& at the given index");
 
@@ -394,53 +410,53 @@ namespace nkr { namespace test {
         }
     }
 
-    void_t test_pointer_t::operator_increment_pre() const
+    void_t Increment_Pre()
     {
         wprintf(L"should increment the units and decrement the unit_count. returns itself");
 
         word_t words[4] = { 100, 100, 100, 100 };
         pointer_t<word_t> pointer(words, 4);
         --pointer;
-        while ((++pointer).count() >= 1) {
+        while ((++pointer).Unit_Count() >= 1) {
             nkr_TEST(*pointer == 100);
         }
     }
 
-    void_t test_pointer_t::operator_increment_post() const
+    void_t Increment_Post()
     {
         wprintf(L"should increment the units and decrement the unit_count. returns initial pointer_t");
 
         word_t words[4] = { 100, 100, 100, 100 };
         pointer_t<word_t> pointer(words, 4);
         --pointer;
-        while ((pointer++).count() > 1) {
+        while ((pointer++).Unit_Count() > 1) {
             nkr_TEST(*pointer == 100);
         }
     }
 
-    void_t test_pointer_t::operator_decrement_pre() const
+    void_t Decrement_Pre()
     {
         wprintf(L"should decrement the units and increment the unit_count. returns itself");
 
         word_t words[4] = { 100, 100, 100, 100 };
         pointer_t<word_t> pointer(words + 4, 0);
-        while ((--pointer).count() <= 4) {
+        while ((--pointer).Unit_Count() <= 4) {
             nkr_TEST(*pointer == 100);
         }
     }
 
-    void_t test_pointer_t::operator_decrement_post() const
+    void_t Decrement_Post()
     {
         wprintf(L"should decrement the units and increment the unit_count. returns initial pointer_t");
 
         word_t words[4] = { 100, 100, 100, 100 };
         pointer_t<word_t> pointer(words + 4, 0);
-        while ((pointer--).count() < 4) {
+        while ((pointer--).Unit_Count() < 4) {
             nkr_TEST(*pointer == 100);
         }
     }
 
-    void_t test_pointer_t::operator_add_assign() const
+    void_t Add_Assign()
     {
         wprintf(L"should increment units and decrement unit_count by count. returns itself");
 
@@ -457,7 +473,7 @@ namespace nkr { namespace test {
         nkr_TEST(*(pointer += 1) == 3);
     }
 
-    void_t test_pointer_t::operator_subtract_assign() const
+    void_t Subtract_Assign()
     {
         wprintf(L"should decrement units and increment unit_count by count. returns itself");
 
@@ -474,7 +490,7 @@ namespace nkr { namespace test {
         nkr_TEST(*(pointer -= 1) == 0);
     }
 
-    void_t test_pointer_t::operator_add() const
+    void_t Add()
     {
         wprintf(L"should increment units and decrement unit_count by count. returns result");
 
@@ -486,7 +502,7 @@ namespace nkr { namespace test {
         nkr_TEST(*(pointer + 3) == 3);
     }
 
-    void_t test_pointer_t::operator_subtract() const
+    void_t Subtract()
     {
         wprintf(L"should decrement units and increment unit_count by count. returns result");
 
@@ -498,4 +514,4 @@ namespace nkr { namespace test {
         nkr_TEST(*(pointer - 4) == 0);
     }
 
-}}
+}}}

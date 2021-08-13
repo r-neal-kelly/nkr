@@ -6,7 +6,7 @@
 
 #include "test_os.h"
 
-namespace nkr { namespace test { namespace os {
+namespace nkr { namespace test_os {
 
     void_t Execute()
     {
@@ -39,11 +39,15 @@ namespace nkr { namespace test { namespace os {
         nkr_TEST_FUNCTION(atomic::Xor);
         nkr_TEST_FUNCTION(atomic::Exchange_Xor);
         wprintf(L"\n");
+
+        nkr_TEST_FUNCTION(endian::Is_Big);
+        nkr_TEST_FUNCTION(endian::Is_Little);
+        wprintf(L"\n");
     }
 
-}}}
+}}
 
-namespace nkr { namespace test { namespace os { namespace atomic {
+namespace nkr { namespace test_os { namespace atomic {
 
     void_t Access()
     {
@@ -431,32 +435,242 @@ namespace nkr { namespace test { namespace os { namespace atomic {
 
     void_t Or()
     {
+        wprintf(L"should atomically OR integers and return the new value");
 
+        u8_t u8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::Or(u8, 0xF0) == 0xFF);
+
+        u16_t u16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::Or(u16, 0xFF00) == 0xFFFF);
+
+        u32_t u32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::Or(u32, 0xFFFF0000) == 0xFFFFFFFF);
+
+    #if defined(nkr_IS_64_BIT)
+        u64_t u64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Or(u64, 0xFFFFFFFF00000000) == 0xFFFFFFFFFFFFFFFF);
+    #endif
+
+        s8_t s8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::Or(s8, 0x70) == 0x7F);
+
+        s16_t s16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::Or(s16, 0x7F00) == 0x7FFF);
+
+        s32_t s32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::Or(s32, 0x7FFF0000) == 0x7FFFFFFF);
+
+    #if defined(nkr_IS_64_BIT)
+        s64_t s64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Or(s64, 0x7FFFFFFF00000000) == 0x7FFFFFFFFFFFFFFF);
+    #endif
     }
 
     void_t Exchange_Or()
     {
+        wprintf(L"should atomically OR integers and return the initial value");
 
+        u8_t u8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(u8, 0xF0) == 0x0F);
+        nkr_TEST(nkr::os::atomic::Access(u8) == 0xFF);
+
+        u16_t u16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(u16, 0xFF00) == 0x00FF);
+        nkr_TEST(nkr::os::atomic::Access(u16) == 0xFFFF);
+
+        u32_t u32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(u32, 0xFFFF0000) == 0x0000FFFF);
+        nkr_TEST(nkr::os::atomic::Access(u32) == 0xFFFFFFFF);
+
+    #if defined(nkr_IS_64_BIT)
+        u64_t u64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(u64, 0xFFFFFFFF00000000) == 0x00000000FFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(u64) == 0xFFFFFFFFFFFFFFFF);
+    #endif
+
+        s8_t s8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(s8, 0x70) == 0x0F);
+        nkr_TEST(nkr::os::atomic::Access(s8) == 0x7F);
+
+        s16_t s16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(s16, 0x7F00) == 0x00FF);
+        nkr_TEST(nkr::os::atomic::Access(s16) == 0x7FFF);
+
+        s32_t s32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(s32, 0x7FFF0000) == 0x0000FFFF);
+        nkr_TEST(nkr::os::atomic::Access(s32) == 0x7FFFFFFF);
+
+    #if defined(nkr_IS_64_BIT)
+        s64_t s64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Or(s64, 0x7FFFFFFF00000000) == 0x00000000FFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(s64) == 0x7FFFFFFFFFFFFFFF);
+    #endif
     }
 
     void_t And()
     {
+        wprintf(L"should atomically AND integers and return the new value");
 
+        u8_t u8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::And(u8, 0xF0) == 0x0);
+
+        u16_t u16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::And(u16, 0xFF00) == 0x0);
+
+        u32_t u32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::And(u32, 0xFFFF0000) == 0x0);
+
+    #if defined(nkr_IS_64_BIT)
+        u64_t u64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::And(u64, 0xFFFFFFFF00000000) == 0x0);
+    #endif
+
+        s8_t s8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::And(s8, 0x70) == 0x0);
+
+        s16_t s16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::And(s16, 0x7F00) == 0x0);
+
+        s32_t s32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::And(s32, 0x7FFF0000) == 0x0);
+
+    #if defined(nkr_IS_64_BIT)
+        s64_t s64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::And(s64, 0x7FFFFFFF00000000) == 0x0);
+    #endif
     }
 
     void_t Exchange_And()
     {
+        wprintf(L"should atomically AND integers and return the initial value");
 
+        u8_t u8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::Exchange_And(u8, 0xF0) == 0x0F);
+        nkr_TEST(nkr::os::atomic::Access(u8) == 0x0);
+
+        u16_t u16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::Exchange_And(u16, 0xFF00) == 0x00FF);
+        nkr_TEST(nkr::os::atomic::Access(u16) == 0x0);
+
+        u32_t u32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_And(u32, 0xFFFF0000) == 0x0000FFFF);
+        nkr_TEST(nkr::os::atomic::Access(u32) == 0x0);
+
+    #if defined(nkr_IS_64_BIT)
+        u64_t u64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_And(u64, 0xFFFFFFFF00000000) == 0x00000000FFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(u64) == 0x0);
+    #endif
+
+        s8_t s8 = 0x0F;
+        nkr_TEST(nkr::os::atomic::Exchange_And(s8, 0x70) == 0x0F);
+        nkr_TEST(nkr::os::atomic::Access(s8) == 0x0);
+
+        s16_t s16 = 0x00FF;
+        nkr_TEST(nkr::os::atomic::Exchange_And(s16, 0x7F00) == 0x00FF);
+        nkr_TEST(nkr::os::atomic::Access(s16) == 0x0);
+
+        s32_t s32 = 0x0000FFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_And(s32, 0x7FFF0000) == 0x0000FFFF);
+        nkr_TEST(nkr::os::atomic::Access(s32) == 0x0);
+
+    #if defined(nkr_IS_64_BIT)
+        s64_t s64 = 0x00000000FFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_And(s64, 0x7FFFFFFF00000000) == 0x00000000FFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(s64) == 0x0);
+    #endif
     }
 
     void_t Xor()
     {
+        wprintf(L"should atomically XOR integers and return the new value");
 
+        u8_t u8 = 0xFF;
+        nkr_TEST(nkr::os::atomic::Xor(u8, 0x01) == 0xFE);
+
+        u16_t u16 = 0xFFFF;
+        nkr_TEST(nkr::os::atomic::Xor(u16, 0x0001) == 0xFFFE);
+
+        u32_t u32 = 0xFFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Xor(u32, 0x00000001) == 0xFFFFFFFE);
+
+    #if defined(nkr_IS_64_BIT)
+        u64_t u64 = 0xFFFFFFFFFFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Xor(u64, 0x0000000000000001) == 0xFFFFFFFFFFFFFFFE);
+    #endif
+
+        s8_t s8 = 0x7F;
+        nkr_TEST(nkr::os::atomic::Xor(s8, 0x01) == 0x7E);
+
+        s16_t s16 = 0x7FFF;
+        nkr_TEST(nkr::os::atomic::Xor(s16, 0x0001) == 0x7FFE);
+
+        s32_t s32 = 0x7FFFFFFF;
+        nkr_TEST(nkr::os::atomic::Xor(s32, 0x00000001) == 0x7FFFFFFE);
+
+    #if defined(nkr_IS_64_BIT)
+        s64_t s64 = 0x7FFFFFFFFFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFE);
+    #endif
     }
 
     void_t Exchange_Xor()
     {
+        wprintf(L"should atomically XOR integers and return the initial value");
 
+        u8_t u8 = 0xFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(u8, 0x01) == 0xFF);
+        nkr_TEST(nkr::os::atomic::Access(u8) == 0xFE);
+
+        u16_t u16 = 0xFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(u16, 0x0001) == 0xFFFF);
+        nkr_TEST(nkr::os::atomic::Access(u16) == 0xFFFE);
+
+        u32_t u32 = 0xFFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(u32, 0x00000001) == 0xFFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(u32) == 0xFFFFFFFE);
+
+    #if defined(nkr_IS_64_BIT)
+        u64_t u64 = 0xFFFFFFFFFFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(u64, 0x0000000000000001) == 0xFFFFFFFFFFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(u64) == 0xFFFFFFFFFFFFFFFE);
+    #endif
+
+        s8_t s8 = 0x7F;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(s8, 0x01) == 0x7F);
+        nkr_TEST(nkr::os::atomic::Access(s8) == 0x7E);
+
+        s16_t s16 = 0x7FFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(s16, 0x0001) == 0x7FFF);
+        nkr_TEST(nkr::os::atomic::Access(s16) == 0x7FFE);
+
+        s32_t s32 = 0x7FFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(s32, 0x00000001) == 0x7FFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(s32) == 0x7FFFFFFE);
+
+    #if defined(nkr_IS_64_BIT)
+        s64_t s64 = 0x7FFFFFFFFFFFFFFF;
+        nkr_TEST(nkr::os::atomic::Exchange_Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Access(s64) == 0x7FFFFFFFFFFFFFFE);
+    #endif
     }
 
-}}}}
+}}}
+
+namespace nkr { namespace test_os { namespace endian {
+
+    void_t Is_Big()
+    {
+        wprintf(L"should in a thread-safe manner efficiently determine if the runtime is in big endian");
+
+        wprintf(L": %s", nkr::os::endian::Is_Big() ? L"is big" : L"isn't big");
+    }
+
+    void_t Is_Little()
+    {
+        wprintf(L"should in a thread-safe manner efficiently determine if the runtime is in little endian");
+
+        wprintf(L": %s", nkr::os::endian::Is_Little() ? L"is little" : L"isn't little");
+    }
+
+}}}

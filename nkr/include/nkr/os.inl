@@ -4,7 +4,11 @@
 
 #pragma once
 
-#include <intrin.h>
+#if defined(nkr_IS_WINDOWS)
+    #include <intrin.h>
+#endif
+
+#include <mutex>
 
 #include "nkr/os.h"
 
@@ -333,18 +337,6 @@ namespace nkr { namespace os { namespace atomic {
 }}}
 
 namespace nkr { namespace os { namespace endian {
-
-    inline bool_t Is_Big()
-    {
-        volatile word_t word = 1;
-        return ((const byte_t*)&word)[0] == 0;
-    }
-
-    inline bool_t Is_Little()
-    {
-        volatile word_t word = 1;
-        return ((const byte_t*)&word)[0] == 1;
-    }
 
 #if defined(nkr_IS_WINDOWS)
 

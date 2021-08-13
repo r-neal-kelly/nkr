@@ -15,11 +15,11 @@ namespace nkr {
         template. void_t is not useable by this type. I recommend using byte_t instead.
     */
 
-    template <sized_tr unit = byte_t>
+    template <sized_tr unit_p = byte_t>
     class pointer_t
     {
     public:
-        using unit_t    = unit;
+        using unit_t    = unit_p;
         using units_t   = unit_t*;
 
     public:
@@ -41,13 +41,13 @@ namespace nkr {
         ~pointer_t();
 
     public:
-        units_t&        raw();
-        const units_t&  raw() const;
+        units_t&        Units();
+        const units_t&  Units() const;
 
-        count_t&        count();
-        const count_t&  count() const;
+        count_t&        Unit_Count();
+        const count_t&  Unit_Count() const;
 
-        address_t       address() const;
+        address_t       Address() const;
 
     public:
         explicit operator   bool_t();

@@ -8,13 +8,13 @@
 
 #include "intrinsic.h"
 
-namespace nkr { namespace test { namespace os {
+namespace nkr { namespace test_os {
 
     void_t  Execute();
 
-}}}
+}}
 
-namespace nkr { namespace test { namespace os { namespace atomic {
+namespace nkr { namespace test_os { namespace atomic {
 
     void_t  Access();
 
@@ -37,4 +37,11 @@ namespace nkr { namespace test { namespace os { namespace atomic {
     void_t  Xor();
     void_t  Exchange_Xor();
 
-}}}}
+}}}
+
+namespace nkr { namespace test_os { namespace endian {
+
+    void_t  Is_Big();
+    void_t  Is_Little();
+
+}}}

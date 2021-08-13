@@ -8,68 +8,74 @@
 
 #include "intrinsic.h"
 
-namespace nkr { namespace test {
+namespace nkr { namespace test_pointer_t {
 
-    class test_pointer_t
-    {
-    public:
-        test_pointer_t();
-        test_pointer_t(const test_pointer_t& other)                 = delete;
-        test_pointer_t(test_pointer_t&& other) noexcept             = delete;
-        test_pointer_t& operator =(const test_pointer_t& other)     = delete;
-        test_pointer_t& operator =(test_pointer_t&& other) noexcept = delete;
-        ~test_pointer_t();
-
-    public:
-        void_t  unit_size() const;
-        void_t  max_unit_count() const;
-
-    public:
-        void_t  constructor_default() const;
-        void_t  constructor_unit_pointer() const;
-        void_t  constructor_units_and_unit_count() const;
-        void_t  constructor_copy() const;
-        void_t  constructor_move() const;
-        void_t  assigner_copy() const;
-        void_t  assigner_move() const;
-        void_t  destructor() const;
-
-    public:
-        void_t  raw() const;
-        void_t  raw_const() const;
-
-        void_t  count() const;
-        void_t  count_const() const;
-
-        void_t  address() const;
-
-    public:
-        void_t  operator_bool_t() const;
-        void_t  operator_const_bool_t() const;
-
-        void_t  operator_units_t_ref() const;
-        void_t  operator_const_units_t_ref() const;
-
-    public:
-        void_t  operator_logical_not() const;
-
-        void_t  operator_invoke() const;
-        void_t  operator_invoke_const() const;
-
-        void_t  operator_access_const() const;
-        void_t  operator_dereference_const() const;
-        void_t  operator_subscript_const() const;
-
-        void_t  operator_increment_pre() const;
-        void_t  operator_increment_post() const;
-        void_t  operator_decrement_pre() const;
-        void_t  operator_decrement_post() const;
-
-        void_t  operator_add_assign() const;
-        void_t  operator_subtract_assign() const;
-
-        void_t  operator_add() const;
-        void_t  operator_subtract() const;
-    };
+    void_t  Execute();
 
 }}
+
+namespace nkr { namespace test_pointer_t { namespace $static {
+
+    void_t  Unit_Size();
+    void_t  Max_Unit_Count();
+
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $object {
+
+    void_t  Constructor_Default();
+    void_t  Constructor_Unit_Pointer();
+    void_t  Constructor_Units_And_Unit_Count();
+    void_t  Constructor_Copy();
+    void_t  Constructor_Move();
+    void_t  Assigner_Copy();
+    void_t  Assigner_Move();
+    void_t  Destructor();
+
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $method {
+
+    void_t  Units();
+    void_t  Units_Const();
+
+    void_t  Unit_Count();
+    void_t  Unit_Count_Const();
+
+    void_t  Address();
+
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $cast {
+
+    void_t  Bool_t();
+    void_t  Const_Bool_t();
+
+    void_t  Units_t_Ref();
+    void_t  Const_Units_t_Ref();
+
+}}}
+
+namespace nkr { namespace test_pointer_t { namespace $operator {
+
+    void_t  Logical_Not();
+
+    void_t  Invoke();
+    void_t  Invoke_Const();
+
+    void_t  Access_Const();
+    void_t  Dereference_Const();
+    void_t  Subscript_Const();
+
+    void_t  Increment_Pre();
+    void_t  Increment_Post();
+    void_t  Decrement_Pre();
+    void_t  Decrement_Post();
+
+    void_t  Add_Assign();
+    void_t  Subtract_Assign();
+
+    void_t  Add();
+    void_t  Subtract();
+
+}}}

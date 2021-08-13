@@ -168,6 +168,11 @@
     <ClInclude Include="include\test_pointer_t.h" />
     <ClInclude Include="include\test_string_t.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nkr\nkr.vcxproj">
+      <Project>{260dd159-a788-4bbb-9690-628aa81aaa9c}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

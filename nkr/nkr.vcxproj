@@ -168,9 +168,6 @@
     <ClInclude Include="include\nkr\traits.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\os.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="include\nkr\allocator_heap_t.inl" />
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\maybe_pointer_t.inl" />
@@ -178,6 +175,9 @@
     <None Include="include\nkr\pointer_t.inl" />
     <None Include="include\nkr\string_static_t.inl" />
     <None Include="include\nkr\string_dynamic_t.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\os.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,40 @@
 
 #include "nkr/os.h"
 
+namespace nkr { namespace os { namespace endian {
+
+    bool_t Is_Big()
+    {
+        static bool_t is_big = false;
+
+        nkr_INITIALIZE_STATIC_SAFELY(
+            []() -> void_t
+            {
+                volatile word_t word = 1;
+                is_big = ((const byte_t*)&word)[0] == 0;
+            }
+        );
+
+        return is_big;
+    }
+
+    bool_t Is_Little()
+    {
+        static bool_t is_little = false;
+
+        nkr_INITIALIZE_STATIC_SAFELY(
+            []() -> void_t
+            {
+                volatile word_t word = 1;
+                is_little = ((const byte_t*)&word)[0] == 1;
+            }
+        );
+
+        return is_little;
+    }
+
+}}}
+
 namespace nkr { namespace os { namespace heap {
 
 #if defined(nkr_IS_WINDOWS)

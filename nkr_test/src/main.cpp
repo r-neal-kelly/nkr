@@ -6,10 +6,8 @@
 #include <io.h>
 
 #include "intrinsic.h"
-#include "test_maybe_pointer_t.h"
 #include "test_os.h"
 #include "test_pointer_t.h"
-#include "test_string_t.h"
 
 int main(int argument_count, char* arguments[])
 {
@@ -20,9 +18,8 @@ int main(int argument_count, char* arguments[])
         assert(0);
     }
 
-    nkr::test::os::Execute();
-    nkr::test::test_pointer_t();
-    nkr::test::test_string_t();
+    nkr::test_os::Execute();
+    nkr::test_pointer_t::Execute();
 
     wprintf(L"\npress any key to continue...\n");
     wchar_t unused = std::getwc(stdin);
