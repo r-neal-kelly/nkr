@@ -340,17 +340,20 @@ namespace nkr { namespace os { namespace endian {
 
 #if defined(nkr_IS_WINDOWS)
 
-    inline u16_t Swap(u16_t bytes)
+    template <integral_16_tr i16_p>
+    inline i16_p Swap(i16_p bytes)
     {
         return ::_byteswap_ushort(bytes);
     }
 
-    inline u32_t Swap(u32_t bytes)
+    template <integral_32_tr i32_p>
+    inline i32_p Swap(i32_p bytes)
     {
         return ::_byteswap_ulong(bytes);
     }
 
-    inline u64_t Swap(u64_t bytes)
+    template <integral_64_tr i64_p>
+    inline i64_p Swap(i64_p bytes)
     {
         return ::_byteswap_uint64(bytes);
     }

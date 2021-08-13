@@ -44,4 +44,6 @@ namespace nkr { namespace test_os { namespace endian {
     void_t  Is_Big();
     void_t  Is_Little();
 
+    void_t  Swap();
+
 }}}

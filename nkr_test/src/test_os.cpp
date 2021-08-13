@@ -43,6 +43,9 @@ namespace nkr { namespace test_os {
         nkr_TEST_FUNCTION(endian::Is_Big);
         nkr_TEST_FUNCTION(endian::Is_Little);
         wprintf(L"\n");
+
+        nkr_TEST_FUNCTION(endian::Swap);
+        wprintf(L"\n");
     }
 
 }}
@@ -671,6 +674,33 @@ namespace nkr { namespace test_os { namespace endian {
         wprintf(L"should in a thread-safe manner efficiently determine if the runtime is in little endian");
 
         wprintf(L": %s", nkr::os::endian::Is_Little() ? L"is little" : L"isn't little");
+    }
+
+    void_t Swap()
+    {
+        wprintf(L"should swap the bytes of i16_tr, i32_tr, and i64_tr");
+
+        u16_t u16 = 0x0102;
+        nkr_TEST(nkr::os::endian::Swap(u16) == 0x0201);
+
+        u32_t u32 = 0x01020304;
+        nkr_TEST(nkr::os::endian::Swap(u32) == 0x04030201);
+
+        u64_t u64 = 0x0102030405060708;
+        nkr_TEST(nkr::os::endian::Swap(u64) == 0x0807060504030201);
+
+        s16_t s16 = 0x0102;
+        nkr_TEST(nkr::os::endian::Swap(s16) == 0x0201);
+
+        s32_t s32 = 0x01020304;
+        nkr_TEST(nkr::os::endian::Swap(s32) == 0x04030201);
+
+        s64_t s64 = 0x0102030405060708;
+        nkr_TEST(nkr::os::endian::Swap(s64) == 0x0807060504030201);
+
+        nkr_TEST(nkr::os::endian::Swap(0x0102) == 0x02010000);
+        nkr_TEST(nkr::os::endian::Swap(0x01020304) == 0x04030201);
+        nkr_TEST(nkr::os::endian::Swap(0x0102030405060708) == 0x0807060504030201);
     }
 
 }}}

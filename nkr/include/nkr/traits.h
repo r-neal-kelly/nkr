@@ -53,15 +53,15 @@ namespace nkr {
         std::is_pointer<type_p>::value;
 
     template <typename type_p>
-    concept sized_tr
-        = sizeof(type_p) > 0;
+    concept sized_tr =
+        sizeof(type_p) > 0;
 
     template <typename type_p>
-    concept addable_tr
-        = requires(type_p instance) { instance + 1; };
+    concept addable_tr =
+        requires(type_p instance) { instance + 1; };
 
     template <typename type_p>
-    concept subtractable_tr
-        = requires(type_p instance) { instance - 1; };
+    concept subtractable_tr =
+        requires(type_p instance) { instance - 1; };
 
 }
