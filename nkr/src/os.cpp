@@ -13,8 +13,8 @@ namespace nkr { namespace os { namespace endian {
         nkr_INITIALIZE_STATIC_SAFELY(
             []() -> void_t
             {
-                volatile word_t word = 1;
-                is_big = ((const byte_t*)&word)[0] == 0;
+                const volatile word_t word = 1;
+                is_big = reinterpret_cast<const volatile byte_t*>(&word)[0] == 0;
             }
         );
 
@@ -28,8 +28,8 @@ namespace nkr { namespace os { namespace endian {
         nkr_INITIALIZE_STATIC_SAFELY(
             []() -> void_t
             {
-                volatile word_t word = 1;
-                is_little = ((const byte_t*)&word)[0] == 1;
+                const volatile word_t word = 1;
+                is_little = reinterpret_cast<const volatile byte_t*>(&word)[0] == 1;
             }
         );
 
