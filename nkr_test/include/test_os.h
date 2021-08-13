@@ -47,3 +47,15 @@ namespace nkr { namespace test_os { namespace endian {
     void_t  Swap();
 
 }}}
+
+namespace nkr { namespace test_os { namespace heap {
+
+    void_t  Allocate();
+    void_t  Reallocate();
+    void_t  Deallocate();
+
+    void_t  Callocate();
+    void_t  Recallocate();
+    void_t  Decallocate();
+
+}}}

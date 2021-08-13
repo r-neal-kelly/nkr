@@ -46,6 +46,16 @@ namespace nkr { namespace test_os {
 
         nkr_TEST_FUNCTION(endian::Swap);
         wprintf(L"\n");
+
+        nkr_TEST_FUNCTION(heap::Allocate);
+        nkr_TEST_FUNCTION(heap::Reallocate);
+        nkr_TEST_FUNCTION(heap::Deallocate);
+        wprintf(L"\n");
+
+        nkr_TEST_FUNCTION(heap::Callocate);
+        nkr_TEST_FUNCTION(heap::Recallocate);
+        nkr_TEST_FUNCTION(heap::Decallocate);
+        wprintf(L"\n");
     }
 
 }}
@@ -701,6 +711,40 @@ namespace nkr { namespace test_os { namespace endian {
         nkr_TEST(nkr::os::endian::Swap(0x0102) == 0x02010000);
         nkr_TEST(nkr::os::endian::Swap(0x01020304) == 0x04030201);
         nkr_TEST(nkr::os::endian::Swap(0x0102030405060708) == 0x0807060504030201);
+    }
+
+}}}
+
+namespace nkr { namespace test_os { namespace heap {
+
+    void_t Allocate()
+    {
+        wprintf(L"should allocate a pointer to have the byte_count on the heap");
+    }
+
+    void_t Reallocate()
+    {
+        wprintf(L"should reallocate the pointer to have the new_byte_count on the heap");
+    }
+
+    void_t Deallocate()
+    {
+        wprintf(L"should deallocate the pointer");
+    }
+
+    void_t Callocate()
+    {
+        wprintf(L"should allocate a pointer to have the byte_count on the heap and set all data to 0");
+    }
+
+    void_t Recallocate()
+    {
+        wprintf(L"should reallocate the pointer to have the new_byte_count on the heap and set all data to 0");
+    }
+
+    void_t Decallocate()
+    {
+        wprintf(L"should deallocate the pointer");
     }
 
 }}}

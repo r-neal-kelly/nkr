@@ -60,6 +60,9 @@
     <ClInclude Include="include\nkr\os.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\atomic_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\os.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\atomic_t.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

@@ -64,4 +64,11 @@ namespace nkr {
     concept subtractable_tr =
         requires(type_p instance) { instance - 1; };
 
+    template <typename type_p>
+    concept atomicable_tr =
+        (std::is_integral<type_p>::value ||
+         std::is_null_pointer<type_p>::value ||
+         std::is_pointer<type_p>::value) &&
+        (sizeof(type_p) <= sizeof(word_t));
+
 }
