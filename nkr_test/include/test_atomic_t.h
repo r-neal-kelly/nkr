@@ -33,14 +33,11 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
 
 namespace nkr { namespace test_atomic_t { namespace $default { namespace $cast {
 
-    void_t  Bool_t();
     void_t  Value_t();
 
 }}}}
 
 namespace nkr { namespace test_atomic_t { namespace $default { namespace $operator {
-
-    void_t  Logical_Not();
 
     void_t  Invoke();
 
@@ -92,8 +89,6 @@ namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $cast {
 
 namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $operator {
 
-    void_t  Logical_Not();
-
     void_t  Invoke();
 
     void_t  Assign();
@@ -121,14 +116,11 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method
 
 namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $cast {
 
-    void_t  Bool_t();
     void_t  Values_t();
 
 }}}}
 
 namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operator {
-
-    void_t  Logical_Not();
 
     void_t  Invoke();
 
@@ -146,5 +138,38 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
     void_t  Access();
     void_t  Dereference();
     void_t  Subscript();
+
+}}}}
+
+namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $object {
+
+    void_t  Constructor_Default();
+    void_t  Constructor_Values();
+    void_t  Constructor_Copy();
+    void_t  Constructor_Move();
+    void_t  Assigner_Copy();
+    void_t  Assigner_Move();
+    void_t  Destructor();
+
+}}}}
+
+namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $method {
+
+    void_t  Access();
+    void_t  Exchange();
+
+}}}}
+
+namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $cast {
+
+    void_t  Values_t();
+
+}}}}
+
+namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $operator {
+
+    void_t  Invoke();
+
+    void_t  Assign();
 
 }}}}
