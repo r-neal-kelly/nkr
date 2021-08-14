@@ -632,7 +632,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $cast {
 
     void_t Value_t_Pointer()
     {
-        wprintf(L"should cast to its value_t");
+        wprintf(L"should cast to its value_t*");
 
         word_t word = 1;
         atomic_t<word_t*> pointer(&word);
@@ -653,7 +653,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
 
     void_t Invoke()
     {
-        wprintf(L"should return its value");
+        wprintf(L"should return value");
 
         word_t word = 1;
         atomic_t<word_t*> pointer(&word);
@@ -662,7 +662,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
 
     void_t Assign()
     {
-        wprintf(L"should set its value to other");
+        wprintf(L"should set value to other");
 
         word_t word_1 = 1;
         word_t word_2 = 2;
@@ -753,7 +753,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
 
     void_t Access()
     {
-        wprintf(L"should access value and return a reference to the first value");
+        wprintf(L"should -> the first object of value");
 
         struct { const word_t word = 1; } word;
         atomic_t pointer(&word);
@@ -762,7 +762,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
 
     void_t Dereference()
     {
-        wprintf(L"should dereference value and return a reference to the first value");
+        wprintf(L"should . the first object of value");
 
         struct { const word_t word = 1; } word;
         atomic_t pointer(&word);
@@ -771,7 +771,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
 
     void_t Subscript()
     {
-        wprintf(L"should subscript value and return a reference to the indexed value");
+        wprintf(L"should [] the indexed object of value");
 
         word_t words[2] = { 0, 1 };
         atomic_t pointer(words);
@@ -882,7 +882,7 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $c
 
     void_t Value_t_Pointer()
     {
-        wprintf(L"should cast to its value_t");
+        wprintf(L"should cast to its value_t*");
 
         word_t word = 1;
         atomic_t<void_t*> pointer(&word);
@@ -903,7 +903,7 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $o
 
     void_t Invoke()
     {
-        wprintf(L"should return its value");
+        wprintf(L"should return value");
 
         word_t word = 1;
         atomic_t<void_t*> pointer(&word);
@@ -912,7 +912,7 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $o
 
     void_t Assign()
     {
-        wprintf(L"should set its value to other");
+        wprintf(L"should set value to other");
 
         word_t word_1 = 1;
         word_t word_2 = 2;
