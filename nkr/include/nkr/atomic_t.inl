@@ -54,7 +54,7 @@ namespace nkr {
     template <typename value_p>
     inline atomic_t<value_p>::~atomic_t()
     {
-        this->value = 0;
+        Assign(0);
     }
 
     template <typename value_p>
@@ -311,7 +311,7 @@ namespace nkr {
 
     inline atomic_t<bool_t>::~atomic_t()
     {
-        this->value = false;
+        Assign(false);
     }
 
     inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Access() const
@@ -394,7 +394,7 @@ namespace nkr {
     template <typename value_p>
     inline atomic_t<value_p*>::~atomic_t()
     {
-        this->value = nullptr;
+        Assign(nullptr);
     }
 
     template <typename value_p>
@@ -580,7 +580,7 @@ namespace nkr {
 
     inline atomic_t<void_t*>::~atomic_t()
     {
-        this->value = nullptr;
+        Assign(nullptr);
     }
 
     inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Access() const

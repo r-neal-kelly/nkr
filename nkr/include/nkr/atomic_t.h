@@ -15,6 +15,9 @@ namespace nkr {
     public:
         using value_t   = value_p;
 
+    public:
+        static_assert(std::is_integral<value_t>::value, "invalid atomic value_t.");
+
     private:
         volatile value_t    value;
 
@@ -94,11 +97,6 @@ namespace nkr {
         value_t operator &=(integral_p value);
         template <integral_tr integral_p>
         value_t operator ^=(integral_p value);
-
-    public:
-        static_assert(std::is_integral<value_t>::value &&
-                      (sizeof(value_t) <= sizeof(word_t)),
-                      "invalid atomic value_t.");
     };
 
     template <>

@@ -1,10 +1,15 @@
 ---
 id: KItlDp2k27ncscABVrz9J
-title: Root
+title: nkr
 desc: ''
-updated: 1628958898631
+updated: 1628979631010
 created: 1628958898632
 ---
-# Welcome to Dendron
 
-This is the root of your dendron vault. If you decide to publish your entire vault, this will be your landing page. You are free to customize any part of this page except the frontmatter on top. 
+I'm going to try adding documentation through Dendron, which I've not really used before except briefly. I'm going to give it a chance, but if we need to we can migrate to another tool for dynamic docs. However, I expect this to be a nearly perfect tool for scalable library documentation.
+
+## Namespaces
+[[os]]
+
+## Types
+[[atomic_t]]
