@@ -24,6 +24,25 @@ namespace nkr { namespace test_atomic_t {
         nkr_TEST_FUNCTION($default::$method::Access);
         wprintf(L"\n");
 
+        nkr_TEST_FUNCTION($default::$method::Assign);
+        nkr_TEST_FUNCTION($default::$method::Exchange_Assign);
+        nkr_TEST_FUNCTION($default::$method::Exchange_Assign_If_Equals);
+        wprintf(L"\n");
+
+        nkr_TEST_FUNCTION($default::$method::Assign_Add);
+        nkr_TEST_FUNCTION($default::$method::Exchange_Add);
+        nkr_TEST_FUNCTION($default::$method::Assign_Subtract);
+        nkr_TEST_FUNCTION($default::$method::Exchange_Subtract);
+        wprintf(L"\n");
+
+        nkr_TEST_FUNCTION($default::$method::Assign_Or);
+        nkr_TEST_FUNCTION($default::$method::Exchange_Or);
+        nkr_TEST_FUNCTION($default::$method::Assign_And);
+        nkr_TEST_FUNCTION($default::$method::Exchange_And);
+        nkr_TEST_FUNCTION($default::$method::Assign_Xor);
+        nkr_TEST_FUNCTION($default::$method::Exchange_Xor);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($default::$cast::Value_t);
         wprintf(L"\n");
 
@@ -64,6 +83,11 @@ namespace nkr { namespace test_atomic_t {
         nkr_TEST_FUNCTION($bool_t::$method::Access);
         wprintf(L"\n");
 
+        nkr_TEST_FUNCTION($bool_t::$method::Assign);
+        nkr_TEST_FUNCTION($bool_t::$method::Exchange_Assign);
+        nkr_TEST_FUNCTION($bool_t::$method::Exchange_Assign_If_Equals);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($bool_t::$cast::Value_t);
         wprintf(L"\n");
 
@@ -83,6 +107,17 @@ namespace nkr { namespace test_atomic_t {
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($pointer::$method::Access);
+        wprintf(L"\n");
+
+        nkr_TEST_FUNCTION($pointer::$method::Assign);
+        nkr_TEST_FUNCTION($pointer::$method::Exchange_Assign);
+        nkr_TEST_FUNCTION($pointer::$method::Exchange_Assign_If_Equals);
+        wprintf(L"\n");
+
+        nkr_TEST_FUNCTION($pointer::$method::Assign_Add);
+        nkr_TEST_FUNCTION($pointer::$method::Exchange_Add);
+        nkr_TEST_FUNCTION($pointer::$method::Assign_Subtract);
+        nkr_TEST_FUNCTION($pointer::$method::Exchange_Subtract);
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($pointer::$cast::Value_t_Pointer);
@@ -119,6 +154,11 @@ namespace nkr { namespace test_atomic_t {
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($void_pointer::$method::Access);
+        wprintf(L"\n");
+
+        nkr_TEST_FUNCTION($void_pointer::$method::Assign);
+        nkr_TEST_FUNCTION($void_pointer::$method::Exchange_Assign);
+        nkr_TEST_FUNCTION($void_pointer::$method::Exchange_Assign_If_Equals);
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($void_pointer::$cast::Value_t_Pointer);
@@ -212,14 +252,124 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         nkr_TEST(word.Access() == 1);
     }
 
-    /*void_t Exchange()
+    void_t Assign()
     {
-        wprintf(L"should exchange value with another and return the initial value");
+        wprintf(L"should set value and return the new value");
 
         atomic_t<word_t> word(1);
-        nkr_TEST(word.Exchange(0) == 1);
+        nkr_TEST(word.Assign(0) == 0);
         nkr_TEST(word == 0);
-    }*/
+    }
+
+    void_t Exchange_Assign()
+    {
+        wprintf(L"should set value and return the old value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Exchange_Assign(0) == 1);
+        nkr_TEST(word == 0);
+    }
+
+    void_t Exchange_Assign_If_Equals()
+    {
+        wprintf(L"should set value if old value equals target and return the old value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Exchange_Assign_If_Equals(0, 0) == 1);
+        nkr_TEST(word == 1);
+        nkr_TEST(word.Exchange_Assign_If_Equals(0, 1) == 1);
+        nkr_TEST(word == 0);
+    }
+
+    void_t Assign_Add()
+    {
+        wprintf(L"should set added value and return the new value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Assign_Add(1) == 2);
+        nkr_TEST(word == 2);
+    }
+
+    void_t Exchange_Add()
+    {
+        wprintf(L"should set added value and return the old value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Exchange_Add(1) == 1);
+        nkr_TEST(word == 2);
+    }
+
+    void_t Assign_Subtract()
+    {
+        wprintf(L"should set subtracted value and return the new value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Assign_Subtract(1) == 0);
+        nkr_TEST(word == 0);
+    }
+
+    void_t Exchange_Subtract()
+    {
+        wprintf(L"should set subtracted value and return the old value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Exchange_Subtract(1) == 1);
+        nkr_TEST(word == 0);
+    }
+
+    void_t Assign_Or()
+    {
+        wprintf(L"should set or'd value and return the new value");
+
+        atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Assign_Or(0xF0) == 0xFF);
+        nkr_TEST(word == 0xFF);
+    }
+
+    void_t Exchange_Or()
+    {
+        wprintf(L"should set or'd value and return the old value");
+
+        atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Exchange_Or(0xF0) == 0x0F);
+        nkr_TEST(word == 0xFF);
+    }
+
+    void_t Assign_And()
+    {
+        wprintf(L"should set and'd value and return the new value");
+
+        atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Assign_And(0xF0) == 0x00);
+        nkr_TEST(word == 0x00);
+    }
+
+    void_t Exchange_And()
+    {
+        wprintf(L"should set and'd value and return the old value");
+
+        atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Exchange_And(0xF0) == 0x0F);
+        nkr_TEST(word == 0x00);
+    }
+
+    void_t Assign_Xor()
+    {
+        wprintf(L"should set xor'd value and return the new value");
+
+        atomic_t<word_t> word(0xFF);
+        nkr_TEST(word.Assign_Xor(0x01) == 0xFE);
+        nkr_TEST(word == 0xFE);
+    }
+
+    void_t Exchange_Xor()
+    {
+        wprintf(L"should set xor'd value and return the old value");
+
+        atomic_t<word_t> word(0xFF);
+        nkr_TEST(word.Exchange_Xor(0x01) == 0xFF);
+        nkr_TEST(word == 0xFE);
+    }
 
 }}}}
 
@@ -285,7 +435,7 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $operat
         wprintf(L"should set value to value + other");
 
         atomic_t<word_t> word(1);
-        word += 1;
+        nkr_TEST((word += 1) == 2);
         nkr_TEST(word == 2);
     }
 
@@ -294,7 +444,7 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $operat
         wprintf(L"should set value to value - other");
 
         atomic_t<word_t> word(1);
-        word -= 1;
+        nkr_TEST((word -= 1) == 0);
         nkr_TEST(word == 0);
     }
 
@@ -478,14 +628,34 @@ namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $method 
         nkr_TEST(boolean.Access() == true);
     }
 
-    /*void_t Exchange()
+    void_t Assign()
     {
-        wprintf(L"should exchange value with other and return the old value");
+        wprintf(L"should set value and return the new value");
 
         atomic_t<bool_t> boolean(true);
-        nkr_TEST(boolean.Exchange(false) == true);
+        nkr_TEST(boolean.Assign(false) == false);
         nkr_TEST(boolean == false);
-    }*/
+    }
+
+    void_t Exchange_Assign()
+    {
+        wprintf(L"should set value and return the old value");
+
+        atomic_t<bool_t> boolean(true);
+        nkr_TEST(boolean.Exchange_Assign(false) == true);
+        nkr_TEST(boolean == false);
+    }
+
+    void_t Exchange_Assign_If_Equals()
+    {
+        wprintf(L"should set value if old value equals target and return the old value");
+
+        atomic_t<bool_t> boolean(true);
+        nkr_TEST(boolean.Exchange_Assign_If_Equals(false, false) == true);
+        nkr_TEST(boolean == true);
+        nkr_TEST(boolean.Exchange_Assign_If_Equals(false, true) == true);
+        nkr_TEST(boolean == false);
+    }
 
 }}}}
 
@@ -616,15 +786,77 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method
         nkr_TEST(pointer.Access() == &word);
     }
 
-    /*void_t Exchange()
+    void_t Assign()
     {
-        wprintf(L"should exchange value with other and return the old value");
+        wprintf(L"should set value and return the new value");
 
         word_t word = 1;
         atomic_t<word_t*> pointer(&word);
-        nkr_TEST(pointer.Exchange(nullptr) == &word);
+        nkr_TEST(pointer.Assign(nullptr) == nullptr);
         nkr_TEST(pointer == nullptr);
-    }*/
+    }
+
+    void_t Exchange_Assign()
+    {
+        wprintf(L"should set value and return the old value");
+
+        word_t word = 1;
+        atomic_t<word_t*> pointer(&word);
+        nkr_TEST(pointer.Exchange_Assign(nullptr) == &word);
+        nkr_TEST(pointer == nullptr);
+    }
+
+    void_t Exchange_Assign_If_Equals()
+    {
+        wprintf(L"should set value if old value equals target and return the old value");
+
+        word_t word = 1;
+        atomic_t<word_t*> pointer(&word);
+        nkr_TEST(pointer.Exchange_Assign_If_Equals(nullptr, nullptr) == &word);
+        nkr_TEST(pointer == &word);
+        nkr_TEST(pointer.Exchange_Assign_If_Equals(nullptr, &word) == &word);
+        nkr_TEST(pointer == nullptr);
+    }
+
+    void_t Assign_Add()
+    {
+        wprintf(L"should set added value and return the new value");
+
+        word_t words[2] = { 0, 1 };
+        atomic_t<word_t*> pointer(words + 0);
+        nkr_TEST(pointer.Assign_Add(1) == words + 1);
+        nkr_TEST(pointer == words + 1);
+    }
+
+    void_t Exchange_Add()
+    {
+        wprintf(L"should set added value and return the old value");
+
+        word_t words[2] = { 0, 1 };
+        atomic_t<word_t*> pointer(words + 0);
+        nkr_TEST(pointer.Exchange_Add(1) == words + 0);
+        nkr_TEST(pointer == words + 1);
+    }
+
+    void_t Assign_Subtract()
+    {
+        wprintf(L"should set subtracted value and return the new value");
+
+        word_t words[2] = { 0, 1 };
+        atomic_t<word_t*> pointer(words + 1);
+        nkr_TEST(pointer.Assign_Subtract(1) == words + 0);
+        nkr_TEST(pointer == words + 0);
+    }
+
+    void_t Exchange_Subtract()
+    {
+        wprintf(L"should set subtracted value and return the old value");
+
+        word_t words[2] = { 0, 1 };
+        atomic_t<word_t*> pointer(words + 1);
+        nkr_TEST(pointer.Exchange_Subtract(1) == words + 1);
+        nkr_TEST(pointer == words + 0);
+    }
 
 }}}}
 
@@ -866,15 +1098,37 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $m
         nkr_TEST(pointer.Access() == &word);
     }
 
-    /*void_t Exchange()
+    void_t Assign()
     {
-        wprintf(L"should exchange value with other and return the old value");
+        wprintf(L"should set value and return the new value");
 
         word_t word = 1;
         atomic_t<void_t*> pointer(&word);
-        nkr_TEST(pointer.Exchange(nullptr) == &word);
+        nkr_TEST(pointer.Assign(nullptr) == nullptr);
         nkr_TEST(pointer == nullptr);
-    }*/
+    }
+
+    void_t Exchange_Assign()
+    {
+        wprintf(L"should set value and return the old value");
+
+        word_t word = 1;
+        atomic_t<void_t*> pointer(&word);
+        nkr_TEST(pointer.Exchange_Assign(nullptr) == &word);
+        nkr_TEST(pointer == nullptr);
+    }
+
+    void_t Exchange_Assign_If_Equals()
+    {
+        wprintf(L"should set value if old value equals target and return the old value");
+
+        word_t word = 1;
+        atomic_t<void_t*> pointer(&word);
+        nkr_TEST(pointer.Exchange_Assign_If_Equals(nullptr, nullptr) == &word);
+        nkr_TEST(pointer == &word);
+        nkr_TEST(pointer.Exchange_Assign_If_Equals(nullptr, &word) == &word);
+        nkr_TEST(pointer == nullptr);
+    }
 
 }}}}
 

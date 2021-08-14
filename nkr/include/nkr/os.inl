@@ -127,13 +127,13 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integral_tr atom_p>
-    inline atom_p Add(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_Add(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_Add(atom, with) + with;
     }
 
     template <pointer_tr atom_p>
-    inline atom_p Add(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_Add(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_Add(atom, with) + with;
     }
@@ -176,13 +176,13 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integral_tr atom_p>
-    inline atom_p Subtract(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_Subtract(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_Subtract(atom, with) - with;
     }
 
     template <pointer_tr atom_p>
-    inline atom_p Subtract(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_Subtract(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_Subtract(atom, with) - with;
     }
@@ -225,7 +225,7 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integral_tr atom_p>
-    inline atom_p Or(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_Or(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_Or(atom, with) | with;
     }
@@ -261,7 +261,7 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integral_tr atom_p>
-    inline atom_p And(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_And(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_And(atom, with) & with;
     }
@@ -297,7 +297,7 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integral_tr atom_p>
-    inline atom_p Xor(volatile atom_p& atom, integral_tr auto with)
+    inline atom_p Assign_Xor(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange_Xor(atom, with) ^ with;
     }

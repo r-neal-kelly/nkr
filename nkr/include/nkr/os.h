@@ -40,9 +40,9 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, pointer_tr auto with, pointer_tr auto target);
 
     template <integral_tr atom_p>
-    inline atom_p   Add(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_Add(volatile atom_p& atom, integral_tr auto with);
     template <pointer_tr atom_p>
-    inline atom_p   Add(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_Add(volatile atom_p& atom, integral_tr auto with);
     template <integral_8_tr atom_p>
     inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
     template <integral_16_tr atom_p>
@@ -55,9 +55,9 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p   Exchange_Add(volatile atom_p& atom, integral_tr auto with);
 
     template <integral_tr atom_p>
-    inline atom_p   Subtract(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_Subtract(volatile atom_p& atom, integral_tr auto with);
     template <pointer_tr atom_p>
-    inline atom_p   Subtract(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_Subtract(volatile atom_p& atom, integral_tr auto with);
     template <integral_8_tr atom_p>
     inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
     template <integral_16_tr atom_p>
@@ -70,7 +70,7 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p   Exchange_Subtract(volatile atom_p& atom, integral_tr auto with);
 
     template <integral_tr atom_p>
-    inline atom_p   Or(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_Or(volatile atom_p& atom, integral_tr auto with);
     template <integral_8_tr atom_p>
     inline atom_p   Exchange_Or(volatile atom_p& atom, integral_tr auto with);
     template <integral_16_tr atom_p>
@@ -81,7 +81,7 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p   Exchange_Or(volatile atom_p& atom, integral_tr auto with);
 
     template <integral_tr atom_p>
-    inline atom_p   And(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_And(volatile atom_p& atom, integral_tr auto with);
     template <integral_8_tr atom_p>
     inline atom_p   Exchange_And(volatile atom_p& atom, integral_tr auto with);
     template <integral_16_tr atom_p>
@@ -92,7 +92,7 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p   Exchange_And(volatile atom_p& atom, integral_tr auto with);
 
     template <integral_tr atom_p>
-    inline atom_p   Xor(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Assign_Xor(volatile atom_p& atom, integral_tr auto with);
     template <integral_8_tr atom_p>
     inline atom_p   Exchange_Xor(volatile atom_p& atom, integral_tr auto with);
     template <integral_16_tr atom_p>

@@ -20,23 +20,23 @@ namespace nkr { namespace test_os {
         nkr_TEST_FUNCTION(atomic::Exchange_Assign_If_Equals);
         wprintf(L"\n");
 
-        nkr_TEST_FUNCTION(atomic::Add);
+        nkr_TEST_FUNCTION(atomic::Assign_Add);
         nkr_TEST_FUNCTION(atomic::Exchange_Add);
         wprintf(L"\n");
 
-        nkr_TEST_FUNCTION(atomic::Subtract);
+        nkr_TEST_FUNCTION(atomic::Assign_Subtract);
         nkr_TEST_FUNCTION(atomic::Exchange_Subtract);
         wprintf(L"\n");
 
-        nkr_TEST_FUNCTION(atomic::Or);
+        nkr_TEST_FUNCTION(atomic::Assign_Or);
         nkr_TEST_FUNCTION(atomic::Exchange_Or);
         wprintf(L"\n");
 
-        nkr_TEST_FUNCTION(atomic::And);
+        nkr_TEST_FUNCTION(atomic::Assign_And);
         nkr_TEST_FUNCTION(atomic::Exchange_And);
         wprintf(L"\n");
 
-        nkr_TEST_FUNCTION(atomic::Xor);
+        nkr_TEST_FUNCTION(atomic::Assign_Xor);
         nkr_TEST_FUNCTION(atomic::Exchange_Xor);
         wprintf(L"\n");
 
@@ -274,42 +274,42 @@ namespace nkr { namespace test_os { namespace atomic {
         nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == nullptr);
     }
 
-    void_t Add()
+    void_t Assign_Add()
     {
         wprintf(L"should atomically add to integers and pointers and return the new value");
 
         u8_t u8 = 8;
-        nkr_TEST(nkr::os::atomic::Add(u8, 1) == 9);
+        nkr_TEST(nkr::os::atomic::Assign_Add(u8, 1) == 9);
 
         u16_t u16 = 16;
-        nkr_TEST(nkr::os::atomic::Add(u16, 1) == 17);
+        nkr_TEST(nkr::os::atomic::Assign_Add(u16, 1) == 17);
 
         u32_t u32 = 32;
-        nkr_TEST(nkr::os::atomic::Add(u32, 1) == 33);
+        nkr_TEST(nkr::os::atomic::Assign_Add(u32, 1) == 33);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 64;
-        nkr_TEST(nkr::os::atomic::Add(u64, 1) == 65);
+        nkr_TEST(nkr::os::atomic::Assign_Add(u64, 1) == 65);
     #endif
 
         s8_t s8 = -8;
-        nkr_TEST(nkr::os::atomic::Add(s8, -1) == -9);
+        nkr_TEST(nkr::os::atomic::Assign_Add(s8, -1) == -9);
 
         s16_t s16 = -16;
-        nkr_TEST(nkr::os::atomic::Add(s16, -1) == -17);
+        nkr_TEST(nkr::os::atomic::Assign_Add(s16, -1) == -17);
 
         s32_t s32 = -32;
-        nkr_TEST(nkr::os::atomic::Add(s32, -1) == -33);
+        nkr_TEST(nkr::os::atomic::Assign_Add(s32, -1) == -33);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = -64;
-        nkr_TEST(nkr::os::atomic::Add(s64, -1) == -65);
+        nkr_TEST(nkr::os::atomic::Assign_Add(s64, -1) == -65);
     #endif
 
         bool_t booleans[2] = { true, true };
         bool_t* boolean_pointer = booleans;
-        nkr_TEST(nkr::os::atomic::Add(boolean_pointer, 1) == booleans + 1);
-        nkr_TEST(nkr::os::atomic::Add(boolean_pointer, -1) == booleans + 0);
+        nkr_TEST(nkr::os::atomic::Assign_Add(boolean_pointer, 1) == booleans + 1);
+        nkr_TEST(nkr::os::atomic::Assign_Add(boolean_pointer, -1) == booleans + 0);
     }
 
     void_t Exchange_Add()
@@ -360,42 +360,42 @@ namespace nkr { namespace test_os { namespace atomic {
         nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == booleans + 0);
     }
 
-    void_t Subtract()
+    void_t Assign_Subtract()
     {
         wprintf(L"should atomically subtract from integers and pointers and return the new value");
 
         u8_t u8 = 8;
-        nkr_TEST(nkr::os::atomic::Subtract(u8, 1) == 7);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(u8, 1) == 7);
 
         u16_t u16 = 16;
-        nkr_TEST(nkr::os::atomic::Subtract(u16, 1) == 15);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(u16, 1) == 15);
 
         u32_t u32 = 32;
-        nkr_TEST(nkr::os::atomic::Subtract(u32, 1) == 31);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(u32, 1) == 31);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 64;
-        nkr_TEST(nkr::os::atomic::Subtract(u64, 1) == 63);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(u64, 1) == 63);
     #endif
 
         s8_t s8 = -8;
-        nkr_TEST(nkr::os::atomic::Subtract(s8, -1) == -7);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(s8, -1) == -7);
 
         s16_t s16 = -16;
-        nkr_TEST(nkr::os::atomic::Subtract(s16, -1) == -15);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(s16, -1) == -15);
 
         s32_t s32 = -32;
-        nkr_TEST(nkr::os::atomic::Subtract(s32, -1) == -31);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(s32, -1) == -31);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = -64;
-        nkr_TEST(nkr::os::atomic::Subtract(s64, -1) == -63);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(s64, -1) == -63);
     #endif
 
         bool_t booleans[2] = { true, true };
         bool_t* boolean_pointer = booleans + 1;
-        nkr_TEST(nkr::os::atomic::Subtract(boolean_pointer, 1) == booleans + 0);
-        nkr_TEST(nkr::os::atomic::Subtract(boolean_pointer, -1) == booleans + 1);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(boolean_pointer, 1) == booleans + 0);
+        nkr_TEST(nkr::os::atomic::Assign_Subtract(boolean_pointer, -1) == booleans + 1);
     }
 
     void_t Exchange_Subtract()
@@ -446,36 +446,36 @@ namespace nkr { namespace test_os { namespace atomic {
         nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == booleans + 1);
     }
 
-    void_t Or()
+    void_t Assign_Or()
     {
         wprintf(L"should atomically OR integers and return the new value");
 
         u8_t u8 = 0x0F;
-        nkr_TEST(nkr::os::atomic::Or(u8, 0xF0) == 0xFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(u8, 0xF0) == 0xFF);
 
         u16_t u16 = 0x00FF;
-        nkr_TEST(nkr::os::atomic::Or(u16, 0xFF00) == 0xFFFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(u16, 0xFF00) == 0xFFFF);
 
         u32_t u32 = 0x0000FFFF;
-        nkr_TEST(nkr::os::atomic::Or(u32, 0xFFFF0000) == 0xFFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(u32, 0xFFFF0000) == 0xFFFFFFFF);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 0x00000000FFFFFFFF;
-        nkr_TEST(nkr::os::atomic::Or(u64, 0xFFFFFFFF00000000) == 0xFFFFFFFFFFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(u64, 0xFFFFFFFF00000000) == 0xFFFFFFFFFFFFFFFF);
     #endif
 
         s8_t s8 = 0x0F;
-        nkr_TEST(nkr::os::atomic::Or(s8, 0x70) == 0x7F);
+        nkr_TEST(nkr::os::atomic::Assign_Or(s8, 0x70) == 0x7F);
 
         s16_t s16 = 0x00FF;
-        nkr_TEST(nkr::os::atomic::Or(s16, 0x7F00) == 0x7FFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(s16, 0x7F00) == 0x7FFF);
 
         s32_t s32 = 0x0000FFFF;
-        nkr_TEST(nkr::os::atomic::Or(s32, 0x7FFF0000) == 0x7FFFFFFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(s32, 0x7FFF0000) == 0x7FFFFFFF);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = 0x00000000FFFFFFFF;
-        nkr_TEST(nkr::os::atomic::Or(s64, 0x7FFFFFFF00000000) == 0x7FFFFFFFFFFFFFFF);
+        nkr_TEST(nkr::os::atomic::Assign_Or(s64, 0x7FFFFFFF00000000) == 0x7FFFFFFFFFFFFFFF);
     #endif
     }
 
@@ -520,36 +520,36 @@ namespace nkr { namespace test_os { namespace atomic {
     #endif
     }
 
-    void_t And()
+    void_t Assign_And()
     {
         wprintf(L"should atomically AND integers and return the new value");
 
         u8_t u8 = 0x0F;
-        nkr_TEST(nkr::os::atomic::And(u8, 0xF0) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(u8, 0xF0) == 0x0);
 
         u16_t u16 = 0x00FF;
-        nkr_TEST(nkr::os::atomic::And(u16, 0xFF00) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(u16, 0xFF00) == 0x0);
 
         u32_t u32 = 0x0000FFFF;
-        nkr_TEST(nkr::os::atomic::And(u32, 0xFFFF0000) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(u32, 0xFFFF0000) == 0x0);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 0x00000000FFFFFFFF;
-        nkr_TEST(nkr::os::atomic::And(u64, 0xFFFFFFFF00000000) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(u64, 0xFFFFFFFF00000000) == 0x0);
     #endif
 
         s8_t s8 = 0x0F;
-        nkr_TEST(nkr::os::atomic::And(s8, 0x70) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(s8, 0x70) == 0x0);
 
         s16_t s16 = 0x00FF;
-        nkr_TEST(nkr::os::atomic::And(s16, 0x7F00) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(s16, 0x7F00) == 0x0);
 
         s32_t s32 = 0x0000FFFF;
-        nkr_TEST(nkr::os::atomic::And(s32, 0x7FFF0000) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(s32, 0x7FFF0000) == 0x0);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = 0x00000000FFFFFFFF;
-        nkr_TEST(nkr::os::atomic::And(s64, 0x7FFFFFFF00000000) == 0x0);
+        nkr_TEST(nkr::os::atomic::Assign_And(s64, 0x7FFFFFFF00000000) == 0x0);
     #endif
     }
 
@@ -594,36 +594,36 @@ namespace nkr { namespace test_os { namespace atomic {
     #endif
     }
 
-    void_t Xor()
+    void_t Assign_Xor()
     {
         wprintf(L"should atomically XOR integers and return the new value");
 
         u8_t u8 = 0xFF;
-        nkr_TEST(nkr::os::atomic::Xor(u8, 0x01) == 0xFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(u8, 0x01) == 0xFE);
 
         u16_t u16 = 0xFFFF;
-        nkr_TEST(nkr::os::atomic::Xor(u16, 0x0001) == 0xFFFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(u16, 0x0001) == 0xFFFE);
 
         u32_t u32 = 0xFFFFFFFF;
-        nkr_TEST(nkr::os::atomic::Xor(u32, 0x00000001) == 0xFFFFFFFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(u32, 0x00000001) == 0xFFFFFFFE);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 0xFFFFFFFFFFFFFFFF;
-        nkr_TEST(nkr::os::atomic::Xor(u64, 0x0000000000000001) == 0xFFFFFFFFFFFFFFFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(u64, 0x0000000000000001) == 0xFFFFFFFFFFFFFFFE);
     #endif
 
         s8_t s8 = 0x7F;
-        nkr_TEST(nkr::os::atomic::Xor(s8, 0x01) == 0x7E);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(s8, 0x01) == 0x7E);
 
         s16_t s16 = 0x7FFF;
-        nkr_TEST(nkr::os::atomic::Xor(s16, 0x0001) == 0x7FFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(s16, 0x0001) == 0x7FFE);
 
         s32_t s32 = 0x7FFFFFFF;
-        nkr_TEST(nkr::os::atomic::Xor(s32, 0x00000001) == 0x7FFFFFFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(s32, 0x00000001) == 0x7FFFFFFE);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = 0x7FFFFFFFFFFFFFFF;
-        nkr_TEST(nkr::os::atomic::Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFE);
+        nkr_TEST(nkr::os::atomic::Assign_Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFE);
     #endif
     }
 

@@ -22,19 +22,19 @@ namespace nkr { namespace test_os { namespace atomic {
     void_t  Exchange_Assign();
     void_t  Exchange_Assign_If_Equals();
 
-    void_t  Add();
+    void_t  Assign_Add();
     void_t  Exchange_Add();
 
-    void_t  Subtract();
+    void_t  Assign_Subtract();
     void_t  Exchange_Subtract();
 
-    void_t  Or();
+    void_t  Assign_Or();
     void_t  Exchange_Or();
 
-    void_t  And();
+    void_t  Assign_And();
     void_t  Exchange_And();
 
-    void_t  Xor();
+    void_t  Assign_Xor();
     void_t  Exchange_Xor();
 
 }}}
