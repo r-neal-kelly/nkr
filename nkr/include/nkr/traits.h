@@ -65,7 +65,7 @@ namespace nkr {
         requires(type_p instance) { instance - 1; };
 
     template <typename type_p>
-    concept atomicable_tr =
+    concept atomic_tr =
         (std::is_integral<type_p>::value ||
          std::is_pointer<type_p>::value ||
          std::is_null_pointer<type_p>::value) &&

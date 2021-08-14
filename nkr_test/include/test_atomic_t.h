@@ -27,7 +27,6 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $object
 namespace nkr { namespace test_atomic_t { namespace $default { namespace $method {
 
     void_t  Access();
-    void_t  Exchange();
 
 }}}}
 
@@ -77,7 +76,6 @@ namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $object 
 namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $method {
 
     void_t  Access();
-    void_t  Exchange();
 
 }}}}
 
@@ -98,7 +96,7 @@ namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $operato
 namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $object {
 
     void_t  Constructor_Default();
-    void_t  Constructor_Values();
+    void_t  Constructor_Value_Pointer();
     void_t  Constructor_Copy();
     void_t  Constructor_Move();
     void_t  Assigner_Copy();
@@ -110,13 +108,12 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $object
 namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method {
 
     void_t  Access();
-    void_t  Exchange();
 
 }}}}
 
 namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $cast {
 
-    void_t  Values_t();
+    void_t  Value_t_Pointer();
 
 }}}}
 
@@ -144,7 +141,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $operat
 namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $object {
 
     void_t  Constructor_Default();
-    void_t  Constructor_Values();
+    void_t  Constructor_Value_Pointer();
     void_t  Constructor_Copy();
     void_t  Constructor_Move();
     void_t  Assigner_Copy();
@@ -156,13 +153,12 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $o
 namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $method {
 
     void_t  Access();
-    void_t  Exchange();
 
 }}}}
 
 namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $cast {
 
-    void_t  Values_t();
+    void_t  Value_t_Pointer();
 
 }}}}
 

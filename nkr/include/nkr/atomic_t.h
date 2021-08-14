@@ -29,8 +29,35 @@ namespace nkr {
 
     public:
         value_t Access() const;
+
         template <integral_tr integral_p>
-        value_t Exchange(integral_p with);
+        value_t Assign(integral_p with);
+        template <integral_tr integral_p>
+        value_t Exchange_Assign(integral_p with);
+        template <integral_tr integral_a_p, integral_tr integral_b_p>
+        value_t Exchange_Assign_If_Equals(integral_a_p with, integral_b_p target);
+
+        template <integral_tr integral_p>
+        value_t Add(integral_p with);
+        template <integral_tr integral_p>
+        value_t Exchange_Add(integral_p with);
+        template <integral_tr integral_p>
+        value_t Subtract(integral_p with);
+        template <integral_tr integral_p>
+        value_t Exchange_Subtract(integral_p with);
+
+        template <integral_tr integral_p>
+        value_t Or(integral_p with);
+        template <integral_tr integral_p>
+        value_t Exchange_Or(integral_p with);
+        template <integral_tr integral_p>
+        value_t And(integral_p with);
+        template <integral_tr integral_p>
+        value_t Exchange_And(integral_p with);
+        template <integral_tr integral_p>
+        value_t Xor(integral_p with);
+        template <integral_tr integral_p>
+        value_t Exchange_Xor(integral_p with);
 
     public:
         operator    value_t() const;
@@ -69,7 +96,9 @@ namespace nkr {
         value_t operator ^=(integral_p other);
 
     public:
-        static_assert(atomicable_tr<value_p>, "value_p must be atomicable.");
+        static_assert(std::is_integral<value_t>::value &&
+                      (sizeof(value_t) <= sizeof(word_t)),
+                      "invalid atomic value_t.");
     };
 
     template <>
@@ -92,7 +121,10 @@ namespace nkr {
 
     public:
         value_t Access() const;
-        value_t Exchange(value_t with);
+
+        value_t Assign(value_t with);
+        value_t Exchange_Assign(value_t with);
+        value_t Exchange_Assign_If_Equals(value_t with, value_t target);
 
     public:
         operator    value_t() const;
@@ -108,14 +140,13 @@ namespace nkr {
     {
     public:
         using value_t   = value_p;
-        using values_t  = value_p*;
 
     private:
-        volatile values_t   values;
+        value_t* volatile   value;
 
     public:
         atomic_t();
-        atomic_t(values_t values);
+        atomic_t(value_t* value);
         atomic_t(const atomic_t& other);
         atomic_t(atomic_t&& other) noexcept;
         atomic_t& operator =(const atomic_t& other);
@@ -123,33 +154,47 @@ namespace nkr {
         ~atomic_t();
 
     public:
-        values_t    Access() const;
-        template <pointer_tr pointer_p>
-        values_t    Exchange(pointer_p with);
-
-    public:
-        operator    values_t() const;
-
-    public:
-        values_t    operator ()() const;
+        value_t*    Access() const;
 
         template <pointer_tr pointer_p>
-        values_t    operator =(pointer_p other);
+        value_t*    Assign(pointer_p with);
+        template <pointer_tr pointer_p>
+        value_t*    Exchange_Assign(pointer_p with);
+        template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
+        value_t*    Exchange_Assign_If_Equals(pointer_a_p with, pointer_b_p target);
 
         template <integral_tr integral_p>
-        values_t    operator +(integral_p other) const;
+        value_t*    Add(integral_p with);
         template <integral_tr integral_p>
-        values_t    operator -(integral_p other) const;
+        value_t*    Exchange_Add(integral_p with);
         template <integral_tr integral_p>
-        values_t    operator +=(integral_p other);
+        value_t*    Subtract(integral_p with);
         template <integral_tr integral_p>
-        values_t    operator -=(integral_p other);
-        values_t    operator ++();
-        values_t    operator ++(int);
-        values_t    operator --();
-        values_t    operator --(int);
+        value_t*    Exchange_Subtract(integral_p with);
 
-        values_t    operator ->() const;
+    public:
+        operator    value_t*() const;
+
+    public:
+        value_t*    operator ()() const;
+
+        template <pointer_tr pointer_p>
+        value_t*    operator =(pointer_p other);
+
+        template <integral_tr integral_p>
+        value_t*    operator +(integral_p other) const;
+        template <integral_tr integral_p>
+        value_t*    operator -(integral_p other) const;
+        template <integral_tr integral_p>
+        value_t*    operator +=(integral_p other);
+        template <integral_tr integral_p>
+        value_t*    operator -=(integral_p other);
+        value_t*    operator ++();
+        value_t*    operator ++(int);
+        value_t*    operator --();
+        value_t*    operator --(int);
+
+        value_t*    operator ->() const;
         value_t&    operator *() const;
         template <integral_tr integral_p>
         value_t&    operator [](integral_p index) const;
@@ -160,14 +205,13 @@ namespace nkr {
     {
     public:
         using value_t   = void_t;
-        using values_t  = void_t*;
 
     private:
-        volatile values_t   values;
+        value_t* volatile   value;
 
     public:
         atomic_t();
-        atomic_t(values_t values);
+        atomic_t(value_t* value);
         atomic_t(const atomic_t& other);
         atomic_t(atomic_t&& other) noexcept;
         atomic_t& operator =(const atomic_t& other);
@@ -175,18 +219,23 @@ namespace nkr {
         ~atomic_t();
 
     public:
-        values_t    Access() const;
-        template <pointer_tr pointer_p>
-        values_t    Exchange(pointer_p with);
-
-    public:
-        operator    values_t() const;
-
-    public:
-        values_t    operator ()() const;
+        value_t*    Access() const;
 
         template <pointer_tr pointer_p>
-        values_t    operator =(pointer_p other);
+        value_t*    Assign(pointer_p with);
+        template <pointer_tr pointer_p>
+        value_t*    Exchange_Assign(pointer_p with);
+        template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
+        value_t*    Exchange_Assign_If_Equals(pointer_a_p with, pointer_b_p target);
+
+    public:
+        operator    value_t*() const;
+
+    public:
+        value_t*    operator ()() const;
+
+        template <pointer_tr pointer_p>
+        value_t*    operator =(pointer_p other);
     };
 
 }

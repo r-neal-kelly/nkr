@@ -29,7 +29,7 @@ namespace nkr {
 
     template <typename value_p>
     inline atomic_t<value_p>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange(0))
+        value(other.Exchange_Assign(0))
     {
     }
 
@@ -46,7 +46,7 @@ namespace nkr {
     inline atomic_t<value_p>& atomic_t<value_p>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = other.Exchange(0);
+            this->value = other.Exchange_Assign(0);
         }
         return *this;
     }
@@ -58,135 +58,219 @@ namespace nkr {
     }
 
     template <typename value_p>
-    inline atomic_t<value_p>::value_t atomic_t<value_p>::Access() const
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
-    inline atomic_t<value_p>::value_t atomic_t<value_p>::Exchange(integral_p with)
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Assign(integral_p with)
+    {
+        return os::atomic::Assign(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Assign(integral_p with)
     {
         return os::atomic::Exchange_Assign(this->value, with);
     }
 
     template <typename value_p>
+    template <integral_tr integral_a_p, integral_tr integral_b_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Assign_If_Equals(integral_a_p with, integral_b_p target)
+    {
+        return os::atomic::Exchange_Assign_If_Equals(this->value, with, target);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Add(integral_p with)
+    {
+        return os::atomic::Add(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Add(integral_p with)
+    {
+        return os::atomic::Exchange_Add(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Subtract(integral_p with)
+    {
+        return os::atomic::Subtract(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Subtract(integral_p with)
+    {
+        return os::atomic::Exchange_Subtract(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Or(integral_p with)
+    {
+        return os::atomic::Or(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Or(integral_p with)
+    {
+        return os::atomic::Exchange_Or(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::And(integral_p with)
+    {
+        return os::atomic::And(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_And(integral_p with)
+    {
+        return os::atomic::Exchange_And(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Xor(integral_p with)
+    {
+        return os::atomic::Xor(this->value, with);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Xor(integral_p with)
+    {
+        return os::atomic::Exchange_Xor(this->value, with);
+    }
+
+    template <typename value_p>
     inline atomic_t<value_p>::operator value_t() const
     {
-        return os::atomic::Access(this->value);
+        return Access();
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator ()() const
     {
-        return os::atomic::Access(this->value);
+        return Access();
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator =(integral_p other)
     {
-        return os::atomic::Assign(this->value, other);
+        return Assign(other);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator +(integral_p other) const
     {
-        return os::atomic::Access(this->value) + other;
+        return Access() + other;
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator -(integral_p other) const
     {
-        return os::atomic::Access(this->value) - other;
+        return Access() - other;
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator +=(integral_p other)
     {
-        return os::atomic::Add(this->value, other);
+        return Add(other);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator -=(integral_p other)
     {
-        return os::atomic::Subtract(this->value, other);
+        return Subtract(other);
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator ++()
     {
-        return os::atomic::Add(this->value, 1);
+        return Add(1);
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator ++(int)
     {
-        return os::atomic::Exchange_Add(this->value, 1);
+        return Exchange_Add(1);
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator --()
     {
-        return os::atomic::Subtract(this->value, 1);
+        return Subtract(1);
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator --(int)
     {
-        return os::atomic::Exchange_Subtract(this->value, 1);
+        return Exchange_Subtract(1);
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator ~() const
     {
-        return ~os::atomic::Access(this->value);
+        return ~Access();
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator |(integral_p other) const
     {
-        return os::atomic::Access(this->value) | other;
+        return Access() | other;
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator &(integral_p other) const
     {
-        return os::atomic::Access(this->value) & other;
+        return Access() & other;
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator ^(integral_p other) const
     {
-        return os::atomic::Access(this->value) ^ other;
+        return Access() ^ other;
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator |=(integral_p other)
     {
-        return os::atomic::Or(this->value, other);
+        return Or(other);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator &=(integral_p other)
     {
-        return os::atomic::And(this->value, other);
+        return And(other);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p>::value_t atomic_t<value_p>::operator ^=(integral_p other)
     {
-        return os::atomic::Xor(this->value, other);
+        return Xor(other);
     }
 
     inline atomic_t<bool_t>::atomic_t() :
@@ -205,7 +289,7 @@ namespace nkr {
     }
 
     inline atomic_t<bool_t>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange(false))
+        value(other.Exchange_Assign(false))
     {
     }
 
@@ -220,7 +304,7 @@ namespace nkr {
     inline atomic_t<bool_t>& atomic_t<bool_t>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = other.Exchange(false);
+            this->value = other.Exchange_Assign(false);
         }
         return *this;
     }
@@ -230,52 +314,62 @@ namespace nkr {
         this->value = false;
     }
 
-    inline atomic_t<bool_t>::value_t atomic_t<bool_t>::Access() const
+    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
-    inline atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange(value_t with)
+    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Assign(value_t with)
+    {
+        return os::atomic::Assign(this->value, with);
+    }
+
+    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange_Assign(value_t with)
     {
         return os::atomic::Exchange_Assign(this->value, with);
     }
 
+    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange_Assign_If_Equals(value_t with, value_t target)
+    {
+        return os::atomic::Exchange_Assign_If_Equals(this->value, with, target);
+    }
+
     inline atomic_t<bool_t>::operator value_t() const
     {
-        return os::atomic::Access(this->value);
+        return Access();
     }
 
     inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::operator ()() const
     {
-        return os::atomic::Access(this->value);
+        return Access();
     }
 
     inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::operator =(value_t other)
     {
-        return os::atomic::Assign(this->value, other);
+        return Assign(other);
     }
 
     template <typename value_p>
     inline atomic_t<value_p*>::atomic_t() :
-        values(nullptr)
+        value(nullptr)
     {
     }
 
     template <typename value_p>
-    inline atomic_t<value_p*>::atomic_t(values_t values) :
-        values(values)
+    inline atomic_t<value_p*>::atomic_t(value_t* value) :
+        value(value)
     {
     }
 
     template <typename value_p>
     inline atomic_t<value_p*>::atomic_t(const atomic_t& other) :
-        values(other.Access())
+        value(other.Access())
     {
     }
 
     template <typename value_p>
     inline atomic_t<value_p*>::atomic_t(atomic_t&& other) noexcept :
-        values(other.Exchange(nullptr))
+        value(other.Exchange_Assign(nullptr))
     {
     }
 
@@ -283,7 +377,7 @@ namespace nkr {
     inline atomic_t<value_p*>& atomic_t<value_p*>::operator =(const atomic_t& other)
     {
         if (this != std::addressof(other)) {
-            this->values = other.Access();
+            this->value = other.Access();
         }
         return *this;
     }
@@ -292,7 +386,7 @@ namespace nkr {
     inline atomic_t<value_p*>& atomic_t<value_p*>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->values = other.Exchange(nullptr);
+            this->value = other.Exchange_Assign(nullptr);
         }
         return *this;
     }
@@ -300,136 +394,178 @@ namespace nkr {
     template <typename value_p>
     inline atomic_t<value_p*>::~atomic_t()
     {
-        this->values = nullptr;
+        this->value = nullptr;
     }
 
     template <typename value_p>
-    inline atomic_t<value_p*>::values_t atomic_t<value_p*>::Access() const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Access() const
     {
-        return os::atomic::Access(this->values);
-    }
-
-    template <typename value_p>
-    template <pointer_tr pointer_p>
-    inline atomic_t<value_p*>::values_t atomic_t<value_p*>::Exchange(pointer_p with)
-    {
-        return os::atomic::Exchange_Assign(this->values, with);
-    }
-
-    template <typename value_p>
-    inline atomic_t<value_p*>::operator values_t() const
-    {
-        return os::atomic::Access(this->values);
-    }
-
-    template <typename value_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator ()() const
-    {
-        return os::atomic::Access(this->values);
+        return os::atomic::Access(this->value);
     }
 
     template <typename value_p>
     template <pointer_tr pointer_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator =(pointer_p other)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign(pointer_p with)
     {
-        return os::atomic::Assign(this->values, other);
+        return os::atomic::Assign(this->value, with);
+    }
+
+    template <typename value_p>
+    template <pointer_tr pointer_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Assign(pointer_p with)
+    {
+        return os::atomic::Exchange_Assign(this->value, with);
+    }
+
+    template <typename value_p>
+    template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Assign_If_Equals(pointer_a_p with, pointer_b_p target)
+    {
+        return os::atomic::Exchange_Assign_If_Equals(this->value, with, target);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator +(integral_p other) const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Add(integral_p with)
     {
-        return os::atomic::Access(this->values) + other;
+        return os::atomic::Add(this->value, with);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator -(integral_p other) const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Add(integral_p with)
     {
-        return os::atomic::Access(this->values) - other;
+        return os::atomic::Exchange_Add(this->value, with);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator +=(integral_p other)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Subtract(integral_p with)
     {
-        return os::atomic::Add(this->values, other);
+        return os::atomic::Subtract(this->value, with);
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator -=(integral_p other)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Subtract(integral_p with)
     {
-        return os::atomic::Subtract(this->values, other);
+        return os::atomic::Exchange_Subtract(this->value, with);
     }
 
     template <typename value_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator ++()
+    inline atomic_t<value_p*>::operator value_t*() const
     {
-        return os::atomic::Add(this->values, 1);
+        return Access();
     }
 
     template <typename value_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator ++(int)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator ()() const
     {
-        return os::atomic::Exchange_Add(this->values, 1);
+        return Access();
     }
 
     template <typename value_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator --()
+    template <pointer_tr pointer_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator =(pointer_p other)
     {
-        return os::atomic::Subtract(this->values, 1);
+        return Assign(other);
     }
 
     template <typename value_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator --(int)
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator +(integral_p other) const
     {
-        return os::atomic::Exchange_Subtract(this->values, 1);
+        return Access() + other;
     }
 
     template <typename value_p>
-    inline typename atomic_t<value_p*>::values_t atomic_t<value_p*>::operator ->() const
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator -(integral_p other) const
     {
-        return os::atomic::Access(this->values);
+        return Access() - other;
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator +=(integral_p other)
+    {
+        return Add(other);
+    }
+
+    template <typename value_p>
+    template <integral_tr integral_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator -=(integral_p other)
+    {
+        return Subtract(other);
+    }
+
+    template <typename value_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator ++()
+    {
+        return Add(1);
+    }
+
+    template <typename value_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator ++(int)
+    {
+        return Exchange_Add(1);
+    }
+
+    template <typename value_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator --()
+    {
+        return Subtract(1);
+    }
+
+    template <typename value_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator --(int)
+    {
+        return Exchange_Subtract(1);
+    }
+
+    template <typename value_p>
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator ->() const
+    {
+        return Access();
     }
 
     template <typename value_p>
     inline typename atomic_t<value_p*>::value_t& atomic_t<value_p*>::operator *() const
     {
-        return *os::atomic::Access(this->values);
+        return *Access();
     }
 
     template <typename value_p>
     template <integral_tr integral_p>
     inline typename atomic_t<value_p*>::value_t& atomic_t<value_p*>::operator [](integral_p index) const
     {
-        return os::atomic::Access(this->values)[index];
+        return Access()[index];
     }
 
     inline atomic_t<void_t*>::atomic_t() :
-        values(nullptr)
+        value(nullptr)
     {
     }
 
-    inline atomic_t<void_t*>::atomic_t(values_t values) :
-        values(values)
+    inline atomic_t<void_t*>::atomic_t(value_t* value) :
+        value(value)
     {
     }
 
     inline atomic_t<void_t*>::atomic_t(const atomic_t& other) :
-        values(other.Access())
+        value(other.Access())
     {
     }
 
     inline atomic_t<void_t*>::atomic_t(atomic_t&& other) noexcept :
-        values(other.Exchange(nullptr))
+        value(other.Exchange_Assign(nullptr))
     {
     }
 
     inline atomic_t<void_t*>& atomic_t<void_t*>::operator =(const atomic_t& other)
     {
         if (this != std::addressof(other)) {
-            this->values = other.Access();
+            this->value = other.Access();
         }
         return *this;
     }
@@ -437,41 +573,53 @@ namespace nkr {
     inline atomic_t<void_t*>& atomic_t<void_t*>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->values = other.Exchange(nullptr);
+            this->value = other.Exchange_Assign(nullptr);
         }
         return *this;
     }
 
     inline atomic_t<void_t*>::~atomic_t()
     {
-        this->values = nullptr;
+        this->value = nullptr;
     }
 
-    inline atomic_t<void_t*>::values_t atomic_t<void_t*>::Access() const
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Access() const
     {
-        return os::atomic::Access(this->values);
-    }
-
-    template <pointer_tr pointer_p>
-    inline atomic_t<void_t*>::values_t atomic_t<void_t*>::Exchange(pointer_p with)
-    {
-        return os::atomic::Exchange_Assign(this->values, with);
-    }
-
-    inline atomic_t<void_t*>::operator values_t() const
-    {
-        return os::atomic::Access(this->values);
-    }
-
-    inline typename atomic_t<void_t*>::values_t atomic_t<void_t*>::operator ()() const
-    {
-        return os::atomic::Access(this->values);
+        return os::atomic::Access(this->value);
     }
 
     template <pointer_tr pointer_p>
-    inline typename atomic_t<void_t*>::values_t atomic_t<void_t*>::operator =(pointer_p other)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Assign(pointer_p with)
     {
-        return os::atomic::Assign(this->values, other);
+        return os::atomic::Assign(this->value, with);
+    }
+
+    template <pointer_tr pointer_p>
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_Assign(pointer_p with)
+    {
+        return os::atomic::Exchange_Assign(this->value, with);
+    }
+
+    template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_Assign_If_Equals(pointer_a_p with, pointer_b_p target)
+    {
+        return os::atomic::Exchange_Assign_If_Equals(this->value, with, target);
+    }
+
+    inline atomic_t<void_t*>::operator value_t*() const
+    {
+        return Access();
+    }
+
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::operator ()() const
+    {
+        return Access();
+    }
+
+    template <pointer_tr pointer_p>
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::operator =(pointer_p other)
+    {
+        return Assign(other);
     }
 
 }
