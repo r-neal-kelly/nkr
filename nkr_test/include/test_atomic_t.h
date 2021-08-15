@@ -27,20 +27,22 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $object
 namespace nkr { namespace test_atomic_t { namespace $default { namespace $method {
 
     void_t  Access();
-
     void_t  Assign();
-    void_t  Exchange_Assign();
-    void_t  Exchange_Assign_If_Equals();
+    void_t  Exchange();
+    void_t  Exchange_If_Equals();
 
     void_t  Assign_Add();
     void_t  Exchange_Add();
+
     void_t  Assign_Subtract();
     void_t  Exchange_Subtract();
 
     void_t  Assign_Or();
     void_t  Exchange_Or();
+
     void_t  Assign_And();
     void_t  Exchange_And();
+
     void_t  Assign_Xor();
     void_t  Exchange_Xor();
 
@@ -92,10 +94,9 @@ namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $object 
 namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $method {
 
     void_t  Access();
-
     void_t  Assign();
-    void_t  Exchange_Assign();
-    void_t  Exchange_Assign_If_Equals();
+    void_t  Exchange();
+    void_t  Exchange_If_Equals();
 
 }}}}
 
@@ -128,13 +129,13 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $object
 namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method {
 
     void_t  Access();
-
     void_t  Assign();
-    void_t  Exchange_Assign();
-    void_t  Exchange_Assign_If_Equals();
+    void_t  Exchange();
+    void_t  Exchange_If_Equals();
 
     void_t  Assign_Add();
     void_t  Exchange_Add();
+
     void_t  Assign_Subtract();
     void_t  Exchange_Subtract();
 
@@ -182,10 +183,9 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $o
 namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $method {
 
     void_t  Access();
-
     void_t  Assign();
-    void_t  Exchange_Assign();
-    void_t  Exchange_Assign_If_Equals();
+    void_t  Exchange();
+    void_t  Exchange_If_Equals();
 
 }}}}
 

@@ -29,7 +29,7 @@ namespace nkr {
 
     template <typename value_p>
     inline atomic_t<value_p>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange_Assign(0))
+        value(other.Exchange(0))
     {
     }
 
@@ -46,7 +46,7 @@ namespace nkr {
     inline atomic_t<value_p>& atomic_t<value_p>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = other.Exchange_Assign(0);
+            this->value = other.Exchange(0);
         }
         return *this;
     }
@@ -72,16 +72,16 @@ namespace nkr {
 
     template <typename value_p>
     template <integral_tr integral_p>
-    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Assign(integral_p value)
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange(integral_p value)
     {
-        return os::atomic::Exchange_Assign(this->value, value);
+        return os::atomic::Exchange(this->value, value);
     }
 
     template <typename value_p>
     template <integral_tr integral_a_p, integral_tr integral_b_p>
-    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_Assign_If_Equals(integral_a_p value, integral_b_p target)
+    inline typename atomic_t<value_p>::value_t atomic_t<value_p>::Exchange_If_Equals(integral_a_p value, integral_b_p target)
     {
-        return os::atomic::Exchange_Assign_If_Equals(this->value, value, target);
+        return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
     template <typename value_p>
@@ -289,7 +289,7 @@ namespace nkr {
     }
 
     inline atomic_t<bool_t>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange_Assign(false))
+        value(other.Exchange(false))
     {
     }
 
@@ -304,7 +304,7 @@ namespace nkr {
     inline atomic_t<bool_t>& atomic_t<bool_t>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = other.Exchange_Assign(false);
+            this->value = other.Exchange(false);
         }
         return *this;
     }
@@ -324,14 +324,14 @@ namespace nkr {
         return os::atomic::Assign(this->value, value);
     }
 
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange_Assign(value_t value)
+    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange(value_t value)
     {
-        return os::atomic::Exchange_Assign(this->value, value);
+        return os::atomic::Exchange(this->value, value);
     }
 
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange_Assign_If_Equals(value_t value, value_t target)
+    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange_If_Equals(value_t value, value_t target)
     {
-        return os::atomic::Exchange_Assign_If_Equals(this->value, value, target);
+        return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
     inline atomic_t<bool_t>::operator value_t() const
@@ -369,7 +369,7 @@ namespace nkr {
 
     template <typename value_p>
     inline atomic_t<value_p*>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange_Assign(nullptr))
+        value(other.Exchange(nullptr))
     {
     }
 
@@ -386,7 +386,7 @@ namespace nkr {
     inline atomic_t<value_p*>& atomic_t<value_p*>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = other.Exchange_Assign(nullptr);
+            this->value = other.Exchange(nullptr);
         }
         return *this;
     }
@@ -412,16 +412,16 @@ namespace nkr {
 
     template <typename value_p>
     template <pointer_tr pointer_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Assign(pointer_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange(pointer_p value)
     {
-        return os::atomic::Exchange_Assign(this->value, value);
+        return os::atomic::Exchange(this->value, value);
     }
 
     template <typename value_p>
     template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Assign_If_Equals(pointer_a_p value, pointer_b_p target)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_If_Equals(pointer_a_p value, pointer_b_p target)
     {
-        return os::atomic::Exchange_Assign_If_Equals(this->value, value, target);
+        return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
     template <typename value_p>
@@ -558,7 +558,7 @@ namespace nkr {
     }
 
     inline atomic_t<void_t*>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange_Assign(nullptr))
+        value(other.Exchange(nullptr))
     {
     }
 
@@ -573,7 +573,7 @@ namespace nkr {
     inline atomic_t<void_t*>& atomic_t<void_t*>::operator =(atomic_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = other.Exchange_Assign(nullptr);
+            this->value = other.Exchange(nullptr);
         }
         return *this;
     }
@@ -595,15 +595,15 @@ namespace nkr {
     }
 
     template <pointer_tr pointer_p>
-    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_Assign(pointer_p value)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange(pointer_p value)
     {
-        return os::atomic::Exchange_Assign(this->value, value);
+        return os::atomic::Exchange(this->value, value);
     }
 
     template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
-    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_Assign_If_Equals(pointer_a_p value, pointer_b_p target)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_If_Equals(pointer_a_p value, pointer_b_p target)
     {
-        return os::atomic::Exchange_Assign_If_Equals(this->value, value, target);
+        return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
     inline atomic_t<void_t*>::operator value_t*() const

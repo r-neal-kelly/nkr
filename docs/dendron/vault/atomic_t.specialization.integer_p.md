@@ -2,7 +2,7 @@
 id: JrHaS8tsuvHUZaSSndWH1
 title: integer_p
 desc: ''
-updated: 1628978307524
+updated: 1628981192336
 created: 1628978307524
 ---
 
@@ -39,23 +39,29 @@ Atomically sets its value to 0.
 - [[Exchange_If_Equals]]
 
 
-- [[Add_Access]]
-- [[Add_Assign]]
-- [[Add_Exchange]]
-- [[Subtract_Access]]
-- [[Subtract_Assign]]
-- [[Subtract_Exchange]]
+- [[Access_Add]]
+- [[Assign_Add]]
+- [[Exchange_Add]]
 
 
-- [[Or_Access]]
-- [[Or_Assign]]
-- [[Or_Exchange]]
-- [[And_Access]]
-- [[And_Assign]]
-- [[And_Exchange]]
-- [[Xor_Access]]
-- [[Xor_Assign]]
-- [[Xor_Exchange]]
+- [[Access_Subtract]]
+- [[Assign_Subtract]]
+- [[Exchange_Subtract]]
+
+
+- [[Access_Or]]
+- [[Assign_Or]]
+- [[Exchange_Or]]
+
+
+- [[Access_And]]
+- [[Assign_And]]
+- [[Exchange_And]]
+
+
+- [[Access_Xor]]
+- [[Assign_Xor]]
+- [[Exchange_Xor]]
 
 ## Casts
 

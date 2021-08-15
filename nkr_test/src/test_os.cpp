@@ -13,11 +13,9 @@ namespace nkr { namespace test_os {
         wprintf(L"os\n");
 
         nkr_TEST_FUNCTION(atomic::Access);
-        wprintf(L"\n");
-
         nkr_TEST_FUNCTION(atomic::Assign);
-        nkr_TEST_FUNCTION(atomic::Exchange_Assign);
-        nkr_TEST_FUNCTION(atomic::Exchange_Assign_If_Equals);
+        nkr_TEST_FUNCTION(atomic::Exchange);
+        nkr_TEST_FUNCTION(atomic::Exchange_If_Equals);
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION(atomic::Assign_Add);
@@ -146,131 +144,131 @@ namespace nkr { namespace test_os { namespace atomic {
         nkr_TEST(nkr::os::atomic::Assign(boolean_pointer, nullptr) == nullptr);
     }
 
-    void_t Exchange_Assign()
+    void_t Exchange()
     {
         wprintf(L"should atomically assign integers and pointers and return the initial value");
 
         bool_t boolean = false;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(boolean, true) == false);
+        nkr_TEST(nkr::os::atomic::Exchange(boolean, true) == false);
         nkr_TEST(nkr::os::atomic::Access(boolean) == true);
 
         u8_t u8 = 8;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(u8, 1) == 8);
+        nkr_TEST(nkr::os::atomic::Exchange(u8, 1) == 8);
         nkr_TEST(nkr::os::atomic::Access(u8) == 1);
 
         u16_t u16 = 16;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(u16, 1) == 16);
+        nkr_TEST(nkr::os::atomic::Exchange(u16, 1) == 16);
         nkr_TEST(nkr::os::atomic::Access(u16) == 1);
 
         u32_t u32 = 32;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(u32, 1) == 32);
+        nkr_TEST(nkr::os::atomic::Exchange(u32, 1) == 32);
         nkr_TEST(nkr::os::atomic::Access(u32) == 1);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 64;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(u64, 1) == 64);
+        nkr_TEST(nkr::os::atomic::Exchange(u64, 1) == 64);
         nkr_TEST(nkr::os::atomic::Access(u64) == 1);
     #endif
 
         s8_t s8 = -8;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(s8, -1) == -8);
+        nkr_TEST(nkr::os::atomic::Exchange(s8, -1) == -8);
         nkr_TEST(nkr::os::atomic::Access(s8) == -1);
 
         s16_t s16 = -16;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(s16, -1) == -16);
+        nkr_TEST(nkr::os::atomic::Exchange(s16, -1) == -16);
         nkr_TEST(nkr::os::atomic::Access(s16) == -1);
 
         s32_t s32 = -32;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(s32, -1) == -32);
+        nkr_TEST(nkr::os::atomic::Exchange(s32, -1) == -32);
         nkr_TEST(nkr::os::atomic::Access(s32) == -1);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = -64;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(s64, -1) == -64);
+        nkr_TEST(nkr::os::atomic::Exchange(s64, -1) == -64);
         nkr_TEST(nkr::os::atomic::Access(s64) == -1);
     #endif
 
         void_t* void_pointer = nullptr;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(void_pointer, &boolean) == nullptr);
+        nkr_TEST(nkr::os::atomic::Exchange(void_pointer, &boolean) == nullptr);
         nkr_TEST(nkr::os::atomic::Access(void_pointer) == &boolean);
 
         bool_t* boolean_pointer = &boolean;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign(boolean_pointer, nullptr) == &boolean);
+        nkr_TEST(nkr::os::atomic::Exchange(boolean_pointer, nullptr) == &boolean);
         nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == nullptr);
     }
 
-    void_t Exchange_Assign_If_Equals()
+    void_t Exchange_If_Equals()
     {
         wprintf(L"should atomically assign integers and pointers if they equal target and return the initial value");
 
         bool_t boolean = false;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(boolean, true, true) == false);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(boolean, true, true) == false);
         nkr_TEST(nkr::os::atomic::Access(boolean) == false);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(boolean, true, false) == false);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(boolean, true, false) == false);
         nkr_TEST(nkr::os::atomic::Access(boolean) == true);
 
         u8_t u8 = 8;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u8, 1, 1) == 8);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u8, 1, 1) == 8);
         nkr_TEST(nkr::os::atomic::Access(u8) == 8);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u8, 1, 8) == 8);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u8, 1, 8) == 8);
         nkr_TEST(nkr::os::atomic::Access(u8) == 1);
 
         u16_t u16 = 16;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u16, 1, 1) == 16);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u16, 1, 1) == 16);
         nkr_TEST(nkr::os::atomic::Access(u16) == 16);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u16, 1, 16) == 16);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u16, 1, 16) == 16);
         nkr_TEST(nkr::os::atomic::Access(u16) == 1);
 
         u32_t u32 = 32;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u32, 1, 1) == 32);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u32, 1, 1) == 32);
         nkr_TEST(nkr::os::atomic::Access(u32) == 32);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u32, 1, 32) == 32);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u32, 1, 32) == 32);
         nkr_TEST(nkr::os::atomic::Access(u32) == 1);
 
     #if defined(nkr_IS_64_BIT)
         u64_t u64 = 64;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u64, 1, 1) == 64);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u64, 1, 1) == 64);
         nkr_TEST(nkr::os::atomic::Access(u64) == 64);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(u64, 1, 64) == 64);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(u64, 1, 64) == 64);
         nkr_TEST(nkr::os::atomic::Access(u64) == 1);
     #endif
 
         s8_t s8 = -8;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s8, -1, -1) == -8);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s8, -1, -1) == -8);
         nkr_TEST(nkr::os::atomic::Access(s8) == -8);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s8, -1, -8) == -8);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s8, -1, -8) == -8);
         nkr_TEST(nkr::os::atomic::Access(s8) == -1);
 
         s16_t s16 = -16;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s16, -1, -1) == -16);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s16, -1, -1) == -16);
         nkr_TEST(nkr::os::atomic::Access(s16) == -16);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s16, -1, -16) == -16);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s16, -1, -16) == -16);
         nkr_TEST(nkr::os::atomic::Access(s16) == -1);
 
         s32_t s32 = -32;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s32, -1, -1) == -32);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s32, -1, -1) == -32);
         nkr_TEST(nkr::os::atomic::Access(s32) == -32);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s32, -1, -32) == -32);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s32, -1, -32) == -32);
         nkr_TEST(nkr::os::atomic::Access(s32) == -1);
 
     #if defined(nkr_IS_64_BIT)
         s64_t s64 = -64;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s64, -1, -1) == -64);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s64, -1, -1) == -64);
         nkr_TEST(nkr::os::atomic::Access(s64) == -64);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(s64, -1, -64) == -64);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(s64, -1, -64) == -64);
         nkr_TEST(nkr::os::atomic::Access(s64) == -1);
     #endif
 
         void_t* void_pointer = nullptr;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(void_pointer, &boolean, &boolean) == nullptr);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(void_pointer, &boolean, &boolean) == nullptr);
         nkr_TEST(nkr::os::atomic::Access(void_pointer) == nullptr);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(void_pointer, &boolean, nullptr) == nullptr);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(void_pointer, &boolean, nullptr) == nullptr);
         nkr_TEST(nkr::os::atomic::Access(void_pointer) == &boolean);
 
         bool_t* boolean_pointer = &boolean;
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(boolean_pointer, nullptr, nullptr) == &boolean);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(boolean_pointer, nullptr, nullptr) == &boolean);
         nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == &boolean);
-        nkr_TEST(nkr::os::atomic::Exchange_Assign_If_Equals(boolean_pointer, nullptr, &boolean) == &boolean);
+        nkr_TEST(nkr::os::atomic::Exchange_If_Equals(boolean_pointer, nullptr, &boolean) == &boolean);
         nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == nullptr);
     }
 

@@ -17,10 +17,9 @@ namespace nkr { namespace test_os {
 namespace nkr { namespace test_os { namespace atomic {
 
     void_t  Access();
-
     void_t  Assign();
-    void_t  Exchange_Assign();
-    void_t  Exchange_Assign_If_Equals();
+    void_t  Exchange();
+    void_t  Exchange_If_Equals();
 
     void_t  Assign_Add();
     void_t  Exchange_Add();

@@ -13,31 +13,30 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p   Access(const volatile atom_p& atom);
     template <pointer_tr atom_p>
     inline atom_p   Access(const volatile atom_p& atom);
-
     template <integral_tr atom_p>
     inline atom_p   Assign(volatile atom_p& atom, integral_tr auto with);
     template <pointer_tr atom_p>
     inline atom_p   Assign(volatile atom_p& atom, pointer_tr auto with);
     template <integral_8_tr atom_p>
-    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Exchange(volatile atom_p& atom, integral_tr auto with);
     template <integral_16_tr atom_p>
-    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Exchange(volatile atom_p& atom, integral_tr auto with);
     template <integral_32_tr atom_p>
-    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Exchange(volatile atom_p& atom, integral_tr auto with);
     template <integral_64_tr atom_p>
-    inline atom_p   Exchange_Assign(volatile atom_p& atom, integral_tr auto with);
+    inline atom_p   Exchange(volatile atom_p& atom, integral_tr auto with);
     template <pointer_tr atom_p>
-    inline atom_p   Exchange_Assign(volatile atom_p& atom, pointer_tr auto with);
+    inline atom_p   Exchange(volatile atom_p& atom, pointer_tr auto with);
     template <integral_8_tr atom_p>
-    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    inline atom_p   Exchange_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
     template <integral_16_tr atom_p>
-    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    inline atom_p   Exchange_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
     template <integral_32_tr atom_p>
-    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    inline atom_p   Exchange_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
     template <integral_64_tr atom_p>
-    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
+    inline atom_p   Exchange_If_Equals(volatile atom_p& atom, integral_tr auto with, integral_tr auto target);
     template <pointer_tr atom_p>
-    inline atom_p   Exchange_Assign_If_Equals(volatile atom_p& atom, pointer_tr auto with, pointer_tr auto target);
+    inline atom_p   Exchange_If_Equals(volatile atom_p& atom, pointer_tr auto with, pointer_tr auto target);
 
     template <integral_tr atom_p>
     inline atom_p   Assign_Add(volatile atom_p& atom, integral_tr auto with);
