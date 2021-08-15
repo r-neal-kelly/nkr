@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['nkr_5finitialize_5fstatic_5fsafely_325',['nkr_INITIALIZE_STATIC_SAFELY',['../intrinsic_8h.html#ae150be82cf7053d6efacc4469772681a',1,'intrinsic.h']]],
-  ['nkr_5fm_326',['nkr_M',['../intrinsic_8h.html#a22653ed8599e8d193c7346ad29dea5ed',1,'intrinsic.h']]],
-  ['nkr_5fw_327',['nkr_W',['../intrinsic_8h.html#a9f9fa92553891ea45988acbf5e88b671',1,'intrinsic.h']]]
-];
