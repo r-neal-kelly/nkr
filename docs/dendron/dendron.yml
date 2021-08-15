@@ -33,8 +33,8 @@ site:
     siteHierarchies:
         - root
     siteRootDir: docs
-    usePrettyRefs: false
-    title: nkr_docs
+    usePrettyRefs: true
+    title: nkr
     description: Everything to do with nkr
     duplicateNoteBehavior:
         action: useVault
