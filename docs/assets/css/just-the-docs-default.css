@@ -8609,7 +8609,7 @@ iframe {
   position: absolute;
   width: 100%;
   margin-left: 0px;
-  height: 36px;
+  /*height: 36px;*/
   z-index: 50;
 }
 .portal-container .portal-parent .portal-parent-fader-bottom {
@@ -8617,7 +8617,7 @@ iframe {
   width: 100%;
   bottom: 6px;
   margin-left: 0px;
-  height: 36px;
+  /*height: 36px;*/
   z-index: 50;
 }
 .portal-container .portal-parent .portal-parent-text {
