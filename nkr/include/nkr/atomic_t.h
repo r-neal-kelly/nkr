@@ -9,11 +9,11 @@
 
 namespace nkr {
 
-    template <typename value_p = word_t>
+    template <typename integer_p = word_t>
     class atomic_t
     {
     public:
-        using value_t   = value_p;
+        using value_t   = integer_p;
 
     public:
         static_assert(std::is_integral<value_t>::value, "invalid atomic value_t.");
