@@ -10,7 +10,7 @@ var searchData=
   ['address_7',['Address',['../d9/df4/classnkr_1_1pointer__t.html#a884ed8a7911db402aab89f7de4ba0211',1,'nkr::pointer_t']]],
   ['address_5ft_8',['address_t',['../dc/d0c/namespacenkr.html#a9b4dea010404ef09981a4a5058eee1da',1,'nkr']]],
   ['allocate_9',['allocate',['../d9/df1/classnkr_1_1allocator__heap__t.html#a7d97d2e35ed70f9717d86440892a6a3b',1,'nkr::allocator_heap_t']]],
-  ['allocate_10',['Allocate',['../d0/d97/namespacenkr_1_1os_1_1heap.html#a7f0636403b893aa8eab17eb0cf5e471e',1,'nkr::os::heap']]],
+  ['allocate_10',['Allocate',['../d0/d97/namespacenkr_1_1os_1_1heap.html#a9099c1e3b4fef5138d9050bc9eb64175',1,'nkr::os::heap']]],
   ['allocator_5fheap_5ft_11',['allocator_heap_t',['../d9/df1/classnkr_1_1allocator__heap__t.html',1,'nkr']]],
   ['allocator_5fheap_5ft_2eh_12',['allocator_heap_t.h',['../d1/da8/allocator__heap__t_8h.html',1,'']]],
   ['allocator_5fheap_5ft_2einl_13',['allocator_heap_t.inl',['../db/ddb/allocator__heap__t_8inl.html',1,'']]],

@@ -27,10 +27,10 @@ var os_8h =
     [ "Swap", "d0/dff/os_8h.html#a8cf28643c40236c24333226a06c0023e", null ],
     [ "Swap", "d0/dff/os_8h.html#ad7a5fe13841b256cfc3b3c455d420fdf", null ],
     [ "Swap", "d0/dff/os_8h.html#ae8d2a1dea656a16b4c9a51a276109fed", null ],
-    [ "Allocate", "d0/dff/os_8h.html#a7f0636403b893aa8eab17eb0cf5e471e", null ],
-    [ "Reallocate", "d0/dff/os_8h.html#a73004749fadfb050c0068c70931e4086", null ],
+    [ "Allocate", "d0/dff/os_8h.html#a9099c1e3b4fef5138d9050bc9eb64175", null ],
+    [ "Reallocate", "d0/dff/os_8h.html#a3300c417458eeb5c917097db92bd60b1", null ],
     [ "Deallocate", "d0/dff/os_8h.html#ab2534dd5aee7a59976428366c499f3b7", null ],
-    [ "Callocate", "d0/dff/os_8h.html#af0f970d9efa2a753307dc97280cd5e8b", null ],
-    [ "Recallocate", "d0/dff/os_8h.html#a352074b26c5fd2f760da7191ffa90b98", null ],
+    [ "Callocate", "d0/dff/os_8h.html#a09134e7ce3f94e71a104ff2b7e9009b0", null ],
+    [ "Recallocate", "d0/dff/os_8h.html#a9c65848e81401b43bd2dd0c268930ee0", null ],
     [ "Decallocate", "d0/dff/os_8h.html#a53e53cbbfe39372a5015b3d4be8de224", null ]
 ];

@@ -12,5 +12,17 @@ var os_8inl =
     [ "Assign_Subtract", "da/de1/os_8inl.html#a6723c08275748163d54711f088fa54f7", null ],
     [ "Assign_Or", "da/de1/os_8inl.html#a9646b8ba534833c8fe011025c6fc9aa0", null ],
     [ "Assign_And", "da/de1/os_8inl.html#a45796db7abc00916a073b5b6e2373117", null ],
-    [ "Assign_Xor", "da/de1/os_8inl.html#af6ab948c2e931ce71650809f932f164f", null ]
+    [ "Assign_Xor", "da/de1/os_8inl.html#af6ab948c2e931ce71650809f932f164f", null ],
+    [ "Exchange", "da/de1/os_8inl.html#a519d34e6c46841d76b092a13695d10c0", null ],
+    [ "Exchange", "da/de1/os_8inl.html#a5d5c7c2c95967638d646438b26cc3c39", null ],
+    [ "Exchange_If_Equals", "da/de1/os_8inl.html#adab63008bd12723e2cac2708f4c04afe", null ],
+    [ "Exchange_If_Equals", "da/de1/os_8inl.html#abde535990e58b249feb78acc4e182d50", null ],
+    [ "Exchange_Add", "da/de1/os_8inl.html#afe13a23306ce4de911ff738aa6a725a5", null ],
+    [ "Exchange_Subtract", "da/de1/os_8inl.html#a85bebacc52702db97ed0f61bbad3ca15", null ],
+    [ "Exchange_Or", "da/de1/os_8inl.html#adcfb54a15237abf81e35932a19986896", null ],
+    [ "Exchange_And", "da/de1/os_8inl.html#a4019cda876dc7e3b6879a33b295bc719", null ],
+    [ "Exchange_Xor", "da/de1/os_8inl.html#a10d5e4088f738b6f869e8e16ca6a8d7c", null ],
+    [ "Swap", "da/de1/os_8inl.html#a8cf28643c40236c24333226a06c0023e", null ],
+    [ "Swap", "da/de1/os_8inl.html#ad7a5fe13841b256cfc3b3c455d420fdf", null ],
+    [ "Swap", "da/de1/os_8inl.html#ae8d2a1dea656a16b4c9a51a276109fed", null ]
 ];

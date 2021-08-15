@@ -28,6 +28,7 @@ var namespacenkr =
     [ "s32_t", "dc/d0c/namespacenkr.html#abf19417ec87029fdb4c581c0516a0c22", null ],
     [ "s64_t", "dc/d0c/namespacenkr.html#a9b463417edfe127cf88a223bc0955bcd", null ],
     [ "byte_t", "dc/d0c/namespacenkr.html#a8160404f5568b12b1b5163796d259d12", null ],
+    [ "word_t", "dc/d0c/namespacenkr.html#a6938f0fd61eac987b89d3207836a458b", null ],
     [ "size_t", "dc/d0c/namespacenkr.html#a87710d101176846a1c5f0874dc403aff", null ],
     [ "count_t", "dc/d0c/namespacenkr.html#a962bdb5ad1c5bc05d87739e09df6082b", null ],
     [ "index_t", "dc/d0c/namespacenkr.html#afcd45a8ee0ce155f841b4cadb25d9b4f", null ],
