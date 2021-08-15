@@ -27,13 +27,15 @@ scratch:
     dateFormat: y.MM.dd.HHmmss
     addBehavior: asOwnDomain
 site:
+    siteUrl: https://r-neal-kelly.github.io/
+    assetsPrefix: nkr
     copyAssets: true
     siteHierarchies:
         - root
     siteRootDir: docs
     usePrettyRefs: true
-    title: Dendron
-    description: Personal knowledge space
+    title: nkr_docs
+    description: Everything to do with nkr
     duplicateNoteBehavior:
         action: useVault
         payload:
