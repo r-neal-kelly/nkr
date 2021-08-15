@@ -2,11 +2,11 @@
 id: JrHaS8tsuvHUZaSSndWH1
 title: integer_p
 desc: ''
-updated: 1628981192336
+updated: 1628991156623
 created: 1628978307524
 ---
 
-This is the default specialization of [[atomic_t]]. Depending on the platform, most signed and unsigned integers are available, and at a bare minimum the `word_t` should be available.
+This is the default specialization of [[atomic_t]]. Depending on the platform, most signed and unsigned integers are available, and at a bare minimum the `word_t` should be available. This has the full suite of atomic methods, all Access, Assign, and Exchange calls.
 
 ## Aliases
 
@@ -34,33 +34,27 @@ Atomically sets its value to 0.
 ## Methods
 
 - [[Access]]
+- [[Access_Add]]
+- [[Access_Subtract]]
+- [[Access_Or]]
+- [[Access_And]]
+- [[Access_Xor]]
+
+
 - [[Assign]]
+- [[Assign_Add]]
+- [[Assign_Subtract]]
+- [[Assign_Or]]
+- [[Assign_And]]
+- [[Assign_Xor]]
+
+
 - [[Exchange]]
 - [[Exchange_If_Equals]]
-
-
-- [[Access_Add]]
-- [[Assign_Add]]
 - [[Exchange_Add]]
-
-
-- [[Access_Subtract]]
-- [[Assign_Subtract]]
 - [[Exchange_Subtract]]
-
-
-- [[Access_Or]]
-- [[Assign_Or]]
 - [[Exchange_Or]]
-
-
-- [[Access_And]]
-- [[Assign_And]]
 - [[Exchange_And]]
-
-
-- [[Access_Xor]]
-- [[Assign_Xor]]
 - [[Exchange_Xor]]
 
 ## Casts

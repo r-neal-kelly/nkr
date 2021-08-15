@@ -14,8 +14,6 @@
 
 namespace nkr { namespace os { namespace atomic {
 
-#if defined(nkr_IS_WINDOWS)
-
     template <integral_tr atom_p>
     inline atom_p Access(const volatile atom_p& atom)
     {
@@ -29,6 +27,48 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integral_tr atom_p>
+    inline atom_p Access_Add(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) + with;
+    }
+
+    template <pointer_tr atom_p>
+    inline atom_p Access_Add(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) + with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Access_Subtract(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) - with;
+    }
+
+    template <pointer_tr atom_p>
+    inline atom_p Access_Subtract(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) - with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Access_Or(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) | with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Access_And(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) & with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Access_Xor(const volatile atom_p& atom, integral_tr auto with)
+    {
+        return Access(atom) ^ with;
+    }
+
+    template <integral_tr atom_p>
     inline atom_p Assign(volatile atom_p& atom, integral_tr auto with)
     {
         return Exchange(atom, with), with;
@@ -37,10 +77,55 @@ namespace nkr { namespace os { namespace atomic {
     template <pointer_tr atom_p>
     inline atom_p Assign(volatile atom_p& atom, pointer_tr auto with)
     {
-        static_assert(std::is_convertible<decltype(with), atom_p>::value, "'with' should be convertible to 'atom'.");
+        static_assert(std::is_convertible<decltype(with), atom_p>::value,
+                      "'with' should be convertible to 'atom'.");
 
         return Exchange(atom, with), with;
     }
+
+    template <integral_tr atom_p>
+    inline atom_p Assign_Add(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_Add(atom, with) + with;
+    }
+
+    template <pointer_tr atom_p>
+    inline atom_p Assign_Add(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_Add(atom, with) + with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Assign_Subtract(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_Subtract(atom, with) - with;
+    }
+
+    template <pointer_tr atom_p>
+    inline atom_p Assign_Subtract(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_Subtract(atom, with) - with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Assign_Or(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_Or(atom, with) | with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Assign_And(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_And(atom, with) & with;
+    }
+
+    template <integral_tr atom_p>
+    inline atom_p Assign_Xor(volatile atom_p& atom, integral_tr auto with)
+    {
+        return Exchange_Xor(atom, with) ^ with;
+    }
+
+#if defined(nkr_IS_WINDOWS)
 
     template <integral_8_tr atom_p>
     inline atom_p Exchange(volatile atom_p& atom, integral_tr auto with)
@@ -64,7 +149,8 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p Exchange(volatile atom_p& atom, integral_tr auto with)
     {
     #if defined(nkr_IS_64_BIT)
-        return ::_InterlockedExchange64(reinterpret_cast<volatile long long*>(&atom), static_cast<long long>(with));
+        return ::_InterlockedExchange64(reinterpret_cast<volatile long long*>(&atom),
+                                        static_cast<long long>(with));
     #else
         static_assert(false, "64 bit atomic unavailable");
     #endif
@@ -73,7 +159,8 @@ namespace nkr { namespace os { namespace atomic {
     template <pointer_tr atom_p>
     inline atom_p Exchange(volatile atom_p& atom, pointer_tr auto with)
     {
-        static_assert(std::is_convertible<decltype(with), atom_p>::value, "'with' should be convertible to 'atom'.");
+        static_assert(std::is_convertible<decltype(with), atom_p>::value,
+                      "'with' should be convertible to 'atom'.");
 
         return static_cast<atom_p>(::_InterlockedExchangePointer(reinterpret_cast<void* volatile*>(&atom),
                                                                  static_cast<void*>(with)));
@@ -118,24 +205,14 @@ namespace nkr { namespace os { namespace atomic {
     template <pointer_tr atom_p>
     inline atom_p Exchange_If_Equals(volatile atom_p& atom, pointer_tr auto with, pointer_tr auto target)
     {
-        static_assert(std::is_convertible<decltype(with), atom_p>::value, "'with' should be convertible to 'atom'.");
-        static_assert(std::is_convertible<decltype(target), atom_p>::value, "'target' should be convertible to 'atom'.");
+        static_assert(std::is_convertible<decltype(with), atom_p>::value,
+                      "'with' should be convertible to 'atom'.");
+        static_assert(std::is_convertible<decltype(target), atom_p>::value,
+                      "'target' should be convertible to 'atom'.");
 
         return static_cast<atom_p>(::_InterlockedCompareExchangePointer(reinterpret_cast<void* volatile*>(&atom),
                                                                         static_cast<void*>(with),
                                                                         static_cast<void*>(target)));
-    }
-
-    template <integral_tr atom_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_Add(atom, with) + with;
-    }
-
-    template <pointer_tr atom_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_Add(atom, with) + with;
     }
 
     template <integral_8_tr atom_p>
@@ -162,7 +239,8 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p Exchange_Add(volatile atom_p& atom, integral_tr auto with)
     {
     #if defined(nkr_IS_64_BIT)
-        return ::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom), static_cast<long long>(with));
+        return ::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom),
+                                           static_cast<long long>(with));
     #else
         static_assert(false, "64 bit atomic unavailable");
     #endif
@@ -173,18 +251,6 @@ namespace nkr { namespace os { namespace atomic {
     {
         return reinterpret_cast<atom_p>(Exchange_Add(reinterpret_cast<volatile address_t&>(atom),
                                                      sizeof(std::remove_pointer_t<atom_p>) * with));
-    }
-
-    template <integral_tr atom_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_Subtract(atom, with) - with;
-    }
-
-    template <pointer_tr atom_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_Subtract(atom, with) - with;
     }
 
     template <integral_8_tr atom_p>
@@ -211,7 +277,8 @@ namespace nkr { namespace os { namespace atomic {
     inline atom_p Exchange_Subtract(volatile atom_p& atom, integral_tr auto with)
     {
     #if defined(nkr_IS_64_BIT)
-        return ::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom), -static_cast<long long>(with));
+        return ::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom),
+                                           -static_cast<long long>(with));
     #else
         static_assert(false, "64 bit atomic unavailable");
     #endif
@@ -222,12 +289,6 @@ namespace nkr { namespace os { namespace atomic {
     {
         return reinterpret_cast<atom_p>(Exchange_Subtract(reinterpret_cast<volatile address_t&>(atom),
                                                           sizeof(std::remove_pointer_t<atom_p>) * with));
-    }
-
-    template <integral_tr atom_p>
-    inline atom_p Assign_Or(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_Or(atom, with) | with;
     }
 
     template <integral_8_tr atom_p>
@@ -260,12 +321,6 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    template <integral_tr atom_p>
-    inline atom_p Assign_And(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_And(atom, with) & with;
-    }
-
     template <integral_8_tr atom_p>
     inline atom_p Exchange_And(volatile atom_p& atom, integral_tr auto with)
     {
@@ -294,12 +349,6 @@ namespace nkr { namespace os { namespace atomic {
     #else
         static_assert(false, "64 bit atomic unavailable");
     #endif
-    }
-
-    template <integral_tr atom_p>
-    inline atom_p Assign_Xor(volatile atom_p& atom, integral_tr auto with)
-    {
-        return Exchange_Xor(atom, with) ^ with;
     }
 
     template <integral_8_tr atom_p>

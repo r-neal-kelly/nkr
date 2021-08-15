@@ -22,28 +22,27 @@ namespace nkr { namespace test_atomic_t {
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($default::$method::Access);
+        nkr_TEST_FUNCTION($default::$method::Access_Add);
+        nkr_TEST_FUNCTION($default::$method::Access_Subtract);
+        nkr_TEST_FUNCTION($default::$method::Access_Or);
+        nkr_TEST_FUNCTION($default::$method::Access_And);
+        nkr_TEST_FUNCTION($default::$method::Access_Xor);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($default::$method::Assign);
+        nkr_TEST_FUNCTION($default::$method::Assign_Add);
+        nkr_TEST_FUNCTION($default::$method::Assign_Subtract);
+        nkr_TEST_FUNCTION($default::$method::Assign_Or);
+        nkr_TEST_FUNCTION($default::$method::Assign_And);
+        nkr_TEST_FUNCTION($default::$method::Assign_Xor);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($default::$method::Exchange);
         nkr_TEST_FUNCTION($default::$method::Exchange_If_Equals);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($default::$method::Assign_Add);
         nkr_TEST_FUNCTION($default::$method::Exchange_Add);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($default::$method::Assign_Subtract);
         nkr_TEST_FUNCTION($default::$method::Exchange_Subtract);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($default::$method::Assign_Or);
         nkr_TEST_FUNCTION($default::$method::Exchange_Or);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($default::$method::Assign_And);
         nkr_TEST_FUNCTION($default::$method::Exchange_And);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($default::$method::Assign_Xor);
         nkr_TEST_FUNCTION($default::$method::Exchange_Xor);
         wprintf(L"\n");
 
@@ -85,7 +84,11 @@ namespace nkr { namespace test_atomic_t {
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($bool_t::$method::Access);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($bool_t::$method::Assign);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($bool_t::$method::Exchange);
         nkr_TEST_FUNCTION($bool_t::$method::Exchange_If_Equals);
         wprintf(L"\n");
@@ -109,16 +112,18 @@ namespace nkr { namespace test_atomic_t {
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($pointer::$method::Access);
+        nkr_TEST_FUNCTION($pointer::$method::Access_Add);
+        nkr_TEST_FUNCTION($pointer::$method::Access_Subtract);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($pointer::$method::Assign);
+        nkr_TEST_FUNCTION($pointer::$method::Assign_Add);
+        nkr_TEST_FUNCTION($pointer::$method::Assign_Subtract);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($pointer::$method::Exchange);
         nkr_TEST_FUNCTION($pointer::$method::Exchange_If_Equals);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($pointer::$method::Assign_Add);
         nkr_TEST_FUNCTION($pointer::$method::Exchange_Add);
-        wprintf(L"\n");
-
-        nkr_TEST_FUNCTION($pointer::$method::Assign_Subtract);
         nkr_TEST_FUNCTION($pointer::$method::Exchange_Subtract);
         wprintf(L"\n");
 
@@ -156,7 +161,11 @@ namespace nkr { namespace test_atomic_t {
         wprintf(L"\n");
 
         nkr_TEST_FUNCTION($void_pointer::$method::Access);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($void_pointer::$method::Assign);
+        wprintf(L"\n");
+
         nkr_TEST_FUNCTION($void_pointer::$method::Exchange);
         nkr_TEST_FUNCTION($void_pointer::$method::Exchange_If_Equals);
         wprintf(L"\n");
@@ -248,8 +257,53 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
     {
         wprintf(L"should return value");
 
-        atomic_t<word_t> word(1);
+        const atomic_t<word_t> word(1);
         nkr_TEST(word.Access() == 1);
+    }
+
+    void_t Access_Add()
+    {
+        wprintf(L"should return added value without changing its value");
+
+        const atomic_t<word_t> word(1);
+        nkr_TEST(word.Access_Add(1) == 2);
+        nkr_TEST(word == 1);
+    }
+
+    void_t Access_Subtract()
+    {
+        wprintf(L"should return subtracted value without changing its value");
+
+        const atomic_t<word_t> word(1);
+        nkr_TEST(word.Access_Subtract(1) == 0);
+        nkr_TEST(word == 1);
+    }
+
+    void_t Access_Or()
+    {
+        wprintf(L"should return or'd value without changing its value");
+
+        const atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Access_Or(0xF0) == 0xFF);
+        nkr_TEST(word == 0x0F);
+    }
+
+    void_t Access_And()
+    {
+        wprintf(L"should return and'd value without changing its value");
+
+        const atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Access_And(0xF0) == 0x00);
+        nkr_TEST(word == 0x0F);
+    }
+
+    void_t Access_Xor()
+    {
+        wprintf(L"should return xor'd value without changing its value");
+
+        const atomic_t<word_t> word(0xFF);
+        nkr_TEST(word.Access_Xor(0x01) == 0xFE);
+        nkr_TEST(word == 0xFF);
     }
 
     void_t Assign()
@@ -259,6 +313,51 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         atomic_t<word_t> word(1);
         nkr_TEST(word.Assign(0) == 0);
         nkr_TEST(word == 0);
+    }
+
+    void_t Assign_Add()
+    {
+        wprintf(L"should set added value and return the new value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Assign_Add(1) == 2);
+        nkr_TEST(word == 2);
+    }
+
+    void_t Assign_Subtract()
+    {
+        wprintf(L"should set subtracted value and return the new value");
+
+        atomic_t<word_t> word(1);
+        nkr_TEST(word.Assign_Subtract(1) == 0);
+        nkr_TEST(word == 0);
+    }
+
+    void_t Assign_Or()
+    {
+        wprintf(L"should set or'd value and return the new value");
+
+        atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Assign_Or(0xF0) == 0xFF);
+        nkr_TEST(word == 0xFF);
+    }
+
+    void_t Assign_And()
+    {
+        wprintf(L"should set and'd value and return the new value");
+
+        atomic_t<word_t> word(0x0F);
+        nkr_TEST(word.Assign_And(0xF0) == 0x00);
+        nkr_TEST(word == 0x00);
+    }
+
+    void_t Assign_Xor()
+    {
+        wprintf(L"should set xor'd value and return the new value");
+
+        atomic_t<word_t> word(0xFF);
+        nkr_TEST(word.Assign_Xor(0x01) == 0xFE);
+        nkr_TEST(word == 0xFE);
     }
 
     void_t Exchange()
@@ -281,15 +380,6 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         nkr_TEST(word == 0);
     }
 
-    void_t Assign_Add()
-    {
-        wprintf(L"should set added value and return the new value");
-
-        atomic_t<word_t> word(1);
-        nkr_TEST(word.Assign_Add(1) == 2);
-        nkr_TEST(word == 2);
-    }
-
     void_t Exchange_Add()
     {
         wprintf(L"should set added value and return the old value");
@@ -297,15 +387,6 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         atomic_t<word_t> word(1);
         nkr_TEST(word.Exchange_Add(1) == 1);
         nkr_TEST(word == 2);
-    }
-
-    void_t Assign_Subtract()
-    {
-        wprintf(L"should set subtracted value and return the new value");
-
-        atomic_t<word_t> word(1);
-        nkr_TEST(word.Assign_Subtract(1) == 0);
-        nkr_TEST(word == 0);
     }
 
     void_t Exchange_Subtract()
@@ -317,15 +398,6 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         nkr_TEST(word == 0);
     }
 
-    void_t Assign_Or()
-    {
-        wprintf(L"should set or'd value and return the new value");
-
-        atomic_t<word_t> word(0x0F);
-        nkr_TEST(word.Assign_Or(0xF0) == 0xFF);
-        nkr_TEST(word == 0xFF);
-    }
-
     void_t Exchange_Or()
     {
         wprintf(L"should set or'd value and return the old value");
@@ -335,15 +407,6 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         nkr_TEST(word == 0xFF);
     }
 
-    void_t Assign_And()
-    {
-        wprintf(L"should set and'd value and return the new value");
-
-        atomic_t<word_t> word(0x0F);
-        nkr_TEST(word.Assign_And(0xF0) == 0x00);
-        nkr_TEST(word == 0x00);
-    }
-
     void_t Exchange_And()
     {
         wprintf(L"should set and'd value and return the old value");
@@ -351,15 +414,6 @@ namespace nkr { namespace test_atomic_t { namespace $default { namespace $method
         atomic_t<word_t> word(0x0F);
         nkr_TEST(word.Exchange_And(0xF0) == 0x0F);
         nkr_TEST(word == 0x00);
-    }
-
-    void_t Assign_Xor()
-    {
-        wprintf(L"should set xor'd value and return the new value");
-
-        atomic_t<word_t> word(0xFF);
-        nkr_TEST(word.Assign_Xor(0x01) == 0xFE);
-        nkr_TEST(word == 0xFE);
     }
 
     void_t Exchange_Xor()
@@ -624,7 +678,7 @@ namespace nkr { namespace test_atomic_t { namespace $bool_t { namespace $method 
     {
         wprintf(L"should return value");
 
-        atomic_t<bool_t> boolean(true);
+        const atomic_t<bool_t> boolean(true);
         nkr_TEST(boolean.Access() == true);
     }
 
@@ -782,8 +836,28 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method
         wprintf(L"should return value");
 
         word_t word = 1;
-        atomic_t<word_t*> pointer(&word);
+        const atomic_t<word_t*> pointer(&word);
         nkr_TEST(pointer.Access() == &word);
+    }
+
+    void_t Access_Add()
+    {
+        wprintf(L"should return added value without changing its value");
+
+        word_t words[2] = { 0, 1 };
+        const atomic_t<word_t*> pointer(words + 0);
+        nkr_TEST(pointer.Access_Add(1) == words + 1);
+        nkr_TEST(pointer == words + 0);
+    }
+
+    void_t Access_Subtract()
+    {
+        wprintf(L"should return subtracted value without changing its value");
+
+        word_t words[2] = { 0, 1 };
+        const atomic_t<word_t*> pointer(words + 1);
+        nkr_TEST(pointer.Access_Subtract(1) == words + 0);
+        nkr_TEST(pointer == words + 1);
     }
 
     void_t Assign()
@@ -794,6 +868,26 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method
         atomic_t<word_t*> pointer(&word);
         nkr_TEST(pointer.Assign(nullptr) == nullptr);
         nkr_TEST(pointer == nullptr);
+    }
+
+    void_t Assign_Add()
+    {
+        wprintf(L"should set added value and return the new value");
+
+        word_t words[2] = { 0, 1 };
+        atomic_t<word_t*> pointer(words + 0);
+        nkr_TEST(pointer.Assign_Add(1) == words + 1);
+        nkr_TEST(pointer == words + 1);
+    }
+
+    void_t Assign_Subtract()
+    {
+        wprintf(L"should set subtracted value and return the new value");
+
+        word_t words[2] = { 0, 1 };
+        atomic_t<word_t*> pointer(words + 1);
+        nkr_TEST(pointer.Assign_Subtract(1) == words + 0);
+        nkr_TEST(pointer == words + 0);
     }
 
     void_t Exchange()
@@ -818,16 +912,6 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method
         nkr_TEST(pointer == nullptr);
     }
 
-    void_t Assign_Add()
-    {
-        wprintf(L"should set added value and return the new value");
-
-        word_t words[2] = { 0, 1 };
-        atomic_t<word_t*> pointer(words + 0);
-        nkr_TEST(pointer.Assign_Add(1) == words + 1);
-        nkr_TEST(pointer == words + 1);
-    }
-
     void_t Exchange_Add()
     {
         wprintf(L"should set added value and return the old value");
@@ -836,16 +920,6 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $method
         atomic_t<word_t*> pointer(words + 0);
         nkr_TEST(pointer.Exchange_Add(1) == words + 0);
         nkr_TEST(pointer == words + 1);
-    }
-
-    void_t Assign_Subtract()
-    {
-        wprintf(L"should set subtracted value and return the new value");
-
-        word_t words[2] = { 0, 1 };
-        atomic_t<word_t*> pointer(words + 1);
-        nkr_TEST(pointer.Assign_Subtract(1) == words + 0);
-        nkr_TEST(pointer == words + 0);
     }
 
     void_t Exchange_Subtract()
@@ -1094,7 +1168,7 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $m
         wprintf(L"should return value");
 
         word_t word = 1;
-        atomic_t<void_t*> pointer(&word);
+        const atomic_t<void_t*> pointer(&word);
         nkr_TEST(pointer.Access() == &word);
     }
 

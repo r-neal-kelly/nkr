@@ -17,23 +17,25 @@ namespace nkr { namespace test_os {
 namespace nkr { namespace test_os { namespace atomic {
 
     void_t  Access();
+    void_t  Access_Add();
+    void_t  Access_Subtract();
+    void_t  Access_Or();
+    void_t  Access_And();
+    void_t  Access_Xor();
+
     void_t  Assign();
+    void_t  Assign_Add();
+    void_t  Assign_Subtract();
+    void_t  Assign_Or();
+    void_t  Assign_And();
+    void_t  Assign_Xor();
+
     void_t  Exchange();
     void_t  Exchange_If_Equals();
-
-    void_t  Assign_Add();
     void_t  Exchange_Add();
-
-    void_t  Assign_Subtract();
     void_t  Exchange_Subtract();
-
-    void_t  Assign_Or();
     void_t  Exchange_Or();
-
-    void_t  Assign_And();
     void_t  Exchange_And();
-
-    void_t  Assign_Xor();
     void_t  Exchange_Xor();
 
 }}}

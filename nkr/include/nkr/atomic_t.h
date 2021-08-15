@@ -33,34 +33,41 @@ namespace nkr {
     public:
         value_t Access() const;
         template <integral_tr integral_p>
+        value_t Access_Add(integral_p value) const;
+        template <integral_tr integral_p>
+        value_t Access_Subtract(integral_p value) const;
+        template <integral_tr integral_p>
+        value_t Access_Or(integral_p value) const;
+        template <integral_tr integral_p>
+        value_t Access_And(integral_p value) const;
+        template <integral_tr integral_p>
+        value_t Access_Xor(integral_p value) const;
+
+        template <integral_tr integral_p>
         value_t Assign(integral_p value);
+        template <integral_tr integral_p>
+        value_t Assign_Add(integral_p value);
+        template <integral_tr integral_p>
+        value_t Assign_Subtract(integral_p value);
+        template <integral_tr integral_p>
+        value_t Assign_Or(integral_p value);
+        template <integral_tr integral_p>
+        value_t Assign_And(integral_p value);
+        template <integral_tr integral_p>
+        value_t Assign_Xor(integral_p value);
+
         template <integral_tr integral_p>
         value_t Exchange(integral_p value);
         template <integral_tr integral_a_p, integral_tr integral_b_p>
         value_t Exchange_If_Equals(integral_a_p value, integral_b_p target);
-
-        template <integral_tr integral_p>
-        value_t Assign_Add(integral_p value);
         template <integral_tr integral_p>
         value_t Exchange_Add(integral_p value);
-
-        template <integral_tr integral_p>
-        value_t Assign_Subtract(integral_p value);
         template <integral_tr integral_p>
         value_t Exchange_Subtract(integral_p value);
-
-        template <integral_tr integral_p>
-        value_t Assign_Or(integral_p value);
         template <integral_tr integral_p>
         value_t Exchange_Or(integral_p value);
-
-        template <integral_tr integral_p>
-        value_t Assign_And(integral_p value);
         template <integral_tr integral_p>
         value_t Exchange_And(integral_p value);
-
-        template <integral_tr integral_p>
-        value_t Assign_Xor(integral_p value);
         template <integral_tr integral_p>
         value_t Exchange_Xor(integral_p value);
 
@@ -121,7 +128,9 @@ namespace nkr {
 
     public:
         value_t Access() const;
+
         value_t Assign(value_t value);
+
         value_t Exchange(value_t value);
         value_t Exchange_If_Equals(value_t value, value_t target);
 
@@ -154,20 +163,24 @@ namespace nkr {
 
     public:
         value_t*    Access() const;
+        template <integral_tr integral_p>
+        value_t*    Access_Add(integral_p value) const;
+        template <integral_tr integral_p>
+        value_t*    Access_Subtract(integral_p value) const;
+
         template <pointer_tr pointer_p>
         value_t*    Assign(pointer_p value);
+        template <integral_tr integral_p>
+        value_t*    Assign_Add(integral_p value);
+        template <integral_tr integral_p>
+        value_t*    Assign_Subtract(integral_p value);
+
         template <pointer_tr pointer_p>
         value_t*    Exchange(pointer_p value);
         template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
         value_t*    Exchange_If_Equals(pointer_a_p value, pointer_b_p target);
-
-        template <integral_tr integral_p>
-        value_t*    Assign_Add(integral_p value);
         template <integral_tr integral_p>
         value_t*    Exchange_Add(integral_p value);
-
-        template <integral_tr integral_p>
-        value_t*    Assign_Subtract(integral_p value);
         template <integral_tr integral_p>
         value_t*    Exchange_Subtract(integral_p value);
 
@@ -219,8 +232,10 @@ namespace nkr {
 
     public:
         value_t*    Access() const;
+
         template <pointer_tr pointer_p>
         value_t*    Assign(pointer_p value);
+
         template <pointer_tr pointer_p>
         value_t*    Exchange(pointer_p value);
         template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
