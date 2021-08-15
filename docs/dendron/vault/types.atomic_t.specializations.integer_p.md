@@ -6,7 +6,7 @@ updated: 1628991156623
 created: 1628978307524
 ---
 
-This is the default specialization of [[atomic_t]]. Depending on the platform, most signed and unsigned integers are available, and at a bare minimum the `word_t` should be available. This has the full suite of atomic methods, all Access, Assign, and Exchange calls.
+This is the default specialization of [[types.atomic_t]]. Depending on the platform, most signed and unsigned integers are available, and at a bare minimum the `word_t` should be available. This has the full suite of atomic methods, all Access, Assign, and Exchange calls.
 
 ## Aliases
 
