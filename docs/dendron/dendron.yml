@@ -33,7 +33,7 @@ site:
     siteHierarchies:
         - root
     siteRootDir: docs
-    usePrettyRefs: true
+    usePrettyRefs: false
     title: nkr_docs
     description: Everything to do with nkr
     duplicateNoteBehavior:
