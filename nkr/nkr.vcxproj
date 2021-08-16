@@ -158,6 +158,8 @@
     <ClInclude Include="include\nkr\charcoder_i.h" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.h" />
+    <ClInclude Include="include\nkr\docs\f6f68334-a834-4809-8bd6-6eac9025135c.h" />
+    <ClInclude Include="include\nkr\docs\intrinsic.h" />
     <ClInclude Include="include\nkr\intrinsic.h" />
     <ClInclude Include="include\nkr\maybe_pointer_t.h" />
     <ClInclude Include="include\nkr\maybe_t.h" />
@@ -167,11 +169,13 @@
     <ClInclude Include="include\nkr\string_dynamic_t.h" />
     <ClInclude Include="include\nkr\string_t.h" />
     <ClInclude Include="include\nkr\traits.h" />
+    <ClInclude Include="include\nkr\docs\intrinsic.dox" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\allocator_heap_t.inl" />
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\atomic_t.inl" />
+    <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
     <None Include="include\nkr\maybe_pointer_t.inl" />
     <None Include="include\nkr\os.inl" />
     <None Include="include\nkr\pointer_t.inl" />
