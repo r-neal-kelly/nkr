@@ -96,9 +96,7 @@ $(document).ready(function(){initNavTree('d6/d35/intrinsic_8h.html','../../'); i
 <code>#include &lt;limits&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
-</div>
-<p><a href="../../d6/d35/intrinsic_8h_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:dc/d0c/namespacenkr"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d0c/namespacenkr.html">nkr</a></td></tr>
@@ -106,11 +104,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a22653ed8599e8d193c7346ad29dea5ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d35/intrinsic_8h.html#a22653ed8599e8d193c7346ad29dea5ed">nkr_M</a>&#160;&#160;&#160;do {</td></tr>
+<tr class="memitem:a22653ed8599e8d193c7346ad29dea5ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d35/intrinsic_8h.html#a22653ed8599e8d193c7346ad29dea5ed">nkr_M</a></td></tr>
 <tr class="separator:a22653ed8599e8d193c7346ad29dea5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f9fa92553891ea45988acbf5e88b671"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d35/intrinsic_8h.html#a9f9fa92553891ea45988acbf5e88b671">nkr_W</a>&#160;&#160;&#160;} while(false);</td></tr>
+<tr class="memitem:a9f9fa92553891ea45988acbf5e88b671"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d35/intrinsic_8h.html#a9f9fa92553891ea45988acbf5e88b671">nkr_W</a></td></tr>
 <tr class="separator:a9f9fa92553891ea45988acbf5e88b671"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae150be82cf7053d6efacc4469772681a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d35/intrinsic_8h.html#ae150be82cf7053d6efacc4469772681a">nkr_INITIALIZE_STATIC_SAFELY</a>(INITIALIZER_p)</td></tr>
+<tr class="memdesc:ae150be82cf7053d6efacc4469772681a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to arbitrarily initialize static variables in a thread-safe and efficient manner.  <a href="../../d6/d35/intrinsic_8h.html#ae150be82cf7053d6efacc4469772681a">More...</a><br /></td></tr>
 <tr class="separator:ae150be82cf7053d6efacc4469772681a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -156,12 +155,10 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define nkr_M&#160;&#160;&#160;do {</td>
+          <td class="memname">#define nkr_M</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d35/intrinsic_8h_source.html#l00031">31</a> of file <a class="el" href="../../d6/d35/intrinsic_8h_source.html">intrinsic.h</a>.</p>
 
 </div>
 </div>
@@ -172,12 +169,10 @@ Typedefs</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define nkr_W&#160;&#160;&#160;} while(false);</td>
+          <td class="memname">#define nkr_W</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="../../d6/d35/intrinsic_8h_source.html#l00032">32</a> of file <a class="el" href="../../d6/d35/intrinsic_8h_source.html">intrinsic.h</a>.</p>
 
 </div>
 </div>
@@ -196,21 +191,22 @@ Typedefs</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">nkr_M                                                   \</div>
-<div class="line">    static <span class="keyword">volatile</span> <a class="code" href="../../dc/d0c/namespacenkr.html#abc806439dfc01fb2352e5f2abb501598">bool_t</a> is_initialized = <span class="keyword">false</span>;      \</div>
-<div class="line">    if (<a class="code" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#af849872d2c9a0f6f2fca2d97ffb0c920">os::atomic::Access</a>(is_initialized) == <span class="keyword">false</span>) {  \</div>
-<div class="line">        static std::mutex lock;                         \</div>
-<div class="line">        std::lock_guard&lt;std::mutex&gt; locker(lock);       \</div>
-<div class="line">        if (!is_initialized) {                          \</div>
-<div class="line">            INITIALIZER_p();                            \</div>
-<div class="line">            is_initialized = <span class="keyword">true</span>;                      \</div>
-<div class="line">        }                                               \</div>
-<div class="line">    }                                                   \</div>
-<div class="line">nkr_W</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_af849872d2c9a0f6f2fca2d97ffb0c920"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#af849872d2c9a0f6f2fca2d97ffb0c920">nkr::os::atomic::Access</a></div><div class="ttdeci">atom_p Access(const volatile atom_p &amp;atom)</div><div class="ttdef"><b>Definition:</b> <a href="../../da/de1/os_8inl_source.html#l00018">os.inl:18</a></div></div>
-<div class="ttc" id="anamespacenkr_html_abc806439dfc01fb2352e5f2abb501598"><div class="ttname"><a href="../../dc/d0c/namespacenkr.html#abc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a></div><div class="ttdeci">bool bool_t</div><div class="ttdef"><b>Definition:</b> <a href="../../d6/d35/intrinsic_8h_source.html#l00050">intrinsic.h:50</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="../../d6/d35/intrinsic_8h_source.html#l00034">34</a> of file <a class="el" href="../../d6/d35/intrinsic_8h_source.html">intrinsic.h</a>.</p>
+
+<p>Used to arbitrarily initialize static variables in a thread-safe and efficient manner. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">INITIALIZER_p</td><td>A function or lambda that initializes static data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../dc/d0c/namespacenkr.html#a034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a> </dd></dl>
+<dl class="section user"><dt>Requires</dt><dd><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d0/dff/os_8h.html">nkr/os.h</a>&quot;</span></div>
+<div class="ttc" id="aos_8h_html"><div class="ttname"><a href="../../d0/dff/os_8h.html">os.h</a></div></div>
+</div><!-- fragment --> </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Use the snippet command to include an example of this macro. </dd></dl>
+<p>In C++11 and later, static objects are intialized in a thread-safe manner through their constructors. However, not all data is subject to being defined in a class, and hence this macro acts as an on-the-fly constructor for arbitrary static data declared and defined at your discretion.</p>
+<p>It uses an atomic <a class="el" href="../../dc/d0c/namespacenkr.html#abc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> to flag initialization so that more expensive thread-safe components are elided after execution of your initializer. </p>
 
 </div>
 </div>

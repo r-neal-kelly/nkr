@@ -44,6 +44,5 @@ var classnkr_1_1atomic__t =
     [ "operator^", "d5/dde/classnkr_1_1atomic__t.html#af34787d51548b1f0e088b8475b8f16e9", null ],
     [ "operator|=", "d5/dde/classnkr_1_1atomic__t.html#a6c59eed6d15b303647ecebe80463871a", null ],
     [ "operator&=", "d5/dde/classnkr_1_1atomic__t.html#af4bf0ca08fe0c10c9087961ded2df329", null ],
-    [ "operator^=", "d5/dde/classnkr_1_1atomic__t.html#addc03977d6c95e4e305f0382ab33ffd7", null ],
-    [ "value", "d5/dde/classnkr_1_1atomic__t.html#a51c5db4d405d8907c7fa5b37539e0354", null ]
+    [ "operator^=", "d5/dde/classnkr_1_1atomic__t.html#addc03977d6c95e4e305f0382ab33ffd7", null ]
 ];

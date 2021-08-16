@@ -28,9 +28,35 @@
     #error "Cannot compile with this architecture."
 #endif
 
-#define nkr_M do {
-#define nkr_W } while(false);
+#define nkr_M   \
+    do {
+#define nkr_W   \
+    } while(false);
 
+/**
+* @brief
+*   Used to arbitrarily initialize static variables in a thread-safe and efficient manner.
+* @param INITIALIZER_p
+*   A function or lambda that initializes static data.
+* @return
+*   nkr::void_t
+* @par Requires
+*   ```cpp
+*   #include <mutex>
+*   #include "nkr/os.h"
+*   ```
+* @todo
+*   Use the snippet command to include an example of this macro.
+* @details
+*   In C++11 and later, static objects are intialized in a thread-safe manner through their
+*   constructors. However, not all data is subject to being defined in a class, and hence
+*   this macro acts as an on-the-fly constructor for arbitrary static data declared and
+*   defined at your discretion.
+* 
+*   It uses an atomic nkr::bool_t to flag initialization so that more expensive thread-safe
+*   components are elided after execution of your initializer.
+* @hideinitializer
+*/
 #define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p)     \
 nkr_M                                                   \
     static volatile bool_t is_initialized = false;      \

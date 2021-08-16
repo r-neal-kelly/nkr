@@ -18,6 +18,5 @@ var classnkr_1_1atomic__t_3_01void__t_01_5_01_4 =
     [ "Assign", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#a6aa7a1628d7f06bee536ab82202c5675", null ],
     [ "Exchange", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#a7dcaa10a2cf403952cdc2eb989a16459", null ],
     [ "Exchange_If_Equals", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#ad00adc187ac0139f5b06d019fb2b4928", null ],
-    [ "operator=", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#af4f6aaa81fb34e00b83209a071be56d2", null ],
-    [ "value", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#a1a9d41030b030921a7881b9ad56118f9", null ]
+    [ "operator=", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#af4f6aaa81fb34e00b83209a071be56d2", null ]
 ];

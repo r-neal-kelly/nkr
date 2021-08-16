@@ -25,6 +25,7 @@
 var NAVTREE =
 [
   [ "nkr", "index.html", [
+    [ "Todo List", "dd/da0/todo.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -58,8 +59,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d8/de5/classnkr_1_1atomic__t_3_01value__p_01_5_01_4.html#a1bee6f9fdd8181b5b85b7effa3ca2326",
-"functions_func.html"
+"d8/de5/classnkr_1_1atomic__t_3_01value__p_01_5_01_4.html#a89dc4b5ae725d3d6061141daa77e3021",
+"namespacemembers_type.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
