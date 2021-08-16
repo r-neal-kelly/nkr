@@ -4,6 +4,19 @@
 
 #pragma once
 
+/**
+* @file
+* @brief
+*   Contains types and macros made availabe whenever you include any nkr header.
+* @details
+*   The types are mostly aliases of C++ types. The style of the library dictates
+*   that each type and class must have the `_t` postfix and so we alias some
+*   otherwise unchanged types. Some of these intrinsics exist soley for semantic
+*   reasons, to help clarify their purpose in context. They are all platform
+*   independent, so using them can decrease the need for any macro switches in
+*   your code.
+*/
+
 #include <cassert>
 #include <concepts>
 #include <cstdint>
@@ -35,7 +48,7 @@
 
 /**
 * @brief
-*   Used to arbitrarily initialize static variables in a thread-safe and efficient manner.
+*   Arbitrarily initialize static variables in a thread-safe and efficient manner.
 * @param INITIALIZER_p
 *   A function or lambda that initializes static data.
 * @return
@@ -72,18 +85,49 @@ nkr_W
 
 namespace nkr {
 
+    /**
+    * @name primitives
+    * @brief
+    *   Aliased in order to have a consistent naming scheme.
+    * @{
+    */
     using void_t    = void;
     using bool_t    = bool;
+    /**
+    * @}
+    */
 
+    /**
+    * @name unsigned integers
+    * @brief
+    *   Convenient aliases for unsigned integers.
+    * @todo
+    *   Add an example showing why the _t comes in useful when using integers
+    * @{
+    */
     using u8_t      = uint8_t;
     using u16_t     = uint16_t;
     using u32_t     = uint32_t;
     using u64_t     = uint64_t;
+    /**
+    * @}
+    */
 
+    /**
+    * @name signed integers
+    * @brief
+    *   Convenient aliases for signed integers
+    * @todo
+    *   Add an example showing why the _t comes in useful when using integers
+    * @{
+    */
     using s8_t      = int8_t;
     using s16_t     = int16_t;
     using s32_t     = int32_t;
     using s64_t     = int64_t;
+    /**
+    * @}
+    */
 
     using byte_t    = u8_t;
 #if defined(nkr_IS_32_BIT)
