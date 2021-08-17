@@ -43,7 +43,7 @@ namespace nkr { namespace os { namespace heap {
 #if defined(nkr_IS_WINDOWS)
 
     // since C++11 using errno is thread-safe.
-    // 
+    
     // most of these calls are standard, but we're currently wrapping them
     // until I know for sure that we don't need to handle them differently.
 
@@ -62,7 +62,6 @@ namespace nkr { namespace os { namespace heap {
 
     bool_t Reallocate(byte_t*& bytes, count_t new_byte_count)
     {
-        assert(bytes);
         assert(new_byte_count > 0);
 
         errno = 0;
@@ -77,8 +76,6 @@ namespace nkr { namespace os { namespace heap {
 
     void_t Deallocate(byte_t*& bytes)
     {
-        assert(bytes);
-
         ::free(bytes);
         bytes = nullptr;
     }
@@ -98,7 +95,6 @@ namespace nkr { namespace os { namespace heap {
 
     bool_t Reallocate_Zeros(byte_t*& bytes, count_t new_byte_count)
     {
-        assert(bytes);
         assert(new_byte_count > 0);
 
         errno = 0;
@@ -113,8 +109,6 @@ namespace nkr { namespace os { namespace heap {
 
     void_t Deallocate_Zeros(byte_t*& bytes)
     {
-        assert(bytes);
-
         ::free(bytes);
         bytes = nullptr;
     }

@@ -150,7 +150,22 @@ namespace nkr { namespace os { namespace heap {
     * @name allocation
     * 
     * @brief
-    *   Borrow a certain amount of memory from the heap. Grow it or give it back.
+    *   Borrow a certain amount of memory from the heap. Use it, expand it, and give it back.
+    */ 
+    /** @{ **/
+
+    /**
+    * @brief
+    *   Gives you memory to use until your program exits.
+    * 
+    * @param byte_count
+    *   Asserts if this equals zero.
+    * 
+    * @returns
+    *   A pointer to the allocated bytes when it succeeds.
+    * 
+    * @returns
+    *   A `nullptr` when it fails.
     * 
     * @details
     *   There are a few limitations to the number of bytes you can allocate depending on:
@@ -161,65 +176,95 @@ namespace nkr { namespace os { namespace heap {
     *   4. what the natural word size of the processor is
     * 
     *   At most the largest number of bytes you will be able to allocate is the max number that can fit in an nkr::count_t (an alias of nkr::word_t). If you are running on a 32 bit processor you will only be able to allocate one byte shy of 4gb, which is no where near the amount of memory you can allocate on a 64 bit processor. Furthermore, limitations may come into play depending on the operating system, which may significantly decrease that amount even further.
-    * 
-    * @todo
-    *   make sure to doc assertions
-    * @todo
-    *   link to types that can shrink data in the above note. array_dynamic_t should be able to do that.
-    */
-    /** @{ **/
-    /**
-    * @return
-    *   *on success*: a pointer to the allocated bytes
-    * @return
-    *   *on failure*: a nullptr
     */
     byte_t* Allocate(count_t byte_count);
+
     /**
-    * @return
-    *   *on success*: true
-    * @return
-    *   *on failure*: false
+    * @brief
+    *   Gives you more memory while keeping all your data intact.
     * 
+    * @param bytes
+    *   This should be a pointer returned by nkr::os::heap::Allocate. When successful, `bytes` will be set to a new pointer if necessary, else it is left unchanged.
+    * 
+    * @param new_byte_count
+    *   Asserts if this equals zero.
+    *
+    * @returns
+    *   `true` when it succeeds.
+    * 
+    * @returns
+    *   `false` when it fails.
+    * 
+    * @details
+    *   This will allocate more memory for you if `new_byte_count` is greater than the currently allocated byte_count, which is stored internally in the operating system. Otherwise, it will simply return successfully with no changes to `bytes`. See nkr::os::heap::Allocate for more details about allocation generally.
+    *
     * @note
-    *   This cannot shrink the amount of memory you allocate, but higher level types in the library offer this capability. You can also provide your own functionality by using these functions.
+    *   This cannot shrink the memory you allocate, but some higher level types in the library can by request.
+    * 
+    * @todo
+    *   Maybe return an enum_t to indicate different kinds of failures, at least on Windows.
     */
-    bool_t  Reallocate(byte_t*& bytes, count_t new_byte_count);
-    void_t  Deallocate(byte_t*& bytes);
+    bool_t Reallocate(byte_t*& bytes, count_t new_byte_count);
+
+    /**
+    * @brief
+    *   Takes back memory you no longer need so it can be reused later.
+    * 
+    * @param bytes
+    *   This should be a pointer returned by nkr::os::heap::Allocate. `bytes` will be set to `nullptr` after deallocating.
+    * 
+    * @details
+    *   When using these functions, memory will never be deallocated automatically for you like it is in some higher level types. You will have to manually deallocate every pointer you allocate, or else you may unexpectedly run out of memory. Regardless, the operating system will deallocate everything that has not already been deallocated when your program exits.
+    */
+    void_t Deallocate(byte_t*& bytes);
+
     /** @} **/
+
+}}}
+
+namespace nkr { namespace os { namespace heap {
 
     /**
     * @name zero-initialized allocation
     * 
-    * @details
-    *   This is a variant of regular allocation. The only functional difference is that it initializes all values to zero. This uses an efficient operating system dependent algorithm to avoid zeroing out all values during runtime. Normally the os will keep pages of zero'd out bytes ready for allocation and will only need to initialize them on the occasion that it doesn't have those pages readily available.
+    * @brief
+    *   A variant of regular allocation, all the values in your memory will be initialized to zero.
     */
     /** @{ **/
+
     /**
-    * @return
-    *   *on success*: a pointer to the allocated bytes
-    * @return
-    *   *on failure*: a nullptr
+    * @brief
+    *   Gives you zero-initialized memory to use until your program exits.
+    * 
+    * @details
+    *   This uses an efficient operating system dependent algorithm to avoid zeroing out all values during runtime. Normally the os will keep pages of zero initialized bytes ready for allocation and it will only need to initialize them on the occasion that it doesn't have any of those pages readily available. Please see nkr::os::heap::Allocate for more details.
     * 
     * @note
-    *   The returned pointer can be used with nkr::os::heap::Reallocate to allocate more memory that is not zero-intialized, however this is frowned upon because it may not work in future updates or on certain operating systems.
-    * 
-    * @note
-    *   Although the returned pointer can be used with nkr::os::heap::Deallocate, this is frowned upon because it may not work in future updates or on certain operating systems.
+    *   The returned pointer can be used with nkr::os::heap::Reallocate to allocate more memory but without it being zero-intialized, and nkr::os::heap::Deallocate to free the memory. Both of these are currently frowned upon because they may not work in future updates or on certain operating systems.
     */
     byte_t* Allocate_Zeros(count_t byte_count);
+
     /**
-    * @return
-    *   *on success*: true
-    * @return
-    *   *on failure*: false
+    * @brief
+    *   Gives you more zero-initialized memory while keeping all your data intact.
+    * 
+    * @details
+    *   Please see nkr::os::heap::Reallocate for more details.
     */
-    bool_t  Reallocate_Zeros(byte_t*& bytes, count_t new_byte_count);
+    bool_t Reallocate_Zeros(byte_t*& bytes, count_t new_byte_count);
+
     /**
+    * @brief
+    *   Takes back memory you no longer need so it can be reused later.
+    * 
+    * @details
+    *   Please see nkr::os::heap::Reallocate for more details.
+    * 
     * @note
     *   This does not zero the memory.
     */
-    void_t  Deallocate_Zeros(byte_t*& bytes);
+    void_t Deallocate_Zeros(byte_t*& bytes);
+
     /** @} **/
 
 }}}
