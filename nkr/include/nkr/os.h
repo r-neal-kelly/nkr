@@ -156,7 +156,7 @@ namespace nkr { namespace os { namespace heap {
 
     /**
     * @brief
-    *   Gives you memory to use until your program exits.
+    *   Gives you memory to use until you deallocate it or your program exits.
     * 
     * @param byte_count
     *   Asserts if this equals zero.
