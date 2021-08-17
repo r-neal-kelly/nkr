@@ -55,8 +55,8 @@ namespace nkr { namespace test_os { namespace heap {
     void_t  Reallocate();
     void_t  Deallocate();
 
-    void_t  Callocate();
-    void_t  Recallocate();
-    void_t  Decallocate();
+    void_t  Allocate_Zeros();
+    void_t  Reallocate_Zeros();
+    void_t  Deallocate_Zeros();
 
 }}}

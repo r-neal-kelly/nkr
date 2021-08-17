@@ -5,8 +5,10 @@
 #pragma once
 
 #include <cassert>
-#include <concepts>
+#include <cerrno>
 #include <cstdint>
+
+#include <concepts>
 #include <limits>
 #include <memory>
 #include <utility>
@@ -101,17 +103,14 @@
 * @ingroup intrinsics_macros
 *
 * @brief
-*   Arbitrarily initialize static variables in a thread-safe and efficient manner.
+*   Uses an arbitrary initializer to ready static variables in a thread-safe and efficient manner.
 * 
 * @par Macro Type
 *   Procedural
 *
 * @param INITIALIZER_p
 *   A function or lambda that initializes static data.
-*
-* @return
-*   nkr::void_t
-*
+* 
 * @par Requires
 *   ```cpp
 *   #include <mutex>
@@ -180,12 +179,6 @@ namespace nkr {
     using s64_t     = std::int64_t;
     /** @} **/
 
-#if defined(nkr_IS_32_BIT)
-    static_assert(sizeof(std::size_t) == sizeof(u32_t), "You need to manually set word_t to u32_t.");
-#elif defined(nkr_IS_64_BIT)
-    static_assert(sizeof(std::size_t) == sizeof(u64_t), "You need to manually set word_t to u64_t.");
-#endif
-
     /**
     * @defgroup intrinsics_contextuals contextuals
     * @ingroup intrinsics
@@ -204,5 +197,11 @@ namespace nkr {
     using index_t   = word_t;           ///< Used for unit indices of any arbitrary array of types.
     using address_t = std::uintptr_t;   ///< Used for literal pointer math.
     /** @} **/
+
+#if defined(nkr_IS_32_BIT)
+    static_assert(sizeof(std::size_t) == sizeof(u32_t), "You need to manually set word_t to u32_t.");
+#elif defined(nkr_IS_64_BIT)
+    static_assert(sizeof(std::size_t) == sizeof(u64_t), "You need to manually set word_t to u64_t.");
+#endif
 
 }

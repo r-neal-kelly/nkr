@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['callocate_34',['Callocate',['../d0/d97/namespacenkr_1_1os_1_1heap.html#a09134e7ce3f94e71a104ff2b7e9009b0',1,'nkr::os::heap']]],
   ['cast_5fi16_5fref_5ftr_35',['cast_i16_ref_tr',['../d8/dbb/group__traits__casts.html#gad52a1bef05994c93382499f7e193bf49',1,'nkr']]],
   ['cast_5fi32_5fref_5ftr_36',['cast_i32_ref_tr',['../d8/dbb/group__traits__casts.html#gafdea78280d0ed51ab3db2c1c79ea8ce2',1,'nkr']]],
   ['cast_5fi64_5fref_5ftr_37',['cast_i64_ref_tr',['../d8/dbb/group__traits__casts.html#gaadda9b5132f2fcd86f8a5858c96bec34',1,'nkr']]],

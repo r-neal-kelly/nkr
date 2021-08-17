@@ -49,9 +49,9 @@ namespace nkr { namespace test_os {
         nkr_TEST_FUNCTION(heap::Deallocate);
         wprintf(L"\n");
 
-        nkr_TEST_FUNCTION(heap::Callocate);
-        nkr_TEST_FUNCTION(heap::Recallocate);
-        nkr_TEST_FUNCTION(heap::Decallocate);
+        nkr_TEST_FUNCTION(heap::Allocate_Zeros);
+        nkr_TEST_FUNCTION(heap::Reallocate_Zeros);
+        nkr_TEST_FUNCTION(heap::Deallocate_Zeros);
         wprintf(L"\n");
     }
 
@@ -931,32 +931,90 @@ namespace nkr { namespace test_os { namespace heap {
 
     void_t Allocate()
     {
-        //wprintf(L"should allocate a pointer to have the byte_count on the heap");
+        wprintf(L"should allocate heap memory or return nullptr if it can't");
+
+        byte_t* bytes = os::heap::Allocate(0xFF);
+        nkr_TEST(bytes != nullptr);
+        
+        wprintf(L"%s", bytes[0xFF - 1] == 1 ? L"\u0001" : L"\u0000");
+        nkr_TEST(true);
+
+        byte_t* too_much = os::heap::Allocate(std::numeric_limits<u64_t>::max());
+        nkr_TEST(too_much == nullptr);
+
+        os::heap::Deallocate(bytes);
     }
 
     void_t Reallocate()
     {
-        //wprintf(L"should reallocate the pointer to have the new_byte_count on the heap");
+        wprintf(L"should reallocate heap memory, set bytes, and return true, else leave bytes and return false");
+
+        byte_t* bytes = os::heap::Allocate(0xFF);
+        nkr_TEST(os::heap::Reallocate(bytes, 0xFFFF) == true);
+
+        wprintf(L"%s", bytes[0xFFFF - 1] == 1 ? L"\u0001" : L"\u0000");
+        nkr_TEST(true);
+
+        byte_t* bytes_backup = bytes;
+        nkr_TEST(os::heap::Reallocate(bytes, std::numeric_limits<u64_t>::max()) == false);
+        nkr_TEST(bytes == bytes_backup);
+
+        os::heap::Deallocate(bytes);
     }
 
     void_t Deallocate()
     {
-        //wprintf(L"should deallocate the pointer");
+        wprintf(L"should deallocate heap memory and set bytes to nullptr");
+
+        byte_t* bytes = os::heap::Allocate(0xFF);
+        nkr_TEST(bytes != nullptr);
+
+        os::heap::Deallocate(bytes);
+        nkr_TEST(bytes == nullptr);
     }
 
-    void_t Callocate()
+    void_t Allocate_Zeros()
     {
-        //wprintf(L"should allocate a pointer to have the byte_count on the heap and set all data to 0");
+        wprintf(L"should allocate heap memory and set to zero or return nullptr if it can't");
+
+        byte_t* bytes = os::heap::Allocate_Zeros(0xFF);
+        nkr_TEST(bytes != nullptr);
+        for (index_t idx = 0, end = 0xFF; idx < end; idx += 1) {
+            nkr_TEST(bytes[idx] == 0);
+        }
+
+        byte_t* too_much = os::heap::Allocate_Zeros(std::numeric_limits<u64_t>::max());
+        nkr_TEST(too_much == nullptr);
+
+        os::heap::Deallocate_Zeros(bytes);
     }
 
-    void_t Recallocate()
+    void_t Reallocate_Zeros()
     {
-        //wprintf(L"should reallocate the pointer to have the new_byte_count on the heap and set all data to 0");
+        wprintf(L"should reallocate heap memory, set to zero, set bytes, and return true, else leave bytes and return false");
+
+        byte_t* bytes = os::heap::Allocate_Zeros(0xFF);
+        nkr_TEST(os::heap::Reallocate_Zeros(bytes, 0xFFFF) == true);
+        for (index_t idx = 0, end = 0xFFFF; idx < end; idx += 1) {
+            nkr_TEST(bytes[idx] == 0);
+        }
+
+        byte_t* bytes_backup = bytes;
+        nkr_TEST(os::heap::Reallocate_Zeros(bytes, std::numeric_limits<u64_t>::max()) == false);
+        nkr_TEST(bytes == bytes_backup);
+
+        os::heap::Deallocate_Zeros(bytes);
     }
 
-    void_t Decallocate()
+    void_t Deallocate_Zeros()
     {
-        //wprintf(L"should deallocate the pointer");
+        wprintf(L"should deallocate heap memory and set bytes to nullptr");
+
+        byte_t* bytes = os::heap::Allocate_Zeros(0xFF);
+        nkr_TEST(bytes != nullptr);
+
+        os::heap::Deallocate_Zeros(bytes);
+        nkr_TEST(bytes == nullptr);
     }
 
 }}}

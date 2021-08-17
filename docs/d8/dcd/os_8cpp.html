@@ -109,18 +109,35 @@ Functions</h2></td></tr>
 <tr class="separator:a89b0021664e965fce2548f80d51925dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#aaeaaf2ecee3780e033b87c5edc53ebfa">nkr::os::endian::Is_Little</a> ()</td></tr>
 <tr class="separator:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">allocation</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Borrow a certain amount of memory from the heap. Grow it or give it back.</p>
+<p>There are a few limitations to the number of bytes you can allocate depending on:</p>
+<ol type="1">
+<li>how much ram is physically in the computer</li>
+<li>how much space the operating system has left to give</li>
+<li>the settings that your compiler operates with</li>
+<li>what the natural word size of the processor is</li>
+</ol>
+<p>At most the largest number of bytes you will be able to allocate is the max number that can fit in an <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b" title="Used for unit counts of any arbitrary type.">nkr::count_t</a> (an alias of <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0" title="The largest natural type available, the processor&#39;s word.">nkr::word_t</a>). If you are running on a 32 bit processor you will only be able to allocate one byte shy of 4gb, which is no where near the amount of memory you can allocate on a 64 bit processor. Furthermore, limitations may come into play depending on the operating system, which may significantly decrease that amount even further.</p>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000006">Todo:</a></b></dt><dd><p class="startdd">make sure to doc assertions </p>
+<p class="enddd">link to types that can shrink data in the above note. array_dynamic_t should be able to do that. </p>
+</dd></dl>
+</div></td></tr>
 <tr class="memitem:a9099c1e3b4fef5138d9050bc9eb64175"><td class="memItemLeft" align="right" valign="top">byte_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9099c1e3b4fef5138d9050bc9eb64175">nkr::os::heap::Allocate</a> (count_t byte_count)</td></tr>
 <tr class="separator:a9099c1e3b4fef5138d9050bc9eb64175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3300c417458eeb5c917097db92bd60b1"><td class="memItemLeft" align="right" valign="top">byte_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a3300c417458eeb5c917097db92bd60b1">nkr::os::heap::Reallocate</a> (byte_t *bytes, count_t new_byte_count)</td></tr>
-<tr class="separator:a3300c417458eeb5c917097db92bd60b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2534dd5aee7a59976428366c499f3b7"><td class="memItemLeft" align="right" valign="top">void_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#ab2534dd5aee7a59976428366c499f3b7">nkr::os::heap::Deallocate</a> (byte_t *bytes)</td></tr>
-<tr class="separator:ab2534dd5aee7a59976428366c499f3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09134e7ce3f94e71a104ff2b7e9009b0"><td class="memItemLeft" align="right" valign="top">byte_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a09134e7ce3f94e71a104ff2b7e9009b0">nkr::os::heap::Callocate</a> (count_t byte_count)</td></tr>
-<tr class="separator:a09134e7ce3f94e71a104ff2b7e9009b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c65848e81401b43bd2dd0c268930ee0"><td class="memItemLeft" align="right" valign="top">byte_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9c65848e81401b43bd2dd0c268930ee0">nkr::os::heap::Recallocate</a> (byte_t *bytes, count_t new_byte_count)</td></tr>
-<tr class="separator:a9c65848e81401b43bd2dd0c268930ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53e53cbbfe39372a5015b3d4be8de224"><td class="memItemLeft" align="right" valign="top">void_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a53e53cbbfe39372a5015b3d4be8de224">nkr::os::heap::Decallocate</a> (byte_t *bytes)</td></tr>
-<tr class="separator:a53e53cbbfe39372a5015b3d4be8de224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc8b91e11071847eea4b6116bba2b57"><td class="memItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a6bc8b91e11071847eea4b6116bba2b57">nkr::os::heap::Reallocate</a> (byte_t *&amp;bytes, count_t new_byte_count)</td></tr>
+<tr class="separator:a6bc8b91e11071847eea4b6116bba2b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2547dacbc3a2259d2b1f55ea0508495"><td class="memItemLeft" align="right" valign="top">void_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#ac2547dacbc3a2259d2b1f55ea0508495">nkr::os::heap::Deallocate</a> (byte_t *&amp;bytes)</td></tr>
+<tr class="separator:ac2547dacbc3a2259d2b1f55ea0508495"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">zero-initialized allocation</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>This is a variant of regular allocation. The only functional difference is that it initializes all values to zero. This uses an efficient operating system dependent algorithm to avoid zeroing out all values during runtime. Normally the os will keep pages of zero'd out bytes ready for allocation and will only need to initialize them on the occasion that it doesn't have those pages readily available. </p>
+</div></td></tr>
+<tr class="memitem:ab50ba4a90f8d9eaa0219c62fa9fb623d"><td class="memItemLeft" align="right" valign="top">byte_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#ab50ba4a90f8d9eaa0219c62fa9fb623d">nkr::os::heap::Allocate_Zeros</a> (count_t byte_count)</td></tr>
+<tr class="separator:ab50ba4a90f8d9eaa0219c62fa9fb623d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6e921144fedd5bddf2d85c71e1794bf"><td class="memItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#ab6e921144fedd5bddf2d85c71e1794bf">nkr::os::heap::Reallocate_Zeros</a> (byte_t *&amp;bytes, count_t new_byte_count)</td></tr>
+<tr class="separator:ab6e921144fedd5bddf2d85c71e1794bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cdfba43ee9cf5a050ecb20fe82f5bb4"><td class="memItemLeft" align="right" valign="top">void_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a3cdfba43ee9cf5a050ecb20fe82f5bb4">nkr::os::heap::Deallocate_Zeros</a> (byte_t *&amp;bytes)</td></tr>
+<tr class="separator:a3cdfba43ee9cf5a050ecb20fe82f5bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -42,6 +42,11 @@ namespace nkr { namespace os { namespace heap {
 
 #if defined(nkr_IS_WINDOWS)
 
+    // since C++11 using errno is thread-safe.
+    // 
+    // most of these calls are standard, but we're currently wrapping them
+    // until I know for sure that we don't need to handle them differently.
+
     byte_t* Allocate(count_t byte_count)
     {
         assert(byte_count > 0);
@@ -55,7 +60,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    byte_t* Reallocate(byte_t* bytes, count_t new_byte_count)
+    bool_t Reallocate(byte_t*& bytes, count_t new_byte_count)
     {
         assert(bytes);
         assert(new_byte_count > 0);
@@ -63,20 +68,22 @@ namespace nkr { namespace os { namespace heap {
         errno = 0;
         byte_t* new_bytes = static_cast<byte_t*>(::realloc(bytes, new_byte_count));
         if (errno == 0) {
-            return new_bytes;
+            bytes = new_bytes;
+            return true;
         } else {
-            return nullptr;
+            return false;
         }
     }
 
-    void_t Deallocate(byte_t* bytes)
+    void_t Deallocate(byte_t*& bytes)
     {
         assert(bytes);
 
         ::free(bytes);
+        bytes = nullptr;
     }
 
-    byte_t* Callocate(count_t byte_count)
+    byte_t* Allocate_Zeros(count_t byte_count)
     {
         assert(byte_count > 0);
 
@@ -89,7 +96,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    byte_t* Recallocate(byte_t* bytes, count_t new_byte_count)
+    bool_t Reallocate_Zeros(byte_t*& bytes, count_t new_byte_count)
     {
         assert(bytes);
         assert(new_byte_count > 0);
@@ -97,17 +104,19 @@ namespace nkr { namespace os { namespace heap {
         errno = 0;
         byte_t* new_bytes = static_cast<byte_t*>(::_recalloc(bytes, new_byte_count, sizeof(byte_t)));
         if (errno == 0) {
-            return new_bytes;
+            bytes = new_bytes;
+            return true;
         } else {
-            return nullptr;
+            return false;
         }
     }
 
-    void_t Decallocate(byte_t* bytes)
+    void_t Deallocate_Zeros(byte_t*& bytes)
     {
         assert(bytes);
 
         ::free(bytes);
+        bytes = nullptr;
     }
 
 #endif
