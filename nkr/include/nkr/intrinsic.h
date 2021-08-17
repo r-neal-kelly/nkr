@@ -118,7 +118,7 @@
 *   ```
 *
 * @todo
-*   Use the snippet command to include an example of this macro.
+*   Use the snippet command to include an example of this macro. Also this should be put in a proceduarl group
 *
 * @details
 *   In C++11 and later, static objects are intialized in a thread-safe manner through their constructors. However, not all data is subject to being defined in a class, and hence this macro acts as an on-the-fly constructor for arbitrary static data declared and defined at your discretion.
