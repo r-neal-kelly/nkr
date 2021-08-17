@@ -32,7 +32,7 @@ var searchData=
   ['operator_7c_125',['operator|',['../d5/dde/classnkr_1_1atomic__t.html#ab89e0ed39ee50d8e2154f79965a47bcf',1,'nkr::atomic_t']]],
   ['operator_7c_3d_126',['operator|=',['../d5/dde/classnkr_1_1atomic__t.html#a6c59eed6d15b303647ecebe80463871a',1,'nkr::atomic_t']]],
   ['operator_7e_127',['operator~',['../d5/dde/classnkr_1_1atomic__t.html#ab077b91890a45cac52853e6677a67991',1,'nkr::atomic_t']]],
-  ['os_2ecpp_128',['os.cpp',['../d8/dcd/os_8cpp.html',1,'']]],
+  ['os_2edox_128',['os.dox',['../df/df1/os_8dox.html',1,'']]],
   ['os_2eh_129',['os.h',['../d0/dff/os_8h.html',1,'']]],
   ['os_2einl_130',['os.inl',['../da/de1/os_8inl.html',1,'']]],
   ['overview_131',['Overview',['../index.html',1,'']]],
