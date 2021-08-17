@@ -172,6 +172,7 @@
     <ClInclude Include="include\nkr\docs\intrinsic.dox" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="docs\os.dox" />
     <None Include="include\nkr\allocator_heap_t.inl" />
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\atomic_t.inl" />

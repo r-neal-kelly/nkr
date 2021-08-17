@@ -939,7 +939,7 @@ namespace nkr { namespace test_os { namespace heap {
         wprintf(L"%s", bytes[0xFF - 1] == 1 ? L"\u0001" : L"\u0000");
         nkr_TEST(true);
 
-        byte_t* too_much = os::heap::Allocate(std::numeric_limits<u64_t>::max());
+        byte_t* too_much = os::heap::Allocate(std::numeric_limits<count_t>::max());
         nkr_TEST(too_much == nullptr);
 
         os::heap::Deallocate(bytes);
@@ -956,7 +956,7 @@ namespace nkr { namespace test_os { namespace heap {
         nkr_TEST(true);
 
         byte_t* bytes_backup = bytes;
-        nkr_TEST(os::heap::Reallocate(bytes, std::numeric_limits<u64_t>::max()) == false);
+        nkr_TEST(os::heap::Reallocate(bytes, std::numeric_limits<count_t>::max()) == false);
         nkr_TEST(bytes == bytes_backup);
 
         os::heap::Deallocate(bytes);
@@ -983,7 +983,7 @@ namespace nkr { namespace test_os { namespace heap {
             nkr_TEST(bytes[idx] == 0);
         }
 
-        byte_t* too_much = os::heap::Allocate_Zeros(std::numeric_limits<u64_t>::max());
+        byte_t* too_much = os::heap::Allocate_Zeros(std::numeric_limits<count_t>::max());
         nkr_TEST(too_much == nullptr);
 
         os::heap::Deallocate_Zeros(bytes);
@@ -1000,7 +1000,7 @@ namespace nkr { namespace test_os { namespace heap {
         }
 
         byte_t* bytes_backup = bytes;
-        nkr_TEST(os::heap::Reallocate_Zeros(bytes, std::numeric_limits<u64_t>::max()) == false);
+        nkr_TEST(os::heap::Reallocate_Zeros(bytes, std::numeric_limits<count_t>::max()) == false);
         nkr_TEST(bytes == bytes_backup);
 
         os::heap::Deallocate_Zeros(bytes);

@@ -99,6 +99,7 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
+    <None Include="docs\os.dox" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\os.cpp">
