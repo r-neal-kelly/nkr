@@ -5,11 +5,12 @@ var indexSectionsWithContent =
   2: "n",
   3: "acimopst",
   4: "adeimnoprsu~",
-  5: "acimopsu",
+  5: "mpu",
   6: "abcipsuvw",
   7: "n",
-  8: "bcfhimopt",
-  9: "ot"
+  8: "bcfhimnopt",
+  9: "ot",
+  10: "n"
 };
 
 var indexSectionNames =
@@ -23,7 +24,8 @@ var indexSectionNames =
   6: "typedefs",
   7: "defines",
   8: "groups",
-  9: "pages"
+  9: "pages",
+  10: "concepts"
 };
 
 var indexSectionLabels =
@@ -37,6 +39,7 @@ var indexSectionLabels =
   6: "Typedefs",
   7: "Macros",
   8: "Modules",
-  9: "Pages"
+  9: "Pages",
+  10: "Concepts"
 };
 

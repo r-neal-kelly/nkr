@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['cast_5fi16_5fref_5ftr_316',['cast_i16_ref_tr',['../d8/dbb/group__traits__casts.html#gad52a1bef05994c93382499f7e193bf49',1,'nkr']]],
-  ['cast_5fi32_5fref_5ftr_317',['cast_i32_ref_tr',['../d8/dbb/group__traits__casts.html#gafdea78280d0ed51ab3db2c1c79ea8ce2',1,'nkr']]],
-  ['cast_5fi64_5fref_5ftr_318',['cast_i64_ref_tr',['../d8/dbb/group__traits__casts.html#gaadda9b5132f2fcd86f8a5858c96bec34',1,'nkr']]],
-  ['cast_5fi8_5fref_5ftr_319',['cast_i8_ref_tr',['../d8/dbb/group__traits__casts.html#gab63ce424388ac97d378872e16dd83cba',1,'nkr']]],
-  ['charcoder_5fi_320',['charcoder_i',['../dc/d0c/namespacenkr.html#ab9447de0e0629c950067d65cff648c70',1,'nkr']]]
+  ['pointer_0',['pointer',['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#ac78d09e4f780d0fb5288e7dd8843239b',1,'nkr::maybe_t&lt; T * &gt;::pointer()'],['../db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#ac45e888c68cf0238b7c9d6022eea26d3',1,'nkr::some_t&lt; T * &gt;::pointer()']]]
 ];

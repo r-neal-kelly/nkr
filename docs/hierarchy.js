@@ -14,7 +14,6 @@ var hierarchy =
     [ "nkr::pointer_t< unit_p >", "d9/df4/classnkr_1_1pointer__t.html", null ],
     [ "nkr::some_t< T >", "d1/def/classnkr_1_1some__t.html", null ],
     [ "nkr::some_t< T * >", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html", null ],
-    [ "nkr::some_t< typename charcoder_t::unit_t * >", "d1/def/classnkr_1_1some__t.html", null ],
     [ "nkr::string_static_t< charcoder >", "d4/d5c/classnkr_1_1string__static__t.html", null ],
     [ "nkr::string_static_t< charcoder_utf_8_t >", "d4/d5c/classnkr_1_1string__static__t.html", [
       [ "nkr::string_dynamic_t< charcoder >", "d9/d32/classnkr_1_1string__dynamic__t.html", null ]

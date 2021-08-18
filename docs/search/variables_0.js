@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['allocator_5fi_315',['allocator_i',['../dc/d0c/namespacenkr.html#a33f671296b2f2ffaa9167569fffb11db',1,'nkr']]]
+  ['max_5funit_5fcount_0',['MAX_UNIT_COUNT',['../d9/df4/classnkr_1_1pointer__t.html#a0ef30e55989ad8214c52115347b050dd',1,'nkr::pointer_t']]]
 ];

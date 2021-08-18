@@ -13,6 +13,7 @@
 #include <memory>
 #include <utility>
 
+/// @ingroup namespaces
 /// @copydoc doc_nkr
 namespace nkr {
 

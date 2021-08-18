@@ -3,6 +3,10 @@
 */
 
 /**
+* @defgroup namespaces namespaces
+*/
+
+/**
 * @class doc_nkr
 * @private
 * 

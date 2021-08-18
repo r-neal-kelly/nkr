@@ -9,7 +9,7 @@ var classnkr_1_1some__t_3_01_t_01_5_01_4 =
     [ "~some_t", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#adc72321c99c96e65e87c2e738184d64c", null ],
     [ "operator=", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#a2bb9608c3bd0649fde33cd2eb304fd58", null ],
     [ "operator=", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#a87eb837da3909e1109a88d56b5a86cde", null ],
-    [ "operator=", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#aece85f0170559e9c4c50fe06473e0d2c", null ],
+    [ "operator=", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#a6ff48c85b106ec3fb33e554bf616e7d9", null ],
     [ "operator bool_t", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#ac29def9ce82615a780cbec1c6171a0bd", null ],
     [ "operator pointer_t &", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#ae894ae6d986089c466e5cf8ebef10419", null ],
     [ "operator const pointer_t &", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html#ac6acfe2af9e5ac68abd7c5dbc4ecb687", null ],
