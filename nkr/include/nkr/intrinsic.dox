@@ -1,0 +1,163 @@
+/*
+    Copyright 2021 r-neal-kelly
+*/
+
+/**
+* @class doc_nkr
+* @private
+* 
+* @brief
+*   With the exception of intrinsic macros, all other nkr entities are defined in this namespace.
+*/
+
+/**
+* @defgroup intrinsics intrinsics
+*
+* @brief
+*   Types and macros that are available whenever you include any nkr header.
+*
+* @details
+*   Intrinsic types are mostly helpful aliases of standard C++ types. The style of the library dictates that each type and class must have the `_t` postfix and so there are a few complementary redefinitions. However other intrinsics exist for efficiency, semantics, or both. Some help to clarify the intention of the code they appear in and some are platform dependent, but using them in the correct context can alleviate the need to use macro switches.
+*/
+
+    /**
+    * @defgroup intrinsics_macros macros
+    * @ingroup intrinsics
+    *
+    * @brief
+    *   Namespaced macros that provide solutions otherwise difficult to achieve.
+    *
+    * @todo
+    *   Provide details
+    *
+    * @hideinitializer
+    */
+
+        /**
+        * @defgroup intrinsics_macros_hints hints
+        * @ingroup intrinsics_macros
+        *
+        * @brief
+        *   Platform dependent definitions for macro switches.
+        *
+        * @details
+        *   Currently Windows x64 and x86 are the only platforms that have definitions, but I'm planning on taking a look at implementing functionality for Linux. These documents are compiled with the Windows x64 branch active.
+        *
+        * @todo
+        *   Give an example, also compare with functional macros.
+        *
+        * @hideinitializer
+        */
+
+            /**
+            * @class doc_nkr_nkr_IS_WINDOWS
+            * @private
+            */
+
+            /**
+            * @class doc_nkr_nkr_IS_LINUX
+            * @private
+            */
+
+            /**
+            * @class doc_nkr_nkr_IS_32_BIT
+            * @private
+            */
+
+            /**
+            * @class doc_nkr_nkr_IS_64_BIT
+            * @private
+            */
+
+        /**
+        * @defgroup intrinsics_macros_braces braces
+        * @ingroup intrinsics_macros
+        *
+        * @brief
+        *   Symbols used to delimit a macro's body.
+        *
+        * @details
+        *   The one set is used for functional macros which return values and the other set for procedural macros which simply alter state without returning any values. These are only useful when you're defining a macro, otherwise you should not need to use them.
+        *
+        * @todo
+        *   Give an example.
+        *
+        * @hideinitializer
+        */
+
+            /**
+            * @class doc_nkr_nkr_M
+            * @private
+            *
+            * @brief
+            *   The opening brace for functional macros.
+            */
+
+            /**
+            * @class doc_nkr_nkr_W
+            * @private
+            *
+            * @brief
+            *   The closing brace for functional macros.
+            */
+
+            /**
+            * @class doc_nkr_nkr_P
+            * @private
+            *
+            * @brief
+            *   The opening brace for procedural macros.
+            */
+
+            /**
+            * @class doc_nkr_nkr_b
+            * @private
+            *
+            * @brief
+            *   The closing brace for procedural macros.
+            */
+
+        /**
+        * @defgroup intrinsics_macros_procedures procedures
+        * @ingroup intrinsics_macros
+        * 
+        * @brief
+        *   Macros that do not return any value but can alter state within their scope.
+        * 
+        * @hideinitializer
+        */
+
+            /**
+            * @class doc_nkr_nkr_INITIALIZE_STATIC_SAFELY
+            * @private
+            *
+            * @brief
+            *   Uses an arbitrary initializer to ready static variables in a thread-safe and efficient manner.
+            *
+            * @param INITIALIZER_p
+            *   should be a function or lambda that initializes static data.
+            *
+            * @par Requires
+            *   ```cpp
+            *   #include <mutex>
+            *   #include "nkr/os.h"
+            *   ```
+            *
+            * @todo
+            *   Use the snippet command to include an example of this macro. Also this should be put in a proceduarl group
+            *
+            * @details
+            *   In C++11 and later, static objects are intialized in a thread-safe manner through their constructors. However, not all data is subject to being defined in a class, and hence this macro acts as an on-the-fly constructor for arbitrary static data declared and defined at your discretion.
+            *
+            *   It uses an atomic nkr::bool_t to flag initialization so that more expensive thread-safe components are elided after execution of your initializer.
+            */
+
+        /**
+        * @defgroup intrinsics_macros_functions functions
+        * @ingroup intrinsics_macros
+        * 
+        * @brief
+        *   Macros that return a value and can also alter state within their scope.
+        * 
+        * @hideinitializer
+        */

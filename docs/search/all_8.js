@@ -1,17 +1,11 @@
 var searchData=
 [
-  ['atomic_82',['atomic',['../d1/db5/namespacenkr_1_1os_1_1atomic.html',1,'nkr::os']]],
-  ['endian_83',['endian',['../d8/dd5/namespacenkr_1_1os_1_1endian.html',1,'nkr::os']]],
-  ['heap_84',['heap',['../d0/d97/namespacenkr_1_1os_1_1heap.html',1,'nkr::os']]],
-  ['nkr_85',['nkr',['../dc/d0c/namespacenkr.html',1,'']]],
-  ['nkr_5fb_86',['nkr_b',['../db/d5d/group__intrinsics__macros__braces.html#ga17f17a1e5eb9e874a04114aa9b9f58b6',1,'intrinsic.h']]],
-  ['nkr_5finitialize_5fstatic_5fsafely_87',['nkr_INITIALIZE_STATIC_SAFELY',['../d1/da3/group__intrinsics__macros.html#gae150be82cf7053d6efacc4469772681a',1,'intrinsic.h']]],
-  ['nkr_5fis_5f64_5fbit_88',['nkr_IS_64_BIT',['../d4/d55/group__intrinsics__macros__hints.html#ga83ebcb6c77a14eb259b74f17bcdc671f',1,'intrinsic.h']]],
-  ['nkr_5fis_5fwindows_89',['nkr_IS_WINDOWS',['../d4/d55/group__intrinsics__macros__hints.html#gaf98df6a982864add88de67c14e6a58ad',1,'intrinsic.h']]],
-  ['nkr_5fm_90',['nkr_M',['../db/d5d/group__intrinsics__macros__braces.html#ga22653ed8599e8d193c7346ad29dea5ed',1,'intrinsic.h']]],
-  ['nkr_5fp_91',['nkr_P',['../db/d5d/group__intrinsics__macros__braces.html#ga10e31faa76f04ee602baf44ea9de2586',1,'intrinsic.h']]],
-  ['nkr_5fw_92',['nkr_W',['../db/d5d/group__intrinsics__macros__braces.html#ga9f9fa92553891ea45988acbf5e88b671',1,'intrinsic.h']]],
-  ['none_5ft_93',['none_t',['../d1/df2/classnkr_1_1none__t.html',1,'nkr::none_t&lt; T &gt;'],['../d6/dfa/classnkr_1_1none__t_3_01_t_01_5_01_4.html#aff8c1ee0458900ae66e4c667f75e0d0c',1,'nkr::none_t&lt; T * &gt;::none_t()'],['../d6/dfa/classnkr_1_1none__t_3_01_t_01_5_01_4.html#a16682f5cd99b09aa814b070c1ddf1d44',1,'nkr::none_t&lt; T * &gt;::none_t(const none_t &amp;other)'],['../d6/dfa/classnkr_1_1none__t_3_01_t_01_5_01_4.html#abff9f3e462160c2833d21f3258dc92d1',1,'nkr::none_t&lt; T * &gt;::none_t(none_t &amp;&amp;other) noexcept']]],
-  ['none_5ft_3c_20t_20_2a_20_3e_94',['none_t&lt; T * &gt;',['../d6/dfa/classnkr_1_1none__t_3_01_t_01_5_01_4.html',1,'nkr']]],
-  ['os_95',['os',['../dc/d5c/namespacenkr_1_1os.html',1,'nkr']]]
+  ['macros_77',['macros',['../d1/da3/group__intrinsics__macros.html',1,'']]],
+  ['max_5funit_5fcount_78',['MAX_UNIT_COUNT',['../d9/df4/classnkr_1_1pointer__t.html#a0ef30e55989ad8214c52115347b050dd',1,'nkr::pointer_t']]],
+  ['maybe_5fpointer_5ft_2eh_79',['maybe_pointer_t.h',['../db/df2/maybe__pointer__t_8h.html',1,'']]],
+  ['maybe_5fpointer_5ft_2einl_80',['maybe_pointer_t.inl',['../da/dee/maybe__pointer__t_8inl.html',1,'']]],
+  ['maybe_5ft_81',['maybe_t',['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#a31b3c7dd3e6e00a971f65de5f4489364',1,'nkr::maybe_t&lt; T * &gt;::maybe_t()'],['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#af501e57a8ec8cc366c2da75d21b2c340',1,'nkr::maybe_t&lt; T * &gt;::maybe_t(pointer_t pointer)'],['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#aad091431339197c206ea26b635919146',1,'nkr::maybe_t&lt; T * &gt;::maybe_t(const maybe_t &amp;other)'],['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#ac3392b9b4d636f88cbf8cae07d7c00ba',1,'nkr::maybe_t&lt; T * &gt;::maybe_t(maybe_t &amp;&amp;other) noexcept'],['../d3/dd5/classnkr_1_1maybe__t.html',1,'nkr::maybe_t&lt; T &gt;']]],
+  ['maybe_5ft_2eh_82',['maybe_t.h',['../d6/d5d/maybe__t_8h.html',1,'']]],
+  ['maybe_5ft_3c_20t_20_2a_20_3e_83',['maybe_t&lt; T * &gt;',['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html',1,'nkr']]],
+  ['misc_84',['misc',['../d2/de2/group__traits__misc.html',1,'']]]
 ];

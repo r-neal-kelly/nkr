@@ -177,7 +177,10 @@
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\atomic_t.inl" />
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
+    <None Include="include\nkr\intrinsic.dox" />
+    <None Include="include\nkr\intrinsic.inl" />
     <None Include="include\nkr\maybe_pointer_t.inl" />
+    <None Include="include\nkr\os.dox" />
     <None Include="include\nkr\os.inl" />
     <None Include="include\nkr\pointer_t.inl" />
     <None Include="include\nkr\string_static_t.inl" />

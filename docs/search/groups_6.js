@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['primitives_365',['primitives',['../d1/d9c/group__intrinsics__primitives.html',1,'']]]
+  ['operators_376',['operators',['../d7/d4d/group__traits__operators.html',1,'']]]
 ];

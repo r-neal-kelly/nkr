@@ -13,138 +13,40 @@
 #include <memory>
 #include <utility>
 
-/**
-* @defgroup intrinsics intrinsics
-* 
-* @brief
-*   Types and macros that are available whenever you include any nkr header.
-* 
-* @details
-*   Intrinsic types are mostly helpful aliases of standard C++ types. The style of the library dictates that each type and class must have the `_t` postfix and so there are a few complementary redefinitions. However other intrinsics exist for efficiency, semantics, or both. Some help to clarify the intention of the code they appear in and some are platform dependent, but using them in the correct context can alleviate the need to use macro switches.
-*/
+/// @copydoc doc_nkr
+namespace nkr {
 
-/**
-* @defgroup intrinsics_macros macros
-* @ingroup intrinsics
-* 
-* @brief
-*   Namespaced macros that provide solutions otherwise difficult to achieve.
-* 
-* @todo
-*   Provide details
-*/
-
-/**
-* @defgroup intrinsics_macros_hints hints
-* @ingroup intrinsics_macros
-*
-* @brief
-*   Platform dependent definitions for macro switches.
-*
-* @details
-*   Currently Windows x64 and x86 are the only platforms that have definitions, but I'm planning on taking a look at implementing functionality for Linux. These documents are compiled with the Windows x64 branch active.
-*
-* @todo
-*   Give an example, also compare with functional macros.
-* 
-* @hideinitializer
-*/
-/** @{ **/
+    /// @ingroup intrinsics_macros_hints
+    /// @{
 #if _WIN64 || _WIN32
-    #define nkr_IS_WINDOWS
+    #define nkr_IS_WINDOWS      ///< @copydoc doc_nkr_nkr_IS_WINDOWS
     #if _WIN64
-        #define nkr_IS_64_BIT
+        #define nkr_IS_64_BIT   ///< @copydoc doc_nkr_nkr_IS_64_BIT
     #elif _WIN32
-        #define nkr_IS_32_BIT
+        #define nkr_IS_32_BIT   ///< @copydoc doc_nkr_nkr_IS_32_BIT
     #else
         #error "Cannot compile with this version of windows."
     #endif
 #elif 0
-    #define nkr_IS_LINUX
+    #define nkr_IS_LINUX        ///< @copydoc doc_nkr_nkr_IS_LINUX
 #else
     #error "Cannot compile with this architecture."
 #endif
-/** @} **/
+    /// @}
 
-/**
-* @defgroup intrinsics_macros_braces braces
-* @ingroup intrinsics_macros
-* 
-* @brief
-*   Symbols used to delimit a macro's body.
-* 
-* @details
-*   The one set is used for functional macros which return values and the other set for procedural macros which simply alter state without returning any values. These are only useful when you're defining a macro, otherwise you should not need to use them.
-* 
-* @todo
-*   Give an example.
-* 
-* @hideinitializer
-*/
-/** @{ **/
-/// The opening brace for functional macros.
-#define nkr_M   \
-    (
+    /// @ingroup intrinsics_macros_braces
+    /// @{
+    #define nkr_M   ///< @copydoc doc_nkr_nkr_M
+    #define nkr_W   ///< @copydoc doc_nkr_nkr_W
 
-/// The closing brace for functional macros.
-#define nkr_W   \
-    )
+    #define nkr_P   ///< @copydoc doc_nkr_nkr_P
+    #define nkr_b   ///< @copydoc doc_nkr_nkr_b
+    /// @}
 
-/// The opening brace for procedural macros.
-#define nkr_P   \
-    do {
-
-/// The closing brace for procedural macros.
-#define nkr_b   \
-    } while(false)
-/** @} **/
-
-/**
-* @ingroup intrinsics_macros
-*
-* @brief
-*   Uses an arbitrary initializer to ready static variables in a thread-safe and efficient manner.
-* 
-* @par Macro Type
-*   Procedural
-*
-* @param INITIALIZER_p
-*   A function or lambda that initializes static data.
-* 
-* @par Requires
-*   ```cpp
-*   #include <mutex>
-*   #include "nkr/os.h"
-*   ```
-*
-* @todo
-*   Use the snippet command to include an example of this macro. Also this should be put in a proceduarl group
-*
-* @details
-*   In C++11 and later, static objects are intialized in a thread-safe manner through their constructors. However, not all data is subject to being defined in a class, and hence this macro acts as an on-the-fly constructor for arbitrary static data declared and defined at your discretion.
-*
-*   It uses an atomic nkr::bool_t to flag initialization so that more expensive thread-safe components are elided after execution of your initializer.
-*
-* @hideinitializer
-*/
-#define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p)     \
-nkr_P                                                   \
-    static volatile bool_t is_initialized = false;      \
-    if (os::atomic::Access(is_initialized) == false) {  \
-        static std::mutex lock;                         \
-        std::lock_guard<std::mutex> locker(lock);       \
-        if (!is_initialized) {                          \
-            INITIALIZER_p();                            \
-            is_initialized = true;                      \
-        }                                               \
-    }                                                   \
-nkr_b
-
-/**
-* @brief
-*   With the exception of intrinsic macros, all other nkr entities are defined in this namespace.
-*/
-namespace nkr {
+    /// @ingroup intrinsics_macros_procedures
+    /// @{
+    #define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p) ///< @copydoc doc_nkr_nkr_INITIALIZE_STATIC_SAFELY
+    /// @}
 
     /**
     * @defgroup intrinsics_primitives primitives
@@ -205,3 +107,5 @@ namespace nkr {
 #endif
 
 }
+
+#include "nkr/intrinsic.inl"

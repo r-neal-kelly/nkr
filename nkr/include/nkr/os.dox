@@ -57,7 +57,7 @@
     *   `false` when it fails.
     *
     * @details
-    *   This will allocate more memory for you if `new_byte_count` is greater than the currently allocated `byte_count`, which is stored internally in the operating system. Otherwise, it will simply return successfully with no changes to `bytes`. See nkr::os::heap::Allocate for more details about allocation generally.
+    *   This will allocate more memory for you if `new_byte_count` is greater than the currently allocated `byte_count`, which is stored internally in the operating system. Otherwise, it will simply return as if it had succeeded, with no changes to `bytes`. See nkr::os::heap::Allocate for more details about allocation generally.
     *
     * @note
     *   This cannot shrink the memory you allocate, but some higher level types in the library can by request.

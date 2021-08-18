@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hints_58',['hints',['../d4/d55/group__intrinsics__macros__hints.html',1,'']]]
+  ['functions_58',['functions',['../d6/d25/group__intrinsics__macros__functions.html',1,'']]]
 ];

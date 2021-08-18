@@ -191,7 +191,7 @@ a <code>nullptr</code> when it fails.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd><code>true</code> when it succeeds.</dd>
 <dd>
 <code>false</code> when it fails.</dd></dl>
-<p>This will allocate more memory for you if <code>new_byte_count</code> is greater than the currently allocated <code>byte_count</code>, which is stored internally in the operating system. Otherwise, it will simply return successfully with no changes to <code>bytes</code>. See <a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a7f0636403b893aa8eab17eb0cf5e471e" title="Gives you memory to use until you deallocate it or your program exits.">nkr::os::heap::Allocate</a> for more details about allocation generally.</p>
+<p>This will allocate more memory for you if <code>new_byte_count</code> is greater than the currently allocated <code>byte_count</code>, which is stored internally in the operating system. Otherwise, it will simply return as if it had succeeded, with no changes to <code>bytes</code>. See <a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a7f0636403b893aa8eab17eb0cf5e471e" title="Gives you memory to use until you deallocate it or your program exits.">nkr::os::heap::Allocate</a> for more details about allocation generally.</p>
 <dl class="section note"><dt>Note</dt><dd>This cannot shrink the memory you allocate, but some higher level types in the library can by request.</dd></dl>
 <dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000006">Todo:</a></b></dt><dd>Maybe return an enum_t to indicate different kinds of failures, at least on Windows. </dd></dl>
 

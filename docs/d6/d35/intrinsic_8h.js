@@ -6,7 +6,7 @@ var intrinsic_8h =
     [ "nkr_W", "db/d5d/group__intrinsics__macros__braces.html#ga9f9fa92553891ea45988acbf5e88b671", null ],
     [ "nkr_P", "db/d5d/group__intrinsics__macros__braces.html#ga10e31faa76f04ee602baf44ea9de2586", null ],
     [ "nkr_b", "db/d5d/group__intrinsics__macros__braces.html#ga17f17a1e5eb9e874a04114aa9b9f58b6", null ],
-    [ "nkr_INITIALIZE_STATIC_SAFELY", "d1/da3/group__intrinsics__macros.html#gae150be82cf7053d6efacc4469772681a", null ],
+    [ "nkr_INITIALIZE_STATIC_SAFELY", "dc/d68/group__intrinsics__macros__procedures.html#gae150be82cf7053d6efacc4469772681a", null ],
     [ "void_t", "d6/d35/intrinsic_8h.html#ga034482d2e50c6d0448a7953d24860fe9", null ],
     [ "bool_t", "d6/d35/intrinsic_8h.html#gabc806439dfc01fb2352e5f2abb501598", null ],
     [ "u8_t", "d6/d35/intrinsic_8h.html#ga0a85274f828c947323ae9270ccd7cd4b", null ],

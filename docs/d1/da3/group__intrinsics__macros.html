@@ -85,8 +85,7 @@ $(document).ready(function(){initNavTree('d1/da3/group__intrinsics__macros.html'
 
 <div class="header">
   <div class="summary">
-<a href="#groups">Modules</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#groups">Modules</a>  </div>
   <div class="headertitle">
 <div class="title">macros<div class="ingroups"><a class="el" href="../../df/daa/group__intrinsics.html">intrinsics</a></div></div>  </div>
 </div><!--header-->
@@ -103,51 +102,16 @@ Modules</h2></td></tr>
 <tr class="memitem:db/d5d/group__intrinsics__macros__braces"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d5d/group__intrinsics__macros__braces.html">braces</a></td></tr>
 <tr class="memdesc:db/d5d/group__intrinsics__macros__braces"><td class="mdescLeft">&#160;</td><td class="mdescRight">Symbols used to delimit a macro's body. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:gae150be82cf7053d6efacc4469772681a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/da3/group__intrinsics__macros.html#gae150be82cf7053d6efacc4469772681a">nkr_INITIALIZE_STATIC_SAFELY</a>(INITIALIZER_p)</td></tr>
-<tr class="memdesc:gae150be82cf7053d6efacc4469772681a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses an arbitrary initializer to ready static variables in a thread-safe and efficient manner.  <a href="../../d1/da3/group__intrinsics__macros.html#gae150be82cf7053d6efacc4469772681a">More...</a><br /></td></tr>
-<tr class="separator:gae150be82cf7053d6efacc4469772681a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:dc/d68/group__intrinsics__macros__procedures"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d68/group__intrinsics__macros__procedures.html">procedures</a></td></tr>
+<tr class="memdesc:dc/d68/group__intrinsics__macros__procedures"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros that do not return any value but can alter state within their scope. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:d6/d25/group__intrinsics__macros__functions"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d25/group__intrinsics__macros__functions.html">functions</a></td></tr>
+<tr class="memdesc:d6/d25/group__intrinsics__macros__functions"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macros that return a value and can also alter state within their scope. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Namespaced macros that provide solutions otherwise difficult to achieve. </p>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Provide details </dd></dl>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="gae150be82cf7053d6efacc4469772681a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gae150be82cf7053d6efacc4469772681a">&#9670;&nbsp;</a></span>nkr_INITIALIZE_STATIC_SAFELY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define nkr_INITIALIZE_STATIC_SAFELY</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">INITIALIZER_p</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Uses an arbitrary initializer to ready static variables in a thread-safe and efficient manner. </p>
-<dl class="section user"><dt>Macro Type</dt><dd>Procedural</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">INITIALIZER_p</td><td>A function or lambda that initializes static data.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section user"><dt>Requires</dt><dd><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d0/dff/os_8h.html">nkr/os.h</a>&quot;</span></div>
-<div class="ttc" id="aos_8h_html"><div class="ttname"><a href="../../d0/dff/os_8h.html">os.h</a></div></div>
-</div><!-- fragment --></dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000004">Todo:</a></b></dt><dd>Use the snippet command to include an example of this macro. Also this should be put in a proceduarl group</dd></dl>
-<p>In C++11 and later, static objects are intialized in a thread-safe manner through their constructors. However, not all data is subject to being defined in a class, and hence this macro acts as an on-the-fly constructor for arbitrary static data declared and defined at your discretion.</p>
-<p>It uses an atomic <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> to flag initialization so that more expensive thread-safe components are elided after execution of your initializer. </p>
-
-</div>
-</div>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Provide details</dd></dl>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

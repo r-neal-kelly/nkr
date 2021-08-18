@@ -1,11 +1,20 @@
 var searchData=
 [
-  ['macros_74',['macros',['../d1/da3/group__intrinsics__macros.html',1,'']]],
-  ['max_5funit_5fcount_75',['MAX_UNIT_COUNT',['../d9/df4/classnkr_1_1pointer__t.html#a0ef30e55989ad8214c52115347b050dd',1,'nkr::pointer_t']]],
-  ['maybe_5fpointer_5ft_2eh_76',['maybe_pointer_t.h',['../db/df2/maybe__pointer__t_8h.html',1,'']]],
-  ['maybe_5fpointer_5ft_2einl_77',['maybe_pointer_t.inl',['../da/dee/maybe__pointer__t_8inl.html',1,'']]],
-  ['maybe_5ft_78',['maybe_t',['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#a31b3c7dd3e6e00a971f65de5f4489364',1,'nkr::maybe_t&lt; T * &gt;::maybe_t()'],['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#af501e57a8ec8cc366c2da75d21b2c340',1,'nkr::maybe_t&lt; T * &gt;::maybe_t(pointer_t pointer)'],['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#aad091431339197c206ea26b635919146',1,'nkr::maybe_t&lt; T * &gt;::maybe_t(const maybe_t &amp;other)'],['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html#ac3392b9b4d636f88cbf8cae07d7c00ba',1,'nkr::maybe_t&lt; T * &gt;::maybe_t(maybe_t &amp;&amp;other) noexcept'],['../d3/dd5/classnkr_1_1maybe__t.html',1,'nkr::maybe_t&lt; T &gt;']]],
-  ['maybe_5ft_2eh_79',['maybe_t.h',['../d6/d5d/maybe__t_8h.html',1,'']]],
-  ['maybe_5ft_3c_20t_20_2a_20_3e_80',['maybe_t&lt; T * &gt;',['../de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html',1,'nkr']]],
-  ['misc_81',['misc',['../d2/de2/group__traits__misc.html',1,'']]]
+  ['index_5ft_60',['index_t',['../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f',1,'nkr']]],
+  ['integers_61',['integers',['../d8/d3c/group__intrinsics__integers.html',1,'']]],
+  ['integral_62',['integral',['../d3/dbc/group__traits__integral.html',1,'']]],
+  ['integral_5f16_5ftr_63',['integral_16_tr',['../d3/dbc/group__traits__integral.html#ga4838f7fd509cb21368e221315a402288',1,'nkr']]],
+  ['integral_5f32_5ftr_64',['integral_32_tr',['../d3/dbc/group__traits__integral.html#gaddc4bf1009deda1bed82a5b8b2e579b2',1,'nkr']]],
+  ['integral_5f64_5ftr_65',['integral_64_tr',['../d3/dbc/group__traits__integral.html#gac9e3cf43a084bd60403ad20d97d219fa',1,'nkr']]],
+  ['integral_5f8_5ftr_66',['integral_8_tr',['../d3/dbc/group__traits__integral.html#gaaee39adc51f881013d9e63c5ec97960c',1,'nkr']]],
+  ['integral_5fsigned_5ftr_67',['integral_signed_tr',['../d3/dbc/group__traits__integral.html#ga9ac82b6a630c42c4be1f271a07ac6b8b',1,'nkr']]],
+  ['integral_5ftr_68',['integral_tr',['../d3/dbc/group__traits__integral.html#gaf9c0ac5e2ecd79fdb5abe1495bbfad3a',1,'nkr']]],
+  ['integral_5funsigned_5ftr_69',['integral_unsigned_tr',['../d3/dbc/group__traits__integral.html#ga5b2a680f9f45391a6c0b93bca551c9cb',1,'nkr']]],
+  ['integral_5fword_5ftr_70',['integral_word_tr',['../d3/dbc/group__traits__integral.html#ga607c5d5f0b2f457383fa4fa5a2d74a75',1,'nkr']]],
+  ['intrinsic_2edox_71',['intrinsic.dox',['../d5/d51/intrinsic_8dox.html',1,'']]],
+  ['intrinsic_2eh_72',['intrinsic.h',['../d6/d35/intrinsic_8h.html',1,'']]],
+  ['intrinsic_2einl_73',['intrinsic.inl',['../d2/d71/intrinsic_8inl.html',1,'']]],
+  ['intrinsics_74',['intrinsics',['../df/daa/group__intrinsics.html',1,'']]],
+  ['is_5fbig_75',['Is_Big',['../d8/dd5/namespacenkr_1_1os_1_1endian.html#a89b0021664e965fce2548f80d51925dc',1,'nkr::os::endian']]],
+  ['is_5flittle_76',['Is_Little',['../d8/dd5/namespacenkr_1_1os_1_1endian.html#aaeaaf2ecee3780e033b87c5edc53ebfa',1,'nkr::os::endian']]]
 ];
