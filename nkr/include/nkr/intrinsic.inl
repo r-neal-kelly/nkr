@@ -28,6 +28,7 @@ namespace nkr {
     #define nkr_b       \
         } while(false)
 
+
     #define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p)     \
     nkr_P                                                   \
         static volatile bool_t is_initialized = false;      \
@@ -40,5 +41,11 @@ namespace nkr {
             }                                               \
         }                                                   \
     nkr_b
+
+#if defined(nkr_IS_32_BIT)
+    static_assert(sizeof(std::size_t) == sizeof(u32_t), "You need to manually set word_t to u32_t.");
+#elif defined(nkr_IS_64_BIT)
+    static_assert(sizeof(std::size_t) == sizeof(u64_t), "You need to manually set word_t to u64_t.");
+#endif
 
 }

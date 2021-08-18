@@ -33,6 +33,7 @@ namespace nkr {
     #error "Cannot compile with this architecture."
 #endif
     /// @}
+    
 
     /// @ingroup intrinsics_macros_braces
     /// @{
@@ -43,68 +44,44 @@ namespace nkr {
     #define nkr_b   ///< @copydoc doc_nkr_nkr_b
     /// @}
 
+
+    // We may move this to a dedicated header with other macro procedures.
+    // We would change the group name to just "macros_procedures" then.
     /// @ingroup intrinsics_macros_procedures
     /// @{
     #define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p) ///< @copydoc doc_nkr_nkr_INITIALIZE_STATIC_SAFELY
     /// @}
 
-    /**
-    * @defgroup intrinsics_primitives primitives
-    * @ingroup intrinsics
-    * 
-    * @brief
-    *   Primitive types aliased for consistency.
-    */
-    /** @{ **/
-    using void_t    = void;
-    using bool_t    = bool;
-    /** @} **/
 
-    /**
-    * @defgroup intrinsics_integers integers
-    * @ingroup intrinsics
-    * 
-    * @brief
-    *   Convenient integer types.
-    * 
-    * @todo
-    *   Add an example showing why the _t comes in useful when using integers. Also explain the u and s.
-    */
-    /** @{ **/
-    using u8_t      = std::uint8_t;
-    using u16_t     = std::uint16_t;
-    using u32_t     = std::uint32_t;
-    using u64_t     = std::uint64_t;
-    using s8_t      = std::int8_t;
-    using s16_t     = std::int16_t;
-    using s32_t     = std::int32_t;
-    using s64_t     = std::int64_t;
-    /** @} **/
+    /// @ingroup intrinsics_primitives
+    /// @{
+    using void_t    = void; ///< @copydoc doc_nkr_void_t
+    using bool_t    = bool; ///< @copydoc doc_nkr_bool_t
+    /// @}
 
-    /**
-    * @defgroup intrinsics_contextuals contextuals
-    * @ingroup intrinsics
-    * 
-    * @brief
-    *   Efficient context based types.
-    * 
-    * @details
-    *   These types are most commonly used on the stack, making them transitory and often only cached in small numbers. Most of them equate to the size of nkr::word_t, which has the same size as the processor's natural word. This is important when it comes to execution efficiency because the processor has to spend more time reading a variable that does not equate to its word size. Others are necessarily different sizes depending on their context.
-    */
-    /** @{ **/
-    using byte_t    = u8_t;             ///< The smallest natural type available.
-    using word_t    = std::size_t;      ///< The largest natural type available, the processor's word.
-    using size_t    = word_t;           ///< Used for byte counts exclusively.
-    using count_t   = word_t;           ///< Used for unit counts of any arbitrary type.
-    using index_t   = word_t;           ///< Used for unit indices of any arbitrary array of types.
-    using address_t = std::uintptr_t;   ///< Used for literal pointer math.
-    /** @} **/
 
-#if defined(nkr_IS_32_BIT)
-    static_assert(sizeof(std::size_t) == sizeof(u32_t), "You need to manually set word_t to u32_t.");
-#elif defined(nkr_IS_64_BIT)
-    static_assert(sizeof(std::size_t) == sizeof(u64_t), "You need to manually set word_t to u64_t.");
-#endif
+    /// @ingroup intrinsics_integers
+    /// @{
+    using u8_t  = std::uint8_t;     ///< @copydoc doc_nkr_u8_t
+    using u16_t = std::uint16_t;    ///< @copydoc doc_nkr_u16_t
+    using u32_t = std::uint32_t;    ///< @copydoc doc_nkr_u32_t
+    using u64_t = std::uint64_t;    ///< @copydoc doc_nkr_u64_t
+    using s8_t  = std::int8_t;      ///< @copydoc doc_nkr_s8_t
+    using s16_t = std::int16_t;     ///< @copydoc doc_nkr_s16_t
+    using s32_t = std::int32_t;     ///< @copydoc doc_nkr_s32_t
+    using s64_t = std::int64_t;     ///< @copydoc doc_nkr_s64_t
+    /// @}
+    
+
+    /// @ingroup intrinsics_contextuals
+    /// @{
+    using byte_t    = u8_t;             ///< @copydoc doc_nkr_byte_t
+    using word_t    = std::size_t;      ///< @copydoc doc_nkr_word_t
+    using size_t    = word_t;           ///< @copydoc doc_nkr_size_t
+    using count_t   = word_t;           ///< @copydoc doc_nkr_count_t
+    using index_t   = word_t;           ///< @copydoc doc_nkr_index_t
+    using address_t = std::uintptr_t;   ///< @copydoc doc_nkr_address_t
+    /// @}
 
 }
 

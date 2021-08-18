@@ -146,21 +146,21 @@ namespace nkr { namespace os { namespace endian {
 
 namespace nkr { namespace os { namespace heap {
 
-/// @name allocation
-/// @copydoc doc_nkr_os_heap_group_allocation
-/// @{
+    /// @name allocation
+    /// @copydoc doc_nkr_os_heap_group_allocation
+    /// @{
     byte_t* Allocate(count_t byte_count);                       ///< @copydoc doc_nkr_os_heap_Allocate
     bool_t  Reallocate(byte_t*& bytes, count_t new_byte_count); ///< @copydoc doc_nkr_os_heap_Reallocate
     void_t  Deallocate(byte_t*& bytes);                         ///< @copydoc doc_nkr_os_heap_Deallocate
-/// @}
+    /// @}
 
-/// @name zero-initialized allocation
-/// @copydoc doc_nkr_os_heap_group_allocation_zero
-/// @{
+    /// @name zero-initialized allocation
+    /// @copydoc doc_nkr_os_heap_group_allocation_zero
+    /// @{
     byte_t* Allocate_Zeros(count_t byte_count);                         ///< @copydoc doc_nkr_os_heap_Allocate_Zeros
     bool_t  Reallocate_Zeros(byte_t*& bytes, count_t new_byte_count);   ///< @copydoc doc_nkr_os_heap_Reallocate_Zeros
     void_t  Deallocate_Zeros(byte_t*& bytes);                           ///< @copydoc doc_nkr_os_heap_Deallocate_Zeros
-/// @}
+    /// @}
 
 }}}
 
