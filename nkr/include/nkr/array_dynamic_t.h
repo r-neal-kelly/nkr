@@ -6,7 +6,7 @@
 
 #include "nkr/allocator_heap_t.h"
 #include "nkr/allocator_i.h"
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/pointer_t.h"
 #include "nkr/traits.h"
 

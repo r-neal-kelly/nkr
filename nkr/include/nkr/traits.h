@@ -4,139 +4,83 @@
 
 #pragma once
 
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 
 namespace nkr {
 
-    /**
-    * @defgroup traits traits
-    * 
-    * @brief
-    *   C++20 concepts that are used to filter types in templates.
-    * 
-    * @details
-    *   The term "trait" is not used in any standard C++ capacity, but specifically for use with this library. All trait names are followed by the "_tr" postfix to indicate that they are C++20 concepts used in place of 'typename' in template declarations.
-    * 
-    * @todo
-    *   Add an example or several.
-    */
-
-    /**
-    * @defgroup traits_integral integral
-    * @ingroup traits
-    * 
-    * @brief
-    *   Filter types that can be treated as integers.
-    */
-    /** @{ **/
+    /// @addtogroup traits_integers
+    /// @{
     template <typename type_p>
-    concept integral_tr =
-        std::is_integral<type_p>::value;
+    concept integer_tr =
+        std::is_integral<type_p>::value;    ///< @copydoc traits_integers_integer_tr
 
-    /// Allows nkr::bool_t.
     template <typename type_p>
-    concept integral_unsigned_tr =
+    concept integer_unsigned_tr =
         std::is_integral<type_p>::value &&
-        std::is_unsigned<type_p>::value;
+        std::is_unsigned<type_p>::value;    ///< @copydoc traits_integers_integer_unsigned_tr
 
-    /// Does not allow nkr::bool_t.
     template <typename type_p>
-    concept integral_signed_tr =
+    concept integer_signed_tr =
         std::is_integral<type_p>::value &&
-        std::is_signed<type_p>::value;
+        std::is_signed<type_p>::value;      ///< @copydoc traits_integers_integer_signed_tr
 
-    /// Allows nkr::bool_t.
     template <typename type_p>
-    concept integral_8_tr =
+    concept integer_8_tr =
         std::is_integral<type_p>::value &&
-        (sizeof(type_p) == sizeof(u8_t));
+        (sizeof(type_p) == sizeof(u8_t));   ///< @copydoc traits_integers_integer_8_tr
 
     template <typename type_p>
-    concept integral_16_tr =
+    concept integer_16_tr =
         std::is_integral<type_p>::value &&
-        (sizeof(type_p) == sizeof(u16_t));
+        (sizeof(type_p) == sizeof(u16_t));  ///< @copydoc traits_integers_integer_16_tr
 
     template <typename type_p>
-    concept integral_32_tr =
+    concept integer_32_tr =
         std::is_integral<type_p>::value &&
-        (sizeof(type_p) == sizeof(u32_t));
+        (sizeof(type_p) == sizeof(u32_t));  ///< @copydoc traits_integers_integer_32_tr
 
     template <typename type_p>
-    concept integral_64_tr =
+    concept integer_64_tr =
         std::is_integral<type_p>::value &&
-        (sizeof(type_p) == sizeof(u64_t));
+        (sizeof(type_p) == sizeof(u64_t));  ///< @copydoc traits_integers_integer_64_tr
 
-    /// Only allows integers that are the same size as nkr::word_t.
     template <typename type_p>
-    concept integral_word_tr =
+    concept integer_word_tr =
         std::is_integral<type_p>::value &&
-        (sizeof(type_p) == sizeof(word_t));
-    /** @} **/
+        (sizeof(type_p) == sizeof(word_t)); ///< @copydoc traits_integers_integer_word_tr
+    /// @}
 
-    /**
-    * @defgroup traits_casts casts
-    * @ingroup traits
-    *
-    * @brief
-    *   Filter types that can cast to other types.
-    */
-    /** @{ **/
+    
+    /// @addtogroup traits_casts
+    /// @{
     template <typename type_p>
-    concept cast_i8_ref_tr =
-        std::convertible_to<type_p, u8_t&> ||
-        std::convertible_to<type_p, s8_t&>;
+    concept cast_word_tr =
+        std::convertible_to<type_p, word_t>;    ///< @copydoc traits_casts_cast_word_tr
+    /// @}
 
-    template <typename type_p>
-    concept cast_i16_ref_tr =
-        std::convertible_to<type_p, u16_t&> ||
-        std::convertible_to<type_p, s16_t&>;
-
-    template <typename type_p>
-    concept cast_i32_ref_tr =
-        std::convertible_to<type_p, u32_t&> ||
-        std::convertible_to<type_p, s32_t&>;
-
-    template <typename type_p>
-    concept cast_i64_ref_tr =
-        std::convertible_to<type_p, u64_t&> ||
-        std::convertible_to<type_p, s64_t&>;
-    /** @} **/
-
-    /**
-    * @defgroup traits_operators operators
-    * @ingroup traits
-    * 
-    * @brief
-    *   Filter types that can use particular operators.
-    */
-    /** @{ **/
+    
+    /// @addtogroup traits_operators
+    /// @{
     template <typename type_p>
     concept operator_add_tr =
-        requires(type_p instance) { instance + 1; };
+        requires(type_p instance) { instance + 1; };    ///< @copydoc traits_operators_operator_add_tr
 
     template <typename type_p>
     concept operator_subtract_tr =
-        requires(type_p instance) { instance - 1; };
-    /** @} **/
+        requires(type_p instance) { instance - 1; };    ///< @copydoc traits_operators_operator_subtract_tr
+    /// @}
 
-    /**
-    * @defgroup traits_misc misc
-    * @ingroup traits
-    * 
-    * @brief
-    *   Filter types by various predicates.
-    */
-    /** @{ **/
-    /// In addition to regular pointers, this also allows nullptr.
+
+    /// @addtogroup traits_misc
+    /// @{
     template <typename type_p>
     concept pointer_tr =
         std::is_null_pointer<type_p>::value ||
-        std::is_pointer<type_p>::value;
+        std::is_pointer<type_p>::value;         ///< @copydoc traits_misc_pointer_tr
 
-    /// Does not allow types like nkr::void_t, which have no size.
     template <typename type_p>
     concept sized_tr =
-        sizeof(type_p) > 0;
-    /** @} **/
+        sizeof(type_p) > 0;                     ///< @copydoc traits_misc_sized_tr
+    /// @}
 
 }

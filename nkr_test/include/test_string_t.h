@@ -6,7 +6,7 @@
 
 #include "nkr/string_t.h"
 
-#include "intrinsic.h"
+#include "intrinsics.h"
 
 namespace nkr { namespace test {
 

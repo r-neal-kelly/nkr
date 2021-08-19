@@ -6,7 +6,7 @@
 
 #include "nkr/pointer_t.h"
 
-#include "intrinsic.h"
+#include "intrinsics.h"
 
 namespace nkr { namespace test_pointer_t {
 

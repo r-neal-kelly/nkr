@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
 namespace nkr {
@@ -13,10 +13,10 @@ namespace nkr {
     class atomic_t
     {
     public:
-        using value_t   = integer_p;
+        static_assert(integer_tr<integer_p>, "invalid atomic value_t.");
 
     public:
-        static_assert(std::is_integral<value_t>::value, "invalid atomic value_t.");
+        using value_t   = integer_p;
 
     private:
         volatile value_t    value;
@@ -32,44 +32,26 @@ namespace nkr {
 
     public:
         value_t Access() const;
-        template <integral_tr integral_p>
-        value_t Access_Add(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t Access_Subtract(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t Access_Or(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t Access_And(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t Access_Xor(integral_p value) const;
+        value_t Access_Add(integer_tr auto value) const;
+        value_t Access_Subtract(integer_tr auto value) const;
+        value_t Access_Or(integer_tr auto value) const;
+        value_t Access_And(integer_tr auto value) const;
+        value_t Access_Xor(integer_tr auto value) const;
 
-        template <integral_tr integral_p>
-        value_t Assign(integral_p value);
-        template <integral_tr integral_p>
-        value_t Assign_Add(integral_p value);
-        template <integral_tr integral_p>
-        value_t Assign_Subtract(integral_p value);
-        template <integral_tr integral_p>
-        value_t Assign_Or(integral_p value);
-        template <integral_tr integral_p>
-        value_t Assign_And(integral_p value);
-        template <integral_tr integral_p>
-        value_t Assign_Xor(integral_p value);
+        value_t Assign(integer_tr auto value);
+        value_t Assign_Add(integer_tr auto value);
+        value_t Assign_Subtract(integer_tr auto value);
+        value_t Assign_Or(integer_tr auto value);
+        value_t Assign_And(integer_tr auto value);
+        value_t Assign_Xor(integer_tr auto value);
 
-        template <integral_tr integral_p>
-        value_t Exchange(integral_p value);
-        template <integral_tr integral_a_p, integral_tr integral_b_p>
-        value_t Exchange_If_Equals(integral_a_p value, integral_b_p target);
-        template <integral_tr integral_p>
-        value_t Exchange_Add(integral_p value);
-        template <integral_tr integral_p>
-        value_t Exchange_Subtract(integral_p value);
-        template <integral_tr integral_p>
-        value_t Exchange_Or(integral_p value);
-        template <integral_tr integral_p>
-        value_t Exchange_And(integral_p value);
-        template <integral_tr integral_p>
-        value_t Exchange_Xor(integral_p value);
+        value_t Exchange(integer_tr auto value);
+        value_t Exchange_If_Equals(integer_tr auto value, integer_tr auto target);
+        value_t Exchange_Add(integer_tr auto value);
+        value_t Exchange_Subtract(integer_tr auto value);
+        value_t Exchange_Or(integer_tr auto value);
+        value_t Exchange_And(integer_tr auto value);
+        value_t Exchange_Xor(integer_tr auto value);
 
     public:
         operator    value_t() const;
@@ -77,35 +59,24 @@ namespace nkr {
     public:
         value_t operator ()() const;
 
-        template <integral_tr integral_p>
-        value_t operator =(integral_p value);
+        value_t operator =(integer_tr auto value);
 
-        template <integral_tr integral_p>
-        value_t operator +(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t operator -(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t operator +=(integral_p value);
-        template <integral_tr integral_p>
-        value_t operator -=(integral_p value);
+        value_t operator +(integer_tr auto value) const;
+        value_t operator -(integer_tr auto value) const;
+        value_t operator +=(integer_tr auto value);
+        value_t operator -=(integer_tr auto value);
         value_t operator ++();
         value_t operator ++(int);
         value_t operator --();
         value_t operator --(int);
 
         value_t operator ~() const;
-        template <integral_tr integral_p>
-        value_t operator |(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t operator &(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t operator ^(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t operator |=(integral_p value);
-        template <integral_tr integral_p>
-        value_t operator &=(integral_p value);
-        template <integral_tr integral_p>
-        value_t operator ^=(integral_p value);
+        value_t operator |(integer_tr auto value) const;
+        value_t operator &(integer_tr auto value) const;
+        value_t operator ^(integer_tr auto value) const;
+        value_t operator |=(integer_tr auto value);
+        value_t operator &=(integer_tr auto value);
+        value_t operator ^=(integer_tr auto value);
     };
 
     template <>
@@ -163,26 +134,17 @@ namespace nkr {
 
     public:
         value_t*    Access() const;
-        template <integral_tr integral_p>
-        value_t*    Access_Add(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t*    Access_Subtract(integral_p value) const;
+        value_t*    Access_Add(integer_tr auto value) const;
+        value_t*    Access_Subtract(integer_tr auto value) const;
 
-        template <pointer_tr pointer_p>
-        value_t*    Assign(pointer_p value);
-        template <integral_tr integral_p>
-        value_t*    Assign_Add(integral_p value);
-        template <integral_tr integral_p>
-        value_t*    Assign_Subtract(integral_p value);
+        value_t*    Assign(pointer_tr auto value);
+        value_t*    Assign_Add(integer_tr auto value);
+        value_t*    Assign_Subtract(integer_tr auto value);
 
-        template <pointer_tr pointer_p>
-        value_t*    Exchange(pointer_p value);
-        template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
-        value_t*    Exchange_If_Equals(pointer_a_p value, pointer_b_p target);
-        template <integral_tr integral_p>
-        value_t*    Exchange_Add(integral_p value);
-        template <integral_tr integral_p>
-        value_t*    Exchange_Subtract(integral_p value);
+        value_t*    Exchange(pointer_tr auto value);
+        value_t*    Exchange_If_Equals(pointer_tr auto value, pointer_tr auto target);
+        value_t*    Exchange_Add(integer_tr auto value);
+        value_t*    Exchange_Subtract(integer_tr auto value);
 
     public:
         operator    value_t*() const;
@@ -190,17 +152,12 @@ namespace nkr {
     public:
         value_t*    operator ()() const;
 
-        template <pointer_tr pointer_p>
-        value_t*    operator =(pointer_p value);
+        value_t*    operator =(pointer_tr auto value);
 
-        template <integral_tr integral_p>
-        value_t*    operator +(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t*    operator -(integral_p value) const;
-        template <integral_tr integral_p>
-        value_t*    operator +=(integral_p value);
-        template <integral_tr integral_p>
-        value_t*    operator -=(integral_p value);
+        value_t*    operator +(integer_tr auto value) const;
+        value_t*    operator -(integer_tr auto value) const;
+        value_t*    operator +=(integer_tr auto value);
+        value_t*    operator -=(integer_tr auto value);
         value_t*    operator ++();
         value_t*    operator ++(int);
         value_t*    operator --();
@@ -208,8 +165,7 @@ namespace nkr {
 
         value_t*    operator ->() const;
         value_t&    operator *() const;
-        template <integral_tr integral_p>
-        value_t&    operator [](integral_p index) const;
+        value_t&    operator [](integer_tr auto index) const;
     };
 
     template <>
@@ -233,13 +189,10 @@ namespace nkr {
     public:
         value_t*    Access() const;
 
-        template <pointer_tr pointer_p>
-        value_t*    Assign(pointer_p value);
+        value_t*    Assign(pointer_tr auto value);
 
-        template <pointer_tr pointer_p>
-        value_t*    Exchange(pointer_p value);
-        template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
-        value_t*    Exchange_If_Equals(pointer_a_p value, pointer_b_p target);
+        value_t*    Exchange(pointer_tr auto value);
+        value_t*    Exchange_If_Equals(pointer_tr auto value, pointer_tr auto target);
 
     public:
         operator    value_t*() const;
@@ -247,8 +200,7 @@ namespace nkr {
     public:
         value_t*    operator ()() const;
 
-        template <pointer_tr pointer_p>
-        value_t*    operator =(pointer_p value);
+        value_t*    operator =(pointer_tr auto value);
     };
 
 }

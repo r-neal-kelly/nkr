@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
 namespace nkr {
@@ -71,14 +71,14 @@ namespace nkr {
         pointer_t&      operator --();
         pointer_t       operator --(int);
 
-        template <integral_tr integer>
+        template <integer_tr integer>
         pointer_t&      operator +=(integer count);
-        template <integral_tr integer>
+        template <integer_tr integer>
         pointer_t&      operator -=(integer count);
 
-        template <integral_tr integer>
+        template <integer_tr integer>
         pointer_t       operator +(integer count) const;
-        template <integral_tr integer>
+        template <integer_tr integer>
         pointer_t       operator -(integer count) const;
     };
 

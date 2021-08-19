@@ -5,7 +5,7 @@
 #pragma once
 
 #include "nkr/charcoder_utf_8_t.h"
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/string_dynamic_t.h"
 
 namespace nkr {

@@ -21,7 +21,7 @@
     <ClInclude Include="include\nkr\string_dynamic_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\intrinsic.h">
+    <ClInclude Include="include\nkr\intrinsics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\string_static_t.h">
@@ -72,6 +72,9 @@
     <ClInclude Include="include\nkr\docs\f6f68334-a834-4809-8bd6-6eac9025135c.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -101,10 +104,15 @@
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
     <None Include="docs\os.dox" />
     <None Include="include\nkr\os.dox" />
-    <None Include="include\nkr\intrinsic.dox" />
-    <None Include="include\nkr\intrinsic.inl">
+    <None Include="include\nkr\intrinsics.dox" />
+    <None Include="include\nkr\macros.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="include\nkr\macros.dox" />
+    <None Include="include\nkr\intrinsics.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\traits.dox" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\os.cpp">

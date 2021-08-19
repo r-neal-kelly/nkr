@@ -38,7 +38,7 @@
     <ClInclude Include="include\test_maybe_pointer_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\intrinsic.h">
+    <ClInclude Include="include\intrinsics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\test_string_t.h">

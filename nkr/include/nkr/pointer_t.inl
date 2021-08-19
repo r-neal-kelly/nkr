@@ -218,7 +218,7 @@ namespace nkr {
     }
 
     template <sized_tr unit_p>
-    template <integral_tr integer>
+    template <integer_tr integer>
     inline pointer_t<unit_p>& pointer_t<unit_p>::operator +=(integer count)
     {
         assert(this->units != nullptr);
@@ -230,7 +230,7 @@ namespace nkr {
     }
 
     template <sized_tr unit_p>
-    template <integral_tr integer>
+    template <integer_tr integer>
     inline pointer_t<unit_p>& pointer_t<unit_p>::operator -=(integer count)
     {
         assert(this->units != nullptr);
@@ -242,7 +242,7 @@ namespace nkr {
     }
 
     template <sized_tr unit_p>
-    template <integral_tr integer>
+    template <integer_tr integer>
     inline pointer_t<unit_p> pointer_t<unit_p>::operator +(integer count) const
     {
         assert(this->units != nullptr);
@@ -251,7 +251,7 @@ namespace nkr {
     }
 
     template <sized_tr unit_p>
-    template <integral_tr integer>
+    template <integer_tr integer>
     inline pointer_t<unit_p> pointer_t<unit_p>::operator -(integer count) const
     {
         assert(this->units != nullptr);

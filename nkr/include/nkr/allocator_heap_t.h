@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/pointer_t.h"
 #include "nkr/traits.h"
 

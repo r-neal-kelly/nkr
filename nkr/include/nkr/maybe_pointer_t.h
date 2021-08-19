@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/maybe_t.h"
 
 namespace nkr {

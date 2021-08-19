@@ -64,127 +64,110 @@ namespace nkr {
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Add(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Add(integer_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Subtract(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Subtract(integer_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Or(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Or(integer_tr auto value) const
     {
         return os::atomic::Access_Or(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_And(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_And(integer_tr auto value) const
     {
         return os::atomic::Access_And(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Xor(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Xor(integer_tr auto value) const
     {
         return os::atomic::Access_Xor(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign(integer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Add(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Add(integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Subtract(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Subtract(integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Or(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Or(integer_tr auto value)
     {
         return os::atomic::Assign_Or(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_And(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_And(integer_tr auto value)
     {
         return os::atomic::Assign_And(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Xor(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Xor(integer_tr auto value)
     {
         return os::atomic::Assign_Xor(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange(integer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_a_p, integral_tr integral_b_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_If_Equals(integral_a_p value, integral_b_p target)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_If_Equals(integer_tr auto value,
+                                                                                         integer_tr auto target)
     {
         return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Add(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Subtract(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Or(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Or(integer_tr auto value)
     {
         return os::atomic::Exchange_Or(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_And(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_And(integer_tr auto value)
     {
         return os::atomic::Exchange_And(this->value, value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Xor(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Xor(integer_tr auto value)
     {
         return os::atomic::Exchange_Xor(this->value, value);
     }
@@ -202,36 +185,31 @@ namespace nkr {
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator =(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator =(integer_tr auto value)
     {
         return Assign(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator +(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator +(integer_tr auto value) const
     {
         return Access_Add(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator -(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator -(integer_tr auto value) const
     {
         return Access_Subtract(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator +=(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator +=(integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator -=(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator -=(integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
@@ -267,43 +245,37 @@ namespace nkr {
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator |(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator |(integer_tr auto value) const
     {
         return Access_Or(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator &(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator &(integer_tr auto value) const
     {
         return Access_And(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ^(integral_p value) const
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ^(integer_tr auto value) const
     {
         return Access_Xor(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator |=(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator |=(integer_tr auto value)
     {
         return Assign_Or(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator &=(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator &=(integer_tr auto value)
     {
         return Assign_And(value);
     }
 
     template <typename integer_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ^=(integral_p value)
+    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ^=(integer_tr auto value)
     {
         return Assign_Xor(value);
     }
@@ -439,64 +411,56 @@ namespace nkr {
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Access_Add(integral_p value) const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Access_Add(integer_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Access_Subtract(integral_p value) const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Access_Subtract(integer_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
 
     template <typename value_p>
-    template <pointer_tr pointer_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign(pointer_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign(pointer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign_Add(integral_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign_Add(integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign_Subtract(integral_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Assign_Subtract(integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
     template <typename value_p>
-    template <pointer_tr pointer_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange(pointer_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange(pointer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
     template <typename value_p>
-    template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_If_Equals(pointer_a_p value, pointer_b_p target)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_If_Equals(pointer_tr auto value,
+                                                                                        pointer_tr auto target)
     {
         return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Add(integral_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Subtract(integral_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
@@ -514,36 +478,31 @@ namespace nkr {
     }
 
     template <typename value_p>
-    template <pointer_tr pointer_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator =(pointer_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator =(pointer_tr auto value)
     {
         return Assign(value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator +(integral_p value) const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator +(integer_tr auto value) const
     {
         return Access_Add(value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator -(integral_p value) const
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator -(integer_tr auto value) const
     {
         return Access_Subtract(value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator +=(integral_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator +=(integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator -=(integral_p value)
+    inline typename atomic_t<value_p*>::value_t* atomic_t<value_p*>::operator -=(integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
@@ -585,8 +544,7 @@ namespace nkr {
     }
 
     template <typename value_p>
-    template <integral_tr integral_p>
-    inline typename atomic_t<value_p*>::value_t& atomic_t<value_p*>::operator [](integral_p index) const
+    inline typename atomic_t<value_p*>::value_t& atomic_t<value_p*>::operator [](integer_tr auto index) const
     {
         return Access()[index];
     }
@@ -637,20 +595,18 @@ namespace nkr {
         return os::atomic::Access(this->value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Assign(pointer_p value)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Assign(pointer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange(pointer_p value)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange(pointer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    template <pointer_tr pointer_a_p, pointer_tr pointer_b_p>
-    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_If_Equals(pointer_a_p value, pointer_b_p target)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::Exchange_If_Equals(pointer_tr auto value,
+                                                                                      pointer_tr auto target)
     {
         return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
@@ -665,8 +621,7 @@ namespace nkr {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::operator =(pointer_p value)
+    inline typename atomic_t<void_t*>::value_t* atomic_t<void_t*>::operator =(pointer_tr auto value)
     {
         return Assign(value);
     }

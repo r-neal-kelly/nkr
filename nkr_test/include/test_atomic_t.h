@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "intrinsic.h"
+#include "intrinsics.h"
 
 namespace nkr { namespace test_atomic_t {
 

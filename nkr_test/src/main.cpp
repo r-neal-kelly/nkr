@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <io.h>
 
-#include "intrinsic.h"
+#include "intrinsics.h"
 #include "test_atomic_t.h"
 #include "test_os.h"
 #include "test_pointer_t.h"

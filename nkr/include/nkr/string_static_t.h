@@ -6,7 +6,7 @@
 
 #include "nkr/charcoder_i.h"
 #include "nkr/charcoder_utf_8_t.h"
-#include "nkr/intrinsic.h"
+#include "nkr/intrinsics.h"
 #include "nkr/maybe_pointer_t.h"
 
 namespace nkr {

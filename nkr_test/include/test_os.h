@@ -6,7 +6,7 @@
 
 #include "nkr/os.h"
 
-#include "intrinsic.h"
+#include "intrinsics.h"
 
 namespace nkr { namespace test_os {
 
