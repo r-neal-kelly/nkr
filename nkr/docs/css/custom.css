@@ -32,7 +32,7 @@
         --warning-color-darker: var(--page-foreground-color);
 
         --note-color: var(--page-background-color);
-        --note-color-dark: rgb(255, 183, 0);
+        --note-color-dark: rgb(25 130 210 / 90%);
         --note-color-darker: var(--page-foreground-color);
 
         --deprecated-color: var(--page-background-color);
@@ -49,4 +49,14 @@
 
 dl.section dd, dl.bug dd, dl.deprecated dd {
     margin-inline-start: 40px;
+}
+
+dl.todo {
+    padding: var(--spacing-medium);
+    margin: var(--spacing-medium) 0;
+    overflow: hidden;
+    margin-left: 0;
+    border-radius: var(--border-radius-small);
+    border-left: 8px solid;
+    border-color: #00C0E0;
 }

@@ -85,29 +85,39 @@ $(document).ready(function(){initNavTree('d8/dd5/namespacenkr_1_1os_1_1endian.ht
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">nkr::os::endian Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">nkr::os::endian Namespace Reference<div class="ingroups"><a class="el" href="../../d9/dd2/group__namespaces.html">namespaces</a></div></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Functions that provide various information and solutions regarding endianness.  
+<a href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">attain info</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p >Attain info regarding the endianness of the current processor you're running on.</p>
+<p >This is a thread-safe and efficient way of determining whether or not a computer is processing data in big or little endian. This is important to know when dealing with data that may have been written by or is intended to be read by another computer that has a different endianness than the one you are operating on. There are times when you need to know if you should swap your compound integer types to a different endianness or not.</p>
+<dl class="section note"><dt>Note</dt><dd>The first time either of these functions are called they will be slightly inefficient, however any sucessive calls will be lightning fast. </dd></dl>
+</div></td></tr>
 <tr class="memitem:a89b0021664e965fce2548f80d51925dc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a89b0021664e965fce2548f80d51925dc">Is_Big</a> ()</td></tr>
 <tr class="separator:a89b0021664e965fce2548f80d51925dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#aaeaaf2ecee3780e033b87c5edc53ebfa">Is_Little</a> ()</td></tr>
 <tr class="separator:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cf28643c40236c24333226a06c0023e"><td class="memTemplParams" colspan="2">template&lt;integer_16_tr i16_p&gt; </td></tr>
-<tr class="memitem:a8cf28643c40236c24333226a06c0023e"><td class="memTemplItemLeft" align="right" valign="top">i16_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a8cf28643c40236c24333226a06c0023e">Swap</a> (i16_p bytes)</td></tr>
-<tr class="separator:a8cf28643c40236c24333226a06c0023e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7a5fe13841b256cfc3b3c455d420fdf"><td class="memTemplParams" colspan="2">template&lt;integer_32_tr i32_p&gt; </td></tr>
-<tr class="memitem:ad7a5fe13841b256cfc3b3c455d420fdf"><td class="memTemplItemLeft" align="right" valign="top">i32_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad7a5fe13841b256cfc3b3c455d420fdf">Swap</a> (i32_p bytes)</td></tr>
-<tr class="separator:ad7a5fe13841b256cfc3b3c455d420fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8d2a1dea656a16b4c9a51a276109fed"><td class="memTemplParams" colspan="2">template&lt;integer_64_tr i64_p&gt; </td></tr>
-<tr class="memitem:ae8d2a1dea656a16b4c9a51a276109fed"><td class="memTemplItemLeft" align="right" valign="top">i64_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ae8d2a1dea656a16b4c9a51a276109fed">Swap</a> (i64_p bytes)</td></tr>
-<tr class="separator:ae8d2a1dea656a16b4c9a51a276109fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">swap compound integers</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p >Invert the order of bytes in a multi-byte number.</p>
+<p >These are useful when you are dealing with data that was either written by or will be read by a processor that has a different endianness than the one your program is executing on.</p>
+<dl class="section note"><dt>Note</dt><dd>There is no <a class="el" href="../../d4/dc7/conceptnkr_1_1integer__8__tr.html" title="Allows nkr::bool_t if sizeof(bool) == 1.">nkr::integer_8_tr</a> variant because a byte or a stream of bytes cannot have a different endianness but is read and written the same on both kinds of computers. </dd></dl>
+</div></td></tr>
+<tr class="memitem:af06d231600a804944e318386b0ebb55e"><td class="memItemLeft" align="right" valign="top">integer_16_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">Swap</a> (integer_16_tr auto bytes)</td></tr>
+<tr class="separator:af06d231600a804944e318386b0ebb55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2b2b7f85673e867cec03c9d31668567"><td class="memItemLeft" align="right" valign="top">integer_32_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ab2b2b7f85673e867cec03c9d31668567">Swap</a> (integer_32_tr auto bytes)</td></tr>
+<tr class="separator:ab2b2b7f85673e867cec03c9d31668567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b2740f8b5f3c706751240c05d3622f"><td class="memItemLeft" align="right" valign="top">integer_64_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a45b2740f8b5f3c706751240c05d3622f">Swap</a> (integer_64_tr auto bytes)</td></tr>
+<tr class="separator:a45b2740f8b5f3c706751240c05d3622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Functions that provide various information and solutions regarding endianness. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a id="a89b0021664e965fce2548f80d51925dc" name="a89b0021664e965fce2548f80d51925dc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a89b0021664e965fce2548f80d51925dc">&#9670;&nbsp;</a></span>Is_Big()</h2>
 
@@ -122,6 +132,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p></p>
 
 </div>
 </div>
@@ -140,23 +152,23 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p></p>
+
 </div>
 </div>
-<a id="a8cf28643c40236c24333226a06c0023e" name="a8cf28643c40236c24333226a06c0023e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cf28643c40236c24333226a06c0023e">&#9670;&nbsp;</a></span>Swap() <span class="overload">[1/3]</span></h2>
+<a id="af06d231600a804944e318386b0ebb55e" name="af06d231600a804944e318386b0ebb55e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af06d231600a804944e318386b0ebb55e">&#9670;&nbsp;</a></span>Swap() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;integer_16_tr i16_p&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">i16_p nkr::os::endian::Swap </td>
+          <td class="memname">integer_16_tr auto nkr::os::endian::Swap </td>
           <td>(</td>
-          <td class="paramtype">i16_p&#160;</td>
+          <td class="paramtype">integer_16_tr auto&#160;</td>
           <td class="paramname"><em>bytes</em></td><td>)</td>
           <td></td>
         </tr>
@@ -168,23 +180,23 @@ template&lt;integer_16_tr i16_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p></p>
+
 </div>
 </div>
-<a id="ad7a5fe13841b256cfc3b3c455d420fdf" name="ad7a5fe13841b256cfc3b3c455d420fdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7a5fe13841b256cfc3b3c455d420fdf">&#9670;&nbsp;</a></span>Swap() <span class="overload">[2/3]</span></h2>
+<a id="ab2b2b7f85673e867cec03c9d31668567" name="ab2b2b7f85673e867cec03c9d31668567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2b2b7f85673e867cec03c9d31668567">&#9670;&nbsp;</a></span>Swap() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;integer_32_tr i32_p&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">i32_p nkr::os::endian::Swap </td>
+          <td class="memname">integer_32_tr auto nkr::os::endian::Swap </td>
           <td>(</td>
-          <td class="paramtype">i32_p&#160;</td>
+          <td class="paramtype">integer_32_tr auto&#160;</td>
           <td class="paramname"><em>bytes</em></td><td>)</td>
           <td></td>
         </tr>
@@ -196,23 +208,23 @@ template&lt;integer_32_tr i32_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p></p>
+
 </div>
 </div>
-<a id="ae8d2a1dea656a16b4c9a51a276109fed" name="ae8d2a1dea656a16b4c9a51a276109fed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8d2a1dea656a16b4c9a51a276109fed">&#9670;&nbsp;</a></span>Swap() <span class="overload">[3/3]</span></h2>
+<a id="a45b2740f8b5f3c706751240c05d3622f" name="a45b2740f8b5f3c706751240c05d3622f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45b2740f8b5f3c706751240c05d3622f">&#9670;&nbsp;</a></span>Swap() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;integer_64_tr i64_p&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">i64_p nkr::os::endian::Swap </td>
+          <td class="memname">integer_64_tr auto nkr::os::endian::Swap </td>
           <td>(</td>
-          <td class="paramtype">i64_p&#160;</td>
+          <td class="paramtype">integer_64_tr auto&#160;</td>
           <td class="paramname"><em>bytes</em></td><td>)</td>
           <td></td>
         </tr>
@@ -223,6 +235,8 @@ template&lt;integer_64_tr i64_p&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p></p>
 
 </div>
 </div>

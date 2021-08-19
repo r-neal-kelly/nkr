@@ -13,7 +13,7 @@
     * @private
     * 
     * @brief
-    *   With the exception of intrinsic macros, all other nkr entities are defined in this namespace.
+    *   With the exception of "nkr_" prefixed macros, all other nkr entities are defined in this namespace.
     */
 
 /**

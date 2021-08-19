@@ -22,7 +22,7 @@ var os_8inl =
     [ "Exchange_Or", "da/de1/os_8inl.html#af867d78086d040c7fe0a31ebd89e93b9", null ],
     [ "Exchange_And", "da/de1/os_8inl.html#a177778b1bfd89b09beb8601dff06b7c2", null ],
     [ "Exchange_Xor", "da/de1/os_8inl.html#a193c9e78142329323599223dc1796e6b", null ],
-    [ "Swap", "da/de1/os_8inl.html#a8cf28643c40236c24333226a06c0023e", null ],
-    [ "Swap", "da/de1/os_8inl.html#ad7a5fe13841b256cfc3b3c455d420fdf", null ],
-    [ "Swap", "da/de1/os_8inl.html#ae8d2a1dea656a16b4c9a51a276109fed", null ]
+    [ "Swap", "da/de1/os_8inl.html#af06d231600a804944e318386b0ebb55e", null ],
+    [ "Swap", "da/de1/os_8inl.html#ab2b2b7f85673e867cec03c9d31668567", null ],
+    [ "Swap", "da/de1/os_8inl.html#a45b2740f8b5f3c706751240c05d3622f", null ]
 ];

@@ -7,6 +7,29 @@
 #include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
+
+namespace nkr {
+
+    /// @ingroup namespaces
+    /// @copydoc doc_nkr_os
+    namespace os {
+
+        /// @ingroup namespaces
+        /// @copydoc doc_nkr_os_atomic
+        namespace atomic {}
+
+        /// @ingroup namespaces
+        /// @copydoc doc_nkr_os_endian
+        namespace endian {}
+
+        /// @ingroup namespaces
+        /// @copydoc doc_nkr_os_heap
+        namespace heap {}
+
+    }
+
+}
+
 namespace nkr { namespace os { namespace atomic {
 
     template <integer_tr atom_p>
@@ -132,15 +155,21 @@ namespace nkr { namespace os { namespace atomic {
 
 namespace nkr { namespace os { namespace endian {
 
-    bool_t          Is_Big();
-    bool_t          Is_Little();
+    /// @name attain info
+    /// @copydoc doc_nkr_os_endian_group_info
+    /// @{
+    bool_t  Is_Big();       ///< @copydoc doc_nkr_os_endian_Is_Big
+    bool_t  Is_Little();    ///< @copydoc doc_nkr_os_endian_Is_Little
+    /// @}
 
-    template <integer_16_tr i16_p>
-    inline i16_p    Swap(i16_p bytes);
-    template <integer_32_tr i32_p>
-    inline i32_p    Swap(i32_p bytes);
-    template <integer_64_tr i64_p>
-    inline i64_p    Swap(i64_p bytes);
+
+    /// @name swap compound integers
+    /// @copydoc doc_nkr_os_endian_group_swap
+    /// @{
+    inline integer_16_tr auto   Swap(integer_16_tr auto bytes); ///< @copydoc doc_nkr_os_endian_Swap_16
+    inline integer_32_tr auto   Swap(integer_32_tr auto bytes); ///< @copydoc doc_nkr_os_endian_Swap_32
+    inline integer_64_tr auto   Swap(integer_64_tr auto bytes); ///< @copydoc doc_nkr_os_endian_Swap_64
+    /// @}
 
 }}}
 
@@ -154,6 +183,7 @@ namespace nkr { namespace os { namespace heap {
     void_t  Deallocate(byte_t*& bytes);                         ///< @copydoc doc_nkr_os_heap_Deallocate
     /// @}
 
+    
     /// @name zero-initialized allocation
     /// @copydoc doc_nkr_os_heap_group_allocation_zero
     /// @{

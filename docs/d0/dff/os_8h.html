@@ -95,15 +95,19 @@ $(document).ready(function(){initNavTree('d0/dff/os_8h.html','../../'); initResi
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:dc/d0c/namespacenkr"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d0c/namespacenkr.html">nkr</a></td></tr>
-<tr class="memdesc:dc/d0c/namespacenkr"><td class="mdescLeft">&#160;</td><td class="mdescRight">With the exception of intrinsic macros, all other nkr entities are defined in this namespace. <br /></td></tr>
+<tr class="memdesc:dc/d0c/namespacenkr"><td class="mdescLeft">&#160;</td><td class="mdescRight">With the exception of "nkr_" prefixed macros, all other nkr entities are defined in this namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:dc/d5c/namespacenkr_1_1os"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d5c/namespacenkr_1_1os.html">nkr::os</a></td></tr>
+<tr class="memdesc:dc/d5c/namespacenkr_1_1os"><td class="mdescLeft">&#160;</td><td class="mdescRight">Short for "Operating System", this contains several wrappers for otherwise platform specific functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d1/db5/namespacenkr_1_1os_1_1atomic"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html">nkr::os::atomic</a></td></tr>
+<tr class="memdesc:d1/db5/namespacenkr_1_1os_1_1atomic"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions that provide atomic access, assignment, and exchange of variables. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d8/dd5/namespacenkr_1_1os_1_1endian"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html">nkr::os::endian</a></td></tr>
+<tr class="memdesc:d8/dd5/namespacenkr_1_1os_1_1endian"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions that provide various information and solutions regarding endianness. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:d0/d97/namespacenkr_1_1os_1_1heap"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html">nkr::os::heap</a></td></tr>
+<tr class="memdesc:d0/d97/namespacenkr_1_1os_1_1heap"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions that interface with memory located on the heap. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
@@ -174,19 +178,26 @@ Functions</h2></td></tr>
 <tr class="memitem:a193c9e78142329323599223dc1796e6b"><td class="memTemplParams" colspan="2">template&lt;integer_8_tr atom_p&gt; </td></tr>
 <tr class="memitem:a193c9e78142329323599223dc1796e6b"><td class="memTemplItemLeft" align="right" valign="top">atom_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a193c9e78142329323599223dc1796e6b">nkr::os::atomic::Exchange_Xor</a> (volatile atom_p &amp;atom, integer_tr auto with)</td></tr>
 <tr class="separator:a193c9e78142329323599223dc1796e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">attain info</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p >Attain info regarding the endianness of the current processor you're running on.</p>
+<p >This is a thread-safe and efficient way of determining whether or not a computer is processing data in big or little endian. This is important to know when dealing with data that may have been written by or is intended to be read by another computer that has a different endianness than the one you are operating on. There are times when you need to know if you should swap your compound integer types to a different endianness or not.</p>
+<dl class="section note"><dt>Note</dt><dd>The first time either of these functions are called they will be slightly inefficient, however any sucessive calls will be lightning fast. </dd></dl>
+</div></td></tr>
 <tr class="memitem:a89b0021664e965fce2548f80d51925dc"><td class="memItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a89b0021664e965fce2548f80d51925dc">nkr::os::endian::Is_Big</a> ()</td></tr>
 <tr class="separator:a89b0021664e965fce2548f80d51925dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#aaeaaf2ecee3780e033b87c5edc53ebfa">nkr::os::endian::Is_Little</a> ()</td></tr>
 <tr class="separator:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cf28643c40236c24333226a06c0023e"><td class="memTemplParams" colspan="2">template&lt;integer_16_tr i16_p&gt; </td></tr>
-<tr class="memitem:a8cf28643c40236c24333226a06c0023e"><td class="memTemplItemLeft" align="right" valign="top">i16_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a8cf28643c40236c24333226a06c0023e">nkr::os::endian::Swap</a> (i16_p bytes)</td></tr>
-<tr class="separator:a8cf28643c40236c24333226a06c0023e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7a5fe13841b256cfc3b3c455d420fdf"><td class="memTemplParams" colspan="2">template&lt;integer_32_tr i32_p&gt; </td></tr>
-<tr class="memitem:ad7a5fe13841b256cfc3b3c455d420fdf"><td class="memTemplItemLeft" align="right" valign="top">i32_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad7a5fe13841b256cfc3b3c455d420fdf">nkr::os::endian::Swap</a> (i32_p bytes)</td></tr>
-<tr class="separator:ad7a5fe13841b256cfc3b3c455d420fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8d2a1dea656a16b4c9a51a276109fed"><td class="memTemplParams" colspan="2">template&lt;integer_64_tr i64_p&gt; </td></tr>
-<tr class="memitem:ae8d2a1dea656a16b4c9a51a276109fed"><td class="memTemplItemLeft" align="right" valign="top">i64_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ae8d2a1dea656a16b4c9a51a276109fed">nkr::os::endian::Swap</a> (i64_p bytes)</td></tr>
-<tr class="separator:ae8d2a1dea656a16b4c9a51a276109fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">swap compound integers</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p >Invert the order of bytes in a multi-byte number.</p>
+<p >These are useful when you are dealing with data that was either written by or will be read by a processor that has a different endianness than the one your program is executing on.</p>
+<dl class="section note"><dt>Note</dt><dd>There is no <a class="el" href="../../d4/dc7/conceptnkr_1_1integer__8__tr.html" title="Allows nkr::bool_t if sizeof(bool) == 1.">nkr::integer_8_tr</a> variant because a byte or a stream of bytes cannot have a different endianness but is read and written the same on both kinds of computers. </dd></dl>
+</div></td></tr>
+<tr class="memitem:af06d231600a804944e318386b0ebb55e"><td class="memItemLeft" align="right" valign="top">integer_16_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a> (integer_16_tr auto bytes)</td></tr>
+<tr class="separator:af06d231600a804944e318386b0ebb55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2b2b7f85673e867cec03c9d31668567"><td class="memItemLeft" align="right" valign="top">integer_32_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ab2b2b7f85673e867cec03c9d31668567">nkr::os::endian::Swap</a> (integer_32_tr auto bytes)</td></tr>
+<tr class="separator:ab2b2b7f85673e867cec03c9d31668567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45b2740f8b5f3c706751240c05d3622f"><td class="memItemLeft" align="right" valign="top">integer_64_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a45b2740f8b5f3c706751240c05d3622f">nkr::os::endian::Swap</a> (integer_64_tr auto bytes)</td></tr>
+<tr class="separator:a45b2740f8b5f3c706751240c05d3622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">allocation</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Borrow a certain amount of memory from the heap. Use it, expand it, and give it back.</p>
 </div></td></tr>
