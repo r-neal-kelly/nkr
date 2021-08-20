@@ -923,6 +923,8 @@ namespace nkr { namespace test_os { namespace endian {
         nkr_TEST(nkr::os::endian::Swap(0x0102) == 0x02010000);
         nkr_TEST(nkr::os::endian::Swap(0x01020304) == 0x04030201);
         nkr_TEST(nkr::os::endian::Swap(0x0102030405060708) == 0x0807060504030201);
+
+        nkr_TEST(nkr::os::endian::Swap(static_cast<u16_t>(0x0102)) == 0x0201);
     }
 
 }}}
