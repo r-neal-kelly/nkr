@@ -113,6 +113,7 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\traits.dox" />
+    <None Include="include\nkr\atomic_t.dox" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\os.cpp">

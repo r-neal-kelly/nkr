@@ -28,7 +28,7 @@
         --blockquote-foreground: #77848a;
 
         --warning-color: var(--page-background-color);
-        --warning-color-dark: #b61825;
+        --warning-color-dark: #b82c38;
         --warning-color-darker: var(--page-foreground-color);
 
         --note-color: var(--page-background-color);

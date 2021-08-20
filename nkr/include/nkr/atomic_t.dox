@@ -1,0 +1,103 @@
+/*
+    Copyright 2021 r-neal-kelly
+*/
+
+#pragma once
+
+// atomic_t
+/**
+* @class _00039e43_9c7e_4c6e_a70c_abf2f3e11b22
+* @private
+*/
+
+    // aliases
+    /**
+    * @class _3e2133e0_58a8_4588_befa_ae433363cf01
+    * @private
+    */
+
+    // data
+    /**
+    * @class _67c3c408_1756_4f1e_a966_cc5ad1f3dfd2
+    * @private
+    */
+
+        // value
+        /**
+        * @class _93d24339_6dae_40f2_9f11_c9305ebb3816
+        * @private
+        *
+        * @brief
+        *   The publically available value of the atomic_t.
+        *
+        * @details
+        *   This is the raw value and is not by itself atomic. It's publically available because this library aims to follow the Data Oriented approach to programming. If you need to, you can directly work with this data manually.
+        *
+        * @warning
+        *   You should only access this if you know what you're doing. Otherwise, you should use the methods, casts, and operators defined on this class.
+        */
+
+    // objects
+    /**
+    * @class _162f5a89_c587_40d2_ac4c_9b43659dfa9a
+    * @private
+    */
+
+    // methods
+    /**
+    * @class _ebe2958b_6231_481e_819f_84d882989f41
+    * @private
+    */
+
+    // casts
+    /**
+    * @class _473fc73c_71f3_4897_b548_32326ec7f8ca
+    * @private
+    */
+
+    // operators
+    /**
+    * @class _ebf639ee_013e_4e27_adc1_1752df597ddf
+    * @private
+    */
+
+// atomic_t<integer_p>
+/**
+* @class _1eb34513_6d58_4671_bcfc_61834a0fa529
+* @private
+*
+* @brief
+*   A wrapper for integers to be worked upon atomically.
+*
+* @param integer_p
+*   must satisfy nkr::integer_tr.
+*
+* @par specializations
+*   - nkr::atomic_t<bool_t>
+*   - nkr::atomic_t<any_p*>
+*   - nkr::atomic_t<void_t*>
+*
+* @details
+*   It depends on the operating system, but most integers that are anywhere from the size of the byte_t upto and including the size of the word_t are supported, including both signed and unsigned variants. This type is essentially a C++ wrapper for the basic functions contained in nkr::os::atomic.
+*
+* @note
+*   This is the default template for this class. See specializations for more.
+*/
+
+// atomic_t<bool_t>
+/**
+* @class _ec77c539_2ae5_4aa5_a156_d961c5ac098d
+* @private
+*/
+
+// atomic_t<any_p*>
+/**
+* @class _3a98b216_8b25_4340_96d3_01a5f49f336b
+* @private
+*/
+
+// atomic_t<void_t*>
+/**
+* @class _82a1e5b2_d82c_4a8e_b740_b84adc2a71ab
+* @private
+*/

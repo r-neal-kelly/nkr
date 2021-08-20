@@ -14,7 +14,7 @@ var dir_ce205a311144f539364ed8fe79271330 =
     [ "atomic_t.h", "d2/d08/atomic__t_8h.html", [
       [ "nkr::atomic_t< integer_p >", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
       [ "nkr::atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
-      [ "nkr::atomic_t< value_p * >", "d8/de5/classnkr_1_1atomic__t_3_01value__p_01_5_01_4.html", "d8/de5/classnkr_1_1atomic__t_3_01value__p_01_5_01_4" ],
+      [ "nkr::atomic_t< any_p * >", "d1/d5e/classnkr_1_1atomic__t_3_01any__p_01_5_01_4.html", "d1/d5e/classnkr_1_1atomic__t_3_01any__p_01_5_01_4" ],
       [ "nkr::atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ]
     ] ],
     [ "atomic_t.inl", "d5/d77/atomic__t_8inl.html", null ],
