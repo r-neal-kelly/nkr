@@ -19,7 +19,188 @@
     * 
     * @details
     *   These functions can be used in a threaded environment to safely read and write to various integers, booleans, and pointers. They are far more resource friendly than locks and should be used in their place as frequently as possible.
+    * 
+    *   There are three primary sets of these low level atomic functions, each differing in whether they write to the atomic or simply read from it, and what value they return after a write. Furthermore within each set there are at least six subsets that allow for either a read or write to be combined with a integral operator, all done in one atomic operation. Each subset may consist of one to two overloads to provide atomics not only for integers and booleans, but for pointers as well.
+    * 
+    * @note
+    *   In the description for each function is an expression that equates semantically but not literally. Even though there are sometimes several operations in some of the expressions, each function is still atomically thread-safe.
     */
+
+        /**
+        * @class doc_nkr_os_atomic_group_Access
+        * @private
+        * 
+        * @brief
+        *   These return a copy of the atomic value without changing the original.
+        */
+
+            /**
+            * @class doc_nkr_os_atomic_Access
+            * @private
+            * 
+            * @brief
+            *   Equivalent to `(atom)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Access_Add
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom + with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Access_Subtract
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom - with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Access_Or
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom | with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Access_And
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom & with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Access_Xor
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom ^ with)`
+            */
+
+        /**
+        * @class doc_nkr_os_atomic_group_Assign
+        * @private
+        *
+        * @brief
+        *   These return a copy of the atomic value after changing the original.
+        */
+
+            /**
+            * @class doc_nkr_os_atomic_Assign
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom = with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Assign_Add
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom += with)` and `(++atom)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Assign_Subtract
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom -= with)` and `(--atom)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Assign_Or
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom |= with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Assign_And
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom &= with)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Assign_Xor
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom ^= with)`
+            */
+
+        /**
+        * @class doc_nkr_os_atomic_group_Exchange
+        * @private
+        *
+        * @brief
+        *   These return a copy of the atomic value before changing the original.
+        */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(original = atom, atom = with, original)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_If_Equals
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_Add
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(original = atom, atom += with, original)` and `(atom++)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_Subtract
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(original = atom, atom -= with, original)` and `(atom--)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_Or
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(original = atom, atom |= with, original)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_And
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(original = atom, atom &= with, original)`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_Xor
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(original = atom, atom ^= with, original)`
+            */
 
     /**
     * @class doc_nkr_os_endian
