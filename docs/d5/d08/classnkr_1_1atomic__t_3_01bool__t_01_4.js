@@ -15,5 +15,6 @@ var classnkr_1_1atomic__t_3_01bool__t_01_4 =
     [ "operator value_t", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html#aed1454423c84951b6866393d4aaa0365", null ],
     [ "operator()", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html#a94154cc457d0c91c82bae22e9ce02b41", null ],
     [ "operator=", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html#a2a465eab54490506f777d9bfef296d00", null ],
+    [ "DEFAULT_VALUE", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html#aa387587aa9f4e537bf70f918da90ae49", null ],
     [ "value", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html#a7fea5a45187cf1e08d18c7b6f157a4b6", null ]
 ];

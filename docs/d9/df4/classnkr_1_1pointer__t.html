@@ -194,9 +194,9 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a529677bd2fc1621f0c88925de8e46dc7"><td class="memItemLeft" align="right" valign="top">static constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga87710d101176846a1c5f0874dc403aff">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html#a529677bd2fc1621f0c88925de8e46dc7">UNIT_SIZE</a></td></tr>
+<tr class="memitem:a529677bd2fc1621f0c88925de8e46dc7"><td class="memItemLeft" align="right" valign="top">static constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga87710d101176846a1c5f0874dc403aff">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html#a529677bd2fc1621f0c88925de8e46dc7">UNIT_SIZE</a> = sizeof(<a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html#ae666971cfa3291b0d4f0a77bc81a2f9c">unit_t</a>)</td></tr>
 <tr class="separator:a529677bd2fc1621f0c88925de8e46dc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ef30e55989ad8214c52115347b050dd"><td class="memItemLeft" align="right" valign="top">static constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html#a0ef30e55989ad8214c52115347b050dd">MAX_UNIT_COUNT</a></td></tr>
+<tr class="memitem:a0ef30e55989ad8214c52115347b050dd"><td class="memItemLeft" align="right" valign="top">static constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html#a0ef30e55989ad8214c52115347b050dd">MAX_UNIT_COUNT</a> = std::numeric_limits&lt;<a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a>&gt;::max()</td></tr>
 <tr class="separator:a0ef30e55989ad8214c52115347b050dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Typedef Documentation</h2>
@@ -1149,7 +1149,7 @@ template&lt;sized_tr unit_p = byte_t&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga87710d101176846a1c5f0874dc403aff">size_t</a> <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>&lt; unit_p &gt;::UNIT_SIZE</td>
+          <td class="memname">constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga87710d101176846a1c5f0874dc403aff">size_t</a> <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>&lt; unit_p &gt;::UNIT_SIZE = sizeof(<a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html#ae666971cfa3291b0d4f0a77bc81a2f9c">unit_t</a>)</td>
         </tr>
       </table>
   </td>
@@ -1173,7 +1173,7 @@ template&lt;sized_tr unit_p = byte_t&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>&lt; unit_p &gt;::MAX_UNIT_COUNT</td>
+          <td class="memname">constexpr const <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>&lt; unit_p &gt;::MAX_UNIT_COUNT = std::numeric_limits&lt;<a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a>&gt;::max()</td>
         </tr>
       </table>
   </td>

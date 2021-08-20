@@ -942,7 +942,7 @@ namespace nkr { namespace test_atomic_t { namespace $pointer { namespace $cast {
 
         word_t word = 1;
         atomic_t<word_t*> pointer(&word);
-        nkr_TEST(static_cast<atomic_t<word_t*>::value_t*>(pointer) == &word);
+        nkr_TEST(static_cast<atomic_t<word_t*>::value_t>(pointer) == &word);
         nkr_TEST(pointer == &word);
         nkr_TEST(static_cast<bool_t>(pointer) == true);
         nkr_TEST(!pointer == false);
@@ -1214,7 +1214,7 @@ namespace nkr { namespace test_atomic_t { namespace $void_pointer { namespace $c
 
         word_t word = 1;
         atomic_t<void_t*> pointer(&word);
-        nkr_TEST(static_cast<atomic_t<void_t*>::value_t*>(pointer) == &word);
+        nkr_TEST(static_cast<atomic_t<void_t*>::value_t>(pointer) == &word);
         nkr_TEST(pointer == &word);
         nkr_TEST(static_cast<bool_t>(pointer) == true);
         nkr_TEST(!pointer == false);
