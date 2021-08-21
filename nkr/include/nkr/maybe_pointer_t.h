@@ -9,6 +9,7 @@
 
 namespace nkr {
 
+    /*
     template <typename T>
     class none_t<T*>
     {
@@ -127,6 +128,7 @@ namespace nkr {
         value_t&            operator [](size_t index);
         const value_t&      operator [](size_t index) const;
     };
+    */
 
 }
 

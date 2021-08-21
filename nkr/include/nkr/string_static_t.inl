@@ -17,8 +17,7 @@ namespace nkr {
 
     template <typename charcoder>
     requires charcoder_i<charcoder>
-        inline string_static_t<charcoder>::string_static_t() :
-        units(nullptr)
+        inline string_static_t<charcoder>::string_static_t()
     {
     }
 

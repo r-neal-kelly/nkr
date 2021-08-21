@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/intrinsics.h"
+#include "nkr/maybe_t.h"
 #include "nkr/traits.h"
 
 namespace nkr {
@@ -109,6 +110,15 @@ namespace nkr {
         value_t operator |=(integer_tr auto value);         ///< @copydoc _707c26ad_75fc_43cc_be98_233cb47d3eec
         value_t operator &=(integer_tr auto value);         ///< @copydoc _5a8f0664_0510_4f5d_991a_cc2a5eaea4b5
         value_t operator ^=(integer_tr auto value);         ///< @copydoc _77262a09_d572_440c_849c_d124b0d7dc6d
+        /// @}
+
+    public:
+        /// @name maybe_t interface
+        /// @copydoc _feb54dad_7493_4e9d_9e24_2a69c9912f95
+        /// @{
+        atomic_t&   operator =(none_t);         ///< @copydoc _18865e46_d599_4053_a6dc_e0609fb811a1
+        bool_t      operator ==(none_t) const;  ///< @copydoc _e3609d5e_27c6_4a0e_8928_c54f879abb96
+        bool_t      operator !=(none_t) const;  ///< @copydoc _cc53fec7_7977_4de9_9aa9_852cedd9134a
         /// @}
     };
 

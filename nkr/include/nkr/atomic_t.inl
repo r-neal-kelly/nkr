@@ -280,6 +280,25 @@ namespace nkr {
         return Assign_Xor(value);
     }
 
+    template <typename integer_p>
+    inline atomic_t<integer_p>& atomic_t<integer_p>::operator =(none_t)
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    template <typename integer_p>
+    inline bool_t atomic_t<integer_p>::operator ==(none_t) const
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    template <typename integer_p>
+    inline bool_t atomic_t<integer_p>::operator !=(none_t) const
+    {
+        return !operator ==(none_t());
+    }
+
     inline atomic_t<bool_t>::atomic_t() :
         value(DEFAULT_VALUE)
     {

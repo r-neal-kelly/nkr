@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['pointer_5ft_0',['pointer_t',['../d9/df4/classnkr_1_1pointer__t.html#adfb1126a71a3f3e8b40016b5ad761e47',1,'nkr::pointer_t::pointer_t()'],['../d9/df4/classnkr_1_1pointer__t.html#aba6e0ddec40ab3ab537e525b79f11f4e',1,'nkr::pointer_t::pointer_t(unit_t *unit_pointer)'],['../d9/df4/classnkr_1_1pointer__t.html#ae6d5caeae7c79550d0bff4289b17ef7f',1,'nkr::pointer_t::pointer_t(units_t units, count_t unit_count)'],['../d9/df4/classnkr_1_1pointer__t.html#a0aac5ec90528c3fffb236e59dff50bfe',1,'nkr::pointer_t::pointer_t(const pointer_t &amp;other)'],['../d9/df4/classnkr_1_1pointer__t.html#a398ffc6a82d0219e81a42b9dd0ced274',1,'nkr::pointer_t::pointer_t(pointer_t &amp;&amp;other) noexcept']]]
+  ['reallocate_0',['reallocate',['../d9/df1/classnkr_1_1allocator__heap__t.html#ae57c43d206799bd20933aba8719d0e8d',1,'nkr::allocator_heap_t']]],
+  ['reallocate_1',['Reallocate',['../d0/d97/namespacenkr_1_1os_1_1heap.html#a6bc8b91e11071847eea4b6116bba2b57',1,'nkr::os::heap']]],
+  ['reallocate_5fzeros_2',['Reallocate_Zeros',['../d0/d97/namespacenkr_1_1os_1_1heap.html#ab6e921144fedd5bddf2d85c71e1794bf',1,'nkr::os::heap']]]
 ];

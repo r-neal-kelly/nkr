@@ -99,6 +99,12 @@
         * @private
         */
 
+        // bool_t
+        /**
+        * @class _64560adf_d76d_47dd_875a_1a345cf9189e
+        * @private
+        */
+
     /**
     * @defgroup traits_operators operators
     * @ingroup traits

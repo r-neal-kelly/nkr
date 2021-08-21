@@ -54,8 +54,12 @@ namespace nkr {
     /// @addtogroup traits_casts
     /// @{
     template <typename type_p>
-    concept cast_word_tr =
+    concept cast_word_t_tr =
         std::convertible_to<type_p, word_t>;    ///< @copydoc traits_casts_cast_word_tr
+    
+    template <typename type_p>
+    concept cast_bool_t_tr =
+        std::convertible_to<type_p, bool_t>;    ///< @copydoc _64560adf_d76d_47dd_875a_1a345cf9189e
     /// @}
 
     

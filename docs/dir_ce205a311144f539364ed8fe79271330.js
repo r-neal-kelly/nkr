@@ -29,17 +29,15 @@ var dir_ce205a311144f539364ed8fe79271330 =
     [ "intrinsics.inl", "d9/dde/intrinsics_8inl.html", null ],
     [ "macros.h", "de/d3c/macros_8h.html", "de/d3c/macros_8h" ],
     [ "macros.inl", "d4/d92/macros_8inl.html", "d4/d92/macros_8inl" ],
-    [ "maybe_pointer_t.h", "db/df2/maybe__pointer__t_8h.html", [
-      [ "nkr::none_t< T * >", "d6/dfa/classnkr_1_1none__t_3_01_t_01_5_01_4.html", "d6/dfa/classnkr_1_1none__t_3_01_t_01_5_01_4" ],
-      [ "nkr::maybe_t< T * >", "de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4.html", "de/d23/classnkr_1_1maybe__t_3_01_t_01_5_01_4" ],
-      [ "nkr::some_t< T * >", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4.html", "db/d92/classnkr_1_1some__t_3_01_t_01_5_01_4" ]
-    ] ],
+    [ "maybe_pointer_t.h", "db/df2/maybe__pointer__t_8h.html", null ],
     [ "maybe_pointer_t.inl", "da/dee/maybe__pointer__t_8inl.html", null ],
     [ "maybe_t.h", "d6/d5d/maybe__t_8h.html", [
-      [ "nkr::none_t< T >", "d1/df2/classnkr_1_1none__t.html", null ],
-      [ "nkr::maybe_t< T >", "d3/dd5/classnkr_1_1maybe__t.html", null ],
-      [ "nkr::some_t< T >", "d1/def/classnkr_1_1some__t.html", null ]
+      [ "nkr::none_t", "d1/df2/classnkr_1_1none__t.html", "d1/df2/classnkr_1_1none__t" ],
+      [ "nkr::maybe_t< any_p >", "d3/dd5/classnkr_1_1maybe__t.html", "d3/dd5/classnkr_1_1maybe__t" ],
+      [ "nkr::some_t< any_p >", "d1/def/classnkr_1_1some__t.html", "d1/def/classnkr_1_1some__t" ],
+      [ "nkr::maybe_i", "d1/d0e/conceptnkr_1_1maybe__i.html", null ]
     ] ],
+    [ "maybe_t.inl", "d0/d27/maybe__t_8inl.html", null ],
     [ "os.h", "d0/dff/os_8h.html", "d0/dff/os_8h" ],
     [ "os.inl", "da/de1/os_8inl.html", "da/de1/os_8inl" ],
     [ "pointer_t.h", "d4/d48/pointer__t_8h.html", [

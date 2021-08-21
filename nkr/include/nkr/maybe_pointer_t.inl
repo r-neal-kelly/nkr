@@ -11,6 +11,7 @@
 
 namespace nkr {
 
+    /*
     template <typename T>
     inline none_t<T*>::none_t()
     {
@@ -350,5 +351,6 @@ namespace nkr {
     {
         return this->pointer[index];
     }
+    */
 
 }

@@ -25,6 +25,9 @@
 *
 * @note
 *   This is the default template for this class. See specializations for more.
+* 
+* @todo
+*   Add some examples!
 */
 
     // aliases
@@ -385,6 +388,42 @@
         /**
         * @class _77262a09_d572_440c_849c_d124b0d7dc6d
         * @private
+        */
+
+    // maybe_t interface
+    /**
+    * @class _feb54dad_7493_4e9d_9e24_2a69c9912f95
+    * @private
+    * 
+    * @brief
+    *   Allows use of nkr::maybe_t and nkr::some_t.
+    */
+
+        // atomic_t&   operator =(none_t)
+        /**
+        * @class _18865e46_d599_4053_a6dc_e0609fb811a1
+        * @private
+        * 
+        * @brief
+        *   Sets its value to the default value.
+        */
+
+        // bool_t      operator ==(none_t) const
+        /**
+        * @class _e3609d5e_27c6_4a0e_8928_c54f879abb96
+        * @private
+        * 
+        * @brief
+        *   Checks if a cast of its value to nkr::bool_t equals `false`.
+        */
+
+        // bool_t      operator !=(none_t) const
+        /**
+        * @class _cc53fec7_7977_4de9_9aa9_852cedd9134a
+        * @private
+        * 
+        * @brief
+        *   Checks if a cast of its value to nkr::bool_t equals `true`.
         */
 
 // atomic_t<bool_t>

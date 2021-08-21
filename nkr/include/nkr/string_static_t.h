@@ -22,7 +22,7 @@ namespace nkr {
         static size_t   unit_size();
 
     protected:
-        some_t<typename charcoder_t::unit_t*>   units;
+        //some_t<typename charcoder_t::unit_t*>   units;
 
     public:
         string_static_t();
