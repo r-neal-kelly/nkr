@@ -162,7 +162,6 @@
     <ClInclude Include="include\nkr\docs\intrinsic.h" />
     <ClInclude Include="include\nkr\intrinsics.h" />
     <ClInclude Include="include\nkr\macros.h" />
-    <ClInclude Include="include\nkr\maybe_pointer_t.h" />
     <ClInclude Include="include\nkr\maybe_t.h" />
     <ClInclude Include="include\nkr\os.h" />
     <ClInclude Include="include\nkr\pointer_t.h" />
@@ -183,7 +182,6 @@
     <None Include="include\nkr\intrinsics.inl" />
     <None Include="include\nkr\macros.dox" />
     <None Include="include\nkr\macros.inl" />
-    <None Include="include\nkr\maybe_pointer_t.inl" />
     <None Include="include\nkr\maybe_t.inl" />
     <None Include="include\nkr\os.dox" />
     <None Include="include\nkr\os.inl" />

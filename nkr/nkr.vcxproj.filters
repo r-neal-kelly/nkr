@@ -54,9 +54,6 @@
     <ClInclude Include="include\nkr\allocator_heap_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\maybe_pointer_t.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\nkr\os.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,9 +84,6 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\pointer_t.inl">
-      <Filter>Header Files</Filter>
-    </None>
-    <None Include="include\nkr\maybe_pointer_t.inl">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\allocator_heap_t.inl">

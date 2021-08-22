@@ -24,11 +24,8 @@
     * @brief
     *   Filter types that can be treated as integers.
     * 
-    * @details
-    *   A few of these will accept nkr::bool_t:
-    *   - nkr::integer_tr
-    *   - nkr::integer_unsigned_tr
-    *   - and possibly nkr::integer_8_tr
+    * @note
+    *   None of these integer traits allow nkr::bool_t.
     */
 
         /**
@@ -36,31 +33,22 @@
         * @private
         * 
         * @brief
-        *   Either unsigned or signed integers, including nkr::bool_t.
+        *   Either unsigned or signed integers.
         */
 
         /**
         * @class traits_integers_integer_unsigned_tr
         * @private
-        * 
-        * @brief
-        *   Allows nkr::bool_t.
         */
 
         /**
         * @class traits_integers_integer_signed_tr
         * @private
-        * 
-        * @brief
-        *   Does not allow nkr::bool_t.
         */
 
         /**
         * @class traits_integers_integer_8_tr
         * @private
-        * 
-        * @brief
-        *   Allows nkr::bool_t if `sizeof(bool) == 1`.
         */
 
         /**
@@ -139,10 +127,31 @@
         *   In addition to regular pointers, this also allows nullptr.
         */
 
+        // boolean_tr
+        /**
+        * @class _3e4ef7df_7326_49f0_83e0_378911e03952
+        * @private
+        */
+
+        // floating_point_tr
+        /**
+        * @class _7436208f_39ce_49f4_accb_a3bee797b12a
+        * @private
+        */
+
         /**
         * @class traits_misc_sized_tr
         * @private
         * 
         * @brief
         *   Does not allow types like nkr::void_t, which have no size.
+        */
+
+        // built_in_tr
+        /**
+        * @class _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
+        * @private
+        *
+        * @brief
+        *   Allows nkr::boolean_tr, nkr::integer_tr, nkr::floating_point_tr, and nkr::pointer_tr.
         */

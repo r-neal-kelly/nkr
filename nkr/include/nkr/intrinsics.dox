@@ -128,6 +128,24 @@
         * @private
         */
 
+    // floating_points
+    /**
+    * @class _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af
+    * @private
+    */
+
+        // f32_t
+        /**
+        * @class _2ad13e3a_26a3_4526_b482_a1f643d2cb99
+        * @private
+        */
+
+        // f64_t
+        /**
+        * @class _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
+        * @private
+        */
+
     /**
     * @defgroup intrinsics_contextuals contextuals
     * @ingroup intrinsics

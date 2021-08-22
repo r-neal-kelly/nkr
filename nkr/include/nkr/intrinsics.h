@@ -56,6 +56,13 @@ namespace nkr {
     /// @}
     
 
+    /// @ingroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af
+    /// @{
+    using f32_t = float;    ///< @copydoc _2ad13e3a_26a3_4526_b482_a1f643d2cb99
+    using f64_t = double;   ///< @copydoc _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
+    /// @}
+
+
     /// @ingroup intrinsics_contextuals
     /// @{
     using byte_t    = u8_t;             ///< @copydoc doc_nkr_byte_t

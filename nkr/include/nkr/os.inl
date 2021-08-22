@@ -15,6 +15,11 @@
 
 namespace nkr { namespace os { namespace atomic {
 
+    inline boolean_tr auto Access(const volatile boolean_tr auto& atom)
+    {
+        return Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), false, false);
+    }
+
     inline integer_tr auto Access(const volatile integer_tr auto& atom)
     {
         return Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), 0, 0);
@@ -58,6 +63,11 @@ namespace nkr { namespace os { namespace atomic {
     inline integer_tr auto Access_Xor(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         return Access(atom) ^ with;
+    }
+
+    inline boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with)
+    {
+        return Exchange(atom, with), with;
     }
 
     inline integer_tr auto Assign(volatile integer_tr auto& atom, integer_tr auto with)
@@ -107,6 +117,14 @@ namespace nkr { namespace os { namespace atomic {
 
 #if defined(nkr_IS_WINDOWS)
 
+    inline boolean_tr auto Exchange(volatile boolean_tr auto& atom, boolean_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange(reinterpret_cast<volatile u8_t&>(atom),
+                                            static_cast<u8_t>(with)));
+    }
+
     inline integer_8_tr auto Exchange(volatile integer_8_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
@@ -152,6 +170,17 @@ namespace nkr { namespace os { namespace atomic {
 
         return static_cast<atom_t>(::_InterlockedExchangePointer(reinterpret_cast<void* volatile*>(&atom),
                                                                  static_cast<void*>(with)));
+    }
+
+    inline boolean_tr auto Exchange_If_Equals(volatile boolean_tr auto& atom,
+                                              boolean_tr auto with,
+                                              boolean_tr auto target)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_If_Equals(reinterpret_cast<volatile u8_t&>(atom),
+                                                      static_cast<u8_t>(with),
+                                                      static_cast<u8_t>(target)));
     }
 
     inline integer_8_tr auto Exchange_If_Equals(volatile integer_8_tr auto& atom,
