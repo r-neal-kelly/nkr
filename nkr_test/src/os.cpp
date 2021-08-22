@@ -10,12 +10,93 @@
 
 namespace nkr { namespace os { namespace atomic {
 
-    TEST_CASE("Access")
+    TEST_SUITE("Access")
     {
-        SUBCASE("should return value without changing it")
+        TEST_CASE("should return value without changing it")
         {
             bool_t boolean = false;
             CHECK(nkr::os::atomic::Access(boolean) == false);
+
+            u8_t u8 = 8;
+            CHECK(nkr::os::atomic::Access(u8) == 8);
+
+            u16_t u16 = 16;
+            CHECK(nkr::os::atomic::Access(u16) == 16);
+
+            u32_t u32 = 32;
+            CHECK(nkr::os::atomic::Access(u32) == 32);
+
+        #if defined(nkr_IS_64_BIT)
+            u64_t u64 = 64;
+            CHECK(nkr::os::atomic::Access(u64) == 64);
+        #endif
+
+            s8_t s8 = -8;
+            CHECK(nkr::os::atomic::Access(s8) == -8);
+
+            s16_t s16 = -16;
+            CHECK(nkr::os::atomic::Access(s16) == -16);
+
+            s32_t s32 = -32;
+            CHECK(nkr::os::atomic::Access(s32) == -32);
+
+        #if defined(nkr_IS_64_BIT)
+            s64_t s64 = -64;
+            CHECK(nkr::os::atomic::Access(s64) == -64);
+        #endif
+
+            void_t* void_pointer = nullptr;
+            CHECK(nkr::os::atomic::Access(void_pointer) == nullptr);
+
+            bool_t* boolean_pointer = &boolean;
+            CHECK(nkr::os::atomic::Access(boolean_pointer) == &boolean);
+        }
+    }
+
+    TEST_SUITE("Access_Add")
+    {
+        TEST_CASE("should return added values without changing the old value")
+        {
+            u8_t u8 = 8;
+            CHECK(nkr::os::atomic::Access_Add(u8, 1) == 9);
+            CHECK(u8 == 8);
+
+            u16_t u16 = 16;
+            CHECK(nkr::os::atomic::Access_Add(u16, 1) == 17);
+            CHECK(u16 == 16);
+
+            u32_t u32 = 32;
+            CHECK(nkr::os::atomic::Access_Add(u32, 1) == 33);
+            CHECK(u32 == 32);
+
+        #if defined(nkr_IS_64_BIT)
+            u64_t u64 = 64;
+            CHECK(nkr::os::atomic::Access_Add(u64, 1) == 65);
+            CHECK(u64 == 64);
+        #endif
+
+            s8_t s8 = -8;
+            CHECK(nkr::os::atomic::Access_Add(s8, -1) == -9);
+            CHECK(s8 == -8);
+
+            s16_t s16 = -16;
+            CHECK(nkr::os::atomic::Access_Add(s16, -1) == -17);
+            CHECK(s16 == -16);
+
+            s32_t s32 = -32;
+            CHECK(nkr::os::atomic::Access_Add(s32, -1) == -33);
+            CHECK(s32 == -32);
+
+        #if defined(nkr_IS_64_BIT)
+            s64_t s64 = -64;
+            CHECK(nkr::os::atomic::Access_Add(s64, -1) == -65);
+            CHECK(s64 == -64);
+        #endif
+
+            bool_t booleans[2] = { true, true };
+            bool_t* boolean_pointer = booleans;
+            CHECK(nkr::os::atomic::Access_Add(boolean_pointer, 1) == booleans + 1);
+            CHECK(boolean_pointer == booleans + 0);
         }
     }
 
@@ -23,93 +104,6 @@ namespace nkr { namespace os { namespace atomic {
 
 /*
 namespace nkr { namespace test_os { namespace atomic {
-
-    void_t Access()
-    {
-        wprintf(L);
-
-        
-
-        u8_t u8 = 8;
-        nkr_TEST(nkr::os::atomic::Access(u8) == 8);
-
-        u16_t u16 = 16;
-        nkr_TEST(nkr::os::atomic::Access(u16) == 16);
-
-        u32_t u32 = 32;
-        nkr_TEST(nkr::os::atomic::Access(u32) == 32);
-
-    #if defined(nkr_IS_64_BIT)
-        u64_t u64 = 64;
-        nkr_TEST(nkr::os::atomic::Access(u64) == 64);
-    #endif
-
-        s8_t s8 = -8;
-        nkr_TEST(nkr::os::atomic::Access(s8) == -8);
-
-        s16_t s16 = -16;
-        nkr_TEST(nkr::os::atomic::Access(s16) == -16);
-
-        s32_t s32 = -32;
-        nkr_TEST(nkr::os::atomic::Access(s32) == -32);
-
-    #if defined(nkr_IS_64_BIT)
-        s64_t s64 = -64;
-        nkr_TEST(nkr::os::atomic::Access(s64) == -64);
-    #endif
-
-        void_t* void_pointer = nullptr;
-        nkr_TEST(nkr::os::atomic::Access(void_pointer) == nullptr);
-
-        bool_t* boolean_pointer = &boolean;
-        nkr_TEST(nkr::os::atomic::Access(boolean_pointer) == &boolean);
-    }
-
-    void_t Access_Add()
-    {
-        wprintf(L"should return added values without changing the old value");
-
-        u8_t u8 = 8;
-        nkr_TEST(nkr::os::atomic::Access_Add(u8, 1) == 9);
-        nkr_TEST(u8 == 8);
-
-        u16_t u16 = 16;
-        nkr_TEST(nkr::os::atomic::Access_Add(u16, 1) == 17);
-        nkr_TEST(u16 == 16);
-
-        u32_t u32 = 32;
-        nkr_TEST(nkr::os::atomic::Access_Add(u32, 1) == 33);
-        nkr_TEST(u32 == 32);
-
-    #if defined(nkr_IS_64_BIT)
-        u64_t u64 = 64;
-        nkr_TEST(nkr::os::atomic::Access_Add(u64, 1) == 65);
-        nkr_TEST(u64 == 64);
-    #endif
-
-        s8_t s8 = -8;
-        nkr_TEST(nkr::os::atomic::Access_Add(s8, -1) == -9);
-        nkr_TEST(s8 == -8);
-
-        s16_t s16 = -16;
-        nkr_TEST(nkr::os::atomic::Access_Add(s16, -1) == -17);
-        nkr_TEST(s16 == -16);
-
-        s32_t s32 = -32;
-        nkr_TEST(nkr::os::atomic::Access_Add(s32, -1) == -33);
-        nkr_TEST(s32 == -32);
-
-    #if defined(nkr_IS_64_BIT)
-        s64_t s64 = -64;
-        nkr_TEST(nkr::os::atomic::Access_Add(s64, -1) == -65);
-        nkr_TEST(s64 == -64);
-    #endif
-
-        bool_t booleans[2] = { true, true };
-        bool_t* boolean_pointer = booleans;
-        nkr_TEST(nkr::os::atomic::Access_Add(boolean_pointer, 1) == booleans + 1);
-        nkr_TEST(boolean_pointer == booleans + 0);
-    }
 
     void_t Access_Subtract()
     {
