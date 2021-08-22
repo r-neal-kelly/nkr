@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\atomic_t.cpp" />
+    <ClCompile Include="src\intrinsics.cpp" />
     <ClCompile Include="src\os.cpp" />
     <ClCompile Include="src\pointer_t.cpp" />
   </ItemGroup>
