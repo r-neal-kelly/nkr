@@ -8,16 +8,80 @@
 #include "nkr/maybe_t.h"
 #include "nkr/traits.h"
 
-namespace nkr {
+namespace nkr { namespace $atomic_t {
+
+    /// @nosubgrouping
+    /// @copydoc _ec77c539_2ae5_4aa5_a156_d961c5ac098d
+    class bool_sp
+    {
+    public:
+        /// @name aliases
+        /// @copydoc _b9aeddda_98ca_4f83_8d24_fb72a3337515
+        /// @{
+        using value_t   = bool_t;   ///< @copydoc _d6588266_8070_4fb4_ba5b_12c444041857
+        /// @}
+
+    public:
+        /// @name static data
+        /// @copydoc _67fb1b7b_bf43_4612_aaed_fc5d2d13eead
+        /// @{
+        static constexpr value_t    DEFAULT_VALUE   = false;    ///< @copydoc _0ef02aea_a4be_4670_9219_06aa40b7690a
+        /// @}
+
+    public:
+        /// @name object data
+        /// @copydoc _566de746_f599_4b33_b092_b69b6d7bcf4d
+        /// @{
+        volatile value_t    value;  ///< @copydoc _22e6ea05_aa91_45e7_8095_c06decdf01d6
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc _1053c39e_78e4_4501_bdd5_fa790bfe8bd5
+        /// @{
+        bool_sp();                                      ///< @copydoc _95db9ad8_4d39_4de5_bc38_28d054451654
+        bool_sp(value_t value);                         ///< @copydoc _79178fc7_46e8_412f_b875_222389e8c699
+        bool_sp(const bool_sp& other);                  ///< @copydoc _f13e81f0_5ced_4185_8bfb_6a17811bf402
+        bool_sp(bool_sp&& other) noexcept;              ///< @copydoc _2051d33c_31c9_402b_b7b0_30ed311bae55
+        bool_sp& operator =(const bool_sp& other);      ///< @copydoc _754a3b96_c816_4875_b1c5_bd94f74975fe
+        bool_sp& operator =(bool_sp&& other) noexcept;  ///< @copydoc _27b572bf_b851_4bbb_bf27_5be01e5164d0
+        ~bool_sp();                                     ///< @copydoc _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
+        /// @}
+
+    public:
+        /// @name methods
+        /// @copydoc _f8359bc4_053e_45a2_92c0_8cc2aec98f3c
+        /// @{
+        value_t Access() const;                                     ///< @copydoc _4dac77d5_7b0a_47be_8b54_55194f16d92c
+
+        value_t Assign(value_t value);                              ///< @copydoc _21eb4382_88d5_4c3d_8632_84e7a781884c
+
+        value_t Exchange(value_t value);                            ///< @copydoc _36a45c7f_a017_48c8_9b38_80f41441dfd6
+        value_t Exchange_If_Equals(value_t value, value_t target);  ///< @copydoc _f4834de8_17dd_46c2_851e_90cf412a7513
+        /// @}
+
+    public:
+        /// @name casts
+        /// @copydoc _b471158e_1d68_4c75_a520_763cfb48f86b
+        /// @{
+        operator    value_t() const;    ///< @copydoc _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
+        /// @}
+
+    public:
+        /// @name operators
+        /// @copydoc _0e407320_061a_4d4b_ae76_397896faa849
+        /// @{
+        value_t operator ()() const;        ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
+
+        value_t operator =(value_t value);  ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
+        /// @}
+    };
 
     /// @nosubgrouping
     /// @copydoc _1eb34513_6d58_4671_bcfc_61834a0fa529
-    template <typename integer_p = word_t>
-    class atomic_t
+    template <integer_tr integer_p = word_t>
+    class integer_sp
     {
-    public:
-        static_assert(integer_tr<integer_p>, "invalid atomic value_t.");
-
     public:
         /// @name aliases
         /// @copydoc _3e2133e0_58a8_4588_befa_ae433363cf01
@@ -43,13 +107,13 @@ namespace nkr {
         /// @name objects
         /// @copydoc _162f5a89_c587_40d2_ac4c_9b43659dfa9a
         /// @{
-        atomic_t();                                         ///< @copydoc _6214730b_aeb9_4083_998c_f9e1c020924e
-        atomic_t(value_t value);                            ///< @copydoc _934d0d25_c160_42c4_a269_363ce0e78da6
-        atomic_t(const atomic_t& other);                    ///< @copydoc _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
-        atomic_t(atomic_t&& other) noexcept;                ///< @copydoc _0d15101b_2293_4225_8f70_3edb3f8618de
-        atomic_t& operator =(const atomic_t& other);        ///< @copydoc _eeeb1194_9900_46ab_8e15_1e8a0a663395
-        atomic_t& operator =(atomic_t&& other) noexcept;    ///< @copydoc _ccf84af8_3181_43e0_a892_9850e2a4c6f0
-        ~atomic_t();                                        ///< @copydoc _01602bc3_a017_47e4_b34e_b8a1dd6dae2f
+        integer_sp();                                           ///< @copydoc _6214730b_aeb9_4083_998c_f9e1c020924e
+        integer_sp(value_t value);                              ///< @copydoc _934d0d25_c160_42c4_a269_363ce0e78da6
+        integer_sp(const integer_sp& other);                    ///< @copydoc _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
+        integer_sp(integer_sp&& other) noexcept;                ///< @copydoc _0d15101b_2293_4225_8f70_3edb3f8618de
+        integer_sp& operator =(const integer_sp& other);        ///< @copydoc _eeeb1194_9900_46ab_8e15_1e8a0a663395
+        integer_sp& operator =(integer_sp&& other) noexcept;    ///< @copydoc _ccf84af8_3181_43e0_a892_9850e2a4c6f0
+        ~integer_sp();                                          ///< @copydoc _01602bc3_a017_47e4_b34e_b8a1dd6dae2f
         /// @}
 
     public:
@@ -116,92 +180,24 @@ namespace nkr {
         /// @name none_t interface
         /// @copydoc _feb54dad_7493_4e9d_9e24_2a69c9912f95
         /// @{
-        atomic_t&   operator =(none_t);         ///< @copydoc _18865e46_d599_4053_a6dc_e0609fb811a1
+        integer_sp& operator =(none_t);         ///< @copydoc _18865e46_d599_4053_a6dc_e0609fb811a1
         bool_t      operator ==(none_t) const;  ///< @copydoc _e3609d5e_27c6_4a0e_8928_c54f879abb96
         bool_t      operator !=(none_t) const;  ///< @copydoc _cc53fec7_7977_4de9_9aa9_852cedd9134a
         /// @}
     };
 
     /// @nosubgrouping
-    /// @copydoc _ec77c539_2ae5_4aa5_a156_d961c5ac098d
-    template <>
-    class atomic_t<bool_t>
-    {
-    public:
-        /// @name aliases
-        /// @copydoc _b9aeddda_98ca_4f83_8d24_fb72a3337515
-        /// @{
-        using value_t   = bool_t;   ///< @copydoc _d6588266_8070_4fb4_ba5b_12c444041857
-        /// @}
-
-    public:
-        /// @name static data
-        /// @copydoc _67fb1b7b_bf43_4612_aaed_fc5d2d13eead
-        /// @{
-        static constexpr value_t    DEFAULT_VALUE   = false;    ///< @copydoc _0ef02aea_a4be_4670_9219_06aa40b7690a
-        /// @}
-
-    public:
-        /// @name object data
-        /// @copydoc _566de746_f599_4b33_b092_b69b6d7bcf4d
-        /// @{
-        volatile value_t    value;  ///< @copydoc _22e6ea05_aa91_45e7_8095_c06decdf01d6
-        /// @}
-
-    public:
-        /// @name objects
-        /// @copydoc _1053c39e_78e4_4501_bdd5_fa790bfe8bd5
-        /// @{
-        atomic_t();                                         ///< @copydoc _95db9ad8_4d39_4de5_bc38_28d054451654
-        atomic_t(value_t value);                            ///< @copydoc _79178fc7_46e8_412f_b875_222389e8c699
-        atomic_t(const atomic_t& other);                    ///< @copydoc _f13e81f0_5ced_4185_8bfb_6a17811bf402
-        atomic_t(atomic_t&& other) noexcept;                ///< @copydoc _2051d33c_31c9_402b_b7b0_30ed311bae55
-        atomic_t& operator =(const atomic_t& other);        ///< @copydoc _754a3b96_c816_4875_b1c5_bd94f74975fe
-        atomic_t& operator =(atomic_t&& other) noexcept;    ///< @copydoc _27b572bf_b851_4bbb_bf27_5be01e5164d0
-        ~atomic_t();                                        ///< @copydoc _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
-        /// @}
-
-    public:
-        /// @name methods
-        /// @copydoc _f8359bc4_053e_45a2_92c0_8cc2aec98f3c
-        /// @{
-        value_t Access() const;                                     ///< @copydoc _4dac77d5_7b0a_47be_8b54_55194f16d92c
-
-        value_t Assign(value_t value);                              ///< @copydoc _21eb4382_88d5_4c3d_8632_84e7a781884c
-
-        value_t Exchange(value_t value);                            ///< @copydoc _36a45c7f_a017_48c8_9b38_80f41441dfd6
-        value_t Exchange_If_Equals(value_t value, value_t target);  ///< @copydoc _f4834de8_17dd_46c2_851e_90cf412a7513
-        /// @}
-
-    public:
-        /// @name casts
-        /// @copydoc _b471158e_1d68_4c75_a520_763cfb48f86b
-        /// @{
-        operator    value_t() const;    ///< @copydoc _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
-        /// @}
-
-    public:
-        /// @name operators
-        /// @copydoc _0e407320_061a_4d4b_ae76_397896faa849
-        /// @{
-        value_t operator ()() const;        ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
-
-        value_t operator =(value_t value);  ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
-        /// @}
-    };
-
-    /// @nosubgrouping
     /// @copydoc _3a98b216_8b25_4340_96d3_01a5f49f336b
-    template <typename any_p>
-    class atomic_t<any_p*>
+    template <pointer_tr pointer_p>
+    class pointer_sp
     {
     public:
         /// @name aliases
         /// @copydoc _57e44386_ab72_48cd_9f58_b96db313eb43
         /// @{
-        using value_t   = any_p*;   ///< @copydoc _49ad8151_d840_47b0_9c65_30ef2fed49ec
-        using units_t   = any_p*;   ///< @copydoc _2f52ee02_6b80_4a43_ae33_b4c25732c0ac
-        using unit_t    = any_p;    ///< @copydoc _f910fbfb_b77d_4d4d_867e_96e9cd364d49
+        using value_t   = pointer_p;                        ///< @copydoc _49ad8151_d840_47b0_9c65_30ef2fed49ec
+        using units_t   = pointer_p;                        ///< @copydoc _2f52ee02_6b80_4a43_ae33_b4c25732c0ac
+        using unit_t    = std::remove_pointer_t<pointer_p>; ///< @copydoc _f910fbfb_b77d_4d4d_867e_96e9cd364d49
         /// @}
 
     public:
@@ -222,13 +218,13 @@ namespace nkr {
         /// @name objects
         /// @copydoc _02cb02e0_23f1_48c1_94fb_56163a661f5f
         /// @{
-        atomic_t();                                         ///< @copydoc _b54cf1c4_55a9_4de6_8d00_dcb2d3ca9d25
-        atomic_t(value_t value);                            ///< @copydoc _6fe3639a_9af9_482a_ac65_71dd762b87c4
-        atomic_t(const atomic_t& other);                    ///< @copydoc _7daf8ec0_a6a6_422c_a4be_367b0a320abd
-        atomic_t(atomic_t&& other) noexcept;                ///< @copydoc _9004776c_b34b_4004_a28b_aa3405d0705a
-        atomic_t& operator =(const atomic_t& other);        ///< @copydoc _4010b13b_d165_40e2_9ee1_4c1cd9d9347e
-        atomic_t& operator =(atomic_t&& other) noexcept;    ///< @copydoc _aa527a17_a527_4c42_a747_e666b3ad3def
-        ~atomic_t();                                        ///< @copydoc _2f13ca94_e440_4c22_8716_ad04477faeec
+        pointer_sp();                                           ///< @copydoc _b54cf1c4_55a9_4de6_8d00_dcb2d3ca9d25
+        pointer_sp(value_t value);                              ///< @copydoc _6fe3639a_9af9_482a_ac65_71dd762b87c4
+        pointer_sp(const pointer_sp& other);                    ///< @copydoc _7daf8ec0_a6a6_422c_a4be_367b0a320abd
+        pointer_sp(pointer_sp&& other) noexcept;                ///< @copydoc _9004776c_b34b_4004_a28b_aa3405d0705a
+        pointer_sp& operator =(const pointer_sp& other);        ///< @copydoc _4010b13b_d165_40e2_9ee1_4c1cd9d9347e
+        pointer_sp& operator =(pointer_sp&& other) noexcept;    ///< @copydoc _aa527a17_a527_4c42_a747_e666b3ad3def
+        ~pointer_sp();                                          ///< @copydoc _2f13ca94_e440_4c22_8716_ad04477faeec
         /// @}
 
     public:
@@ -281,8 +277,7 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc _82a1e5b2_d82c_4a8e_b740_b84adc2a71ab
-    template <>
-    class atomic_t<void_t*>
+    class void_pointer_sp
     {
     public:
         /// @name aliases
@@ -311,13 +306,13 @@ namespace nkr {
         /// @name objects
         /// @copydoc _efde0406_9ccb_4bb9_a8d3_233743e9bea5
         /// @{
-        atomic_t();                                         ///< @copydoc _4aaf8533_9fae_4e73_a496_b809f4182419
-        atomic_t(value_t value);                            ///< @copydoc _6835eb33_5782_4b57_b536_6176a01989f8
-        atomic_t(const atomic_t& other);                    ///< @copydoc _c8551a6c_8e62_416a_9f73_a5b1b99f984f
-        atomic_t(atomic_t&& other) noexcept;                ///< @copydoc _ebfcfe7d_9340_4d7a_b128_df74de441f1f
-        atomic_t& operator =(const atomic_t& other);        ///< @copydoc _86b76904_0174_4cdc_a369_2673d1740ec5
-        atomic_t& operator =(atomic_t&& other) noexcept;    ///< @copydoc _0eea443f_df0b_442e_a8fa_3173c412e675
-        ~atomic_t();                                        ///< @copydoc _e286417e_9f29_48fc_b76e_b118d557d1e1
+        void_pointer_sp();                                              ///< @copydoc _4aaf8533_9fae_4e73_a496_b809f4182419
+        void_pointer_sp(value_t value);                                 ///< @copydoc _6835eb33_5782_4b57_b536_6176a01989f8
+        void_pointer_sp(const void_pointer_sp& other);                  ///< @copydoc _c8551a6c_8e62_416a_9f73_a5b1b99f984f
+        void_pointer_sp(void_pointer_sp&& other) noexcept;              ///< @copydoc _ebfcfe7d_9340_4d7a_b128_df74de441f1f
+        void_pointer_sp& operator =(const void_pointer_sp& other);      ///< @copydoc _86b76904_0174_4cdc_a369_2673d1740ec5
+        void_pointer_sp& operator =(void_pointer_sp&& other) noexcept;  ///< @copydoc _0eea443f_df0b_442e_a8fa_3173c412e675
+        ~void_pointer_sp();                                             ///< @copydoc _e286417e_9f29_48fc_b76e_b118d557d1e1
         /// @}
 
     public:
@@ -347,6 +342,72 @@ namespace nkr {
 
         value_t operator =(pointer_tr auto value);  ///< @copydoc _c84a863c_e1fe_4c06_a827_716a2749bfa3
         /// @}
+    };
+
+}}
+
+namespace nkr {
+
+    /// @nosubgrouping
+    /// @copydoc _d6e046d8_6c2e_4075_905b_563f1c8f2455
+    template <typename invalid_p>
+    class atomic_t
+    {
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        atomic_t()                                      = delete;   ///< @copydoc _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
+        atomic_t(const atomic_t& other)                 = delete;   ///< @copydoc _9727488c_e0cc_4056_a68f_d12b84d5ceca
+        atomic_t(atomic_t&& other) noexcept             = delete;   ///< @copydoc _20433dd1_bd70_44ec_b6a3_7b5311f12825
+        atomic_t& operator =(const atomic_t& other)     = delete;   ///< @copydoc _28d6f470_34eb_4d0d_8dc5_239e23c1c253
+        atomic_t& operator =(atomic_t&& other) noexcept = delete;   ///< @copydoc _388db58d_c89b_420b_bad9_c3e0334cdd9f
+        ~atomic_t()                                     = delete;   ///< @copydoc _e7cda9ac_182a_48c9_8ace_1a6f8887a65a
+        /// @}
+    };
+
+    /// @nosubgrouping
+    /// @copydoc _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+    template <>
+    class atomic_t<bool_t> :
+        public $atomic_t::bool_sp
+    {
+    public:
+        using $atomic_t::bool_sp::bool_sp;
+        using $atomic_t::bool_sp::operator =;
+    };
+
+    /// @nosubgrouping
+    /// @copydoc _d976569a_30d5_4a15_8729_b7505132263c
+    template <integer_tr integer_p>
+    class atomic_t<integer_p> :
+        public $atomic_t::integer_sp<integer_p>
+    {
+    public:
+        using $atomic_t::integer_sp<integer_p>::integer_sp;
+        using $atomic_t::integer_sp<integer_p>::operator =;
+    };
+
+    /// @nosubgrouping
+    /// @copydoc _f8ce2e6d_230a_4ef2_801f_aecbc3571487
+    template <pointer_tr pointer_p>
+    class atomic_t<pointer_p> :
+        public $atomic_t::pointer_sp<pointer_p>
+    {
+    public:
+        using $atomic_t::pointer_sp<pointer_p>::pointer_sp;
+        using $atomic_t::pointer_sp<pointer_p>::operator =;
+    };
+
+    /// @nosubgrouping
+    /// @copydoc _99ace0a0_9530_4fb1_8179_90b7dd50e9ed
+    template <>
+    class atomic_t<void_t*> :
+        public $atomic_t::void_pointer_sp
+    {
+    public:
+        using $atomic_t::void_pointer_sp::void_pointer_sp;
+        using $atomic_t::void_pointer_sp::operator =;
     };
 
 }

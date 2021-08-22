@@ -1,11 +1,13 @@
 var namespacenkr =
 [
+    [ "$atomic_t", "d1/d7c/namespacenkr_1_1_0batomic__t.html", "d1/d7c/namespacenkr_1_1_0batomic__t" ],
     [ "os", "dc/d5c/namespacenkr_1_1os.html", "dc/d5c/namespacenkr_1_1os" ],
     [ "allocator_heap_t", "d9/df1/classnkr_1_1allocator__heap__t.html", "d9/df1/classnkr_1_1allocator__heap__t" ],
     [ "array_dynamic_t", "d5/d74/classnkr_1_1array__dynamic__t.html", "d5/d74/classnkr_1_1array__dynamic__t" ],
     [ "atomic_t", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
-    [ "atomic_t< any_p * >", "d1/d5e/classnkr_1_1atomic__t_3_01any__p_01_5_01_4.html", "d1/d5e/classnkr_1_1atomic__t_3_01any__p_01_5_01_4" ],
     [ "atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
+    [ "atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4" ],
+    [ "atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
     [ "atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ],
     [ "charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", "da/daa/classnkr_1_1charcoder__utf__8__t" ],
     [ "maybe_built_in_t", "da/da2/classnkr_1_1maybe__built__in__t.html", "da/da2/classnkr_1_1maybe__built__in__t" ],

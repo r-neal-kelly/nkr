@@ -12,9 +12,14 @@ var dir_ce205a311144f539364ed8fe79271330 =
     ] ],
     [ "array_dynamic_t.inl", "de/d24/array__dynamic__t_8inl.html", null ],
     [ "atomic_t.h", "d2/d08/atomic__t_8h.html", [
-      [ "nkr::atomic_t< integer_p >", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
+      [ "nkr::$atomic_t::bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp" ],
+      [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp" ],
+      [ "nkr::$atomic_t::pointer_sp< pointer_p >", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp" ],
+      [ "nkr::$atomic_t::void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp" ],
+      [ "nkr::atomic_t< invalid_p >", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
       [ "nkr::atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
-      [ "nkr::atomic_t< any_p * >", "d1/d5e/classnkr_1_1atomic__t_3_01any__p_01_5_01_4.html", "d1/d5e/classnkr_1_1atomic__t_3_01any__p_01_5_01_4" ],
+      [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4" ],
+      [ "nkr::atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
       [ "nkr::atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ]
     ] ],
     [ "atomic_t.inl", "d5/d77/atomic__t_8inl.html", null ],

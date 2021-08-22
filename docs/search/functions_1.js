@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['deallocate_0',['deallocate',['../d9/df1/classnkr_1_1allocator__heap__t.html#a5a52a0e964a0d48467c07fd9e4e18e9d',1,'nkr::allocator_heap_t']]],
-  ['deallocate_1',['Deallocate',['../d0/d97/namespacenkr_1_1os_1_1heap.html#ac2547dacbc3a2259d2b1f55ea0508495',1,'nkr::os::heap']]],
-  ['deallocate_5fzeros_2',['Deallocate_Zeros',['../d0/d97/namespacenkr_1_1os_1_1heap.html#a3cdfba43ee9cf5a050ecb20fe82f5bb4',1,'nkr::os::heap']]]
+  ['bool_5fsp_0',['bool_sp',['../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#aa3d241ec864342d58bd6294f4b8c46d0',1,'nkr::$atomic_t::bool_sp::bool_sp()'],['../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a1111278fc2b34e4177225b10d9e6b353',1,'nkr::$atomic_t::bool_sp::bool_sp(value_t value)'],['../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab5b3409249e30eddf702977a1af860ed',1,'nkr::$atomic_t::bool_sp::bool_sp(const bool_sp &amp;other)'],['../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#acd96e710768b47bd462cea6b87607691',1,'nkr::$atomic_t::bool_sp::bool_sp(bool_sp &amp;&amp;other) noexcept']]]
 ];

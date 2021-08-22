@@ -7,34 +7,29 @@
 #include "nkr/atomic_t.h"
 #include "nkr/os.h"
 
-namespace nkr {
+namespace nkr { namespace $atomic_t {
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>::atomic_t() :
+    inline bool_sp::bool_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>::atomic_t(value_t value) :
+    inline bool_sp::bool_sp(value_t value) :
         value(value)
     {
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>::atomic_t(const atomic_t& other) :
+    inline bool_sp::bool_sp(const bool_sp& other) :
         value(other.Access())
     {
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>::atomic_t(atomic_t&& other) noexcept :
+    inline bool_sp::bool_sp(bool_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>& atomic_t<integer_p>::operator =(const atomic_t& other)
+    inline bool_sp& bool_sp::operator =(const bool_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -42,8 +37,7 @@ namespace nkr {
         return *this;
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>& atomic_t<integer_p>::operator =(atomic_t&& other) noexcept
+    inline bool_sp& bool_sp::operator =(bool_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
             Assign(other.Exchange(DEFAULT_VALUE));
@@ -51,275 +45,361 @@ namespace nkr {
         return *this;
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>::~atomic_t()
+    inline bool_sp::~bool_sp()
     {
         Assign(DEFAULT_VALUE);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access() const
+    inline typename bool_sp::value_t bool_sp::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Add(integer_tr auto value) const
+    inline typename bool_sp::value_t bool_sp::Assign(value_t value)
+    {
+        return os::atomic::Assign(this->value, value);
+    }
+
+    inline typename bool_sp::value_t bool_sp::Exchange(value_t value)
+    {
+        return os::atomic::Exchange(this->value, value);
+    }
+
+    inline typename bool_sp::value_t bool_sp::Exchange_If_Equals(value_t value, value_t target)
+    {
+        return os::atomic::Exchange_If_Equals(this->value, value, target);
+    }
+
+    inline bool_sp::operator value_t() const
+    {
+        return Access();
+    }
+
+    inline typename bool_sp::value_t bool_sp::operator ()() const
+    {
+        return Access();
+    }
+
+    inline typename bool_sp::value_t bool_sp::operator =(value_t value)
+    {
+        return Assign(value);
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>::integer_sp() :
+        value(DEFAULT_VALUE)
+    {
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>::integer_sp(value_t value) :
+        value(value)
+    {
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>::integer_sp(const integer_sp& other) :
+        value(other.Access())
+    {
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>::integer_sp(integer_sp&& other) noexcept :
+        value(other.Exchange(DEFAULT_VALUE))
+    {
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>& integer_sp<integer_p>::operator =(const integer_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>& integer_sp<integer_p>::operator =(integer_sp&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>::~integer_sp()
+    {
+        Assign(DEFAULT_VALUE);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access() const
+    {
+        return os::atomic::Access(this->value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Add(integer_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Subtract(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Subtract(integer_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Or(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Or(integer_tr auto value) const
     {
         return os::atomic::Access_Or(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_And(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_And(integer_tr auto value) const
     {
         return os::atomic::Access_And(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Access_Xor(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Xor(integer_tr auto value) const
     {
         return os::atomic::Access_Xor(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign(integer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Add(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Add(integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Subtract(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Subtract(integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Or(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Or(integer_tr auto value)
     {
         return os::atomic::Assign_Or(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_And(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_And(integer_tr auto value)
     {
         return os::atomic::Assign_And(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Assign_Xor(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Xor(integer_tr auto value)
     {
         return os::atomic::Assign_Xor(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange(integer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_If_Equals(integer_tr auto value,
-                                                                                         integer_tr auto target)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_If_Equals(integer_tr auto value, integer_tr auto target)
     {
         return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Add(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Subtract(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Or(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Or(integer_tr auto value)
     {
         return os::atomic::Exchange_Or(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_And(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_And(integer_tr auto value)
     {
         return os::atomic::Exchange_And(this->value, value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::Exchange_Xor(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Xor(integer_tr auto value)
     {
         return os::atomic::Exchange_Xor(this->value, value);
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>::operator value_t() const
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>::operator value_t() const
     {
         return Access();
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ()() const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ()() const
     {
         return Access();
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator =(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator =(integer_tr auto value)
     {
         return Assign(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator +(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator +(integer_tr auto value) const
     {
         return Access_Add(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator -(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator -(integer_tr auto value) const
     {
         return Access_Subtract(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator +=(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator +=(integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator -=(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator -=(integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ++()
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ++()
     {
         return Assign_Add(1);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ++(int)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ++(int)
     {
         return Exchange_Add(1);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator --()
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator --()
     {
         return Assign_Subtract(1);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator --(int)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator --(int)
     {
         return Exchange_Subtract(1);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ~() const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ~() const
     {
         return ~Access();
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator |(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator |(integer_tr auto value) const
     {
         return Access_Or(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator &(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator &(integer_tr auto value) const
     {
         return Access_And(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ^(integer_tr auto value) const
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ^(integer_tr auto value) const
     {
         return Access_Xor(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator |=(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator |=(integer_tr auto value)
     {
         return Assign_Or(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator &=(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator &=(integer_tr auto value)
     {
         return Assign_And(value);
     }
 
-    template <typename integer_p>
-    inline typename atomic_t<integer_p>::value_t atomic_t<integer_p>::operator ^=(integer_tr auto value)
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ^=(integer_tr auto value)
     {
         return Assign_Xor(value);
     }
 
-    template <typename integer_p>
-    inline atomic_t<integer_p>& atomic_t<integer_p>::operator =(none_t)
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>& integer_sp<integer_p>::operator =(none_t)
     {
         Assign(DEFAULT_VALUE);
         return *this;
     }
 
-    template <typename integer_p>
-    inline bool_t atomic_t<integer_p>::operator ==(none_t) const
+    template <integer_tr integer_p>
+    inline bool_t integer_sp<integer_p>::operator ==(none_t) const
     {
         return static_cast<bool_t>(Access()) == false;
     }
 
-    template <typename integer_p>
-    inline bool_t atomic_t<integer_p>::operator !=(none_t) const
+    template <integer_tr integer_p>
+    inline bool_t integer_sp<integer_p>::operator !=(none_t) const
     {
         return !operator ==(none_t());
     }
 
-    inline atomic_t<bool_t>::atomic_t() :
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::pointer_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    inline atomic_t<bool_t>::atomic_t(value_t value) :
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::pointer_sp(value_t value) :
         value(value)
     {
     }
 
-    inline atomic_t<bool_t>::atomic_t(const atomic_t& other) :
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::pointer_sp(const pointer_sp& other) :
         value(other.Access())
     {
     }
 
-    inline atomic_t<bool_t>::atomic_t(atomic_t&& other) noexcept :
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::pointer_sp(pointer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    inline atomic_t<bool_t>& atomic_t<bool_t>::operator =(const atomic_t& other)
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator =(const pointer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -327,7 +407,8 @@ namespace nkr {
         return *this;
     }
 
-    inline atomic_t<bool_t>& atomic_t<bool_t>::operator =(atomic_t&& other) noexcept
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator =(pointer_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
             Assign(other.Exchange(DEFAULT_VALUE));
@@ -335,260 +416,177 @@ namespace nkr {
         return *this;
     }
 
-    inline atomic_t<bool_t>::~atomic_t()
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::~pointer_sp()
     {
         Assign(DEFAULT_VALUE);
     }
 
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Access() const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Assign(value_t value)
-    {
-        return os::atomic::Assign(this->value, value);
-    }
-
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange(value_t value)
-    {
-        return os::atomic::Exchange(this->value, value);
-    }
-
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::Exchange_If_Equals(value_t value, value_t target)
-    {
-        return os::atomic::Exchange_If_Equals(this->value, value, target);
-    }
-
-    inline atomic_t<bool_t>::operator value_t() const
-    {
-        return Access();
-    }
-
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::operator ()() const
-    {
-        return Access();
-    }
-
-    inline typename atomic_t<bool_t>::value_t atomic_t<bool_t>::operator =(value_t value)
-    {
-        return Assign(value);
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>::atomic_t() :
-        value(DEFAULT_VALUE)
-    {
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>::atomic_t(value_t value) :
-        value(value)
-    {
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>::atomic_t(const atomic_t& other) :
-        value(other.Access())
-    {
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>::atomic_t(atomic_t&& other) noexcept :
-        value(other.Exchange(DEFAULT_VALUE))
-    {
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>& atomic_t<any_p*>::operator =(const atomic_t& other)
-    {
-        if (this != std::addressof(other)) {
-            Assign(other.Access());
-        }
-        return *this;
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>& atomic_t<any_p*>::operator =(atomic_t&& other) noexcept
-    {
-        if (this != std::addressof(other)) {
-            Assign(other.Exchange(DEFAULT_VALUE));
-        }
-        return *this;
-    }
-
-    template <typename any_p>
-    inline atomic_t<any_p*>::~atomic_t()
-    {
-        Assign(DEFAULT_VALUE);
-    }
-
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Access() const
-    {
-        return os::atomic::Access(this->value);
-    }
-
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Access_Add(integer_tr auto value) const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access_Add(integer_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Access_Subtract(integer_tr auto value) const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access_Subtract(integer_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Assign(pointer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign(pointer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Assign_Add(integer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign_Add(integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Assign_Subtract(integer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign_Subtract(integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Exchange(pointer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange(pointer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Exchange_If_Equals(pointer_tr auto value,
-                                                                                   pointer_tr auto target)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_If_Equals(pointer_tr auto value, pointer_tr auto target)
     {
         return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Exchange_Add(integer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::Exchange_Subtract(integer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
-    template <typename any_p>
-    inline atomic_t<any_p*>::operator value_t() const
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::operator value_t() const
     {
         return Access();
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator ()() const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator ()() const
     {
         return Access();
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator =(pointer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator =(pointer_tr auto value)
     {
         return Assign(value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator +(integer_tr auto value) const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator +(integer_tr auto value) const
     {
         return Access_Add(value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator -(integer_tr auto value) const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator -(integer_tr auto value) const
     {
         return Access_Subtract(value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator +=(integer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator +=(integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator -=(integer_tr auto value)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator -=(integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator ++()
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator ++()
     {
         return Assign_Add(1);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator ++(int)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator ++(int)
     {
         return Exchange_Add(1);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator --()
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator --()
     {
         return Assign_Subtract(1);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator --(int)
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator --(int)
     {
         return Exchange_Subtract(1);
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::value_t atomic_t<any_p*>::operator ->() const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator ->() const
     {
         return Access();
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::unit_t& atomic_t<any_p*>::operator *() const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::unit_t& pointer_sp<pointer_p>::operator *() const
     {
         return *Access();
     }
 
-    template <typename any_p>
-    inline typename atomic_t<any_p*>::unit_t& atomic_t<any_p*>::operator [](integer_tr auto index) const
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::unit_t& pointer_sp<pointer_p>::operator [](integer_tr auto index) const
     {
         return Access()[index];
     }
 
-    inline atomic_t<void_t*>::atomic_t() :
+    inline void_pointer_sp::void_pointer_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    inline atomic_t<void_t*>::atomic_t(value_t value) :
+    inline void_pointer_sp::void_pointer_sp(value_t value) :
         value(value)
     {
     }
 
-    inline atomic_t<void_t*>::atomic_t(const atomic_t& other) :
+    inline void_pointer_sp::void_pointer_sp(const void_pointer_sp& other) :
         value(other.Access())
     {
     }
 
-    inline atomic_t<void_t*>::atomic_t(atomic_t&& other) noexcept :
+    inline void_pointer_sp::void_pointer_sp(void_pointer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    inline atomic_t<void_t*>& atomic_t<void_t*>::operator =(const atomic_t& other)
+    inline void_pointer_sp& void_pointer_sp::operator =(const void_pointer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -596,7 +594,7 @@ namespace nkr {
         return *this;
     }
 
-    inline atomic_t<void_t*>& atomic_t<void_t*>::operator =(atomic_t&& other) noexcept
+    inline void_pointer_sp& void_pointer_sp::operator =(void_pointer_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
             Assign(other.Exchange(DEFAULT_VALUE));
@@ -604,45 +602,45 @@ namespace nkr {
         return *this;
     }
 
-    inline atomic_t<void_t*>::~atomic_t()
+    inline void_pointer_sp::~void_pointer_sp()
     {
         Assign(DEFAULT_VALUE);
     }
 
-    inline typename atomic_t<void_t*>::value_t atomic_t<void_t*>::Access() const
+    inline typename void_pointer_sp::value_t void_pointer_sp::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
-    inline typename atomic_t<void_t*>::value_t atomic_t<void_t*>::Assign(pointer_tr auto value)
+    inline typename void_pointer_sp::value_t void_pointer_sp::Assign(pointer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    inline typename atomic_t<void_t*>::value_t atomic_t<void_t*>::Exchange(pointer_tr auto value)
+    inline typename void_pointer_sp::value_t void_pointer_sp::Exchange(pointer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    inline typename atomic_t<void_t*>::value_t atomic_t<void_t*>::Exchange_If_Equals(pointer_tr auto value,
+    inline typename void_pointer_sp::value_t void_pointer_sp::Exchange_If_Equals(pointer_tr auto value,
                                                                                      pointer_tr auto target)
     {
         return os::atomic::Exchange_If_Equals(this->value, value, target);
     }
 
-    inline atomic_t<void_t*>::operator value_t() const
+    inline void_pointer_sp::operator value_t() const
     {
         return Access();
     }
 
-    inline typename atomic_t<void_t*>::value_t atomic_t<void_t*>::operator ()() const
+    inline typename void_pointer_sp::value_t void_pointer_sp::operator ()() const
     {
         return Access();
     }
 
-    inline typename atomic_t<void_t*>::value_t atomic_t<void_t*>::operator =(pointer_tr auto value)
+    inline typename void_pointer_sp::value_t void_pointer_sp::operator =(pointer_tr auto value)
     {
         return Assign(value);
     }
 
-}
+}}

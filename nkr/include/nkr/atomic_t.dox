@@ -4,7 +4,170 @@
 
 #pragma once
 
-// atomic_t<integer_p>
+// bool_sp
+/**
+* @class _ec77c539_2ae5_4aa5_a156_d961c5ac098d
+* @private
+* 
+* @brief
+*   A wrapper for booleans to be used atomically.
+*/
+
+    // aliases
+    /**
+    * @class _b9aeddda_98ca_4f83_8d24_fb72a3337515
+    * @private
+    */
+
+        // value_t
+        /**
+        * @class _d6588266_8070_4fb4_ba5b_12c444041857
+        * @private
+        * @copydoc _5f6fc64f_c566_4b81_9c95_bca7d9672f17
+        */
+
+    // static data
+    /**
+    * @class _67fb1b7b_bf43_4612_aaed_fc5d2d13eead
+    * @private
+    */
+
+        // DEFAULT_VALUE
+        /**
+        * @class _0ef02aea_a4be_4670_9219_06aa40b7690a
+        * @private
+        */
+
+    // object data
+    /**
+    * @class _566de746_f599_4b33_b092_b69b6d7bcf4d
+    * @private
+    */
+
+        // value
+        /**
+        * @class _22e6ea05_aa91_45e7_8095_c06decdf01d6
+        * @private
+        * @copydoc _93d24339_6dae_40f2_9f11_c9305ebb3816
+        */
+
+    // objects
+    /**
+    * @class _1053c39e_78e4_4501_bdd5_fa790bfe8bd5
+    * @private
+    * @copydoc _162f5a89_c587_40d2_ac4c_9b43659dfa9a
+    */
+
+        // atomic_t()
+        /**
+        * @class _95db9ad8_4d39_4de5_bc38_28d054451654
+        * @private
+        * @copydoc _6214730b_aeb9_4083_998c_f9e1c020924e
+        */
+
+        // atomic_t(value_t value)
+        /**
+        * @class _79178fc7_46e8_412f_b875_222389e8c699
+        * @private
+        * @copydoc _934d0d25_c160_42c4_a269_363ce0e78da6
+        */
+
+        // atomic_t(const atomic_t& other)
+        /**
+        * @class _f13e81f0_5ced_4185_8bfb_6a17811bf402
+        * @private
+        * @copydoc _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
+        */
+
+        // atomic_t(atomic_t&& other) noexcept
+        /**
+        * @class _2051d33c_31c9_402b_b7b0_30ed311bae55
+        * @private
+        * @copydoc _0d15101b_2293_4225_8f70_3edb3f8618de
+        */
+
+        // atomic_t& operator =(const atomic_t& other)
+        /**
+        * @class _754a3b96_c816_4875_b1c5_bd94f74975fe
+        * @private
+        * @copydoc _eeeb1194_9900_46ab_8e15_1e8a0a663395
+        */
+
+        // atomic_t& operator =(atomic_t&& other) noexcept
+        /**
+        * @class _27b572bf_b851_4bbb_bf27_5be01e5164d0
+        * @private
+        * @copydoc _ccf84af8_3181_43e0_a892_9850e2a4c6f0
+        */
+
+        // ~atomic_t()
+        /**
+        * @class _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
+        * @private
+        * @copydoc _01602bc3_a017_47e4_b34e_b8a1dd6dae2f
+        */
+
+    // methods
+    /**
+    * @class _f8359bc4_053e_45a2_92c0_8cc2aec98f3c
+    * @private
+    */
+
+        // value_t Access() const
+        /**
+        * @class _4dac77d5_7b0a_47be_8b54_55194f16d92c
+        * @private
+        */
+
+        // value_t Assign(value_t value)
+        /**
+        * @class _21eb4382_88d5_4c3d_8632_84e7a781884c
+        * @private
+        */
+
+        // value_t Exchange(value_t value)
+        /**
+        * @class _36a45c7f_a017_48c8_9b38_80f41441dfd6
+        * @private
+        */
+
+        // value_t Exchange_If_Equals(value_t value, value_t target)
+        /**
+        * @class _f4834de8_17dd_46c2_851e_90cf412a7513
+        * @private
+        */
+
+    // casts
+    /**
+    * @class _b471158e_1d68_4c75_a520_763cfb48f86b
+    * @private
+    */
+
+        // operator    value_t() const
+        /**
+        * @class _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
+        * @private
+        */
+
+    // operators
+    /**
+    * @class _0e407320_061a_4d4b_ae76_397896faa849
+    * @private
+    */
+
+        // value_t operator ()() const
+        /**
+        * @class _9c15e3f8_92db_4474_ab7a_fb1486fc3800
+        * @private
+        */
+
+        // value_t operator =(value_t value)
+        /**
+        * @class _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
+        * @private
+        */
+
+// integer_sp
 /**
 * @class _1eb34513_6d58_4671_bcfc_61834a0fa529
 * @private
@@ -25,10 +188,6 @@
 *
 * @note
 *   This is the default template for this class. See specializations for more.
-* 
-* @todo
-*   Add some examples!
-*   Add floating points!
 */
 
     // aliases
@@ -427,170 +586,7 @@
         *   Checks if a cast of its value to nkr::bool_t equals `true`.
         */
 
-// atomic_t<bool_t>
-/**
-* @class _ec77c539_2ae5_4aa5_a156_d961c5ac098d
-* @private
-* 
-* @brief
-*   A wrapper for booleans to be used atomically.
-*/
-
-    // aliases
-    /**
-    * @class _b9aeddda_98ca_4f83_8d24_fb72a3337515
-    * @private
-    */
-
-        // value_t
-        /**
-        * @class _d6588266_8070_4fb4_ba5b_12c444041857
-        * @private
-        * @copydoc _5f6fc64f_c566_4b81_9c95_bca7d9672f17
-        */
-
-    // static data
-    /**
-    * @class _67fb1b7b_bf43_4612_aaed_fc5d2d13eead
-    * @private
-    */
-
-        // DEFAULT_VALUE
-        /**
-        * @class _0ef02aea_a4be_4670_9219_06aa40b7690a
-        * @private
-        */
-
-    // object data
-    /**
-    * @class _566de746_f599_4b33_b092_b69b6d7bcf4d
-    * @private
-    */
-
-        // value
-        /**
-        * @class _22e6ea05_aa91_45e7_8095_c06decdf01d6
-        * @private
-        * @copydoc _93d24339_6dae_40f2_9f11_c9305ebb3816
-        */
-
-    // objects
-    /**
-    * @class _1053c39e_78e4_4501_bdd5_fa790bfe8bd5
-    * @private
-    * @copydoc _162f5a89_c587_40d2_ac4c_9b43659dfa9a
-    */
-
-        // atomic_t()
-        /**
-        * @class _95db9ad8_4d39_4de5_bc38_28d054451654
-        * @private
-        * @copydoc _6214730b_aeb9_4083_998c_f9e1c020924e
-        */
-
-        // atomic_t(value_t value)
-        /**
-        * @class _79178fc7_46e8_412f_b875_222389e8c699
-        * @private
-        * @copydoc _934d0d25_c160_42c4_a269_363ce0e78da6
-        */
-
-        // atomic_t(const atomic_t& other)
-        /**
-        * @class _f13e81f0_5ced_4185_8bfb_6a17811bf402
-        * @private
-        * @copydoc _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
-        */
-
-        // atomic_t(atomic_t&& other) noexcept
-        /**
-        * @class _2051d33c_31c9_402b_b7b0_30ed311bae55
-        * @private
-        * @copydoc _0d15101b_2293_4225_8f70_3edb3f8618de
-        */
-
-        // atomic_t& operator =(const atomic_t& other)
-        /**
-        * @class _754a3b96_c816_4875_b1c5_bd94f74975fe
-        * @private
-        * @copydoc _eeeb1194_9900_46ab_8e15_1e8a0a663395
-        */
-
-        // atomic_t& operator =(atomic_t&& other) noexcept
-        /**
-        * @class _27b572bf_b851_4bbb_bf27_5be01e5164d0
-        * @private
-        * @copydoc _ccf84af8_3181_43e0_a892_9850e2a4c6f0
-        */
-
-        // ~atomic_t()
-        /**
-        * @class _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
-        * @private
-        * @copydoc _01602bc3_a017_47e4_b34e_b8a1dd6dae2f
-        */
-
-    // methods
-    /**
-    * @class _f8359bc4_053e_45a2_92c0_8cc2aec98f3c
-    * @private
-    */
-
-        // value_t Access() const
-        /**
-        * @class _4dac77d5_7b0a_47be_8b54_55194f16d92c
-        * @private
-        */
-
-        // value_t Assign(value_t value)
-        /**
-        * @class _21eb4382_88d5_4c3d_8632_84e7a781884c
-        * @private
-        */
-
-        // value_t Exchange(value_t value)
-        /**
-        * @class _36a45c7f_a017_48c8_9b38_80f41441dfd6
-        * @private
-        */
-
-        // value_t Exchange_If_Equals(value_t value, value_t target)
-        /**
-        * @class _f4834de8_17dd_46c2_851e_90cf412a7513
-        * @private
-        */
-
-    // casts
-    /**
-    * @class _b471158e_1d68_4c75_a520_763cfb48f86b
-    * @private
-    */
-
-        // operator    value_t() const
-        /**
-        * @class _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
-        * @private
-        */
-
-    // operators
-    /**
-    * @class _0e407320_061a_4d4b_ae76_397896faa849
-    * @private
-    */
-
-        // value_t operator ()() const
-        /**
-        * @class _9c15e3f8_92db_4474_ab7a_fb1486fc3800
-        * @private
-        */
-
-        // value_t operator =(value_t value)
-        /**
-        * @class _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
-        * @private
-        */
-
-// atomic_t<any_p*>
+// pointer_sp
 /**
 * @class _3a98b216_8b25_4340_96d3_01a5f49f336b
 * @private
@@ -885,7 +881,7 @@
         * @private
         */
 
-// atomic_t<void_t*>
+// void_pointer_sp
 /**
 * @class _82a1e5b2_d82c_4a8e_b740_b84adc2a71ab
 * @private
@@ -1064,3 +1060,74 @@
         * @class _c84a863c_e1fe_4c06_a827_716a2749bfa3
         * @private
         */
+
+// atomic_t<invalid_p>
+/**
+* @class _d6e046d8_6c2e_4075_905b_563f1c8f2455
+* @private
+* 
+* @todo
+*   Add some examples! Probably use something in conjunction with testing.
+*   Add floating points!
+*   Maybe remove some operators that aren't needed? (Like ~.) But make sure to add tests to make sure that each function still works, even if we don't have an operator for it.
+*/
+
+    // default ctor
+    /**
+    * @class _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
+    * @private
+    */
+
+    // copy ctor
+    /**
+    * @class _9727488c_e0cc_4056_a68f_d12b84d5ceca
+    * @private
+    */
+
+    // move ctor
+    /**
+    * @class _20433dd1_bd70_44ec_b6a3_7b5311f12825
+    * @private
+    */
+
+    // copy assignment ctor
+    /**
+    * @class _28d6f470_34eb_4d0d_8dc5_239e23c1c253
+    * @private
+    */
+
+    // move assignment ctor
+    /**
+    * @class _388db58d_c89b_420b_bad9_c3e0334cdd9f
+    * @private
+    */
+
+    // dtor
+    /**
+    * @class _e7cda9ac_182a_48c9_8ace_1a6f8887a65a
+    * @private
+    */
+
+// atomic_t<bool_t>
+/**
+* @class _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+* @private
+*/
+
+// atomic_t<integer_tr integer_p>
+/**
+* @class _d976569a_30d5_4a15_8729_b7505132263c
+* @private
+*/
+
+// atomic_t<pointer_tr pointer_p>
+/**
+* @class _f8ce2e6d_230a_4ef2_801f_aecbc3571487
+* @private
+*/
+
+// atomic_t<void_t*>
+/**
+* @class _99ace0a0_9530_4fb1_8179_90b7dd50e9ed
+* @private
+*/
