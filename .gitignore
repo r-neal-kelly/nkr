@@ -1,5 +1,7 @@
 /.git
 /.vs
+/doctest/x64
+/doctest/Win32
 /nkr/x64
 /nkr/Win32
 /nkr_test/x64

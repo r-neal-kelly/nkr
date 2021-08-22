@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);$(doctest);</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);$(doctest);</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
@@ -129,7 +129,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);$(doctest);</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,7 +145,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(nkr);$(doctest);</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,18 +155,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\test_atomic_t.cpp" />
-    <ClCompile Include="src\test_os.cpp" />
-    <ClCompile Include="src\test_pointer_t.cpp" />
+    <ClCompile Include="src\atomic_t.cpp" />
+    <ClCompile Include="src\os.cpp" />
+    <ClCompile Include="src\pointer_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsics.h" />
-    <ClInclude Include="include\test_atomic_t.h" />
-    <ClInclude Include="include\test_os.h" />
-    <ClInclude Include="include\test_pointer_t.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\doctest\doctest.vcxproj">
+      <Project>{8c1ddcad-1148-45e7-b63e-d1225ad747ad}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\nkr\nkr.vcxproj">
       <Project>{260dd159-a788-4bbb-9690-628aa81aaa9c}</Project>
     </ProjectReference>

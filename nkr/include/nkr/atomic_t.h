@@ -113,7 +113,7 @@ namespace nkr {
         /// @}
 
     public:
-        /// @name maybe_t interface
+        /// @name none_t interface
         /// @copydoc _feb54dad_7493_4e9d_9e24_2a69c9912f95
         /// @{
         atomic_t&   operator =(none_t);         ///< @copydoc _18865e46_d599_4053_a6dc_e0609fb811a1

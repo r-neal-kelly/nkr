@@ -3,12 +3,16 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros">
     <nkr>$(SolutionDir)\nkr\include</nkr>
+    <doctest>$(SolutionDir)\doctest\include</doctest>
   </PropertyGroup>
   <PropertyGroup />
   <ItemDefinitionGroup />
   <ItemGroup>
     <BuildMacro Include="nkr">
       <Value>$(nkr)</Value>
+    </BuildMacro>
+    <BuildMacro Include="doctest">
+      <Value>$(doctest)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>
