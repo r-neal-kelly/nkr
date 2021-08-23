@@ -10,7 +10,7 @@
 * @private
 *
 * @brief
-*   All atomic_t specializations kept separately from the actual interface.
+*   Contains all nkr::atomic_t specializations, kept separately from the actual interface.
 * 
 * @note
 *   See @ref _16d56f49_95ba_456e_a026_706c054cb133
@@ -1274,7 +1274,7 @@
 * @private
 * 
 * @brief
-*   The default template for atomic_t, which invalidates non-atomic types matching no specialization.
+*   The default template for nkr::atomic_t, which invalidates types not matching any specialization.
 * 
 * @details
 *   This type is essentially a wrapper for the functions contained in nkr::os::atomic. For invalid types, this template provides compile time failure or even pre-compile time failure if using intellisense.
@@ -1347,7 +1347,7 @@
 *   Inherits all constructors, assignment operators, and the destructor in addition to all other members of the base class.
 * 
 * @note
-*   See @ref _16d56f49_95ba_456e_a026_706c054cb133 for why we do not use this specialization directly.
+*   See @ref _16d56f49_95ba_456e_a026_706c054cb133 for why we use inheritance to define this specialization.
 */
 
 // atomic_t<integer_tr integer_p>

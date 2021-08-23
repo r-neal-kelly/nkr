@@ -182,6 +182,7 @@
     <None Include="include\nkr\intrinsics.inl" />
     <None Include="include\nkr\macros.dox" />
     <None Include="include\nkr\macros.inl" />
+    <None Include="include\nkr\maybe_t.dox" />
     <None Include="include\nkr\maybe_t.inl" />
     <None Include="include\nkr\os.dox" />
     <None Include="include\nkr\os.inl" />

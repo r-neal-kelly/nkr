@@ -9,6 +9,8 @@
 
 namespace nkr {
 
+    /// @nosubgrouping
+    /// @copydoc _e81dde10_53a3_4c5e_b5e3_fa01c3325510
     class none_t
     {
     public:
@@ -20,7 +22,9 @@ namespace nkr {
         inline  ~none_t()                                   = default;
     };
 
-    // we make no assumptions so we avoid using operator bool_t() or the default ctor()
+    /// @nosubgrouping
+    /// @ingroup _7752ee81_def2_4386_b164_bc31f29ce7b8
+    /// @copydoc _9d52d2e1_c6dc_4dbb_ad58_01a219c6e510
     template <typename type_p>
     concept none_i = requires(type_p instance, const type_p const_instance)
     {
@@ -31,9 +35,18 @@ namespace nkr {
 
 }
 
+namespace nkr {
+
+    /// @ingroup namespaces
+    /// @copydoc _c8a34890_b904_42a7_a88c_ada39529db42
+    namespace $maybe_t {};
+
+}
+
 namespace nkr { namespace $maybe_t {
 
-    // built in fundamentals need a wrapper to be extended
+    /// @nosubgrouping
+    /// @copydoc _0d45c64a_558d_4bd7_baa2_6f521f6656d5
     template <built_in_tr built_in_p>
     class built_in_sp
     {
@@ -64,6 +77,8 @@ namespace nkr { namespace $maybe_t {
         bool_t          operator !=(none_t) const;
     };
 
+    /// @nosubgrouping
+    /// @copydoc _870ca0b2_c146_47a9_838f_140187d046e9
     template <none_i user_defined_p>
     class user_defined_sp :
         public user_defined_p
@@ -88,6 +103,8 @@ namespace nkr { namespace $maybe_t {
 
 namespace nkr {
 
+    /// @nosubgrouping
+    /// @copydoc _1f11b26a_7bf8_462e_a657_b37f6313bff3
     template <typename invalid_p>
     class maybe_t
     {
@@ -100,7 +117,8 @@ namespace nkr {
         ~maybe_t()                                      = delete;
     };
 
-    // we're doing it this way to avoid a bug, link to the stack overflow page.
+    /// @nosubgrouping
+    /// @copydoc _b0155c57_e98a_479c_b659_c2e869035bec
     template <built_in_tr built_in_p>
     class maybe_t<built_in_p> :
         public $maybe_t::built_in_sp<built_in_p>
@@ -110,6 +128,8 @@ namespace nkr {
         using $maybe_t::built_in_sp<built_in_p>::operator =;
     };
 
+    /// @nosubgrouping
+    /// @copydoc _28243913_2a03_428d_95ac_cbabc3cb3baa
     template <none_i user_defined_p>
     class maybe_t<user_defined_p> :
         public $maybe_t::user_defined_sp<user_defined_p>
@@ -123,6 +143,8 @@ namespace nkr {
 
 namespace nkr {
 
+    /// @nosubgrouping
+    /// @copydoc _fe4b1321_2470_4544_b8c0_0e93c38e7275
     template <typename any_p>
     class some_t :
         public maybe_t<any_p>

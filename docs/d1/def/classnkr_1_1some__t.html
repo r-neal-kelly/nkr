@@ -93,6 +93,9 @@ $(document).ready(function(){initNavTree('d1/def/classnkr_1_1some__t.html','../.
 </div><!--header-->
 <div class="contents">
 
+<p>Wraps a type whose object has some value.  
+ <a href="../../d1/def/classnkr_1_1some__t.html#details">More...</a></p>
+
 <p><code>#include &quot;maybe_t.h&quot;</code></p>
 <div class="dynheader">
 Inheritance diagram for nkr::some_t&lt; any_p &gt;:</div>
@@ -127,7 +130,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af6cacb1df53fdf783d9b3641628c3479 inherit pub_methods_classnkr_1_1maybe__t"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html#af6cacb1df53fdf783d9b3641628c3479">~maybe_t</a> ()=delete</td></tr>
 <tr class="separator:af6cacb1df53fdf783d9b3641628c3479 inherit pub_methods_classnkr_1_1maybe__t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Typedef Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename any_p&gt;<br />
+class nkr::some_t&lt; any_p &gt;</div><p >Wraps a type whose object has some value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">any_p</td><td>must satisfy one of the specializations of <a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html" title="Wraps a type whose object may have a value.">nkr::maybe_t</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This template is an in-code tag for an object which has a value. In other words, it does not equate to <a class="el" href="../../d1/df2/classnkr_1_1none__t.html" title="A tag used to assign &#39;nothing&#39; to a user-defined type, or to compare it with &#39;nothing&#39;.">nkr::none_t</a>. This is opposed to <a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html" title="Wraps a type whose object may have a value.">nkr::maybe_t</a> which indicates that an object may or may not have a value.</p>
+<p >This is used as a space efficient means of ensuring that any other interface is being fulfilled properly, including functions and other types. This is opposed to nkr::option_t, which adds a <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> to its footprint to indicate nothing. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ade541fc9be9738840a6a10e7548fccd1" name="ade541fc9be9738840a6a10e7548fccd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ade541fc9be9738840a6a10e7548fccd1">&#9670;&nbsp;</a></span>value_t</h2>
 

@@ -1,0 +1,120 @@
+/*
+    Copyright 2021 r-neal-kelly
+*/
+
+#pragma once
+
+// none_t
+/**
+* @class _e81dde10_53a3_4c5e_b5e3_fa01c3325510
+* @private
+*
+* @brief
+*   A tag used to assign 'nothing' to a user-defined type, or to compare it with 'nothing'.
+* 
+* @details
+*   A user-defined type must satisfy nkr::none_i to make any use of this type.
+*/
+
+// none_i
+/**
+* @class _9d52d2e1_c6dc_4dbb_ad58_01a219c6e510
+* @private
+*
+* @brief
+*   Allows any user-defined type to interact with nkr::none_t, which is necessary for nkr::maybe_t and nkr::some_t.
+* 
+* @details
+*   We make no assumptions about whatever type is meant to interface with nkr::none_t, such as assuming that `operator bool_t()` indicates a lack of a value or not. Requiring an extra step to be taken by the implementor of the type helps to ensure correct usage.
+*/
+
+// nkr::$maybe_t
+/**
+* @class _c8a34890_b904_42a7_a88c_ada39529db42
+* @private
+*
+* @brief
+*   Contains all nkr::maybe_t specializations, kept separately from the actual interface.
+* 
+* @copydetails _80ba6268_583c_45c1_8d5c_d5d84565dae8
+*/
+
+    // built_in_sp
+    /**
+    * @class _0d45c64a_558d_4bd7_baa2_6f521f6656d5
+    * @private
+    *
+    * @brief
+    *   A specialization for built-in types, such as booleans, integers, floating point numbers, pointers, etc.
+    * 
+    * @details
+    *   Built-in types need a class wrapper to behave in the same manner that a user-defined type does. This allows us to define an implementation of nkr::none_i.
+    */
+
+    // user_defined_sp
+    /**
+    * @class _870ca0b2_c146_47a9_838f_140187d046e9
+    * @private
+    *
+    * @brief
+    *   A specialization for user-defined types, including types defined in this library.
+    */
+
+// maybe_t<invalid_p>
+/**
+* @class _1f11b26a_7bf8_462e_a657_b37f6313bff3
+* @private
+*
+* @brief
+*   Wraps a type whose object may have a value.
+* 
+* @details
+*   This template is an in-code tag for an object which may or may not have a value. In other words, it may equate to nkr::none_t. This is opposed to nkr::some_t which indicates that an object has some value.
+* 
+*   This is used as a space efficient means of ensuring that any other interface is being fulfilled properly, including functions and other types. This is opposed to nkr::option_t, which adds a nkr::bool_t to its footprint to indicate nothing.
+* 
+*   This is the default template for nkr::maybe_t, which invalidates types not matching any specialization.
+* 
+* @par Specializations
+*   - nkr::maybe_t<built_in_p>
+*   - nkr::maybe_t<user_defined_p>
+*/
+
+// maybe_t<built_in_p>
+/**
+* @class _b0155c57_e98a_479c_b659_c2e869035bec
+* @private
+* 
+* @brief
+*   A wrapper for nkr::$maybe_t::built_in_sp.
+* 
+* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+*/
+
+// maybe_t<user_defined_p>
+/**
+* @class _28243913_2a03_428d_95ac_cbabc3cb3baa
+* @private
+* 
+* @brief
+*   A wrapper for nkr::$maybe_t::user_defined_sp.
+* 
+* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+*/
+
+// some_t<any_p>
+/**
+* @class _fe4b1321_2470_4544_b8c0_0e93c38e7275
+* @private
+*
+* @brief
+*   Wraps a type whose object has some value.
+* 
+* @param any_p
+*   must satisfy one of the specializations of nkr::maybe_t.
+*
+* @details
+*   This template is an in-code tag for an object which has a value. In other words, it does not equate to nkr::none_t. This is opposed to nkr::maybe_t which indicates that an object may or may not have a value.
+* 
+*   This is used as a space efficient means of ensuring that any other interface is being fulfilled properly, including functions and other types. This is opposed to nkr::option_t, which adds a nkr::bool_t to its footprint to indicate nothing.
+*/

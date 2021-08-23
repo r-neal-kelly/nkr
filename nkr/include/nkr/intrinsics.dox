@@ -204,3 +204,10 @@
         * @brief
         *   Used for literal pointer math.
         */
+
+/**
+* @defgroup _7752ee81_def2_4386_b164_bc31f29ce7b8 interfaces
+* 
+* @brief
+*   The various structs, types, and concepts with the "_i" postfix.
+*/

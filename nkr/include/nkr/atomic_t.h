@@ -12,7 +12,7 @@ namespace nkr {
 
     /// @ingroup namespaces
     /// @copydoc _80ba6268_583c_45c1_8d5c_d5d84565dae8
-    namespace $atomic_t {}
+    namespace $atomic_t {};
 
 }
 
