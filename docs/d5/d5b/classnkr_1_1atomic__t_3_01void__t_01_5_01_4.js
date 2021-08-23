@@ -9,6 +9,8 @@ var classnkr_1_1atomic__t_3_01void__t_01_5_01_4 =
     [ "Exchange_If_Equals", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#a357dfb42b9aebc9f059ed0022857bb92", null ],
     [ "operator value_t", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#ad3992a64467ab1321c86eea6436ddde3", null ],
     [ "operator()", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#adeddc87e548b9e61112dada7196b3c07", null ],
+    [ "operator==", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#a0903db6de4c03692eed7156f5a808fbe", null ],
+    [ "operator!=", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#a76a9395e69aebc2a83f8bec0de033c64", null ],
     [ "DEFAULT_VALUE", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#acdb386d0826408aa71934f260f0384e2", null ],
     [ "value", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#ac8db7a0e340bf734466de43e45e202cb", null ]
 ];

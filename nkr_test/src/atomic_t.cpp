@@ -128,6 +128,33 @@ namespace nkr {
                 CHECK(boolean == true);
             }
         }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_CASE("=(none_t) should set its value to the default value and return itself")
+            {
+                atomic_t<bool_t> boolean(true);
+                CHECK(boolean != atomic_t<bool_t>::DEFAULT_VALUE);
+                CHECK(&(boolean = none_t()) == &boolean);
+                CHECK(boolean == atomic_t<bool_t>::DEFAULT_VALUE);
+            }
+
+            TEST_CASE("==(none_t) should return true if the value is the default, else false")
+            {
+                atomic_t<bool_t> boolean(true);
+                CHECK(!(boolean == none_t()));
+                boolean = none_t();
+                CHECK((boolean == none_t()));
+            }
+
+            TEST_CASE("!=(none_t) should return true if the value is not the default, else false")
+            {
+                atomic_t<bool_t> boolean(true);
+                CHECK((boolean != none_t()));
+                boolean = none_t();
+                CHECK(!(boolean != none_t()));
+            }
+        }
     }
 
     TEST_SUITE("atomic_t<integer_tr integer_p>")
@@ -756,6 +783,36 @@ namespace nkr {
                 CHECK(pointer[1] == 1);
             }
         }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_CASE("=(none_t) should set its value to the default value and return itself")
+            {
+                word_t word = 1;
+                atomic_t<word_t*> pointer(&word);
+                CHECK(pointer != atomic_t<word_t*>::DEFAULT_VALUE);
+                CHECK(&(pointer = none_t()) == &pointer);
+                CHECK(pointer == atomic_t<word_t*>::DEFAULT_VALUE);
+            }
+
+            TEST_CASE("==(none_t) should return true if the value is the default, else false")
+            {
+                word_t word = 1;
+                atomic_t<word_t*> pointer(&word);
+                CHECK(!(pointer == none_t()));
+                pointer = none_t();
+                CHECK((pointer == none_t()));
+            }
+
+            TEST_CASE("!=(none_t) should return true if the value is not the default, else false")
+            {
+                word_t word = 1;
+                atomic_t<word_t*> pointer(&word);
+                CHECK((pointer != none_t()));
+                pointer = none_t();
+                CHECK(!(pointer != none_t()));
+            }
+        }
     }
 
     TEST_SUITE("atomic_t<void_t*>")
@@ -890,6 +947,36 @@ namespace nkr {
                 atomic_t<void_t*> pointer(&word_1);
                 pointer = &word_2;
                 CHECK(pointer == &word_2);
+            }
+        }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_CASE("=(none_t) should set its value to the default value and return itself")
+            {
+                word_t word = 1;
+                atomic_t<void_t*> pointer(&word);
+                CHECK(pointer != atomic_t<void_t*>::DEFAULT_VALUE);
+                CHECK(&(pointer = none_t()) == &pointer);
+                CHECK(pointer == atomic_t<void_t*>::DEFAULT_VALUE);
+            }
+
+            TEST_CASE("==(none_t) should return true if the value is the default, else false")
+            {
+                word_t word = 1;
+                atomic_t<void_t*> pointer(&word);
+                CHECK(!(pointer == none_t()));
+                pointer = none_t();
+                CHECK((pointer == none_t()));
+            }
+
+            TEST_CASE("!=(none_t) should return true if the value is not the default, else false")
+            {
+                word_t word = 1;
+                atomic_t<void_t*> pointer(&word);
+                CHECK((pointer != none_t()));
+                pointer = none_t();
+                CHECK(!(pointer != none_t()));
             }
         }
     }

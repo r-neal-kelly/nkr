@@ -167,6 +167,42 @@
         * @private
         */
 
+    // none_t interface
+    /**
+    * @class _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
+    * @private
+    * 
+    * @brief
+    *   Allows use of nkr::maybe_t and nkr::some_t.
+    */
+
+        // =(none_t)
+        /**
+        * @class _3429943c_402f_43cb_936a_175319131f3f
+        * @private
+        * 
+        * @brief
+        *   Sets its value to the default value.
+        */
+
+        // ==(none_t)
+        /**
+        * @class _36cb7982_c38b_4058_8c15_3e142e7d2653
+        * @private
+        * 
+        * @brief
+        *   Checks if a cast of its value to nkr::bool_t equals `false`.
+        */
+
+        // !=(none_t)
+        /**
+        * @class _2ee275c0_12a7_400c_ba80_08d8ef10d8db
+        * @private
+        * 
+        * @brief
+        *   Checks if a cast of its value to nkr::bool_t equals `true`.
+        */
+
 // integer_sp
 /**
 * @class _1eb34513_6d58_4671_bcfc_61834a0fa529
@@ -554,36 +590,28 @@
     /**
     * @class _feb54dad_7493_4e9d_9e24_2a69c9912f95
     * @private
-    * 
-    * @brief
-    *   Allows use of nkr::maybe_t and nkr::some_t.
+    * @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
     */
 
-        // atomic_t&   operator =(none_t)
+        // =(none_t)
         /**
         * @class _18865e46_d599_4053_a6dc_e0609fb811a1
         * @private
-        * 
-        * @brief
-        *   Sets its value to the default value.
+        * @copydoc _3429943c_402f_43cb_936a_175319131f3f
         */
 
-        // bool_t      operator ==(none_t) const
+        // ==(none_t)
         /**
         * @class _e3609d5e_27c6_4a0e_8928_c54f879abb96
         * @private
-        * 
-        * @brief
-        *   Checks if a cast of its value to nkr::bool_t equals `false`.
+        * @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
         */
 
-        // bool_t      operator !=(none_t) const
+        // !=(none_t)
         /**
         * @class _cc53fec7_7977_4de9_9aa9_852cedd9134a
         * @private
-        * 
-        * @brief
-        *   Checks if a cast of its value to nkr::bool_t equals `true`.
+        * @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
         */
 
 // pointer_sp
@@ -881,6 +909,34 @@
         * @private
         */
 
+    // none_t interface
+    /**
+    * @class _dcabeeed_678e_49d9_9020_9f67fb4b1bb4
+    * @private
+    * @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
+    */
+
+        // =(none_t)
+        /**
+        * @class _8aedd3b6_6fe3_4db7_8c9e_8714e2449988
+        * @private
+        * @copydoc _3429943c_402f_43cb_936a_175319131f3f
+        */
+
+        // ==(none_t)
+        /**
+        * @class _96b228ef_64d8_4e9e_af2b_28d1e81bc25e
+        * @private
+        * @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
+        */
+
+        // !=(none_t)
+        /**
+        * @class _3ea59cb3_9e9a_4b67_9023_bc6877f93102
+        * @private
+        * @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
+        */
+
 // void_pointer_sp
 /**
 * @class _82a1e5b2_d82c_4a8e_b740_b84adc2a71ab
@@ -1059,6 +1115,34 @@
         /**
         * @class _c84a863c_e1fe_4c06_a827_716a2749bfa3
         * @private
+        */
+
+    // none_t interface
+    /**
+    * @class _02896e4d_eea6_4f9f_88d5_b3537f6031d0
+    * @private
+    * @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
+    */
+
+        // =(none_t)
+        /**
+        * @class _2ea4753b_1569_4b90_b19a_70e7f642b906
+        * @private
+        * @copydoc _3429943c_402f_43cb_936a_175319131f3f
+        */
+
+        // ==(none_t)
+        /**
+        * @class _97762179_237b_446c_85db_1278d91a8179
+        * @private
+        * @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
+        */
+
+        // !=(none_t)
+        /**
+        * @class _0abf2389_f09c_4542_9e53_9b15e0c608b3
+        * @private
+        * @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
         */
 
 // atomic_t<invalid_p>

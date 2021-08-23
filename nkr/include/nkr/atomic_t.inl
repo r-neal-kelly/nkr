@@ -85,6 +85,22 @@ namespace nkr { namespace $atomic_t {
         return Assign(value);
     }
 
+    inline bool_sp& bool_sp::operator =(none_t)
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    inline bool_t bool_sp::operator ==(none_t) const
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    inline bool_t bool_sp::operator !=(none_t) const
+    {
+        return !operator ==(none_t());
+    }
+
     template <integer_tr integer_p>
     inline integer_sp<integer_p>::integer_sp() :
         value(DEFAULT_VALUE)
@@ -566,6 +582,25 @@ namespace nkr { namespace $atomic_t {
         return Access()[index];
     }
 
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator =(none_t)
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline bool_t pointer_sp<pointer_p>::operator ==(none_t) const
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    template <pointer_tr pointer_p>
+    inline bool_t pointer_sp<pointer_p>::operator !=(none_t) const
+    {
+        return !operator ==(none_t());
+    }
+
     inline void_pointer_sp::void_pointer_sp() :
         value(DEFAULT_VALUE)
     {
@@ -641,6 +676,22 @@ namespace nkr { namespace $atomic_t {
     inline typename void_pointer_sp::value_t void_pointer_sp::operator =(pointer_tr auto value)
     {
         return Assign(value);
+    }
+
+    inline void_pointer_sp& void_pointer_sp::operator =(none_t)
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    inline bool_t void_pointer_sp::operator ==(none_t) const
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    inline bool_t void_pointer_sp::operator !=(none_t) const
+    {
+        return !operator ==(none_t());
     }
 
 }}

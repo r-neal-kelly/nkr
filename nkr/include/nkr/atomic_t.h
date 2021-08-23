@@ -75,6 +75,15 @@ namespace nkr { namespace $atomic_t {
 
         value_t operator =(value_t value);  ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
         /// @}
+
+    public:
+        /// @name none_t interface
+        /// @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
+        /// @{
+        bool_sp&    operator =(none_t);         ///< @copydoc _3429943c_402f_43cb_936a_175319131f3f
+        bool_t      operator ==(none_t) const;  ///< @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
+        bool_t      operator !=(none_t) const;  ///< @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
+        /// @}
     };
 
     /// @nosubgrouping
@@ -273,6 +282,15 @@ namespace nkr { namespace $atomic_t {
         unit_t& operator *() const;                         ///< @copydoc _626fbdfe_f1db_44c7_85ed_3db92e4fb3d1
         unit_t& operator [](integer_tr auto index) const;   ///< @copydoc _141bf596_33d0_4a21_95b9_caa5166f0c04
         /// @}
+
+    public:
+        /// @name none_t interface
+        /// @copydoc _dcabeeed_678e_49d9_9020_9f67fb4b1bb4
+        /// @{
+        pointer_sp& operator =(none_t);         ///< @copydoc _8aedd3b6_6fe3_4db7_8c9e_8714e2449988
+        bool_t      operator ==(none_t) const;  ///< @copydoc _96b228ef_64d8_4e9e_af2b_28d1e81bc25e
+        bool_t      operator !=(none_t) const;  ///< @copydoc _3ea59cb3_9e9a_4b67_9023_bc6877f93102
+        /// @}
     };
 
     /// @nosubgrouping
@@ -341,6 +359,15 @@ namespace nkr { namespace $atomic_t {
         value_t operator ()() const;                ///< @copydoc _dd514422_ac54_4000_a920_0e7cd0c28a96
 
         value_t operator =(pointer_tr auto value);  ///< @copydoc _c84a863c_e1fe_4c06_a827_716a2749bfa3
+        /// @}
+
+    public:
+        /// @name none_t interface
+        /// @copydoc _02896e4d_eea6_4f9f_88d5_b3537f6031d0
+        /// @{
+        void_pointer_sp&    operator =(none_t);         ///< @copydoc _2ea4753b_1569_4b90_b19a_70e7f642b906
+        bool_t              operator ==(none_t) const;  ///< @copydoc _97762179_237b_446c_85db_1278d91a8179
+        bool_t              operator !=(none_t) const;  ///< @copydoc _0abf2389_f09c_4542_9e53_9b15e0c608b3
         /// @}
     };
 

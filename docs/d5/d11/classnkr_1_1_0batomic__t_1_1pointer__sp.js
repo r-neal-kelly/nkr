@@ -34,6 +34,9 @@ var classnkr_1_1_0batomic__t_1_1pointer__sp =
     [ "operator->", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a2af7c3eb65f84b99abafcdbd4530f010", null ],
     [ "operator*", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ad0fe980eb4fd6258fe3f929cecc089b3", null ],
     [ "operator[]", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa5db49cfca1d9fbf52c6f598568db11f", null ],
+    [ "operator=", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a9e03f4d13193461b48ce62f0514466d3", null ],
+    [ "operator==", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a93500da28e01e8ae34dd8e3d9585c3df", null ],
+    [ "operator!=", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4949a7b13a2c1c9359087c3dbb3af88e", null ],
     [ "DEFAULT_VALUE", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#acf0d895915942b7fa07eb6816822a562", null ],
     [ "value", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5", null ]
 ];
