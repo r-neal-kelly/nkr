@@ -36,11 +36,11 @@ var dir_ce205a311144f539364ed8fe79271330 =
     [ "macros.inl", "d4/d92/macros_8inl.html", "d4/d92/macros_8inl" ],
     [ "maybe_t.h", "d6/d5d/maybe__t_8h.html", [
       [ "nkr::none_t", "d1/df2/classnkr_1_1none__t.html", "d1/df2/classnkr_1_1none__t" ],
+      [ "nkr::$maybe_t::built_in_sp< built_in_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp" ],
+      [ "nkr::$maybe_t::user_defined_sp< user_defined_p >", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp" ],
       [ "nkr::maybe_t< invalid_p >", "d3/dd5/classnkr_1_1maybe__t.html", "d3/dd5/classnkr_1_1maybe__t" ],
-      [ "nkr::maybe_built_in_t< built_in_p >", "da/da2/classnkr_1_1maybe__built__in__t.html", "da/da2/classnkr_1_1maybe__built__in__t" ],
-      [ "nkr::maybe_custom_t< custom_p >", "d8/db6/classnkr_1_1maybe__custom__t.html", "d8/db6/classnkr_1_1maybe__custom__t" ],
       [ "nkr::maybe_t< built_in_p >", "d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html", null ],
-      [ "nkr::maybe_t< custom_p >", "d5/de1/classnkr_1_1maybe__t_3_01custom__p_01_4.html", null ],
+      [ "nkr::maybe_t< user_defined_p >", "d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html", null ],
       [ "nkr::some_t< any_p >", "d1/def/classnkr_1_1some__t.html", "d1/def/classnkr_1_1some__t" ],
       [ "nkr::none_i", "d7/dc6/conceptnkr_1_1none__i.html", null ]
     ] ],

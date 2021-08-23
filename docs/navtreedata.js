@@ -25,7 +25,11 @@
 var NAVTREE =
 [
   [ "nkr", "index.html", [
-    [ "Overview", "index.html", null ],
+    [ "Overview", "index.html", [
+      [ "Designs", "index.html#autotoc_md0", [
+        [ "Class Concept Specializations", "index.html#_16d56f49_95ba_456e_a026_706c054cb133", null ]
+      ] ]
+    ] ],
     [ "Todo List", "dd/da0/todo.html", null ],
     [ "Modules", "modules.html", "modules" ],
     [ "Namespaces", "namespaces.html", [
@@ -61,9 +65,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a6d2c9312f1e24b1591bda3b360665f81",
-"d9/df4/classnkr_1_1pointer__t.html#ad4883553f85d7de3a6da3328c8b577fd",
-"de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a07e85eaf741c9f182075abb074d88aeb"
+"d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a439ce342cbceff393ea67a346bd8785d",
+"d9/df4/classnkr_1_1pointer__t.html#ad965cafc3d4b13a4a8f27607746a6c5f",
+"de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a0af579e751f4a4af114bb033659b2a07"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
