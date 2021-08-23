@@ -17,10 +17,10 @@ var dir_ce205a311144f539364ed8fe79271330 =
       [ "nkr::$atomic_t::pointer_sp< pointer_p >", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp" ],
       [ "nkr::$atomic_t::void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp" ],
       [ "nkr::atomic_t< invalid_p >", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
-      [ "nkr::atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
-      [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4" ],
-      [ "nkr::atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
-      [ "nkr::atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ]
+      [ "nkr::atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", null ],
+      [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", null ],
+      [ "nkr::atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", null ],
+      [ "nkr::atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", null ]
     ] ],
     [ "atomic_t.inl", "d5/d77/atomic__t_8inl.html", null ],
     [ "charcoder_i.h", "d3/d56/charcoder__i_8h.html", [
@@ -39,8 +39,8 @@ var dir_ce205a311144f539364ed8fe79271330 =
       [ "nkr::maybe_t< invalid_p >", "d3/dd5/classnkr_1_1maybe__t.html", "d3/dd5/classnkr_1_1maybe__t" ],
       [ "nkr::maybe_built_in_t< built_in_p >", "da/da2/classnkr_1_1maybe__built__in__t.html", "da/da2/classnkr_1_1maybe__built__in__t" ],
       [ "nkr::maybe_custom_t< custom_p >", "d8/db6/classnkr_1_1maybe__custom__t.html", "d8/db6/classnkr_1_1maybe__custom__t" ],
-      [ "nkr::maybe_t< built_in_p >", "d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html", "d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4" ],
-      [ "nkr::maybe_t< custom_p >", "d5/de1/classnkr_1_1maybe__t_3_01custom__p_01_4.html", "d5/de1/classnkr_1_1maybe__t_3_01custom__p_01_4" ],
+      [ "nkr::maybe_t< built_in_p >", "d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html", null ],
+      [ "nkr::maybe_t< custom_p >", "d5/de1/classnkr_1_1maybe__t_3_01custom__p_01_4.html", null ],
       [ "nkr::some_t< any_p >", "d1/def/classnkr_1_1some__t.html", "d1/def/classnkr_1_1some__t" ],
       [ "nkr::none_i", "d7/dc6/conceptnkr_1_1none__i.html", null ]
     ] ],

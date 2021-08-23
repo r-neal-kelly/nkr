@@ -8,6 +8,14 @@
 #include "nkr/maybe_t.h"
 #include "nkr/traits.h"
 
+namespace nkr {
+
+    /// @ingroup namespaces
+    /// @copydoc _80ba6268_583c_45c1_8d5c_d5d84565dae8
+    namespace $atomic_t {}
+
+}
+
 namespace nkr { namespace $atomic_t {
 
     /// @nosubgrouping
@@ -382,7 +390,7 @@ namespace nkr {
     {
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _dce4c888_983a_42e1_9fa3_2bf954717d41
         /// @{
         atomic_t()                                      = delete;   ///< @copydoc _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
         atomic_t(const atomic_t& other)                 = delete;   ///< @copydoc _9727488c_e0cc_4056_a68f_d12b84d5ceca

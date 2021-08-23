@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('d5/d11/classnkr_1_1_0batomic__t_1_1poi
 </div><!--header-->
 <div class="contents">
 
-<p>A wrapper for pointers to be used atomically.  
+<p>A specialization for pointers to be used atomically.  
  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#details">More...</a></p>
 
 <p><code>#include &quot;atomic_t.h&quot;</code></p>
@@ -101,7 +101,7 @@ Inheritance diagram for nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;:</div>
  <div class="center">
   <img src="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.png" usemap="#nkr::_24atomic_5Ft::pointer_5Fsp_3C_20pointer_5Fp_20_3E_map" alt=""/>
   <map id="nkr::_24atomic_5Ft::pointer_5Fsp_3C_20pointer_5Fp_20_3E_map" name="nkr::_24atomic_5Ft::pointer_5Fsp_3C_20pointer_5Fp_20_3E_map">
-<area href="../../d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html" alt="nkr::atomic_t&lt; pointer_p &gt;" shape="rect" coords="0,56,231,80"/>
+<area href="../../d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html" title="A wrapper for nkr::$atomic_t::pointer_sp." alt="nkr::atomic_t&lt; pointer_p &gt;" shape="rect" coords="0,56,231,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -128,7 +128,7 @@ Inheritance diagram for nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;:</div>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp85f30635602dc09bd85957a6e82a2c21"></a></p>
 </td></tr>
 <tr class="memitem:afe6516841ceb83a0712039cf364d09c5"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a></td></tr>
-<tr class="memdesc:afe6516841ceb83a0712039cf364d09c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html">nkr::atomic_t</a> wrapper.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">More...</a><br /></td></tr>
+<tr class="memdesc:afe6516841ceb83a0712039cf364d09c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">nkr::atomic_t</a> wrapper.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">More...</a><br /></td></tr>
 <tr class="separator:afe6516841ceb83a0712039cf364d09c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">objects</h2></td></tr>
@@ -136,25 +136,18 @@ Inheritance diagram for nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;:</div>
 <dl class="section note"><dt>Note</dt><dd>Naturally, the regular constructors cannot initialize themselves in a thread-safe manner. However, the destructor and the two assignment constructors do set themselves atomically. </dd></dl>
 </td></tr>
 <tr class="memitem:a3190f8b34877039e47e19ae7fe950cd2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a3190f8b34877039e47e19ae7fe950cd2">pointer_sp</a> ()</td></tr>
-<tr class="memdesc:a3190f8b34877039e47e19ae7fe950cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets itself to the default value, but not atomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a3190f8b34877039e47e19ae7fe950cd2">More...</a><br /></td></tr>
 <tr class="separator:a3190f8b34877039e47e19ae7fe950cd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f332df19a1a2578071b8a545bbc9007"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4f332df19a1a2578071b8a545bbc9007">pointer_sp</a> (<a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="memdesc:a4f332df19a1a2578071b8a545bbc9007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets itself to the value, but not atomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4f332df19a1a2578071b8a545bbc9007">More...</a><br /></td></tr>
 <tr class="separator:a4f332df19a1a2578071b8a545bbc9007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00a6faf1d85d7f37cabbf5ceb20ec168"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a00a6faf1d85d7f37cabbf5ceb20ec168">pointer_sp</a> (const <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;other)</td></tr>
-<tr class="memdesc:a00a6faf1d85d7f37cabbf5ceb20ec168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the other atomically, but assigns to itself unatomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a00a6faf1d85d7f37cabbf5ceb20ec168">More...</a><br /></td></tr>
 <tr class="separator:a00a6faf1d85d7f37cabbf5ceb20ec168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30d8f57d7058b22b4ed460fedf3e174a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a30d8f57d7058b22b4ed460fedf3e174a">pointer_sp</a> (<a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:a30d8f57d7058b22b4ed460fedf3e174a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges the other with the default value atomically, but assigns to itself unatomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a30d8f57d7058b22b4ed460fedf3e174a">More...</a><br /></td></tr>
 <tr class="separator:a30d8f57d7058b22b4ed460fedf3e174a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b903d28b04217b96e722be61880ca77"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a1b903d28b04217b96e722be61880ca77">operator=</a> (const <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;other)</td></tr>
-<tr class="memdesc:a1b903d28b04217b96e722be61880ca77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the other atomically and assigns to itself atomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a1b903d28b04217b96e722be61880ca77">More...</a><br /></td></tr>
 <tr class="separator:a1b903d28b04217b96e722be61880ca77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae06ab1133c06c943393f78022b41d2bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ae06ab1133c06c943393f78022b41d2bf">operator=</a> (<a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:ae06ab1133c06c943393f78022b41d2bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges the other with the default value atomically and assigns to itself atomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ae06ab1133c06c943393f78022b41d2bf">More...</a><br /></td></tr>
 <tr class="separator:ae06ab1133c06c943393f78022b41d2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d4ebc741fdd6238084abcbb6dfcded"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa1d4ebc741fdd6238084abcbb6dfcded">~pointer_sp</a> ()</td></tr>
-<tr class="memdesc:aa1d4ebc741fdd6238084abcbb6dfcded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets itself to the default value atomically.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa1d4ebc741fdd6238084abcbb6dfcded">More...</a><br /></td></tr>
 <tr class="separator:aa1d4ebc741fdd6238084abcbb6dfcded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">methods</h2></td></tr>
@@ -221,25 +214,16 @@ Inheritance diagram for nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;:</div>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp1d3ddd5c320a0e588ebe94afbac452fd"></a>Allows use of <a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html">nkr::maybe_t</a> and <a class="el" href="../../d1/def/classnkr_1_1some__t.html">nkr::some_t</a>.</p>
 </td></tr>
 <tr class="memitem:a9e03f4d13193461b48ce62f0514466d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a9e03f4d13193461b48ce62f0514466d3">operator=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>)</td></tr>
-<tr class="memdesc:a9e03f4d13193461b48ce62f0514466d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets its value to the default value.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a9e03f4d13193461b48ce62f0514466d3">More...</a><br /></td></tr>
 <tr class="separator:a9e03f4d13193461b48ce62f0514466d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93500da28e01e8ae34dd8e3d9585c3df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a93500da28e01e8ae34dd8e3d9585c3df">operator==</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
-<tr class="memdesc:a93500da28e01e8ae34dd8e3d9585c3df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>false</code>.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a93500da28e01e8ae34dd8e3d9585c3df">More...</a><br /></td></tr>
 <tr class="separator:a93500da28e01e8ae34dd8e3d9585c3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4949a7b13a2c1c9359087c3dbb3af88e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4949a7b13a2c1c9359087c3dbb3af88e">operator!=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
-<tr class="memdesc:a4949a7b13a2c1c9359087c3dbb3af88e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>true</code>.  <a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4949a7b13a2c1c9359087c3dbb3af88e">More...</a><br /></td></tr>
 <tr class="separator:a4949a7b13a2c1c9359087c3dbb3af88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;pointer_tr pointer_p&gt;<br />
-class nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</div><p >A wrapper for pointers to be used atomically. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">any_p</td><td>can be any type that satisfies <a class="el" href="../../d4/d92/conceptnkr_1_1sized__tr.html" title="Does not allow types like nkr::void_t, which have no size.">nkr::sized_tr</a>, including pointers.</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html">nkr::atomic_t&lt;void_t*&gt;</a> is a sister specialization. </dd></dl>
+class nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</div><p >A specialization for pointers to be used atomically. </p>
+<dl class="section note"><dt>Note</dt><dd><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html" title="A specialization for nkr::void_t* to be used atomically.">nkr::$atomic_t::void_pointer_sp</a> is closely related to this specialization. </dd></dl>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="aa7fc23760980b203d95153b5e366c430" name="aa7fc23760980b203d95153b5e366c430"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa7fc23760980b203d95153b5e366c430">&#9670;&nbsp;</a></span>value_t</h2>
@@ -274,7 +258,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p>The underlying type of this pointer wrapper. </p>
-<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus units_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. </p>
+<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus units_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. </p>
 
 </div>
 </div>
@@ -293,7 +277,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p>The underlying type pointed to by this pointer wrapper. </p>
-<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus unit_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. </p>
+<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus unit_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. </p>
 
 </div>
 </div>
@@ -320,8 +304,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets itself to the default value, but not atomically. </p>
-
+<p></p>
+<p >Sets itself to the default value, but not atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;word_t*&gt; pointer;</div>
+<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a4f332df19a1a2578071b8a545bbc9007" name="a4f332df19a1a2578071b8a545bbc9007"></a>
@@ -350,8 +336,12 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets itself to the value, but not atomically. </p>
-
+<p></p>
+<p >Sets itself to the value, but not atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer == &amp;word);</div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:69</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a00a6faf1d85d7f37cabbf5ceb20ec168" name="a00a6faf1d85d7f37cabbf5ceb20ec168"></a>
@@ -380,8 +370,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Accesses the other atomically, but assigns to itself unatomically. </p>
-
+<p></p>
+<p >Accesses the other atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_2(pointer_1);</div>
+<div class="line">                CHECK(pointer_1 == &amp;word);</div>
+<div class="line">                CHECK(pointer_2 == &amp;word);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a30d8f57d7058b22b4ed460fedf3e174a" name="a30d8f57d7058b22b4ed460fedf3e174a"></a>
@@ -410,8 +405,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Exchanges the other with the default value atomically, but assigns to itself unatomically. </p>
-
+<p></p>
+<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_2(std::move(pointer_1));</div>
+<div class="line">                CHECK(pointer_1 == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(pointer_2 == &amp;word);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa1d4ebc741fdd6238084abcbb6dfcded" name="aa1d4ebc741fdd6238084abcbb6dfcded"></a>
@@ -436,8 +436,12 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets itself to the default value atomically. </p>
-
+<p></p>
+<p >Sets itself to the default value atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                pointer.~atomic_t();</div>
+<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -467,8 +471,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Accesses the other atomically and assigns to itself atomically. </p>
-
+<p></p>
+<p >Accesses the other atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_2 = pointer_1;</div>
+<div class="line">                CHECK(pointer_1 == &amp;word);</div>
+<div class="line">                CHECK(pointer_2 == &amp;word);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ae06ab1133c06c943393f78022b41d2bf" name="ae06ab1133c06c943393f78022b41d2bf"></a>
@@ -497,8 +506,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Exchanges the other with the default value atomically and assigns to itself atomically. </p>
-
+<p></p>
+<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer_2 = std::move(pointer_1);</div>
+<div class="line">                CHECK(pointer_1 == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(pointer_2 == &amp;word);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a0f806bef92669e1c8b6a8fe253394bf3" name="a0f806bef92669e1c8b6a8fe253394bf3"></a>
@@ -524,7 +538,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                <span class="keyword">const</span> atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer.Access() == &amp;word);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a6e54bc342d9c2464445f6e506adeb607" name="a6e54bc342d9c2464445f6e506adeb607"></a>
@@ -554,7 +571,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                <span class="keyword">const</span> atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK(pointer.Access_Add(1) == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a4428a217c0e1d063e89ffa2ebb88aa65" name="a4428a217c0e1d063e89ffa2ebb88aa65"></a>
@@ -584,7 +605,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                <span class="keyword">const</span> atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK(pointer.Access_Subtract(1) == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9b8c0369e502ee6f99cc8e6e2b0e2dc7" name="a9b8c0369e502ee6f99cc8e6e2b0e2dc7"></a>
@@ -614,7 +639,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer.Assign(<span class="keyword">nullptr</span>) == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="af3ca7f534c16c402400f4db5759b7ad5" name="af3ca7f534c16c402400f4db5759b7ad5"></a>
@@ -644,7 +673,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK(pointer.Assign_Add(1) == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a72af6c273278d0c3eafe4c1e68304297" name="a72af6c273278d0c3eafe4c1e68304297"></a>
@@ -674,7 +707,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK(pointer.Assign_Subtract(1) == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a20787182025a320149cc5c97ba43ce18" name="a20787182025a320149cc5c97ba43ce18"></a>
@@ -704,7 +741,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer.Exchange(<span class="keyword">nullptr</span>) == &amp;word);</div>
+<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab744619c2638175284faccaa5beba934" name="ab744619c2638175284faccaa5beba934"></a>
@@ -744,7 +785,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer.Exchange_If_Equals(<span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>) == &amp;word);</div>
+<div class="line">                CHECK(pointer == &amp;word);</div>
+<div class="line">                CHECK(pointer.Exchange_If_Equals(<span class="keyword">nullptr</span>, &amp;word) == &amp;word);</div>
+<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aadab7bc3a507967ab5b3fdcaea4d75c6" name="aadab7bc3a507967ab5b3fdcaea4d75c6"></a>
@@ -774,7 +821,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK(pointer.Exchange_Add(1) == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad245008a9bb55bd17b20f3568c7b44a2" name="ad245008a9bb55bd17b20f3568c7b44a2"></a>
@@ -804,7 +855,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK(pointer.Exchange_Subtract(1) == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9c5b69fa97e427d26ad0126dc8b69e47" name="a9c5b69fa97e427d26ad0126dc8b69e47"></a>
@@ -830,7 +885,19 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>atomic_t&lt;word_t*&gt;::value_t<span class="keyword">&gt;</span>(pointer) == &amp;word);</div>
+<div class="line">                CHECK(pointer == &amp;word);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(pointer) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(!pointer == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                pointer = <span class="keyword">nullptr</span>;</div>
+<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(pointer) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!pointer == <span class="keyword">true</span>);</div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_gabc806439dfc01fb2352e5f2abb501598"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a></div><div class="ttdeci">bool bool_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:42</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a20aef98a827a052d108f84702e5c9b11" name="a20aef98a827a052d108f84702e5c9b11"></a>
@@ -856,7 +923,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer() == &amp;word);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad4c24625b13030ec63d34310afa356e2" name="ad4c24625b13030ec63d34310afa356e2"></a>
@@ -886,7 +956,12 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word_1 = 1;</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word_2 = 2;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word_1);</div>
+<div class="line">                pointer = &amp;word_2;</div>
+<div class="line">                CHECK(pointer == &amp;word_2);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a439ce342cbceff393ea67a346bd8785d" name="a439ce342cbceff393ea67a346bd8785d"></a>
@@ -916,7 +991,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK(pointer + 1 == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aac2a03bd19dc0ee0cf07c09420b8d1b7" name="aac2a03bd19dc0ee0cf07c09420b8d1b7"></a>
@@ -946,7 +1025,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK(pointer - 1 == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a5f9375b8240b9c08ea7411d06a5d8a1f" name="a5f9375b8240b9c08ea7411d06a5d8a1f"></a>
@@ -976,7 +1059,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK((pointer += 1) == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a8780e5a0382ac14444a14d5daea7b347" name="a8780e5a0382ac14444a14d5daea7b347"></a>
@@ -1006,7 +1093,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK((pointer -= 1) == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a24ebcb67b70480d9c48f0ebe09efd12e" name="a24ebcb67b70480d9c48f0ebe09efd12e"></a>
@@ -1032,7 +1123,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK(++pointer == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a704efdad41e44e3d48cfa372acb5282e" name="a704efdad41e44e3d48cfa372acb5282e"></a>
@@ -1062,7 +1157,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
+<div class="line">                CHECK(pointer++ == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad88413b59d30bc704c3f085bf3006d31" name="ad88413b59d30bc704c3f085bf3006d31"></a>
@@ -1088,7 +1187,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK(--pointer == words + 0);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a6d2c9312f1e24b1591bda3b360665f81" name="a6d2c9312f1e24b1591bda3b360665f81"></a>
@@ -1118,7 +1221,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
+<div class="line">                CHECK(pointer-- == words + 1);</div>
+<div class="line">                CHECK(pointer == words + 0);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a2af7c3eb65f84b99abafcdbd4530f010" name="a2af7c3eb65f84b99abafcdbd4530f010"></a>
@@ -1144,7 +1251,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">struct </span>{ <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1; } word;</div>
+<div class="line">                <span class="keyword">auto</span> pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer-&gt;word == 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad0fe980eb4fd6258fe3f929cecc089b3" name="ad0fe980eb4fd6258fe3f929cecc089b3"></a>
@@ -1170,7 +1280,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">struct </span>{ <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1; } word;</div>
+<div class="line">                <span class="keyword">auto</span> pointer(&amp;word);</div>
+<div class="line">                CHECK((*pointer).word == 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa5db49cfca1d9fbf52c6f598568db11f" name="aa5db49cfca1d9fbf52c6f598568db11f"></a>
@@ -1200,7 +1313,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="line">                <span class="keyword">auto</span> pointer(words);</div>
+<div class="line">                CHECK(pointer[1] == 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9e03f4d13193461b48ce62f0514466d3" name="a9e03f4d13193461b48ce62f0514466d3"></a>
@@ -1229,8 +1345,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets its value to the default value. </p>
-
+<p></p>
+<p >Sets its value to the default value. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(pointer != atomic_t&lt;word_t*&gt;::DEFAULT_VALUE);</div>
+<div class="line">                CHECK(&amp;(pointer = none_t()) == &amp;pointer);</div>
+<div class="line">                CHECK(pointer == atomic_t&lt;word_t*&gt;::DEFAULT_VALUE);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a93500da28e01e8ae34dd8e3d9585c3df" name="a93500da28e01e8ae34dd8e3d9585c3df"></a>
@@ -1259,8 +1380,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>false</code>. </p>
-
+<p></p>
+<p >Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK(!(pointer == none_t()));</div>
+<div class="line">                pointer = none_t();</div>
+<div class="line">                CHECK((pointer == none_t()));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a4949a7b13a2c1c9359087c3dbb3af88e" name="a4949a7b13a2c1c9359087c3dbb3af88e"></a>
@@ -1289,8 +1415,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>true</code>. </p>
-
+<p></p>
+<p >Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
+<div class="line">                CHECK((pointer != none_t()));</div>
+<div class="line">                pointer = none_t();</div>
+<div class="line">                CHECK(!(pointer != none_t()));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -1334,7 +1465,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html">nkr::atomic_t</a> wrapper. </p>
+<p>The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">nkr::atomic_t</a> wrapper. </p>
 <p >This is the raw value and is not by itself atomic. It's publically available because this library aims to follow the Data Oriented approach to programming. If you need to, you can directly work with this data manually.</p>
 <dl class="section warning"><dt>Warning</dt><dd>You should only access this if you know what you're doing. Otherwise, you should use the methods, casts, and operators defined on the class. </dd></dl>
 

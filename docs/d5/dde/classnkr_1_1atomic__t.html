@@ -91,13 +91,13 @@ $(document).ready(function(){initNavTree('d5/dde/classnkr_1_1atomic__t.html','..
 </div><!--header-->
 <div class="contents">
 
-<p> 
+<p>The default template for <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">atomic_t</a>, which invalidates non-atomic types which match no specialization.  
  <a href="../../d5/dde/classnkr_1_1atomic__t.html#details">More...</a></p>
 
 <p><code>#include &quot;atomic_t.h&quot;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">objects</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp5891da2d64975cae48d175d1e001f5da"></a></p>
+<tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp5891da2d64975cae48d175d1e001f5da"></a>Completely disables any useage of this template for invalid types.</p>
 </td></tr>
 <tr class="memitem:a99d7cd4250c7da981841b0f082bc6657"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html#a99d7cd4250c7da981841b0f082bc6657">atomic_t</a> ()=delete</td></tr>
 <tr class="separator:a99d7cd4250c7da981841b0f082bc6657"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,7 +114,16 @@ $(document).ready(function(){initNavTree('d5/dde/classnkr_1_1atomic__t.html','..
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename invalid_p&gt;<br />
-class nkr::atomic_t&lt; invalid_p &gt;</div><dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Add some examples! Probably use something in conjunction with testing. Add floating points! Maybe remove some operators that aren't needed? (Like ~.) But make sure to add tests to make sure that each function still works, even if we don't have an operator for it. </dd></dl>
+class nkr::atomic_t&lt; invalid_p &gt;</div><p >The default template for <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">atomic_t</a>, which invalidates non-atomic types which match no specialization. </p>
+<p >This type is essentially a wrapper for the functions contained in <a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html" title="Functions that provide atomic access, assignment, and exchange of variables.">nkr::os::atomic</a>. For invalid objects, this provides compile time failure or even pre-compile time failure if using intellisense.</p>
+<dl class="section user"><dt>Specializations</dt><dd><ul>
+<li><a class="el" href="../../d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html" title="A wrapper for nkr::$atomic_t::bool_sp.">nkr::atomic_t&lt;bool_t&gt;</a></li>
+<li><a class="el" href="../../d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html" title="A wrapper for nkr::$atomic_t::integer_sp.">nkr::atomic_t&lt;integer_p&gt;</a></li>
+<li><a class="el" href="../../d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html" title="A wrapper for nkr::$atomic_t::pointer_sp.">nkr::atomic_t&lt;pointer_p&gt;</a></li>
+<li><a class="el" href="../../d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html" title="A wrapper for nkr::$atomic_t::void_pointer_sp.">nkr::atomic_t&lt;void_t*&gt;</a></li>
+</ul>
+</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000001">Todo:</a></b></dt><dd>Add some examples! Probably use something in conjunction with testing. Add floating points! Maybe remove some operators that aren't needed? (Like ~.) But make sure to add tests to make sure that each function still works, even if we don't have an operator for it. </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a99d7cd4250c7da981841b0f082bc6657" name="a99d7cd4250c7da981841b0f082bc6657"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a99d7cd4250c7da981841b0f082bc6657">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[1/3]</span></h2>

@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('de/dde/classnkr_1_1_0batomic__t_1_1boo
 </div><!--header-->
 <div class="contents">
 
-<p>A wrapper for booleans to be used atomically.  
+<p>A specialization for booleans to be used atomically.  
  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#details">More...</a></p>
 
 <p><code>#include &quot;atomic_t.h&quot;</code></p>
@@ -101,7 +101,7 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
  <div class="center">
   <img src="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.png" usemap="#nkr::_24atomic_5Ft::bool_5Fsp_map" alt=""/>
   <map id="nkr::_24atomic_5Ft::bool_5Fsp_map" name="nkr::_24atomic_5Ft::bool_5Fsp_map">
-<area href="../../d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html" alt="nkr::atomic_t&lt; bool_t &gt;" shape="rect" coords="0,56,140,80"/>
+<area href="../../d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html" title="A wrapper for nkr::$atomic_t::bool_sp." alt="nkr::atomic_t&lt; bool_t &gt;" shape="rect" coords="0,56,140,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -122,7 +122,7 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp85f30635602dc09bd85957a6e82a2c21"></a></p>
 </td></tr>
 <tr class="memitem:a649d99a41b3f8231f85c5262859363b6"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a0d060c0df72c5c3eb2a2e116f181e153">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a649d99a41b3f8231f85c5262859363b6">value</a></td></tr>
-<tr class="memdesc:a649d99a41b3f8231f85c5262859363b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html">nkr::atomic_t</a> wrapper.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a649d99a41b3f8231f85c5262859363b6">More...</a><br /></td></tr>
+<tr class="memdesc:a649d99a41b3f8231f85c5262859363b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">nkr::atomic_t</a> wrapper.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a649d99a41b3f8231f85c5262859363b6">More...</a><br /></td></tr>
 <tr class="separator:a649d99a41b3f8231f85c5262859363b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">objects</h2></td></tr>
@@ -130,25 +130,18 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 <dl class="section note"><dt>Note</dt><dd>Naturally, the regular constructors cannot initialize themselves in a thread-safe manner. However, the destructor and the two assignment constructors do set themselves atomically. </dd></dl>
 </td></tr>
 <tr class="memitem:aa3d241ec864342d58bd6294f4b8c46d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#aa3d241ec864342d58bd6294f4b8c46d0">bool_sp</a> ()</td></tr>
-<tr class="memdesc:aa3d241ec864342d58bd6294f4b8c46d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets itself to the default value, but not atomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#aa3d241ec864342d58bd6294f4b8c46d0">More...</a><br /></td></tr>
 <tr class="separator:aa3d241ec864342d58bd6294f4b8c46d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1111278fc2b34e4177225b10d9e6b353"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a1111278fc2b34e4177225b10d9e6b353">bool_sp</a> (<a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a0d060c0df72c5c3eb2a2e116f181e153">value_t</a> <a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a649d99a41b3f8231f85c5262859363b6">value</a>)</td></tr>
-<tr class="memdesc:a1111278fc2b34e4177225b10d9e6b353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets itself to the value, but not atomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a1111278fc2b34e4177225b10d9e6b353">More...</a><br /></td></tr>
 <tr class="separator:a1111278fc2b34e4177225b10d9e6b353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5b3409249e30eddf702977a1af860ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab5b3409249e30eddf702977a1af860ed">bool_sp</a> (const <a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html">bool_sp</a> &amp;other)</td></tr>
-<tr class="memdesc:ab5b3409249e30eddf702977a1af860ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the other atomically, but assigns to itself unatomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab5b3409249e30eddf702977a1af860ed">More...</a><br /></td></tr>
 <tr class="separator:ab5b3409249e30eddf702977a1af860ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd96e710768b47bd462cea6b87607691"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#acd96e710768b47bd462cea6b87607691">bool_sp</a> (<a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html">bool_sp</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:acd96e710768b47bd462cea6b87607691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges the other with the default value atomically, but assigns to itself unatomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#acd96e710768b47bd462cea6b87607691">More...</a><br /></td></tr>
 <tr class="separator:acd96e710768b47bd462cea6b87607691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3aa0f154c29e4274bd25e649de167b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html">bool_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ae3aa0f154c29e4274bd25e649de167b1">operator=</a> (const <a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html">bool_sp</a> &amp;other)</td></tr>
-<tr class="memdesc:ae3aa0f154c29e4274bd25e649de167b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Accesses the other atomically and assigns to itself atomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ae3aa0f154c29e4274bd25e649de167b1">More...</a><br /></td></tr>
 <tr class="separator:ae3aa0f154c29e4274bd25e649de167b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac903acb887d99edae58e99c81b828222"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html">bool_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ac903acb887d99edae58e99c81b828222">operator=</a> (<a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html">bool_sp</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:ac903acb887d99edae58e99c81b828222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exchanges the other with the default value atomically and assigns to itself atomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ac903acb887d99edae58e99c81b828222">More...</a><br /></td></tr>
 <tr class="separator:ac903acb887d99edae58e99c81b828222"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6059980affa7c6b0716951f0e0c9d8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab6059980affa7c6b0716951f0e0c9d8d">~bool_sp</a> ()</td></tr>
-<tr class="memdesc:ab6059980affa7c6b0716951f0e0c9d8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets itself to the default value atomically.  <a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab6059980affa7c6b0716951f0e0c9d8d">More...</a><br /></td></tr>
 <tr class="separator:ab6059980affa7c6b0716951f0e0c9d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">methods</h2></td></tr>
@@ -191,7 +184,7 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 <tr class="separator:a0af579e751f4a4af114bb033659b2a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >A wrapper for booleans to be used atomically. </p>
+<div class="textblock"><p >A specialization for booleans to be used atomically. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a0d060c0df72c5c3eb2a2e116f181e153" name="a0d060c0df72c5c3eb2a2e116f181e153"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d060c0df72c5c3eb2a2e116f181e153">&#9670;&nbsp;</a></span>value_t</h2>
@@ -233,8 +226,10 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets itself to the default value, but not atomically. </p>
-
+<p></p>
+<p >Sets itself to the default value, but not atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a1111278fc2b34e4177225b10d9e6b353" name="a1111278fc2b34e4177225b10d9e6b353"></a>
@@ -261,8 +256,10 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets itself to the value, but not atomically. </p>
-
+<p></p>
+<p >Sets itself to the value, but not atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab5b3409249e30eddf702977a1af860ed" name="ab5b3409249e30eddf702977a1af860ed"></a>
@@ -289,8 +286,12 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Accesses the other atomically, but assigns to itself unatomically. </p>
-
+<p></p>
+<p >Accesses the other atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
+<div class="line">                atomic_t&lt;bool_t&gt; boolean(other);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="acd96e710768b47bd462cea6b87607691" name="acd96e710768b47bd462cea6b87607691"></a>
@@ -317,8 +318,12 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Exchanges the other with the default value atomically, but assigns to itself unatomically. </p>
-
+<p></p>
+<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
+<div class="line">                atomic_t&lt;bool_t&gt; boolean(std::move(other));</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab6059980affa7c6b0716951f0e0c9d8d" name="ab6059980affa7c6b0716951f0e0c9d8d"></a>
@@ -344,8 +349,11 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Sets itself to the default value atomically. </p>
-
+<p></p>
+<p >Sets itself to the default value atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span>.~atomic_t();</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -373,8 +381,12 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Accesses the other atomically and assigns to itself atomically. </p>
-
+<p></p>
+<p >Accesses the other atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
+<div class="line">                atomic_t&lt;bool_t&gt; <span class="keywordtype">boolean</span> = other;</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ac903acb887d99edae58e99c81b828222" name="ac903acb887d99edae58e99c81b828222"></a>
@@ -401,8 +413,12 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Exchanges the other with the default value atomically and assigns to itself atomically. </p>
-
+<p></p>
+<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
+<div class="line">                atomic_t&lt;bool_t&gt; <span class="keywordtype">boolean</span> = std::move(other);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a45a64f561c65eceabf108428b7fd39e7" name="a45a64f561c65eceabf108428b7fd39e7"></a>
@@ -429,7 +445,10 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">const</span> atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a45a64f561c65eceabf108428b7fd39e7">Access</a>() == <span class="keyword">true</span>);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1bool__sp_html_a45a64f561c65eceabf108428b7fd39e7"><div class="ttname"><a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a45a64f561c65eceabf108428b7fd39e7">nkr::$atomic_t::bool_sp::Access</a></div><div class="ttdeci">value_t Access() const</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:53</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad45e49f5aacd4cb0ac743290c0e54e8c" name="ad45e49f5aacd4cb0ac743290c0e54e8c"></a>
@@ -457,7 +476,11 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ad45e49f5aacd4cb0ac743290c0e54e8c">Assign</a>(<span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1bool__sp_html_ad45e49f5aacd4cb0ac743290c0e54e8c"><div class="ttname"><a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ad45e49f5aacd4cb0ac743290c0e54e8c">nkr::$atomic_t::bool_sp::Assign</a></div><div class="ttdeci">value_t Assign(value_t value)</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:58</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a7e76f0636baff520aa62e14dac971843" name="a7e76f0636baff520aa62e14dac971843"></a>
@@ -485,7 +508,11 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a7e76f0636baff520aa62e14dac971843">Exchange</a>(<span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1bool__sp_html_a7e76f0636baff520aa62e14dac971843"><div class="ttname"><a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a7e76f0636baff520aa62e14dac971843">nkr::$atomic_t::bool_sp::Exchange</a></div><div class="ttdeci">value_t Exchange(value_t value)</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:63</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="afadcad445fe5a39bc55ed0648cf6333c" name="afadcad445fe5a39bc55ed0648cf6333c"></a>
@@ -523,7 +550,13 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#afadcad445fe5a39bc55ed0648cf6333c">Exchange_If_Equals</a>(<span class="keyword">false</span>, <span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#afadcad445fe5a39bc55ed0648cf6333c">Exchange_If_Equals</a>(<span class="keyword">false</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1bool__sp_html_afadcad445fe5a39bc55ed0648cf6333c"><div class="ttname"><a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#afadcad445fe5a39bc55ed0648cf6333c">nkr::$atomic_t::bool_sp::Exchange_If_Equals</a></div><div class="ttdeci">value_t Exchange_If_Equals(value_t value, value_t target)</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:68</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ae820a8f27e04293e234382189bf35602" name="ae820a8f27e04293e234382189bf35602"></a>
@@ -550,7 +583,19 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a0d060c0df72c5c3eb2a2e116f181e153">atomic_t&lt;bool_t&gt;::value_t</a><span class="keyword">&gt;</span>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(!<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(<span class="keywordtype">boolean</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1bool__sp_html_a0d060c0df72c5c3eb2a2e116f181e153"><div class="ttname"><a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a0d060c0df72c5c3eb2a2e116f181e153">nkr::$atomic_t::bool_sp::value_t</a></div><div class="ttdeci">bool_t value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:29</div></div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_gabc806439dfc01fb2352e5f2abb501598"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a></div><div class="ttdeci">bool bool_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:42</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a374ad304512b742639d1b820e9e8d21e" name="a374ad304512b742639d1b820e9e8d21e"></a>
@@ -577,7 +622,9 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span>() == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab00dfea994b54c41985ec6162af05638" name="ab00dfea994b54c41985ec6162af05638"></a>
@@ -605,7 +652,10 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">false</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="af86ba887d76a68b7a9d7475c332c3cdc" name="af86ba887d76a68b7a9d7475c332c3cdc"></a>
@@ -633,7 +683,12 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p>Sets its value to the default value. </p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != <a class="code hl_variable" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a50fabc9e8104493ef18b437e94e33abe">atomic_t&lt;bool_t&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                CHECK(&amp;(<span class="keywordtype">boolean</span> = none_t()) == &amp;<span class="keywordtype">boolean</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <a class="code hl_variable" href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a50fabc9e8104493ef18b437e94e33abe">atomic_t&lt;bool_t&gt;::DEFAULT_VALUE</a>);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1bool__sp_html_a50fabc9e8104493ef18b437e94e33abe"><div class="ttname"><a href="../../de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a50fabc9e8104493ef18b437e94e33abe">nkr::$atomic_t::bool_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static constexpr value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:36</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a07e85eaf741c9f182075abb074d88aeb" name="a07e85eaf741c9f182075abb074d88aeb"></a>
@@ -661,7 +716,11 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p>Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>false</code>. </p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(!(<span class="keywordtype">boolean</span> == none_t()));</div>
+<div class="line">                <span class="keywordtype">boolean</span> = none_t();</div>
+<div class="line">                CHECK((<span class="keywordtype">boolean</span> == none_t()));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a0af579e751f4a4af114bb033659b2a07" name="a0af579e751f4a4af114bb033659b2a07"></a>
@@ -689,7 +748,11 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
 </div><div class="memdoc">
 
 <p>Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>true</code>. </p>
-
+<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK((<span class="keywordtype">boolean</span> != none_t()));</div>
+<div class="line">                <span class="keywordtype">boolean</span> = none_t();</div>
+<div class="line">                CHECK(!(<span class="keywordtype">boolean</span> != none_t()));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -729,7 +792,7 @@ Inheritance diagram for nkr::$atomic_t::bool_sp:</div>
       </table>
 </div><div class="memdoc">
 
-<p>The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html">nkr::atomic_t</a> wrapper. </p>
+<p>The publically available value of the <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for atomic_t, which invalidates non-atomic types which match no specialization.">nkr::atomic_t</a> wrapper. </p>
 <p >This is the raw value and is not by itself atomic. It's publically available because this library aims to follow the Data Oriented approach to programming. If you need to, you can directly work with this data manually.</p>
 <dl class="section warning"><dt>Warning</dt><dd>You should only access this if you know what you're doing. Otherwise, you should use the methods, casts, and operators defined on the class. </dd></dl>
 
