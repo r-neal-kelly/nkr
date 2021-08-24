@@ -22,8 +22,8 @@ var searchData=
   ['integer_5fword_5ftr_19',['integer_word_tr',['../d0/db5/conceptnkr_1_1integer__word__tr.html',1,'nkr']]],
   ['namespaces_20',['namespaces',['../d9/dd2/group__namespaces.html',1,'']]],
   ['nkr_21',['nkr',['../dc/d0c/namespacenkr.html',1,'']]],
-  ['nkr_5fb_22',['nkr_b',['../d1/de4/group__macros__braces.html#ga17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.h'],['../d4/d92/macros_8inl.html#a17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.inl']]],
-  ['nkr_5finitialize_5fstatic_5fsafely_23',['nkr_INITIALIZE_STATIC_SAFELY',['../d4/d92/macros_8inl.html#ae150be82cf7053d6efacc4469772681a',1,'nkr_INITIALIZE_STATIC_SAFELY():&#160;macros.inl'],['../d1/d79/group__macros__procedures.html#gae150be82cf7053d6efacc4469772681a',1,'nkr_INITIALIZE_STATIC_SAFELY():&#160;macros.h']]],
+  ['nkr_5fb_22',['nkr_b',['../d4/d92/macros_8inl.html#a17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.inl'],['../d1/de4/group__macros__braces.html#ga17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.h']]],
+  ['nkr_5finitialize_5fstatic_5fsafely_23',['nkr_INITIALIZE_STATIC_SAFELY',['../d1/d79/group__macros__procedures.html#gae150be82cf7053d6efacc4469772681a',1,'nkr_INITIALIZE_STATIC_SAFELY():&#160;macros.h'],['../d4/d92/macros_8inl.html#ae150be82cf7053d6efacc4469772681a',1,'nkr_INITIALIZE_STATIC_SAFELY():&#160;macros.inl']]],
   ['nkr_5fis_5f64_5fbit_24',['nkr_IS_64_BIT',['../db/dbd/group__intrinsic__hints.html#ga83ebcb6c77a14eb259b74f17bcdc671f',1,'intrinsics.h']]],
   ['nkr_5fis_5fwindows_25',['nkr_IS_WINDOWS',['../db/dbd/group__intrinsic__hints.html#gaf98df6a982864add88de67c14e6a58ad',1,'intrinsics.h']]],
   ['nkr_5fm_26',['nkr_M',['../d1/de4/group__macros__braces.html#ga22653ed8599e8d193c7346ad29dea5ed',1,'nkr_M():&#160;macros.h'],['../d4/d92/macros_8inl.html#a22653ed8599e8d193c7346ad29dea5ed',1,'nkr_M():&#160;macros.inl']]],
@@ -35,5 +35,7 @@ var searchData=
   ['operator_5fsubtract_5ftr_32',['operator_subtract_tr',['../d3/d4f/conceptnkr_1_1operator__subtract__tr.html',1,'nkr']]],
   ['os_33',['os',['../dc/d5c/namespacenkr_1_1os.html',1,'nkr']]],
   ['pointer_5ftr_34',['pointer_tr',['../db/def/conceptnkr_1_1pointer__tr.html',1,'nkr']]],
-  ['sized_5ftr_35',['sized_tr',['../d4/d92/conceptnkr_1_1sized__tr.html',1,'nkr']]]
+  ['same_5for_5fbase_5fof_5ftr_35',['same_or_base_of_tr',['../dc/d2f/conceptnkr_1_1same__or__base__of__tr.html',1,'nkr']]],
+  ['same_5for_5fderived_5ffrom_5ftr_36',['same_or_derived_from_tr',['../d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html',1,'nkr']]],
+  ['sized_5ftr_37',['sized_tr',['../d4/d92/conceptnkr_1_1sized__tr.html',1,'nkr']]]
 ];

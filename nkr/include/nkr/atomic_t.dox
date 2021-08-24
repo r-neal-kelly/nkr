@@ -1343,11 +1343,8 @@
 * @brief
 *   A wrapper for nkr::$atomic_t::bool_sp.
 * 
-* @details
-*   Inherits all constructors, assignment operators, and the destructor in addition to all other members of the base class.
-* 
-* @note
-*   See @ref _16d56f49_95ba_456e_a026_706c054cb133 for why we use inheritance to define this specialization.
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
 // atomic_t<integer_tr integer_p>
@@ -1358,7 +1355,8 @@
 * @brief
 *   A wrapper for nkr::$atomic_t::integer_sp.
 * 
-* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
 // atomic_t<pointer_tr pointer_p>
@@ -1369,7 +1367,8 @@
 * @brief
 *   A wrapper for nkr::$atomic_t::pointer_sp.
 * 
-* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
 // atomic_t<void_t*>
@@ -1380,5 +1379,6 @@
 * @brief
 *   A wrapper for nkr::$atomic_t::void_pointer_sp.
 * 
-* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */

@@ -34,14 +34,12 @@ namespace nkr {
     #error "Cannot compile with this architecture."
 #endif
     /// @}
-
     
     /// @ingroup intrinsics_primitives
     /// @{
     using void_t    = void; ///< @copydoc doc_nkr_void_t
     using bool_t    = bool; ///< @copydoc doc_nkr_bool_t
     /// @}
-
 
     /// @ingroup intrinsics_integers
     /// @{
@@ -55,13 +53,18 @@ namespace nkr {
     using s64_t = std::int64_t;     ///< @copydoc doc_nkr_s64_t
     /// @}
     
-
+    /// @ingroup _17e74a8d_e977_4d08_a090_f4bb1bcf7673
+    /// @{
+    using c8_t  = char8_t;  ///< @copydoc _a878a755_773f_49d9_93c2_6567797188f1
+    using c16_t = char16_t; ///< @copydoc _22b18aae_67b8_49e5_855c_eb4117780773
+    using c32_t = char32_t; ///< @copydoc _70d1ce0d_2bb5_4a6e_ba42_c6c5fdfa5cb7
+    /// @}
+    
     /// @ingroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af
     /// @{
     using f32_t = float;    ///< @copydoc _2ad13e3a_26a3_4526_b482_a1f643d2cb99
     using f64_t = double;   ///< @copydoc _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
     /// @}
-
 
     /// @ingroup intrinsics_contextuals
     /// @{

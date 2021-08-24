@@ -19,5 +19,7 @@ var searchData=
   ['operator_5fadd_5ftr_16',['operator_add_tr',['../d2/dd0/conceptnkr_1_1operator__add__tr.html',1,'nkr']]],
   ['operator_5fsubtract_5ftr_17',['operator_subtract_tr',['../d3/d4f/conceptnkr_1_1operator__subtract__tr.html',1,'nkr']]],
   ['pointer_5ftr_18',['pointer_tr',['../db/def/conceptnkr_1_1pointer__tr.html',1,'nkr']]],
-  ['sized_5ftr_19',['sized_tr',['../d4/d92/conceptnkr_1_1sized__tr.html',1,'nkr']]]
+  ['same_5for_5fbase_5fof_5ftr_19',['same_or_base_of_tr',['../dc/d2f/conceptnkr_1_1same__or__base__of__tr.html',1,'nkr']]],
+  ['same_5for_5fderived_5ffrom_5ftr_20',['same_or_derived_from_tr',['../d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html',1,'nkr']]],
+  ['sized_5ftr_21',['sized_tr',['../d4/d92/conceptnkr_1_1sized__tr.html',1,'nkr']]]
 ];

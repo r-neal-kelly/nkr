@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>nkr: misc</title>
+<title>nkr: floating points</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('d2/de2/group__traits__misc.html','../../'); initResizable(); });
+$(document).ready(function(){initNavTree('db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html','../../'); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -85,36 +85,53 @@ $(document).ready(function(){initNavTree('d2/de2/group__traits__misc.html','../.
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#concepts">Concepts</a>  </div>
-  <div class="headertitle"><div class="title">misc<div class="ingroups"><a class="el" href="../../d3/d8e/group__traits.html">traits</a></div></div></div>
+  <div class="headertitle"><div class="title">floating points<div class="ingroups"><a class="el" href="../../df/daa/group__intrinsics.html">intrinsics</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Filter types by various predicates.  
-</p>
+<p>Convenient floating point types.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
-Concepts</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/def/conceptnkr_1_1pointer__tr.html">nkr::pointer_tr</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">In addition to regular pointers, this also allows nullptr. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d44/conceptnkr_1_1boolean__tr.html">nkr::boolean_tr</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d26/conceptnkr_1_1floating__point__tr.html">nkr::floating_point_tr</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d92/conceptnkr_1_1sized__tr.html">nkr::sized_tr</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does not allow types like <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a>, which have no size. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d72/conceptnkr_1_1built__in__tr.html">nkr::built_in_tr</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows <a class="el" href="../../dd/d44/conceptnkr_1_1boolean__tr.html">nkr::boolean_tr</a>, <a class="el" href="../../d8/df1/conceptnkr_1_1integer__tr.html" title="Either unsigned or signed integers.">nkr::integer_tr</a>, <a class="el" href="../../d7/d26/conceptnkr_1_1floating__point__tr.html">nkr::floating_point_tr</a>, and <a class="el" href="../../db/def/conceptnkr_1_1pointer__tr.html" title="In addition to regular pointers, this also allows nullptr.">nkr::pointer_tr</a>. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/conceptnkr_1_1same__or__base__of__tr.html">nkr::same_or_base_of_tr</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html">nkr::same_or_derived_from_tr</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5491778ed187401db45932ec69e69ae7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga5491778ed187401db45932ec69e69ae7">nkr::f32_t</a> = float</td></tr>
+<tr class="separator:ga5491778ed187401db45932ec69e69ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf90fd60072fb8be42b70ae4aa1192f41"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#gaf90fd60072fb8be42b70ae4aa1192f41">nkr::f64_t</a> = double</td></tr>
+<tr class="separator:gaf90fd60072fb8be42b70ae4aa1192f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<p >Filter types by various predicates. </p>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p >Convenient floating point types. </p>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="ga5491778ed187401db45932ec69e69ae7" name="ga5491778ed187401db45932ec69e69ae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5491778ed187401db45932ec69e69ae7">&#9670;&nbsp;</a></span>f32_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga5491778ed187401db45932ec69e69ae7">nkr::f32_t</a> = typedef float</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<a id="gaf90fd60072fb8be42b70ae4aa1192f41" name="gaf90fd60072fb8be42b70ae4aa1192f41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf90fd60072fb8be42b70ae4aa1192f41">&#9670;&nbsp;</a></span>f64_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#gaf90fd60072fb8be42b70ae4aa1192f41">nkr::f64_t</a> = typedef double</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

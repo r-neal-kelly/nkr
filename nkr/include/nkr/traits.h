@@ -101,6 +101,16 @@ namespace nkr {
         integer_tr<type_p> ||
         floating_point_tr<type_p> ||
         pointer_tr<type_p>;                     ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
+
+    template <typename type_p, typename derived_p>
+    concept same_or_base_of_tr =
+        std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value ||
+        std::is_base_of<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value;
+
+    template <typename type_p, typename base_p>
+    concept same_or_derived_from_tr =
+        std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value ||
+        std::is_convertible<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value;
     /// @}
 
 }

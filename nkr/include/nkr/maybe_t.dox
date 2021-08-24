@@ -16,6 +16,50 @@
 *   A user-defined type must satisfy nkr::none_i to make any use of this type.
 */
 
+    // objects
+    /**
+    * @class _013126e0_1378_4f23_a393_bf330ab0b823
+    * @private
+    */
+
+        // default_ctor()
+        /**
+        * @class _4945c7b2_9854_48c5_9ffb_6e5e0d9ea8a2
+        * @private
+        * @snippet "./src/maybe_t.cpp" _320a98e7_654c_4711_b09e_cda91e7704d4
+        */
+
+        // copy_ctor()
+        /**
+        * @class _9a1760ef_b09e_4e12_8008_54228eb4db46
+        * @private
+        */
+
+        // move_ctor()
+        /**
+        * @class _e4d8014b_ba97_4051_be28_9e60a1a81047
+        * @private
+        */
+
+        // copy_assignment_ctor()
+        /**
+        * @class _c5b4d034_9395_4c88_b3cc_33d6ef0b44a3
+        * @private
+        */
+
+        // move_assignment_ctor()
+        /**
+        * @class _8c3dca16_1f37_4d7b_bd14_522498aeb2e9
+        * @private
+        */
+
+        // dtor()
+        /**
+        * @class _d85fbe4a_ed6e_4ea0_8552_91e433238648
+        * @private
+        * @snippet "./src/maybe_t.cpp" _f57bed6f_8d65_4a14_8ed3_6b68d4f18536
+        */
+
 // none_i
 /**
 * @class _9d52d2e1_c6dc_4dbb_ad58_01a219c6e510
@@ -45,11 +89,178 @@
     * @private
     *
     * @brief
-    *   A specialization for built-in types, such as booleans, integers, floating point numbers, pointers, etc.
+    *   A nkr::maybe_t specialization for built-in types, such as booleans, integers, floating point numbers, pointers, etc.
     * 
     * @details
     *   Built-in types need a class wrapper to behave in the same manner that a user-defined type does. This allows us to define an implementation of nkr::none_i.
     */
+
+        // aliases
+        /**
+        * @class _1acc637c_5d07_41c7_9a7c_996d963c2a59
+        * @private
+        */
+
+            // value_t
+            /**
+            * @class _6d9bde0e_f973_4668_a07d_05729f4af0f6
+            * @private
+            */
+
+        // object data
+        /**
+        * @class _a132ddc6_1af5_4637_9b5d_3114ee912dff
+        * @private
+        */
+
+            // value
+            /**
+            * @class _acce0e58_343c_4481_a91a_7db997eb42b4
+            * @private
+            */
+
+        // objects
+        /**
+        * @class _1fcb90e5_b65a_4312_ac7f_9951456b3425
+        * @private
+        */
+
+            // default_ctor()
+            /**
+            * @class _d18299ac_6d7e_4560_88ff_e53f4bb77069
+            * @private
+            * @snippet "./src/maybe_t.cpp" _3947e943_7bb5_4461_8fb6_7c52bae80b6c
+            */
+
+            // value_ctor()
+            /**
+            * @class _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
+            * @private
+            * @snippet "./src/maybe_t.cpp" _b2f13fd4_de97_43a6_9592_933c225f64b3
+            */
+
+            // copy_ctor()
+            /**
+            * @class _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
+            * @private
+            * @snippet "./src/maybe_t.cpp" _e886a1de_1282_4231_9772_a2554ff0b93e
+            */
+
+            // move_ctor()
+            /**
+            * @class _72a66390_63d7_4076_966f_c4a6c6d94c0a
+            * @private
+            * @snippet "./src/maybe_t.cpp" _c08944e9_0848_4e7a_b121_821a82f89118
+            */
+
+            // value_assignment_ctor()
+            /**
+            * @class _40d586e6_43ec_4f57_a15f_9809bb2a36b4
+            * @private
+            * @snippet "./src/maybe_t.cpp" _fcd0d654_7864_4bd9_b798_18a69d737e71
+            */
+
+            // copy_assignment_ctor()
+            /**
+            * @class _6693684a_9d8b_45e3_9196_3e20af210319
+            * @private
+            * @snippet "./src/maybe_t.cpp" _45d04972_08a7_492c_90a1_3936d1ed7bcb
+            */
+
+            // move_assignment_ctor()
+            /**
+            * @class _003d4488_8885_414a_b34c_e6beb6c1019a
+            * @private
+            * @snippet "./src/maybe_t.cpp" _71ee8a31_68ef_4cc1_8906_9cb9e5d7fa45
+            */
+
+            // dtor()
+            /**
+            * @class _8befff79_9dcc_4bd8_91e6_a3cddab84821
+            * @private
+            * @snippet "./src/maybe_t.cpp" _b76161ed_4157_4d10_9297_7acc4df805d4
+            */
+
+        // casts
+        /**
+        * @class _c2859fff_ae85_4e8e_8b1a_c9228bb961b4
+        * @private
+        */
+
+            // value_t&()
+            /**
+            * @class _2a09a3db_f1fb_41ff_bb7d_83c4d2193bd5
+            * @private
+            * @snippet "./src/maybe_t.cpp" _862b58a5_fbb6_43cc_a7cd_54ca4f580b37
+            */
+
+            // const value_t&()
+            /**
+            * @class _508d5690_a07a_42b9_b255_435e786ec73a
+            * @private
+            * @snippet "./src/maybe_t.cpp" _f755ffdd_dead_4f09_9348_643b5f6b089e
+            */
+
+            // bool_t()
+            /**
+            * @class _8e7ecbaa_f10a_41d8_814b_d462e8447e77
+            * @private
+            * @snippet "./src/maybe_t.cpp" _5b448395_0813_4618_86e4_a2413ac28b1b
+            */
+
+        // operators
+        /**
+        * @class _b2f6d1e6_2a05_4d53_b01f_45f46cefe7c3
+        * @private
+        */
+
+            // ()()
+            /**
+            * @class _0a0d6fe6_f1dc_4a12_8678_185933cbf587
+            * @private
+            * @snippet "./src/maybe_t.cpp" _43216f39_12c8_4163_8c44_e23e9b8a26d5
+            */
+
+            // ()() const
+            /**
+            * @class _b0a0511e_f1e4_4c6a_a9f4_487e27a55d9f
+            * @private
+            * @snippet "./src/maybe_t.cpp" _4ae71520_60de_44f6_91e3_ad72a54234ea
+            */
+
+            // !()
+            /**
+            * @class _2324f3b7_bace_46c4_a6b1_093fda935391
+            * @private
+            * @snippet "./src/maybe_t.cpp" _1b43a17a_7465_4cb0_a4a1_0b003631b869
+            */
+
+        // none_t interface
+        /**
+        * @class _1dfe08c1_275f_46e1_af39_240c6b354178
+        * @private
+        */
+
+            // =(none_t)
+            /**
+            * @class _8a90b1f2_c65f_4ad3_8d73_d985f67d6293
+            * @private
+            * @snippet "./src/maybe_t.cpp" _07804510_9e9d_4297_bf1e_53cc951ccde9
+            */
+
+            // ==(none_t)
+            /**
+            * @class _ba6bc412_5d93_402c_aa70_359a0fe73cce
+            * @private
+            * @snippet "./src/maybe_t.cpp" _db6ed293_bce8_433f_adb1_26371f0faef5
+            */
+
+            // !=(none_t)
+            /**
+            * @class _f148b5f5_a869_429b_afcd_5f391558954a
+            * @private
+            * @snippet "./src/maybe_t.cpp" _d1852cf1_429a_44f9_83fe_e5cceeee5af6
+            */
 
     // user_defined_sp
     /**
@@ -57,8 +268,85 @@
     * @private
     *
     * @brief
-    *   A specialization for user-defined types, including types defined in this library.
+    *   A nkr::maybe_t specialization for user-defined types, including types defined in this library.
+    * 
+    * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
     */
+
+        // aliases
+        /**
+        * @class _9582d918_063d_484b_be3a_28b753f1e85b
+        * @private
+        */
+
+            // value_t
+            /**
+            * @class _6cc07b8c_e756_474e_886d_be8bbee3392e
+            * @private
+            */
+
+        // casts
+        /**
+        * @class _4d8d9df3_d8f9_4b63_bacf_e7cb8d2a45f4
+        * @private
+        */
+
+            // bool_t()
+            /**
+            * @class _a4d05d29_07c0_4bdf_857d_2e932c5a77a8
+            * @private
+            */
+
+        // operators
+        /**
+        * @class _923f1cf1_39a3_4bdb_87a2_0378c0de9bf4
+        * @private
+        */
+
+            // ()()
+            /**
+            * @class _c0521baf_74a7_4a40_9cd7_f474802ebfbe
+            * @private
+            */
+
+            // ()() const
+            /**
+            * @class _110607cd_bdbe_488b_8c8a_15a03e07523b
+            * @private
+            */
+
+            // !()
+            /**
+            * @class _ca79e353_f369_498d_9002_23fc79478493
+            * @private
+            */
+
+        // none_t interface
+        /**
+        * @class _83fd4e8c_fb12_4092_b6b7_0a2a5fe7e3ae
+        * @private
+        * 
+        * @brief
+        *   These are added in case the user_defined_p can't take none_t&. It calls the underlying implementation.
+        */
+
+            // =(none_t)
+            /**
+            * @class _89e3c342_705e_4f5e_8c5a_d4a30c8e93aa
+            * @private
+            */
+
+            // ==(none_t)
+            /**
+            * @class _0ba0e3d3_efa9_47a9_9843_c0bd2bb99dd5
+            * @private
+            */
+
+            // !=(none_t)
+            /**
+            * @class _e03588e1_54fd_4f9b_9b34_54ff74341ccd
+            * @private
+            */
 
 // maybe_t<invalid_p>
 /**
@@ -80,6 +368,48 @@
 *   - nkr::maybe_t<user_defined_p>
 */
 
+    // objects
+    /**
+    * @class _dbabc9c5_cd8c_484e_9c15_b2a1b9a189a6
+    * @private
+    */
+
+        // default_ctor()
+        /**
+        * @class _b38b11f9_98b1_45b5_8242_7d1da0aa4949
+        * @private
+        */
+
+        // copy_ctor()
+        /**
+        * @class _4ad91ffe_91d1_4aab_b371_2e45fced4bb0
+        * @private
+        */
+
+        // move_ctor()
+        /**
+        * @class _783181a7_0ea9_467e_8c37_c0cee4b8cd77
+        * @private
+        */
+
+        // copy_assignment_ctor()
+        /**
+        * @class _2fffa10c_fa78_4309_8ce7_0c9dfef9d911
+        * @private
+        */
+
+        // move_assignment_ctor()
+        /**
+        * @class _b57f9ee7_7133_4f1d_b8aa_e93038b42189
+        * @private
+        */
+
+        // dtor()
+        /**
+        * @class _60fcb0e7_0dbe_4f97_a940_a31508f6363f
+        * @private
+        */
+
 // maybe_t<built_in_p>
 /**
 * @class _b0155c57_e98a_479c_b659_c2e869035bec
@@ -88,7 +418,8 @@
 * @brief
 *   A wrapper for nkr::$maybe_t::built_in_sp.
 * 
-* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
 // maybe_t<user_defined_p>
@@ -99,7 +430,8 @@
 * @brief
 *   A wrapper for nkr::$maybe_t::user_defined_sp.
 * 
-* @copydetails _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
 // some_t<any_p>
@@ -117,4 +449,33 @@
 *   This template is an in-code tag for an object which has a value. In other words, it does not equate to nkr::none_t. This is opposed to nkr::maybe_t which indicates that an object may or may not have a value.
 * 
 *   This is used as a space efficient means of ensuring that any other interface is being fulfilled properly, including functions and other types. This is opposed to nkr::option_t, which adds a nkr::bool_t to its footprint to indicate nothing.
+* 
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 */
+
+    // aliases
+    /**
+    * @class _68e8ea24_c725_481e_96e2_83379ee8f177
+    * @private
+    */
+
+        // value_t
+        /**
+        * @class _afe969ef_b9ff_4532_a311_5900ca7fba62
+        * @private
+        */
+
+    // operators
+    /**
+    * @class _a9c2409d_1948_4a2d_a709_73323203c246
+    * @private
+    */
+
+        // =(none_t)
+        /**
+        * @class _7e0c8790_9442_454e_aa96_8dd70e9e804e
+        * @private
+        * 
+        * @brief
+        *   Deleted to prevent making the object invalid.
+        */
