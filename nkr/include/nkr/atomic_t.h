@@ -409,8 +409,26 @@ namespace nkr {
         public $atomic_t::bool_sp
     {
     public:
+        /// @name inherited objects
+        /// @{
         using $atomic_t::bool_sp::bool_sp;
         using $atomic_t::bool_sp::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        atomic_t(const $atomic_t::bool_sp& other) :
+            $atomic_t::bool_sp(other)
+        {
+        }                                               ///< @copydoc 
+
+        atomic_t($atomic_t::bool_sp&& other) noexcept :
+            $atomic_t::bool_sp(std::move(other))
+        {
+        }                                               ///< @copydoc 
+        /// @}
     };
 
     /// @nosubgrouping
@@ -420,8 +438,26 @@ namespace nkr {
         public $atomic_t::integer_sp<integer_p>
     {
     public:
+        /// @name inherited objects
+        /// @{
         using $atomic_t::integer_sp<integer_p>::integer_sp;
         using $atomic_t::integer_sp<integer_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        atomic_t(const $atomic_t::integer_sp<integer_p>& other) :
+            $atomic_t::integer_sp<integer_p>(other)
+        {
+        }                                                               ///< @copydoc 
+
+        atomic_t($atomic_t::integer_sp<integer_p>&& other) noexcept :
+            $atomic_t::integer_sp<integer_p>(std::move(other))
+        {
+        }                                                               ///< @copydoc 
+        /// @}
     };
 
     /// @nosubgrouping
@@ -431,8 +467,26 @@ namespace nkr {
         public $atomic_t::pointer_sp<pointer_p>
     {
     public:
+        /// @name inherited objects
+        /// @{
         using $atomic_t::pointer_sp<pointer_p>::pointer_sp;
         using $atomic_t::pointer_sp<pointer_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        atomic_t(const $atomic_t::pointer_sp<pointer_p>& other) :
+            $atomic_t::pointer_sp<pointer_p>(other)
+        {
+        }                                                               ///< @copydoc 
+
+        atomic_t($atomic_t::pointer_sp<pointer_p>&& other) noexcept :
+            $atomic_t::pointer_sp<pointer_p>(std::move(other))
+        {
+        }                                                               ///< @copydoc 
+        /// @}
     };
 
     /// @nosubgrouping
@@ -442,8 +496,26 @@ namespace nkr {
         public $atomic_t::void_pointer_sp
     {
     public:
+        /// @name inherited objects
+        /// @{
         using $atomic_t::void_pointer_sp::void_pointer_sp;
         using $atomic_t::void_pointer_sp::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        atomic_t(const $atomic_t::void_pointer_sp& other) :
+            $atomic_t::void_pointer_sp(other)
+        {
+        }                                                       ///< @copydoc 
+
+        atomic_t($atomic_t::void_pointer_sp&& other) noexcept :
+            $atomic_t::void_pointer_sp(std::move(other))
+        {
+        }                                                       ///< @copydoc 
+        /// @}
     };
 
 }
