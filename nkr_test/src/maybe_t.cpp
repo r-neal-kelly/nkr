@@ -611,11 +611,11 @@ namespace nkr {
         {
             TEST_SUITE("this type should be able to act like its underlying value")
             {
-                TEST_CASE("boolean")
+                TEST_CASE("standard boolean")
                 {
-                    bool v = true;
-                    bool boolean = v;
-                    maybe_t<bool> maybe_boolean = v;
+                    std_bool_t v = true;
+                    std_bool_t boolean = v;
+                    maybe_t<std_bool_t> maybe_boolean = v;
 
                     CHECK((maybe_boolean = v) == (boolean = v));
 

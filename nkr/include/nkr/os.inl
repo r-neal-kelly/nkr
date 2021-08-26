@@ -65,7 +65,7 @@ namespace nkr { namespace os { namespace atomic {
         return Access(atom) ^ with;
     }
 
-    inline boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with)
+    inline boolean_tr auto Assign(volatile boolean_tr auto& atom, bool_t with)
     {
         return Exchange(atom, with), with;
     }
@@ -117,12 +117,12 @@ namespace nkr { namespace os { namespace atomic {
 
 #if defined(nkr_IS_WINDOWS)
 
-    inline boolean_tr auto Exchange(volatile boolean_tr auto& atom, boolean_tr auto with)
+    inline boolean_tr auto Exchange(volatile boolean_tr auto& atom, bool_t with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(reinterpret_cast<volatile u8_t&>(atom),
-                                            static_cast<u8_t>(with)));
+        return static_cast<atom_t>(Exchange(static_cast<volatile word_t&>(atom),
+                                            static_cast<word_t>(with)));
     }
 
     inline integer_8_tr auto Exchange(volatile integer_8_tr auto& atom, integer_tr auto with)
@@ -173,14 +173,14 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     inline boolean_tr auto Exchange_If_Equals(volatile boolean_tr auto& atom,
-                                              boolean_tr auto with,
-                                              boolean_tr auto target)
+                                              bool_t with,
+                                              bool_t target)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_If_Equals(reinterpret_cast<volatile u8_t&>(atom),
-                                                      static_cast<u8_t>(with),
-                                                      static_cast<u8_t>(target)));
+        return static_cast<atom_t>(Exchange_If_Equals(static_cast<volatile word_t&>(atom),
+                                                      static_cast<word_t>(with),
+                                                      static_cast<word_t>(target)));
     }
 
     inline integer_8_tr auto Exchange_If_Equals(volatile integer_8_tr auto& atom,

@@ -32,7 +32,8 @@ namespace nkr {
     template <typename invalid_p>
     class class_t
     {
-        // has no members, and we usually delete all ctors and dtor explicitly
+        // has no members, and we usually delete all ctors and dtor explicitly.
+        // else it can inherit a default specialization in the sub-namespace.
     }
 
     template <integer_tr integer_p>
@@ -42,7 +43,19 @@ namespace nkr {
     public:
         using $class_t::integer_sp<integer_p>::integer_sp;
         using $class_t::integer_sp<integer_p>::operator =;
-    }
+
+    public:
+        // it's okay to define these in-body, which we need for a certain ctor condition
+        class_t(const $class_t::integer_sp<integer_p>& other) :
+            $class_t::integer_sp<integer_p>(other)
+        {
+        }
+
+        class_t($class_t::integer_sp<integer_p>&& other) noexcept :
+            $class_t::integer_sp<integer_p>(std::move(other))
+        {
+        }
+    };
 
     template <pointer_tr pointer_p>
     class class_t<pointer_p> :
@@ -51,7 +64,18 @@ namespace nkr {
     public:
         using $class_t::pointer_sp<pointer_p>::pointer_sp;
         using $class_t::pointer_sp<pointer_p>::operator =;
-    }
+
+    public:
+        class_t(const $class_t::pointer_sp<pointer_p>& other) :
+            $class_t::pointer_sp<pointer_p>(other)
+        {
+        }
+
+        class_t($class_t::pointer_sp<pointer_p>&& other) noexcept :
+            $class_t::pointer_sp<pointer_p>(std::move(other))
+        {
+        }
+    };
 
 }
 ```

@@ -80,9 +80,9 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _0e407320_061a_4d4b_ae76_397896faa849
         /// @{
-        value_t operator ()() const;                ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
+        value_t operator ()() const;        ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
 
-        value_t operator =(value_t value);          ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
+        value_t operator =(value_t value);  ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
         /// @}
 
     public:

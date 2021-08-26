@@ -6,6 +6,7 @@
 
 #include <cassert>
 #include <cerrno>
+#include <climits>
 #include <cstdint>
 
 #include <concepts>
@@ -16,6 +17,8 @@
 /// @ingroup namespaces
 /// @copydoc doc_nkr
 namespace nkr {
+
+    static_assert(CHAR_BIT == 8, "This library requires that there be 8 bits in a byte.");
 
     /// @ingroup intrinsic_hints
     /// @{
@@ -37,7 +40,8 @@ namespace nkr {
     
     /// @ingroup intrinsics_primitives
     /// @{
-    using void_t    = void; ///< @copydoc doc_nkr_void_t
+    using void_t        = void; ///< @copydoc doc_nkr_void_t
+    using std_bool_t    = bool; ///< @copydoc 
     /// @}
 
     /// @ingroup intrinsics_integers

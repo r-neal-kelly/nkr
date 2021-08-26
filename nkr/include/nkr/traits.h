@@ -4,15 +4,13 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 
 namespace nkr {
 
-    class bool_t;
-
     template <typename type_p>
     concept boolean_tr =
-        std::same_as<type_p, bool> ||
         std::same_as<type_p, bool_t>;   ///< @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
 
     /// @addtogroup traits_integers
@@ -20,7 +18,7 @@ namespace nkr {
     template <typename type_p>
     concept integer_tr =
         std::is_integral<type_p>::value &&
-        !std::same_as<type_p, bool>;        ///< @copydoc traits_integers_integer_tr
+        !std::same_as<type_p, std_bool_t>;  ///< @copydoc traits_integers_integer_tr
 
     template <typename type_p>
     concept integer_unsigned_tr =
@@ -88,7 +86,7 @@ namespace nkr {
 
     template <typename type_p>
     concept built_in_tr =
-        std::same_as<type_p, bool> ||
+        std::same_as<type_p, std_bool_t> ||
         integer_tr<type_p> ||
         floating_point_tr<type_p> ||
         pointer_tr<type_p>;                                 ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0

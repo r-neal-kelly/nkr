@@ -6,42 +6,39 @@
 
 #include "nkr/intrinsics.h"
 #include "nkr/none_t.h"
-#include "nkr/traits.h"
 
 namespace nkr {
 
     class bool_t
     {
     public:
-        using value_t   = bool;
-
-    public:
-        value_t value;
+        word_t  value;
 
     public:
         bool_t();
-        bool_t(value_t value);
+        bool_t(std_bool_t value);
         bool_t(const bool_t& other);
         bool_t(bool_t&& other) noexcept;
-        bool_t(const volatile bool_t& other);
+        bool_t(volatile const bool_t& other);
         bool_t(volatile bool_t&& other) noexcept;
-        bool_t& operator =(value_t value);
+        bool_t& operator =(std_bool_t value);
         bool_t& operator =(const bool_t& other);
         bool_t& operator =(bool_t&& other) noexcept;
-        volatile bool_t& operator =(value_t value) volatile;
-        volatile bool_t& operator =(const bool_t& other) volatile;
-        volatile bool_t& operator =(bool_t&& other) volatile noexcept;
+        volatile bool_t& operator =(std_bool_t value) volatile;
+        volatile bool_t& operator =(volatile const bool_t& other) volatile;
+        volatile bool_t& operator =(volatile bool_t&& other) volatile noexcept;
         ~bool_t();
 
     public:
-        explicit operator   value_t() const; // explicit to prevent unwanted native operators
-        explicit operator   value_t() const volatile;
-        explicit operator   u8_t() const { return this->value; } // temp rewrite this
+        explicit operator   std_bool_t() const; // explicit to prevent unwanted native operators, make sure to doc that. this is here to interact with boolean expressions
+        explicit operator   std_bool_t() volatile const;
+
+        explicit operator   word_t&();
+        explicit operator   const word_t&() const;
+        explicit operator   volatile word_t&() volatile;
+        explicit operator   volatile const word_t&() volatile const;
 
     public:
-        value_t&        operator()();
-        const value_t&  operator()() const;
-
         friend bool_t   operator !(bool_t a);
 
         friend bool_t   operator ==(bool_t a, bool_t b);
@@ -52,6 +49,7 @@ namespace nkr {
         bool_t  operator ==(none_t) const;
         bool_t  operator !=(none_t) const;
     };
+    static_assert(sizeof(bool_t) == sizeof(word_t));
 
 }
 
