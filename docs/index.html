@@ -116,7 +116,8 @@ Class Concept Specializations</h2>
 <div class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> inval<span class="keywordtype">id</span>_p&gt;</div>
 <div class="line">    <span class="keyword">class </span>class_t</div>
 <div class="line">    {</div>
-<div class="line">        <span class="comment">// has no members, and we usually delete all ctors and dtor explicitly</span></div>
+<div class="line">        <span class="comment">// has no members, and we usually delete all ctors and dtor explicitly.</span></div>
+<div class="line">        <span class="comment">// else it can inherit a default specialization in the sub-namespace.</span></div>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span>eger_tr <span class="keywordtype">int</span>eger_p&gt;</div>
@@ -126,7 +127,19 @@ Class Concept Specializations</h2>
 <div class="line">    <span class="keyword">public</span>:</div>
 <div class="line">        <span class="keyword">using</span> $class_t::integer_sp&lt;integer_p&gt;::integer_sp;</div>
 <div class="line">        <span class="keyword">using</span> $class_t::integer_sp&lt;integer_p&gt;::operator =;</div>
-<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span>:</div>
+<div class="line">        <span class="comment">// it&#39;s important to define these in-body, which we need for a certain ctor condition</span></div>
+<div class="line">        class_t(<span class="keyword">const</span> $class_t::integer_sp&lt;integer_p&gt;&amp; other) :</div>
+<div class="line">            $class_t::integer_sp&lt;integer_p&gt;(other)</div>
+<div class="line">        {</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        class_t($class_t::integer_sp&lt;integer_p&gt;&amp;&amp; other) noexcept :</div>
+<div class="line">            $class_t::integer_sp&lt;integer_p&gt;(std::move(other))</div>
+<div class="line">        {</div>
+<div class="line">        }</div>
+<div class="line">    };</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">template</span> &lt;po<span class="keywordtype">int</span>er_tr po<span class="keywordtype">int</span>er_p&gt;</div>
 <div class="line">    <span class="keyword">class </span>class_t&lt;pointer_p&gt; :</div>
@@ -135,7 +148,18 @@ Class Concept Specializations</h2>
 <div class="line">    <span class="keyword">public</span>:</div>
 <div class="line">        <span class="keyword">using</span> $class_t::pointer_sp&lt;pointer_p&gt;::pointer_sp;</div>
 <div class="line">        <span class="keyword">using</span> $class_t::pointer_sp&lt;pointer_p&gt;::operator =;</div>
-<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keyword">public</span>:</div>
+<div class="line">        class_t(<span class="keyword">const</span> $class_t::pointer_sp&lt;pointer_p&gt;&amp; other) :</div>
+<div class="line">            $class_t::pointer_sp&lt;pointer_p&gt;(other)</div>
+<div class="line">        {</div>
+<div class="line">        }</div>
+<div class="line"> </div>
+<div class="line">        class_t($class_t::pointer_sp&lt;pointer_p&gt;&amp;&amp; other) noexcept :</div>
+<div class="line">            $class_t::pointer_sp&lt;pointer_p&gt;(std::move(other))</div>
+<div class="line">        {</div>
+<div class="line">        }</div>
+<div class="line">    };</div>
 <div class="line"> </div>
 <div class="line">}</div>
 <div class="ttc" id="anamespacenkr_html"><div class="ttname"><a href="dc/d0c/namespacenkr.html">nkr</a></div><div class="ttdoc">With the exception of &quot;nkr_&quot; prefixed macros, all other nkr entities are defined in this namespace.</div><div class="ttdef"><b>Definition:</b> allocator_heap_t.h:11</div></div>

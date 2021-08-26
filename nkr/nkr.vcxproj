@@ -185,6 +185,7 @@
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\atomic_t.dox" />
     <None Include="include\nkr\atomic_t.inl" />
+    <None Include="include\nkr\bool_t.dox" />
     <None Include="include\nkr\bool_t.inl" />
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
     <None Include="include\nkr\intrinsics.dox" />

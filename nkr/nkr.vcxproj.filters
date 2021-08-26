@@ -133,6 +133,7 @@
     <None Include="include\nkr\some_t.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="include\nkr\bool_t.dox" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\os.cpp">

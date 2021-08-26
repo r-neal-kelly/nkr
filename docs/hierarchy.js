@@ -1,14 +1,28 @@
 var hierarchy =
 [
     [ "nkr::allocator_heap_t< unit >", "d9/df1/classnkr_1_1allocator__heap__t.html", null ],
+    [ "nkr::$maybe_t::$built_in_sp::any_sp< any_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
+      [ "nkr::$maybe_t::built_in_sp< built_in_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", [
+        [ "nkr::maybe_t< built_in_p >", "d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html", null ]
+      ] ],
+      [ "nkr::$maybe_t::built_in_sp< any_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", null ]
+    ] ],
+    [ "nkr::$maybe_t::$built_in_sp::any_sp< floating_point_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
+      [ "nkr::$maybe_t::$built_in_sp::floating_point_sp< floating_point_p >", "d6/da2/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1floating__point__sp.html", [
+        [ "nkr::$maybe_t::built_in_sp< floating_point_p >", "df/d26/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01floating__point__p_01_4.html", null ]
+      ] ]
+    ] ],
+    [ "nkr::$maybe_t::$built_in_sp::any_sp< pointer_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
+      [ "nkr::$maybe_t::$built_in_sp::pointer_sp< pointer_p >", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html", [
+        [ "nkr::$maybe_t::built_in_sp< pointer_p >", "de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4.html", null ]
+      ] ]
+    ] ],
     [ "nkr::array_dynamic_t< unit, allocator >", "d5/d74/classnkr_1_1array__dynamic__t.html", null ],
     [ "nkr::atomic_t< invalid_p >", "d5/dde/classnkr_1_1atomic__t.html", null ],
     [ "nkr::$atomic_t::bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html", [
       [ "nkr::atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", null ]
     ] ],
-    [ "nkr::$maybe_t::built_in_sp< built_in_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", [
-      [ "nkr::maybe_t< built_in_p >", "d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html", null ]
-    ] ],
+    [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", null ],
     [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", null ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", null ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", [

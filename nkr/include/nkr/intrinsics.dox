@@ -67,12 +67,25 @@
     *   Primitive types aliased for consistency.
     * 
     * @details
-    *   Honestly, I can't stand my IDE having a different color for types and intrinsic built-ins that are also types.
+    *   Honestly, I can't stand my IDE having one color for user-defined types and another for intrinsic built-ins types.
     */
 
+        // void_t
         /**
-        * @class doc_nkr_void_t
+        * @class _dbb0c2f2_8907_4cee_8bdd_463eea2421c8
         * @private
+        */
+
+        // std_bool_t
+        /**
+        * @class _cf3346a3_232d_4218_9a27_facf99329980
+        * @private
+        * 
+        * @brief
+        *   Relegated to the std namespace in favor of nkr::bool_t.
+        * 
+        * @details
+        *   The library only uses this primitive type for transient expressions and not in any data oriented way. There is no standard size for `bool` and although it is often defined with a space efficient size, such as nkr::u8_t, it is rarely a processor efficient size, which would be nkr::word_t. The library makes far wider use of nkr::bool_t, which is the same size as nkr::word_t.
         */
 
     /**
@@ -246,7 +259,7 @@
 * @private
 * 
 * @note
-*   Inherits all constructors, the destructor, and all assignment operators in addition to all other members of the base class.
+*   Inherits all constructors, the destructor, and all assignment operators in addition to all other members of the base class. Also defines copy and move constructors for the base to ensure that base objects can construct a new instance of this type with the `=` operator.
 * 
 * @par
 */
@@ -257,7 +270,9 @@
 * @private
 * 
 * @note
-*   This ensures that the base can construct this wrapper even with the `=` operator. This is distinct from `operator =` which only comes into play after an object is constructed.
+*   This ensures that the base can construct this wrapper even with the `=` operator. This is distinct from `operator =` which can be inherited but only comes into play after an object is constructed.
+* 
+* @par
 */
 
 // Handling the concept specialization bug
@@ -278,4 +293,6 @@
 * 
 * @note
 *   Returns auto to ensure that we don't break any `operator &` chain.
+* 
+* @par
 */

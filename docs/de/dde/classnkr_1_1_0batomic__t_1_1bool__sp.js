@@ -18,6 +18,6 @@ var classnkr_1_1_0batomic__t_1_1bool__sp =
     [ "operator=", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#af86ba887d76a68b7a9d7475c332c3cdc", null ],
     [ "operator==", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a07e85eaf741c9f182075abb074d88aeb", null ],
     [ "operator!=", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a0af579e751f4a4af114bb033659b2a07", null ],
-    [ "DEFAULT_VALUE", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a50fabc9e8104493ef18b437e94e33abe", null ],
+    [ "DEFAULT_VALUE", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a9ae78f7a39d4d0724084525aaef3ef90", null ],
     [ "value", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a649d99a41b3f8231f85c5262859363b6", null ]
 ];

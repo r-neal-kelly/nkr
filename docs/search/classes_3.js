@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['integer_5fsp_0',['integer_sp',['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html',1,'nkr::$atomic_t']]],
-  ['integer_5fsp_3c_20integer_5fp_20_3e_1',['integer_sp&lt; integer_p &gt;',['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html',1,'nkr::$atomic_t']]]
+  ['floating_5fpoint_5fsp_0',['floating_point_sp',['../d6/da2/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1floating__point__sp.html',1,'nkr::$maybe_t::$built_in_sp']]]
 ];

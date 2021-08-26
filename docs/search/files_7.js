@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['traits_2edox_0',['traits.dox',['../d4/de4/traits_8dox.html',1,'']]],
-  ['traits_2eh_1',['traits.h',['../dd/dff/traits_8h.html',1,'']]]
+  ['pointer_5ft_2eh_0',['pointer_t.h',['../d4/d48/pointer__t_8h.html',1,'']]],
+  ['pointer_5ft_2einl_1',['pointer_t.inl',['../d7/d21/pointer__t_8inl.html',1,'']]]
 ];

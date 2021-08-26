@@ -33,9 +33,9 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>& any_sp<any_p>::any_sp::operator =(value_t other)
+    inline any_sp<any_p>& any_sp<any_p>::operator =(value_t value)
     {
-        this->value = other;
+        this->value = value;
         return *this;
     }
 

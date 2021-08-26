@@ -16,7 +16,7 @@ namespace nkr {
     namespace $maybe_t {
     
         /// @ingroup namespaces
-        /// @copydoc 
+        /// @copydoc _1145e7f5_3595_468d_8aca_2c1336bdc5b8
         namespace $built_in_sp {};
     
     }
@@ -87,16 +87,16 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     };
 
     /// @nosubgrouping
-    /// @copydoc 
+    /// @copydoc _38ebec22_bbe8_4dca_a3dd_e0d3ce7f680f
     template <floating_point_tr floating_point_p>
     class floating_point_sp :
         public any_sp<floating_point_p>
     {
     public:
         /// @name aliases
-        /// @copydoc 
+        /// @copydoc _bb2c1a35_af7a_4084_ad9d_59a969254b54
         /// @{
-        using value_t   = floating_point_p; ///< @copydoc 
+        using value_t   = floating_point_p; ///< @copydoc _6337ae7b_7866_4d54_8259_2228811679c6
         /// @}
 
     public:
@@ -108,34 +108,34 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _894fcf2d_8e11_4657_89b8_92333e9da925
         /// @{
-        floating_point_sp(const any_sp<floating_point_p>& other);       ///< @copydoc 
-        floating_point_sp(any_sp<floating_point_p>&& other) noexcept;   ///< @copydoc 
+        floating_point_sp(const any_sp<floating_point_p>& other);       ///< @copydoc _375cb4fa_e21e_492c_9070_9b6d089ec6f7
+        floating_point_sp(any_sp<floating_point_p>&& other) noexcept;   ///< @copydoc _8d7e6f6b_645d_4ecf_b277_cc7d0040531a
         /// @}
 
     public:
         /// @name operators
-        /// @copydoc 
+        /// @copydoc _21a14be3_cb6c_4bbe_831d_6da25cb18a1d
         /// @{
-        value_t operator ++();      ///< @copydoc 
-        value_t operator ++(int);   ///< @copydoc 
-        value_t operator --();      ///< @copydoc 
-        value_t operator --(int);   ///< @copydoc 
+        value_t operator ++();      ///< @copydoc _45465f70_1de8_47e3_a10d_586e5c4636cc
+        value_t operator ++(int);   ///< @copydoc _cc4463c5_573f_4fda_8971_f19e7a91d744
+        value_t operator --();      ///< @copydoc _08e887d6_7157_460f_b91e_13073571bb06
+        value_t operator --(int);   ///< @copydoc _47619a94_f70e_422d_bc75_a57a426c325f
         /// @}
     };
 
     /// @nosubgrouping
-    /// @copydoc 
+    /// @copydoc _853d9bea_a9d0_40eb_81c1_aa874fcbdfb1
     template <pointer_tr pointer_p>
     class pointer_sp :
         public any_sp<pointer_p>
     {
     public:
         /// @name aliases
-        /// @copydoc 
+        /// @copydoc _9f86f607_6972_4326_b817_4a06a53d154d
         /// @{
-        using value_t   = pointer_p;    ///< @copydoc 
+        using value_t   = pointer_p;    ///< @copydoc _febf525c_e1d2_43d7_93f2_8cc96a495097
         /// @}
 
     public:
@@ -147,17 +147,17 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _9f341574_d8f2_48fd_8755_dd8bb5b05295
         /// @{
-        pointer_sp(const any_sp<pointer_p>& other);     ///< @copydoc 
-        pointer_sp(any_sp<pointer_p>&& other) noexcept; ///< @copydoc 
+        pointer_sp(const any_sp<pointer_p>& other);     ///< @copydoc _7e96ad89_e7bf_4bee_88ea_9fbc57708e3d
+        pointer_sp(any_sp<pointer_p>&& other) noexcept; ///< @copydoc _2bd9723c_3ee9_4db5_afd1_fea5d9945d0c
         /// @}
 
     public:
         /// @name operators
-        /// @copydoc 
+        /// @copydoc _73f0a437_cda0_4e5d_91e0_8e4563970b36
         /// @{
-        value_t operator->() const; ///< @copydoc 
+        value_t operator ->() const; ///< @copydoc _203f8176_57e2_42f5_9ef2_850f3151f3a9
         /// @}
     };
 
@@ -166,7 +166,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 namespace nkr { namespace $maybe_t {
 
     /// @nosubgrouping
-    /// @copydoc 
+    /// @copydoc _476cf1d5_7332_4bfc_acfb_d3a5e3802c6f
     template <typename any_p>
     class built_in_sp :
         public $built_in_sp::any_sp<any_p>
@@ -180,22 +180,22 @@ namespace nkr { namespace $maybe_t {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _f4d38cc3_7d9e_402c_8ddb_0917ce83dc55
         /// @{
         built_in_sp(const $built_in_sp::any_sp<any_p>& other) :
             $built_in_sp::any_sp<any_p>(other)
         {
-        }                                                           ///< @copydoc 
+        }                                                           ///< @copydoc _e60caa84_4414_4a79_8920_2cdc47f11e50
 
         built_in_sp($built_in_sp::any_sp<any_p>&& other) noexcept :
             $built_in_sp::any_sp<any_p>(std::move(other))
         {
-        }                                                           ///< @copydoc 
+        }                                                           ///< @copydoc _e36bef84_f9be_4240_a0f9_c4037100888c
         /// @}
     };
 
     /// @nosubgrouping
-    /// @copydoc 
+    /// @copydoc _54610ffc_35de_47f2_9b0a_03da52782104
     template <floating_point_tr floating_point_p>
     class built_in_sp<floating_point_p> :
         public $built_in_sp::floating_point_sp<floating_point_p>
@@ -209,22 +209,22 @@ namespace nkr { namespace $maybe_t {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _5b844485_95be_4c1a_a964_62ddfce97452
         /// @{
         built_in_sp(const $built_in_sp::floating_point_sp<floating_point_p>& other) :
             $built_in_sp::floating_point_sp<floating_point_p>(other)
         {
-        }                                                                                   ///< @copydoc 
+        }                                                                                   ///< @copydoc _e2a0751a_d716_4ead_abd6_570c52f21ecf
 
         built_in_sp($built_in_sp::floating_point_sp<floating_point_p>&& other) noexcept :
             $built_in_sp::floating_point_sp<floating_point_p>(std::move(other))
         {
-        }                                                                                   ///< @copydoc 
+        }                                                                                   ///< @copydoc _bf60fcab_016b_4c03_b769_55c9fa884fa3
         /// @}
     };
 
     /// @nosubgrouping
-    /// @copydoc 
+    /// @copydoc _eb401275_a224_48ec_ab23_6d0c82b83d8a
     template <pointer_tr pointer_p>
     class built_in_sp<pointer_p> :
         public $built_in_sp::pointer_sp<pointer_p>
@@ -238,17 +238,17 @@ namespace nkr { namespace $maybe_t {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _04720ddf_c679_4933_bf4f_f0da04fe53f8
         /// @{
         built_in_sp(const $built_in_sp::pointer_sp<pointer_p>& other) :
             $built_in_sp::pointer_sp<pointer_p>(other)
         {
-        }                                                                   ///< @copydoc 
+        }                                                                   ///< @copydoc _689db55b_345d_41ad_ac60_7b8d1fe04cb9
 
         built_in_sp($built_in_sp::pointer_sp<pointer_p>&& other) noexcept :
             $built_in_sp::pointer_sp<pointer_p>(std::move(other))
         {
-        }                                                                   ///< @copydoc 
+        }                                                                   ///< @copydoc _aafaaeb7_615a_4198_9403_a586f755a206
         /// @}
     };
 

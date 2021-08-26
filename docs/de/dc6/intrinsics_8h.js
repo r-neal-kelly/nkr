@@ -3,7 +3,7 @@ var intrinsics_8h =
     [ "nkr_IS_WINDOWS", "db/dbd/group__intrinsic__hints.html#gaf98df6a982864add88de67c14e6a58ad", null ],
     [ "nkr_IS_64_BIT", "db/dbd/group__intrinsic__hints.html#ga83ebcb6c77a14eb259b74f17bcdc671f", null ],
     [ "void_t", "de/dc6/intrinsics_8h.html#ga034482d2e50c6d0448a7953d24860fe9", null ],
-    [ "bool_t", "de/dc6/intrinsics_8h.html#gabc806439dfc01fb2352e5f2abb501598", null ],
+    [ "std_bool_t", "de/dc6/intrinsics_8h.html#ga5095f8e116218344a0af438d2cce601b", null ],
     [ "u8_t", "de/dc6/intrinsics_8h.html#ga0a85274f828c947323ae9270ccd7cd4b", null ],
     [ "u16_t", "de/dc6/intrinsics_8h.html#gae64d2269a915666c51cc67c222d8c7ac", null ],
     [ "u32_t", "de/dc6/intrinsics_8h.html#gad859103da019c24293b8635dd2389e07", null ],

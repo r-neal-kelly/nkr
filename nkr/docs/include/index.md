@@ -45,7 +45,7 @@ namespace nkr {
         using $class_t::integer_sp<integer_p>::operator =;
 
     public:
-        // it's okay to define these in-body, which we need for a certain ctor condition
+        // it's important to define these in-body, which we need for a certain ctor condition
         class_t(const $class_t::integer_sp<integer_p>& other) :
             $class_t::integer_sp<integer_p>(other)
         {

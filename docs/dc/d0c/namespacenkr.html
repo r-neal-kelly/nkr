@@ -89,7 +89,8 @@ $(document).ready(function(){initNavTree('dc/d0c/namespacenkr.html','../../'); i
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#concepts">Concepts</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">nkr Namespace Reference<div class="ingroups"><a class="el" href="../../d9/dd2/group__namespaces.html">namespaces</a></div></div></div>
 </div><!--header-->
 <div class="contents">
@@ -130,13 +131,16 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html">atomic_t&lt; void_t * &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper for <a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html" title="A specialization for nkr::void_t* to be used atomically.">nkr::$atomic_t::void_pointer_sp</a>.  <a href="../../d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The default boolean type of this library which replaces <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a>, i.e. <code>bool</code>.  <a href="../../d3/df5/classnkr_1_1bool__t.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/daa/classnkr_1_1charcoder__utf__8__t.html">charcoder_utf_8_t</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html">maybe_t</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wraps a type whose object may have a value.  <a href="../../d3/dd5/classnkr_1_1maybe__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html">maybe_t&lt; built_in_p &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper for <a class="el" href="../../de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html" title="A nkr::maybe_t specialization for built-in types, such as booleans, integers, floating point numbers,...">nkr::$maybe_t::built_in_sp</a>.  <a href="../../d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper for <a class="el" href="../../de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html">nkr::$maybe_t::built_in_sp</a>.  <a href="../../d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html">maybe_t&lt; user_defined_p &gt;</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A wrapper for <a class="el" href="../../d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html" title="A nkr::maybe_t specialization for user-defined types, including types defined in this library.">nkr::$maybe_t::user_defined_sp</a>.  <a href="../../d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html#details">More...</a><br /></td></tr>
@@ -163,6 +167,8 @@ Concepts</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/dc6/conceptnkr_1_1none__i.html">none_i</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows any user-defined type to interact with <a class="el" href="../../d1/df2/classnkr_1_1none__t.html" title="A tag used to assign &#39;nothing&#39; to a user-defined type, or to compare it with &#39;nothing&#39;.">nkr::none_t</a>, which is necessary for <a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html" title="Wraps a type whose object may have a value.">nkr::maybe_t</a> and <a class="el" href="../../d1/def/classnkr_1_1some__t.html" title="Wraps a type whose object has some value.">nkr::some_t</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d44/conceptnkr_1_1boolean__tr.html">boolean_tr</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df1/conceptnkr_1_1integer__tr.html">integer_tr</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Either unsigned or signed integers. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -181,18 +187,12 @@ Concepts</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/db5/conceptnkr_1_1integer__word__tr.html">integer_word_tr</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only allows integers that are the same size as <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0" title="The largest natural type available, the processor&#39;s word.">nkr::word_t</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d9d/conceptnkr_1_1cast__word__t__tr.html">cast_word_t_tr</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/df6/conceptnkr_1_1cast__bool__t__tr.html">cast_bool_t_tr</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/dd0/conceptnkr_1_1operator__add__tr.html">operator_add_tr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d4f/conceptnkr_1_1operator__subtract__tr.html">operator_subtract_tr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/def/conceptnkr_1_1pointer__tr.html">pointer_tr</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">In addition to regular pointers, this also allows nullptr. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d44/conceptnkr_1_1boolean__tr.html">boolean_tr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d26/conceptnkr_1_1floating__point__tr.html">floating_point_tr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -201,6 +201,10 @@ Concepts</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d72/conceptnkr_1_1built__in__tr.html">built_in_tr</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows <a class="el" href="../../dd/d44/conceptnkr_1_1boolean__tr.html">nkr::boolean_tr</a>, <a class="el" href="../../d8/df1/conceptnkr_1_1integer__tr.html" title="Either unsigned or signed integers.">nkr::integer_tr</a>, <a class="el" href="../../d7/d26/conceptnkr_1_1floating__point__tr.html">nkr::floating_point_tr</a>, and <a class="el" href="../../db/def/conceptnkr_1_1pointer__tr.html" title="In addition to regular pointers, this also allows nullptr.">nkr::pointer_tr</a>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/dc7/conceptnkr_1_1user__defined__tr.html">user_defined_tr</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/db5/conceptnkr_1_1any__tr.html">any_tr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">concept &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d2f/conceptnkr_1_1same__or__base__of__tr.html">same_or_base_of_tr</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,8 +219,9 @@ Typedefs</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ga034482d2e50c6d0448a7953d24860fe9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a> = void</td></tr>
 <tr class="separator:ga034482d2e50c6d0448a7953d24860fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gabc806439dfc01fb2352e5f2abb501598"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a> = bool</td></tr>
-<tr class="separator:gabc806439dfc01fb2352e5f2abb501598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5095f8e116218344a0af438d2cce601b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> = bool</td></tr>
+<tr class="memdesc:ga5095f8e116218344a0af438d2cce601b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Relegated to the std namespace in favor of <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a>.  <a href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">More...</a><br /></td></tr>
+<tr class="separator:ga5095f8e116218344a0af438d2cce601b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader"></div></td></tr>
 <tr class="memitem:ga0a85274f828c947323ae9270ccd7cd4b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> = std::uint8_t</td></tr>
 <tr class="separator:ga0a85274f828c947323ae9270ccd7cd4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,6 +270,15 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga1e9a380f784247ec4046f20b262f0b23"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga1e9a380f784247ec4046f20b262f0b23">address_t</a> = std::uintptr_t</td></tr>
 <tr class="memdesc:ga1e9a380f784247ec4046f20b262f0b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used for literal pointer math.  <a href="../../d8/d8d/group__intrinsics__contextuals.html#ga1e9a380f784247ec4046f20b262f0b23">More...</a><br /></td></tr>
 <tr class="separator:ga1e9a380f784247ec4046f20b262f0b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad22fa30986c7ce676199fff181971bac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac">operator!</a> (<a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> a)</td></tr>
+<tr class="separator:ad22fa30986c7ce676199fff181971bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae505d36de30729fc7999a4636a9d0f3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d0c/namespacenkr.html#ae505d36de30729fc7999a4636a9d0f3f">operator==</a> (<a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> a, <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> b)</td></tr>
+<tr class="separator:ae505d36de30729fc7999a4636a9d0f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b4a0beb673006534a3d597139d8fcbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d0c/namespacenkr.html#a7b4a0beb673006534a3d597139d8fcbb">operator!=</a> (<a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> a, <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> b)</td></tr>
+<tr class="separator:a7b4a0beb673006534a3d597139d8fcbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >With the exception of "nkr_" prefixed macros, all other nkr entities are defined in this namespace. </p>
@@ -281,6 +295,105 @@ template&lt;typename charcoder  = charcoder_utf_8_t&gt; </div>
           <td class="memname">using <a class="el" href="../../dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d">nkr::string_t</a> = typedef <a class="el" href="../../d9/d32/classnkr_1_1string__dynamic__t.html">string_dynamic_t</a>&lt;charcoder&gt;</td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ad22fa30986c7ce676199fff181971bac" name="ad22fa30986c7ce676199fff181971bac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad22fa30986c7ce676199fff181971bac">&#9670;&nbsp;</a></span>operator!()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> nkr::operator! </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td>
+          <td class="paramname"><em>a</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae505d36de30729fc7999a4636a9d0f3f" name="ae505d36de30729fc7999a4636a9d0f3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae505d36de30729fc7999a4636a9d0f3f">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> nkr::operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b4a0beb673006534a3d597139d8fcbb" name="a7b4a0beb673006534a3d597139d8fcbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b4a0beb673006534a3d597139d8fcbb">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac">nkr::operator!</a>= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

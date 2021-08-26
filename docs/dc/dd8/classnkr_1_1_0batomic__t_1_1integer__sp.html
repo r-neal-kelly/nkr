@@ -233,9 +233,9 @@ $(document).ready(function(){initNavTree('dc/dd8/classnkr_1_1_0batomic__t_1_1int
 </td></tr>
 <tr class="memitem:a4a6f59ffae2e1a0b98b4182d46b4d213"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">integer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a4a6f59ffae2e1a0b98b4182d46b4d213">operator=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>)</td></tr>
 <tr class="separator:a4a6f59ffae2e1a0b98b4182d46b4d213"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4c9f9e34a30e1e0a713363491c9aa6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#af4c9f9e34a30e1e0a713363491c9aa6d">operator==</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
+<tr class="memitem:af4c9f9e34a30e1e0a713363491c9aa6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#af4c9f9e34a30e1e0a713363491c9aa6d">operator==</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
 <tr class="separator:af4c9f9e34a30e1e0a713363491c9aa6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fea98d0f9b5ee35b852208fa3b11480"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a4fea98d0f9b5ee35b852208fa3b11480">operator!=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
+<tr class="memitem:a4fea98d0f9b5ee35b852208fa3b11480"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a4fea98d0f9b5ee35b852208fa3b11480">operator!=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
 <tr class="separator:a4fea98d0f9b5ee35b852208fa3b11480"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -1148,14 +1148,13 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="fragment"><div class="line">                atomic_t&lt;word_t&gt; word(1);</div>
 <div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>atomic_t&lt;word_t&gt;::value_t<span class="keyword">&gt;</span>(word) == 1);</div>
 <div class="line">                CHECK(word == 1);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(word) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(word) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(!word == <span class="keyword">false</span>);</div>
 <div class="line"> </div>
 <div class="line">                word = 0;</div>
 <div class="line">                CHECK(word == 0);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(word) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(word) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(!word == <span class="keyword">true</span>);</div>
-<div class="ttc" id="agroup__intrinsics__primitives_html_gabc806439dfc01fb2352e5f2abb501598"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a></div><div class="ttdeci">bool bool_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -1749,7 +1748,7 @@ template&lt;integer_tr integer_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a> <a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">nkr::$atomic_t::integer_sp</a>&lt; integer_p &gt;::operator== </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">nkr::$atomic_t::integer_sp</a>&lt; integer_p &gt;::operator== </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -1764,7 +1763,7 @@ template&lt;integer_tr integer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                atomic_t&lt;word_t&gt; word(1);</div>
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                atomic_t&lt;word_t&gt; word(1);</div>
 <div class="line">                CHECK(!(word == none_t()));</div>
 <div class="line">                word = none_t();</div>
 <div class="line">                CHECK((word == none_t()));</div>
@@ -1783,7 +1782,7 @@ template&lt;integer_tr integer_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a> <a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">nkr::$atomic_t::integer_sp</a>&lt; integer_p &gt;::operator!= </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">nkr::$atomic_t::integer_sp</a>&lt; integer_p &gt;::<a class="el" href="../../dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac">operator!</a>= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -1798,7 +1797,7 @@ template&lt;integer_tr integer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                atomic_t&lt;word_t&gt; word(1);</div>
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                atomic_t&lt;word_t&gt; word(1);</div>
 <div class="line">                CHECK((word != none_t()));</div>
 <div class="line">                word = none_t();</div>
 <div class="line">                CHECK(!(word != none_t()));</div>

@@ -417,17 +417,17 @@ namespace nkr {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _88ffda8f_e3ad_4a54_8696_c38293637ef1
         /// @{
         atomic_t(const $atomic_t::bool_sp& other) :
             $atomic_t::bool_sp(other)
         {
-        }                                               ///< @copydoc 
+        }                                               ///< @copydoc _d8481db3_950b_4428_8ed1_a92fbc98ed28
 
         atomic_t($atomic_t::bool_sp&& other) noexcept :
             $atomic_t::bool_sp(std::move(other))
         {
-        }                                               ///< @copydoc 
+        }                                               ///< @copydoc _436e85ad_5009_4558_8194_72ca193f6199
         /// @}
     };
 
@@ -446,17 +446,17 @@ namespace nkr {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _07763e8a_1059_4e8f_ba93_06ac1f928bc7
         /// @{
         atomic_t(const $atomic_t::integer_sp<integer_p>& other) :
             $atomic_t::integer_sp<integer_p>(other)
         {
-        }                                                               ///< @copydoc 
+        }                                                               ///< @copydoc _0b1663d2_3e18_4d59_b01c_a7b32855ded1
 
         atomic_t($atomic_t::integer_sp<integer_p>&& other) noexcept :
             $atomic_t::integer_sp<integer_p>(std::move(other))
         {
-        }                                                               ///< @copydoc 
+        }                                                               ///< @copydoc _cb449cbd_b3c2_4bf3_9712_1c37c30d654d
         /// @}
     };
 
@@ -475,17 +475,17 @@ namespace nkr {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _7a2bceb1_6bc0_49b8_9770_b538a46a281e
         /// @{
         atomic_t(const $atomic_t::pointer_sp<pointer_p>& other) :
             $atomic_t::pointer_sp<pointer_p>(other)
         {
-        }                                                               ///< @copydoc 
+        }                                                               ///< @copydoc _bded21bf_bbfc_4ee9_8666_9cf5fd3da49b
 
         atomic_t($atomic_t::pointer_sp<pointer_p>&& other) noexcept :
             $atomic_t::pointer_sp<pointer_p>(std::move(other))
         {
-        }                                                               ///< @copydoc 
+        }                                                               ///< @copydoc _1a91d1b8_465a_4880_85ca_e852240788c1
         /// @}
     };
 
@@ -504,17 +504,17 @@ namespace nkr {
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _083a56fd_f91b_4166_8741_cc872921620f
         /// @{
         atomic_t(const $atomic_t::void_pointer_sp& other) :
             $atomic_t::void_pointer_sp(other)
         {
-        }                                                       ///< @copydoc 
+        }                                                       ///< @copydoc _74c0f251_f78d_4122_a4aa_b1ac48fa2053
 
         atomic_t($atomic_t::void_pointer_sp&& other) noexcept :
             $atomic_t::void_pointer_sp(std::move(other))
         {
-        }                                                       ///< @copydoc 
+        }                                                       ///< @copydoc _9fa6e14b_7337_41b8_9ff0_f8f2ff417bc2
         /// @}
     };
 

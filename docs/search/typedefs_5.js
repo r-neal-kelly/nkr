@@ -5,5 +5,6 @@ var searchData=
   ['s64_5ft_2',['s64_t',['../d8/d3c/group__intrinsics__integers.html#ga4310387e7196e1a6e98c65c70b36b1bb',1,'nkr']]],
   ['s8_5ft_3',['s8_t',['../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781',1,'nkr']]],
   ['size_5ft_4',['size_t',['../d8/d8d/group__intrinsics__contextuals.html#ga87710d101176846a1c5f0874dc403aff',1,'nkr']]],
-  ['string_5ft_5',['string_t',['../dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d',1,'nkr']]]
+  ['std_5fbool_5ft_5',['std_bool_t',['../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b',1,'nkr']]],
+  ['string_5ft_6',['string_t',['../dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d',1,'nkr']]]
 ];

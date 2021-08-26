@@ -40,8 +40,8 @@ namespace nkr {
     
     /// @ingroup intrinsics_primitives
     /// @{
-    using void_t        = void; ///< @copydoc doc_nkr_void_t
-    using std_bool_t    = bool; ///< @copydoc 
+    using void_t        = void; ///< @copydoc _dbb0c2f2_8907_4cee_8bdd_463eea2421c8
+    using std_bool_t    = bool; ///< @copydoc _cf3346a3_232d_4218_9a27_facf99329980
     /// @}
 
     /// @ingroup intrinsics_integers

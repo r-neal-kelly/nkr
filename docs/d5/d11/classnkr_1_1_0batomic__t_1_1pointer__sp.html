@@ -215,9 +215,9 @@ Inheritance diagram for nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;:</div>
 </td></tr>
 <tr class="memitem:a9e03f4d13193461b48ce62f0514466d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a9e03f4d13193461b48ce62f0514466d3">operator=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>)</td></tr>
 <tr class="separator:a9e03f4d13193461b48ce62f0514466d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93500da28e01e8ae34dd8e3d9585c3df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a93500da28e01e8ae34dd8e3d9585c3df">operator==</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
+<tr class="memitem:a93500da28e01e8ae34dd8e3d9585c3df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a93500da28e01e8ae34dd8e3d9585c3df">operator==</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
 <tr class="separator:a93500da28e01e8ae34dd8e3d9585c3df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4949a7b13a2c1c9359087c3dbb3af88e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4949a7b13a2c1c9359087c3dbb3af88e">operator!=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
+<tr class="memitem:a4949a7b13a2c1c9359087c3dbb3af88e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4949a7b13a2c1c9359087c3dbb3af88e">operator!=</a> (<a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>) const</td></tr>
 <tr class="separator:a4949a7b13a2c1c9359087c3dbb3af88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -340,7 +340,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <p >Sets itself to the value, but not atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer == &amp;word);</div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:72</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:75</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -889,14 +889,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>atomic_t&lt;word_t*&gt;::value_t<span class="keyword">&gt;</span>(pointer) == &amp;word);</div>
 <div class="line">                CHECK(pointer == &amp;word);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(pointer) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(pointer) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(!pointer == <span class="keyword">false</span>);</div>
 <div class="line"> </div>
 <div class="line">                pointer = <span class="keyword">nullptr</span>;</div>
 <div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a><span class="keyword">&gt;</span>(pointer) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(pointer) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(!pointer == <span class="keyword">true</span>);</div>
-<div class="ttc" id="agroup__intrinsics__primitives_html_gabc806439dfc01fb2352e5f2abb501598"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a></div><div class="ttdeci">bool bool_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -1366,7 +1365,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a> <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">nkr::$atomic_t::pointer_sp</a>&lt; pointer_p &gt;::operator== </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">nkr::$atomic_t::pointer_sp</a>&lt; pointer_p &gt;::operator== </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -1381,7 +1380,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(!(pointer == none_t()));</div>
 <div class="line">                pointer = none_t();</div>
@@ -1401,7 +1400,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">bool_t</a> <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">nkr::$atomic_t::pointer_sp</a>&lt; pointer_p &gt;::operator!= </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html">nkr::$atomic_t::pointer_sp</a>&lt; pointer_p &gt;::<a class="el" href="../../dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac">operator!</a>= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -1416,7 +1415,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#gabc806439dfc01fb2352e5f2abb501598">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK((pointer != none_t()));</div>
 <div class="line">                pointer = none_t();</div>

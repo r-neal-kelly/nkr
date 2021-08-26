@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['some_5ft_0',['some_t',['../d1/def/classnkr_1_1some__t.html',1,'nkr']]],
-  ['string_5fdynamic_5ft_1',['string_dynamic_t',['../d9/d32/classnkr_1_1string__dynamic__t.html',1,'nkr']]],
-  ['string_5fstatic_5ft_2',['string_static_t',['../d4/d5c/classnkr_1_1string__static__t.html',1,'nkr']]],
-  ['string_5fstatic_5ft_3c_20charcoder_5futf_5f8_5ft_20_3e_3',['string_static_t&lt; charcoder_utf_8_t &gt;',['../d4/d5c/classnkr_1_1string__static__t.html',1,'nkr']]]
+  ['pointer_5fsp_0',['pointer_sp',['../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html',1,'nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;'],['../de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html',1,'nkr::$maybe_t::$built_in_sp::pointer_sp&lt; pointer_p &gt;']]],
+  ['pointer_5ft_1',['pointer_t',['../d9/df4/classnkr_1_1pointer__t.html',1,'nkr']]]
 ];
