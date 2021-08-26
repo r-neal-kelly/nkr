@@ -171,8 +171,50 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >The default boolean type of this library which replaces <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a>, i.e. <code>bool</code>. </p>
-<p >Because <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> (or <code>bool</code>) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> a real boolean value as opposed to a pseudo-integer. It behaves just like a boolean should and transiently works in expressions like <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a>. It also matches the size of the word of the machine, that is <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0" title="The largest natural type available, the processor&#39;s word.">nkr::word_t</a>, whereas <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> is implementation defined. All library types and functions utilitze <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> and use <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> only for necessary C++ idioms. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p >Because <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> (or <code>bool</code>) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> a real boolean value as opposed to a pseudo-integer. It behaves just like a boolean should and transiently works in expressions like <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a>. It also matches the size of the word of the machine, that is <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0" title="The largest natural type available, the processor&#39;s word.">nkr::word_t</a>, whereas <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> is implementation defined. All library types and functions utilitze <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> and use <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> only for necessary C++ idioms.</p>
+<div class="fragment"><div class="line">        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> type_p&gt;</div>
+<div class="line">        <span class="keyword">concept </span>has_unwanted_bool_operators_tr =</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { +instance; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { -instance; } ||</div>
+<div class="line"> </div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance + 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance - 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance * 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance / 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance % 1; } ||</div>
+<div class="line"> </div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { ~instance; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance | 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &amp; 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance ^ 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &lt;&lt; 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &gt;&gt; 1; } ||</div>
+<div class="line"> </div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance += 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance -= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance *= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance /= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance %= 1; } ||</div>
+<div class="line"> </div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance |= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &amp;= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance ^= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &lt;&lt;= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &gt;&gt;= 1; } ||</div>
+<div class="line"> </div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { ++instance; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance++; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { --instance; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance--; } ||</div>
+<div class="line"> </div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &lt; 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &gt; 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &lt;= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &gt;= 1; } ||</div>
+<div class="line">            <span class="keyword">requires</span>(type_p instance) { instance &lt;=&gt; 1; };</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">            CHECK(has_unwanted_bool_operators_tr&lt;std_bool_t&gt; == <span class="keyword">true</span>);</div>
+<div class="line">            CHECK(has_unwanted_bool_operators_tr&lt;bool_t&gt; == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3bd9827b32ce3a1fb7edc4e1c11d2ca8" name="a3bd9827b32ce3a1fb7edc4e1c11d2ca8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">&#9670;&nbsp;</a></span>bool_t() <span class="overload">[1/6]</span></h2>
 
@@ -197,7 +239,10 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="ttc" id="aclassnkr_1_1bool__t_html_a3bd9827b32ce3a1fb7edc4e1c11d2ca8"><div class="ttname"><a href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">nkr::bool_t::bool_t</a></div><div class="ttdeci">bool_t()</div><div class="ttdef"><b>Definition:</b> bool_t.inl:11</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9a28a7a7151872f8c0f7882a02a49ced" name="a9a28a7a7151872f8c0f7882a02a49ced"></a>
@@ -225,7 +270,25 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">true</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(1) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="charliteral">&#39;a&#39;</span>)) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(1.0) == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 0;</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(&amp;word) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(&amp;word)) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>)) == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">true</span>))) == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">true</span> &amp;&amp; 1 &amp;&amp; 1.0) == <span class="keyword">true</span>);</div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:75</div></div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:43</div></div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_ga5095f8e116218344a0af438d2cce601b"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">nkr::std_bool_t</a></div><div class="ttdeci">bool std_bool_t</div><div class="ttdoc">Relegated to the std namespace in favor of nkr::bool_t.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:44</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a850f0586ddb397277148377b74620e67" name="a850f0586ddb397277148377b74620e67"></a>
@@ -253,7 +316,14 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(other) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = other;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a32ef4a4e45369833f97e364087e95596" name="a32ef4a4e45369833f97e364087e95596"></a>
@@ -281,7 +351,14 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(std::move(other)) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = std::move(other);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab3623d18ef524023fc52e695ac39c0d6" name="ab3623d18ef524023fc52e695ac39c0d6"></a>
@@ -309,7 +386,14 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(other) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = other;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a741685649c0a72e05da33841ad0977c0" name="a741685649c0a72e05da33841ad0977c0"></a>
@@ -337,7 +421,14 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(std::move(other)) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = std::move(other);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a7aff075c41de371018f94979330a7f24" name="a7aff075c41de371018f94979330a7f24"></a>
@@ -364,7 +455,22 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span>.~bool_t();</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                const_boolean.~bool_t();</div>
+<div class="line">                CHECK(const_boolean == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                volatile_boolean.~bool_t();</div>
+<div class="line">                CHECK(volatile_boolean == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                volatile_const_boolean.~bool_t();</div>
+<div class="line">                CHECK(volatile_const_boolean == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -393,7 +499,35 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = 1;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="charliteral">&#39;a&#39;</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = 1.0;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = &amp;boolean;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(&amp;boolean);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">true</span>));</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">true</span> &amp;&amp; 1 &amp;&amp; 1.0;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="afd0176a8c7560da9a976018cd65f2f83" name="afd0176a8c7560da9a976018cd65f2f83"></a>
@@ -421,7 +555,12 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span> = other;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a7179e7d682341c7c22c3580429663aef" name="a7179e7d682341c7c22c3580429663aef"></a>
@@ -449,7 +588,12 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span> = std::move(other);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad0952e4fe443427d4519aa5e9078ea12" name="ad0952e4fe443427d4519aa5e9078ea12"></a>
@@ -477,7 +621,35 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = 1;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="charliteral">&#39;a&#39;</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = 1.0;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = &amp;boolean;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><span class="keyword">volatile </span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(&amp;boolean);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">true</span>));</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">true</span> &amp;&amp; 1 &amp;&amp; 1.0;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa9b7448550d7a9a70fc7228dbe2d740f" name="aa9b7448550d7a9a70fc7228dbe2d740f"></a>
@@ -505,7 +677,12 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span> = other;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aca9252cda0c85170f3b6fa303c16baa4" name="aca9252cda0c85170f3b6fa303c16baa4"></a>
@@ -533,7 +710,12 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean;</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> other(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keywordtype">boolean</span> = std::move(other);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a7559c9c8fa7b66d201917a8c96cba4d8" name="a7559c9c8fa7b66d201917a8c96cba4d8"></a>
@@ -560,7 +742,18 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a>(const_boolean) == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> std_bool = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> const_std_bool = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(const_boolean);</div>
+<div class="line">                CHECK(std_bool);</div>
+<div class="line">                CHECK(const_std_bool);</div>
+<div class="line">                </div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> &amp;&amp; const_boolean &amp;&amp; <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a0b7fc8f6cfc31c44c5aca411750d7b2c" name="a0b7fc8f6cfc31c44c5aca411750d7b2c"></a>
@@ -587,7 +780,18 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a>(const_boolean) == <span class="keyword">true</span>);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> std_bool = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> const_std_bool = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(const_boolean);</div>
+<div class="line">                CHECK(std_bool);</div>
+<div class="line">                CHECK(const_std_bool);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> &amp;&amp; const_boolean &amp;&amp; <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9f7039c593cc6ba558fe82e995df3f96" name="a9f7039c593cc6ba558fe82e995df3f96"></a>
@@ -614,7 +818,17 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>(<span class="keywordtype">boolean</span>) == 1);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a><span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp; word_ref = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp;<span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                CHECK(word == 1 &amp;&amp; word_ref == 1);</div>
+<div class="line">                </div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                word_ref = 0;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="afbf479730e54b8d52c4b3efe01ef5eb3" name="afbf479730e54b8d52c4b3efe01ef5eb3"></a>
@@ -641,7 +855,13 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>(<span class="keywordtype">boolean</span>) == 1);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a><span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp; word_ref = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp;<span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                CHECK(word == 1 &amp;&amp; word_ref == 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ac593f73f47b05f6ed182a0fa6dcca3f7" name="ac593f73f47b05f6ed182a0fa6dcca3f7"></a>
@@ -668,7 +888,17 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>(<span class="keywordtype">boolean</span>) == 1);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a><span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp; word_ref = <span class="keyword">static_cast&lt;</span><span class="keyword">volatile </span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp;<span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                CHECK(word == 1 &amp;&amp; word_ref == 1);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="line">                word_ref = 0;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9acd85d735ced9c965d4c1a80bf4bd14" name="a9acd85d735ced9c965d4c1a80bf4bd14"></a>
@@ -695,7 +925,13 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>(<span class="keywordtype">boolean</span>) == 1);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a><span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp; word_ref = <span class="keyword">static_cast&lt;</span><span class="keyword">volatile </span><span class="keyword">const </span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>&amp;<span class="keyword">&gt;</span>(boolean);</div>
+<div class="line">                CHECK(word == 1 &amp;&amp; word_ref == 1);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a4ed82afba1134ccc1bb6180551fc7338" name="a4ed82afba1134ccc1bb6180551fc7338"></a>
@@ -723,7 +959,11 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != none_t());</div>
+<div class="line">                CHECK(&amp;(<span class="keywordtype">boolean</span> = none_t()) == &amp;<span class="keywordtype">boolean</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == none_t());</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aad49b05470c97fd8d0add92d277e7b77" name="aad49b05470c97fd8d0add92d277e7b77"></a>
@@ -751,7 +991,11 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(!(<span class="keywordtype">boolean</span> == none_t()));</div>
+<div class="line">                <span class="keywordtype">boolean</span> = none_t();</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == none_t());</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a93aa6f72e772650cc7f80acb089d5a05" name="a93aa6f72e772650cc7f80acb089d5a05"></a>
@@ -779,7 +1023,11 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != none_t());</div>
+<div class="line">                <span class="keywordtype">boolean</span> = none_t();</div>
+<div class="line">                CHECK(!(<span class="keywordtype">boolean</span> != none_t()));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -808,7 +1056,18 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(!<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!const_boolean == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!volatile_boolean == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!volatile_const_boolean == <span class="keyword">false</span>);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(!<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">true</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!<a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a>(<span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa094208dc4974e911acd12866db7564b" name="aa094208dc4974e911acd12866db7564b"></a>
@@ -846,7 +1105,18 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_const_boolean(<span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == const_boolean);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == volatile_boolean);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == volatile_const_boolean);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == 1);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == 1.0);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> == &amp;<span class="keywordtype">boolean</span>);</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa5d442e96fa53e33718f8411fc008850" name="aa5d442e96fa53e33718f8411fc008850"></a>
@@ -884,7 +1154,18 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
+<div class="line">                <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> const_boolean(<span class="keyword">false</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_boolean(<span class="keyword">false</span>);</div>
+<div class="line">                <span class="keyword">volatile</span> <span class="keyword">const</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> volatile_const_boolean(<span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != const_boolean);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != volatile_boolean);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != volatile_const_boolean);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != 0);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != 0.0);</div>
+<div class="line">                CHECK(<span class="keywordtype">boolean</span> != <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a><span class="keyword">&gt;</span>(<span class="keyword">nullptr</span>));</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -893,15 +1174,38 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> nkr::bool_t::value</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> type_t&gt;</div>
+<div class="line">            <span class="keyword">concept </span>accessible_value_tr = <span class="keyword">requires</span>(type_t instance)</div>
+<div class="line">            {</div>
+<div class="line">                instance.value;</div>
+<div class="line">            };</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                CHECK(accessible_value_tr&lt;bool_t&gt; == <span class="keyword">false</span>);</div>
+<div class="line">                </div>
+<div class="line">                <span class="keyword">class </span>derived_t :</div>
+<div class="line">                    <span class="keyword">public</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a></div>
+<div class="line">                {</div>
+<div class="line">                <span class="keyword">public</span>:</div>
+<div class="line">                    <span class="keyword">using</span> <a class="code hl_variable" href="../../d3/df5/classnkr_1_1bool__t.html#a958519a06dccd2780cbef9f845dae5e5">bool_t::value</a>;</div>
+<div class="line">                };</div>
+<div class="line">                CHECK(accessible_value_tr&lt;derived_t&gt; == <span class="keyword">true</span>);</div>
+<div class="ttc" id="aclassnkr_1_1bool__t_html_a958519a06dccd2780cbef9f845dae5e5"><div class="ttname"><a href="../../d3/df5/classnkr_1_1bool__t.html#a958519a06dccd2780cbef9f845dae5e5">nkr::bool_t::value</a></div><div class="ttdeci">word_t value</div><div class="ttdef"><b>Definition:</b> bool_t.h:20</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>

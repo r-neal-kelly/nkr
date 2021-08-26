@@ -13,7 +13,7 @@ namespace nkr {
     /// @copydoc _2add9928_e370_4943_ba5b_2950d9e1da99
     class bool_t
     {
-    public:
+    protected:
         /// @name object data
         /// @copydoc _3dbc082f_9df8_4eda_b07f_fca297cc63a9
         /// @{
