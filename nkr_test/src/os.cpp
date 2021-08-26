@@ -6,6 +6,7 @@
 
 #include <thread>
 
+#include "nkr/bool_t.h"
 #include "nkr/os.h"
 
 #include "intrinsics.h"

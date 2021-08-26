@@ -4,8 +4,9 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
-#include "nkr/maybe_t.h"
+#include "nkr/none_i.h"
 #include "nkr/traits.h"
 
 namespace nkr {
@@ -33,7 +34,7 @@ namespace nkr { namespace $atomic_t {
         /// @name static data
         /// @copydoc _67fb1b7b_bf43_4612_aaed_fc5d2d13eead
         /// @{
-        static constexpr value_t    DEFAULT_VALUE   = false;    ///< @copydoc _0ef02aea_a4be_4670_9219_06aa40b7690a
+        static const value_t    DEFAULT_VALUE;  ///< @copydoc _0ef02aea_a4be_4670_9219_06aa40b7690a
         /// @}
 
     public:
@@ -79,9 +80,9 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _0e407320_061a_4d4b_ae76_397896faa849
         /// @{
-        value_t operator ()() const;        ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
+        value_t operator ()() const;                ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
 
-        value_t operator =(value_t value);  ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
+        value_t operator =(value_t value);          ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
         /// @}
 
     public:

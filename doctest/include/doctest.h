@@ -2077,7 +2077,7 @@ int registerReporter(const char* name, int priority, bool isReporter) {
                                                __LINE__, #__VA_ARGS__);                            \
     DOCTEST_WRAP_IN_TRY(_DOCTEST_RB.setResult(                                                     \
             doctest::detail::ExpressionDecomposer(doctest::assertType::assert_type)                \
-            << __VA_ARGS__))                                                                       \
+            << (__VA_ARGS__)))                                                                     \
     DOCTEST_ASSERT_LOG_AND_REACT(_DOCTEST_RB)                                                      \
     DOCTEST_CLANG_SUPPRESS_WARNING_POP
 

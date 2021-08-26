@@ -72,6 +72,18 @@
     <ClInclude Include="include\nkr\macros.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\bool_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\none_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\none_i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\some_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -112,6 +124,15 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\maybe_t.dox" />
+    <None Include="include\nkr\bool_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\none_t.dox" />
+    <None Include="include\nkr\none_i.dox" />
+    <None Include="include\nkr\some_t.dox" />
+    <None Include="include\nkr\some_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\os.cpp">

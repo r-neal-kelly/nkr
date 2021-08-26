@@ -9,6 +9,8 @@
 
 namespace nkr { namespace $atomic_t {
 
+    inline typename const bool_sp::value_t  bool_sp::DEFAULT_VALUE  = value_t();
+
     inline bool_sp::bool_sp() :
         value(DEFAULT_VALUE)
     {

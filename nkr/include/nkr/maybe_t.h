@@ -4,61 +4,37 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/none_i.h"
 #include "nkr/traits.h"
-
-namespace nkr {
-
-    /// @nosubgrouping
-    /// @copydoc _e81dde10_53a3_4c5e_b5e3_fa01c3325510
-    class none_t
-    {
-    public:
-        /// @name objects
-        /// @copydoc _013126e0_1378_4f23_a393_bf330ab0b823
-        /// @{
-        none_t()                                    = default;  ///< @copydoc _4945c7b2_9854_48c5_9ffb_6e5e0d9ea8a2
-        none_t(const none_t& other)                 = delete;   ///< @copydoc _9a1760ef_b09e_4e12_8008_54228eb4db46
-        none_t(none_t&& other) noexcept             = delete;   ///< @copydoc _e4d8014b_ba97_4051_be28_9e60a1a81047
-        none_t& operator =(const none_t& other)     = delete;   ///< @copydoc _c5b4d034_9395_4c88_b3cc_33d6ef0b44a3
-        none_t& operator =(none_t&& other) noexcept = delete;   ///< @copydoc _8c3dca16_1f37_4d7b_bd14_522498aeb2e9
-        ~none_t()                                   = default;  ///< @copydoc _d85fbe4a_ed6e_4ea0_8552_91e433238648
-        /// @}
-    };
-
-    /// @nosubgrouping
-    /// @ingroup _7752ee81_def2_4386_b164_bc31f29ce7b8
-    /// @copydoc _9d52d2e1_c6dc_4dbb_ad58_01a219c6e510
-    template <typename type_p>
-    concept none_i = requires(type_p instance, const type_p const_instance)
-    {
-        { instance.operator =(none_t()) }           -> same_or_base_of_tr<type_p>;
-        { const_instance.operator ==(none_t()) }    -> std::same_as<bool_t>;
-        { const_instance.operator !=(none_t()) }    -> std::same_as<bool_t>;
-    };
-
-}
 
 namespace nkr {
 
     /// @ingroup namespaces
     /// @copydoc _c8a34890_b904_42a7_a88c_ada39529db42
-    namespace $maybe_t {};
+    namespace $maybe_t {
+    
+        /// @ingroup namespaces
+        /// @copydoc 
+        namespace $built_in_sp {};
+    
+    }
 
 }
 
-namespace nkr { namespace $maybe_t {
+namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     /// @nosubgrouping
     /// @copydoc _0d45c64a_558d_4bd7_baa2_6f521f6656d5
-    template <built_in_tr built_in_p>
-    class built_in_sp
+    template <typename any_p>
+    class any_sp
     {
     public:
         /// @name aliases
         /// @copydoc _1acc637c_5d07_41c7_9a7c_996d963c2a59
         /// @{
-        using value_t   = built_in_p;   ///< @copydoc _6d9bde0e_f973_4668_a07d_05729f4af0f6
+        using value_t   = any_p;    ///< @copydoc _6d9bde0e_f973_4668_a07d_05729f4af0f6
         /// @}
 
     public:
@@ -72,42 +48,207 @@ namespace nkr { namespace $maybe_t {
         /// @name objects
         /// @copydoc _1fcb90e5_b65a_4312_ac7f_9951456b3425
         /// @{
-        built_in_sp();                                          ///< @copydoc _d18299ac_6d7e_4560_88ff_e53f4bb77069
-        built_in_sp(value_t value);                             ///< @copydoc _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
-        built_in_sp(const built_in_sp& other);                  ///< @copydoc _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
-        built_in_sp(built_in_sp&& other) noexcept;              ///< @copydoc _72a66390_63d7_4076_966f_c4a6c6d94c0a
-        built_in_sp& operator =(value_t value);                 ///< @copydoc _40d586e6_43ec_4f57_a15f_9809bb2a36b4
-        built_in_sp& operator =(const built_in_sp& other);      ///< @copydoc _6693684a_9d8b_45e3_9196_3e20af210319
-        built_in_sp& operator = (built_in_sp&& other) noexcept; ///< @copydoc _003d4488_8885_414a_b34c_e6beb6c1019a
-        ~built_in_sp();                                         ///< @copydoc _8befff79_9dcc_4bd8_91e6_a3cddab84821
+        any_sp();                                       ///< @copydoc _d18299ac_6d7e_4560_88ff_e53f4bb77069
+        any_sp(value_t value);                          ///< @copydoc _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
+        any_sp(const any_sp& other);                    ///< @copydoc _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
+        any_sp(any_sp&& other) noexcept;                ///< @copydoc _72a66390_63d7_4076_966f_c4a6c6d94c0a
+        any_sp& operator =(value_t value);              ///< @copydoc _40d586e6_43ec_4f57_a15f_9809bb2a36b4
+        any_sp& operator =(const any_sp& other);        ///< @copydoc _6693684a_9d8b_45e3_9196_3e20af210319
+        any_sp& operator =(any_sp&& other) noexcept;    ///< @copydoc _003d4488_8885_414a_b34c_e6beb6c1019a
+        ~any_sp();                                      ///< @copydoc _8befff79_9dcc_4bd8_91e6_a3cddab84821
         /// @}
 
     public:
         /// @name casts
         /// @copydoc _c2859fff_ae85_4e8e_8b1a_c9228bb961b4
         /// @{
-        operator            value_t&();             ///< @copydoc _2a09a3db_f1fb_41ff_bb7d_83c4d2193bd5
-        operator            const value_t&() const; ///< @copydoc _508d5690_a07a_42b9_b255_435e786ec73a
-
-        explicit operator   bool_t() const;         ///< @copydoc _8e7ecbaa_f10a_41d8_814b_d462e8447e77
+        operator    value_t&();             ///< @copydoc _2a09a3db_f1fb_41ff_bb7d_83c4d2193bd5
+        operator    const value_t&() const; ///< @copydoc _508d5690_a07a_42b9_b255_435e786ec73a
         /// @}
 
     public:
         /// @name operators
         /// @copydoc _b2f6d1e6_2a05_4d53_b01f_45f46cefe7c3
         /// @{
-        value_t&        operator ()();              ///< @copydoc _0a0d6fe6_f1dc_4a12_8678_185933cbf587
-        const value_t&  operator ()() const;        ///< @copydoc _b0a0511e_f1e4_4c6a_a9f4_487e27a55d9f
+        value_t&        operator ()();          ///< @copydoc _0a0d6fe6_f1dc_4a12_8678_185933cbf587
+        const value_t&  operator ()() const;    ///< @copydoc _b0a0511e_f1e4_4c6a_a9f4_487e27a55d9f
 
-        bool_t          operator !() const;         ///< @copydoc _2324f3b7_bace_46c4_a6b1_093fda935391
+        auto*           operator &();           ///< @copydoc _818b2694_ff2d_40b7_bb82_b91338a71319
+        const auto*     operator &() const;     ///< @copydoc _11a0b137_9ce6_4389_b814_fc3dbd707581
         /// @}
 
         /// @name none_t interface
         /// @copydoc _1dfe08c1_275f_46e1_af39_240c6b354178
         /// @{
-        built_in_sp&    operator =(none_t);         ///< @copydoc _8a90b1f2_c65f_4ad3_8d73_d985f67d6293
-        bool_t          operator ==(none_t) const;  ///< @copydoc _ba6bc412_5d93_402c_aa70_359a0fe73cce
-        bool_t          operator !=(none_t) const;  ///< @copydoc _f148b5f5_a869_429b_afcd_5f391558954a
+        any_sp& operator =(none_t);         ///< @copydoc _8a90b1f2_c65f_4ad3_8d73_d985f67d6293
+        bool_t  operator ==(none_t) const;  ///< @copydoc _ba6bc412_5d93_402c_aa70_359a0fe73cce
+        bool_t  operator !=(none_t) const;  ///< @copydoc _f148b5f5_a869_429b_afcd_5f391558954a
+        /// @}
+    };
+
+    /// @nosubgrouping
+    /// @copydoc 
+    template <floating_point_tr floating_point_p>
+    class floating_point_sp :
+        public any_sp<floating_point_p>
+    {
+    public:
+        /// @name aliases
+        /// @copydoc 
+        /// @{
+        using value_t   = floating_point_p; ///< @copydoc 
+        /// @}
+
+    public:
+        /// @name inherited objects
+        /// @{
+        using any_sp<floating_point_p>::any_sp;
+        using any_sp<floating_point_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        floating_point_sp(const any_sp<floating_point_p>& other);       ///< @copydoc 
+        floating_point_sp(any_sp<floating_point_p>&& other) noexcept;   ///< @copydoc 
+        /// @}
+
+    public:
+        /// @name operators
+        /// @copydoc 
+        /// @{
+        value_t operator ++();      ///< @copydoc 
+        value_t operator ++(int);   ///< @copydoc 
+        value_t operator --();      ///< @copydoc 
+        value_t operator --(int);   ///< @copydoc 
+        /// @}
+    };
+
+    /// @nosubgrouping
+    /// @copydoc 
+    template <pointer_tr pointer_p>
+    class pointer_sp :
+        public any_sp<pointer_p>
+    {
+    public:
+        /// @name aliases
+        /// @copydoc 
+        /// @{
+        using value_t   = pointer_p;    ///< @copydoc 
+        /// @}
+
+    public:
+        /// @name inherited objects
+        /// @{
+        using any_sp<pointer_p>::any_sp;
+        using any_sp<pointer_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        pointer_sp(const any_sp<pointer_p>& other);     ///< @copydoc 
+        pointer_sp(any_sp<pointer_p>&& other) noexcept; ///< @copydoc 
+        /// @}
+
+    public:
+        /// @name operators
+        /// @copydoc 
+        /// @{
+        value_t operator->() const; ///< @copydoc 
+        /// @}
+    };
+
+}}}
+
+namespace nkr { namespace $maybe_t {
+
+    /// @nosubgrouping
+    /// @copydoc 
+    template <typename any_p>
+    class built_in_sp :
+        public $built_in_sp::any_sp<any_p>
+    {
+    public:
+        /// @name inherited objects
+        /// @{
+        using $built_in_sp::any_sp<any_p>::any_sp;
+        using $built_in_sp::any_sp<any_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        built_in_sp(const $built_in_sp::any_sp<any_p>& other) :
+            $built_in_sp::any_sp<any_p>(other)
+        {
+        }                                                           ///< @copydoc 
+
+        built_in_sp($built_in_sp::any_sp<any_p>&& other) noexcept :
+            $built_in_sp::any_sp<any_p>(std::move(other))
+        {
+        }                                                           ///< @copydoc 
+        /// @}
+    };
+
+    /// @nosubgrouping
+    /// @copydoc 
+    template <floating_point_tr floating_point_p>
+    class built_in_sp<floating_point_p> :
+        public $built_in_sp::floating_point_sp<floating_point_p>
+    {
+    public:
+        /// @name inherited objects
+        /// @{
+        using $built_in_sp::floating_point_sp<floating_point_p>::floating_point_sp;
+        using $built_in_sp::floating_point_sp<floating_point_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        built_in_sp(const $built_in_sp::floating_point_sp<floating_point_p>& other) :
+            $built_in_sp::floating_point_sp<floating_point_p>(other)
+        {
+        }                                                                                   ///< @copydoc 
+
+        built_in_sp($built_in_sp::floating_point_sp<floating_point_p>&& other) noexcept :
+            $built_in_sp::floating_point_sp<floating_point_p>(std::move(other))
+        {
+        }                                                                                   ///< @copydoc 
+        /// @}
+    };
+
+    /// @nosubgrouping
+    /// @copydoc 
+    template <pointer_tr pointer_p>
+    class built_in_sp<pointer_p> :
+        public $built_in_sp::pointer_sp<pointer_p>
+    {
+    public:
+        /// @name inherited objects
+        /// @{
+        using $built_in_sp::pointer_sp<pointer_p>::pointer_sp;
+        using $built_in_sp::pointer_sp<pointer_p>::operator =;
+        /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        built_in_sp(const $built_in_sp::pointer_sp<pointer_p>& other) :
+            $built_in_sp::pointer_sp<pointer_p>(other)
+        {
+        }                                                                   ///< @copydoc 
+
+        built_in_sp($built_in_sp::pointer_sp<pointer_p>&& other) noexcept :
+            $built_in_sp::pointer_sp<pointer_p>(std::move(other))
+        {
+        }                                                                   ///< @copydoc 
         /// @}
     };
 
@@ -132,20 +273,31 @@ namespace nkr { namespace $maybe_t {
         /// @}
 
     public:
+        /// @name objects
+        /// @copydoc _bace7444_fb65_41c3_affb_6fd3c6dee6a1
+        /// @{
+        user_defined_sp(const value_t& other);      ///< @copydoc _c591278a_7e78_49b2_8b88_b854658f5ba4
+        user_defined_sp(value_t&& other) noexcept;  ///< @copydoc _ce00ff12_a4a5_4d8e_9c9c_740407c17019
+        /// @}
+
+    public:
         /// @name casts
         /// @copydoc _4d8d9df3_d8f9_4b63_bacf_e7cb8d2a45f4
         /// @{
-        explicit operator   bool_t() const; ///< @copydoc _a4d05d29_07c0_4bdf_857d_2e932c5a77a8
+        operator    bool_t() const; ///< @copydoc _a4d05d29_07c0_4bdf_857d_2e932c5a77a8
         /// @}
 
     public:
         /// @name operators
         /// @copydoc _923f1cf1_39a3_4bdb_87a2_0378c0de9bf4
         /// @{
-        value_t&            operator ()();              ///< @copydoc _c0521baf_74a7_4a40_9cd7_f474802ebfbe
-        const value_t&      operator ()() const;        ///< @copydoc _110607cd_bdbe_488b_8c8a_15a03e07523b
+        value_t&        operator ()();          ///< @copydoc _c0521baf_74a7_4a40_9cd7_f474802ebfbe
+        const value_t&  operator ()() const;    ///< @copydoc _110607cd_bdbe_488b_8c8a_15a03e07523b
 
-        bool_t              operator !() const;         ///< @copydoc _ca79e353_f369_498d_9002_23fc79478493
+        bool_t          operator !() const;     ///< @copydoc _ca79e353_f369_498d_9002_23fc79478493
+
+        auto*           operator &();           ///< @copydoc _3aa1aabe_9154_40a3_8e90_4159a3e155a3
+        const auto*     operator &() const;     ///< @copydoc _82fde6d1_3c38_4a5e_9686_8dac3c57c28c
         /// @}
 
         /// @name none_t interface
@@ -191,6 +343,21 @@ namespace nkr {
         using $maybe_t::built_in_sp<built_in_p>::built_in_sp;
         using $maybe_t::built_in_sp<built_in_p>::operator =;
         /// @}
+
+    public:
+        /// @name objects
+        /// @copydoc _26036428_887b_4bb1_a423_e576810532b5
+        /// @{
+        maybe_t(const $maybe_t::built_in_sp<built_in_p>& other) :
+            $maybe_t::built_in_sp<built_in_p>(other)
+        {
+        }                                                               ///< @copydoc _0439179d_c623_48a3_b1b4_1f474d6e4430
+
+        maybe_t($maybe_t::built_in_sp<built_in_p>&& other) noexcept :
+            $maybe_t::built_in_sp<built_in_p>(std::move(other))
+        {
+        }                                                               ///< @copydoc _54a566fd_8049_4215_922b_1a7bdf3f01ab
+        /// @}
     };
 
     /// @nosubgrouping
@@ -205,37 +372,20 @@ namespace nkr {
         using $maybe_t::user_defined_sp<user_defined_p>::user_defined_sp;
         using $maybe_t::user_defined_sp<user_defined_p>::operator =;
         /// @}
-    };
-
-}
-
-namespace nkr {
-
-    /// @nosubgrouping
-    /// @copydoc _fe4b1321_2470_4544_b8c0_0e93c38e7275
-    template <typename any_p>
-    class some_t :
-        public maybe_t<any_p>
-    {
-    public:
-        /// @name aliases
-        /// @copydoc _68e8ea24_c725_481e_96e2_83379ee8f177
-        /// @{
-        using value_t   = any_p;    ///< @copydoc _afe969ef_b9ff_4532_a311_5900ca7fba62
-        /// @}
 
     public:
-        /// @name inherited objects
+        /// @name objects
+        /// @copydoc _6f6b3ac8_c46b_4c2c_87c1_5cd210808876
         /// @{
-        using maybe_t<value_t>::maybe_t;
-        using maybe_t<value_t>::operator =;
-        /// @}
+        maybe_t(const $maybe_t::user_defined_sp<user_defined_p>& other) :
+            $maybe_t::user_defined_sp<user_defined_p>(other)
+        {
+        }                                                                       ///< @copydoc _77699440_90af_4027_b538_0cf4a3d76acb
 
-    public:
-        /// @name operators
-        /// @copydoc _a9c2409d_1948_4a2d_a709_73323203c246
-        /// @{
-        some_t& operator =(none_t)  = delete;   ///< @copydoc _7e0c8790_9442_454e_aa96_8dd70e9e804e
+        maybe_t($maybe_t::user_defined_sp<user_defined_p>&& other) noexcept :
+            $maybe_t::user_defined_sp<user_defined_p>(std::move(other))
+        {
+        }                                                                       ///< @copydoc _93c59a22_076c_4282_b2af_9a06fd6b3b79
         /// @}
     };
 

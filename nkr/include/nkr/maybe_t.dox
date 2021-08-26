@@ -4,74 +4,6 @@
 
 #pragma once
 
-// none_t
-/**
-* @class _e81dde10_53a3_4c5e_b5e3_fa01c3325510
-* @private
-*
-* @brief
-*   A tag used to assign 'nothing' to a user-defined type, or to compare it with 'nothing'.
-* 
-* @details
-*   A user-defined type must satisfy nkr::none_i to make any use of this type.
-*/
-
-    // objects
-    /**
-    * @class _013126e0_1378_4f23_a393_bf330ab0b823
-    * @private
-    */
-
-        // default_ctor()
-        /**
-        * @class _4945c7b2_9854_48c5_9ffb_6e5e0d9ea8a2
-        * @private
-        * @snippet "./src/maybe_t.cpp" _320a98e7_654c_4711_b09e_cda91e7704d4
-        */
-
-        // copy_ctor()
-        /**
-        * @class _9a1760ef_b09e_4e12_8008_54228eb4db46
-        * @private
-        */
-
-        // move_ctor()
-        /**
-        * @class _e4d8014b_ba97_4051_be28_9e60a1a81047
-        * @private
-        */
-
-        // copy_assignment_ctor()
-        /**
-        * @class _c5b4d034_9395_4c88_b3cc_33d6ef0b44a3
-        * @private
-        */
-
-        // move_assignment_ctor()
-        /**
-        * @class _8c3dca16_1f37_4d7b_bd14_522498aeb2e9
-        * @private
-        */
-
-        // dtor()
-        /**
-        * @class _d85fbe4a_ed6e_4ea0_8552_91e433238648
-        * @private
-        * @snippet "./src/maybe_t.cpp" _f57bed6f_8d65_4a14_8ed3_6b68d4f18536
-        */
-
-// none_i
-/**
-* @class _9d52d2e1_c6dc_4dbb_ad58_01a219c6e510
-* @private
-*
-* @brief
-*   Allows any user-defined type to interact with nkr::none_t, which is necessary for nkr::maybe_t and nkr::some_t.
-* 
-* @details
-*   We make no assumptions about whatever type is meant to interface with nkr::none_t, such as assuming that `operator bool_t()` indicates a lack of a value or not. Requiring an extra step to be taken by the implementor of the type helps to ensure correct usage.
-*/
-
 // nkr::$maybe_t
 /**
 * @class _c8a34890_b904_42a7_a88c_ada39529db42
@@ -201,13 +133,6 @@
             * @snippet "./src/maybe_t.cpp" _f755ffdd_dead_4f09_9348_643b5f6b089e
             */
 
-            // bool_t()
-            /**
-            * @class _8e7ecbaa_f10a_41d8_814b_d462e8447e77
-            * @private
-            * @snippet "./src/maybe_t.cpp" _5b448395_0813_4618_86e4_a2413ac28b1b
-            */
-
         // operators
         /**
         * @class _b2f6d1e6_2a05_4d53_b01f_45f46cefe7c3
@@ -228,11 +153,26 @@
             * @snippet "./src/maybe_t.cpp" _4ae71520_60de_44f6_91e3_ad72a54234ea
             */
 
-            // !()
+            // &()
             /**
-            * @class _2324f3b7_bace_46c4_a6b1_093fda935391
+            * @class _818b2694_ff2d_40b7_bb82_b91338a71319
             * @private
-            * @snippet "./src/maybe_t.cpp" _1b43a17a_7465_4cb0_a4a1_0b003631b869
+            * 
+            * @details
+            *   With this defined, it behaves similiarly to the sister specialization nkr::$maybe_t::user_defined_sp.
+            * 
+            * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
+            * @snippet "./src/maybe_t.cpp" _b76a6df5_b732_4953_b5af_51069e28cd09
+            */
+
+            // &() const
+            /**
+            * @class _11a0b137_9ce6_4389_b814_fc3dbd707581
+            * @private
+            * 
+            * @copydetails _818b2694_ff2d_40b7_bb82_b91338a71319
+            * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
+            * @snippet "./src/maybe_t.cpp" _43e8dc8f_d49a_421a_b902_10970abb2f6a
             */
 
         // none_t interface
@@ -285,6 +225,32 @@
             * @private
             */
 
+        // objects
+        /**
+        * @class _bace7444_fb65_41c3_affb_6fd3c6dee6a1
+        * @private
+        */
+
+            // value_copy_ctor()
+            /**
+            * @class _c591278a_7e78_49b2_8b88_b854658f5ba4
+            * @private
+            * 
+            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+            * @todo
+            *   add tests
+            */
+
+            // value_move_ctor()
+            /**
+            * @class _ce00ff12_a4a5_4d8e_9c9c_740407c17019
+            * @private
+            * 
+            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+            * @todo
+            *   add tests
+            */
+
         // casts
         /**
         * @class _4d8d9df3_d8f9_4b63_bacf_e7cb8d2a45f4
@@ -295,6 +261,9 @@
             /**
             * @class _a4d05d29_07c0_4bdf_857d_2e932c5a77a8
             * @private
+            * 
+            * @details
+            *   We define this to make sure that the user-defined value is checked against none_t.
             */
 
         // operators
@@ -319,6 +288,25 @@
             /**
             * @class _ca79e353_f369_498d_9002_23fc79478493
             * @private
+            * 
+            * @details
+            *   We define this to make sure that the user-defined value is checked against none_t.
+            */
+
+            // &()
+            /**
+            * @class _3aa1aabe_9154_40a3_8e90_4159a3e155a3
+            * @private
+            * 
+            * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
+            */
+
+            // &() const
+            /**
+            * @class _82fde6d1_3c38_4a5e_9686_8dac3c57c28c
+            * @private
+            * 
+            * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
             */
 
         // none_t interface
@@ -422,6 +410,32 @@
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
+    // objects
+    /**
+    * @class _26036428_887b_4bb1_a423_e576810532b5
+    * @private
+    */
+
+        // value_copy_ctor()
+        /**
+        * @class _0439179d_c623_48a3_b1b4_1f474d6e4430
+        * @private
+        * 
+        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+        * @todo
+        *   add tests
+        */
+
+        // value_move_ctor()
+        /**
+        * @class _54a566fd_8049_4215_922b_1a7bdf3f01ab
+        * @private
+        * 
+        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+        * @todo
+        *   add tests
+        */
+
 // maybe_t<user_defined_p>
 /**
 * @class _28243913_2a03_428d_95ac_cbabc3cb3baa
@@ -434,48 +448,28 @@
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
-// some_t<any_p>
-/**
-* @class _fe4b1321_2470_4544_b8c0_0e93c38e7275
-* @private
-*
-* @brief
-*   Wraps a type whose object has some value.
-* 
-* @param any_p
-*   must satisfy one of the specializations of nkr::maybe_t.
-*
-* @details
-*   This template is an in-code tag for an object which has a value. In other words, it does not equate to nkr::none_t. This is opposed to nkr::maybe_t which indicates that an object may or may not have a value.
-* 
-*   This is used as a space efficient means of ensuring that any other interface is being fulfilled properly, including functions and other types. This is opposed to nkr::option_t, which adds a nkr::bool_t to its footprint to indicate nothing.
-* 
-* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
-*/
-
-    // aliases
+    // objects
     /**
-    * @class _68e8ea24_c725_481e_96e2_83379ee8f177
+    * @class _6f6b3ac8_c46b_4c2c_87c1_5cd210808876
     * @private
     */
 
-        // value_t
+        // value_copy_ctor()
         /**
-        * @class _afe969ef_b9ff_4532_a311_5900ca7fba62
-        * @private
-        */
-
-    // operators
-    /**
-    * @class _a9c2409d_1948_4a2d_a709_73323203c246
-    * @private
-    */
-
-        // =(none_t)
-        /**
-        * @class _7e0c8790_9442_454e_aa96_8dd70e9e804e
+        * @class _77699440_90af_4027_b538_0cf4a3d76acb
         * @private
         * 
-        * @brief
-        *   Deleted to prevent making the object invalid.
+        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+        * @todo
+        *   add tests
+        */
+
+        // value_move_ctor()
+        /**
+        * @class _93c59a22_076c_4282_b2af_9a06fd6b3b79
+        * @private
+        * 
+        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+        * @todo
+        *   add tests
         */

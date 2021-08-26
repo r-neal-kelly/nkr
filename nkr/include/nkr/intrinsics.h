@@ -38,7 +38,6 @@ namespace nkr {
     /// @ingroup intrinsics_primitives
     /// @{
     using void_t    = void; ///< @copydoc doc_nkr_void_t
-    using bool_t    = bool; ///< @copydoc doc_nkr_bool_t
     /// @}
 
     /// @ingroup intrinsics_integers

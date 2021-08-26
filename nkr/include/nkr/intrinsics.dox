@@ -65,15 +65,13 @@
     *
     * @brief
     *   Primitive types aliased for consistency.
+    * 
+    * @details
+    *   Honestly, I can't stand my IDE having a different color for types and intrinsic built-ins that are also types.
     */
 
         /**
         * @class doc_nkr_void_t
-        * @private
-        */
-
-        /**
-        * @class doc_nkr_bool_t
         * @private
         */
 
@@ -242,6 +240,7 @@
 
 // Common Notes
 
+// Inheritance wrapper
 /**
 * @class _f66dddf5_07cc_4240_b2e2_39253f780892
 * @private
@@ -252,6 +251,16 @@
 * @par
 */
 
+// Inheritnace wrapper base ctors
+/**
+* @class _3699f848_5687_47d1_92fc_7d4faf6b47a6
+* @private
+* 
+* @note
+*   This ensures that the base can construct this wrapper even with the `=` operator. This is distinct from `operator =` which only comes into play after an object is constructed.
+*/
+
+// Handling the concept specialization bug
 /**
 * @class _e245fac0_078f_4cf6_852c_a42932c2ffff
 * @private
@@ -260,4 +269,13 @@
 *   See @ref _16d56f49_95ba_456e_a026_706c054cb133 for why we use inheritance to define this specialization.
 * 
 * @par
+*/
+
+// Returning auto for operator &()
+/**
+* @class _2217847b_e23e_4253_bb7f_04ece0d5099a
+* @private
+* 
+* @note
+*   Returns auto to ensure that we don't break any `operator &` chain.
 */

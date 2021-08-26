@@ -2,6 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/bool_t.h"
 #include "nkr/maybe_t.h"
 
 #include "intrinsics.h"
@@ -446,6 +447,71 @@ namespace nkr {
                 CHECK(!void_pointer == true);
                 /// [_1b43a17a_7465_4cb0_a4a1_0b003631b869]
             }
+
+            TEST_CASE("&() should return a pointer to the mutable value")
+            {
+                /// [_b76a6df5_b732_4953_b5af_51069e28cd09]
+                maybe_t<bool_t> boolean;
+                CHECK(&boolean == &boolean());
+                *&boolean = true;
+                CHECK(boolean == true);
+                *&boolean = false;
+                CHECK(boolean == false);
+
+                maybe_t<word_t> integer;
+                CHECK(&integer == &integer());
+                *&integer = 1;
+                CHECK(integer == 1);
+                *&integer = 0;
+                CHECK(integer == 0);
+
+                maybe_t<c32_t> character;
+                CHECK(&character == &character());
+                *&character = 'a';
+                CHECK(character == 'a');
+                *&character = '\0';
+                CHECK(character == '\0');
+
+                maybe_t<f32_t> floating_point;
+                CHECK(&floating_point == &floating_point());
+                *&floating_point = 1.0;
+                CHECK(floating_point == 1.0);
+                *&floating_point = 0.0;
+                CHECK(floating_point == 0.0);
+
+                maybe_t<void_t*> void_pointer;
+                CHECK(&void_pointer == &void_pointer());
+                *&void_pointer = &boolean;
+                CHECK(void_pointer == &boolean);
+                *&void_pointer = nullptr;
+                CHECK(void_pointer == nullptr);
+                /// [_b76a6df5_b732_4953_b5af_51069e28cd09]
+            }
+
+            TEST_CASE("&() const should return a pointer to the immutable value")
+            {
+                /// [_43e8dc8f_d49a_421a_b902_10970abb2f6a]
+                const maybe_t<bool_t> boolean;
+                CHECK(&boolean == &boolean());
+                CHECK(*&boolean == false);
+
+                const maybe_t<word_t> integer;
+                CHECK(&integer == &integer());
+                CHECK(*&integer == 0);
+
+                const maybe_t<c32_t> character;
+                CHECK(&character == &character());
+                CHECK(*&character == '\0');
+
+                const maybe_t<f32_t> floating_point;
+                CHECK(&floating_point == &floating_point());
+                CHECK(*&floating_point == 0.0);
+
+                const maybe_t<void_t*> void_pointer;
+                CHECK(&void_pointer == &void_pointer());
+                CHECK(*&void_pointer == nullptr);
+                /// [_43e8dc8f_d49a_421a_b902_10970abb2f6a]
+            }
         }
 
         TEST_SUITE("none_t interface")
@@ -454,29 +520,29 @@ namespace nkr {
             {
                 /// [_07804510_9e9d_4297_bf1e_53cc951ccde9]
                 maybe_t<bool_t> boolean = true;
-                CHECK((boolean != none_t()));
+                CHECK(boolean != none_t());
                 CHECK(&(boolean = none_t()) == &boolean);
-                CHECK((boolean == none_t()));
+                CHECK(boolean == none_t());
 
                 maybe_t<word_t> integer = 1;
-                CHECK((integer != none_t()));
+                CHECK(integer != none_t());
                 CHECK(&(integer = none_t()) == &integer);
-                CHECK((integer == none_t()));
+                CHECK(integer == none_t());
 
                 maybe_t<c32_t> character = 'a';
-                CHECK((character != none_t()));
+                CHECK(character != none_t());
                 CHECK(&(character = none_t()) == &character);
-                CHECK((character == none_t()));
+                CHECK(character == none_t());
 
                 maybe_t<f32_t> floating_point = 1.0;
-                CHECK((floating_point != none_t()));
+                CHECK(floating_point != none_t());
                 CHECK(&(floating_point = none_t()) == &floating_point);
-                CHECK((floating_point == none_t()));
+                CHECK(floating_point == none_t());
 
                 maybe_t<void_t*> void_pointer = &boolean;
-                CHECK((void_pointer != none_t()));
+                CHECK(void_pointer != none_t());
                 CHECK(&(void_pointer = none_t()) == &void_pointer);
-                CHECK((void_pointer == none_t()));
+                CHECK(void_pointer == none_t());
                 /// [_07804510_9e9d_4297_bf1e_53cc951ccde9]
             }
 
@@ -486,27 +552,27 @@ namespace nkr {
                 maybe_t<bool_t> boolean = true;
                 CHECK(!(boolean == none_t()));
                 boolean = none_t();
-                CHECK((boolean == none_t()));
+                CHECK(boolean == none_t());
 
                 maybe_t<word_t> integer = 1;
                 CHECK(!(integer == none_t()));
                 integer = none_t();
-                CHECK((integer == none_t()));
+                CHECK(integer == none_t());
 
                 maybe_t<c32_t> character = 'a';
                 CHECK(!(character == none_t()));
                 character = none_t();
-                CHECK((character == none_t()));
+                CHECK(character == none_t());
 
                 maybe_t<f32_t> floating_point = 1.0;
                 CHECK(!(floating_point == none_t()));
                 floating_point = none_t();
-                CHECK((floating_point == none_t()));
+                CHECK(floating_point == none_t());
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(!(void_pointer == none_t()));
                 void_pointer = none_t();
-                CHECK((void_pointer == none_t()));
+                CHECK(void_pointer == none_t());
                 /// [_db6ed293_bce8_433f_adb1_26371f0faef5]
             }
 
@@ -514,30 +580,300 @@ namespace nkr {
             {
                 /// [_d1852cf1_429a_44f9_83fe_e5cceeee5af6]
                 maybe_t<bool_t> boolean = true;
-                CHECK((boolean != none_t()));
+                CHECK(boolean != none_t());
                 boolean = none_t();
                 CHECK(!(boolean != none_t()));
 
                 maybe_t<word_t> integer = 1;
-                CHECK((integer != none_t()));
+                CHECK(integer != none_t());
                 integer = none_t();
                 CHECK(!(integer != none_t()));
 
                 maybe_t<c32_t> character = 'a';
-                CHECK((character != none_t()));
+                CHECK(character != none_t());
                 character = none_t();
                 CHECK(!(character != none_t()));
 
                 maybe_t<f32_t> floating_point = 1.0;
-                CHECK((floating_point != none_t()));
+                CHECK(floating_point != none_t());
                 floating_point = none_t();
                 CHECK(!(floating_point != none_t()));
 
                 maybe_t<void_t*> void_pointer = &boolean;
-                CHECK((void_pointer != none_t()));
+                CHECK(void_pointer != none_t());
                 void_pointer = none_t();
                 CHECK(!(void_pointer != none_t()));
                 /// [_d1852cf1_429a_44f9_83fe_e5cceeee5af6]
+            }
+        }
+
+        TEST_SUITE("type")
+        {
+            TEST_SUITE("this type should be able to act like its underlying value")
+            {
+                TEST_CASE("boolean")
+                {
+                    bool v = true;
+                    bool boolean = v;
+                    maybe_t<bool> maybe_boolean = v;
+
+                    CHECK((maybe_boolean = v) == (boolean = v));
+
+                    CHECK(maybe_boolean, boolean);
+                    CHECK(!!maybe_boolean, !!boolean);
+                    CHECK(maybe_boolean && boolean);
+                    CHECK(maybe_boolean || boolean);
+
+                    CHECK(maybe_boolean == boolean);
+                    CHECK_FALSE(maybe_boolean != boolean);
+                    CHECK(maybe_boolean ? maybe_boolean() : boolean);
+
+                    CHECK(&maybe_boolean != &boolean);
+                }
+
+                TEST_CASE("integer")
+                {
+                    using integer_t = s32_t;
+                    constexpr const integer_t v = 16;
+                    integer_t integer = v;
+                    maybe_t<integer_t> maybe_integer = v;
+
+                    CHECK(+maybe_integer == +integer);
+                    CHECK(-maybe_integer == -integer);
+                    CHECK(maybe_integer + v == integer + v);
+                    CHECK(maybe_integer - v == integer - v);
+                    CHECK(maybe_integer * v == integer * v);
+                    CHECK(maybe_integer / v == integer / v);
+                    CHECK(maybe_integer % v == integer % v);
+
+                    CHECK(~maybe_integer == ~integer);
+                    CHECK((maybe_integer | v) == (integer | v));
+                    CHECK((maybe_integer & v) == (integer & v));
+                    CHECK((maybe_integer ^ v) == (integer ^ v));
+                    CHECK((maybe_integer << 1) == (integer << 1));
+                    CHECK((maybe_integer >> 1) == (integer >> 1));
+
+                    CHECK((maybe_integer = v) == (integer = v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer += v) == (integer += v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer -= v) == (integer -= v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer *= v) == (integer *= v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer /= v) == (integer /= v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer %= v) == (integer %= v));
+                    maybe_integer = integer = v;
+
+                    CHECK((maybe_integer |= v) == (integer |= v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer &= v) == (integer &= v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer ^= v) == (integer ^= v));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer <<= 1) == (integer <<= 1));
+                    maybe_integer = integer = v;
+                    CHECK((maybe_integer >>= 1) == (integer >>= 1));
+                    maybe_integer = integer = v;
+
+                    CHECK(++maybe_integer == ++integer);
+                    CHECK(maybe_integer++ == integer++);
+                    CHECK(--maybe_integer == --integer);
+                    CHECK(maybe_integer-- == integer--);
+
+                    CHECK(maybe_integer, integer);
+                    CHECK(!!maybe_integer, !!integer);
+                    CHECK(maybe_integer && integer);
+                    CHECK(maybe_integer || integer);
+
+                    CHECK(maybe_integer == integer);
+                    CHECK_FALSE(maybe_integer != integer);
+                    CHECK_FALSE(maybe_integer < integer);
+                    CHECK_FALSE(maybe_integer > integer);
+                    CHECK(maybe_integer <= integer);
+                    CHECK(maybe_integer >= integer);
+                    CHECK(maybe_integer <=> integer == 0);
+                    CHECK(maybe_integer ? maybe_integer() : integer);
+
+                    CHECK(&maybe_integer != &integer);
+                }
+
+                TEST_CASE("character")
+                {
+                    using character_t = c32_t;
+                    constexpr const character_t v = 'a';
+                    character_t character = v;
+                    maybe_t<character_t> maybe_character = v;
+
+                    CHECK(+maybe_character == +character);
+                    CHECK(maybe_character + v == character + v);
+                    CHECK(maybe_character - v == character - v);
+                    CHECK(maybe_character * v == character * v);
+                    CHECK(maybe_character / v == character / v);
+                    CHECK(maybe_character % v == character % v);
+
+                    CHECK(~maybe_character == ~character);
+                    CHECK((maybe_character | v) == (character | v));
+                    CHECK((maybe_character & v) == (character & v));
+                    CHECK((maybe_character ^ v) == (character ^ v));
+                    CHECK((maybe_character << 1) == (character << 1));
+                    CHECK((maybe_character >> 1) == (character >> 1));
+
+                    CHECK((maybe_character = v) == (character = v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character += v) == (character += v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character -= v) == (character -= v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character *= v) == (character *= v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character /= v) == (character /= v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character %= v) == (character %= v));
+                    maybe_character = character = v;
+
+                    CHECK((maybe_character |= v) == (character |= v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character &= v) == (character &= v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character ^= v) == (character ^= v));
+                    maybe_character = character = v;
+                    CHECK((maybe_character <<= 1) == (character <<= 1));
+                    maybe_character = character = v;
+                    CHECK((maybe_character >>= 1) == (character >>= 1));
+                    maybe_character = character = v;
+
+                    CHECK(++maybe_character == ++character);
+                    CHECK(maybe_character++ == character++);
+                    CHECK(--maybe_character == --character);
+                    CHECK(maybe_character-- == character--);
+
+                    CHECK(maybe_character, character);
+                    CHECK(!!maybe_character, !!character);
+                    CHECK(maybe_character && character);
+                    CHECK(maybe_character || character);
+
+                    CHECK(maybe_character == character);
+                    CHECK_FALSE(maybe_character != character);
+                    CHECK_FALSE(maybe_character < character);
+                    CHECK_FALSE(maybe_character > character);
+                    CHECK(maybe_character <= character);
+                    CHECK(maybe_character >= character);
+                    CHECK(maybe_character <=> character == 0);
+                    CHECK(maybe_character ? maybe_character() : character);
+
+                    CHECK(&maybe_character != &character);
+                }
+
+                TEST_CASE("floating_point")
+                {
+                    using floating_point_t = f32_t;
+                    constexpr const floating_point_t v = 16.0;
+                    floating_point_t floating_point = v;
+                    maybe_t<floating_point_t> maybe_floating_point = v;
+
+                    CHECK(+maybe_floating_point == +floating_point);
+                    CHECK(-maybe_floating_point == -floating_point);
+                    CHECK(maybe_floating_point + v == floating_point + v);
+                    CHECK(maybe_floating_point - v == floating_point - v);
+                    CHECK(maybe_floating_point * v == floating_point * v);
+                    CHECK(maybe_floating_point / v == floating_point / v);
+
+                    CHECK((maybe_floating_point = v) == (floating_point = v));
+                    maybe_floating_point = floating_point = v;
+                    CHECK((maybe_floating_point += v) == (floating_point += v));
+                    maybe_floating_point = floating_point = v;
+                    CHECK((maybe_floating_point -= v) == (floating_point -= v));
+                    maybe_floating_point = floating_point = v;
+                    CHECK((maybe_floating_point *= v) == (floating_point *= v));
+                    maybe_floating_point = floating_point = v;
+                    CHECK((maybe_floating_point /= v) == (floating_point /= v));
+                    maybe_floating_point = floating_point = v;
+
+                    CHECK(++maybe_floating_point == ++floating_point);
+                    CHECK(maybe_floating_point++ == floating_point++);
+                    CHECK(--maybe_floating_point == --floating_point);
+                    CHECK(maybe_floating_point-- == floating_point--);
+
+                    CHECK(maybe_floating_point, floating_point);
+                    CHECK(!!maybe_floating_point, !!floating_point);
+                    CHECK(maybe_floating_point && floating_point);
+                    CHECK(maybe_floating_point || floating_point);
+
+                    CHECK(maybe_floating_point == floating_point);
+                    CHECK_FALSE(maybe_floating_point != floating_point);
+                    CHECK_FALSE(maybe_floating_point < floating_point);
+                    CHECK_FALSE(maybe_floating_point > floating_point);
+                    CHECK(maybe_floating_point <= floating_point);
+                    CHECK(maybe_floating_point >= floating_point);
+                    CHECK(maybe_floating_point <=> floating_point == 0);
+                    CHECK(maybe_floating_point ? maybe_floating_point() : floating_point);
+
+                    CHECK(&maybe_floating_point != &floating_point);
+                }
+
+                TEST_CASE("pointer")
+                {
+                    class type_t
+                    {
+                    public:
+                        word_t value;
+
+                    public:
+                        type_t(word_t value) :
+                            value(value)
+                        {
+                        }
+
+                        ~type_t()
+                        {
+                        }
+
+                    public:
+                        bool_t operator ==(const type_t& other)
+                        {
+                            return this->value == other.value;
+                        }
+                    };
+
+                    using pointer_t = type_t*;
+                    type_t vs[3] = { 16, 16, 16 };
+                    pointer_t pointer = vs + 1;
+                    maybe_t<pointer_t> maybe_pointer = pointer;
+
+                    CHECK(+maybe_pointer == +pointer);
+                    CHECK(maybe_pointer + 1 == pointer + 1);
+                    CHECK(maybe_pointer - 1 == pointer - 1);
+
+                    CHECK((maybe_pointer = vs + 1) == (pointer = vs + 1));
+                    CHECK((maybe_pointer += 1) == (pointer += 1));
+                    CHECK((maybe_pointer -= 1) == (pointer -= 1));
+
+                    CHECK(++maybe_pointer == ++pointer);
+                    CHECK(--maybe_pointer == --pointer);
+                    CHECK(maybe_pointer++ == pointer++);
+                    CHECK(maybe_pointer-- == pointer--);
+
+                    CHECK(maybe_pointer, pointer);
+                    CHECK(!!maybe_pointer, !!pointer);
+                    CHECK(maybe_pointer && pointer);
+                    CHECK(maybe_pointer || pointer);
+
+                    CHECK(maybe_pointer == pointer);
+                    CHECK_FALSE(maybe_pointer != pointer);
+                    CHECK_FALSE(maybe_pointer < pointer);
+                    CHECK_FALSE(maybe_pointer > pointer);
+                    CHECK(maybe_pointer <= pointer);
+                    CHECK(maybe_pointer >= pointer);
+                    CHECK(maybe_pointer <=> pointer == 0);
+                    CHECK(maybe_pointer ? maybe_pointer() : pointer);
+
+                    CHECK(*maybe_pointer == *pointer);
+                    CHECK(&maybe_pointer != &pointer);
+                    CHECK(maybe_pointer->value == pointer->value);
+                    CHECK(maybe_pointer[0] == pointer[0]);
+                }
             }
         }
     }
@@ -557,6 +893,32 @@ namespace nkr {
         TEST_SUITE("none_t interface")
         {
 
+        }
+
+        TEST_SUITE("type")
+        {
+            TEST_SUITE("this type should be able to act like its underlying value")
+            {
+                TEST_CASE("bool_t")
+                {
+                    bool_t v = true;
+                    bool_t boolean = v;
+                    maybe_t<bool_t> maybe_boolean = v;
+
+                    CHECK((maybe_boolean = v) == (boolean = v));
+
+                    CHECK(maybe_boolean, boolean);
+                    CHECK(!!maybe_boolean, !!boolean);
+                    CHECK(maybe_boolean && boolean);
+                    CHECK(maybe_boolean || boolean);
+
+                    CHECK(maybe_boolean == boolean);
+                    CHECK_FALSE(maybe_boolean != boolean);
+                    CHECK(maybe_boolean ? maybe_boolean() : boolean);
+
+                    CHECK(&maybe_boolean != &boolean);
+                }
+            }
         }
     }
 

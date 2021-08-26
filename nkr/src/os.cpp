@@ -2,6 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/bool_t.h"
 #include "nkr/macros.h"
 #include "nkr/os.h"
 

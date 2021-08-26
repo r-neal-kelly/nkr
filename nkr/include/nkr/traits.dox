@@ -17,6 +17,12 @@
 *   Add an example or several.
 */
 
+    // boolean_tr
+    /**
+    * @class _3e4ef7df_7326_49f0_83e0_378911e03952
+    * @private
+    */
+
     /**
     * @defgroup traits_integers integers
     * @ingroup traits
@@ -75,25 +81,6 @@
         */
 
     /**
-    * @defgroup traits_casts casts
-    * @ingroup traits
-    *
-    * @brief
-    *   Filter types that can cast to other types.
-    */
-
-        /**
-        * @class traits_casts_cast_word_tr
-        * @private
-        */
-
-        // bool_t
-        /**
-        * @class _64560adf_d76d_47dd_875a_1a345cf9189e
-        * @private
-        */
-
-    /**
     * @defgroup traits_operators operators
     * @ingroup traits
     *
@@ -125,12 +112,6 @@
         * 
         * @brief
         *   In addition to regular pointers, this also allows nullptr.
-        */
-
-        // boolean_tr
-        /**
-        * @class _3e4ef7df_7326_49f0_83e0_378911e03952
-        * @private
         */
 
         // floating_point_tr
