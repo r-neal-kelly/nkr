@@ -134,5 +134,5 @@
         * @private
         *
         * @brief
-        *   Allows nkr::boolean_tr, nkr::integer_tr, nkr::floating_point_tr, and nkr::pointer_tr.
+        *   Allows std_bool_t, nkr::integer_tr, nkr::floating_point_tr, and nkr::pointer_tr.
         */

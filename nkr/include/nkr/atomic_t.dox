@@ -476,13 +476,6 @@
             * @snippet "./src/atomic_t.cpp" _594aca2c_64c3_499c_ba8c_6862c4aefa7c
             */
 
-            // Exchange_If_Equals()
-            /**
-            * @class _de4d8d98_3a2b_4557_be66_5015696218c3
-            * @private
-            * @snippet "./src/atomic_t.cpp" _d12decaa_a991_4c99_8eeb_4615e60f73bc
-            */
-
             // Exchange_Add()
             /**
             * @class _eb209d2b_53f3_4aaf_87c4_7e6f7415d7de
@@ -516,6 +509,13 @@
             * @class _b9453618_fb4e_425d_a1b1_f88a5d272622
             * @private
             * @snippet "./src/atomic_t.cpp" _8373f8d7_2ac6_405a_968e_ebb7aaa5b88f
+            */
+
+            // Exchange_If_Equals()
+            /**
+            * @class _de4d8d98_3a2b_4557_be66_5015696218c3
+            * @private
+            * @snippet "./src/atomic_t.cpp" _d12decaa_a991_4c99_8eeb_4615e60f73bc
             */
 
         // casts
@@ -686,6 +686,12 @@
             * @copybrief _2ee275c0_12a7_400c_ba80_08d8ef10d8db
             * @snippet "./src/atomic_t.cpp" _33e7ab8b_f658_430a_ad5b_05f722975e85
             */
+
+    // floating_point_sp
+    /**
+    * @class _253501fa_5219_4009_94e8_08f3a28881ee
+    * @private
+    */
 
     // pointer_sp
     /**
@@ -879,13 +885,6 @@
             * @snippet "./src/atomic_t.cpp" _3d879e49_04af_4747_b82d_05dfeb40427e
             */
 
-            // Exchange_If_Equals()
-            /**
-            * @class _10426898_c8ab_44de_b7a7_748f31e5ad00
-            * @private
-            * @snippet "./src/atomic_t.cpp" _42437d1a_4adb_47e7_ae54_8614e79adcfd
-            */
-
             // Exchange_Add()
             /**
             * @class _212049f1_8d3b_4529_99d0_f800a9711e4b
@@ -898,6 +897,13 @@
             * @class _2fcafb28_9779_4964_98af_e50b75de4903
             * @private
             * @snippet "./src/atomic_t.cpp" _c347bb0e_96d6_4976_b649_2920f35b4c13
+            */
+
+            // Exchange_If_Equals()
+            /**
+            * @class _10426898_c8ab_44de_b7a7_748f31e5ad00
+            * @private
+            * @snippet "./src/atomic_t.cpp" _42437d1a_4adb_47e7_ae54_8614e79adcfd
             */
 
         // casts
@@ -1407,6 +1413,40 @@
         * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
         * @todo
         *   add tests
+        */
+
+// atomic_t<floating_point_tr floating_point_p>
+/**
+* @class _b40d083f_64f4_4a9d_b384_331d91c07b57
+* @private
+* 
+* @brief
+*   A wrapper for nkr::$atomic_t::floating_point_sp.
+* 
+* @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
+* @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
+*/
+
+    // objects
+    /**
+    * @class _cae3f9e9_f3af_40a4_8c96_6b98cf76b450
+    * @private
+    */
+
+        // base_copy_ctor()
+        /**
+        * @class _87edd802_22eb_4c71_9ff0_8ab195817ea2
+        * @private
+        * 
+        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
+        */
+
+        // base_move_ctor()
+        /**
+        * @class _f9759255_e840_45c1_b9bb_62e64e31a7f6
+        * @private
+        * 
+        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
         */
 
 // atomic_t<pointer_tr pointer_p>

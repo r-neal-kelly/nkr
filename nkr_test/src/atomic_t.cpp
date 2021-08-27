@@ -106,14 +106,18 @@ namespace nkr {
                 /// [_9e3a67d0_c398_4373_a1d8_f08fe73fc6fc]
             }
 
-            TEST_CASE("Exchange_If_Equals() should set value if old value equals target and return the old value")
+            TEST_CASE("Exchange_If_Equals() should set value if the current value matches the snapshot, returning true, else updates snapshot and returns false")
             {
                 /// [_4200a847_b748_4f13_ae03_35c01d38af4b]
                 atomic_t<bool_t> boolean(true);
-                CHECK(boolean.Exchange_If_Equals(false, false) == true);
+                bool_t snapshot = false;
+                CHECK(boolean.Exchange_If_Equals(snapshot, false) == false);
                 CHECK(boolean == true);
-                CHECK(boolean.Exchange_If_Equals(false, true) == true);
+                CHECK(snapshot == true);
+
+                CHECK(boolean.Exchange_If_Equals(snapshot, false) == true);
                 CHECK(boolean == false);
+                CHECK(snapshot == true);
                 /// [_4200a847_b748_4f13_ae03_35c01d38af4b]
             }
         }
@@ -379,17 +383,6 @@ namespace nkr {
                 /// [_594aca2c_64c3_499c_ba8c_6862c4aefa7c]
             }
 
-            TEST_CASE("Exchange_If_Equals() should set value if old value equals target and return the old value")
-            {
-                /// [_d12decaa_a991_4c99_8eeb_4615e60f73bc]
-                atomic_t<word_t> word(1);
-                CHECK(word.Exchange_If_Equals(0, 0) == 1);
-                CHECK(word == 1);
-                CHECK(word.Exchange_If_Equals(0, 1) == 1);
-                CHECK(word == 0);
-                /// [_d12decaa_a991_4c99_8eeb_4615e60f73bc]
-            }
-
             TEST_CASE("Exchange_Add() should set added value and return the old value")
             {
                 /// [_fbcd609d_09ba_4cd3_9595_bf5cdcb4638d]
@@ -433,6 +426,26 @@ namespace nkr {
                 CHECK(word.Exchange_Xor(0x01) == 0xFF);
                 CHECK(word == 0xFE);
                 /// [_8373f8d7_2ac6_405a_968e_ebb7aaa5b88f]
+            }
+
+            TEST_CASE("Exchange_If_Equals() should set value if the current value matches the snapshot, returning true, else updates snapshot and returns false")
+            {
+                /// [_d12decaa_a991_4c99_8eeb_4615e60f73bc]
+                atomic_t<word_t> word(0);
+                word_t snapshot = 1;
+                CHECK(word.Exchange_If_Equals(snapshot, 1) == false);
+                CHECK(word == 0);
+                CHECK(snapshot == 0);
+
+                CHECK(word.Exchange_If_Equals(snapshot, 1) == true);
+                CHECK(word == 1);
+                CHECK(snapshot == 0);
+
+                word_t value = word;
+                while (!word.Exchange_If_Equals(value, value - 1));
+                CHECK(value == 1);
+                CHECK(word == 0);
+                /// [_d12decaa_a991_4c99_8eeb_4615e60f73bc]
             }
         }
 
@@ -791,18 +804,6 @@ namespace nkr {
                 /// [_3d879e49_04af_4747_b82d_05dfeb40427e]
             }
 
-            TEST_CASE("Exchange_If_Equals() should set value if old value equals target and return the old value")
-            {
-                /// [_42437d1a_4adb_47e7_ae54_8614e79adcfd]
-                word_t word = 1;
-                atomic_t<word_t*> pointer(&word);
-                CHECK(pointer.Exchange_If_Equals(nullptr, nullptr) == &word);
-                CHECK(pointer == &word);
-                CHECK(pointer.Exchange_If_Equals(nullptr, &word) == &word);
-                CHECK(pointer == nullptr);
-                /// [_42437d1a_4adb_47e7_ae54_8614e79adcfd]
-            }
-
             TEST_CASE("Exchange_Add() should set added value and return the old value")
             {
                 /// [_d085e54c_9932_409d_83f9_a9dc8391057c]
@@ -821,6 +822,27 @@ namespace nkr {
                 CHECK(pointer.Exchange_Subtract(1) == words + 1);
                 CHECK(pointer == words + 0);
                 /// [_c347bb0e_96d6_4976_b649_2920f35b4c13]
+            }
+
+            TEST_CASE("Exchange_If_Equals() should set value if the current value matches the snapshot, returning true, else updates snapshot and returns false")
+            {
+                /// [_42437d1a_4adb_47e7_ae54_8614e79adcfd]
+                word_t words[2] = { 0, 0 };
+                atomic_t<word_t*> pointer(nullptr);
+                word_t* snapshot = &words[0];
+                CHECK(pointer.Exchange_If_Equals(snapshot, &words[0]) == false);
+                CHECK(pointer == nullptr);
+                CHECK(snapshot == nullptr);
+
+                CHECK(pointer.Exchange_If_Equals(snapshot, &words[0]) == true);
+                CHECK(pointer == &words[0]);
+                CHECK(snapshot == nullptr);
+
+                word_t* value = pointer;
+                while (!pointer.Exchange_If_Equals(value, value + 1));
+                CHECK(value == &words[0]);
+                CHECK(pointer == &words[1]);
+                /// [_42437d1a_4adb_47e7_ae54_8614e79adcfd]
             }
         }
 
@@ -1118,15 +1140,24 @@ namespace nkr {
                 /// [_1224f0e7_8c9c_4a04_ada0_a84e5d7bfa4c]
             }
 
-            TEST_CASE("Exchange_If_Equals() should set value if old value equals target and return the old value")
+            TEST_CASE("Exchange_If_Equals() should set value if the current value matches the snapshot, returning true, else updates snapshot and returns false")
             {
                 /// [_bbf28d7d_3852_4066_b9f5_6acaf2b45d09]
-                word_t word = 1;
-                atomic_t<void_t*> pointer(&word);
-                CHECK(pointer.Exchange_If_Equals(nullptr, nullptr) == &word);
-                CHECK(pointer == &word);
-                CHECK(pointer.Exchange_If_Equals(nullptr, &word) == &word);
-                CHECK(pointer == nullptr);
+                word_t words[2] = { 0, 0 };
+                atomic_t<void_t*> void_pointer(nullptr);
+                void_t* snapshot = &words[0];
+                CHECK(void_pointer.Exchange_If_Equals(snapshot, &words[0]) == false);
+                CHECK(void_pointer == nullptr);
+                CHECK(snapshot == nullptr);
+
+                CHECK(void_pointer.Exchange_If_Equals(snapshot, &words[0]) == true);
+                CHECK(void_pointer == &words[0]);
+                CHECK(snapshot == nullptr);
+
+                void_t* value = void_pointer;
+                while (!void_pointer.Exchange_If_Equals(value, static_cast<word_t*>(value) + 1));
+                CHECK(value == &words[0]);
+                CHECK(void_pointer == &words[1]);
                 /// [_bbf28d7d_3852_4066_b9f5_6acaf2b45d09]
             }
         }

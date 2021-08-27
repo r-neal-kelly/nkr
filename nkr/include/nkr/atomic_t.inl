@@ -67,9 +67,9 @@ namespace nkr { namespace $atomic_t {
         return os::atomic::Exchange(this->value, value);
     }
 
-    inline typename bool_sp::value_t bool_sp::Exchange_If_Equals(value_t value, value_t target)
+    inline bool_t bool_sp::Exchange_If_Equals(value_t& snapshot, value_t value)
     {
-        return os::atomic::Exchange_If_Equals(this->value, value, target);
+        return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
     inline bool_sp::operator value_t() const
@@ -230,12 +230,6 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_If_Equals(integer_tr auto value, integer_tr auto target)
-    {
-        return os::atomic::Exchange_If_Equals(this->value, value, target);
-    }
-
-    template <integer_tr integer_p>
     inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
@@ -263,6 +257,12 @@ namespace nkr { namespace $atomic_t {
     inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Xor(integer_tr auto value)
     {
         return os::atomic::Exchange_Xor(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline bool_t integer_sp<integer_p>::Exchange_If_Equals(value_t& snapshot, integer_tr auto value)
+    {
+        return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
     template <integer_tr integer_p>
@@ -483,12 +483,6 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_If_Equals(pointer_tr auto value, pointer_tr auto target)
-    {
-        return os::atomic::Exchange_If_Equals(this->value, value, target);
-    }
-
-    template <pointer_tr pointer_p>
     inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
@@ -498,6 +492,12 @@ namespace nkr { namespace $atomic_t {
     inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
+    }
+
+    template <pointer_tr pointer_p>
+    inline bool_t pointer_sp<pointer_p>::Exchange_If_Equals(value_t& snapshot, pointer_tr auto value)
+    {
+        return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
     template <pointer_tr pointer_p>
@@ -659,10 +659,9 @@ namespace nkr { namespace $atomic_t {
         return os::atomic::Exchange(this->value, value);
     }
 
-    inline typename void_pointer_sp::value_t void_pointer_sp::Exchange_If_Equals(pointer_tr auto value,
-                                                                                     pointer_tr auto target)
+    inline bool_t void_pointer_sp::Exchange_If_Equals(value_t& snapshot, pointer_tr auto value)
     {
-        return os::atomic::Exchange_If_Equals(this->value, value, target);
+        return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
     inline void_pointer_sp::operator value_t() const

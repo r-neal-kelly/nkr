@@ -34,7 +34,7 @@
         *   These return a copy of the atomic value without changing the original.
         */
 
-            // boolean_tr auto Access(const volatile boolean_tr auto& atom)
+            // Access(boolean_tr)
             /**
             * @class _f108db58_8738_44fc_8660_a9f2806661f3
             * @private
@@ -99,7 +99,7 @@
         *   These return a copy of the atomic value after changing the original.
         */
 
-            // boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with)
+            // Assign(boolean_tr)
             /**
             * @class _5c4929b4_7b2c_49b7_946a_1dc7085f362c
             * @private
@@ -164,7 +164,7 @@
         *   These return a copy of the atomic value before changing the original.
         */
 
-            // boolean_tr auto     Exchange(volatile boolean_tr auto& atom, boolean_tr auto with)
+            // Exchange(boolean_tr)
             /**
             * @class _acf46593_b662_4d8a_9596_25f347ef5cbf
             * @private
@@ -179,23 +179,6 @@
             *
             * @brief
             *   Equivalent to `(original = atom, atom = with, original)`
-            */
-
-            // boolean_tr auto     Exchange_If_Equals(volatile boolean_tr auto& atom, boolean_tr auto with, boolean_tr auto target)
-            /**
-            * @class _6705c0d6_baf4_4cd6_b4bf_727403e9d2c2
-            * @private
-            *
-            * @brief
-            *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
-            */
-
-            /**
-            * @class doc_nkr_os_atomic_Exchange_If_Equals
-            * @private
-            *
-            * @brief
-            *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
             */
 
             /**
@@ -236,6 +219,23 @@
             *
             * @brief
             *   Equivalent to `(original = atom, atom ^= with, original)`
+            */
+
+            // Exchange_If_Equals(boolean_tr);
+            /**
+            * @class _6705c0d6_baf4_4cd6_b4bf_727403e9d2c2
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
+            */
+
+            /**
+            * @class doc_nkr_os_atomic_Exchange_If_Equals
+            * @private
+            *
+            * @brief
+            *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
             */
 
     /**

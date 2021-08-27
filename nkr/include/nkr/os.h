@@ -38,12 +38,15 @@ namespace nkr { namespace os { namespace atomic {
     /// @{
     boolean_tr auto Access(const volatile boolean_tr auto& atom);                                   ///< @copydoc _f108db58_8738_44fc_8660_a9f2806661f3
     integer_tr auto Access(const volatile integer_tr auto& atom);                                   ///< @copydoc doc_nkr_os_atomic_Access
+    float_tr auto   Access(const volatile float_tr auto& atom);                                     ///< @copydoc doc_nkr_os_atomic_Access
     pointer_tr auto Access(const volatile pointer_tr auto& atom);                                   ///< @copydoc doc_nkr_os_atomic_Access
 
     integer_tr auto Access_Add(const volatile integer_tr auto& atom, integer_tr auto with);         ///< @copydoc doc_nkr_os_atomic_Access_Add
+    float_tr auto   Access_Add(const volatile float_tr auto& atom, float_tr auto with);             ///< @copydoc doc_nkr_os_atomic_Access_Add
     pointer_tr auto Access_Add(const volatile pointer_tr auto& atom, integer_tr auto with);         ///< @copydoc doc_nkr_os_atomic_Access_Add
 
     integer_tr auto Access_Subtract(const volatile integer_tr auto& atom, integer_tr auto with);    ///< @copydoc doc_nkr_os_atomic_Access_Subtract
+    float_tr auto   Access_Subtract(const volatile float_tr auto& atom, float_tr auto with);        ///< @copydoc doc_nkr_os_atomic_Access_Subtract
     pointer_tr auto Access_Subtract(const volatile pointer_tr auto& atom, integer_tr auto with);    ///< @copydoc doc_nkr_os_atomic_Access_Subtract
 
     integer_tr auto Access_Or(const volatile integer_tr auto& atom, integer_tr auto with);          ///< @copydoc doc_nkr_os_atomic_Access_Or
@@ -53,18 +56,20 @@ namespace nkr { namespace os { namespace atomic {
     integer_tr auto Access_Xor(const volatile integer_tr auto& atom, integer_tr auto with);         ///< @copydoc doc_nkr_os_atomic_Access_Xor
     /// @}
 
-
     /// @name Assign
     /// @copydoc doc_nkr_os_atomic_group_Assign
     /// @{
-    boolean_tr auto Assign(volatile boolean_tr auto& atom, bool_t with);                    ///< @copydoc _5c4929b4_7b2c_49b7_946a_1dc7085f362c
+    boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with);           ///< @copydoc _5c4929b4_7b2c_49b7_946a_1dc7085f362c
     integer_tr auto Assign(volatile integer_tr auto& atom, integer_tr auto with);           ///< @copydoc doc_nkr_os_atomic_Assign
+    float_tr auto   Assign(volatile float_tr auto& atom, float_tr auto with);               ///< @copydoc doc_nkr_os_atomic_Assign
     pointer_tr auto Assign(volatile pointer_tr auto& atom, pointer_tr auto with);           ///< @copydoc doc_nkr_os_atomic_Assign
 
     integer_tr auto Assign_Add(volatile integer_tr auto& atom, integer_tr auto with);       ///< @copydoc doc_nkr_os_atomic_Assign_Add
+    float_tr auto   Assign_Add(volatile float_tr auto& atom, float_tr auto with);           ///< @copydoc doc_nkr_os_atomic_Assign_Add
     pointer_tr auto Assign_Add(volatile pointer_tr auto& atom, integer_tr auto with);       ///< @copydoc doc_nkr_os_atomic_Assign_Add
 
     integer_tr auto Assign_Subtract(volatile integer_tr auto& atom, integer_tr auto with);  ///< @copydoc doc_nkr_os_atomic_Assign_Subtract
+    float_tr auto   Assign_Subtract(volatile float_tr auto& atom, float_tr auto with);      ///< @copydoc doc_nkr_os_atomic_Assign_Subtract
     pointer_tr auto Assign_Subtract(volatile pointer_tr auto& atom, integer_tr auto with);  ///< @copydoc doc_nkr_os_atomic_Assign_Subtract
 
     integer_tr auto Assign_Or(volatile integer_tr auto& atom, integer_tr auto with);        ///< @copydoc doc_nkr_os_atomic_Assign_Or
@@ -74,50 +79,57 @@ namespace nkr { namespace os { namespace atomic {
     integer_tr auto Assign_Xor(volatile integer_tr auto& atom, integer_tr auto with);       ///< @copydoc doc_nkr_os_atomic_Assign_Xor
     /// @}
     
-
     /// @name Exchange
     /// @copydoc doc_nkr_os_atomic_group_Exchange
     /// @{
-    boolean_tr auto     Exchange(volatile boolean_tr auto& atom, bool_t with);                                                  ///< @copydoc _acf46593_b662_4d8a_9596_25f347ef5cbf
-    integer_8_tr auto   Exchange(volatile integer_8_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange
-    integer_16_tr auto  Exchange(volatile integer_16_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange
-    integer_32_tr auto  Exchange(volatile integer_32_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange
-    integer_64_tr auto  Exchange(volatile integer_64_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange
-    pointer_tr auto     Exchange(volatile pointer_tr auto& atom, pointer_tr auto with);                                         ///< @copydoc doc_nkr_os_atomic_Exchange
+    boolean_tr auto     Exchange(volatile boolean_tr auto& atom, boolean_tr auto with);                                             ///< @copydoc _acf46593_b662_4d8a_9596_25f347ef5cbf
+    integer_8_tr auto   Exchange(volatile integer_8_tr auto& atom, integer_tr auto with);                                           ///< @copydoc doc_nkr_os_atomic_Exchange
+    integer_16_tr auto  Exchange(volatile integer_16_tr auto& atom, integer_tr auto with);                                          ///< @copydoc doc_nkr_os_atomic_Exchange
+    integer_32_tr auto  Exchange(volatile integer_32_tr auto& atom, integer_tr auto with);                                          ///< @copydoc doc_nkr_os_atomic_Exchange
+    integer_64_tr auto  Exchange(volatile integer_64_tr auto& atom, integer_tr auto with);                                          ///< @copydoc doc_nkr_os_atomic_Exchange
+    float_32_tr auto    Exchange(volatile float_32_tr auto& atom, float_tr auto with);                                              ///< @copydoc doc_nkr_os_atomic_Exchange
+    float_64_tr auto    Exchange(volatile float_64_tr auto& atom, float_tr auto with);                                              ///< @copydoc doc_nkr_os_atomic_Exchange
+    pointer_tr auto     Exchange(volatile pointer_tr auto& atom, pointer_tr auto with);                                             ///< @copydoc doc_nkr_os_atomic_Exchange
 
-    boolean_tr auto     Exchange_If_Equals(volatile boolean_tr auto& atom, bool_t with, bool_t target);                         ///< @copydoc _6705c0d6_baf4_4cd6_b4bf_727403e9d2c2
-    integer_8_tr auto   Exchange_If_Equals(volatile integer_8_tr auto& atom, integer_tr auto with, integer_tr auto target);     ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
-    integer_16_tr auto  Exchange_If_Equals(volatile integer_16_tr auto& atom, integer_tr auto with, integer_tr auto target);    ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
-    integer_32_tr auto  Exchange_If_Equals(volatile integer_32_tr auto& atom, integer_tr auto with, integer_tr auto target);    ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
-    integer_64_tr auto  Exchange_If_Equals(volatile integer_64_tr auto& atom, integer_tr auto with, integer_tr auto target);    ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
-    pointer_tr auto     Exchange_If_Equals(volatile pointer_tr auto& atom, pointer_tr auto with, pointer_tr auto target);       ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    integer_8_tr auto   Exchange_Add(volatile integer_8_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    integer_16_tr auto  Exchange_Add(volatile integer_16_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    integer_32_tr auto  Exchange_Add(volatile integer_32_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    integer_64_tr auto  Exchange_Add(volatile integer_64_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    float_32_tr auto    Exchange_Add(volatile float_32_tr auto& atom, float_tr auto with);                                          ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    float_64_tr auto    Exchange_Add(volatile float_64_tr auto& atom, float_tr auto with);                                          ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    pointer_tr auto     Exchange_Add(volatile pointer_tr auto& atom, integer_tr auto with);                                         ///< @copydoc doc_nkr_os_atomic_Exchange_Add
 
-    integer_8_tr auto   Exchange_Add(volatile integer_8_tr auto& atom, integer_tr auto with);                                   ///< @copydoc doc_nkr_os_atomic_Exchange_Add
-    integer_16_tr auto  Exchange_Add(volatile integer_16_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Add
-    integer_32_tr auto  Exchange_Add(volatile integer_32_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Add
-    integer_64_tr auto  Exchange_Add(volatile integer_64_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Add
-    pointer_tr auto     Exchange_Add(volatile pointer_tr auto& atom, integer_tr auto with);                                     ///< @copydoc doc_nkr_os_atomic_Exchange_Add
+    integer_8_tr auto   Exchange_Subtract(volatile integer_8_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    integer_16_tr auto  Exchange_Subtract(volatile integer_16_tr auto& atom, integer_tr auto with);                                 ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    integer_32_tr auto  Exchange_Subtract(volatile integer_32_tr auto& atom, integer_tr auto with);                                 ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    integer_64_tr auto  Exchange_Subtract(volatile integer_64_tr auto& atom, integer_tr auto with);                                 ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    float_32_tr auto    Exchange_Subtract(volatile float_32_tr auto& atom, float_tr auto with);                                     ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    float_64_tr auto    Exchange_Subtract(volatile float_64_tr auto& atom, float_tr auto with);                                     ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    pointer_tr auto     Exchange_Subtract(volatile pointer_tr auto& atom, integer_tr auto with);                                    ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
 
-    integer_8_tr auto   Exchange_Subtract(volatile integer_8_tr auto& atom, integer_tr auto with);                              ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
-    integer_16_tr auto  Exchange_Subtract(volatile integer_16_tr auto& atom, integer_tr auto with);                             ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
-    integer_32_tr auto  Exchange_Subtract(volatile integer_32_tr auto& atom, integer_tr auto with);                             ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
-    integer_64_tr auto  Exchange_Subtract(volatile integer_64_tr auto& atom, integer_tr auto with);                             ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
-    pointer_tr auto     Exchange_Subtract(volatile pointer_tr auto& atom, integer_tr auto with);                                ///< @copydoc doc_nkr_os_atomic_Exchange_Subtract
+    integer_8_tr auto   Exchange_Or(volatile integer_8_tr auto& atom, integer_tr auto with);                                        ///< @copydoc doc_nkr_os_atomic_Exchange_Or
+    integer_16_tr auto  Exchange_Or(volatile integer_16_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange_Or
+    integer_32_tr auto  Exchange_Or(volatile integer_32_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange_Or
+    integer_64_tr auto  Exchange_Or(volatile integer_64_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange_Or
 
-    integer_8_tr auto   Exchange_Or(volatile integer_8_tr auto& atom, integer_tr auto with);                                    ///< @copydoc doc_nkr_os_atomic_Exchange_Or
-    integer_16_tr auto  Exchange_Or(volatile integer_16_tr auto& atom, integer_tr auto with);                                   ///< @copydoc doc_nkr_os_atomic_Exchange_Or
-    integer_32_tr auto  Exchange_Or(volatile integer_32_tr auto& atom, integer_tr auto with);                                   ///< @copydoc doc_nkr_os_atomic_Exchange_Or
-    integer_64_tr auto  Exchange_Or(volatile integer_64_tr auto& atom, integer_tr auto with);                                   ///< @copydoc doc_nkr_os_atomic_Exchange_Or
+    integer_8_tr auto   Exchange_And(volatile integer_8_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange_And
+    integer_16_tr auto  Exchange_And(volatile integer_16_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_And
+    integer_32_tr auto  Exchange_And(volatile integer_32_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_And
+    integer_64_tr auto  Exchange_And(volatile integer_64_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_And
 
-    integer_8_tr auto   Exchange_And(volatile integer_8_tr auto& atom, integer_tr auto with);                                   ///< @copydoc doc_nkr_os_atomic_Exchange_And
-    integer_16_tr auto  Exchange_And(volatile integer_16_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_And
-    integer_32_tr auto  Exchange_And(volatile integer_32_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_And
-    integer_64_tr auto  Exchange_And(volatile integer_64_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_And
-
-    integer_8_tr auto   Exchange_Xor(volatile integer_8_tr auto& atom, integer_tr auto with);                                   ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
-    integer_16_tr auto  Exchange_Xor(volatile integer_16_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
-    integer_32_tr auto  Exchange_Xor(volatile integer_32_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
-    integer_64_tr auto  Exchange_Xor(volatile integer_64_tr auto& atom, integer_tr auto with);                                  ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
+    integer_8_tr auto   Exchange_Xor(volatile integer_8_tr auto& atom, integer_tr auto with);                                       ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
+    integer_16_tr auto  Exchange_Xor(volatile integer_16_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
+    integer_32_tr auto  Exchange_Xor(volatile integer_32_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
+    integer_64_tr auto  Exchange_Xor(volatile integer_64_tr auto& atom, integer_tr auto with);                                      ///< @copydoc doc_nkr_os_atomic_Exchange_Xor
+    
+    boolean_tr auto     Exchange_If_Equals(volatile boolean_tr auto& atom, boolean_tr auto& snapshot, boolean_tr auto with);        ///< @copydoc _6705c0d6_baf4_4cd6_b4bf_727403e9d2c2
+    boolean_tr auto     Exchange_If_Equals(volatile integer_8_tr auto& atom, integer_8_tr auto& snapshot, integer_tr auto with);    ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    boolean_tr auto     Exchange_If_Equals(volatile integer_16_tr auto& atom, integer_16_tr auto& snapshot, integer_tr auto with);  ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    boolean_tr auto     Exchange_If_Equals(volatile integer_32_tr auto& atom, integer_32_tr auto& snapshot, integer_tr auto with);  ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    boolean_tr auto     Exchange_If_Equals(volatile integer_64_tr auto& atom, integer_64_tr auto& snapshot, integer_tr auto with);  ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    boolean_tr auto     Exchange_If_Equals(volatile float_32_tr auto& atom, float_32_tr auto& snapshot, float_tr auto with);        ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    boolean_tr auto     Exchange_If_Equals(volatile float_64_tr auto& atom, float_64_tr auto& snapshot, float_tr auto with);        ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
+    boolean_tr auto     Exchange_If_Equals(volatile pointer_tr auto& atom, pointer_tr auto& snapshot, pointer_tr auto with);        ///< @copydoc doc_nkr_os_atomic_Exchange_If_Equals
     /// @}
 
 }}}
@@ -130,7 +142,6 @@ namespace nkr { namespace os { namespace endian {
     bool_t  Is_Big();       ///< @copydoc doc_nkr_os_endian_Is_Big
     bool_t  Is_Little();    ///< @copydoc doc_nkr_os_endian_Is_Little
     /// @}
-
 
     /// @name swap compound integers
     /// @copydoc doc_nkr_os_endian_group_swap

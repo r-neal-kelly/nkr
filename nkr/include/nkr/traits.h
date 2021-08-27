@@ -11,7 +11,8 @@ namespace nkr {
 
     template <typename type_p>
     concept boolean_tr =
-        std::same_as<type_p, bool_t>;   ///< @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+        std::same_as<type_p, bool_t> ||
+        std::same_as<type_p, std_bool_t>;   /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
 
     /// @addtogroup traits_integers
     /// @{
@@ -56,6 +57,24 @@ namespace nkr {
         (sizeof(type_p) == sizeof(word_t)); ///< @copydoc traits_integers_integer_word_tr
     /// @}
 
+    // this should be float_tr
+    template <typename type_p>
+    concept floating_point_tr =
+        std::is_floating_point<type_p>::value;              ///< @copydoc _7436208f_39ce_49f4_accb_a3bee797b12a
+
+    template <typename type_p>
+    concept float_tr =
+        std::is_floating_point<type_p>::value;
+
+    template <typename type_p>
+    concept float_32_tr =
+        floating_point_tr<type_p> &&
+        (sizeof(type_p) == sizeof(f32_t));  ///< @copydoc 
+
+    template <typename type_p>
+    concept float_64_tr =
+        floating_point_tr<type_p> &&
+        (sizeof(type_p) == sizeof(f64_t));  ///< @copydoc 
     
     /// @addtogroup traits_operators
     /// @{
@@ -75,10 +94,6 @@ namespace nkr {
     concept pointer_tr =
         std::is_null_pointer<type_p>::value ||
         std::is_pointer<type_p>::value;                     ///< @copydoc traits_misc_pointer_tr
-
-    template <typename type_p>
-    concept floating_point_tr =
-        std::is_floating_point<type_p>::value;              ///< @copydoc _7436208f_39ce_49f4_accb_a3bee797b12a
 
     template <typename type_p>
     concept sized_tr =

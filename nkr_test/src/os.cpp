@@ -24,6 +24,13 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(nkr::os::atomic::Access(boolean) == access);
                 CHECK(nkr::os::atomic::Access(boolean) == false);
             }
+            TEST_CASE("std_bool_t")
+            {
+                std_bool_t boolean = false;
+                std_bool_t access = nkr::os::atomic::Access(boolean);
+                CHECK(nkr::os::atomic::Access(boolean) == access);
+                CHECK(nkr::os::atomic::Access(boolean) == false);
+            }
             TEST_CASE("u8_t")
             {
                 u8_t u8 = 8;
@@ -82,6 +89,22 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t access = nkr::os::atomic::Access(s64);
                 CHECK(nkr::os::atomic::Access(s64) == access);
                 CHECK(nkr::os::atomic::Access(s64) == -64);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                f32_t access = nkr::os::atomic::Access(f32);
+                CHECK(nkr::os::atomic::Access(f32) == access);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                f64_t access = nkr::os::atomic::Access(f64);
+                CHECK(nkr::os::atomic::Access(f64) == access);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4);
             #endif
             }
             TEST_CASE("void_t*")
@@ -158,6 +181,20 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(s64 == -64);
             #endif
             }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Access_Add(f32, 0.1f) == 3.2f + 0.1f);
+                CHECK(f32 == 3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Access_Add(f64, 0.1) == 6.4 + 0.1);
+                CHECK(f64 == 6.4);
+            #endif
+            }
             TEST_CASE("bool_t*")
             {
                 bool_t booleans[2] = { true, true };
@@ -222,6 +259,20 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = -64;
                 CHECK(nkr::os::atomic::Access_Subtract(s64, -1) == -63);
                 CHECK(s64 == -64);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Access_Subtract(f32, 0.1f) == 3.2f - 0.1f);
+                CHECK(f32 == 3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Access_Subtract(f64, 0.1) == 6.4 - 0.1);
+                CHECK(f64 == 6.4);
             #endif
             }
             TEST_CASE("bool_t*")
@@ -421,6 +472,12 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(nkr::os::atomic::Assign(boolean, true) == true);
                 CHECK(boolean == true);
             }
+            TEST_CASE("std_bool_t")
+            {
+                std_bool_t boolean = false;
+                CHECK(nkr::os::atomic::Assign(boolean, true) == true);
+                CHECK(boolean == true);
+            }
             TEST_CASE("u8_t")
             {
                 u8_t u8 = 8;
@@ -471,6 +528,20 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = -64;
                 CHECK(nkr::os::atomic::Assign(s64, -1) == -1);
                 CHECK(s64 == -1);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Assign(f32, 1.0f) == 1.0f);
+                CHECK(f32 == 1.0f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Assign(f64, 1.0) == 1.0);
+                CHECK(f64 == 1.0);
             #endif
             }
             TEST_CASE("void_t*")
@@ -544,6 +615,20 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = -64;
                 CHECK(nkr::os::atomic::Assign_Add(s64, -1) == -65);
                 CHECK(s64 == -65);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Assign_Add(f32, 0.1f) == 3.2f + 0.1f);
+                CHECK(f32 == 3.2f + 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Assign_Add(f64, 0.1) == 6.4 + 0.1);
+                CHECK(f64 == 6.4 + 0.1);
             #endif
             }
             TEST_CASE("bool_t*")
@@ -638,6 +723,20 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = -64;
                 CHECK(nkr::os::atomic::Assign_Subtract(s64, -1) == -63);
                 CHECK(s64 == -63);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Assign_Subtract(f32, 0.1f) == 3.2f - 0.1f);
+                CHECK(f32 == 3.2f - 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Assign_Subtract(f64, 0.1) == 6.4 - 0.1);
+                CHECK(f64 == 6.4 - 0.1);
             #endif
             }
             TEST_CASE("bool_t*")
@@ -865,6 +964,12 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(nkr::os::atomic::Exchange(boolean, true) == false);
                 CHECK(nkr::os::atomic::Access(boolean) == true);
             }
+            TEST_CASE("std_bool_t")
+            {
+                std_bool_t boolean = false;
+                CHECK(nkr::os::atomic::Exchange(boolean, true) == false);
+                CHECK(nkr::os::atomic::Access(boolean) == true);
+            }
             TEST_CASE("u8_t")
             {
                 u8_t u8 = 8;
@@ -917,6 +1022,20 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(nkr::os::atomic::Access(s64) == -1);
             #endif
             }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Exchange(f32, -3.2f) == 3.2f);
+                CHECK(nkr::os::atomic::Access(f32) == -3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Exchange(f64, -6.4) == 6.4);
+                CHECK(nkr::os::atomic::Access(f64) == -6.4);
+            #endif
+            }
             TEST_CASE("void_t*")
             {
                 bool_t boolean = false;
@@ -929,107 +1048,6 @@ namespace nkr { namespace os { namespace atomic {
                 bool_t boolean = false;
                 bool_t* boolean_pointer = &boolean;
                 CHECK(nkr::os::atomic::Exchange(boolean_pointer, nullptr) == &boolean);
-                CHECK(nkr::os::atomic::Access(boolean_pointer) == nullptr);
-            }
-        }
-    }
-
-    TEST_SUITE("Exchange_If_Equals")
-    {
-        TEST_SUITE("should atomically assign integers and pointers if they equal target and return the initial value")
-        {
-            TEST_CASE("bool_t")
-            {
-                bool_t boolean = false;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean, true, true) == false);
-                CHECK(nkr::os::atomic::Access(boolean) == false);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean, true, false) == false);
-                CHECK(nkr::os::atomic::Access(boolean) == true);
-            }
-            TEST_CASE("u8_t")
-            {
-                u8_t u8 = 8;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u8, 1, 1) == 8);
-                CHECK(nkr::os::atomic::Access(u8) == 8);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u8, 1, 8) == 8);
-                CHECK(nkr::os::atomic::Access(u8) == 1);
-            }
-            TEST_CASE("u16_t")
-            {
-                u16_t u16 = 16;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u16, 1, 1) == 16);
-                CHECK(nkr::os::atomic::Access(u16) == 16);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u16, 1, 16) == 16);
-                CHECK(nkr::os::atomic::Access(u16) == 1);
-            }
-            TEST_CASE("u32_t")
-            {
-                u32_t u32 = 32;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u32, 1, 1) == 32);
-                CHECK(nkr::os::atomic::Access(u32) == 32);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u32, 1, 32) == 32);
-                CHECK(nkr::os::atomic::Access(u32) == 1);
-            }
-            TEST_CASE("u64_t")
-            {
-            #if defined(nkr_IS_64_BIT)
-                u64_t u64 = 64;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u64, 1, 1) == 64);
-                CHECK(nkr::os::atomic::Access(u64) == 64);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(u64, 1, 64) == 64);
-                CHECK(nkr::os::atomic::Access(u64) == 1);
-            #endif
-            }
-            TEST_CASE("s8_t")
-            {
-                s8_t s8 = -8;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s8, -1, -1) == -8);
-                CHECK(nkr::os::atomic::Access(s8) == -8);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s8, -1, -8) == -8);
-                CHECK(nkr::os::atomic::Access(s8) == -1);
-            }
-            TEST_CASE("s16_t")
-            {
-                s16_t s16 = -16;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s16, -1, -1) == -16);
-                CHECK(nkr::os::atomic::Access(s16) == -16);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s16, -1, -16) == -16);
-                CHECK(nkr::os::atomic::Access(s16) == -1);
-            }
-            TEST_CASE("s32_t")
-            {
-                s32_t s32 = -32;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s32, -1, -1) == -32);
-                CHECK(nkr::os::atomic::Access(s32) == -32);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s32, -1, -32) == -32);
-                CHECK(nkr::os::atomic::Access(s32) == -1);
-            }
-            TEST_CASE("s64_t")
-            {
-            #if defined(nkr_IS_64_BIT)
-                s64_t s64 = -64;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s64, -1, -1) == -64);
-                CHECK(nkr::os::atomic::Access(s64) == -64);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(s64, -1, -64) == -64);
-                CHECK(nkr::os::atomic::Access(s64) == -1);
-            #endif
-            }
-            TEST_CASE("void_t*")
-            {
-                bool_t boolean = false;
-                void_t* void_pointer = nullptr;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(void_pointer, &boolean, &boolean) == nullptr);
-                CHECK(nkr::os::atomic::Access(void_pointer) == nullptr);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(void_pointer, &boolean, nullptr) == nullptr);
-                CHECK(nkr::os::atomic::Access(void_pointer) == &boolean);
-            }
-            TEST_CASE("bool_t*")
-            {
-                bool_t boolean = false;
-                bool_t* boolean_pointer = &boolean;
-                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean_pointer, nullptr, nullptr) == &boolean);
-                CHECK(nkr::os::atomic::Access(boolean_pointer) == &boolean);
-                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean_pointer, nullptr, &boolean) == &boolean);
                 CHECK(nkr::os::atomic::Access(boolean_pointer) == nullptr);
             }
         }
@@ -1089,6 +1107,20 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = -64;
                 CHECK(nkr::os::atomic::Exchange_Add(s64, -1) == -64);
                 CHECK(nkr::os::atomic::Access(s64) == -65);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Exchange_Add(f32, 0.1f) == 3.2f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f + 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Exchange_Add(f64, 0.1) == 6.4);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4 + 0.1);
             #endif
             }
             TEST_CASE("bool_t*")
@@ -1157,6 +1189,20 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = -64;
                 CHECK(nkr::os::atomic::Exchange_Subtract(s64, -1) == -64);
                 CHECK(nkr::os::atomic::Access(s64) == -63);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Exchange_Subtract(f32, 0.1f) == 3.2f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f - 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Exchange_Subtract(f64, 0.1) == 6.4);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4 - 0.1);
             #endif
             }
             TEST_CASE("bool_t*")
@@ -1344,6 +1390,203 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(nkr::os::atomic::Exchange_Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFF);
                 CHECK(nkr::os::atomic::Access(s64) == 0x7FFFFFFFFFFFFFFE);
             #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Exchange_If_Equals")
+    {
+        TEST_SUITE("should set value if the current value matches the snapshot, returning true, else updates snapshot and returns false")
+        {
+            TEST_CASE("bool_t")
+            {
+                bool_t boolean = false;
+                bool_t snapshot = true;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean, snapshot, true) == false);
+                CHECK(nkr::os::atomic::Access(boolean) == false);
+                CHECK(snapshot == false);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean, snapshot, true) == true);
+                CHECK(nkr::os::atomic::Access(boolean) == true);
+                CHECK(snapshot == false);
+            }
+            TEST_CASE("std_bool_t")
+            {
+                std_bool_t boolean = false;
+                std_bool_t snapshot = true;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean, snapshot, true) == false);
+                CHECK(nkr::os::atomic::Access(boolean) == false);
+                CHECK(snapshot == false);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean, snapshot, true) == true);
+                CHECK(nkr::os::atomic::Access(boolean) == true);
+                CHECK(snapshot == false);
+            }
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                u8_t snapshot = 1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u8, snapshot, 1) == false);
+                CHECK(nkr::os::atomic::Access(u8) == 8);
+                CHECK(snapshot == 8);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u8, snapshot, 1) == true);
+                CHECK(nkr::os::atomic::Access(u8) == 1);
+                CHECK(snapshot == 8);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                u16_t snapshot = 1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u16, snapshot, 1) == false);
+                CHECK(nkr::os::atomic::Access(u16) == 16);
+                CHECK(snapshot == 16);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u16, snapshot, 1) == true);
+                CHECK(nkr::os::atomic::Access(u16) == 1);
+                CHECK(snapshot == 16);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                u32_t snapshot = 1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u32, snapshot, 1) == false);
+                CHECK(nkr::os::atomic::Access(u32) == 32);
+                CHECK(snapshot == 32);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u32, snapshot, 1) == true);
+                CHECK(nkr::os::atomic::Access(u32) == 1);
+                CHECK(snapshot == 32);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                u64_t snapshot = 1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u64, snapshot, 1) == false);
+                CHECK(nkr::os::atomic::Access(u64) == 64);
+                CHECK(snapshot == 64);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(u64, snapshot, 1) == true);
+                CHECK(nkr::os::atomic::Access(u64) == 1);
+                CHECK(snapshot == 64);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                s8_t snapshot = -1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s8, snapshot, -1) == false);
+                CHECK(nkr::os::atomic::Access(s8) == -8);
+                CHECK(snapshot == -8);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s8, snapshot, -1) == true);
+                CHECK(nkr::os::atomic::Access(s8) == -1);
+                CHECK(snapshot == -8);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                s16_t snapshot = -1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s16, snapshot, -1) == false);
+                CHECK(nkr::os::atomic::Access(s16) == -16);
+                CHECK(snapshot == -16);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s16, snapshot, -1) == true);
+                CHECK(nkr::os::atomic::Access(s16) == -1);
+                CHECK(snapshot == -16);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                s32_t snapshot = -1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s32, snapshot, -1) == false);
+                CHECK(nkr::os::atomic::Access(s32) == -32);
+                CHECK(snapshot == -32);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s32, snapshot, -1) == true);
+                CHECK(nkr::os::atomic::Access(s32) == -1);
+                CHECK(snapshot == -32);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                s64_t snapshot = -1;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s64, snapshot, -1) == false);
+                CHECK(nkr::os::atomic::Access(s64) == -64);
+                CHECK(snapshot == -64);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(s64, snapshot, -1) == true);
+                CHECK(nkr::os::atomic::Access(s64) == -1);
+                CHECK(snapshot == -64);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                f32_t snapshot = 1.0f;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(f32, snapshot, 1.0f) == false);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f);
+                CHECK(snapshot == 3.2f);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(f32, snapshot, 1.0f) == true);
+                CHECK(nkr::os::atomic::Access(f32) == 1.0f);
+                CHECK(snapshot == 3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                f64_t snapshot = 1.0;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(f64, snapshot, 1.0) == false);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4);
+                CHECK(snapshot == 6.4);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(f64, snapshot, 1.0) == true);
+                CHECK(nkr::os::atomic::Access(f64) == 1.0);
+                CHECK(snapshot == 6.4);
+            #endif
+            }
+            TEST_CASE("void_t*")
+            {
+                bool_t boolean;
+                void_t* void_pointer = nullptr;
+                void_t* snapshot = &boolean;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(void_pointer, snapshot, &boolean) == false);
+                CHECK(nkr::os::atomic::Access(void_pointer) == nullptr);
+                CHECK(snapshot == nullptr);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(void_pointer, snapshot, &boolean) == true);
+                CHECK(nkr::os::atomic::Access(void_pointer) == &boolean);
+                CHECK(snapshot == nullptr);
+            }
+            TEST_CASE("bool_t*")
+            {
+                bool_t boolean;
+                bool_t* boolean_pointer = nullptr;
+                bool_t* snapshot = &boolean;
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean_pointer, snapshot, &boolean) == false);
+                CHECK(nkr::os::atomic::Access(boolean_pointer) == nullptr);
+                CHECK(snapshot == nullptr);
+
+                CHECK(nkr::os::atomic::Exchange_If_Equals(boolean_pointer, snapshot, &boolean) == true);
+                CHECK(nkr::os::atomic::Access(boolean_pointer) == &boolean);
+                CHECK(snapshot == nullptr);
             }
         }
     }
