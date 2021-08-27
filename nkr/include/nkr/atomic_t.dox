@@ -290,8 +290,7 @@
             * @details
             *   This is the raw value and is not by itself atomic. It's publically available because this library aims to follow the Data Oriented approach to programming. If you need to, you can directly work with this data manually.
             *
-            * @warning
-            *   You should only access this if you know what you're doing. Otherwise, you should use the methods, casts, and operators defined on the class.
+            * @copydoc _cba26a61_2c51_4e87_90c7_26cb873a083d
             */
 
         // objects

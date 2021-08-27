@@ -296,3 +296,21 @@
 * 
 * @par
 */
+
+// Warning about using a usually private value
+/**
+* @class _cba26a61_2c51_4e87_90c7_26cb873a083d
+* @private
+* 
+* @warning
+*   You should only access this if you know what you're doing. Otherwise, you should use the methods, casts, and operators defined for the class.
+*/
+
+// Warning about using a usually private value through cast
+/**
+* @class _80a093e0_e0e5_4e31_ae14_915759c06011
+* @private
+* 
+* @details
+*   Use this only if you need to change the value directly. This is provided so that `reinterpret_cast` need not be used, which in the event that the footprint for this type changes, could potentially end up breaking code. There are legitimate uses for this, such as with nkr::atomic_t, which must treat the underlying type for what it is. Use with care.
+*/

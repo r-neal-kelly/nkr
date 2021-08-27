@@ -30,6 +30,11 @@
         * @class _9eefd4d6_1786_42ec_970a_c16c9bde2d42
         * @private
         * 
+        * @details
+        *   Although this is protected, you can still directly change the underlying value through the cast operators.
+        * 
+        * @copydoc _cba26a61_2c51_4e87_90c7_26cb873a083d
+        * 
         * @snippet "./src/bool_t.cpp" _a89a1659_6cb8_4255_a6da_a2c1e5869af4
         * @snippet "./src/bool_t.cpp" _7d5433ff_7c1f_4566_b1ab_55367dfb36b8
         */
@@ -179,6 +184,8 @@
         * @class _4d0e7d29_353a_459f_89af_e11de2f19eea
         * @private
         * 
+        * @copydoc _80a093e0_e0e5_4e31_ae14_915759c06011
+        * 
         * @snippet "./src/bool_t.cpp" _dfb57b0b_8471_44f7_9333_166571f405ae
         */
 
@@ -194,6 +201,8 @@
         /**
         * @class _64e5638b_29ea_4e16_bde9_bfddde8c22b2
         * @private
+        * 
+        * @copydoc _80a093e0_e0e5_4e31_ae14_915759c06011
         * 
         * @snippet "./src/bool_t.cpp" _7acf2bea_986a_4fea_ac75_b69447b0b864
         */

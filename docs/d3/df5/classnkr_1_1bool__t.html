@@ -818,6 +818,7 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
+<p >Use this only if you need to change the value directly. This is provided so that <code>reinterpret_cast</code> need not be used, which in the event that the footprint for this type changes, could potentially end up breaking code. There are legitimate uses for this, such as with <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a>, which must treat the underlying type for what it is. Use with care.</p>
 <div class="fragment"><div class="line">                <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>(<span class="keywordtype">boolean</span>) == 1);</div>
 <div class="line"> </div>
@@ -888,6 +889,7 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
+<p >Use this only if you need to change the value directly. This is provided so that <code>reinterpret_cast</code> need not be used, which in the event that the footprint for this type changes, could potentially end up breaking code. There are legitimate uses for this, such as with <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a>, which must treat the underlying type for what it is. Use with care.</p>
 <div class="fragment"><div class="line">                <span class="keyword">volatile</span> <a class="code hl_function" href="../../d3/df5/classnkr_1_1bool__t.html#a3bd9827b32ce3a1fb7edc4e1c11d2ca8">bool_t</a> boolean(<span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>(<span class="keywordtype">boolean</span>) == 1);</div>
 <div class="line"> </div>
@@ -1190,6 +1192,8 @@ $(document).ready(function(){initNavTree('d3/df5/classnkr_1_1bool__t.html','../.
 </div><div class="memdoc">
 
 <p></p>
+<p >Although this is protected, you can still directly change the underlying value through the cast operators.</p>
+<dl class="section warning"><dt>Warning</dt><dd>You should only access this if you know what you're doing. Otherwise, you should use the methods, casts, and operators defined for the class.</dd></dl>
 <div class="fragment"><div class="line">            <span class="keyword">template</span> &lt;<span class="keyword">typename</span> type_t&gt;</div>
 <div class="line">            <span class="keyword">concept </span>accessible_value_tr = <span class="keyword">requires</span>(type_t instance)</div>
 <div class="line">            {</div>
