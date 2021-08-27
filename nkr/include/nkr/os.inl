@@ -479,3 +479,98 @@ namespace nkr { namespace os { namespace endian {
 #endif
 
 }}}
+
+namespace nkr { namespace os { namespace heap {
+
+#if defined(nkr_IS_WINDOWS)
+
+    // since C++11 using errno is thread-safe.
+    
+    // most of these calls are standard, but we're currently wrapping them
+    // until I know for sure that we don't need to handle them differently,
+    // on other systems.
+
+    inline bool_t Allocate(sized_tr auto*& units, count_t unit_count)
+    {
+        using units_t = std::remove_reference_t<decltype(units)>;
+        using unit_t = std::remove_pointer_t<units_t>;
+
+        assert(unit_count > 0);
+
+        errno = 0;
+        units = static_cast<units_t>(::malloc(unit_count * sizeof(unit_t)));
+        if (errno == 0) {
+            return true;
+        } else {
+            units = nullptr;
+            return false;
+        }
+    }
+
+    inline bool_t Reallocate(sized_tr auto*& units, count_t new_unit_count)
+    {
+        using units_t = std::remove_reference_t<decltype(units)>;
+        using unit_t = std::remove_pointer_t<units_t>;
+
+        assert(new_unit_count > 0);
+
+        errno = 0;
+        units_t new_units = static_cast<units_t>(::realloc(units, new_unit_count * sizeof(unit_t)));
+        if (errno == 0) {
+            units = new_units;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    inline void_t Deallocate(sized_tr auto*& units)
+    {
+        if (units != nullptr) {
+            ::free(units);
+            units = nullptr;
+        }
+    }
+
+    inline bool_t Allocate_Zeros(sized_tr auto*& units, count_t unit_count)
+    {
+        using units_t = std::remove_reference_t<decltype(units)>;
+        using unit_t = std::remove_pointer_t<units_t>;
+
+        assert(unit_count > 0);
+
+        errno = 0;
+        units = static_cast<units_t>(::calloc(unit_count, sizeof(unit_t)));
+        if (errno == 0) {
+            return true;
+        } else {
+            units = nullptr;
+            return false;
+        }
+    }
+
+    inline bool_t Reallocate_Zeros(sized_tr auto*& units, count_t new_unit_count)
+    {
+        using units_t = std::remove_reference_t<decltype(units)>;
+        using unit_t = std::remove_pointer_t<units_t>;
+
+        assert(new_unit_count > 0);
+
+        errno = 0;
+        units_t new_units = static_cast<units_t>(::_recalloc(units, new_unit_count, sizeof(unit_t)));
+        if (errno == 0) {
+            units = new_units;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    inline void_t Deallocate_Zeros(sized_tr auto*& units)
+    {
+        return Deallocate(units);
+    }
+
+#endif
+
+}}}

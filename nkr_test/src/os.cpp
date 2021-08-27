@@ -1432,95 +1432,101 @@ namespace nkr { namespace os { namespace heap {
 
     TEST_SUITE("Allocate")
     {
-        TEST_CASE("should allocate heap memory or return nullptr if it can't")
+        TEST_CASE("should allocate heap memory, set pointer, and return true, or set nullptr and return false")
         {
-            byte_t* bytes = os::heap::Allocate(0xFF);
-            CHECK(bytes != nullptr);
+            word_t* words = nullptr;
+            CHECK(os::heap::Allocate(words, 0xFF));
+            CHECK(words != nullptr);
 
-            wprintf(L"%s", bytes[0xFF - 1] == 1 ? L"\u0001" : L"\u0000");
-            CHECK(true);
+            word_t* too_many = nullptr;
+            CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max()) == false);
+            CHECK(too_many == nullptr);
 
-            byte_t* too_much = os::heap::Allocate(std::numeric_limits<count_t>::max());
-            CHECK(too_much == nullptr);
-
-            os::heap::Deallocate(bytes);
+            os::heap::Deallocate(words);
         }
     }
 
     TEST_SUITE("Reallocate")
     {
-        TEST_CASE("should reallocate heap memory, set bytes, and return true, else leave bytes and return false")
+        TEST_CASE("should reallocate heap memory, set pointer, and return true, else leave pointer and return false")
         {
-            byte_t* bytes = os::heap::Allocate(0xFF);
-            CHECK(os::heap::Reallocate(bytes, 0xFFFF) == true);
+            word_t* words = nullptr;
+            os::heap::Allocate(words, 0xFF);
+            CHECK(os::heap::Reallocate(words, 0x100) == true);
+            CHECK(words != nullptr);
 
-            wprintf(L"%s", bytes[0xFFFF - 1] == 1 ? L"\u0001" : L"\u0000");
-            CHECK(true);
+            word_t* backup = words;
+            CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max()) == false);
+            CHECK(words == backup);
 
-            byte_t* bytes_backup = bytes;
-            CHECK(os::heap::Reallocate(bytes, std::numeric_limits<count_t>::max()) == false);
-            CHECK(bytes == bytes_backup);
-
-            os::heap::Deallocate(bytes);
+            os::heap::Deallocate(words);
         }
     }
 
     TEST_SUITE("Deallocate")
     {
-        TEST_CASE("should deallocate heap memory and set bytes to nullptr")
+        TEST_CASE("should deallocate heap memory and set pointer to nullptr, or if pointer is nullptr, silently fail")
         {
-            byte_t* bytes = os::heap::Allocate(0xFF);
-            CHECK(bytes != nullptr);
+            word_t* words = nullptr;
+            os::heap::Allocate(words, 0xFF);
+            os::heap::Deallocate(words);
+            CHECK(words == nullptr);
 
-            os::heap::Deallocate(bytes);
-            CHECK(bytes == nullptr);
+            os::heap::Deallocate(words);
+            CHECK(words == nullptr);
         }
     }
 
     TEST_SUITE("Allocate_Zeros")
     {
-        TEST_CASE("should allocate heap memory and set to zero or return nullptr if it can't")
+        TEST_CASE("should allocate heap memory, set pointer, set memory to zero, and return true, or set nullptr and return false")
         {
-            byte_t* bytes = os::heap::Allocate_Zeros(0xFF);
-            CHECK(bytes != nullptr);
+            word_t* words = nullptr;
+            CHECK(os::heap::Allocate_Zeros(words, 0xFF));
+            CHECK(words != nullptr);
             for (index_t idx = 0, end = 0xFF; idx < end; idx += 1) {
-                WARN(bytes[idx] == 0);
+                WARN(words[idx] == 0);
             }
 
-            byte_t* too_much = os::heap::Allocate_Zeros(std::numeric_limits<count_t>::max());
-            CHECK(too_much == nullptr);
+            word_t* too_many = nullptr;
+            CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max()) == false);
+            CHECK(too_many == nullptr);
 
-            os::heap::Deallocate_Zeros(bytes);
+            os::heap::Deallocate_Zeros(words);
         }
     }
 
     TEST_SUITE("Reallocate_Zeros")
     {
-        TEST_CASE("should reallocate heap memory, set to zero, set bytes, and return true, else leave bytes and return false")
+        TEST_CASE("should reallocate heap memory, set pointer, set memory to zero, and return true, else leave pointer and return false")
         {
-            byte_t* bytes = os::heap::Allocate_Zeros(0xFF);
-            CHECK(os::heap::Reallocate_Zeros(bytes, 0xFFFF) == true);
-            for (index_t idx = 0, end = 0xFFFF; idx < end; idx += 1) {
-                WARN(bytes[idx] == 0);
+            word_t* words = nullptr;
+            os::heap::Allocate_Zeros(words, 0xFF);
+            CHECK(os::heap::Reallocate_Zeros(words, 0x100) == true);
+            CHECK(words != nullptr);
+            for (index_t idx = 0, end = 0x100; idx < end; idx += 1) {
+                WARN(words[idx] == 0);
             }
 
-            byte_t* bytes_backup = bytes;
-            CHECK(os::heap::Reallocate_Zeros(bytes, std::numeric_limits<count_t>::max()) == false);
-            CHECK(bytes == bytes_backup);
+            word_t* backup = words;
+            CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max()) == false);
+            CHECK(words == backup);
 
-            os::heap::Deallocate_Zeros(bytes);
+            os::heap::Deallocate_Zeros(words);
         }
     }
 
     TEST_SUITE("Deallocate_Zeros")
     {
-        TEST_CASE("should deallocate heap memory and set bytes to nullptr")
+        TEST_CASE("should deallocate heap memory and set pointer to nullptr, or if pointer is nullptr, silently fail")
         {
-            byte_t* bytes = os::heap::Allocate_Zeros(0xFF);
-            CHECK(bytes != nullptr);
+            word_t* words = nullptr;
+            os::heap::Allocate_Zeros(words, 0xFF);
+            os::heap::Deallocate_Zeros(words);
+            CHECK(words == nullptr);
 
-            os::heap::Deallocate_Zeros(bytes);
-            CHECK(bytes == nullptr);
+            os::heap::Deallocate_Zeros(words);
+            CHECK(words == nullptr);
         }
     }
 

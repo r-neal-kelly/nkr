@@ -64,11 +64,11 @@ var namespacenkr_1_1os =
       [ "Swap", "d8/dd5/namespacenkr_1_1os_1_1endian.html#a45b2740f8b5f3c706751240c05d3622f", null ]
     ] ],
     [ "heap", "d0/d97/namespacenkr_1_1os_1_1heap.html", [
-      [ "Allocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#a9099c1e3b4fef5138d9050bc9eb64175", null ],
-      [ "Reallocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#a6bc8b91e11071847eea4b6116bba2b57", null ],
-      [ "Deallocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#ac2547dacbc3a2259d2b1f55ea0508495", null ],
-      [ "Allocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#ab50ba4a90f8d9eaa0219c62fa9fb623d", null ],
-      [ "Reallocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#ab6e921144fedd5bddf2d85c71e1794bf", null ],
-      [ "Deallocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#a3cdfba43ee9cf5a050ecb20fe82f5bb4", null ]
+      [ "Allocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#ac44ba22720c7c5b567ff94ffa0d412bc", null ],
+      [ "Reallocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#ade8929adfbbaf374363da10062f083da", null ],
+      [ "Deallocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#a986503210b849483665871e51a404313", null ],
+      [ "Allocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#a3c5e7b605e2fd9651119b26ecc56d02c", null ],
+      [ "Reallocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#a93d6bf390172f2aa77ba1a999fe173b2", null ],
+      [ "Deallocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#a4806fbdc4310306254b2a6e1182c0add", null ]
     ] ]
 ];

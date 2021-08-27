@@ -68,8 +68,8 @@ var NAVTREEINDEX =
 "annotated.html",
 "d3/df5/classnkr_1_1bool__t.html#a93aa6f72e772650cc7f80acb089d5a05",
 "d7/dc6/conceptnkr_1_1none__i.html",
-"db/def/conceptnkr_1_1pointer__tr.html",
-"index.html#autotoc_md0"
+"db/db0/conceptnkr_1_1allocator__i.html",
+"globals.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -56,5 +56,11 @@ var os_8inl =
     [ "Exchange_Xor", "da/de1/os_8inl.html#a85aa20a92bdd6881b1423a0b5c097369", null ],
     [ "Swap", "da/de1/os_8inl.html#af06d231600a804944e318386b0ebb55e", null ],
     [ "Swap", "da/de1/os_8inl.html#ab2b2b7f85673e867cec03c9d31668567", null ],
-    [ "Swap", "da/de1/os_8inl.html#a45b2740f8b5f3c706751240c05d3622f", null ]
+    [ "Swap", "da/de1/os_8inl.html#a45b2740f8b5f3c706751240c05d3622f", null ],
+    [ "Allocate", "da/de1/os_8inl.html#ac44ba22720c7c5b567ff94ffa0d412bc", null ],
+    [ "Reallocate", "da/de1/os_8inl.html#ade8929adfbbaf374363da10062f083da", null ],
+    [ "Deallocate", "da/de1/os_8inl.html#a986503210b849483665871e51a404313", null ],
+    [ "Allocate_Zeros", "da/de1/os_8inl.html#a3c5e7b605e2fd9651119b26ecc56d02c", null ],
+    [ "Reallocate_Zeros", "da/de1/os_8inl.html#a93d6bf390172f2aa77ba1a999fe173b2", null ],
+    [ "Deallocate_Zeros", "da/de1/os_8inl.html#a4806fbdc4310306254b2a6e1182c0add", null ]
 ];

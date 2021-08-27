@@ -18,8 +18,6 @@
 /// @copydoc doc_nkr
 namespace nkr {
 
-    static_assert(CHAR_BIT == 8, "This library requires that there be 8 bits in a byte.");
-
     /// @ingroup intrinsic_hints
     /// @{
 #if _WIN64 || _WIN32

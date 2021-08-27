@@ -307,29 +307,34 @@
     *   Functions that interface with memory located on the heap.
     */
 
+        // allocation
         /**
-        * @class doc_nkr_os_heap_group_allocation
+        * @class _30c0ffe4_d85f_45e5_ab29_bd3f18629cb9
         * @private
         *
         * @brief
         *   Borrow a certain amount of memory from the heap. Use it, expand it, and give it back.
         */
 
+            // Allocate()
             /**
-            * @class doc_nkr_os_heap_Allocate
+            * @class _52a0d839_49c8_4d77_93b1_353137fecd3b
             * @private
             *
             * @brief
             *   Gives you memory to use until you deallocate it or your program exits.
             * 
-            * @param byte_count
-            *   must be greater than zero.
+            * @param units
+            *   is the pointer that may be set to point to the allocated memory.
+            * 
+            * @param unit_count
+            *   is the number of units (type instances) that will be allocated. It must be greater than zero.
             *
             * @returns
-            *   a pointer to the allocated bytes when it succeeds.
-            *
+            *   `true` if it succeeds, setting units to the allocated pointer.
+            * 
             * @returns
-            *   a `nullptr` when it fails.
+            *   `false` if it fails, setting units to `nullptr`.
             * 
             * @details
             *   There are a few limitations to the number of bytes you can allocate depending on:
@@ -342,72 +347,79 @@
             *   At most the largest number of bytes you will be able to allocate is the max number that can fit in an nkr::count_t (an alias of nkr::word_t). If you are running on a 32 bit processor you will only be able to allocate one byte shy of 4gb, which is no where near the amount of memory you can allocate on a 64 bit processor. Furthermore, limitations may come into play depending on the operating system, which may significantly decrease that amount even further.
             */
 
+            // Reallocate()
             /**
-            * @class doc_nkr_os_heap_Reallocate
+            * @class _06fa627b_ba42_4b70_b0dd_66146e6d863a
             * @private
             *
             * @brief
             *   Gives you more memory while keeping all your data intact.
             *
-            * @param bytes
-            *   should be a pointer returned by nkr::os::heap::Allocate. When successful, it will be set to a new pointer if necessary, or else it will be left unchanged.
+            * @param units
+            *   should be a pointer set by nkr::os::heap::Allocate or nkr::os::heap::Reallocate. When successful, it will be set to a new pointer if necessary, or else it will be left unchanged.
             *
-            * @param new_byte_count
-            *   must be greater than zero.
-            *
-            * @returns
-            *   `true` when it succeeds.
+            * @param new_unit_count
+            *   is the total number of units (type instances) that may be allocated after this function returns. It should be the total size you want the memory to be. It must be greater than zero.
             *
             * @returns
-            *   `false` when it fails.
+            *   `true` if it succeeds, setting units to a different allocated pointer if necessary, else leaving it alone.
+            *
+            * @returns
+            *   `false` when it fails, leaving units alone.
             *
             * @details
-            *   This will allocate more memory for you if `new_byte_count` is greater than the currently allocated `byte_count`, which is stored internally in the operating system. Otherwise, it will simply return as if it had succeeded, with no changes to `bytes`. See nkr::os::heap::Allocate for more details about allocation generally.
+            *   This will allocate more memory for you if the new count is greater than the currently allocated count. Otherwise, it will simply return as if it had succeeded, with no changes to the pointer. See nkr::os::heap::Allocate for more details about allocation generally.
             *
             * @note
-            *   This cannot shrink the memory you allocate, but some higher level types in the library can by request.
+            *   This cannot shrink the memory you allocate, but some higher level types in the library may by request.
             *
             * @todo
-            *   Maybe return an enum_t to indicate different kinds of failures, at least on Windows.
+            *   Maybe return an enum_t to indicate different kinds of failures, at least on Windows?
             */
 
+            // Deallocate()
             /**
-            * @class doc_nkr_os_heap_Deallocate
+            * @class _de0237bf_9b0a_47fc_a5ab_99f21504f570
             * @private
             *
             * @brief
             *   Takes back memory you no longer need so it can be reused later.
             *
-            * @param bytes
-            *   should be a pointer returned by nkr::os::heap::Allocate. It will be set to `nullptr` after deallocation.
+            * @param units
+            *   should be a pointer set by nkr::os::heap::Allocate or nkr::os::heap::Reallocate. It will be set to `nullptr` after deallocation. If it is already `nullptr`, the function returns as if it was already successful.
             *
             * @details
             *   When using these functions, memory will never be deallocated automatically for you like it is in some higher level types. You will have to manually deallocate every pointer you allocate, or else you may unexpectedly run out of memory. Regardless, the operating system will deallocate everything that has not already been deallocated when your program exits.
             */
 
+        // zero-initialized allocation
         /**
-        * @class doc_nkr_os_heap_group_allocation_zero
+        * @class _eca47636_431b_4d2a_a102_679075b3cf17
         * @private
         *
         * @brief
         *   A variant of regular allocation, all the values in your memory will be initialized to zero.
         */
 
+            // Allocate_Zeros()
             /**
-            * @class doc_nkr_os_heap_Allocate_Zeros
+            * @class _9c5a7296_5644_47bf_bd3f_ff7de3518ce9
             * @private
             *
             * @brief
             *   Gives you zero-initialized memory to use until your program exits.
             *
-            * @param byte_count
-            *   must be greater than zero.
+            * @param units
+            *   is the pointer that may be set to point to the allocated memory.
+            * 
+            * @param unit_count
+            *   is the number of units (type instances) that will be allocated. It must be greater than zero.
             *
             * @returns
-            *   a pointer to the allocated zero-initialized bytes when it succeeds.
-            *
+            *   `true` if it succeeds, setting units to the allocated pointer.
+            * 
             * @returns
-            *   a `nullptr` when it fails.
+            *   `false` if it fails, setting units to `nullptr`.
             *
             * @details
             *   This uses an efficient operating system dependent algorithm to avoid zeroing out all values during runtime. Normally the os will keep pages of zero initialized bytes ready for allocation and it will only need to initialize them on the occasion that it doesn't have any of those pages readily available. Please see nkr::os::heap::Allocate for more details.
@@ -416,38 +428,40 @@
             *   The returned pointer can be used with nkr::os::heap::Reallocate to allocate more memory but without it being zero-intialized, and nkr::os::heap::Deallocate to free the memory. Both of these are currently frowned upon because they may not work in future updates or on certain operating systems.
             */
 
+            // Reallocate_Zeros()
             /**
-            * @class doc_nkr_os_heap_Reallocate_Zeros
+            * @class _7d7887a0_3e2d_4502_af8c_d409aae73f0b
             * @private
             * 
             * @brief
             *   Gives you more zero-initialized memory while keeping all your data intact.
             *
-            * @param bytes
-            *   should be a pointer returned by nkr::os::heap::Allocate_Zeros. When successful, it will be set to a new pointer if necessary, or else it will be left unchanged.
+            * @param units
+            *   should be a pointer set by nkr::os::heap::Allocate_Zeros or nkr::os::heap::Reallocate_Zeros. When successful, it will be set to a new pointer if necessary, or else it will be left unchanged.
             *
-            * @param new_byte_count
-            *   must be greater than zero.
-            *
-            * @returns
-            *   `true` when it succeeds.
+            * @param new_unit_count
+            *   is the total number of units (type instances) that may be allocated after this function returns. It should be the total size you want the memory to be. It must be greater than zero.
             *
             * @returns
-            *   `false` when it fails.
+            *   `true` if it succeeds, setting units to a different allocated pointer if necessary, else leaving it alone.
+            *
+            * @returns
+            *   `false` when it fails, leaving units alone.
             *
             * @details
             *   Please see nkr::os::heap::Reallocate for more details.
             */
 
+            // Deallocate_Zeros()
             /**
-            * @class doc_nkr_os_heap_Deallocate_Zeros
+            * @class _04d9a3fe_30b3_4ae2_bbc4_2a3cfc4768d6
             * @private
             * 
             * @brief
             *   Takes back memory you no longer need so it can be reused later.
             *
-            * @param bytes
-            *   should be a pointer returned by nkr::os::heap::Allocate_Zeros. It will be set to `nullptr` after deallocation.
+            * @param units
+            *   should be a pointer set by nkr::os::heap::Allocate_Zeros or nkr::os::heap::Reallocate_Zeros. It will be set to `nullptr` after deallocation. If it is already `nullptr`, the function returns as if it was already successful.
             *
             * @details
             *   Please see nkr::os::heap::Deallocate for more details.
