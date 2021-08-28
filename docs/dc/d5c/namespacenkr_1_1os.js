@@ -106,12 +106,7 @@ var namespacenkr_1_1os =
       [ "Exchange_If_Equals", "d1/db5/namespacenkr_1_1os_1_1atomic.html#ad7aa972e4e6f40da9bafb9a29733288c", null ],
       [ "Exchange_If_Equals", "d1/db5/namespacenkr_1_1os_1_1atomic.html#ad871ec247be70ebdf7ee054078c8ebd3", null ],
       [ "Exchange_If_Equals", "d1/db5/namespacenkr_1_1os_1_1atomic.html#ae2a1f4930d26514873c22ffdd0e9a2e5", null ],
-      [ "Exchange_If_Equals", "d1/db5/namespacenkr_1_1os_1_1atomic.html#a10ffed54ca99f01489ca0e9e9ea9aedd", null ],
-      [ "Access_Multiply", "d1/db5/namespacenkr_1_1os_1_1atomic.html#acd7eade769f13bb1692ea9d4f752527b", null ],
-      [ "Access_Multiply", "d1/db5/namespacenkr_1_1os_1_1atomic.html#a90177e34249765f84d5f4f3bc65538b8", null ],
-      [ "Access_Divide", "d1/db5/namespacenkr_1_1os_1_1atomic.html#a6fabe4a6b4618ada969fb6d83591cb61", null ],
-      [ "Access_Divide", "d1/db5/namespacenkr_1_1os_1_1atomic.html#a0c0ea38feb408b51b6b9432a17f6cb15", null ],
-      [ "Access_Modulus", "d1/db5/namespacenkr_1_1os_1_1atomic.html#a4f0e285ff695ec4309fdeba3083466b7", null ]
+      [ "Exchange_If_Equals", "d1/db5/namespacenkr_1_1os_1_1atomic.html#a10ffed54ca99f01489ca0e9e9ea9aedd", null ]
     ] ],
     [ "endian", "d8/dd5/namespacenkr_1_1os_1_1endian.html", [
       [ "Is_Big", "d8/dd5/namespacenkr_1_1os_1_1endian.html#a89b0021664e965fce2548f80d51925dc", null ],

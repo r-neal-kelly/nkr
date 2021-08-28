@@ -19,108 +19,136 @@ namespace nkr { namespace os { namespace atomic {
         {
             TEST_CASE("bool_t")
             {
+                /// [_3238c9b6_810a_4359_9efa_89f92fd365ef]
                 bool_t boolean = false;
                 bool_t access = nkr::os::atomic::Access(boolean);
                 CHECK(nkr::os::atomic::Access(boolean) == access);
                 CHECK(nkr::os::atomic::Access(boolean) == false);
+                /// [_3238c9b6_810a_4359_9efa_89f92fd365ef]
             }
             TEST_CASE("std_bool_t")
             {
+                /// [_c8da39aa_8f8f_4011_a481_167533351c72]
                 std_bool_t boolean = false;
                 std_bool_t access = nkr::os::atomic::Access(boolean);
                 CHECK(nkr::os::atomic::Access(boolean) == access);
                 CHECK(nkr::os::atomic::Access(boolean) == false);
+                /// [_c8da39aa_8f8f_4011_a481_167533351c72]
             }
             TEST_CASE("u8_t")
             {
+                /// [_08f69e89_8a87_46ac_b2be_acd825b948f5]
                 u8_t u8 = 8;
                 u8_t access = nkr::os::atomic::Access(u8);
                 CHECK(nkr::os::atomic::Access(u8) == access);
                 CHECK(nkr::os::atomic::Access(u8) == 8);
+                /// [_08f69e89_8a87_46ac_b2be_acd825b948f5]
             }
             TEST_CASE("u16_t")
             {
+                /// [_7e52c0a5_32cb_4b12_ac9f_b5cb49240274]
                 u16_t u16 = 16;
                 u16_t access = nkr::os::atomic::Access(u16);
                 CHECK(nkr::os::atomic::Access(u16) == access);
                 CHECK(nkr::os::atomic::Access(u16) == 16);
+                /// [_7e52c0a5_32cb_4b12_ac9f_b5cb49240274]
             }
             TEST_CASE("u32_t")
             {
+                /// [_04ee7397_965b_4041_be9e_708a89f62a5a]
                 u32_t u32 = 32;
                 u32_t access = nkr::os::atomic::Access(u32);
                 CHECK(nkr::os::atomic::Access(u32) == access);
                 CHECK(nkr::os::atomic::Access(u32) == 32);
+                /// [_04ee7397_965b_4041_be9e_708a89f62a5a]
             }
             TEST_CASE("u64_t")
             {
             #if defined(nkr_IS_64_BIT)
+                /// [_34ad7375_d81b_4dd7_9b71_0414d9c0f5c5]
                 u64_t u64 = 64;
                 u64_t access = nkr::os::atomic::Access(u64);
                 CHECK(nkr::os::atomic::Access(u64) == access);
                 CHECK(nkr::os::atomic::Access(u64) == 64);
+                /// [_34ad7375_d81b_4dd7_9b71_0414d9c0f5c5]
             #endif
             }
             TEST_CASE("s8_t")
             {
+                /// [_29ed1245_2598_46ef_9bfe_0b73ca7e55b7]
                 s8_t s8 = -8;
                 s8_t access = nkr::os::atomic::Access(s8);
                 CHECK(nkr::os::atomic::Access(s8) == access);
                 CHECK(nkr::os::atomic::Access(s8) == -8);
+                /// [_29ed1245_2598_46ef_9bfe_0b73ca7e55b7]
             }
             TEST_CASE("s16_t")
             {
+                /// [_35425ec6_018f_4119_b5f9_13803165ea8c]
                 s16_t s16 = -16;
                 s16_t access = nkr::os::atomic::Access(s16);
                 CHECK(nkr::os::atomic::Access(s16) == access);
                 CHECK(nkr::os::atomic::Access(s16) == -16);
+                /// [_35425ec6_018f_4119_b5f9_13803165ea8c]
             }
             TEST_CASE("s32_t")
             {
+                /// [_42820a17_fd2b_4ee4_8a56_7b3f7d1c8693]
                 s32_t s32 = -32;
                 s32_t access = nkr::os::atomic::Access(s32);
                 CHECK(nkr::os::atomic::Access(s32) == access);
                 CHECK(nkr::os::atomic::Access(s32) == -32);
+                /// [_42820a17_fd2b_4ee4_8a56_7b3f7d1c8693]
             }
             TEST_CASE("s64_t")
             {
             #if defined(nkr_IS_64_BIT)
+                /// [_c2dbe569_37b0_4573_8745_031b9ed85df7]
                 s64_t s64 = -64;
                 s64_t access = nkr::os::atomic::Access(s64);
                 CHECK(nkr::os::atomic::Access(s64) == access);
                 CHECK(nkr::os::atomic::Access(s64) == -64);
+                /// [_c2dbe569_37b0_4573_8745_031b9ed85df7]
             #endif
             }
             TEST_CASE("f32_t")
             {
+                /// [_20fdaaf3_07c1_4089_9a24_4e397b0a69d3]
                 f32_t f32 = 3.2f;
                 f32_t access = nkr::os::atomic::Access(f32);
                 CHECK(nkr::os::atomic::Access(f32) == access);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f);
+                /// [_20fdaaf3_07c1_4089_9a24_4e397b0a69d3]
             }
             TEST_CASE("f64_t")
             {
             #if defined(nkr_IS_64_BIT)
+                /// [_47df9d0d_8512_484e_9b3c_f2d595a3446a]
                 f64_t f64 = 6.4;
                 f64_t access = nkr::os::atomic::Access(f64);
                 CHECK(nkr::os::atomic::Access(f64) == access);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4);
+                /// [_47df9d0d_8512_484e_9b3c_f2d595a3446a]
             #endif
             }
             TEST_CASE("void_t*")
             {
+                /// [_4e3e00da_6965_4bb2_a0c6_657b6431c27c]
                 void_t* void_pointer = nullptr;
                 void_t* access = nkr::os::atomic::Access(void_pointer);
                 CHECK(nkr::os::atomic::Access(void_pointer) == access);
                 CHECK(nkr::os::atomic::Access(void_pointer) == nullptr);
+                /// [_4e3e00da_6965_4bb2_a0c6_657b6431c27c]
             }
             TEST_CASE("bool_t*")
             {
+                /// [_a9d44556_1f4a_4e9c_bfe7_04e92348429f]
                 bool_t boolean = false;
                 bool_t* boolean_pointer = &boolean;
                 bool_t* access = nkr::os::atomic::Access(boolean_pointer);
                 CHECK(nkr::os::atomic::Access(boolean_pointer) == access);
                 CHECK(nkr::os::atomic::Access(boolean_pointer) == &boolean);
+                /// [_a9d44556_1f4a_4e9c_bfe7_04e92348429f]
             }
         }
     }

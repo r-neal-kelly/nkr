@@ -93,35 +93,35 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Access(atom)) - with;
     }
 
-    integer_tr auto Access_Multiply(volatile integer_tr auto& atom, integer_tr auto with)
+    integer_tr auto Access_Multiply(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
         return static_cast<atom_t>(Access(atom) * with);
     }
 
-    float_tr auto Access_Multiply(volatile float_tr auto& atom, float_tr auto with)
+    float_tr auto Access_Multiply(const volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
         return static_cast<atom_t>(Access(atom) * with);
     }
 
-    integer_tr auto Access_Divide(volatile integer_tr auto& atom, integer_tr auto with)
+    integer_tr auto Access_Divide(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
         return static_cast<atom_t>(Access(atom) / with);
     }
 
-    float_tr auto Access_Divide(volatile float_tr auto& atom, float_tr auto with)
+    float_tr auto Access_Divide(const volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
         return static_cast<atom_t>(Access(atom) / with);
     }
 
-    integer_tr auto Access_Modulus(volatile integer_tr auto& atom, integer_tr auto with)
+    integer_tr auto Access_Modulus(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
