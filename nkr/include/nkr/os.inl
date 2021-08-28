@@ -1061,6 +1061,7 @@ namespace nkr { namespace os { namespace heap {
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(unit_count > 0);
+        assert(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
         units = static_cast<units_t>(::malloc(unit_count * sizeof(unit_t)));
@@ -1078,6 +1079,7 @@ namespace nkr { namespace os { namespace heap {
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(new_unit_count > 0);
+        assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
         units_t new_units = static_cast<units_t>(::realloc(units, new_unit_count * sizeof(unit_t)));
@@ -1103,6 +1105,7 @@ namespace nkr { namespace os { namespace heap {
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(unit_count > 0);
+        assert(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
         units = static_cast<units_t>(::calloc(unit_count, sizeof(unit_t)));
@@ -1120,6 +1123,7 @@ namespace nkr { namespace os { namespace heap {
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(new_unit_count > 0);
+        assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
         units_t new_units = static_cast<units_t>(::_recalloc(units, new_unit_count, sizeof(unit_t)));

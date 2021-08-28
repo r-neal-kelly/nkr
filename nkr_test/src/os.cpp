@@ -3396,7 +3396,7 @@ namespace nkr { namespace os { namespace heap {
             CHECK(words != nullptr);
 
             word_t* too_many = nullptr;
-            CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max()) == false);
+            CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
             CHECK(too_many == nullptr);
 
             os::heap::Deallocate(words);
@@ -3415,7 +3415,7 @@ namespace nkr { namespace os { namespace heap {
             CHECK(words != nullptr);
 
             word_t* backup = words;
-            CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max()) == false);
+            CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
             CHECK(words == backup);
 
             os::heap::Deallocate(words);
@@ -3452,7 +3452,7 @@ namespace nkr { namespace os { namespace heap {
             }
 
             word_t* too_many = nullptr;
-            CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max()) == false);
+            CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
             CHECK(too_many == nullptr);
 
             os::heap::Deallocate_Zeros(words);
@@ -3474,7 +3474,7 @@ namespace nkr { namespace os { namespace heap {
             }
 
             word_t* backup = words;
-            CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max()) == false);
+            CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
             CHECK(words == backup);
 
             os::heap::Deallocate_Zeros(words);
