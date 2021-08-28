@@ -39,6 +39,7 @@ var namespacenkr =
     [ "float_32_tr", "dc/d5d/conceptnkr_1_1float__32__tr.html", null ],
     [ "float_64_tr", "d0/d10/conceptnkr_1_1float__64__tr.html", null ],
     [ "pointer_tr", "db/def/conceptnkr_1_1pointer__tr.html", null ],
+    [ "type_pointer_tr", "d7/dd1/conceptnkr_1_1type__pointer__tr.html", null ],
     [ "built_in_tr", "d7/d72/conceptnkr_1_1built__in__tr.html", null ],
     [ "user_defined_tr", "d0/dc7/conceptnkr_1_1user__defined__tr.html", null ],
     [ "same_or_base_of_tr", "dc/d2f/conceptnkr_1_1same__or__base__of__tr.html", null ],

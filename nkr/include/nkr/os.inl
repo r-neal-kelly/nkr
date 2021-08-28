@@ -55,42 +55,42 @@ namespace nkr { namespace os { namespace atomic {
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) + static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) + with);
     }
 
     inline float_tr auto Access_Add(const volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) + static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) + with);
     }
 
-    inline pointer_tr auto Access_Add(const volatile pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Access_Add(const volatile type_pointer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) + with;
+        return static_cast<atom_t>(Access(atom) + with);
     }
 
     inline integer_tr auto Access_Subtract(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) - static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) - with);
     }
 
     inline float_tr auto Access_Subtract(const volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) - static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) - with);
     }
 
-    inline pointer_tr auto Access_Subtract(const volatile pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Access_Subtract(const volatile type_pointer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) - with;
+        return static_cast<atom_t>(Access(atom) - with);
     }
 
     integer_tr auto Access_Multiply(const volatile integer_tr auto& atom, integer_tr auto with)
@@ -132,105 +132,105 @@ namespace nkr { namespace os { namespace atomic {
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) | static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) | with);
     }
 
     inline integer_tr auto Access_And(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) & static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) & with);
     }
 
     inline integer_tr auto Access_Xor(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) ^ static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) ^ with);
     }
 
     inline integer_tr auto Access_Left_Shift(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) << static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) << with);
     }
 
     inline integer_tr auto Access_Right_Shift(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Access(atom)) >> static_cast<atom_t>(with);
+        return static_cast<atom_t>(Access(atom) >> with);
     }
 
     inline boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(atom, with)), static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange(atom, with), with);
     }
 
     inline integer_tr auto Assign(volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(atom, with)), static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange(atom, with), with);
     }
 
     inline float_tr auto Assign(volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(atom, with)), static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange(atom, with), with);
     }
 
     inline pointer_tr auto Assign(volatile pointer_tr auto& atom, pointer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(atom, with)), static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange(atom, with), with);
     }
 
     inline integer_tr auto Assign_Add(volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Add(atom, with)) + static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_Add(atom, with) + with);
     }
 
     inline float_tr auto Assign_Add(volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Add(atom, with)) + static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_Add(atom, with) + with);
     }
 
-    inline pointer_tr auto Assign_Add(volatile pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Assign_Add(volatile type_pointer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Add(atom, with)) + with;
+        return static_cast<atom_t>(Exchange_Add(atom, with) + with);
     }
 
     inline integer_tr auto Assign_Subtract(volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Subtract(atom, with)) - static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_Subtract(atom, with) - with);
     }
 
     inline float_tr auto Assign_Subtract(volatile float_tr auto& atom, float_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Subtract(atom, with)) - static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_Subtract(atom, with) - with);
     }
 
-    inline pointer_tr auto Assign_Subtract(volatile pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Assign_Subtract(volatile type_pointer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Subtract(atom, with)) - with;
+        return static_cast<atom_t>(Exchange_Subtract(atom, with) - with);
     }
 
     integer_tr auto Assign_Multiply(volatile integer_tr auto& atom, integer_tr auto with)
@@ -272,21 +272,21 @@ namespace nkr { namespace os { namespace atomic {
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Or(atom, with)) | static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_Or(atom, with) | with);
     }
 
     inline integer_tr auto Assign_And(volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_And(atom, with)) & static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_And(atom, with) & with);
     }
 
     inline integer_tr auto Assign_Xor(volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange_Xor(atom, with)) ^ static_cast<atom_t>(with);
+        return static_cast<atom_t>(Exchange_Xor(atom, with) ^ with);
     }
 
     integer_tr auto Assign_Left_Shift(volatile integer_tr auto& atom, integer_tr auto with)
@@ -449,7 +449,7 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    inline pointer_tr auto Exchange_Add(volatile pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Exchange_Add(volatile type_pointer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
@@ -515,7 +515,7 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    inline pointer_tr auto Exchange_Subtract(volatile pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Exchange_Subtract(volatile type_pointer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 

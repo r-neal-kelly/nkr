@@ -68,7 +68,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "d1/db5/namespacenkr_1_1os_1_1atomic.html#aeb6a1ebc80d80295c66a912264ed6986",
 "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af3ca7f534c16c402400f4db5759b7ad5",
-"d9/df1/classnkr_1_1allocator__heap__t.html#a7d97d2e35ed70f9717d86440892a6a3b",
+"d9/df1/classnkr_1_1allocator__heap__t.html#a5a52a0e964a0d48467c07fd9e4e18e9d",
 "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a0ee59bd400db83583c25afb9ac899607"
 ];
 

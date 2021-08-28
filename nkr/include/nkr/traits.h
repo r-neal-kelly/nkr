@@ -93,6 +93,11 @@ namespace nkr {
         std::is_pointer<type_p>::value;         ///< @copydoc _42df3700_b206_4dec_a280_cc34bfd783ea
 
     template <typename type_p>
+    concept type_pointer_tr =
+        pointer_tr<type_p> &&
+        type_tr<std::remove_pointer_t<type_p>>; ///< @copydoc _6a988ebe_eb59_44c5_9b34_45259e710dc7
+
+    template <typename type_p>
     concept built_in_tr =
         std::same_as<type_p, std_bool_t> ||
         integer_tr<type_p> ||

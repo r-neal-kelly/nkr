@@ -138,6 +138,15 @@
     *   In addition to regular pointers, this also includes nullptr.
     */
 
+    // type_pointer_tr
+    /**
+    * @class _6a988ebe_eb59_44c5_9b34_45259e710dc7
+    * @private
+    * 
+    * @brief
+    *   Only pointers that point to a type_tr type, which includes std::nullptr_t.
+    */
+
     // built_in_tr
     /**
     * @class _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0

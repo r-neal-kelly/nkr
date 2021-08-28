@@ -24,7 +24,7 @@ var searchData=
   ['integer_5fword_5ftr_21',['integer_word_tr',['../d0/db5/conceptnkr_1_1integer__word__tr.html',1,'nkr']]],
   ['namespaces_22',['namespaces',['../d8/d63/group____d1cd4369__e0f4__4062__8f58__611395da215e.html',1,'']]],
   ['nkr_23',['nkr',['../dc/d0c/namespacenkr.html',1,'']]],
-  ['nkr_5fb_24',['nkr_b',['../d4/d92/macros_8inl.html#a17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.inl'],['../d1/de4/group__macros__braces.html#ga17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.h']]],
+  ['nkr_5fb_24',['nkr_b',['../d1/de4/group__macros__braces.html#ga17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.h'],['../d4/d92/macros_8inl.html#a17f17a1e5eb9e874a04114aa9b9f58b6',1,'nkr_b():&#160;macros.inl']]],
   ['nkr_5finitialize_5fstatic_5fsafely_25',['nkr_INITIALIZE_STATIC_SAFELY',['../d1/d79/group__macros__procedures.html#gae150be82cf7053d6efacc4469772681a',1,'nkr_INITIALIZE_STATIC_SAFELY():&#160;macros.h'],['../d4/d92/macros_8inl.html#ae150be82cf7053d6efacc4469772681a',1,'nkr_INITIALIZE_STATIC_SAFELY():&#160;macros.inl']]],
   ['nkr_5fis_5f64_5fbit_26',['nkr_IS_64_BIT',['../db/dbd/group__intrinsic__hints.html#ga83ebcb6c77a14eb259b74f17bcdc671f',1,'intrinsics.h']]],
   ['nkr_5fis_5fwindows_27',['nkr_IS_WINDOWS',['../db/dbd/group__intrinsic__hints.html#gaf98df6a982864add88de67c14e6a58ad',1,'intrinsics.h']]],
@@ -41,6 +41,7 @@ var searchData=
   ['pointer_5ftr_38',['pointer_tr',['../db/def/conceptnkr_1_1pointer__tr.html',1,'nkr']]],
   ['same_5for_5fbase_5fof_5ftr_39',['same_or_base_of_tr',['../dc/d2f/conceptnkr_1_1same__or__base__of__tr.html',1,'nkr']]],
   ['same_5for_5fderived_5ffrom_5ftr_40',['same_or_derived_from_tr',['../d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html',1,'nkr']]],
-  ['type_5ftr_41',['type_tr',['../d1/dbd/conceptnkr_1_1type__tr.html',1,'nkr']]],
-  ['user_5fdefined_5ftr_42',['user_defined_tr',['../d0/dc7/conceptnkr_1_1user__defined__tr.html',1,'nkr']]]
+  ['type_5fpointer_5ftr_41',['type_pointer_tr',['../d7/dd1/conceptnkr_1_1type__pointer__tr.html',1,'nkr']]],
+  ['type_5ftr_42',['type_tr',['../d1/dbd/conceptnkr_1_1type__tr.html',1,'nkr']]],
+  ['user_5fdefined_5ftr_43',['user_defined_tr',['../d0/dc7/conceptnkr_1_1user__defined__tr.html',1,'nkr']]]
 ];

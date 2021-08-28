@@ -20,6 +20,7 @@ var searchData=
   ['pointer_5ftr_17',['pointer_tr',['../db/def/conceptnkr_1_1pointer__tr.html',1,'nkr']]],
   ['same_5for_5fbase_5fof_5ftr_18',['same_or_base_of_tr',['../dc/d2f/conceptnkr_1_1same__or__base__of__tr.html',1,'nkr']]],
   ['same_5for_5fderived_5ffrom_5ftr_19',['same_or_derived_from_tr',['../d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html',1,'nkr']]],
-  ['type_5ftr_20',['type_tr',['../d1/dbd/conceptnkr_1_1type__tr.html',1,'nkr']]],
-  ['user_5fdefined_5ftr_21',['user_defined_tr',['../d0/dc7/conceptnkr_1_1user__defined__tr.html',1,'nkr']]]
+  ['type_5fpointer_5ftr_20',['type_pointer_tr',['../d7/dd1/conceptnkr_1_1type__pointer__tr.html',1,'nkr']]],
+  ['type_5ftr_21',['type_tr',['../d1/dbd/conceptnkr_1_1type__tr.html',1,'nkr']]],
+  ['user_5fdefined_5ftr_22',['user_defined_tr',['../d0/dc7/conceptnkr_1_1user__defined__tr.html',1,'nkr']]]
 ];

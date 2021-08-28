@@ -6,6 +6,7 @@ var group____a5f738af__46d1__4576__aaf6__adbc60dc07fe =
     [ "nkr::type_tr", "d1/dbd/conceptnkr_1_1type__tr.html", null ],
     [ "nkr::boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
     [ "nkr::pointer_tr", "db/def/conceptnkr_1_1pointer__tr.html", null ],
+    [ "nkr::type_pointer_tr", "d7/dd1/conceptnkr_1_1type__pointer__tr.html", null ],
     [ "nkr::built_in_tr", "d7/d72/conceptnkr_1_1built__in__tr.html", null ],
     [ "nkr::user_defined_tr", "d0/dc7/conceptnkr_1_1user__defined__tr.html", null ],
     [ "nkr::same_or_base_of_tr", "dc/d2f/conceptnkr_1_1same__or__base__of__tr.html", null ],

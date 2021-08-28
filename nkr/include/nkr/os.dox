@@ -25,10 +25,12 @@
     *   There are three primary sets of these functions, each differing in whether they write to the atomic or simply read from it, and what value they return after a write. Furthermore within each set there are subsets that allow for either a read or write to be combined with a integral operator, all done in one atomic operation. Each subset consists of various overloads to provide atomics not only for booleans and integers, but for floats and pointers as well.
     * 
     * @note
-    *   Any 64-bit functionality only works when compiling for 64-bit processors. This is because the nkr::word_t of the machine is the maximum number of bits that can be read atomically.
+    *   Any 64-bit functionality only works when compiling for 64-bit processors. This is because the nkr::word_t of the machine is the maximum number of bits that can be used atomically.
+    * @par
     * 
     * @note
     *   In the description for each function is an expression that equates semantically but not literally. Even though there are sometimes several operations in some of the expressions, each function is still atomically thread-safe.
+    * @par
     */
 
         // Access
@@ -115,14 +117,14 @@
                 * 
                 * @copydoc _a993dcf2_7447_4b2e_a55d_f708f88bb012
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _36c74dfe_b932_45ed_a151_b69ed535576a
+                * @snippet "./src/os.cpp" _d4206571_4483_45a1_9248_71c92cce98c0
+                * @snippet "./src/os.cpp" _6e51bfcd_68ac_476e_9e4b_babe914acc01
+                * @snippet "./src/os.cpp" _e3defcc3_bb05_4701_8df9_740b697fcd3b
+                * @snippet "./src/os.cpp" _5f2fbf98_28e5_4465_80eb_91a397fda017
+                * @snippet "./src/os.cpp" _c0a531a5_240d_4247_ac2a_b50f22da6e97
+                * @snippet "./src/os.cpp" _e2b48d79_b0a9_4b7a_a783_39c50522ec30
+                * @snippet "./src/os.cpp" _089fa26d_70c1_479e_8e8e_bfaa75d70540
                 */
 
                 // float_tr
@@ -132,19 +134,18 @@
                 * 
                 * @copydoc _a993dcf2_7447_4b2e_a55d_f708f88bb012
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _6e3f5a0f_d32f_426e_a815_99cbab82c138
+                * @snippet "./src/os.cpp" _a8fbd7c4_02d9_47a2_9750_cba9ce0f4f6f
                 */
 
-                // pointer_tr
+                // type_pointer_tr
                 /**
                 * @class _a9743336_7a5f_43c1_9a78_2269868e56c6
                 * @private
                 * 
                 * @copydoc _a993dcf2_7447_4b2e_a55d_f708f88bb012
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _8942a2b0_a61d_4279_bd24_ebd5d64e3bc2
                 */
 
             // Access_Subtract()
@@ -163,14 +164,14 @@
                 * 
                 * @copydoc _cf0ab6f1_4e78_4bc4_8697_7eb080aabc44
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _b616821a_2b20_4f12_9580_a86cfcca3373
+                * @snippet "./src/os.cpp" _d1afa205_483a_40a6_ad20_9c9547fb01e2
+                * @snippet "./src/os.cpp" _cc65b320_1a0a_4f4b_8fb4_eadad44f9f39
+                * @snippet "./src/os.cpp" _45167bc8_3d4a_414b_b0b1_90b9e5c544f1
+                * @snippet "./src/os.cpp" _389090dd_7dfa_4c6c_9d52_cdcc1039d336
+                * @snippet "./src/os.cpp" _9a215228_aed5_4de2_830e_1ede68581cf1
+                * @snippet "./src/os.cpp" _d5189f8d_7d2c_4f02_9578_11fb36ebf4b4
+                * @snippet "./src/os.cpp" _5dc71bd5_4d2b_48a5_818b_baa86032959f
                 */
 
                 // float_tr
@@ -180,19 +181,18 @@
                 * 
                 * @copydoc _cf0ab6f1_4e78_4bc4_8697_7eb080aabc44
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _dd66dcb3_3f16_42e2_a745_66010d680ac3
+                * @snippet "./src/os.cpp" _b5c8672e_f1c0_4707_9fff_1c86557fe11a
                 */
 
-                // pointer_tr
+                // type_pointer_tr
                 /**
                 * @class _6dd5e90f_7f13_4a99_a2c4_acc32ba11b47
                 * @private
                 * 
                 * @copydoc _cf0ab6f1_4e78_4bc4_8697_7eb080aabc44
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _cdbd7b3e_2160_4862_9da9_4795df53b57e
                 */
 
             // Access_Multiply()
@@ -211,14 +211,14 @@
                 * 
                 * @copydoc _8bb0e456_ab3f_4d99_8616_1a4a7f091f66
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _b64d7ad3_fd09_4140_9cf7_3827b52b021e
+                * @snippet "./src/os.cpp" _50599139_8d1b_4ecb_96b7_c468a34f9168
+                * @snippet "./src/os.cpp" _ae5fd631_7134_49c4_8d3b_869bfc88e65c
+                * @snippet "./src/os.cpp" _15875252_7ec0_4dc3_af55_6f162c5396d0
+                * @snippet "./src/os.cpp" _8d36a7a4_5792_4fa6_98d9_7602c7300b03
+                * @snippet "./src/os.cpp" _ed305888_4919_4814_87ee_56eef0eeab44
+                * @snippet "./src/os.cpp" _99324fff_7f7e_4df8_9a2f_45527089b829
+                * @snippet "./src/os.cpp" _b7600ccc_fe86_4d06_ac74_31027989c3c5
                 */
 
                 // float_tr
@@ -228,8 +228,8 @@
                 * 
                 * @copydoc _8bb0e456_ab3f_4d99_8616_1a4a7f091f66
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _d248006b_9512_4cf8_9b5c_80dc49d4e47b
+                * @snippet "./src/os.cpp" _20a330a8_742c_469c_83dd_639ccf054600
                 */
 
             // Access_Divide()
@@ -248,14 +248,14 @@
                 * 
                 * @copydoc _2c3b34d3_df86_4b4f_91ba_822810109cf4
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _9920fa6e_f2f1_4438_a1be_127a62c9db73
+                * @snippet "./src/os.cpp" _ce5717be_77df_4713_83c1_278c2492df6e
+                * @snippet "./src/os.cpp" _ee64d3c3_aab4_48dc_acec_2ea1c0baba96
+                * @snippet "./src/os.cpp" _b555876b_c263_4312_bb81_60cd251099df
+                * @snippet "./src/os.cpp" _ae7bc9f1_6bf9_4a8c_a89a_fe898b665f4e
+                * @snippet "./src/os.cpp" _55149295_f534_4763_bca5_9f92f5787150
+                * @snippet "./src/os.cpp" _0c9490a7_0dac_4027_a5ed_c698465851f3
+                * @snippet "./src/os.cpp" _844bc762_1168_4f79_bb35_79444617d12b
                 */
 
                 // float_tr
@@ -265,8 +265,8 @@
                 * 
                 * @copydoc _2c3b34d3_df86_4b4f_91ba_822810109cf4
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a12d9b59_aad0_4b05_8e46_350ed28bc418
+                * @snippet "./src/os.cpp" _0725562e_aeee_4b3e_8f8e_09413e4a99d7
                 */
 
             // Access_Modulus()
@@ -285,14 +285,14 @@
                 * 
                 * @copydoc _677b158b_036d_418e_a4f8_cfdf446ddde3
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _4b38422d_163c_4940_897f_8ec9d45fdc66
+                * @snippet "./src/os.cpp" _b3878173_baba_441f_b2cf_a7e8851f9314
+                * @snippet "./src/os.cpp" _b5f9ff3f_e311_4785_a2ff_5a8bc4b7580a
+                * @snippet "./src/os.cpp" _cc045edb_cf1d_439e_b287_bd8ed67014fa
+                * @snippet "./src/os.cpp" _09f41b80_0168_4dbd_8d51_01d096d3bf4e
+                * @snippet "./src/os.cpp" _1c1a9beb_7764_4d54_8d6e_3447a1aa2644
+                * @snippet "./src/os.cpp" _025ef7d1_6711_4e39_b0a6_c5275b4ff5a1
+                * @snippet "./src/os.cpp" _e65e47e3_e69f_49ae_a492_5198a35e383f
                 */
 
             // Access_Or()
@@ -311,14 +311,14 @@
                 * 
                 * @copydoc _1e8f3215_e2fb_4779_b22d_a859f56fe2a8
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _53e60fed_10a8_4a95_ab7a_8aa339b76df0
+                * @snippet "./src/os.cpp" _1378a2c9_110b_49a6_bc6d_fd375c71f97e
+                * @snippet "./src/os.cpp" _90eb3de0_08a6_44fa_a743_5b0d0d6d18d5
+                * @snippet "./src/os.cpp" _5fe94205_39ad_426e_bbf5_39e3eea8a922
+                * @snippet "./src/os.cpp" _a8c0cacb_893c_4285_b3b9_a023b94b54c3
+                * @snippet "./src/os.cpp" _57b01025_2383_4428_ab00_923f3647a8e5
+                * @snippet "./src/os.cpp" _af20e40f_564d_483d_ae76_d338f05d8e76
+                * @snippet "./src/os.cpp" _7ddda1a7_acab_4945_af6e_5294762757d2
                 */
 
             // Access_And()
@@ -337,14 +337,14 @@
                 * 
                 * @copydoc _3a61b2eb_1d76_47c2_a9ef_a7267669bfef
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _016a942e_b8fa_4169_adf7_6d7052d12a14
+                * @snippet "./src/os.cpp" _edfed814_791a_48f3_bf63_f1f6d9ca6639
+                * @snippet "./src/os.cpp" _881a2d33_d8d7_4f94_8b14_b9f4e29c60ab
+                * @snippet "./src/os.cpp" _ae373a06_d8ef_44b8_8cfa_262bf8dcb15e
+                * @snippet "./src/os.cpp" _6a5d7014_aeb6_424e_bcf3_cdb171ffcd84
+                * @snippet "./src/os.cpp" _6baaa251_42e8_490a_bcb9_14112de0b765
+                * @snippet "./src/os.cpp" _1d9b81af_ff11_4e46_a9db_4b2718017ba4
+                * @snippet "./src/os.cpp" _39faf4e8_0dc7_4ee0_90c6_27a19d91b2cf
                 */
 
             // Access_Xor()
@@ -363,14 +363,14 @@
                 * 
                 * @copydoc _91287fcd_476f_4f0b_8ecd_48f05953264d
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _feb8a6e7_3452_4759_ba12_a4ca2a0923d3
+                * @snippet "./src/os.cpp" _b0a39c1d_5b76_42e0_9376_95b02ef02ed1
+                * @snippet "./src/os.cpp" _a5c77c49_2a6c_4e9d_a083_4a5ba702b9ce
+                * @snippet "./src/os.cpp" _e1476be6_f2d2_4c10_a69d_2f515acaa182
+                * @snippet "./src/os.cpp" _3ed68d6a_3605_4a25_98db_6bc100721599
+                * @snippet "./src/os.cpp" _496055d6_fc13_4b6a_bcf0_b69d64373e88
+                * @snippet "./src/os.cpp" _6eb51993_ff53_4d84_b915_7ff08acb45a3
+                * @snippet "./src/os.cpp" _afbe8e53_cdc4_4126_971b_af1850c8f270
                 */
 
             // Access_Left_Shift()
@@ -389,14 +389,14 @@
                 * 
                 * @copydoc _614a9365_111c_4712_a93f_792e5aa1097c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _07a23b19_7a23_49b2_95ca_12ddd74b1045
+                * @snippet "./src/os.cpp" _e58b0864_38ac_4056_9c7b_ad063d06d04c
+                * @snippet "./src/os.cpp" _b40dda34_9c68_4504_b53e_db2ac9213946
+                * @snippet "./src/os.cpp" _775230f0_9b80_4bfd_9393_a197c19eda8d
+                * @snippet "./src/os.cpp" _95a0458c_e66e_45d5_ae67_2f60d1ea9352
+                * @snippet "./src/os.cpp" _47b4153f_8568_46dc_9c70_6b65e7cd2a49
+                * @snippet "./src/os.cpp" _138ec2f4_d634_4711_b95e_b4133914c840
+                * @snippet "./src/os.cpp" _ea91ce70_f3f1_4b56_9604_deab0cce0ae6
                 */
 
             // Access_Right_Shift()
@@ -415,14 +415,14 @@
                 * 
                 * @copydoc _73ef41fd_960f_4af7_8d3c_62a330221ef8
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _e6e541a5_cda2_4d05_9938_d21899578f7d
+                * @snippet "./src/os.cpp" _5a24855a_e1a0_43c8_a469_4a907fc403bb
+                * @snippet "./src/os.cpp" _a21b6657_9ba8_49e8_afe4_d8d9407c1b68
+                * @snippet "./src/os.cpp" _201d8b75_8903_444a_86fb_ddf184c19769
+                * @snippet "./src/os.cpp" _5516a628_28a0_4869_b74a_828b9eb176a9
+                * @snippet "./src/os.cpp" _6f59ce2d_6ae4_4cdf_8cab_94cef9f61ce5
+                * @snippet "./src/os.cpp" _ac4038af_7785_478e_ab95_12bf77a48e3c
+                * @snippet "./src/os.cpp" _cfe24f82_1509_46b8_b308_1313c9192c94
                 */
 
         // Assign
@@ -450,8 +450,8 @@
                 * 
                 * @copydoc _fab7ff12_4852_456f_ad51_fc9ec8b5fb4f
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _0d25bd55_1cd6_4bef_8511_d18bb0e8c047
+                * @snippet "./src/os.cpp" _07f84e18_ff17_4b98_ad2a_00aeb01150fb
                 */
 
                 // integer_tr
@@ -461,14 +461,14 @@
                 * 
                 * @copydoc _fab7ff12_4852_456f_ad51_fc9ec8b5fb4f
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _dd1916f4_9e7d_4426_93a1_9ef5772d71eb
+                * @snippet "./src/os.cpp" _911cb23a_8c5f_427b_bffa_728885a7828c
+                * @snippet "./src/os.cpp" _4df4a57e_71d5_40ba_891c_85cc30afd79d
+                * @snippet "./src/os.cpp" _99221dcc_16cb_47f0_98d1_04d3a2d3f6fe
+                * @snippet "./src/os.cpp" _c49e3692_999a_4de7_838e_b4d4bd3363ad
+                * @snippet "./src/os.cpp" _03c4270f_4445_432e_9564_400c524bfa56
+                * @snippet "./src/os.cpp" _5135301b_cf7d_4673_b579_febd189ab1eb
+                * @snippet "./src/os.cpp" _df7134a8_a8dc_4ebe_9402_24293478f845
                 */
 
                 // float_tr
@@ -478,8 +478,8 @@
                 * 
                 * @copydoc _fab7ff12_4852_456f_ad51_fc9ec8b5fb4f
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _f157cc7f_e2c4_43fc_ace7_46fdb1f780f6
+                * @snippet "./src/os.cpp" _c34e8028_14a0_4d3f_b4eb_168b0325d9c2
                 */
 
                 // pointer_tr
@@ -489,8 +489,8 @@
                 * 
                 * @copydoc _fab7ff12_4852_456f_ad51_fc9ec8b5fb4f
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _3dee9075_2eda_4ffc_87d5_ca9f68dd6860
+                * @snippet "./src/os.cpp" _ba439f68_0118_468d_b63e_07b2e8d92733
                 */
 
             // Assign_Add()
@@ -509,14 +509,16 @@
                 * 
                 * @copydoc _ae07793f_9604_443c_901c_718a00cc093c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _37a16541_dabf_4437_ae5a_a2d3c08c22f6
+                * @snippet "./src/os.cpp" _fa5ad084_fec4_486f_a586_c24356eb0b36
+                * @snippet "./src/os.cpp" _e5727ad0_7977_405a_9c5c_9bc18cc9f4e9
+                * @snippet "./src/os.cpp" _156cbd25_57ce_445a_b3f2_8d304b707d11
+                * @snippet "./src/os.cpp" _125ba687_8a5b_4cc6_975f_c9a74d237336
+                * @snippet "./src/os.cpp" _5c205cbf_32d2_4d05_b493_f1de4f4daf21
+                * @snippet "./src/os.cpp" _33248ef7_2b84_4a85_9b1c_cc8d282b7a37
+                * @snippet "./src/os.cpp" _ce36072a_53ba_4967_b759_fd0eb6b81940
+                * 
+                * @snippet "./src/os.cpp" _e284b8bf_6a1e_4e0a_9601_e7ab38bfbf3c
                 */
 
                 // float_tr
@@ -526,19 +528,18 @@
                 * 
                 * @copydoc _ae07793f_9604_443c_901c_718a00cc093c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _f3394ec8_1307_46a2_8394_aa0ee3baaa77
+                * @snippet "./src/os.cpp" _835a4125_b92c_4d89_940a_1467d425e68f
                 */
 
-                // pointer_tr
+                // type_pointer_tr
                 /**
                 * @class _cbe72d03_f920_4d4d_a53c_68537d91e06e
                 * @private
                 * 
                 * @copydoc _ae07793f_9604_443c_901c_718a00cc093c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _611ac2c6_4f53_4b55_937e_8b1cebea5a35
                 */
 
             // Assign_Subtract()
@@ -557,14 +558,16 @@
                 * 
                 * @copydoc _61dc311f_27ca_49a9_950a_9f3c9171b715
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _1cbfb9f2_1ccf_4a1b_9a2a_bf51a9244b85
+                * @snippet "./src/os.cpp" _d145a164_78e1_4d94_8dcc_90105514d856
+                * @snippet "./src/os.cpp" _6dafab42_b7f6_49b1_9f21_c6bff3789494
+                * @snippet "./src/os.cpp" _1b93be68_18e6_4ee9_9141_41a4c4251672
+                * @snippet "./src/os.cpp" _54e7cd59_7826_4ad0_b548_8d7b1a7b5343
+                * @snippet "./src/os.cpp" _a7de8993_0c1a_4268_b80e_521b6ab23d7f
+                * @snippet "./src/os.cpp" _66b2a24d_2b58_46f1_98e5_9d3a50be608f
+                * @snippet "./src/os.cpp" _cb450edc_fdc2_43e6_96ea_64f6562fa97a
+                * 
+                * @snippet "./src/os.cpp" _c8e349da_46dd_4881_9c7b_71443df3c2c6
                 */
 
                 // float_tr
@@ -574,19 +577,18 @@
                 * 
                 * @copydoc _61dc311f_27ca_49a9_950a_9f3c9171b715
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _27f73182_bfc7_4552_b539_8e3ded554740
+                * @snippet "./src/os.cpp" _bd6605e6_3104_4249_8a1f_73477ce78806
                 */
 
-                // pointer_tr
+                // type_pointer_tr
                 /**
                 * @class _165233f2_0ca5_45bf_9b4d_c09253b1700c
                 * @private
                 * 
                 * @copydoc _61dc311f_27ca_49a9_950a_9f3c9171b715
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _60a12b01_ce35_4373_a70f_4ed735555759
                 */
 
             // Assign_Multiply()
@@ -605,14 +607,14 @@
                 * 
                 * @copydoc _db2ab814_83b3_42b5_9c32_44dfe8126b9d
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _8bca48a2_1a73_445c_89a4_050151c77487
+                * @snippet "./src/os.cpp" _cbaf11af_cc8b_4d0c_883c_ba30409d9115
+                * @snippet "./src/os.cpp" _f02a4361_7103_4492_83b6_fc92b94c4f51
+                * @snippet "./src/os.cpp" _6648e27f_1f2f_42a3_9e81_8def9c666356
+                * @snippet "./src/os.cpp" _4db05041_5d44_4d2f_953a_389dc6453941
+                * @snippet "./src/os.cpp" _b11772c4_3403_4bbd_bbdc_52d26ddcc007
+                * @snippet "./src/os.cpp" _3800f477_6506_4555_973e_94bc7d518d98
+                * @snippet "./src/os.cpp" _38326c66_a188_4fb3_8d25_fb6de631b5fa
                 */
 
                 // float_tr
@@ -622,8 +624,8 @@
                 * 
                 * @copydoc _db2ab814_83b3_42b5_9c32_44dfe8126b9d
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _36c0f2b7_8902_4ad4_9097_4755fceb08aa
+                * @snippet "./src/os.cpp" _421aeec1_cf2b_4f03_b90b_c6787779f060
                 */
 
             // Assign_Divide()
@@ -642,14 +644,14 @@
                 * 
                 * @copydoc _388e4f09_010e_4578_8cc7_2255da0a4b4c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _f0cf857c_3ac3_49c6_9a20_1546fc68cc42
+                * @snippet "./src/os.cpp" _f936549f_ed46_45af_bc24_b3d7a57d1981
+                * @snippet "./src/os.cpp" _5044553b_a912_4c45_bc98_668d2d7bf1a2
+                * @snippet "./src/os.cpp" _a18c3b5b_7cd2_4eae_937f_57bafa5802d1
+                * @snippet "./src/os.cpp" _c322519b_4ec7_4948_8f3a_23605ac22756
+                * @snippet "./src/os.cpp" _afaece74_1c7d_40a6_8b92_706cd5b8db24
+                * @snippet "./src/os.cpp" _e2f68a83_4818_4ec3_9e24_c0f7708b9976
+                * @snippet "./src/os.cpp" _a6d9520a_30f4_431f_b0ae_b7f85cbf9041
                 */
 
                 // float_tr
@@ -659,8 +661,8 @@
                 * 
                 * @copydoc _388e4f09_010e_4578_8cc7_2255da0a4b4c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _dc683ec7_75f7_48ff_9d0b_3b1c25350a41
+                * @snippet "./src/os.cpp" _2b78214c_3480_4abd_8171_123e676261d6
                 */
 
             // Assign_Modulus()
@@ -679,14 +681,14 @@
                 * 
                 * @copydoc _76252e5c_09e8_446b_82dc_295f1dc684d2
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _bc274577_2161_44f2_96f3_3c7f5260a29e
+                * @snippet "./src/os.cpp" _09a95d9e_4847_4f58_95a8_6396ff3a0ab1
+                * @snippet "./src/os.cpp" _e25f536a_fcd5_4413_8fd6_b47baa107b6d
+                * @snippet "./src/os.cpp" _4ded43f9_9df8_454d_b5b4_35315881d54a
+                * @snippet "./src/os.cpp" _317da99a_2b06_46c1_9a37_069ea37e604c
+                * @snippet "./src/os.cpp" _4249b8b9_936a_4127_a7c8_7bfb23acbb08
+                * @snippet "./src/os.cpp" _aa058824_a6ca_40fd_b830_25a00e34fcf9
+                * @snippet "./src/os.cpp" _3aa20522_3a5b_48ba_962e_ab97c053e89d
                 */
 
             // Assign_Or()
@@ -705,14 +707,14 @@
                 * 
                 * @copydoc _3f60e4fa_e39f_4e59_b88c_610282e72227
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _0c091082_f16a_4191_b4df_47c16a226b29
+                * @snippet "./src/os.cpp" _52b2ca48_5b7e_416d_b114_a33a9fd80729
+                * @snippet "./src/os.cpp" _8d732dc3_39b8_4aeb_a702_bfb6319f8e81
+                * @snippet "./src/os.cpp" _9a368038_17ac_486f_a691_8a9b81b62a77
+                * @snippet "./src/os.cpp" _01f510ab_80e8_4341_bcbb_5c07ba15ef54
+                * @snippet "./src/os.cpp" _6792a80d_bebc_47d5_8428_84a51dbce102
+                * @snippet "./src/os.cpp" _f9d87c0b_2f20_4842_9f6d_0f960ce3ab37
+                * @snippet "./src/os.cpp" _780dbae3_f5cd_4225_aca9_cfe5beb365b1
                 */
 
             // Assign_And()
@@ -731,14 +733,14 @@
                 * 
                 * @copydoc _50094866_0d5e_4d6e_8003_080350799b02
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _dfaf4e53_bff6_41fe_9bb3_dba77d644596
+                * @snippet "./src/os.cpp" _7370ea21_e07a_43d5_9b97_a87a12ac06f6
+                * @snippet "./src/os.cpp" _4bfb5b89_83fb_487e_a0c1_865c2533809c
+                * @snippet "./src/os.cpp" _c0f4c5bb_8faf_4904_84a9_6c4dcb7ea603
+                * @snippet "./src/os.cpp" _140184e1_4abd_4130_babe_8f5df1ca526e
+                * @snippet "./src/os.cpp" _a455ba0f_aa8b_4757_8df7_2fd97bfe1716
+                * @snippet "./src/os.cpp" _3ea87c9b_9f77_4856_818b_8b1dbbbd9abb
+                * @snippet "./src/os.cpp" _e2a9bb20_c214_4ed0_ab84_9c02be6467d0
                 */
 
             // Assign_Xor()
@@ -757,14 +759,14 @@
                 * 
                 * @copydoc _f6c4cd5b_7f03_477b_968b_b65a1d79c37b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _eb406fdb_035c_44ce_92fd_1cf5e3c4eb6d
+                * @snippet "./src/os.cpp" _63f6f17b_8ddf_4372_95c2_7003f20c3187
+                * @snippet "./src/os.cpp" _cc214ce6_144e_4eb2_bc81_87af69d0aff9
+                * @snippet "./src/os.cpp" _7486f2e0_fb47_46f0_b8ff_949c1809ea38
+                * @snippet "./src/os.cpp" _95a04b10_e89d_4938_891d_75073476a3aa
+                * @snippet "./src/os.cpp" _5e50cd9e_e47e_4964_aaf9_098b07569185
+                * @snippet "./src/os.cpp" _3fef8807_197b_42c5_bda1_ea4f9c8b4436
+                * @snippet "./src/os.cpp" _f017cb1a_db20_4aac_bf79_1e8784e4113d
                 */
 
             // Assign_Left_Shift()
@@ -783,14 +785,14 @@
                 * 
                 * @copydoc _1988a49f_e149_41e5_acf1_5ee55d64e7a9
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _1a005cee_5206_4b43_8859_eda42b154535
+                * @snippet "./src/os.cpp" _52fc19ab_c81e_4c0a_9e6a_fc5f991f6b58
+                * @snippet "./src/os.cpp" _0ee1c4a5_6446_4b45_92d5_b8f732124d3d
+                * @snippet "./src/os.cpp" _0ed7cb6f_1341_485b_be50_9c7829f270dc
+                * @snippet "./src/os.cpp" _380f0fd7_96e7_455d_a59e_b387bc9be53c
+                * @snippet "./src/os.cpp" _7f8337cc_7c72_4034_b375_59865eb1d509
+                * @snippet "./src/os.cpp" _2096c670_8a5e_4029_9fff_f3f05f41cc8c
+                * @snippet "./src/os.cpp" _cc34697a_eed6_4fbf_94f6_85db83431b33
                 */
 
             // Assign_Right_Shift()
@@ -809,14 +811,14 @@
                 * 
                 * @copydoc _33d2bc67_7ea7_4519_83e6_0145d0c4c10d
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _b3b8bd2e_dd4a_4946_951e_9c4260f44967
+                * @snippet "./src/os.cpp" _8fed06e0_51df_47ba_a084_f3e2ee7496bc
+                * @snippet "./src/os.cpp" _25ebab4b_9cf5_4a82_98e0_ef4653587b68
+                * @snippet "./src/os.cpp" _fc404bcc_5c9f_42d3_b5f0_97f17fabb7b2
+                * @snippet "./src/os.cpp" _9dc82ff0_4a80_4d76_bfc2_7580c2c45b7f
+                * @snippet "./src/os.cpp" _1adb7e43_533b_41a3_820b_1f518e198d31
+                * @snippet "./src/os.cpp" _8f7b2f70_64c0_4a83_8b4a_032a87600110
+                * @snippet "./src/os.cpp" _da286c4c_7bba_419c_a97d_502c5846c60b
                 */
 
         // Exchange
@@ -849,8 +851,8 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a7c419d6_98aa_4ffc_98ab_68d4e73a7d48
+                * @snippet "./src/os.cpp" _f41bfb76_1282_402a_8cc6_8ab579f5218e
                 */
 
                 // integer_8_tr
@@ -860,8 +862,8 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _5d7a6387_6b1c_4703_8ae2_c8a9247a08b1
+                * @snippet "./src/os.cpp" _73aa5ca4_f6cb_43b9_b121_6fcd9adbf79a
                 */
 
                 // integer_16_tr
@@ -871,8 +873,8 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _9d097f54_43d3_4c69_a6ac_4cc11d524cba
+                * @snippet "./src/os.cpp" _c068b9cd_7d78_4b0e_9c84_c8bec41e589a
                 */
 
                 // integer_32_tr
@@ -882,8 +884,8 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _9e1e63d7_c87e_4fab_a4a1_58f18113b758
+                * @snippet "./src/os.cpp" _c397b47e_e733_43af_bfe8_e6c6627d0ad1
                 */
 
                 // integer_64_tr
@@ -893,8 +895,8 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _9cb98866_0340_4b51_b223_c7423516dacd
+                * @snippet "./src/os.cpp" _1d45c35f_0596_46f6_b585_31de82f7da16
                 */
 
                 // float_32_tr
@@ -904,7 +906,7 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _16994b0a_fada_4042_83cb_9236e766d99c
                 */
 
                 // float_64_tr
@@ -914,7 +916,7 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _2c26bdeb_db83_4fdd_9678_b9c005a4b8ca
                 */
 
                 // pointer_tr
@@ -924,8 +926,8 @@
                 * 
                 * @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _080b46f9_4ba2_42cc_8933_7354d9aa4f9f
+                * @snippet "./src/os.cpp" _24e60c17_b0bd_42e9_9197_7fd8d1e40e7d
                 */
 
             // Exchange_Add()
@@ -944,8 +946,8 @@
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _10d21753_6d97_451b_85c8_eca8d63637db
+                * @snippet "./src/os.cpp" _ef19cacd_3ac4_4fe0_b0e5_a374975720e1
                 */
 
                 // integer_16_tr
@@ -955,8 +957,8 @@
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _b5fc4003_cb0c_41d4_beb2_23c3c636dfc6
+                * @snippet "./src/os.cpp" _466c7087_2aa2_48d0_87fe_43ff3a9e914c
                 */
 
                 // integer_32_tr
@@ -966,8 +968,8 @@
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _2d4b79b3_0d75_4b7f_81c0_d38e83b69d14
+                * @snippet "./src/os.cpp" _708eb7d4_8be3_4272_b67b_6c77789cc2d6
                 */
 
                 // integer_64_tr
@@ -977,8 +979,8 @@
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _3d91d064_5f90_49e2_9e3d_1f89a09312f0
+                * @snippet "./src/os.cpp" _2f84130b_a6b9_4715_845a_f1a53e0457f6
                 */
 
                 // float_32_tr
@@ -988,7 +990,7 @@
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _8451cd60_f17d_4c6f_9bfe_7bc37d879bce
                 */
 
                 // float_64_tr
@@ -998,18 +1000,17 @@
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _92398c40_af25_4bd4_a2e9_be7aaf159b62
                 */
 
-                // pointer_tr
+                // type_pointer_tr
                 /**
                 * @class _cc0888ae_0348_4464_8425_d59c2563a3b9
                 * @private
                 * 
                 * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _4d9f5f22_f8aa_4316_bd0d_f8739139bd4e
                 */
 
             // Exchange_Subtract()
@@ -1028,8 +1029,8 @@
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _20744002_f37b_4c23_92aa_8b62069ad732
+                * @snippet "./src/os.cpp" _e8507f13_5b14_45c9_b80f_0141c2d060a9
                 */
 
                 // integer_16_tr
@@ -1039,8 +1040,8 @@
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _50a6d11d_7811_42d6_8be0_e3aeb7f1b4fd
+                * @snippet "./src/os.cpp" _a3ca2726_2c3c_49a0_b941_544ff20d6af3
                 */
 
                 // integer_32_tr
@@ -1050,8 +1051,8 @@
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _96bb38d9_2aac_4139_80de_164ed9e33a30
+                * @snippet "./src/os.cpp" _f3d0c80d_5c11_49c6_aaec_770d978e2d0d
                 */
 
                 // integer_64_tr
@@ -1061,8 +1062,8 @@
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _afa92ac1_a5a3_403b_a99a_a3982df4c2f6
+                * @snippet "./src/os.cpp" _104e19d6_03ce_49d2_8854_02c41c5d924b
                 */
 
                 // float_32_tr
@@ -1072,7 +1073,7 @@
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _9236c949_c671_4805_9716_dc6215f54a61
                 */
 
                 // float_64_tr
@@ -1082,18 +1083,17 @@
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a2c0a2b8_463a_4501_a164_3dfd614054d6
                 */
 
-                // pointer_tr
+                // type_pointer_tr
                 /**
                 * @class _4160b14b_f8e3_4e5b_8340_b8e9285d1caa
                 * @private
                 * 
                 * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _8055b945_5e3d_4f07_96aa_f29e46a91dc2
                 */
 
             // Exchange_Multiply()
@@ -1112,8 +1112,8 @@
                 * 
                 * @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _3e5d0dd4_d95d_43bc_9336_2dd33dfb82ec
+                * @snippet "./src/os.cpp" _36b9dd3e_9f32_4747_af50_f4d387febd23
                 */
 
                 // integer_16_tr
@@ -1123,8 +1123,8 @@
                 * 
                 * @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a4c080f1_f51e_4ca4_b1cb_380e20e99b09
+                * @snippet "./src/os.cpp" _4a5be7a2_ce91_432e_a9b9_5bfb41ebb91b
                 */
 
                 // integer_32_tr
@@ -1134,8 +1134,8 @@
                 * 
                 * @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _c62ea543_cfed_4c26_a020_8d70c7428869
+                * @snippet "./src/os.cpp" _dd7a4689_f747_4383_b64f_3147fb6b5d4b
                 */
 
                 // integer_64_tr
@@ -1145,8 +1145,8 @@
                 * 
                 * @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _2f13adf0_8f79_4bab_bd15_e74b7c30d545
+                * @snippet "./src/os.cpp" _e06eac77_d60d_4947_b1de_0f3a492a9177
                 */
 
                 // float_32_tr
@@ -1156,7 +1156,7 @@
                 * 
                 * @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _6a607416_5e12_4891_88cb_8b611edb025e
                 */
 
                 // float_64_tr
@@ -1166,7 +1166,7 @@
                 * 
                 * @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _0293a39d_61b3_42d0_8505_de2a51a16610
                 */
 
             // Exchange_Divide()
@@ -1185,8 +1185,8 @@
                 * 
                 * @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _086630af_beb2_4715_b450_62375ad55c20
+                * @snippet "./src/os.cpp" _7011bbe9_f7d6_469c_ac39_9c6542ce687f
                 */
 
                 // integer_16_tr
@@ -1196,8 +1196,8 @@
                 * 
                 * @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _10f93ea7_eb65_4ea0_9dfa_3dcf0ce90e57
+                * @snippet "./src/os.cpp" _e9ee8377_56ee_437b_8a20_317198975130
                 */
 
                 // integer_32_tr
@@ -1207,8 +1207,8 @@
                 * 
                 * @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a5b01859_e34b_4453_b4d4_d6ffb14f670f
+                * @snippet "./src/os.cpp" _112b74c0_d2cf_41c8_a3ce_2c44e6d1ad3f
                 */
 
                 // integer_64_tr
@@ -1218,8 +1218,8 @@
                 * 
                 * @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _651c6c3f_07ee_44f6_b231_a5820c06a213
+                * @snippet "./src/os.cpp" _e4ab402d_2c9e_4fff_99c2_9971b69dbc00
                 */
 
                 // float_32_tr
@@ -1229,7 +1229,7 @@
                 * 
                 * @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _5c93b156_7668_4fe7_be0b_a0d4600f0933
                 */
 
                 // float_64_tr
@@ -1239,7 +1239,7 @@
                 * 
                 * @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _26028451_e507_4c96_8e49_e269edc87895
                 */
 
             // Exchange_Modulus()
@@ -1258,8 +1258,8 @@
                 * 
                 * @copydoc _75c6f727_7922_4ce2_8650_5c94e52b180e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _74a97eb0_3db6_4588_a82b_0e0348363eb7
+                * @snippet "./src/os.cpp" _16d52186_e3f0_4358_b1fb_37f56f5aad4f
                 */
 
                 // integer_16_tr
@@ -1269,8 +1269,8 @@
                 * 
                 * @copydoc _75c6f727_7922_4ce2_8650_5c94e52b180e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a410f542_64c0_4b05_9fa4_869ff1e45e9e
+                * @snippet "./src/os.cpp" _ef494fef_b6fc_4118_a1bf_6fcfea5ef5dd
                 */
 
                 // integer_32_tr
@@ -1280,8 +1280,8 @@
                 * 
                 * @copydoc _75c6f727_7922_4ce2_8650_5c94e52b180e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _4f53a2db_e75e_4801_8c34_c073b57ab42a
+                * @snippet "./src/os.cpp" _00d5fef9_eedf_45f8_bd2a_653c3774aa03
                 */
 
                 // integer_64_tr
@@ -1291,8 +1291,8 @@
                 * 
                 * @copydoc _75c6f727_7922_4ce2_8650_5c94e52b180e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _dfd120c3_eb4e_4003_941c_038bde8a54b2
+                * @snippet "./src/os.cpp" _75c0b0b7_52af_4844_b584_f84f4b92bbb2
                 */
 
             // Exchange_Or()
@@ -1311,8 +1311,8 @@
                 * 
                 * @copydoc _67e27237_78f0_4fe0_b667_15076d266dbc
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _66aef5a6_f5e6_4083_8206_e7d11d8a70c4
+                * @snippet "./src/os.cpp" _3ffc3377_7042_4ad7_b8fd_670f7a2222c1
                 */
 
                 // integer_16_tr
@@ -1322,8 +1322,8 @@
                 * 
                 * @copydoc _67e27237_78f0_4fe0_b667_15076d266dbc
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _a0873447_ed6d_48cb_be69_34f1ff6bfe29
+                * @snippet "./src/os.cpp" _f9686492_24f7_4a1a_b9ee_4a3d11ef0968
                 */
 
                 // integer_32_tr
@@ -1333,8 +1333,8 @@
                 * 
                 * @copydoc _67e27237_78f0_4fe0_b667_15076d266dbc
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _d9af0eb8_f744_4bda_ad81_00370e1b061d
+                * @snippet "./src/os.cpp" _6f5e84bb_9a95_4bac_84d7_7ffea4cf7099
                 */
 
                 // integer_64_tr
@@ -1344,8 +1344,8 @@
                 * 
                 * @copydoc _67e27237_78f0_4fe0_b667_15076d266dbc
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _ea1353e4_cea9_49d2_b6a0_2eb2f8980ca5
+                * @snippet "./src/os.cpp" _ae831b2d_accd_4d93_a6ed_89587397f04f
                 */
 
             // Exchange_And()
@@ -1364,8 +1364,8 @@
                 * 
                 * @copydoc _43f052df_aa5c_4c1d_be58_1059147ba0c1
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _28d42020_0adf_4b0c_a7b5_d3f80a8d9e67
+                * @snippet "./src/os.cpp" _691bc500_ab39_414e_a249_e52621ef48f3
                 */
 
                 // integer_16_tr
@@ -1375,8 +1375,8 @@
                 * 
                 * @copydoc _43f052df_aa5c_4c1d_be58_1059147ba0c1
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _4e1053fa_d240_4949_b99c_ca16e9f26205
+                * @snippet "./src/os.cpp" _2a6631f2_5b71_471a_afb8_33734c0b6f8f
                 */
 
                 // integer_32_tr
@@ -1386,8 +1386,8 @@
                 * 
                 * @copydoc _43f052df_aa5c_4c1d_be58_1059147ba0c1
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _90a104bf_b73e_418d_917f_3fa41344c1ff
+                * @snippet "./src/os.cpp" _4218b236_9ffe_45a6_9c67_66697e64fc0a
                 */
 
                 // integer_64_tr
@@ -1397,8 +1397,8 @@
                 * 
                 * @copydoc _43f052df_aa5c_4c1d_be58_1059147ba0c1
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _78421883_c7d1_42fb_a27c_b596566e1aa9
+                * @snippet "./src/os.cpp" _cddbfeca_f6ba_4767_b23d_2eba37c0ff54
                 */
 
             // Exchange_Xor()
@@ -1417,8 +1417,8 @@
                 * 
                 * @copydoc _46e8118f_a77b_41c8_9f75_d1953aad71d8
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _e861defb_5da2_4010_9b16_07d9f4d8a61b
+                * @snippet "./src/os.cpp" _b37ffc08_5d33_4b2a_8e5f_3d9f9777b2c7
                 */
 
                 // integer_16_tr
@@ -1428,8 +1428,8 @@
                 * 
                 * @copydoc _46e8118f_a77b_41c8_9f75_d1953aad71d8
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _e3f851b5_2eb2_4f74_989d_50befdd9d328
+                * @snippet "./src/os.cpp" _aa6eed46_ee66_4512_ae86_5608ed651e67
                 */
 
                 // integer_32_tr
@@ -1439,8 +1439,8 @@
                 * 
                 * @copydoc _46e8118f_a77b_41c8_9f75_d1953aad71d8
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _d64496f5_4e49_4a59_819d_f683e46c735b
+                * @snippet "./src/os.cpp" _4f8deefd_b3cd_4bb6_9663_e0f3c58a65b7
                 */
 
                 // integer_64_tr
@@ -1450,8 +1450,8 @@
                 * 
                 * @copydoc _46e8118f_a77b_41c8_9f75_d1953aad71d8
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _5100f20e_6424_4cde_9eda_e3bd10806afc
+                * @snippet "./src/os.cpp" _10dde961_946a_4e8d_bd1a_443efa243d78
                 */
 
             // Exchange_Left_Shift()
@@ -1470,8 +1470,8 @@
                 * 
                 * @copydoc _a5e26340_6895_4258_ab06_7f6968cd5830
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _16bb22e1_6a89_42ab_95a1_f0a36ffc639c
+                * @snippet "./src/os.cpp" _e60d11c8_7e9d_456f_aea9_a5113bdab34f
                 */
 
                 // integer_16_tr
@@ -1481,8 +1481,8 @@
                 * 
                 * @copydoc _a5e26340_6895_4258_ab06_7f6968cd5830
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _be7fa2c8_dbb2_48d3_b44d_646f0bb2c936
+                * @snippet "./src/os.cpp" _74199800_357d_4c25_a54c_7f39623694c9
                 */
 
                 // integer_32_tr
@@ -1492,8 +1492,8 @@
                 * 
                 * @copydoc _a5e26340_6895_4258_ab06_7f6968cd5830
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _76ac7ea6_24cd_4fc1_a7d4_c3bffd9cb098
+                * @snippet "./src/os.cpp" _081d235f_78f5_48dd_af1e_5a32ff495969
                 */
 
                 // integer_64_tr
@@ -1503,8 +1503,8 @@
                 * 
                 * @copydoc _a5e26340_6895_4258_ab06_7f6968cd5830
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _1b149791_cfde_4397_ab31_5629cd034367
+                * @snippet "./src/os.cpp" _80b40cd3_5820_4fc9_81b0_66b266db6c57
                 */
 
             // Exchange_Right_Shift()
@@ -1523,8 +1523,8 @@
                 * 
                 * @copydoc _37998d5d_eb21_4e93_83bf_ef1bfb1152c7
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _ea66a1d1_9a54_446c_8f60_890e419c5d61
+                * @snippet "./src/os.cpp" _e7fd5f43_7e9d_491a_a1a3_cb982c04f72a
                 */
 
                 // integer_16_tr
@@ -1534,8 +1534,8 @@
                 * 
                 * @copydoc _37998d5d_eb21_4e93_83bf_ef1bfb1152c7
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _74a06a93_87f7_4cb6_9094_e53acdc96204
+                * @snippet "./src/os.cpp" _e3709987_c00e_4169_98bc_ba7182845767
                 */
 
                 // integer_32_tr
@@ -1545,8 +1545,8 @@
                 * 
                 * @copydoc _37998d5d_eb21_4e93_83bf_ef1bfb1152c7
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _14c24569_8bdd_478b_b347_a6c80d9f18cf
+                * @snippet "./src/os.cpp" _2630bda0_f86d_45f6_a2b4_15e1e4437fb5
                 */
 
                 // integer_64_tr
@@ -1556,8 +1556,8 @@
                 * 
                 * @copydoc _37998d5d_eb21_4e93_83bf_ef1bfb1152c7
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _ccf5ce13_58b6_4b08_8b4a_c3af8c5a8e3c
+                * @snippet "./src/os.cpp" _cdb2ff5c_2ed3_48bb_b844_8b017ac501a2
                 */
 
             // Exchange_If_Equals()
@@ -1566,7 +1566,7 @@
             * @private
             *
             * @brief
-            *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
+            *   Equivalent to `(atom == snapshot ? (atom = with, true) : (snapshot = atom, false))`
             */
 
                 // boolean_tr
@@ -1576,8 +1576,8 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _23825beb_911e_45fa_84f9_9a45cdea3886
+                * @snippet "./src/os.cpp" _93f61882_adbb_4dab_b3ac_bf58f659cf6b
                 */
 
                 // integer_8_tr
@@ -1587,8 +1587,8 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _399e6626_cc7e_4b56_9e82_5bc1129a55c0
+                * @snippet "./src/os.cpp" _85c66fbc_ea73_4038_9da9_f4feabe6647e
                 */
 
                 // integer_16_tr
@@ -1598,8 +1598,8 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _80570e89_2b9a_4d22_a58a_c8fee4c6cfee
+                * @snippet "./src/os.cpp" _ff7b26a3_c10c_4325_a6a1_19cdd09c039a
                 */
 
                 // integer_32_tr
@@ -1609,8 +1609,8 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _7b4b030c_3c96_4b00_9065_36aedf0b4eee
+                * @snippet "./src/os.cpp" _1efa26a1_be41_4cac_8570_5b3ec4751334
                 */
 
                 // integer_64_tr
@@ -1620,8 +1620,8 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _8871fc7e_cdc5_40f5_934f_7df0b27067fd
+                * @snippet "./src/os.cpp" _d274b52b_2baf_4b2c_aa4c_c7a63201d1c8
                 */
 
                 // float_32_tr
@@ -1631,7 +1631,7 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _053a47aa_c48a_4777_967f_a06cd12d1926
                 */
 
                 // float_64_tr
@@ -1641,7 +1641,7 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _7903378e_2ad0_43a7_a3aa_b515e179137a
                 */
 
                 // pointer_tr
@@ -1651,8 +1651,8 @@
                 * 
                 * @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
                 * 
-                * @snippet "./src/os.cpp" 
-                * @snippet "./src/os.cpp" 
+                * @snippet "./src/os.cpp" _ecd1c05f_bcb2_4c47_b920_7c64fb0baabc
+                * @snippet "./src/os.cpp" _4c0b3876_9c0a_40d4_b960_862bb86b0be1
                 */
 
     // nkr::os::endian
@@ -1683,12 +1683,16 @@
             /**
             * @class _9d5ef4e6_ff8f_4d63_9fdc_0c0422259d90
             * @private
+            * 
+            * @snippet "./src/os.cpp" _2367da3d_58c3_4a8f_98c4_c9d8c809cb25
             */
 
             // Is_Little()
             /**
             * @class _884ae9eb_da64_4306_aab9_50aeb3f85298
             * @private
+            * 
+            * @snippet "./src/os.cpp" _e5a7621e_6b04_42ef_b8d2_94d576abb57e
             */
 
         // Swap
@@ -1704,24 +1708,40 @@
         *
         * @note
         *   There is no nkr::integer_8_tr variant because a byte or a stream of bytes cannot have a different endianness but is read and written the same on both kinds of computers.
+        * @par
+        * 
+        * @note
+        *   You need to be careful when trying to swap literal numbers as shown in the following example:
+        * @par
+        * 
+        * @snippet "./src/os.cpp" _8204605f_3b41_4633_8865_89d336420022
         */
 
             // Swap(integer_16_tr)
             /**
             * @class _857ce8b6_02ca_48e5_9d19_4a7581b8e4c6
             * @private
+            * 
+            * @snippet "./src/os.cpp" _6bc67519_2af0_4999_a15c_ad085acb68e4
+            * @snippet "./src/os.cpp" _962de4de_8f29_4f35_9ffb_123ac19b3cf8
             */
 
             // Swap(integer_32_tr)
             /**
             * @class _02c0499c_c8c8_43b9_8afc_96545310eb3a
             * @private
+            * 
+            * @snippet "./src/os.cpp" _d480540a_cabf_45d6_b3dc_0882dca2569b
+            * @snippet "./src/os.cpp" _59caf647_91bb_4926_b0d0_401183e97ded
             */
 
             // Swap(integer_64_tr)
             /**
             * @class _eabf9a88_080f_445d_88ab_b0dae4a55316
             * @private
+            * 
+            * @snippet "./src/os.cpp" _52a0d032_dab3_4a2e_a06a_67bc56f297f4
+            * @snippet "./src/os.cpp" _70f7b676_8069_4eec_93bf_007c172f1e39
             */
 
     // nkr::os::heap
@@ -1771,6 +1791,8 @@
             *   4. what the natural word size of the processor is
             * 
             *   At most the largest number of bytes you will be able to allocate is the max number that can fit in an nkr::count_t (an alias of nkr::word_t). If you are running on a 32 bit processor you will only be able to allocate one byte shy of 4gb, which is no where near the amount of memory you can allocate on a 64 bit processor. Furthermore, limitations may come into play depending on the operating system, which may significantly decrease that amount even further.
+            * 
+            * @snippet "./src/os.cpp" _a06ecc73_e7ac_43b2_b231_059675458c15
             */
 
             // Reallocate()
@@ -1798,9 +1820,13 @@
             *
             * @note
             *   This cannot shrink the memory you allocate, but some higher level types in the library may by request.
-            *
+            * @par
+            * 
             * @todo
-            *   Maybe return an enum_t to indicate different kinds of failures, at least on Windows?
+            *   Maybe return an enum_t to indicate different kinds of failures?
+            * @par
+            * 
+            * @snippet "./src/os.cpp" _3c97398a_6fe6_4b47_81a2_18efd5ab72d5
             */
 
             // Deallocate()
@@ -1816,6 +1842,8 @@
             *
             * @details
             *   When using these functions, memory will never be deallocated automatically for you like it is in some higher level types. You will have to manually deallocate every pointer you allocate, or else you may unexpectedly run out of memory. Regardless, the operating system will deallocate everything that has not already been deallocated when your program exits.
+            * 
+            * @snippet "./src/os.cpp" _09113b05_5f70_459c_9827_f53c58816243
             */
 
         // Zero-Initialized Allocation
@@ -1852,6 +1880,9 @@
             *
             * @note
             *   The returned pointer can be used with nkr::os::heap::Reallocate to allocate more memory but without it being zero-intialized, and nkr::os::heap::Deallocate to free the memory. Both of these are currently frowned upon because they may not work in future updates or on certain operating systems.
+            * @par
+            * 
+            * @snippet "./src/os.cpp" _fc02c748_8572_4062_b2b1_8cfaa78bc002
             */
 
             // Reallocate_Zeros()
@@ -1876,6 +1907,8 @@
             *
             * @details
             *   Please see nkr::os::heap::Reallocate for more details.
+            * 
+            * @snippet "./src/os.cpp" _831dc6ca_17bd_4515_9fd9_48f36c1014da
             */
 
             // Deallocate_Zeros()
@@ -1891,7 +1924,10 @@
             *
             * @details
             *   Please see nkr::os::heap::Deallocate for more details.
-            *
+            * 
             * @note
             *   This does not zero the memory.
+            * @par
+            * 
+            * @snippet "./src/os.cpp" _6c279b29_119d_4ca0_8c6a_552cb9ea6431
             */
