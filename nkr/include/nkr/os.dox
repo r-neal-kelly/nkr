@@ -2,16 +2,18 @@
     Copyright 2021 r-neal-kelly
 */
 
+// nkr::os
 /**
-* @class doc_nkr_os
+* @class _ae5b9a84_c87b_4c0a_b714_4933761921d7
 * @private
 *
 * @brief
 *   Short for "Operating System", this contains several wrappers for otherwise platform specific functionality.
 */
 
+    // nkr::os::atomic
     /**
-    * @class doc_nkr_os_atomic
+    * @class _a6ff4022_7389_4e35_b146_066ce313290e
     * @private
     *
     * @brief
@@ -26,8 +28,9 @@
     *   In the description for each function is an expression that equates semantically but not literally. Even though there are sometimes several operations in some of the expressions, each function is still atomically thread-safe.
     */
 
+        // Access
         /**
-        * @class doc_nkr_os_atomic_group_Access
+        * @class _ebc609cf_5026_47e9_87e7_c8ea9ecc71a9
         * @private
         * 
         * @brief
@@ -91,8 +94,9 @@
             *   Equivalent to `(atom ^ with)`
             */
 
+        // Assign
         /**
-        * @class doc_nkr_os_atomic_group_Assign
+        * @class _d42247f7_a7b1_442f_beef_c88857ee5682
         * @private
         *
         * @brief
@@ -156,12 +160,18 @@
             *   Equivalent to `(atom ^= with)`
             */
 
+        // Exchange
         /**
-        * @class doc_nkr_os_atomic_group_Exchange
+        * @class _73d8454a_28bc_4509_b695_6bd373d375f2
         * @private
         *
         * @brief
-        *   These return a copy of the atomic value before changing the original.
+        *   These return a copy of the original value before operating upon it.
+        * 
+        * @details
+        *   Many of these functions could actually be combined together into a simpler set amounting to the same functionality. However doing it this way allows for optimizations that otherwise would be missed. Some of these functions have direct operating system calls they can use while others are implemented using the Exchange_If_Equals functions. An implementor of the library can make use of this assortment of funcitons to add optimizations that even the operating system and compiler are missing by talking directly to the processor.
+        * 
+        * In any case, even the functions that are implemented with the Exchange_If_Equals functions are way faster than using other locking techniques and so everything in here is a good alternative if you can design your program to use them, either directly or through the nkr::atomic_T interface.
         */
 
             // Exchange(boolean_tr)
@@ -238,16 +248,18 @@
             *   Equivalent to `(atom == target ? (original = atom, atom = with, original) : (atom))`
             */
 
+    // nkr::os::endian
     /**
-    * @class doc_nkr_os_endian
+    * @class _652312c1_72a2_4b36_88ab_aee6adf8e9c9
     * @private
     *
     * @brief
     *   Functions that provide various information and solutions regarding endianness.
     */
 
+        // Info
         /**
-        * @class doc_nkr_os_endian_group_info
+        * @class _026b191f_2e76_4010_9760_e1215a647d9c
         * @private
         *
         * @brief
@@ -260,18 +272,21 @@
         *   The first time either of these functions are called they will be slightly inefficient, however any sucessive calls will be lightning fast.
         */
 
+            // Is_Big()
             /**
-            * @class doc_nkr_os_endian_Is_Big
+            * @class _9d5ef4e6_ff8f_4d63_9fdc_0c0422259d90
             * @private
             */
 
+            // Is_Little()
             /**
-            * @class doc_nkr_os_endian_Is_Little
+            * @class _884ae9eb_da64_4306_aab9_50aeb3f85298
             * @private
             */
 
+        // Swap
         /**
-        * @class doc_nkr_os_endian_group_swap
+        * @class _b5b179fb_1f64_485e_9510_80260e3a6c33
         * @private
         *
         * @brief
@@ -284,30 +299,34 @@
         *   There is no nkr::integer_8_tr variant because a byte or a stream of bytes cannot have a different endianness but is read and written the same on both kinds of computers.
         */
 
+            // Swap(integer_16_tr)
             /**
-            * @class doc_nkr_os_endian_Swap_16
+            * @class _857ce8b6_02ca_48e5_9d19_4a7581b8e4c6
             * @private
             */
 
+            // Swap(integer_32_tr)
             /**
-            * @class doc_nkr_os_endian_Swap_32
+            * @class _02c0499c_c8c8_43b9_8afc_96545310eb3a
             * @private
             */
 
+            // Swap(integer_64_tr)
             /**
-            * @class doc_nkr_os_endian_Swap_64
+            * @class _eabf9a88_080f_445d_88ab_b0dae4a55316
             * @private
             */
 
+    // nkr::os::heap
     /**
-    * @class doc_nkr_os_heap
+    * @class _a6c4699b_8fe4_4664_ac57_062765decc2b
     * @private
     *
     * @brief
     *   Functions that interface with memory located on the heap.
     */
 
-        // allocation
+        // Allocation
         /**
         * @class _30c0ffe4_d85f_45e5_ab29_bd3f18629cb9
         * @private
@@ -392,7 +411,7 @@
             *   When using these functions, memory will never be deallocated automatically for you like it is in some higher level types. You will have to manually deallocate every pointer you allocate, or else you may unexpectedly run out of memory. Regardless, the operating system will deallocate everything that has not already been deallocated when your program exits.
             */
 
-        // zero-initialized allocation
+        // Zero-Initialized Allocation
         /**
         * @class _eca47636_431b_4d2a_a102_679075b3cf17
         * @private

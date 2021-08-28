@@ -216,7 +216,7 @@
                 * @snippet "./src/maybe_t.cpp" _d1852cf1_429a_44f9_83fe_e5cceeee5af6
                 */
 
-        // floating_point_sp
+        // float_sp
         /**
         * @class _38ebec22_bbe8_4dca_a3dd_e0d3ce7f680f
         * @private
@@ -393,7 +393,7 @@
             *   add tests
             */
 
-    // built_in_sp<floating_point_p>
+    // built_in_sp<float_p>
     /**
     * @class _54610ffc_35de_47f2_9b0a_03da52782104
     * @private

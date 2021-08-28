@@ -11,7 +11,7 @@ var classnkr_1_1_0batomic__t_1_1bool__sp =
     [ "Access", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a45a64f561c65eceabf108428b7fd39e7", null ],
     [ "Assign", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ad45e49f5aacd4cb0ac743290c0e54e8c", null ],
     [ "Exchange", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a7e76f0636baff520aa62e14dac971843", null ],
-    [ "Exchange_If_Equals", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#afadcad445fe5a39bc55ed0648cf6333c", null ],
+    [ "Exchange_If_Equals", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a3dc417bcbabf8ab97d5638271ad429d4", null ],
     [ "operator value_t", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ae820a8f27e04293e234382189bf35602", null ],
     [ "operator()", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a374ad304512b742639d1b820e9e8d21e", null ],
     [ "operator=", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab00dfea994b54c41985ec6162af05638", null ],

@@ -14,11 +14,13 @@ var dir_ce205a311144f539364ed8fe79271330 =
     [ "atomic_t.h", "d2/d08/atomic__t_8h.html", [
       [ "nkr::$atomic_t::bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp" ],
       [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp" ],
+      [ "nkr::$atomic_t::float_sp< float_p >", "d9/d66/classnkr_1_1_0batomic__t_1_1float__sp.html", "d9/d66/classnkr_1_1_0batomic__t_1_1float__sp" ],
       [ "nkr::$atomic_t::pointer_sp< pointer_p >", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp" ],
       [ "nkr::$atomic_t::void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp" ],
       [ "nkr::atomic_t< invalid_p >", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
       [ "nkr::atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
       [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4" ],
+      [ "nkr::atomic_t< float_p >", "d5/dca/classnkr_1_1atomic__t_3_01float__p_01_4.html", "d5/dca/classnkr_1_1atomic__t_3_01float__p_01_4" ],
       [ "nkr::atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
       [ "nkr::atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ]
     ] ],
@@ -40,10 +42,10 @@ var dir_ce205a311144f539364ed8fe79271330 =
     [ "macros.inl", "d4/d92/macros_8inl.html", "d4/d92/macros_8inl" ],
     [ "maybe_t.h", "d6/d5d/maybe__t_8h.html", [
       [ "nkr::$maybe_t::$built_in_sp::any_sp< any_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp" ],
-      [ "nkr::$maybe_t::$built_in_sp::floating_point_sp< floating_point_p >", "d6/da2/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1floating__point__sp.html", "d6/da2/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1floating__point__sp" ],
+      [ "nkr::$maybe_t::$built_in_sp::float_sp< float_p >", "df/d9b/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1float__sp.html", "df/d9b/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1float__sp" ],
       [ "nkr::$maybe_t::$built_in_sp::pointer_sp< pointer_p >", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp" ],
       [ "nkr::$maybe_t::built_in_sp< any_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp" ],
-      [ "nkr::$maybe_t::built_in_sp< floating_point_p >", "df/d26/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01floating__point__p_01_4.html", "df/d26/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01floating__point__p_01_4" ],
+      [ "nkr::$maybe_t::built_in_sp< float_p >", "d9/d80/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01float__p_01_4.html", "d9/d80/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01float__p_01_4" ],
       [ "nkr::$maybe_t::built_in_sp< pointer_p >", "de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4.html", "de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4" ],
       [ "nkr::$maybe_t::user_defined_sp< user_defined_p >", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp" ],
       [ "nkr::maybe_t< invalid_p >", "d3/dd5/classnkr_1_1maybe__t.html", "d3/dd5/classnkr_1_1maybe__t" ],
@@ -74,7 +76,5 @@ var dir_ce205a311144f539364ed8fe79271330 =
     ] ],
     [ "string_static_t.inl", "d1/d58/string__static__t_8inl.html", null ],
     [ "string_t.h", "dc/dc4/string__t_8h.html", "dc/dc4/string__t_8h" ],
-    [ "traits.h", "dd/dff/traits_8h.html", [
-      [ "nkr::boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ]
-    ] ]
+    [ "traits.h", "dd/dff/traits_8h.html", null ]
 ];

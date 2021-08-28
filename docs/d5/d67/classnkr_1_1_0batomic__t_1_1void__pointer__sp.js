@@ -13,7 +13,7 @@ var classnkr_1_1_0batomic__t_1_1void__pointer__sp =
     [ "Access", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a6af7bfdd9c940ca0c3c387cc09dbd590", null ],
     [ "Assign", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#aa3385254154e64dc12d7f1770fa01713", null ],
     [ "Exchange", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a68fcb987467ca4646f5c5f25b20a90b2", null ],
-    [ "Exchange_If_Equals", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a357dfb42b9aebc9f059ed0022857bb92", null ],
+    [ "Exchange_If_Equals", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#aa45fd24589c1778168b8671f50a843b2", null ],
     [ "operator value_t", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ad3992a64467ab1321c86eea6436ddde3", null ],
     [ "operator()", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adeddc87e548b9e61112dada7196b3c07", null ],
     [ "operator=", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac6c1e4189a7521157924077c0cccdd8f", null ],

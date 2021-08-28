@@ -159,8 +159,8 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <tr class="separator:aa3385254154e64dc12d7f1770fa01713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68fcb987467ca4646f5c5f25b20a90b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a68fcb987467ca4646f5c5f25b20a90b2">Exchange</a> (pointer_tr auto <a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a>)</td></tr>
 <tr class="separator:a68fcb987467ca4646f5c5f25b20a90b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a357dfb42b9aebc9f059ed0022857bb92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a357dfb42b9aebc9f059ed0022857bb92">Exchange_If_Equals</a> (pointer_tr auto <a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a>, pointer_tr auto target)</td></tr>
-<tr class="separator:a357dfb42b9aebc9f059ed0022857bb92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa45fd24589c1778168b8671f50a843b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#aa45fd24589c1778168b8671f50a843b2">Exchange_If_Equals</a> (<a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">value_t</a> &amp;snapshot, pointer_tr auto <a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a>)</td></tr>
+<tr class="separator:aa45fd24589c1778168b8671f50a843b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">casts</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp0a9eee6906811a48c7d2833b8479edfe"></a></p>
@@ -560,8 +560,8 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a357dfb42b9aebc9f059ed0022857bb92" name="a357dfb42b9aebc9f059ed0022857bb92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a357dfb42b9aebc9f059ed0022857bb92">&#9670;&nbsp;</a></span>Exchange_If_Equals()</h2>
+<a id="aa45fd24589c1778168b8671f50a843b2" name="aa45fd24589c1778168b8671f50a843b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45fd24589c1778168b8671f50a843b2">&#9670;&nbsp;</a></span>Exchange_If_Equals()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -570,16 +570,16 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">void_pointer_sp::value_t</a> nkr::$atomic_t::void_pointer_sp::Exchange_If_Equals </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> nkr::$atomic_t::void_pointer_sp::Exchange_If_Equals </td>
           <td>(</td>
-          <td class="paramtype">pointer_tr auto&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">value_t</a> &amp;&#160;</td>
+          <td class="paramname"><em>snapshot</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">pointer_tr auto&#160;</td>
-          <td class="paramname"><em>target</em>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -595,12 +595,23 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
-<div class="line">                atomic_t&lt;void_t*&gt; pointer(&amp;word);</div>
-<div class="line">                CHECK(pointer.Exchange_If_Equals(<span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>) == &amp;word);</div>
-<div class="line">                CHECK(pointer == &amp;word);</div>
-<div class="line">                CHECK(pointer.Exchange_If_Equals(<span class="keyword">nullptr</span>, &amp;word) == &amp;word);</div>
-<div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 0 };</div>
+<div class="line">                atomic_t&lt;void_t*&gt; void_pointer(<span class="keyword">nullptr</span>);</div>
+<div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = &amp;words[0];</div>
+<div class="line">                CHECK(void_pointer.Exchange_If_Equals(snapshot, &amp;words[0]) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(void_pointer == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(snapshot == <span class="keyword">nullptr</span>);</div>
+<div class="line"> </div>
+<div class="line">                CHECK(void_pointer.Exchange_If_Equals(snapshot, &amp;words[0]) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(void_pointer == &amp;words[0]);</div>
+<div class="line">                CHECK(snapshot == <span class="keyword">nullptr</span>);</div>
+<div class="line"> </div>
+<div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a> = void_pointer;</div>
+<div class="line">                <span class="keywordflow">while</span> (!void_pointer.Exchange_If_Equals(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a>, <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a>) + 1));</div>
+<div class="line">                CHECK(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a> == &amp;words[0]);</div>
+<div class="line">                CHECK(void_pointer == &amp;words[1]);</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_ac8db7a0e340bf734466de43e45e202cb"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">nkr::$atomic_t::void_pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:421</div></div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -639,7 +650,7 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(pointer) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(!pointer == <span class="keyword">true</span>);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_adbb0c402aa3840cb02a8b7d809e2a210"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">nkr::$atomic_t::void_pointer_sp::value_t</a></div><div class="ttdeci">void_t * value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:313</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_adbb0c402aa3840cb02a8b7d809e2a210"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">nkr::$atomic_t::void_pointer_sp::value_t</a></div><div class="ttdeci">void_t * value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:405</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -736,7 +747,7 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <div class="line">                CHECK(pointer != <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#acdb386d0826408aa71934f260f0384e2">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
 <div class="line">                CHECK(&amp;(pointer = none_t()) == &amp;pointer);</div>
 <div class="line">                CHECK(pointer == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#acdb386d0826408aa71934f260f0384e2">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_acdb386d0826408aa71934f260f0384e2"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#acdb386d0826408aa71934f260f0384e2">nkr::$atomic_t::void_pointer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static constexpr value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:322</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_acdb386d0826408aa71934f260f0384e2"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#acdb386d0826408aa71934f260f0384e2">nkr::$atomic_t::void_pointer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static constexpr value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:414</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

@@ -85,7 +85,7 @@ $(document).ready(function(){initNavTree('d8/dd5/namespacenkr_1_1os_1_1endian.ht
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">nkr::os::endian Namespace Reference<div class="ingroups"><a class="el" href="../../d9/dd2/group__namespaces.html">namespaces</a></div></div></div>
+  <div class="headertitle"><div class="title">nkr::os::endian Namespace Reference<div class="ingroups"><a class="el" href="../../d8/d63/group____d1cd4369__e0f4__4062__8f58__611395da215e.html">namespaces</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('d8/dd5/namespacenkr_1_1os_1_1endian.ht
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">attain info</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Info</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Attain info regarding the endianness of the current processor you're running on.</p>
 <p >This is a thread-safe and efficient way of determining whether or not a computer is processing data in big or little endian. This is important to know when dealing with data that may have been written by or is intended to be read by another computer that has a different endianness than the one you are operating on. There are times when you need to know if you should swap your compound integer types to a different endianness or not.</p>
 <dl class="section note"><dt>Note</dt><dd>The first time either of these functions are called they will be slightly inefficient, however any sucessive calls will be lightning fast. </dd></dl>
@@ -103,7 +103,7 @@ Functions</h2></td></tr>
 <tr class="separator:a89b0021664e965fce2548f80d51925dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#aaeaaf2ecee3780e033b87c5edc53ebfa">Is_Little</a> ()</td></tr>
 <tr class="separator:aaeaaf2ecee3780e033b87c5edc53ebfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">swap compound integers</div></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Swap</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Invert the order of bytes in a multi-byte number.</p>
 <p >These are useful when you are dealing with data that was either written by or will be read by a processor that has a different endianness than the one your program is executing on.</p>
 <dl class="section note"><dt>Note</dt><dd>There is no <a class="el" href="../../d4/dc7/conceptnkr_1_1integer__8__tr.html">nkr::integer_8_tr</a> variant because a byte or a stream of bytes cannot have a different endianness but is read and written the same on both kinds of computers. </dd></dl>

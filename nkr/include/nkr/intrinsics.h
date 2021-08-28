@@ -14,7 +14,7 @@
 #include <memory>
 #include <utility>
 
-/// @ingroup namespaces
+/// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
 /// @copydoc doc_nkr
 namespace nkr {
 

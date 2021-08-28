@@ -9,119 +9,112 @@
 
 namespace nkr {
 
+    /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
+    /// @{
+    template <typename type_p>
+    concept any_tr =
+        true;                                   ///< @copydoc _2a77c3a0_ab8b_448e_a181_72b8efb266bf
+
+    template <typename type_p>
+    concept type_tr =
+        sizeof(type_p) > 0;                     ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
+
     template <typename type_p>
     concept boolean_tr =
         std::same_as<type_p, bool_t> ||
-        std::same_as<type_p, std_bool_t>;   /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+        std::same_as<type_p, std_bool_t>;       /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+    /// @}
 
-    /// @addtogroup traits_integers
+    /// @addtogroup _222d304c_42db_4988_8611_c8aedc33c6cc
     /// @{
     template <typename type_p>
     concept integer_tr =
         std::is_integral<type_p>::value &&
-        !std::same_as<type_p, std_bool_t>;  ///< @copydoc traits_integers_integer_tr
+        !std::same_as<type_p, std_bool_t>;  ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
 
     template <typename type_p>
     concept integer_unsigned_tr =
         integer_tr<type_p> &&
-        std::is_unsigned<type_p>::value;    ///< @copydoc traits_integers_integer_unsigned_tr
+        std::is_unsigned<type_p>::value;    ///< @copydoc _7099e20b_1e48_4d00_93a4_4932ad1baf1d
 
     template <typename type_p>
     concept integer_signed_tr =
         integer_tr<type_p> &&
-        std::is_signed<type_p>::value;      ///< @copydoc traits_integers_integer_signed_tr
-
-    template <typename type_p>
-    concept integer_8_tr =
-        integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u8_t));   ///< @copydoc traits_integers_integer_8_tr
-
-    template <typename type_p>
-    concept integer_16_tr =
-        integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u16_t));  ///< @copydoc traits_integers_integer_16_tr
-
-    template <typename type_p>
-    concept integer_32_tr =
-        integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u32_t));  ///< @copydoc traits_integers_integer_32_tr
-
-    template <typename type_p>
-    concept integer_64_tr =
-        integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u64_t));  ///< @copydoc traits_integers_integer_64_tr
+        std::is_signed<type_p>::value;      ///< @copydoc _f2900e04_a6a5_4d04_bed5_61932038deb2
 
     template <typename type_p>
     concept integer_word_tr =
         integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(word_t)); ///< @copydoc traits_integers_integer_word_tr
+        (sizeof(type_p) == sizeof(word_t)); ///< @copydoc _ddbfd7fa_7bd7_4121_988b_671b57bcd24f
+
+    template <typename type_p>
+    concept integer_8_tr =
+        integer_tr<type_p> &&
+        (sizeof(type_p) == sizeof(u8_t));   ///< @copydoc _b70bda64_61e7_4743_a015_ed6cf0bb426f
+
+    template <typename type_p>
+    concept integer_16_tr =
+        integer_tr<type_p> &&
+        (sizeof(type_p) == sizeof(u16_t));  ///< @copydoc _fa1ef979_a5ad_4040_9824_060e12cac0a9
+
+    template <typename type_p>
+    concept integer_32_tr =
+        integer_tr<type_p> &&
+        (sizeof(type_p) == sizeof(u32_t));  ///< @copydoc _3e2e08b8_7594_4766_8c65_d8ab87b0ed43
+
+    template <typename type_p>
+    concept integer_64_tr =
+        integer_tr<type_p> &&
+        (sizeof(type_p) == sizeof(u64_t));  ///< @copydoc _a5b7d6de_d392_48a1_893d_8bdc9d2ba8e6
     /// @}
 
-    // this should be float_tr
-    template <typename type_p>
-    concept floating_point_tr =
-        std::is_floating_point<type_p>::value;              ///< @copydoc _7436208f_39ce_49f4_accb_a3bee797b12a
-
+    /// @addtogroup _8f223336_ce2a_4589_b4c1_75cd98cd393d
+    /// @{
     template <typename type_p>
     concept float_tr =
-        std::is_floating_point<type_p>::value;
+        std::is_floating_point<type_p>::value;  ///< @copydoc _7436208f_39ce_49f4_accb_a3bee797b12a
 
     template <typename type_p>
     concept float_32_tr =
-        floating_point_tr<type_p> &&
-        (sizeof(type_p) == sizeof(f32_t));  ///< @copydoc 
+        float_tr<type_p> &&
+        (sizeof(type_p) == sizeof(f32_t));      ///< @copydoc _63562b29_b254_4e38_b931_b895a7d86c75
 
     template <typename type_p>
     concept float_64_tr =
-        floating_point_tr<type_p> &&
-        (sizeof(type_p) == sizeof(f64_t));  ///< @copydoc 
-    
-    /// @addtogroup traits_operators
-    /// @{
-    template <typename type_p>
-    concept operator_add_tr =
-        requires(type_p instance) { instance + 1; };    ///< @copydoc traits_operators_operator_add_tr
-
-    template <typename type_p>
-    concept operator_subtract_tr =
-        requires(type_p instance) { instance - 1; };    ///< @copydoc traits_operators_operator_subtract_tr
+        float_tr<type_p> &&
+        (sizeof(type_p) == sizeof(f64_t));      ///< @copydoc _5a831ea1_e707_476a_9f37_317ad35b94c7
     /// @}
 
-
-    /// @addtogroup traits_misc
+    /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_p>
     concept pointer_tr =
         std::is_null_pointer<type_p>::value ||
-        std::is_pointer<type_p>::value;                     ///< @copydoc traits_misc_pointer_tr
-
-    template <typename type_p>
-    concept sized_tr =
-        sizeof(type_p) > 0;                                 ///< @copydoc traits_misc_sized_tr
+        std::is_pointer<type_p>::value;         ///< @copydoc _42df3700_b206_4dec_a280_cc34bfd783ea
 
     template <typename type_p>
     concept built_in_tr =
         std::same_as<type_p, std_bool_t> ||
         integer_tr<type_p> ||
-        floating_point_tr<type_p> ||
-        pointer_tr<type_p>;                                 ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
+        float_tr<type_p> ||
+        pointer_tr<type_p>;                     ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
 
     template <typename type_p>
     concept user_defined_tr =
-        !built_in_tr<type_p>;
+        !built_in_tr<type_p>;                   ///< @copydoc _3818a648_654b_43d9_9c9d_18527bc45131
+    /// @}
 
-    template <typename type_p>
-    concept any_tr = true;
-
+    /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
+    /// @{
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value ||
-        std::is_base_of<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value;
+        std::is_base_of<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value;    ///< @copydoc _eff1ff48_96ed_4134_abae_5d29c91fd554
 
     template <typename type_p, typename base_p>
     concept same_or_derived_from_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value ||
-        std::is_convertible<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value;
+        std::is_convertible<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value;   ///< @copydoc _a08a3aa7_12f3_4e3f_8515_610fa450219b
     /// @}
 
 }

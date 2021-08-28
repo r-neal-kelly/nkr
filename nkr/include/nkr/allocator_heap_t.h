@@ -10,7 +10,7 @@
 
 namespace nkr {
 
-    template <sized_tr unit = pointer_t<>::unit_t>
+    template <type_tr unit = pointer_t<>::unit_t>
     class allocator_heap_t
     {
     public:

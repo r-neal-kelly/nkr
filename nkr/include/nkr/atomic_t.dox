@@ -687,7 +687,7 @@
             * @snippet "./src/atomic_t.cpp" _33e7ab8b_f658_430a_ad5b_05f722975e85
             */
 
-    // floating_point_sp
+    // float_sp
     /**
     * @class _253501fa_5219_4009_94e8_08f3a28881ee
     * @private
@@ -1415,13 +1415,13 @@
         *   add tests
         */
 
-// atomic_t<floating_point_tr floating_point_p>
+// atomic_t<float_tr float_p>
 /**
 * @class _b40d083f_64f4_4a9d_b384_331d91c07b57
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::floating_point_sp.
+*   A wrapper for nkr::$atomic_t::float_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff

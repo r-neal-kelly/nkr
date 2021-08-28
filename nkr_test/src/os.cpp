@@ -285,6 +285,211 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
+    TEST_SUITE("Access_Multiply()")
+    {
+        TEST_SUITE("should value * operand without changing its original value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Access_Multiply(u8, 2) == 16);
+                CHECK(nkr::os::atomic::Access(u8) == 8);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Access_Multiply(u16, 2) == 32);
+                CHECK(nkr::os::atomic::Access(u16) == 16);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Access_Multiply(u32, 2) == 64);
+                CHECK(nkr::os::atomic::Access(u32) == 32);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Access_Multiply(u64, 2) == 128);
+                CHECK(nkr::os::atomic::Access(u64) == 64);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Access_Multiply(s8, 2) == -16);
+                CHECK(nkr::os::atomic::Access(s8) == -8);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Access_Multiply(s16, 2) == -32);
+                CHECK(nkr::os::atomic::Access(s16) == -16);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Access_Multiply(s32, 2) == -64);
+                CHECK(nkr::os::atomic::Access(s32) == -32);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Access_Multiply(s64, 2) == -128);
+                CHECK(nkr::os::atomic::Access(s64) == -64);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Access_Multiply(f32, 0.1f) == 3.2f * 0.1f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Access_Multiply(f64, 0.1) == 6.4 * 0.1);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Access_Divide()")
+    {
+        TEST_SUITE("should value / operand without changing the original value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Access_Divide(u8, 2) == 4);
+                CHECK(nkr::os::atomic::Access(u8) == 8);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Access_Divide(u16, 2) == 8);
+                CHECK(nkr::os::atomic::Access(u16) == 16);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Access_Divide(u32, 2) == 16);
+                CHECK(nkr::os::atomic::Access(u32) == 32);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Access_Divide(u64, 2) == 32);
+                CHECK(nkr::os::atomic::Access(u64) == 64);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Access_Divide(s8, 2) == -4);
+                CHECK(nkr::os::atomic::Access(s8) == -8);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Access_Divide(s16, 2) == -8);
+                CHECK(nkr::os::atomic::Access(s16) == -16);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Access_Divide(s32, 2) == -16);
+                CHECK(nkr::os::atomic::Access(s32) == -32);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Access_Divide(s64, 2) == -32);
+                CHECK(nkr::os::atomic::Access(s64) == -64);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Access_Divide(f32, 0.1f) == 3.2f / 0.1f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Access_Divide(f64, 0.1) == 6.4 / 0.1);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Access_Modulus()")
+    {
+        TEST_SUITE("should value % operand without changing the original value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Access_Modulus(u8, 3) == 2);
+                CHECK(nkr::os::atomic::Access(u8) == 8);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Access_Modulus(u16, 3) == 1);
+                CHECK(nkr::os::atomic::Access(u16) == 16);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Access_Modulus(u32, 3) == 2);
+                CHECK(nkr::os::atomic::Access(u32) == 32);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Access_Modulus(u64, 3) == 1);
+                CHECK(nkr::os::atomic::Access(u64) == 64);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Access_Modulus(s8, 3) == -2);
+                CHECK(nkr::os::atomic::Access(s8) == -8);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Access_Modulus(s16, 3) == -1);
+                CHECK(nkr::os::atomic::Access(s16) == -16);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Access_Modulus(s32, 3) == -2);
+                CHECK(nkr::os::atomic::Access(s32) == -32);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Access_Modulus(s64, 3) == -1);
+                CHECK(nkr::os::atomic::Access(s64) == -64);
+            #endif
+            }
+        }
+    }
+
     TEST_SUITE("Access_Or")
     {
         TEST_SUITE("should return or'd values without changing the original")
@@ -457,6 +662,124 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = 0x7FFFFFFFFFFFFFFF;
                 CHECK(nkr::os::atomic::Access_Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFE);
                 CHECK(s64 == 0x7FFFFFFFFFFFFFFF);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Access_Left_Shift()")
+    {
+        TEST_SUITE("should return value << operator without changing the value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 0x0F;
+                CHECK(nkr::os::atomic::Access_Left_Shift(u8, 4) == 0xF0);
+                CHECK(nkr::os::atomic::Access(u8) == 0x0F);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 0x00FF;
+                CHECK(nkr::os::atomic::Access_Left_Shift(u16, 8) == 0xFF00);
+                CHECK(nkr::os::atomic::Access(u16) == 0x00FF);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 0x0000FFFF;
+                CHECK(nkr::os::atomic::Access_Left_Shift(u32, 16) == 0xFFFF0000);
+                CHECK(nkr::os::atomic::Access(u32) == 0x0000FFFF);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 0x00000000FFFFFFFF;
+                CHECK(nkr::os::atomic::Access_Left_Shift(u64, 32) == 0xFFFFFFFF00000000);
+                CHECK(nkr::os::atomic::Access(u64) == 0x00000000FFFFFFFF);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = 0x07;
+                CHECK(nkr::os::atomic::Access_Left_Shift(s8, 4) == 0x70);
+                CHECK(nkr::os::atomic::Access(s8) == 0x07);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = 0x007F;
+                CHECK(nkr::os::atomic::Access_Left_Shift(s16, 8) == 0x7F00);
+                CHECK(nkr::os::atomic::Access(s16) == 0x007F);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = 0x00007FFF;
+                CHECK(nkr::os::atomic::Access_Left_Shift(s32, 16) == 0x7FFF0000);
+                CHECK(nkr::os::atomic::Access(s32) == 0x00007FFF);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = 0x000000007FFFFFFF;
+                CHECK(nkr::os::atomic::Access_Left_Shift(s64, 32) == 0x7FFFFFFF00000000);
+                CHECK(nkr::os::atomic::Access(s64) == 0x000000007FFFFFFF);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Access_Right_Shift()")
+    {
+        TEST_SUITE("should return value >> operator without changing the value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 0xF0;
+                CHECK(nkr::os::atomic::Access_Right_Shift(u8, 4) == 0x0F);
+                CHECK(nkr::os::atomic::Access(u8) == 0xF0);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 0xFF00;
+                CHECK(nkr::os::atomic::Access_Right_Shift(u16, 8) == 0x00FF);
+                CHECK(nkr::os::atomic::Access(u16) == 0xFF00);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 0xFFFF0000;
+                CHECK(nkr::os::atomic::Access_Right_Shift(u32, 16) == 0x0000FFFF);
+                CHECK(nkr::os::atomic::Access(u32) == 0xFFFF0000);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 0xFFFFFFFF00000000;
+                CHECK(nkr::os::atomic::Access_Right_Shift(u64, 32) == 0x00000000FFFFFFFF);
+                CHECK(nkr::os::atomic::Access(u64) == 0xFFFFFFFF00000000);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = 0x70;
+                CHECK(nkr::os::atomic::Access_Right_Shift(s8, 4) == 0x07);
+                CHECK(nkr::os::atomic::Access(s8) == 0x70);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = 0x7F00;
+                CHECK(nkr::os::atomic::Access_Right_Shift(s16, 8) == 0x007F);
+                CHECK(nkr::os::atomic::Access(s16) == 0x7F00);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = 0x7FFF0000;
+                CHECK(nkr::os::atomic::Access_Right_Shift(s32, 16) == 0x00007FFF);
+                CHECK(nkr::os::atomic::Access(s32) == 0x7FFF0000);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = 0x7FFFFFFF00000000;
+                CHECK(nkr::os::atomic::Access_Right_Shift(s64, 32) == 0x000000007FFFFFFF);
+                CHECK(nkr::os::atomic::Access(s64) == 0x7FFFFFFF00000000);
             #endif
             }
         }
@@ -777,6 +1100,211 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
+    TEST_SUITE("Assign_Multiply()")
+    {
+        TEST_SUITE("should value * operand and change its original value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Assign_Multiply(u8, 2) == 16);
+                CHECK(nkr::os::atomic::Access(u8) == 16);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Assign_Multiply(u16, 2) == 32);
+                CHECK(nkr::os::atomic::Access(u16) == 32);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Assign_Multiply(u32, 2) == 64);
+                CHECK(nkr::os::atomic::Access(u32) == 64);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Assign_Multiply(u64, 2) == 128);
+                CHECK(nkr::os::atomic::Access(u64) == 128);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Assign_Multiply(s8, 2) == -16);
+                CHECK(nkr::os::atomic::Access(s8) == -16);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Assign_Multiply(s16, 2) == -32);
+                CHECK(nkr::os::atomic::Access(s16) == -32);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Assign_Multiply(s32, 2) == -64);
+                CHECK(nkr::os::atomic::Access(s32) == -64);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Assign_Multiply(s64, 2) == -128);
+                CHECK(nkr::os::atomic::Access(s64) == -128);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Assign_Multiply(f32, 0.1f) == 3.2f * 0.1f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f * 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Assign_Multiply(f64, 0.1) == 6.4 * 0.1);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4 * 0.1);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Assign_Divide()")
+    {
+        TEST_SUITE("should value / operand and change the original value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Assign_Divide(u8, 2) == 4);
+                CHECK(nkr::os::atomic::Access(u8) == 4);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Assign_Divide(u16, 2) == 8);
+                CHECK(nkr::os::atomic::Access(u16) == 8);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Assign_Divide(u32, 2) == 16);
+                CHECK(nkr::os::atomic::Access(u32) == 16);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Assign_Divide(u64, 2) == 32);
+                CHECK(nkr::os::atomic::Access(u64) == 32);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Assign_Divide(s8, 2) == -4);
+                CHECK(nkr::os::atomic::Access(s8) == -4);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Assign_Divide(s16, 2) == -8);
+                CHECK(nkr::os::atomic::Access(s16) == -8);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Assign_Divide(s32, 2) == -16);
+                CHECK(nkr::os::atomic::Access(s32) == -16);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Assign_Divide(s64, 2) == -32);
+                CHECK(nkr::os::atomic::Access(s64) == -32);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Assign_Divide(f32, 0.1f) == 3.2f / 0.1f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f / 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Assign_Divide(f64, 0.1) == 6.4 / 0.1);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4 / 0.1);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Assign_Modulus()")
+    {
+        TEST_SUITE("should value % operand and change the original value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Assign_Modulus(u8, 3) == 2);
+                CHECK(nkr::os::atomic::Access(u8) == 2);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Assign_Modulus(u16, 3) == 1);
+                CHECK(nkr::os::atomic::Access(u16) == 1);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Assign_Modulus(u32, 3) == 2);
+                CHECK(nkr::os::atomic::Access(u32) == 2);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Assign_Modulus(u64, 3) == 1);
+                CHECK(nkr::os::atomic::Access(u64) == 1);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Assign_Modulus(s8, 3) == -2);
+                CHECK(nkr::os::atomic::Access(s8) == -2);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Assign_Modulus(s16, 3) == -1);
+                CHECK(nkr::os::atomic::Access(s16) == -1);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Assign_Modulus(s32, 3) == -2);
+                CHECK(nkr::os::atomic::Access(s32) == -2);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Assign_Modulus(s64, 3) == -1);
+                CHECK(nkr::os::atomic::Access(s64) == -1);
+            #endif
+            }
+        }
+    }
+
     TEST_SUITE("Assign_Or")
     {
         TEST_SUITE("should atomically OR integers and return the new value")
@@ -949,6 +1477,124 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = 0x7FFFFFFFFFFFFFFF;
                 CHECK(nkr::os::atomic::Assign_Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFE);
                 CHECK(s64 == 0x7FFFFFFFFFFFFFFE);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Assign_Left_Shift()")
+    {
+        TEST_SUITE("should return value << operator and change the value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 0x0F;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(u8, 4) == 0xF0);
+                CHECK(nkr::os::atomic::Access(u8) == 0xF0);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 0x00FF;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(u16, 8) == 0xFF00);
+                CHECK(nkr::os::atomic::Access(u16) == 0xFF00);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 0x0000FFFF;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(u32, 16) == 0xFFFF0000);
+                CHECK(nkr::os::atomic::Access(u32) == 0xFFFF0000);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 0x00000000FFFFFFFF;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(u64, 32) == 0xFFFFFFFF00000000);
+                CHECK(nkr::os::atomic::Access(u64) == 0xFFFFFFFF00000000);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = 0x07;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(s8, 4) == 0x70);
+                CHECK(nkr::os::atomic::Access(s8) == 0x70);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = 0x007F;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(s16, 8) == 0x7F00);
+                CHECK(nkr::os::atomic::Access(s16) == 0x7F00);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = 0x00007FFF;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(s32, 16) == 0x7FFF0000);
+                CHECK(nkr::os::atomic::Access(s32) == 0x7FFF0000);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = 0x000000007FFFFFFF;
+                CHECK(nkr::os::atomic::Assign_Left_Shift(s64, 32) == 0x7FFFFFFF00000000);
+                CHECK(nkr::os::atomic::Access(s64) == 0x7FFFFFFF00000000);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Assign_Right_Shift()")
+    {
+        TEST_SUITE("should return value >> operator and change the value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 0xF0;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(u8, 4) == 0x0F);
+                CHECK(nkr::os::atomic::Access(u8) == 0x0F);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 0xFF00;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(u16, 8) == 0x00FF);
+                CHECK(nkr::os::atomic::Access(u16) == 0x00FF);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 0xFFFF0000;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(u32, 16) == 0x0000FFFF);
+                CHECK(nkr::os::atomic::Access(u32) == 0x0000FFFF);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 0xFFFFFFFF00000000;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(u64, 32) == 0x00000000FFFFFFFF);
+                CHECK(nkr::os::atomic::Access(u64) == 0x00000000FFFFFFFF);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = 0x70;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(s8, 4) == 0x07);
+                CHECK(nkr::os::atomic::Access(s8) == 0x07);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = 0x7F00;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(s16, 8) == 0x007F);
+                CHECK(nkr::os::atomic::Access(s16) == 0x007F);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = 0x7FFF0000;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(s32, 16) == 0x00007FFF);
+                CHECK(nkr::os::atomic::Access(s32) == 0x00007FFF);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = 0x7FFFFFFF00000000;
+                CHECK(nkr::os::atomic::Assign_Right_Shift(s64, 32) == 0x000000007FFFFFFF);
+                CHECK(nkr::os::atomic::Access(s64) == 0x000000007FFFFFFF);
             #endif
             }
         }
@@ -1217,6 +1863,211 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
+    TEST_SUITE("Exchange_Multiply()")
+    {
+        TEST_SUITE("should multiply its value with the operand and return the initial value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Exchange_Multiply(u8, 2) == 8);
+                CHECK(nkr::os::atomic::Access(u8) == 16);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Exchange_Multiply(u16, 2) == 16);
+                CHECK(nkr::os::atomic::Access(u16) == 32);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Exchange_Multiply(u32, 2) == 32);
+                CHECK(nkr::os::atomic::Access(u32) == 64);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Exchange_Multiply(u64, 2) == 64);
+                CHECK(nkr::os::atomic::Access(u64) == 128);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Exchange_Multiply(s8, 2) == -8);
+                CHECK(nkr::os::atomic::Access(s8) == -16);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Exchange_Multiply(s16, 2) == -16);
+                CHECK(nkr::os::atomic::Access(s16) == -32);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Exchange_Multiply(s32, 2) == -32);
+                CHECK(nkr::os::atomic::Access(s32) == -64);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Exchange_Multiply(s64, 2) == -64);
+                CHECK(nkr::os::atomic::Access(s64) == -128);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Exchange_Multiply(f32, 0.1f) == 3.2f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f * 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Exchange_Multiply(f64, 0.1) == 6.4);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4 * 0.1);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Exchange_Divide()")
+    {
+        TEST_SUITE("should divide its value with the operand and return the initial value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Exchange_Divide(u8, 2) == 8);
+                CHECK(nkr::os::atomic::Access(u8) == 4);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Exchange_Divide(u16, 2) == 16);
+                CHECK(nkr::os::atomic::Access(u16) == 8);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Exchange_Divide(u32, 2) == 32);
+                CHECK(nkr::os::atomic::Access(u32) == 16);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Exchange_Divide(u64, 2) == 64);
+                CHECK(nkr::os::atomic::Access(u64) == 32);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Exchange_Divide(s8, 2) == -8);
+                CHECK(nkr::os::atomic::Access(s8) == -4);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Exchange_Divide(s16, 2) == -16);
+                CHECK(nkr::os::atomic::Access(s16) == -8);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Exchange_Divide(s32, 2) == -32);
+                CHECK(nkr::os::atomic::Access(s32) == -16);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Exchange_Divide(s64, 2) == -64);
+                CHECK(nkr::os::atomic::Access(s64) == -32);
+            #endif
+            }
+            TEST_CASE("f32_t")
+            {
+                f32_t f32 = 3.2f;
+                CHECK(nkr::os::atomic::Exchange_Divide(f32, 0.1f) == 3.2f);
+                CHECK(nkr::os::atomic::Access(f32) == 3.2f / 0.1f);
+            }
+            TEST_CASE("f64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                f64_t f64 = 6.4;
+                CHECK(nkr::os::atomic::Exchange_Divide(f64, 0.1) == 6.4);
+                CHECK(nkr::os::atomic::Access(f64) == 6.4 / 0.1);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Exchange_Modulus()")
+    {
+        TEST_SUITE("should mod its value with the operand and return the initial value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 8;
+                CHECK(nkr::os::atomic::Exchange_Modulus(u8, 3) == 8);
+                CHECK(nkr::os::atomic::Access(u8) == 2);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 16;
+                CHECK(nkr::os::atomic::Exchange_Modulus(u16, 3) == 16);
+                CHECK(nkr::os::atomic::Access(u16) == 1);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 32;
+                CHECK(nkr::os::atomic::Exchange_Modulus(u32, 3) == 32);
+                CHECK(nkr::os::atomic::Access(u32) == 2);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 64;
+                CHECK(nkr::os::atomic::Exchange_Modulus(u64, 3) == 64);
+                CHECK(nkr::os::atomic::Access(u64) == 1);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = -8;
+                CHECK(nkr::os::atomic::Exchange_Modulus(s8, 3) == -8);
+                CHECK(nkr::os::atomic::Access(s8) == -2);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = -16;
+                CHECK(nkr::os::atomic::Exchange_Modulus(s16, 3) == -16);
+                CHECK(nkr::os::atomic::Access(s16) == -1);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = -32;
+                CHECK(nkr::os::atomic::Exchange_Modulus(s32, 3) == -32);
+                CHECK(nkr::os::atomic::Access(s32) == -2);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = -64;
+                CHECK(nkr::os::atomic::Exchange_Modulus(s64, 3) == -64);
+                CHECK(nkr::os::atomic::Access(s64) == -1);
+            #endif
+            }
+        }
+    }
+
     TEST_SUITE("Exchange_Or")
     {
         TEST_SUITE("should atomically OR integers and return the initial value")
@@ -1389,6 +2240,124 @@ namespace nkr { namespace os { namespace atomic {
                 s64_t s64 = 0x7FFFFFFFFFFFFFFF;
                 CHECK(nkr::os::atomic::Exchange_Xor(s64, 0x0000000000000001) == 0x7FFFFFFFFFFFFFFF);
                 CHECK(nkr::os::atomic::Access(s64) == 0x7FFFFFFFFFFFFFFE);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Exchange_Left_Shift()")
+    {
+        TEST_SUITE("should <<= the operand and return its previous value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 0x0F;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(u8, 4) == 0x0F);
+                CHECK(nkr::os::atomic::Access(u8) == 0xF0);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 0x00FF;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(u16, 8) == 0x00FF);
+                CHECK(nkr::os::atomic::Access(u16) == 0xFF00);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 0x0000FFFF;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(u32, 16) == 0x0000FFFF);
+                CHECK(nkr::os::atomic::Access(u32) == 0xFFFF0000);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 0x00000000FFFFFFFF;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(u64, 32) == 0x00000000FFFFFFFF);
+                CHECK(nkr::os::atomic::Access(u64) == 0xFFFFFFFF00000000);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = 0x07;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(s8, 4) == 0x07);
+                CHECK(nkr::os::atomic::Access(s8) == 0x70);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = 0x007F;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(s16, 8) == 0x007F);
+                CHECK(nkr::os::atomic::Access(s16) == 0x7F00);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = 0x00007FFF;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(s32, 16) == 0x00007FFF);
+                CHECK(nkr::os::atomic::Access(s32) == 0x7FFF0000);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = 0x000000007FFFFFFF;
+                CHECK(nkr::os::atomic::Exchange_Left_Shift(s64, 32) == 0x000000007FFFFFFF);
+                CHECK(nkr::os::atomic::Access(s64) == 0x7FFFFFFF00000000);
+            #endif
+            }
+        }
+    }
+
+    TEST_SUITE("Exchange_Right_Shift()")
+    {
+        TEST_SUITE("should >>= the operand and return its previous value")
+        {
+            TEST_CASE("u8_t")
+            {
+                u8_t u8 = 0xF0;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(u8, 4) == 0xF0);
+                CHECK(nkr::os::atomic::Access(u8) == 0x0F);
+            }
+            TEST_CASE("u16_t")
+            {
+                u16_t u16 = 0xFF00;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(u16, 8) == 0xFF00);
+                CHECK(nkr::os::atomic::Access(u16) == 0x00FF);
+            }
+            TEST_CASE("u32_t")
+            {
+                u32_t u32 = 0xFFFF0000;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(u32, 16) == 0xFFFF0000);
+                CHECK(nkr::os::atomic::Access(u32) == 0x0000FFFF);
+            }
+            TEST_CASE("u64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                u64_t u64 = 0xFFFFFFFF00000000;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(u64, 32) == 0xFFFFFFFF00000000);
+                CHECK(nkr::os::atomic::Access(u64) == 0x00000000FFFFFFFF);
+            #endif
+            }
+            TEST_CASE("s8_t")
+            {
+                s8_t s8 = 0x70;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(s8, 4) == 0x70);
+                CHECK(nkr::os::atomic::Access(s8) == 0x07);
+            }
+            TEST_CASE("s16_t")
+            {
+                s16_t s16 = 0x7F00;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(s16, 8) == 0x7F00);
+                CHECK(nkr::os::atomic::Access(s16) == 0x007F);
+            }
+            TEST_CASE("s32_t")
+            {
+                s32_t s32 = 0x7FFF0000;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(s32, 16) == 0x7FFF0000);
+                CHECK(nkr::os::atomic::Access(s32) == 0x00007FFF);
+            }
+            TEST_CASE("s64_t")
+            {
+            #if defined(nkr_IS_64_BIT)
+                s64_t s64 = 0x7FFFFFFF00000000;
+                CHECK(nkr::os::atomic::Exchange_Right_Shift(s64, 32) == 0x7FFFFFFF00000000);
+                CHECK(nkr::os::atomic::Access(s64) == 0x000000007FFFFFFF);
             #endif
             }
         }

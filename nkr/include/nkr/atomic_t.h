@@ -11,7 +11,7 @@
 
 namespace nkr {
 
-    /// @ingroup namespaces
+    /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
     /// @copydoc _80ba6268_583c_45c1_8d5c_d5d84565dae8
     namespace $atomic_t {};
 

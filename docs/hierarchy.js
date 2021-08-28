@@ -7,9 +7,9 @@ var hierarchy =
       ] ],
       [ "nkr::$maybe_t::built_in_sp< any_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", null ]
     ] ],
-    [ "nkr::$maybe_t::$built_in_sp::any_sp< floating_point_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
-      [ "nkr::$maybe_t::$built_in_sp::floating_point_sp< floating_point_p >", "d6/da2/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1floating__point__sp.html", [
-        [ "nkr::$maybe_t::built_in_sp< floating_point_p >", "df/d26/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01floating__point__p_01_4.html", null ]
+    [ "nkr::$maybe_t::$built_in_sp::any_sp< float_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
+      [ "nkr::$maybe_t::$built_in_sp::float_sp< float_p >", "df/d9b/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1float__sp.html", [
+        [ "nkr::$maybe_t::built_in_sp< float_p >", "d9/d80/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01float__p_01_4.html", null ]
       ] ]
     ] ],
     [ "nkr::$maybe_t::$built_in_sp::any_sp< pointer_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
@@ -24,6 +24,9 @@ var hierarchy =
     ] ],
     [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", null ],
     [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", null ],
+    [ "nkr::$atomic_t::float_sp< float_p >", "d9/d66/classnkr_1_1_0batomic__t_1_1float__sp.html", [
+      [ "nkr::atomic_t< float_p >", "d5/dca/classnkr_1_1atomic__t_3_01float__p_01_4.html", null ]
+    ] ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", null ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", [
       [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", null ]

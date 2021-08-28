@@ -118,40 +118,40 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         return !operator ==(none_t());
     }
 
-    template <floating_point_tr floating_point_p>
-    inline floating_point_sp<floating_point_p>::floating_point_sp(const any_sp<floating_point_p>& other) :
-        any_sp<floating_point_p>(other)
+    template <float_tr float_p>
+    inline float_sp<float_p>::float_sp(const any_sp<float_p>& other) :
+        any_sp<float_p>(other)
     {
     }
 
-    template <floating_point_tr floating_point_p>
-    inline floating_point_sp<floating_point_p>::floating_point_sp(any_sp<floating_point_p>&& other) noexcept :
-        any_sp<floating_point_p>(std::move(other))
+    template <float_tr float_p>
+    inline float_sp<float_p>::float_sp(any_sp<float_p>&& other) noexcept :
+        any_sp<float_p>(std::move(other))
     {
     }
 
-    template <floating_point_tr floating_point_p>
-    inline typename floating_point_sp<floating_point_p>::value_t floating_point_sp<floating_point_p>::operator ++()
+    template <float_tr float_p>
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ++()
     {
         return this->value += 1.0;
     }
 
-    template <floating_point_tr floating_point_p>
-    inline typename floating_point_sp<floating_point_p>::value_t floating_point_sp<floating_point_p>::operator ++(int)
+    template <float_tr float_p>
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ++(int)
     {
         value_t value = this->value;
         this->value += 1.0;
         return value;
     }
 
-    template <floating_point_tr floating_point_p>
-    inline typename floating_point_sp<floating_point_p>::value_t floating_point_sp<floating_point_p>::operator --()
+    template <float_tr float_p>
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --()
     {
         return this->value -= 1.0;
     }
 
-    template <floating_point_tr floating_point_p>
-    inline typename floating_point_sp<floating_point_p>::value_t floating_point_sp<floating_point_p>::operator --(int)
+    template <float_tr float_p>
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --(int)
     {
         value_t value = this->value;
         this->value -= 1.0;

@@ -4,7 +4,7 @@ var searchData=
   ['index_5ft_1',['index_t',['../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f',1,'nkr']]],
   ['integer_5fsp_2',['integer_sp',['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a5c18a7595ed15226987886f0f4f52144',1,'nkr::$atomic_t::integer_sp::integer_sp()'],['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a24099cce91390079e2b7fbba6ce3d40e',1,'nkr::$atomic_t::integer_sp::integer_sp(value_t value)'],['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a22f829dc627738294784b95feca5f8e0',1,'nkr::$atomic_t::integer_sp::integer_sp(const integer_sp &amp;other)'],['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#acf0dc00055f7911466b20e5ec17843c3',1,'nkr::$atomic_t::integer_sp::integer_sp(integer_sp &amp;&amp;other) noexcept'],['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html',1,'nkr::$atomic_t::integer_sp&lt; integer_p &gt;']]],
   ['integer_5fsp_3c_20integer_5fp_20_3e_3',['integer_sp&lt; integer_p &gt;',['../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html',1,'nkr::$atomic_t']]],
-  ['integers_4',['integers',['../d8/d3c/group__intrinsics__integers.html',1,'(Global Namespace)'],['../d9/d44/group__traits__integers.html',1,'(Global Namespace)']]],
+  ['integers_4',['integers',['../da/d35/group____222d304c__42db__4988__8611__c8aedc33c6cc.html',1,'(Global Namespace)'],['../d8/d3c/group__intrinsics__integers.html',1,'(Global Namespace)']]],
   ['interfaces_5',['interfaces',['../d1/d1f/group____7752ee81__def2__4386__b164__bc31f29ce7b8.html',1,'']]],
   ['intrinsics_6',['intrinsics',['../df/daa/group__intrinsics.html',1,'']]],
   ['intrinsics_2edox_7',['intrinsics.dox',['../d1/de0/intrinsics_8dox.html',1,'']]],

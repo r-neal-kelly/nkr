@@ -93,6 +93,41 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Access(atom)) - with;
     }
 
+    integer_tr auto Access_Multiply(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom) * with);
+    }
+
+    float_tr auto Access_Multiply(volatile float_tr auto& atom, float_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom) * with);
+    }
+
+    integer_tr auto Access_Divide(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom) / with);
+    }
+
+    float_tr auto Access_Divide(volatile float_tr auto& atom, float_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom) / with);
+    }
+
+    integer_tr auto Access_Modulus(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom) % with);
+    }
+
     inline integer_tr auto Access_Or(const volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
@@ -112,6 +147,20 @@ namespace nkr { namespace os { namespace atomic {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
         return static_cast<atom_t>(Access(atom)) ^ static_cast<atom_t>(with);
+    }
+
+    inline integer_tr auto Access_Left_Shift(const volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom)) << static_cast<atom_t>(with);
+    }
+
+    inline integer_tr auto Access_Right_Shift(const volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Access(atom)) >> static_cast<atom_t>(with);
     }
 
     inline boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with)
@@ -184,6 +233,41 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Exchange_Subtract(atom, with)) - with;
     }
 
+    integer_tr auto Assign_Multiply(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Multiply(atom, with) * with);
+    }
+
+    float_tr auto Assign_Multiply(volatile float_tr auto& atom, float_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Multiply(atom, with) * with);
+    }
+
+    integer_tr auto Assign_Divide(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Divide(atom, with) / with);
+    }
+
+    float_tr auto Assign_Divide(volatile float_tr auto& atom, float_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Divide(atom, with) / with);
+    }
+
+    integer_tr auto Assign_Modulus(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Modulus(atom, with) % with);
+    }
+
     inline integer_tr auto Assign_Or(volatile integer_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
@@ -203,6 +287,20 @@ namespace nkr { namespace os { namespace atomic {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
         return static_cast<atom_t>(Exchange_Xor(atom, with)) ^ static_cast<atom_t>(with);
+    }
+
+    integer_tr auto Assign_Left_Shift(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Left_Shift(atom, with) << with);
+    }
+
+    integer_tr auto Assign_Right_Shift(volatile integer_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        return static_cast<atom_t>(Exchange_Right_Shift(atom, with) >> with);
     }
 
 #if defined(nkr_IS_WINDOWS)
@@ -425,6 +523,170 @@ namespace nkr { namespace os { namespace atomic {
                                                           sizeof(std::remove_pointer_t<atom_t>) * with));
     }
 
+    inline integer_8_tr auto Exchange_Multiply(volatile integer_8_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_16_tr auto Exchange_Multiply(volatile integer_16_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_32_tr auto Exchange_Multiply(volatile integer_32_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_64_tr auto Exchange_Multiply(volatile integer_64_tr auto& atom, integer_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_t>(with)));
+        return snapshot;
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
+    inline float_32_tr auto Exchange_Multiply(volatile float_32_tr auto& atom, float_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline float_64_tr auto Exchange_Multiply(volatile float_64_tr auto& atom, float_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_t>(with)));
+        return snapshot;
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
+    inline integer_8_tr auto Exchange_Divide(volatile integer_8_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_16_tr auto Exchange_Divide(volatile integer_16_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_32_tr auto Exchange_Divide(volatile integer_32_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_64_tr auto Exchange_Divide(volatile integer_64_tr auto& atom, integer_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_t>(with)));
+        return snapshot;
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
+    inline float_32_tr auto Exchange_Divide(volatile float_32_tr auto& atom, float_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline float_64_tr auto Exchange_Divide(volatile float_64_tr auto& atom, float_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_t>(with)));
+        return snapshot;
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
+    inline integer_8_tr auto Exchange_Modulus(volatile integer_8_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_16_tr auto Exchange_Modulus(volatile integer_16_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_32_tr auto Exchange_Modulus(volatile integer_32_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_64_tr auto Exchange_Modulus(volatile integer_64_tr auto& atom, integer_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_t>(with)));
+        return snapshot;
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
     inline integer_8_tr auto Exchange_Or(volatile integer_8_tr auto& atom, integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
@@ -528,6 +790,86 @@ namespace nkr { namespace os { namespace atomic {
 
         return static_cast<atom_t>(::_InterlockedXor64(reinterpret_cast<volatile long long*>(&atom),
                                                        static_cast<long long>(with)));
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
+    inline integer_8_tr auto Exchange_Left_Shift(volatile integer_8_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_16_tr auto Exchange_Left_Shift(volatile integer_16_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_32_tr auto Exchange_Left_Shift(volatile integer_32_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_64_tr auto Exchange_Left_Shift(volatile integer_64_tr auto& atom, integer_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_t>(with)));
+        return snapshot;
+    #else
+        static_assert(false, "64 bit atomic unavailable");
+    #endif
+    }
+
+    inline integer_8_tr auto Exchange_Right_Shift(volatile integer_8_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_16_tr auto Exchange_Right_Shift(volatile integer_16_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_32_tr auto Exchange_Right_Shift(volatile integer_32_tr auto& atom, integer_tr auto with)
+    {
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_t>(with)));
+        return snapshot;
+    }
+
+    inline integer_64_tr auto Exchange_Right_Shift(volatile integer_64_tr auto& atom, integer_tr auto with)
+    {
+    #if defined(nkr_IS_64_BIT)
+        using atom_t = std::remove_cvref_t<decltype(atom)>;
+
+        atom_t snapshot = Access(atom);
+        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_t>(with)));
+        return snapshot;
     #else
         static_assert(false, "64 bit atomic unavailable");
     #endif
@@ -713,7 +1055,7 @@ namespace nkr { namespace os { namespace heap {
     // until I know for sure that we don't need to handle them differently,
     // on other systems.
 
-    inline bool_t Allocate(sized_tr auto*& units, count_t unit_count)
+    inline bool_t Allocate(type_tr auto*& units, count_t unit_count)
     {
         using units_t = std::remove_reference_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -730,7 +1072,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Reallocate(sized_tr auto*& units, count_t new_unit_count)
+    inline bool_t Reallocate(type_tr auto*& units, count_t new_unit_count)
     {
         using units_t = std::remove_reference_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -747,7 +1089,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline void_t Deallocate(sized_tr auto*& units)
+    inline void_t Deallocate(type_tr auto*& units)
     {
         if (units != nullptr) {
             ::free(units);
@@ -755,7 +1097,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Allocate_Zeros(sized_tr auto*& units, count_t unit_count)
+    inline bool_t Allocate_Zeros(type_tr auto*& units, count_t unit_count)
     {
         using units_t = std::remove_reference_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -772,7 +1114,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Reallocate_Zeros(sized_tr auto*& units, count_t new_unit_count)
+    inline bool_t Reallocate_Zeros(type_tr auto*& units, count_t new_unit_count)
     {
         using units_t = std::remove_reference_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -789,7 +1131,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline void_t Deallocate_Zeros(sized_tr auto*& units)
+    inline void_t Deallocate_Zeros(type_tr auto*& units)
     {
         return Deallocate(units);
     }

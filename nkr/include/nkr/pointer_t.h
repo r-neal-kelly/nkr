@@ -15,7 +15,7 @@ namespace nkr {
         template. void_t is not useable by this type. I recommend using byte_t instead.
     */
 
-    template <sized_tr unit_p = byte_t>
+    template <type_tr unit_p = byte_t>
     class pointer_t
     {
     public:

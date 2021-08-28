@@ -5,7 +5,7 @@
 #pragma once
 
 /**
-* @defgroup traits traits
+* @defgroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe traits
 *
 * @brief
 *   C++20 concepts that are used to filter types in templates.
@@ -17,15 +17,33 @@
 *   Add an example or several.
 */
 
+    // any_tr
+    /**
+    * @class _2a77c3a0_ab8b_448e_a181_72b8efb266bf
+    * @private
+    */
+
+    // type_tr
+    /**
+    * @class _0faa812f_3422_4143_b1d3_8987fcf84eae
+    * @private
+    * 
+    * @brief
+    *   An actual type. Pretty much anything but nkr::void_t.
+    */
+
     // boolean_tr
     /**
     * @class _3e4ef7df_7326_49f0_83e0_378911e03952
     * @private
+    * 
+    * @brief
+    *   Includes both nkr::std_bool_t and nkr::bool_t.
     */
 
     /**
-    * @defgroup traits_integers integers
-    * @ingroup traits
+    * @defgroup _222d304c_42db_4988_8611_c8aedc33c6cc integers
+    * @ingroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     *
     * @brief
     *   Filter types that can be treated as integers.
@@ -34,105 +52,118 @@
     *   None of these integer traits allow nkr::bool_t.
     */
 
+        // integer_tr
         /**
-        * @class traits_integers_integer_tr
+        * @class _ead4c138_69b3_4da6_905d_61c157fd5451
         * @private
         * 
         * @brief
         *   Either unsigned or signed integers.
         */
 
+        // integer_unsigned_tr
         /**
-        * @class traits_integers_integer_unsigned_tr
+        * @class _7099e20b_1e48_4d00_93a4_4932ad1baf1d
         * @private
         */
 
+        // integer_signed_tr
         /**
-        * @class traits_integers_integer_signed_tr
+        * @class _f2900e04_a6a5_4d04_bed5_61932038deb2
         * @private
         */
 
+        // integer_word_tr
         /**
-        * @class traits_integers_integer_8_tr
-        * @private
-        */
-
-        /**
-        * @class traits_integers_integer_16_tr
-        * @private
-        */
-
-        /**
-        * @class traits_integers_integer_32_tr
-        * @private
-        */
-
-        /**
-        * @class traits_integers_integer_64_tr
-        * @private
-        */
-
-        /**
-        * @class traits_integers_integer_word_tr
+        * @class _ddbfd7fa_7bd7_4121_988b_671b57bcd24f
         * @private
         * 
         * @brief
         *   Only allows integers that are the same size as nkr::word_t.
         */
 
+        // integer_8_tr
+        /**
+        * @class _b70bda64_61e7_4743_a015_ed6cf0bb426f
+        * @private
+        */
+
+        // integer_16_tr
+        /**
+        * @class _fa1ef979_a5ad_4040_9824_060e12cac0a9
+        * @private
+        */
+
+        // integer_32_tr
+        /**
+        * @class _3e2e08b8_7594_4766_8c65_d8ab87b0ed43
+        * @private
+        */
+
+        // integer_64_tr
+        /**
+        * @class _a5b7d6de_d392_48a1_893d_8bdc9d2ba8e6
+        * @private
+        */
+
     /**
-    * @defgroup traits_operators operators
-    * @ingroup traits
-    *
-    * @brief
-    *   Filter types that can use particular operators.
+    * @defgroup _8f223336_ce2a_4589_b4c1_75cd98cd393d floats
+    * @ingroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     */
 
-        /**
-        * @class traits_operators_operator_add_tr
-        * @private
-        */
-
-        /**
-        * @class traits_operators_operator_subtract_tr
-        * @private
-        */
-
-    /**
-    * @defgroup traits_misc misc
-    * @ingroup traits
-    *
-    * @brief
-    *   Filter types by various predicates.
-    */
-
-        /**
-        * @class traits_misc_pointer_tr
-        * @private
-        * 
-        * @brief
-        *   In addition to regular pointers, this also allows nullptr.
-        */
-
-        // floating_point_tr
+        // float_tr
         /**
         * @class _7436208f_39ce_49f4_accb_a3bee797b12a
         * @private
         */
 
+        // float_32_tr
         /**
-        * @class traits_misc_sized_tr
+        * @class _63562b29_b254_4e38_b931_b895a7d86c75
         * @private
-        * 
-        * @brief
-        *   Does not allow types like nkr::void_t, which have no size.
         */
 
-        // built_in_tr
+        // float_64_tr
         /**
-        * @class _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
+        * @class _5a831ea1_e707_476a_9f37_317ad35b94c7
         * @private
-        *
-        * @brief
-        *   Allows std_bool_t, nkr::integer_tr, nkr::floating_point_tr, and nkr::pointer_tr.
         */
+
+    // pointer_tr
+    /**
+    * @class _42df3700_b206_4dec_a280_cc34bfd783ea
+    * @private
+    * 
+    * @brief
+    *   In addition to regular pointers, this also includes nullptr.
+    */
+
+    // built_in_tr
+    /**
+    * @class _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
+    * @private
+    *
+    * @brief
+    *   Includes nkr::std_bool_t, nkr::integer_tr, nkr::float_tr, and nkr::pointer_tr. The opposite of nkr::user_defined_tr.
+    */
+
+    // user_defined_tr
+    /**
+    * @class _3818a648_654b_43d9_9c9d_18527bc45131
+    * @private
+    * 
+    * @brief
+    *   Includes non-built-in types, the opposite of nkr::built_in_tr.
+    */
+
+    // same_or_base_of_tr
+    /**
+    * @class _eff1ff48_96ed_4134_abae_5d29c91fd554
+    * @private
+    */
+
+    // same_or_derived_from_tr
+    /**
+    * @class _a08a3aa7_12f3_4e3f_8515_610fa450219b
+    * @private
+    */
