@@ -191,7 +191,7 @@
         * @private
         * 
         * @brief
-        *   Matches the nkr::word_t of the machine if its 64-bit, or else nkr::f32_t.
+        *   Matches the nkr::word_t of the machine by selecting f32_t for 32-bit and f64_t for 64-bit.
         */
 
     /**

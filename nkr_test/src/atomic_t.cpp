@@ -664,18 +664,9 @@ namespace nkr {
             TEST_SUITE("value_t")
             {
                 /// [_83c3dcd9_5930_49a4_817b_3fe1d33a4550]
-                TEST_SUITE("should equal the passed in type")
+                TEST_CASE("should equal the passed in type")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        static_assert(std::same_as<atomic_t<f32_t>::value_t, f32_t>);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        static_assert(std::same_as<atomic_t<f64_t>::value_t, f64_t>);
-                    }
-                #endif
+                    static_assert(std::same_as<atomic_t<float_t>::value_t, float_t>);
                 }
                 /// [_83c3dcd9_5930_49a4_817b_3fe1d33a4550]
             }
@@ -686,20 +677,10 @@ namespace nkr {
             TEST_SUITE("DEFAULT_VALUE")
             {
                 /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
-                TEST_SUITE("should equal the default value of value_t")
+                TEST_CASE("should equal the default value of value_t")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        CHECK(atomic_t<f32_t>::DEFAULT_VALUE == atomic_t<f32_t>::value_t());
-                        CHECK(atomic_t<f32_t>::value_t() == 0.0f);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        CHECK(atomic_t<f64_t>::DEFAULT_VALUE == atomic_t<f64_t>::value_t());
-                        CHECK(atomic_t<f64_t>::value_t() == 0.0);
-                    }
-                #endif
+                    CHECK(atomic_t<float_t>::DEFAULT_VALUE == atomic_t<float_t>::value_t());
+                    CHECK(atomic_t<float_t>::value_t() == 0.0);
                 }
                 /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
             }
@@ -710,18 +691,9 @@ namespace nkr {
             TEST_SUITE("value")
             {
                 /// [_0e277dd4_8606_49bb_9991_daca43fd7993]
-                TEST_SUITE("should be a volatile value_t")
+                TEST_CASE("should be a volatile value_t")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        static_assert(std::same_as<decltype(atomic_t<f32_t>::value), volatile f32_t>);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        static_assert(std::same_as<decltype(atomic_t<f64_t>::value), volatile f64_t>);
-                    }
-                #endif
+                    static_assert(std::same_as<decltype(atomic_t<float_t>::value), volatile float_t>);
                 }
                 /// [_0e277dd4_8606_49bb_9991_daca43fd7993]
             }
@@ -732,20 +704,10 @@ namespace nkr {
             TEST_SUITE("default_ctor()")
             {
                 /// [_8274cab7_e07f_42fc_95fb_21159e5d182b]
-                TEST_SUITE("should set value to the default")
+                TEST_CASE("should set value to the default")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32;
-                        CHECK(f32 == atomic_t<f32_t>::DEFAULT_VALUE);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64;
-                        CHECK(f64 == atomic_t<f64_t>::DEFAULT_VALUE);
-                    }
-                #endif
+                    atomic_t<float_t> atom;
+                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
                 }
                 /// [_8274cab7_e07f_42fc_95fb_21159e5d182b]
             }
@@ -753,160 +715,171 @@ namespace nkr {
             TEST_SUITE("value_ctor()")
             {
                 /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
-                TEST_SUITE("should explicitly set passed value")
+                TEST_CASE("should explicitly set passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0f);
-                        CHECK(f32 == 1.0f);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0);
-                        CHECK(f64 == 1.0);
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom == 1.0);
                 }
                 /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
 
                 /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
-                TEST_SUITE("should implicitly set passed value")
+                TEST_CASE("should implicitly set passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32 = 1.0f;
-                        CHECK(f32 == 1.0f);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64 = 1.0;
-                        CHECK(f64 == 1.0);
-                    }
-                #endif
+                    atomic_t<float_t> atom = 1.0;
+                    CHECK(atom == 1.0);
                 }
                 /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
 
                 /// [_027ec34c_9368_4ff3_890b_235196c7702e]
-                TEST_SUITE("should convert another float and set passed value")
+                TEST_CASE("should convert another float and set passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0);
-                        CHECK(f32 == 1.0f);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0f);
-                        CHECK(f64 == 1.0);
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom == 1.0);
+                    new (&atom) atomic_t<float_t>(1.0f);
+                    CHECK(atom == 1.0);
                 }
                 /// [_027ec34c_9368_4ff3_890b_235196c7702e]
             }
 
             TEST_SUITE("copy_ctor()")
             {
-                TEST_SUITE("")
+                /// [_c1b86a21_9372_4474_96c1_6641b05fdd80]
+                TEST_CASE("should explicitly copy the value of other")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom(other);
+                    CHECK(atom == 1.0);
                 }
+                /// [_c1b86a21_9372_4474_96c1_6641b05fdd80]
+
+                /// [_83a52bb2_2362_4c41_908f_575a08582122]
+                TEST_CASE("should implicitly copy the value of other")
+                {
+                    const atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom = other;
+                    CHECK(atom == 1.0);
+                }
+                /// [_83a52bb2_2362_4c41_908f_575a08582122]
+
+                /// [_5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9]
+                TEST_CASE("should not alter the value of other")
+                {
+                    const atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom(other);
+                    CHECK(other == 1.0);
+                }
+                /// [_5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9]
             }
 
             TEST_SUITE("move_ctor()")
             {
-                TEST_SUITE("")
+                /// [_ad08e960_ce87_457e_9795_e81944307359]
+                TEST_CASE("should explicitly move the value of other")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom(std::move(other));
+                    CHECK(atom == 1.0);
                 }
+                /// [_ad08e960_ce87_457e_9795_e81944307359]
+
+                /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
+                TEST_CASE("should implicitly move the value of other")
+                {
+                    atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom = std::move(other);
+                    CHECK(atom == 1.0);
+                }
+                /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
+
+                /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
+                TEST_CASE("should set the value of other to the default")
+                {
+                    atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom(std::move(other));
+                    CHECK(other == 0.0);
+                }
+                /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
             }
 
             TEST_SUITE("value_assignment_ctor()")
             {
-                TEST_SUITE("")
+                /// [_900b1558_c4f8_49c3_96b1_9056d76555ed]
+                TEST_CASE("should set passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom;
+                    atom = 1.0;
+                    CHECK(atom == 1.0);
                 }
+                /// [_900b1558_c4f8_49c3_96b1_9056d76555ed]
+
+                /// [_cb64aaa3_b39d_43af_9e6e_03298a723992]
+                TEST_CASE("should convert another float and set passed value")
+                {
+                    atomic_t<float_t> atom;
+                    atom = 1.0f;
+                    CHECK(atom == 1.0);
+                    atom = 1.0;
+                    CHECK(atom == 1.0);
+                }
+                /// [_cb64aaa3_b39d_43af_9e6e_03298a723992]
             }
 
             TEST_SUITE("copy_assignment_ctor()")
             {
-                TEST_SUITE("")
+                /// [_de9354d0_a560_4f0c_b154_aee07071b26b]
+                TEST_CASE("should copy the value of other")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom;
+                    atom = other;
+                    CHECK(atom == 1.0);
                 }
+                /// [_de9354d0_a560_4f0c_b154_aee07071b26b]
+
+                /// [_654311ef_5dfb_4631_8204_eb8c37ff8ce2]
+                TEST_CASE("should not alter the value of other")
+                {
+                    const atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom;
+                    atom = other;
+                    CHECK(other == 1.0);
+                }
+                /// [_654311ef_5dfb_4631_8204_eb8c37ff8ce2]
             }
 
             TEST_SUITE("move_assignment_ctor()")
             {
-                TEST_SUITE("")
+                /// [_d98fa40a_5147_482b_8a01_95809a294e2b]
+                TEST_CASE("should move the value of other")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom;
+                    atom = std::move(other);
+                    CHECK(atom == 1.0);
                 }
+                /// [_d98fa40a_5147_482b_8a01_95809a294e2b]
+
+                /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]
+                TEST_CASE("should set the value of other to the default")
+                {
+                    atomic_t<float_t> other(1.0);
+                    atomic_t<float_t> atom;
+                    atom = std::move(other);
+                    CHECK(other == 0.0);
+                }
+                /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]
             }
 
             TEST_SUITE("dtor()")
             {
-                TEST_SUITE("")
+                /// [_9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4]
+                TEST_CASE("should set its value to the default")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.~atomic_t();
+                    CHECK(atom == 0.0);
                 }
+                /// [_9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4]
             }
         }
 
@@ -914,274 +887,376 @@ namespace nkr {
         {
             TEST_SUITE("Access()")
             {
-                TEST_SUITE("")
+                /// [_bf5ad36e_5e23_42d0_b32b_d69acd736c5f]
+                TEST_CASE("should return its value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Access() == 1.0);
                 }
+                /// [_bf5ad36e_5e23_42d0_b32b_d69acd736c5f]
+
+                /// [_4d0ee15d_2612_402d_b95a_351d66897792]
+                TEST_CASE("should not change its value")
+                {
+                    const atomic_t<float_t> atom(1.0);
+                    atom.Access();
+                    CHECK(atom == 1.0);
+                }
+                /// [_4d0ee15d_2612_402d_b95a_351d66897792]
             }
 
             TEST_SUITE("Access_Add()")
             {
-                TEST_SUITE("")
+                /// [_75b5f69b_46bb_4ae7_934e_dd5ae90ec693]
+                TEST_CASE("should return its value + passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Access_Add(1.0) == 2.0);
                 }
+                /// [_75b5f69b_46bb_4ae7_934e_dd5ae90ec693]
+
+                /// [_747264ec_e7b9_4bc8_92ad_d518758bbd8f]
+                TEST_CASE("should not change its value")
+                {
+                    const atomic_t<float_t> atom(1.0);
+                    atom.Access_Add(1.0);
+                    CHECK(atom == 1.0);
+                }
+                /// [_747264ec_e7b9_4bc8_92ad_d518758bbd8f]
             }
 
             TEST_SUITE("Access_Subtract()")
             {
-                TEST_SUITE("")
+                /// [_b66f77cd_1f70_4b5c_9003_883081f45007]
+                TEST_CASE("should return its value - passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Access_Subtract(1.0) == 0.0);
                 }
+                /// [_b66f77cd_1f70_4b5c_9003_883081f45007]
+
+                /// [_b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876]
+                TEST_CASE("should not change its value")
+                {
+                    const atomic_t<float_t> atom(1.0);
+                    atom.Access_Subtract(1.0);
+                    CHECK(atom == 1.0);
+                }
+                /// [_b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876]
             }
 
             TEST_SUITE("Access_Multiply()")
             {
-                TEST_SUITE("")
+                /// [_03109072_ce76_4b5e_bd06_3b965cce9977]
+                TEST_CASE("should return its value * passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Access_Multiply(2.0) == 2.0);
                 }
+                /// [_03109072_ce76_4b5e_bd06_3b965cce9977]
+
+                /// [_d5c45927_aa1b_4d2b_a2df_984efeed9238]
+                TEST_CASE("should not change its value")
+                {
+                    const atomic_t<float_t> atom(1.0);
+                    atom.Access_Multiply(2.0);
+                    CHECK(atom == 1.0);
+                }
+                /// [_d5c45927_aa1b_4d2b_a2df_984efeed9238]
             }
 
             TEST_SUITE("Access_Divide()")
             {
-                TEST_SUITE("")
+                /// [_078c27a6_296c_460e_96e8_d61f0b47c3e6]
+                TEST_CASE("should return its value / passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    const atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Access_Divide(2.0) == 0.5);
                 }
+                /// [_078c27a6_296c_460e_96e8_d61f0b47c3e6]
+
+                /// [_bf945a6a_a80a_49f3_9d21_c32cab3e4ee3]
+                TEST_CASE("should not change its value")
+                {
+                    const atomic_t<float_t> atom(1.0);
+                    atom.Access_Divide(2.0);
+                    CHECK(atom == 1.0);
+                }
+                /// [_bf945a6a_a80a_49f3_9d21_c32cab3e4ee3]
             }
 
             TEST_SUITE("Assign()")
             {
-                TEST_SUITE("")
+                /// [_91339173_2c19_4c80_81c2_47a7d0056c79]
+                TEST_CASE("should set its value to the passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Assign(2.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_91339173_2c19_4c80_81c2_47a7d0056c79]
+
+                /// [_cf6d21c8_fe17_4d24_a869_7c2d2f1c638e]
+                TEST_CASE("should return its new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Assign(2.0) == 2.0);
+                }
+                /// [_cf6d21c8_fe17_4d24_a869_7c2d2f1c638e]
             }
 
             TEST_SUITE("Assign_Add()")
             {
-                TEST_SUITE("")
+                /// [_58095a65_e406_4f9b_b98a_3e3ab286594e]
+                TEST_CASE("should set its value to value + passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Assign_Add(1.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_58095a65_e406_4f9b_b98a_3e3ab286594e]
+
+                /// [_ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510]
+                TEST_CASE("should return its new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Assign_Add(1.0) == 2.0);
+                }
+                /// [_ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510]
             }
 
             TEST_SUITE("Assign_Subtract()")
             {
-                TEST_SUITE("")
+                /// [_05e1e55b_b233_457c_8ae6_41ba0dec76a9]
+                TEST_CASE("should set its value to value - passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Assign_Subtract(1.0);
+                    CHECK(atom == 0.0);
                 }
+                /// [_05e1e55b_b233_457c_8ae6_41ba0dec76a9]
+
+                /// [_ae57b4c4_2b87_4a91_8f5c_63dde775cbec]
+                TEST_CASE("should return its new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Assign_Subtract(1.0) == 0.0);
+                }
+                /// [_ae57b4c4_2b87_4a91_8f5c_63dde775cbec]
             }
 
             TEST_SUITE("Assign_Multiply()")
             {
-                TEST_SUITE("")
+                /// [_14c37838_f17b_4552_9944_8b07373150bb]
+                TEST_CASE("should set its value to value * passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Assign_Multiply(2.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_14c37838_f17b_4552_9944_8b07373150bb]
+
+                /// [_7de9dd2f_3628_4f22_88e3_b9b31f167ead]
+                TEST_CASE("should return its new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Assign_Multiply(2.0) == 2.0);
+                }
+                /// [_7de9dd2f_3628_4f22_88e3_b9b31f167ead]
             }
 
             TEST_SUITE("Assign_Divide()")
             {
-                TEST_SUITE("")
+                /// [_7a64bd27_579a_4ce6_9878_2f924f4d6066]
+                TEST_CASE("should set its value to value / passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Assign_Divide(2.0);
+                    CHECK(atom == 0.5);
                 }
+                /// [_7a64bd27_579a_4ce6_9878_2f924f4d6066]
+
+                /// [_2213006f_a4bb_404c_867b_47ab4950a07e]
+                TEST_CASE("should return its new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Assign_Divide(2.0) == 0.5);
+                }
+                /// [_2213006f_a4bb_404c_867b_47ab4950a07e]
             }
 
             TEST_SUITE("Exchange()")
             {
-                TEST_SUITE("")
+                /// [_c5484de3_220e_4cf8_83ef_f6aa71ab7966]
+                TEST_CASE("should set its value to the passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Exchange(2.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_c5484de3_220e_4cf8_83ef_f6aa71ab7966]
+
+                /// [_1f7ee854_568e_4397_9ce0_1efc7997d398]
+                TEST_CASE("should return its old value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Exchange(2.0) == 1.0);
+                }
+                /// [_1f7ee854_568e_4397_9ce0_1efc7997d398]
             }
 
             TEST_SUITE("Exchange_Add()")
             {
-                TEST_SUITE("")
+                /// [_0f39542d_efb8_4826_92b5_9ee8b4760adc]
+                TEST_CASE("should set its value to value + passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Exchange_Add(1.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_0f39542d_efb8_4826_92b5_9ee8b4760adc]
+
+                /// [_ad4af424_9bef_4d09_b79c_f4c50e335596]
+                TEST_CASE("should return its old value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Exchange_Add(1.0) == 1.0);
+                }
+                /// [_ad4af424_9bef_4d09_b79c_f4c50e335596]
             }
 
             TEST_SUITE("Exchange_Subtract()")
             {
-                TEST_SUITE("")
+                /// [_5ae99b87_cf4c_4138_a417_072cd82a0852]
+                TEST_CASE("should set its value to value - passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Exchange_Subtract(1.0);
+                    CHECK(atom == 0.0);
                 }
+                /// [_5ae99b87_cf4c_4138_a417_072cd82a0852]
+
+                /// [_a26780e5_ccc7_4f2e_9ae7_49744a446e2b]
+                TEST_CASE("should return its old value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Exchange_Subtract(1.0) == 1.0);
+                }
+                /// [_a26780e5_ccc7_4f2e_9ae7_49744a446e2b]
             }
 
             TEST_SUITE("Exchange_Multiply()")
             {
-                TEST_SUITE("")
+                /// [_7e049a15_3ffb_4acf_8e73_48db74cb9ff4]
+                TEST_CASE("should set its value to value * passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Exchange_Multiply(2.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_7e049a15_3ffb_4acf_8e73_48db74cb9ff4]
+
+                /// [_9ea5604a_734e_480f_b9b1_efbcfb248800]
+                TEST_CASE("should return its old value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Exchange_Multiply(2.0) == 1.0);
+                }
+                /// [_9ea5604a_734e_480f_b9b1_efbcfb248800]
             }
 
             TEST_SUITE("Exchange_Divide()")
             {
-                TEST_SUITE("")
+                /// [_687caad0_6e65_43da_9aab_31e03808bc83]
+                TEST_CASE("should set its value to value / passed value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom.Exchange_Divide(2.0);
+                    CHECK(atom == 0.5);
                 }
+                /// [_687caad0_6e65_43da_9aab_31e03808bc83]
+
+                /// [_2bc2cee2_c542_4852_804d_2c6cdd6ec3bb]
+                TEST_CASE("should return its old value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom.Exchange_Divide(2.0) == 1.0);
+                }
+                /// [_2bc2cee2_c542_4852_804d_2c6cdd6ec3bb]
             }
 
             TEST_SUITE("Exchange_If_Equals()")
             {
-                TEST_SUITE("")
+                /// [_870b7a10_e39f_413e_bc41_5696764fbff3]
+                TEST_CASE("should set its value to the passed value if its value equals the snapshot")
                 {
-                    TEST_CASE("f32_t")
-                    {
-
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    float_t snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, snapshot + 1.0);
+                    CHECK(atom == 2.0);
                 }
+                /// [_870b7a10_e39f_413e_bc41_5696764fbff3]
+
+                /// [_36a4ffa4_a0bc_430e_b241_514fbdaf36d1]
+                TEST_CASE("should return true if it set the new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    float_t snapshot = atom;
+                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + 1.0) == true);
+                }
+                /// [_36a4ffa4_a0bc_430e_b241_514fbdaf36d1]
+
+                /// [_afb7c2ad_ecf4_4bd4_9378_eec404ba647f]
+                TEST_CASE("should return false if it did not set the new value")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    float_t snapshot = atom;
+                    atom = 2.0;
+                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + 1.0) == false);
+                }
+                /// [_afb7c2ad_ecf4_4bd4_9378_eec404ba647f]
+
+                /// [_67ecc477_461b_4a9b_94a6_17d44163e2d8]
+                TEST_CASE("should leave snapshot with its old value if it succeeded")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    float_t snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, snapshot + 1.0);
+                    CHECK(snapshot == 1.0);
+                }
+                /// [_67ecc477_461b_4a9b_94a6_17d44163e2d8]
+
+                /// [_c55b85bd_af65_4c70_a5b3_e3f12b4f8203]
+                TEST_CASE("should update snapshot to its current value if it failed")
+                {
+                    atomic_t<float_t> atom(1.0);
+                    float_t snapshot = atom;
+                    atom = 2.0;
+                    atom.Exchange_If_Equals(snapshot, snapshot + 1.0);
+                    CHECK(snapshot == 2.0);
+                }
+                /// [_c55b85bd_af65_4c70_a5b3_e3f12b4f8203]
+
+                /// [_0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d]
+                TEST_CASE("should allow you to atomically change its value safely with a custom algorithm")
+                {
+                    atomic_t<float_t> atom(1.0);
+
+                    auto Increment_Atom = [&atom]() -> void_t
+                    {
+                        float_t snapshot = atom;
+                        while (!atom.Exchange_If_Equals(snapshot, snapshot + 1.0));
+                    };
+
+                    std::thread thread_a(Increment_Atom);
+                    std::thread thread_b(Increment_Atom);
+
+                    thread_a.join();
+                    thread_b.join();
+
+                    CHECK(atom == 3.0);
+                }
+                /// [_0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d]
             }
         }
 
@@ -1189,18 +1264,9 @@ namespace nkr {
         {
             TEST_SUITE("value_t()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
         }
@@ -1209,154 +1275,73 @@ namespace nkr {
         {
             TEST_SUITE("()()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("+=()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("-=()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("*=()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("/=()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("++()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("++(int)")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("--()")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
 
             TEST_SUITE("--(int)")
             {
-                TEST_SUITE("")
+                TEST_CASE("")
                 {
-                    TEST_CASE("f32_t")
-                    {
 
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-
-                    }
-                #endif
                 }
             }
         }
@@ -1366,62 +1351,29 @@ namespace nkr {
             TEST_SUITE("=(none_t)")
             {
                 /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
-                TEST_SUITE("should set its value to the default value")
+                TEST_CASE("should set its value to the default value")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0f);
-                        f32 = none_t();
-                        CHECK(f32 == atomic_t<f32_t>::DEFAULT_VALUE);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0);
-                        f64 = none_t();
-                        CHECK(f64 == atomic_t<f64_t>::DEFAULT_VALUE);
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    atom = none_t();
+                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
                 }
                 /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
 
                 /// [_2c9d76ce_d1a7_4eb7_87c8_75662ad513fa]
-                TEST_SUITE("should evaluate as false after being set to none")
+                TEST_CASE("should evaluate as false after being set to none")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0f);
-                        CHECK(static_cast<bool_t>(f32) == true);
-                        f32 = none_t();
-                        CHECK(static_cast<bool_t>(f32) == false);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0);
-                        CHECK(static_cast<bool_t>(f64) == true);
-                        f64 = none_t();
-                        CHECK(static_cast<bool_t>(f64) == false);
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(static_cast<bool_t>(atom) == true);
+                    atom = none_t();
+                    CHECK(static_cast<bool_t>(atom) == false);
                 }
                 /// [_2c9d76ce_d1a7_4eb7_87c8_75662ad513fa]
 
                 /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
-                TEST_SUITE("should return itself")
+                TEST_CASE("should return itself")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0f);
-                        CHECK(&(f32 = none_t()) == &f32);
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0);
-                        CHECK(&(f64 = none_t()) == &f64);
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(&(atom = none_t()) == &atom);
                 }
                 /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
             }
@@ -1429,24 +1381,12 @@ namespace nkr {
             TEST_SUITE("==(none_t)")
             {
                 /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
-                TEST_SUITE("should return true if the value is none")
+                TEST_CASE("should return true if the value is none")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0f);
-                        CHECK_FALSE(f32 == none_t());
-                        f32 = none_t();
-                        CHECK(f32 == none_t());
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0);
-                        CHECK_FALSE(f64 == none_t());
-                        f64 = none_t();
-                        CHECK(f64 == none_t());
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    CHECK_FALSE(atom == none_t());
+                    atom = none_t();
+                    CHECK(atom == none_t());
                 }
                 /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
             }
@@ -1454,24 +1394,12 @@ namespace nkr {
             TEST_SUITE("!=(none_t)")
             {
                 /// [_0d957a72_6f3b_485a_add2_9ebb331485e0]
-                TEST_SUITE("should return true if the value is not none")
+                TEST_CASE("should return true if the value is not none")
                 {
-                    TEST_CASE("f32_t")
-                    {
-                        atomic_t<f32_t> f32(1.0f);
-                        CHECK(f32 != none_t());
-                        f32 = none_t();
-                        CHECK_FALSE(f32 != none_t());
-                    }
-                #if defined(nkr_IS_64_BIT)
-                    TEST_CASE("f64_t")
-                    {
-                        atomic_t<f64_t> f64(1.0);
-                        CHECK(f64 != none_t());
-                        f64 = none_t();
-                        CHECK_FALSE(f64 != none_t());
-                    }
-                #endif
+                    atomic_t<float_t> atom(1.0);
+                    CHECK(atom != none_t());
+                    atom = none_t();
+                    CHECK_FALSE(atom != none_t());
                 }
                 /// [_0d957a72_6f3b_485a_add2_9ebb331485e0]
             }

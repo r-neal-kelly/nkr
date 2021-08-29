@@ -769,36 +769,55 @@
             /**
             * @class _61a595a9_8bea_4302_a9cf_5c0c84e88502
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _c1b86a21_9372_4474_96c1_6641b05fdd80
+            * @snippet "./src/atomic_t.cpp" _83a52bb2_2362_4c41_908f_575a08582122
+            * @snippet "./src/atomic_t.cpp" _5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9
             */
 
             // move_ctor()
             /**
             * @class _d20308c7_ca46_4f3b_ac5d_4817164d0a99
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _ad08e960_ce87_457e_9795_e81944307359
+            * @snippet "./src/atomic_t.cpp" _83d42476_ed81_4e4c_b548_fc3a10af5fbe
+            * @snippet "./src/atomic_t.cpp" _e9f233ed_244c_4a3d_9a83_d09274e9097b
             */
 
             // value_assignment_ctor()
             /**
             * @class _80f45bd9_92b0_48ed_ba98_9df5b1e891cb
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _900b1558_c4f8_49c3_96b1_9056d76555ed
+            * @snippet "./src/atomic_t.cpp" _cb64aaa3_b39d_43af_9e6e_03298a723992
             */
 
             // copy_assignment_ctor()
             /**
             * @class _13e2fc20_6a84_42c2_8e14_5464b2a92bd2
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _de9354d0_a560_4f0c_b154_aee07071b26b
+            * @snippet "./src/atomic_t.cpp" _654311ef_5dfb_4631_8204_eb8c37ff8ce2
             */
 
             // move_assignment_ctor()
             /**
             * @class _111623c4_8569_44fe_ac45_eb839d13677c
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _d98fa40a_5147_482b_8a01_95809a294e2b
+            * @snippet "./src/atomic_t.cpp" _0d1b8d2e_33b4_4576_a466_761fb7452efc
             */
 
             // dtor()
             /**
             * @class _41d0b192_af22_4282_b188_40f164bf851e
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4
             */
 
         // methods
@@ -811,96 +830,148 @@
             /**
             * @class _5f07459b_cc2c_4df1_b8f8_df28d9c0c62a
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _bf5ad36e_5e23_42d0_b32b_d69acd736c5f
+            * @snippet "./src/atomic_t.cpp" _4d0ee15d_2612_402d_b95a_351d66897792
             */
 
             // Access_Add()
             /**
             * @class _0052d808_472f_4917_95ed_9b1a094bfc12
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _75b5f69b_46bb_4ae7_934e_dd5ae90ec693
+            * @snippet "./src/atomic_t.cpp" _747264ec_e7b9_4bc8_92ad_d518758bbd8f
             */
 
             // Access_Subtract()
             /**
             * @class _c28a6854_9c1b_4f95_bb20_1e41eea38316
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _b66f77cd_1f70_4b5c_9003_883081f45007
+            * @snippet "./src/atomic_t.cpp" _b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876
             */
 
             // Access_Multiply()
             /**
             * @class _083b8767_4f78_4836_b493_3885848b63c9
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _03109072_ce76_4b5e_bd06_3b965cce9977
+            * @snippet "./src/atomic_t.cpp" _d5c45927_aa1b_4d2b_a2df_984efeed9238
             */
 
             // Access_Divide()
             /**
             * @class _9534cd01_4caf_4296_ae67_cbb38de716db
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _078c27a6_296c_460e_96e8_d61f0b47c3e6
+            * @snippet "./src/atomic_t.cpp" _bf945a6a_a80a_49f3_9d21_c32cab3e4ee3
             */
 
             // Assign()
             /**
             * @class _86090c8f_aa60_41b3_9d8d_c7811b288aac
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _91339173_2c19_4c80_81c2_47a7d0056c79
+            * @snippet "./src/atomic_t.cpp" _cf6d21c8_fe17_4d24_a869_7c2d2f1c638e
             */
 
             // Assign_Add()
             /**
             * @class _59a94c28_e4ae_4aca_af97_fe0a03d9a4d0
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _58095a65_e406_4f9b_b98a_3e3ab286594e
+            * @snippet "./src/atomic_t.cpp" _ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510
             */
 
             // Assign_Subtract()
             /**
             * @class _684e4401_0e5b_4e8a_8376_5752bade8903
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _05e1e55b_b233_457c_8ae6_41ba0dec76a9
+            * @snippet "./src/atomic_t.cpp" _ae57b4c4_2b87_4a91_8f5c_63dde775cbec
             */
 
             // Assign_Multiply()
             /**
             * @class _ec53b9b0_5fb3_49c3_a1f5_aa0a2d7e9351
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _14c37838_f17b_4552_9944_8b07373150bb
+            * @snippet "./src/atomic_t.cpp" _7de9dd2f_3628_4f22_88e3_b9b31f167ead
             */
 
             // Assign_Divide()
             /**
             * @class _c663a829_3893_4449_aa1b_ba5e0a26c6de
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _7a64bd27_579a_4ce6_9878_2f924f4d6066
+            * @snippet "./src/atomic_t.cpp" _2213006f_a4bb_404c_867b_47ab4950a07e
             */
 
             // Exchange()
             /**
             * @class _ab0dd77c_4ae0_4d8a_94a4_78c85ed9872e
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _c5484de3_220e_4cf8_83ef_f6aa71ab7966
+            * @snippet "./src/atomic_t.cpp" _1f7ee854_568e_4397_9ce0_1efc7997d398
             */
 
             // Exchange_Add()
             /**
             * @class _f901edef_ee4f_446f_84ad_65f1f31f52af
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _0f39542d_efb8_4826_92b5_9ee8b4760adc
+            * @snippet "./src/atomic_t.cpp" _ad4af424_9bef_4d09_b79c_f4c50e335596
             */
 
             // Exchange_Subtract()
             /**
             * @class _551c50b3_c942_4872_86de_edc3e1b6f615
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _5ae99b87_cf4c_4138_a417_072cd82a0852
+            * @snippet "./src/atomic_t.cpp" _a26780e5_ccc7_4f2e_9ae7_49744a446e2b
             */
 
             // Exchange_Multiply()
             /**
             * @class _8418d17c_3335_4b14_989a_c7756f407cea
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _7e049a15_3ffb_4acf_8e73_48db74cb9ff4
+            * @snippet "./src/atomic_t.cpp" _9ea5604a_734e_480f_b9b1_efbcfb248800
             */
 
             // Exchange_Divide()
             /**
             * @class _68377f8f_2dca_4787_ade4_4fb9922d88f3
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _687caad0_6e65_43da_9aab_31e03808bc83
+            * @snippet "./src/atomic_t.cpp" _2bc2cee2_c542_4852_804d_2c6cdd6ec3bb
             */
 
             // Exchange_If_Equals()
             /**
             * @class _7dd1307a_b27e_458e_8c07_812523cb6cce
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _870b7a10_e39f_413e_bc41_5696764fbff3
+            * @snippet "./src/atomic_t.cpp" _36a4ffa4_a0bc_430e_b241_514fbdaf36d1
+            * @snippet "./src/atomic_t.cpp" _afb7c2ad_ecf4_4bd4_9378_eec404ba647f
+            * @snippet "./src/atomic_t.cpp" _67ecc477_461b_4a9b_94a6_17d44163e2d8
+            * @snippet "./src/atomic_t.cpp" _c55b85bd_af65_4c70_a5b3_e3f12b4f8203
+            * @snippet "./src/atomic_t.cpp" _0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d
             */
 
         // casts
