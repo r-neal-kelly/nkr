@@ -657,6 +657,827 @@ namespace nkr {
         }
     }
 
+    TEST_SUITE("atomic_t<float_tr float_p>")
+    {
+        TEST_SUITE("aliases")
+        {
+            TEST_SUITE("value_t")
+            {
+                /// [_83c3dcd9_5930_49a4_817b_3fe1d33a4550]
+                TEST_SUITE("should equal the passed in type")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        static_assert(std::same_as<atomic_t<f32_t>::value_t, f32_t>);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        static_assert(std::same_as<atomic_t<f64_t>::value_t, f64_t>);
+                    }
+                #endif
+                }
+                /// [_83c3dcd9_5930_49a4_817b_3fe1d33a4550]
+            }
+        }
+
+        TEST_SUITE("static data")
+        {
+            TEST_SUITE("DEFAULT_VALUE")
+            {
+                /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
+                TEST_SUITE("should equal the default value of value_t")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        CHECK(atomic_t<f32_t>::DEFAULT_VALUE == atomic_t<f32_t>::value_t());
+                        CHECK(atomic_t<f32_t>::value_t() == 0.0f);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        CHECK(atomic_t<f64_t>::DEFAULT_VALUE == atomic_t<f64_t>::value_t());
+                        CHECK(atomic_t<f64_t>::value_t() == 0.0);
+                    }
+                #endif
+                }
+                /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
+            }
+        }
+
+        TEST_SUITE("object data")
+        {
+            TEST_SUITE("value")
+            {
+                /// [_0e277dd4_8606_49bb_9991_daca43fd7993]
+                TEST_SUITE("should be a volatile value_t")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        static_assert(std::same_as<decltype(atomic_t<f32_t>::value), volatile f32_t>);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        static_assert(std::same_as<decltype(atomic_t<f64_t>::value), volatile f64_t>);
+                    }
+                #endif
+                }
+                /// [_0e277dd4_8606_49bb_9991_daca43fd7993]
+            }
+        }
+
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("default_ctor()")
+            {
+                /// [_8274cab7_e07f_42fc_95fb_21159e5d182b]
+                TEST_SUITE("should set value to the default")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32;
+                        CHECK(f32 == atomic_t<f32_t>::DEFAULT_VALUE);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64;
+                        CHECK(f64 == atomic_t<f64_t>::DEFAULT_VALUE);
+                    }
+                #endif
+                }
+                /// [_8274cab7_e07f_42fc_95fb_21159e5d182b]
+            }
+
+            TEST_SUITE("value_ctor()")
+            {
+                /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
+                TEST_SUITE("should explicitly set passed value")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0f);
+                        CHECK(f32 == 1.0f);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0);
+                        CHECK(f64 == 1.0);
+                    }
+                #endif
+                }
+                /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
+
+                /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
+                TEST_SUITE("should implicitly set passed value")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32 = 1.0f;
+                        CHECK(f32 == 1.0f);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64 = 1.0;
+                        CHECK(f64 == 1.0);
+                    }
+                #endif
+                }
+                /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
+
+                /// [_027ec34c_9368_4ff3_890b_235196c7702e]
+                TEST_SUITE("should convert another float and set passed value")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0);
+                        CHECK(f32 == 1.0f);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0f);
+                        CHECK(f64 == 1.0);
+                    }
+                #endif
+                }
+                /// [_027ec34c_9368_4ff3_890b_235196c7702e]
+            }
+
+            TEST_SUITE("copy_ctor()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("value_assignment_ctor()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("copy_assignment_ctor()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("move_assignment_ctor()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+        }
+
+        TEST_SUITE("methods")
+        {
+            TEST_SUITE("Access()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Access_Add()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Access_Subtract()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Access_Multiply()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Access_Divide()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Assign()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Assign_Add()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Assign_Subtract()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Assign_Multiply()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Assign_Divide()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Exchange()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Exchange_Add()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Exchange_Subtract()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Exchange_Multiply()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Exchange_Divide()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("Exchange_If_Equals()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+        }
+
+        TEST_SUITE("casts")
+        {
+            TEST_SUITE("value_t()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+        }
+
+        TEST_SUITE("operators")
+        {
+            TEST_SUITE("()()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("+=()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("-=()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("*=()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("/=()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("++()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("++(int)")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("--()")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+
+            TEST_SUITE("--(int)")
+            {
+                TEST_SUITE("")
+                {
+                    TEST_CASE("f32_t")
+                    {
+
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+
+                    }
+                #endif
+                }
+            }
+        }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_SUITE("=(none_t)")
+            {
+                /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
+                TEST_SUITE("should set its value to the default value")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0f);
+                        f32 = none_t();
+                        CHECK(f32 == atomic_t<f32_t>::DEFAULT_VALUE);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0);
+                        f64 = none_t();
+                        CHECK(f64 == atomic_t<f64_t>::DEFAULT_VALUE);
+                    }
+                #endif
+                }
+                /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
+
+                /// [_2c9d76ce_d1a7_4eb7_87c8_75662ad513fa]
+                TEST_SUITE("should evaluate as false after being set to none")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0f);
+                        CHECK(static_cast<bool_t>(f32) == true);
+                        f32 = none_t();
+                        CHECK(static_cast<bool_t>(f32) == false);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0);
+                        CHECK(static_cast<bool_t>(f64) == true);
+                        f64 = none_t();
+                        CHECK(static_cast<bool_t>(f64) == false);
+                    }
+                #endif
+                }
+                /// [_2c9d76ce_d1a7_4eb7_87c8_75662ad513fa]
+
+                /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
+                TEST_SUITE("should return itself")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0f);
+                        CHECK(&(f32 = none_t()) == &f32);
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0);
+                        CHECK(&(f64 = none_t()) == &f64);
+                    }
+                #endif
+                }
+                /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
+            }
+
+            TEST_SUITE("==(none_t)")
+            {
+                /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
+                TEST_SUITE("should return true if the value is none")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0f);
+                        CHECK_FALSE(f32 == none_t());
+                        f32 = none_t();
+                        CHECK(f32 == none_t());
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0);
+                        CHECK_FALSE(f64 == none_t());
+                        f64 = none_t();
+                        CHECK(f64 == none_t());
+                    }
+                #endif
+                }
+                /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
+            }
+
+            TEST_SUITE("!=(none_t)")
+            {
+                /// [_0d957a72_6f3b_485a_add2_9ebb331485e0]
+                TEST_SUITE("should return true if the value is not none")
+                {
+                    TEST_CASE("f32_t")
+                    {
+                        atomic_t<f32_t> f32(1.0f);
+                        CHECK(f32 != none_t());
+                        f32 = none_t();
+                        CHECK_FALSE(f32 != none_t());
+                    }
+                #if defined(nkr_IS_64_BIT)
+                    TEST_CASE("f64_t")
+                    {
+                        atomic_t<f64_t> f64(1.0);
+                        CHECK(f64 != none_t());
+                        f64 = none_t();
+                        CHECK_FALSE(f64 != none_t());
+                    }
+                #endif
+                }
+                /// [_0d957a72_6f3b_485a_add2_9ebb331485e0]
+            }
+        }
+    }
+
     TEST_SUITE("atomic_t<pointer_tr pointer_p>")
     {
         TEST_SUITE("objects")

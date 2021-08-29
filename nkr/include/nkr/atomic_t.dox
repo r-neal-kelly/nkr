@@ -691,7 +691,321 @@
     /**
     * @class _253501fa_5219_4009_94e8_08f3a28881ee
     * @private
+    * 
+    * @brief
+    *   A specialization for floats to be used atomically.
+    * 
+    * @details
+    *   Provides an easy to use interface for atomically working with f32_t and if running in 64-bit mode, f64_t as well.
     */
+
+        // aliases
+        /**
+        * @class _05975b5a_a55a_449f_aaf5_1a45725160f0
+        * @private
+        */
+
+            // value_t
+            /**
+            * @class _acf98834_4daf_433f_bb79_6db3fbbe4351
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _83c3dcd9_5930_49a4_817b_3fe1d33a4550
+            */
+
+        // static data
+        /**
+        * @class _c0ba4f80_8a10_495a_831e_0208a50ac9e0
+        * @private
+        */
+
+            // DEFAULT_VALUE
+            /**
+            * @class _7ad42492_b8e5_43bd_a25d_d2a4eddb0c18
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _2761c14b_ad24_4d18_a896_4058e077d6de
+            */
+
+        // object data
+        /**
+        * @class _736e305c_efd6_47cb_afc0_e754e260f06e
+        * @private
+        */
+
+            // value
+            /**
+            * @class _19250f59_8057_4e26_9180_a01f32df6660
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _0e277dd4_8606_49bb_9991_daca43fd7993
+            */
+
+        // objects
+        /**
+        * @class _be559580_3edb_4338_b9e4_8281092c81ed
+        * @private
+        */
+
+            // default_ctor()
+            /**
+            * @class _78362e25_29db_484e_860f_66bf63ef0702
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _8274cab7_e07f_42fc_95fb_21159e5d182b
+            */
+
+            // value_ctor()
+            /**
+            * @class _e33edbdb_fbf4_49f0_add1_08599e7824b6
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _5d612089_148d_4d8c_af54_9402bb4e0c2e
+            * @snippet "./src/atomic_t.cpp" _c082e3b1_a0eb_4a32_a12f_d01051b722d2
+            * @snippet "./src/atomic_t.cpp" _027ec34c_9368_4ff3_890b_235196c7702e
+            */
+
+            // copy_ctor()
+            /**
+            * @class _61a595a9_8bea_4302_a9cf_5c0c84e88502
+            * @private
+            */
+
+            // move_ctor()
+            /**
+            * @class _d20308c7_ca46_4f3b_ac5d_4817164d0a99
+            * @private
+            */
+
+            // value_assignment_ctor()
+            /**
+            * @class _80f45bd9_92b0_48ed_ba98_9df5b1e891cb
+            * @private
+            */
+
+            // copy_assignment_ctor()
+            /**
+            * @class _13e2fc20_6a84_42c2_8e14_5464b2a92bd2
+            * @private
+            */
+
+            // move_assignment_ctor()
+            /**
+            * @class _111623c4_8569_44fe_ac45_eb839d13677c
+            * @private
+            */
+
+            // dtor()
+            /**
+            * @class _41d0b192_af22_4282_b188_40f164bf851e
+            * @private
+            */
+
+        // methods
+        /**
+        * @class _d03d71df_9d3c_40d3_94ef_41ec0a768384
+        * @private
+        */
+
+            // Access()
+            /**
+            * @class _5f07459b_cc2c_4df1_b8f8_df28d9c0c62a
+            * @private
+            */
+
+            // Access_Add()
+            /**
+            * @class _0052d808_472f_4917_95ed_9b1a094bfc12
+            * @private
+            */
+
+            // Access_Subtract()
+            /**
+            * @class _c28a6854_9c1b_4f95_bb20_1e41eea38316
+            * @private
+            */
+
+            // Access_Multiply()
+            /**
+            * @class _083b8767_4f78_4836_b493_3885848b63c9
+            * @private
+            */
+
+            // Access_Divide()
+            /**
+            * @class _9534cd01_4caf_4296_ae67_cbb38de716db
+            * @private
+            */
+
+            // Assign()
+            /**
+            * @class _86090c8f_aa60_41b3_9d8d_c7811b288aac
+            * @private
+            */
+
+            // Assign_Add()
+            /**
+            * @class _59a94c28_e4ae_4aca_af97_fe0a03d9a4d0
+            * @private
+            */
+
+            // Assign_Subtract()
+            /**
+            * @class _684e4401_0e5b_4e8a_8376_5752bade8903
+            * @private
+            */
+
+            // Assign_Multiply()
+            /**
+            * @class _ec53b9b0_5fb3_49c3_a1f5_aa0a2d7e9351
+            * @private
+            */
+
+            // Assign_Divide()
+            /**
+            * @class _c663a829_3893_4449_aa1b_ba5e0a26c6de
+            * @private
+            */
+
+            // Exchange()
+            /**
+            * @class _ab0dd77c_4ae0_4d8a_94a4_78c85ed9872e
+            * @private
+            */
+
+            // Exchange_Add()
+            /**
+            * @class _f901edef_ee4f_446f_84ad_65f1f31f52af
+            * @private
+            */
+
+            // Exchange_Subtract()
+            /**
+            * @class _551c50b3_c942_4872_86de_edc3e1b6f615
+            * @private
+            */
+
+            // Exchange_Multiply()
+            /**
+            * @class _8418d17c_3335_4b14_989a_c7756f407cea
+            * @private
+            */
+
+            // Exchange_Divide()
+            /**
+            * @class _68377f8f_2dca_4787_ade4_4fb9922d88f3
+            * @private
+            */
+
+            // Exchange_If_Equals()
+            /**
+            * @class _7dd1307a_b27e_458e_8c07_812523cb6cce
+            * @private
+            */
+
+        // casts
+        /**
+        * @class _d06c6ef3_1cf6_4092_81d0_a32ff12fce58
+        * @private
+        */
+
+            // value_t()
+            /**
+            * @class _9280eeed_487d_481e_a15d_1853a677bcc5
+            * @private
+            */
+
+        // operators
+        /**
+        * @class _59ee1957_70b1_4581_8181_7c9271104cd0
+        * @private
+        */
+
+            // ()()
+            /**
+            * @class _98b42211_7bc8_434e_b85f_dfc4f76a9496
+            * @private
+            */
+
+            // +=()
+            /**
+            * @class _9440c8a7_f2e4_4dea_8202_eb1a3b33f624
+            * @private
+            */
+
+            // -=()
+            /**
+            * @class _05c4f9da_6215_48ab_931f_6a63822fb3bc
+            * @private
+            */
+
+            // *=()
+            /**
+            * @class _a9aa1790_c0ee_4ef3_985e_09c498389151
+            * @private
+            */
+
+            // /=()
+            /**
+            * @class _68c79a5b_1514_4d9e_a931_2b08417794cc
+            * @private
+            */
+
+            // ++()
+            /**
+            * @class _40b4856c_dc14_4005_9cd1_f90ae5446d9f
+            * @private
+            */
+
+            // ++(int)
+            /**
+            * @class _98d862c6_186a_4e4c_a727_0cd0272f37ba
+            * @private
+            */
+
+            // --()
+            /**
+            * @class _060484a8_af7f_42f0_99b4_f8049e05c5fd
+            * @private
+            */
+
+            // --(int)
+            /**
+            * @class _f3294493_3779_4089_b875_5b0576479f2e
+            * @private
+            */
+
+        // none_t interface
+        /**
+        * @class _50ecf924_c297_4baf_a55b_63473f74e9fd
+        * @private
+        */
+
+            // =(none_t)
+            /**
+            * @class _6c3ee7ad_411d_4f3f_adbc_4c793cb280aa
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _3b681d95_22c6_4bbf_ab2e_edec47011d4a
+            * @snippet "./src/atomic_t.cpp" _2c9d76ce_d1a7_4eb7_87c8_75662ad513fa
+            * @snippet "./src/atomic_t.cpp" _656651f9_f4dd_4d8e_8e22_d46a834c7fb0
+            */
+
+            // ==(none_t)
+            /**
+            * @class _fb6fdd58_1c3a_4ced_8231_917ad7d8931c
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _21a37122_b65b_4ed5_a1d0_3252222d1d97
+            */
+
+            // !=(none_t)
+            /**
+            * @class _1d33ee84_f30a_40a2_8ba8_3f66bd115ea4
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _0d957a72_6f3b_485a_add2_9ebb331485e0
+            */
 
     // pointer_sp
     /**

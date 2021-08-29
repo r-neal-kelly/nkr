@@ -211,88 +211,94 @@ namespace nkr { namespace $atomic_t {
     {
     public:
         /// @name aliases
-        /// @copydoc 
+        /// @copydoc _05975b5a_a55a_449f_aaf5_1a45725160f0
         /// @{
-        using value_t   = float_p;  ///< @copydoc 
+        using value_t   = float_p;  ///< @copydoc _acf98834_4daf_433f_bb79_6db3fbbe4351
         /// @}
 
     public:
         /// @name static data
-        /// @copydoc 
+        /// @copydoc _c0ba4f80_8a10_495a_831e_0208a50ac9e0
         /// @{
-        static constexpr value_t    DEFAULT_VALUE   = 0.0;  ///< @copydoc 
+        static const value_t    DEFAULT_VALUE;  ///< @copydoc _7ad42492_b8e5_43bd_a25d_d2a4eddb0c18
         /// @}
 
     public:
         /// @name object data
-        /// @copydoc 
+        /// @copydoc _736e305c_efd6_47cb_afc0_e754e260f06e
         /// @{
-        volatile value_t    value;  ///< @copydoc 
+        volatile value_t    value;  ///< @copydoc _19250f59_8057_4e26_9180_a01f32df6660
         /// @}
 
     public:
         /// @name objects
-        /// @copydoc 
+        /// @copydoc _be559580_3edb_4338_b9e4_8281092c81ed
         /// @{
-        float_sp();                                         ///< @copydoc 
-        float_sp(value_t value);                            ///< @copydoc 
-        float_sp(const float_sp& other);                    ///< @copydoc 
-        float_sp(float_sp&& other) noexcept;                ///< @copydoc 
-        float_sp& operator =(const float_sp& other);        ///< @copydoc 
-        float_sp& operator =(float_sp&& other) noexcept;    ///< @copydoc 
-        ~float_sp();                                        ///< @copydoc 
+        float_sp();                                         ///< @copydoc _78362e25_29db_484e_860f_66bf63ef0702
+        float_sp(float_tr auto value);                      ///< @copydoc _e33edbdb_fbf4_49f0_add1_08599e7824b6
+        float_sp(const float_sp& other);                    ///< @copydoc _61a595a9_8bea_4302_a9cf_5c0c84e88502
+        float_sp(float_sp&& other) noexcept;                ///< @copydoc _d20308c7_ca46_4f3b_ac5d_4817164d0a99
+        float_sp& operator =(float_tr auto value);          ///< @copydoc _80f45bd9_92b0_48ed_ba98_9df5b1e891cb
+        float_sp& operator =(const float_sp& other);        ///< @copydoc _13e2fc20_6a84_42c2_8e14_5464b2a92bd2
+        float_sp& operator =(float_sp&& other) noexcept;    ///< @copydoc _111623c4_8569_44fe_ac45_eb839d13677c
+        ~float_sp();                                        ///< @copydoc _41d0b192_af22_4282_b188_40f164bf851e
         /// @}
 
     public:
         /// @name methods
-        /// @copydoc 
+        /// @copydoc _d03d71df_9d3c_40d3_94ef_41ec0a768384
         /// @{
-        value_t Access() const;                                             ///< @copydoc 
-        value_t Access_Add(float_tr auto value) const;                      ///< @copydoc 
-        value_t Access_Subtract(float_tr auto value) const;                 ///< @copydoc 
+        value_t Access() const;                                             ///< @copydoc _5f07459b_cc2c_4df1_b8f8_df28d9c0c62a
+        value_t Access_Add(float_tr auto value) const;                      ///< @copydoc _0052d808_472f_4917_95ed_9b1a094bfc12
+        value_t Access_Subtract(float_tr auto value) const;                 ///< @copydoc _c28a6854_9c1b_4f95_bb20_1e41eea38316
+        value_t Access_Multiply(float_tr auto value) const;                 ///< @copydoc _083b8767_4f78_4836_b493_3885848b63c9
+        value_t Access_Divide(float_tr auto value) const;                   ///< @copydoc _9534cd01_4caf_4296_ae67_cbb38de716db
 
-        value_t Assign(float_tr auto value);                                ///< @copydoc 
-        value_t Assign_Add(float_tr auto value);                            ///< @copydoc 
-        value_t Assign_Subtract(float_tr auto value);                       ///< @copydoc 
+        value_t Assign(float_tr auto value);                                ///< @copydoc _86090c8f_aa60_41b3_9d8d_c7811b288aac
+        value_t Assign_Add(float_tr auto value);                            ///< @copydoc _59a94c28_e4ae_4aca_af97_fe0a03d9a4d0
+        value_t Assign_Subtract(float_tr auto value);                       ///< @copydoc _684e4401_0e5b_4e8a_8376_5752bade8903
+        value_t Assign_Multiply(float_tr auto value);                       ///< @copydoc _ec53b9b0_5fb3_49c3_a1f5_aa0a2d7e9351
+        value_t Assign_Divide(float_tr auto value);                         ///< @copydoc _c663a829_3893_4449_aa1b_ba5e0a26c6de
 
-        value_t Exchange(float_tr auto value);                              ///< @copydoc 
-        value_t Exchange_Add(float_tr auto value);                          ///< @copydoc 
-        value_t Exchange_Subtract(float_tr auto value);                     ///< @copydoc 
-        bool_t  Exchange_If_Equals(value_t& snapshot, float_tr auto value); ///< @copydoc 
+        value_t Exchange(float_tr auto value);                              ///< @copydoc _ab0dd77c_4ae0_4d8a_94a4_78c85ed9872e
+        value_t Exchange_Add(float_tr auto value);                          ///< @copydoc _f901edef_ee4f_446f_84ad_65f1f31f52af
+        value_t Exchange_Subtract(float_tr auto value);                     ///< @copydoc _551c50b3_c942_4872_86de_edc3e1b6f615
+        value_t Exchange_Multiply(float_tr auto value);                     ///< @copydoc _8418d17c_3335_4b14_989a_c7756f407cea
+        value_t Exchange_Divide(float_tr auto value);                       ///< @copydoc _68377f8f_2dca_4787_ade4_4fb9922d88f3
+        bool_t  Exchange_If_Equals(value_t& snapshot, float_tr auto value); ///< @copydoc _7dd1307a_b27e_458e_8c07_812523cb6cce
         /// @}
 
     public:
         /// @name casts
-        /// @copydoc 
+        /// @copydoc _d06c6ef3_1cf6_4092_81d0_a32ff12fce58
         /// @{
-        operator    value_t() const;    ///< @copydoc 
+        operator    value_t() const;    ///< @copydoc _9280eeed_487d_481e_a15d_1853a677bcc5
         /// @}
 
     public:
         /// @name operators
-        /// @copydoc 
+        /// @copydoc _59ee1957_70b1_4581_8181_7c9271104cd0
         /// @{
-        value_t operator ()() const;                    ///< @copydoc 
+        value_t operator ()() const;                ///< @copydoc _98b42211_7bc8_434e_b85f_dfc4f76a9496
 
-        value_t operator =(float_tr auto value);        ///< @copydoc 
+        value_t operator +=(float_tr auto value);   ///< @copydoc _9440c8a7_f2e4_4dea_8202_eb1a3b33f624
+        value_t operator -=(float_tr auto value);   ///< @copydoc _05c4f9da_6215_48ab_931f_6a63822fb3bc
+        value_t operator *=(float_tr auto value);   ///< @copydoc _a9aa1790_c0ee_4ef3_985e_09c498389151
+        value_t operator /=(float_tr auto value);   ///< @copydoc _68c79a5b_1514_4d9e_a931_2b08417794cc
 
-        value_t operator +(float_tr auto value) const;  ///< @copydoc 
-        value_t operator -(float_tr auto value) const;  ///< @copydoc 
-        value_t operator +=(float_tr auto value);       ///< @copydoc 
-        value_t operator -=(float_tr auto value);       ///< @copydoc 
-        value_t operator ++();                          ///< @copydoc 
-        value_t operator ++(int);                       ///< @copydoc 
-        value_t operator --();                          ///< @copydoc 
-        value_t operator --(int);                       ///< @copydoc 
+        value_t operator ++();                      ///< @copydoc _40b4856c_dc14_4005_9cd1_f90ae5446d9f
+        value_t operator ++(int);                   ///< @copydoc _98d862c6_186a_4e4c_a727_0cd0272f37ba
+        value_t operator --();                      ///< @copydoc _060484a8_af7f_42f0_99b4_f8049e05c5fd
+        value_t operator --(int);                   ///< @copydoc _f3294493_3779_4089_b875_5b0576479f2e
         /// @}
 
     public:
         /// @name none_t interface
-        /// @copydoc 
+        /// @copydoc _50ecf924_c297_4baf_a55b_63473f74e9fd
         /// @{
-        float_sp&   operator =(none_t);         ///< @copydoc 
-        bool_t      operator ==(none_t) const;  ///< @copydoc 
-        bool_t      operator !=(none_t) const;  ///< @copydoc 
+        float_sp&   operator =(none_t);         ///< @copydoc _6c3ee7ad_411d_4f3f_adbc_4c793cb280aa
+        bool_t      operator ==(none_t) const;  ///< @copydoc _fb6fdd58_1c3a_4ced_8231_917ad7d8931c
+        bool_t      operator !=(none_t) const;  ///< @copydoc _1d33ee84_f30a_40a2_8ba8_3f66bd115ea4
         /// @}
     };
 

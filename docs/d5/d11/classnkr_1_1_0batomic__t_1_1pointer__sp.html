@@ -337,10 +337,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the value, but not atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Sets itself to the value, but not atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer == &amp;word);</div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:73</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:79</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -371,7 +371,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Accesses the other atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_2(pointer_1);</div>
 <div class="line">                CHECK(pointer_1 == &amp;word);</div>
@@ -406,7 +406,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_2(std::move(pointer_1));</div>
 <div class="line">                CHECK(pointer_1 == <span class="keyword">nullptr</span>);</div>
@@ -437,7 +437,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Sets itself to the default value atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                pointer.~atomic_t();</div>
 <div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
@@ -472,7 +472,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Accesses the other atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_2 = pointer_1;</div>
 <div class="line">                CHECK(pointer_1 == &amp;word);</div>
@@ -507,7 +507,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_1(&amp;word);</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer_2 = std::move(pointer_1);</div>
 <div class="line">                CHECK(pointer_1 == <span class="keyword">nullptr</span>);</div>
@@ -538,7 +538,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                <span class="keyword">const</span> atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer.Access() == &amp;word);</div>
 </div><!-- fragment --> 
@@ -571,7 +571,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                <span class="keyword">const</span> atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK(pointer.Access_Add(1) == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -605,7 +605,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                <span class="keyword">const</span> atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK(pointer.Access_Subtract(1) == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -639,7 +639,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer.Assign(<span class="keyword">nullptr</span>) == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
@@ -673,7 +673,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK(pointer.Assign_Add(1) == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -707,7 +707,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK(pointer.Assign_Subtract(1) == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -741,7 +741,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer.Exchange(<span class="keyword">nullptr</span>) == &amp;word);</div>
 <div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
@@ -775,7 +775,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK(pointer.Exchange_Add(1) == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -809,7 +809,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK(pointer.Exchange_Subtract(1) == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -853,9 +853,9 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 0 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 0 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(<span class="keyword">nullptr</span>);</div>
-<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>* snapshot = &amp;words[0];</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* snapshot = &amp;words[0];</div>
 <div class="line">                CHECK(pointer.Exchange_If_Equals(snapshot, &amp;words[0]) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(pointer == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">nullptr</span>);</div>
@@ -864,11 +864,11 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                CHECK(pointer == &amp;words[0]);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">nullptr</span>);</div>
 <div class="line"> </div>
-<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a>* <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a> = pointer;</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a> = pointer;</div>
 <div class="line">                <span class="keywordflow">while</span> (!pointer.Exchange_If_Equals(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>, <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a> + 1));</div>
 <div class="line">                CHECK(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a> == &amp;words[0]);</div>
 <div class="line">                CHECK(pointer == &amp;words[1]);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_afe6516841ceb83a0712039cf364d09c5"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">nkr::$atomic_t::pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:324</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_afe6516841ceb83a0712039cf364d09c5"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">nkr::$atomic_t::pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:330</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -895,7 +895,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>atomic_t&lt;word_t*&gt;::value_t<span class="keyword">&gt;</span>(pointer) == &amp;word);</div>
 <div class="line">                CHECK(pointer == &amp;word);</div>
@@ -932,7 +932,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer() == &amp;word);</div>
 </div><!-- fragment --> 
@@ -965,8 +965,8 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word_1 = 1;</div>
-<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word_2 = 2;</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word_1 = 1;</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word_2 = 2;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word_1);</div>
 <div class="line">                pointer = &amp;word_2;</div>
 <div class="line">                CHECK(pointer == &amp;word_2);</div>
@@ -1000,7 +1000,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK(pointer + 1 == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -1034,7 +1034,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK(pointer - 1 == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -1068,7 +1068,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK((pointer += 1) == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -1102,7 +1102,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK((pointer -= 1) == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -1132,7 +1132,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK(++pointer == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -1166,7 +1166,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 0);</div>
 <div class="line">                CHECK(pointer++ == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 1);</div>
@@ -1196,7 +1196,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK(--pointer == words + 0);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -1230,7 +1230,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(words + 1);</div>
 <div class="line">                CHECK(pointer-- == words + 1);</div>
 <div class="line">                CHECK(pointer == words + 0);</div>
@@ -1260,7 +1260,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <span class="keyword">struct </span>{ <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1; } word;</div>
+<div class="fragment"><div class="line">                <span class="keyword">struct </span>{ <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1; } word;</div>
 <div class="line">                <span class="keyword">auto</span> pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer-&gt;word == 1);</div>
 </div><!-- fragment --> 
@@ -1289,7 +1289,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <span class="keyword">struct </span>{ <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1; } word;</div>
+<div class="fragment"><div class="line">                <span class="keyword">struct </span>{ <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1; } word;</div>
 <div class="line">                <span class="keyword">auto</span> pointer(&amp;word);</div>
 <div class="line">                CHECK((*pointer).word == 1);</div>
 </div><!-- fragment --> 
@@ -1322,7 +1322,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> words[2] = { 0, 1 };</div>
+<div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> words[2] = { 0, 1 };</div>
 <div class="line">                <span class="keyword">auto</span> pointer(words);</div>
 <div class="line">                CHECK(pointer[1] == 1);</div>
 </div><!-- fragment --> 
@@ -1355,7 +1355,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets its value to the default value. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Sets its value to the default value. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(pointer != atomic_t&lt;word_t*&gt;::DEFAULT_VALUE);</div>
 <div class="line">                CHECK(&amp;(pointer = none_t()) == &amp;pointer);</div>
@@ -1390,7 +1390,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK(!(pointer == none_t()));</div>
 <div class="line">                pointer = none_t();</div>
@@ -1425,7 +1425,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> word = 1;</div>
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>. </p><div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> word = 1;</div>
 <div class="line">                atomic_t&lt;word_t*&gt; pointer(&amp;word);</div>
 <div class="line">                CHECK((pointer != none_t()));</div>
 <div class="line">                pointer = none_t();</div>

@@ -1115,7 +1115,7 @@ template&lt;integer_tr integer_p&gt; </div>
 
 <p></p>
 <div class="fragment"><div class="line">                atomic_t&lt;word_t&gt; word(0);</div>
-<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> snapshot = 1;</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> snapshot = 1;</div>
 <div class="line">                CHECK(word.Exchange_If_Equals(snapshot, 1) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(word == 0);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
@@ -1124,12 +1124,12 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                CHECK(word == 1);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 <div class="line"> </div>
-<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> <a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a> = word;</div>
+<div class="line">                <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> <a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a> = word;</div>
 <div class="line">                <span class="keywordflow">while</span> (!word.Exchange_If_Equals(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a>, <a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a> - 1));</div>
 <div class="line">                CHECK(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a> == 1);</div>
 <div class="line">                CHECK(word == 0);</div>
 <div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a32e53877d2e3005f31b5d986bd409624"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">nkr::$atomic_t::integer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:121</div></div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:73</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:79</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

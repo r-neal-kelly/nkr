@@ -428,7 +428,7 @@ Functions</h2></td></tr>
 <div class="textblock"><p >Functions that provide atomic access, assignment, and exchange of variables. </p>
 <p >These functions can be used in a threaded environment to safely read and write to various integers, booleans, and pointers. They are far more resource friendly than locks and should be used in their place as frequently as possible.</p>
 <p >There are three primary sets of these functions, each differing in whether they write to the atomic or simply read from it, and what value they return after a write. Furthermore within each set there are subsets that allow for either a read or write to be combined with a integral operator, all done in one atomic operation. Each subset consists of various overloads to provide atomics not only for booleans and integers, but for floats and pointers as well.</p>
-<dl class="section note"><dt>Note</dt><dd>Any 64-bit functionality only works when compiling for 64-bit processors. This is because the <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0" title="The largest natural type available, the processor&#39;s word.">nkr::word_t</a> of the machine is the maximum number of bits that can be used atomically. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Any 64-bit functionality only works when compiling for 64-bit processors. This is because the <a class="el" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b" title="The largest natural type available, the processor&#39;s word.">nkr::word_t</a> of the machine is the maximum number of bits that can be used atomically. </dd></dl>
 <dl class="section user"><dt></dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>In the description for each function is an expression that equates semantically but not literally. Even though there are sometimes several operations in some of the expressions, each function is still atomically thread-safe. </dd></dl>
 <dl class="section user"><dt></dt><dd></dd></dl>
@@ -1727,12 +1727,12 @@ Functions</h2></td></tr>
 <div class="line">            std::vector&lt;std::thread&gt; threads;</div>
 <div class="line">            threads.reserve(thread_count);</div>
 <div class="line"> </div>
-<div class="line">            <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> atomic_counter = 0;</div>
+<div class="line">            <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> atomic_counter = 0;</div>
 <div class="line">            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a> idx = 0, end = thread_count; idx &lt; end; idx += 1) {</div>
 <div class="line">                threads.push_back(std::thread(</div>
 <div class="line">                    [&amp;atomic_counter]() -&gt; <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a></div>
 <div class="line">                    {</div>
-<div class="line">                        <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> micro_seconds = 0;</div>
+<div class="line">                        <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> micro_seconds = 0;</div>
 <div class="line">                        {</div>
 <div class="line">                            std::lock_guard&lt;std::mutex&gt; locker(random_lock);</div>
 <div class="line">                            micro_seconds = std::uniform_int_distribution&lt;word_t&gt;(1, 5)(random_generator);</div>
@@ -1747,8 +1747,8 @@ Functions</h2></td></tr>
 <div class="line">            }</div>
 <div class="line"> </div>
 <div class="line">            CHECK(atomic_counter == thread_count * 7);</div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_ga0b47ac447d5aa5308b460c8a90a9dda0"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">nkr::word_t</a></div><div class="ttdeci">std::size_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:73</div></div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_gafcd45a8ee0ce155f841b4cadb25d9b4f"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">nkr::index_t</a></div><div class="ttdeci">word_t index_t</div><div class="ttdoc">Used for unit indices of any arbitrary array of types.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:76</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:79</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_gafcd45a8ee0ce155f841b4cadb25d9b4f"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">nkr::index_t</a></div><div class="ttdeci">word_t index_t</div><div class="ttdoc">Used for unit indices of any arbitrary array of types.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:85</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -1902,12 +1902,12 @@ Functions</h2></td></tr>
 <div class="line">            std::vector&lt;std::thread&gt; threads;</div>
 <div class="line">            threads.reserve(thread_count);</div>
 <div class="line"> </div>
-<div class="line">            <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> atomic_counter = thread_count * 7;</div>
+<div class="line">            <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> atomic_counter = thread_count * 7;</div>
 <div class="line">            <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a> idx = 0, end = thread_count; idx &lt; end; idx += 1) {</div>
 <div class="line">                threads.push_back(std::thread(</div>
 <div class="line">                    [&amp;atomic_counter]() -&gt; <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a></div>
 <div class="line">                    {</div>
-<div class="line">                        <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga0b47ac447d5aa5308b460c8a90a9dda0">word_t</a> micro_seconds = 0;</div>
+<div class="line">                        <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> micro_seconds = 0;</div>
 <div class="line">                        {</div>
 <div class="line">                            std::lock_guard&lt;std::mutex&gt; locker(random_lock);</div>
 <div class="line">                            micro_seconds = std::uniform_int_distribution&lt;word_t&gt;(1, 5)(random_generator);</div>

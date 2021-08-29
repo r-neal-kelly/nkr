@@ -63,14 +63,23 @@ namespace nkr {
     
     /// @ingroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af
     /// @{
-    using f32_t = float;    ///< @copydoc _2ad13e3a_26a3_4526_b482_a1f643d2cb99
-    using f64_t = double;   ///< @copydoc _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
+    using f32_t     = float;    ///< @copydoc _2ad13e3a_26a3_4526_b482_a1f643d2cb99
+    using f64_t     = double;   ///< @copydoc _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
+#if defined(nkr_IS_64_BIT)
+    using float_t   = f64_t;    ///< @copydoc _78f7692b_f26c_44ec_b165_394190b9d273
+#elif defined(nkr_IS_32_BIT)
+    using float_t   = f32_t;    ///< @copydoc _78f7692b_f26c_44ec_b165_394190b9d273
+#endif
     /// @}
 
     /// @ingroup intrinsics_contextuals
     /// @{
     using byte_t    = u8_t;             ///< @copydoc doc_nkr_byte_t
-    using word_t    = std::size_t;      ///< @copydoc doc_nkr_word_t
+#if defined(nkr_IS_64_BIT)
+    using word_t    = u64_t;            ///< @copydoc doc_nkr_word_t
+#elif defined(nkr_IS_32_BIT)
+    using word_t    = u32_t;            ///< @copydoc doc_nkr_word_t
+#endif
     using size_t    = word_t;           ///< @copydoc doc_nkr_size_t
     using count_t   = word_t;           ///< @copydoc doc_nkr_count_t
     using index_t   = word_t;           ///< @copydoc doc_nkr_index_t

@@ -185,6 +185,15 @@
         * @private
         */
 
+        // float_t
+        /**
+        * @class _78f7692b_f26c_44ec_b165_394190b9d273
+        * @private
+        * 
+        * @brief
+        *   Matches the nkr::word_t of the machine if its 64-bit, or else nkr::f32_t.
+        */
+
     /**
     * @defgroup intrinsics_contextuals contextuals
     * @ingroup intrinsics

@@ -13,10 +13,4 @@ namespace nkr {
     static_assert(sizeof(f32_t) == sizeof(u32_t), "f32_t must be the same size as u32_t");
     static_assert(sizeof(f64_t) == sizeof(u64_t), "f64_t must be the same size as u64_t");
 
-#if defined(nkr_IS_32_BIT)
-    static_assert(sizeof(std::size_t) == sizeof(u32_t), "word_t must be the same size as u32_t.");
-#elif defined(nkr_IS_64_BIT)
-    static_assert(sizeof(std::size_t) == sizeof(u64_t), "word_t must be the same size as u64_t.");
-#endif
-
 }
