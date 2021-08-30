@@ -1800,7 +1800,7 @@
 *   This type is essentially a wrapper for the functions contained in nkr::os::atomic. For invalid types, this template provides compile time failure or even pre-compile time failure if using intellisense.
 * 
 * @par Specializations
-*   - nkr::atomic_t<bool_t>
+*   - nkr::atomic_t<boolean_p>
 *   - nkr::atomic_t<integer_p>
 *   - nkr::atomic_t<real_p>
 *   - nkr::atomic_t<pointer_p>

@@ -8,7 +8,7 @@
 
 namespace nkr {
 
-    TEST_SUITE("atomic_t<bool_t>")
+    TEST_SUITE("atomic_t<boolean_p>")
     {
         TEST_SUITE("objects")
         {
