@@ -224,7 +224,7 @@ namespace nkr {
                 /// [_81cab430_3f81_4688_bc15_44aac4e05e71]
                 TEST_CASE("should equal 0")
                 {
-                    CHECK(atomic_t<word_t>::value_t() == 0);
+                    CHECK(atomic_t<word_t>::DEFAULT_VALUE == 0);
                 }
                 /// [_81cab430_3f81_4688_bc15_44aac4e05e71]
             }
@@ -593,7 +593,7 @@ namespace nkr {
                 /// [_1a55c887_94c9_41d4_addd_665545b62e49]
                 TEST_CASE("should equal 0.0")
                 {
-                    CHECK(atomic_t<float_t>::value_t() == 0.0);
+                    CHECK(atomic_t<float_t>::DEFAULT_VALUE == 0.0);
                 }
                 /// [_1a55c887_94c9_41d4_addd_665545b62e49]
             }
