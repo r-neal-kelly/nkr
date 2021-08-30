@@ -106,6 +106,12 @@
         * @private
         */
 
+        // to_integer_tr
+        /**
+        * @class _c60bd667_fcb7_46cb_9c59_7ebcdf40c878
+        * @private
+        */
+
     /**
     * @defgroup _8f223336_ce2a_4589_b4c1_75cd98cd393d floats
     * @ingroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
@@ -126,6 +132,12 @@
         // float_64_tr
         /**
         * @class _5a831ea1_e707_476a_9f37_317ad35b94c7
+        * @private
+        */
+
+        // to_float_tr
+        /**
+        * @class _f7cc78f8_c257_4193_b5bb_749f1656e614
         * @private
         */
 

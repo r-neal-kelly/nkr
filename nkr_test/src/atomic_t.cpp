@@ -197,462 +197,369 @@ namespace nkr {
 
     TEST_SUITE("atomic_t<integer_tr integer_p>")
     {
+        TEST_SUITE("aliases")
+        {
+            TEST_SUITE("value_t")
+            {
+                /// [_06294f3b_7dac_4f59_895a_2fd7f9b33932]
+                TEST_CASE("should equal the passed in type")
+                {
+                    static_assert(std::same_as<atomic_t<word_t>::value_t, word_t>);
+                }
+                /// [_06294f3b_7dac_4f59_895a_2fd7f9b33932]
+            }
+        }
+
+        TEST_SUITE("static data")
+        {
+            TEST_SUITE("DEFAULT_VALUE")
+            {
+                /// [_69784cd6_a92d_46c7_ac93_9e8df556d8af]
+                TEST_CASE("should equal the default value of value_t")
+                {
+                    CHECK(atomic_t<word_t>::DEFAULT_VALUE == atomic_t<word_t>::value_t());
+                }
+                /// [_69784cd6_a92d_46c7_ac93_9e8df556d8af]
+
+                /// [_81cab430_3f81_4688_bc15_44aac4e05e71]
+                TEST_CASE("should equal 0")
+                {
+                    CHECK(atomic_t<word_t>::value_t() == 0);
+                }
+                /// [_81cab430_3f81_4688_bc15_44aac4e05e71]
+            }
+        }
+
+        TEST_SUITE("object data")
+        {
+            TEST_SUITE("value")
+            {
+                /// [_ad87d67f_1180_4b90_89bd_4556539c78fb]
+                TEST_CASE("should be a volatile value_t")
+                {
+                    static_assert(std::same_as<decltype(atomic_t<word_t>::value), volatile word_t>);
+                }
+                /// [_ad87d67f_1180_4b90_89bd_4556539c78fb]
+            }
+        }
+
         TEST_SUITE("objects")
         {
-            TEST_CASE("default ctor() should set value to 0")
+            TEST_SUITE("default_ctor()")
             {
-                /// [_0298459b_30c7_4419_8b76_6622a7bb2c8d]
-                atomic_t<word_t> word;
-                CHECK(word == 0);
-                /// [_0298459b_30c7_4419_8b76_6622a7bb2c8d]
+
             }
 
-            TEST_CASE("value ctor() should set value to value")
+            TEST_SUITE("value_ctor()")
             {
-                /// [_425597b2_62fc_4a77_b872_8be9424221fe]
-                atomic_t<word_t> word(1);
-                CHECK(word == 1);
-                /// [_425597b2_62fc_4a77_b872_8be9424221fe]
+
             }
 
-            TEST_CASE("copy ctor() should copy value from other")
+            TEST_SUITE("copy_ctor()")
             {
-                /// [_5c070153_8529_46e5_b952_8c2cf67c6036]
-                atomic_t<word_t> other(1);
-                atomic_t<word_t> word(other);
-                CHECK(other == 1);
-                CHECK(word == 1);
-                /// [_5c070153_8529_46e5_b952_8c2cf67c6036]
+
             }
 
-            TEST_CASE("move ctor() should copy value from other and set other's value to 0")
+            TEST_SUITE("move_ctor()")
             {
-                /// [_07a59a46_c898_4b85_ac6d_c1698c47f325]
-                atomic_t<word_t> other(1);
-                atomic_t<word_t> word(std::move(other));
-                CHECK(other == 0);
-                CHECK(word == 1);
-                /// [_07a59a46_c898_4b85_ac6d_c1698c47f325]
+
             }
 
-            TEST_CASE("copy assignment ctor() should copy value from other")
+            TEST_SUITE("value_assignment_ctor()")
             {
-                /// [_472c190e_8206_4293_b0af_850e9592b41c]
-                atomic_t<word_t> other(1);
-                atomic_t<word_t> word = other;
-                CHECK(other == 1);
-                CHECK(word == 1);
-                /// [_472c190e_8206_4293_b0af_850e9592b41c]
+
             }
 
-            TEST_CASE("move assignment ctor() should copy value from other and set other's value to 0")
+            TEST_SUITE("copy_assignment_ctor()")
             {
-                /// [_ec9aefe8_321e_4d0b_b86f_8ed453e30f26]
-                atomic_t<word_t> other(1);
-                atomic_t<word_t> word = std::move(other);
-                CHECK(other == 0);
-                CHECK(word == 1);
-                /// [_ec9aefe8_321e_4d0b_b86f_8ed453e30f26]
+
             }
 
-            TEST_CASE("dtor() should set value to 0")
+            TEST_SUITE("move_assignment_ctor()")
             {
-                /// [_a9df6b8d_a04a_4ad9_a0ac_70755085d285]
-                atomic_t<word_t> word(1);
-                word.~atomic_t();
-                CHECK(word == 0);
-                /// [_a9df6b8d_a04a_4ad9_a0ac_70755085d285]
+
+            }
+
+            TEST_SUITE("dtor()")
+            {
+
             }
         }
 
         TEST_SUITE("methods")
         {
-            TEST_CASE("Access() should return value")
+            TEST_SUITE("Access()")
             {
-                /// [_adfed710_462f_47b5_a8f6_06a5d804f627]
-                const atomic_t<word_t> word(1);
-                CHECK(word.Access() == 1);
-                /// [_adfed710_462f_47b5_a8f6_06a5d804f627]
+
             }
 
-            TEST_CASE("Access_Add() should return added value without changing its value")
+            TEST_SUITE("Access_Add()")
             {
-                /// [_46f1402b_959d_420a_bae4_ca259ff9d9e1]
-                const atomic_t<word_t> word(1);
-                CHECK(word.Access_Add(1) == 2);
-                CHECK(word == 1);
-                /// [_46f1402b_959d_420a_bae4_ca259ff9d9e1]
+
             }
 
-            TEST_CASE("Access_Subtract() should return subtracted value without changing its value")
+            TEST_SUITE("Access_Subtract()")
             {
-                /// [_dccb8ff3_04bf_4a9a_8ee6_f391db782849]
-                const atomic_t<word_t> word(1);
-                CHECK(word.Access_Subtract(1) == 0);
-                CHECK(word == 1);
-                /// [_dccb8ff3_04bf_4a9a_8ee6_f391db782849]
+
             }
 
-            TEST_CASE("Access_Or() should return or'd value without changing its value")
+            TEST_SUITE("Access_Multiply()")
             {
-                /// [_211b88b8_561b_41a0_8ff0_ba876a2383f7]
-                const atomic_t<word_t> word(0x0F);
-                CHECK(word.Access_Or(0xF0) == 0xFF);
-                CHECK(word == 0x0F);
-                /// [_211b88b8_561b_41a0_8ff0_ba876a2383f7]
+
             }
 
-            TEST_CASE("Access_And() should return and'd value without changing its value")
+            TEST_SUITE("Access_Divide()")
             {
-                /// [_523d0483_8274_42de_9e1e_eca1c2d6f70d]
-                const atomic_t<word_t> word(0x0F);
-                CHECK(word.Access_And(0xF0) == 0x00);
-                CHECK(word == 0x0F);
-                /// [_523d0483_8274_42de_9e1e_eca1c2d6f70d]
+
             }
 
-            TEST_CASE("Access_Xor() should return xor'd value without changing its value")
+            TEST_SUITE("Access_Modulus()")
             {
-                /// [_00b6b746_dba9_47e9_9f72_4ad0cd27bbbb]
-                const atomic_t<word_t> word(0xFF);
-                CHECK(word.Access_Xor(0x01) == 0xFE);
-                CHECK(word == 0xFF);
-                /// [_00b6b746_dba9_47e9_9f72_4ad0cd27bbbb]
+
             }
 
-            TEST_CASE("Assign() should set value and return the new value")
+            TEST_SUITE("Access_Or()")
             {
-                /// [_3c93c3f0_2be5_458c_80db_75a8daedc74d]
-                atomic_t<word_t> word(1);
-                CHECK(word.Assign(0) == 0);
-                CHECK(word == 0);
-                /// [_3c93c3f0_2be5_458c_80db_75a8daedc74d]
+
             }
 
-            TEST_CASE("Assign_Add() should set added value and return the new value")
+            TEST_SUITE("Access_And()")
             {
-                /// [_a57f19cb_38ff_41a0_b8b2_128b0dad7126]
-                atomic_t<word_t> word(1);
-                CHECK(word.Assign_Add(1) == 2);
-                CHECK(word == 2);
-                /// [_a57f19cb_38ff_41a0_b8b2_128b0dad7126]
+
             }
 
-            TEST_CASE("Assign_Subtract() should set subtracted value and return the new value")
+            TEST_SUITE("Access_Xor()")
             {
-                /// [_0fdf0919_b494_4069_9480_566020bfe783]
-                atomic_t<word_t> word(1);
-                CHECK(word.Assign_Subtract(1) == 0);
-                CHECK(word == 0);
-                /// [_0fdf0919_b494_4069_9480_566020bfe783]
+
             }
 
-            TEST_CASE("Assign_Or() should set or'd value and return the new value")
+            TEST_SUITE("Access_Left_Shift()")
             {
-                /// [_c673f677_da1e_49e6_b779_f74b7fa25226]
-                atomic_t<word_t> word(0x0F);
-                CHECK(word.Assign_Or(0xF0) == 0xFF);
-                CHECK(word == 0xFF);
-                /// [_c673f677_da1e_49e6_b779_f74b7fa25226]
+
             }
 
-            TEST_CASE("Assign_And() should set and'd value and return the new value")
+            TEST_SUITE("Access_Right_Shift()")
             {
-                /// [_0639d0e5_ec27_43b8_804f_4a20e409b521]
-                atomic_t<word_t> word(0x0F);
-                CHECK(word.Assign_And(0xF0) == 0x00);
-                CHECK(word == 0x00);
-                /// [_0639d0e5_ec27_43b8_804f_4a20e409b521]
+
             }
 
-            TEST_CASE("Assign_Xor() should set xor'd value and return the new value")
+            TEST_SUITE("Assign()")
             {
-                /// [_714f2de4_3986_43f4_909c_6a2bf8f9f0e6]
-                atomic_t<word_t> word(0xFF);
-                CHECK(word.Assign_Xor(0x01) == 0xFE);
-                CHECK(word == 0xFE);
-                /// [_714f2de4_3986_43f4_909c_6a2bf8f9f0e6]
+
             }
 
-            TEST_CASE("Exchange() should set value and return the old value")
+            TEST_SUITE("Assign_Add()")
             {
-                /// [_594aca2c_64c3_499c_ba8c_6862c4aefa7c]
-                atomic_t<word_t> word(1);
-                CHECK(word.Exchange(0) == 1);
-                CHECK(word == 0);
-                /// [_594aca2c_64c3_499c_ba8c_6862c4aefa7c]
+
             }
 
-            TEST_CASE("Exchange_Add() should set added value and return the old value")
+            TEST_SUITE("Assign_Subtract()")
             {
-                /// [_fbcd609d_09ba_4cd3_9595_bf5cdcb4638d]
-                atomic_t<word_t> word(1);
-                CHECK(word.Exchange_Add(1) == 1);
-                CHECK(word == 2);
-                /// [_fbcd609d_09ba_4cd3_9595_bf5cdcb4638d]
+
             }
 
-            TEST_CASE("Exchange_Subtract() should set subtracted value and return the old value")
+            TEST_SUITE("Assign_Multiply()")
             {
-                /// [_ad01e70e_bd46_4aff_8074_31638d6f60fe]
-                atomic_t<word_t> word(1);
-                CHECK(word.Exchange_Subtract(1) == 1);
-                CHECK(word == 0);
-                /// [_ad01e70e_bd46_4aff_8074_31638d6f60fe]
+
             }
 
-            TEST_CASE("Exchange_Or() should set or'd value and return the old value")
+            TEST_SUITE("Assign_Divide()")
             {
-                /// [_4be0459d_b5e7_4d60_8695_bd9277898e05]
-                atomic_t<word_t> word(0x0F);
-                CHECK(word.Exchange_Or(0xF0) == 0x0F);
-                CHECK(word == 0xFF);
-                /// [_4be0459d_b5e7_4d60_8695_bd9277898e05]
+
             }
 
-            TEST_CASE("Exchange_And() should set and'd value and return the old value")
+            TEST_SUITE("Assign_Modulus()")
             {
-                /// [_0ece1cfd_2281_4b1e_85a8_00d0a1ec97ff]
-                atomic_t<word_t> word(0x0F);
-                CHECK(word.Exchange_And(0xF0) == 0x0F);
-                CHECK(word == 0x00);
-                /// [_0ece1cfd_2281_4b1e_85a8_00d0a1ec97ff]
+
             }
 
-            TEST_CASE("Exchange_Xor() should set xor'd value and return the old value")
+            TEST_SUITE("Assign_Or()")
             {
-                /// [_8373f8d7_2ac6_405a_968e_ebb7aaa5b88f]
-                atomic_t<word_t> word(0xFF);
-                CHECK(word.Exchange_Xor(0x01) == 0xFF);
-                CHECK(word == 0xFE);
-                /// [_8373f8d7_2ac6_405a_968e_ebb7aaa5b88f]
+
             }
 
-            TEST_CASE("Exchange_If_Equals() should set value if the current value matches the snapshot, returning true, else updates snapshot and returns false")
+            TEST_SUITE("Assign_And()")
             {
-                /// [_d12decaa_a991_4c99_8eeb_4615e60f73bc]
-                atomic_t<word_t> word(0);
-                word_t snapshot = 1;
-                CHECK(word.Exchange_If_Equals(snapshot, 1) == false);
-                CHECK(word == 0);
-                CHECK(snapshot == 0);
 
-                CHECK(word.Exchange_If_Equals(snapshot, 1) == true);
-                CHECK(word == 1);
-                CHECK(snapshot == 0);
+            }
 
-                word_t value = word;
-                while (!word.Exchange_If_Equals(value, value - 1));
-                CHECK(value == 1);
-                CHECK(word == 0);
-                /// [_d12decaa_a991_4c99_8eeb_4615e60f73bc]
+            TEST_SUITE("Assign_Xor()")
+            {
+
+            }
+
+            TEST_SUITE("Assign_Left_Shift()")
+            {
+
+            }
+
+            TEST_SUITE("Assign_Right_Shift()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Add()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Subtract()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Multiply()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Divide()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Modulus()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Or()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_And()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Xor()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Left_Shift()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_Right_Shift()")
+            {
+
+            }
+
+            TEST_SUITE("Exchange_If_Equals()")
+            {
+
             }
         }
 
         TEST_SUITE("casts")
         {
-            TEST_CASE("value_t() should cast to its value_t")
+            TEST_SUITE("value_t()")
             {
-                /// [_57e9ca8c_6b33_450f_9c49_3c2b26b356c7]
-                atomic_t<word_t> word(1);
-                CHECK(static_cast<atomic_t<word_t>::value_t>(word) == 1);
-                CHECK(word == 1);
-                CHECK(static_cast<bool_t>(word) == true);
-                CHECK(!word == false);
 
-                word = 0;
-                CHECK(word == 0);
-                CHECK(static_cast<bool_t>(word) == false);
-                CHECK(!word == true);
-                /// [_57e9ca8c_6b33_450f_9c49_3c2b26b356c7]
             }
         }
 
         TEST_SUITE("operators")
         {
-            TEST_CASE("()() should return its value")
+            TEST_SUITE("+=()")
             {
-                /// [_994aab1a_8a70_4833_922e_7d40f7c2677b]
-                atomic_t<word_t> word(1);
-                CHECK(word() == 1);
-                /// [_994aab1a_8a70_4833_922e_7d40f7c2677b]
+
             }
 
-            TEST_CASE("=() should set its value to other")
+            TEST_SUITE("-=()")
             {
-                /// [_61d042d0_7e8c_4cd9_a6dd_fd5b307a2fe3]
-                atomic_t<word_t> word(0);
-                word = 1;
-                CHECK(word == 1);
-                /// [_61d042d0_7e8c_4cd9_a6dd_fd5b307a2fe3]
+
             }
 
-            TEST_CASE("+() should return the result of value + other without changing value")
+            TEST_SUITE("*=()")
             {
-                /// [_69b1e964_4cae_4e08_bfb4_612f7db49e11]
-                atomic_t<word_t> word(1);
-                CHECK(word + 1 == 2);
-                CHECK(word == 1);
-                /// [_69b1e964_4cae_4e08_bfb4_612f7db49e11]
+
             }
 
-            TEST_CASE("-() should return the result of value - other without changing value")
+            TEST_SUITE("/=()")
             {
-                /// [_17417e1a_54d0_409b_a995_6a3b12186cff]
-                atomic_t<word_t> word(1);
-                CHECK(word - 1 == 0);
-                CHECK(word == 1);
-                /// [_17417e1a_54d0_409b_a995_6a3b12186cff]
+
             }
 
-            TEST_CASE("+=() should set value to value + other")
+            TEST_SUITE("%=()")
             {
-                /// [_f40394f7_a468_4089_95ce_fdbc31406bb3]
-                atomic_t<word_t> word(1);
-                CHECK((word += 1) == 2);
-                CHECK(word == 2);
-                /// [_f40394f7_a468_4089_95ce_fdbc31406bb3]
+
             }
 
-            TEST_CASE("-=() should set value to value - other")
+            TEST_SUITE("|=()")
             {
-                /// [_8d6fdd08_f4a0_4e23_b96c_8d1a5ed1ef4b]
-                atomic_t<word_t> word(1);
-                CHECK((word -= 1) == 0);
-                CHECK(word == 0);
-                /// [_8d6fdd08_f4a0_4e23_b96c_8d1a5ed1ef4b]
+
             }
 
-            TEST_CASE("++() should increment value and return the new value")
+            TEST_SUITE("&=()")
             {
-                /// [_9aef2e48_7c4e_4922_816b_3b3652cc7255]
-                atomic_t<word_t> word(1);
-                CHECK(++word == 2);
-                CHECK(word == 2);
-                /// [_9aef2e48_7c4e_4922_816b_3b3652cc7255]
+
             }
 
-            TEST_CASE("++(int) should increment value and return the initial value")
+            TEST_SUITE("^=()")
             {
-                /// [_8127f3b7_cf0d_44f4_8186_c06a0fe2e1cf]
-                atomic_t<word_t> word(1);
-                CHECK(word++ == 1);
-                CHECK(word == 2);
-                /// [_8127f3b7_cf0d_44f4_8186_c06a0fe2e1cf]
+
             }
 
-            TEST_CASE("--() should decrement value and return the new value")
+            TEST_SUITE("<<=()")
             {
-                /// [_10424556_071d_41df_bf13_8c560e7e4818]
-                atomic_t<word_t> word(1);
-                CHECK(--word == 0);
-                CHECK(word == 0);
-                /// [_10424556_071d_41df_bf13_8c560e7e4818]
+
             }
 
-            TEST_CASE("--(int) should decrement value and return the initial value")
+            TEST_SUITE(">>=()")
             {
-                /// [_f8c3551b_4056_4767_a871_39f907f5a605]
-                atomic_t<word_t> word(1);
-                CHECK(word-- == 1);
-                CHECK(word == 0);
-                /// [_f8c3551b_4056_4767_a871_39f907f5a605]
+
             }
 
-            TEST_CASE("~() should return ~value without changing value")
+            TEST_SUITE("++()")
             {
-                /// [_0ef480f9_2e50_44ae_906e_06290ae4b02c]
-                atomic_t<u8_t> u8(0x0F);
-                CHECK(~u8 == 0xF0);
-                CHECK(u8 == 0x0F);
-                /// [_0ef480f9_2e50_44ae_906e_06290ae4b02c]
+
             }
 
-            TEST_CASE("|() should return value | other without changing value")
+            TEST_SUITE("++(int)")
             {
-                /// [_79a5a894_6d6e_4096_9d1f_b0ef474c4623]
-                atomic_t<u8_t> u8(0x0F);
-                CHECK((u8 | 0xF0) == 0xFF);
-                CHECK(u8 == 0x0F);
-                /// [_79a5a894_6d6e_4096_9d1f_b0ef474c4623]
+
             }
 
-            TEST_CASE("&() should return value & other without changing value")
+            TEST_SUITE("--()")
             {
-                /// [_4b8cfb03_f1db_409f_98c0_af859a7df034]
-                atomic_t<u8_t> u8(0x0F);
-                CHECK((u8 & 0xF0) == 0x0);
-                CHECK(u8 == 0x0F);
-                /// [_4b8cfb03_f1db_409f_98c0_af859a7df034]
+
             }
 
-            TEST_CASE("^() should return value ^ other without changing value")
+            TEST_SUITE("--(int)")
             {
-                /// [_58735e13_a335_4d94_be28_3772ed3b8c32]
-                atomic_t<u8_t> u8(0xFF);
-                CHECK((u8 ^ 0x01) == 0xFE);
-                CHECK(u8 == 0xFF);
-                /// [_58735e13_a335_4d94_be28_3772ed3b8c32]
-            }
 
-            TEST_CASE("|=() should set value |= other")
-            {
-                /// [_91137373_aa0b_4493_9960_68f8d421ae18]
-                atomic_t<u8_t> u8(0x0F);
-                CHECK((u8 |= 0xF0) == 0xFF);
-                CHECK(u8 == 0xFF);
-                /// [_91137373_aa0b_4493_9960_68f8d421ae18]
-            }
-
-            TEST_CASE("&=() should set value &= other")
-            {
-                /// [_988587e7_6e13_4a79_8adb_907c88761d3f]
-                atomic_t<u8_t> u8(0x0F);
-                CHECK((u8 &= 0xF0) == 0x0);
-                CHECK(u8 == 0x0);
-                /// [_988587e7_6e13_4a79_8adb_907c88761d3f]
-            }
-
-            TEST_CASE("^=() should set value ^= other")
-            {
-                /// [_02a3d15d_9185_444b_b751_1d4231542c29]
-                atomic_t<u8_t> u8(0xFF);
-                CHECK((u8 ^= 0x01) == 0xFE);
-                CHECK(u8 == 0xFE);
-                /// [_02a3d15d_9185_444b_b751_1d4231542c29]
             }
         }
 
         TEST_SUITE("none_t interface")
         {
-            TEST_CASE("=(none_t) should set its value to the default value and return itself")
+            TEST_SUITE("none_ctor()")
             {
-                /// [_5cd9bae8_73e2_4656_8987_bdd39472257b]
-                atomic_t<word_t> word(1);
-                CHECK(word != atomic_t<word_t>::DEFAULT_VALUE);
-                CHECK(&(word = none_t()) == &word);
-                CHECK(word == atomic_t<word_t>::DEFAULT_VALUE);
-                /// [_5cd9bae8_73e2_4656_8987_bdd39472257b]
+
             }
 
-            TEST_CASE("==(none_t) should return true if the value is the default, else false")
+            TEST_SUITE("=(none_t)")
             {
-                /// [_234da0e9_f786_4f96_bac8_8c770ee445f1]
-                atomic_t<word_t> word(1);
-                CHECK(!(word == none_t()));
-                word = none_t();
-                CHECK((word == none_t()));
-                /// [_234da0e9_f786_4f96_bac8_8c770ee445f1]
+
             }
 
-            TEST_CASE("!=(none_t) should return true if the value is not the default, else false")
+            TEST_SUITE("==(none_t)")
             {
-                /// [_33e7ab8b_f658_430a_ad5b_05f722975e85]
-                atomic_t<word_t> word(1);
-                CHECK((word != none_t()));
-                word = none_t();
-                CHECK(!(word != none_t()));
-                /// [_33e7ab8b_f658_430a_ad5b_05f722975e85]
+
+            }
+
+            TEST_SUITE("!=(none_t)")
+            {
+
             }
         }
     }
@@ -680,9 +587,15 @@ namespace nkr {
                 TEST_CASE("should equal the default value of value_t")
                 {
                     CHECK(atomic_t<float_t>::DEFAULT_VALUE == atomic_t<float_t>::value_t());
-                    CHECK(atomic_t<float_t>::value_t() == 0.0);
                 }
                 /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
+
+                /// [_1a55c887_94c9_41d4_addd_665545b62e49]
+                TEST_CASE("should equal 0.0")
+                {
+                    CHECK(atomic_t<float_t>::value_t() == 0.0);
+                }
+                /// [_1a55c887_94c9_41d4_addd_665545b62e49]
             }
         }
 
@@ -717,26 +630,27 @@ namespace nkr {
                 /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
                 TEST_CASE("should explicitly set passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom == 1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    CHECK(atom == random);
                 }
                 /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
 
                 /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
                 TEST_CASE("should implicitly set passed value")
                 {
-                    atomic_t<float_t> atom = 1.0;
-                    CHECK(atom == 1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom = random;
+                    CHECK(atom == random);
                 }
                 /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
 
                 /// [_027ec34c_9368_4ff3_890b_235196c7702e]
-                TEST_CASE("should convert another float and set passed value")
+                TEST_CASE("should convert other types and set passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom == 1.0);
-                    new (&atom) atomic_t<float_t>(1.0f);
-                    CHECK(atom == 1.0);
+                    word_t random = Random<word_t>();
+                    atomic_t<float_t> atom(random);
+                    CHECK(atom == static_cast<float_t>(random));
                 }
                 /// [_027ec34c_9368_4ff3_890b_235196c7702e]
             }
@@ -746,27 +660,30 @@ namespace nkr {
                 /// [_c1b86a21_9372_4474_96c1_6641b05fdd80]
                 TEST_CASE("should explicitly copy the value of other")
                 {
-                    const atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> other(random);
                     atomic_t<float_t> atom(other);
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_c1b86a21_9372_4474_96c1_6641b05fdd80]
 
                 /// [_83a52bb2_2362_4c41_908f_575a08582122]
                 TEST_CASE("should implicitly copy the value of other")
                 {
-                    const atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> other(random);
                     atomic_t<float_t> atom = other;
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_83a52bb2_2362_4c41_908f_575a08582122]
 
                 /// [_5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9]
                 TEST_CASE("should not alter the value of other")
                 {
-                    const atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> other(random);
                     atomic_t<float_t> atom(other);
-                    CHECK(other == 1.0);
+                    CHECK(other == random);
                 }
                 /// [_5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9]
             }
@@ -776,27 +693,30 @@ namespace nkr {
                 /// [_ad08e960_ce87_457e_9795_e81944307359]
                 TEST_CASE("should explicitly move the value of other")
                 {
-                    atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> other(random);
                     atomic_t<float_t> atom(std::move(other));
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_ad08e960_ce87_457e_9795_e81944307359]
 
                 /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
                 TEST_CASE("should implicitly move the value of other")
                 {
-                    atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> other(random);
                     atomic_t<float_t> atom = std::move(other);
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
 
                 /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
                 TEST_CASE("should set the value of other to the default")
                 {
-                    atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> other(random);
                     atomic_t<float_t> atom(std::move(other));
-                    CHECK(other == 0.0);
+                    CHECK(other == atomic_t<float_t>::DEFAULT_VALUE);
                 }
                 /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
             }
@@ -806,20 +726,20 @@ namespace nkr {
                 /// [_900b1558_c4f8_49c3_96b1_9056d76555ed]
                 TEST_CASE("should set passed value")
                 {
+                    float_t random = Random<float_t>();
                     atomic_t<float_t> atom;
-                    atom = 1.0;
-                    CHECK(atom == 1.0);
+                    atom = random;
+                    CHECK(atom == random);
                 }
                 /// [_900b1558_c4f8_49c3_96b1_9056d76555ed]
 
                 /// [_cb64aaa3_b39d_43af_9e6e_03298a723992]
-                TEST_CASE("should convert another float and set passed value")
+                TEST_CASE("should convert other types and set passed value")
                 {
+                    word_t random = Random<word_t>();
                     atomic_t<float_t> atom;
-                    atom = 1.0f;
-                    CHECK(atom == 1.0);
-                    atom = 1.0;
-                    CHECK(atom == 1.0);
+                    atom = random;
+                    CHECK(atom == static_cast<float_t>(random));
                 }
                 /// [_cb64aaa3_b39d_43af_9e6e_03298a723992]
             }
@@ -829,20 +749,22 @@ namespace nkr {
                 /// [_de9354d0_a560_4f0c_b154_aee07071b26b]
                 TEST_CASE("should copy the value of other")
                 {
-                    const atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> other(random);
                     atomic_t<float_t> atom;
                     atom = other;
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_de9354d0_a560_4f0c_b154_aee07071b26b]
 
                 /// [_654311ef_5dfb_4631_8204_eb8c37ff8ce2]
                 TEST_CASE("should not alter the value of other")
                 {
-                    const atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> other(random);
                     atomic_t<float_t> atom;
                     atom = other;
-                    CHECK(other == 1.0);
+                    CHECK(other == random);
                 }
                 /// [_654311ef_5dfb_4631_8204_eb8c37ff8ce2]
             }
@@ -852,20 +774,22 @@ namespace nkr {
                 /// [_d98fa40a_5147_482b_8a01_95809a294e2b]
                 TEST_CASE("should move the value of other")
                 {
-                    atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> other(random);
                     atomic_t<float_t> atom;
                     atom = std::move(other);
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_d98fa40a_5147_482b_8a01_95809a294e2b]
 
                 /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]
                 TEST_CASE("should set the value of other to the default")
                 {
-                    atomic_t<float_t> other(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> other(random);
                     atomic_t<float_t> atom;
                     atom = std::move(other);
-                    CHECK(other == 0.0);
+                    CHECK(other == atomic_t<float_t>::DEFAULT_VALUE);
                 }
                 /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]
             }
@@ -875,9 +799,10 @@ namespace nkr {
                 /// [_9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4]
                 TEST_CASE("should set its value to the default")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
                     atom.~atomic_t();
-                    CHECK(atom == 0.0);
+                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
                 }
                 /// [_9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4]
             }
@@ -890,17 +815,19 @@ namespace nkr {
                 /// [_bf5ad36e_5e23_42d0_b32b_d69acd736c5f]
                 TEST_CASE("should return its value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Access() == 1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    CHECK(atom.Access() == random);
                 }
                 /// [_bf5ad36e_5e23_42d0_b32b_d69acd736c5f]
 
                 /// [_4d0ee15d_2612_402d_b95a_351d66897792]
                 TEST_CASE("should not change its value")
                 {
-                    const atomic_t<float_t> atom(1.0);
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
                     atom.Access();
-                    CHECK(atom == 1.0);
+                    CHECK(atom == random);
                 }
                 /// [_4d0ee15d_2612_402d_b95a_351d66897792]
             }
@@ -910,19 +837,33 @@ namespace nkr {
                 /// [_75b5f69b_46bb_4ae7_934e_dd5ae90ec693]
                 TEST_CASE("should return its value + passed value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Access_Add(1.0) == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Add(random_b) == random_a + random_b);
                 }
                 /// [_75b5f69b_46bb_4ae7_934e_dd5ae90ec693]
 
                 /// [_747264ec_e7b9_4bc8_92ad_d518758bbd8f]
                 TEST_CASE("should not change its value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    atom.Access_Add(1.0);
-                    CHECK(atom == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    atom.Access_Add(random_b);
+                    CHECK(atom == random_a);
                 }
                 /// [_747264ec_e7b9_4bc8_92ad_d518758bbd8f]
+
+                /// [_4c7aeade_69e4_41c0_b861_99fcfc19d171]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Add(random_b) == random_a + static_cast<float_t>(random_b));
+                }
+                /// [_4c7aeade_69e4_41c0_b861_99fcfc19d171]
             }
 
             TEST_SUITE("Access_Subtract()")
@@ -930,19 +871,33 @@ namespace nkr {
                 /// [_b66f77cd_1f70_4b5c_9003_883081f45007]
                 TEST_CASE("should return its value - passed value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Access_Subtract(1.0) == 0.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Subtract(random_b) == random_a - random_b);
                 }
                 /// [_b66f77cd_1f70_4b5c_9003_883081f45007]
 
                 /// [_b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876]
                 TEST_CASE("should not change its value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    atom.Access_Subtract(1.0);
-                    CHECK(atom == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    atom.Access_Subtract(random_b);
+                    CHECK(atom == random_a);
                 }
                 /// [_b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876]
+
+                /// [_2c40ef08_3a4b_4c3a_bf7b_245f25a1f0aa]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Subtract(random_b) == random_a - static_cast<float_t>(random_b));
+                }
+                /// [_2c40ef08_3a4b_4c3a_bf7b_245f25a1f0aa]
             }
 
             TEST_SUITE("Access_Multiply()")
@@ -950,19 +905,33 @@ namespace nkr {
                 /// [_03109072_ce76_4b5e_bd06_3b965cce9977]
                 TEST_CASE("should return its value * passed value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Access_Multiply(2.0) == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Multiply(random_b) == random_a * random_b);
                 }
                 /// [_03109072_ce76_4b5e_bd06_3b965cce9977]
 
                 /// [_d5c45927_aa1b_4d2b_a2df_984efeed9238]
                 TEST_CASE("should not change its value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    atom.Access_Multiply(2.0);
-                    CHECK(atom == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    atom.Access_Multiply(random_b);
+                    CHECK(atom == random_a);
                 }
                 /// [_d5c45927_aa1b_4d2b_a2df_984efeed9238]
+
+                /// [_7b4c9867_7a43_478d_9c73_98fc3aaaf663]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Multiply(random_b) == random_a * static_cast<float_t>(random_b));
+                }
+                /// [_7b4c9867_7a43_478d_9c73_98fc3aaaf663]
             }
 
             TEST_SUITE("Access_Divide()")
@@ -970,19 +939,33 @@ namespace nkr {
                 /// [_078c27a6_296c_460e_96e8_d61f0b47c3e6]
                 TEST_CASE("should return its value / passed value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Access_Divide(2.0) == 0.5);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Divide(random_b) == random_a / random_b);
                 }
                 /// [_078c27a6_296c_460e_96e8_d61f0b47c3e6]
 
                 /// [_bf945a6a_a80a_49f3_9d21_c32cab3e4ee3]
                 TEST_CASE("should not change its value")
                 {
-                    const atomic_t<float_t> atom(1.0);
-                    atom.Access_Divide(2.0);
-                    CHECK(atom == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    atom.Access_Divide(random_b);
+                    CHECK(atom == random_a);
                 }
                 /// [_bf945a6a_a80a_49f3_9d21_c32cab3e4ee3]
+
+                /// [_adcec423_487a_432d_a731_63d32b0fbc02]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Access_Divide(random_b) == random_a / static_cast<float_t>(random_b));
+                }
+                /// [_adcec423_487a_432d_a731_63d32b0fbc02]
             }
 
             TEST_SUITE("Assign()")
@@ -990,19 +973,34 @@ namespace nkr {
                 /// [_91339173_2c19_4c80_81c2_47a7d0056c79]
                 TEST_CASE("should set its value to the passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Assign(2.0);
-                    CHECK(atom == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign(random_b);
+                    CHECK(atom == random_b);
                 }
                 /// [_91339173_2c19_4c80_81c2_47a7d0056c79]
 
                 /// [_cf6d21c8_fe17_4d24_a869_7c2d2f1c638e]
                 TEST_CASE("should return its new value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Assign(2.0) == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Assign(random_b) == random_b);
                 }
                 /// [_cf6d21c8_fe17_4d24_a869_7c2d2f1c638e]
+
+                /// [_71122f83_edff_4e2b_9b04_ef4e2cb70662]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign(random_b);
+                    CHECK(atom == static_cast<float_t>(random_b));
+                }
+                /// [_71122f83_edff_4e2b_9b04_ef4e2cb70662]
             }
 
             TEST_SUITE("Assign_Add()")
@@ -1010,19 +1008,34 @@ namespace nkr {
                 /// [_58095a65_e406_4f9b_b98a_3e3ab286594e]
                 TEST_CASE("should set its value to value + passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Assign_Add(1.0);
-                    CHECK(atom == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Add(random_b);
+                    CHECK(atom == random_a + random_b);
                 }
                 /// [_58095a65_e406_4f9b_b98a_3e3ab286594e]
 
                 /// [_ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510]
                 TEST_CASE("should return its new value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Assign_Add(1.0) == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Assign_Add(random_b) == random_a + random_b);
                 }
                 /// [_ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510]
+
+                /// [_e6ec20c3_b673_435b_87bd_35ca0599d8d3]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Add(random_b);
+                    CHECK(atom == random_a + static_cast<float_t>(random_b));
+                }
+                /// [_e6ec20c3_b673_435b_87bd_35ca0599d8d3]
             }
 
             TEST_SUITE("Assign_Subtract()")
@@ -1030,19 +1043,34 @@ namespace nkr {
                 /// [_05e1e55b_b233_457c_8ae6_41ba0dec76a9]
                 TEST_CASE("should set its value to value - passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Assign_Subtract(1.0);
-                    CHECK(atom == 0.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Subtract(random_b);
+                    CHECK(atom == random_a - random_b);
                 }
                 /// [_05e1e55b_b233_457c_8ae6_41ba0dec76a9]
 
                 /// [_ae57b4c4_2b87_4a91_8f5c_63dde775cbec]
                 TEST_CASE("should return its new value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Assign_Subtract(1.0) == 0.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Assign_Subtract(random_b) == random_a - random_b);
                 }
                 /// [_ae57b4c4_2b87_4a91_8f5c_63dde775cbec]
+
+                /// [_3f9eb643_a685_4738_a90c_c0fa0c3c9bb4]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Subtract(random_b);
+                    CHECK(atom == random_a - static_cast<float_t>(random_b));
+                }
+                /// [_3f9eb643_a685_4738_a90c_c0fa0c3c9bb4]
             }
 
             TEST_SUITE("Assign_Multiply()")
@@ -1050,19 +1078,34 @@ namespace nkr {
                 /// [_14c37838_f17b_4552_9944_8b07373150bb]
                 TEST_CASE("should set its value to value * passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Assign_Multiply(2.0);
-                    CHECK(atom == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Multiply(random_b);
+                    CHECK(atom == random_a * random_b);
                 }
                 /// [_14c37838_f17b_4552_9944_8b07373150bb]
 
                 /// [_7de9dd2f_3628_4f22_88e3_b9b31f167ead]
                 TEST_CASE("should return its new value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Assign_Multiply(2.0) == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Assign_Multiply(random_b) == random_a * random_b);
                 }
                 /// [_7de9dd2f_3628_4f22_88e3_b9b31f167ead]
+
+                /// [_430149ff_9d6b_44ae_8240_19677f08a0ee]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Multiply(random_b);
+                    CHECK(atom == random_a * static_cast<float_t>(random_b));
+                }
+                /// [_430149ff_9d6b_44ae_8240_19677f08a0ee]
             }
 
             TEST_SUITE("Assign_Divide()")
@@ -1070,19 +1113,34 @@ namespace nkr {
                 /// [_7a64bd27_579a_4ce6_9878_2f924f4d6066]
                 TEST_CASE("should set its value to value / passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Assign_Divide(2.0);
-                    CHECK(atom == 0.5);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Divide(random_b);
+                    CHECK(atom == random_a / random_b);
                 }
                 /// [_7a64bd27_579a_4ce6_9878_2f924f4d6066]
 
                 /// [_2213006f_a4bb_404c_867b_47ab4950a07e]
                 TEST_CASE("should return its new value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Assign_Divide(2.0) == 0.5);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Assign_Divide(random_b) == random_a / random_b);
                 }
                 /// [_2213006f_a4bb_404c_867b_47ab4950a07e]
+
+                /// [_c6fc7749_f5c7_4191_a4c8_35000b9572cf]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Assign_Divide(random_b);
+                    CHECK(atom == random_a / static_cast<float_t>(random_b));
+                }
+                /// [_c6fc7749_f5c7_4191_a4c8_35000b9572cf]
             }
 
             TEST_SUITE("Exchange()")
@@ -1090,19 +1148,34 @@ namespace nkr {
                 /// [_c5484de3_220e_4cf8_83ef_f6aa71ab7966]
                 TEST_CASE("should set its value to the passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Exchange(2.0);
-                    CHECK(atom == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange(random_b);
+                    CHECK(atom == random_b);
                 }
                 /// [_c5484de3_220e_4cf8_83ef_f6aa71ab7966]
 
                 /// [_1f7ee854_568e_4397_9ce0_1efc7997d398]
                 TEST_CASE("should return its old value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Exchange(2.0) == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Exchange(random_b) == random_a);
                 }
                 /// [_1f7ee854_568e_4397_9ce0_1efc7997d398]
+
+                /// [_8742d47f_afc9_405b_bfae_8b48c126013f]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange(random_b);
+                    CHECK(atom == static_cast<float_t>(random_b));
+                }
+                /// [_8742d47f_afc9_405b_bfae_8b48c126013f]
             }
 
             TEST_SUITE("Exchange_Add()")
@@ -1110,19 +1183,34 @@ namespace nkr {
                 /// [_0f39542d_efb8_4826_92b5_9ee8b4760adc]
                 TEST_CASE("should set its value to value + passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Exchange_Add(1.0);
-                    CHECK(atom == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Add(random_b);
+                    CHECK(atom == random_a + random_b);
                 }
                 /// [_0f39542d_efb8_4826_92b5_9ee8b4760adc]
 
                 /// [_ad4af424_9bef_4d09_b79c_f4c50e335596]
                 TEST_CASE("should return its old value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Exchange_Add(1.0) == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Exchange_Add(random_b) == random_a);
                 }
                 /// [_ad4af424_9bef_4d09_b79c_f4c50e335596]
+
+                /// [_2dc17ea4_bace_4a53_afd9_b57f98dd5ef1]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Add(random_b);
+                    CHECK(atom == random_a + static_cast<float_t>(random_b));
+                }
+                /// [_2dc17ea4_bace_4a53_afd9_b57f98dd5ef1]
             }
 
             TEST_SUITE("Exchange_Subtract()")
@@ -1130,19 +1218,34 @@ namespace nkr {
                 /// [_5ae99b87_cf4c_4138_a417_072cd82a0852]
                 TEST_CASE("should set its value to value - passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Exchange_Subtract(1.0);
-                    CHECK(atom == 0.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Subtract(random_b);
+                    CHECK(atom == random_a - random_b);
                 }
                 /// [_5ae99b87_cf4c_4138_a417_072cd82a0852]
 
                 /// [_a26780e5_ccc7_4f2e_9ae7_49744a446e2b]
                 TEST_CASE("should return its old value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Exchange_Subtract(1.0) == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Exchange_Subtract(random_b) == random_a);
                 }
                 /// [_a26780e5_ccc7_4f2e_9ae7_49744a446e2b]
+
+                /// [_e5654cec_247b_4d30_a7eb_a27f57ca8494]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Subtract(random_b);
+                    CHECK(atom == random_a - static_cast<float_t>(random_b));
+                }
+                /// [_e5654cec_247b_4d30_a7eb_a27f57ca8494]
             }
 
             TEST_SUITE("Exchange_Multiply()")
@@ -1150,19 +1253,34 @@ namespace nkr {
                 /// [_7e049a15_3ffb_4acf_8e73_48db74cb9ff4]
                 TEST_CASE("should set its value to value * passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Exchange_Multiply(2.0);
-                    CHECK(atom == 2.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Multiply(random_b);
+                    CHECK(atom == random_a * random_b);
                 }
                 /// [_7e049a15_3ffb_4acf_8e73_48db74cb9ff4]
 
                 /// [_9ea5604a_734e_480f_b9b1_efbcfb248800]
                 TEST_CASE("should return its old value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Exchange_Multiply(2.0) == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Exchange_Multiply(random_b) == random_a);
                 }
                 /// [_9ea5604a_734e_480f_b9b1_efbcfb248800]
+
+                /// [_85360ec2_1d49_496f_ac96_e4ce711953aa]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Multiply(random_b);
+                    CHECK(atom == random_a * static_cast<float_t>(random_b));
+                }
+                /// [_85360ec2_1d49_496f_ac96_e4ce711953aa]
             }
 
             TEST_SUITE("Exchange_Divide()")
@@ -1170,19 +1288,34 @@ namespace nkr {
                 /// [_687caad0_6e65_43da_9aab_31e03808bc83]
                 TEST_CASE("should set its value to value / passed value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    atom.Exchange_Divide(2.0);
-                    CHECK(atom == 0.5);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Divide(random_b);
+                    CHECK(atom == random_a / random_b);
                 }
                 /// [_687caad0_6e65_43da_9aab_31e03808bc83]
 
                 /// [_2bc2cee2_c542_4852_804d_2c6cdd6ec3bb]
                 TEST_CASE("should return its old value")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom.Exchange_Divide(2.0) == 1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK(atom.Exchange_Divide(random_b) == random_a);
                 }
                 /// [_2bc2cee2_c542_4852_804d_2c6cdd6ec3bb]
+
+                /// [_6425f216_5887_4aa8_96f3_84d306491c7f]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom.Exchange_Divide(random_b);
+                    CHECK(atom == random_a / static_cast<float_t>(random_b));
+                }
+                /// [_6425f216_5887_4aa8_96f3_84d306491c7f]
             }
 
             TEST_SUITE("Exchange_If_Equals()")
@@ -1190,71 +1323,114 @@ namespace nkr {
                 /// [_870b7a10_e39f_413e_bc41_5696764fbff3]
                 TEST_CASE("should set its value to the passed value if its value equals the snapshot")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
                     float_t snapshot = atom;
-                    atom.Exchange_If_Equals(snapshot, snapshot + 1.0);
-                    CHECK(atom == 2.0);
+                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);
+                    CHECK(atom == random_a + random_b);
                 }
                 /// [_870b7a10_e39f_413e_bc41_5696764fbff3]
 
                 /// [_36a4ffa4_a0bc_430e_b241_514fbdaf36d1]
                 TEST_CASE("should return true if it set the new value")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
                     float_t snapshot = atom;
-                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + 1.0) == true);
+                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == true);
                 }
                 /// [_36a4ffa4_a0bc_430e_b241_514fbdaf36d1]
 
                 /// [_afb7c2ad_ecf4_4bd4_9378_eec404ba647f]
                 TEST_CASE("should return false if it did not set the new value")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
                     float_t snapshot = atom;
-                    atom = 2.0;
-                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + 1.0) == false);
+                    atom = random_a + random_b;
+                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == false);
                 }
                 /// [_afb7c2ad_ecf4_4bd4_9378_eec404ba647f]
 
                 /// [_67ecc477_461b_4a9b_94a6_17d44163e2d8]
                 TEST_CASE("should leave snapshot with its old value if it succeeded")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
                     float_t snapshot = atom;
-                    atom.Exchange_If_Equals(snapshot, snapshot + 1.0);
-                    CHECK(snapshot == 1.0);
+                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);
+                    CHECK(snapshot == random_a);
                 }
                 /// [_67ecc477_461b_4a9b_94a6_17d44163e2d8]
 
                 /// [_c55b85bd_af65_4c70_a5b3_e3f12b4f8203]
                 TEST_CASE("should update snapshot to its current value if it failed")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
                     float_t snapshot = atom;
-                    atom = 2.0;
-                    atom.Exchange_If_Equals(snapshot, snapshot + 1.0);
-                    CHECK(snapshot == 2.0);
+                    atom = random_a + random_b;
+                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);
+                    CHECK(snapshot == random_a + random_b);
                 }
                 /// [_c55b85bd_af65_4c70_a5b3_e3f12b4f8203]
+
+                /// [_945d71a2_0ec8_4073_9636_e88e0cc4d477]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    float_t snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, random_b);
+                    CHECK(atom == static_cast<float_t>(random_b));
+                }
+                /// [_945d71a2_0ec8_4073_9636_e88e0cc4d477]
 
                 /// [_0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d]
                 TEST_CASE("should allow you to atomically change its value safely with a custom algorithm")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    atomic_t<float_t> atom;
+                    std::vector<std::thread> incrementors;
+                    std::vector<std::thread> decrementors;
+                    const count_t delta = Random<count_t>(1, 256);
+                    const count_t threads_per = Random<count_t>(16, 64);
+                    incrementors.reserve(threads_per);
+                    decrementors.reserve(threads_per);
 
-                    auto Increment_Atom = [&atom]() -> void_t
-                    {
-                        float_t snapshot = atom;
-                        while (!atom.Exchange_If_Equals(snapshot, snapshot + 1.0));
-                    };
+                    for (index_t idx = 0, end = threads_per; idx < end; idx += 1) {
+                        incrementors.push_back(std::thread(
+                            [&]() -> void_t
+                            {
+                                std::this_thread::sleep_for(
+                                    std::chrono::microseconds(Random<count_t>(1, 5))
+                                );
+                                float_t snapshot = atom;
+                                while (!atom.Exchange_If_Equals(snapshot, snapshot + delta));
+                            }
+                        ));
+                        decrementors.push_back(std::thread(
+                            [&]() -> void_t
+                            {
+                                std::this_thread::sleep_for(
+                                    std::chrono::microseconds(Random<count_t>(1, 5))
+                                );
+                                float_t snapshot = atom;
+                                while (!atom.Exchange_If_Equals(snapshot, snapshot - delta));
+                            }
+                        ));
+                    }
+                    for (index_t idx = 0, end = threads_per; idx < end; idx += 1) {
+                        incrementors[idx].join();
+                        decrementors[idx].join();
+                    }
 
-                    std::thread thread_a(Increment_Atom);
-                    std::thread thread_b(Increment_Atom);
-
-                    thread_a.join();
-                    thread_b.join();
-
-                    CHECK(atom == 3.0);
+                    CHECK(atom == 0.0);
                 }
                 /// [_0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d]
             }
@@ -1264,96 +1440,339 @@ namespace nkr {
         {
             TEST_SUITE("value_t()")
             {
-                TEST_CASE("")
+                /// [_b4dfe423_ace5_4b2b_92fd_fe47b8708ef0]
+                TEST_CASE("should explicitly return a copy of its value")
                 {
-
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    CHECK(static_cast<float_t>(atom) == random);
                 }
+                /// [_b4dfe423_ace5_4b2b_92fd_fe47b8708ef0]
+
+                /// [_5589ab94_7740_4958_8eae_40ca0e3b10de]
+                TEST_CASE("should implicitly return a copy of its value")
+                {
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    float_t value = atom;
+                    CHECK(value == random);
+                }
+                /// [_5589ab94_7740_4958_8eae_40ca0e3b10de]
+
+                /// [_9026ed05_fe2f_41ef_99d4_c27cba3ba649]
+                TEST_CASE("should not change its value")
+                {
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    float_t value = atom;
+                    CHECK(atom == random);
+                }
+                /// [_9026ed05_fe2f_41ef_99d4_c27cba3ba649]
+
+                /// [_85183e6a_3837_4d8b_bb24_d1def57b6471]
+                TEST_CASE("should implicitly allow for arithmetic operators")
+                {
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    const atomic_t<float_t> atom(random_a);
+                    CHECK(+atom == +random_a);
+                    CHECK(-atom == -random_a);
+                    CHECK(atom + random_b == random_a + random_b);
+                    CHECK(atom - random_b == random_a - random_b);
+                    CHECK(atom * random_b == random_a * random_b);
+                    CHECK(atom / random_b == random_a / random_b);
+                }
+                /// [_85183e6a_3837_4d8b_bb24_d1def57b6471]
+
+                /// [_23e193eb_97a6_4126_b4a0_9986b5528d13]
+                TEST_CASE("should implicitly allow for logical operators")
+                {
+                    float_t random = Random<float_t>(1);
+                    const atomic_t<float_t> atom(random);
+                    CHECK(atom);
+                    CHECK(!!atom);
+                    CHECK(atom || 0.0);
+                    CHECK(atom && 1.0);
+                    CHECK(atom ? true : false);
+                }
+                /// [_23e193eb_97a6_4126_b4a0_9986b5528d13]
+
+                /// [_f0057019_a03e_4dc4_9571_008553300c9e]
+                TEST_CASE("should implicitly allow for comparison operators")
+                {
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    CHECK(atom == random);
+                    CHECK_FALSE(atom != random);
+                    CHECK_FALSE(atom < random);
+                    CHECK_FALSE(atom > random);
+                    CHECK(atom <= random);
+                    CHECK(atom >= random);
+                    CHECK(atom <=> random == 0);
+                }
+                /// [_f0057019_a03e_4dc4_9571_008553300c9e]
             }
         }
 
         TEST_SUITE("operators")
         {
-            TEST_SUITE("()()")
-            {
-                TEST_CASE("")
-                {
-
-                }
-            }
-
             TEST_SUITE("+=()")
             {
-                TEST_CASE("")
+                /// [_36fcf8e0_6485_47cb_9bc3_d1b6fdf4f1e0]
+                TEST_CASE("should set its value to value + passed value")
                 {
-
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom += random_b;
+                    CHECK(atom == random_a + random_b);
                 }
+                /// [_36fcf8e0_6485_47cb_9bc3_d1b6fdf4f1e0]
+
+                /// [_3f1df3a2_1a0f_4d40_a6ec_f1e789df66d2]
+                TEST_CASE("should return its new value")
+                {
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK((atom += random_b) == random_a + random_b);
+                }
+                /// [_3f1df3a2_1a0f_4d40_a6ec_f1e789df66d2]
+
+                /// [_033e8b36_38cf_43b8_9f3b_11317636ea2b]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom += random_b;
+                    CHECK(atom == random_a + static_cast<float_t>(random_b));
+                }
+                /// [_033e8b36_38cf_43b8_9f3b_11317636ea2b]
             }
 
             TEST_SUITE("-=()")
             {
-                TEST_CASE("")
+                /// [_bea2f1be_08d8_4cc8_b7c9_b8e428c48c93]
+                TEST_CASE("should set its value to value - passed value")
                 {
-
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom -= random_b;
+                    CHECK(atom == random_a - random_b);
                 }
+                /// [_bea2f1be_08d8_4cc8_b7c9_b8e428c48c93]
+
+                /// [_480031de_bc4f_4bb6_85ed_62024c4dd49d]
+                TEST_CASE("should return its new value")
+                {
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK((atom -= random_b) == random_a - random_b);
+                }
+                /// [_480031de_bc4f_4bb6_85ed_62024c4dd49d]
+
+                /// [_2d48712a_c6cd_44e9_a3e6_b0ff8d43da11]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom -= random_b;
+                    CHECK(atom == random_a - static_cast<float_t>(random_b));
+                }
+                /// [_2d48712a_c6cd_44e9_a3e6_b0ff8d43da11]
             }
 
             TEST_SUITE("*=()")
             {
-                TEST_CASE("")
+                /// [_719f3d8b_3516_49f0_8370_f21719e31fa7]
+                TEST_CASE("should set its value to value * passed value")
                 {
-
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom *= random_b;
+                    CHECK(atom == random_a * random_b);
                 }
+                /// [_719f3d8b_3516_49f0_8370_f21719e31fa7]
+
+                /// [_37627525_bc0f_44ef_9a71_c6f4cf74cd99]
+                TEST_CASE("should return its new value")
+                {
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK((atom *= random_b) == random_a * random_b);
+                }
+                /// [_37627525_bc0f_44ef_9a71_c6f4cf74cd99]
+
+                /// [_0abf5cf0_6bd6_47eb_911e_f3220a7d376a]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom *= random_b;
+                    CHECK(atom == random_a * static_cast<float_t>(random_b));
+                }
+                /// [_0abf5cf0_6bd6_47eb_911e_f3220a7d376a]
             }
 
             TEST_SUITE("/=()")
             {
-                TEST_CASE("")
+                /// [_a99638da_9117_430f_8144_0bb272a66b90]
+                TEST_CASE("should set its value to value / passed value")
                 {
-
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom /= random_b;
+                    CHECK(atom == random_a / random_b);
                 }
+                /// [_a99638da_9117_430f_8144_0bb272a66b90]
+
+                /// [_c60617e0_f780_400d_9e52_d7748bcd2ad1]
+                TEST_CASE("should return its new value")
+                {
+                    float_t random_a = Random<float_t>();
+                    float_t random_b = Random<float_t>();
+                    atomic_t<float_t> atom(random_a);
+                    CHECK((atom /= random_b) == random_a / random_b);
+                }
+                /// [_c60617e0_f780_400d_9e52_d7748bcd2ad1]
+
+                /// [_14984ffe_35dc_49c2_8e44_ea56be79f86a]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    float_t random_a = Random<float_t>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<float_t> atom(random_a);
+                    atom /= random_b;
+                    CHECK(atom == random_a / static_cast<float_t>(random_b));
+                }
+                /// [_14984ffe_35dc_49c2_8e44_ea56be79f86a]
             }
 
             TEST_SUITE("++()")
             {
-                TEST_CASE("")
+                /// [_fba6bafe_2370_452f_831b_8d373e47eb86]
+                TEST_CASE("should set its value to value + 1")
                 {
-
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    ++atom;
+                    CHECK(atom == random + 1.0);
                 }
+                /// [_fba6bafe_2370_452f_831b_8d373e47eb86]
+
+                /// [_3e4434f6_a682_4cb2_a893_adb013675a33]
+                TEST_CASE("should return its new value")
+                {
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    CHECK(++atom == random + 1.0);
+                }
+                /// [_3e4434f6_a682_4cb2_a893_adb013675a33]
             }
 
             TEST_SUITE("++(int)")
             {
-                TEST_CASE("")
+                /// [_f727b235_dd16_453f_a2fd_4c21a5b1b8ca]
+                TEST_CASE("should set its value to value + 1")
                 {
-
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    atom++;
+                    CHECK(atom == random + 1.0);
                 }
+                /// [_f727b235_dd16_453f_a2fd_4c21a5b1b8ca]
+
+                /// [_fbfb8066_4122_419c_91ae_517fab12ec9f]
+                TEST_CASE("should return its old value")
+                {
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    CHECK(atom++ == random);
+                }
+                /// [_fbfb8066_4122_419c_91ae_517fab12ec9f]
             }
 
             TEST_SUITE("--()")
             {
-                TEST_CASE("")
+                /// [_fd3b6e86_caef_4e02_8fe1_86506bf36b74]
+                TEST_CASE("should set its value to value - 1")
                 {
-
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    --atom;
+                    CHECK(atom == random - 1.0);
                 }
+                /// [_fd3b6e86_caef_4e02_8fe1_86506bf36b74]
+
+                /// [_ea214d48_d7ee_49c5_b831_5fd951e97052]
+                TEST_CASE("should return its new value")
+                {
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    CHECK(--atom == random - 1.0);
+                }
+                /// [_ea214d48_d7ee_49c5_b831_5fd951e97052]
             }
 
             TEST_SUITE("--(int)")
             {
-                TEST_CASE("")
+                /// [_d9ecdd36_d9d2_4e22_aa91_f0b0e88a83f3]
+                TEST_CASE("should set its value to value - 1")
                 {
-
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    atom--;
+                    CHECK(atom == random - 1.0);
                 }
+                /// [_d9ecdd36_d9d2_4e22_aa91_f0b0e88a83f3]
+
+                /// [_708c82fa_9602_4c7d_84e2_db57ada3144d]
+                TEST_CASE("should return its old value")
+                {
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
+                    CHECK(atom-- == random);
+                }
+                /// [_708c82fa_9602_4c7d_84e2_db57ada3144d]
             }
         }
 
         TEST_SUITE("none_t interface")
         {
+            TEST_SUITE("none_ctor()")
+            {
+                TEST_CASE("should explicitly set its value to the default value")
+                {
+                    /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
+                    atomic_t<float_t> atom((none_t()));
+                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
+                }
+                
+                TEST_CASE("should implicitly set its value to the default value")
+                {
+                    /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
+                    atomic_t<float_t> atom = none_t();
+                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
+                }
+            }
+
             TEST_SUITE("=(none_t)")
             {
                 /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
                 TEST_CASE("should set its value to the default value")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
                     atom = none_t();
                     CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
                 }
@@ -1362,8 +1781,8 @@ namespace nkr {
                 /// [_2c9d76ce_d1a7_4eb7_87c8_75662ad513fa]
                 TEST_CASE("should evaluate as false after being set to none")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(static_cast<bool_t>(atom) == true);
+                    float_t random = Random<float_t>(1);
+                    atomic_t<float_t> atom(random);
                     atom = none_t();
                     CHECK(static_cast<bool_t>(atom) == false);
                 }
@@ -1372,7 +1791,8 @@ namespace nkr {
                 /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
                 TEST_CASE("should return itself")
                 {
-                    atomic_t<float_t> atom(1.0);
+                    float_t random = Random<float_t>();
+                    atomic_t<float_t> atom(random);
                     CHECK(&(atom = none_t()) == &atom);
                 }
                 /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
@@ -1380,28 +1800,100 @@ namespace nkr {
 
             TEST_SUITE("==(none_t)")
             {
-                /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
-                TEST_CASE("should return true if the value is none")
+                /// [_a7f5b5f6_3a48_47fe_b6e3_14eec6f383c4]
+                TEST_CASE("should return true when default constructed")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK_FALSE(atom == none_t());
-                    atom = none_t();
+                    const atomic_t<float_t> atom;
+                    CHECK(atom == none_t());
+                }
+                /// [_a7f5b5f6_3a48_47fe_b6e3_14eec6f383c4]
+                
+                /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
+                TEST_CASE("should return true if its value is 0.0")
+                {
+                    const atomic_t<float_t> atom(0.0);
                     CHECK(atom == none_t());
                 }
                 /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
+
+                /// [_88f44f84_d138_444f_86da_95f3d34b3d0e]
+                TEST_CASE("should return false if its value is above 0.0")
+                {
+                    float_t random = Random<float_t>(std::numeric_limits<float_t>::epsilon(),
+                                                     std::numeric_limits<float_t>::max());
+                    const atomic_t<float_t> atom(random);
+                    CHECK_FALSE(atom == none_t());
+                }
+                /// [_88f44f84_d138_444f_86da_95f3d34b3d0e]
+
+                /// [_fb90f59f_18e9_4486_934f_d9804a28a5b4]
+                TEST_CASE("should return false if its value is below 0.0")
+                {
+                    float_t random = Random<float_t>(-std::numeric_limits<float_t>::max(),
+                                                     -std::numeric_limits<float_t>::epsilon());
+                    const atomic_t<float_t> atom(random);
+                    CHECK_FALSE(atom == none_t());
+                }
+                /// [_fb90f59f_18e9_4486_934f_d9804a28a5b4]
+
+                /// [_e3936d47_de8c_48ff_979c_dd104837e2b6]
+                TEST_CASE("should not change its value")
+                {
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    atom == none_t();
+                    CHECK(atom == random);
+                }
+                /// [_e3936d47_de8c_48ff_979c_dd104837e2b6]
             }
 
             TEST_SUITE("!=(none_t)")
             {
-                /// [_0d957a72_6f3b_485a_add2_9ebb331485e0]
-                TEST_CASE("should return true if the value is not none")
+                /// [_94d14476_999f_451c_94a0_ac2df55f5038]
+                TEST_CASE("should return false when default constructed")
                 {
-                    atomic_t<float_t> atom(1.0);
-                    CHECK(atom != none_t());
-                    atom = none_t();
+                    const atomic_t<float_t> atom;
                     CHECK_FALSE(atom != none_t());
                 }
-                /// [_0d957a72_6f3b_485a_add2_9ebb331485e0]
+                /// [_94d14476_999f_451c_94a0_ac2df55f5038]
+                
+                /// [_e867e438_8518_497a_b61a_b642b661c12a]
+                TEST_CASE("should return false if its value is 0.0")
+                {
+                    const atomic_t<float_t> atom(0.0);
+                    CHECK_FALSE(atom != none_t());
+                }
+                /// [_e867e438_8518_497a_b61a_b642b661c12a]
+
+                /// [_5a4f170a_7266_4e56_8323_69d2e0dd2fa3]
+                TEST_CASE("should return true if its value is above 0.0")
+                {
+                    float_t random = Random<float_t>(std::numeric_limits<float_t>::epsilon(),
+                                                     std::numeric_limits<float_t>::max());
+                    const atomic_t<float_t> atom(random);
+                    CHECK(atom != none_t());
+                }
+                /// [_5a4f170a_7266_4e56_8323_69d2e0dd2fa3]
+
+                /// [_0225938f_b038_40cd_a659_7fbe416f8006]
+                TEST_CASE("should return true if its value is below 0.0")
+                {
+                    float_t random = Random<float_t>(-std::numeric_limits<float_t>::max(),
+                                                     -std::numeric_limits<float_t>::epsilon());
+                    const atomic_t<float_t> atom(random);
+                    CHECK(atom != none_t());
+                }
+                /// [_0225938f_b038_40cd_a659_7fbe416f8006]
+
+                /// [_bf986b93_2c19_47cb_b49b_1bc1152d2074]
+                TEST_CASE("should not change its value")
+                {
+                    float_t random = Random<float_t>();
+                    const atomic_t<float_t> atom(random);
+                    atom != none_t();
+                    CHECK(atom == random);
+                }
+                /// [_bf986b93_2c19_47cb_b49b_1bc1152d2074]
             }
         }
     }

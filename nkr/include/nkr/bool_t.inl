@@ -132,6 +132,11 @@ namespace nkr {
         return !operator ==(a, b);
     }
 
+    inline bool_t::bool_t(none_t) :
+        value(static_cast<word_t>(false))
+    {
+    }
+
     inline bool_t& bool_t::operator =(none_t)
     {
         this->value = static_cast<word_t>(false);

@@ -7,6 +7,7 @@ var classnkr_1_1bool__t =
     [ "bool_t", "d3/df5/classnkr_1_1bool__t.html#ab3623d18ef524023fc52e695ac39c0d6", null ],
     [ "bool_t", "d3/df5/classnkr_1_1bool__t.html#a741685649c0a72e05da33841ad0977c0", null ],
     [ "~bool_t", "d3/df5/classnkr_1_1bool__t.html#a7aff075c41de371018f94979330a7f24", null ],
+    [ "bool_t", "d3/df5/classnkr_1_1bool__t.html#afbf839400cf75ef1a31a6aa781bc702b", null ],
     [ "operator=", "d3/df5/classnkr_1_1bool__t.html#a3c16278c8260aa706d9e168cb6509a77", null ],
     [ "operator=", "d3/df5/classnkr_1_1bool__t.html#afd0176a8c7560da9a976018cd65f2f83", null ],
     [ "operator=", "d3/df5/classnkr_1_1bool__t.html#a7179e7d682341c7c22c3580429663aef", null ],

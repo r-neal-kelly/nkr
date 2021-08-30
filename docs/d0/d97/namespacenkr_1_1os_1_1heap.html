@@ -185,8 +185,8 @@ Functions</h2></td></tr>
 <div class="line"> </div>
 <div class="line">            <a class="code hl_function" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9a3ad08385416135f1196479076cbe37">os::heap::Deallocate</a>(words);</div>
 <div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:79</div></div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a29656eece8a2540374033a49f06f6f8d"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a29656eece8a2540374033a49f06f6f8d">nkr::os::heap::Allocate</a></div><div class="ttdeci">bool_t Allocate(type_tr auto *&amp;units, count_t unit_count)</div><div class="ttdoc">Gives you memory to use until you deallocate it or your program exits.</div><div class="ttdef"><b>Definition:</b> os.inl:1058</div></div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a9a3ad08385416135f1196479076cbe37"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9a3ad08385416135f1196479076cbe37">nkr::os::heap::Deallocate</a></div><div class="ttdeci">void_t Deallocate(type_tr auto *&amp;units)</div><div class="ttdoc">Takes back memory you no longer need so it can be reused later.</div><div class="ttdef"><b>Definition:</b> os.inl:1094</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a29656eece8a2540374033a49f06f6f8d"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a29656eece8a2540374033a49f06f6f8d">nkr::os::heap::Allocate</a></div><div class="ttdeci">bool_t Allocate(type_tr auto *&amp;units, count_t unit_count)</div><div class="ttdoc">Gives you memory to use until you deallocate it or your program exits.</div><div class="ttdef"><b>Definition:</b> os.inl:1074</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a9a3ad08385416135f1196479076cbe37"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9a3ad08385416135f1196479076cbe37">nkr::os::heap::Deallocate</a></div><div class="ttdeci">void_t Deallocate(type_tr auto *&amp;units)</div><div class="ttdoc">Takes back memory you no longer need so it can be reused later.</div><div class="ttdef"><b>Definition:</b> os.inl:1110</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -250,7 +250,7 @@ Functions</h2></td></tr>
 <div class="line">            CHECK(words == backup);</div>
 <div class="line"> </div>
 <div class="line">            <a class="code hl_function" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9a3ad08385416135f1196479076cbe37">os::heap::Deallocate</a>(words);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_ab0ff4d5e02756fef478524cdfd46558c"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#ab0ff4d5e02756fef478524cdfd46558c">nkr::os::heap::Reallocate</a></div><div class="ttdeci">bool_t Reallocate(type_tr auto *&amp;units, count_t new_unit_count)</div><div class="ttdoc">Gives you more memory while keeping all your data intact.</div><div class="ttdef"><b>Definition:</b> os.inl:1076</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_ab0ff4d5e02756fef478524cdfd46558c"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#ab0ff4d5e02756fef478524cdfd46558c">nkr::os::heap::Reallocate</a></div><div class="ttdeci">bool_t Reallocate(type_tr auto *&amp;units, count_t new_unit_count)</div><div class="ttdoc">Gives you more memory while keeping all your data intact.</div><div class="ttdef"><b>Definition:</b> os.inl:1092</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -357,8 +357,8 @@ Functions</h2></td></tr>
 <div class="line"> </div>
 <div class="line">            <a class="code hl_function" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36">os::heap::Deallocate_Zeros</a>(words);</div>
 <div class="ttc" id="agroup__intrinsics__contextuals_html_gafcd45a8ee0ce155f841b4cadb25d9b4f"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">nkr::index_t</a></div><div class="ttdeci">word_t index_t</div><div class="ttdoc">Used for unit indices of any arbitrary array of types.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:85</div></div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a5f31aefbed69abd1aae674b80956dd36"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36">nkr::os::heap::Deallocate_Zeros</a></div><div class="ttdeci">void_t Deallocate_Zeros(type_tr auto *&amp;units)</div><div class="ttdoc">Takes back memory you no longer need so it can be reused later.</div><div class="ttdef"><b>Definition:</b> os.inl:1138</div></div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a9845749afb4b1e3e577276b4342ea143"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9845749afb4b1e3e577276b4342ea143">nkr::os::heap::Allocate_Zeros</a></div><div class="ttdeci">bool_t Allocate_Zeros(type_tr auto *&amp;units, count_t unit_count)</div><div class="ttdoc">Gives you zero-initialized memory to use until your program exits.</div><div class="ttdef"><b>Definition:</b> os.inl:1102</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a5f31aefbed69abd1aae674b80956dd36"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36">nkr::os::heap::Deallocate_Zeros</a></div><div class="ttdeci">void_t Deallocate_Zeros(type_tr auto *&amp;units)</div><div class="ttdoc">Takes back memory you no longer need so it can be reused later.</div><div class="ttdef"><b>Definition:</b> os.inl:1154</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_a9845749afb4b1e3e577276b4342ea143"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a9845749afb4b1e3e577276b4342ea143">nkr::os::heap::Allocate_Zeros</a></div><div class="ttdeci">bool_t Allocate_Zeros(type_tr auto *&amp;units, count_t unit_count)</div><div class="ttdoc">Gives you zero-initialized memory to use until your program exits.</div><div class="ttdef"><b>Definition:</b> os.inl:1118</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -421,7 +421,7 @@ Functions</h2></td></tr>
 <div class="line">            CHECK(words == backup);</div>
 <div class="line"> </div>
 <div class="line">            <a class="code hl_function" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36">os::heap::Deallocate_Zeros</a>(words);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_aab1a2f6fb3fb56133144cd777abe97bd"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#aab1a2f6fb3fb56133144cd777abe97bd">nkr::os::heap::Reallocate_Zeros</a></div><div class="ttdeci">bool_t Reallocate_Zeros(type_tr auto *&amp;units, count_t new_unit_count)</div><div class="ttdoc">Gives you more zero-initialized memory while keeping all your data intact.</div><div class="ttdef"><b>Definition:</b> os.inl:1120</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1heap_html_aab1a2f6fb3fb56133144cd777abe97bd"><div class="ttname"><a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#aab1a2f6fb3fb56133144cd777abe97bd">nkr::os::heap::Reallocate_Zeros</a></div><div class="ttdeci">bool_t Reallocate_Zeros(type_tr auto *&amp;units, count_t new_unit_count)</div><div class="ttdoc">Gives you more zero-initialized memory while keeping all your data intact.</div><div class="ttdef"><b>Definition:</b> os.inl:1136</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

@@ -483,7 +483,23 @@ namespace nkr {
 
         TEST_SUITE("none_t interface")
         {
-            TEST_CASE("=(none_t) should set its value to the false and return itself")
+            TEST_CASE("none_ctor() should explicitly set its value to false")
+            {
+                /// [_d2eb2094_38e0_4df3_b3f4_d21934bdcea1]
+                bool_t boolean((none_t()));
+                CHECK(boolean == false);
+                /// [_d2eb2094_38e0_4df3_b3f4_d21934bdcea1]
+            }
+
+            TEST_CASE("none_ctor() should implicitly set its value to false")
+            {
+                /// [_593e9222_eae5_40ed_a624_f8b6901271dc]
+                bool_t boolean = none_t();
+                CHECK(boolean == false);
+                /// [_593e9222_eae5_40ed_a624_f8b6901271dc]
+            }
+
+            TEST_CASE("=(none_t) should set its value to false and return itself")
             {
                 /// [_054daa01_e0d0_4313_bc9f_02f277d97bcd]
                 bool_t boolean = true;

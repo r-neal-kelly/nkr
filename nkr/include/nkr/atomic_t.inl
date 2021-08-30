@@ -104,14 +104,17 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
+    inline typename const integer_sp<integer_p>::value_t    integer_sp<integer_p>::DEFAULT_VALUE    = value_t();
+
+    template <integer_tr integer_p>
     inline integer_sp<integer_p>::integer_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
     template <integer_tr integer_p>
-    inline integer_sp<integer_p>::integer_sp(value_t value) :
-        value(value)
+    inline integer_sp<integer_p>::integer_sp(to_integer_tr auto value) :
+        value(static_cast<value_t>(value))
     {
     }
 
@@ -125,6 +128,13 @@ namespace nkr { namespace $atomic_t {
     inline integer_sp<integer_p>::integer_sp(integer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>& integer_sp<integer_p>::operator =(to_integer_tr auto value)
+    {
+        Assign(value);
+        return *this;
     }
 
     template <integer_tr integer_p>
@@ -158,15 +168,33 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Add(integer_tr auto value) const
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Add(to_integer_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Subtract(integer_tr auto value) const
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Subtract(to_integer_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Multiply(to_integer_tr auto value) const
+    {
+        return os::atomic::Access_Multiply(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Divide(to_integer_tr auto value) const
+    {
+        return os::atomic::Access_Divide(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Modulus(integer_tr auto value) const
+    {
+        return os::atomic::Access_Modulus(this->value, value);
     }
 
     template <integer_tr integer_p>
@@ -188,21 +216,51 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Left_Shift(integer_tr auto value) const
+    {
+        return os::atomic::Access_Left_Shift(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Access_Right_Shift(integer_tr auto value) const
+    {
+        return os::atomic::Access_Right_Shift(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign(to_integer_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Add(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Add(to_integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Subtract(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Subtract(to_integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Multiply(to_integer_tr auto value)
+    {
+        return os::atomic::Assign_Multiply(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Divide(to_integer_tr auto value)
+    {
+        return os::atomic::Assign_Divide(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Modulus(integer_tr auto value)
+    {
+        return os::atomic::Assign_Modulus(this->value, value);
     }
 
     template <integer_tr integer_p>
@@ -224,21 +282,51 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Left_Shift(integer_tr auto value)
+    {
+        return os::atomic::Assign_Left_Shift(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Assign_Right_Shift(integer_tr auto value)
+    {
+        return os::atomic::Assign_Right_Shift(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange(to_integer_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Add(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Add(to_integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Subtract(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Subtract(to_integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Multiply(to_integer_tr auto value)
+    {
+        return os::atomic::Exchange_Multiply(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Divide(to_integer_tr auto value)
+    {
+        return os::atomic::Exchange_Divide(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Modulus(integer_tr auto value)
+    {
+        return os::atomic::Exchange_Modulus(this->value, value);
     }
 
     template <integer_tr integer_p>
@@ -260,7 +348,19 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline bool_t integer_sp<integer_p>::Exchange_If_Equals(value_t& snapshot, integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Left_Shift(integer_tr auto value)
+    {
+        return os::atomic::Exchange_Left_Shift(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::Exchange_Right_Shift(integer_tr auto value)
+    {
+        return os::atomic::Exchange_Right_Shift(this->value, value);
+    }
+
+    template <integer_tr integer_p>
+    inline bool_t integer_sp<integer_p>::Exchange_If_Equals(value_t& snapshot, to_integer_tr auto value)
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
@@ -272,39 +372,63 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ()() const
-    {
-        return Access();
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator =(integer_tr auto value)
-    {
-        return Assign(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator +(integer_tr auto value) const
-    {
-        return Access_Add(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator -(integer_tr auto value) const
-    {
-        return Access_Subtract(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator +=(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator +=(to_integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator -=(integer_tr auto value)
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator -=(to_integer_tr auto value)
     {
         return Assign_Subtract(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator *=(to_integer_tr auto value)
+    {
+        return Assign_Multiply(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator /=(to_integer_tr auto value)
+    {
+        return Assign_Divide(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator %=(integer_tr auto value)
+    {
+        return Assign_Modulus(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator |=(integer_tr auto value)
+    {
+        return Assign_Or(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator &=(integer_tr auto value)
+    {
+        return Assign_And(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ^=(integer_tr auto value)
+    {
+        return Assign_Xor(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator <<=(integer_tr auto value)
+    {
+        return Assign_Left_Shift(value);
+    }
+
+    template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator >>=(integer_tr auto value)
+    {
+        return Assign_Right_Shift(value);
     }
 
     template <integer_tr integer_p>
@@ -332,45 +456,9 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ~() const
+    inline integer_sp<integer_p>::integer_sp(none_t) :
+        value(DEFAULT_VALUE)
     {
-        return ~Access();
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator |(integer_tr auto value) const
-    {
-        return Access_Or(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator &(integer_tr auto value) const
-    {
-        return Access_And(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ^(integer_tr auto value) const
-    {
-        return Access_Xor(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator |=(integer_tr auto value)
-    {
-        return Assign_Or(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator &=(integer_tr auto value)
-    {
-        return Assign_And(value);
-    }
-
-    template <integer_tr integer_p>
-    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ^=(integer_tr auto value)
-    {
-        return Assign_Xor(value);
     }
 
     template <integer_tr integer_p>
@@ -402,7 +490,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(float_tr auto value) :
+    inline float_sp<float_p>::float_sp(to_float_tr auto value) :
         value(static_cast<value_t>(value))
     {
     }
@@ -420,7 +508,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <float_tr float_p>
-    inline float_sp<float_p>& float_sp<float_p>::operator =(float_tr auto value)
+    inline float_sp<float_p>& float_sp<float_p>::operator =(to_float_tr auto value)
     {
         Assign(value);
         return *this;
@@ -457,91 +545,91 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Add(float_tr auto value) const
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Add(to_float_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Subtract(float_tr auto value) const
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Subtract(to_float_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Multiply(float_tr auto value) const
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Multiply(to_float_tr auto value) const
     {
         return os::atomic::Access_Multiply(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Divide(float_tr auto value) const
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Divide(to_float_tr auto value) const
     {
         return os::atomic::Access_Divide(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign(to_float_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Add(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Add(to_float_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Subtract(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Subtract(to_float_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Multiply(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Multiply(to_float_tr auto value)
     {
         return os::atomic::Assign_Multiply(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Divide(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Divide(to_float_tr auto value)
     {
         return os::atomic::Assign_Divide(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange(to_float_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Add(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Add(to_float_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Subtract(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Subtract(to_float_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Multiply(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Multiply(to_float_tr auto value)
     {
         return os::atomic::Exchange_Multiply(this->value, value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Divide(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Divide(to_float_tr auto value)
     {
         return os::atomic::Exchange_Divide(this->value, value);
     }
 
     template <float_tr float_p>
-    inline bool_t float_sp<float_p>::Exchange_If_Equals(value_t& snapshot, float_tr auto value)
+    inline bool_t float_sp<float_p>::Exchange_If_Equals(value_t& snapshot, to_float_tr auto value)
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
@@ -553,31 +641,25 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ()() const
-    {
-        return Access();
-    }
-
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator +=(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator +=(to_float_tr auto value)
     {
         return Assign_Add(value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator -=(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator -=(to_float_tr auto value)
     {
         return Assign_Subtract(value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator *=(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator *=(to_float_tr auto value)
     {
         return Assign_Multiply(value);
     }
 
     template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator /=(float_tr auto value)
+    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator /=(to_float_tr auto value)
     {
         return Assign_Divide(value);
     }
@@ -604,6 +686,12 @@ namespace nkr { namespace $atomic_t {
     inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --(int)
     {
         return Exchange_Subtract(1);
+    }
+
+    template <float_tr float_p>
+    inline float_sp<float_p>::float_sp(none_t) :
+        value(DEFAULT_VALUE)
+    {
     }
 
     template <float_tr float_p>

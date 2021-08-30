@@ -30,42 +30,53 @@ namespace nkr {
     template <typename type_p>
     concept integer_tr =
         std::is_integral<type_p>::value &&
-        !std::same_as<type_p, std_bool_t>;  ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
+        !std::same_as<type_p, std_bool_t>;      ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
 
     template <typename type_p>
     concept integer_unsigned_tr =
         integer_tr<type_p> &&
-        std::is_unsigned<type_p>::value;    ///< @copydoc _7099e20b_1e48_4d00_93a4_4932ad1baf1d
+        std::is_unsigned<type_p>::value;        ///< @copydoc _7099e20b_1e48_4d00_93a4_4932ad1baf1d
 
     template <typename type_p>
     concept integer_signed_tr =
         integer_tr<type_p> &&
-        std::is_signed<type_p>::value;      ///< @copydoc _f2900e04_a6a5_4d04_bed5_61932038deb2
+        std::is_signed<type_p>::value;          ///< @copydoc _f2900e04_a6a5_4d04_bed5_61932038deb2
 
     template <typename type_p>
     concept integer_word_tr =
         integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(word_t)); ///< @copydoc _ddbfd7fa_7bd7_4121_988b_671b57bcd24f
+        (sizeof(type_p) == sizeof(word_t));     ///< @copydoc _ddbfd7fa_7bd7_4121_988b_671b57bcd24f
 
     template <typename type_p>
     concept integer_8_tr =
         integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u8_t));   ///< @copydoc _b70bda64_61e7_4743_a015_ed6cf0bb426f
+        (sizeof(type_p) == sizeof(u8_t));       ///< @copydoc _b70bda64_61e7_4743_a015_ed6cf0bb426f
 
     template <typename type_p>
     concept integer_16_tr =
         integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u16_t));  ///< @copydoc _fa1ef979_a5ad_4040_9824_060e12cac0a9
+        (sizeof(type_p) == sizeof(u16_t));      ///< @copydoc _fa1ef979_a5ad_4040_9824_060e12cac0a9
 
     template <typename type_p>
     concept integer_32_tr =
         integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u32_t));  ///< @copydoc _3e2e08b8_7594_4766_8c65_d8ab87b0ed43
+        (sizeof(type_p) == sizeof(u32_t));      ///< @copydoc _3e2e08b8_7594_4766_8c65_d8ab87b0ed43
 
     template <typename type_p>
     concept integer_64_tr =
         integer_tr<type_p> &&
-        (sizeof(type_p) == sizeof(u64_t));  ///< @copydoc _a5b7d6de_d392_48a1_893d_8bdc9d2ba8e6
+        (sizeof(type_p) == sizeof(u64_t));      ///< @copydoc _a5b7d6de_d392_48a1_893d_8bdc9d2ba8e6
+
+    template <typename type_p>
+    concept to_integer_tr =
+        std::convertible_to<type_p, u8_t> ||
+        std::convertible_to<type_p, s8_t> ||
+        std::convertible_to<type_p, u16_t> ||
+        std::convertible_to<type_p, s16_t> ||
+        std::convertible_to<type_p, u32_t> ||
+        std::convertible_to<type_p, s32_t> ||
+        std::convertible_to<type_p, u64_t> ||
+        std::convertible_to<type_p, s64_t>;     ///< @copydoc _c60bd667_fcb7_46cb_9c59_7ebcdf40c878
     /// @}
 
     /// @addtogroup _8f223336_ce2a_4589_b4c1_75cd98cd393d
@@ -83,6 +94,11 @@ namespace nkr {
     concept float_64_tr =
         float_tr<type_p> &&
         (sizeof(type_p) == sizeof(f64_t));      ///< @copydoc _5a831ea1_e707_476a_9f37_317ad35b94c7
+
+    template <typename type_p>
+    concept to_float_tr =
+        std::convertible_to<type_p, f32_t> ||
+        std::convertible_to<type_p, f64_t>;     ///< @copydoc _f7cc78f8_c257_4193_b5bb_749f1656e614
     /// @}
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe

@@ -16,7 +16,9 @@ namespace nkr {
     template <typename type_p>
     concept none_i = requires(type_p instance, const type_p const_instance)
     {
+        type_p(none_t());
         static_cast<type_p&>(instance.operator =(none_t()));
+
         static_cast<bool_t>(const_instance.operator ==(none_t()));
         static_cast<bool_t>(const_instance.operator !=(none_t()));
     };

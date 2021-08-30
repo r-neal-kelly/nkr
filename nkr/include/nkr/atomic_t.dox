@@ -259,6 +259,8 @@
             * 
             * @brief
             *   The underlying type of this wrapper.
+            * 
+            * @snippet "./src/atomic_t.cpp" _06294f3b_7dac_4f59_895a_2fd7f9b33932
             */
 
         // static data
@@ -271,6 +273,9 @@
             /**
             * @class _5a3235cf_0d15_437b_a951_a18ac52dc5f9
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _69784cd6_a92d_46c7_ac93_9e8df556d8af
+            * @snippet "./src/atomic_t.cpp" _81cab430_3f81_4688_bc15_44aac4e05e71
             */
 
         // object data
@@ -291,6 +296,8 @@
             *   This is the raw value and is not by itself atomic. It's publically available because this library aims to follow the Data Oriented approach to programming. If you need to, you can directly work with this data manually.
             *
             * @copydoc _cba26a61_2c51_4e87_90c7_26cb873a083d
+            * 
+            * @snippet "./src/atomic_t.cpp" _ad87d67f_1180_4b90_89bd_4556539c78fb
             */
 
         // objects
@@ -302,70 +309,64 @@
         *   Naturally, the regular constructors cannot initialize themselves in a thread-safe manner. However, the destructor and the two assignment constructors do set themselves atomically.
         */
 
-            // default ctor()
+            // default_ctor()
             /**
             * @class _6214730b_aeb9_4083_998c_f9e1c020924e
             * @private
             * 
             * @brief
             *   Sets itself to the default value, but not atomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _0298459b_30c7_4419_8b76_6622a7bb2c8d
             */
 
-            // value ctor()
+            // value_ctor()
             /**
             * @class _934d0d25_c160_42c4_a269_363ce0e78da6
             * @private
             * 
             * @brief
             *   Sets itself to the value, but not atomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _425597b2_62fc_4a77_b872_8be9424221fe
             */
 
-            // copy ctor()
+            // copy_ctor()
             /**
             * @class _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
             * @private
             * 
             * @brief
             *   Accesses the other atomically, but assigns to itself unatomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _5c070153_8529_46e5_b952_8c2cf67c6036
             */
 
-            // move ctor()
+            // move_ctor()
             /**
             * @class _0d15101b_2293_4225_8f70_3edb3f8618de
             * @private
             * 
             * @brief
             *   Exchanges the other with the default value atomically, but assigns to itself unatomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _07a59a46_c898_4b85_ac6d_c1698c47f325
             */
 
-            // copy assignment ctor()
+            // value_assignment_ctor()
+            /**
+            * @class _384030ce_aaaf_4baf_a883_752152b9750a
+            * @private
+            */
+
+            // copy_assignment_ctor()
             /**
             * @class _eeeb1194_9900_46ab_8e15_1e8a0a663395
             * @private
             * 
             * @brief
             *   Accesses the other atomically and assigns to itself atomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _472c190e_8206_4293_b0af_850e9592b41c
             */
 
-            // move assignment ctor()
+            // move_assignment_ctor()
             /**
             * @class _ccf84af8_3181_43e0_a892_9850e2a4c6f0
             * @private
             * 
             * @brief
             *   Exchanges the other with the default value atomically and assigns to itself atomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _ec9aefe8_321e_4d0b_b86f_8ed453e30f26
             */
 
             // dtor()
@@ -375,8 +376,6 @@
             * 
             * @brief
             *   Sets itself to the default value atomically.
-            * 
-            * @snippet "./src/atomic_t.cpp" _a9df6b8d_a04a_4ad9_a0ac_70755085d285
             */
 
         // methods
@@ -389,133 +388,204 @@
             /**
             * @class _72e0df20_176a_4ad8_9350_7edcadf7d893
             * @private
-            * @snippet "./src/atomic_t.cpp" _adfed710_462f_47b5_a8f6_06a5d804f627
             */
 
             // Access_Add()
             /**
             * @class _daba458f_9452_4329_8340_b48050ca53c9
             * @private
-            * @snippet "./src/atomic_t.cpp" _46f1402b_959d_420a_bae4_ca259ff9d9e1
             */
 
             // Access_Subtract()
             /**
             * @class _18fd7b62_b0dd_4997_91cf_fbd22ffb25ce
             * @private
-            * @snippet "./src/atomic_t.cpp" _dccb8ff3_04bf_4a9a_8ee6_f391db782849
+            */
+
+            // Access_Multiply()
+            /**
+            * @class _30082e3d_45a9_402a_ae44_4ac64be289bd
+            * @private
+            */
+
+            // Access_Divide()
+            /**
+            * @class _ce760def_76f6_4cc3_a416_04d9bf5881b2
+            * @private
+            */
+
+            // Access_Modulus()
+            /**
+            * @class _8a32966b_1908_4cbe_a9ef_80a0fd8b82e3
+            * @private
             */
 
             // Access_Or()
             /**
             * @class _fe58aaa7_2827_412c_9e8e_446d14af1863
             * @private
-            * @snippet "./src/atomic_t.cpp" _211b88b8_561b_41a0_8ff0_ba876a2383f7
             */
 
             // Access_And()
             /**
             * @class _f5960380_cec0_4d63_a5d9_f1a0c0b03990
             * @private
-            * @snippet "./src/atomic_t.cpp" _523d0483_8274_42de_9e1e_eca1c2d6f70d
             */
 
             // Access_Xor()
             /**
             * @class _b46a1eee_f92b_4c4a_a6b8_cdae969b81ca
             * @private
-            * @snippet "./src/atomic_t.cpp" _00b6b746_dba9_47e9_9f72_4ad0cd27bbbb
+            */
+
+            // Access_Left_Shift()
+            /**
+            * @class _f5a38c65_35c1_4555_96c3_e31dd8eccb91
+            * @private
+            */
+
+            // Access_Right_Shift()
+            /**
+            * @class _cc854661_d94f_484c_9c35_5a209390066d
+            * @private
             */
 
             // Assign()
             /**
             * @class _921ddfce_4850_4bda_bd9a_04fc363a4891
             * @private
-            * @snippet "./src/atomic_t.cpp" _3c93c3f0_2be5_458c_80db_75a8daedc74d
             */
 
             // Assign_Add()
             /**
             * @class _d09f0f0c_4e8e_4a47_8d93_3e7e9c0dabdd
             * @private
-            * @snippet "./src/atomic_t.cpp" _a57f19cb_38ff_41a0_b8b2_128b0dad7126
             */
 
             // Assign_Subtract()
             /**
             * @class _775e6700_6127_4c6d_a6ae_f9e0032aba91
             * @private
-            * @snippet "./src/atomic_t.cpp" _0fdf0919_b494_4069_9480_566020bfe783
+            */
+
+            // Assign_Multiply()
+            /**
+            * @class _4d88c925_37c5_4639_9d23_192186152707
+            * @private
+            */
+
+            // Assign_Divide()
+            /**
+            * @class _0d0b5750_b10d_4e65_8af6_8f54cd3a54c3
+            * @private
+            */
+
+            // Assign_Modulus()
+            /**
+            * @class _01f043fb_3ae1_4233_bb00_71f2fd2e204b
+            * @private
             */
 
             // Assign_Or()
             /**
             * @class _c59d3a53_f67f_4efb_830a_96b14e32ba0f
             * @private
-            * @snippet "./src/atomic_t.cpp" _c673f677_da1e_49e6_b779_f74b7fa25226
             */
 
             // Assign_And()
             /**
             * @class _d39105cd_1da2_442a_b146_edf5de564212
             * @private
-            * @snippet "./src/atomic_t.cpp" _0639d0e5_ec27_43b8_804f_4a20e409b521
             */
 
             // Assign_Xor()
             /**
             * @class _10c909ec_eb4f_40fd_a3e6_cd32023cb32b
             * @private
-            * @snippet "./src/atomic_t.cpp" _714f2de4_3986_43f4_909c_6a2bf8f9f0e6
+            */
+
+            // Assign_Left_Shift()
+            /**
+            * @class _9cec8a64_07fa_457f_94f2_062c50a8ba85
+            * @private
+            */
+
+            // Assign_Right_Shift()
+            /**
+            * @class _e1ff5f86_4078_4364_ad8d_0aa458852ed5
+            * @private
             */
 
             // Exchange()
             /**
             * @class _bf53feba_9fd9_4938_9e0a_6f020b7de344
             * @private
-            * @snippet "./src/atomic_t.cpp" _594aca2c_64c3_499c_ba8c_6862c4aefa7c
             */
 
             // Exchange_Add()
             /**
             * @class _eb209d2b_53f3_4aaf_87c4_7e6f7415d7de
             * @private
-            * @snippet "./src/atomic_t.cpp" _fbcd609d_09ba_4cd3_9595_bf5cdcb4638d
             */
 
             // Exchange_Subtract()
             /**
             * @class _9c87833c_f98e_420e_9451_7f047098b464
             * @private
-            * @snippet "./src/atomic_t.cpp" _ad01e70e_bd46_4aff_8074_31638d6f60fe
+            */
+
+            // Exchange_Multiply()
+            /**
+            * @class _8c447343_f4d4_4fd3_bcc6_14859390eaf9
+            * @private
+            */
+
+            // Exchange_Divide()
+            /**
+            * @class _bc057de1_5e36_47e1_8697_efa1194d1a23
+            * @private
+            */
+
+            // Exchange_Modulus()
+            /**
+            * @class _717e5d3d_5037_475a_b826_89461c3788e2
+            * @private
             */
 
             // Exchange_Or()
             /**
             * @class _5a508f6d_abaf_409e_83dc_f7133a81fb6f
             * @private
-            * @snippet "./src/atomic_t.cpp" _4be0459d_b5e7_4d60_8695_bd9277898e05
             */
 
             // Exchange_And()
             /**
             * @class _fe438ba0_c269_4703_b2f6_66a30e136f8a
             * @private
-            * @snippet "./src/atomic_t.cpp" _0ece1cfd_2281_4b1e_85a8_00d0a1ec97ff
             */
 
             // Exchange_Xor()
             /**
             * @class _b9453618_fb4e_425d_a1b1_f88a5d272622
             * @private
-            * @snippet "./src/atomic_t.cpp" _8373f8d7_2ac6_405a_968e_ebb7aaa5b88f
+            */
+
+            // Exchange_Left_Shift()
+            /**
+            * @class _c9da5f3a_59b3_4b92_83c7_724a385cb092
+            * @private
+            */
+
+            // Exchange_Right_Shift()
+            /**
+            * @class _c7342e20_fb3b_44ae_ab33_b8ec4f4552c2
+            * @private
             */
 
             // Exchange_If_Equals()
             /**
             * @class _de4d8d98_3a2b_4557_be66_5015696218c3
             * @private
-            * @snippet "./src/atomic_t.cpp" _d12decaa_a991_4c99_8eeb_4615e60f73bc
             */
 
         // casts
@@ -528,7 +598,6 @@
             /**
             * @class _9ee8a537_8292_436e_b054_c74f3a74a281
             * @private
-            * @snippet "./src/atomic_t.cpp" _57e9ca8c_6b33_450f_9c49_3c2b26b356c7
             */
 
         // operators
@@ -537,123 +606,88 @@
         * @private
         */
 
-            // ()()
-            /**
-            * @class _a36f993e_fcec_4321_a995_31aca1a50f6a
-            * @private
-            * @snippet "./src/atomic_t.cpp" _994aab1a_8a70_4833_922e_7d40f7c2677b
-            */
-
-            // =()
-            /**
-            * @class _0bc23dd6_f475_4a9d_a3ee_dad400a9bb94
-            * @private
-            * @snippet "./src/atomic_t.cpp" _61d042d0_7e8c_4cd9_a6dd_fd5b307a2fe3
-            */
-
-            // +()
-            /**
-            * @class _447eac95_eaf7_4ef2_9065_04b1f87b7a0c
-            * @private
-            * @snippet "./src/atomic_t.cpp" _69b1e964_4cae_4e08_bfb4_612f7db49e11
-            */
-
-            // -()
-            /**
-            * @class _38798051_deb1_4f18_98b9_6886fd14b32f
-            * @private
-            * @snippet "./src/atomic_t.cpp" _17417e1a_54d0_409b_a995_6a3b12186cff
-            */
-
             // +=()
             /**
             * @class _85417b7a_dd77_4294_b67e_6e08ab7e27f9
             * @private
-            * @snippet "./src/atomic_t.cpp" _f40394f7_a468_4089_95ce_fdbc31406bb3
             */
 
             // -=()
             /**
             * @class _29505a0a_1b57_45eb_b075_8b2f3d3be8f3
             * @private
-            * @snippet "./src/atomic_t.cpp" _8d6fdd08_f4a0_4e23_b96c_8d1a5ed1ef4b
             */
 
-            // ++()
+            // *=()
             /**
-            * @class _3706a8b1_15f5_4a60_94dd_b88bd37d602b
+            * @class _713ce567_d8be_442b_b578_c2ada942f6dc
             * @private
-            * @snippet "./src/atomic_t.cpp" _9aef2e48_7c4e_4922_816b_3b3652cc7255
             */
 
-            // ++(int)
+            // /=()
             /**
-            * @class _23f284ee_6dd9_4b76_b361_1c0b287c4b8f
+            * @class _ba2e4618_9572_43ee_8b1b_096582c99707
             * @private
-            * @snippet "./src/atomic_t.cpp" _8127f3b7_cf0d_44f4_8186_c06a0fe2e1cf
             */
 
-            // --()
+            // %=()
             /**
-            * @class _3a8149a1_3608_4c64_9ccc_98fbf01aa964
+            * @class _8e7ba682_f853_4175_9f63_72e8141387d5
             * @private
-            * @snippet "./src/atomic_t.cpp" _10424556_071d_41df_bf13_8c560e7e4818
-            */
-
-            // --(int)
-            /**
-            * @class _0c3d89f4_6273_4a93_958f_631c8c7f1083
-            * @private
-            * @snippet "./src/atomic_t.cpp" _f8c3551b_4056_4767_a871_39f907f5a605
-            */
-
-            // ~()
-            /**
-            * @class _b6b05dcd_53e8_4131_b3a7_dcd8211fb8a9
-            * @private
-            * @snippet "./src/atomic_t.cpp" _0ef480f9_2e50_44ae_906e_06290ae4b02c
-            */
-
-            // |()
-            /**
-            * @class _36f1a3f7_ee14_48c8_ac91_02b66e1ad3a2
-            * @private
-            * @snippet "./src/atomic_t.cpp" _79a5a894_6d6e_4096_9d1f_b0ef474c4623
-            */
-
-            // &()
-            /**
-            * @class _55c8e8c5_5c97_426f_80bb_deb683554b7d
-            * @private
-            * @snippet "./src/atomic_t.cpp" _4b8cfb03_f1db_409f_98c0_af859a7df034
-            */
-
-            // ^()
-            /**
-            * @class _f8a7aef9_6b08_4b14_aa8d_0d10b5d8de5f
-            * @private
-            * @snippet "./src/atomic_t.cpp" _58735e13_a335_4d94_be28_3772ed3b8c32
             */
 
             // |=()
             /**
             * @class _707c26ad_75fc_43cc_be98_233cb47d3eec
             * @private
-            * @snippet "./src/atomic_t.cpp" _91137373_aa0b_4493_9960_68f8d421ae18
             */
 
             // &=()
             /**
             * @class _5a8f0664_0510_4f5d_991a_cc2a5eaea4b5
             * @private
-            * @snippet "./src/atomic_t.cpp" _988587e7_6e13_4a79_8adb_907c88761d3f
             */
 
             // ^=()
             /**
             * @class _77262a09_d572_440c_849c_d124b0d7dc6d
             * @private
-            * @snippet "./src/atomic_t.cpp" _02a3d15d_9185_444b_b751_1d4231542c29
+            */
+
+            // <<=()
+            /**
+            * @class _937d7488_c9e6_495c_9917_ff3676dd339b
+            * @private
+            */
+
+            // >>=()
+            /**
+            * @class _b27449e8_bd83_418c_b0cf_5f419e5e06dd
+            * @private
+            */
+
+            // ++()
+            /**
+            * @class _3706a8b1_15f5_4a60_94dd_b88bd37d602b
+            * @private
+            */
+
+            // ++(int)
+            /**
+            * @class _23f284ee_6dd9_4b76_b361_1c0b287c4b8f
+            * @private
+            */
+
+            // --()
+            /**
+            * @class _3a8149a1_3608_4c64_9ccc_98fbf01aa964
+            * @private
+            */
+
+            // --(int)
+            /**
+            * @class _0c3d89f4_6273_4a93_958f_631c8c7f1083
+            * @private
             */
 
         // none_t interface
@@ -663,12 +697,17 @@
         * @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
         */
 
+            // none_ctor()
+            /**
+            * @class _a3b18509_3705_4a67_88cb_a5590f4cae24
+            * @private
+            */
+
             // =(none_t)
             /**
             * @class _18865e46_d599_4053_a6dc_e0609fb811a1
             * @private
             * @copybrief _3429943c_402f_43cb_936a_175319131f3f
-            * @snippet "./src/atomic_t.cpp" _5cd9bae8_73e2_4656_8987_bdd39472257b
             */
 
             // ==(none_t)
@@ -676,7 +715,6 @@
             * @class _e3609d5e_27c6_4a0e_8928_c54f879abb96
             * @private
             * @copybrief _36cb7982_c38b_4058_8c15_3e142e7d2653
-            * @snippet "./src/atomic_t.cpp" _234da0e9_f786_4f96_bac8_8c770ee445f1
             */
 
             // !=(none_t)
@@ -684,7 +722,6 @@
             * @class _cc53fec7_7977_4de9_9aa9_852cedd9134a
             * @private
             * @copybrief _2ee275c0_12a7_400c_ba80_08d8ef10d8db
-            * @snippet "./src/atomic_t.cpp" _33e7ab8b_f658_430a_ad5b_05f722975e85
             */
 
     // float_sp
@@ -696,7 +733,7 @@
     *   A specialization for floats to be used atomically.
     * 
     * @details
-    *   Provides an easy to use interface for atomically working with f32_t and if running in 64-bit mode, f64_t as well.
+    *   Provides an easy to use interface for atomically working with nkr::f32_t and if running in 64-bit mode, nkr::f64_t as well.
     */
 
         // aliases
@@ -725,6 +762,7 @@
             * @private
             * 
             * @snippet "./src/atomic_t.cpp" _2761c14b_ad24_4d18_a896_4058e077d6de
+            * @snippet "./src/atomic_t.cpp" _1a55c887_94c9_41d4_addd_665545b62e49
             */
 
         // object data
@@ -842,6 +880,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _75b5f69b_46bb_4ae7_934e_dd5ae90ec693
             * @snippet "./src/atomic_t.cpp" _747264ec_e7b9_4bc8_92ad_d518758bbd8f
+            * @snippet "./src/atomic_t.cpp" _4c7aeade_69e4_41c0_b861_99fcfc19d171
             */
 
             // Access_Subtract()
@@ -851,6 +890,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _b66f77cd_1f70_4b5c_9003_883081f45007
             * @snippet "./src/atomic_t.cpp" _b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876
+            * @snippet "./src/atomic_t.cpp" _2c40ef08_3a4b_4c3a_bf7b_245f25a1f0aa
             */
 
             // Access_Multiply()
@@ -860,6 +900,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _03109072_ce76_4b5e_bd06_3b965cce9977
             * @snippet "./src/atomic_t.cpp" _d5c45927_aa1b_4d2b_a2df_984efeed9238
+            * @snippet "./src/atomic_t.cpp" _7b4c9867_7a43_478d_9c73_98fc3aaaf663
             */
 
             // Access_Divide()
@@ -869,6 +910,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _078c27a6_296c_460e_96e8_d61f0b47c3e6
             * @snippet "./src/atomic_t.cpp" _bf945a6a_a80a_49f3_9d21_c32cab3e4ee3
+            * @snippet "./src/atomic_t.cpp" _adcec423_487a_432d_a731_63d32b0fbc02
             */
 
             // Assign()
@@ -878,6 +920,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _91339173_2c19_4c80_81c2_47a7d0056c79
             * @snippet "./src/atomic_t.cpp" _cf6d21c8_fe17_4d24_a869_7c2d2f1c638e
+            * @snippet "./src/atomic_t.cpp" _71122f83_edff_4e2b_9b04_ef4e2cb70662
             */
 
             // Assign_Add()
@@ -887,6 +930,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _58095a65_e406_4f9b_b98a_3e3ab286594e
             * @snippet "./src/atomic_t.cpp" _ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510
+            * @snippet "./src/atomic_t.cpp" _e6ec20c3_b673_435b_87bd_35ca0599d8d3
             */
 
             // Assign_Subtract()
@@ -896,6 +940,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _05e1e55b_b233_457c_8ae6_41ba0dec76a9
             * @snippet "./src/atomic_t.cpp" _ae57b4c4_2b87_4a91_8f5c_63dde775cbec
+            * @snippet "./src/atomic_t.cpp" _3f9eb643_a685_4738_a90c_c0fa0c3c9bb4
             */
 
             // Assign_Multiply()
@@ -905,6 +950,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _14c37838_f17b_4552_9944_8b07373150bb
             * @snippet "./src/atomic_t.cpp" _7de9dd2f_3628_4f22_88e3_b9b31f167ead
+            * @snippet "./src/atomic_t.cpp" _430149ff_9d6b_44ae_8240_19677f08a0ee
             */
 
             // Assign_Divide()
@@ -914,6 +960,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _7a64bd27_579a_4ce6_9878_2f924f4d6066
             * @snippet "./src/atomic_t.cpp" _2213006f_a4bb_404c_867b_47ab4950a07e
+            * @snippet "./src/atomic_t.cpp" _c6fc7749_f5c7_4191_a4c8_35000b9572cf
             */
 
             // Exchange()
@@ -923,6 +970,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _c5484de3_220e_4cf8_83ef_f6aa71ab7966
             * @snippet "./src/atomic_t.cpp" _1f7ee854_568e_4397_9ce0_1efc7997d398
+            * @snippet "./src/atomic_t.cpp" _8742d47f_afc9_405b_bfae_8b48c126013f
             */
 
             // Exchange_Add()
@@ -932,6 +980,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _0f39542d_efb8_4826_92b5_9ee8b4760adc
             * @snippet "./src/atomic_t.cpp" _ad4af424_9bef_4d09_b79c_f4c50e335596
+            * @snippet "./src/atomic_t.cpp" _2dc17ea4_bace_4a53_afd9_b57f98dd5ef1
             */
 
             // Exchange_Subtract()
@@ -941,6 +990,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _5ae99b87_cf4c_4138_a417_072cd82a0852
             * @snippet "./src/atomic_t.cpp" _a26780e5_ccc7_4f2e_9ae7_49744a446e2b
+            * @snippet "./src/atomic_t.cpp" _e5654cec_247b_4d30_a7eb_a27f57ca8494
             */
 
             // Exchange_Multiply()
@@ -950,6 +1000,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _7e049a15_3ffb_4acf_8e73_48db74cb9ff4
             * @snippet "./src/atomic_t.cpp" _9ea5604a_734e_480f_b9b1_efbcfb248800
+            * @snippet "./src/atomic_t.cpp" _85360ec2_1d49_496f_ac96_e4ce711953aa
             */
 
             // Exchange_Divide()
@@ -959,6 +1010,7 @@
             * 
             * @snippet "./src/atomic_t.cpp" _687caad0_6e65_43da_9aab_31e03808bc83
             * @snippet "./src/atomic_t.cpp" _2bc2cee2_c542_4852_804d_2c6cdd6ec3bb
+            * @snippet "./src/atomic_t.cpp" _6425f216_5887_4aa8_96f3_84d306491c7f
             */
 
             // Exchange_If_Equals()
@@ -971,6 +1023,7 @@
             * @snippet "./src/atomic_t.cpp" _afb7c2ad_ecf4_4bd4_9378_eec404ba647f
             * @snippet "./src/atomic_t.cpp" _67ecc477_461b_4a9b_94a6_17d44163e2d8
             * @snippet "./src/atomic_t.cpp" _c55b85bd_af65_4c70_a5b3_e3f12b4f8203
+            * @snippet "./src/atomic_t.cpp" _945d71a2_0ec8_4073_9636_e88e0cc4d477
             * @snippet "./src/atomic_t.cpp" _0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d
             */
 
@@ -984,6 +1037,13 @@
             /**
             * @class _9280eeed_487d_481e_a15d_1853a677bcc5
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _b4dfe423_ace5_4b2b_92fd_fe47b8708ef0
+            * @snippet "./src/atomic_t.cpp" _5589ab94_7740_4958_8eae_40ca0e3b10de
+            * @snippet "./src/atomic_t.cpp" _9026ed05_fe2f_41ef_99d4_c27cba3ba649
+            * @snippet "./src/atomic_t.cpp" _85183e6a_3837_4d8b_bb24_d1def57b6471
+            * @snippet "./src/atomic_t.cpp" _23e193eb_97a6_4126_b4a0_9986b5528d13
+            * @snippet "./src/atomic_t.cpp" _f0057019_a03e_4dc4_9571_008553300c9e
             */
 
         // operators
@@ -992,58 +1052,80 @@
         * @private
         */
 
-            // ()()
-            /**
-            * @class _98b42211_7bc8_434e_b85f_dfc4f76a9496
-            * @private
-            */
-
             // +=()
             /**
             * @class _9440c8a7_f2e4_4dea_8202_eb1a3b33f624
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _36fcf8e0_6485_47cb_9bc3_d1b6fdf4f1e0
+            * @snippet "./src/atomic_t.cpp" _3f1df3a2_1a0f_4d40_a6ec_f1e789df66d2
+            * @snippet "./src/atomic_t.cpp" _033e8b36_38cf_43b8_9f3b_11317636ea2b
             */
 
             // -=()
             /**
             * @class _05c4f9da_6215_48ab_931f_6a63822fb3bc
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _bea2f1be_08d8_4cc8_b7c9_b8e428c48c93
+            * @snippet "./src/atomic_t.cpp" _480031de_bc4f_4bb6_85ed_62024c4dd49d
+            * @snippet "./src/atomic_t.cpp" _2d48712a_c6cd_44e9_a3e6_b0ff8d43da11
             */
 
             // *=()
             /**
             * @class _a9aa1790_c0ee_4ef3_985e_09c498389151
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _719f3d8b_3516_49f0_8370_f21719e31fa7
+            * @snippet "./src/atomic_t.cpp" _37627525_bc0f_44ef_9a71_c6f4cf74cd99
+            * @snippet "./src/atomic_t.cpp" _0abf5cf0_6bd6_47eb_911e_f3220a7d376a
             */
 
             // /=()
             /**
             * @class _68c79a5b_1514_4d9e_a931_2b08417794cc
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _a99638da_9117_430f_8144_0bb272a66b90
+            * @snippet "./src/atomic_t.cpp" _c60617e0_f780_400d_9e52_d7748bcd2ad1
+            * @snippet "./src/atomic_t.cpp" _14984ffe_35dc_49c2_8e44_ea56be79f86a
             */
 
             // ++()
             /**
             * @class _40b4856c_dc14_4005_9cd1_f90ae5446d9f
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _fba6bafe_2370_452f_831b_8d373e47eb86
+            * @snippet "./src/atomic_t.cpp" _3e4434f6_a682_4cb2_a893_adb013675a33
             */
 
             // ++(int)
             /**
             * @class _98d862c6_186a_4e4c_a727_0cd0272f37ba
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _f727b235_dd16_453f_a2fd_4c21a5b1b8ca
+            * @snippet "./src/atomic_t.cpp" _fbfb8066_4122_419c_91ae_517fab12ec9f
             */
 
             // --()
             /**
             * @class _060484a8_af7f_42f0_99b4_f8049e05c5fd
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _fd3b6e86_caef_4e02_8fe1_86506bf36b74
+            * @snippet "./src/atomic_t.cpp" _ea214d48_d7ee_49c5_b831_5fd951e97052
             */
 
             // --(int)
             /**
             * @class _f3294493_3779_4089_b875_5b0576479f2e
             * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _d9ecdd36_d9d2_4e22_aa91_f0b0e88a83f3
+            * @snippet "./src/atomic_t.cpp" _708c82fa_9602_4c7d_84e2_db57ada3144d
             */
 
         // none_t interface
@@ -1052,6 +1134,15 @@
         * @private
         */
 
+            // none_ctor()
+            /**
+            * @class _3310ff90_5347_4ee8_a55f_6ee26684ae05
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _5096780d_a27a_4d1d_86bb_49ffaf63e81a
+            * @snippet "./src/atomic_t.cpp" _d0625a9a_49b4_4b1e_af82_4335ef71cc0d
+            */
+            
             // =(none_t)
             /**
             * @class _6c3ee7ad_411d_4f3f_adbc_4c793cb280aa
@@ -1067,7 +1158,11 @@
             * @class _fb6fdd58_1c3a_4ced_8231_917ad7d8931c
             * @private
             * 
+            * @snippet "./src/atomic_t.cpp" _a7f5b5f6_3a48_47fe_b6e3_14eec6f383c4
             * @snippet "./src/atomic_t.cpp" _21a37122_b65b_4ed5_a1d0_3252222d1d97
+            * @snippet "./src/atomic_t.cpp" _88f44f84_d138_444f_86da_95f3d34b3d0e
+            * @snippet "./src/atomic_t.cpp" _fb90f59f_18e9_4486_934f_d9804a28a5b4
+            * @snippet "./src/atomic_t.cpp" _e3936d47_de8c_48ff_979c_dd104837e2b6
             */
 
             // !=(none_t)
@@ -1075,7 +1170,11 @@
             * @class _1d33ee84_f30a_40a2_8ba8_3f66bd115ea4
             * @private
             * 
-            * @snippet "./src/atomic_t.cpp" _0d957a72_6f3b_485a_add2_9ebb331485e0
+            * @snippet "./src/atomic_t.cpp" _94d14476_999f_451c_94a0_ac2df55f5038
+            * @snippet "./src/atomic_t.cpp" _e867e438_8518_497a_b61a_b642b661c12a
+            * @snippet "./src/atomic_t.cpp" _5a4f170a_7266_4e56_8323_69d2e0dd2fa3
+            * @snippet "./src/atomic_t.cpp" _0225938f_b038_40cd_a659_7fbe416f8006
+            * @snippet "./src/atomic_t.cpp" _bf986b93_2c19_47cb_b49b_1bc1152d2074
             */
 
     // pointer_sp
@@ -1671,6 +1770,7 @@
 * @par Specializations
 *   - nkr::atomic_t<bool_t>
 *   - nkr::atomic_t<integer_p>
+*   - nkr::atomic_t<float_p>
 *   - nkr::atomic_t<pointer_p>
 *   - nkr::atomic_t<void_t*>
 * 

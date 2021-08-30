@@ -66,7 +66,9 @@ namespace nkr {
         /// @name none_t interface
         /// @copydoc _a3769981_7e0b_4a14_9376_c341849febfb
         /// @{
+        bool_t(none_t);                     ///< @copydoc _a74f5e68_66db_41d5_8778_6d49efcefb3f
         bool_t& operator =(none_t);         ///< @copydoc _9a7b8a4a_ce15_44e4_8900_5a09049c8b8a
+
         bool_t  operator ==(none_t) const;  ///< @copydoc _c21ea269_d645_4b2c_b938_27fce7ad0617
         bool_t  operator !=(none_t) const;  ///< @copydoc _37796b19_cde7_4029_a5f3_4203fa2315c8
         /// @}

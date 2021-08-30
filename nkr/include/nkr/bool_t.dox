@@ -251,6 +251,15 @@
     * @private
     */
 
+        // none_ctor()
+        /**
+        * @class _a74f5e68_66db_41d5_8778_6d49efcefb3f
+        * @private
+        * 
+        * @snippet "./src/bool_t.cpp" _d2eb2094_38e0_4df3_b3f4_d21934bdcea1
+        * @snippet "./src/bool_t.cpp" _593e9222_eae5_40ed_a624_f8b6901271dc
+        */
+
         // =(none_t)
         /**
         * @class _9a7b8a4a_ce15_44e4_8900_5a09049c8b8a

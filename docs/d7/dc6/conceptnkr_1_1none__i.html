@@ -97,7 +97,9 @@ $(document).ready(function(){initNavTree('d7/dc6/conceptnkr_1_1none__i.html','..
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> type_p&gt;</div>
 <div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d7/dc6/conceptnkr_1_1none__i.html">nkr::none_i</a> =  <span class="keyword">requires</span>(type_p instance, <span class="keyword">const</span> type_p const_instance)</div>
 <div class="line">    {</div>
+<div class="line">        type_p(<a class="code hl_class" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>());</div>
 <div class="line">        <span class="keyword">static_cast&lt;</span>type_p&amp;<span class="keyword">&gt;</span>(instance.operator =(<a class="code hl_class" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>()));</div>
+<div class="line"> </div>
 <div class="line">        <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a><span class="keyword">&gt;</span>(const_instance.operator ==(<a class="code hl_class" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>()));</div>
 <div class="line">        <span class="keyword">static_cast&lt;</span><a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a><span class="keyword">&gt;</span>(const_instance.operator !=(<a class="code hl_class" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>()));</div>
 <div class="line">    }</div>
