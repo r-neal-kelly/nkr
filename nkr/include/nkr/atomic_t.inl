@@ -751,14 +751,17 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
+    inline typename const pointer_sp<pointer_p>::value_t    pointer_sp<pointer_p>::DEFAULT_VALUE    = value_t();
+
+    template <pointer_tr pointer_p>
     inline pointer_sp<pointer_p>::pointer_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(value_t value) :
-        value(value)
+    inline pointer_sp<pointer_p>::pointer_sp(pointer_tr auto value) :
+        value(static_cast<value_t>(value))
     {
     }
 
@@ -772,6 +775,13 @@ namespace nkr { namespace $atomic_t {
     inline pointer_sp<pointer_p>::pointer_sp(pointer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
+    }
+
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator =(pointer_tr auto value)
+    {
+        Assign(value);
+        return *this;
     }
 
     template <pointer_tr pointer_p>
@@ -805,13 +815,13 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access_Add(integer_tr auto value) const
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access_Add(to_integer_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access_Subtract(integer_tr auto value) const
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Access_Subtract(to_integer_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
@@ -823,13 +833,13 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign_Add(integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign_Add(to_integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign_Subtract(integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Assign_Subtract(to_integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
@@ -841,13 +851,13 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Add(integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Add(to_integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Subtract(integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Subtract(to_integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
@@ -871,31 +881,13 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator =(pointer_tr auto value)
-    {
-        return Assign(value);
-    }
-
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator +(integer_tr auto value) const
-    {
-        return Access_Add(value);
-    }
-
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator -(integer_tr auto value) const
-    {
-        return Access_Subtract(value);
-    }
-
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator +=(integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator +=(to_integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator -=(integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::operator -=(to_integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
@@ -937,9 +929,9 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::unit_t& pointer_sp<pointer_p>::operator [](integer_tr auto index) const
+    inline typename pointer_sp<pointer_p>::unit_t& pointer_sp<pointer_p>::operator [](to_integer_tr auto index) const
     {
-        return Access()[index];
+        return Access()[static_cast<index_t>(index)];
     }
 
     template <pointer_tr pointer_p>
@@ -967,13 +959,15 @@ namespace nkr { namespace $atomic_t {
         return !operator ==(none_t());
     }
 
+    inline typename const void_pointer_sp::value_t  void_pointer_sp::DEFAULT_VALUE  = value_t();
+
     inline void_pointer_sp::void_pointer_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    inline void_pointer_sp::void_pointer_sp(value_t value) :
-        value(value)
+    inline void_pointer_sp::void_pointer_sp(pointer_tr auto value) :
+        value(static_cast<value_t>(value))
     {
     }
 
@@ -985,6 +979,12 @@ namespace nkr { namespace $atomic_t {
     inline void_pointer_sp::void_pointer_sp(void_pointer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
+    }
+
+    inline void_pointer_sp& void_pointer_sp::operator =(pointer_tr auto value)
+    {
+        Assign(value);
+        return *this;
     }
 
     inline void_pointer_sp& void_pointer_sp::operator =(const void_pointer_sp& other)
@@ -1036,11 +1036,6 @@ namespace nkr { namespace $atomic_t {
     inline typename void_pointer_sp::value_t void_pointer_sp::operator ()() const
     {
         return Access();
-    }
-
-    inline typename void_pointer_sp::value_t void_pointer_sp::operator =(pointer_tr auto value)
-    {
-        return Assign(value);
     }
 
     inline void_pointer_sp::void_pointer_sp(none_t) :

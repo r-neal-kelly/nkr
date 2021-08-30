@@ -65,7 +65,7 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Access(atom) + static_cast<atom_t>(with));
     }
 
-    inline type_pointer_tr auto Access_Add(const volatile type_pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Access_Add(const volatile type_pointer_tr auto& atom, to_integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
@@ -86,7 +86,7 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Access(atom) - static_cast<atom_t>(with));
     }
 
-    inline type_pointer_tr auto Access_Subtract(const volatile type_pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Access_Subtract(const volatile type_pointer_tr auto& atom, to_integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
@@ -205,7 +205,7 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Exchange_Add(atom, with) + static_cast<atom_t>(with));
     }
 
-    inline type_pointer_tr auto Assign_Add(volatile type_pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Assign_Add(volatile type_pointer_tr auto& atom, to_integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
@@ -226,7 +226,7 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Exchange_Subtract(atom, with) - static_cast<atom_t>(with));
     }
 
-    inline type_pointer_tr auto Assign_Subtract(volatile type_pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Assign_Subtract(volatile type_pointer_tr auto& atom, to_integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
@@ -458,7 +458,7 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    inline type_pointer_tr auto Exchange_Add(volatile type_pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Exchange_Add(volatile type_pointer_tr auto& atom, to_integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
@@ -528,7 +528,7 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    inline type_pointer_tr auto Exchange_Subtract(volatile type_pointer_tr auto& atom, integer_tr auto with)
+    inline type_pointer_tr auto Exchange_Subtract(volatile type_pointer_tr auto& atom, to_integer_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
