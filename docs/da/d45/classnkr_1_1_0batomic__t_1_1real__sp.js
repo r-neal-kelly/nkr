@@ -27,6 +27,7 @@ var classnkr_1_1_0batomic__t_1_1real__sp =
     [ "Exchange_Divide", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a6546e9181bf368b8b84b9c8b30692ec1", null ],
     [ "Exchange_If_Equals", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a461b77b3cd89318cf5d4acb07db553d6", null ],
     [ "operator value_t", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#ab31b04326671331dc49a28772a24c971", null ],
+    [ "operator()", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#acbdf1a15f078d9ff29c5649945886885", null ],
     [ "operator+=", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a660b518af48ebd7e053194a256a6e283", null ],
     [ "operator-=", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a95cac6fad95c8421ffb999dd861d68ef", null ],
     [ "operator*=", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#ac9f96b6dae7f6e1a440032dc954d892b", null ],

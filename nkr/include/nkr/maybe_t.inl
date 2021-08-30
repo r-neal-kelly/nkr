@@ -100,6 +100,12 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
+    inline any_sp<any_p>::any_sp(none_t) :
+        value(value_t())
+    {
+    }
+
+    template <typename any_p>
     inline any_sp<any_p>& any_sp<any_p>::operator =(none_t)
     {
         this->value = value_t();
@@ -226,6 +232,12 @@ namespace nkr { namespace $maybe_t {
     inline const auto* user_defined_sp<user_defined_p>::operator &() const
     {
         return &static_cast<const value_t&>(*this);
+    }
+
+    template <none_i user_defined_p>
+    inline user_defined_sp<user_defined_p>::user_defined_sp(none_t) :
+        value_t(none_t)
+    {
     }
 
     template <none_i user_defined_p>

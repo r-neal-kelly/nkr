@@ -6,6 +6,7 @@ var classnkr_1_1_0batomic__t_1_1bool__sp =
     [ "bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab5b3409249e30eddf702977a1af860ed", null ],
     [ "bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#acd96e710768b47bd462cea6b87607691", null ],
     [ "~bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ab6059980affa7c6b0716951f0e0c9d8d", null ],
+    [ "bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a5ef235250130dea7b857ddb75978efa2", null ],
     [ "operator=", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ae3aa0f154c29e4274bd25e649de167b1", null ],
     [ "operator=", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#ac903acb887d99edae58e99c81b828222", null ],
     [ "Access", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html#a45a64f561c65eceabf108428b7fd39e7", null ],

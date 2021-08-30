@@ -45,6 +45,7 @@ var classnkr_1_1_0batomic__t_1_1integer__sp =
     [ "Exchange_Right_Shift", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#ae828ab3ad4f39a2b56464af4dbbc8ebc", null ],
     [ "Exchange_If_Equals", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#ad2becd5a9f4e2db55af524e282131809", null ],
     [ "operator value_t", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#aae5e3cb0ee4826b05ca25014e253ee7c", null ],
+    [ "operator()", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a899cf29f6818211f00f4eac27735bbc4", null ],
     [ "operator+=", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#af7a3c8c3ab542a8bfabc08025d9c8667", null ],
     [ "operator-=", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#ac5f5413bab4563980971637d412083d2", null ],
     [ "operator*=", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a322e23f05be09109888bcfdcc6592b15", null ],

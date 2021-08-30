@@ -8,6 +8,7 @@ var classnkr_1_1_0batomic__t_1_1void__pointer__sp =
     [ "void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#af8bbc3b7a757746ca3431b4f455d144b", null ],
     [ "void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a457daf4d3aaa6dc6fad95ef827bd0a69", null ],
     [ "~void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#af9ccd968a8a2998f0f497d4cd52d0cd5", null ],
+    [ "void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#aedc68505eb0f8186f45d7cb81d302287", null ],
     [ "operator=", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a2a8bddcc8050a11e56fa05e57e73c5c3", null ],
     [ "operator=", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a83db7f54fbbbcf4cd234ef888e3c7311", null ],
     [ "Access", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a6af7bfdd9c940ca0c3c387cc09dbd590", null ],

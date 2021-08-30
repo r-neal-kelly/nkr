@@ -195,6 +195,12 @@
             * @private
             */
 
+                // none_ctor()
+                /**
+                * @class _3c6a0391_99dd_46ef_aebd_c6cd2a474a2b
+                * @private
+                */
+
                 // =(none_t)
                 /**
                 * @class _8a90b1f2_c65f_4ad3_8d73_d985f67d6293
@@ -578,6 +584,12 @@
         * @brief
         *   These are added in case the user_defined_p cannot take nkr::none_t&. It calls the underlying implementation.
         */
+
+            // none_ctor()
+            /**
+            * @class _e6a84081_f2de_4db3_8d9b_ba72a93e5455
+            * @private
+            */
 
             // =(none_t)
             /**

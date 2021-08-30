@@ -80,7 +80,9 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name none_t interface
         /// @copydoc _1dfe08c1_275f_46e1_af39_240c6b354178
         /// @{
+        any_sp(none_t);                     ///< @copydoc _3c6a0391_99dd_46ef_aebd_c6cd2a474a2b
         any_sp& operator =(none_t);         ///< @copydoc _8a90b1f2_c65f_4ad3_8d73_d985f67d6293
+        
         bool_t  operator ==(none_t) const;  ///< @copydoc _ba6bc412_5d93_402c_aa70_359a0fe73cce
         bool_t  operator !=(none_t) const;  ///< @copydoc _f148b5f5_a869_429b_afcd_5f391558954a
         /// @}
@@ -303,9 +305,11 @@ namespace nkr { namespace $maybe_t {
         /// @name none_t interface
         /// @copydoc _83fd4e8c_fb12_4092_b6b7_0a2a5fe7e3ae
         /// @{
-        user_defined_sp&    operator =(none_t);         ///< @copydoc _89e3c342_705e_4f5e_8c5a_d4a30c8e93aa
-        bool_t              operator ==(none_t) const;  ///< @copydoc _0ba0e3d3_efa9_47a9_9843_c0bd2bb99dd5
-        bool_t              operator !=(none_t) const;  ///< @copydoc _e03588e1_54fd_4f9b_9b34_54ff74341ccd
+        user_defined_sp(none_t);                ///< @copydoc _e6a84081_f2de_4db3_8d9b_ba72a93e5455
+        user_defined_sp& operator =(none_t);    ///< @copydoc _89e3c342_705e_4f5e_8c5a_d4a30c8e93aa
+        
+        bool_t  operator ==(none_t) const;      ///< @copydoc _0ba0e3d3_efa9_47a9_9843_c0bd2bb99dd5
+        bool_t  operator !=(none_t) const;      ///< @copydoc _e03588e1_54fd_4f9b_9b34_54ff74341ccd
         /// @}
     };
 

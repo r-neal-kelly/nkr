@@ -201,6 +201,12 @@
         *   Allows use of nkr::maybe_t and nkr::some_t.
         */
 
+            // none_ctor()
+            /**
+            * @class _0de1f181_bf7f_4975_9c6d_076c1fedce94
+            * @private
+            */
+
             // =(none_t)
             /**
             * @class _3429943c_402f_43cb_936a_175319131f3f
@@ -605,6 +611,12 @@
         * @class _ebf639ee_013e_4e27_adc1_1752df597ddf
         * @private
         */
+
+            // ()()
+            /**
+            * @class _788d318f_88ed_44b0_ae45_e260734bb5cd
+            * @private
+            */
 
             // +=()
             /**
@@ -1051,6 +1063,15 @@
         * @class _59ee1957_70b1_4581_8181_7c9271104cd0
         * @private
         */
+
+            // ()()
+            /**
+            * @class _da93485f_123d_4d5e_bdef_5aa33745b1c2
+            * @private
+            * 
+            * @snippet "./src/atomic_t.cpp" _bc8e1d86_1d23_4a2a_a5a9_d067edad0af1
+            * @snippet "./src/atomic_t.cpp" _01b5778a_fc5c_4b21_b46f_50b4d68f1598
+            */
 
             // +=()
             /**
@@ -1507,6 +1528,12 @@
         * @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
         */
 
+            // none_ctor()
+            /**
+            * @class _8d49d4d6_1fd1_4a84_b537_aa06f5f720c4
+            * @private
+            */
+
             // =(none_t)
             /**
             * @class _8aedd3b6_6fe3_4db7_8c9e_8714e2449988
@@ -1731,6 +1758,12 @@
         * @private
         * @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
         */
+
+            // none_ctor()
+            /**
+            * @class _5d892adb_d42c_46b2_8398_ea64333dc028
+            * @private
+            */
 
             // =(none_t)
             /**

@@ -89,15 +89,17 @@ namespace nkr { namespace $atomic_t {
         /// @name none_t interface
         /// @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
         /// @{
-        bool_sp&    operator =(none_t);         ///< @copydoc _3429943c_402f_43cb_936a_175319131f3f
-        bool_t      operator ==(none_t) const;  ///< @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
-        bool_t      operator !=(none_t) const;  ///< @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
+        bool_sp(none_t);                    ///< @copydoc _0de1f181_bf7f_4975_9c6d_076c1fedce94
+        bool_sp& operator =(none_t);        ///< @copydoc _3429943c_402f_43cb_936a_175319131f3f
+
+        bool_t  operator ==(none_t) const;  ///< @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
+        bool_t  operator !=(none_t) const;  ///< @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
         /// @}
     };
 
     /// @nosubgrouping
     /// @copydoc _1eb34513_6d58_4671_bcfc_61834a0fa529
-    template <integer_tr integer_p = word_t>
+    template <integer_tr integer_p>
     class integer_sp
     {
     public:
@@ -188,6 +190,8 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _ebf639ee_013e_4e27_adc1_1752df597ddf
         /// @{
+        value_t operator ()() const;                    ///< @copydoc _788d318f_88ed_44b0_ae45_e260734bb5cd
+
         value_t operator +=(to_integer_tr auto value);  ///< @copydoc _85417b7a_dd77_4294_b67e_6e08ab7e27f9
         value_t operator -=(to_integer_tr auto value);  ///< @copydoc _29505a0a_1b57_45eb_b075_8b2f3d3be8f3
         value_t operator *=(to_integer_tr auto value);  ///< @copydoc _713ce567_d8be_442b_b578_c2ada942f6dc
@@ -209,11 +213,11 @@ namespace nkr { namespace $atomic_t {
         /// @name none_t interface
         /// @copydoc _feb54dad_7493_4e9d_9e24_2a69c9912f95
         /// @{
-        integer_sp(none_t);                     ///< @copydoc _a3b18509_3705_4a67_88cb_a5590f4cae24
-        integer_sp& operator =(none_t);         ///< @copydoc _18865e46_d599_4053_a6dc_e0609fb811a1
+        integer_sp(none_t);                 ///< @copydoc _a3b18509_3705_4a67_88cb_a5590f4cae24
+        integer_sp& operator =(none_t);     ///< @copydoc _18865e46_d599_4053_a6dc_e0609fb811a1
 
-        bool_t      operator ==(none_t) const;  ///< @copydoc _e3609d5e_27c6_4a0e_8928_c54f879abb96
-        bool_t      operator !=(none_t) const;  ///< @copydoc _cc53fec7_7977_4de9_9aa9_852cedd9134a
+        bool_t  operator ==(none_t) const;  ///< @copydoc _e3609d5e_27c6_4a0e_8928_c54f879abb96
+        bool_t  operator !=(none_t) const;  ///< @copydoc _cc53fec7_7977_4de9_9aa9_852cedd9134a
         /// @}
     };
 
@@ -292,6 +296,8 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _59ee1957_70b1_4581_8181_7c9271104cd0
         /// @{
+        value_t operator ()() const;                ///< @copydoc _da93485f_123d_4d5e_bdef_5aa33745b1c2
+
         value_t operator +=(to_real_tr auto value); ///< @copydoc _9440c8a7_f2e4_4dea_8202_eb1a3b33f624
         value_t operator -=(to_real_tr auto value); ///< @copydoc _05c4f9da_6215_48ab_931f_6a63822fb3bc
         value_t operator *=(to_real_tr auto value); ///< @copydoc _a9aa1790_c0ee_4ef3_985e_09c498389151
@@ -307,11 +313,11 @@ namespace nkr { namespace $atomic_t {
         /// @name none_t interface
         /// @copydoc _50ecf924_c297_4baf_a55b_63473f74e9fd
         /// @{
-        real_sp(none_t);                        ///< @copydoc _3310ff90_5347_4ee8_a55f_6ee26684ae05
-        real_sp&    operator =(none_t);         ///< @copydoc _6c3ee7ad_411d_4f3f_adbc_4c793cb280aa
+        real_sp(none_t);                    ///< @copydoc _3310ff90_5347_4ee8_a55f_6ee26684ae05
+        real_sp& operator =(none_t);        ///< @copydoc _6c3ee7ad_411d_4f3f_adbc_4c793cb280aa
 
-        bool_t      operator ==(none_t) const;  ///< @copydoc _fb6fdd58_1c3a_4ced_8231_917ad7d8931c
-        bool_t      operator !=(none_t) const;  ///< @copydoc _1d33ee84_f30a_40a2_8ba8_3f66bd115ea4
+        bool_t  operator ==(none_t) const;  ///< @copydoc _fb6fdd58_1c3a_4ced_8231_917ad7d8931c
+        bool_t  operator !=(none_t) const;  ///< @copydoc _1d33ee84_f30a_40a2_8ba8_3f66bd115ea4
         /// @}
     };
 
@@ -407,9 +413,11 @@ namespace nkr { namespace $atomic_t {
         /// @name none_t interface
         /// @copydoc _dcabeeed_678e_49d9_9020_9f67fb4b1bb4
         /// @{
-        pointer_sp& operator =(none_t);         ///< @copydoc _8aedd3b6_6fe3_4db7_8c9e_8714e2449988
-        bool_t      operator ==(none_t) const;  ///< @copydoc _96b228ef_64d8_4e9e_af2b_28d1e81bc25e
-        bool_t      operator !=(none_t) const;  ///< @copydoc _3ea59cb3_9e9a_4b67_9023_bc6877f93102
+        pointer_sp(none_t);                 ///< @copydoc _8d49d4d6_1fd1_4a84_b537_aa06f5f720c4
+        pointer_sp& operator =(none_t);     ///< @copydoc _8aedd3b6_6fe3_4db7_8c9e_8714e2449988
+        
+        bool_t  operator ==(none_t) const;  ///< @copydoc _96b228ef_64d8_4e9e_af2b_28d1e81bc25e
+        bool_t  operator !=(none_t) const;  ///< @copydoc _3ea59cb3_9e9a_4b67_9023_bc6877f93102
         /// @}
     };
 
@@ -485,9 +493,11 @@ namespace nkr { namespace $atomic_t {
         /// @name none_t interface
         /// @copydoc _02896e4d_eea6_4f9f_88d5_b3537f6031d0
         /// @{
-        void_pointer_sp&    operator =(none_t);         ///< @copydoc _2ea4753b_1569_4b90_b19a_70e7f642b906
-        bool_t              operator ==(none_t) const;  ///< @copydoc _97762179_237b_446c_85db_1278d91a8179
-        bool_t              operator !=(none_t) const;  ///< @copydoc _0abf2389_f09c_4542_9e53_9b15e0c608b3
+        void_pointer_sp(none_t);                ///< @copydoc _5d892adb_d42c_46b2_8398_ea64333dc028
+        void_pointer_sp& operator =(none_t);    ///< @copydoc _2ea4753b_1569_4b90_b19a_70e7f642b906
+        
+        bool_t  operator ==(none_t) const;      ///< @copydoc _97762179_237b_446c_85db_1278d91a8179
+        bool_t  operator !=(none_t) const;      ///< @copydoc _0abf2389_f09c_4542_9e53_9b15e0c608b3
         /// @}
     };
 

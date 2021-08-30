@@ -5,7 +5,7 @@ var searchData=
   ['s64_5ft_2',['s64_t',['../d8/d3c/group__intrinsics__integers.html#ga4310387e7196e1a6e98c65c70b36b1bb',1,'nkr']]],
   ['s8_5ft_3',['s8_t',['../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781',1,'nkr']]],
   ['size_5ft_4',['size_t',['../d8/d8d/group__intrinsics__contextuals.html#ga87710d101176846a1c5f0874dc403aff',1,'nkr']]],
-  ['some_5ft_5',['some_t',['../d1/def/classnkr_1_1some__t.html',1,'nkr']]],
+  ['some_5ft_5',['some_t',['../d1/def/classnkr_1_1some__t.html',1,'nkr::some_t&lt; any_p &gt;'],['../d1/def/classnkr_1_1some__t.html#ad7b94fa57905f90fdfd8c024985ffdd8',1,'nkr::some_t::some_t()']]],
   ['some_5ft_2edox_6',['some_t.dox',['../d6/d3f/some__t_8dox.html',1,'']]],
   ['some_5ft_2eh_7',['some_t.h',['../d3/d48/some__t_8h.html',1,'']]],
   ['some_5ft_2einl_8',['some_t.inl',['../d4/d27/some__t_8inl.html',1,'']]],

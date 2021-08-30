@@ -34,6 +34,7 @@ namespace nkr {
         /// @name operators
         /// @copydoc _a9c2409d_1948_4a2d_a709_73323203c246
         /// @{
+        some_t(none_t)              = delete;   ///< @copydoc _1d3fb757_fe58_4c5e_ba61_56a3ad52f3c1
         some_t& operator =(none_t)  = delete;   ///< @copydoc _7e0c8790_9442_454e_aa96_8dd70e9e804e
         /// @}
     };

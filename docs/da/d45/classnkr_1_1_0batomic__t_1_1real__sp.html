@@ -188,6 +188,8 @@ Inheritance diagram for nkr::$atomic_t::real_sp&lt; real_p &gt;:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader">operators</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp0997fb356c249146ffe97cce96f88459"></a></p>
 </td></tr>
+<tr class="memitem:acbdf1a15f078d9ff29c5649945886885"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a146ec2a3d867083ea093ca44a4122815">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#acbdf1a15f078d9ff29c5649945886885">operator()</a> () const</td></tr>
+<tr class="separator:acbdf1a15f078d9ff29c5649945886885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a660b518af48ebd7e053194a256a6e283"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a146ec2a3d867083ea093ca44a4122815">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a660b518af48ebd7e053194a256a6e283">operator+=</a> (to_real_tr auto <a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">value</a>)</td></tr>
 <tr class="separator:a660b518af48ebd7e053194a256a6e283"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95cac6fad95c8421ffb999dd861d68ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a146ec2a3d867083ea093ca44a4122815">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a95cac6fad95c8421ffb999dd861d68ef">operator-=</a> (to_real_tr auto <a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">value</a>)</td></tr>
@@ -1587,7 +1589,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a> <a class="code hl_variable" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">value</a> = atom;</div>
 <div class="line">                    CHECK(<a class="code hl_variable" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">value</a> == random);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1real__sp_html_a0f7d773cbf4ed0f3a14a3d0748f5b86a"><div class="ttname"><a href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">nkr::$atomic_t::real_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdef"><b>Definition:</b> atomic_t.h:243</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1real__sp_html_a0f7d773cbf4ed0f3a14a3d0748f5b86a"><div class="ttname"><a href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">nkr::$atomic_t::real_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdef"><b>Definition:</b> atomic_t.h:247</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
 <div class="line">                {</div>
 <div class="line">                    <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a> random = Random&lt;real_t&gt;();</div>
@@ -1628,6 +1630,45 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    CHECK(atom &lt;= random);</div>
 <div class="line">                    CHECK(atom &gt;= random);</div>
 <div class="line">                    CHECK(atom &lt;=&gt; random == 0);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
+</div>
+</div>
+<a id="acbdf1a15f078d9ff29c5649945886885" name="acbdf1a15f078d9ff29c5649945886885"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbdf1a15f078d9ff29c5649945886885">&#9670;&nbsp;</a></span>operator()()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;real_tr real_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html">real_sp</a>&lt; real_p &gt;::<a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a146ec2a3d867083ea093ca44a4122815">value_t</a> <a class="el" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html">nkr::$atomic_t::real_sp</a>&lt; real_p &gt;::operator()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return a copy of its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a> random = Random&lt;real_t&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;real_t&gt; atom(random);</div>
+<div class="line">                    CHECK(atom() == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a> random = Random&lt;real_t&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;real_t&gt; atom(random);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a> <a class="code hl_variable" href="../../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#a0f7d773cbf4ed0f3a14a3d0748f5b86a">value</a> = atom();</div>
+<div class="line">                    CHECK(atom == random);</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>

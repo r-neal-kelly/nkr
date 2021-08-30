@@ -87,6 +87,11 @@ namespace nkr { namespace $atomic_t {
         return Assign(value);
     }
 
+    inline bool_sp::bool_sp(none_t) :
+        value(DEFAULT_VALUE)
+    {
+    }
+
     inline bool_sp& bool_sp::operator =(none_t)
     {
         Assign(DEFAULT_VALUE);
@@ -372,6 +377,12 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
+    inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator ()() const
+    {
+        return Access();
+    }
+
+    template <integer_tr integer_p>
     inline typename integer_sp<integer_p>::value_t integer_sp<integer_p>::operator +=(to_integer_tr auto value)
     {
         return Assign_Add(value);
@@ -636,6 +647,12 @@ namespace nkr { namespace $atomic_t {
 
     template <real_tr real_p>
     inline real_sp<real_p>::operator value_t() const
+    {
+        return Access();
+    }
+
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ()() const
     {
         return Access();
     }
@@ -906,6 +923,12 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>::pointer_sp(none_t) :
+        value(DEFAULT_VALUE)
+    {
+    }
+
+    template <pointer_tr pointer_p>
     inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator =(none_t)
     {
         Assign(DEFAULT_VALUE);
@@ -998,6 +1021,11 @@ namespace nkr { namespace $atomic_t {
     inline typename void_pointer_sp::value_t void_pointer_sp::operator =(pointer_tr auto value)
     {
         return Assign(value);
+    }
+
+    inline void_pointer_sp::void_pointer_sp(none_t) :
+        value(DEFAULT_VALUE)
+    {
     }
 
     inline void_pointer_sp& void_pointer_sp::operator =(none_t)

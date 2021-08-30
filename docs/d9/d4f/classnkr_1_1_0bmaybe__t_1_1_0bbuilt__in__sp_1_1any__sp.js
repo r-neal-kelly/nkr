@@ -6,6 +6,7 @@ var classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp =
     [ "any_sp", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#a634976c2bcb1b28f372e3d58d1dfa75c", null ],
     [ "any_sp", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#a36409eba5eea857ff598156f53fc4afa", null ],
     [ "~any_sp", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#ac712ff75cb32599af92602316828b1d9", null ],
+    [ "any_sp", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#adfdf7a2d9e001c9752f1f4f4e0597c2a", null ],
     [ "operator=", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#a593624d300f650eaaf920e0923e18f88", null ],
     [ "operator=", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#a80873e43642f9cc711671b49772d0bfc", null ],
     [ "operator=", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html#a9121bf4c0f5b03209885a674f5210b6a", null ],

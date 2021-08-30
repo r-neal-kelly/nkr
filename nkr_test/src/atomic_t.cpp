@@ -469,6 +469,11 @@ namespace nkr {
 
         TEST_SUITE("operators")
         {
+            TEST_SUITE("()()")
+            {
+
+            }
+
             TEST_SUITE("+=()")
             {
 
@@ -1516,6 +1521,28 @@ namespace nkr {
 
         TEST_SUITE("operators")
         {
+            TEST_SUITE("()()")
+            {
+                /// [_bc8e1d86_1d23_4a2a_a5a9_d067edad0af1]
+                TEST_CASE("should return a copy of its value")
+                {
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
+                    CHECK(atom() == random);
+                }
+                /// [_bc8e1d86_1d23_4a2a_a5a9_d067edad0af1]
+
+                /// [_01b5778a_fc5c_4b21_b46f_50b4d68f1598]
+                TEST_CASE("should not change its value")
+                {
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
+                    real_t value = atom();
+                    CHECK(atom == random);
+                }
+                /// [_01b5778a_fc5c_4b21_b46f_50b4d68f1598]
+            }
+
             TEST_SUITE("+=()")
             {
                 /// [_36fcf8e0_6485_47cb_9bc3_d1b6fdf4f1e0]

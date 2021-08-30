@@ -24,7 +24,6 @@ var hierarchy =
     ] ],
     [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", null ],
     [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", null ],
-    [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", null ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", [
       [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", null ]
     ] ],
