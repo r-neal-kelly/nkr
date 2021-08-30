@@ -329,7 +329,12 @@ template&lt;integer_tr integer_p&gt; </div>
 </div><div class="memdoc">
 
 <p>Sets itself to the default value, but not atomically. </p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set value to the default&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;word_t&gt; atom;</div>
+<div class="line">                    CHECK(atom == atomic_t&lt;word_t&gt;::DEFAULT_VALUE);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a21bb2796c0dc5aff6003fda9ea5222f7" name="a21bb2796c0dc5aff6003fda9ea5222f7"></a>
@@ -359,7 +364,26 @@ template&lt;integer_tr integer_p&gt; </div>
 </div><div class="memdoc">
 
 <p>Sets itself to the value, but not atomically. </p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;word_t&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;word_t&gt; atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a> random = Random&lt;real_t&gt;();</div>
+<div class="line">                    atomic_t&lt;word_t&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a><span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+<div class="ttc" id="agroup____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af_html_ga13fd570a4221f5e5e4d536d101b91779"><div class="ttname"><a href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">nkr::real_t</a></div><div class="ttdeci">r64_t real_t</div><div class="ttdoc">Matches the nkr::word_t of the machine by selecting r32_t for 32-bit or r64_t for 64-bit.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:69</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a22f829dc627738294784b95feca5f8e0" name="a22f829dc627738294784b95feca5f8e0"></a>

@@ -247,12 +247,43 @@ namespace nkr {
         {
             TEST_SUITE("default_ctor()")
             {
-
+                /// [_0cc6f622_d075_4f7f_a418_c7530c5410c4]
+                TEST_CASE("should set value to the default")
+                {
+                    atomic_t<word_t> atom;
+                    CHECK(atom == atomic_t<word_t>::DEFAULT_VALUE);
+                }
+                /// [_0cc6f622_d075_4f7f_a418_c7530c5410c4]
             }
 
             TEST_SUITE("value_ctor()")
             {
+                /// [_12f75ab2_b36e_4723_aa99_759ecf55564e]
+                TEST_CASE("should explicitly set passed value")
+                {
+                    word_t random = Random<word_t>();
+                    atomic_t<word_t> atom(random);
+                    CHECK(atom == random);
+                }
+                /// [_12f75ab2_b36e_4723_aa99_759ecf55564e]
 
+                /// [_5d7de716_427e_4e8d_9d44_e4e35c2ab2d7]
+                TEST_CASE("should implicitly set passed value")
+                {
+                    word_t random = Random<word_t>();
+                    atomic_t<word_t> atom = random;
+                    CHECK(atom == random);
+                }
+                /// [_5d7de716_427e_4e8d_9d44_e4e35c2ab2d7]
+
+                /// [_d665b2b2_b8c7_440e_8879_1d41f877e864]
+                TEST_CASE("should convert other types and set passed value")
+                {
+                    real_t random = Random<real_t>();
+                    atomic_t<word_t> atom(random);
+                    CHECK(atom == static_cast<word_t>(random));
+                }
+                /// [_d665b2b2_b8c7_440e_8879_1d41f877e864]
             }
 
             TEST_SUITE("copy_ctor()")

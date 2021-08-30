@@ -321,6 +321,8 @@
             * 
             * @brief
             *   Sets itself to the default value, but not atomically.
+            * 
+            * @snippet "./src/atomic_t.cpp" _0cc6f622_d075_4f7f_a418_c7530c5410c4
             */
 
             // value_ctor()
@@ -330,6 +332,10 @@
             * 
             * @brief
             *   Sets itself to the value, but not atomically.
+            * 
+            * @snippet "./src/atomic_t.cpp" _12f75ab2_b36e_4723_aa99_759ecf55564e
+            * @snippet "./src/atomic_t.cpp" _5d7de716_427e_4e8d_9d44_e4e35c2ab2d7
+            * @snippet "./src/atomic_t.cpp" _d665b2b2_b8c7_440e_8879_1d41f877e864
             */
 
             // copy_ctor()
