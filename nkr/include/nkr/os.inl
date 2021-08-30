@@ -163,11 +163,11 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Access(atom) >> with);
     }
 
-    inline boolean_tr auto Assign(volatile boolean_tr auto& atom, boolean_tr auto with)
+    inline boolean_tr auto Assign(volatile boolean_tr auto& atom, to_boolean_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(atom, with), with);
+        return static_cast<atom_t>(Exchange(atom, with), static_cast<atom_t>(with));
     }
 
     inline integer_tr auto Assign(volatile integer_tr auto& atom, to_integer_tr auto with)
@@ -181,7 +181,7 @@ namespace nkr { namespace os { namespace atomic {
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
-        return static_cast<atom_t>(Exchange(atom, with), with);
+        return static_cast<atom_t>(Exchange(atom, with), static_cast<atom_t>(with));
     }
 
     inline pointer_tr auto Assign(volatile pointer_tr auto& atom, pointer_tr auto with)
@@ -305,16 +305,17 @@ namespace nkr { namespace os { namespace atomic {
 
 #if defined(nkr_IS_WINDOWS)
 
-    inline boolean_tr auto Exchange(volatile boolean_tr auto& atom, boolean_tr auto with)
+    inline boolean_tr auto Exchange(volatile boolean_tr auto& atom, to_boolean_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
+        atom_t atom_with = static_cast<atom_t>(with);
         if constexpr (std::same_as<atom_t, bool_t>) {
             return static_cast<atom_t>(Exchange(static_cast<volatile word_t&>(atom),
-                                                static_cast<word_t>(with)));
+                                                static_cast<word_t>(atom_with)));
         } else if constexpr (sizeof(atom_t) == sizeof(u8_t)) {
             return static_cast<atom_t>(Exchange(reinterpret_cast<volatile u8_t&>(atom),
-                                                reinterpret_cast<u8_t&>(with)));
+                                                reinterpret_cast<u8_t&>(atom_with)));
         } else {
             static_assert(false, "invalid boolean type size");
         }
@@ -889,18 +890,19 @@ namespace nkr { namespace os { namespace atomic {
 
     inline boolean_tr auto Exchange_If_Equals(volatile boolean_tr auto& atom,
                                               boolean_tr auto& snapshot,
-                                              boolean_tr auto with)
+                                              to_boolean_tr auto with)
     {
         using atom_t = std::remove_cvref_t<decltype(atom)>;
 
+        atom_t atom_with = static_cast<atom_t>(with);
         if constexpr (std::same_as<atom_t, bool_t>) {
             return Exchange_If_Equals(static_cast<volatile word_t&>(atom),
                                       static_cast<word_t&>(snapshot),
-                                      static_cast<word_t>(with));
+                                      static_cast<word_t>(atom_with));
         } else if constexpr (sizeof(atom_t) == sizeof(u8_t)) {
             return Exchange_If_Equals(reinterpret_cast<volatile u8_t&>(atom),
                                       reinterpret_cast<u8_t&>(snapshot),
-                                      reinterpret_cast<u8_t&>(with));
+                                      reinterpret_cast<u8_t&>(atom_with));
         } else {
             static_assert(false, "invalid boolean type size");
         }

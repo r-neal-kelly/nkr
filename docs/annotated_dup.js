@@ -2,7 +2,7 @@ var annotated_dup =
 [
     [ "nkr", "dc/d0c/namespacenkr.html", [
       [ "$atomic_t", "d1/d7c/namespacenkr_1_1_0batomic__t.html", [
-        [ "bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp" ],
+        [ "boolean_sp", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp" ],
         [ "integer_sp", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp" ],
         [ "pointer_sp", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp" ],
         [ "real_sp", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp" ],
@@ -22,7 +22,7 @@ var annotated_dup =
       [ "allocator_heap_t", "d9/df1/classnkr_1_1allocator__heap__t.html", "d9/df1/classnkr_1_1allocator__heap__t" ],
       [ "array_dynamic_t", "d5/d74/classnkr_1_1array__dynamic__t.html", "d5/d74/classnkr_1_1array__dynamic__t" ],
       [ "atomic_t", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
-      [ "atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
+      [ "atomic_t< boolean_p >", "d9/de7/classnkr_1_1atomic__t_3_01boolean__p_01_4.html", "d9/de7/classnkr_1_1atomic__t_3_01boolean__p_01_4" ],
       [ "atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4" ],
       [ "atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
       [ "atomic_t< real_p >", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4.html", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4" ],

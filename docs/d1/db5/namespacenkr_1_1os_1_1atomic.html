@@ -160,9 +160,9 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupHeader">Assign</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >These return a copy of the atomic value after changing the original.</p>
 </div></td></tr>
-<tr class="memitem:a5617013b0de140ef1eeb778f3675b511"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">Assign</a> (volatile boolean_tr auto &amp;atom, boolean_tr auto with)</td></tr>
-<tr class="memdesc:a5617013b0de140ef1eeb778f3675b511"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(atom = with)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">More...</a><br /></td></tr>
-<tr class="separator:a5617013b0de140ef1eeb778f3675b511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ece30d096ccd756dae68493c61f5860"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">Assign</a> (volatile boolean_tr auto &amp;atom, to_boolean_tr auto with)</td></tr>
+<tr class="memdesc:a7ece30d096ccd756dae68493c61f5860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(atom = with)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">More...</a><br /></td></tr>
+<tr class="separator:a7ece30d096ccd756dae68493c61f5860"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c39903d4fded570852eea01802e2627"><td class="memItemLeft" align="right" valign="top">integer_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a2c39903d4fded570852eea01802e2627">Assign</a> (volatile integer_tr auto &amp;atom, to_integer_tr auto with)</td></tr>
 <tr class="memdesc:a2c39903d4fded570852eea01802e2627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(atom = with)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a2c39903d4fded570852eea01802e2627">More...</a><br /></td></tr>
 <tr class="separator:a2c39903d4fded570852eea01802e2627"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,9 +225,9 @@ Functions</h2></td></tr>
 <p >Many of these functions could actually be combined together into a simpler set amounting to the same functionality. However doing it this way allows for optimizations that otherwise would be missed. Some of these functions have direct operating system calls they can use while others are implemented using the Exchange_If_Equals functions. An implementor of the library can make use of this assortment of funcitons to add optimizations that even the operating system and compiler are missing by talking directly to the processor.</p>
 <p >In any case, even the functions that are implemented with the Exchange_If_Equals functions are way faster than using other locking techniques and so everything in here is a good alternative if you can design your program to use them, either directly or through the nkr::atomic_T interface. </p>
 </div></td></tr>
-<tr class="memitem:a41976e43fb3b93d558c87466e4bcec53"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">Exchange</a> (volatile boolean_tr auto &amp;atom, boolean_tr auto with)</td></tr>
-<tr class="memdesc:a41976e43fb3b93d558c87466e4bcec53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(original = atom, atom = with, original)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">More...</a><br /></td></tr>
-<tr class="separator:a41976e43fb3b93d558c87466e4bcec53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acba09870ae8ffbc9798b8325fc1ee53d"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">Exchange</a> (volatile boolean_tr auto &amp;atom, to_boolean_tr auto with)</td></tr>
+<tr class="memdesc:acba09870ae8ffbc9798b8325fc1ee53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(original = atom, atom = with, original)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">More...</a><br /></td></tr>
+<tr class="separator:acba09870ae8ffbc9798b8325fc1ee53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a366cda7dd72522f6a92a58a160da2355"><td class="memItemLeft" align="right" valign="top">integer_8_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a366cda7dd72522f6a92a58a160da2355">Exchange</a> (volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</td></tr>
 <tr class="memdesc:a366cda7dd72522f6a92a58a160da2355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(original = atom, atom = with, original)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a366cda7dd72522f6a92a58a160da2355">More...</a><br /></td></tr>
 <tr class="separator:a366cda7dd72522f6a92a58a160da2355"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -399,9 +399,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8630c6b130c59142b37a206873904bb6"><td class="memItemLeft" align="right" valign="top">integer_64_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8630c6b130c59142b37a206873904bb6">Exchange_Right_Shift</a> (volatile integer_64_tr auto &amp;atom, integer_tr auto with)</td></tr>
 <tr class="memdesc:a8630c6b130c59142b37a206873904bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(original = atom, atom &gt;&gt;= with, original)</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8630c6b130c59142b37a206873904bb6">More...</a><br /></td></tr>
 <tr class="separator:a8630c6b130c59142b37a206873904bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96db557634af13e3991fdac76608e220"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">Exchange_If_Equals</a> (volatile boolean_tr auto &amp;atom, boolean_tr auto &amp;snapshot, boolean_tr auto with)</td></tr>
-<tr class="memdesc:a96db557634af13e3991fdac76608e220"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(atom == snapshot ? (atom = with, true) : (snapshot = atom, false))</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">More...</a><br /></td></tr>
-<tr class="separator:a96db557634af13e3991fdac76608e220"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a727c09a6a592913071a912262459234d"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">Exchange_If_Equals</a> (volatile boolean_tr auto &amp;atom, boolean_tr auto &amp;snapshot, to_boolean_tr auto with)</td></tr>
+<tr class="memdesc:a727c09a6a592913071a912262459234d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(atom == snapshot ? (atom = with, true) : (snapshot = atom, false))</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">More...</a><br /></td></tr>
+<tr class="separator:a727c09a6a592913071a912262459234d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27e9e0278b066af8881df2a31100c3b2"><td class="memItemLeft" align="right" valign="top">boolean_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a27e9e0278b066af8881df2a31100c3b2">Exchange_If_Equals</a> (volatile integer_8_tr auto &amp;atom, integer_8_tr auto &amp;snapshot, to_integer_tr auto with)</td></tr>
 <tr class="memdesc:a27e9e0278b066af8881df2a31100c3b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equivalent to <code>(atom == snapshot ? (atom = with, true) : (snapshot = atom, false))</code>  <a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a27e9e0278b066af8881df2a31100c3b2">More...</a><br /></td></tr>
 <tr class="separator:a27e9e0278b066af8881df2a31100c3b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1466,8 +1466,8 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a5617013b0de140ef1eeb778f3675b511" name="a5617013b0de140ef1eeb778f3675b511"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5617013b0de140ef1eeb778f3675b511">&#9670;&nbsp;</a></span>Assign() <span class="overload">[1/4]</span></h2>
+<a id="a7ece30d096ccd756dae68493c61f5860" name="a7ece30d096ccd756dae68493c61f5860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ece30d096ccd756dae68493c61f5860">&#9670;&nbsp;</a></span>Assign() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1484,7 +1484,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boolean_tr auto&#160;</td>
+          <td class="paramtype">to_boolean_tr auto&#160;</td>
           <td class="paramname"><em>with</em>&#160;</td>
         </tr>
         <tr>
@@ -1502,11 +1502,11 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(atom = with)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a5617013b0de140ef1eeb778f3675b511"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a></div><div class="ttdeci">boolean_tr auto Assign(volatile boolean_tr auto &amp;atom, boolean_tr auto with)</div><div class="ttdoc">Equivalent to (atom = with)</div><div class="ttdef"><b>Definition:</b> os.inl:166</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a7ece30d096ccd756dae68493c61f5860"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a></div><div class="ttdeci">boolean_tr auto Assign(volatile boolean_tr auto &amp;atom, to_boolean_tr auto with)</div><div class="ttdoc">Equivalent to (atom = with)</div><div class="ttdef"><b>Definition:</b> os.inl:166</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
 </div><!-- fragment --> 
 </div>
@@ -1547,28 +1547,28 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(atom = with)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(u8, 1) == 1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(u8, 1) == 1);</div>
 <div class="line">                CHECK(u8 == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(s8, -1) == -1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(s8, -1) == -1);</div>
 <div class="line">                CHECK(s8 == -1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">u16_t</a> u16 = 16;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(u16, 1) == 1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(u16, 1) == 1);</div>
 <div class="line">                CHECK(u16 == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga9ae44971ee28f8a6e4b84d7f6b5466ef">s16_t</a> s16 = -16;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(s16, -1) == -1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(s16, -1) == -1);</div>
 <div class="line">                CHECK(s16 == -1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gad859103da019c24293b8635dd2389e07">u32_t</a> u32 = 32;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(u32, 1) == 1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(u32, 1) == 1);</div>
 <div class="line">                CHECK(u32 == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga05fb83ae9ec3d1ef3818b9a07d399af5">s32_t</a> s32 = -32;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(s32, -1) == -1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(s32, -1) == -1);</div>
 <div class="line">                CHECK(s32 == -1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga03c2cbf35a6254c958cacd6c320d7df2">u64_t</a> u64 = 64;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(u64, 1) == 1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(u64, 1) == 1);</div>
 <div class="line">                CHECK(u64 == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga4310387e7196e1a6e98c65c70b36b1bb">s64_t</a> s64 = -64;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(s64, -1) == -1);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(s64, -1) == -1);</div>
 <div class="line">                CHECK(s64 == -1);</div>
 </div><!-- fragment --> 
 </div>
@@ -1609,10 +1609,10 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(atom = with)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga174259c00f483468ce7c2194c0c5942e">r32_t</a> f32 = 3.2f;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(f32, 1.0f) == 1.0f);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(f32, 1.0f) == 1.0f);</div>
 <div class="line">                CHECK(f32 == 1.0f);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga33400af9a849521942e8a6f1ce66512b">r64_t</a> f64 = 6.4;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(f64, 1.0) == 1.0);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(f64, 1.0) == 1.0);</div>
 <div class="line">                CHECK(f64 == 1.0);</div>
 </div><!-- fragment --> 
 </div>
@@ -1654,11 +1654,11 @@ Functions</h2></td></tr>
 <p>Equivalent to <code>(atom = with)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* void_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(void_pointer, &amp;<span class="keywordtype">boolean</span>) == &amp;<span class="keywordtype">boolean</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(void_pointer, &amp;<span class="keywordtype">boolean</span>) == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(void_pointer == &amp;<span class="keywordtype">boolean</span>);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
 <div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>* boolean_pointer = &amp;boolean;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a5617013b0de140ef1eeb778f3675b511">nkr::os::atomic::Assign</a>(boolean_pointer, <span class="keyword">nullptr</span>) == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ece30d096ccd756dae68493c61f5860">nkr::os::atomic::Assign</a>(boolean_pointer, <span class="keyword">nullptr</span>) == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(boolean_pointer == <span class="keyword">nullptr</span>);</div>
 </div><!-- fragment --> 
 </div>
@@ -2547,8 +2547,8 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a41976e43fb3b93d558c87466e4bcec53" name="a41976e43fb3b93d558c87466e4bcec53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41976e43fb3b93d558c87466e4bcec53">&#9670;&nbsp;</a></span>Exchange() <span class="overload">[1/8]</span></h2>
+<a id="acba09870ae8ffbc9798b8325fc1ee53d" name="acba09870ae8ffbc9798b8325fc1ee53d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba09870ae8ffbc9798b8325fc1ee53d">&#9670;&nbsp;</a></span>Exchange() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2565,7 +2565,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boolean_tr auto&#160;</td>
+          <td class="paramtype">to_boolean_tr auto&#160;</td>
           <td class="paramname"><em>with</em>&#160;</td>
         </tr>
         <tr>
@@ -2583,11 +2583,11 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a41976e43fb3b93d558c87466e4bcec53"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a></div><div class="ttdeci">boolean_tr auto Exchange(volatile boolean_tr auto &amp;atom, boolean_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom = with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:308</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_acba09870ae8ffbc9798b8325fc1ee53d"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a></div><div class="ttdeci">boolean_tr auto Exchange(volatile boolean_tr auto &amp;atom, to_boolean_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom = with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:308</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(<span class="keywordtype">boolean</span>, <span class="keyword">true</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
 </div><!-- fragment --> 
 </div>
@@ -2628,10 +2628,10 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(u8, 1) == 8);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(u8, 1) == 8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(s8, -1) == -8);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(s8, -1) == -8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -1);</div>
 </div><!-- fragment --> 
 </div>
@@ -2672,10 +2672,10 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">u16_t</a> u16 = 16;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(u16, 1) == 16);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(u16, 1) == 16);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u16) == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga9ae44971ee28f8a6e4b84d7f6b5466ef">s16_t</a> s16 = -16;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(s16, -1) == -16);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(s16, -1) == -16);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s16) == -1);</div>
 </div><!-- fragment --> 
 </div>
@@ -2716,10 +2716,10 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gad859103da019c24293b8635dd2389e07">u32_t</a> u32 = 32;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(u32, 1) == 32);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(u32, 1) == 32);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u32) == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga05fb83ae9ec3d1ef3818b9a07d399af5">s32_t</a> s32 = -32;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(s32, -1) == -32);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(s32, -1) == -32);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s32) == -1);</div>
 </div><!-- fragment --> 
 </div>
@@ -2760,10 +2760,10 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga03c2cbf35a6254c958cacd6c320d7df2">u64_t</a> u64 = 64;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(u64, 1) == 64);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(u64, 1) == 64);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u64) == 1);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga4310387e7196e1a6e98c65c70b36b1bb">s64_t</a> s64 = -64;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(s64, -1) == -64);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(s64, -1) == -64);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s64) == -1);</div>
 </div><!-- fragment --> 
 </div>
@@ -2804,7 +2804,7 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga174259c00f483468ce7c2194c0c5942e">r32_t</a> f32 = 3.2f;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(f32, -3.2f) == 3.2f);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(f32, -3.2f) == 3.2f);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f32) == -3.2f);</div>
 </div><!-- fragment --> 
 </div>
@@ -2845,7 +2845,7 @@ Functions</h2></td></tr>
 
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga33400af9a849521942e8a6f1ce66512b">r64_t</a> f64 = 6.4;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(f64, -6.4) == 6.4);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(f64, -6.4) == 6.4);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f64) == -6.4);</div>
 </div><!-- fragment --> 
 </div>
@@ -2887,11 +2887,11 @@ Functions</h2></td></tr>
 <p>Equivalent to <code>(original = atom, atom = with, original)</code> </p>
 <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* void_pointer = <span class="keyword">nullptr</span>;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(void_pointer, &amp;<span class="keywordtype">boolean</span>) == <span class="keyword">nullptr</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(void_pointer, &amp;<span class="keywordtype">boolean</span>) == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(void_pointer) == &amp;<span class="keywordtype">boolean</span>);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
 <div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>* boolean_pointer = &amp;boolean;</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a41976e43fb3b93d558c87466e4bcec53">nkr::os::atomic::Exchange</a>(boolean_pointer, <span class="keyword">nullptr</span>) == &amp;<span class="keywordtype">boolean</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#acba09870ae8ffbc9798b8325fc1ee53d">nkr::os::atomic::Exchange</a>(boolean_pointer, <span class="keyword">nullptr</span>) == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(boolean_pointer) == <span class="keyword">nullptr</span>);</div>
 </div><!-- fragment --> 
 </div>
@@ -2934,7 +2934,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ad55844c23016a82ed672de8911f0cb70">nkr::os::atomic::Exchange_Add</a>(u8, 1) == 8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 9);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_ad55844c23016a82ed672de8911f0cb70"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ad55844c23016a82ed672de8911f0cb70">nkr::os::atomic::Exchange_Add</a></div><div class="ttdeci">integer_8_tr auto Exchange_Add(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom += with, original) and (atom++)</div><div class="ttdef"><b>Definition:</b> os.inl:398</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_ad55844c23016a82ed672de8911f0cb70"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ad55844c23016a82ed672de8911f0cb70">nkr::os::atomic::Exchange_Add</a></div><div class="ttdeci">integer_8_tr auto Exchange_Add(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom += with, original) and (atom++)</div><div class="ttdef"><b>Definition:</b> os.inl:399</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ad55844c23016a82ed672de8911f0cb70">nkr::os::atomic::Exchange_Add</a>(s8, -1) == -8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -9);</div>
@@ -3237,7 +3237,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a3a11b33761c10b239185f869abf79148">nkr::os::atomic::Exchange_Subtract</a>(u8, 1) == 8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 7);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a3a11b33761c10b239185f869abf79148"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a3a11b33761c10b239185f869abf79148">nkr::os::atomic::Exchange_Subtract</a></div><div class="ttdeci">integer_8_tr auto Exchange_Subtract(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom -= with, original) and (atom--)</div><div class="ttdef"><b>Definition:</b> os.inl:468</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a3a11b33761c10b239185f869abf79148"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a3a11b33761c10b239185f869abf79148">nkr::os::atomic::Exchange_Subtract</a></div><div class="ttdeci">integer_8_tr auto Exchange_Subtract(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom -= with, original) and (atom--)</div><div class="ttdef"><b>Definition:</b> os.inl:469</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a3a11b33761c10b239185f869abf79148">nkr::os::atomic::Exchange_Subtract</a>(s8, -1) == -8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -7);</div>
@@ -3540,7 +3540,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#aaf1ec9dbfbc10f31d0f210edd6231668">nkr::os::atomic::Exchange_Multiply</a>(u8, 2) == 8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 16);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_aaf1ec9dbfbc10f31d0f210edd6231668"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#aaf1ec9dbfbc10f31d0f210edd6231668">nkr::os::atomic::Exchange_Multiply</a></div><div class="ttdeci">integer_8_tr auto Exchange_Multiply(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom *= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:538</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_aaf1ec9dbfbc10f31d0f210edd6231668"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#aaf1ec9dbfbc10f31d0f210edd6231668">nkr::os::atomic::Exchange_Multiply</a></div><div class="ttdeci">integer_8_tr auto Exchange_Multiply(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom *= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:539</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#aaf1ec9dbfbc10f31d0f210edd6231668">nkr::os::atomic::Exchange_Multiply</a>(s8, 2) == -8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -16);</div>
@@ -3799,7 +3799,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a61d6c247b4b7f862a2adb7a8686bf3de">nkr::os::atomic::Exchange_Divide</a>(u8, 2) == 8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 4);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a61d6c247b4b7f862a2adb7a8686bf3de"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a61d6c247b4b7f862a2adb7a8686bf3de">nkr::os::atomic::Exchange_Divide</a></div><div class="ttdeci">integer_8_tr auto Exchange_Divide(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom /= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:600</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a61d6c247b4b7f862a2adb7a8686bf3de"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a61d6c247b4b7f862a2adb7a8686bf3de">nkr::os::atomic::Exchange_Divide</a></div><div class="ttdeci">integer_8_tr auto Exchange_Divide(volatile integer_8_tr auto &amp;atom, to_integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom /= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:601</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a61d6c247b4b7f862a2adb7a8686bf3de">nkr::os::atomic::Exchange_Divide</a>(s8, 2) == -8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -4);</div>
@@ -4058,7 +4058,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a56bc5ea8a658bae143c75f608ed988bc">nkr::os::atomic::Exchange_Modulus</a>(u8, 3) == 8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 2);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a56bc5ea8a658bae143c75f608ed988bc"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a56bc5ea8a658bae143c75f608ed988bc">nkr::os::atomic::Exchange_Modulus</a></div><div class="ttdeci">integer_8_tr auto Exchange_Modulus(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom %= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:662</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a56bc5ea8a658bae143c75f608ed988bc"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a56bc5ea8a658bae143c75f608ed988bc">nkr::os::atomic::Exchange_Modulus</a></div><div class="ttdeci">integer_8_tr auto Exchange_Modulus(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom %= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:663</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a56bc5ea8a658bae143c75f608ed988bc">nkr::os::atomic::Exchange_Modulus</a>(s8, 3) == -8);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -2);</div>
@@ -4235,7 +4235,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 0x0F;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ae2cdbe72b0738c1f5c891e1febc7a696">nkr::os::atomic::Exchange_Or</a>(u8, 0xF0) == 0x0F);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 0xFF);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_ae2cdbe72b0738c1f5c891e1febc7a696"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ae2cdbe72b0738c1f5c891e1febc7a696">nkr::os::atomic::Exchange_Or</a></div><div class="ttdeci">integer_8_tr auto Exchange_Or(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom |= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:702</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_ae2cdbe72b0738c1f5c891e1febc7a696"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ae2cdbe72b0738c1f5c891e1febc7a696">nkr::os::atomic::Exchange_Or</a></div><div class="ttdeci">integer_8_tr auto Exchange_Or(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom |= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:703</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = 0x0F;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#ae2cdbe72b0738c1f5c891e1febc7a696">nkr::os::atomic::Exchange_Or</a>(s8, 0x70) == 0x0F);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == 0x7F);</div>
@@ -4412,7 +4412,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 0x0F;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8de954a88500eae2eda0603cfca245c8">nkr::os::atomic::Exchange_And</a>(u8, 0xF0) == 0x0F);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 0x0);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a8de954a88500eae2eda0603cfca245c8"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8de954a88500eae2eda0603cfca245c8">nkr::os::atomic::Exchange_And</a></div><div class="ttdeci">integer_8_tr auto Exchange_And(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom &amp;= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:738</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a8de954a88500eae2eda0603cfca245c8"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8de954a88500eae2eda0603cfca245c8">nkr::os::atomic::Exchange_And</a></div><div class="ttdeci">integer_8_tr auto Exchange_And(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom &amp;= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:739</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = 0x0F;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8de954a88500eae2eda0603cfca245c8">nkr::os::atomic::Exchange_And</a>(s8, 0x70) == 0x0F);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == 0x0);</div>
@@ -4589,7 +4589,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 0xFF;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ed312ec045227a6e5c2b3631735c39f">nkr::os::atomic::Exchange_Xor</a>(u8, 0x01) == 0xFF);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 0xFE);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a7ed312ec045227a6e5c2b3631735c39f"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ed312ec045227a6e5c2b3631735c39f">nkr::os::atomic::Exchange_Xor</a></div><div class="ttdeci">integer_8_tr auto Exchange_Xor(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom ^= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:774</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a7ed312ec045227a6e5c2b3631735c39f"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ed312ec045227a6e5c2b3631735c39f">nkr::os::atomic::Exchange_Xor</a></div><div class="ttdeci">integer_8_tr auto Exchange_Xor(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom ^= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:775</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = 0x7F;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a7ed312ec045227a6e5c2b3631735c39f">nkr::os::atomic::Exchange_Xor</a>(s8, 0x01) == 0x7F);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == 0x7E);</div>
@@ -4766,7 +4766,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 0x0F;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a4a75d47186cf795b370f507eac8348cf">nkr::os::atomic::Exchange_Left_Shift</a>(u8, 4) == 0x0F);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 0xF0);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a4a75d47186cf795b370f507eac8348cf"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a4a75d47186cf795b370f507eac8348cf">nkr::os::atomic::Exchange_Left_Shift</a></div><div class="ttdeci">integer_8_tr auto Exchange_Left_Shift(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom &lt;&lt;= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:810</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a4a75d47186cf795b370f507eac8348cf"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a4a75d47186cf795b370f507eac8348cf">nkr::os::atomic::Exchange_Left_Shift</a></div><div class="ttdeci">integer_8_tr auto Exchange_Left_Shift(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom &lt;&lt;= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:811</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = 0x07;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a4a75d47186cf795b370f507eac8348cf">nkr::os::atomic::Exchange_Left_Shift</a>(s8, 4) == 0x07);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == 0x70);</div>
@@ -4943,7 +4943,7 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 0xF0;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a05df20b66075a78144adcf48746488fe">nkr::os::atomic::Exchange_Right_Shift</a>(u8, 4) == 0xF0);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 0x0F);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a05df20b66075a78144adcf48746488fe"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a05df20b66075a78144adcf48746488fe">nkr::os::atomic::Exchange_Right_Shift</a></div><div class="ttdeci">integer_8_tr auto Exchange_Right_Shift(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom &gt;&gt;= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:850</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a05df20b66075a78144adcf48746488fe"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a05df20b66075a78144adcf48746488fe">nkr::os::atomic::Exchange_Right_Shift</a></div><div class="ttdeci">integer_8_tr auto Exchange_Right_Shift(volatile integer_8_tr auto &amp;atom, integer_tr auto with)</div><div class="ttdoc">Equivalent to (original = atom, atom &gt;&gt;= with, original)</div><div class="ttdef"><b>Definition:</b> os.inl:851</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = 0x70;</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a05df20b66075a78144adcf48746488fe">nkr::os::atomic::Exchange_Right_Shift</a>(s8, 4) == 0x70);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == 0x07);</div>
@@ -5082,8 +5082,8 @@ Functions</h2></td></tr>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a96db557634af13e3991fdac76608e220" name="a96db557634af13e3991fdac76608e220"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96db557634af13e3991fdac76608e220">&#9670;&nbsp;</a></span>Exchange_If_Equals() <span class="overload">[1/8]</span></h2>
+<a id="a727c09a6a592913071a912262459234d" name="a727c09a6a592913071a912262459234d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a727c09a6a592913071a912262459234d">&#9670;&nbsp;</a></span>Exchange_If_Equals() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5106,7 +5106,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">boolean_tr auto&#160;</td>
+          <td class="paramtype">to_boolean_tr auto&#160;</td>
           <td class="paramname"><em>with</em>&#160;</td>
         </tr>
         <tr>
@@ -5126,32 +5126,32 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
 <div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> snapshot = <span class="keyword">false</span>;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">true</span>);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">true</span>);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, !snapshot));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, !snapshot));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">false</span>);</div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a96db557634af13e3991fdac76608e220"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a></div><div class="ttdeci">boolean_tr auto Exchange_If_Equals(volatile boolean_tr auto &amp;atom, boolean_tr auto &amp;snapshot, boolean_tr auto with)</div><div class="ttdoc">Equivalent to (atom == snapshot ? (atom = with, true) : (snapshot = atom, false))</div><div class="ttdef"><b>Definition:</b> os.inl:890</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1atomic_html_a727c09a6a592913071a912262459234d"><div class="ttname"><a href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a></div><div class="ttdeci">boolean_tr auto Exchange_If_Equals(volatile boolean_tr auto &amp;atom, boolean_tr auto &amp;snapshot, to_boolean_tr auto with)</div><div class="ttdoc">Equivalent to (atom == snapshot ? (atom = with, true) : (snapshot = atom, false))</div><div class="ttdef"><b>Definition:</b> os.inl:891</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> <span class="keywordtype">boolean</span> = <span class="keyword">true</span>;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a> snapshot = <span class="keyword">false</span>;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">true</span>);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, <span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">true</span>);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, !snapshot));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(<span class="keywordtype">boolean</span>, snapshot, !snapshot));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">false</span>);</div>
 </div><!-- fragment --> 
@@ -5201,31 +5201,31 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> u8 = 8;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga0a85274f828c947323ae9270ccd7cd4b">u8_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u8, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u8, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 8);</div>
 <div class="line">                CHECK(snapshot == 8);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u8, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u8, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 0);</div>
 <div class="line">                CHECK(snapshot == 8);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u8, snapshot, snapshot + 8));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u8, snapshot, snapshot + 8));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u8) == 8);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> s8 = -8;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gab61fa1cb60edd576a0378ea33047f781">s8_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s8, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s8, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -8);</div>
 <div class="line">                CHECK(snapshot == -8);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s8, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s8, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == 0);</div>
 <div class="line">                CHECK(snapshot == -8);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s8, snapshot, snapshot + -8));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s8, snapshot, snapshot + -8));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s8) == -8);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> 
@@ -5275,31 +5275,31 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">u16_t</a> u16 = 16;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">u16_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u16, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u16, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u16) == 16);</div>
 <div class="line">                CHECK(snapshot == 16);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u16, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u16, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u16) == 0);</div>
 <div class="line">                CHECK(snapshot == 16);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u16);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u16, snapshot, snapshot + 16));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u16, snapshot, snapshot + 16));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u16) == 16);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga9ae44971ee28f8a6e4b84d7f6b5466ef">s16_t</a> s16 = -16;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga9ae44971ee28f8a6e4b84d7f6b5466ef">s16_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s16, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s16, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s16) == -16);</div>
 <div class="line">                CHECK(snapshot == -16);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s16, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s16, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s16) == 0);</div>
 <div class="line">                CHECK(snapshot == -16);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s16);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s16, snapshot, snapshot + -16));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s16, snapshot, snapshot + -16));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s16) == -16);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> 
@@ -5349,31 +5349,31 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gad859103da019c24293b8635dd2389e07">u32_t</a> u32 = 32;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gad859103da019c24293b8635dd2389e07">u32_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u32, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u32, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u32) == 32);</div>
 <div class="line">                CHECK(snapshot == 32);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u32, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u32, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u32) == 0);</div>
 <div class="line">                CHECK(snapshot == 32);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u32);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u32, snapshot, snapshot + 32));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u32, snapshot, snapshot + 32));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u32) == 32);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga05fb83ae9ec3d1ef3818b9a07d399af5">s32_t</a> s32 = -32;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga05fb83ae9ec3d1ef3818b9a07d399af5">s32_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s32, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s32, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s32) == -32);</div>
 <div class="line">                CHECK(snapshot == -32);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s32, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s32, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s32) == 0);</div>
 <div class="line">                CHECK(snapshot == -32);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s32);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s32, snapshot, snapshot + -32));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s32, snapshot, snapshot + -32));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s32) == -32);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> 
@@ -5423,31 +5423,31 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga03c2cbf35a6254c958cacd6c320d7df2">u64_t</a> u64 = 64;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga03c2cbf35a6254c958cacd6c320d7df2">u64_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u64, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u64, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u64) == 64);</div>
 <div class="line">                CHECK(snapshot == 64);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u64, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u64, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u64) == 0);</div>
 <div class="line">                CHECK(snapshot == 64);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u64);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(u64, snapshot, snapshot + 64));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(u64, snapshot, snapshot + 64));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(u64) == 64);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga4310387e7196e1a6e98c65c70b36b1bb">s64_t</a> s64 = -64;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#ga4310387e7196e1a6e98c65c70b36b1bb">s64_t</a> snapshot = 0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s64, snapshot, 0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s64, snapshot, 0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s64) == -64);</div>
 <div class="line">                CHECK(snapshot == -64);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s64, snapshot, 0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s64, snapshot, 0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s64) == 0);</div>
 <div class="line">                CHECK(snapshot == -64);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s64);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(s64, snapshot, snapshot + -64));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(s64, snapshot, snapshot + -64));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(s64) == -64);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> 
@@ -5497,16 +5497,16 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga174259c00f483468ce7c2194c0c5942e">r32_t</a> f32 = 3.2f;</div>
 <div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga174259c00f483468ce7c2194c0c5942e">r32_t</a> snapshot = 0.0f;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(f32, snapshot, 0.0f) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(f32, snapshot, 0.0f) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f32) == 3.2f);</div>
 <div class="line">                CHECK(snapshot == 3.2f);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(f32, snapshot, 0.0f) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(f32, snapshot, 0.0f) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f32) == 0.0f);</div>
 <div class="line">                CHECK(snapshot == 3.2f);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f32);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(f32, snapshot, snapshot + 3.2f));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(f32, snapshot, snapshot + 3.2f));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f32) == 3.2f);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> 
@@ -5556,16 +5556,16 @@ Functions</h2></td></tr>
 <div class="fragment"><div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga33400af9a849521942e8a6f1ce66512b">r64_t</a> f64 = 6.4;</div>
 <div class="line">                <a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga33400af9a849521942e8a6f1ce66512b">r64_t</a> snapshot = 0.0;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(f64, snapshot, 0.0) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(f64, snapshot, 0.0) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f64) == 6.4);</div>
 <div class="line">                CHECK(snapshot == 6.4);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(f64, snapshot, 0.0) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(f64, snapshot, 0.0) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f64) == 0.0);</div>
 <div class="line">                CHECK(snapshot == 6.4);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f64);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(f64, snapshot, snapshot + 6.4));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(f64, snapshot, snapshot + 6.4));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(f64) == 6.4);</div>
 <div class="line">                CHECK(snapshot == 0);</div>
 </div><!-- fragment --> 
@@ -5616,32 +5616,32 @@ Functions</h2></td></tr>
 <div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* void_pointer = &amp;boolean;</div>
 <div class="line">                <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = <span class="keyword">nullptr</span>;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(void_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(void_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(void_pointer) == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(snapshot == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(void_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(void_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(void_pointer) == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(snapshot == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(void_pointer);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(void_pointer, snapshot, &amp;<span class="keywordtype">boolean</span>));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(void_pointer, snapshot, &amp;<span class="keywordtype">boolean</span>));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(void_pointer) == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">nullptr</span>);</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> boolean;</div>
 <div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>* boolean_pointer = &amp;boolean;</div>
 <div class="line">                <a class="code hl_class" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a>* snapshot = <span class="keyword">nullptr</span>;</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(boolean_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(boolean_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(boolean_pointer) == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(snapshot == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(boolean_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(boolean_pointer, snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(boolean_pointer) == <span class="keyword">nullptr</span>);</div>
 <div class="line">                CHECK(snapshot == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line"> </div>
 <div class="line">                snapshot = <a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(boolean_pointer);</div>
-<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a96db557634af13e3991fdac76608e220">nkr::os::atomic::Exchange_If_Equals</a>(boolean_pointer, snapshot, &amp;<span class="keywordtype">boolean</span>));</div>
+<div class="line">                <span class="keywordflow">while</span> (!<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a727c09a6a592913071a912262459234d">nkr::os::atomic::Exchange_If_Equals</a>(boolean_pointer, snapshot, &amp;<span class="keywordtype">boolean</span>));</div>
 <div class="line">                CHECK(<a class="code hl_function" href="../../d1/db5/namespacenkr_1_1os_1_1atomic.html#a8a68e1923baa1a9bd3926a8b1f612e74">nkr::os::atomic::Access</a>(boolean_pointer) == &amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(snapshot == <span class="keyword">nullptr</span>);</div>
 </div><!-- fragment --> 

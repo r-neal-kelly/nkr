@@ -21,13 +21,14 @@ namespace nkr { namespace $atomic_t {
 
     /// @nosubgrouping
     /// @copydoc _ec77c539_2ae5_4aa5_a156_d961c5ac098d
-    class bool_sp
+    template <boolean_tr boolean_p>
+    class boolean_sp
     {
     public:
         /// @name aliases
         /// @copydoc _b9aeddda_98ca_4f83_8d24_fb72a3337515
         /// @{
-        using value_t   = bool_t;   ///< @copydoc _d6588266_8070_4fb4_ba5b_12c444041857
+        using value_t   = boolean_p;    ///< @copydoc _d6588266_8070_4fb4_ba5b_12c444041857
         /// @}
 
     public:
@@ -48,25 +49,26 @@ namespace nkr { namespace $atomic_t {
         /// @name objects
         /// @copydoc _1053c39e_78e4_4501_bdd5_fa790bfe8bd5
         /// @{
-        bool_sp();                                      ///< @copydoc _95db9ad8_4d39_4de5_bc38_28d054451654
-        bool_sp(value_t value);                         ///< @copydoc _79178fc7_46e8_412f_b875_222389e8c699
-        bool_sp(const bool_sp& other);                  ///< @copydoc _f13e81f0_5ced_4185_8bfb_6a17811bf402
-        bool_sp(bool_sp&& other) noexcept;              ///< @copydoc _2051d33c_31c9_402b_b7b0_30ed311bae55
-        bool_sp& operator =(const bool_sp& other);      ///< @copydoc _754a3b96_c816_4875_b1c5_bd94f74975fe
-        bool_sp& operator =(bool_sp&& other) noexcept;  ///< @copydoc _27b572bf_b851_4bbb_bf27_5be01e5164d0
-        ~bool_sp();                                     ///< @copydoc _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
+        boolean_sp();                                           ///< @copydoc _95db9ad8_4d39_4de5_bc38_28d054451654
+        boolean_sp(to_boolean_tr auto value);                   ///< @copydoc _79178fc7_46e8_412f_b875_222389e8c699
+        boolean_sp(const boolean_sp& other);                    ///< @copydoc _f13e81f0_5ced_4185_8bfb_6a17811bf402
+        boolean_sp(boolean_sp&& other) noexcept;                ///< @copydoc _2051d33c_31c9_402b_b7b0_30ed311bae55
+        boolean_sp& operator =(to_boolean_tr auto value);       ///< @copydoc _aba7413a_9361_4850_b89f_29b4df62a2a4
+        boolean_sp& operator =(const boolean_sp& other);        ///< @copydoc _754a3b96_c816_4875_b1c5_bd94f74975fe
+        boolean_sp& operator =(boolean_sp&& other) noexcept;    ///< @copydoc _27b572bf_b851_4bbb_bf27_5be01e5164d0
+        ~boolean_sp();                                          ///< @copydoc _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
         /// @}
 
     public:
         /// @name methods
         /// @copydoc _f8359bc4_053e_45a2_92c0_8cc2aec98f3c
         /// @{
-        value_t Access() const;                                         ///< @copydoc _4dac77d5_7b0a_47be_8b54_55194f16d92c
+        value_t Access() const;                                                     ///< @copydoc _4dac77d5_7b0a_47be_8b54_55194f16d92c
 
-        value_t Assign(value_t value);                                  ///< @copydoc _21eb4382_88d5_4c3d_8632_84e7a781884c
+        value_t Assign(to_boolean_tr auto value);                                   ///< @copydoc _21eb4382_88d5_4c3d_8632_84e7a781884c
 
-        value_t Exchange(value_t value);                                ///< @copydoc _36a45c7f_a017_48c8_9b38_80f41441dfd6
-        bool_t  Exchange_If_Equals(value_t& snapshot, value_t value);   ///< @copydoc _f4834de8_17dd_46c2_851e_90cf412a7513
+        value_t Exchange(to_boolean_tr auto value);                                 ///< @copydoc _36a45c7f_a017_48c8_9b38_80f41441dfd6
+        bool_t  Exchange_If_Equals(value_t& snapshot, to_boolean_tr auto value);    ///< @copydoc _f4834de8_17dd_46c2_851e_90cf412a7513
         /// @}
 
     public:
@@ -80,17 +82,15 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _0e407320_061a_4d4b_ae76_397896faa849
         /// @{
-        value_t operator ()() const;        ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
-
-        value_t operator =(value_t value);  ///< @copydoc _0e3f005e_ea7e_4114_8c29_5c23bbc840c2
+        value_t operator ()() const;    ///< @copydoc _9c15e3f8_92db_4474_ab7a_fb1486fc3800
         /// @}
 
     public:
         /// @name none_t interface
         /// @copydoc _c2ec5f5b_f117_4208_bad6_a0ac7700c0e3
         /// @{
-        bool_sp(none_t);                    ///< @copydoc _0de1f181_bf7f_4975_9c6d_076c1fedce94
-        bool_sp& operator =(none_t);        ///< @copydoc _3429943c_402f_43cb_936a_175319131f3f
+        boolean_sp(none_t);                 ///< @copydoc _0de1f181_bf7f_4975_9c6d_076c1fedce94
+        boolean_sp& operator =(none_t);     ///< @copydoc _3429943c_402f_43cb_936a_175319131f3f
 
         bool_t  operator ==(none_t) const;  ///< @copydoc _36cb7982_c38b_4058_8c15_3e142e7d2653
         bool_t  operator !=(none_t) const;  ///< @copydoc _2ee275c0_12a7_400c_ba80_08d8ef10d8db
@@ -525,30 +525,30 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
-    template <>
-    class atomic_t<bool_t> :
-        public $atomic_t::bool_sp
+    template <boolean_tr boolean_p>
+    class atomic_t<boolean_p> :
+        public $atomic_t::boolean_sp<boolean_p>
     {
     public:
         /// @name inherited objects
         /// @{
-        using $atomic_t::bool_sp::bool_sp;
-        using $atomic_t::bool_sp::operator =;
+        using $atomic_t::boolean_sp<boolean_p>::boolean_sp;
+        using $atomic_t::boolean_sp<boolean_p>::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _88ffda8f_e3ad_4a54_8696_c38293637ef1
         /// @{
-        atomic_t(const $atomic_t::bool_sp& other) :
-            $atomic_t::bool_sp(other)
+        atomic_t(const $atomic_t::boolean_sp<boolean_p>& other) :
+            $atomic_t::boolean_sp<boolean_p>(other)
         {
-        }                                               ///< @copydoc _d8481db3_950b_4428_8ed1_a92fbc98ed28
+        }                                                               ///< @copydoc _d8481db3_950b_4428_8ed1_a92fbc98ed28
 
-        atomic_t($atomic_t::bool_sp&& other) noexcept :
-            $atomic_t::bool_sp(std::move(other))
+        atomic_t($atomic_t::boolean_sp<boolean_p>&& other) noexcept :
+            $atomic_t::boolean_sp<boolean_p>(std::move(other))
         {
-        }                                               ///< @copydoc _436e85ad_5009_4558_8194_72ca193f6199
+        }                                                               ///< @copydoc _436e85ad_5009_4558_8194_72ca193f6199
         /// @}
     };
 

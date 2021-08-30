@@ -13,16 +13,21 @@ namespace nkr {
     /// @{
     template <typename type_p>
     concept any_tr =
-        true;                                   ///< @copydoc _2a77c3a0_ab8b_448e_a181_72b8efb266bf
+        true;                                       ///< @copydoc _2a77c3a0_ab8b_448e_a181_72b8efb266bf
 
     template <typename type_p>
     concept type_tr =
-        sizeof(type_p) > 0;                     ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
+        sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
 
     template <typename type_p>
     concept boolean_tr =
         std::same_as<type_p, bool_t> ||
-        std::same_as<type_p, std_bool_t>;       /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+        std::same_as<type_p, std_bool_t>;           /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+
+    template <typename type_p>
+    concept to_boolean_tr =
+        std::convertible_to<type_p, bool_t> ||
+        std::convertible_to<type_p, std_bool_t>;    ///< @copydoc _2c84f547_56c5_48a6_b6eb_3c0244998edc
     /// @}
 
     /// @addtogroup _222d304c_42db_4988_8611_c8aedc33c6cc

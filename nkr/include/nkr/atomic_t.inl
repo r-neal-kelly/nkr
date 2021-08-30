@@ -9,29 +9,42 @@
 
 namespace nkr { namespace $atomic_t {
 
-    inline typename const bool_sp::value_t  bool_sp::DEFAULT_VALUE  = value_t();
+    template <boolean_tr boolean_p>
+    inline typename const boolean_sp<boolean_p>::value_t    boolean_sp<boolean_p>::DEFAULT_VALUE    = value_t();
 
-    inline bool_sp::bool_sp() :
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::boolean_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    inline bool_sp::bool_sp(value_t value) :
-        value(value)
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::boolean_sp(to_boolean_tr auto value) :
+        value(static_cast<value_t>(value))
     {
     }
 
-    inline bool_sp::bool_sp(const bool_sp& other) :
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::boolean_sp(const boolean_sp& other) :
         value(other.Access())
     {
     }
 
-    inline bool_sp::bool_sp(bool_sp&& other) noexcept :
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::boolean_sp(boolean_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    inline bool_sp& bool_sp::operator =(const bool_sp& other)
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>& boolean_sp<boolean_p>::operator =(to_boolean_tr auto value)
+    {
+        Assign(value);
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>& boolean_sp<boolean_p>::operator =(const boolean_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -39,7 +52,8 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    inline bool_sp& bool_sp::operator =(bool_sp&& other) noexcept
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>& boolean_sp<boolean_p>::operator =(boolean_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
             Assign(other.Exchange(DEFAULT_VALUE));
@@ -47,63 +61,69 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    inline bool_sp::~bool_sp()
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::~boolean_sp()
     {
         Assign(DEFAULT_VALUE);
     }
 
-    inline typename bool_sp::value_t bool_sp::Access() const
+    template <boolean_tr boolean_p>
+    inline typename boolean_sp<boolean_p>::value_t boolean_sp<boolean_p>::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
-    inline typename bool_sp::value_t bool_sp::Assign(value_t value)
+    template <boolean_tr boolean_p>
+    inline typename boolean_sp<boolean_p>::value_t boolean_sp<boolean_p>::Assign(to_boolean_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    inline typename bool_sp::value_t bool_sp::Exchange(value_t value)
+    template <boolean_tr boolean_p>
+    inline typename boolean_sp<boolean_p>::value_t boolean_sp<boolean_p>::Exchange(to_boolean_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    inline bool_t bool_sp::Exchange_If_Equals(value_t& snapshot, value_t value)
+    template <boolean_tr boolean_p>
+    inline bool_t boolean_sp<boolean_p>::Exchange_If_Equals(value_t& snapshot, to_boolean_tr auto value)
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
-    inline bool_sp::operator value_t() const
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::operator value_t() const
     {
         return Access();
     }
 
-    inline typename bool_sp::value_t bool_sp::operator ()() const
+    template <boolean_tr boolean_p>
+    inline typename boolean_sp<boolean_p>::value_t boolean_sp<boolean_p>::operator ()() const
     {
         return Access();
     }
 
-    inline typename bool_sp::value_t bool_sp::operator =(value_t value)
-    {
-        return Assign(value);
-    }
-
-    inline bool_sp::bool_sp(none_t) :
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>::boolean_sp(none_t) :
         value(DEFAULT_VALUE)
     {
     }
 
-    inline bool_sp& bool_sp::operator =(none_t)
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>& boolean_sp<boolean_p>::operator =(none_t)
     {
         Assign(DEFAULT_VALUE);
         return *this;
     }
 
-    inline bool_t bool_sp::operator ==(none_t) const
+    template <boolean_tr boolean_p>
+    inline bool_t boolean_sp<boolean_p>::operator ==(none_t) const
     {
         return static_cast<bool_t>(Access()) == false;
     }
 
-    inline bool_t bool_sp::operator !=(none_t) const
+    template <boolean_tr boolean_p>
+    inline bool_t boolean_sp<boolean_p>::operator !=(none_t) const
     {
         return !operator ==(none_t());
     }

@@ -7,6 +7,7 @@ var concepts =
       [ "any_tr", "d5/db5/conceptnkr_1_1any__tr.html", null ],
       [ "type_tr", "d1/dbd/conceptnkr_1_1type__tr.html", null ],
       [ "boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
+      [ "to_boolean_tr", "d3/d7f/conceptnkr_1_1to__boolean__tr.html", null ],
       [ "integer_tr", "d8/df1/conceptnkr_1_1integer__tr.html", null ],
       [ "integer_unsigned_tr", "d1/d21/conceptnkr_1_1integer__unsigned__tr.html", null ],
       [ "integer_signed_tr", "dd/d57/conceptnkr_1_1integer__signed__tr.html", null ],

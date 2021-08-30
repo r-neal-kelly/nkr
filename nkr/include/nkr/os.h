@@ -71,7 +71,7 @@ namespace nkr { namespace os { namespace atomic {
     /// @name Assign
     /// @copydoc _d42247f7_a7b1_442f_beef_c88857ee5682
     /// @{
-    boolean_tr auto         Assign(volatile boolean_tr auto& atom, boolean_tr auto with);               ///< @copydoc _645a3b7d_7d4e_47c4_a1a7_c06bc5778bb4
+    boolean_tr auto         Assign(volatile boolean_tr auto& atom, to_boolean_tr auto with);            ///< @copydoc _645a3b7d_7d4e_47c4_a1a7_c06bc5778bb4
     integer_tr auto         Assign(volatile integer_tr auto& atom, to_integer_tr auto with);            ///< @copydoc _6f92a7bd_b994_40e0_9602_4f8e9d4cb33c
     real_tr auto            Assign(volatile real_tr auto& atom, to_real_tr auto with);                  ///< @copydoc _58358f73_b528_40f6_afea_c92e99ceacf5
     pointer_tr auto         Assign(volatile pointer_tr auto& atom, pointer_tr auto with);               ///< @copydoc _5be6c133_51a1_4505_9817_7ad90111f2c5
@@ -106,7 +106,7 @@ namespace nkr { namespace os { namespace atomic {
     /// @name Exchange
     /// @copydoc _73d8454a_28bc_4509_b695_6bd373d375f2
     /// @{
-    boolean_tr auto         Exchange(volatile boolean_tr auto& atom, boolean_tr auto with);                                                 ///< @copydoc _009a1021_3a6f_4648_a80f_9522b995e3fb
+    boolean_tr auto         Exchange(volatile boolean_tr auto& atom, to_boolean_tr auto with);                                              ///< @copydoc _009a1021_3a6f_4648_a80f_9522b995e3fb
     integer_8_tr auto       Exchange(volatile integer_8_tr auto& atom, to_integer_tr auto with);                                            ///< @copydoc _2b361fda_4d67_4814_bc34_18174ce62931
     integer_16_tr auto      Exchange(volatile integer_16_tr auto& atom, to_integer_tr auto with);                                           ///< @copydoc _d45e6db8_de88_4978_ba48_0ae8426c5e2e
     integer_32_tr auto      Exchange(volatile integer_32_tr auto& atom, to_integer_tr auto with);                                           ///< @copydoc _f5f5a380_a53e_4d06_9616_03e50cac0eb9
@@ -175,7 +175,7 @@ namespace nkr { namespace os { namespace atomic {
     integer_32_tr auto      Exchange_Right_Shift(volatile integer_32_tr auto& atom, integer_tr auto with);                                  ///< @copydoc _d4f5dc80_6146_4d2f_a145_eb4b46c2bf9c
     integer_64_tr auto      Exchange_Right_Shift(volatile integer_64_tr auto& atom, integer_tr auto with);                                  ///< @copydoc _629b3d0b_4519_46f4_83c8_7b8512e75580
 
-    boolean_tr auto         Exchange_If_Equals(volatile boolean_tr auto& atom, boolean_tr auto& snapshot, boolean_tr auto with);            ///< @copydoc _94d5bd96_1eac_4fc5_b933_46e1ad384e3e
+    boolean_tr auto         Exchange_If_Equals(volatile boolean_tr auto& atom, boolean_tr auto& snapshot, to_boolean_tr auto with);         ///< @copydoc _94d5bd96_1eac_4fc5_b933_46e1ad384e3e
     boolean_tr auto         Exchange_If_Equals(volatile integer_8_tr auto& atom, integer_8_tr auto& snapshot, to_integer_tr auto with);     ///< @copydoc _a7202b5d_807f_48f5_bd33_eda99d40bed7
     boolean_tr auto         Exchange_If_Equals(volatile integer_16_tr auto& atom, integer_16_tr auto& snapshot, to_integer_tr auto with);   ///< @copydoc _3ac8b80b_0d2b_46e2_9800_b14383eeb9a6
     boolean_tr auto         Exchange_If_Equals(volatile integer_32_tr auto& atom, integer_32_tr auto& snapshot, to_integer_tr auto with);   ///< @copydoc _53d6f485_5987_4ecf_9422_92912eec2709
