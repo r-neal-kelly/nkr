@@ -172,7 +172,7 @@ Inheritance diagram for nkr::$maybe_t::$built_in_sp::any_sp&lt; any_p &gt;:</div
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename any_p&gt;<br />
 class nkr::$maybe_t::$built_in_sp::any_sp&lt; any_p &gt;</div><p >The default <a class="el" href="../../d3/dd5/classnkr_1_1maybe__t.html" title="Wraps a type whose object may have a value.">nkr::maybe_t</a> specialization for built-in types. </p>
-<p >This works with <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> and integers. Floating point numbers and pointers each have their own specialization of this template. </p>
+<p >This works with <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b" title="Relegated to the std namespace in favor of nkr::bool_t.">nkr::std_bool_t</a> and integers. Real numbers and pointers each have their own specialization of this template. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a8d021f353d8f4ce6129a010e60603224" name="a8d021f353d8f4ce6129a010e60603224"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8d021f353d8f4ce6129a010e60603224">&#9670;&nbsp;</a></span>value_t</h2>
@@ -225,8 +225,8 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                maybe_t&lt;c32_t&gt; character;</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f64_t&gt; floating_point;</div>
-<div class="line">                CHECK(floating_point == 0.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real;</div>
+<div class="line">                CHECK(real == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer;</div>
 <div class="line">                CHECK(void_pointer == <span class="keyword">nullptr</span>);</div>
@@ -269,8 +269,8 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                maybe_t&lt;c32_t&gt; character(<span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point(1.0);</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real(1.0);</div>
+<div class="line">                CHECK(real == 1.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer(&amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                CHECK(void_pointer == &amp;<span class="keywordtype">boolean</span>);</div>
@@ -319,10 +319,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(other_character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; other_floating_point(1.0);</div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point(other_floating_point);</div>
-<div class="line">                CHECK(other_floating_point == 1.0);</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; other_real(1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real(other_real);</div>
+<div class="line">                CHECK(other_real == 1.0);</div>
+<div class="line">                CHECK(real == 1.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; other_void_pointer(&amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer(other_void_pointer);</div>
@@ -373,10 +373,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(other_character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; other_floating_point(1.0);</div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point(std::move(other_floating_point));</div>
-<div class="line">                CHECK(other_floating_point == 0.0);</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; other_real(1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real(std::move(other_real));</div>
+<div class="line">                CHECK(other_real == 0.0);</div>
+<div class="line">                CHECK(real == 1.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; other_void_pointer(&amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer(std::move(other_void_pointer));</div>
@@ -420,15 +420,15 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                character.~maybe_t&lt;<a class="code hl_typedef" href="../../de/d6d/group____17e74a8d__e977__4d08__a090__f4bb1bcf7673.html#ga8764e38c5ead4b335b09c613075b9810">c32_t</a>&gt;();</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point(1.0);</div>
-<div class="line">                floating_point.~maybe_t&lt;<a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga5491778ed187401db45932ec69e69ae7">f32_t</a>&gt;();</div>
-<div class="line">                CHECK(floating_point == 0.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real(1.0);</div>
+<div class="line">                real.~maybe_t&lt;<a class="code hl_typedef" href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">real_t</a>&gt;();</div>
+<div class="line">                CHECK(real == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer(&amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                void_pointer.~maybe_t&lt;<a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt;();</div>
 <div class="line">                CHECK(void_pointer == <span class="keyword">nullptr</span>);</div>
 <div class="ttc" id="agroup____17e74a8d__e977__4d08__a090__f4bb1bcf7673_html_ga8764e38c5ead4b335b09c613075b9810"><div class="ttname"><a href="../../de/d6d/group____17e74a8d__e977__4d08__a090__f4bb1bcf7673.html#ga8764e38c5ead4b335b09c613075b9810">nkr::c32_t</a></div><div class="ttdeci">char32_t c32_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:61</div></div>
-<div class="ttc" id="agroup____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af_html_ga5491778ed187401db45932ec69e69ae7"><div class="ttname"><a href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga5491778ed187401db45932ec69e69ae7">nkr::f32_t</a></div><div class="ttdeci">float f32_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:66</div></div>
+<div class="ttc" id="agroup____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af_html_ga13fd570a4221f5e5e4d536d101b91779"><div class="ttname"><a href="../../db/d32/group____d3bf5147__2b5f__4bd4__bf99__76cf5b9932af.html#ga13fd570a4221f5e5e4d536d101b91779">nkr::real_t</a></div><div class="ttdeci">r64_t real_t</div><div class="ttdoc">Matches the nkr::word_t of the machine by selecting r32_t for 32-bit or r64_t for 64-bit.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:69</div></div>
 <div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:79</div></div>
 <div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
 </div><!-- fragment --> 
@@ -477,10 +477,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                character = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
-<div class="line">                floating_point = 0.0;</div>
-<div class="line">                CHECK(floating_point == 0.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real == 1.0);</div>
+<div class="line">                real = 0.0;</div>
+<div class="line">                CHECK(real == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer == &amp;<span class="keywordtype">boolean</span>);</div>
@@ -531,10 +531,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(other_character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; other_floating_point(1.0);</div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = other_floating_point;</div>
-<div class="line">                CHECK(other_floating_point == 1.0);</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; other_real(1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = other_real;</div>
+<div class="line">                CHECK(other_real == 1.0);</div>
+<div class="line">                CHECK(real == 1.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; other_void_pointer(&amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = other_void_pointer;</div>
@@ -585,10 +585,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(other_character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; other_floating_point(1.0);</div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = std::move(other_floating_point);</div>
-<div class="line">                CHECK(other_floating_point == 0.0);</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; other_real(1.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = std::move(other_real);</div>
+<div class="line">                CHECK(other_real == 0.0);</div>
+<div class="line">                CHECK(real == 1.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; other_void_pointer(&amp;<span class="keywordtype">boolean</span>);</div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = std::move(other_void_pointer);</div>
@@ -645,14 +645,14 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(character) == <span class="keyword">false</span>);</div>
 <div class="line">                CHECK(!character == <span class="keyword">true</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(floating_point) == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(!floating_point == <span class="keyword">false</span>);</div>
-<div class="line">                floating_point = 0.0;</div>
-<div class="line">                CHECK(floating_point == 0.0);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(floating_point) == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(!floating_point == <span class="keyword">true</span>);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real == 1.0);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(real) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(!real == <span class="keyword">false</span>);</div>
+<div class="line">                real = 0.0;</div>
+<div class="line">                CHECK(real == 0.0);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(real) == <span class="keyword">false</span>);</div>
+<div class="line">                CHECK(!real == <span class="keyword">true</span>);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer == &amp;<span class="keywordtype">boolean</span>);</div>
@@ -702,10 +702,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(character) == <span class="keyword">true</span>);</div>
 <div class="line">                CHECK(!character == <span class="keyword">false</span>);</div>
 <div class="line"> </div>
-<div class="line">                <span class="keyword">const</span> maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(floating_point) == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(!floating_point == <span class="keyword">false</span>);</div>
+<div class="line">                <span class="keyword">const</span> maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real == 1.0);</div>
+<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(real) == <span class="keyword">true</span>);</div>
+<div class="line">                CHECK(!real == <span class="keyword">false</span>);</div>
 <div class="line"> </div>
 <div class="line">                <span class="keyword">const</span> maybe_t&lt;const void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer == &amp;<span class="keywordtype">boolean</span>);</div>
@@ -752,10 +752,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                character() = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line">                CHECK(character() == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point() == 1.0);</div>
-<div class="line">                floating_point() = 0.0;</div>
-<div class="line">                CHECK(floating_point() == 0.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real() == 1.0);</div>
+<div class="line">                real() = 0.0;</div>
+<div class="line">                CHECK(real() == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer() == &amp;<span class="keywordtype">boolean</span>);</div>
@@ -796,8 +796,8 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                <span class="keyword">const</span> maybe_t&lt;c32_t&gt; character = <span class="charliteral">&#39;a&#39;</span>;</div>
 <div class="line">                CHECK(character() == <span class="charliteral">&#39;a&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                <span class="keyword">const</span> maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point() == 1.0);</div>
+<div class="line">                <span class="keyword">const</span> maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real() == 1.0);</div>
 <div class="line"> </div>
 <div class="line">                <span class="keyword">const</span> maybe_t&lt;const void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer() == &amp;<span class="keywordtype">boolean</span>);</div>
@@ -850,12 +850,12 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                *&amp;character = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point;</div>
-<div class="line">                CHECK(&amp;floating_point == &amp;floating_point());</div>
-<div class="line">                *&amp;floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
-<div class="line">                *&amp;floating_point = 0.0;</div>
-<div class="line">                CHECK(floating_point == 0.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real;</div>
+<div class="line">                CHECK(&amp;real == &amp;real());</div>
+<div class="line">                *&amp;real = 1.0;</div>
+<div class="line">                CHECK(real == 1.0);</div>
+<div class="line">                *&amp;real = 0.0;</div>
+<div class="line">                CHECK(real == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer;</div>
 <div class="line">                CHECK(&amp;void_pointer == &amp;void_pointer());</div>
@@ -913,12 +913,12 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                *&amp;character = <span class="charliteral">&#39;\0&#39;</span>;</div>
 <div class="line">                CHECK(character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point;</div>
-<div class="line">                CHECK(&amp;floating_point == &amp;floating_point());</div>
-<div class="line">                *&amp;floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point == 1.0);</div>
-<div class="line">                *&amp;floating_point = 0.0;</div>
-<div class="line">                CHECK(floating_point == 0.0);</div>
+<div class="line">                maybe_t&lt;real_t&gt; real;</div>
+<div class="line">                CHECK(&amp;real == &amp;real());</div>
+<div class="line">                *&amp;real = 1.0;</div>
+<div class="line">                CHECK(real == 1.0);</div>
+<div class="line">                *&amp;real = 0.0;</div>
+<div class="line">                CHECK(real == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer;</div>
 <div class="line">                CHECK(&amp;void_pointer == &amp;void_pointer());</div>
@@ -940,9 +940,9 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(&amp;character == &amp;character());</div>
 <div class="line">                CHECK(*&amp;character == <span class="charliteral">&#39;\0&#39;</span>);</div>
 <div class="line"> </div>
-<div class="line">                <span class="keyword">const</span> maybe_t&lt;f32_t&gt; floating_point;</div>
-<div class="line">                CHECK(&amp;floating_point == &amp;floating_point());</div>
-<div class="line">                CHECK(*&amp;floating_point == 0.0);</div>
+<div class="line">                <span class="keyword">const</span> maybe_t&lt;real_t&gt; real;</div>
+<div class="line">                CHECK(&amp;real == &amp;real());</div>
+<div class="line">                CHECK(*&amp;real == 0.0);</div>
 <div class="line"> </div>
 <div class="line">                <span class="keyword">const</span> maybe_t&lt;void_t*&gt; void_pointer;</div>
 <div class="line">                CHECK(&amp;void_pointer == &amp;void_pointer());</div>
@@ -993,10 +993,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                CHECK(&amp;(character = none_t()) == &amp;character);</div>
 <div class="line">                CHECK(character == none_t());</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point != none_t());</div>
-<div class="line">                CHECK(&amp;(floating_point = none_t()) == &amp;floating_point);</div>
-<div class="line">                CHECK(floating_point == none_t());</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real != none_t());</div>
+<div class="line">                CHECK(&amp;(real = none_t()) == &amp;real);</div>
+<div class="line">                CHECK(real == none_t());</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer != none_t());</div>
@@ -1047,10 +1047,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                character = none_t();</div>
 <div class="line">                CHECK(character == none_t());</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(!(floating_point == none_t()));</div>
-<div class="line">                floating_point = none_t();</div>
-<div class="line">                CHECK(floating_point == none_t());</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(!(real == none_t()));</div>
+<div class="line">                real = none_t();</div>
+<div class="line">                CHECK(real == none_t());</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(!(void_pointer == none_t()));</div>
@@ -1101,10 +1101,10 @@ template&lt;typename any_p &gt; </div>
 <div class="line">                character = none_t();</div>
 <div class="line">                CHECK(!(character != none_t()));</div>
 <div class="line"> </div>
-<div class="line">                maybe_t&lt;f32_t&gt; floating_point = 1.0;</div>
-<div class="line">                CHECK(floating_point != none_t());</div>
-<div class="line">                floating_point = none_t();</div>
-<div class="line">                CHECK(!(floating_point != none_t()));</div>
+<div class="line">                maybe_t&lt;real_t&gt; real = 1.0;</div>
+<div class="line">                CHECK(real != none_t());</div>
+<div class="line">                real = none_t();</div>
+<div class="line">                CHECK(!(real != none_t()));</div>
 <div class="line"> </div>
 <div class="line">                maybe_t&lt;void_t*&gt; void_pointer = &amp;boolean;</div>
 <div class="line">                CHECK(void_pointer != none_t());</div>

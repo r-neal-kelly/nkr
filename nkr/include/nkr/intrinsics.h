@@ -63,12 +63,12 @@ namespace nkr {
     
     /// @ingroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af
     /// @{
-    using f32_t     = float;    ///< @copydoc _2ad13e3a_26a3_4526_b482_a1f643d2cb99
-    using f64_t     = double;   ///< @copydoc _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
+    using r32_t     = float;    ///< @copydoc _2ad13e3a_26a3_4526_b482_a1f643d2cb99
+    using r64_t     = double;   ///< @copydoc _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
 #if defined(nkr_IS_64_BIT)
-    using float_t   = f64_t;    ///< @copydoc _78f7692b_f26c_44ec_b165_394190b9d273
+    using real_t    = r64_t;    ///< @copydoc _78f7692b_f26c_44ec_b165_394190b9d273
 #elif defined(nkr_IS_32_BIT)
-    using float_t   = f32_t;    ///< @copydoc _78f7692b_f26c_44ec_b165_394190b9d273
+    using real_t    = r32_t;    ///< @copydoc _78f7692b_f26c_44ec_b165_394190b9d273
 #endif
     /// @}
 

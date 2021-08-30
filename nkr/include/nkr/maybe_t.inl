@@ -118,40 +118,40 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         return !operator ==(none_t());
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(const any_sp<float_p>& other) :
-        any_sp<float_p>(other)
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp(const any_sp<real_p>& other) :
+        any_sp<real_p>(other)
     {
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(any_sp<float_p>&& other) noexcept :
-        any_sp<float_p>(std::move(other))
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp(any_sp<real_p>&& other) noexcept :
+        any_sp<real_p>(std::move(other))
     {
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ++()
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ++()
     {
         return this->value += 1.0;
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ++(int)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ++(int)
     {
         value_t value = this->value;
         this->value += 1.0;
         return value;
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --()
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator --()
     {
         return this->value -= 1.0;
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --(int)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator --(int)
     {
         value_t value = this->value;
         this->value -= 1.0;

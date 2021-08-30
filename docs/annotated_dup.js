@@ -3,29 +3,29 @@ var annotated_dup =
     [ "nkr", "dc/d0c/namespacenkr.html", [
       [ "$atomic_t", "d1/d7c/namespacenkr_1_1_0batomic__t.html", [
         [ "bool_sp", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp.html", "de/dde/classnkr_1_1_0batomic__t_1_1bool__sp" ],
-        [ "float_sp", "d9/d66/classnkr_1_1_0batomic__t_1_1float__sp.html", "d9/d66/classnkr_1_1_0batomic__t_1_1float__sp" ],
         [ "integer_sp", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp" ],
         [ "pointer_sp", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html", "d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp" ],
+        [ "real_sp", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp" ],
         [ "void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp" ]
       ] ],
       [ "$maybe_t", "dd/db3/namespacenkr_1_1_0bmaybe__t.html", [
         [ "$built_in_sp", "dc/d0e/namespacenkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp.html", [
           [ "any_sp", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp" ],
-          [ "float_sp", "df/d9b/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1float__sp.html", "df/d9b/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1float__sp" ],
-          [ "pointer_sp", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp" ]
+          [ "pointer_sp", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp" ],
+          [ "real_sp", "d8/d4e/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1real__sp.html", "d8/d4e/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1real__sp" ]
         ] ],
         [ "built_in_sp", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp" ],
-        [ "built_in_sp< float_p >", "d9/d80/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01float__p_01_4.html", "d9/d80/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01float__p_01_4" ],
         [ "built_in_sp< pointer_p >", "de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4.html", "de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4" ],
+        [ "built_in_sp< real_p >", "d4/d77/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01real__p_01_4.html", "d4/d77/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01real__p_01_4" ],
         [ "user_defined_sp", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp" ]
       ] ],
       [ "allocator_heap_t", "d9/df1/classnkr_1_1allocator__heap__t.html", "d9/df1/classnkr_1_1allocator__heap__t" ],
       [ "array_dynamic_t", "d5/d74/classnkr_1_1array__dynamic__t.html", "d5/d74/classnkr_1_1array__dynamic__t" ],
       [ "atomic_t", "d5/dde/classnkr_1_1atomic__t.html", "d5/dde/classnkr_1_1atomic__t" ],
       [ "atomic_t< bool_t >", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4.html", "d5/d08/classnkr_1_1atomic__t_3_01bool__t_01_4" ],
-      [ "atomic_t< float_p >", "d5/dca/classnkr_1_1atomic__t_3_01float__p_01_4.html", "d5/dca/classnkr_1_1atomic__t_3_01float__p_01_4" ],
       [ "atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4" ],
       [ "atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
+      [ "atomic_t< real_p >", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4.html", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4" ],
       [ "atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ],
       [ "bool_t", "d3/df5/classnkr_1_1bool__t.html", "d3/df5/classnkr_1_1bool__t" ],
       [ "charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", "da/daa/classnkr_1_1charcoder__utf__8__t" ],

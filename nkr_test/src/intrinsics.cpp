@@ -72,7 +72,7 @@ namespace nkr {
             }
         }
 
-        TEST_SUITE("Random<float_p>")
+        TEST_SUITE("Random<real_p>")
         {
             TEST_CASE("should by default return both positive and negative numbers")
             {
@@ -80,7 +80,7 @@ namespace nkr {
                 bool_t got_negative = false;
 
                 for (index_t idx = 0, end = RANDOM_ITERATION_COUNT; idx < end; idx += 1) {
-                    float_t random = Random<float_t>();
+                    real_t random = Random<real_t>();
                     if (random > 0.0) {
                         got_positive = true;
                     } else if (random < 0.0) {
@@ -97,7 +97,7 @@ namespace nkr {
                 bool_t got_negative = false;
 
                 for (index_t idx = 0, end = RANDOM_ITERATION_COUNT; idx < end; idx += 1) {
-                    float_t random = Random<float_t>(0.0, std::numeric_limits<float_t>::max());
+                    real_t random = Random<real_t>(0.0, std::numeric_limits<real_t>::max());
                     if (random > 0.0) {
                         got_positive = true;
                     } else if (random < 0.0) {
@@ -114,7 +114,7 @@ namespace nkr {
                 bool_t got_negative = false;
 
                 for (index_t idx = 0, end = RANDOM_ITERATION_COUNT; idx < end; idx += 1) {
-                    float_t random = Random<float_t>(std::numeric_limits<float_t>::lowest(), 0.0);
+                    real_t random = Random<real_t>(std::numeric_limits<real_t>::lowest(), 0.0);
                     if (random > 0.0) {
                         got_positive = true;
                     } else if (random < 0.0) {
@@ -131,7 +131,7 @@ namespace nkr {
                 count_t negative_count = 0;
 
                 for (index_t idx = 0, end = RANDOM_ITERATION_COUNT; idx < end; idx += 1) {
-                    float_t random = Random<float_t>(-1.0, 2.0);
+                    real_t random = Random<real_t>(-1.0, 2.0);
                     if (random > 0.0) {
                         positive_count += 1;
                     } else if (random < 0.0) {

@@ -564,7 +564,7 @@ namespace nkr {
         }
     }
 
-    TEST_SUITE("atomic_t<float_tr float_p>")
+    TEST_SUITE("atomic_t<real_tr real_p>")
     {
         TEST_SUITE("aliases")
         {
@@ -573,7 +573,7 @@ namespace nkr {
                 /// [_83c3dcd9_5930_49a4_817b_3fe1d33a4550]
                 TEST_CASE("should equal the passed in type")
                 {
-                    static_assert(std::same_as<atomic_t<float_t>::value_t, float_t>);
+                    static_assert(std::same_as<atomic_t<real_t>::value_t, real_t>);
                 }
                 /// [_83c3dcd9_5930_49a4_817b_3fe1d33a4550]
             }
@@ -586,14 +586,14 @@ namespace nkr {
                 /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
                 TEST_CASE("should equal the default value of value_t")
                 {
-                    CHECK(atomic_t<float_t>::DEFAULT_VALUE == atomic_t<float_t>::value_t());
+                    CHECK(atomic_t<real_t>::DEFAULT_VALUE == atomic_t<real_t>::value_t());
                 }
                 /// [_2761c14b_ad24_4d18_a896_4058e077d6de]
 
                 /// [_1a55c887_94c9_41d4_addd_665545b62e49]
                 TEST_CASE("should equal 0.0")
                 {
-                    CHECK(atomic_t<float_t>::DEFAULT_VALUE == 0.0);
+                    CHECK(atomic_t<real_t>::DEFAULT_VALUE == 0.0);
                 }
                 /// [_1a55c887_94c9_41d4_addd_665545b62e49]
             }
@@ -606,7 +606,7 @@ namespace nkr {
                 /// [_0e277dd4_8606_49bb_9991_daca43fd7993]
                 TEST_CASE("should be a volatile value_t")
                 {
-                    static_assert(std::same_as<decltype(atomic_t<float_t>::value), volatile float_t>);
+                    static_assert(std::same_as<decltype(atomic_t<real_t>::value), volatile real_t>);
                 }
                 /// [_0e277dd4_8606_49bb_9991_daca43fd7993]
             }
@@ -619,8 +619,8 @@ namespace nkr {
                 /// [_8274cab7_e07f_42fc_95fb_21159e5d182b]
                 TEST_CASE("should set value to the default")
                 {
-                    atomic_t<float_t> atom;
-                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    atomic_t<real_t> atom;
+                    CHECK(atom == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_8274cab7_e07f_42fc_95fb_21159e5d182b]
             }
@@ -630,8 +630,8 @@ namespace nkr {
                 /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
                 TEST_CASE("should explicitly set passed value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     CHECK(atom == random);
                 }
                 /// [_5d612089_148d_4d8c_af54_9402bb4e0c2e]
@@ -639,8 +639,8 @@ namespace nkr {
                 /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
                 TEST_CASE("should implicitly set passed value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom = random;
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom = random;
                     CHECK(atom == random);
                 }
                 /// [_c082e3b1_a0eb_4a32_a12f_d01051b722d2]
@@ -649,8 +649,8 @@ namespace nkr {
                 TEST_CASE("should convert other types and set passed value")
                 {
                     word_t random = Random<word_t>();
-                    atomic_t<float_t> atom(random);
-                    CHECK(atom == static_cast<float_t>(random));
+                    atomic_t<real_t> atom(random);
+                    CHECK(atom == static_cast<real_t>(random));
                 }
                 /// [_027ec34c_9368_4ff3_890b_235196c7702e]
             }
@@ -660,9 +660,9 @@ namespace nkr {
                 /// [_c1b86a21_9372_4474_96c1_6641b05fdd80]
                 TEST_CASE("should explicitly copy the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom(other);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom(other);
                     CHECK(atom == random);
                 }
                 /// [_c1b86a21_9372_4474_96c1_6641b05fdd80]
@@ -670,9 +670,9 @@ namespace nkr {
                 /// [_83a52bb2_2362_4c41_908f_575a08582122]
                 TEST_CASE("should implicitly copy the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom = other;
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom = other;
                     CHECK(atom == random);
                 }
                 /// [_83a52bb2_2362_4c41_908f_575a08582122]
@@ -680,9 +680,9 @@ namespace nkr {
                 /// [_5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9]
                 TEST_CASE("should not alter the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom(other);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom(other);
                     CHECK(other == random);
                 }
                 /// [_5d98cfc6_a426_440d_a0b6_d2a0a0a3c4a9]
@@ -693,9 +693,9 @@ namespace nkr {
                 /// [_ad08e960_ce87_457e_9795_e81944307359]
                 TEST_CASE("should explicitly move the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom(std::move(other));
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom(std::move(other));
                     CHECK(atom == random);
                 }
                 /// [_ad08e960_ce87_457e_9795_e81944307359]
@@ -703,9 +703,9 @@ namespace nkr {
                 /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
                 TEST_CASE("should implicitly move the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom = std::move(other);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom = std::move(other);
                     CHECK(atom == random);
                 }
                 /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
@@ -713,10 +713,10 @@ namespace nkr {
                 /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
                 TEST_CASE("should set the value of other to the default")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom(std::move(other));
-                    CHECK(other == atomic_t<float_t>::DEFAULT_VALUE);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom(std::move(other));
+                    CHECK(other == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
             }
@@ -726,8 +726,8 @@ namespace nkr {
                 /// [_900b1558_c4f8_49c3_96b1_9056d76555ed]
                 TEST_CASE("should set passed value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom;
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom;
                     atom = random;
                     CHECK(atom == random);
                 }
@@ -737,9 +737,9 @@ namespace nkr {
                 TEST_CASE("should convert other types and set passed value")
                 {
                     word_t random = Random<word_t>();
-                    atomic_t<float_t> atom;
+                    atomic_t<real_t> atom;
                     atom = random;
-                    CHECK(atom == static_cast<float_t>(random));
+                    CHECK(atom == static_cast<real_t>(random));
                 }
                 /// [_cb64aaa3_b39d_43af_9e6e_03298a723992]
             }
@@ -749,9 +749,9 @@ namespace nkr {
                 /// [_de9354d0_a560_4f0c_b154_aee07071b26b]
                 TEST_CASE("should copy the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom;
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom;
                     atom = other;
                     CHECK(atom == random);
                 }
@@ -760,9 +760,9 @@ namespace nkr {
                 /// [_654311ef_5dfb_4631_8204_eb8c37ff8ce2]
                 TEST_CASE("should not alter the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom;
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom;
                     atom = other;
                     CHECK(other == random);
                 }
@@ -774,9 +774,9 @@ namespace nkr {
                 /// [_d98fa40a_5147_482b_8a01_95809a294e2b]
                 TEST_CASE("should move the value of other")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom;
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom;
                     atom = std::move(other);
                     CHECK(atom == random);
                 }
@@ -785,11 +785,11 @@ namespace nkr {
                 /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]
                 TEST_CASE("should set the value of other to the default")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> other(random);
-                    atomic_t<float_t> atom;
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> other(random);
+                    atomic_t<real_t> atom;
                     atom = std::move(other);
-                    CHECK(other == atomic_t<float_t>::DEFAULT_VALUE);
+                    CHECK(other == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]
             }
@@ -799,10 +799,10 @@ namespace nkr {
                 /// [_9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4]
                 TEST_CASE("should set its value to the default")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     atom.~atomic_t();
-                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    CHECK(atom == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_9d5c2d8f_0af5_49f1_ba14_0bcc98d78dd4]
             }
@@ -815,8 +815,8 @@ namespace nkr {
                 /// [_bf5ad36e_5e23_42d0_b32b_d69acd736c5f]
                 TEST_CASE("should return its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
                     CHECK(atom.Access() == random);
                 }
                 /// [_bf5ad36e_5e23_42d0_b32b_d69acd736c5f]
@@ -824,8 +824,8 @@ namespace nkr {
                 /// [_4d0ee15d_2612_402d_b95a_351d66897792]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
                     atom.Access();
                     CHECK(atom == random);
                 }
@@ -837,9 +837,9 @@ namespace nkr {
                 /// [_75b5f69b_46bb_4ae7_934e_dd5ae90ec693]
                 TEST_CASE("should return its value + passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     CHECK(atom.Access_Add(random_b) == random_a + random_b);
                 }
                 /// [_75b5f69b_46bb_4ae7_934e_dd5ae90ec693]
@@ -847,9 +847,9 @@ namespace nkr {
                 /// [_747264ec_e7b9_4bc8_92ad_d518758bbd8f]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     atom.Access_Add(random_b);
                     CHECK(atom == random_a);
                 }
@@ -858,10 +858,10 @@ namespace nkr {
                 /// [_4c7aeade_69e4_41c0_b861_99fcfc19d171]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    const atomic_t<float_t> atom(random_a);
-                    CHECK(atom.Access_Add(random_b) == random_a + static_cast<float_t>(random_b));
+                    const atomic_t<real_t> atom(random_a);
+                    CHECK(atom.Access_Add(random_b) == random_a + static_cast<real_t>(random_b));
                 }
                 /// [_4c7aeade_69e4_41c0_b861_99fcfc19d171]
             }
@@ -871,9 +871,9 @@ namespace nkr {
                 /// [_b66f77cd_1f70_4b5c_9003_883081f45007]
                 TEST_CASE("should return its value - passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     CHECK(atom.Access_Subtract(random_b) == random_a - random_b);
                 }
                 /// [_b66f77cd_1f70_4b5c_9003_883081f45007]
@@ -881,9 +881,9 @@ namespace nkr {
                 /// [_b01b18ed_eb1d_4d5e_b77a_c0ffa2a27876]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     atom.Access_Subtract(random_b);
                     CHECK(atom == random_a);
                 }
@@ -892,10 +892,10 @@ namespace nkr {
                 /// [_2c40ef08_3a4b_4c3a_bf7b_245f25a1f0aa]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    const atomic_t<float_t> atom(random_a);
-                    CHECK(atom.Access_Subtract(random_b) == random_a - static_cast<float_t>(random_b));
+                    const atomic_t<real_t> atom(random_a);
+                    CHECK(atom.Access_Subtract(random_b) == random_a - static_cast<real_t>(random_b));
                 }
                 /// [_2c40ef08_3a4b_4c3a_bf7b_245f25a1f0aa]
             }
@@ -905,9 +905,9 @@ namespace nkr {
                 /// [_03109072_ce76_4b5e_bd06_3b965cce9977]
                 TEST_CASE("should return its value * passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     CHECK(atom.Access_Multiply(random_b) == random_a * random_b);
                 }
                 /// [_03109072_ce76_4b5e_bd06_3b965cce9977]
@@ -915,9 +915,9 @@ namespace nkr {
                 /// [_d5c45927_aa1b_4d2b_a2df_984efeed9238]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     atom.Access_Multiply(random_b);
                     CHECK(atom == random_a);
                 }
@@ -926,10 +926,10 @@ namespace nkr {
                 /// [_7b4c9867_7a43_478d_9c73_98fc3aaaf663]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    const atomic_t<float_t> atom(random_a);
-                    CHECK(atom.Access_Multiply(random_b) == random_a * static_cast<float_t>(random_b));
+                    const atomic_t<real_t> atom(random_a);
+                    CHECK(atom.Access_Multiply(random_b) == random_a * static_cast<real_t>(random_b));
                 }
                 /// [_7b4c9867_7a43_478d_9c73_98fc3aaaf663]
             }
@@ -939,9 +939,9 @@ namespace nkr {
                 /// [_078c27a6_296c_460e_96e8_d61f0b47c3e6]
                 TEST_CASE("should return its value / passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     CHECK(atom.Access_Divide(random_b) == random_a / random_b);
                 }
                 /// [_078c27a6_296c_460e_96e8_d61f0b47c3e6]
@@ -949,9 +949,9 @@ namespace nkr {
                 /// [_bf945a6a_a80a_49f3_9d21_c32cab3e4ee3]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     atom.Access_Divide(random_b);
                     CHECK(atom == random_a);
                 }
@@ -960,10 +960,10 @@ namespace nkr {
                 /// [_adcec423_487a_432d_a731_63d32b0fbc02]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    const atomic_t<float_t> atom(random_a);
-                    CHECK(atom.Access_Divide(random_b) == random_a / static_cast<float_t>(random_b));
+                    const atomic_t<real_t> atom(random_a);
+                    CHECK(atom.Access_Divide(random_b) == random_a / static_cast<real_t>(random_b));
                 }
                 /// [_adcec423_487a_432d_a731_63d32b0fbc02]
             }
@@ -973,9 +973,9 @@ namespace nkr {
                 /// [_91339173_2c19_4c80_81c2_47a7d0056c79]
                 TEST_CASE("should set its value to the passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign(random_b);
                     CHECK(atom == random_b);
                 }
@@ -984,9 +984,9 @@ namespace nkr {
                 /// [_cf6d21c8_fe17_4d24_a869_7c2d2f1c638e]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Assign(random_b) == random_b);
                 }
                 /// [_cf6d21c8_fe17_4d24_a869_7c2d2f1c638e]
@@ -994,11 +994,11 @@ namespace nkr {
                 /// [_71122f83_edff_4e2b_9b04_ef4e2cb70662]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign(random_b);
-                    CHECK(atom == static_cast<float_t>(random_b));
+                    CHECK(atom == static_cast<real_t>(random_b));
                 }
                 /// [_71122f83_edff_4e2b_9b04_ef4e2cb70662]
             }
@@ -1008,9 +1008,9 @@ namespace nkr {
                 /// [_58095a65_e406_4f9b_b98a_3e3ab286594e]
                 TEST_CASE("should set its value to value + passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Add(random_b);
                     CHECK(atom == random_a + random_b);
                 }
@@ -1019,9 +1019,9 @@ namespace nkr {
                 /// [_ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Assign_Add(random_b) == random_a + random_b);
                 }
                 /// [_ce0eb5c3_7cdf_4ff4_ad98_ea61f1304510]
@@ -1029,11 +1029,11 @@ namespace nkr {
                 /// [_e6ec20c3_b673_435b_87bd_35ca0599d8d3]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Add(random_b);
-                    CHECK(atom == random_a + static_cast<float_t>(random_b));
+                    CHECK(atom == random_a + static_cast<real_t>(random_b));
                 }
                 /// [_e6ec20c3_b673_435b_87bd_35ca0599d8d3]
             }
@@ -1043,9 +1043,9 @@ namespace nkr {
                 /// [_05e1e55b_b233_457c_8ae6_41ba0dec76a9]
                 TEST_CASE("should set its value to value - passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Subtract(random_b);
                     CHECK(atom == random_a - random_b);
                 }
@@ -1054,9 +1054,9 @@ namespace nkr {
                 /// [_ae57b4c4_2b87_4a91_8f5c_63dde775cbec]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Assign_Subtract(random_b) == random_a - random_b);
                 }
                 /// [_ae57b4c4_2b87_4a91_8f5c_63dde775cbec]
@@ -1064,11 +1064,11 @@ namespace nkr {
                 /// [_3f9eb643_a685_4738_a90c_c0fa0c3c9bb4]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Subtract(random_b);
-                    CHECK(atom == random_a - static_cast<float_t>(random_b));
+                    CHECK(atom == random_a - static_cast<real_t>(random_b));
                 }
                 /// [_3f9eb643_a685_4738_a90c_c0fa0c3c9bb4]
             }
@@ -1078,9 +1078,9 @@ namespace nkr {
                 /// [_14c37838_f17b_4552_9944_8b07373150bb]
                 TEST_CASE("should set its value to value * passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Multiply(random_b);
                     CHECK(atom == random_a * random_b);
                 }
@@ -1089,9 +1089,9 @@ namespace nkr {
                 /// [_7de9dd2f_3628_4f22_88e3_b9b31f167ead]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Assign_Multiply(random_b) == random_a * random_b);
                 }
                 /// [_7de9dd2f_3628_4f22_88e3_b9b31f167ead]
@@ -1099,11 +1099,11 @@ namespace nkr {
                 /// [_430149ff_9d6b_44ae_8240_19677f08a0ee]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Multiply(random_b);
-                    CHECK(atom == random_a * static_cast<float_t>(random_b));
+                    CHECK(atom == random_a * static_cast<real_t>(random_b));
                 }
                 /// [_430149ff_9d6b_44ae_8240_19677f08a0ee]
             }
@@ -1113,9 +1113,9 @@ namespace nkr {
                 /// [_7a64bd27_579a_4ce6_9878_2f924f4d6066]
                 TEST_CASE("should set its value to value / passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Divide(random_b);
                     CHECK(atom == random_a / random_b);
                 }
@@ -1124,9 +1124,9 @@ namespace nkr {
                 /// [_2213006f_a4bb_404c_867b_47ab4950a07e]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Assign_Divide(random_b) == random_a / random_b);
                 }
                 /// [_2213006f_a4bb_404c_867b_47ab4950a07e]
@@ -1134,11 +1134,11 @@ namespace nkr {
                 /// [_c6fc7749_f5c7_4191_a4c8_35000b9572cf]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Assign_Divide(random_b);
-                    CHECK(atom == random_a / static_cast<float_t>(random_b));
+                    CHECK(atom == random_a / static_cast<real_t>(random_b));
                 }
                 /// [_c6fc7749_f5c7_4191_a4c8_35000b9572cf]
             }
@@ -1148,9 +1148,9 @@ namespace nkr {
                 /// [_c5484de3_220e_4cf8_83ef_f6aa71ab7966]
                 TEST_CASE("should set its value to the passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange(random_b);
                     CHECK(atom == random_b);
                 }
@@ -1159,9 +1159,9 @@ namespace nkr {
                 /// [_1f7ee854_568e_4397_9ce0_1efc7997d398]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Exchange(random_b) == random_a);
                 }
                 /// [_1f7ee854_568e_4397_9ce0_1efc7997d398]
@@ -1169,11 +1169,11 @@ namespace nkr {
                 /// [_8742d47f_afc9_405b_bfae_8b48c126013f]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange(random_b);
-                    CHECK(atom == static_cast<float_t>(random_b));
+                    CHECK(atom == static_cast<real_t>(random_b));
                 }
                 /// [_8742d47f_afc9_405b_bfae_8b48c126013f]
             }
@@ -1183,9 +1183,9 @@ namespace nkr {
                 /// [_0f39542d_efb8_4826_92b5_9ee8b4760adc]
                 TEST_CASE("should set its value to value + passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Add(random_b);
                     CHECK(atom == random_a + random_b);
                 }
@@ -1194,9 +1194,9 @@ namespace nkr {
                 /// [_ad4af424_9bef_4d09_b79c_f4c50e335596]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Exchange_Add(random_b) == random_a);
                 }
                 /// [_ad4af424_9bef_4d09_b79c_f4c50e335596]
@@ -1204,11 +1204,11 @@ namespace nkr {
                 /// [_2dc17ea4_bace_4a53_afd9_b57f98dd5ef1]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Add(random_b);
-                    CHECK(atom == random_a + static_cast<float_t>(random_b));
+                    CHECK(atom == random_a + static_cast<real_t>(random_b));
                 }
                 /// [_2dc17ea4_bace_4a53_afd9_b57f98dd5ef1]
             }
@@ -1218,9 +1218,9 @@ namespace nkr {
                 /// [_5ae99b87_cf4c_4138_a417_072cd82a0852]
                 TEST_CASE("should set its value to value - passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Subtract(random_b);
                     CHECK(atom == random_a - random_b);
                 }
@@ -1229,9 +1229,9 @@ namespace nkr {
                 /// [_a26780e5_ccc7_4f2e_9ae7_49744a446e2b]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Exchange_Subtract(random_b) == random_a);
                 }
                 /// [_a26780e5_ccc7_4f2e_9ae7_49744a446e2b]
@@ -1239,11 +1239,11 @@ namespace nkr {
                 /// [_e5654cec_247b_4d30_a7eb_a27f57ca8494]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Subtract(random_b);
-                    CHECK(atom == random_a - static_cast<float_t>(random_b));
+                    CHECK(atom == random_a - static_cast<real_t>(random_b));
                 }
                 /// [_e5654cec_247b_4d30_a7eb_a27f57ca8494]
             }
@@ -1253,9 +1253,9 @@ namespace nkr {
                 /// [_7e049a15_3ffb_4acf_8e73_48db74cb9ff4]
                 TEST_CASE("should set its value to value * passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Multiply(random_b);
                     CHECK(atom == random_a * random_b);
                 }
@@ -1264,9 +1264,9 @@ namespace nkr {
                 /// [_9ea5604a_734e_480f_b9b1_efbcfb248800]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Exchange_Multiply(random_b) == random_a);
                 }
                 /// [_9ea5604a_734e_480f_b9b1_efbcfb248800]
@@ -1274,11 +1274,11 @@ namespace nkr {
                 /// [_85360ec2_1d49_496f_ac96_e4ce711953aa]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Multiply(random_b);
-                    CHECK(atom == random_a * static_cast<float_t>(random_b));
+                    CHECK(atom == random_a * static_cast<real_t>(random_b));
                 }
                 /// [_85360ec2_1d49_496f_ac96_e4ce711953aa]
             }
@@ -1288,9 +1288,9 @@ namespace nkr {
                 /// [_687caad0_6e65_43da_9aab_31e03808bc83]
                 TEST_CASE("should set its value to value / passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Divide(random_b);
                     CHECK(atom == random_a / random_b);
                 }
@@ -1299,9 +1299,9 @@ namespace nkr {
                 /// [_2bc2cee2_c542_4852_804d_2c6cdd6ec3bb]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK(atom.Exchange_Divide(random_b) == random_a);
                 }
                 /// [_2bc2cee2_c542_4852_804d_2c6cdd6ec3bb]
@@ -1309,11 +1309,11 @@ namespace nkr {
                 /// [_6425f216_5887_4aa8_96f3_84d306491c7f]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom.Exchange_Divide(random_b);
-                    CHECK(atom == random_a / static_cast<float_t>(random_b));
+                    CHECK(atom == random_a / static_cast<real_t>(random_b));
                 }
                 /// [_6425f216_5887_4aa8_96f3_84d306491c7f]
             }
@@ -1323,10 +1323,10 @@ namespace nkr {
                 /// [_870b7a10_e39f_413e_bc41_5696764fbff3]
                 TEST_CASE("should set its value to the passed value if its value equals the snapshot")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
-                    float_t snapshot = atom;
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
+                    real_t snapshot = atom;
                     atom.Exchange_If_Equals(snapshot, snapshot + random_b);
                     CHECK(atom == random_a + random_b);
                 }
@@ -1335,10 +1335,10 @@ namespace nkr {
                 /// [_36a4ffa4_a0bc_430e_b241_514fbdaf36d1]
                 TEST_CASE("should return true if it set the new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
-                    float_t snapshot = atom;
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
+                    real_t snapshot = atom;
                     CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == true);
                 }
                 /// [_36a4ffa4_a0bc_430e_b241_514fbdaf36d1]
@@ -1346,10 +1346,10 @@ namespace nkr {
                 /// [_afb7c2ad_ecf4_4bd4_9378_eec404ba647f]
                 TEST_CASE("should return false if it did not set the new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
-                    float_t snapshot = atom;
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
+                    real_t snapshot = atom;
                     atom = random_a + random_b;
                     CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == false);
                 }
@@ -1358,10 +1358,10 @@ namespace nkr {
                 /// [_67ecc477_461b_4a9b_94a6_17d44163e2d8]
                 TEST_CASE("should leave snapshot with its old value if it succeeded")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
-                    float_t snapshot = atom;
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
+                    real_t snapshot = atom;
                     atom.Exchange_If_Equals(snapshot, snapshot + random_b);
                     CHECK(snapshot == random_a);
                 }
@@ -1370,10 +1370,10 @@ namespace nkr {
                 /// [_c55b85bd_af65_4c70_a5b3_e3f12b4f8203]
                 TEST_CASE("should update snapshot to its current value if it failed")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
-                    float_t snapshot = atom;
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
+                    real_t snapshot = atom;
                     atom = random_a + random_b;
                     atom.Exchange_If_Equals(snapshot, snapshot + random_b);
                     CHECK(snapshot == random_a + random_b);
@@ -1383,19 +1383,19 @@ namespace nkr {
                 /// [_945d71a2_0ec8_4073_9636_e88e0cc4d477]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
-                    float_t snapshot = atom;
+                    atomic_t<real_t> atom(random_a);
+                    real_t snapshot = atom;
                     atom.Exchange_If_Equals(snapshot, random_b);
-                    CHECK(atom == static_cast<float_t>(random_b));
+                    CHECK(atom == static_cast<real_t>(random_b));
                 }
                 /// [_945d71a2_0ec8_4073_9636_e88e0cc4d477]
 
                 /// [_0d98e9bb_0fae_442e_a5f5_deb14dc5ce0d]
                 TEST_CASE("should allow you to atomically change its value safely with a custom algorithm")
                 {
-                    atomic_t<float_t> atom;
+                    atomic_t<real_t> atom;
                     std::vector<std::thread> incrementors;
                     std::vector<std::thread> decrementors;
                     const count_t delta = Random<count_t>(1, 256);
@@ -1410,7 +1410,7 @@ namespace nkr {
                                 std::this_thread::sleep_for(
                                     std::chrono::microseconds(Random<count_t>(1, 5))
                                 );
-                                float_t snapshot = atom;
+                                real_t snapshot = atom;
                                 while (!atom.Exchange_If_Equals(snapshot, snapshot + delta));
                             }
                         ));
@@ -1420,7 +1420,7 @@ namespace nkr {
                                 std::this_thread::sleep_for(
                                     std::chrono::microseconds(Random<count_t>(1, 5))
                                 );
-                                float_t snapshot = atom;
+                                real_t snapshot = atom;
                                 while (!atom.Exchange_If_Equals(snapshot, snapshot - delta));
                             }
                         ));
@@ -1443,18 +1443,18 @@ namespace nkr {
                 /// [_b4dfe423_ace5_4b2b_92fd_fe47b8708ef0]
                 TEST_CASE("should explicitly return a copy of its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
-                    CHECK(static_cast<float_t>(atom) == random);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
+                    CHECK(static_cast<real_t>(atom) == random);
                 }
                 /// [_b4dfe423_ace5_4b2b_92fd_fe47b8708ef0]
 
                 /// [_5589ab94_7740_4958_8eae_40ca0e3b10de]
                 TEST_CASE("should implicitly return a copy of its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
-                    float_t value = atom;
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
+                    real_t value = atom;
                     CHECK(value == random);
                 }
                 /// [_5589ab94_7740_4958_8eae_40ca0e3b10de]
@@ -1462,9 +1462,9 @@ namespace nkr {
                 /// [_9026ed05_fe2f_41ef_99d4_c27cba3ba649]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
-                    float_t value = atom;
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
+                    real_t value = atom;
                     CHECK(atom == random);
                 }
                 /// [_9026ed05_fe2f_41ef_99d4_c27cba3ba649]
@@ -1472,9 +1472,9 @@ namespace nkr {
                 /// [_85183e6a_3837_4d8b_bb24_d1def57b6471]
                 TEST_CASE("should implicitly allow for arithmetic operators")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    const atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    const atomic_t<real_t> atom(random_a);
                     CHECK(+atom == +random_a);
                     CHECK(-atom == -random_a);
                     CHECK(atom + random_b == random_a + random_b);
@@ -1487,8 +1487,8 @@ namespace nkr {
                 /// [_23e193eb_97a6_4126_b4a0_9986b5528d13]
                 TEST_CASE("should implicitly allow for logical operators")
                 {
-                    float_t random = Random<float_t>(1);
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>(std::numeric_limits<real_t>::min());
+                    const atomic_t<real_t> atom(random);
                     CHECK(atom);
                     CHECK(!!atom);
                     CHECK(atom || 0.0);
@@ -1500,8 +1500,8 @@ namespace nkr {
                 /// [_f0057019_a03e_4dc4_9571_008553300c9e]
                 TEST_CASE("should implicitly allow for comparison operators")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
                     CHECK(atom == random);
                     CHECK_FALSE(atom != random);
                     CHECK_FALSE(atom < random);
@@ -1521,9 +1521,9 @@ namespace nkr {
                 /// [_36fcf8e0_6485_47cb_9bc3_d1b6fdf4f1e0]
                 TEST_CASE("should set its value to value + passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom += random_b;
                     CHECK(atom == random_a + random_b);
                 }
@@ -1532,9 +1532,9 @@ namespace nkr {
                 /// [_3f1df3a2_1a0f_4d40_a6ec_f1e789df66d2]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK((atom += random_b) == random_a + random_b);
                 }
                 /// [_3f1df3a2_1a0f_4d40_a6ec_f1e789df66d2]
@@ -1542,11 +1542,11 @@ namespace nkr {
                 /// [_033e8b36_38cf_43b8_9f3b_11317636ea2b]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom += random_b;
-                    CHECK(atom == random_a + static_cast<float_t>(random_b));
+                    CHECK(atom == random_a + static_cast<real_t>(random_b));
                 }
                 /// [_033e8b36_38cf_43b8_9f3b_11317636ea2b]
             }
@@ -1556,9 +1556,9 @@ namespace nkr {
                 /// [_bea2f1be_08d8_4cc8_b7c9_b8e428c48c93]
                 TEST_CASE("should set its value to value - passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom -= random_b;
                     CHECK(atom == random_a - random_b);
                 }
@@ -1567,9 +1567,9 @@ namespace nkr {
                 /// [_480031de_bc4f_4bb6_85ed_62024c4dd49d]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK((atom -= random_b) == random_a - random_b);
                 }
                 /// [_480031de_bc4f_4bb6_85ed_62024c4dd49d]
@@ -1577,11 +1577,11 @@ namespace nkr {
                 /// [_2d48712a_c6cd_44e9_a3e6_b0ff8d43da11]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom -= random_b;
-                    CHECK(atom == random_a - static_cast<float_t>(random_b));
+                    CHECK(atom == random_a - static_cast<real_t>(random_b));
                 }
                 /// [_2d48712a_c6cd_44e9_a3e6_b0ff8d43da11]
             }
@@ -1591,9 +1591,9 @@ namespace nkr {
                 /// [_719f3d8b_3516_49f0_8370_f21719e31fa7]
                 TEST_CASE("should set its value to value * passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom *= random_b;
                     CHECK(atom == random_a * random_b);
                 }
@@ -1602,9 +1602,9 @@ namespace nkr {
                 /// [_37627525_bc0f_44ef_9a71_c6f4cf74cd99]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK((atom *= random_b) == random_a * random_b);
                 }
                 /// [_37627525_bc0f_44ef_9a71_c6f4cf74cd99]
@@ -1612,11 +1612,11 @@ namespace nkr {
                 /// [_0abf5cf0_6bd6_47eb_911e_f3220a7d376a]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom *= random_b;
-                    CHECK(atom == random_a * static_cast<float_t>(random_b));
+                    CHECK(atom == random_a * static_cast<real_t>(random_b));
                 }
                 /// [_0abf5cf0_6bd6_47eb_911e_f3220a7d376a]
             }
@@ -1626,9 +1626,9 @@ namespace nkr {
                 /// [_a99638da_9117_430f_8144_0bb272a66b90]
                 TEST_CASE("should set its value to value / passed value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     atom /= random_b;
                     CHECK(atom == random_a / random_b);
                 }
@@ -1637,9 +1637,9 @@ namespace nkr {
                 /// [_c60617e0_f780_400d_9e52_d7748bcd2ad1]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random_a = Random<float_t>();
-                    float_t random_b = Random<float_t>();
-                    atomic_t<float_t> atom(random_a);
+                    real_t random_a = Random<real_t>();
+                    real_t random_b = Random<real_t>();
+                    atomic_t<real_t> atom(random_a);
                     CHECK((atom /= random_b) == random_a / random_b);
                 }
                 /// [_c60617e0_f780_400d_9e52_d7748bcd2ad1]
@@ -1647,11 +1647,11 @@ namespace nkr {
                 /// [_14984ffe_35dc_49c2_8e44_ea56be79f86a]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
-                    float_t random_a = Random<float_t>();
+                    real_t random_a = Random<real_t>();
                     word_t random_b = Random<word_t>();
-                    atomic_t<float_t> atom(random_a);
+                    atomic_t<real_t> atom(random_a);
                     atom /= random_b;
-                    CHECK(atom == random_a / static_cast<float_t>(random_b));
+                    CHECK(atom == random_a / static_cast<real_t>(random_b));
                 }
                 /// [_14984ffe_35dc_49c2_8e44_ea56be79f86a]
             }
@@ -1661,8 +1661,8 @@ namespace nkr {
                 /// [_fba6bafe_2370_452f_831b_8d373e47eb86]
                 TEST_CASE("should set its value to value + 1")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     ++atom;
                     CHECK(atom == random + 1.0);
                 }
@@ -1671,8 +1671,8 @@ namespace nkr {
                 /// [_3e4434f6_a682_4cb2_a893_adb013675a33]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     CHECK(++atom == random + 1.0);
                 }
                 /// [_3e4434f6_a682_4cb2_a893_adb013675a33]
@@ -1683,8 +1683,8 @@ namespace nkr {
                 /// [_f727b235_dd16_453f_a2fd_4c21a5b1b8ca]
                 TEST_CASE("should set its value to value + 1")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     atom++;
                     CHECK(atom == random + 1.0);
                 }
@@ -1693,8 +1693,8 @@ namespace nkr {
                 /// [_fbfb8066_4122_419c_91ae_517fab12ec9f]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     CHECK(atom++ == random);
                 }
                 /// [_fbfb8066_4122_419c_91ae_517fab12ec9f]
@@ -1705,8 +1705,8 @@ namespace nkr {
                 /// [_fd3b6e86_caef_4e02_8fe1_86506bf36b74]
                 TEST_CASE("should set its value to value - 1")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     --atom;
                     CHECK(atom == random - 1.0);
                 }
@@ -1715,8 +1715,8 @@ namespace nkr {
                 /// [_ea214d48_d7ee_49c5_b831_5fd951e97052]
                 TEST_CASE("should return its new value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     CHECK(--atom == random - 1.0);
                 }
                 /// [_ea214d48_d7ee_49c5_b831_5fd951e97052]
@@ -1727,8 +1727,8 @@ namespace nkr {
                 /// [_d9ecdd36_d9d2_4e22_aa91_f0b0e88a83f3]
                 TEST_CASE("should set its value to value - 1")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     atom--;
                     CHECK(atom == random - 1.0);
                 }
@@ -1737,8 +1737,8 @@ namespace nkr {
                 /// [_708c82fa_9602_4c7d_84e2_db57ada3144d]
                 TEST_CASE("should return its old value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     CHECK(atom-- == random);
                 }
                 /// [_708c82fa_9602_4c7d_84e2_db57ada3144d]
@@ -1752,16 +1752,16 @@ namespace nkr {
                 /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
                 TEST_CASE("should explicitly set its value to the default value")
                 {
-                    atomic_t<float_t> atom((none_t()));
-                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    atomic_t<real_t> atom((none_t()));
+                    CHECK(atom == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
-                
+
                 /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
                 TEST_CASE("should implicitly set its value to the default value")
                 {
-                    atomic_t<float_t> atom = none_t();
-                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    atomic_t<real_t> atom = none_t();
+                    CHECK(atom == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
             }
@@ -1771,18 +1771,18 @@ namespace nkr {
                 /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
                 TEST_CASE("should set its value to the default value")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     atom = none_t();
-                    CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
+                    CHECK(atom == atomic_t<real_t>::DEFAULT_VALUE);
                 }
                 /// [_3b681d95_22c6_4bbf_ab2e_edec47011d4a]
 
                 /// [_2c9d76ce_d1a7_4eb7_87c8_75662ad513fa]
                 TEST_CASE("should evaluate as false after being set to none")
                 {
-                    float_t random = Random<float_t>(1);
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>(std::numeric_limits<real_t>::min());
+                    atomic_t<real_t> atom(random);
                     atom = none_t();
                     CHECK(static_cast<bool_t>(atom) == false);
                 }
@@ -1791,8 +1791,8 @@ namespace nkr {
                 /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
                 TEST_CASE("should return itself")
                 {
-                    float_t random = Random<float_t>();
-                    atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    atomic_t<real_t> atom(random);
                     CHECK(&(atom = none_t()) == &atom);
                 }
                 /// [_656651f9_f4dd_4d8e_8e22_d46a834c7fb0]
@@ -1803,15 +1803,15 @@ namespace nkr {
                 /// [_a7f5b5f6_3a48_47fe_b6e3_14eec6f383c4]
                 TEST_CASE("should return true when default constructed")
                 {
-                    const atomic_t<float_t> atom;
+                    const atomic_t<real_t> atom;
                     CHECK(atom == none_t());
                 }
                 /// [_a7f5b5f6_3a48_47fe_b6e3_14eec6f383c4]
-                
+
                 /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
                 TEST_CASE("should return true if its value is 0.0")
                 {
-                    const atomic_t<float_t> atom(0.0);
+                    const atomic_t<real_t> atom(0.0);
                     CHECK(atom == none_t());
                 }
                 /// [_21a37122_b65b_4ed5_a1d0_3252222d1d97]
@@ -1819,9 +1819,9 @@ namespace nkr {
                 /// [_88f44f84_d138_444f_86da_95f3d34b3d0e]
                 TEST_CASE("should return false if its value is above 0.0")
                 {
-                    float_t random = Random<float_t>(std::numeric_limits<float_t>::epsilon(),
-                                                     std::numeric_limits<float_t>::max());
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>(std::numeric_limits<real_t>::min(),
+                                                   std::numeric_limits<real_t>::max());
+                    const atomic_t<real_t> atom(random);
                     CHECK_FALSE(atom == none_t());
                 }
                 /// [_88f44f84_d138_444f_86da_95f3d34b3d0e]
@@ -1829,9 +1829,9 @@ namespace nkr {
                 /// [_fb90f59f_18e9_4486_934f_d9804a28a5b4]
                 TEST_CASE("should return false if its value is below 0.0")
                 {
-                    float_t random = Random<float_t>(-std::numeric_limits<float_t>::max(),
-                                                     -std::numeric_limits<float_t>::epsilon());
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>(-std::numeric_limits<real_t>::max(),
+                                                   -std::numeric_limits<real_t>::min());
+                    const atomic_t<real_t> atom(random);
                     CHECK_FALSE(atom == none_t());
                 }
                 /// [_fb90f59f_18e9_4486_934f_d9804a28a5b4]
@@ -1839,8 +1839,8 @@ namespace nkr {
                 /// [_e3936d47_de8c_48ff_979c_dd104837e2b6]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
                     atom == none_t();
                     CHECK(atom == random);
                 }
@@ -1852,15 +1852,15 @@ namespace nkr {
                 /// [_94d14476_999f_451c_94a0_ac2df55f5038]
                 TEST_CASE("should return false when default constructed")
                 {
-                    const atomic_t<float_t> atom;
+                    const atomic_t<real_t> atom;
                     CHECK_FALSE(atom != none_t());
                 }
                 /// [_94d14476_999f_451c_94a0_ac2df55f5038]
-                
+
                 /// [_e867e438_8518_497a_b61a_b642b661c12a]
                 TEST_CASE("should return false if its value is 0.0")
                 {
-                    const atomic_t<float_t> atom(0.0);
+                    const atomic_t<real_t> atom(0.0);
                     CHECK_FALSE(atom != none_t());
                 }
                 /// [_e867e438_8518_497a_b61a_b642b661c12a]
@@ -1868,9 +1868,9 @@ namespace nkr {
                 /// [_5a4f170a_7266_4e56_8323_69d2e0dd2fa3]
                 TEST_CASE("should return true if its value is above 0.0")
                 {
-                    float_t random = Random<float_t>(std::numeric_limits<float_t>::epsilon(),
-                                                     std::numeric_limits<float_t>::max());
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>(std::numeric_limits<real_t>::min(),
+                                                   std::numeric_limits<real_t>::max());
+                    const atomic_t<real_t> atom(random);
                     CHECK(atom != none_t());
                 }
                 /// [_5a4f170a_7266_4e56_8323_69d2e0dd2fa3]
@@ -1878,9 +1878,9 @@ namespace nkr {
                 /// [_0225938f_b038_40cd_a659_7fbe416f8006]
                 TEST_CASE("should return true if its value is below 0.0")
                 {
-                    float_t random = Random<float_t>(-std::numeric_limits<float_t>::max(),
-                                                     -std::numeric_limits<float_t>::epsilon());
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>(-std::numeric_limits<real_t>::max(),
+                                                   -std::numeric_limits<real_t>::min());
+                    const atomic_t<real_t> atom(random);
                     CHECK(atom != none_t());
                 }
                 /// [_0225938f_b038_40cd_a659_7fbe416f8006]
@@ -1888,8 +1888,8 @@ namespace nkr {
                 /// [_bf986b93_2c19_47cb_b49b_1bc1152d2074]
                 TEST_CASE("should not change its value")
                 {
-                    float_t random = Random<float_t>();
-                    const atomic_t<float_t> atom(random);
+                    real_t random = Random<real_t>();
+                    const atomic_t<real_t> atom(random);
                     atom != none_t();
                     CHECK(atom == random);
                 }

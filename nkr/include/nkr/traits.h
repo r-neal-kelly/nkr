@@ -82,23 +82,23 @@ namespace nkr {
     /// @addtogroup _8f223336_ce2a_4589_b4c1_75cd98cd393d
     /// @{
     template <typename type_p>
-    concept float_tr =
+    concept real_tr =
         std::is_floating_point<type_p>::value;  ///< @copydoc _7436208f_39ce_49f4_accb_a3bee797b12a
 
     template <typename type_p>
-    concept float_32_tr =
-        float_tr<type_p> &&
-        (sizeof(type_p) == sizeof(f32_t));      ///< @copydoc _63562b29_b254_4e38_b931_b895a7d86c75
+    concept real_32_tr =
+        real_tr<type_p> &&
+        (sizeof(type_p) == sizeof(r32_t));      ///< @copydoc _63562b29_b254_4e38_b931_b895a7d86c75
 
     template <typename type_p>
-    concept float_64_tr =
-        float_tr<type_p> &&
-        (sizeof(type_p) == sizeof(f64_t));      ///< @copydoc _5a831ea1_e707_476a_9f37_317ad35b94c7
+    concept real_64_tr =
+        real_tr<type_p> &&
+        (sizeof(type_p) == sizeof(r64_t));      ///< @copydoc _5a831ea1_e707_476a_9f37_317ad35b94c7
 
     template <typename type_p>
-    concept to_float_tr =
-        std::convertible_to<type_p, f32_t> ||
-        std::convertible_to<type_p, f64_t>;     ///< @copydoc _f7cc78f8_c257_4193_b5bb_749f1656e614
+    concept to_real_tr =
+        std::convertible_to<type_p, r32_t> ||
+        std::convertible_to<type_p, r64_t>;     ///< @copydoc _f7cc78f8_c257_4193_b5bb_749f1656e614
     /// @}
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
@@ -117,7 +117,7 @@ namespace nkr {
     concept built_in_tr =
         std::same_as<type_p, std_bool_t> ||
         integer_tr<type_p> ||
-        float_tr<type_p> ||
+        real_tr<type_p> ||
         pointer_tr<type_p>;                     ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
 
     template <typename type_p>

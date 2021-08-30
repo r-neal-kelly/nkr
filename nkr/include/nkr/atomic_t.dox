@@ -724,16 +724,16 @@
             * @copybrief _2ee275c0_12a7_400c_ba80_08d8ef10d8db
             */
 
-    // float_sp
+    // real_sp
     /**
     * @class _253501fa_5219_4009_94e8_08f3a28881ee
     * @private
     * 
     * @brief
-    *   A specialization for floats to be used atomically.
+    *   A specialization for real numbers to be used atomically.
     * 
     * @details
-    *   Provides an easy to use interface for atomically working with nkr::f32_t and if running in 64-bit mode, nkr::f64_t as well.
+    *   Provides an easy to use interface for atomically working with nkr::r32_t and if running in 64-bit mode, nkr::r64_t as well.
     */
 
         // aliases
@@ -1770,13 +1770,9 @@
 * @par Specializations
 *   - nkr::atomic_t<bool_t>
 *   - nkr::atomic_t<integer_p>
-*   - nkr::atomic_t<float_p>
+*   - nkr::atomic_t<real_p>
 *   - nkr::atomic_t<pointer_p>
 *   - nkr::atomic_t<void_t*>
-* 
-* @todo
-*   Add floating points!
-*   Maybe remove some operators that aren't needed? (Like ~.) But make sure to add tests to make sure that each function still works, even if we don't have an operator for it.
 */
 
     // objects
@@ -1900,13 +1896,13 @@
         *   add tests
         */
 
-// atomic_t<float_tr float_p>
+// atomic_t<real_tr real_p>
 /**
 * @class _b40d083f_64f4_4a9d_b384_331d91c07b57
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::float_sp.
+*   A wrapper for nkr::$atomic_t::real_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff

@@ -480,42 +480,42 @@ namespace nkr { namespace $atomic_t {
         return !operator ==(none_t());
     }
 
-    template <float_tr float_p>
-    inline typename const float_sp<float_p>::value_t    float_sp<float_p>::DEFAULT_VALUE    = value_t();
+    template <real_tr real_p>
+    inline typename const real_sp<real_p>::value_t  real_sp<real_p>::DEFAULT_VALUE  = value_t();
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp() :
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(to_float_tr auto value) :
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp(to_real_tr auto value) :
         value(static_cast<value_t>(value))
     {
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(const float_sp& other) :
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp(const real_sp& other) :
         value(other.Access())
     {
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(float_sp&& other) noexcept :
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp(real_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>& float_sp<float_p>::operator =(to_float_tr auto value)
+    template <real_tr real_p>
+    inline real_sp<real_p>& real_sp<real_p>::operator =(to_real_tr auto value)
     {
         Assign(value);
         return *this;
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>& float_sp<float_p>::operator =(const float_sp& other)
+    template <real_tr real_p>
+    inline real_sp<real_p>& real_sp<real_p>::operator =(const real_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -523,8 +523,8 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>& float_sp<float_p>::operator =(float_sp&& other) noexcept
+    template <real_tr real_p>
+    inline real_sp<real_p>& real_sp<real_p>::operator =(real_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
             Assign(other.Exchange(DEFAULT_VALUE));
@@ -532,183 +532,183 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::~float_sp()
+    template <real_tr real_p>
+    inline real_sp<real_p>::~real_sp()
     {
         Assign(DEFAULT_VALUE);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access() const
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Access() const
     {
         return os::atomic::Access(this->value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Add(to_float_tr auto value) const
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Access_Add(to_real_tr auto value) const
     {
         return os::atomic::Access_Add(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Subtract(to_float_tr auto value) const
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Access_Subtract(to_real_tr auto value) const
     {
         return os::atomic::Access_Subtract(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Multiply(to_float_tr auto value) const
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Access_Multiply(to_real_tr auto value) const
     {
         return os::atomic::Access_Multiply(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Access_Divide(to_float_tr auto value) const
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Access_Divide(to_real_tr auto value) const
     {
         return os::atomic::Access_Divide(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Assign(to_real_tr auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Add(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Assign_Add(to_real_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Subtract(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Assign_Subtract(to_real_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Multiply(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Assign_Multiply(to_real_tr auto value)
     {
         return os::atomic::Assign_Multiply(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Assign_Divide(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Assign_Divide(to_real_tr auto value)
     {
         return os::atomic::Assign_Divide(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Exchange(to_real_tr auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Add(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Exchange_Add(to_real_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Subtract(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Exchange_Subtract(to_real_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Multiply(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Exchange_Multiply(to_real_tr auto value)
     {
         return os::atomic::Exchange_Multiply(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::Exchange_Divide(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::Exchange_Divide(to_real_tr auto value)
     {
         return os::atomic::Exchange_Divide(this->value, value);
     }
 
-    template <float_tr float_p>
-    inline bool_t float_sp<float_p>::Exchange_If_Equals(value_t& snapshot, to_float_tr auto value)
+    template <real_tr real_p>
+    inline bool_t real_sp<real_p>::Exchange_If_Equals(value_t& snapshot, to_real_tr auto value)
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::operator value_t() const
+    template <real_tr real_p>
+    inline real_sp<real_p>::operator value_t() const
     {
         return Access();
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator +=(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator +=(to_real_tr auto value)
     {
         return Assign_Add(value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator -=(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator -=(to_real_tr auto value)
     {
         return Assign_Subtract(value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator *=(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator *=(to_real_tr auto value)
     {
         return Assign_Multiply(value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator /=(to_float_tr auto value)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator /=(to_real_tr auto value)
     {
         return Assign_Divide(value);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ++()
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ++()
     {
         return Assign_Add(1);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator ++(int)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ++(int)
     {
         return Exchange_Add(1);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --()
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator --()
     {
         return Assign_Subtract(1);
     }
 
-    template <float_tr float_p>
-    inline typename float_sp<float_p>::value_t float_sp<float_p>::operator --(int)
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator --(int)
     {
         return Exchange_Subtract(1);
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>::float_sp(none_t) :
+    template <real_tr real_p>
+    inline real_sp<real_p>::real_sp(none_t) :
         value(DEFAULT_VALUE)
     {
     }
 
-    template <float_tr float_p>
-    inline float_sp<float_p>& float_sp<float_p>::operator =(none_t)
+    template <real_tr real_p>
+    inline real_sp<real_p>& real_sp<real_p>::operator =(none_t)
     {
         Assign(DEFAULT_VALUE);
         return *this;
     }
 
-    template <float_tr float_p>
-    inline bool_t float_sp<float_p>::operator ==(none_t) const
+    template <real_tr real_p>
+    inline bool_t real_sp<real_p>::operator ==(none_t) const
     {
         return Access() == DEFAULT_VALUE;
     }
 
-    template <float_tr float_p>
-    inline bool_t float_sp<float_p>::operator !=(none_t) const
+    template <real_tr real_p>
+    inline bool_t real_sp<real_p>::operator !=(none_t) const
     {
         return !operator ==(none_t());
     }

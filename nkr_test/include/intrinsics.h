@@ -21,11 +21,11 @@ namespace nkr {
     extern std::mutex           random_lock;
 
     template <boolean_tr boolean_p>
-    boolean_p   Random(float_t probability_for_true);
+    boolean_p   Random(real_t probability_for_true);
     template <integer_tr integer_p>
     integer_p   Random(integer_p from_inclusive, integer_p to_inclusive);
-    template <float_tr float_p>
-    float_p     Random(float_p from_inclusive, float_p to_inclusive);
+    template <real_tr real_p>
+    real_p      Random(real_p from_inclusive, real_p to_inclusive);
 
 }
 

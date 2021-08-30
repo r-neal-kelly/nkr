@@ -52,8 +52,8 @@ namespace nkr {
                 maybe_t<c32_t> character;
                 CHECK(character == '\0');
 
-                maybe_t<f64_t> floating_point;
-                CHECK(floating_point == 0.0);
+                maybe_t<real_t> real;
+                CHECK(real == 0.0);
 
                 maybe_t<void_t*> void_pointer;
                 CHECK(void_pointer == nullptr);
@@ -72,8 +72,8 @@ namespace nkr {
                 maybe_t<c32_t> character('a');
                 CHECK(character == 'a');
 
-                maybe_t<f32_t> floating_point(1.0);
-                CHECK(floating_point == 1.0);
+                maybe_t<real_t> real(1.0);
+                CHECK(real == 1.0);
 
                 maybe_t<void_t*> void_pointer(&boolean);
                 CHECK(void_pointer == &boolean);
@@ -98,10 +98,10 @@ namespace nkr {
                 CHECK(other_character == 'a');
                 CHECK(character == 'a');
 
-                maybe_t<f32_t> other_floating_point(1.0);
-                maybe_t<f32_t> floating_point(other_floating_point);
-                CHECK(other_floating_point == 1.0);
-                CHECK(floating_point == 1.0);
+                maybe_t<real_t> other_real(1.0);
+                maybe_t<real_t> real(other_real);
+                CHECK(other_real == 1.0);
+                CHECK(real == 1.0);
 
                 maybe_t<void_t*> other_void_pointer(&boolean);
                 maybe_t<void_t*> void_pointer(other_void_pointer);
@@ -128,10 +128,10 @@ namespace nkr {
                 CHECK(other_character == '\0');
                 CHECK(character == 'a');
 
-                maybe_t<f32_t> other_floating_point(1.0);
-                maybe_t<f32_t> floating_point(std::move(other_floating_point));
-                CHECK(other_floating_point == 0.0);
-                CHECK(floating_point == 1.0);
+                maybe_t<real_t> other_real(1.0);
+                maybe_t<real_t> real(std::move(other_real));
+                CHECK(other_real == 0.0);
+                CHECK(real == 1.0);
 
                 maybe_t<void_t*> other_void_pointer(&boolean);
                 maybe_t<void_t*> void_pointer(std::move(other_void_pointer));
@@ -158,10 +158,10 @@ namespace nkr {
                 character = '\0';
                 CHECK(character == '\0');
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point == 1.0);
-                floating_point = 0.0;
-                CHECK(floating_point == 0.0);
+                maybe_t<real_t> real = 1.0;
+                CHECK(real == 1.0);
+                real = 0.0;
+                CHECK(real == 0.0);
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(void_pointer == &boolean);
@@ -188,10 +188,10 @@ namespace nkr {
                 CHECK(other_character == 'a');
                 CHECK(character == 'a');
 
-                maybe_t<f32_t> other_floating_point(1.0);
-                maybe_t<f32_t> floating_point = other_floating_point;
-                CHECK(other_floating_point == 1.0);
-                CHECK(floating_point == 1.0);
+                maybe_t<real_t> other_real(1.0);
+                maybe_t<real_t> real = other_real;
+                CHECK(other_real == 1.0);
+                CHECK(real == 1.0);
 
                 maybe_t<void_t*> other_void_pointer(&boolean);
                 maybe_t<void_t*> void_pointer = other_void_pointer;
@@ -218,10 +218,10 @@ namespace nkr {
                 CHECK(other_character == '\0');
                 CHECK(character == 'a');
 
-                maybe_t<f32_t> other_floating_point(1.0);
-                maybe_t<f32_t> floating_point = std::move(other_floating_point);
-                CHECK(other_floating_point == 0.0);
-                CHECK(floating_point == 1.0);
+                maybe_t<real_t> other_real(1.0);
+                maybe_t<real_t> real = std::move(other_real);
+                CHECK(other_real == 0.0);
+                CHECK(real == 1.0);
 
                 maybe_t<void_t*> other_void_pointer(&boolean);
                 maybe_t<void_t*> void_pointer = std::move(other_void_pointer);
@@ -245,9 +245,9 @@ namespace nkr {
                 character.~maybe_t<c32_t>();
                 CHECK(character == '\0');
 
-                maybe_t<f32_t> floating_point(1.0);
-                floating_point.~maybe_t<f32_t>();
-                CHECK(floating_point == 0.0);
+                maybe_t<real_t> real(1.0);
+                real.~maybe_t<real_t>();
+                CHECK(real == 0.0);
 
                 maybe_t<void_t*> void_pointer(&boolean);
                 void_pointer.~maybe_t<void_t*>();
@@ -286,14 +286,14 @@ namespace nkr {
                 CHECK(static_cast<bool_t>(character) == false);
                 CHECK(!character == true);
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point == 1.0);
-                CHECK(static_cast<bool_t>(floating_point) == true);
-                CHECK(!floating_point == false);
-                floating_point = 0.0;
-                CHECK(floating_point == 0.0);
-                CHECK(static_cast<bool_t>(floating_point) == false);
-                CHECK(!floating_point == true);
+                maybe_t<real_t> real = 1.0;
+                CHECK(real == 1.0);
+                CHECK(static_cast<bool_t>(real) == true);
+                CHECK(!real == false);
+                real = 0.0;
+                CHECK(real == 0.0);
+                CHECK(static_cast<bool_t>(real) == false);
+                CHECK(!real == true);
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(void_pointer == &boolean);
@@ -323,10 +323,10 @@ namespace nkr {
                 CHECK(static_cast<bool_t>(character) == true);
                 CHECK(!character == false);
 
-                const maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point == 1.0);
-                CHECK(static_cast<bool_t>(floating_point) == true);
-                CHECK(!floating_point == false);
+                const maybe_t<real_t> real = 1.0;
+                CHECK(real == 1.0);
+                CHECK(static_cast<bool_t>(real) == true);
+                CHECK(!real == false);
 
                 const maybe_t<const void_t*> void_pointer = &boolean;
                 CHECK(void_pointer == &boolean);
@@ -353,10 +353,10 @@ namespace nkr {
                 character = '\0';
                 CHECK(static_cast<bool_t>(character) == false);
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(static_cast<bool_t>(floating_point) == true);
-                floating_point = 0.0;
-                CHECK(static_cast<bool_t>(floating_point) == false);
+                maybe_t<real_t> real = 1.0;
+                CHECK(static_cast<bool_t>(real) == true);
+                real = 0.0;
+                CHECK(static_cast<bool_t>(real) == false);
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(static_cast<bool_t>(void_pointer) == true);
@@ -386,10 +386,10 @@ namespace nkr {
                 character() = '\0';
                 CHECK(character() == '\0');
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point() == 1.0);
-                floating_point() = 0.0;
-                CHECK(floating_point() == 0.0);
+                maybe_t<real_t> real = 1.0;
+                CHECK(real() == 1.0);
+                real() = 0.0;
+                CHECK(real() == 0.0);
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(void_pointer() == &boolean);
@@ -410,8 +410,8 @@ namespace nkr {
                 const maybe_t<c32_t> character = 'a';
                 CHECK(character() == 'a');
 
-                const maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point() == 1.0);
+                const maybe_t<real_t> real = 1.0;
+                CHECK(real() == 1.0);
 
                 const maybe_t<const void_t*> void_pointer = &boolean;
                 CHECK(void_pointer() == &boolean);
@@ -436,10 +436,10 @@ namespace nkr {
                 character = '\0';
                 CHECK(!character == true);
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(!floating_point == false);
-                floating_point = 0.0;
-                CHECK(!floating_point == true);
+                maybe_t<real_t> real = 1.0;
+                CHECK(!real == false);
+                real = 0.0;
+                CHECK(!real == true);
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(!void_pointer == false);
@@ -472,12 +472,12 @@ namespace nkr {
                 *&character = '\0';
                 CHECK(character == '\0');
 
-                maybe_t<f32_t> floating_point;
-                CHECK(&floating_point == &floating_point());
-                *&floating_point = 1.0;
-                CHECK(floating_point == 1.0);
-                *&floating_point = 0.0;
-                CHECK(floating_point == 0.0);
+                maybe_t<real_t> real;
+                CHECK(&real == &real());
+                *&real = 1.0;
+                CHECK(real == 1.0);
+                *&real = 0.0;
+                CHECK(real == 0.0);
 
                 maybe_t<void_t*> void_pointer;
                 CHECK(&void_pointer == &void_pointer());
@@ -503,9 +503,9 @@ namespace nkr {
                 CHECK(&character == &character());
                 CHECK(*&character == '\0');
 
-                const maybe_t<f32_t> floating_point;
-                CHECK(&floating_point == &floating_point());
-                CHECK(*&floating_point == 0.0);
+                const maybe_t<real_t> real;
+                CHECK(&real == &real());
+                CHECK(*&real == 0.0);
 
                 const maybe_t<void_t*> void_pointer;
                 CHECK(&void_pointer == &void_pointer());
@@ -534,10 +534,10 @@ namespace nkr {
                 CHECK(&(character = none_t()) == &character);
                 CHECK(character == none_t());
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point != none_t());
-                CHECK(&(floating_point = none_t()) == &floating_point);
-                CHECK(floating_point == none_t());
+                maybe_t<real_t> real = 1.0;
+                CHECK(real != none_t());
+                CHECK(&(real = none_t()) == &real);
+                CHECK(real == none_t());
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(void_pointer != none_t());
@@ -564,10 +564,10 @@ namespace nkr {
                 character = none_t();
                 CHECK(character == none_t());
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(!(floating_point == none_t()));
-                floating_point = none_t();
-                CHECK(floating_point == none_t());
+                maybe_t<real_t> real = 1.0;
+                CHECK(!(real == none_t()));
+                real = none_t();
+                CHECK(real == none_t());
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(!(void_pointer == none_t()));
@@ -594,10 +594,10 @@ namespace nkr {
                 character = none_t();
                 CHECK(!(character != none_t()));
 
-                maybe_t<f32_t> floating_point = 1.0;
-                CHECK(floating_point != none_t());
-                floating_point = none_t();
-                CHECK(!(floating_point != none_t()));
+                maybe_t<real_t> real = 1.0;
+                CHECK(real != none_t());
+                real = none_t();
+                CHECK(!(real != none_t()));
 
                 maybe_t<void_t*> void_pointer = &boolean;
                 CHECK(void_pointer != none_t());
@@ -766,51 +766,50 @@ namespace nkr {
                     CHECK(&maybe_character != &character);
                 }
 
-                TEST_CASE("floating_point")
+                TEST_CASE("real")
                 {
-                    using floating_point_t = f32_t;
-                    constexpr const floating_point_t v = 16.0;
-                    floating_point_t floating_point = v;
-                    maybe_t<floating_point_t> maybe_floating_point = v;
+                    constexpr const real_t v = 16.0;
+                    real_t real = v;
+                    maybe_t<real_t> maybe_real = v;
 
-                    CHECK(+maybe_floating_point == +floating_point);
-                    CHECK(-maybe_floating_point == -floating_point);
-                    CHECK(maybe_floating_point + v == floating_point + v);
-                    CHECK(maybe_floating_point - v == floating_point - v);
-                    CHECK(maybe_floating_point * v == floating_point * v);
-                    CHECK(maybe_floating_point / v == floating_point / v);
+                    CHECK(+maybe_real == +real);
+                    CHECK(-maybe_real == -real);
+                    CHECK(maybe_real + v == real + v);
+                    CHECK(maybe_real - v == real - v);
+                    CHECK(maybe_real * v == real * v);
+                    CHECK(maybe_real / v == real / v);
 
-                    CHECK((maybe_floating_point = v) == (floating_point = v));
-                    maybe_floating_point = floating_point = v;
-                    CHECK((maybe_floating_point += v) == (floating_point += v));
-                    maybe_floating_point = floating_point = v;
-                    CHECK((maybe_floating_point -= v) == (floating_point -= v));
-                    maybe_floating_point = floating_point = v;
-                    CHECK((maybe_floating_point *= v) == (floating_point *= v));
-                    maybe_floating_point = floating_point = v;
-                    CHECK((maybe_floating_point /= v) == (floating_point /= v));
-                    maybe_floating_point = floating_point = v;
+                    CHECK((maybe_real = v) == (real = v));
+                    maybe_real = real = v;
+                    CHECK((maybe_real += v) == (real += v));
+                    maybe_real = real = v;
+                    CHECK((maybe_real -= v) == (real -= v));
+                    maybe_real = real = v;
+                    CHECK((maybe_real *= v) == (real *= v));
+                    maybe_real = real = v;
+                    CHECK((maybe_real /= v) == (real /= v));
+                    maybe_real = real = v;
 
-                    CHECK(++maybe_floating_point == ++floating_point);
-                    CHECK(maybe_floating_point++ == floating_point++);
-                    CHECK(--maybe_floating_point == --floating_point);
-                    CHECK(maybe_floating_point-- == floating_point--);
+                    CHECK(++maybe_real == ++real);
+                    CHECK(maybe_real++ == real++);
+                    CHECK(--maybe_real == --real);
+                    CHECK(maybe_real-- == real--);
 
-                    CHECK(maybe_floating_point, floating_point);
-                    CHECK(!!maybe_floating_point, !!floating_point);
-                    CHECK(maybe_floating_point && floating_point);
-                    CHECK(maybe_floating_point || floating_point);
+                    CHECK(maybe_real, real);
+                    CHECK(!!maybe_real, !!real);
+                    CHECK(maybe_real && real);
+                    CHECK(maybe_real || real);
 
-                    CHECK(maybe_floating_point == floating_point);
-                    CHECK_FALSE(maybe_floating_point != floating_point);
-                    CHECK_FALSE(maybe_floating_point < floating_point);
-                    CHECK_FALSE(maybe_floating_point > floating_point);
-                    CHECK(maybe_floating_point <= floating_point);
-                    CHECK(maybe_floating_point >= floating_point);
-                    CHECK(maybe_floating_point <=> floating_point == 0);
-                    CHECK(maybe_floating_point ? maybe_floating_point() : floating_point);
+                    CHECK(maybe_real == real);
+                    CHECK_FALSE(maybe_real != real);
+                    CHECK_FALSE(maybe_real < real);
+                    CHECK_FALSE(maybe_real > real);
+                    CHECK(maybe_real <= real);
+                    CHECK(maybe_real >= real);
+                    CHECK(maybe_real <=> real == 0);
+                    CHECK(maybe_real ? maybe_real() : real);
 
-                    CHECK(&maybe_floating_point != &floating_point);
+                    CHECK(&maybe_real != &real);
                 }
 
                 TEST_CASE("pointer")

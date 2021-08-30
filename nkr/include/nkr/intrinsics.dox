@@ -166,32 +166,32 @@
         */
 
     /**
-    * @defgroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af floating points
+    * @defgroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af reals
     * @ingroup intrinsics
     *
     * @brief
-    *   Convenient floating point types.
+    *   Convenient real number types.
     */
 
-        // f32_t
+        // r32_t
         /**
         * @class _2ad13e3a_26a3_4526_b482_a1f643d2cb99
         * @private
         */
 
-        // f64_t
+        // r64_t
         /**
         * @class _a5fce9b9_cb18_4f58_acaf_79d2386f6bae
         * @private
         */
 
-        // float_t
+        // real_t
         /**
         * @class _78f7692b_f26c_44ec_b165_394190b9d273
         * @private
         * 
         * @brief
-        *   Matches the nkr::word_t of the machine by selecting f32_t for 32-bit and f64_t for 64-bit.
+        *   Matches the nkr::word_t of the machine by selecting r32_t for 32-bit or r64_t for 64-bit.
         */
 
     /**

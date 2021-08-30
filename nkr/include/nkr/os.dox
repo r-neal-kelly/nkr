@@ -22,7 +22,7 @@
     * @details
     *   These functions can be used in a threaded environment to safely read and write to various integers, booleans, and pointers. They are far more resource friendly than locks and should be used in their place as frequently as possible.
     * 
-    *   There are three primary sets of these functions, each differing in whether they write to the atomic or simply read from it, and what value they return after a write. Furthermore within each set there are subsets that allow for either a read or write to be combined with a integral operator, all done in one atomic operation. Each subset consists of various overloads to provide atomics not only for booleans and integers, but for floats and pointers as well.
+    *   There are three primary sets of these functions, each differing in whether they write to the atomic or simply read from it, and what value they return after a write. Furthermore within each set there are subsets that allow for either a read or write to be combined with a integral operator, all done in one atomic operation. Each subset consists of various overloads to provide atomics not only for booleans and integers, but for real numbers and pointers as well.
     * 
     * @note
     *   Any 64-bit functionality only works when compiling for 64-bit processors. This is because the nkr::word_t of the machine is the maximum number of bits that can be used atomically.
@@ -79,7 +79,7 @@
                 * @snippet "./src/os.cpp" _c2dbe569_37b0_4573_8745_031b9ed85df7
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _21cc14ae_45f0_4855_84d4_42e7393be6b2
                 * @private
@@ -127,7 +127,7 @@
                 * @snippet "./src/os.cpp" _089fa26d_70c1_479e_8e8e_bfaa75d70540
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _2dbe104d_074e_4b0f_9881_92f5904668c1
                 * @private
@@ -174,7 +174,7 @@
                 * @snippet "./src/os.cpp" _5dc71bd5_4d2b_48a5_818b_baa86032959f
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _20004723_e811_4a0e_b0f4_200ce9abb23b
                 * @private
@@ -221,7 +221,7 @@
                 * @snippet "./src/os.cpp" _b7600ccc_fe86_4d06_ac74_31027989c3c5
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _4f2854a6_8748_464a_b349_27cc7c6b75bb
                 * @private
@@ -258,7 +258,7 @@
                 * @snippet "./src/os.cpp" _844bc762_1168_4f79_bb35_79444617d12b
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _af12bfd4_f332_402e_966e_fae3d1def171
                 * @private
@@ -471,7 +471,7 @@
                 * @snippet "./src/os.cpp" _df7134a8_a8dc_4ebe_9402_24293478f845
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _58358f73_b528_40f6_afea_c92e99ceacf5
                 * @private
@@ -521,7 +521,7 @@
                 * @snippet "./src/os.cpp" _e284b8bf_6a1e_4e0a_9601_e7ab38bfbf3c
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _56449aaf_1ec1_45b6_affe_5c9e52cb054b
                 * @private
@@ -570,7 +570,7 @@
                 * @snippet "./src/os.cpp" _c8e349da_46dd_4881_9c7b_71443df3c2c6
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _00e757d4_7f46_4c49_ab21_abe2c125f3a0
                 * @private
@@ -617,7 +617,7 @@
                 * @snippet "./src/os.cpp" _38326c66_a188_4fb3_8d25_fb6de631b5fa
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _57c963ce_3ec5_4e5a_b8ee_f86fa3a621aa
                 * @private
@@ -654,7 +654,7 @@
                 * @snippet "./src/os.cpp" _a6d9520a_30f4_431f_b0ae_b7f85cbf9041
                 */
 
-                // float_tr
+                // real_tr
                 /**
                 * @class _410d4ab2_a256_46fb_a3d1_81d5df42d754
                 * @private
@@ -899,7 +899,7 @@
                 * @snippet "./src/os.cpp" _1d45c35f_0596_46f6_b585_31de82f7da16
                 */
 
-                // float_32_tr
+                // real_32_tr
                 /**
                 * @class _c3e1ae09_ea1d_4180_8ade_03f55a2697de
                 * @private
@@ -909,7 +909,7 @@
                 * @snippet "./src/os.cpp" _16994b0a_fada_4042_83cb_9236e766d99c
                 */
 
-                // float_64_tr
+                // real_64_tr
                 /**
                 * @class _10dfb789_0e5e_4cf7_bbab_fa016d811d0f
                 * @private
@@ -983,7 +983,7 @@
                 * @snippet "./src/os.cpp" _2f84130b_a6b9_4715_845a_f1a53e0457f6
                 */
 
-                // float_32_tr
+                // real_32_tr
                 /**
                 * @class _3d5ff86d_f19b_4f2e_9aee_c26dfb6cc70c
                 * @private
@@ -993,7 +993,7 @@
                 * @snippet "./src/os.cpp" _8451cd60_f17d_4c6f_9bfe_7bc37d879bce
                 */
 
-                // float_64_tr
+                // real_64_tr
                 /**
                 * @class _e05e5c49_c9e5_4b2e_b6b7_78c1b162efae
                 * @private
@@ -1066,7 +1066,7 @@
                 * @snippet "./src/os.cpp" _104e19d6_03ce_49d2_8854_02c41c5d924b
                 */
 
-                // float_32_tr
+                // real_32_tr
                 /**
                 * @class _8d728a53_9ae5_4021_afc3_f7eddc191837
                 * @private
@@ -1076,7 +1076,7 @@
                 * @snippet "./src/os.cpp" _9236c949_c671_4805_9716_dc6215f54a61
                 */
 
-                // float_64_tr
+                // real_64_tr
                 /**
                 * @class _fa5d91a7_6a85_4a90_b53e_13979f43e7e3
                 * @private
@@ -1149,7 +1149,7 @@
                 * @snippet "./src/os.cpp" _e06eac77_d60d_4947_b1de_0f3a492a9177
                 */
 
-                // float_32_tr
+                // real_32_tr
                 /**
                 * @class _67c3f25b_3381_4848_8aef_831f33b031ec
                 * @private
@@ -1159,7 +1159,7 @@
                 * @snippet "./src/os.cpp" _6a607416_5e12_4891_88cb_8b611edb025e
                 */
 
-                // float_64_tr
+                // real_64_tr
                 /**
                 * @class _89e821f5_52eb_4658_ab7c_a39e3ff2ec98
                 * @private
@@ -1222,7 +1222,7 @@
                 * @snippet "./src/os.cpp" _e4ab402d_2c9e_4fff_99c2_9971b69dbc00
                 */
 
-                // float_32_tr
+                // real_32_tr
                 /**
                 * @class _c0da5851_8733_4691_a50d_af820ca8299f
                 * @private
@@ -1232,7 +1232,7 @@
                 * @snippet "./src/os.cpp" _5c93b156_7668_4fe7_be0b_a0d4600f0933
                 */
 
-                // float_64_tr
+                // real_64_tr
                 /**
                 * @class _3b59e0d7_49ad_4e48_abbe_b493eeb2d453
                 * @private
@@ -1624,7 +1624,7 @@
                 * @snippet "./src/os.cpp" _d274b52b_2baf_4b2c_aa4c_c7a63201d1c8
                 */
 
-                // float_32_tr
+                // real_32_tr
                 /**
                 * @class _d0f2c440_7414_4a14_b280_88fc0da4b8c6
                 * @private
@@ -1634,7 +1634,7 @@
                 * @snippet "./src/os.cpp" _053a47aa_c48a_4777_967f_a06cd12d1926
                 */
 
-                // float_64_tr
+                // real_64_tr
                 /**
                 * @class _78557f24_7a3b_48e5_a010_7af0eb4ccb51
                 * @private

@@ -7,14 +7,14 @@ var hierarchy =
       ] ],
       [ "nkr::$maybe_t::built_in_sp< any_p >", "de/da8/classnkr_1_1_0bmaybe__t_1_1built__in__sp.html", null ]
     ] ],
-    [ "nkr::$maybe_t::$built_in_sp::any_sp< float_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
-      [ "nkr::$maybe_t::$built_in_sp::float_sp< float_p >", "df/d9b/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1float__sp.html", [
-        [ "nkr::$maybe_t::built_in_sp< float_p >", "d9/d80/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01float__p_01_4.html", null ]
-      ] ]
-    ] ],
     [ "nkr::$maybe_t::$built_in_sp::any_sp< pointer_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
       [ "nkr::$maybe_t::$built_in_sp::pointer_sp< pointer_p >", "de/dfb/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html", [
         [ "nkr::$maybe_t::built_in_sp< pointer_p >", "de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4.html", null ]
+      ] ]
+    ] ],
+    [ "nkr::$maybe_t::$built_in_sp::any_sp< real_p >", "d9/d4f/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1any__sp.html", [
+      [ "nkr::$maybe_t::$built_in_sp::real_sp< real_p >", "d8/d4e/classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1real__sp.html", [
+        [ "nkr::$maybe_t::built_in_sp< real_p >", "d4/d77/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01real__p_01_4.html", null ]
       ] ]
     ] ],
     [ "nkr::array_dynamic_t< unit, allocator >", "d5/d74/classnkr_1_1array__dynamic__t.html", null ],
@@ -24,9 +24,6 @@ var hierarchy =
     ] ],
     [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", null ],
     [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", null ],
-    [ "nkr::$atomic_t::float_sp< float_p >", "d9/d66/classnkr_1_1_0batomic__t_1_1float__sp.html", [
-      [ "nkr::atomic_t< float_p >", "d5/dca/classnkr_1_1atomic__t_3_01float__p_01_4.html", null ]
-    ] ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", null ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", [
       [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", null ]
@@ -40,6 +37,9 @@ var hierarchy =
       [ "nkr::atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", null ]
     ] ],
     [ "nkr::pointer_t< unit_p >", "d9/df4/classnkr_1_1pointer__t.html", null ],
+    [ "nkr::$atomic_t::real_sp< real_p >", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html", [
+      [ "nkr::atomic_t< real_p >", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4.html", null ]
+    ] ],
     [ "nkr::string_static_t< charcoder >", "d4/d5c/classnkr_1_1string__static__t.html", null ],
     [ "nkr::string_static_t< charcoder_utf_8_t >", "d4/d5c/classnkr_1_1string__static__t.html", [
       [ "nkr::string_dynamic_t< charcoder >", "d9/d32/classnkr_1_1string__dynamic__t.html", null ]

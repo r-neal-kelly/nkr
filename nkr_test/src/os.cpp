@@ -111,21 +111,21 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_c2dbe569_37b0_4573_8745_031b9ed85df7]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_20fdaaf3_07c1_4089_9a24_4e397b0a69d3]
-                f32_t f32 = 3.2f;
-                f32_t access = nkr::os::atomic::Access(f32);
+                r32_t f32 = 3.2f;
+                r32_t access = nkr::os::atomic::Access(f32);
                 CHECK(nkr::os::atomic::Access(f32) == access);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f);
                 /// [_20fdaaf3_07c1_4089_9a24_4e397b0a69d3]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_47df9d0d_8512_484e_9b3c_f2d595a3446a]
-                f64_t f64 = 6.4;
-                f64_t access = nkr::os::atomic::Access(f64);
+                r64_t f64 = 6.4;
+                r64_t access = nkr::os::atomic::Access(f64);
                 CHECK(nkr::os::atomic::Access(f64) == access);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4);
                 /// [_47df9d0d_8512_484e_9b3c_f2d595a3446a]
@@ -225,19 +225,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_089fa26d_70c1_479e_8e8e_bfaa75d70540]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_6e3f5a0f_d32f_426e_a815_99cbab82c138]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Access_Add(f32, 0.1f) == 3.2f + 0.1f);
                 CHECK(f32 == 3.2f);
                 /// [_6e3f5a0f_d32f_426e_a815_99cbab82c138]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_a8fbd7c4_02d9_47a2_9750_cba9ce0f4f6f]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Access_Add(f64, 0.1) == 6.4 + 0.1);
                 CHECK(f64 == 6.4);
                 /// [_a8fbd7c4_02d9_47a2_9750_cba9ce0f4f6f]
@@ -327,19 +327,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_5dc71bd5_4d2b_48a5_818b_baa86032959f]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_dd66dcb3_3f16_42e2_a745_66010d680ac3]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Access_Subtract(f32, 0.1f) == 3.2f - 0.1f);
                 CHECK(f32 == 3.2f);
                 /// [_dd66dcb3_3f16_42e2_a745_66010d680ac3]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_b5c8672e_f1c0_4707_9fff_1c86557fe11a]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Access_Subtract(f64, 0.1) == 6.4 - 0.1);
                 CHECK(f64 == 6.4);
                 /// [_b5c8672e_f1c0_4707_9fff_1c86557fe11a]
@@ -429,19 +429,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_b7600ccc_fe86_4d06_ac74_31027989c3c5]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_d248006b_9512_4cf8_9b5c_80dc49d4e47b]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Access_Multiply(f32, 0.1f) == 3.2f * 0.1f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f);
                 /// [_d248006b_9512_4cf8_9b5c_80dc49d4e47b]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_20a330a8_742c_469c_83dd_639ccf054600]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Access_Multiply(f64, 0.1) == 6.4 * 0.1);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4);
                 /// [_20a330a8_742c_469c_83dd_639ccf054600]
@@ -522,19 +522,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_844bc762_1168_4f79_bb35_79444617d12b]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_a12d9b59_aad0_4b05_8e46_350ed28bc418]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Access_Divide(f32, 0.1f) == 3.2f / 0.1f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f);
                 /// [_a12d9b59_aad0_4b05_8e46_350ed28bc418]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_0725562e_aeee_4b3e_8f8e_09413e4a99d7]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Access_Divide(f64, 0.1) == 6.4 / 0.1);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4);
                 /// [_0725562e_aeee_4b3e_8f8e_09413e4a99d7]
@@ -1081,19 +1081,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_df7134a8_a8dc_4ebe_9402_24293478f845]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_f157cc7f_e2c4_43fc_ace7_46fdb1f780f6]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Assign(f32, 1.0f) == 1.0f);
                 CHECK(f32 == 1.0f);
                 /// [_f157cc7f_e2c4_43fc_ace7_46fdb1f780f6]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_c34e8028_14a0_4d3f_b4eb_168b0325d9c2]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Assign(f64, 1.0) == 1.0);
                 CHECK(f64 == 1.0);
                 /// [_c34e8028_14a0_4d3f_b4eb_168b0325d9c2]
@@ -1192,19 +1192,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_ce36072a_53ba_4967_b759_fd0eb6b81940]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_f3394ec8_1307_46a2_8394_aa0ee3baaa77]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Assign_Add(f32, 0.1f) == 3.2f + 0.1f);
                 CHECK(f32 == 3.2f + 0.1f);
                 /// [_f3394ec8_1307_46a2_8394_aa0ee3baaa77]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_835a4125_b92c_4d89_940a_1467d425e68f]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Assign_Add(f64, 0.1) == 6.4 + 0.1);
                 CHECK(f64 == 6.4 + 0.1);
                 /// [_835a4125_b92c_4d89_940a_1467d425e68f]
@@ -1324,19 +1324,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_cb450edc_fdc2_43e6_96ea_64f6562fa97a]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_27f73182_bfc7_4552_b539_8e3ded554740]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Assign_Subtract(f32, 0.1f) == 3.2f - 0.1f);
                 CHECK(f32 == 3.2f - 0.1f);
                 /// [_27f73182_bfc7_4552_b539_8e3ded554740]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_bd6605e6_3104_4249_8a1f_73477ce78806]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Assign_Subtract(f64, 0.1) == 6.4 - 0.1);
                 CHECK(f64 == 6.4 - 0.1);
                 /// [_bd6605e6_3104_4249_8a1f_73477ce78806]
@@ -1456,19 +1456,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_38326c66_a188_4fb3_8d25_fb6de631b5fa]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_36c0f2b7_8902_4ad4_9097_4755fceb08aa]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Assign_Multiply(f32, 0.1f) == 3.2f * 0.1f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f * 0.1f);
                 /// [_36c0f2b7_8902_4ad4_9097_4755fceb08aa]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_421aeec1_cf2b_4f03_b90b_c6787779f060]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Assign_Multiply(f64, 0.1) == 6.4 * 0.1);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4 * 0.1);
                 /// [_421aeec1_cf2b_4f03_b90b_c6787779f060]
@@ -1549,19 +1549,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_a6d9520a_30f4_431f_b0ae_b7f85cbf9041]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_dc683ec7_75f7_48ff_9d0b_3b1c25350a41]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Assign_Divide(f32, 0.1f) == 3.2f / 0.1f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f / 0.1f);
                 /// [_dc683ec7_75f7_48ff_9d0b_3b1c25350a41]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_2b78214c_3480_4abd_8171_123e676261d6]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Assign_Divide(f64, 0.1) == 6.4 / 0.1);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4 / 0.1);
                 /// [_2b78214c_3480_4abd_8171_123e676261d6]
@@ -2108,19 +2108,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_1d45c35f_0596_46f6_b585_31de82f7da16]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_16994b0a_fada_4042_83cb_9236e766d99c]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Exchange(f32, -3.2f) == 3.2f);
                 CHECK(nkr::os::atomic::Access(f32) == -3.2f);
                 /// [_16994b0a_fada_4042_83cb_9236e766d99c]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_2c26bdeb_db83_4fdd_9678_b9c005a4b8ca]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Exchange(f64, -6.4) == 6.4);
                 CHECK(nkr::os::atomic::Access(f64) == -6.4);
                 /// [_2c26bdeb_db83_4fdd_9678_b9c005a4b8ca]
@@ -2219,19 +2219,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_2f84130b_a6b9_4715_845a_f1a53e0457f6]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_8451cd60_f17d_4c6f_9bfe_7bc37d879bce]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Exchange_Add(f32, 0.1f) == 3.2f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f + 0.1f);
                 /// [_8451cd60_f17d_4c6f_9bfe_7bc37d879bce]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_92398c40_af25_4bd4_a2e9_be7aaf159b62]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Exchange_Add(f64, 0.1) == 6.4);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4 + 0.1);
                 /// [_92398c40_af25_4bd4_a2e9_be7aaf159b62]
@@ -2323,19 +2323,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_104e19d6_03ce_49d2_8854_02c41c5d924b]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_9236c949_c671_4805_9716_dc6215f54a61]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Exchange_Subtract(f32, 0.1f) == 3.2f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f - 0.1f);
                 /// [_9236c949_c671_4805_9716_dc6215f54a61]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_a2c0a2b8_463a_4501_a164_3dfd614054d6]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Exchange_Subtract(f64, 0.1) == 6.4);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4 - 0.1);
                 /// [_a2c0a2b8_463a_4501_a164_3dfd614054d6]
@@ -2427,19 +2427,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_e06eac77_d60d_4947_b1de_0f3a492a9177]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_6a607416_5e12_4891_88cb_8b611edb025e]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Exchange_Multiply(f32, 0.1f) == 3.2f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f * 0.1f);
                 /// [_6a607416_5e12_4891_88cb_8b611edb025e]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_0293a39d_61b3_42d0_8505_de2a51a16610]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Exchange_Multiply(f64, 0.1) == 6.4);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4 * 0.1);
                 /// [_0293a39d_61b3_42d0_8505_de2a51a16610]
@@ -2520,19 +2520,19 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_e4ab402d_2c9e_4fff_99c2_9971b69dbc00]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_5c93b156_7668_4fe7_be0b_a0d4600f0933]
-                f32_t f32 = 3.2f;
+                r32_t f32 = 3.2f;
                 CHECK(nkr::os::atomic::Exchange_Divide(f32, 0.1f) == 3.2f);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f / 0.1f);
                 /// [_5c93b156_7668_4fe7_be0b_a0d4600f0933]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_26028451_e507_4c96_8e49_e269edc87895]
-                f64_t f64 = 6.4;
+                r64_t f64 = 6.4;
                 CHECK(nkr::os::atomic::Exchange_Divide(f64, 0.1) == 6.4);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4 / 0.1);
                 /// [_26028451_e507_4c96_8e49_e269edc87895]
@@ -3199,11 +3199,11 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_d274b52b_2baf_4b2c_aa4c_c7a63201d1c8]
             #endif
             }
-            TEST_CASE("f32_t")
+            TEST_CASE("r32_t")
             {
                 /// [_053a47aa_c48a_4777_967f_a06cd12d1926]
-                f32_t f32 = 3.2f;
-                f32_t snapshot = 0.0f;
+                r32_t f32 = 3.2f;
+                r32_t snapshot = 0.0f;
 
                 CHECK(nkr::os::atomic::Exchange_If_Equals(f32, snapshot, 0.0f) == false);
                 CHECK(nkr::os::atomic::Access(f32) == 3.2f);
@@ -3219,12 +3219,12 @@ namespace nkr { namespace os { namespace atomic {
                 CHECK(snapshot == 0);
                 /// [_053a47aa_c48a_4777_967f_a06cd12d1926]
             }
-            TEST_CASE("f64_t")
+            TEST_CASE("r64_t")
             {
             #if defined(nkr_IS_64_BIT)
                 /// [_7903378e_2ad0_43a7_a3aa_b515e179137a]
-                f64_t f64 = 6.4;
-                f64_t snapshot = 0.0;
+                r64_t f64 = 6.4;
+                r64_t snapshot = 0.0;
 
                 CHECK(nkr::os::atomic::Exchange_If_Equals(f64, snapshot, 0.0) == false);
                 CHECK(nkr::os::atomic::Access(f64) == 6.4);

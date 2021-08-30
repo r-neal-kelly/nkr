@@ -88,30 +88,30 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     /// @nosubgrouping
     /// @copydoc _38ebec22_bbe8_4dca_a3dd_e0d3ce7f680f
-    template <float_tr float_p>
-    class float_sp :
-        public any_sp<float_p>
+    template <real_tr real_p>
+    class real_sp :
+        public any_sp<real_p>
     {
     public:
         /// @name aliases
         /// @copydoc _bb2c1a35_af7a_4084_ad9d_59a969254b54
         /// @{
-        using value_t   = float_p;  ///< @copydoc _6337ae7b_7866_4d54_8259_2228811679c6
+        using value_t   = real_p;   ///< @copydoc _6337ae7b_7866_4d54_8259_2228811679c6
         /// @}
 
     public:
         /// @name inherited objects
         /// @{
-        using any_sp<float_p>::any_sp;
-        using any_sp<float_p>::operator =;
+        using any_sp<real_p>::any_sp;
+        using any_sp<real_p>::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _894fcf2d_8e11_4657_89b8_92333e9da925
         /// @{
-        float_sp(const any_sp<float_p>& other);     ///< @copydoc _375cb4fa_e21e_492c_9070_9b6d089ec6f7
-        float_sp(any_sp<float_p>&& other) noexcept; ///< @copydoc _8d7e6f6b_645d_4ecf_b277_cc7d0040531a
+        real_sp(const any_sp<real_p>& other);       ///< @copydoc _375cb4fa_e21e_492c_9070_9b6d089ec6f7
+        real_sp(any_sp<real_p>&& other) noexcept;   ///< @copydoc _8d7e6f6b_645d_4ecf_b277_cc7d0040531a
         /// @}
 
     public:
@@ -196,28 +196,28 @@ namespace nkr { namespace $maybe_t {
 
     /// @nosubgrouping
     /// @copydoc _54610ffc_35de_47f2_9b0a_03da52782104
-    template <float_tr float_p>
-    class built_in_sp<float_p> :
-        public $built_in_sp::float_sp<float_p>
+    template <real_tr real_p>
+    class built_in_sp<real_p> :
+        public $built_in_sp::real_sp<real_p>
     {
     public:
         /// @name inherited objects
         /// @{
-        using $built_in_sp::float_sp<float_p>::float_sp;
-        using $built_in_sp::float_sp<float_p>::operator =;
+        using $built_in_sp::real_sp<real_p>::real_sp;
+        using $built_in_sp::real_sp<real_p>::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _5b844485_95be_4c1a_a964_62ddfce97452
         /// @{
-        built_in_sp(const $built_in_sp::float_sp<float_p>& other) :
-            $built_in_sp::float_sp<float_p>(other)
+        built_in_sp(const $built_in_sp::real_sp<real_p>& other) :
+            $built_in_sp::real_sp<real_p>(other)
         {
         }                                                               ///< @copydoc _e2a0751a_d716_4ead_abd6_570c52f21ecf
 
-        built_in_sp($built_in_sp::float_sp<float_p>&& other) noexcept :
-            $built_in_sp::float_sp<float_p>(std::move(other))
+        built_in_sp($built_in_sp::real_sp<real_p>&& other) noexcept :
+            $built_in_sp::real_sp<real_p>(std::move(other))
         {
         }                                                               ///< @copydoc _bf60fcab_016b_4c03_b769_55c9fa884fa3
         /// @}
