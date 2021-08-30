@@ -488,10 +488,16 @@ template&lt;float_tr float_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                    atomic_t&lt;float_t&gt; atom((none_t()));</div>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly set its value to the default value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;float_t&gt; atom((none_t()));</div>
 <div class="line">                    CHECK(atom == atomic_t&lt;float_t&gt;::DEFAULT_VALUE);</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">                    atomic_t&lt;float_t&gt; atom = none_t();</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly set its value to the default value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;float_t&gt; atom = none_t();</div>
 <div class="line">                    CHECK(atom == atomic_t&lt;float_t&gt;::DEFAULT_VALUE);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>

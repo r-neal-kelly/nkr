@@ -1749,21 +1749,21 @@ namespace nkr {
         {
             TEST_SUITE("none_ctor()")
             {
+                /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
                 TEST_CASE("should explicitly set its value to the default value")
                 {
-                    /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
                     atomic_t<float_t> atom((none_t()));
                     CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
-                    /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
                 }
+                /// [_5096780d_a27a_4d1d_86bb_49ffaf63e81a]
                 
+                /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
                 TEST_CASE("should implicitly set its value to the default value")
                 {
-                    /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
                     atomic_t<float_t> atom = none_t();
                     CHECK(atom == atomic_t<float_t>::DEFAULT_VALUE);
-                    /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
                 }
+                /// [_d0625a9a_49b4_4b1e_af82_4335ef71cc0d]
             }
 
             TEST_SUITE("=(none_t)")
