@@ -7,11 +7,10 @@ var indexSectionsWithContent =
   4: "abdeimnoprsuv~",
   5: "dmuv",
   6: "abcirstuvw",
-  7: "o",
-  8: "n",
-  9: "bcfhimnprt",
-  10: "ot",
-  11: "n"
+  7: "n",
+  8: "bcfhimnprt",
+  9: "ot",
+  10: "n"
 };
 
 var indexSectionNames =
@@ -23,11 +22,10 @@ var indexSectionNames =
   4: "functions",
   5: "variables",
   6: "typedefs",
-  7: "related",
-  8: "defines",
-  9: "groups",
-  10: "pages",
-  11: "concepts"
+  7: "defines",
+  8: "groups",
+  9: "pages",
+  10: "concepts"
 };
 
 var indexSectionLabels =
@@ -39,10 +37,9 @@ var indexSectionLabels =
   4: "Functions",
   5: "Variables",
   6: "Typedefs",
-  7: "Friends",
-  8: "Macros",
-  9: "Modules",
-  10: "Pages",
-  11: "Concepts"
+  7: "Macros",
+  8: "Modules",
+  9: "Pages",
+  10: "Concepts"
 };
 

@@ -2056,8 +2056,8 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                    <span class="keyword">const</span> atomic_t&lt;integer_p&gt; atom(random);</div>
 <div class="line">                    CHECK(atom);</div>
 <div class="line">                    CHECK(!!atom);</div>
-<div class="line">                    CHECK(atom || 0.0);</div>
-<div class="line">                    CHECK(atom &amp;&amp; 1.0);</div>
+<div class="line">                    CHECK(atom || <span class="keyword">false</span>);</div>
+<div class="line">                    CHECK(atom &amp;&amp; <span class="keyword">true</span>);</div>
 <div class="line">                    CHECK(atom ? <span class="keyword">true</span> : <span class="keyword">false</span>);</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for comparison operators&quot;</span>, integer_p, _)</div>
@@ -2901,7 +2901,7 @@ template&lt;integer_tr integer_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">nkr::$atomic_t::integer_sp</a>&lt; integer_p &gt;::<a class="el" href="../../dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac">operator!</a>= </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html">nkr::$atomic_t::integer_sp</a>&lt; integer_p &gt;::operator!= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>&#160;</td>
           <td class="paramname"></td><td>)</td>

@@ -14,7 +14,7 @@ var classnkr_1_1_0batomic__t_1_1boolean__sp =
     [ "Assign", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ad26ac8233ff0165400442aeb2bac9d4a", null ],
     [ "Exchange", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a6c1ed0281f2ff7a50fa1eb4b11735d8c", null ],
     [ "Exchange_If_Equals", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a0c62a14d51a32b6ab49f94a6a92f079e", null ],
-    [ "operator value_t", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a50cd9cfa9f7a9a88c2021d28a6b10090", null ],
+    [ "operator std_bool_t", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a6bae24ea0875cfea9cae9cc7234dd805", null ],
     [ "operator()", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a9bcef9a36144e0afd3ac182322f6402c", null ],
     [ "operator=", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#af8c9b82f68d2854def79c0b8c481bb77", null ],
     [ "operator==", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#aca7ecc62eea76cbdb30e3dee8d9eab86", null ],

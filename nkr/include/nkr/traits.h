@@ -4,10 +4,11 @@
 
 #pragma once
 
-#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 
 namespace nkr {
+
+    class bool_t;
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
@@ -36,6 +37,10 @@ namespace nkr {
     concept to_boolean_tr =
         std::convertible_to<type_p, bool_t> ||
         std::convertible_to<type_p, std_bool_t>;    ///< @copydoc _2c84f547_56c5_48a6_b6eb_3c0244998edc
+
+    template <typename type_p>
+    concept to_std_bool_tr =
+        std::convertible_to<type_p, std_bool_t>;
     /// @}
 
     /// @addtogroup _222d304c_42db_4988_8611_c8aedc33c6cc

@@ -36,7 +36,6 @@ var menudata={children:[
 {text:"d",url:"namespacemembers.html#index_d"},
 {text:"e",url:"namespacemembers.html#index_e"},
 {text:"i",url:"namespacemembers.html#index_i"},
-{text:"o",url:"namespacemembers.html#index_o"},
 {text:"r",url:"namespacemembers.html#index_r"},
 {text:"s",url:"namespacemembers.html#index_s"},
 {text:"u",url:"namespacemembers.html#index_u"},
@@ -47,7 +46,6 @@ var menudata={children:[
 {text:"d",url:"namespacemembers_func.html#index_d"},
 {text:"e",url:"namespacemembers_func.html#index_e"},
 {text:"i",url:"namespacemembers_func.html#index_i"},
-{text:"o",url:"namespacemembers_func.html#index_o"},
 {text:"r",url:"namespacemembers_func.html#index_r"},
 {text:"s",url:"namespacemembers_func.html#index_s"}]},
 {text:"Typedefs",url:"namespacemembers_type.html"}]}]},
@@ -95,8 +93,7 @@ var menudata={children:[
 {text:"c",url:"functions_type.html#index_c"},
 {text:"t",url:"functions_type.html#index_t"},
 {text:"u",url:"functions_type.html#index_u"},
-{text:"v",url:"functions_type.html#index_v"}]},
-{text:"Related Functions",url:"functions_rela.html"}]}]},
+{text:"v",url:"functions_type.html#index_v"}]}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[

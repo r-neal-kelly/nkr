@@ -75,7 +75,7 @@ namespace nkr { namespace $atomic_t {
         /// @name casts
         /// @copydoc _b471158e_1d68_4c75_a520_763cfb48f86b
         /// @{
-        operator    value_t() const;    ///< @copydoc _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
+        operator    std_bool_t() const; ///< @copydoc _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
         /// @}
 
     public:

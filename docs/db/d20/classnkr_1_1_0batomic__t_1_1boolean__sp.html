@@ -161,8 +161,8 @@ Inheritance diagram for nkr::$atomic_t::boolean_sp&lt; boolean_p &gt;:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader">casts</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp0a9eee6906811a48c7d2833b8479edfe"></a></p>
 </td></tr>
-<tr class="memitem:a50cd9cfa9f7a9a88c2021d28a6b10090"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a50cd9cfa9f7a9a88c2021d28a6b10090">operator value_t</a> () const</td></tr>
-<tr class="separator:a50cd9cfa9f7a9a88c2021d28a6b10090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bae24ea0875cfea9cae9cc7234dd805"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a6bae24ea0875cfea9cae9cc7234dd805">operator std_bool_t</a> () const</td></tr>
+<tr class="separator:a6bae24ea0875cfea9cae9cc7234dd805"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader">operators</h2></td></tr>
 <tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp0997fb356c249146ffe97cce96f88459"></a></p>
@@ -208,6 +208,10 @@ template&lt;boolean_tr boolean_p&gt; </div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;integer_p&gt;::value_t, integer_p&gt;);</div>
 <div class="line">                }</div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the passed in type&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;boolean_p&gt;::value_t, boolean_p&gt;);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -235,8 +239,13 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value, but not atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean;</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<p >Sets itself to the default value, but not atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set value to the default&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">atomic_t&lt;boolean_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_a43944b4cbb550f99f1db545c55b050a9"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">nkr::$atomic_t::boolean_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static const value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:38</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -267,8 +276,26 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the value, but not atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<p >Sets itself to the value, but not atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly set passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly set passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:78</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -299,10 +326,28 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
-<div class="line">                atomic_t&lt;bool_t&gt; boolean(other);</div>
-<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<p >Accesses the other atomically, but assigns to itself unatomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly copy the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly copy the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom = other;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not alter the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(other);</div>
+<div class="line">                    CHECK(other == random);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -333,10 +378,28 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
-<div class="line">                atomic_t&lt;bool_t&gt; boolean(std::move(other));</div>
-<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<p >Exchanges the other with the default value atomically, but assigns to itself unatomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly move the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(std::move(other));</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly move the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom = std::move(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set the value of other to the default&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(std::move(other));</div>
+<div class="line">                    CHECK(other == <a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">atomic_t&lt;boolean_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -363,9 +426,14 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                <span class="keywordtype">boolean</span>.~atomic_t();</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
+<p >Sets itself to the default value atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the default&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    atom.~atomic_t();</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">atomic_t&lt;boolean_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -427,7 +495,27 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = random) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    atom = random;</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9824e4cc597c4280de86496b5a85d9af" name="a9824e4cc597c4280de86496b5a85d9af"></a>
@@ -457,10 +545,30 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
-<div class="line">                atomic_t&lt;bool_t&gt; <span class="keywordtype">boolean</span> = other;</div>
-<div class="line">                CHECK(other == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<p >Accesses the other atomically and assigns to itself atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should copy the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    atom = other;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = other) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not alter the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    atom = other;</div>
+<div class="line">                    CHECK(other == random);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -491,10 +599,30 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p><div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; other(<span class="keyword">true</span>);</div>
-<div class="line">                atomic_t&lt;bool_t&gt; <span class="keywordtype">boolean</span> = std::move(other);</div>
-<div class="line">                CHECK(other == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<p >Exchanges the other with the default value atomically and assigns to itself atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should move the value of other&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    atom = std::move(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = std::move(other)) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set the value of other to the default&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom;</div>
+<div class="line">                    atom = std::move(other);</div>
+<div class="line">                    CHECK(other == <a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">atomic_t&lt;boolean_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -521,9 +649,19 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                <span class="keyword">const</span> atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a91e3b3ecb2192387985c348c7e6a8e05">Access</a>() == <span class="keyword">true</span>);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_a91e3b3ecb2192387985c348c7e6a8e05"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a91e3b3ecb2192387985c348c7e6a8e05">nkr::$atomic_t::boolean_sp::Access</a></div><div class="ttdeci">value_t Access() const</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:70</div></div>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    CHECK(atom.Access() == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not change its value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    atom.Access();</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -554,10 +692,29 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ad26ac8233ff0165400442aeb2bac9d4a">Assign</a>(<span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_ad26ac8233ff0165400442aeb2bac9d4a"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ad26ac8233ff0165400442aeb2bac9d4a">nkr::$atomic_t::boolean_sp::Assign</a></div><div class="ttdeci">boolean_sp &amp; Assign(to_boolean_tr auto value)</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:76</div></div>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random_a = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    boolean_p random_b = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign(random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random_a = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    boolean_p random_b = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(&amp;atom.Assign(random_b) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random_a = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign(random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -588,10 +745,29 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a6c1ed0281f2ff7a50fa1eb4b11735d8c">Exchange</a>(<span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_a6c1ed0281f2ff7a50fa1eb4b11735d8c"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a6c1ed0281f2ff7a50fa1eb4b11735d8c">nkr::$atomic_t::boolean_sp::Exchange</a></div><div class="ttdeci">value_t Exchange(to_boolean_tr auto value)</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:83</div></div>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the passed value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random_a = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    boolean_p random_b = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random_a = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    boolean_p random_b = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(atom.Exchange(random_b) == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random_a = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -632,21 +808,59 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                bool_t snapshot = <span class="keyword">false</span>;</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a0c62a14d51a32b6ab49f94a6a92f079e">Exchange_If_Equals</a>(snapshot, <span class="keyword">false</span>) == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(snapshot == <span class="keyword">true</span>);</div>
-<div class="line"> </div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span>.<a class="code hl_function" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a0c62a14d51a32b6ab49f94a6a92f079e">Exchange_If_Equals</a>(snapshot, <span class="keyword">false</span>) == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(snapshot == <span class="keyword">true</span>);</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_a0c62a14d51a32b6ab49f94a6a92f079e"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a0c62a14d51a32b6ab49f94a6a92f079e">nkr::$atomic_t::boolean_sp::Exchange_If_Equals</a></div><div class="ttdeci">bool_t Exchange_If_Equals(value_t &amp;snapshot, to_boolean_tr auto value)</div><div class="ttdef"><b>Definition:</b> atomic_t.inl:89</div></div>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the passed value if its value equals the snapshot&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, !random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(!random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return true if it set the new value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p snapshot = atom;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, !random) == <span class="keyword">true</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return false if it did not set the new value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p snapshot = atom;</div>
+<div class="line">                    atom = !random;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, !random) == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should leave snapshot with its old value if it succeeded&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, !random);</div>
+<div class="line">                    CHECK(snapshot == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should update snapshot to its current value if it failed&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p snapshot = atom;</div>
+<div class="line">                    atom = !random;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, !random);</div>
+<div class="line">                    CHECK(snapshot == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(!random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, !random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(!random));</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a50cd9cfa9f7a9a88c2021d28a6b10090" name="a50cd9cfa9f7a9a88c2021d28a6b10090"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50cd9cfa9f7a9a88c2021d28a6b10090">&#9670;&nbsp;</a></span>operator value_t()</h2>
+<a id="a6bae24ea0875cfea9cae9cc7234dd805" name="a6bae24ea0875cfea9cae9cc7234dd805"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bae24ea0875cfea9cae9cc7234dd805">&#9670;&nbsp;</a></span>operator std_bool_t()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -657,7 +871,7 @@ template&lt;boolean_tr boolean_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html">nkr::$atomic_t::boolean_sp</a>&lt; boolean_p &gt;::operator <a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ac4c28dc40a357a737e0ab01f394458c0">value_t</a></td>
+          <td class="memname"><a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html">nkr::$atomic_t::boolean_sp</a>&lt; boolean_p &gt;::operator <a class="el" href="../../d1/d9c/group__intrinsics__primitives.html#ga5095f8e116218344a0af438d2cce601b">std_bool_t</a></td>
         </tr>
       </table>
   </td>
@@ -668,16 +882,43 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>atomic_t&lt;bool_t&gt;::value_t<span class="keyword">&gt;</span>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(<span class="keywordtype">boolean</span>) == <span class="keyword">true</span>);</div>
-<div class="line">                CHECK(!<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
-<div class="line"> </div>
-<div class="line">                <span class="keywordtype">boolean</span> = <span class="keyword">false</span>;</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(<span class="keywordtype">boolean</span>) == <span class="keyword">false</span>);</div>
-<div class="line">                CHECK(!<span class="keywordtype">boolean</span> == <span class="keyword">true</span>);</div>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly return a copy of its value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    CHECK(<span class="keyword">static_cast&lt;</span>boolean_p<span class="keyword">&gt;</span>(atom) == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly return a copy of its value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p <a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a4aab56d92614a03998bc49e0c91f8e0f">value</a> = atom;</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a4aab56d92614a03998bc49e0c91f8e0f">value</a> == random);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_a4aab56d92614a03998bc49e0c91f8e0f"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a4aab56d92614a03998bc49e0c91f8e0f">nkr::$atomic_t::boolean_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:45</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not change its value&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    boolean_p <a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a4aab56d92614a03998bc49e0c91f8e0f">value</a> = atom;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for logical operators&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(<span class="keyword">true</span>);</div>
+<div class="line">                    CHECK(atom);</div>
+<div class="line">                    CHECK(!!atom);</div>
+<div class="line">                    CHECK(atom || <span class="keyword">false</span>);</div>
+<div class="line">                    CHECK(atom &amp;&amp; <span class="keyword">true</span>);</div>
+<div class="line">                    CHECK(atom ? <span class="keyword">true</span> : <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for comparison operators&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    boolean_p random = Random&lt;boolean_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;boolean_p&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                    CHECK_FALSE(atom != random);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -704,9 +945,7 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span>() == <span class="keyword">true</span>);</div>
-</div><!-- fragment --> 
+
 </div>
 </div>
 <a id="af8c9b82f68d2854def79c0b8c481bb77" name="af8c9b82f68d2854def79c0b8c481bb77"></a>
@@ -736,11 +975,7 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p>Sets its value to the default value. </p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> != atomic_t&lt;bool_t&gt;::DEFAULT_VALUE);</div>
-<div class="line">                CHECK(&amp;(<span class="keywordtype">boolean</span> = none_t()) == &amp;<span class="keywordtype">boolean</span>);</div>
-<div class="line">                CHECK(<span class="keywordtype">boolean</span> == atomic_t&lt;bool_t&gt;::DEFAULT_VALUE);</div>
-</div><!-- fragment --> 
+
 </div>
 </div>
 <a id="aca7ecc62eea76cbdb30e3dee8d9eab86" name="aca7ecc62eea76cbdb30e3dee8d9eab86"></a>
@@ -770,11 +1005,7 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>. </p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK(!(<span class="keywordtype">boolean</span> == none_t()));</div>
-<div class="line">                <span class="keywordtype">boolean</span> = none_t();</div>
-<div class="line">                CHECK((<span class="keywordtype">boolean</span> == none_t()));</div>
-</div><!-- fragment --> 
+
 </div>
 </div>
 <a id="ae0a66da47f53b2ece2106ddb501e6223" name="ae0a66da47f53b2ece2106ddb501e6223"></a>
@@ -789,7 +1020,7 @@ template&lt;boolean_tr boolean_p&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html">nkr::$atomic_t::boolean_sp</a>&lt; boolean_p &gt;::<a class="el" href="../../dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac">operator!</a>= </td>
+          <td class="memname"><a class="el" href="../../d3/df5/classnkr_1_1bool__t.html">bool_t</a> <a class="el" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html">nkr::$atomic_t::boolean_sp</a>&lt; boolean_p &gt;::operator!= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="../../d1/df2/classnkr_1_1none__t.html">none_t</a>&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -804,11 +1035,7 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>. </p>
-<div class="fragment"><div class="line">                atomic_t&lt;bool_t&gt; boolean(<span class="keyword">true</span>);</div>
-<div class="line">                CHECK((<span class="keywordtype">boolean</span> != none_t()));</div>
-<div class="line">                <span class="keywordtype">boolean</span> = none_t();</div>
-<div class="line">                CHECK(!(<span class="keywordtype">boolean</span> != none_t()));</div>
-</div><!-- fragment --> 
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -835,7 +1062,16 @@ template&lt;boolean_tr boolean_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the default value of value_t&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">atomic_t&lt;boolean_p&gt;::DEFAULT_VALUE</a> == <a class="code hl_typedef" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ac4c28dc40a357a737e0ab01f394458c0">atomic_t&lt;boolean_p&gt;::value_t</a>());</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1boolean__sp_html_ac4c28dc40a357a737e0ab01f394458c0"><div class="ttname"><a href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ac4c28dc40a357a737e0ab01f394458c0">nkr::$atomic_t::boolean_sp::value_t</a></div><div class="ttdeci">boolean_p value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:31</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal false&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9">atomic_t&lt;boolean_p&gt;::DEFAULT_VALUE</a> == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a4aab56d92614a03998bc49e0c91f8e0f" name="a4aab56d92614a03998bc49e0c91f8e0f"></a>
@@ -860,6 +1096,10 @@ template&lt;boolean_tr boolean_p&gt; </div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">atomic_t&lt;integer_p&gt;::value</a>), <span class="keyword">volatile</span> integer_p&gt;);</div>
 <div class="line">                }</div>
 <div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a32e53877d2e3005f31b5d986bd409624"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">nkr::$atomic_t::integer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:123</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should be a volatile value_t&quot;</span>, boolean_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="../../db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#a4aab56d92614a03998bc49e0c91f8e0f">atomic_t&lt;boolean_p&gt;::value</a>), <span class="keyword">volatile</span> boolean_p&gt;);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>

@@ -160,6 +160,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\atomic_t.cpp" />
+    <ClCompile Include="src\atomic_t_boolean_p.cpp" />
+    <ClCompile Include="src\atomic_t_integer_p.cpp" />
+    <ClCompile Include="src\atomic_t_real_p.cpp" />
     <ClCompile Include="src\bool_t.cpp" />
     <ClCompile Include="src\intrinsics.cpp" />
     <ClCompile Include="src\maybe_t.cpp" />

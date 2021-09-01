@@ -13,7 +13,7 @@
 *   The default boolean type of this library which replaces nkr::std_bool_t, i.e. `bool`.
 * 
 * @details
-*   Because nkr::std_bool_t (or `bool`) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making nkr::bool_t a real boolean value as opposed to a pseudo-integer. It behaves just like a boolean should and transiently works in expressions like nkr::std_bool_t. It also matches the size of the word of the machine, that is nkr::word_t, whereas nkr::std_bool_t is implementation defined. All library types and functions utilitze nkr::bool_t and use nkr::std_bool_t only for necessary C++ idioms.
+*   Because nkr::std_bool_t (or `bool`) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making nkr::bool_t a real boolean value as opposed to a pseudo-integer. It behaves like a boolean should and transiently works in expressions like nkr::std_bool_t. It also matches the size of the word of the machine, that is nkr::word_t, whereas nkr::std_bool_t is implementation defined. All library types and functions utilitze nkr::bool_t and use nkr::std_bool_t only for necessary C++ idioms.
 * 
 * @snippet "./src/bool_t.cpp" _3e7cd520_dafd_4a17_befe_912aeb32e870
 * @snippet "./src/bool_t.cpp" _29b44101_c393_4fdd_b59d_cb9a75802d5a
@@ -158,9 +158,6 @@
     /**
     * @class _6a6f9172_06fd_4b0f_b1ee_1817e0c013a9
     * @private
-    * 
-    * @details
-    *   These are all explicit casts because we do not want any native operators to work upon the value. This disallows operators that handle the boolean as if its an integer.
     */
 
         // std_bool_t() const
@@ -220,30 +217,6 @@
     * @class _8c693fcc_abe9_493c_860c_4dab43f39a38
     * @private
     */
-
-        // !()
-        /**
-        * @class _38d75d8f_81d4_4a44_b2b4_f1bfed690426
-        * @private
-        * 
-        * @snippet "./src/bool_t.cpp" _1f904e7d_68be_4c15_84d3_1290e39591b2
-        */
-
-        // ==()
-        /**
-        * @class _a89e9a4d_657c_488c_918d_b579948ddf02
-        * @private
-        * 
-        * @snippet "./src/bool_t.cpp" _970274ba_914f_4966_be01_1a141e6fab53
-        */
-
-        // !=()
-        /**
-        * @class _3f13b8f4_f35d_4d4d_8e5c_7bd814c4877a
-        * @private
-        * 
-        * @snippet "./src/bool_t.cpp" _3da4ab6e_f4ec_497c_9315_383d2abc5a35
-        */
 
     // none_t interface
     /**

@@ -8,6 +8,7 @@ var group____a5f738af__46d1__4576__aaf6__adbc60dc07fe =
     [ "nkr::size_le_tr", "de/df5/conceptnkr_1_1size__le__tr.html", null ],
     [ "nkr::boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
     [ "nkr::to_boolean_tr", "d3/d7f/conceptnkr_1_1to__boolean__tr.html", null ],
+    [ "nkr::to_std_bool_tr", "d3/d77/conceptnkr_1_1to__std__bool__tr.html", null ],
     [ "nkr::pointer_tr", "db/def/conceptnkr_1_1pointer__tr.html", null ],
     [ "nkr::type_pointer_tr", "d7/dd1/conceptnkr_1_1type__pointer__tr.html", null ],
     [ "nkr::built_in_tr", "d7/d72/conceptnkr_1_1built__in__tr.html", null ],

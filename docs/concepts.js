@@ -10,6 +10,7 @@ var concepts =
       [ "size_le_tr", "de/df5/conceptnkr_1_1size__le__tr.html", null ],
       [ "boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
       [ "to_boolean_tr", "d3/d7f/conceptnkr_1_1to__boolean__tr.html", null ],
+      [ "to_std_bool_tr", "d3/d77/conceptnkr_1_1to__std__bool__tr.html", null ],
       [ "integer_tr", "d8/df1/conceptnkr_1_1integer__tr.html", null ],
       [ "integer_unsigned_tr", "d1/d21/conceptnkr_1_1integer__unsigned__tr.html", null ],
       [ "integer_signed_tr", "dd/d57/conceptnkr_1_1integer__signed__tr.html", null ],

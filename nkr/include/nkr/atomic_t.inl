@@ -92,7 +92,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <boolean_tr boolean_p>
-    inline boolean_sp<boolean_p>::operator value_t() const
+    inline boolean_sp<boolean_p>::operator std_bool_t() const
     {
         return Access();
     }

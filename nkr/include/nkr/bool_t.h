@@ -6,6 +6,7 @@
 
 #include "nkr/intrinsics.h"
 #include "nkr/none_t.h"
+#include "nkr/traits.h"
 
 namespace nkr {
 
@@ -25,15 +26,15 @@ namespace nkr {
         /// @copydoc _727e30a1_ed17_4451_aefd_e9ff35d4be9c
         /// @{
         bool_t();                                                               ///< @copydoc _507e6865_70dc_4e5b_97ab_c0d33e53dc67
-        bool_t(std_bool_t value);                                               ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
+        bool_t(to_std_bool_tr auto value);                                      ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
         bool_t(const bool_t& other);                                            ///< @copydoc _c692880f_ea8a_47c2_b8c8_98a00607b79b
         bool_t(bool_t&& other) noexcept;                                        ///< @copydoc _f2621569_562c_44b6_a4be_cddfaf0b1147
         bool_t(volatile const bool_t& other);                                   ///< @copydoc _c2c40c6d_4153_4079_8231_a8f818fc4999
         bool_t(volatile bool_t&& other) noexcept;                               ///< @copydoc _e5e66483_541d_4798_b386_2874446fb0de
-        bool_t& operator =(std_bool_t value);                                   ///< @copydoc _195047e0_4c8b_42b1_a7c1_6f104757a05d
+        bool_t& operator =(to_std_bool_tr auto value);                          ///< @copydoc _195047e0_4c8b_42b1_a7c1_6f104757a05d
         bool_t& operator =(const bool_t& other);                                ///< @copydoc _9b3a1871_d4ff_4afb_886d_e0d16ebaad08
         bool_t& operator =(bool_t&& other) noexcept;                            ///< @copydoc _cf5bcded_4eb2_4cdb_92cd_aa5b66b3138b
-        volatile bool_t& operator =(std_bool_t value) volatile;                 ///< @copydoc _02a973ac_1b0a_4340_9acd_5d20ac657dfb
+        volatile bool_t& operator =(to_std_bool_tr auto value) volatile;        ///< @copydoc _02a973ac_1b0a_4340_9acd_5d20ac657dfb
         volatile bool_t& operator =(volatile const bool_t& other) volatile;     ///< @copydoc _462d0286_9a2d_4ea9_8b92_3f75d50199ae
         volatile bool_t& operator =(volatile bool_t&& other) volatile noexcept; ///< @copydoc _b047b3ab_68ee_46f3_b210_6f27f6f34ef1
         ~bool_t();                                                              ///< @copydoc _4c312eec_919f_4b48_98e5_a3539442c7d2
@@ -43,8 +44,8 @@ namespace nkr {
         /// @name casts
         /// @copydoc _6a6f9172_06fd_4b0f_b1ee_1817e0c013a9
         /// @{
-        explicit operator   std_bool_t() const;                         ///< @copydoc _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
-        explicit operator   std_bool_t() volatile const;                ///< @copydoc _676141d7_bb06_45a8_8b65_0f5ae7bee673
+        operator            std_bool_t() const;                         ///< @copydoc _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
+        operator            std_bool_t() volatile const;                ///< @copydoc _676141d7_bb06_45a8_8b65_0f5ae7bee673
 
         explicit operator   word_t&();                                  ///< @copydoc _4d0e7d29_353a_459f_89af_e11de2f19eea
         explicit operator   const word_t&() const;                      ///< @copydoc _9f6d257a_fc13_4dda_ad1b_7b268caf6dff
@@ -56,10 +57,44 @@ namespace nkr {
         /// @name operators
         /// @copydoc _8c693fcc_abe9_493c_860c_4dab43f39a38
         /// @{
-        friend bool_t   operator !(bool_t a);               ///< @copydoc _38d75d8f_81d4_4a44_b2b4_f1bfed690426
+        auto    operator +() volatile const         = delete;
+        auto    operator -() volatile const         = delete;
 
-        friend bool_t   operator ==(bool_t a, bool_t b);    ///< @copydoc _a89e9a4d_657c_488c_918d_b579948ddf02
-        friend bool_t   operator !=(bool_t a, bool_t b);    ///< @copydoc _3f13b8f4_f35d_4d4d_8e5c_7bd814c4877a
+        auto    operator +(auto) volatile const     = delete;
+        auto    operator -(auto) volatile const     = delete;
+        auto    operator *(auto) volatile const     = delete;
+        auto    operator /(auto) volatile const     = delete;
+        auto    operator %(auto) volatile const     = delete;
+
+        auto    operator ~() volatile const         = delete;
+        auto    operator |(auto) volatile const     = delete;
+        auto    operator &(auto) volatile const     = delete;
+        auto    operator ^(auto) volatile const     = delete;
+        auto    operator <<(auto) volatile const    = delete;
+        auto    operator >>(auto) volatile const    = delete;
+
+        auto    operator +=(auto) volatile const    = delete;
+        auto    operator -=(auto) volatile const    = delete;
+        auto    operator *=(auto) volatile const    = delete;
+        auto    operator /=(auto) volatile const    = delete;
+        auto    operator %=(auto) volatile const    = delete;
+
+        auto    operator |=(auto) volatile const    = delete;
+        auto    operator &=(auto) volatile const    = delete;
+        auto    operator ^=(auto) volatile const    = delete;
+        auto    operator <<=(auto) volatile const   = delete;
+        auto    operator >>=(auto) volatile const   = delete;
+
+        auto    operator ++() volatile const        = delete;
+        auto    operator ++(int) volatile const     = delete;
+        auto    operator --() volatile const        = delete;
+        auto    operator --(int) volatile const     = delete;
+
+        auto    operator <(auto) volatile const     = delete;
+        auto    operator >(auto) volatile const     = delete;
+        auto    operator <=(auto) volatile const    = delete;
+        auto    operator >=(auto) volatile const    = delete;
+        auto    operator <=>(auto) volatile const   = delete;
         /// @}
 
     public:

@@ -36,6 +36,7 @@ var namespacenkr =
     [ "size_le_tr", "de/df5/conceptnkr_1_1size__le__tr.html", null ],
     [ "boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
     [ "to_boolean_tr", "d3/d7f/conceptnkr_1_1to__boolean__tr.html", null ],
+    [ "to_std_bool_tr", "d3/d77/conceptnkr_1_1to__std__bool__tr.html", null ],
     [ "integer_tr", "d8/df1/conceptnkr_1_1integer__tr.html", null ],
     [ "integer_unsigned_tr", "d1/d21/conceptnkr_1_1integer__unsigned__tr.html", null ],
     [ "integer_signed_tr", "dd/d57/conceptnkr_1_1integer__signed__tr.html", null ],
@@ -86,8 +87,5 @@ var namespacenkr =
     [ "count_t", "d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b", null ],
     [ "index_t", "d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f", null ],
     [ "address_t", "d8/d8d/group__intrinsics__contextuals.html#ga1e9a380f784247ec4046f20b262f0b23", null ],
-    [ "string_t", "dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d", null ],
-    [ "operator!", "dc/d0c/namespacenkr.html#ad22fa30986c7ce676199fff181971bac", null ],
-    [ "operator==", "dc/d0c/namespacenkr.html#ae505d36de30729fc7999a4636a9d0f3f", null ],
-    [ "operator!=", "dc/d0c/namespacenkr.html#a7b4a0beb673006534a3d597139d8fcbb", null ]
+    [ "string_t", "dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d", null ]
 ];

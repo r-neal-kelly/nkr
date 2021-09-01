@@ -459,7 +459,7 @@ namespace nkr {
 
                 CHECK(boolean == 1);
                 CHECK(boolean == 1.0);
-                CHECK(boolean == &boolean);
+                CHECK(boolean == static_cast<std_bool_t>(&boolean));
                 /// [_970274ba_914f_4966_be01_1a141e6fab53]
             }
 

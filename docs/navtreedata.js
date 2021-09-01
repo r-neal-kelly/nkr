@@ -49,8 +49,7 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Related Functions", "functions_rela.html", null ]
+        [ "Typedefs", "functions_type.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -67,10 +66,10 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d1/df2/classnkr_1_1none__t.html#ab1d20de022867a94aa02152c40e28508",
-"d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a457daf4d3aaa6dc6fad95ef827bd0a69",
-"d9/df4/classnkr_1_1pointer__t.html#ab8840471ad2a7b3a28ad4f09318c3963",
-"db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html#ac4c28dc40a357a737e0ab01f394458c0",
-"functions_r.html"
+"d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a8102e554102f700456cb0ae91a0d7a81",
+"d9/df1/classnkr_1_1allocator__heap__t.html#aa4409d4f4781efe1ace340f28566031a",
+"da/de1/os_8inl.html#ab7b68864dc5f269341bd5f6cb45f02b7",
+"de/dcb/classnkr_1_1_0bmaybe__t_1_1built__in__sp_3_01pointer__p_01_4.html#a950634053bcb539ec98d2f6623dec159"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
