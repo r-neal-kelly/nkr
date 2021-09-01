@@ -1051,7 +1051,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Add(random_b);</div>
-<div class="line">                    CHECK(atom == random_a + random_b);</div>
+<div class="line">                    CHECK(atom == (random_a += random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1066,7 +1066,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Add(random_b);</div>
-<div class="line">                    CHECK(atom == random_a + <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a += <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1104,7 +1104,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Subtract(random_b);</div>
-<div class="line">                    CHECK(atom == random_a - random_b);</div>
+<div class="line">                    CHECK(atom == (random_a -= random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1119,7 +1119,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Subtract(random_b);</div>
-<div class="line">                    CHECK(atom == random_a - <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a -= <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1157,7 +1157,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Multiply(random_b);</div>
-<div class="line">                    CHECK(atom == random_a * random_b);</div>
+<div class="line">                    CHECK(atom == (random_a *= random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1172,7 +1172,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Multiply(random_b);</div>
-<div class="line">                    CHECK(atom == random_a * <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a *= <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1213,7 +1213,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    } <span class="keywordflow">while</span> (random_b == 0.0);</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Divide(random_b);</div>
-<div class="line">                    CHECK(atom == random_a / random_b);</div>
+<div class="line">                    CHECK(atom == (random_a /= random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1234,7 +1234,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    } <span class="keywordflow">while</span> (random_b == 0);</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Divide(random_b);</div>
-<div class="line">                    CHECK(atom == random_a / <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a /= <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1283,7 +1283,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    real_p snapshot = atom;</div>
 <div class="line">                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);</div>
-<div class="line">                    CHECK(atom == random_a + random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_a + random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return true if it set the new value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1319,7 +1319,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p snapshot = atom;</div>
 <div class="line">                    atom = random_a + random_b;</div>
 <div class="line">                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);</div>
-<div class="line">                    CHECK(snapshot == random_a + random_b);</div>
+<div class="line">                    CHECK(snapshot == <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_a + random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1335,7 +1335,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom;</div>
 <div class="line">                    std::vector&lt;std::thread&gt; incrementors;</div>
 <div class="line">                    std::vector&lt;std::thread&gt; decrementors;</div>
-<div class="line">                    <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> delta = Random&lt;count_t&gt;(1, 256);</div>
+<div class="line">                    <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> delta = Random&lt;count_t&gt;(1, 16);</div>
 <div class="line">                    <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> threads_per = Random&lt;count_t&gt;(16, 64);</div>
 <div class="line">                    incrementors.reserve(threads_per);</div>
 <div class="line">                    decrementors.reserve(threads_per);</div>
@@ -1422,14 +1422,17 @@ template&lt;real_tr real_p&gt; </div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for arithmetic operators&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    real_p random_a = Random&lt;real_p&gt;();</div>
-<div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
+<div class="line">                    real_p random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;real_p&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == 0.0);</div>
 <div class="line">                    <span class="keyword">const</span> atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    CHECK(+atom == +random_a);</div>
 <div class="line">                    CHECK(-atom == -random_a);</div>
-<div class="line">                    CHECK(atom + random_b == random_a + random_b);</div>
-<div class="line">                    CHECK(atom - random_b == random_a - random_b);</div>
-<div class="line">                    CHECK(atom * random_b == random_a * random_b);</div>
-<div class="line">                    CHECK(atom / random_b == random_a / random_b);</div>
+<div class="line">                    CHECK((atom + random_b) == (random_a + random_b));</div>
+<div class="line">                    CHECK((atom - random_b) == (random_a - random_b));</div>
+<div class="line">                    CHECK((atom * random_b) == (random_a * random_b));</div>
+<div class="line">                    CHECK((atom / random_b) == (random_a / random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for logical operators&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1528,7 +1531,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom += random_b;</div>
-<div class="line">                    CHECK(atom == random_a + random_b);</div>
+<div class="line">                    CHECK(atom == (random_a += random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1543,7 +1546,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom += random_b;</div>
-<div class="line">                    CHECK(atom == random_a + <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a += <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1581,7 +1584,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom -= random_b;</div>
-<div class="line">                    CHECK(atom == random_a - random_b);</div>
+<div class="line">                    CHECK(atom == (random_a -= random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1596,7 +1599,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom -= random_b;</div>
-<div class="line">                    CHECK(atom == random_a - <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a -= <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1634,7 +1637,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom *= random_b;</div>
-<div class="line">                    CHECK(atom == random_a * random_b);</div>
+<div class="line">                    CHECK(atom == (random_a *= random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1649,7 +1652,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom *= random_b;</div>
-<div class="line">                    CHECK(atom == random_a * <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a *= <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1690,7 +1693,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    } <span class="keywordflow">while</span> (random_b == 0.0);</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom /= random_b;</div>
-<div class="line">                    CHECK(atom == random_a / random_b);</div>
+<div class="line">                    CHECK(atom == (random_a /= random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1711,7 +1714,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    } <span class="keywordflow">while</span> (random_b == 0);</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    atom /= random_b;</div>
-<div class="line">                    CHECK(atom == random_a / <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == (random_a /= <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b)));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1744,7 +1747,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random);</div>
 <div class="line">                    ++atom;</div>
-<div class="line">                    CHECK(atom == random + 1.0);</div>
+<div class="line">                    CHECK(atom == (random += 1.0));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1787,7 +1790,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random);</div>
 <div class="line">                    atom++;</div>
-<div class="line">                    CHECK(atom == random + 1.0);</div>
+<div class="line">                    CHECK(atom == (random += 1.0));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1826,7 +1829,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random);</div>
 <div class="line">                    --atom;</div>
-<div class="line">                    CHECK(atom == random - 1.0);</div>
+<div class="line">                    CHECK(atom == (random -= 1.0));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1869,7 +1872,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                    real_p random = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random);</div>
 <div class="line">                    atom--;</div>
-<div class="line">                    CHECK(atom == random - 1.0);</div>
+<div class="line">                    CHECK(atom == (random -= 1.0));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1916,7 +1919,7 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should evaluate as false after being set to none&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
-<div class="line">                    real_p random = Random&lt;real_p&gt;(std::numeric_limits&lt;real_p&gt;::min());</div>
+<div class="line">                    real_p random = Random&lt;real_p&gt;();</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random);</div>
 <div class="line">                    atom = none_t();</div>
 <div class="line">                    CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(atom) == <span class="keyword">false</span>);</div>
