@@ -36,36 +36,10 @@ namespace nkr { namespace os { namespace atomic {
     /// @name Access
     /// @copydoc _ebc609cf_5026_47e9_87e7_c8ea9ecc71a9
     /// @{
-    boolean_tr auto         Access(const volatile boolean_tr auto& atom);                                           ///< @copydoc _f108db58_8738_44fc_8660_a9f2806661f3
-    integer_tr auto         Access(const volatile integer_tr auto& atom);                                           ///< @copydoc _483f958d_a7c0_4bad_9626_abec8c6bbe3d
-    real_tr auto            Access(const volatile real_tr auto& atom);                                              ///< @copydoc _21cc14ae_45f0_4855_84d4_42e7393be6b2
-    pointer_tr auto         Access(const volatile pointer_tr auto& atom);                                           ///< @copydoc _440abed9_9a06_4236_b1ae_3ef1e8960885
-
-    integer_tr auto         Access_Add(const volatile integer_tr auto& atom, to_integer_tr auto with);              ///< @copydoc _a8afe657_40ce_4947_b12a_e64fff9a75f3
-    real_tr auto            Access_Add(const volatile real_tr auto& atom, to_real_tr auto with);                    ///< @copydoc _2dbe104d_074e_4b0f_9881_92f5904668c1
-    type_pointer_tr auto    Access_Add(const volatile type_pointer_tr auto& atom, to_integer_tr auto with);         ///< @copydoc _a9743336_7a5f_43c1_9a78_2269868e56c6
-
-    integer_tr auto         Access_Subtract(const volatile integer_tr auto& atom, to_integer_tr auto with);         ///< @copydoc _ba08ae59_7317_41d8_9218_3dcb7e560408
-    real_tr auto            Access_Subtract(const volatile real_tr auto& atom, to_real_tr auto with);               ///< @copydoc _20004723_e811_4a0e_b0f4_200ce9abb23b
-    type_pointer_tr auto    Access_Subtract(const volatile type_pointer_tr auto& atom, to_integer_tr auto with);    ///< @copydoc _6dd5e90f_7f13_4a99_a2c4_acc32ba11b47
-
-    integer_tr auto         Access_Multiply(const volatile integer_tr auto& atom, to_integer_tr auto with);         ///< @copydoc _9bb44e8b_b3ef_4481_bb6a_ccdb5f0ac9f9
-    real_tr auto            Access_Multiply(const volatile real_tr auto& atom, to_real_tr auto with);               ///< @copydoc _4f2854a6_8748_464a_b349_27cc7c6b75bb
-
-    integer_tr auto         Access_Divide(const volatile integer_tr auto& atom, to_integer_tr auto with);           ///< @copydoc _12a09817_5dae_440b_99d5_ed0bbe5cc3b7
-    real_tr auto            Access_Divide(const volatile real_tr auto& atom, to_real_tr auto with);                 ///< @copydoc _af12bfd4_f332_402e_966e_fae3d1def171
-
-    integer_tr auto         Access_Modulus(const volatile integer_tr auto& atom, integer_tr auto with);             ///< @copydoc _3bba7a36_b47d_4132_8268_38d9f8072569
-
-    integer_tr auto         Access_Or(const volatile integer_tr auto& atom, integer_tr auto with);                  ///< @copydoc _6d0f786a_e25a_4bc6_ada7_2f228cf08769
-
-    integer_tr auto         Access_And(const volatile integer_tr auto& atom, integer_tr auto with);                 ///< @copydoc _7c5f2ff1_b767_4edd_949b_1c0d8929a1bb
-
-    integer_tr auto         Access_Xor(const volatile integer_tr auto& atom, integer_tr auto with);                 ///< @copydoc _a58b5b46_c958_4ffd_8293_acd1692c4f31
-
-    integer_tr auto         Access_Left_Shift(const volatile integer_tr auto& atom, integer_tr auto with);          ///< @copydoc _c41a95ae_b038_496d_84d4_1204b9b9d869
-
-    integer_tr auto         Access_Right_Shift(const volatile integer_tr auto& atom, integer_tr auto with);         ///< @copydoc _c3f8d30f_5d9d_4c85_af2f_3ea8dbdd1691
+    boolean_tr auto Access(const volatile boolean_tr auto& atom);   ///< @copydoc _f108db58_8738_44fc_8660_a9f2806661f3
+    integer_tr auto Access(const volatile integer_tr auto& atom);   ///< @copydoc _483f958d_a7c0_4bad_9626_abec8c6bbe3d
+    real_tr auto    Access(const volatile real_tr auto& atom);      ///< @copydoc _21cc14ae_45f0_4855_84d4_42e7393be6b2
+    pointer_tr auto Access(const volatile pointer_tr auto& atom);   ///< @copydoc _440abed9_9a06_4236_b1ae_3ef1e8960885
     /// @}
 
     /// @name Assign

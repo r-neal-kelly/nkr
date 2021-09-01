@@ -4,6 +4,8 @@ var group____a5f738af__46d1__4576__aaf6__adbc60dc07fe =
     [ "reals", "d7/dc0/group____8f223336__ce2a__4589__b4c1__75cd98cd393d.html", "d7/dc0/group____8f223336__ce2a__4589__b4c1__75cd98cd393d" ],
     [ "nkr::any_tr", "d5/db5/conceptnkr_1_1any__tr.html", null ],
     [ "nkr::type_tr", "d1/dbd/conceptnkr_1_1type__tr.html", null ],
+    [ "nkr::size_eq_tr", "de/d74/conceptnkr_1_1size__eq__tr.html", null ],
+    [ "nkr::size_le_tr", "de/df5/conceptnkr_1_1size__le__tr.html", null ],
     [ "nkr::boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
     [ "nkr::to_boolean_tr", "d3/d7f/conceptnkr_1_1to__boolean__tr.html", null ],
     [ "nkr::pointer_tr", "db/def/conceptnkr_1_1pointer__tr.html", null ],

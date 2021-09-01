@@ -63,12 +63,12 @@ namespace nkr { namespace $atomic_t {
         /// @name methods
         /// @copydoc _f8359bc4_053e_45a2_92c0_8cc2aec98f3c
         /// @{
-        value_t Access() const;                                                     ///< @copydoc _4dac77d5_7b0a_47be_8b54_55194f16d92c
+        value_t     Access() const;                                                     ///< @copydoc _4dac77d5_7b0a_47be_8b54_55194f16d92c
 
-        value_t Assign(to_boolean_tr auto value);                                   ///< @copydoc _21eb4382_88d5_4c3d_8632_84e7a781884c
+        boolean_sp& Assign(to_boolean_tr auto value);                                   ///< @copydoc _21eb4382_88d5_4c3d_8632_84e7a781884c
 
-        value_t Exchange(to_boolean_tr auto value);                                 ///< @copydoc _36a45c7f_a017_48c8_9b38_80f41441dfd6
-        bool_t  Exchange_If_Equals(value_t& snapshot, to_boolean_tr auto value);    ///< @copydoc _f4834de8_17dd_46c2_851e_90cf412a7513
+        value_t     Exchange(to_boolean_tr auto value);                                 ///< @copydoc _36a45c7f_a017_48c8_9b38_80f41441dfd6
+        bool_t      Exchange_If_Equals(value_t& snapshot, to_boolean_tr auto value);    ///< @copydoc _f4834de8_17dd_46c2_851e_90cf412a7513
         /// @}
 
     public:
@@ -141,42 +141,32 @@ namespace nkr { namespace $atomic_t {
         /// @name methods
         /// @copydoc _ebe2958b_6231_481e_819f_84d882989f41
         /// @{
-        value_t Access() const;                                                     ///< @copydoc _72e0df20_176a_4ad8_9350_7edcadf7d893
-        value_t Access_Add(to_integer_tr auto value) const;                         ///< @copydoc _daba458f_9452_4329_8340_b48050ca53c9
-        value_t Access_Subtract(to_integer_tr auto value) const;                    ///< @copydoc _18fd7b62_b0dd_4997_91cf_fbd22ffb25ce
-        value_t Access_Multiply(to_integer_tr auto value) const;                    ///< @copydoc _30082e3d_45a9_402a_ae44_4ac64be289bd
-        value_t Access_Divide(to_integer_tr auto value) const;                      ///< @copydoc _ce760def_76f6_4cc3_a416_04d9bf5881b2
-        value_t Access_Modulus(integer_tr auto value) const;                        ///< @copydoc _8a32966b_1908_4cbe_a9ef_80a0fd8b82e3
-        value_t Access_Or(integer_tr auto value) const;                             ///< @copydoc _fe58aaa7_2827_412c_9e8e_446d14af1863
-        value_t Access_And(integer_tr auto value) const;                            ///< @copydoc _f5960380_cec0_4d63_a5d9_f1a0c0b03990
-        value_t Access_Xor(integer_tr auto value) const;                            ///< @copydoc _b46a1eee_f92b_4c4a_a6b8_cdae969b81ca
-        value_t Access_Left_Shift(integer_tr auto value) const;                     ///< @copydoc _f5a38c65_35c1_4555_96c3_e31dd8eccb91
-        value_t Access_Right_Shift(integer_tr auto value) const;                    ///< @copydoc _cc854661_d94f_484c_9c35_5a209390066d
+        value_t     Access() const;                                                     ///< @copydoc _72e0df20_176a_4ad8_9350_7edcadf7d893
 
-        value_t Assign(to_integer_tr auto value);                                   ///< @copydoc _921ddfce_4850_4bda_bd9a_04fc363a4891
-        value_t Assign_Add(to_integer_tr auto value);                               ///< @copydoc _d09f0f0c_4e8e_4a47_8d93_3e7e9c0dabdd
-        value_t Assign_Subtract(to_integer_tr auto value);                          ///< @copydoc _775e6700_6127_4c6d_a6ae_f9e0032aba91
-        value_t Assign_Multiply(to_integer_tr auto value);                          ///< @copydoc _4d88c925_37c5_4639_9d23_192186152707
-        value_t Assign_Divide(to_integer_tr auto value);                            ///< @copydoc _0d0b5750_b10d_4e65_8af6_8f54cd3a54c3
-        value_t Assign_Modulus(integer_tr auto value);                              ///< @copydoc _01f043fb_3ae1_4233_bb00_71f2fd2e204b
-        value_t Assign_Or(integer_tr auto value);                                   ///< @copydoc _c59d3a53_f67f_4efb_830a_96b14e32ba0f
-        value_t Assign_And(integer_tr auto value);                                  ///< @copydoc _d39105cd_1da2_442a_b146_edf5de564212
-        value_t Assign_Xor(integer_tr auto value);                                  ///< @copydoc _10c909ec_eb4f_40fd_a3e6_cd32023cb32b
-        value_t Assign_Left_Shift(integer_tr auto value);                           ///< @copydoc _9cec8a64_07fa_457f_94f2_062c50a8ba85
-        value_t Assign_Right_Shift(integer_tr auto value);                          ///< @copydoc _e1ff5f86_4078_4364_ad8d_0aa458852ed5
+        integer_sp& Assign(to_integer_tr auto value);                                   ///< @copydoc _921ddfce_4850_4bda_bd9a_04fc363a4891
+        integer_sp& Assign_Add(to_integer_tr auto value);                               ///< @copydoc _d09f0f0c_4e8e_4a47_8d93_3e7e9c0dabdd
+        integer_sp& Assign_Subtract(to_integer_tr auto value);                          ///< @copydoc _775e6700_6127_4c6d_a6ae_f9e0032aba91
+        integer_sp& Assign_Multiply(to_integer_tr auto value);                          ///< @copydoc _4d88c925_37c5_4639_9d23_192186152707
+        integer_sp& Assign_Divide(to_integer_tr auto value);                            ///< @copydoc _0d0b5750_b10d_4e65_8af6_8f54cd3a54c3
+        integer_sp& Assign_Modulus(integer_tr auto value);                              ///< @copydoc _01f043fb_3ae1_4233_bb00_71f2fd2e204b
+        integer_sp& Assign_Or(integer_tr auto value);                                   ///< @copydoc _c59d3a53_f67f_4efb_830a_96b14e32ba0f
+        integer_sp& Assign_And(integer_tr auto value);                                  ///< @copydoc _d39105cd_1da2_442a_b146_edf5de564212
+        integer_sp& Assign_Xor(integer_tr auto value);                                  ///< @copydoc _10c909ec_eb4f_40fd_a3e6_cd32023cb32b
+        integer_sp& Assign_Left_Shift(integer_tr auto value);                           ///< @copydoc _9cec8a64_07fa_457f_94f2_062c50a8ba85
+        integer_sp& Assign_Right_Shift(integer_tr auto value);                          ///< @copydoc _e1ff5f86_4078_4364_ad8d_0aa458852ed5
         
-        value_t Exchange(to_integer_tr auto value);                                 ///< @copydoc _bf53feba_9fd9_4938_9e0a_6f020b7de344
-        value_t Exchange_Add(to_integer_tr auto value);                             ///< @copydoc _eb209d2b_53f3_4aaf_87c4_7e6f7415d7de
-        value_t Exchange_Subtract(to_integer_tr auto value);                        ///< @copydoc _9c87833c_f98e_420e_9451_7f047098b464
-        value_t Exchange_Multiply(to_integer_tr auto value);                        ///< @copydoc _8c447343_f4d4_4fd3_bcc6_14859390eaf9
-        value_t Exchange_Divide(to_integer_tr auto value);                          ///< @copydoc _bc057de1_5e36_47e1_8697_efa1194d1a23
-        value_t Exchange_Modulus(integer_tr auto value);                            ///< @copydoc _717e5d3d_5037_475a_b826_89461c3788e2
-        value_t Exchange_Or(integer_tr auto value);                                 ///< @copydoc _5a508f6d_abaf_409e_83dc_f7133a81fb6f
-        value_t Exchange_And(integer_tr auto value);                                ///< @copydoc _fe438ba0_c269_4703_b2f6_66a30e136f8a
-        value_t Exchange_Xor(integer_tr auto value);                                ///< @copydoc _b9453618_fb4e_425d_a1b1_f88a5d272622
-        value_t Exchange_Left_Shift(integer_tr auto value);                         ///< @copydoc _c9da5f3a_59b3_4b92_83c7_724a385cb092
-        value_t Exchange_Right_Shift(integer_tr auto value);                        ///< @copydoc _c7342e20_fb3b_44ae_ab33_b8ec4f4552c2
-        bool_t  Exchange_If_Equals(value_t& snapshot, to_integer_tr auto value);    ///< @copydoc _de4d8d98_3a2b_4557_be66_5015696218c3
+        value_t     Exchange(to_integer_tr auto value);                                 ///< @copydoc _bf53feba_9fd9_4938_9e0a_6f020b7de344
+        value_t     Exchange_Add(to_integer_tr auto value);                             ///< @copydoc _eb209d2b_53f3_4aaf_87c4_7e6f7415d7de
+        value_t     Exchange_Subtract(to_integer_tr auto value);                        ///< @copydoc _9c87833c_f98e_420e_9451_7f047098b464
+        value_t     Exchange_Multiply(to_integer_tr auto value);                        ///< @copydoc _8c447343_f4d4_4fd3_bcc6_14859390eaf9
+        value_t     Exchange_Divide(to_integer_tr auto value);                          ///< @copydoc _bc057de1_5e36_47e1_8697_efa1194d1a23
+        value_t     Exchange_Modulus(integer_tr auto value);                            ///< @copydoc _717e5d3d_5037_475a_b826_89461c3788e2
+        value_t     Exchange_Or(integer_tr auto value);                                 ///< @copydoc _5a508f6d_abaf_409e_83dc_f7133a81fb6f
+        value_t     Exchange_And(integer_tr auto value);                                ///< @copydoc _fe438ba0_c269_4703_b2f6_66a30e136f8a
+        value_t     Exchange_Xor(integer_tr auto value);                                ///< @copydoc _b9453618_fb4e_425d_a1b1_f88a5d272622
+        value_t     Exchange_Left_Shift(integer_tr auto value);                         ///< @copydoc _c9da5f3a_59b3_4b92_83c7_724a385cb092
+        value_t     Exchange_Right_Shift(integer_tr auto value);                        ///< @copydoc _c7342e20_fb3b_44ae_ab33_b8ec4f4552c2
+        bool_t      Exchange_If_Equals(value_t& snapshot, to_integer_tr auto value);    ///< @copydoc _de4d8d98_3a2b_4557_be66_5015696218c3
         /// @}
 
     public:
@@ -190,23 +180,23 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _ebf639ee_013e_4e27_adc1_1752df597ddf
         /// @{
-        value_t operator ()() const;                    ///< @copydoc _788d318f_88ed_44b0_ae45_e260734bb5cd
+        value_t     operator ()() const;                    ///< @copydoc _788d318f_88ed_44b0_ae45_e260734bb5cd
 
-        value_t operator +=(to_integer_tr auto value);  ///< @copydoc _85417b7a_dd77_4294_b67e_6e08ab7e27f9
-        value_t operator -=(to_integer_tr auto value);  ///< @copydoc _29505a0a_1b57_45eb_b075_8b2f3d3be8f3
-        value_t operator *=(to_integer_tr auto value);  ///< @copydoc _713ce567_d8be_442b_b578_c2ada942f6dc
-        value_t operator /=(to_integer_tr auto value);  ///< @copydoc _ba2e4618_9572_43ee_8b1b_096582c99707
-        value_t operator %=(integer_tr auto value);     ///< @copydoc _8e7ba682_f853_4175_9f63_72e8141387d5
-        value_t operator |=(integer_tr auto value);     ///< @copydoc _707c26ad_75fc_43cc_be98_233cb47d3eec
-        value_t operator &=(integer_tr auto value);     ///< @copydoc _5a8f0664_0510_4f5d_991a_cc2a5eaea4b5
-        value_t operator ^=(integer_tr auto value);     ///< @copydoc _77262a09_d572_440c_849c_d124b0d7dc6d
-        value_t operator <<=(integer_tr auto value);    ///< @copydoc _937d7488_c9e6_495c_9917_ff3676dd339b
-        value_t operator >>=(integer_tr auto value);    ///< @copydoc _b27449e8_bd83_418c_b0cf_5f419e5e06dd
+        integer_sp& operator +=(to_integer_tr auto value);  ///< @copydoc _85417b7a_dd77_4294_b67e_6e08ab7e27f9
+        integer_sp& operator -=(to_integer_tr auto value);  ///< @copydoc _29505a0a_1b57_45eb_b075_8b2f3d3be8f3
+        integer_sp& operator *=(to_integer_tr auto value);  ///< @copydoc _713ce567_d8be_442b_b578_c2ada942f6dc
+        integer_sp& operator /=(to_integer_tr auto value);  ///< @copydoc _ba2e4618_9572_43ee_8b1b_096582c99707
+        integer_sp& operator %=(integer_tr auto value);     ///< @copydoc _8e7ba682_f853_4175_9f63_72e8141387d5
+        integer_sp& operator |=(integer_tr auto value);     ///< @copydoc _707c26ad_75fc_43cc_be98_233cb47d3eec
+        integer_sp& operator &=(integer_tr auto value);     ///< @copydoc _5a8f0664_0510_4f5d_991a_cc2a5eaea4b5
+        integer_sp& operator ^=(integer_tr auto value);     ///< @copydoc _77262a09_d572_440c_849c_d124b0d7dc6d
+        integer_sp& operator <<=(integer_tr auto value);    ///< @copydoc _937d7488_c9e6_495c_9917_ff3676dd339b
+        integer_sp& operator >>=(integer_tr auto value);    ///< @copydoc _b27449e8_bd83_418c_b0cf_5f419e5e06dd
 
-        value_t operator ++();                          ///< @copydoc _3706a8b1_15f5_4a60_94dd_b88bd37d602b
-        value_t operator ++(int);                       ///< @copydoc _23f284ee_6dd9_4b76_b361_1c0b287c4b8f
-        value_t operator --();                          ///< @copydoc _3a8149a1_3608_4c64_9ccc_98fbf01aa964
-        value_t operator --(int);                       ///< @copydoc _0c3d89f4_6273_4a93_958f_631c8c7f1083
+        integer_sp& operator ++();                          ///< @copydoc _3706a8b1_15f5_4a60_94dd_b88bd37d602b
+        value_t     operator ++(int);                       ///< @copydoc _23f284ee_6dd9_4b76_b361_1c0b287c4b8f
+        integer_sp& operator --();                          ///< @copydoc _3a8149a1_3608_4c64_9ccc_98fbf01aa964
+        value_t     operator --(int);                       ///< @copydoc _0c3d89f4_6273_4a93_958f_631c8c7f1083
         /// @}
 
     public:
@@ -265,24 +255,20 @@ namespace nkr { namespace $atomic_t {
         /// @name methods
         /// @copydoc _d03d71df_9d3c_40d3_94ef_41ec0a768384
         /// @{
-        value_t Access() const;                                                 ///< @copydoc _5f07459b_cc2c_4df1_b8f8_df28d9c0c62a
-        value_t Access_Add(to_real_tr auto value) const;                        ///< @copydoc _0052d808_472f_4917_95ed_9b1a094bfc12
-        value_t Access_Subtract(to_real_tr auto value) const;                   ///< @copydoc _c28a6854_9c1b_4f95_bb20_1e41eea38316
-        value_t Access_Multiply(to_real_tr auto value) const;                   ///< @copydoc _083b8767_4f78_4836_b493_3885848b63c9
-        value_t Access_Divide(to_real_tr auto value) const;                     ///< @copydoc _9534cd01_4caf_4296_ae67_cbb38de716db
+        value_t     Access() const;                                                 ///< @copydoc _5f07459b_cc2c_4df1_b8f8_df28d9c0c62a
 
-        value_t Assign(to_real_tr auto value);                                  ///< @copydoc _86090c8f_aa60_41b3_9d8d_c7811b288aac
-        value_t Assign_Add(to_real_tr auto value);                              ///< @copydoc _59a94c28_e4ae_4aca_af97_fe0a03d9a4d0
-        value_t Assign_Subtract(to_real_tr auto value);                         ///< @copydoc _684e4401_0e5b_4e8a_8376_5752bade8903
-        value_t Assign_Multiply(to_real_tr auto value);                         ///< @copydoc _ec53b9b0_5fb3_49c3_a1f5_aa0a2d7e9351
-        value_t Assign_Divide(to_real_tr auto value);                           ///< @copydoc _c663a829_3893_4449_aa1b_ba5e0a26c6de
+        real_sp&    Assign(to_real_tr auto value);                                  ///< @copydoc _86090c8f_aa60_41b3_9d8d_c7811b288aac
+        real_sp&    Assign_Add(to_real_tr auto value);                              ///< @copydoc _59a94c28_e4ae_4aca_af97_fe0a03d9a4d0
+        real_sp&    Assign_Subtract(to_real_tr auto value);                         ///< @copydoc _684e4401_0e5b_4e8a_8376_5752bade8903
+        real_sp&    Assign_Multiply(to_real_tr auto value);                         ///< @copydoc _ec53b9b0_5fb3_49c3_a1f5_aa0a2d7e9351
+        real_sp&    Assign_Divide(to_real_tr auto value);                           ///< @copydoc _c663a829_3893_4449_aa1b_ba5e0a26c6de
 
-        value_t Exchange(to_real_tr auto value);                                ///< @copydoc _ab0dd77c_4ae0_4d8a_94a4_78c85ed9872e
-        value_t Exchange_Add(to_real_tr auto value);                            ///< @copydoc _f901edef_ee4f_446f_84ad_65f1f31f52af
-        value_t Exchange_Subtract(to_real_tr auto value);                       ///< @copydoc _551c50b3_c942_4872_86de_edc3e1b6f615
-        value_t Exchange_Multiply(to_real_tr auto value);                       ///< @copydoc _8418d17c_3335_4b14_989a_c7756f407cea
-        value_t Exchange_Divide(to_real_tr auto value);                         ///< @copydoc _68377f8f_2dca_4787_ade4_4fb9922d88f3
-        bool_t  Exchange_If_Equals(value_t& snapshot, to_real_tr auto value);   ///< @copydoc _7dd1307a_b27e_458e_8c07_812523cb6cce
+        value_t     Exchange(to_real_tr auto value);                                ///< @copydoc _ab0dd77c_4ae0_4d8a_94a4_78c85ed9872e
+        value_t     Exchange_Add(to_real_tr auto value);                            ///< @copydoc _f901edef_ee4f_446f_84ad_65f1f31f52af
+        value_t     Exchange_Subtract(to_real_tr auto value);                       ///< @copydoc _551c50b3_c942_4872_86de_edc3e1b6f615
+        value_t     Exchange_Multiply(to_real_tr auto value);                       ///< @copydoc _8418d17c_3335_4b14_989a_c7756f407cea
+        value_t     Exchange_Divide(to_real_tr auto value);                         ///< @copydoc _68377f8f_2dca_4787_ade4_4fb9922d88f3
+        bool_t      Exchange_If_Equals(value_t& snapshot, to_real_tr auto value);   ///< @copydoc _7dd1307a_b27e_458e_8c07_812523cb6cce
         /// @}
 
     public:
@@ -296,17 +282,17 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _59ee1957_70b1_4581_8181_7c9271104cd0
         /// @{
-        value_t operator ()() const;                ///< @copydoc _da93485f_123d_4d5e_bdef_5aa33745b1c2
+        value_t     operator ()() const;                ///< @copydoc _da93485f_123d_4d5e_bdef_5aa33745b1c2
 
-        value_t operator +=(to_real_tr auto value); ///< @copydoc _9440c8a7_f2e4_4dea_8202_eb1a3b33f624
-        value_t operator -=(to_real_tr auto value); ///< @copydoc _05c4f9da_6215_48ab_931f_6a63822fb3bc
-        value_t operator *=(to_real_tr auto value); ///< @copydoc _a9aa1790_c0ee_4ef3_985e_09c498389151
-        value_t operator /=(to_real_tr auto value); ///< @copydoc _68c79a5b_1514_4d9e_a931_2b08417794cc
+        real_sp&    operator +=(to_real_tr auto value); ///< @copydoc _9440c8a7_f2e4_4dea_8202_eb1a3b33f624
+        real_sp&    operator -=(to_real_tr auto value); ///< @copydoc _05c4f9da_6215_48ab_931f_6a63822fb3bc
+        real_sp&    operator *=(to_real_tr auto value); ///< @copydoc _a9aa1790_c0ee_4ef3_985e_09c498389151
+        real_sp&    operator /=(to_real_tr auto value); ///< @copydoc _68c79a5b_1514_4d9e_a931_2b08417794cc
 
-        value_t operator ++();                      ///< @copydoc _40b4856c_dc14_4005_9cd1_f90ae5446d9f
-        value_t operator ++(int);                   ///< @copydoc _98d862c6_186a_4e4c_a727_0cd0272f37ba
-        value_t operator --();                      ///< @copydoc _060484a8_af7f_42f0_99b4_f8049e05c5fd
-        value_t operator --(int);                   ///< @copydoc _f3294493_3779_4089_b875_5b0576479f2e
+        real_sp&    operator ++();                      ///< @copydoc _40b4856c_dc14_4005_9cd1_f90ae5446d9f
+        value_t     operator ++(int);                   ///< @copydoc _98d862c6_186a_4e4c_a727_0cd0272f37ba
+        real_sp&    operator --();                      ///< @copydoc _060484a8_af7f_42f0_99b4_f8049e05c5fd
+        value_t     operator --(int);                   ///< @copydoc _f3294493_3779_4089_b875_5b0576479f2e
         /// @}
 
     public:
@@ -367,18 +353,16 @@ namespace nkr { namespace $atomic_t {
         /// @name methods
         /// @copydoc _4d354065_6729_45ca_a929_ecf57cbaa63f
         /// @{
-        value_t Access() const;                                                 ///< @copydoc _c0c47fc9_d389_4d39_9c8b_ca60d166842d
-        value_t Access_Add(to_integer_tr auto value) const;                     ///< @copydoc _b5c98ea6_065d_47eb_89eb_0c575f3f81fb
-        value_t Access_Subtract(to_integer_tr auto value) const;                ///< @copydoc _f04f55a5_0706_435b_8eee_10f7ede33793
+        value_t     Access() const;                                                 ///< @copydoc _c0c47fc9_d389_4d39_9c8b_ca60d166842d
 
-        value_t Assign(pointer_tr auto value);                                  ///< @copydoc _af9d53bf_c4e8_4bfb_b2a4_eb2caa1b4ce1
-        value_t Assign_Add(to_integer_tr auto value);                           ///< @copydoc _c8f00ac4_b591_419a_a3ca_9c1450aa4427
-        value_t Assign_Subtract(to_integer_tr auto value);                      ///< @copydoc _90060189_8434_4919_9297_9b22a439076f
+        pointer_sp& Assign(pointer_tr auto value);                                  ///< @copydoc _af9d53bf_c4e8_4bfb_b2a4_eb2caa1b4ce1
+        pointer_sp& Assign_Add(to_integer_tr auto value);                           ///< @copydoc _c8f00ac4_b591_419a_a3ca_9c1450aa4427
+        pointer_sp& Assign_Subtract(to_integer_tr auto value);                      ///< @copydoc _90060189_8434_4919_9297_9b22a439076f
 
-        value_t Exchange(pointer_tr auto value);                                ///< @copydoc _d1dd2b4b_adf7_4f7e_9c62_f29519eda90f
-        value_t Exchange_Add(to_integer_tr auto value);                         ///< @copydoc _212049f1_8d3b_4529_99d0_f800a9711e4b
-        value_t Exchange_Subtract(to_integer_tr auto value);                    ///< @copydoc _2fcafb28_9779_4964_98af_e50b75de4903
-        bool_t  Exchange_If_Equals(value_t& snapshot, pointer_tr auto value);   ///< @copydoc _10426898_c8ab_44de_b7a7_748f31e5ad00
+        value_t     Exchange(pointer_tr auto value);                                ///< @copydoc _d1dd2b4b_adf7_4f7e_9c62_f29519eda90f
+        value_t     Exchange_Add(to_integer_tr auto value);                         ///< @copydoc _212049f1_8d3b_4529_99d0_f800a9711e4b
+        value_t     Exchange_Subtract(to_integer_tr auto value);                    ///< @copydoc _2fcafb28_9779_4964_98af_e50b75de4903
+        bool_t      Exchange_If_Equals(value_t& snapshot, pointer_tr auto value);   ///< @copydoc _10426898_c8ab_44de_b7a7_748f31e5ad00
         /// @}
 
     public:
@@ -392,19 +376,19 @@ namespace nkr { namespace $atomic_t {
         /// @name operators
         /// @copydoc _5c4884cd_dbd5_4688_ac52_a6de0f6a8348
         /// @{
-        value_t operator ()() const;                            ///< @copydoc _3ea0703e_60a3_487d_ab7a_40079a05c05d
+        value_t     operator ()() const;                            ///< @copydoc _3ea0703e_60a3_487d_ab7a_40079a05c05d
 
-        value_t operator +=(to_integer_tr auto value);          ///< @copydoc _4bc62f6a_629b_4332_beb0_82873b0c0802
-        value_t operator -=(to_integer_tr auto value);          ///< @copydoc _442d3e31_4638_469e_9d70_99ff94c0ddcf
+        pointer_sp& operator +=(to_integer_tr auto value);          ///< @copydoc _4bc62f6a_629b_4332_beb0_82873b0c0802
+        pointer_sp& operator -=(to_integer_tr auto value);          ///< @copydoc _442d3e31_4638_469e_9d70_99ff94c0ddcf
 
-        value_t operator ++();                                  ///< @copydoc _05ce7c2c_3ac7_42dc_ba1b_3b6c5bfa358e
-        value_t operator ++(int);                               ///< @copydoc _eae55e62_8447_4782_9be7_b642ff541fa8
-        value_t operator --();                                  ///< @copydoc _7a64b474_788e_4686_9093_30e9482db8f6
-        value_t operator --(int);                               ///< @copydoc _da7ec2ad_ad87_427e_8876_a9029c35af15
+        pointer_sp& operator ++();                                  ///< @copydoc _05ce7c2c_3ac7_42dc_ba1b_3b6c5bfa358e
+        value_t     operator ++(int);                               ///< @copydoc _eae55e62_8447_4782_9be7_b642ff541fa8
+        pointer_sp& operator --();                                  ///< @copydoc _7a64b474_788e_4686_9093_30e9482db8f6
+        value_t     operator --(int);                               ///< @copydoc _da7ec2ad_ad87_427e_8876_a9029c35af15
 
-        value_t operator ->() const;                            ///< @copydoc _3dd98d85_e299_439b_902f_87e5ecc1a2be
-        unit_t& operator *() const;                             ///< @copydoc _626fbdfe_f1db_44c7_85ed_3db92e4fb3d1
-        unit_t& operator [](to_integer_tr auto index) const;    ///< @copydoc _141bf596_33d0_4a21_95b9_caa5166f0c04
+        value_t     operator ->() const;                            ///< @copydoc _3dd98d85_e299_439b_902f_87e5ecc1a2be
+        unit_t&     operator *() const;                             ///< @copydoc _626fbdfe_f1db_44c7_85ed_3db92e4fb3d1
+        unit_t&     operator [](to_integer_tr auto index) const;    ///< @copydoc _141bf596_33d0_4a21_95b9_caa5166f0c04
         /// @}
 
     public:
@@ -464,12 +448,12 @@ namespace nkr { namespace $atomic_t {
         /// @name methods
         /// @copydoc _98ee4349_04dd_4841_9bfd_a2183df63d35
         /// @{
-        value_t Access() const;                                                 ///< @copydoc _a7b1972a_9ff7_4932_9a82_d4cb553f06c4
+        value_t             Access() const;                                                 ///< @copydoc _a7b1972a_9ff7_4932_9a82_d4cb553f06c4
 
-        value_t Assign(pointer_tr auto value);                                  ///< @copydoc _1f246d11_214e_48b0_ab8d_2f7f96eecba1
+        void_pointer_sp&    Assign(pointer_tr auto value);                                  ///< @copydoc _1f246d11_214e_48b0_ab8d_2f7f96eecba1
 
-        value_t Exchange(pointer_tr auto value);                                ///< @copydoc _80c24152_78ec_41a9_935d_e4a3ba82dbb5
-        bool_t  Exchange_If_Equals(value_t& snapshot, pointer_tr auto value);   ///< @copydoc _559c10d8_e6bc_417d_81f6_276e9944ba9a
+        value_t             Exchange(pointer_tr auto value);                                ///< @copydoc _80c24152_78ec_41a9_935d_e4a3ba82dbb5
+        bool_t              Exchange_If_Equals(value_t& snapshot, pointer_tr auto value);   ///< @copydoc _559c10d8_e6bc_417d_81f6_276e9944ba9a
         /// @}
 
     public:

@@ -24,9 +24,13 @@ var hierarchy =
       [ "nkr::atomic_t< boolean_p >", "d9/de7/classnkr_1_1atomic__t_3_01boolean__p_01_4.html", null ]
     ] ],
     [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", null ],
+    [ "nkr::integer_signed_for_type< type_p >", "d0/d1a/classnkr_1_1integer__signed__for__type.html", null ],
+    [ "nkr::integer_signed_for_type< type_p >", "dc/d77/classnkr_1_1integer__signed__for__type_3_01type__p_01_4.html", null ],
     [ "nkr::$atomic_t::integer_sp< integer_p >", "dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html", [
       [ "nkr::atomic_t< integer_p >", "d0/d4f/classnkr_1_1atomic__t_3_01integer__p_01_4.html", null ]
     ] ],
+    [ "nkr::integer_unsigned_for_type< type_p >", "df/d5c/classnkr_1_1integer__unsigned__for__type.html", null ],
+    [ "nkr::integer_unsigned_for_type< type_p >", "d7/d27/classnkr_1_1integer__unsigned__for__type_3_01type__p_01_4.html", null ],
     [ "nkr::maybe_t< invalid_p >", "d3/dd5/classnkr_1_1maybe__t.html", null ],
     [ "nkr::maybe_t< any_p >", "d3/dd5/classnkr_1_1maybe__t.html", [
       [ "nkr::some_t< any_p >", "d1/def/classnkr_1_1some__t.html", null ]
@@ -46,6 +50,8 @@ var hierarchy =
     [ "nkr::$atomic_t::void_pointer_sp", "d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html", [
       [ "nkr::atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", null ]
     ] ],
+    [ "nkr::word_for_type< type_p >", "df/d37/classnkr_1_1word__for__type.html", null ],
+    [ "nkr::word_for_type< type_p >", "dd/d9c/classnkr_1_1word__for__type_3_01type__p_01_4.html", null ],
     [ "nkr::$maybe_t::user_defined_p", "de/d5c/classnkr_1_1_0bmaybe__t_1_1user__defined__p.html", [
       [ "nkr::$maybe_t::user_defined_sp< user_defined_p >", "d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html", [
         [ "nkr::maybe_t< user_defined_p >", "d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html", null ]

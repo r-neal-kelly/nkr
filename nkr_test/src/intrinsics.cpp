@@ -20,6 +20,24 @@ namespace nkr {
 
         TEST_SUITE("Random<integer_p>")
         {
+        #define _                                                   \
+            u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, u64_t, s64_t,   \
+            c8_t, c16_t, c32_t,                                     \
+            word_t
+
+            TEST_CASE_TEMPLATE("should return different numbers", integer_p, _)
+            {
+                integer_p original = 0;
+                integer_p result = 0;
+                for (index_t idx = 0, end = RANDOM_ITERATION_COUNT; idx < end; idx += 1) {
+                    result = Random<integer_p>();
+                    if (result != original) {
+                        break;
+                    }
+                }
+                CHECK(result != original);
+            }
+
             TEST_CASE("should by default return both positive and negative numbers for signed integers")
             {
                 bool_t got_positive = false;
@@ -70,6 +88,8 @@ namespace nkr {
 
                 CHECK(!got_positive && got_negative);
             }
+
+        #undef _
         }
 
         TEST_SUITE("Random<real_p>")

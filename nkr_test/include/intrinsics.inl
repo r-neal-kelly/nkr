@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "nkr/fors.h"
+
 #include "intrinsics.h"
 
 namespace nkr {
@@ -19,8 +21,19 @@ namespace nkr {
     inline integer_p Random(integer_p from_inclusive = std::numeric_limits<integer_p>::lowest(),
                             integer_p to_inclusive = std::numeric_limits<integer_p>::max())
     {
-        std::lock_guard<std::mutex> locker(random_lock);
-        return std::uniform_int_distribution<integer_p>(from_inclusive, to_inclusive)(random_generator);
+        if constexpr (sizeof(integer_p) > sizeof(word_t)) {
+            std::lock_guard<std::mutex> locker(random_lock);
+            return static_cast<integer_p>(std::uniform_int_distribution<integer_p>(
+                static_cast<integer_p>(from_inclusive),
+                static_cast<integer_p>(to_inclusive))(random_generator));
+        } else {
+            using word_t = word_for_t<integer_p>;
+
+            std::lock_guard<std::mutex> locker(random_lock);
+            return static_cast<integer_p>(std::uniform_int_distribution<word_t>(
+                static_cast<word_t>(from_inclusive),
+                static_cast<word_t>(to_inclusive))(random_generator));
+        }
     }
 
     template <real_tr real_p>
@@ -57,6 +70,12 @@ namespace nkr {
         } else {
             return std::uniform_real_distribution<real_p>(from_inclusive, to_inclusive)(random_generator);
         }
+    }
+
+    template <real_tr real_p, integer_tr integer_p>
+    inline real_p Random(integer_p from_inclusive, integer_p to_inclusive)
+    {
+        return Random<real_p>(static_cast<real_p>(from_inclusive), static_cast<real_p>(to_inclusive));
     }
 
 }

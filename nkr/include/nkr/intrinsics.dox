@@ -206,19 +206,31 @@
     */
 
         /**
-        * @class doc_nkr_byte_t
-        * @private
-        * 
-        * @brief
-        *   The smallest natural type available.
-        */
-
-        /**
         * @class doc_nkr_word_t
         * @private
         *
         * @brief
         *   The largest natural type available, the processor's word.
+        */
+
+        // unsigned_word_t
+        /**
+        * @class _c815a2ce_97a5_4e93_812d_cfc107560a30
+        * @private
+        */
+
+        // signed_word_t
+        /**
+        * @class _9007e224_d505_4ee2_8234_354e1044df0f
+        * @private
+        */
+
+        /**
+        * @class doc_nkr_byte_t
+        * @private
+        * 
+        * @brief
+        *   The smallest natural type available.
         */
 
         /**

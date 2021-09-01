@@ -160,6 +160,7 @@
     <ClInclude Include="include\nkr\array_dynamic_t.h" />
     <ClInclude Include="include\nkr\atomic_t.h" />
     <ClInclude Include="include\nkr\bool_t.h" />
+    <ClInclude Include="include\nkr\fors.h" />
     <ClInclude Include="include\nkr\charcoder_i.h" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.h" />

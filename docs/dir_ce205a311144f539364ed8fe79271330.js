@@ -36,6 +36,7 @@ var dir_ce205a311144f539364ed8fe79271330 =
       [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", "da/daa/classnkr_1_1charcoder__utf__8__t" ]
     ] ],
     [ "charcoder_utf_8_t.inl", "d8/dce/charcoder__utf__8__t_8inl.html", null ],
+    [ "fors.h", "d0/d83/fors_8h.html", "d0/d83/fors_8h" ],
     [ "intrinsics.h", "de/dc6/intrinsics_8h.html", "de/dc6/intrinsics_8h" ],
     [ "intrinsics.inl", "d9/dde/intrinsics_8inl.html", null ],
     [ "macros.h", "de/d3c/macros_8h.html", "de/d3c/macros_8h" ],
