@@ -1436,7 +1436,10 @@ template&lt;real_tr real_p&gt; </div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for logical operators&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
-<div class="line">                    real_p random = Random&lt;real_p&gt;(std::numeric_limits&lt;real_p&gt;::min());</div>
+<div class="line">                    real_p random;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random = Random&lt;real_p&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random == 0.0);</div>
 <div class="line">                    <span class="keyword">const</span> atomic_t&lt;real_p&gt; atom(random);</div>
 <div class="line">                    CHECK(atom);</div>
 <div class="line">                    CHECK(!!atom);</div>

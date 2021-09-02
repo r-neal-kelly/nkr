@@ -859,7 +859,10 @@ namespace nkr {
                 /// [_23e193eb_97a6_4126_b4a0_9986b5528d13]
                 TEST_CASE_TEMPLATE("should implicitly allow for logical operators", real_p, _)
                 {
-                    real_p random = Random<real_p>(std::numeric_limits<real_p>::min());
+                    real_p random;
+                    do {
+                        random = Random<real_p>();
+                    } while (random == 0.0);
                     const atomic_t<real_p> atom(random);
                     CHECK(atom);
                     CHECK(!!atom);
