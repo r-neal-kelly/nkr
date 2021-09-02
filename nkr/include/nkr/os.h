@@ -45,36 +45,36 @@ namespace nkr { namespace os { namespace atomic {
     /// @name Assign
     /// @copydoc _d42247f7_a7b1_442f_beef_c88857ee5682
     /// @{
-    boolean_tr auto         Assign(volatile boolean_tr auto& atom, to_boolean_tr auto with);                ///< @copydoc _645a3b7d_7d4e_47c4_a1a7_c06bc5778bb4
-    integer_tr auto         Assign(volatile integer_tr auto& atom, to_integer_tr auto with);                ///< @copydoc _6f92a7bd_b994_40e0_9602_4f8e9d4cb33c
-    real_tr auto            Assign(volatile real_tr auto& atom, to_real_tr auto with);                      ///< @copydoc _58358f73_b528_40f6_afea_c92e99ceacf5
-    pointer_tr auto         Assign(volatile pointer_tr auto& atom, pointer_tr auto with);                   ///< @copydoc _5be6c133_51a1_4505_9817_7ad90111f2c5
+    boolean_tr auto         Assign(volatile boolean_tr auto& atom, to_boolean_tr auto with);            ///< @copydoc _645a3b7d_7d4e_47c4_a1a7_c06bc5778bb4
+    integer_tr auto         Assign(volatile integer_tr auto& atom, to_integer_tr auto with);            ///< @copydoc _6f92a7bd_b994_40e0_9602_4f8e9d4cb33c
+    real_tr auto            Assign(volatile real_tr auto& atom, to_real_tr auto with);                  ///< @copydoc _58358f73_b528_40f6_afea_c92e99ceacf5
+    pointer_tr auto         Assign(volatile pointer_tr auto& atom, pointer_tr auto with);               ///< @copydoc _5be6c133_51a1_4505_9817_7ad90111f2c5
 
-    integer_tr auto         Assign_Add(volatile integer_tr auto& atom, to_integer_tr auto with);            ///< @copydoc _ccdd9ac1_cec8_41f3_9cdd_c35c4bd0e5e3
-    real_tr auto            Assign_Add(volatile real_tr auto& atom, to_real_tr auto with);                  ///< @copydoc _56449aaf_1ec1_45b6_affe_5c9e52cb054b
-    type_pointer_tr auto    Assign_Add(volatile type_pointer_tr auto& atom, to_integer_tr auto with);       ///< @copydoc _cbe72d03_f920_4d4d_a53c_68537d91e06e
+    integer_tr auto         Assign_Add(volatile integer_tr auto& atom, to_integer_tr auto with);        ///< @copydoc _ccdd9ac1_cec8_41f3_9cdd_c35c4bd0e5e3
+    real_tr auto            Assign_Add(volatile real_tr auto& atom, to_real_tr auto with);              ///< @copydoc _56449aaf_1ec1_45b6_affe_5c9e52cb054b
+    type_pointer_tr auto    Assign_Add(volatile type_pointer_tr auto& atom, integer_tr auto with);      ///< @copydoc _cbe72d03_f920_4d4d_a53c_68537d91e06e
 
-    integer_tr auto         Assign_Subtract(volatile integer_tr auto& atom, to_integer_tr auto with);       ///< @copydoc _c47b944b_9b57_4e37_9f5c_6bfaaf2cfd3b
-    real_tr auto            Assign_Subtract(volatile real_tr auto& atom, to_real_tr auto with);             ///< @copydoc _00e757d4_7f46_4c49_ab21_abe2c125f3a0
-    type_pointer_tr auto    Assign_Subtract(volatile type_pointer_tr auto& atom, to_integer_tr auto with);  ///< @copydoc _165233f2_0ca5_45bf_9b4d_c09253b1700c
+    integer_tr auto         Assign_Subtract(volatile integer_tr auto& atom, to_integer_tr auto with);   ///< @copydoc _c47b944b_9b57_4e37_9f5c_6bfaaf2cfd3b
+    real_tr auto            Assign_Subtract(volatile real_tr auto& atom, to_real_tr auto with);         ///< @copydoc _00e757d4_7f46_4c49_ab21_abe2c125f3a0
+    type_pointer_tr auto    Assign_Subtract(volatile type_pointer_tr auto& atom, integer_tr auto with); ///< @copydoc _165233f2_0ca5_45bf_9b4d_c09253b1700c
 
-    integer_tr auto         Assign_Multiply(volatile integer_tr auto& atom, to_integer_tr auto with);       ///< @copydoc _0a5bb6e1_7810_42d0_9898_7f620006a6e5
-    real_tr auto            Assign_Multiply(volatile real_tr auto& atom, to_real_tr auto with);             ///< @copydoc _57c963ce_3ec5_4e5a_b8ee_f86fa3a621aa
+    integer_tr auto         Assign_Multiply(volatile integer_tr auto& atom, to_integer_tr auto with);   ///< @copydoc _0a5bb6e1_7810_42d0_9898_7f620006a6e5
+    real_tr auto            Assign_Multiply(volatile real_tr auto& atom, to_real_tr auto with);         ///< @copydoc _57c963ce_3ec5_4e5a_b8ee_f86fa3a621aa
 
-    integer_tr auto         Assign_Divide(volatile integer_tr auto& atom, to_integer_tr auto with);         ///< @copydoc _c3e4cffc_7761_480a_a537_89224911c230
-    real_tr auto            Assign_Divide(volatile real_tr auto& atom, to_real_tr auto with);               ///< @copydoc _410d4ab2_a256_46fb_a3d1_81d5df42d754
+    integer_tr auto         Assign_Divide(volatile integer_tr auto& atom, to_integer_tr auto with);     ///< @copydoc _c3e4cffc_7761_480a_a537_89224911c230
+    real_tr auto            Assign_Divide(volatile real_tr auto& atom, to_real_tr auto with);           ///< @copydoc _410d4ab2_a256_46fb_a3d1_81d5df42d754
 
-    integer_tr auto         Assign_Modulus(volatile integer_tr auto& atom, integer_tr auto with);           ///< @copydoc _ac58790f_ee6f_4a0b_a0ec_5dd0150ceec3
+    integer_tr auto         Assign_Modulus(volatile integer_tr auto& atom, integer_tr auto with);       ///< @copydoc _ac58790f_ee6f_4a0b_a0ec_5dd0150ceec3
 
-    integer_tr auto         Assign_Or(volatile integer_tr auto& atom, integer_tr auto with);                ///< @copydoc _eec76f63_67cd_4ba6_bc4a_ab65768fa8b4
+    integer_tr auto         Assign_Or(volatile integer_tr auto& atom, integer_tr auto with);            ///< @copydoc _eec76f63_67cd_4ba6_bc4a_ab65768fa8b4
 
-    integer_tr auto         Assign_And(volatile integer_tr auto& atom, integer_tr auto with);               ///< @copydoc _5909da00_4e2f_4cdb_91af_2b8293db4cdf
+    integer_tr auto         Assign_And(volatile integer_tr auto& atom, integer_tr auto with);           ///< @copydoc _5909da00_4e2f_4cdb_91af_2b8293db4cdf
 
-    integer_tr auto         Assign_Xor(volatile integer_tr auto& atom, integer_tr auto with);               ///< @copydoc _ce711298_5896_45dd_ba04_6814d9ef7a9f
+    integer_tr auto         Assign_Xor(volatile integer_tr auto& atom, integer_tr auto with);           ///< @copydoc _ce711298_5896_45dd_ba04_6814d9ef7a9f
 
-    integer_tr auto         Assign_Left_Shift(volatile integer_tr auto& atom, integer_tr auto with);        ///< @copydoc _18b2190d_5468_4bbd_8130_309a6012b2fe
+    integer_tr auto         Assign_Left_Shift(volatile integer_tr auto& atom, integer_tr auto with);    ///< @copydoc _18b2190d_5468_4bbd_8130_309a6012b2fe
 
-    integer_tr auto         Assign_Right_Shift(volatile integer_tr auto& atom, integer_tr auto with);       ///< @copydoc _086dff2e_9081_4674_8250_1a79c00517be
+    integer_tr auto         Assign_Right_Shift(volatile integer_tr auto& atom, integer_tr auto with);   ///< @copydoc _086dff2e_9081_4674_8250_1a79c00517be
     /// @}
     
     /// @name Exchange
@@ -95,7 +95,7 @@ namespace nkr { namespace os { namespace atomic {
     integer_64_tr auto      Exchange_Add(volatile integer_64_tr auto& atom, to_integer_tr auto with);                                       ///< @copydoc _c26197a1_d6b8_4e67_8a13_235c91e48f6e
     real_32_tr auto         Exchange_Add(volatile real_32_tr auto& atom, to_real_tr auto with);                                             ///< @copydoc _3d5ff86d_f19b_4f2e_9aee_c26dfb6cc70c
     real_64_tr auto         Exchange_Add(volatile real_64_tr auto& atom, to_real_tr auto with);                                             ///< @copydoc _e05e5c49_c9e5_4b2e_b6b7_78c1b162efae
-    type_pointer_tr auto    Exchange_Add(volatile type_pointer_tr auto& atom, to_integer_tr auto with);                                     ///< @copydoc _cc0888ae_0348_4464_8425_d59c2563a3b9
+    type_pointer_tr auto    Exchange_Add(volatile type_pointer_tr auto& atom, integer_tr auto with);                                        ///< @copydoc _cc0888ae_0348_4464_8425_d59c2563a3b9
 
     integer_8_tr auto       Exchange_Subtract(volatile integer_8_tr auto& atom, to_integer_tr auto with);                                   ///< @copydoc _e84e6359_fa11_4b0b_b41a_438749057a46
     integer_16_tr auto      Exchange_Subtract(volatile integer_16_tr auto& atom, to_integer_tr auto with);                                  ///< @copydoc _3b55c955_7c4e_4b27_9678_c5397933d8a2
@@ -103,7 +103,7 @@ namespace nkr { namespace os { namespace atomic {
     integer_64_tr auto      Exchange_Subtract(volatile integer_64_tr auto& atom, to_integer_tr auto with);                                  ///< @copydoc _d1d7f54b_5e04_4efb_a29b_5443a9dde40e
     real_32_tr auto         Exchange_Subtract(volatile real_32_tr auto& atom, to_real_tr auto with);                                        ///< @copydoc _8d728a53_9ae5_4021_afc3_f7eddc191837
     real_64_tr auto         Exchange_Subtract(volatile real_64_tr auto& atom, to_real_tr auto with);                                        ///< @copydoc _fa5d91a7_6a85_4a90_b53e_13979f43e7e3
-    type_pointer_tr auto    Exchange_Subtract(volatile type_pointer_tr auto& atom, to_integer_tr auto with);                                ///< @copydoc _4160b14b_f8e3_4e5b_8340_b8e9285d1caa
+    type_pointer_tr auto    Exchange_Subtract(volatile type_pointer_tr auto& atom, integer_tr auto with);                                   ///< @copydoc _4160b14b_f8e3_4e5b_8340_b8e9285d1caa
 
     integer_8_tr auto       Exchange_Multiply(volatile integer_8_tr auto& atom, to_integer_tr auto with);                                   ///< @copydoc _d1abee16_9935_4078_8cac_b87fd83c0ca7
     integer_16_tr auto      Exchange_Multiply(volatile integer_16_tr auto& atom, to_integer_tr auto with);                                  ///< @copydoc _37bb69e1_23a5_4e0d_a69a_194ea23ab3ee

@@ -716,11 +716,14 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should return false if it did not set the new value", real_p, _)
                 {
                     real_p random_a = Random<real_p>();
-                    real_p random_b = Random<real_p>();
+                    real_p random_b;
+                    do {
+                        random_b = Random<real_p>();
+                    } while (random_b == random_a);
                     atomic_t<real_p> atom(random_a);
                     real_p snapshot = atom;
-                    atom = random_a + random_b;
-                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == false);
+                    atom = random_b;
+                    CHECK(atom.Exchange_If_Equals(snapshot, 0.0) == false);
                 }
                 /// [_afb7c2ad_ecf4_4bd4_9378_eec404ba647f]
 
@@ -740,12 +743,15 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should update snapshot to its current value if it failed", real_p, _)
                 {
                     real_p random_a = Random<real_p>();
-                    real_p random_b = Random<real_p>();
+                    real_p random_b;
+                    do {
+                        random_b = Random<real_p>();
+                    } while (random_b == random_a);
                     atomic_t<real_p> atom(random_a);
                     real_p snapshot = atom;
-                    atom = random_a + random_b;
-                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);
-                    CHECK(snapshot == static_cast<real_p>(random_a + random_b));
+                    atom = random_b;
+                    atom.Exchange_If_Equals(snapshot, 0.0);
+                    CHECK(snapshot == static_cast<real_p>(random_b));
                 }
                 /// [_c55b85bd_af65_4c70_a5b3_e3f12b4f8203]
 

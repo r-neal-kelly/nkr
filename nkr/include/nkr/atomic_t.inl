@@ -748,14 +748,14 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::Assign_Add(to_integer_tr auto value)
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::Assign_Add(integer_tr auto value)
     {
         os::atomic::Assign_Add(this->value, value);
         return *this;
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::Assign_Subtract(to_integer_tr auto value)
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::Assign_Subtract(integer_tr auto value)
     {
         os::atomic::Assign_Subtract(this->value, value);
         return *this;
@@ -768,13 +768,13 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Add(to_integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Subtract(to_integer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
@@ -798,13 +798,13 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator +=(to_integer_tr auto value)
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator +=(integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator -=(to_integer_tr auto value)
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::operator -=(integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
@@ -846,7 +846,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::unit_t& pointer_sp<pointer_p>::operator [](to_integer_tr auto index) const
+    inline typename pointer_sp<pointer_p>::unit_t& pointer_sp<pointer_p>::operator [](integer_tr auto index) const
     {
         return Access()[static_cast<index_t>(index)];
     }

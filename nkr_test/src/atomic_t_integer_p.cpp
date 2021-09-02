@@ -1020,11 +1020,14 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should return false if it did not set the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
-                    integer_p random_b = Random<integer_p>();
+                    integer_p random_b;
+                    do {
+                        random_b = Random<integer_p>();
+                    } while (random_b == random_a);
                     atomic_t<integer_p> atom(random_a);
                     integer_p snapshot = atom;
-                    atom = random_a + random_b;
-                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == false);
+                    atom = random_b;
+                    CHECK(atom.Exchange_If_Equals(snapshot, 0) == false);
                 }
                 /// [_03aeb622_cad5_40b1_a1c4_71730801b851]
 
@@ -1044,12 +1047,15 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should update snapshot to its current value if it failed", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
-                    integer_p random_b = Random<integer_p>();
+                    integer_p random_b;
+                    do {
+                        random_b = Random<integer_p>();
+                    } while (random_b == random_a);
                     atomic_t<integer_p> atom(random_a);
                     integer_p snapshot = atom;
-                    atom = random_a + random_b;
-                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);
-                    CHECK(snapshot == static_cast<integer_p>(random_a + random_b));
+                    atom = random_b;
+                    atom.Exchange_If_Equals(snapshot, 0);
+                    CHECK(snapshot == static_cast<integer_p>(random_b));
                 }
                 /// [_84d94884_6634_45f0_8990_a8d7e5a80766]
 
@@ -1754,7 +1760,7 @@ namespace nkr {
                 /// [_42ccaf5a_81de_485b_852b_c44d3a0107a0]
 
                 /// [_d74c418a_9dd5_4b7d_a47b_342db8247e85]
-                TEST_CASE_TEMPLATE("should return true if its value is below 0.0", integer_p, _)
+                TEST_CASE_TEMPLATE("should return true if its value is below 0", integer_p, _)
                 {
                     if constexpr (integer_signed_tr<integer_p>) {
                         integer_p random = Random<integer_p>(-std::numeric_limits<integer_p>::max(), -1);

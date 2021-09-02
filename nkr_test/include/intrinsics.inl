@@ -78,4 +78,10 @@ namespace nkr {
         return Random<real_p>(static_cast<real_p>(from_inclusive), static_cast<real_p>(to_inclusive));
     }
 
+    template <pointer_tr pointer_p>
+    inline pointer_p Random()
+    {
+        return reinterpret_cast<pointer_p>(Random<address_t>());
+    }
+
 }

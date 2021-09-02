@@ -42,6 +42,9 @@
     <ClCompile Include="src\atomic_t_boolean_p.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\atomic_t_pointer_p.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsics.h">
