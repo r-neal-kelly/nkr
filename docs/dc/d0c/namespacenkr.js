@@ -33,6 +33,7 @@ var namespacenkr =
     [ "none_i", "d7/dc6/conceptnkr_1_1none__i.html", null ],
     [ "any_tr", "d5/db5/conceptnkr_1_1any__tr.html", null ],
     [ "type_tr", "d1/dbd/conceptnkr_1_1type__tr.html", null ],
+    [ "convertible_tr", "df/dd8/conceptnkr_1_1convertible__tr.html", null ],
     [ "size_eq_tr", "de/d74/conceptnkr_1_1size__eq__tr.html", null ],
     [ "size_le_tr", "de/df5/conceptnkr_1_1size__le__tr.html", null ],
     [ "boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],

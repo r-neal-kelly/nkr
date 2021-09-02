@@ -1296,11 +1296,14 @@ template&lt;real_tr real_p&gt; </div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return false if it did not set the new value&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    real_p random_a = Random&lt;real_p&gt;();</div>
-<div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
+<div class="line">                    real_p random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;real_p&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == random_a);</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    real_p snapshot = atom;</div>
-<div class="line">                    atom = random_a + random_b;</div>
-<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, snapshot + random_b) == <span class="keyword">false</span>);</div>
+<div class="line">                    atom = random_b;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, 0.0) == <span class="keyword">false</span>);</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should leave snapshot with its old value if it succeeded&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
@@ -1314,12 +1317,15 @@ template&lt;real_tr real_p&gt; </div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should update snapshot to its current value if it failed&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    real_p random_a = Random&lt;real_p&gt;();</div>
-<div class="line">                    real_p random_b = Random&lt;real_p&gt;();</div>
+<div class="line">                    real_p random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;real_p&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == random_a);</div>
 <div class="line">                    atomic_t&lt;real_p&gt; atom(random_a);</div>
 <div class="line">                    real_p snapshot = atom;</div>
-<div class="line">                    atom = random_a + random_b;</div>
-<div class="line">                    atom.Exchange_If_Equals(snapshot, snapshot + random_b);</div>
-<div class="line">                    CHECK(snapshot == <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_a + random_b));</div>
+<div class="line">                    atom = random_b;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, 0.0);</div>
+<div class="line">                    CHECK(snapshot == <span class="keyword">static_cast&lt;</span>real_p<span class="keyword">&gt;</span>(random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>, real_p, _)</div>
 <div class="line">                {</div>

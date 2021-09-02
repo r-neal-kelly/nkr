@@ -354,16 +354,16 @@ namespace nkr { namespace $atomic_t {
         /// @name methods
         /// @copydoc _4d354065_6729_45ca_a929_ecf57cbaa63f
         /// @{
-        value_t     Access() const;                                                 ///< @copydoc _c0c47fc9_d389_4d39_9c8b_ca60d166842d
+        value_t     Access() const;                                                             ///< @copydoc _c0c47fc9_d389_4d39_9c8b_ca60d166842d
 
-        pointer_sp& Assign(pointer_tr auto value);                                  ///< @copydoc _af9d53bf_c4e8_4bfb_b2a4_eb2caa1b4ce1
-        pointer_sp& Assign_Add(integer_tr auto value);                              ///< @copydoc _c8f00ac4_b591_419a_a3ca_9c1450aa4427
-        pointer_sp& Assign_Subtract(integer_tr auto value);                         ///< @copydoc _90060189_8434_4919_9297_9b22a439076f
+        pointer_sp& Assign(convertible_tr<value_t> auto value);                                 ///< @copydoc _af9d53bf_c4e8_4bfb_b2a4_eb2caa1b4ce1
+        pointer_sp& Assign_Add(integer_tr auto value);                                          ///< @copydoc _c8f00ac4_b591_419a_a3ca_9c1450aa4427
+        pointer_sp& Assign_Subtract(integer_tr auto value);                                     ///< @copydoc _90060189_8434_4919_9297_9b22a439076f
 
-        value_t     Exchange(pointer_tr auto value);                                ///< @copydoc _d1dd2b4b_adf7_4f7e_9c62_f29519eda90f
-        value_t     Exchange_Add(integer_tr auto value);                            ///< @copydoc _212049f1_8d3b_4529_99d0_f800a9711e4b
-        value_t     Exchange_Subtract(integer_tr auto value);                       ///< @copydoc _2fcafb28_9779_4964_98af_e50b75de4903
-        bool_t      Exchange_If_Equals(value_t& snapshot, pointer_tr auto value);   ///< @copydoc _10426898_c8ab_44de_b7a7_748f31e5ad00
+        value_t     Exchange(convertible_tr<value_t> auto value);                               ///< @copydoc _d1dd2b4b_adf7_4f7e_9c62_f29519eda90f
+        value_t     Exchange_Add(integer_tr auto value);                                        ///< @copydoc _212049f1_8d3b_4529_99d0_f800a9711e4b
+        value_t     Exchange_Subtract(integer_tr auto value);                                   ///< @copydoc _2fcafb28_9779_4964_98af_e50b75de4903
+        bool_t      Exchange_If_Equals(value_t& snapshot, convertible_tr<value_t> auto value);  ///< @copydoc _10426898_c8ab_44de_b7a7_748f31e5ad00
         /// @}
 
     public:

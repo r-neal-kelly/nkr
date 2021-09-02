@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
@@ -48,7 +49,8 @@ namespace nkr { namespace os { namespace atomic {
     boolean_tr auto         Assign(volatile boolean_tr auto& atom, to_boolean_tr auto with);            ///< @copydoc _645a3b7d_7d4e_47c4_a1a7_c06bc5778bb4
     integer_tr auto         Assign(volatile integer_tr auto& atom, to_integer_tr auto with);            ///< @copydoc _6f92a7bd_b994_40e0_9602_4f8e9d4cb33c
     real_tr auto            Assign(volatile real_tr auto& atom, to_real_tr auto with);                  ///< @copydoc _58358f73_b528_40f6_afea_c92e99ceacf5
-    pointer_tr auto         Assign(volatile pointer_tr auto& atom, pointer_tr auto with);               ///< @copydoc _5be6c133_51a1_4505_9817_7ad90111f2c5
+    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
+    atom_p         Assign(volatile atom_p& atom, value_p with);               ///< @copydoc _5be6c133_51a1_4505_9817_7ad90111f2c5
 
     integer_tr auto         Assign_Add(volatile integer_tr auto& atom, to_integer_tr auto with);        ///< @copydoc _ccdd9ac1_cec8_41f3_9cdd_c35c4bd0e5e3
     real_tr auto            Assign_Add(volatile real_tr auto& atom, to_real_tr auto with);              ///< @copydoc _56449aaf_1ec1_45b6_affe_5c9e52cb054b
@@ -87,7 +89,8 @@ namespace nkr { namespace os { namespace atomic {
     integer_64_tr auto      Exchange(volatile integer_64_tr auto& atom, to_integer_tr auto with);                                           ///< @copydoc _85282c8e_2d62_422a_b627_44b00a14f62d
     real_32_tr auto         Exchange(volatile real_32_tr auto& atom, to_real_tr auto with);                                                 ///< @copydoc _c3e1ae09_ea1d_4180_8ade_03f55a2697de
     real_64_tr auto         Exchange(volatile real_64_tr auto& atom, to_real_tr auto with);                                                 ///< @copydoc _10dfb789_0e5e_4cf7_bbab_fa016d811d0f
-    pointer_tr auto         Exchange(volatile pointer_tr auto& atom, pointer_tr auto with);                                                 ///< @copydoc _55307842_7fcf_4db9_bae9_7b6a5fe398c0
+    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
+    atom_p         Exchange(volatile atom_p& atom, value_p with);                                                 ///< @copydoc _55307842_7fcf_4db9_bae9_7b6a5fe398c0
 
     integer_8_tr auto       Exchange_Add(volatile integer_8_tr auto& atom, to_integer_tr auto with);                                        ///< @copydoc _90cc9495_1773_47e3_9adc_3043338299c6
     integer_16_tr auto      Exchange_Add(volatile integer_16_tr auto& atom, to_integer_tr auto with);                                       ///< @copydoc _d176607d_46f2_4ff9_b6ad_33070618987c
@@ -156,7 +159,8 @@ namespace nkr { namespace os { namespace atomic {
     boolean_tr auto         Exchange_If_Equals(volatile integer_64_tr auto& atom, integer_64_tr auto& snapshot, to_integer_tr auto with);   ///< @copydoc _745d8457_f0d1_4e79_a5a6_9014206c41c2
     boolean_tr auto         Exchange_If_Equals(volatile real_32_tr auto& atom, real_32_tr auto& snapshot, to_real_tr auto with);            ///< @copydoc _d0f2c440_7414_4a14_b280_88fc0da4b8c6
     boolean_tr auto         Exchange_If_Equals(volatile real_64_tr auto& atom, real_64_tr auto& snapshot, to_real_tr auto with);            ///< @copydoc _78557f24_7a3b_48e5_a010_7af0eb4ccb51
-    boolean_tr auto         Exchange_If_Equals(volatile pointer_tr auto& atom, pointer_tr auto& snapshot, pointer_tr auto with);            ///< @copydoc _45614630_d644_4318_96c7_fc5ccefd6675
+    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
+    bool_t         Exchange_If_Equals(volatile atom_p& atom, atom_p& snapshot, value_p with);            ///< @copydoc _45614630_d644_4318_96c7_fc5ccefd6675
     /// @}
 
 }}}

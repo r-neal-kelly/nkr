@@ -35,12 +35,184 @@ namespace nkr {
 
         TEST_SUITE("methods")
         {
+            TEST_SUITE("Access()")
+            {
+                /// [_3e84679c_3f6e_4da4_8a70_5ff162ce626f]
+                TEST_CASE_TEMPLATE("should return its value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> atom(random);
+                    CHECK(atom.Access() == random);
+                }
+                /// [_3e84679c_3f6e_4da4_8a70_5ff162ce626f]
 
+                /// [_bbdb8a97_83ec_461f_95ed_06df063b8587]
+                TEST_CASE_TEMPLATE("should not change its value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> atom(random);
+                    atom.Access();
+                    CHECK(atom == random);
+                }
+                /// [_bbdb8a97_83ec_461f_95ed_06df063b8587]
+            }
+
+            TEST_SUITE("Assign()")
+            {
+                /// [_a5dba8d0_be71_4233_8961_db3a3ce0e68f]
+                TEST_CASE_TEMPLATE("should set its value to the passed value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Assign(random_b);
+                    CHECK(atom == random_b);
+                }
+                /// [_a5dba8d0_be71_4233_8961_db3a3ce0e68f]
+
+                /// [_2ba4b32d_f0ab_40a2_83ca_f9426b07f465]
+                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    CHECK(&atom.Assign(random_b) == &atom);
+                }
+                /// [_2ba4b32d_f0ab_40a2_83ca_f9426b07f465]
+                
+                /// [_a4faf5b5_526f_411d_b14d_2531437acdc4]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    struct base_t {};
+                    struct derived_t : base_t {};
+
+                    base_t* random_a = Random<base_t*>();
+                    derived_t* random_b = Random<derived_t*>();
+                    atomic_t<base_t*> atom(random_a);
+                    atom.Assign(random_b);
+                    CHECK(atom == static_cast<base_t*>(random_b));
+                }
+                /// [_a4faf5b5_526f_411d_b14d_2531437acdc4]
+
+                /// [_4dd28985_f259_46cc_959f_dae795a8cd25]
+                template <typename atomic_p, typename value_t>
+                concept assign_tr = requires(atomic_p atomic, value_t value)
+                {
+                    atomic.Assign(value);
+                };
+                TEST_CASE_TEMPLATE("should not work with void pointer", pointer_p, _)
+                {
+                    CHECK(assign_tr<atomic_t<pointer_p>, void_t*> == false);
+                }
+                /// [_4dd28985_f259_46cc_959f_dae795a8cd25]
+            }
+
+            TEST_SUITE("")
+            {
+
+            }
+
+            TEST_SUITE("")
+            {
+
+            }
+
+            TEST_SUITE("")
+            {
+
+            }
+
+            TEST_SUITE("")
+            {
+
+            }
+
+            TEST_SUITE("")
+            {
+
+            }
+
+            TEST_SUITE("")
+            {
+
+            }
         }
 
         TEST_SUITE("casts")
         {
+            TEST_SUITE("value_t()")
+            {
+                /// [_4dce474d_ac4f_4721_a5fc_abecc537cbf9]
+                TEST_CASE_TEMPLATE("should explicitly return a copy of its value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> atom(random);
+                    CHECK(static_cast<pointer_p>(atom) == random);
+                }
+                /// [_4dce474d_ac4f_4721_a5fc_abecc537cbf9]
 
+                /// [_1a305a11_e7eb_4081_a5a8_e432ea50b9d9]
+                TEST_CASE_TEMPLATE("should implicitly return a copy of its value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> atom(random);
+                    pointer_p value = atom;
+                    CHECK(value == random);
+                }
+                /// [_1a305a11_e7eb_4081_a5a8_e432ea50b9d9]
+
+                /// [_df261ad7_4e58_4f39_82e4_ea2c59272819]
+                TEST_CASE_TEMPLATE("should not change its value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> atom(random);
+                    pointer_p value = atom;
+                    CHECK(atom == random);
+                }
+                /// [_df261ad7_4e58_4f39_82e4_ea2c59272819]
+
+                /// [_06dbb3d9_5894_4605_8641_6bd752f9c782]
+                TEST_CASE_TEMPLATE("should implicitly allow for arithmetic operators", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    const atomic_t<pointer_p> atom(random_a);
+                    CHECK((atom + random_b) == (random_a + random_b));
+                    CHECK((atom - random_b) == (random_a - random_b));
+                }
+                /// [_06dbb3d9_5894_4605_8641_6bd752f9c782]
+
+                /// [_7f24c559_320d_46d3_a45c_625129a38663]
+                TEST_CASE_TEMPLATE("should implicitly allow for logical operators", pointer_p, _)
+                {
+                    pointer_p random;
+                    do {
+                        random = Random<pointer_p>();
+                    } while (random == nullptr);
+                    const atomic_t<pointer_p> atom(random);
+                    CHECK(atom);
+                    CHECK(!!atom);
+                    CHECK(atom || false);
+                    CHECK(atom && true);
+                    CHECK(atom ? true : false);
+                }
+                /// [_7f24c559_320d_46d3_a45c_625129a38663]
+
+                /// [_ba6c7bcb_a826_4fe1_bd09_2a9bb9541f50]
+                TEST_CASE_TEMPLATE("should implicitly allow for comparison operators", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> atom(random);
+                    CHECK(atom == random);
+                    CHECK_FALSE(atom != random);
+                    CHECK_FALSE(atom < random);
+                    CHECK_FALSE(atom > random);
+                    CHECK(atom <= random);
+                    CHECK(atom >= random);
+                    CHECK(atom <=> random == 0);
+                }
+                /// [_ba6c7bcb_a826_4fe1_bd09_2a9bb9541f50]
+            }
         }
 
         TEST_SUITE("operators")

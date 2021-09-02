@@ -73,11 +73,10 @@ namespace nkr { namespace os { namespace atomic {
         return static_cast<atom_t>(Exchange(atom, with), static_cast<atom_t>(with));
     }
 
-    inline pointer_tr auto Assign(volatile pointer_tr auto& atom, pointer_tr auto with)
+    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Assign(volatile atom_p& atom, value_p with)
     {
-        using atom_t = std::remove_cvref_t<decltype(atom)>;
-
-        return static_cast<atom_t>(Exchange(atom, with), static_cast<atom_t>(with));
+        return Exchange(atom, with), static_cast<atom_p>(with);
     }
 
     inline integer_tr auto Assign_Add(volatile integer_tr auto& atom, to_integer_tr auto with)
@@ -274,14 +273,10 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    inline pointer_tr auto Exchange(volatile pointer_tr auto& atom, pointer_tr auto with)
+    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Exchange(volatile atom_p& atom, value_p with)
     {
-        using atom_t = std::remove_cvref_t<decltype(atom)>;
-
-        static_assert(std::is_convertible<decltype(with), atom_t>::value,
-                      "'with' should be convertible to 'atom'.");
-
-        return static_cast<atom_t>(::_InterlockedExchangePointer(reinterpret_cast<void* volatile*>(&atom),
+        return static_cast<atom_p>(::_InterlockedExchangePointer(reinterpret_cast<void* volatile*>(&atom),
                                                                  static_cast<void*>(with)));
     }
 
@@ -913,22 +908,15 @@ namespace nkr { namespace os { namespace atomic {
     #endif
     }
 
-    inline boolean_tr auto Exchange_If_Equals(volatile pointer_tr auto& atom,
-                                              pointer_tr auto& snapshot,
-                                              pointer_tr auto with)
+    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
+    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
+                                     atom_p& snapshot,
+                                     value_p with)
     {
-        using atom_t = std::remove_cvref_t<decltype(atom)>;
-        using snapshot_t = std::remove_cvref_t<decltype(snapshot)>;
-        using with_t = std::remove_cvref_t<decltype(with)>;
-
-        static_assert(std::is_convertible<snapshot_t, atom_t>::value,
-                      "'snapshot' should be convertible to 'atom'.");
-        static_assert(std::is_convertible<with_t, atom_t>::value,
-                      "'with' should be convertible to 'atom'.");
-
-        atom_t value = static_cast<atom_t>(::_InterlockedCompareExchangePointer(reinterpret_cast<void* volatile*>(&atom),
-                                                                                static_cast<void*>(with),
-                                                                                static_cast<void*>(snapshot)));
+        atom_p value =
+            static_cast<atom_p>(::_InterlockedCompareExchangePointer(reinterpret_cast<void* volatile*>(&atom),
+                                                                     static_cast<void*>(with),
+                                                                     static_cast<void*>(snapshot)));
         if (snapshot == value) {
             return true;
         } else {

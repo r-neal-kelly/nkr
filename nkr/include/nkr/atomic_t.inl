@@ -741,7 +741,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::Assign(pointer_tr auto value)
+    inline pointer_sp<pointer_p>& pointer_sp<pointer_p>::Assign(convertible_tr<value_t> auto value)
     {
         os::atomic::Assign(this->value, value);
         return *this;
@@ -762,7 +762,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange(pointer_tr auto value)
+    inline typename pointer_sp<pointer_p>::value_t pointer_sp<pointer_p>::Exchange(convertible_tr<value_t> auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
@@ -780,7 +780,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
-    inline bool_t pointer_sp<pointer_p>::Exchange_If_Equals(value_t& snapshot, pointer_tr auto value)
+    inline bool_t pointer_sp<pointer_p>::Exchange_If_Equals(value_t& snapshot, convertible_tr<value_t> auto value)
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
