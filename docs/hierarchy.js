@@ -19,9 +19,11 @@ var hierarchy =
     ] ],
     [ "nkr::array_dynamic_t< unit, allocator >", "d5/d74/classnkr_1_1array__dynamic__t.html", null ],
     [ "nkr::atomic_t< invalid_p >", "d5/dde/classnkr_1_1atomic__t.html", null ],
-    [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", null ],
-    [ "nkr::$atomic_t::boolean_sp< boolean_p >", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html", [
-      [ "nkr::atomic_t< boolean_p >", "d9/de7/classnkr_1_1atomic__t_3_01boolean__p_01_4.html", null ]
+    [ "nkr::bool_deleted_operators_t", "d8/da5/classnkr_1_1bool__deleted__operators__t.html", [
+      [ "nkr::$atomic_t::boolean_sp< boolean_p >", "db/d20/classnkr_1_1_0batomic__t_1_1boolean__sp.html", [
+        [ "nkr::atomic_t< boolean_p >", "d9/de7/classnkr_1_1atomic__t_3_01boolean__p_01_4.html", null ]
+      ] ],
+      [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", null ]
     ] ],
     [ "nkr::charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", null ],
     [ "nkr::integer_signed_for_type< type_p >", "d0/d1a/classnkr_1_1integer__signed__for__type.html", null ],

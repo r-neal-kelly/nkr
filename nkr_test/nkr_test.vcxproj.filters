@@ -47,6 +47,9 @@
     <ClInclude Include="include\intrinsics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\bool_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\intrinsics.inl">

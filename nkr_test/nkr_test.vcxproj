@@ -170,6 +170,7 @@
     <ClCompile Include="src\pointer_t.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\bool_t.h" />
     <ClInclude Include="include\intrinsics.h" />
   </ItemGroup>
   <ItemGroup>

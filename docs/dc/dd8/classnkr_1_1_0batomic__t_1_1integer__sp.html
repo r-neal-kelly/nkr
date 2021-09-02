@@ -314,7 +314,7 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                    atomic_t&lt;integer_p&gt; atom;</div>
 <div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a67eeb398b93082ad0407069b7e35ae3c">atomic_t&lt;integer_p&gt;::DEFAULT_VALUE</a>);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a67eeb398b93082ad0407069b7e35ae3c"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a67eeb398b93082ad0407069b7e35ae3c">nkr::$atomic_t::integer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static const value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:116</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a67eeb398b93082ad0407069b7e35ae3c"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a67eeb398b93082ad0407069b7e35ae3c">nkr::$atomic_t::integer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static const value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:117</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -1005,7 +1005,7 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                    <span class="keywordflow">do</span> {</div>
 <div class="line">                        random_b = Random&lt;real_t&gt;(std::numeric_limits&lt;integer_p&gt;::lowest(),</div>
 <div class="line">                                                  std::numeric_limits&lt;integer_p&gt;::max());</div>
-<div class="line">                    } <span class="keywordflow">while</span> (random_b == 0.0);</div>
+<div class="line">                    } <span class="keywordflow">while</span> (<span class="keyword">static_cast&lt;</span>integer_p<span class="keyword">&gt;</span>(random_b) == 0);</div>
 <div class="line">                    atomic_t&lt;integer_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Assign_Divide(random_b);</div>
 <div class="line">                    CHECK(atom == (random_a /= <span class="keyword">static_cast&lt;</span>integer_p<span class="keyword">&gt;</span>(random_b)));</div>
@@ -1556,7 +1556,7 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                    <span class="keywordflow">do</span> {</div>
 <div class="line">                        random_b = Random&lt;real_t&gt;(std::numeric_limits&lt;integer_p&gt;::lowest(),</div>
 <div class="line">                                                  std::numeric_limits&lt;integer_p&gt;::max());</div>
-<div class="line">                    } <span class="keywordflow">while</span> (random_b == 0.0);</div>
+<div class="line">                    } <span class="keywordflow">while</span> (<span class="keyword">static_cast&lt;</span>integer_p<span class="keyword">&gt;</span>(random_b) == 0);</div>
 <div class="line">                    atomic_t&lt;integer_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange_Divide(random_b);</div>
 <div class="line">                    CHECK(atom == (random_a /= <span class="keyword">static_cast&lt;</span>integer_p<span class="keyword">&gt;</span>(random_b)));</div>
@@ -2012,7 +2012,7 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                    integer_p <a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a> = atom;</div>
 <div class="line">                    CHECK(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">value</a> == random);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a32e53877d2e3005f31b5d986bd409624"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">nkr::$atomic_t::integer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:123</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a32e53877d2e3005f31b5d986bd409624"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">nkr::$atomic_t::integer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:124</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not change its value&quot;</span>, integer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    integer_p random = Random&lt;integer_p&gt;();</div>
@@ -2328,7 +2328,7 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                    <span class="keywordflow">do</span> {</div>
 <div class="line">                        random_b = Random&lt;real_t&gt;(std::numeric_limits&lt;integer_p&gt;::lowest(),</div>
 <div class="line">                                                  std::numeric_limits&lt;integer_p&gt;::max());</div>
-<div class="line">                    } <span class="keywordflow">while</span> (random_b == 0.0);</div>
+<div class="line">                    } <span class="keywordflow">while</span> (<span class="keyword">static_cast&lt;</span>integer_p<span class="keyword">&gt;</span>(random_b) == 0);</div>
 <div class="line">                    atomic_t&lt;integer_p&gt; atom(random_a);</div>
 <div class="line">                    atom /= random_b;</div>
 <div class="line">                    CHECK(atom == (random_a /= <span class="keyword">static_cast&lt;</span>integer_p<span class="keyword">&gt;</span>(random_b)));</div>
@@ -2979,7 +2979,7 @@ template&lt;integer_tr integer_p&gt; </div>
 <div class="line">                {</div>
 <div class="line">                    CHECK(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a67eeb398b93082ad0407069b7e35ae3c">atomic_t&lt;integer_p&gt;::DEFAULT_VALUE</a> == <a class="code hl_typedef" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#ac13d66017f9c7cdd7119482ff55fc0db">atomic_t&lt;integer_p&gt;::value_t</a>());</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_ac13d66017f9c7cdd7119482ff55fc0db"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#ac13d66017f9c7cdd7119482ff55fc0db">nkr::$atomic_t::integer_sp::value_t</a></div><div class="ttdeci">integer_p value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:109</div></div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_ac13d66017f9c7cdd7119482ff55fc0db"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#ac13d66017f9c7cdd7119482ff55fc0db">nkr::$atomic_t::integer_sp::value_t</a></div><div class="ttdeci">integer_p value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:110</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal 0&quot;</span>, integer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    CHECK(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a67eeb398b93082ad0407069b7e35ae3c">atomic_t&lt;integer_p&gt;::DEFAULT_VALUE</a> == 0);</div>

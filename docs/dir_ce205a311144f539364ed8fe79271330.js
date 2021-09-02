@@ -26,6 +26,7 @@ var dir_ce205a311144f539364ed8fe79271330 =
     ] ],
     [ "atomic_t.inl", "d5/d77/atomic__t_8inl.html", null ],
     [ "bool_t.h", "d1/d6b/bool__t_8h.html", [
+      [ "nkr::bool_deleted_operators_t", "d8/da5/classnkr_1_1bool__deleted__operators__t.html", "d8/da5/classnkr_1_1bool__deleted__operators__t" ],
       [ "nkr::bool_t", "d3/df5/classnkr_1_1bool__t.html", "d3/df5/classnkr_1_1bool__t" ]
     ] ],
     [ "bool_t.inl", "d4/d1b/bool__t_8inl.html", null ],

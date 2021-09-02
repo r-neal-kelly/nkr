@@ -22,6 +22,8 @@
     * 
     * @brief
     *   A specialization for booleans to be used atomically.
+    * 
+    * @snippet "./src/atomic_t_boolean_p.cpp" _2d1971b2_b6b3_469d_9dab_8654706a233a
     */
 
         // aliases
@@ -235,6 +237,9 @@
             /**
             * @class _9c15e3f8_92db_4474_ab7a_fb1486fc3800
             * @private
+            * 
+            * @snippet "./src/atomic_t_boolean_p.cpp" _6faaa046_e0b6_4878_9da7_fdc8ff8ac17e
+            * @snippet "./src/atomic_t_boolean_p.cpp" _0c2caefd_2b3b_451c_8a89_fc0473760d3b
             */
 
         // none_t interface
@@ -250,6 +255,9 @@
             /**
             * @class _0de1f181_bf7f_4975_9c6d_076c1fedce94
             * @private
+            * 
+            * @snippet "./src/atomic_t_boolean_p.cpp" _dcfe5035_ed73_4c45_9240_49d5d0bbea4f
+            * @snippet "./src/atomic_t_boolean_p.cpp" _13953f4c_f4bb_4c4f_bfb8_7074564c1a23
             */
 
             // =(none_t)
@@ -259,6 +267,10 @@
             * 
             * @brief
             *   Sets its value to the default value.
+            * 
+            * @snippet "./src/atomic_t_boolean_p.cpp" _0c74c8bd_a710_4357_8810_2611434b1324
+            * @snippet "./src/atomic_t_boolean_p.cpp" _ed5f8dac_3c07_4eb3_a100_dbc6380060f2
+            * @snippet "./src/atomic_t_boolean_p.cpp" _5b81fe4b_7a68_4b91_a03d_a678146c2121
             */
 
             // ==(none_t)
@@ -268,6 +280,10 @@
             * 
             * @brief
             *   Checks if a cast of its value to nkr::bool_t equals `false`.
+            * 
+            * @snippet "./src/atomic_t_boolean_p.cpp" _c4f6a770_7550_4723_b054_d55fcc0900b3
+            * @snippet "./src/atomic_t_boolean_p.cpp" _7bb264b3_fe13_4a43_aa58_0f96d5951cf1
+            * @snippet "./src/atomic_t_boolean_p.cpp" _c484d5fe_cbd6_4ab9_a45e_699d33702bd4
             */
 
             // !=(none_t)
@@ -277,6 +293,10 @@
             * 
             * @brief
             *   Checks if a cast of its value to nkr::bool_t equals `true`.
+            * 
+            * @snippet "./src/atomic_t_boolean_p.cpp" _dd75f349_e5c2_459b_9db8_f753036da6eb
+            * @snippet "./src/atomic_t_boolean_p.cpp" _3e86a4da_18b7_4d20_b455_f4b8d0e7e77e
+            * @snippet "./src/atomic_t_boolean_p.cpp" _c7419f69_e9e6_4cab_8551_2e4d241a5263
             */
 
     // integer_sp

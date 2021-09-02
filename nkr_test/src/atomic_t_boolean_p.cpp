@@ -4,6 +4,7 @@
 
 #include "nkr/atomic_t.h"
 
+#include "bool_t.h"
 #include "intrinsics.h"
 
 namespace nkr {
@@ -12,6 +13,19 @@ namespace nkr {
     {
     #define _               \
         bool_t, std_bool_t
+
+        TEST_SUITE("bases")
+        {
+            TEST_SUITE("bool_deleted_operators_t")
+            {
+                /// [_2d1971b2_b6b3_469d_9dab_8654706a233a]
+                TEST_CASE_TEMPLATE("should have no unwanted operators", boolean_p, _)
+                {
+                    CHECK(has_unwanted_bool_operators_tr<atomic_t<boolean_p>> == false);
+                }
+                /// [_2d1971b2_b6b3_469d_9dab_8654706a233a]
+            }
+        }
 
         TEST_SUITE("aliases")
         {
@@ -507,12 +521,139 @@ namespace nkr {
 
         TEST_SUITE("operators")
         {
+            TEST_SUITE("()()")
+            {
+                /// [_6faaa046_e0b6_4878_9da7_fdc8ff8ac17e]
+                TEST_CASE_TEMPLATE("should return a copy of its value", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    const atomic_t<boolean_p> atom(random);
+                    CHECK(atom() == random);
+                }
+                /// [_6faaa046_e0b6_4878_9da7_fdc8ff8ac17e]
 
+                /// [_0c2caefd_2b3b_451c_8a89_fc0473760d3b]
+                TEST_CASE_TEMPLATE("should not change its value", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    const atomic_t<boolean_p> atom(random);
+                    boolean_p value = atom();
+                    CHECK(atom == random);
+                }
+                /// [_0c2caefd_2b3b_451c_8a89_fc0473760d3b]
+            }
         }
 
         TEST_SUITE("none_t interface")
         {
+            TEST_SUITE("none_ctor()")
+            {
+                /// [_dcfe5035_ed73_4c45_9240_49d5d0bbea4f]
+                TEST_CASE_TEMPLATE("should explicitly set its value to the default value", boolean_p, _)
+                {
+                    atomic_t<boolean_p> atom((none_t()));
+                    CHECK(atom == atomic_t<boolean_p>::DEFAULT_VALUE);
+                }
+                /// [_dcfe5035_ed73_4c45_9240_49d5d0bbea4f]
 
+                /// [_13953f4c_f4bb_4c4f_bfb8_7074564c1a23]
+                TEST_CASE_TEMPLATE("should implicitly set its value to the default value", boolean_p, _)
+                {
+                    atomic_t<boolean_p> atom = none_t();
+                    CHECK(atom == atomic_t<boolean_p>::DEFAULT_VALUE);
+                }
+                /// [_13953f4c_f4bb_4c4f_bfb8_7074564c1a23]
+            }
+
+            TEST_SUITE("=(none_t)")
+            {
+                /// [_0c74c8bd_a710_4357_8810_2611434b1324]
+                TEST_CASE_TEMPLATE("should set its value to the default value", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    atomic_t<boolean_p> atom(random);
+                    atom = none_t();
+                    CHECK(atom == atomic_t<boolean_p>::DEFAULT_VALUE);
+                }
+                /// [_0c74c8bd_a710_4357_8810_2611434b1324]
+
+                /// [_ed5f8dac_3c07_4eb3_a100_dbc6380060f2]
+                TEST_CASE_TEMPLATE("should evaluate as false after being set to none", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    atomic_t<boolean_p> atom(random);
+                    atom = none_t();
+                    CHECK(static_cast<bool_t>(atom) == false);
+                }
+                /// [_ed5f8dac_3c07_4eb3_a100_dbc6380060f2]
+
+                /// [_5b81fe4b_7a68_4b91_a03d_a678146c2121]
+                TEST_CASE_TEMPLATE("should return itself", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    atomic_t<boolean_p> atom(random);
+                    CHECK(&(atom = none_t()) == &atom);
+                }
+                /// [_5b81fe4b_7a68_4b91_a03d_a678146c2121]
+            }
+
+            TEST_SUITE("==(none_t)")
+            {
+                /// [_c4f6a770_7550_4723_b054_d55fcc0900b3]
+                TEST_CASE_TEMPLATE("should return true when default constructed", boolean_p, _)
+                {
+                    const atomic_t<boolean_p> atom;
+                    CHECK(atom == none_t());
+                }
+                /// [_c4f6a770_7550_4723_b054_d55fcc0900b3]
+
+                /// [_7bb264b3_fe13_4a43_aa58_0f96d5951cf1]
+                TEST_CASE_TEMPLATE("should return true if its value is false", boolean_p, _)
+                {
+                    const atomic_t<boolean_p> atom(false);
+                    CHECK(atom == none_t());
+                }
+                /// [_7bb264b3_fe13_4a43_aa58_0f96d5951cf1]
+
+                /// [_c484d5fe_cbd6_4ab9_a45e_699d33702bd4]
+                TEST_CASE_TEMPLATE("should not change its value", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    const atomic_t<boolean_p> atom(random);
+                    atom == none_t();
+                    CHECK(atom == random);
+                }
+                /// [_c484d5fe_cbd6_4ab9_a45e_699d33702bd4]
+            }
+
+            TEST_SUITE("!=(none_t)")
+            {
+                /// [_dd75f349_e5c2_459b_9db8_f753036da6eb]
+                TEST_CASE_TEMPLATE("should return false when default constructed", boolean_p, _)
+                {
+                    const atomic_t<boolean_p> atom;
+                    CHECK_FALSE(atom != none_t());
+                }
+                /// [_dd75f349_e5c2_459b_9db8_f753036da6eb]
+
+                /// [_3e86a4da_18b7_4d20_b455_f4b8d0e7e77e]
+                TEST_CASE_TEMPLATE("should return false if its value is false", boolean_p, _)
+                {
+                    const atomic_t<boolean_p> atom(false);
+                    CHECK_FALSE(atom != none_t());
+                }
+                /// [_3e86a4da_18b7_4d20_b455_f4b8d0e7e77e]
+
+                /// [_c7419f69_e9e6_4cab_8551_2e4d241a5263]
+                TEST_CASE_TEMPLATE("should not change its value", boolean_p, _)
+                {
+                    boolean_p random = Random<boolean_p>();
+                    const atomic_t<boolean_p> atom(random);
+                    atom != none_t();
+                    CHECK(atom == random);
+                }
+                /// [_c7419f69_e9e6_4cab_8551_2e4d241a5263]
+            }
         }
 
     #undef _

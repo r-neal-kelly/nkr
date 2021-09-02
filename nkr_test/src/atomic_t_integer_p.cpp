@@ -498,7 +498,7 @@ namespace nkr {
                     do {
                         random_b = Random<real_t>(std::numeric_limits<integer_p>::lowest(),
                                                   std::numeric_limits<integer_p>::max());
-                    } while (random_b == 0.0);
+                    } while (static_cast<integer_p>(random_b) == 0);
                     atomic_t<integer_p> atom(random_a);
                     atom.Assign_Divide(random_b);
                     CHECK(atom == (random_a /= static_cast<integer_p>(random_b)));
@@ -833,7 +833,7 @@ namespace nkr {
                     do {
                         random_b = Random<real_t>(std::numeric_limits<integer_p>::lowest(),
                                                   std::numeric_limits<integer_p>::max());
-                    } while (random_b == 0.0);
+                    } while (static_cast<integer_p>(random_b) == 0);
                     atomic_t<integer_p> atom(random_a);
                     atom.Exchange_Divide(random_b);
                     CHECK(atom == (random_a /= static_cast<integer_p>(random_b)));
@@ -1374,7 +1374,7 @@ namespace nkr {
                     do {
                         random_b = Random<real_t>(std::numeric_limits<integer_p>::lowest(),
                                                   std::numeric_limits<integer_p>::max());
-                    } while (random_b == 0.0);
+                    } while (static_cast<integer_p>(random_b) == 0);
                     atomic_t<integer_p> atom(random_a);
                     atom /= random_b;
                     CHECK(atom == (random_a /= static_cast<integer_p>(random_b)));

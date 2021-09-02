@@ -11,6 +11,7 @@ var namespacenkr =
     [ "atomic_t< pointer_p >", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4.html", "d4/d9f/classnkr_1_1atomic__t_3_01pointer__p_01_4" ],
     [ "atomic_t< real_p >", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4.html", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4" ],
     [ "atomic_t< void_t * >", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4.html", "d5/d5b/classnkr_1_1atomic__t_3_01void__t_01_5_01_4" ],
+    [ "bool_deleted_operators_t", "d8/da5/classnkr_1_1bool__deleted__operators__t.html", "d8/da5/classnkr_1_1bool__deleted__operators__t" ],
     [ "bool_t", "d3/df5/classnkr_1_1bool__t.html", "d3/df5/classnkr_1_1bool__t" ],
     [ "charcoder_utf_8_t", "da/daa/classnkr_1_1charcoder__utf__8__t.html", "da/daa/classnkr_1_1charcoder__utf__8__t" ],
     [ "integer_signed_for_type", "d0/d1a/classnkr_1_1integer__signed__for__type.html", null ],

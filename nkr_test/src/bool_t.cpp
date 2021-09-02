@@ -4,55 +4,12 @@
 
 #include "nkr/bool_t.h"
 
-#include "intrinsics.h"
+#include "bool_t.h"
 
 namespace nkr {
 
     TEST_SUITE("bool_t")
     {
-        /// [_3e7cd520_dafd_4a17_befe_912aeb32e870]
-        template <typename type_p>
-        concept has_unwanted_bool_operators_tr =
-            requires(type_p instance) { +instance; } ||
-            requires(type_p instance) { -instance; } ||
-
-            requires(type_p instance) { instance + 1; } ||
-            requires(type_p instance) { instance - 1; } ||
-            requires(type_p instance) { instance * 1; } ||
-            requires(type_p instance) { instance / 1; } ||
-            requires(type_p instance) { instance % 1; } ||
-
-            requires(type_p instance) { ~instance; } ||
-            requires(type_p instance) { instance | 1; } ||
-            requires(type_p instance) { instance & 1; } ||
-            requires(type_p instance) { instance ^ 1; } ||
-            requires(type_p instance) { instance << 1; } ||
-            requires(type_p instance) { instance >> 1; } ||
-
-            requires(type_p instance) { instance += 1; } ||
-            requires(type_p instance) { instance -= 1; } ||
-            requires(type_p instance) { instance *= 1; } ||
-            requires(type_p instance) { instance /= 1; } ||
-            requires(type_p instance) { instance %= 1; } ||
-
-            requires(type_p instance) { instance |= 1; } ||
-            requires(type_p instance) { instance &= 1; } ||
-            requires(type_p instance) { instance ^= 1; } ||
-            requires(type_p instance) { instance <<= 1; } ||
-            requires(type_p instance) { instance >>= 1; } ||
-
-            requires(type_p instance) { ++instance; } ||
-            requires(type_p instance) { instance++; } ||
-            requires(type_p instance) { --instance; } ||
-            requires(type_p instance) { instance--; } ||
-
-            requires(type_p instance) { instance < 1; } ||
-            requires(type_p instance) { instance > 1; } ||
-            requires(type_p instance) { instance <= 1; } ||
-            requires(type_p instance) { instance >= 1; } ||
-            requires(type_p instance) { instance <=> 1; };
-        /// [_3e7cd520_dafd_4a17_befe_912aeb32e870]
-
         TEST_CASE("certain operators are unwanted")
         {
             /// [_29b44101_c393_4fdd_b59d_cb9a75802d5a]

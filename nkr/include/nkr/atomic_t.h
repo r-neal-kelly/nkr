@@ -22,7 +22,8 @@ namespace nkr { namespace $atomic_t {
     /// @nosubgrouping
     /// @copydoc _ec77c539_2ae5_4aa5_a156_d961c5ac098d
     template <boolean_tr boolean_p>
-    class boolean_sp
+    class boolean_sp :
+        public bool_deleted_operators_t
     {
     public:
         /// @name aliases
