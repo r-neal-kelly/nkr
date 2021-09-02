@@ -95,46 +95,337 @@ namespace nkr {
                 /// [_a4faf5b5_526f_411d_b14d_2531437acdc4]
 
                 /// [_4dd28985_f259_46cc_959f_dae795a8cd25]
-                template <typename atomic_p, typename value_t>
-                concept assign_tr = requires(atomic_p atomic, value_t value)
+                template <typename atomic_p, typename value_p>
+                concept assign_tr = requires(atomic_p atomic, value_p value)
                 {
                     atomic.Assign(value);
                 };
-                TEST_CASE_TEMPLATE("should not work with void pointer", pointer_p, _)
+                TEST_CASE_TEMPLATE("should not allow void pointer", pointer_p, _)
                 {
                     CHECK(assign_tr<atomic_t<pointer_p>, void_t*> == false);
                 }
                 /// [_4dd28985_f259_46cc_959f_dae795a8cd25]
+
+                /// [_d5b65810_577c_4c3a_be35_b683bc4977ed]
+                TEST_CASE_TEMPLATE("should allow a casted void pointer", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    void_t* random_b = Random<void_t*>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Assign(static_cast<pointer_p>(random_b));
+                    CHECK(atom == random_b);
+                }
+                /// [_d5b65810_577c_4c3a_be35_b683bc4977ed]
             }
 
-            TEST_SUITE("")
+            TEST_SUITE("Assign_Add()")
             {
+                /// [_d6c7e655_adff_40c3_a80e_1b35b549bc89]
+                TEST_CASE_TEMPLATE("should set its value to value + passed value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Assign_Add(random_b);
+                    CHECK(atom == (random_a += random_b));
+                }
+                /// [_d6c7e655_adff_40c3_a80e_1b35b549bc89]
 
+                /// [_5f5c1fe9_dab4_482a_9a1f_1a22f18dc13e]
+                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    CHECK(&atom.Assign_Add(random_b) == &atom);
+                }
+                /// [_5f5c1fe9_dab4_482a_9a1f_1a22f18dc13e]
             }
 
-            TEST_SUITE("")
+            TEST_SUITE("Assign_Subtract()")
             {
+                /// [_32c7f550_1845_4949_9d0d_b31ca54bcbe3]
+                TEST_CASE_TEMPLATE("should set its value to value - passed value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Assign_Subtract(random_b);
+                    CHECK(atom == (random_a -= random_b));
+                }
+                /// [_32c7f550_1845_4949_9d0d_b31ca54bcbe3]
 
+                /// [_970432e1_4d91_4253_9d13_2f98e9067528]
+                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    CHECK(&atom.Assign_Subtract(random_b) == &atom);
+                }
+                /// [_970432e1_4d91_4253_9d13_2f98e9067528]
             }
 
-            TEST_SUITE("")
+            TEST_SUITE("Exchange()")
             {
+                /// [_2fa2b458_a22c_4b94_b0be_3cad5fd617cf]
+                TEST_CASE_TEMPLATE("should set its value to the passed value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Exchange(random_b);
+                    CHECK(atom == random_b);
+                }
+                /// [_2fa2b458_a22c_4b94_b0be_3cad5fd617cf]
 
+                /// [_f84aa797_58ba_442f_a5d2_72c7aea3cae2]
+                TEST_CASE_TEMPLATE("should return its old value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    CHECK(atom.Exchange(random_b) == random_a);
+                }
+                /// [_f84aa797_58ba_442f_a5d2_72c7aea3cae2]
+
+                /// [_93171fb3_1359_475d_9c10_b73c7b7404a4]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    struct base_t {};
+                    struct derived_t : base_t {};
+
+                    base_t* random_a = Random<base_t*>();
+                    derived_t* random_b = Random<derived_t*>();
+                    atomic_t<base_t*> atom(random_a);
+                    atom.Exchange(random_b);
+                    CHECK(atom == static_cast<base_t*>(random_b));
+                }
+                /// [_93171fb3_1359_475d_9c10_b73c7b7404a4]
+
+                /// [_9dcd6df0_15ff_456c_8805_5375a4b5b1d1]
+                template <typename atomic_p, typename value_p>
+                concept exchange_tr = requires(atomic_p atomic, value_p value)
+                {
+                    atomic.Exchange(value);
+                };
+                TEST_CASE_TEMPLATE("should not allow void pointer", pointer_p, _)
+                {
+                    CHECK(exchange_tr<atomic_t<pointer_p>, void_t*> == false);
+                }
+                /// [_9dcd6df0_15ff_456c_8805_5375a4b5b1d1]
+
+                /// [_6333ece0_38ff_496b_971f_89be584d0dde]
+                TEST_CASE_TEMPLATE("should allow a casted void pointer", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    void_t* random_b = Random<void_t*>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Exchange(static_cast<pointer_p>(random_b));
+                    CHECK(atom == random_b);
+                }
+                /// [_6333ece0_38ff_496b_971f_89be584d0dde]
             }
 
-            TEST_SUITE("")
+            TEST_SUITE("Exchange_Add()")
             {
+                /// [_03df1ec7_d1e7_421e_bf48_eea800605876]
+                TEST_CASE_TEMPLATE("should set its value to value + passed value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Exchange_Add(random_b);
+                    CHECK(atom == (random_a += random_b));
+                }
+                /// [_03df1ec7_d1e7_421e_bf48_eea800605876]
 
+                /// [_bea69843_63cb_43d1_80f0_045f8eede76f]
+                TEST_CASE_TEMPLATE("should return its old value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    CHECK(atom.Exchange_Add(random_b) == random_a);
+                }
+                /// [_bea69843_63cb_43d1_80f0_045f8eede76f]
             }
 
-            TEST_SUITE("")
+            TEST_SUITE("Exchange_Subtract()")
             {
+                /// [_53fb4ea4_77ae_4172_a907_420916df2f12]
+                TEST_CASE_TEMPLATE("should set its value to value - passed value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    atom.Exchange_Subtract(random_b);
+                    CHECK(atom == (random_a -= random_b));
+                }
+                /// [_53fb4ea4_77ae_4172_a907_420916df2f12]
 
+                /// [_25507e90_c54e_431c_aa34_ab4c99b85126]
+                TEST_CASE_TEMPLATE("should return its old value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    word_t random_b = Random<word_t>();
+                    atomic_t<pointer_p> atom(random_a);
+                    CHECK(atom.Exchange_Subtract(random_b) == random_a);
+                }
+                /// [_25507e90_c54e_431c_aa34_ab4c99b85126]
             }
 
-            TEST_SUITE("")
+            TEST_SUITE("Exchange_If_Equals()")
             {
+                /// [_c9199e5c_74f9_4694_b22e_860ec27f59e5]
+                TEST_CASE_TEMPLATE("should set its value to the passed value if its value equals the snapshot", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    pointer_p snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, random_b);
+                    CHECK(atom == random_b);
+                }
+                /// [_c9199e5c_74f9_4694_b22e_860ec27f59e5]
 
+                /// [_39b3db65_d3e1_4333_a380_c17f64881d92]
+                TEST_CASE_TEMPLATE("should return true if it set the new value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    pointer_p snapshot = atom;
+                    CHECK(atom.Exchange_If_Equals(snapshot, random_b) == true);
+                }
+                /// [_39b3db65_d3e1_4333_a380_c17f64881d92]
+
+                /// [_0c527050_0e9e_424c_9dae_ed9767d4795d]
+                TEST_CASE_TEMPLATE("should return false if it did not set the new value", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b;
+                    do {
+                        random_b = Random<pointer_p>();
+                    } while (random_b == random_a);
+                    atomic_t<pointer_p> atom(random_a);
+                    pointer_p snapshot = atom;
+                    atom = random_b;
+                    CHECK(atom.Exchange_If_Equals(snapshot, nullptr) == false);
+                }
+                /// [_0c527050_0e9e_424c_9dae_ed9767d4795d]
+
+                /// [_065fa476_40d9_444d_8756_f2c9e99e025f]
+                TEST_CASE_TEMPLATE("should leave snapshot with its old value if it succeeded", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random_a);
+                    pointer_p snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, random_b);
+                    CHECK(snapshot == random_a);
+                }
+                /// [_065fa476_40d9_444d_8756_f2c9e99e025f]
+
+                /// [_ffd6ee57_6ad8_413c_933d_5922e0c3dfb9]
+                TEST_CASE_TEMPLATE("should update snapshot to its current value if it failed", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    pointer_p random_b;
+                    do {
+                        random_b = Random<pointer_p>();
+                    } while (random_b == random_a);
+                    atomic_t<pointer_p> atom(random_a);
+                    pointer_p snapshot = atom;
+                    atom = random_b;
+                    atom.Exchange_If_Equals(snapshot, nullptr);
+                    CHECK(snapshot == random_b);
+                }
+                /// [_ffd6ee57_6ad8_413c_933d_5922e0c3dfb9]
+
+                /// [_21f27f07_771c_4926_9b71_0d9c3ab49645]
+                TEST_CASE("should work with types convertible to its value_t")
+                {
+                    struct base_t {};
+                    struct derived_t : base_t {};
+
+                    base_t* random_a = Random<base_t*>();
+                    derived_t* random_b = Random<derived_t*>();
+                    atomic_t<base_t*> atom(random_a);
+                    base_t* snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, random_b);
+                    CHECK(atom == static_cast<base_t*>(random_b));
+                }
+                /// [_21f27f07_771c_4926_9b71_0d9c3ab49645]
+
+                /// [_e58c0fd3_0ec4_4a10_aeba_6ab44df306b0]
+                template <typename atomic_p, typename value_p>
+                concept exchange_if_equals_tr = requires(atomic_p atomic,
+                                                         typename atomic_p::value_t snapshot,
+                                                         value_p value)
+                {
+                    atomic.Exchange_If_Equals(snapshot, value);
+                };
+                TEST_CASE_TEMPLATE("should not allow void pointer", pointer_p, _)
+                {
+                    CHECK(exchange_if_equals_tr<atomic_t<pointer_p>, void_t*> == false);
+                }
+                /// [_e58c0fd3_0ec4_4a10_aeba_6ab44df306b0]
+
+                /// [_b9d0a7ab_5ed6_4f12_b4ff_31823533b805]
+                TEST_CASE_TEMPLATE("should allow a casted void pointer", pointer_p, _)
+                {
+                    pointer_p random_a = Random<pointer_p>();
+                    void_t* random_b = Random<void_t*>();
+                    atomic_t<pointer_p> atom(random_a);
+                    pointer_p snapshot = atom;
+                    atom.Exchange_If_Equals(snapshot, static_cast<pointer_p>(random_b));
+                    CHECK(atom == random_b);
+                }
+                /// [_b9d0a7ab_5ed6_4f12_b4ff_31823533b805]
+                
+                /// [_dd3710e6_d1f2_4925_987b_a62b091eb2b0]
+                TEST_CASE_TEMPLATE("should allow you to atomically change its value safely with a custom algorithm", pointer_p, _)
+                {
+                    typename atomic_t<pointer_p>::unit_t unit;
+                    atomic_t<pointer_p> atom(&unit);
+                    std::vector<std::thread> incrementors;
+                    std::vector<std::thread> decrementors;
+                    const count_t delta = Random<count_t>(1, 16);
+                    const count_t threads_per = Random<count_t>(16, 64);
+                    incrementors.reserve(threads_per);
+                    decrementors.reserve(threads_per);
+
+                    for (index_t idx = 0, end = threads_per; idx < end; idx += 1) {
+                        incrementors.push_back(std::thread(
+                            [&]() -> void_t
+                            {
+                                std::this_thread::sleep_for(
+                                    std::chrono::microseconds(Random<count_t>(1, 5))
+                                );
+                                pointer_p snapshot = atom;
+                                while (!atom.Exchange_If_Equals(snapshot, snapshot + delta));
+                            }
+                        ));
+                        decrementors.push_back(std::thread(
+                            [&]() -> void_t
+                            {
+                                std::this_thread::sleep_for(
+                                    std::chrono::microseconds(Random<count_t>(1, 5))
+                                );
+                                pointer_p snapshot = atom;
+                                while (!atom.Exchange_If_Equals(snapshot, snapshot - delta));
+                            }
+                        ));
+                    }
+                    for (index_t idx = 0, end = threads_per; idx < end; idx += 1) {
+                        incrementors[idx].join();
+                        decrementors[idx].join();
+                    }
+
+                    CHECK(atom == &unit);
+                }
+                /// [_dd3710e6_d1f2_4925_987b_a62b091eb2b0]
             }
         }
 

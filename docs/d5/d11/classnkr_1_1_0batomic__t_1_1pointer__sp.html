@@ -653,18 +653,25 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    atom.Assign(random_b);</div>
 <div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>base_t*<span class="keyword">&gt;</span>(random_b));</div>
 <div class="line">                }</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">template</span> &lt;<span class="keyword">typename</span> atomic_p, <span class="keyword">typename</span> value_t&gt;</div>
-<div class="line">                <span class="keyword">concept </span>assign_tr = <span class="keyword">requires</span>(atomic_p atomic, <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">template</span> &lt;<span class="keyword">typename</span> atomic_p, <span class="keyword">typename</span> value_p&gt;</div>
+<div class="line">                <span class="keyword">concept </span>assign_tr = <span class="keyword">requires</span>(atomic_p atomic, value_p <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</div>
 <div class="line">                {</div>
 <div class="line">                    atomic.Assign(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>);</div>
 <div class="line">                };</div>
-<div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not work with void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not allow void pointer&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    CHECK(assign_tr&lt;atomic_t&lt;pointer_p&gt;, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt; == <span class="keyword">false</span>);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_aa7fc23760980b203d95153b5e366c430"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">nkr::$atomic_t::pointer_sp::value_t</a></div><div class="ttdeci">pointer_p value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:320</div></div>
 <div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_afe6516841ceb83a0712039cf364d09c5"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">nkr::$atomic_t::pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:336</div></div>
 <div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow a casted void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign(<span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -695,7 +702,23 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to value + passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign_Add(random_b);</div>
+<div class="line">                    CHECK(atom == (random_a += random_b));</div>
+<div class="line">                }</div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:78</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(&amp;atom.Assign_Add(random_b) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="adf79585eb3ed92f44acd52b1ab599863" name="adf79585eb3ed92f44acd52b1ab599863"></a>
@@ -725,7 +748,22 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to value - passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign_Subtract(random_b);</div>
+<div class="line">                    CHECK(atom == (random_a -= random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(&amp;atom.Assign_Subtract(random_b) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aeae33dfd11eb20122a1a9173808a65b8" name="aeae33dfd11eb20122a1a9173808a65b8"></a>
@@ -755,7 +793,50 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(atom.Exchange(random_b) == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">struct </span>base_t {};</div>
+<div class="line">                    <span class="keyword">struct </span>derived_t : base_t {};</div>
+<div class="line"> </div>
+<div class="line">                    base_t* random_a = Random&lt;base_t*&gt;();</div>
+<div class="line">                    derived_t* random_b = Random&lt;derived_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;base_t*&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>base_t*<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">template</span> &lt;<span class="keyword">typename</span> atomic_p, <span class="keyword">typename</span> value_p&gt;</div>
+<div class="line">                <span class="keyword">concept </span>exchange_tr = <span class="keyword">requires</span>(atomic_p atomic, value_p <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic.Exchange(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>);</div>
+<div class="line">                };</div>
+<div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not allow void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(exchange_tr&lt;atomic_t&lt;pointer_p&gt;, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt; == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow a casted void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(<span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aadab7bc3a507967ab5b3fdcaea4d75c6" name="aadab7bc3a507967ab5b3fdcaea4d75c6"></a>
@@ -785,7 +866,22 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to value + passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange_Add(random_b);</div>
+<div class="line">                    CHECK(atom == (random_a += random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(atom.Exchange_Add(random_b) == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad245008a9bb55bd17b20f3568c7b44a2" name="ad245008a9bb55bd17b20f3568c7b44a2"></a>
@@ -815,7 +911,22 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to value - passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange_Subtract(random_b);</div>
+<div class="line">                    CHECK(atom == (random_a -= random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return its old value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a> random_b = Random&lt;word_t&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    CHECK(atom.Exchange_Subtract(random_b) == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a75ed136429fb7ddf3c1574847193e632" name="a75ed136429fb7ddf3c1574847193e632"></a>
@@ -855,7 +966,133 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the passed value if its value equals the snapshot&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    pointer_p snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return true if it set the new value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    pointer_p snapshot = atom;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, random_b) == <span class="keyword">true</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return false if it did not set the new value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == random_a);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    pointer_p snapshot = atom;</div>
+<div class="line">                    atom = random_b;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should leave snapshot with its old value if it succeeded&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    pointer_p snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, random_b);</div>
+<div class="line">                    CHECK(snapshot == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should update snapshot to its current value if it failed&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    pointer_p random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == random_a);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    pointer_p snapshot = atom;</div>
+<div class="line">                    atom = random_b;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, <span class="keyword">nullptr</span>);</div>
+<div class="line">                    CHECK(snapshot == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">struct </span>base_t {};</div>
+<div class="line">                    <span class="keyword">struct </span>derived_t : base_t {};</div>
+<div class="line"> </div>
+<div class="line">                    base_t* random_a = Random&lt;base_t*&gt;();</div>
+<div class="line">                    derived_t* random_b = Random&lt;derived_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;base_t*&gt; atom(random_a);</div>
+<div class="line">                    base_t* snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>base_t*<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">template</span> &lt;<span class="keyword">typename</span> atomic_p, <span class="keyword">typename</span> value_p&gt;</div>
+<div class="line">                <span class="keyword">concept </span>exchange_if_equals_tr = <span class="keyword">requires</span>(atomic_p atomic,</div>
+<div class="line">                                                         <span class="keyword">typename</span> atomic_p::value_t snapshot,</div>
+<div class="line">                                                         value_p <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic.Exchange_If_Equals(snapshot, <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>);</div>
+<div class="line">                };</div>
+<div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not allow void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(exchange_if_equals_tr&lt;atomic_t&lt;pointer_p&gt;, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt; == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow a casted void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
+<div class="line">                    pointer_p snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow you to atomically change its value safely with a custom algorithm&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">typename</span> <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">atomic_t&lt;pointer_p&gt;::unit_t</a> unit;</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(&amp;unit);</div>
+<div class="line">                    std::vector&lt;std::thread&gt; incrementors;</div>
+<div class="line">                    std::vector&lt;std::thread&gt; decrementors;</div>
+<div class="line">                    <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> delta = Random&lt;count_t&gt;(1, 16);</div>
+<div class="line">                    <span class="keyword">const</span> <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">count_t</a> threads_per = Random&lt;count_t&gt;(16, 64);</div>
+<div class="line">                    incrementors.reserve(threads_per);</div>
+<div class="line">                    decrementors.reserve(threads_per);</div>
+<div class="line"> </div>
+<div class="line">                    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a> idx = 0, end = threads_per; idx &lt; end; idx += 1) {</div>
+<div class="line">                        incrementors.push_back(std::thread(</div>
+<div class="line">                            [&amp;]() -&gt; <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a></div>
+<div class="line">                            {</div>
+<div class="line">                                std::this_thread::sleep_for(</div>
+<div class="line">                                    std::chrono::microseconds(Random&lt;count_t&gt;(1, 5))</div>
+<div class="line">                                );</div>
+<div class="line">                                pointer_p snapshot = atom;</div>
+<div class="line">                                <span class="keywordflow">while</span> (!atom.Exchange_If_Equals(snapshot, snapshot + delta));</div>
+<div class="line">                            }</div>
+<div class="line">                        ));</div>
+<div class="line">                        decrementors.push_back(std::thread(</div>
+<div class="line">                            [&amp;]() -&gt; <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a></div>
+<div class="line">                            {</div>
+<div class="line">                                std::this_thread::sleep_for(</div>
+<div class="line">                                    std::chrono::microseconds(Random&lt;count_t&gt;(1, 5))</div>
+<div class="line">                                );</div>
+<div class="line">                                pointer_p snapshot = atom;</div>
+<div class="line">                                <span class="keywordflow">while</span> (!atom.Exchange_If_Equals(snapshot, snapshot - delta));</div>
+<div class="line">                            }</div>
+<div class="line">                        ));</div>
+<div class="line">                    }</div>
+<div class="line">                    <span class="keywordflow">for</span> (<a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a> idx = 0, end = threads_per; idx &lt; end; idx += 1) {</div>
+<div class="line">                        incrementors[idx].join();</div>
+<div class="line">                        decrementors[idx].join();</div>
+<div class="line">                    }</div>
+<div class="line"> </div>
+<div class="line">                    CHECK(atom == &amp;unit);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_ab1f8a07af7489e46395627fb7c642855"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">nkr::$atomic_t::pointer_sp::unit_t</a></div><div class="ttdeci">std::remove_pointer_t&lt; pointer_p &gt; unit_t</div><div class="ttdoc">The underlying type pointed to by this pointer wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:322</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga962bdb5ad1c5bc05d87739e09df6082b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">nkr::count_t</a></div><div class="ttdeci">word_t count_t</div><div class="ttdoc">Used for unit counts of any arbitrary type.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:89</div></div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_gafcd45a8ee0ce155f841b4cadb25d9b4f"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">nkr::index_t</a></div><div class="ttdeci">word_t index_t</div><div class="ttdoc">Used for unit indices of any arbitrary array of types.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:90</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a9c5b69fa97e427d26ad0126dc8b69e47" name="a9c5b69fa97e427d26ad0126dc8b69e47"></a>
@@ -909,7 +1146,6 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    CHECK((atom + random_b) == (random_a + random_b));</div>
 <div class="line">                    CHECK((atom - random_b) == (random_a - random_b));</div>
 <div class="line">                }</div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:78</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly allow for logical operators&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    pointer_p random;</div>
@@ -1263,7 +1499,6 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    <span class="keyword">const</span> atomic_t&lt;wrap_t*&gt; atom(&amp;wrap);</div>
 <div class="line">                    CHECK(atom-&gt;value == random);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_ab1f8a07af7489e46395627fb7c642855"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">nkr::$atomic_t::pointer_sp::unit_t</a></div><div class="ttdeci">std::remove_pointer_t&lt; pointer_p &gt; unit_t</div><div class="ttdoc">The underlying type pointed to by this pointer wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:322</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should be able to assign its value&#39;s values&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">using</span> <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> = <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">atomic_t&lt;pointer_p&gt;::unit_t</a>;</div>
@@ -1382,7 +1617,6 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a> index = Random&lt;index_t&gt;(0, 15);</div>
 <div class="line">                    CHECK(atom[index] == randoms[index]);</div>
 <div class="line">                }</div>
-<div class="ttc" id="agroup__intrinsics__contextuals_html_gafcd45a8ee0ce155f841b4cadb25d9b4f"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">nkr::index_t</a></div><div class="ttdeci">word_t index_t</div><div class="ttdoc">Used for unit indices of any arbitrary array of types.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:90</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should be able to assign its values&#39; values&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">using</span> <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> = <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">atomic_t&lt;pointer_p&gt;::unit_t</a>;</div>

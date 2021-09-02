@@ -1514,42 +1514,71 @@
             * @snippet "./src/atomic_t_pointer_p.cpp" _2ba4b32d_f0ab_40a2_83ca_f9426b07f465
             * @snippet "./src/atomic_t_pointer_p.cpp" _a4faf5b5_526f_411d_b14d_2531437acdc4
             * @snippet "./src/atomic_t_pointer_p.cpp" _4dd28985_f259_46cc_959f_dae795a8cd25
+            * @snippet "./src/atomic_t_pointer_p.cpp" _d5b65810_577c_4c3a_be35_b683bc4977ed
             */
 
             // Assign_Add()
             /**
             * @class _c8f00ac4_b591_419a_a3ca_9c1450aa4427
             * @private
+            * 
+            * @snippet "./src/atomic_t_pointer_p.cpp" _d6c7e655_adff_40c3_a80e_1b35b549bc89
+            * @snippet "./src/atomic_t_pointer_p.cpp" _5f5c1fe9_dab4_482a_9a1f_1a22f18dc13e
             */
 
             // Assign_Subtract()
             /**
             * @class _90060189_8434_4919_9297_9b22a439076f
             * @private
+            * 
+            * @snippet "./src/atomic_t_pointer_p.cpp" _32c7f550_1845_4949_9d0d_b31ca54bcbe3
+            * @snippet "./src/atomic_t_pointer_p.cpp" _970432e1_4d91_4253_9d13_2f98e9067528
             */
 
             // Exchange()
             /**
             * @class _d1dd2b4b_adf7_4f7e_9c62_f29519eda90f
             * @private
+            * 
+            * @snippet "./src/atomic_t_pointer_p.cpp" _2fa2b458_a22c_4b94_b0be_3cad5fd617cf
+            * @snippet "./src/atomic_t_pointer_p.cpp" _f84aa797_58ba_442f_a5d2_72c7aea3cae2
+            * @snippet "./src/atomic_t_pointer_p.cpp" _93171fb3_1359_475d_9c10_b73c7b7404a4
+            * @snippet "./src/atomic_t_pointer_p.cpp" _9dcd6df0_15ff_456c_8805_5375a4b5b1d1
+            * @snippet "./src/atomic_t_pointer_p.cpp" _6333ece0_38ff_496b_971f_89be584d0dde
             */
 
             // Exchange_Add()
             /**
             * @class _212049f1_8d3b_4529_99d0_f800a9711e4b
             * @private
+            * 
+            * @snippet "./src/atomic_t_pointer_p.cpp" _03df1ec7_d1e7_421e_bf48_eea800605876
+            * @snippet "./src/atomic_t_pointer_p.cpp" _bea69843_63cb_43d1_80f0_045f8eede76f
             */
 
             // Exchange_Subtract()
             /**
             * @class _2fcafb28_9779_4964_98af_e50b75de4903
             * @private
+            * 
+            * @snippet "./src/atomic_t_pointer_p.cpp" _53fb4ea4_77ae_4172_a907_420916df2f12
+            * @snippet "./src/atomic_t_pointer_p.cpp" _25507e90_c54e_431c_aa34_ab4c99b85126
             */
 
             // Exchange_If_Equals()
             /**
             * @class _10426898_c8ab_44de_b7a7_748f31e5ad00
             * @private
+            * 
+            * @snippet "./src/atomic_t_pointer_p.cpp" _c9199e5c_74f9_4694_b22e_860ec27f59e5
+            * @snippet "./src/atomic_t_pointer_p.cpp" _39b3db65_d3e1_4333_a380_c17f64881d92
+            * @snippet "./src/atomic_t_pointer_p.cpp" _0c527050_0e9e_424c_9dae_ed9767d4795d
+            * @snippet "./src/atomic_t_pointer_p.cpp" _065fa476_40d9_444d_8756_f2c9e99e025f
+            * @snippet "./src/atomic_t_pointer_p.cpp" _ffd6ee57_6ad8_413c_933d_5922e0c3dfb9
+            * @snippet "./src/atomic_t_pointer_p.cpp" _21f27f07_771c_4926_9b71_0d9c3ab49645
+            * @snippet "./src/atomic_t_pointer_p.cpp" _e58c0fd3_0ec4_4a10_aeba_6ab44df306b0
+            * @snippet "./src/atomic_t_pointer_p.cpp" _b9d0a7ab_5ed6_4f12_b4ff_31823533b805
+            * @snippet "./src/atomic_t_pointer_p.cpp" _dd3710e6_d1f2_4925_987b_a62b091eb2b0
             */
 
         // casts
