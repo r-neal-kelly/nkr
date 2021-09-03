@@ -209,6 +209,11 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;integer_p&gt;::value_t, integer_p&gt;);</div>
 <div class="line">                }</div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should equal the passed in type&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;void_t*&gt;::value_t, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt;);</div>
+<div class="line">                }</div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -230,6 +235,10 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;pointer_p&gt;::units_t, pointer_p&gt;);</div>
 <div class="line">                }</div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should equal the pointer type being represented&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;void_t*&gt;::units_t, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt;);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -250,6 +259,10 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the type being pointed to&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;pointer_p&gt;::unit_t, std::remove_pointer_t&lt;pointer_p&gt;&gt;);</div>
+<div class="line">                }</div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should equal the type being pointed to&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;void_t*&gt;::unit_t, std::remove_pointer_t&lt;void_t*&gt;&gt;);</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -279,8 +292,14 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value, but not atomically. </p>
-
+<p >Sets itself to the default value, but not atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set value to the default&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_a851397c20f682df84e1a71ed2494879c"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">nkr::$atomic_t::void_pointer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static const value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:424</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a3967ec2d2b95be2d9d1e97e77df6c0f4" name="a3967ec2d2b95be2d9d1e97e77df6c0f4"></a>
@@ -308,8 +327,27 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the value, but not atomically. </p>
-
+<p >Sets itself to the value, but not atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* random = Random&lt;word_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+<div class="ttc" id="agroup__intrinsics__contextuals_html_ga6938f0fd61eac987b89d3207836a458b"><div class="ttname"><a href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">nkr::word_t</a></div><div class="ttdeci">u64_t word_t</div><div class="ttdoc">The largest natural type available, the processor's word.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:78</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="af8bbc3b7a757746ca3431b4f455d144b" name="af8bbc3b7a757746ca3431b4f455d144b"></a>
@@ -337,8 +375,29 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically, but assigns to itself unatomically. </p>
-
+<p >Accesses the other atomically, but assigns to itself unatomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly copy the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly copy the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom = other;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not alter the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(other);</div>
+<div class="line">                    CHECK(other == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a457daf4d3aaa6dc6fad95ef827bd0a69" name="a457daf4d3aaa6dc6fad95ef827bd0a69"></a>
@@ -366,8 +425,29 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p>
-
+<p >Exchanges the other with the default value atomically, but assigns to itself unatomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly move the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(std::move(other));</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly move the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom = std::move(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set the value of other to the default&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(std::move(other));</div>
+<div class="line">                    CHECK(other == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="af9ccd968a8a2998f0f497d4cd52d0cd5" name="af9ccd968a8a2998f0f497d4cd52d0cd5"></a>
@@ -394,8 +474,15 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value atomically. </p>
-
+<p >Sets itself to the default value atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set its value to the default&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    atom.~atomic_t();</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aedc68505eb0f8186f45d7cb81d302287" name="aedc68505eb0f8186f45d7cb81d302287"></a>
@@ -423,7 +510,17 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly set its value to the default value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom((none_t()));</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly set its value to the default value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom = none_t();</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -452,7 +549,27 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return itself&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = random) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* random = Random&lt;word_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    atom = random;</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a2a8bddcc8050a11e56fa05e57e73c5c3" name="a2a8bddcc8050a11e56fa05e57e73c5c3"></a>
@@ -480,8 +597,31 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically and assigns to itself atomically. </p>
-
+<p >Accesses the other atomically and assigns to itself atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should copy the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    atom = other;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return itself&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = other) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not alter the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    atom = other;</div>
+<div class="line">                    CHECK(other == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a83db7f54fbbbcf4cd234ef888e3c7311" name="a83db7f54fbbbcf4cd234ef888e3c7311"></a>
@@ -509,8 +649,31 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p>
-
+<p >Exchanges the other with the default value atomically and assigns to itself atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should move the value of other&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    atom = std::move(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return itself&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = std::move(other)) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set the value of other to the default&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    atom = std::move(other);</div>
+<div class="line">                    CHECK(other == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a6af7bfdd9c940ca0c3c387cc09dbd590" name="a6af7bfdd9c940ca0c3c387cc09dbd590"></a>
@@ -537,7 +700,20 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom.Access() == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    atom.Access();</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a80eea99e50feeb6c64f8694e057f8b69" name="a80eea99e50feeb6c64f8694e057f8b69"></a>
@@ -565,7 +741,30 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set its value to the passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign(random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return itself&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    CHECK(&amp;atom.Assign(random_b) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* random_b = Random&lt;word_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    atom.Assign(random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a1cbac2255aa4a60bc7a05bd2f382ae95" name="a1cbac2255aa4a60bc7a05bd2f382ae95"></a>
@@ -593,7 +792,30 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set its value to the passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return its old value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    CHECK(atom.Exchange(random_b) == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* random_b = Random&lt;word_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    atom.Exchange(random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="addfa4da5058b243ec0ccfeed043adcfe" name="addfa4da5058b243ec0ccfeed043adcfe"></a>
@@ -631,7 +853,67 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set its value to the passed value if its value equals the snapshot&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, random_b);</div>
+<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return true if it set the new value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = atom;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, random_b) == <span class="keyword">true</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return false if it did not set the new value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == random_a);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = atom;</div>
+<div class="line">                    atom = random_b;</div>
+<div class="line">                    CHECK(atom.Exchange_If_Equals(snapshot, <span class="keyword">nullptr</span>) == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should leave snapshot with its old value if it succeeded&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, random_b);</div>
+<div class="line">                    CHECK(snapshot == random_a);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should update snapshot to its current value if it failed&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random_b = Random&lt;void_t*&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random_b == random_a);</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = atom;</div>
+<div class="line">                    atom = random_b;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, <span class="keyword">nullptr</span>);</div>
+<div class="line">                    CHECK(snapshot == random_b);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should work with types convertible to its value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_a = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d8/d8d/group__intrinsics__contextuals.html#ga6938f0fd61eac987b89d3207836a458b">word_t</a>* random_b = Random&lt;word_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random_a);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* snapshot = atom;</div>
+<div class="line">                    atom.Exchange_If_Equals(snapshot, random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(random_b));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ad3992a64467ab1321c86eea6436ddde3" name="ad3992a64467ab1321c86eea6436ddde3"></a>
@@ -658,7 +940,53 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should explicitly return a copy of its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*<span class="keyword">&gt;</span>(atom) == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly return a copy of its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a> = atom;</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a> == random);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_ac8db7a0e340bf734466de43e45e202cb"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">nkr::$atomic_t::void_pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:431</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a> = atom;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly allow for logical operators&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random;</div>
+<div class="line">                    <span class="keywordflow">do</span> {</div>
+<div class="line">                        random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    } <span class="keywordflow">while</span> (random == <span class="keyword">nullptr</span>);</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom);</div>
+<div class="line">                    CHECK(!!atom);</div>
+<div class="line">                    CHECK(atom || <span class="keyword">false</span>);</div>
+<div class="line">                    CHECK(atom &amp;&amp; <span class="keyword">true</span>);</div>
+<div class="line">                    CHECK(atom ? <span class="keyword">true</span> : <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should implicitly allow for comparison operators&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                    CHECK_FALSE(atom != random);</div>
+<div class="line">                    CHECK_FALSE(atom &lt; random);</div>
+<div class="line">                    CHECK_FALSE(atom &gt; random);</div>
+<div class="line">                    CHECK(atom &lt;= random);</div>
+<div class="line">                    CHECK(atom &gt;= random);</div>
+<div class="line">                    CHECK(atom &lt;=&gt; random == 0);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="adeddc87e548b9e61112dada7196b3c07" name="adeddc87e548b9e61112dada7196b3c07"></a>
@@ -685,7 +1013,20 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return a copy of its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom() == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">value</a> = atom();</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="af8f437d8898afa4d1b4f400160bb39aa" name="af8f437d8898afa4d1b4f400160bb39aa"></a>
@@ -713,8 +1054,28 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets its value to the default value. </p>
-
+<p >Sets its value to the default value.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should set its value to the default value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    atom = none_t();</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should evaluate as false after being set to none&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    atom = none_t();</div>
+<div class="line">                    CHECK(<span class="keyword">static_cast&lt;</span>bool_t<span class="keyword">&gt;</span>(atom) == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return itself&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(&amp;(atom = none_t()) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a0903db6de4c03692eed7156f5a808fbe" name="a0903db6de4c03692eed7156f5a808fbe"></a>
@@ -742,8 +1103,25 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>. </p>
-
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>false</code>.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return true when default constructed&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    CHECK(atom == none_t());</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return true if its value is nullptr&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(<span class="keyword">nullptr</span>);</div>
+<div class="line">                    CHECK(atom == none_t());</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    atom == none_t();</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a76a9395e69aebc2a83f8bec0de033c64" name="a76a9395e69aebc2a83f8bec0de033c64"></a>
@@ -771,8 +1149,25 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>. </p>
-
+<p >Checks if a cast of its value to <a class="el" href="../../d3/df5/classnkr_1_1bool__t.html" title="The default boolean type of this library which replaces nkr::std_bool_t, i.e. bool.">nkr::bool_t</a> equals <code>true</code>.</p>
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return false when default constructed&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom;</div>
+<div class="line">                    CHECK_FALSE(atom != none_t());</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should return false if its value is nullptr&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(<span class="keyword">nullptr</span>);</div>
+<div class="line">                    CHECK_FALSE(atom != none_t());</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should not change its value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;void_t*&gt; atom(random);</div>
+<div class="line">                    atom != none_t();</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -797,7 +1192,16 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should equal the default value of value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a> == <a class="code hl_typedef" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">atomic_t&lt;void_t*&gt;::value_t</a>());</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1void__pointer__sp_html_adbb0c402aa3840cb02a8b7d809e2a210"><div class="ttname"><a href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">nkr::$atomic_t::void_pointer_sp::value_t</a></div><div class="ttdeci">void_t * value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:415</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should equal nullptr&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c">atomic_t&lt;void_t*&gt;::DEFAULT_VALUE</a> == <span class="keyword">nullptr</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ac8db7a0e340bf734466de43e45e202cb" name="ac8db7a0e340bf734466de43e45e202cb"></a>
@@ -820,6 +1224,12 @@ Inheritance diagram for nkr::$atomic_t::void_pointer_sp:</div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">atomic_t&lt;integer_p&gt;::value</a>), <span class="keyword">volatile</span> integer_p&gt;);</div>
 <div class="line">                }</div>
 <div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a32e53877d2e3005f31b5d986bd409624"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">nkr::$atomic_t::integer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:124</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should be a volatile value_t&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">using</span> <a class="code hl_typedef" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">value_t</a> = <a class="code hl_typedef" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">atomic_t&lt;void_t*&gt;::value_t</a>;</div>
+<div class="line"> </div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::is_same_v&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#ac8db7a0e340bf734466de43e45e202cb">atomic_t&lt;void_t*&gt;::value</a>), <span class="keyword">volatile</span> <a class="code hl_typedef" href="../../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#adbb0c402aa3840cb02a8b7d809e2a210">value_t</a>&gt;);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
