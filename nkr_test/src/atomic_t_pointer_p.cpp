@@ -15,22 +15,342 @@ namespace nkr {
 
         TEST_SUITE("aliases")
         {
+            TEST_SUITE("value_t")
+            {
+                /// [_7dbd1a6e_e5ba_41ff_bd34_6b313f79ba66]
+                TEST_CASE_TEMPLATE("should equal the passed in type", pointer_p, _)
+                {
+                    static_assert(std::same_as<atomic_t<pointer_p>::value_t, pointer_p>);
+                }
+                /// [_7dbd1a6e_e5ba_41ff_bd34_6b313f79ba66]
+            }
 
+            TEST_SUITE("units_t")
+            {
+                /// [_0a6532a4_670b_431a_b6e9_61562d590a3e]
+                TEST_CASE_TEMPLATE("should equal the pointer type being represented", pointer_p, _)
+                {
+                    static_assert(std::same_as<atomic_t<pointer_p>::units_t, pointer_p>);
+                }
+                /// [_0a6532a4_670b_431a_b6e9_61562d590a3e]
+            }
+
+            TEST_SUITE("unit_t")
+            {
+                /// [_e7db6edc_c3ac_4009_80fb_49fab24918e2]
+                TEST_CASE_TEMPLATE("should equal the type being pointed to", pointer_p, _)
+                {
+                    static_assert(std::same_as<atomic_t<pointer_p>::unit_t, std::remove_pointer_t<pointer_p>>);
+                }
+                /// [_e7db6edc_c3ac_4009_80fb_49fab24918e2]
+            }
         }
 
         TEST_SUITE("static data")
         {
+            TEST_SUITE("DEFAULT_VALUE")
+            {
+                /// [_5615f3b4_1016_406d_8683_aa9312596d0e]
+                TEST_CASE_TEMPLATE("should equal the default value of value_t", pointer_p, _)
+                {
+                    CHECK(atomic_t<pointer_p>::DEFAULT_VALUE == atomic_t<pointer_p>::value_t());
+                }
+                /// [_5615f3b4_1016_406d_8683_aa9312596d0e]
 
+                /// [_078d1e9c_0542_4512_ade5_75d9f00d73c9]
+                TEST_CASE_TEMPLATE("should equal nullptr", pointer_p, _)
+                {
+                    CHECK(atomic_t<pointer_p>::DEFAULT_VALUE == nullptr);
+                }
+                /// [_078d1e9c_0542_4512_ade5_75d9f00d73c9]
+            }
         }
 
         TEST_SUITE("object data")
         {
-
+            TEST_SUITE("value")
+            {
+                /// [_455eabe1_8fa8_4f26_8d1b_47be1f24b008]
+                TEST_CASE_TEMPLATE("should be a volatile value_t", pointer_p, _)
+                {
+                    static_assert(std::same_as<decltype(atomic_t<pointer_p>::value), volatile pointer_p>);
+                }
+                /// [_455eabe1_8fa8_4f26_8d1b_47be1f24b008]
+            }
         }
 
         TEST_SUITE("objects")
         {
+            TEST_SUITE("default_ctor()")
+            {
+                /// [_478e7823_9cec_48b0_a0e9_48e29f05c2b1]
+                TEST_CASE_TEMPLATE("should set value to the default", pointer_p, _)
+                {
+                    atomic_t<pointer_p> atom;
+                    CHECK(atom == atomic_t<pointer_p>::DEFAULT_VALUE);
+                }
+                /// [_478e7823_9cec_48b0_a0e9_48e29f05c2b1]
+            }
 
+            TEST_SUITE("value_ctor()")
+            {
+                /// [_17da5208_ec8f_4c4c_bebf_fab8372ea154]
+                TEST_CASE_TEMPLATE("should explicitly set passed value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random);
+                    CHECK(atom == random);
+                }
+                /// [_17da5208_ec8f_4c4c_bebf_fab8372ea154]
+
+                /// [_c35b796b_3cee_4cab_9d77_57aac9a566cf]
+                TEST_CASE_TEMPLATE("should implicitly set passed value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> atom = random;
+                    CHECK(atom == random);
+                }
+                /// [_c35b796b_3cee_4cab_9d77_57aac9a566cf]
+
+                /// [_1080c8b3_e791_45d3_a10e_54de1da04901]
+                TEST_CASE("should convert other types and set passed value")
+                {
+                    struct base_t {};
+                    struct derived_t : base_t {};
+
+                    derived_t* random = Random<derived_t*>();
+                    atomic_t<base_t*> atom(random);
+                    CHECK(atom == static_cast<base_t*>(random));
+                }
+                /// [_1080c8b3_e791_45d3_a10e_54de1da04901]
+
+                /// [_283e6e4d_f791_4f05_b5dd_0a034642e21e]
+                template <typename atomic_p, typename value_p>
+                concept value_ctor_tr = requires(atomic_p atomic, value_p value)
+                {
+                    atomic_p(value);
+                };
+                TEST_CASE_TEMPLATE("should not allow void pointer", pointer_p, _)
+                {
+                    CHECK(value_ctor_tr<atomic_t<pointer_p>, void_t*> == false);
+                }
+                /// [_283e6e4d_f791_4f05_b5dd_0a034642e21e]
+
+                /// [_2675abeb_0779_4a89_bcc8_14e1d2b6971a]
+                TEST_CASE_TEMPLATE("should allow a casted void pointer", pointer_p, _)
+                {
+                    void_t* random = Random<void_t*>();
+                    atomic_t<pointer_p> atom(static_cast<pointer_p>(random));
+                    CHECK(atom == static_cast<pointer_p>(random));
+                }
+                /// [_2675abeb_0779_4a89_bcc8_14e1d2b6971a]
+            }
+
+            TEST_SUITE("copy_ctor()")
+            {
+                /// [_52fa64b3_2b7b_49d2_9bbe_e71bc8e9ef64]
+                TEST_CASE_TEMPLATE("should explicitly copy the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom(other);
+                    CHECK(atom == random);
+                }
+                /// [_52fa64b3_2b7b_49d2_9bbe_e71bc8e9ef64]
+
+                /// [_30c3b6bf_d2c3_41b6_8429_8be42d7c9bff]
+                TEST_CASE_TEMPLATE("should implicitly copy the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom = other;
+                    CHECK(atom == random);
+                }
+                /// [_30c3b6bf_d2c3_41b6_8429_8be42d7c9bff]
+
+                /// [_f93108f8_f200_4bd0_901c_b59328e2b80e]
+                TEST_CASE_TEMPLATE("should not alter the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom(other);
+                    CHECK(other == random);
+                }
+                /// [_f93108f8_f200_4bd0_901c_b59328e2b80e]
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+                /// [_e77a7632_6523_4447_a978_eece943f325c]
+                TEST_CASE_TEMPLATE("should explicitly move the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom(std::move(other));
+                    CHECK(atom == random);
+                }
+                /// [_e77a7632_6523_4447_a978_eece943f325c]
+
+                /// [_fa3fd931_65a1_4f21_bc7e_350620a59ea2]
+                TEST_CASE_TEMPLATE("should implicitly move the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom = std::move(other);
+                    CHECK(atom == random);
+                }
+                /// [_fa3fd931_65a1_4f21_bc7e_350620a59ea2]
+
+                /// [_dd0396a4_76f9_4ff8_b3b9_ab3062999125]
+                TEST_CASE_TEMPLATE("should set the value of other to the default", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom(std::move(other));
+                    CHECK(other == atomic_t<pointer_p>::DEFAULT_VALUE);
+                }
+                /// [_dd0396a4_76f9_4ff8_b3b9_ab3062999125]
+            }
+
+            TEST_SUITE("value_assignment_ctor()")
+            {
+                /// [_cfeb5a7c_8ac5_4e4d_a3c0_4d57f51dbb11]
+                TEST_CASE_TEMPLATE("should set passed value", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> atom;
+                    atom = random;
+                    CHECK(atom == random);
+                }
+                /// [_cfeb5a7c_8ac5_4e4d_a3c0_4d57f51dbb11]
+
+                /// [_4662daba_292f_44f8_976c_8f5f159e0c55]
+                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> atom;
+                    CHECK(&(atom = random) == &atom);
+                }
+                /// [_4662daba_292f_44f8_976c_8f5f159e0c55]
+
+                /// [_d5dfb18d_d900_43b3_941d_32bb32385885]
+                TEST_CASE("should convert other types and set passed value")
+                {
+                    struct base_t {};
+                    struct derived_t : base_t {};
+
+                    derived_t* random = Random<derived_t*>();
+                    atomic_t<base_t*> atom;
+                    atom = random;
+                    CHECK(atom == static_cast<base_t*>(random));
+                }
+                /// [_d5dfb18d_d900_43b3_941d_32bb32385885]
+
+                /// [_419a8090_5a40_4357_9218_f44f6c0ae011]
+                template <typename atomic_p, typename value_p>
+                concept value_assignment_ctor_tr = requires(atomic_p atomic, value_p value)
+                {
+                    atomic = value;
+                };
+                TEST_CASE_TEMPLATE("should not allow void pointer", pointer_p, _)
+                {
+                    CHECK(value_assignment_ctor_tr<atomic_t<pointer_p>, void_t*> == false);
+                }
+                /// [_419a8090_5a40_4357_9218_f44f6c0ae011]
+
+                /// [_604f9c2f_b897_4d44_b34e_8e13ce1a02f7]
+                TEST_CASE_TEMPLATE("should allow a casted void pointer", pointer_p, _)
+                {
+                    void_t* random = Random<void_t*>();
+                    atomic_t<pointer_p> atom;
+                    atom = static_cast<pointer_p>(random);
+                    CHECK(atom == static_cast<pointer_p>(random));
+                }
+                /// [_604f9c2f_b897_4d44_b34e_8e13ce1a02f7]
+            }
+
+            TEST_SUITE("copy_assignment_ctor()")
+            {
+                /// [_e160fe2e_1b3d_4414_900d_0d51a42e6e84]
+                TEST_CASE_TEMPLATE("should copy the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom;
+                    atom = other;
+                    CHECK(atom == random);
+                }
+                /// [_e160fe2e_1b3d_4414_900d_0d51a42e6e84]
+
+                /// [_2f5f6733_64e0_4c50_8d5d_5e1380f3190a]
+                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom;
+                    CHECK(&(atom = other) == &atom);
+                }
+                /// [_2f5f6733_64e0_4c50_8d5d_5e1380f3190a]
+
+                /// [_27743802_36f1_4268_b4a4_0ee18543de69]
+                TEST_CASE_TEMPLATE("should not alter the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    const atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom;
+                    atom = other;
+                    CHECK(other == random);
+                }
+                /// [_27743802_36f1_4268_b4a4_0ee18543de69]
+            }
+
+            TEST_SUITE("move_assignment_ctor()")
+            {
+                /// [_405d7d48_3c59_4e98_a944_8414f0cf689c]
+                TEST_CASE_TEMPLATE("should move the value of other", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom;
+                    atom = std::move(other);
+                    CHECK(atom == random);
+                }
+                /// [_405d7d48_3c59_4e98_a944_8414f0cf689c]
+
+                /// [_7205ba82_274a_4876_8f69_3119ec058be4]
+                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom;
+                    CHECK(&(atom = std::move(other)) == &atom);
+                }
+                /// [_7205ba82_274a_4876_8f69_3119ec058be4]
+
+                /// [_0dcc3a12_2360_4398_a023_1782d27710f5]
+                TEST_CASE_TEMPLATE("should set the value of other to the default", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> other(random);
+                    atomic_t<pointer_p> atom;
+                    atom = std::move(other);
+                    CHECK(other == atomic_t<pointer_p>::DEFAULT_VALUE);
+                }
+                /// [_0dcc3a12_2360_4398_a023_1782d27710f5]
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                /// [_8166246b_aec6_431f_bf83_37a4a6369884]
+                TEST_CASE_TEMPLATE("should set its value to the default", pointer_p, _)
+                {
+                    pointer_p random = Random<pointer_p>();
+                    atomic_t<pointer_p> atom(random);
+                    atom.~atomic_t();
+                    CHECK(atom == atomic_t<pointer_p>::DEFAULT_VALUE);
+                }
+                /// [_8166246b_aec6_431f_bf83_37a4a6369884]
+            }
         }
 
         TEST_SUITE("methods")
@@ -79,7 +399,7 @@ namespace nkr {
                     CHECK(&atom.Assign(random_b) == &atom);
                 }
                 /// [_2ba4b32d_f0ab_40a2_83ca_f9426b07f465]
-                
+
                 /// [_a4faf5b5_526f_411d_b14d_2531437acdc4]
                 TEST_CASE("should work with types convertible to its value_t")
                 {
@@ -113,7 +433,7 @@ namespace nkr {
                     void_t* random_b = Random<void_t*>();
                     atomic_t<pointer_p> atom(random_a);
                     atom.Assign(static_cast<pointer_p>(random_b));
-                    CHECK(atom == random_b);
+                    CHECK(atom == static_cast<pointer_p>(random_b));
                 }
                 /// [_d5b65810_577c_4c3a_be35_b683bc4977ed]
             }
@@ -222,7 +542,7 @@ namespace nkr {
                     void_t* random_b = Random<void_t*>();
                     atomic_t<pointer_p> atom(random_a);
                     atom.Exchange(static_cast<pointer_p>(random_b));
-                    CHECK(atom == random_b);
+                    CHECK(atom == static_cast<pointer_p>(random_b));
                 }
                 /// [_6333ece0_38ff_496b_971f_89be584d0dde]
             }
@@ -380,10 +700,10 @@ namespace nkr {
                     atomic_t<pointer_p> atom(random_a);
                     pointer_p snapshot = atom;
                     atom.Exchange_If_Equals(snapshot, static_cast<pointer_p>(random_b));
-                    CHECK(atom == random_b);
+                    CHECK(atom == static_cast<pointer_p>(random_b));
                 }
                 /// [_b9d0a7ab_5ed6_4f12_b4ff_31823533b805]
-                
+
                 /// [_dd3710e6_d1f2_4925_987b_a62b091eb2b0]
                 TEST_CASE_TEMPLATE("should allow you to atomically change its value safely with a custom algorithm", pointer_p, _)
                 {
@@ -765,7 +1085,7 @@ namespace nkr {
                     CHECK(atom[index] == randoms[index]);
                 }
                 /// [_61a845a4_7c90_4d1e_817f_74fa09b23659]
-                
+
                 /// [_e1d47c27_8b19_4dde_8dda_1909d5b6174a]
                 TEST_CASE_TEMPLATE("should be able to assign its values' values", pointer_p, _)
                 {

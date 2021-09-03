@@ -238,6 +238,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                {</div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;integer_p&gt;::value_t, integer_p&gt;);</div>
 <div class="line">                }</div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the passed in type&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;pointer_p&gt;::value_t, pointer_p&gt;);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -256,8 +260,12 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p>The underlying type of this pointer wrapper. </p>
-<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus units_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. </p>
-
+<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus units_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the pointer type being represented&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;pointer_p&gt;::units_t, pointer_p&gt;);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab1f8a07af7489e46395627fb7c642855" name="ab1f8a07af7489e46395627fb7c642855"></a>
@@ -275,8 +283,12 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p>The underlying type pointed to by this pointer wrapper. </p>
-<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus unit_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. </p>
-
+<p >This <a class="el" href="../../d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a> specialization is a partial pointer wrapper and thus unit_t is useful in the same way it is on <a class="el" href="../../d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the type being pointed to&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;atomic_t&lt;pointer_p&gt;::unit_t, std::remove_pointer_t&lt;pointer_p&gt;&gt;);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -303,8 +315,14 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value, but not atomically. </p>
-
+<p >Sets itself to the default value, but not atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set value to the default&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_af5f85370858f6cb0471bd2581f55315d"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">nkr::$atomic_t::pointer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static const value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:329</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a57d7e4d39af3627e65489856692a0520" name="a57d7e4d39af3627e65489856692a0520"></a>
@@ -334,8 +352,46 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the value, but not atomically. </p>
-
+<p >Sets itself to the value, but not atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly set passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly set passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">struct </span>base_t {};</div>
+<div class="line">                    <span class="keyword">struct </span>derived_t : base_t {};</div>
+<div class="line"> </div>
+<div class="line">                    derived_t* random = Random&lt;derived_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;base_t*&gt; atom(random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>base_t*<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">template</span> &lt;<span class="keyword">typename</span> atomic_p, <span class="keyword">typename</span> value_p&gt;</div>
+<div class="line">                <span class="keyword">concept </span>value_ctor_tr = <span class="keyword">requires</span>(atomic_p atomic, value_p <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic_p(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>);</div>
+<div class="line">                };</div>
+<div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not allow void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(value_ctor_tr&lt;atomic_t&lt;pointer_p&gt;, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt; == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_afe6516841ceb83a0712039cf364d09c5"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">nkr::$atomic_t::pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:336</div></div>
+<div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow a casted void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(<span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a00a6faf1d85d7f37cabbf5ceb20ec168" name="a00a6faf1d85d7f37cabbf5ceb20ec168"></a>
@@ -365,8 +421,29 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically, but assigns to itself unatomically. </p>
-
+<p >Accesses the other atomically, but assigns to itself unatomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly copy the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly copy the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom = other;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not alter the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(other);</div>
+<div class="line">                    CHECK(other == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a30d8f57d7058b22b4ed460fedf3e174a" name="a30d8f57d7058b22b4ed460fedf3e174a"></a>
@@ -396,8 +473,29 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically, but assigns to itself unatomically. </p>
-
+<p >Exchanges the other with the default value atomically, but assigns to itself unatomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should explicitly move the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(std::move(other));</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly move the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom = std::move(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set the value of other to the default&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(std::move(other));</div>
+<div class="line">                    CHECK(other == <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa1d4ebc741fdd6238084abcbb6dfcded" name="aa1d4ebc741fdd6238084abcbb6dfcded"></a>
@@ -423,8 +521,15 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Sets itself to the default value atomically. </p>
-
+<p >Sets itself to the default value atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set its value to the default&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom(random);</div>
+<div class="line">                    atom.~atomic_t();</div>
+<div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aed47130db8edacabe8ac084ae5529e5a" name="aed47130db8edacabe8ac084ae5529e5a"></a>
@@ -459,7 +564,6 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    atomic_t&lt;pointer_p&gt; atom((none_t()));</div>
 <div class="line">                    CHECK(atom == <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a>);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_af5f85370858f6cb0471bd2581f55315d"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">nkr::$atomic_t::pointer_sp::DEFAULT_VALUE</a></div><div class="ttdeci">static const value_t DEFAULT_VALUE</div><div class="ttdef"><b>Definition:</b> atomic_t.h:329</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should implicitly set its value to the default value&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    atomic_t&lt;pointer_p&gt; atom = none_t();</div>
@@ -496,7 +600,46 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set passed value&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    atom = random;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = random) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE(<span class="stringliteral">&quot;should convert other types and set passed value&quot;</span>)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">struct </span>base_t {};</div>
+<div class="line">                    <span class="keyword">struct </span>derived_t : base_t {};</div>
+<div class="line"> </div>
+<div class="line">                    derived_t* random = Random&lt;derived_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;base_t*&gt; atom;</div>
+<div class="line">                    atom = random;</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>base_t*<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                <span class="keyword">template</span> &lt;<span class="keyword">typename</span> atomic_p, <span class="keyword">typename</span> value_p&gt;</div>
+<div class="line">                <span class="keyword">concept </span>value_assignment_ctor_tr = <span class="keyword">requires</span>(atomic_p atomic, value_p <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</div>
+<div class="line">                {</div>
+<div class="line">                    atomic = <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>;</div>
+<div class="line">                };</div>
+<div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not allow void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(value_assignment_ctor_tr&lt;atomic_t&lt;pointer_p&gt;, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt; == <span class="keyword">false</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow a casted void pointer&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random = Random&lt;void_t*&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    atom = <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random));</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a1b903d28b04217b96e722be61880ca77" name="a1b903d28b04217b96e722be61880ca77"></a>
@@ -526,8 +669,31 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Accesses the other atomically and assigns to itself atomically. </p>
-
+<p >Accesses the other atomically and assigns to itself atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should copy the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    atom = other;</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = other) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should not alter the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    <span class="keyword">const</span> atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    atom = other;</div>
+<div class="line">                    CHECK(other == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ae06ab1133c06c943393f78022b41d2bf" name="ae06ab1133c06c943393f78022b41d2bf"></a>
@@ -557,8 +723,31 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-<p >Exchanges the other with the default value atomically and assigns to itself atomically. </p>
-
+<p >Exchanges the other with the default value atomically and assigns to itself atomically.</p>
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should move the value of other&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    atom = std::move(other);</div>
+<div class="line">                    CHECK(atom == random);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should return itself&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    CHECK(&amp;(atom = std::move(other)) == &amp;atom);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should set the value of other to the default&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    pointer_p random = Random&lt;pointer_p&gt;();</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; other(random);</div>
+<div class="line">                    atomic_t&lt;pointer_p&gt; atom;</div>
+<div class="line">                    atom = std::move(other);</div>
+<div class="line">                    CHECK(other == <a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="a0f806bef92669e1c8b6a8fe253394bf3" name="a0f806bef92669e1c8b6a8fe253394bf3"></a>
@@ -662,15 +851,13 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                {</div>
 <div class="line">                    CHECK(assign_tr&lt;atomic_t&lt;pointer_p&gt;, <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>*&gt; == <span class="keyword">false</span>);</div>
 <div class="line">                }</div>
-<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_afe6516841ceb83a0712039cf364d09c5"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">nkr::$atomic_t::pointer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:336</div></div>
-<div class="ttc" id="agroup__intrinsics__primitives_html_ga034482d2e50c6d0448a7953d24860fe9"><div class="ttname"><a href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">nkr::void_t</a></div><div class="ttdeci">void void_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:41</div></div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow a casted void pointer&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
 <div class="line">                    pointer_p random_a = Random&lt;pointer_p&gt;();</div>
 <div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
 <div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Assign(<span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
-<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -834,7 +1021,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    <a class="code hl_typedef" href="../../d1/d9c/group__intrinsics__primitives.html#ga034482d2e50c6d0448a7953d24860fe9">void_t</a>* random_b = Random&lt;void_t*&gt;();</div>
 <div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
 <div class="line">                    atom.Exchange(<span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
-<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
@@ -1047,7 +1234,7 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    atomic_t&lt;pointer_p&gt; atom(random_a);</div>
 <div class="line">                    pointer_p snapshot = atom;</div>
 <div class="line">                    atom.Exchange_If_Equals(snapshot, <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
-<div class="line">                    CHECK(atom == random_b);</div>
+<div class="line">                    CHECK(atom == <span class="keyword">static_cast&lt;</span>pointer_p<span class="keyword">&gt;</span>(random_b));</div>
 <div class="line">                }</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should allow you to atomically change its value safely with a custom algorithm&quot;</span>, pointer_p, _)</div>
 <div class="line">                {</div>
@@ -1819,7 +2006,16 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
+<div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal the default value of value_t&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a> == <a class="code hl_typedef" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">atomic_t&lt;pointer_p&gt;::value_t</a>());</div>
+<div class="line">                }</div>
+<div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1pointer__sp_html_aa7fc23760980b203d95153b5e366c430"><div class="ttname"><a href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">nkr::$atomic_t::pointer_sp::value_t</a></div><div class="ttdeci">pointer_p value_t</div><div class="ttdoc">The underlying type of this wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:320</div></div>
+</div><!-- fragment --> <div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should equal nullptr&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    CHECK(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d">atomic_t&lt;pointer_p&gt;::DEFAULT_VALUE</a> == <span class="keyword">nullptr</span>);</div>
+<div class="line">                }</div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="afe6516841ceb83a0712039cf364d09c5" name="afe6516841ceb83a0712039cf364d09c5"></a>
@@ -1844,6 +2040,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 <div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">atomic_t&lt;integer_p&gt;::value</a>), <span class="keyword">volatile</span> integer_p&gt;);</div>
 <div class="line">                }</div>
 <div class="ttc" id="aclassnkr_1_1_0batomic__t_1_1integer__sp_html_a32e53877d2e3005f31b5d986bd409624"><div class="ttname"><a href="../../dc/dd8/classnkr_1_1_0batomic__t_1_1integer__sp.html#a32e53877d2e3005f31b5d986bd409624">nkr::$atomic_t::integer_sp::value</a></div><div class="ttdeci">volatile value_t value</div><div class="ttdoc">The publically available value of the nkr::atomic_t wrapper.</div><div class="ttdef"><b>Definition:</b> atomic_t.h:124</div></div>
+</div><!-- fragment --><div class="fragment"><div class="line">                TEST_CASE_TEMPLATE(<span class="stringliteral">&quot;should be a volatile value_t&quot;</span>, pointer_p, _)</div>
+<div class="line">                {</div>
+<div class="line">                    <span class="keyword">static_assert</span>(std::same_as&lt;<span class="keyword">decltype</span>(<a class="code hl_variable" href="../../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">atomic_t&lt;pointer_p&gt;::value</a>), <span class="keyword">volatile</span> pointer_p&gt;);</div>
+<div class="line">                }</div>
 </div><!-- fragment --> 
 </div>
 </div>
