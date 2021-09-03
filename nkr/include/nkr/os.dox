@@ -53,6 +53,9 @@
             * 
             * @brief
             *   Equivalent to `(atom)`
+            * 
+            * @snippet "./src/os.cpp" _86910968_68e4_4a84_9b9c_8ac16a0ac95d
+            * @snippet "./src/os.cpp" _b9ee057a_7e73_4016_9503_c3920c6252d0
             */
 
         // Assign
@@ -71,6 +74,10 @@
             *
             * @brief
             *   Equivalent to `(atom = with)`
+            * 
+            * @snippet "./src/os.cpp" _cff5cad0_8935_47e7_9e98_0598518c3222
+            * @snippet "./src/os.cpp" _e5b23352_d0a7_4639_9b3d_4e330b3276b5
+            * @snippet "./src/os.cpp" _c043156a_7642_423b_89d0_413a386ad1b4
             */
 
             // Assign_Add()
@@ -80,6 +87,10 @@
             *
             * @brief
             *   Equivalent to `(atom += with)` and `(++atom)`
+            * 
+            * @snippet "./src/os.cpp" _c04ef484_20f3_4fc0_be4b_2d8b40dff6d5
+            * @snippet "./src/os.cpp" _096ae2c4_1600_4049_ac92_d988d50936ec
+            * @snippet "./src/os.cpp" _4150d822_2671_4307_9086_beb5c310d5ac
             */
 
             // Assign_Add(type_pointer_tr)
@@ -89,7 +100,8 @@
             * 
             * @copydoc _ae07793f_9604_443c_901c_718a00cc093c
             * 
-            * @snippet "./src/os.cpp" _611ac2c6_4f53_4b55_937e_8b1cebea5a35
+            * @snippet "./src/os.cpp" _dd52b045_aa56_4134_b7ff_6e00c13f892d
+            * @snippet "./src/os.cpp" _462ab46f_5031_49e9_98a7_2ca50e3b17d3
             */
 
             // Assign_Subtract()
@@ -99,6 +111,10 @@
             *
             * @brief
             *   Equivalent to `(atom -= with)` and `(--atom)`
+            * 
+            * @snippet "./src/os.cpp" _548cda9b_cb3a_4cd3_954b_d69352ef3264
+            * @snippet "./src/os.cpp" _f2794a9e_5c10_4ff4_a912_7ace768cddc0
+            * @snippet "./src/os.cpp" _599ff640_2ddf_4edb_9a4e_e94242d25215
             */
 
             // Assign_Subtract(type_pointer_tr)
@@ -108,7 +124,8 @@
             * 
             * @copydoc _61dc311f_27ca_49a9_950a_9f3c9171b715
             * 
-            * @snippet "./src/os.cpp" _60a12b01_ce35_4373_a70f_4ed735555759
+            * @snippet "./src/os.cpp" _5b2fdcbb_2d09_4209_ad38_336f6ff3f0c3
+            * @snippet "./src/os.cpp" _e396ac45_f9d6_433c_8a11_addfb4d85587
             */
 
             // Assign_Multiply()
@@ -118,6 +135,10 @@
             *
             * @brief
             *   Equivalent to `(atom *= with)`
+            * 
+            * @snippet "./src/os.cpp" _95ff1c60_a59e_44f6_8f24_edffeb74ca2c
+            * @snippet "./src/os.cpp" _b4e15d76_ef69_4edd_a524_b50ca5cb6821
+            * @snippet "./src/os.cpp" _37851c52_0ed4_4b15_a024_657fa6449913
             */
 
             // Assign_Divide()
@@ -127,6 +148,10 @@
             *
             * @brief
             *   Equivalent to `(atom /= with)`
+            * 
+            * @snippet "./src/os.cpp" _88dfcc83_1a76_4d84_8196_b4a5582ac05a
+            * @snippet "./src/os.cpp" _8880d6ac_53f3_4f80_9f8e_2141566a5dfb
+            * @snippet "./src/os.cpp" _16308dc7_620e_43b4_8682_95947cce466b
             */
 
             // Assign_Modulus()
@@ -136,6 +161,9 @@
             *
             * @brief
             *   Equivalent to `(atom %= with)`
+            * 
+            * @snippet "./src/os.cpp" _f08cbcd4_5eb9_4df6_a8eb_43a5ab642f1f
+            * @snippet "./src/os.cpp" _83b37b61_a830_4c1a_a280_4d947b25f183
             */
 
             // Assign_Or()
@@ -145,6 +173,9 @@
             *
             * @brief
             *   Equivalent to `(atom |= with)`
+            * 
+            * @snippet "./src/os.cpp" _f5a67175_71e4_4e40_875d_0b649b258584
+            * @snippet "./src/os.cpp" _72fe08fb_efd6_41ad_b45d_1e13fa595118
             */
 
             // Assign_And()
@@ -154,6 +185,9 @@
             *
             * @brief
             *   Equivalent to `(atom &= with)`
+            * 
+            * @snippet "./src/os.cpp" _8abe8ccb_90fd_4ae8_971f_a31fa3b61318
+            * @snippet "./src/os.cpp" _8b6d9f33_1845_4a13_999c_219390bfad89
             */
 
             // Assign_Xor()
@@ -163,6 +197,9 @@
             *
             * @brief
             *   Equivalent to `(atom ^= with)`
+            * 
+            * @snippet "./src/os.cpp" _6a119048_abc7_41e9_8eed_756ba39191c5
+            * @snippet "./src/os.cpp" _a88aea13_e8e8_4f55_a568_b48bfb7c666b
             */
 
             // Assign_Left_Shift()
@@ -172,6 +209,9 @@
             *
             * @brief
             *   Equivalent to `(atom <<= with)`
+            * 
+            * @snippet "./src/os.cpp" _d34f4b0d_94d7_4cee_8275_2986169ee4bb
+            * @snippet "./src/os.cpp" _7293a041_ac89_40d6_851c_2fcc5fa87cfc
             */
 
             // Assign_Right_Shift()
@@ -181,6 +221,9 @@
             *
             * @brief
             *   Equivalent to `(atom >>= with)`
+            * 
+            * @snippet "./src/os.cpp" _35470cf4_9526_436e_9e4d_1260a7f5da36
+            * @snippet "./src/os.cpp" _fac50b5b_9154_4619_a9f6_e9a8932be1d6
             */
 
         // Exchange
@@ -204,6 +247,10 @@
             *
             * @brief
             *   Equivalent to `(original = atom, atom = with, original)`
+            * 
+            * @snippet "./src/os.cpp" _bfb8a372_e1f9_4422_97e1_e6ba09bf5447
+            * @snippet "./src/os.cpp" _ad652bfb_c5e7_4f7c_a44a_96bc9926770a
+            * @snippet "./src/os.cpp" _6ff73bc8_9314_4d30_9ff1_f6075f14a765
             */
 
             // Exchange_Add()
@@ -213,6 +260,10 @@
             *
             * @brief
             *   Equivalent to `(original = atom, atom += with, original)` and `(atom++)`
+            * 
+            * @snippet "./src/os.cpp" _49848ac8_c1b4_4943_a696_01ad844ba232
+            * @snippet "./src/os.cpp" _63e6d632_7ff2_4ef9_81d7_99ba01619d4c
+            * @snippet "./src/os.cpp" _658a6304_5262_4da9_81ff_3a20dfb2416b
             */
 
             // Exchange_Add(type_pointer_tr)
@@ -222,7 +273,8 @@
             * 
             * @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
             * 
-            * @snippet "./src/os.cpp" _4d9f5f22_f8aa_4316_bd0d_f8739139bd4e
+            * @snippet "./src/os.cpp" _2ba66e6c_3839_4110_8317_6ff0d84e56bc
+            * @snippet "./src/os.cpp" _e68df812_6fdb_4279_a4e5_276d1e532426
             */
 
             // Exchange_Subtract()
@@ -240,8 +292,6 @@
             * @private
             * 
             * @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
-            * 
-            * @snippet "./src/os.cpp" _8055b945_5e3d_4f07_96aa_f29e46a91dc2
             */
 
             // Exchange_Multiply()

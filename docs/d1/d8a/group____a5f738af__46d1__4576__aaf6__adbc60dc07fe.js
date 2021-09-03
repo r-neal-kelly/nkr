@@ -10,10 +10,13 @@ var group____a5f738af__46d1__4576__aaf6__adbc60dc07fe =
     [ "nkr::boolean_tr", "dd/d44/conceptnkr_1_1boolean__tr.html", null ],
     [ "nkr::to_boolean_tr", "d3/d7f/conceptnkr_1_1to__boolean__tr.html", null ],
     [ "nkr::to_std_bool_tr", "d3/d77/conceptnkr_1_1to__std__bool__tr.html", null ],
+    [ "nkr::number_tr", "d6/d5c/conceptnkr_1_1number__tr.html", null ],
     [ "nkr::pointer_tr", "db/def/conceptnkr_1_1pointer__tr.html", null ],
+    [ "nkr::void_pointer_tr", "dd/d5a/conceptnkr_1_1void__pointer__tr.html", null ],
     [ "nkr::type_pointer_tr", "d7/dd1/conceptnkr_1_1type__pointer__tr.html", null ],
     [ "nkr::built_in_tr", "d7/d72/conceptnkr_1_1built__in__tr.html", null ],
     [ "nkr::user_defined_tr", "d0/dc7/conceptnkr_1_1user__defined__tr.html", null ],
+    [ "nkr::fundamental_tr", "da/d4e/conceptnkr_1_1fundamental__tr.html", null ],
     [ "nkr::same_or_base_of_tr", "dc/d2f/conceptnkr_1_1same__or__base__of__tr.html", null ],
     [ "nkr::same_or_derived_from_tr", "d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html", null ]
 ];

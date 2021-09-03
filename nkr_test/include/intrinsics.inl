@@ -36,6 +36,12 @@ namespace nkr {
         }
     }
 
+    template <integer_tr integer_p, real_tr real_p>
+    inline integer_p Random(real_p from_inclusive, real_p to_inclusive)
+    {
+        return Random<integer_p>(static_cast<integer_p>(from_inclusive), static_cast<integer_p>(to_inclusive));
+    }
+
     template <real_tr real_p>
     inline real_p Random(real_p from_inclusive = std::numeric_limits<real_p>::lowest(),
                          real_p to_inclusive = std::numeric_limits<real_p>::max())

@@ -142,9 +142,19 @@ namespace nkr {
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_p>
+    concept number_tr =
+        integer_tr<type_p> ||
+        real_tr<type_p>;
+
+    template <typename type_p>
     concept pointer_tr =
         std::is_null_pointer<type_p>::value ||
         std::is_pointer<type_p>::value;         ///< @copydoc _42df3700_b206_4dec_a280_cc34bfd783ea
+
+    template <typename type_p>
+    concept void_pointer_tr =
+        pointer_tr<type_p> &&
+        !type_tr<std::remove_pointer_t<type_p>>;
 
     template <typename type_p>
     concept type_pointer_tr =
@@ -161,6 +171,13 @@ namespace nkr {
     template <typename type_p>
     concept user_defined_tr =
         !built_in_tr<type_p>;                   ///< @copydoc _3818a648_654b_43d9_9c9d_18527bc45131
+
+    template <typename type_p>
+    concept fundamental_tr =
+        boolean_tr<type_p> ||
+        integer_tr<type_p> ||
+        real_tr<type_p> ||
+        pointer_tr<type_p>;
     /// @}
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe

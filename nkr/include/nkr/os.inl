@@ -16,7 +16,7 @@
 
 namespace nkr { namespace os { namespace atomic {
 
-    template <atomic_tr atom_p>
+    template <fundamental_tr atom_p>
     inline atom_p Access(const volatile atom_p& atom)
     {
         atom_p snapshot = atom_p();
@@ -24,13 +24,13 @@ namespace nkr { namespace os { namespace atomic {
         return snapshot;
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Assign(volatile atom_p& atom, value_p value)
     {
         return Exchange(atom, value), static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Assign_Add(volatile atom_p& atom, value_p value)
     {
         return Exchange_Add(atom, value) + static_cast<atom_p>(value);
@@ -42,7 +42,7 @@ namespace nkr { namespace os { namespace atomic {
         return Exchange_Add(atom, value) + value;
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Assign_Subtract(volatile atom_p& atom, value_p value)
     {
         return Exchange_Subtract(atom, value) - static_cast<atom_p>(value);
@@ -54,49 +54,49 @@ namespace nkr { namespace os { namespace atomic {
         return Exchange_Subtract(atom, value) - value;
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Assign_Multiply(volatile atom_p& atom, value_p value)
     {
         return Exchange_Multiply(atom, value) * static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Assign_Divide(volatile atom_p& atom, value_p value)
     {
         return Exchange_Divide(atom, value) / static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Assign_Modulus(volatile atom_p& atom, value_p value)
     {
         return Exchange_Modulus(atom, value) % static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Assign_Or(volatile atom_p& atom, value_p value)
     {
         return Exchange_Or(atom, value) | static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Assign_And(volatile atom_p& atom, value_p value)
     {
         return Exchange_And(atom, value) & static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Assign_Xor(volatile atom_p& atom, value_p value)
     {
         return Exchange_Xor(atom, value) ^ static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Assign_Left_Shift(volatile atom_p& atom, value_p value)
     {
         return Exchange_Left_Shift(atom, value) << static_cast<atom_p>(value);
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Assign_Right_Shift(volatile atom_p& atom, value_p value)
     {
         return Exchange_Right_Shift(atom, value) >> static_cast<atom_p>(value);
@@ -104,7 +104,7 @@ namespace nkr { namespace os { namespace atomic {
 
 #if defined(nkr_IS_WINDOWS)
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Exchange(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -141,7 +141,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Exchange_Add(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -190,7 +190,7 @@ namespace nkr { namespace os { namespace atomic {
         return reinterpret_cast<atom_p&>(result);
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -239,7 +239,7 @@ namespace nkr { namespace os { namespace atomic {
         return reinterpret_cast<atom_p&>(result);
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -264,7 +264,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     inline atom_p Exchange_Divide(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -289,7 +289,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -312,7 +312,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Exchange_Or(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -341,7 +341,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Exchange_And(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -370,7 +370,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Exchange_Xor(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -399,7 +399,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -422,7 +422,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
@@ -445,7 +445,7 @@ namespace nkr { namespace os { namespace atomic {
         }
     }
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
     bool_t Exchange_If_Equals(volatile atom_p& atom, atom_p& snapshot, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);

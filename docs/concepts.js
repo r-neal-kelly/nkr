@@ -1,11 +1,6 @@
 var concepts =
 [
     [ "nkr", "dc/d0c/namespacenkr.html", [
-      [ "os", "dc/d5c/namespacenkr_1_1os.html", [
-        [ "atomic", "d1/db5/namespacenkr_1_1os_1_1atomic.html", [
-          [ "atomic_tr", "df/dcd/conceptnkr_1_1os_1_1atomic_1_1atomic__tr.html", null ]
-        ] ]
-      ] ],
       [ "allocator_i", "db/db0/conceptnkr_1_1allocator__i.html", null ],
       [ "charcoder_i", "dc/d23/conceptnkr_1_1charcoder__i.html", null ],
       [ "none_i", "d7/dc6/conceptnkr_1_1none__i.html", null ],
@@ -34,10 +29,13 @@ var concepts =
       [ "real_32_tr", "df/dac/conceptnkr_1_1real__32__tr.html", null ],
       [ "real_64_tr", "de/d0a/conceptnkr_1_1real__64__tr.html", null ],
       [ "to_real_tr", "de/ddc/conceptnkr_1_1to__real__tr.html", null ],
+      [ "number_tr", "d6/d5c/conceptnkr_1_1number__tr.html", null ],
       [ "pointer_tr", "db/def/conceptnkr_1_1pointer__tr.html", null ],
+      [ "void_pointer_tr", "dd/d5a/conceptnkr_1_1void__pointer__tr.html", null ],
       [ "type_pointer_tr", "d7/dd1/conceptnkr_1_1type__pointer__tr.html", null ],
       [ "built_in_tr", "d7/d72/conceptnkr_1_1built__in__tr.html", null ],
       [ "user_defined_tr", "d0/dc7/conceptnkr_1_1user__defined__tr.html", null ],
+      [ "fundamental_tr", "da/d4e/conceptnkr_1_1fundamental__tr.html", null ],
       [ "same_or_base_of_tr", "dc/d2f/conceptnkr_1_1same__or__base__of__tr.html", null ],
       [ "same_or_derived_from_tr", "d4/d4f/conceptnkr_1_1same__or__derived__from__tr.html", null ]
     ] ]

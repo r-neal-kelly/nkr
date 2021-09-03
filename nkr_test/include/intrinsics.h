@@ -24,6 +24,8 @@ namespace nkr {
     boolean_p   Random(real_t probability_for_true);
     template <integer_tr integer_p>
     integer_p   Random(integer_p from_inclusive, integer_p to_inclusive);
+    template <integer_tr integer_p, real_tr real_p>
+    integer_p   Random(real_p from_inclusive, real_p to_inclusive);
     template <real_tr real_p>
     real_p      Random(real_p from_inclusive, real_p to_inclusive);
     template <real_tr real_p, integer_tr integer_p>

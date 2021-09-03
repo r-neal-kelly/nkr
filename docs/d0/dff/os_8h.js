@@ -1,6 +1,5 @@
 var os_8h =
 [
-    [ "nkr::os::atomic::atomic_tr", "df/dcd/conceptnkr_1_1os_1_1atomic_1_1atomic__tr.html", null ],
     [ "Access", "d0/dff/os_8h.html#af849872d2c9a0f6f2fca2d97ffb0c920", null ],
     [ "Assign", "d0/dff/os_8h.html#aa13c4028abb59bfd2008ccf37a6ce2fb", null ],
     [ "Assign_Add", "d0/dff/os_8h.html#a7d40879f6d7361a97d7d819e420266c7", null ],

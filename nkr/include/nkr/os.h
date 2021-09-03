@@ -34,86 +34,79 @@ namespace nkr {
 
 namespace nkr { namespace os { namespace atomic {
 
-    template <typename type_p>
-    concept atomic_tr =
-        boolean_tr<type_p> ||
-        integer_tr<type_p> ||
-        real_tr<type_p> ||
-        pointer_tr<type_p>;
-
     /// @name Access
     /// @copydoc _ebc609cf_5026_47e9_87e7_c8ea9ecc71a9
     /// @{
-    template <atomic_tr atom_p>
+    template <fundamental_tr atom_p>
     atom_p  Access(const volatile atom_p& atom);    ///< @copydoc _7c65ec60_0408_4a55_8cb6_e01ed4e45aa8
     /// @}
     
     /// @name Assign
     /// @copydoc _d42247f7_a7b1_442f_beef_c88857ee5682
     /// @{
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Assign(volatile atom_p& atom, value_p value);               ///< @copydoc _fab7ff12_4852_456f_ad51_fc9ec8b5fb4f
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Assign_Add(volatile atom_p& atom, value_p value);           ///< @copydoc _ae07793f_9604_443c_901c_718a00cc093c
     template <type_pointer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Add(volatile atom_p& atom, value_p value);           ///< @copydoc _cbe72d03_f920_4d4d_a53c_68537d91e06e
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Assign_Subtract(volatile atom_p& atom, value_p value);      ///< @copydoc _61dc311f_27ca_49a9_950a_9f3c9171b715
     template <type_pointer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Subtract(volatile atom_p& atom, value_p value);      ///< @copydoc _165233f2_0ca5_45bf_9b4d_c09253b1700c
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Assign_Multiply(volatile atom_p& atom, value_p value);      ///< @copydoc _db2ab814_83b3_42b5_9c32_44dfe8126b9d
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Assign_Divide(volatile atom_p& atom, value_p value);        ///< @copydoc _388e4f09_010e_4578_8cc7_2255da0a4b4c
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Modulus(volatile atom_p& atom, value_p value);       ///< @copydoc _76252e5c_09e8_446b_82dc_295f1dc684d2
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Or(volatile atom_p& atom, value_p value);            ///< @copydoc _3f60e4fa_e39f_4e59_b88c_610282e72227
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Assign_And(volatile atom_p& atom, value_p value);           ///< @copydoc _50094866_0d5e_4d6e_8003_080350799b02
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Xor(volatile atom_p& atom, value_p value);           ///< @copydoc _f6c4cd5b_7f03_477b_968b_b65a1d79c37b
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Left_Shift(volatile atom_p& atom, value_p value);    ///< @copydoc _1988a49f_e149_41e5_acf1_5ee55d64e7a9
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Assign_Right_Shift(volatile atom_p& atom, value_p value);   ///< @copydoc _33d2bc67_7ea7_4519_83e6_0145d0c4c10d
     /// @}
     
     /// @name Exchange
     /// @copydoc _73d8454a_28bc_4509_b695_6bd373d375f2
     /// @{
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Exchange(volatile atom_p& atom, value_p value);                             ///< @copydoc _d3109948_6d58_465c_9c35_1b3bc078193b
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Exchange_Add(volatile atom_p& atom, value_p value);                         ///< @copydoc _1636a842_cd0e_4a20_a69b_08777cf45e13
     template <type_pointer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Add(volatile atom_p& atom, value_p value);                         ///< @copydoc _cc0888ae_0348_4464_8425_d59c2563a3b9
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Exchange_Subtract(volatile atom_p& atom, value_p value);                    ///< @copydoc _be5c47cb_bbce_4c8f_b1c9_f6f5564b1727
     template <type_pointer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Subtract(volatile atom_p& atom, value_p value);                    ///< @copydoc _4160b14b_f8e3_4e5b_8340_b8e9285d1caa
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Exchange_Multiply(volatile atom_p& atom, value_p value);                    ///< @copydoc _9b10e14c_d868_4740_b2dd_40ee361019f0
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <number_tr atom_p, convertible_tr<atom_p> value_p>
     atom_p  Exchange_Divide(volatile atom_p& atom, value_p value);                      ///< @copydoc _0c2871ea_dbfa_4075_bee1_84f0017ec54c
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Modulus(volatile atom_p& atom, value_p value);                     ///< @copydoc _75c6f727_7922_4ce2_8650_5c94e52b180e
 
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Or(volatile atom_p& atom, value_p value);                          ///< @copydoc _67e27237_78f0_4fe0_b667_15076d266dbc
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_And(volatile atom_p& atom, value_p value);                         ///< @copydoc _43f052df_aa5c_4c1d_be58_1059147ba0c1
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Xor(volatile atom_p& atom, value_p value);                         ///< @copydoc _46e8118f_a77b_41c8_9f75_d1953aad71d8
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Left_Shift(volatile atom_p& atom, value_p value);                  ///< @copydoc _a5e26340_6895_4258_ab06_7f6968cd5830
-    template <atomic_tr atom_p, integer_tr value_p>
+    template <integer_tr atom_p, integer_tr value_p>
     atom_p  Exchange_Right_Shift(volatile atom_p& atom, value_p value);                 ///< @copydoc _37998d5d_eb21_4e93_83bf_ef1bfb1152c7
 
-    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
     bool_t  Exchange_If_Equals(volatile atom_p& atom, atom_p& snapshot, value_p value); ///< @copydoc _58b2d01f_9868_4a75_a3c8_da7371ab555e
     /// @}
 
