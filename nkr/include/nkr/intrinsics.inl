@@ -13,4 +13,7 @@ namespace nkr {
     static_assert(sizeof(r32_t) == sizeof(u32_t), "r32_t must be the same size as u32_t");
     static_assert(sizeof(r64_t) == sizeof(u64_t), "r64_t must be the same size as u64_t");
 
+    static_assert(sizeof(void_t*) == sizeof(word_t), "void_t* must be the same size as word_t");
+    static_assert(sizeof(address_t) == sizeof(word_t), "address_t must be the same size as word_t");
+
 }

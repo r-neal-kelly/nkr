@@ -16,7 +16,7 @@
 
 namespace nkr { namespace os { namespace atomic {
 
-    template <boolean_tr atom_p>
+    template <atomic_tr atom_p>
     inline atom_p Access(const volatile atom_p& atom)
     {
         atom_p snapshot = atom_p();
@@ -24,815 +24,472 @@ namespace nkr { namespace os { namespace atomic {
         return snapshot;
     }
 
-    template <integer_tr atom_p>
-    inline atom_p Access(const volatile atom_p& atom)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Assign(volatile atom_p& atom, value_p value)
     {
-        atom_p snapshot = atom_p();
-        Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), snapshot, atom_p());
-        return snapshot;
+        return Exchange(atom, value), static_cast<atom_p>(value);
     }
 
-    template <real_tr atom_p>
-    inline atom_p Access(const volatile atom_p& atom)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Assign_Add(volatile atom_p& atom, value_p value)
     {
-        atom_p snapshot = atom_p();
-        Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), snapshot, atom_p());
-        return snapshot;
-    }
-
-    template <pointer_tr atom_p>
-    inline atom_p Access(const volatile atom_p& atom)
-    {
-        atom_p snapshot = atom_p();
-        Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), snapshot, atom_p());
-        return snapshot;
-    }
-
-    template <boolean_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign(volatile atom_p& atom, value_p with)
-    {
-        return Exchange(atom, with), static_cast<atom_p>(with);
-    }
-
-    template <integer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign(volatile atom_p& atom, value_p with)
-    {
-        return Exchange(atom, with), static_cast<atom_p>(with);
-    }
-
-    template <real_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign(volatile atom_p& atom, value_p with)
-    {
-        return Exchange(atom, with), static_cast<atom_p>(with);
-    }
-
-    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign(volatile atom_p& atom, value_p with)
-    {
-        return Exchange(atom, with), static_cast<atom_p>(with);
-    }
-
-    template <integer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, value_p with)
-    {
-        return Exchange_Add(atom, with) + static_cast<atom_p>(with);
-    }
-
-    template <real_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, value_p with)
-    {
-        return Exchange_Add(atom, with) + static_cast<atom_p>(with);
+        return Exchange_Add(atom, value) + static_cast<atom_p>(value);
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, value_p with)
+    inline atom_p Assign_Add(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Add(atom, with) + with;
+        return Exchange_Add(atom, value) + value;
     }
 
-    template <integer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Subtract(atom, with) - static_cast<atom_p>(with);
-    }
-
-    template <real_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p with)
-    {
-        return Exchange_Subtract(atom, with) - static_cast<atom_p>(with);
+        return Exchange_Subtract(atom, value) - static_cast<atom_p>(value);
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p with)
+    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Subtract(atom, with) - with;
+        return Exchange_Subtract(atom, value) - value;
     }
 
-    template <integer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Multiply(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Assign_Multiply(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Multiply(atom, with) * static_cast<atom_p>(with);
+        return Exchange_Multiply(atom, value) * static_cast<atom_p>(value);
     }
 
-    template <real_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Multiply(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Assign_Divide(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Multiply(atom, with) * static_cast<atom_p>(with);
+        return Exchange_Divide(atom, value) / static_cast<atom_p>(value);
     }
 
-    template <integer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Divide(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Assign_Modulus(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Divide(atom, with) / static_cast<atom_p>(with);
+        return Exchange_Modulus(atom, value) % static_cast<atom_p>(value);
     }
 
-    template <real_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Divide(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Assign_Or(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Divide(atom, with) / static_cast<atom_p>(with);
+        return Exchange_Or(atom, value) | static_cast<atom_p>(value);
     }
 
-    template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Modulus(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Assign_And(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Modulus(atom, with) % static_cast<atom_p>(with);
+        return Exchange_And(atom, value) & static_cast<atom_p>(value);
     }
 
-    template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Or(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Assign_Xor(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Or(atom, with) | static_cast<atom_p>(with);
+        return Exchange_Xor(atom, value) ^ static_cast<atom_p>(value);
     }
 
-    template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_And(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Assign_Left_Shift(volatile atom_p& atom, value_p value)
     {
-        return Exchange_And(atom, with) & static_cast<atom_p>(with);
+        return Exchange_Left_Shift(atom, value) << static_cast<atom_p>(value);
     }
 
-    template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Xor(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Assign_Right_Shift(volatile atom_p& atom, value_p value)
     {
-        return Exchange_Xor(atom, with) ^ static_cast<atom_p>(with);
-    }
-
-    template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Left_Shift(volatile atom_p& atom, value_p with)
-    {
-        return Exchange_Left_Shift(atom, with) << static_cast<atom_p>(with);
-    }
-
-    template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Right_Shift(volatile atom_p& atom, value_p with)
-    {
-        return Exchange_Right_Shift(atom, with) >> static_cast<atom_p>(with);
+        return Exchange_Right_Shift(atom, value) >> static_cast<atom_p>(value);
     }
 
 #if defined(nkr_IS_WINDOWS)
 
-    template <boolean_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Exchange(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        if constexpr (std::same_as<atom_p, bool_t>) {
-            return static_cast<atom_p>(Exchange(static_cast<volatile word_t&>(atom),
-                                                static_cast<word_t>(atom_with)));
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p> ||
+                      (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u8_t))) {
+            char result = ::_InterlockedExchange8(reinterpret_cast<volatile char*>(&atom),
+                                                  reinterpret_cast<char&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p> ||
+                             (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u16_t))) {
+            short result = ::_InterlockedExchange16(reinterpret_cast<volatile short*>(&atom),
+                                                    reinterpret_cast<short&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p> ||
+                             real_32_tr<atom_p> ||
+                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t)) ||
+                             (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t))) {
+            long result = ::_InterlockedExchange(reinterpret_cast<volatile long*>(&atom),
+                                                 reinterpret_cast<long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p> ||
+                             real_64_tr<atom_p> ||
+                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t)) ||
+                             (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t))) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedExchange64(reinterpret_cast<volatile long long*>(&atom),
+                                                        reinterpret_cast<long long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
         } else {
-            using integer_unsigned_t = integer_unsigned_for_t<atom_p>;
-
-            return static_cast<atom_p>(Exchange(reinterpret_cast<volatile integer_unsigned_t&>(atom),
-                                                reinterpret_cast<integer_unsigned_t&>(atom_with)));
+            static_assert(false, "invalid atom_p");
         }
     }
 
-    template <integer_8_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Exchange_Add(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchange8(reinterpret_cast<volatile char*>(&atom),
-                                                           static_cast<char>(atom_with)));
-    }
-
-    template <integer_16_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchange16(reinterpret_cast<volatile short*>(&atom),
-                                                            static_cast<short>(atom_with)));
-    }
-
-    template <integer_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchange(reinterpret_cast<volatile long*>(&atom),
-                                                          static_cast<long>(atom_with)));
-    }
-
-    template <integer_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchange64(reinterpret_cast<volatile long long*>(&atom),
-                                                            static_cast<long long>(atom_with)));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <real_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        u32_t u32_result = Exchange(reinterpret_cast<volatile u32_t&>(atom),
-                                    reinterpret_cast<u32_t&>(atom_with));
-        return reinterpret_cast<atom_p&>(u32_result);
-    }
-
-    template <real_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        u64_t u64_result = Exchange(reinterpret_cast<volatile u64_t&>(atom),
-                                    reinterpret_cast<u64_t&>(atom_with));
-        return reinterpret_cast<atom_p&>(u64_result);
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p with)
-    {
-        return static_cast<atom_p>(::_InterlockedExchangePointer(reinterpret_cast<void* volatile*>(&atom),
-                                                                 static_cast<void*>(with)));
-    }
-
-    template <integer_8_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd8(reinterpret_cast<volatile char*>(&atom),
-                                                              static_cast<char>(atom_with)));
-    }
-
-    template <integer_16_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd16(reinterpret_cast<volatile short*>(&atom),
-                                                               static_cast<short>(atom_with)));
-    }
-
-    template <integer_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd(reinterpret_cast<volatile long*>(&atom),
-                                                             static_cast<long>(atom_with)));
-    }
-
-    template <integer_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom),
-                                                               static_cast<long long>(atom_with)));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <real_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot + static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <real_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot + static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p>) {
+            char result = ::_InterlockedExchangeAdd8(reinterpret_cast<volatile char*>(&atom),
+                                                     reinterpret_cast<char&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p>) {
+            short result = ::_InterlockedExchangeAdd16(reinterpret_cast<volatile short*>(&atom),
+                                                       reinterpret_cast<short&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p>) {
+            long result = ::_InterlockedExchangeAdd(reinterpret_cast<volatile long*>(&atom),
+                                                    reinterpret_cast<long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom),
+                                                           reinterpret_cast<long long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else if constexpr (real_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot + atom_value));
+            return snapshot;
+        } else if constexpr (real_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot + atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else {
+            static_assert(false, "invalid atom_p");
+        }
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p with)
+    inline atom_p Exchange_Add(volatile atom_p& atom, value_p value)
     {
-        return reinterpret_cast<atom_p>(Exchange_Add(reinterpret_cast<volatile address_t&>(atom),
-                                                     sizeof(std::remove_pointer_t<atom_p>) * with));
+        address_t result = Exchange_Add(reinterpret_cast<volatile address_t&>(atom),
+                                        sizeof(std::remove_pointer_t<atom_p>) * value);
+        return reinterpret_cast<atom_p&>(result);
     }
 
-    template <integer_8_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd8(reinterpret_cast<volatile char*>(&atom),
-                                                              -static_cast<char>(atom_with)));
-    }
-
-    template <integer_16_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd16(reinterpret_cast<volatile short*>(&atom),
-                                                               -static_cast<short>(atom_with)));
-    }
-
-    template <integer_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd(reinterpret_cast<volatile long*>(&atom),
-                                                             -static_cast<long>(atom_with)));
-    }
-
-    template <integer_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom),
-                                                               -static_cast<long long>(atom_with)));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <real_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot - static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <real_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot - static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p>) {
+            char result = ::_InterlockedExchangeAdd8(reinterpret_cast<volatile char*>(&atom),
+                                                     -reinterpret_cast<char&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p>) {
+            short result = ::_InterlockedExchangeAdd16(reinterpret_cast<volatile short*>(&atom),
+                                                       -reinterpret_cast<short&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p>) {
+            long result = ::_InterlockedExchangeAdd(reinterpret_cast<volatile long*>(&atom),
+                                                    -reinterpret_cast<long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedExchangeAdd64(reinterpret_cast<volatile long long*>(&atom),
+                                                           -reinterpret_cast<long long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else if constexpr (real_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot - atom_value));
+            return snapshot;
+        } else if constexpr (real_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot - atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else {
+            static_assert(false, "invalid atom_p");
+        }
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p with)
+    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p value)
     {
-        return reinterpret_cast<atom_p>(Exchange_Subtract(reinterpret_cast<volatile address_t&>(atom),
-                                                          sizeof(std::remove_pointer_t<atom_p>) * with));
+        address_t result = Exchange_Subtract(reinterpret_cast<volatile address_t&>(atom),
+                                             sizeof(std::remove_pointer_t<atom_p>) * value);
+        return reinterpret_cast<atom_p&>(result);
     }
 
-    template <integer_8_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p value)
     {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_16_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <real_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <real_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot * static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_16_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <real_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <real_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot / static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_16_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_32_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_64_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot % static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Or(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedOr8(reinterpret_cast<volatile char*>(&atom),
-                                                     static_cast<char>(atom_with)));
-    }
-
-    template <integer_16_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Or(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedOr16(reinterpret_cast<volatile short*>(&atom),
-                                                      static_cast<short>(atom_with)));
-    }
-
-    template <integer_32_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Or(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedOr(reinterpret_cast<volatile long*>(&atom),
-                                                    static_cast<long>(atom_with)));
-    }
-
-    template <integer_64_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Or(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedOr64(reinterpret_cast<volatile long long*>(&atom),
-                                                      static_cast<long long>(atom_with)));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_And(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedAnd8(reinterpret_cast<volatile char*>(&atom),
-                                                      static_cast<char>(atom_with)));
-    }
-
-    template <integer_16_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_And(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedAnd16(reinterpret_cast<volatile short*>(&atom),
-                                                       static_cast<short>(atom_with)));
-    }
-
-    template <integer_32_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_And(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedAnd(reinterpret_cast<volatile long*>(&atom),
-                                                     static_cast<long>(atom_with)));
-    }
-
-    template <integer_64_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_And(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedAnd64(reinterpret_cast<volatile long long*>(&atom),
-                                                       static_cast<long long>(atom_with)));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Xor(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedXor8(reinterpret_cast<volatile char*>(&atom),
-                                                      static_cast<char>(atom_with)));
-    }
-
-    template <integer_16_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Xor(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedXor16(reinterpret_cast<volatile short*>(&atom),
-                                                       static_cast<short>(atom_with)));
-    }
-
-    template <integer_32_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Xor(volatile atom_p& atom, value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedXor(reinterpret_cast<volatile long*>(&atom),
-                                                     static_cast<long>(atom_with)));
-    }
-
-    template <integer_64_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Xor(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return static_cast<atom_p>(::_InterlockedXor64(reinterpret_cast<volatile long long*>(&atom),
-                                                       static_cast<long long>(atom_with)));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_16_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_32_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_64_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot << static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <integer_8_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_16_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_32_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p with)
-    {
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_p>(with)));
-        return snapshot;
-    }
-
-    template <integer_64_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p with)
-    {
-    #if defined(nkr_IS_64_BIT)
-        atom_p snapshot = Access(atom);
-        while (!Exchange_If_Equals(atom, snapshot, snapshot >> static_cast<atom_p>(with)));
-        return snapshot;
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
-    }
-
-    template <boolean_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
-    {
-        atom_p atom_with = static_cast<atom_p>(with);
-        if constexpr (std::same_as<atom_p, bool_t>) {
-            return Exchange_If_Equals(static_cast<volatile word_t&>(atom),
-                                      static_cast<word_t&>(snapshot),
-                                      static_cast<word_t>(atom_with));
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p> ||
+                      integer_16_tr<atom_p> ||
+                      integer_32_tr<atom_p> ||
+                      real_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot * atom_value));
+            return snapshot;
+        } else if constexpr (integer_64_tr<atom_p> ||
+                             real_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot * atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
         } else {
-            using integer_unsigned_t = integer_unsigned_for_t<atom_p>;
-
-            return Exchange_If_Equals(reinterpret_cast<volatile integer_unsigned_t&>(atom),
-                                      reinterpret_cast<integer_unsigned_t&>(snapshot),
-                                      reinterpret_cast<integer_unsigned_t&>(atom_with));
+            static_assert(false, "invalid atom_p");
         }
     }
 
-    template <integer_8_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        atom_p value = static_cast<atom_p>(::_InterlockedCompareExchange8((volatile char*)(&atom),
-                                                                          static_cast<char>(atom_with),
-                                                                          static_cast<char>(snapshot)));
-        if (snapshot == value) {
-            return true;
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p> ||
+                      integer_16_tr<atom_p> ||
+                      integer_32_tr<atom_p> ||
+                      real_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot / atom_value));
+            return snapshot;
+        } else if constexpr (integer_64_tr<atom_p> ||
+                             real_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot / atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
         } else {
-            snapshot = value;
-            return false;
+            static_assert(false, "invalid atom_p");
         }
     }
 
-    template <integer_16_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        atom_p value = static_cast<atom_p>(::_InterlockedCompareExchange16(reinterpret_cast<volatile short*>(&atom),
-                                                                           static_cast<short>(atom_with),
-                                                                           static_cast<short>(snapshot)));
-        if (snapshot == value) {
-            return true;
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p> ||
+                      integer_16_tr<atom_p> ||
+                      integer_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot % atom_value));
+            return snapshot;
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot % atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
         } else {
-            snapshot = value;
-            return false;
+            static_assert(false, "invalid atom_p");
         }
     }
 
-    template <integer_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Exchange_Or(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        atom_p value = static_cast<atom_p>(::_InterlockedCompareExchange(reinterpret_cast<volatile long*>(&atom),
-                                                                         static_cast<long>(atom_with),
-                                                                         static_cast<long>(snapshot)));
-        if (snapshot == value) {
-            return true;
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p>) {
+            char result = ::_InterlockedOr8(reinterpret_cast<volatile char*>(&atom),
+                                            reinterpret_cast<char&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p>) {
+            short result = ::_InterlockedOr16(reinterpret_cast<volatile short*>(&atom),
+                                              reinterpret_cast<short&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p>) {
+            long result = ::_InterlockedOr(reinterpret_cast<volatile long*>(&atom),
+                                           reinterpret_cast<long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedOr64(reinterpret_cast<volatile long long*>(&atom),
+                                                  reinterpret_cast<long long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
         } else {
-            snapshot = value;
-            return false;
+            static_assert(false, "invalid atom_p");
         }
     }
 
-    template <integer_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Exchange_And(volatile atom_p& atom, value_p value)
     {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        atom_p value = static_cast<atom_p>(::_InterlockedCompareExchange64(reinterpret_cast<volatile long long*>(&atom),
-                                                                           static_cast<long long>(atom_with),
-                                                                           static_cast<long long>(snapshot)));
-        if (snapshot == value) {
-            return true;
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p>) {
+            char result = ::_InterlockedAnd8(reinterpret_cast<volatile char*>(&atom),
+                                             reinterpret_cast<char&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p>) {
+            short result = ::_InterlockedAnd16(reinterpret_cast<volatile short*>(&atom),
+                                               reinterpret_cast<short&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p>) {
+            long result = ::_InterlockedAnd(reinterpret_cast<volatile long*>(&atom),
+                                            reinterpret_cast<long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedAnd64(reinterpret_cast<volatile long long*>(&atom),
+                                                   reinterpret_cast<long long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
         } else {
-            snapshot = value;
-            return false;
+            static_assert(false, "invalid atom_p");
         }
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
     }
 
-    template <real_32_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Exchange_Xor(volatile atom_p& atom, value_p value)
     {
-        atom_p atom_with = static_cast<atom_p>(with);
-        return Exchange_If_Equals(reinterpret_cast<volatile u32_t&>(atom),
-                                  reinterpret_cast<u32_t&>(snapshot),
-                                  reinterpret_cast<u32_t&>(atom_with));
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p>) {
+            char result = ::_InterlockedXor8(reinterpret_cast<volatile char*>(&atom),
+                                             reinterpret_cast<char&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p>) {
+            short result = ::_InterlockedXor16(reinterpret_cast<volatile short*>(&atom),
+                                               reinterpret_cast<short&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p>) {
+            long result = ::_InterlockedXor(reinterpret_cast<volatile long*>(&atom),
+                                            reinterpret_cast<long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedXor64(reinterpret_cast<volatile long long*>(&atom),
+                                                   reinterpret_cast<long long&>(atom_value));
+            return reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else {
+            static_assert(false, "invalid atom_p");
+        }
     }
 
-    template <real_64_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p value)
     {
-    #if defined(nkr_IS_64_BIT)
-        atom_p atom_with = static_cast<atom_p>(with);
-        return Exchange_If_Equals(reinterpret_cast<volatile u64_t&>(atom),
-                                  reinterpret_cast<u64_t&>(snapshot),
-                                  reinterpret_cast<u64_t&>(atom_with));
-    #else
-        static_assert(false, "64 bit atomic unavailable");
-    #endif
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p> ||
+                      integer_16_tr<atom_p> ||
+                      integer_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot << atom_value));
+            return snapshot;
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot << atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else {
+            static_assert(false, "invalid atom_p");
+        }
     }
 
-    template <pointer_tr atom_p, convertible_tr<atom_p> value_p>
-    inline bool_t Exchange_If_Equals(volatile atom_p& atom,
-                                     atom_p& snapshot,
-                                     value_p with)
+    template <atomic_tr atom_p, integer_tr value_p>
+    inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p value)
     {
-        atom_p value = static_cast<atom_p>(::_InterlockedCompareExchangePointer(reinterpret_cast<void* volatile*>(&atom),
-                                                                                static_cast<void*>(with),
-                                                                                static_cast<void*>(snapshot)));
-        if (snapshot == value) {
+        atom_p atom_value = static_cast<atom_p>(value);
+        if constexpr (integer_8_tr<atom_p> ||
+                      integer_16_tr<atom_p> ||
+                      integer_32_tr<atom_p>) {
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot >> atom_value));
+            return snapshot;
+        } else if constexpr (integer_64_tr<atom_p>) {
+        #if defined(nkr_IS_64_BIT)
+            atom_p snapshot = Access(atom);
+            while (!Exchange_If_Equals(atom, snapshot, snapshot >> atom_value));
+            return snapshot;
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else {
+            static_assert(false, "invalid atom_p");
+        }
+    }
+
+    template <atomic_tr atom_p, convertible_tr<atom_p> value_p>
+    bool_t Exchange_If_Equals(volatile atom_p& atom, atom_p& snapshot, value_p value)
+    {
+        atom_p atom_value = static_cast<atom_p>(value);
+        atom_p atom_result;
+        if constexpr (integer_8_tr<atom_p> ||
+                      (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u8_t))) {
+            char result = ::_InterlockedCompareExchange8(reinterpret_cast<volatile char*>(&atom),
+                                                         reinterpret_cast<char&>(atom_value),
+                                                         reinterpret_cast<char&>(snapshot));
+            atom_result = reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_16_tr<atom_p> ||
+                             (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u16_t))) {
+            short result = ::_InterlockedCompareExchange16(reinterpret_cast<volatile short*>(&atom),
+                                                           reinterpret_cast<short&>(atom_value),
+                                                           reinterpret_cast<short&>(snapshot));
+            atom_result = reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_32_tr<atom_p> ||
+                             real_32_tr<atom_p> ||
+                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t)) ||
+                             (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t))) {
+            long result = ::_InterlockedCompareExchange(reinterpret_cast<volatile long*>(&atom),
+                                                        reinterpret_cast<long&>(atom_value),
+                                                        reinterpret_cast<long&>(snapshot));
+            atom_result = reinterpret_cast<atom_p&>(result);
+        } else if constexpr (integer_64_tr<atom_p> ||
+                             real_64_tr<atom_p> ||
+                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t)) ||
+                             (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t))) {
+        #if defined(nkr_IS_64_BIT)
+            long long result = ::_InterlockedCompareExchange64(reinterpret_cast<volatile long long*>(&atom),
+                                                               reinterpret_cast<long long&>(atom_value),
+                                                               reinterpret_cast<long long&>(snapshot));
+            atom_result = reinterpret_cast<atom_p&>(result);
+        #else
+            static_assert(false, "64 bit atomic unavailable");
+        #endif
+        } else {
+            static_assert(false, "invalid atom_p");
+        }
+
+        if (snapshot == atom_result) {
             return true;
         } else {
-            snapshot = value;
+            snapshot = atom_result;
             return false;
         }
     }

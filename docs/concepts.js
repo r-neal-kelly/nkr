@@ -1,6 +1,11 @@
 var concepts =
 [
     [ "nkr", "dc/d0c/namespacenkr.html", [
+      [ "os", "dc/d5c/namespacenkr_1_1os.html", [
+        [ "atomic", "d1/db5/namespacenkr_1_1os_1_1atomic.html", [
+          [ "atomic_tr", "df/dcd/conceptnkr_1_1os_1_1atomic_1_1atomic__tr.html", null ]
+        ] ]
+      ] ],
       [ "allocator_i", "db/db0/conceptnkr_1_1allocator__i.html", null ],
       [ "charcoder_i", "dc/d23/conceptnkr_1_1charcoder__i.html", null ],
       [ "none_i", "d7/dc6/conceptnkr_1_1none__i.html", null ],
