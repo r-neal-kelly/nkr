@@ -435,10 +435,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         Assign_Or(value, random_b);
                         CHECK(value == (random_a |= random_b));
@@ -451,10 +448,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         CHECK(Assign_Or(value, random_b) == (random_a |= random_b));
                     }
@@ -469,10 +463,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         Assign_And(value, random_b);
                         CHECK(value == (random_a &= random_b));
@@ -485,10 +476,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         CHECK(Assign_And(value, random_b) == (random_a &= random_b));
                     }
@@ -503,10 +491,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         Assign_Xor(value, random_b);
                         CHECK(value == (random_a ^= random_b));
@@ -519,10 +504,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         CHECK(Assign_Xor(value, random_b) == (random_a ^= random_b));
                     }
@@ -537,10 +519,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         Assign_Left_Shift(value, random_b);
                         CHECK(value == (random_a <<= random_b));
@@ -553,10 +532,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         CHECK(Assign_Left_Shift(value, random_b) == (random_a <<= random_b));
                     }
@@ -571,10 +547,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         Assign_Right_Shift(value, random_b);
                         CHECK(value == (random_a >>= random_b));
@@ -587,10 +560,7 @@ namespace nkr { namespace os { namespace atomic {
                 {
                     if constexpr (integer_tr<atom_p>) {
                         atom_p random_a = Random<atom_p>();
-                        atom_p random_b;
-                        do {
-                            random_b = Random<atom_p>();
-                        } while (random_b == 0);
+                        atom_p random_b = Random<atom_p>();
                         atom_p value = random_a;
                         CHECK(Assign_Right_Shift(value, random_b) == (random_a >>= random_b));
                     }
@@ -709,6 +679,434 @@ namespace nkr { namespace os { namespace atomic {
                     }
                 }
                 /// [_e68df812_6fdb_4279_a4e5_276d1e532426]
+            }
+
+            TEST_SUITE("Exchange_Subtract()")
+            {
+                /// [_5af84e35_a73e_447e_a291_11cad13fc45a]
+                TEST_CASE_TEMPLATE("should set the value to value - passed value", atom_p, atoms)
+                {
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_Subtract(value, random_b);
+                        CHECK(value == (random_a -= random_b));
+                    }
+                }
+                /// [_5af84e35_a73e_447e_a291_11cad13fc45a]
+
+                /// [_14b2395b_d7eb_4d35_ab27_d2483b376004]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Subtract(value, random_b) == random_a);
+                    }
+                }
+                /// [_14b2395b_d7eb_4d35_ab27_d2483b376004]
+
+                /// [_83dfbe1a_86a9_42b8_bb6b_b4ad5b264a4a]
+                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                {
+                    using atom_p = std::tuple_element_t<0, pair_p>;
+                    using convertible_p = std::tuple_element_t<1, pair_p>;
+
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        convertible_p random_b = Random<convertible_p>();
+                        atom_p value = random_a;
+                        Exchange_Subtract(value, random_b);
+                        CHECK(value == (random_a -= static_cast<atom_p>(random_b)));
+                    }
+                }
+                /// [_83dfbe1a_86a9_42b8_bb6b_b4ad5b264a4a]
+            }
+
+            TEST_SUITE("Exchange_Subtract(type_pointer_tr)")
+            {
+                /// [_8834bbe1_d6e2_4813_b90f_2536b00eba99]
+                TEST_CASE_TEMPLATE("should set the value to value - passed value", atom_p, atoms)
+                {
+                    if constexpr (type_pointer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        word_t random_b = Random<word_t>();
+                        atom_p value = random_a;
+                        Exchange_Subtract(value, random_b);
+                        CHECK(value == (random_a -= random_b));
+                    }
+                }
+                /// [_8834bbe1_d6e2_4813_b90f_2536b00eba99]
+
+                /// [_536ea92e_bc98_402d_b22f_3ae2a338f694]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (type_pointer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        word_t random_b = Random<word_t>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Subtract(value, random_b) == random_a);
+                    }
+                }
+                /// [_536ea92e_bc98_402d_b22f_3ae2a338f694]
+            }
+
+            TEST_SUITE("Exchange_Multiply()")
+            {
+                /// [_5ae68f89_6432_4aac_a8c7_977f268bb34d]
+                TEST_CASE_TEMPLATE("should set the value to value * passed value", atom_p, atoms)
+                {
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_Multiply(value, random_b);
+                        CHECK(value == (random_a *= random_b));
+                    }
+                }
+                /// [_5ae68f89_6432_4aac_a8c7_977f268bb34d]
+
+                /// [_58db82c9_bce0_4cc6_990b_644fbce87a59]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Multiply(value, random_b) == random_a);
+                    }
+                }
+                /// [_58db82c9_bce0_4cc6_990b_644fbce87a59]
+
+                /// [_91df7f02_eabd_40c6_8255_cd4c64e92e82]
+                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                {
+                    using atom_p = std::tuple_element_t<0, pair_p>;
+                    using convertible_p = std::tuple_element_t<1, pair_p>;
+
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        convertible_p random_b = Random<convertible_p>();
+                        atom_p value = random_a;
+                        Exchange_Multiply(value, random_b);
+                        CHECK(value == (random_a *= static_cast<atom_p>(random_b)));
+                    }
+                }
+                /// [_91df7f02_eabd_40c6_8255_cd4c64e92e82]
+            }
+
+            TEST_SUITE("Exchange_Divide()")
+            {
+                /// [_fae67eda_9402_4e49_9607_e3184dbd2b38]
+                TEST_CASE_TEMPLATE("should set the value to value / passed value", atom_p, atoms)
+                {
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b;
+                        do {
+                            random_b = Random<atom_p>();
+                        } while (random_b == 0);
+                        atom_p value = random_a;
+                        Exchange_Divide(value, random_b);
+                        CHECK(value == (random_a /= random_b));
+                    }
+                }
+                /// [_fae67eda_9402_4e49_9607_e3184dbd2b38]
+
+                /// [_c3947eeb_8969_4edb_8130_49d6ff2ac2fd]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b;
+                        do {
+                            random_b = Random<atom_p>();
+                        } while (random_b == 0);
+                        atom_p value = random_a;
+                        CHECK(Exchange_Divide(value, random_b) == random_a);
+                    }
+                }
+                /// [_c3947eeb_8969_4edb_8130_49d6ff2ac2fd]
+
+                /// [_1cc9dcb3_26b4_4499_8cd5_8db780bdca8c]
+                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                {
+                    using atom_p = std::tuple_element_t<0, pair_p>;
+                    using convertible_p = std::tuple_element_t<1, pair_p>;
+
+                    if constexpr (number_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        convertible_p random_b;
+                        do {
+                            random_b = Random<convertible_p>(std::numeric_limits<atom_p>::lowest(),
+                                                             std::numeric_limits<atom_p>::max());
+                        } while (static_cast<atom_p>(random_b) == 0);
+                        atom_p value = random_a;
+                        Exchange_Divide(value, random_b);
+                        CHECK(value == (random_a /= static_cast<atom_p>(random_b)));
+                    }
+                }
+                /// [_1cc9dcb3_26b4_4499_8cd5_8db780bdca8c]
+            }
+
+            TEST_SUITE("Exchange_Modulus()")
+            {
+                /// [_e5451fea_cc5f_4ebc_b5d5_8b08c3a111da]
+                TEST_CASE_TEMPLATE("should set the value to value % passed value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b;
+                        do {
+                            random_b = Random<atom_p>();
+                        } while (random_b == 0);
+                        atom_p value = random_a;
+                        Exchange_Modulus(value, random_b);
+                        CHECK(value == (random_a %= random_b));
+                    }
+                }
+                /// [_e5451fea_cc5f_4ebc_b5d5_8b08c3a111da]
+
+                /// [_9c67480d_25d1_41ad_8030_63335bf8ea23]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b;
+                        do {
+                            random_b = Random<atom_p>();
+                        } while (random_b == 0);
+                        atom_p value = random_a;
+                        CHECK(Exchange_Modulus(value, random_b) == random_a);
+                    }
+                }
+                /// [_9c67480d_25d1_41ad_8030_63335bf8ea23]
+            }
+
+            TEST_SUITE("Exchange_Or()")
+            {
+                /// [_b174d2e7_5cb0_407a_8657_991c0f444ba4]
+                TEST_CASE_TEMPLATE("should set the value to value | passed value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_Or(value, random_b);
+                        CHECK(value == (random_a |= random_b));
+                    }
+                }
+                /// [_b174d2e7_5cb0_407a_8657_991c0f444ba4]
+
+                /// [_7f93e7c5_8e50_44fa_8b7d_459a5b7a349a]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Or(value, random_b) == random_a);
+                    }
+                }
+                /// [_7f93e7c5_8e50_44fa_8b7d_459a5b7a349a]
+            }
+
+            TEST_SUITE("Exchange_And()")
+            {
+                /// [_f22797a7_89bc_4b21_bb54_4821a254fef8]
+                TEST_CASE_TEMPLATE("should set the value to value & passed value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_And(value, random_b);
+                        CHECK(value == (random_a &= random_b));
+                    }
+                }
+                /// [_f22797a7_89bc_4b21_bb54_4821a254fef8]
+
+                /// [_032da151_3782_47dc_a9fe_9bfa1ead41ca]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_And(value, random_b) == random_a);
+                    }
+                }
+                /// [_032da151_3782_47dc_a9fe_9bfa1ead41ca]
+            }
+
+            TEST_SUITE("Exchange_Xor()")
+            {
+                /// [_8aff4d56_ead1_4706_8a83_7ffe39b94dea]
+                TEST_CASE_TEMPLATE("should set the value to value ^ passed value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_Xor(value, random_b);
+                        CHECK(value == (random_a ^= random_b));
+                    }
+                }
+                /// [_8aff4d56_ead1_4706_8a83_7ffe39b94dea]
+
+                /// [_b5a97fce_b8a8_46de_a777_b6b40b4094b2]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Xor(value, random_b) == random_a);
+                    }
+                }
+                /// [_b5a97fce_b8a8_46de_a777_b6b40b4094b2]
+            }
+
+            TEST_SUITE("Exchange_Left_Shift()")
+            {
+                /// [_50e9921e_8412_4549_b13a_b999679ad0be]
+                TEST_CASE_TEMPLATE("should set the value to value << passed value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_Left_Shift(value, random_b);
+                        CHECK(value == (random_a <<= random_b));
+                    }
+                }
+                /// [_50e9921e_8412_4549_b13a_b999679ad0be]
+
+                /// [_36e6f4c1_7bf0_4e1f_abeb_95fd6c7f4a6a]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Left_Shift(value, random_b) == random_a);
+                    }
+                }
+                /// [_36e6f4c1_7bf0_4e1f_abeb_95fd6c7f4a6a]
+            }
+
+            TEST_SUITE("Exchange_Right_Shift()")
+            {
+                /// [_6e658448_1e1f_4055_9f66_e194035f5573]
+                TEST_CASE_TEMPLATE("should set the value to value >> passed value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        Exchange_Right_Shift(value, random_b);
+                        CHECK(value == (random_a >>= random_b));
+                    }
+                }
+                /// [_6e658448_1e1f_4055_9f66_e194035f5573]
+
+                /// [_db165fe2_b8b4_4056_aabd_a62cad104e6a]
+                TEST_CASE_TEMPLATE("should return the old value", atom_p, atoms)
+                {
+                    if constexpr (integer_tr<atom_p>) {
+                        atom_p random_a = Random<atom_p>();
+                        atom_p random_b = Random<atom_p>();
+                        atom_p value = random_a;
+                        CHECK(Exchange_Right_Shift(value, random_b) == random_a);
+                    }
+                }
+                /// [_db165fe2_b8b4_4056_aabd_a62cad104e6a]
+            }
+
+            TEST_SUITE("Exchange_If_Equals()")
+            {
+                /// [_034843e4_e0d0_4f52_8f78_c3f56925da13]
+                TEST_CASE_TEMPLATE("should set the value to the passed value if the value equals the snapshot", atom_p, atoms)
+                {
+                    atom_p random_a = Random<atom_p>();
+                    atom_p random_b = Random<atom_p>();
+                    atom_p value = random_a;
+                    atom_p snapshot = value;
+                    Exchange_If_Equals(value, snapshot, random_b);
+                    CHECK(value == random_b);
+                }
+                /// [_034843e4_e0d0_4f52_8f78_c3f56925da13]
+
+                /// [_0be1610a_27fa_4ad6_90b8_13a3fc51a126]
+                TEST_CASE_TEMPLATE("should return true if it set the new value", atom_p, atoms)
+                {
+                    atom_p random_a = Random<atom_p>();
+                    atom_p random_b = Random<atom_p>();
+                    atom_p value = random_a;
+                    atom_p snapshot = value;
+                    CHECK(Exchange_If_Equals(value, snapshot, random_b) == true);
+                }
+                /// [_0be1610a_27fa_4ad6_90b8_13a3fc51a126]
+
+                /// [_03edfad8_0c53_4b7c_b3e6_6e718f150abb]
+                TEST_CASE_TEMPLATE("should return false if it did not set the new value", atom_p, atoms)
+                {
+                    atom_p random_a = Random<atom_p>();
+                    atom_p random_b;
+                    do {
+                        random_b = Random<atom_p>();
+                    } while (random_b == random_a);
+                    atom_p value = random_a;
+                    atom_p snapshot = value;
+                    value = random_b;
+                    CHECK(Exchange_If_Equals(value, snapshot, atom_p()) == false);
+                }
+                /// [_03edfad8_0c53_4b7c_b3e6_6e718f150abb]
+
+                /// [_8fa4472e_33c7_4135_a485_5ce05496cdf1]
+                TEST_CASE_TEMPLATE("should leave snapshot with the old value if it succeeded", atom_p, atoms)
+                {
+                    atom_p random_a = Random<atom_p>();
+                    atom_p random_b = Random<atom_p>();
+                    atom_p value = random_a;
+                    atom_p snapshot = value;
+                    Exchange_If_Equals(value, snapshot, random_b);
+                    CHECK(snapshot == random_a);
+                }
+                /// [_8fa4472e_33c7_4135_a485_5ce05496cdf1]
+
+                /// [_55c80c7e_e54b_43fc_bc79_de6b25a4dfa8]
+                TEST_CASE_TEMPLATE("should update snapshot to the current value if it failed", atom_p, atoms)
+                {
+                    atom_p random_a = Random<atom_p>();
+                    atom_p random_b;
+                    do {
+                        random_b = Random<atom_p>();
+                    } while (random_b == random_a);
+                    atom_p value = random_a;
+                    atom_p snapshot = value;
+                    value = random_b;
+                    Exchange_If_Equals(value, snapshot, atom_p());
+                    CHECK(snapshot == random_b);
+                }
+                /// [_55c80c7e_e54b_43fc_bc79_de6b25a4dfa8]
+
+                /// [_449b38fb_4737_41b7_80b0_3ab13221ffcc]
+                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                {
+                    using atom_p = std::tuple_element_t<0, pair_p>;
+                    using convertible_p = std::tuple_element_t<1, pair_p>;
+
+                    atom_p random_a = Random<atom_p>();
+                    convertible_p random_b = Random<convertible_p>();
+                    atom_p value = random_a;
+                    atom_p snapshot = value;
+                    Exchange_If_Equals(value, snapshot, random_b);
+                    CHECK(value == static_cast<atom_p>(random_b));
+                }
+                /// [_449b38fb_4737_41b7_80b0_3ab13221ffcc]
             }
         }
 
