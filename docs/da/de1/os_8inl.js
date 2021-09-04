@@ -24,13 +24,15 @@ var os_8inl =
     [ "Exchange_Left_Shift", "da/de1/os_8inl.html#ae82f1385fc8e4ee8beb4f4a58688c1b5", null ],
     [ "Exchange_Right_Shift", "da/de1/os_8inl.html#a8fa4822ce110d50c57c8a7f8c5fc1380", null ],
     [ "Exchange_If_Equals", "da/de1/os_8inl.html#ada5679733687db490976abdbbff29a61", null ],
-    [ "Swap", "da/de1/os_8inl.html#af06d231600a804944e318386b0ebb55e", null ],
-    [ "Swap", "da/de1/os_8inl.html#ab2b2b7f85673e867cec03c9d31668567", null ],
-    [ "Swap", "da/de1/os_8inl.html#a45b2740f8b5f3c706751240c05d3622f", null ],
+    [ "Swap", "da/de1/os_8inl.html#ad6f72c1256c324ece791595f1f433c26", null ],
     [ "Allocate", "da/de1/os_8inl.html#a29656eece8a2540374033a49f06f6f8d", null ],
     [ "Reallocate", "da/de1/os_8inl.html#ab0ff4d5e02756fef478524cdfd46558c", null ],
     [ "Deallocate", "da/de1/os_8inl.html#a9a3ad08385416135f1196479076cbe37", null ],
     [ "Allocate_Zeros", "da/de1/os_8inl.html#a9845749afb4b1e3e577276b4342ea143", null ],
     [ "Reallocate_Zeros", "da/de1/os_8inl.html#aab1a2f6fb3fb56133144cd777abe97bd", null ],
-    [ "Deallocate_Zeros", "da/de1/os_8inl.html#a5f31aefbed69abd1aae674b80956dd36", null ]
+    [ "Deallocate_Zeros", "da/de1/os_8inl.html#a5f31aefbed69abd1aae674b80956dd36", null ],
+    [ "Will_Overflow_Add", "da/de1/os_8inl.html#a7ffc816d5d48fb8ea4c199eade156ec1", null ],
+    [ "Will_Overflow_Subtract", "da/de1/os_8inl.html#a01c8651176e369626f380759fea2ffa5", null ],
+    [ "Will_Overflow_Multiply", "da/de1/os_8inl.html#ace10c2b3d3dc411e0a60214cadcbac1a", null ],
+    [ "Will_Overflow_Divide", "da/de1/os_8inl.html#a1f19480c7dd2ab4038d05dfd8fb298bd", null ]
 ];

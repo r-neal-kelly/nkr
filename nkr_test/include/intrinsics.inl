@@ -52,9 +52,9 @@ namespace nkr {
             real_p abs_to_inclusive = abs(to_inclusive);
             if (to_inclusive > 0.0) {
                 if (abs_from_inclusive > abs_to_inclusive) {
-                    do_negative = !Random<bool_t>(abs_to_inclusive / abs_from_inclusive / 2);
+                    do_negative = !Random<bool_t>(real_t(abs_to_inclusive / abs_from_inclusive / 2));
                 } else {
-                    do_negative = Random<bool_t>(abs_from_inclusive / abs_to_inclusive / 2);
+                    do_negative = Random<bool_t>(real_t(abs_from_inclusive / abs_to_inclusive / 2));
                 }
                 if (do_negative) {
                     from_inclusive = 0.0;

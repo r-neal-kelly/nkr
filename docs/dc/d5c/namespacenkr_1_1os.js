@@ -29,9 +29,7 @@ var namespacenkr_1_1os =
     [ "endian", "d8/dd5/namespacenkr_1_1os_1_1endian.html", [
       [ "Is_Big", "d8/dd5/namespacenkr_1_1os_1_1endian.html#a89b0021664e965fce2548f80d51925dc", null ],
       [ "Is_Little", "d8/dd5/namespacenkr_1_1os_1_1endian.html#aaeaaf2ecee3780e033b87c5edc53ebfa", null ],
-      [ "Swap", "d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e", null ],
-      [ "Swap", "d8/dd5/namespacenkr_1_1os_1_1endian.html#ab2b2b7f85673e867cec03c9d31668567", null ],
-      [ "Swap", "d8/dd5/namespacenkr_1_1os_1_1endian.html#a45b2740f8b5f3c706751240c05d3622f", null ]
+      [ "Swap", "d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26", null ]
     ] ],
     [ "heap", "d0/d97/namespacenkr_1_1os_1_1heap.html", [
       [ "Allocate", "d0/d97/namespacenkr_1_1os_1_1heap.html#a29656eece8a2540374033a49f06f6f8d", null ],
@@ -40,5 +38,11 @@ var namespacenkr_1_1os =
       [ "Allocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#a9845749afb4b1e3e577276b4342ea143", null ],
       [ "Reallocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#aab1a2f6fb3fb56133144cd777abe97bd", null ],
       [ "Deallocate_Zeros", "d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36", null ]
+    ] ],
+    [ "math", "d5/d4c/namespacenkr_1_1os_1_1math.html", [
+      [ "Will_Overflow_Add", "d5/d4c/namespacenkr_1_1os_1_1math.html#a7ffc816d5d48fb8ea4c199eade156ec1", null ],
+      [ "Will_Overflow_Subtract", "d5/d4c/namespacenkr_1_1os_1_1math.html#a01c8651176e369626f380759fea2ffa5", null ],
+      [ "Will_Overflow_Multiply", "d5/d4c/namespacenkr_1_1os_1_1math.html#ace10c2b3d3dc411e0a60214cadcbac1a", null ],
+      [ "Will_Overflow_Divide", "d5/d4c/namespacenkr_1_1os_1_1math.html#a1f19480c7dd2ab4038d05dfd8fb298bd", null ]
     ] ]
 ];

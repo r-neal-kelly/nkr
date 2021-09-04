@@ -6,6 +6,7 @@ var searchData=
   ['atomic_3',['atomic',['../d1/db5/namespacenkr_1_1os_1_1atomic.html',1,'nkr::os']]],
   ['endian_4',['endian',['../d8/dd5/namespacenkr_1_1os_1_1endian.html',1,'nkr::os']]],
   ['heap_5',['heap',['../d0/d97/namespacenkr_1_1os_1_1heap.html',1,'nkr::os']]],
-  ['nkr_6',['nkr',['../dc/d0c/namespacenkr.html',1,'']]],
-  ['os_7',['os',['../dc/d5c/namespacenkr_1_1os.html',1,'nkr']]]
+  ['math_6',['math',['../d5/d4c/namespacenkr_1_1os_1_1math.html',1,'nkr::os']]],
+  ['nkr_7',['nkr',['../dc/d0c/namespacenkr.html',1,'']]],
+  ['os_8',['os',['../dc/d5c/namespacenkr_1_1os.html',1,'nkr']]]
 ];

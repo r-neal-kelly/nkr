@@ -1118,94 +1118,103 @@ namespace nkr { namespace os { namespace atomic {
 
 namespace nkr { namespace os { namespace endian {
 
-    TEST_SUITE("Is_Big")
+    TEST_SUITE("nkr::os::endian")
     {
-        TEST_CASE("should in a thread-safe manner efficiently determine if the runtime is in big endian"
-                  * doctest::may_fail(true)
-                  * doctest::no_breaks(true))
+        TEST_SUITE("Info")
         {
-            /// [_2367da3d_58c3_4a8f_98c4_c9d8c809cb25]
-        #if defined(nkr_IS_WINDOWS)
-            CHECK(nkr::os::endian::Is_Big() == false);
-        #else
-            CHECK(nkr::os::endian::Is_Big() == true);
-        #endif
-            /// [_2367da3d_58c3_4a8f_98c4_c9d8c809cb25]
+            TEST_SUITE("Is_Big()")
+            {
+                TEST_CASE("should in a thread-safe manner efficiently determine if the runtime is in big endian"
+                          * doctest::may_fail(true)
+                          * doctest::no_breaks(true))
+                {
+                    /// [_2367da3d_58c3_4a8f_98c4_c9d8c809cb25]
+                #if defined(nkr_IS_WINDOWS)
+                    CHECK(nkr::os::endian::Is_Big() == false);
+                #else
+                    CHECK(nkr::os::endian::Is_Big() == true);
+                #endif
+                    /// [_2367da3d_58c3_4a8f_98c4_c9d8c809cb25]
+                }
+            }
+
+            TEST_SUITE("Is_Little()")
+            {
+                TEST_CASE("should in a thread-safe manner efficiently determine if the runtime is in little endian"
+                          * doctest::may_fail(true)
+                          * doctest::no_breaks(true))
+                {
+                    /// [_e5a7621e_6b04_42ef_b8d2_94d576abb57e]
+                #if defined(nkr_IS_WINDOWS)
+                    CHECK(nkr::os::endian::Is_Little() == true);
+                #else
+                    CHECK(nkr::os::endian::Is_Little() == false);
+                #endif
+                    /// [_e5a7621e_6b04_42ef_b8d2_94d576abb57e]
+                }
+            }
         }
-    }
 
-    TEST_SUITE("Is_Little")
-    {
-        TEST_CASE("should in a thread-safe manner efficiently determine if the runtime is in little endian"
-                  * doctest::may_fail(true)
-                  * doctest::no_breaks(true))
+        TEST_SUITE("Swap")
         {
-            /// [_e5a7621e_6b04_42ef_b8d2_94d576abb57e]
-        #if defined(nkr_IS_WINDOWS)
-            CHECK(nkr::os::endian::Is_Little() == true);
-        #else
-            CHECK(nkr::os::endian::Is_Little() == false);
-        #endif
-            /// [_e5a7621e_6b04_42ef_b8d2_94d576abb57e]
-        }
-    }
+            TEST_SUITE("Swap()")
+            {
+                TEST_SUITE("should swap the bytes of 16 bit, 32 bit, and 64 bit numbers")
+                {
+                    TEST_CASE("s32_t literal")
+                    {
+                        /// [_8204605f_3b41_4633_8865_89d336420022]
+                        CHECK(nkr::os::endian::Swap(0x0102) != 0x0201);
+                        CHECK(nkr::os::endian::Swap(0x0102) == 0x02010000);
+                        CHECK(nkr::os::endian::Swap(static_cast<u16_t>(0x0102)) == 0x0201);
 
-    TEST_SUITE("Swap")
-    {
-        TEST_SUITE("should swap the bytes of 16 bit, 32 bit, and 64 bit numbers")
-        {
-            TEST_CASE("s32_t literal")
-            {
-                /// [_8204605f_3b41_4633_8865_89d336420022]
-                CHECK(nkr::os::endian::Swap(0x0102) != 0x0201);
-                CHECK(nkr::os::endian::Swap(0x0102) == 0x02010000);
-                CHECK(nkr::os::endian::Swap(static_cast<u16_t>(0x0102)) == 0x0201);
-
-                CHECK(nkr::os::endian::Swap(0x01020304) == 0x04030201);
-                CHECK(nkr::os::endian::Swap(0x0102030405060708) == 0x0807060504030201);
-                /// [_8204605f_3b41_4633_8865_89d336420022]
-            }
-            TEST_CASE("u16_t")
-            {
-                /// [_6bc67519_2af0_4999_a15c_ad085acb68e4]
-                u16_t u16 = 0x0102;
-                CHECK(nkr::os::endian::Swap(u16) == 0x0201);
-                /// [_6bc67519_2af0_4999_a15c_ad085acb68e4]
-            }
-            TEST_CASE("s16_t")
-            {
-                /// [_962de4de_8f29_4f35_9ffb_123ac19b3cf8]
-                s16_t s16 = 0x0102;
-                CHECK(nkr::os::endian::Swap(s16) == 0x0201);
-                /// [_962de4de_8f29_4f35_9ffb_123ac19b3cf8]
-            }
-            TEST_CASE("u32_t")
-            {
-                /// [_d480540a_cabf_45d6_b3dc_0882dca2569b]
-                u32_t u32 = 0x01020304;
-                CHECK(nkr::os::endian::Swap(u32) == 0x04030201);
-                /// [_d480540a_cabf_45d6_b3dc_0882dca2569b]
-            }
-            TEST_CASE("s32_t")
-            {
-                /// [_59caf647_91bb_4926_b0d0_401183e97ded]
-                s32_t s32 = 0x01020304;
-                CHECK(nkr::os::endian::Swap(s32) == 0x04030201);
-                /// [_59caf647_91bb_4926_b0d0_401183e97ded]
-            }
-            TEST_CASE("u64_t")
-            {
-                /// [_52a0d032_dab3_4a2e_a06a_67bc56f297f4]
-                u64_t u64 = 0x0102030405060708;
-                CHECK(nkr::os::endian::Swap(u64) == 0x0807060504030201);
-                /// [_52a0d032_dab3_4a2e_a06a_67bc56f297f4]
-            }
-            TEST_CASE("s64_t")
-            {
-                /// [_70f7b676_8069_4eec_93bf_007c172f1e39]
-                s64_t s64 = 0x0102030405060708;
-                CHECK(nkr::os::endian::Swap(s64) == 0x0807060504030201);
-                /// [_70f7b676_8069_4eec_93bf_007c172f1e39]
+                        CHECK(nkr::os::endian::Swap(0x01020304) == 0x04030201);
+                        CHECK(nkr::os::endian::Swap(0x0102030405060708) == 0x0807060504030201);
+                        /// [_8204605f_3b41_4633_8865_89d336420022]
+                    }
+                    TEST_CASE("u16_t")
+                    {
+                        /// [_6bc67519_2af0_4999_a15c_ad085acb68e4]
+                        u16_t u16 = 0x0102;
+                        CHECK(nkr::os::endian::Swap(u16) == 0x0201);
+                        /// [_6bc67519_2af0_4999_a15c_ad085acb68e4]
+                    }
+                    TEST_CASE("s16_t")
+                    {
+                        /// [_962de4de_8f29_4f35_9ffb_123ac19b3cf8]
+                        s16_t s16 = 0x0102;
+                        CHECK(nkr::os::endian::Swap(s16) == 0x0201);
+                        /// [_962de4de_8f29_4f35_9ffb_123ac19b3cf8]
+                    }
+                    TEST_CASE("u32_t")
+                    {
+                        /// [_d480540a_cabf_45d6_b3dc_0882dca2569b]
+                        u32_t u32 = 0x01020304;
+                        CHECK(nkr::os::endian::Swap(u32) == 0x04030201);
+                        /// [_d480540a_cabf_45d6_b3dc_0882dca2569b]
+                    }
+                    TEST_CASE("s32_t")
+                    {
+                        /// [_59caf647_91bb_4926_b0d0_401183e97ded]
+                        s32_t s32 = 0x01020304;
+                        CHECK(nkr::os::endian::Swap(s32) == 0x04030201);
+                        /// [_59caf647_91bb_4926_b0d0_401183e97ded]
+                    }
+                    TEST_CASE("u64_t")
+                    {
+                        /// [_52a0d032_dab3_4a2e_a06a_67bc56f297f4]
+                        u64_t u64 = 0x0102030405060708;
+                        CHECK(nkr::os::endian::Swap(u64) == 0x0807060504030201);
+                        /// [_52a0d032_dab3_4a2e_a06a_67bc56f297f4]
+                    }
+                    TEST_CASE("s64_t")
+                    {
+                        /// [_70f7b676_8069_4eec_93bf_007c172f1e39]
+                        s64_t s64 = 0x0102030405060708;
+                        CHECK(nkr::os::endian::Swap(s64) == 0x0807060504030201);
+                        /// [_70f7b676_8069_4eec_93bf_007c172f1e39]
+                    }
+                }
             }
         }
     }
@@ -1214,115 +1223,203 @@ namespace nkr { namespace os { namespace endian {
 
 namespace nkr { namespace os { namespace heap {
 
-    TEST_SUITE("Allocate")
+    TEST_SUITE("nkr::os::heap")
     {
-        TEST_CASE("should allocate heap memory, set pointer, and return true, or set nullptr and return false")
+        TEST_SUITE("Allocation")
         {
-            /// [_a06ecc73_e7ac_43b2_b231_059675458c15]
-            word_t* words = nullptr;
-            CHECK(os::heap::Allocate(words, 0xFF));
-            CHECK(words != nullptr);
+            TEST_SUITE("Allocate()")
+            {
+                TEST_CASE("should allocate heap memory, set pointer, and return true, or set nullptr and return false")
+                {
+                    /// [_a06ecc73_e7ac_43b2_b231_059675458c15]
+                    word_t* words = nullptr;
+                    CHECK(os::heap::Allocate(words, 0xFF));
+                    CHECK(words != nullptr);
 
-            word_t* too_many = nullptr;
-            CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
-            CHECK(too_many == nullptr);
+                    word_t* too_many = nullptr;
+                    CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(too_many == nullptr);
 
-            os::heap::Deallocate(words);
-            /// [_a06ecc73_e7ac_43b2_b231_059675458c15]
-        }
-    }
-
-    TEST_SUITE("Reallocate")
-    {
-        TEST_CASE("should reallocate heap memory, set pointer, and return true, else leave pointer and return false")
-        {
-            /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
-            word_t* words = nullptr;
-            os::heap::Allocate(words, 0xFF);
-            CHECK(os::heap::Reallocate(words, 0x100) == true);
-            CHECK(words != nullptr);
-
-            word_t* backup = words;
-            CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
-            CHECK(words == backup);
-
-            os::heap::Deallocate(words);
-            /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
-        }
-    }
-
-    TEST_SUITE("Deallocate")
-    {
-        TEST_CASE("should deallocate heap memory and set pointer to nullptr, or if pointer is nullptr, silently fail")
-        {
-            /// [_09113b05_5f70_459c_9827_f53c58816243]
-            word_t* words = nullptr;
-            os::heap::Allocate(words, 0xFF);
-            os::heap::Deallocate(words);
-            CHECK(words == nullptr);
-
-            os::heap::Deallocate(words);
-            CHECK(words == nullptr);
-            /// [_09113b05_5f70_459c_9827_f53c58816243]
-        }
-    }
-
-    TEST_SUITE("Allocate_Zeros")
-    {
-        TEST_CASE("should allocate heap memory, set pointer, set memory to zero, and return true, or set nullptr and return false")
-        {
-            /// [_fc02c748_8572_4062_b2b1_8cfaa78bc002]
-            word_t* words = nullptr;
-            CHECK(os::heap::Allocate_Zeros(words, 0xFF));
-            CHECK(words != nullptr);
-            for (index_t idx = 0, end = 0xFF; idx < end; idx += 1) {
-                WARN(words[idx] == 0);
+                    os::heap::Deallocate(words);
+                    /// [_a06ecc73_e7ac_43b2_b231_059675458c15]
+                }
             }
 
-            word_t* too_many = nullptr;
-            CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
-            CHECK(too_many == nullptr);
+            TEST_SUITE("Reallocate()")
+            {
+                TEST_CASE("should reallocate heap memory, set pointer, and return true, else leave pointer and return false")
+                {
+                    /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
+                    word_t* words = nullptr;
+                    os::heap::Allocate(words, 0xFF);
+                    CHECK(os::heap::Reallocate(words, 0x100) == true);
+                    CHECK(words != nullptr);
 
-            os::heap::Deallocate_Zeros(words);
-            /// [_fc02c748_8572_4062_b2b1_8cfaa78bc002]
-        }
-    }
+                    word_t* backup = words;
+                    CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(words == backup);
 
-    TEST_SUITE("Reallocate_Zeros")
-    {
-        TEST_CASE("should reallocate heap memory, set pointer, set memory to zero, and return true, else leave pointer and return false")
-        {
-            /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
-            word_t* words = nullptr;
-            os::heap::Allocate_Zeros(words, 0xFF);
-            CHECK(os::heap::Reallocate_Zeros(words, 0x100) == true);
-            CHECK(words != nullptr);
-            for (index_t idx = 0, end = 0x100; idx < end; idx += 1) {
-                WARN(words[idx] == 0);
+                    os::heap::Deallocate(words);
+                    /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
+                }
             }
 
-            word_t* backup = words;
-            CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
-            CHECK(words == backup);
+            TEST_SUITE("Deallocate()")
+            {
+                TEST_CASE("should deallocate heap memory and set pointer to nullptr, or if pointer is nullptr, silently fail")
+                {
+                    /// [_09113b05_5f70_459c_9827_f53c58816243]
+                    word_t* words = nullptr;
+                    os::heap::Allocate(words, 0xFF);
+                    os::heap::Deallocate(words);
+                    CHECK(words == nullptr);
 
-            os::heap::Deallocate_Zeros(words);
-            /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
+                    os::heap::Deallocate(words);
+                    CHECK(words == nullptr);
+                    /// [_09113b05_5f70_459c_9827_f53c58816243]
+                }
+            }
+        }
+
+        TEST_SUITE("Zero-Initialized Allocation")
+        {
+            TEST_SUITE("Allocate_Zeros()")
+            {
+                TEST_CASE("should allocate heap memory, set pointer, set memory to zero, and return true, or set nullptr and return false")
+                {
+                    /// [_fc02c748_8572_4062_b2b1_8cfaa78bc002]
+                    word_t* words = nullptr;
+                    CHECK(os::heap::Allocate_Zeros(words, 0xFF));
+                    CHECK(words != nullptr);
+                    for (index_t idx = 0, end = 0xFF; idx < end; idx += 1) {
+                        WARN(words[idx] == 0);
+                    }
+
+                    word_t* too_many = nullptr;
+                    CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(too_many == nullptr);
+
+                    os::heap::Deallocate_Zeros(words);
+                    /// [_fc02c748_8572_4062_b2b1_8cfaa78bc002]
+                }
+            }
+
+            TEST_SUITE("Reallocate_Zeros()")
+            {
+                TEST_CASE("should reallocate heap memory, set pointer, set memory to zero, and return true, else leave pointer and return false")
+                {
+                    /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
+                    word_t* words = nullptr;
+                    os::heap::Allocate_Zeros(words, 0xFF);
+                    CHECK(os::heap::Reallocate_Zeros(words, 0x100) == true);
+                    CHECK(words != nullptr);
+                    for (index_t idx = 0, end = 0x100; idx < end; idx += 1) {
+                        WARN(words[idx] == 0);
+                    }
+
+                    word_t* backup = words;
+                    CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(words == backup);
+
+                    os::heap::Deallocate_Zeros(words);
+                    /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
+                }
+            }
+
+            TEST_SUITE("Deallocate_Zeros()")
+            {
+                TEST_CASE("should deallocate heap memory and set pointer to nullptr, or if pointer is nullptr, silently fail")
+                {
+                    /// [_6c279b29_119d_4ca0_8c6a_552cb9ea6431]
+                    word_t* words = nullptr;
+                    os::heap::Allocate_Zeros(words, 0xFF);
+                    os::heap::Deallocate_Zeros(words);
+                    CHECK(words == nullptr);
+
+                    os::heap::Deallocate_Zeros(words);
+                    CHECK(words == nullptr);
+                    /// [_6c279b29_119d_4ca0_8c6a_552cb9ea6431]
+                }
+            }
         }
     }
 
-    TEST_SUITE("Deallocate_Zeros")
-    {
-        TEST_CASE("should deallocate heap memory and set pointer to nullptr, or if pointer is nullptr, silently fail")
-        {
-            /// [_6c279b29_119d_4ca0_8c6a_552cb9ea6431]
-            word_t* words = nullptr;
-            os::heap::Allocate_Zeros(words, 0xFF);
-            os::heap::Deallocate_Zeros(words);
-            CHECK(words == nullptr);
+}}}
 
-            os::heap::Deallocate_Zeros(words);
-            CHECK(words == nullptr);
-            /// [_6c279b29_119d_4ca0_8c6a_552cb9ea6431]
+namespace nkr { namespace os { namespace math {
+
+    TEST_SUITE("nkr::os::math")
+    {
+        TEST_SUITE("Overflow")
+        {
+        #define numbers \
+            u8_t,       \
+            s8_t,       \
+            u16_t,      \
+            s16_t,      \
+            u32_t,      \
+            s32_t,      \
+            u64_t,      \
+            s64_t,      \
+            r32_t,      \
+            r64_t
+
+            TEST_SUITE("Will_Overflow_Add")
+            {
+                TEST_CASE_TEMPLATE("should return true if a + b would overflow", number_p, numbers)
+                {
+                    CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::max(), number_p(1)) == true);
+
+                    if constexpr (std::is_signed_v<number_p>) {
+                        CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::lowest(), number_p(-1)) == true);
+                    } else {
+                        CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::lowest(), number_p(-1)) == false);
+                    }
+
+                    CHECK(Will_Overflow_Add<number_p>(0, -1) == false);
+                }
+            }
+
+            TEST_SUITE("Will_Overflow_Subtract")
+            {
+                TEST_CASE_TEMPLATE("should return true if a - b would overflow", number_p, numbers)
+                {
+
+                }
+            }
+
+            TEST_SUITE("Will_Overflow_Multiply")
+            {
+                TEST_CASE_TEMPLATE("should return true if a * b would overflow", number_p, numbers)
+                {
+                    CHECK(Will_Overflow_Multiply<number_p>(std::numeric_limits<number_p>::max(), 2) == true);
+
+                    for (u8_t count = 1, last = 5; count <= last; count += 1) {
+                        number_p random_a = Random<number_p>(0, std::numeric_limits<number_p>::max() / count);
+                        number_p random_b = Random<number_p>(1, count);
+                        CHECK(Will_Overflow_Multiply<number_p>(random_a, random_b) == false);
+                        if constexpr (std::is_signed_v<number_p>) {
+                            CHECK(Will_Overflow_Multiply<number_p>(random_a, -random_b) == false);
+                        }
+                    }
+
+                    if constexpr (std::is_signed_v<number_p>) {
+                        CHECK(Will_Overflow_Multiply<number_p>(2, -2) == false);
+                    }
+                }
+            }
+
+            TEST_SUITE("Will_Overflow_Divide")
+            {
+                TEST_CASE_TEMPLATE("should return true if a / b would overflow", number_p, numbers)
+                {
+                    if constexpr (std::is_signed_v<number_p>) {
+                        CHECK(Will_Overflow_Divide<number_p>(std::numeric_limits<number_p>::lowest(), -1) == true);
+                    }
+                }
+            }
+
+        #undef numbers
         }
     }
 

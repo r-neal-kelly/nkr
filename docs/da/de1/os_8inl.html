@@ -108,6 +108,8 @@ Namespaces</h2></td></tr>
 <tr class="memitem:d0/d97/namespacenkr_1_1os_1_1heap"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html">nkr::os::heap</a></td></tr>
 <tr class="memdesc:d0/d97/namespacenkr_1_1os_1_1heap"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functions that interface with memory located on the heap. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:d5/d4c/namespacenkr_1_1os_1_1math"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d4c/namespacenkr_1_1os_1_1math.html">nkr::os::math</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -225,21 +227,18 @@ Functions</h2></td></tr>
 <dl class="section user"><dt></dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>You need to be careful when trying to swap literal numbers as shown in the following example: </dd></dl>
 <dl class="section user"><dt></dt><dd></dd></dl>
-<div class="fragment"><div class="line">                CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a>(0x0102) != 0x0201);</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a>(0x0102) == 0x02010000);</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">u16_t</a><span class="keyword">&gt;</span>(0x0102)) == 0x0201);</div>
+<div class="fragment"><div class="line">                        CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a>(0x0102) != 0x0201);</div>
+<div class="line">                        CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a>(0x0102) == 0x02010000);</div>
+<div class="line">                        CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a>(<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">u16_t</a><span class="keyword">&gt;</span>(0x0102)) == 0x0201);</div>
 <div class="line"> </div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a>(0x01020304) == 0x04030201);</div>
-<div class="line">                CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a>(0x0102030405060708) == 0x0807060504030201);</div>
+<div class="line">                        CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a>(0x01020304) == 0x04030201);</div>
+<div class="line">                        CHECK(<a class="code hl_function" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a>(0x0102030405060708) == 0x0807060504030201);</div>
 <div class="ttc" id="agroup__intrinsics__integers_html_gae64d2269a915666c51cc67c222d8c7ac"><div class="ttname"><a href="../../d8/d3c/group__intrinsics__integers.html#gae64d2269a915666c51cc67c222d8c7ac">nkr::u16_t</a></div><div class="ttdeci">std::uint16_t u16_t</div><div class="ttdef"><b>Definition:</b> intrinsics.h:48</div></div>
-<div class="ttc" id="anamespacenkr_1_1os_1_1endian_html_af06d231600a804944e318386b0ebb55e"><div class="ttname"><a href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a></div><div class="ttdeci">integer_16_tr auto Swap(integer_16_tr auto bytes)</div><div class="ttdef"><b>Definition:</b> os.inl:505</div></div>
+<div class="ttc" id="anamespacenkr_1_1os_1_1endian_html_ad6f72c1256c324ece791595f1f433c26"><div class="ttname"><a href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a></div><div class="ttdeci">integer_p Swap(integer_p bytes)</div><div class="ttdef"><b>Definition:</b> os.inl:506</div></div>
 </div><!-- fragment --> </div></td></tr>
-<tr class="memitem:af06d231600a804944e318386b0ebb55e"><td class="memItemLeft" align="right" valign="top">integer_16_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e">nkr::os::endian::Swap</a> (integer_16_tr auto bytes)</td></tr>
-<tr class="separator:af06d231600a804944e318386b0ebb55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2b2b7f85673e867cec03c9d31668567"><td class="memItemLeft" align="right" valign="top">integer_32_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ab2b2b7f85673e867cec03c9d31668567">nkr::os::endian::Swap</a> (integer_32_tr auto bytes)</td></tr>
-<tr class="separator:ab2b2b7f85673e867cec03c9d31668567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45b2740f8b5f3c706751240c05d3622f"><td class="memItemLeft" align="right" valign="top">integer_64_tr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#a45b2740f8b5f3c706751240c05d3622f">nkr::os::endian::Swap</a> (integer_64_tr auto bytes)</td></tr>
-<tr class="separator:a45b2740f8b5f3c706751240c05d3622f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6f72c1256c324ece791595f1f433c26"><td class="memTemplParams" colspan="2">template&lt;integer_16_tr integer_p&gt; </td></tr>
+<tr class="memitem:ad6f72c1256c324ece791595f1f433c26"><td class="memTemplItemLeft" align="right" valign="top">integer_p&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26">nkr::os::endian::Swap</a> (integer_p bytes)</td></tr>
+<tr class="separator:ad6f72c1256c324ece791595f1f433c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr><td colspan="2"><div class="groupHeader">Allocation</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><p >Borrow a certain amount of memory from the heap. Use it, expand it, and give it back.</p>
 </div></td></tr>
@@ -264,6 +263,19 @@ Functions</h2></td></tr>
 <tr class="memitem:a5f31aefbed69abd1aae674b80956dd36"><td class="memItemLeft" align="right" valign="top">void_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36">nkr::os::heap::Deallocate_Zeros</a> (type_tr auto *&amp;units)</td></tr>
 <tr class="memdesc:a5f31aefbed69abd1aae674b80956dd36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes back memory you no longer need so it can be reused later.  <a href="../../d0/d97/namespacenkr_1_1os_1_1heap.html#a5f31aefbed69abd1aae674b80956dd36">More...</a><br /></td></tr>
 <tr class="separator:a5f31aefbed69abd1aae674b80956dd36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Overflow</div></td></tr>
+<tr class="memitem:a7ffc816d5d48fb8ea4c199eade156ec1"><td class="memTemplParams" colspan="2">template&lt;number_tr number_p&gt; </td></tr>
+<tr class="memitem:a7ffc816d5d48fb8ea4c199eade156ec1"><td class="memTemplItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/d4c/namespacenkr_1_1os_1_1math.html#a7ffc816d5d48fb8ea4c199eade156ec1">nkr::os::math::Will_Overflow_Add</a> (number_p lhs, number_p rhs)</td></tr>
+<tr class="separator:a7ffc816d5d48fb8ea4c199eade156ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01c8651176e369626f380759fea2ffa5"><td class="memTemplParams" colspan="2">template&lt;number_tr number_p&gt; </td></tr>
+<tr class="memitem:a01c8651176e369626f380759fea2ffa5"><td class="memTemplItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/d4c/namespacenkr_1_1os_1_1math.html#a01c8651176e369626f380759fea2ffa5">nkr::os::math::Will_Overflow_Subtract</a> (number_p lhs, number_p rhs)</td></tr>
+<tr class="separator:a01c8651176e369626f380759fea2ffa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace10c2b3d3dc411e0a60214cadcbac1a"><td class="memTemplParams" colspan="2">template&lt;number_tr number_p&gt; </td></tr>
+<tr class="memitem:ace10c2b3d3dc411e0a60214cadcbac1a"><td class="memTemplItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/d4c/namespacenkr_1_1os_1_1math.html#ace10c2b3d3dc411e0a60214cadcbac1a">nkr::os::math::Will_Overflow_Multiply</a> (number_p lhs, number_p rhs)</td></tr>
+<tr class="separator:ace10c2b3d3dc411e0a60214cadcbac1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f19480c7dd2ab4038d05dfd8fb298bd"><td class="memTemplParams" colspan="2">template&lt;number_tr number_p&gt; </td></tr>
+<tr class="memitem:a1f19480c7dd2ab4038d05dfd8fb298bd"><td class="memTemplItemLeft" align="right" valign="top">bool_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d5/d4c/namespacenkr_1_1os_1_1math.html#a1f19480c7dd2ab4038d05dfd8fb298bd">nkr::os::math::Will_Overflow_Divide</a> (number_p lhs, number_p rhs)</td></tr>
+<tr class="separator:a1f19480c7dd2ab4038d05dfd8fb298bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

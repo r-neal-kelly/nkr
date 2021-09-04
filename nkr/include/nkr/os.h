@@ -28,6 +28,8 @@ namespace nkr {
         /// @copydoc _a6c4699b_8fe4_4664_ac57_062765decc2b
         namespace heap {}
 
+        namespace math {}
+
     }
 
 }
@@ -124,9 +126,12 @@ namespace nkr { namespace os { namespace endian {
     /// @name Swap
     /// @copydoc _b5b179fb_1f64_485e_9510_80260e3a6c33
     /// @{
-    integer_16_tr auto  Swap(integer_16_tr auto bytes); ///< @copydoc _857ce8b6_02ca_48e5_9d19_4a7581b8e4c6
-    integer_32_tr auto  Swap(integer_32_tr auto bytes); ///< @copydoc _02c0499c_c8c8_43b9_8afc_96545310eb3a
-    integer_64_tr auto  Swap(integer_64_tr auto bytes); ///< @copydoc _eabf9a88_080f_445d_88ab_b0dae4a55316
+    template <integer_16_tr integer_p>
+    integer_p   Swap(integer_p bytes);  ///< @copydoc _857ce8b6_02ca_48e5_9d19_4a7581b8e4c6
+    template <integer_32_tr integer_p>
+    integer_p   Swap(integer_p bytes);  ///< @copydoc _02c0499c_c8c8_43b9_8afc_96545310eb3a
+    template <integer_64_tr integer_p>
+    integer_p   Swap(integer_p bytes);  ///< @copydoc _eabf9a88_080f_445d_88ab_b0dae4a55316
     /// @}
 
 }}}
@@ -147,6 +152,22 @@ namespace nkr { namespace os { namespace heap {
     bool_t  Allocate_Zeros(type_tr auto*& units, count_t unit_count);       ///< @copydoc _9c5a7296_5644_47bf_bd3f_ff7de3518ce9
     bool_t  Reallocate_Zeros(type_tr auto*& units, count_t new_unit_count); ///< @copydoc _7d7887a0_3e2d_4502_af8c_d409aae73f0b
     void_t  Deallocate_Zeros(type_tr auto*& units);                         ///< @copydoc _04d9a3fe_30b3_4ae2_bbc4_2a3cfc4768d6
+    /// @}
+
+}}}
+
+namespace nkr { namespace os { namespace math {
+
+    /// @name Overflow
+    /// @{
+    template <number_tr number_p>
+    bool_t  Will_Overflow_Add(number_p lhs, number_p rhs);
+    template <number_tr number_p>
+    bool_t  Will_Overflow_Subtract(number_p lhs, number_p rhs);
+    template <number_tr number_p>
+    bool_t  Will_Overflow_Multiply(number_p lhs, number_p rhs);
+    template <number_tr number_p>
+    bool_t  Will_Overflow_Divide(number_p lhs, number_p rhs);
     /// @}
 
 }}}

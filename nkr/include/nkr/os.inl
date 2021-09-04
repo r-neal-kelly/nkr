@@ -502,17 +502,20 @@ namespace nkr { namespace os { namespace endian {
 
 #if defined(nkr_IS_WINDOWS)
 
-    inline integer_16_tr auto Swap(integer_16_tr auto bytes)
+    template <integer_16_tr integer_p>
+    inline integer_p Swap(integer_p bytes)
     {
         return ::_byteswap_ushort(bytes);
     }
 
-    inline integer_32_tr auto Swap(integer_32_tr auto bytes)
+    template <integer_32_tr integer_p>
+    inline integer_p Swap(integer_p bytes)
     {
         return ::_byteswap_ulong(bytes);
     }
 
-    inline integer_64_tr auto Swap(integer_64_tr auto bytes)
+    template <integer_64_tr integer_p>
+    inline integer_p Swap(integer_p bytes)
     {
         return ::_byteswap_uint64(bytes);
     }
@@ -617,5 +620,43 @@ namespace nkr { namespace os { namespace heap {
     }
 
 #endif
+
+}}}
+
+namespace nkr { namespace os { namespace math {
+
+    template <number_tr number_p>
+    inline bool_t Will_Overflow_Add(number_p lhs, number_p rhs)
+    {
+        return
+            (lhs > 0 && rhs > std::numeric_limits<number_p>::max() - lhs) ||
+            (lhs < 0 && rhs < std::numeric_limits<number_p>::lowest() - lhs);
+    }
+
+    template <number_tr number_p>
+    inline bool_t Will_Overflow_Subtract(number_p lhs, number_p rhs)
+    {
+        return
+            (lhs > 0 && rhs < std::numeric_limits<number_p>::max() - lhs) ||
+            (lhs < 0 && rhs > std::numeric_limits<number_p>::lowest() - lhs);
+    }
+
+    template <number_tr number_p>
+    inline bool_t Will_Overflow_Multiply(number_p lhs, number_p rhs)
+    {
+        return
+            lhs != 0 &&
+            ((lhs == std::numeric_limits<number_p>::lowest() && rhs == -1) ||
+             (lhs == -1 && rhs == std::numeric_limits<number_p>::lowest()) ||
+             (rhs > std::numeric_limits<number_p>::max() / lhs) ||
+             (rhs < std::numeric_limits<number_p>::lowest() / lhs));
+    }
+
+    template <number_tr number_p>
+    inline bool_t Will_Overflow_Divide(number_p lhs, number_p rhs)
+    {
+        return
+            (lhs == std::numeric_limits<number_p>::lowest() && rhs == -1);
+    }
 
 }}}

@@ -20,5 +20,5 @@ var searchData=
   ['string_5fstatic_5ft_3c_20charcoder_5futf_5f8_5ft_20_3e_17',['string_static_t&lt; charcoder_utf_8_t &gt;',['../d4/d5c/classnkr_1_1string__static__t.html',1,'nkr']]],
   ['string_5ft_18',['string_t',['../dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d',1,'nkr']]],
   ['string_5ft_2eh_19',['string_t.h',['../dc/dc4/string__t_8h.html',1,'']]],
-  ['swap_20',['Swap',['../d8/dd5/namespacenkr_1_1os_1_1endian.html#af06d231600a804944e318386b0ebb55e',1,'nkr::os::endian::Swap(integer_16_tr auto bytes)'],['../d8/dd5/namespacenkr_1_1os_1_1endian.html#ab2b2b7f85673e867cec03c9d31668567',1,'nkr::os::endian::Swap(integer_32_tr auto bytes)'],['../d8/dd5/namespacenkr_1_1os_1_1endian.html#a45b2740f8b5f3c706751240c05d3622f',1,'nkr::os::endian::Swap(integer_64_tr auto bytes)']]]
+  ['swap_20',['Swap',['../d8/dd5/namespacenkr_1_1os_1_1endian.html#ad6f72c1256c324ece791595f1f433c26',1,'nkr::os::endian']]]
 ];

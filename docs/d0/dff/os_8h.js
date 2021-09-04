@@ -26,13 +26,15 @@ var os_8h =
     [ "Exchange_If_Equals", "d0/dff/os_8h.html#ada5679733687db490976abdbbff29a61", null ],
     [ "Is_Big", "d0/dff/os_8h.html#a89b0021664e965fce2548f80d51925dc", null ],
     [ "Is_Little", "d0/dff/os_8h.html#aaeaaf2ecee3780e033b87c5edc53ebfa", null ],
-    [ "Swap", "d0/dff/os_8h.html#af06d231600a804944e318386b0ebb55e", null ],
-    [ "Swap", "d0/dff/os_8h.html#ab2b2b7f85673e867cec03c9d31668567", null ],
-    [ "Swap", "d0/dff/os_8h.html#a45b2740f8b5f3c706751240c05d3622f", null ],
+    [ "Swap", "d0/dff/os_8h.html#ad6f72c1256c324ece791595f1f433c26", null ],
     [ "Allocate", "d0/dff/os_8h.html#a29656eece8a2540374033a49f06f6f8d", null ],
     [ "Reallocate", "d0/dff/os_8h.html#ab0ff4d5e02756fef478524cdfd46558c", null ],
     [ "Deallocate", "d0/dff/os_8h.html#a9a3ad08385416135f1196479076cbe37", null ],
     [ "Allocate_Zeros", "d0/dff/os_8h.html#a9845749afb4b1e3e577276b4342ea143", null ],
     [ "Reallocate_Zeros", "d0/dff/os_8h.html#aab1a2f6fb3fb56133144cd777abe97bd", null ],
-    [ "Deallocate_Zeros", "d0/dff/os_8h.html#a5f31aefbed69abd1aae674b80956dd36", null ]
+    [ "Deallocate_Zeros", "d0/dff/os_8h.html#a5f31aefbed69abd1aae674b80956dd36", null ],
+    [ "Will_Overflow_Add", "d0/dff/os_8h.html#a7ffc816d5d48fb8ea4c199eade156ec1", null ],
+    [ "Will_Overflow_Subtract", "d0/dff/os_8h.html#a01c8651176e369626f380759fea2ffa5", null ],
+    [ "Will_Overflow_Multiply", "d0/dff/os_8h.html#ace10c2b3d3dc411e0a60214cadcbac1a", null ],
+    [ "Will_Overflow_Divide", "d0/dff/os_8h.html#a1f19480c7dd2ab4038d05dfd8fb298bd", null ]
 ];
