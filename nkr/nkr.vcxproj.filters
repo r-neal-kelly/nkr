@@ -87,6 +87,9 @@
     <ClInclude Include="include\nkr\fors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\safe_numbers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -137,6 +140,9 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\bool_t.dox" />
+    <None Include="include\nkr\safe_numbers.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\os.cpp">

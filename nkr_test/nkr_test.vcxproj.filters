@@ -45,6 +45,9 @@
     <ClCompile Include="src\atomic_t_void_pointer_p.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\safe_numbers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsics.h">

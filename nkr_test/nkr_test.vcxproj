@@ -169,6 +169,7 @@
     <ClCompile Include="src\maybe_t.cpp" />
     <ClCompile Include="src\os.cpp" />
     <ClCompile Include="src\pointer_t.cpp" />
+    <ClCompile Include="src\safe_numbers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\bool_t.h" />
