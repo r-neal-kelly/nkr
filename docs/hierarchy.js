@@ -45,6 +45,8 @@ var hierarchy =
     [ "nkr::$atomic_t::real_sp< real_p >", "da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html", [
       [ "nkr::atomic_t< real_p >", "d3/de6/classnkr_1_1atomic__t_3_01real__p_01_4.html", null ]
     ] ],
+    [ "nkr::signed_negative_t< integer_p >", "df/dc9/classnkr_1_1signed__negative__t.html", null ],
+    [ "nkr::signed_positive_t< integer_p >", "d1/dfc/classnkr_1_1signed__positive__t.html", null ],
     [ "nkr::string_static_t< charcoder >", "d4/d5c/classnkr_1_1string__static__t.html", null ],
     [ "nkr::string_static_t< charcoder_utf_8_t >", "d4/d5c/classnkr_1_1string__static__t.html", [
       [ "nkr::string_dynamic_t< charcoder >", "d9/d32/classnkr_1_1string__dynamic__t.html", null ]

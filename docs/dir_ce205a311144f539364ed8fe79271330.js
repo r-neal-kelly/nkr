@@ -65,6 +65,8 @@ var dir_ce205a311144f539364ed8fe79271330 =
       [ "nkr::pointer_t< unit_p >", "d9/df4/classnkr_1_1pointer__t.html", "d9/df4/classnkr_1_1pointer__t" ]
     ] ],
     [ "pointer_t.inl", "d7/d21/pointer__t_8inl.html", null ],
+    [ "safe_numbers.h", "d5/dea/safe__numbers_8h.html", "d5/dea/safe__numbers_8h" ],
+    [ "safe_numbers.inl", "d1/d70/safe__numbers_8inl.html", null ],
     [ "some_t.h", "d3/d48/some__t_8h.html", [
       [ "nkr::some_t< any_p >", "d1/def/classnkr_1_1some__t.html", "d1/def/classnkr_1_1some__t" ]
     ] ],

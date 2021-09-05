@@ -37,11 +37,49 @@ namespace nkr {
         operator    value_t() volatile const;
 
     public:
+        signed_positive_t           operator +() volatile const;
+        signed_positive_t           operator -() volatile const                                     = delete;
         signed_positive_t           operator +(convertible_tr<value_t> auto other) volatile const;
         signed_positive_t           operator -(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator *(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator /(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator %(convertible_tr<value_t> auto other) volatile const;
+
+        signed_positive_t           operator ~() volatile const;
+        signed_positive_t           operator |(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator &(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator ^(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator <<(convertible_tr<value_t> auto other) volatile const;
+        signed_positive_t           operator >>(convertible_tr<value_t> auto other) volatile const;
 
         signed_positive_t&          operator +=(convertible_tr<value_t> auto other);
         volatile signed_positive_t& operator +=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator -=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator -=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator *=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator *=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator /=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator /=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator %=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator %=(convertible_tr<value_t> auto other) volatile;
+
+        signed_positive_t&          operator |=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator |=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator &=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator &=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator ^=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator ^=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator <<=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator <<=(convertible_tr<value_t> auto other) volatile;
+        signed_positive_t&          operator >>=(convertible_tr<value_t> auto other);
+        volatile signed_positive_t& operator >>=(convertible_tr<value_t> auto other) volatile;
+
+        signed_positive_t&          operator ++();
+        volatile signed_positive_t& operator ++() volatile;
+        signed_positive_t           operator ++(int) volatile;
+        signed_positive_t&          operator --();
+        volatile signed_positive_t& operator --() volatile;
+        signed_positive_t           operator --(int) volatile;
     };
 
     template <integer_signed_tr integer_p>
@@ -72,11 +110,49 @@ namespace nkr {
         operator    value_t() volatile const;
 
     public:
+        signed_negative_t           operator +() volatile const;
+        signed_negative_t           operator -() volatile const                                     = delete;
         signed_negative_t           operator +(convertible_tr<value_t> auto other) volatile const;
         signed_negative_t           operator -(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator *(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator /(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator %(convertible_tr<value_t> auto other) volatile const;
+
+        signed_negative_t           operator ~() volatile const;
+        signed_negative_t           operator |(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator &(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator ^(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator <<(convertible_tr<value_t> auto other) volatile const;
+        signed_negative_t           operator >>(convertible_tr<value_t> auto other) volatile const;
 
         signed_negative_t&          operator +=(convertible_tr<value_t> auto other);
         volatile signed_negative_t& operator +=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator -=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator -=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator *=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator *=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator /=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator /=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator %=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator %=(convertible_tr<value_t> auto other) volatile;
+
+        signed_negative_t&          operator |=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator |=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator &=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator &=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator ^=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator ^=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator <<=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator <<=(convertible_tr<value_t> auto other) volatile;
+        signed_negative_t&          operator >>=(convertible_tr<value_t> auto other);
+        volatile signed_negative_t& operator >>=(convertible_tr<value_t> auto other) volatile;
+
+        signed_negative_t&          operator ++();
+        volatile signed_negative_t& operator ++() volatile;
+        signed_negative_t           operator ++(int) volatile;
+        signed_negative_t&          operator --();
+        volatile signed_negative_t& operator --() volatile;
+        signed_negative_t           operator --(int) volatile;
     };
 
     using sp8_t     = signed_positive_t<s8_t>;

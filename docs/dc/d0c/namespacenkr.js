@@ -23,6 +23,8 @@ var namespacenkr =
     [ "maybe_t< user_defined_p >", "d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html", "d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4" ],
     [ "none_t", "d1/df2/classnkr_1_1none__t.html", "d1/df2/classnkr_1_1none__t" ],
     [ "pointer_t", "d9/df4/classnkr_1_1pointer__t.html", "d9/df4/classnkr_1_1pointer__t" ],
+    [ "signed_negative_t", "df/dc9/classnkr_1_1signed__negative__t.html", "df/dc9/classnkr_1_1signed__negative__t" ],
+    [ "signed_positive_t", "d1/dfc/classnkr_1_1signed__positive__t.html", "d1/dfc/classnkr_1_1signed__positive__t" ],
     [ "some_t", "d1/def/classnkr_1_1some__t.html", "d1/def/classnkr_1_1some__t" ],
     [ "string_dynamic_t", "d9/d32/classnkr_1_1string__dynamic__t.html", "d9/d32/classnkr_1_1string__dynamic__t" ],
     [ "string_static_t", "d4/d5c/classnkr_1_1string__static__t.html", "d4/d5c/classnkr_1_1string__static__t" ],
@@ -92,5 +94,13 @@ var namespacenkr =
     [ "count_t", "d8/d8d/group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b", null ],
     [ "index_t", "d8/d8d/group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f", null ],
     [ "address_t", "d8/d8d/group__intrinsics__contextuals.html#ga1e9a380f784247ec4046f20b262f0b23", null ],
+    [ "sp8_t", "dc/d0c/namespacenkr.html#ab96f599716fd3424117518706ac2a73d", null ],
+    [ "sp16_t", "dc/d0c/namespacenkr.html#abeecafc3d7e40de51b5bff44d3c7f6c0", null ],
+    [ "sp32_t", "dc/d0c/namespacenkr.html#a1ecf8bd8c3172329613856fdf8ac65aa", null ],
+    [ "sp64_t", "dc/d0c/namespacenkr.html#a949e53371405ef6f046f7da427c7801e", null ],
+    [ "sn8_t", "dc/d0c/namespacenkr.html#a57c424c9f187629351047d2dc12e3478", null ],
+    [ "sn16_t", "dc/d0c/namespacenkr.html#a762aa686afb6775b9a2acf5fe1fe0f91", null ],
+    [ "sn32_t", "dc/d0c/namespacenkr.html#ab5a82036bd17c46375aa0ba01e232385", null ],
+    [ "sn64_t", "dc/d0c/namespacenkr.html#ad0cfc6c76070786d6bd2d38ec5cfc8aa", null ],
     [ "string_t", "dc/d0c/namespacenkr.html#a8cc6d10e1066e50d59cce8fc4461791d", null ]
 ];

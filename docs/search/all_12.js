@@ -10,5 +10,7 @@ var searchData=
   ['_7epointer_5fsp_7',['~pointer_sp',['../d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa1d4ebc741fdd6238084abcbb6dfcded',1,'nkr::$atomic_t::pointer_sp']]],
   ['_7epointer_5ft_8',['~pointer_t',['../d9/df4/classnkr_1_1pointer__t.html#a0ecbb311ccfecfadc95b25f4b88f05a3',1,'nkr::pointer_t']]],
   ['_7ereal_5fsp_9',['~real_sp',['../da/d45/classnkr_1_1_0batomic__t_1_1real__sp.html#adfb9228774e9ed21ec43143d8ca8b824',1,'nkr::$atomic_t::real_sp']]],
-  ['_7evoid_5fpointer_5fsp_10',['~void_pointer_sp',['../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#af9ccd968a8a2998f0f497d4cd52d0cd5',1,'nkr::$atomic_t::void_pointer_sp']]]
+  ['_7esigned_5fnegative_5ft_10',['~signed_negative_t',['../df/dc9/classnkr_1_1signed__negative__t.html#a6e3e58cdf9842c933a5dbde2ae4dc3b3',1,'nkr::signed_negative_t']]],
+  ['_7esigned_5fpositive_5ft_11',['~signed_positive_t',['../d1/dfc/classnkr_1_1signed__positive__t.html#a17b008bae925256a485d3424cc7cf644',1,'nkr::signed_positive_t']]],
+  ['_7evoid_5fpointer_5fsp_12',['~void_pointer_sp',['../d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#af9ccd968a8a2998f0f497d4cd52d0cd5',1,'nkr::$atomic_t::void_pointer_sp']]]
 ];

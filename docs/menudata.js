@@ -49,7 +49,16 @@ var menudata={children:[
 {text:"r",url:"namespacemembers_func.html#index_r"},
 {text:"s",url:"namespacemembers_func.html#index_s"},
 {text:"w",url:"namespacemembers_func.html#index_w"}]},
-{text:"Typedefs",url:"namespacemembers_type.html"}]}]},
+{text:"Typedefs",url:"namespacemembers_type.html",children:[
+{text:"a",url:"namespacemembers_type.html#index_a"},
+{text:"b",url:"namespacemembers_type.html#index_b"},
+{text:"c",url:"namespacemembers_type.html#index_c"},
+{text:"i",url:"namespacemembers_type.html#index_i"},
+{text:"r",url:"namespacemembers_type.html#index_r"},
+{text:"s",url:"namespacemembers_type.html#index_s"},
+{text:"u",url:"namespacemembers_type.html#index_u"},
+{text:"v",url:"namespacemembers_type.html#index_v"},
+{text:"w",url:"namespacemembers_type.html#index_w"}]}]}]},
 {text:"Concepts",url:"concepts.html"},
 {text:"Classes",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},

@@ -39,6 +39,8 @@ var annotated_dup =
       [ "maybe_t< user_defined_p >", "d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html", "d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4" ],
       [ "none_t", "d1/df2/classnkr_1_1none__t.html", "d1/df2/classnkr_1_1none__t" ],
       [ "pointer_t", "d9/df4/classnkr_1_1pointer__t.html", "d9/df4/classnkr_1_1pointer__t" ],
+      [ "signed_negative_t", "df/dc9/classnkr_1_1signed__negative__t.html", "df/dc9/classnkr_1_1signed__negative__t" ],
+      [ "signed_positive_t", "d1/dfc/classnkr_1_1signed__positive__t.html", "d1/dfc/classnkr_1_1signed__positive__t" ],
       [ "some_t", "d1/def/classnkr_1_1some__t.html", "d1/def/classnkr_1_1some__t" ],
       [ "string_dynamic_t", "d9/d32/classnkr_1_1string__dynamic__t.html", "d9/d32/classnkr_1_1string__dynamic__t" ],
       [ "string_static_t", "d4/d5c/classnkr_1_1string__static__t.html", "d4/d5c/classnkr_1_1string__static__t" ],

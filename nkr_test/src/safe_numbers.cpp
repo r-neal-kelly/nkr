@@ -32,6 +32,9 @@ namespace nkr {
                     CHECK(positive_p(positive_p::MAX) - -2 == 1);
 
                     CHECK((positive_p(0) += -1) == positive_p::MAX);
+
+                    CHECK((positive_p(0) -= 1) == positive_p::MAX);
+                    CHECK((positive_p(positive_p::MAX / 2) *= 2) + 2 == positive_p::MIN);
                 }
 
                 TEST_CASE_TEMPLATE("temp", negative_p, sn8_t)
