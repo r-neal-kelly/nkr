@@ -37,7 +37,7 @@ namespace nkr {
         operator    value_t() volatile const;
 
     public:
-        signed_positive_t           operator +() volatile const;
+        signed_positive_t           operator +() volatile const                                     = delete;
         signed_positive_t           operator -() volatile const                                     = delete;
         signed_positive_t           operator +(convertible_tr<value_t> auto other) volatile const;
         signed_positive_t           operator -(convertible_tr<value_t> auto other) volatile const;
@@ -110,7 +110,7 @@ namespace nkr {
         operator    value_t() volatile const;
 
     public:
-        signed_negative_t           operator +() volatile const;
+        signed_negative_t           operator +() volatile const                                     = delete;
         signed_negative_t           operator -() volatile const                                     = delete;
         signed_negative_t           operator +(convertible_tr<value_t> auto other) volatile const;
         signed_negative_t           operator -(convertible_tr<value_t> auto other) volatile const;

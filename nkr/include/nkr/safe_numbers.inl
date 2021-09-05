@@ -71,12 +71,6 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator +() volatile const
-    {
-        return this->value;
-    }
-
-    template <integer_signed_tr integer_p>
     inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator +(convertible_tr<value_t> auto other) volatile const
     {
         return this->value + other;
@@ -386,12 +380,6 @@ namespace nkr {
 
     template <integer_signed_tr integer_p>
     inline signed_negative_t<integer_p>::operator value_t() volatile const
-    {
-        return this->value;
-    }
-
-    template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator +() volatile const
     {
         return this->value;
     }
