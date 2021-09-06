@@ -36,6 +36,57 @@ namespace nkr {
         volatile const sp32_t,  \
         volatile const sp64_t
 
+        TEST_SUITE("aliases")
+        {
+            TEST_SUITE("value_t")
+            {
+                TEST_CASE_TEMPLATE("should equal the passed in type", sp_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp8_t>) {
+                        static_assert(std::same_as<sp_p::value_t, s8_t>);
+                    } else if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp16_t>) {
+                        static_assert(std::same_as<sp_p::value_t, s16_t>);
+                    } else if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp32_t>) {
+                        static_assert(std::same_as<sp_p::value_t, s32_t>);
+                    } else if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp64_t>) {
+                        static_assert(std::same_as<sp_p::value_t, s64_t>);
+                    }
+                }
+            }
+        }
+
+        TEST_SUITE("static data")
+        {
+            TEST_SUITE("MIN")
+            {
+                TEST_CASE_TEMPLATE("should equal zero", sp_p, types, consts, volatiles, volatile_consts)
+                {
+                    CHECK(sp_p::MIN == 0);
+                }
+            }
+
+            TEST_SUITE("MAX")
+            {
+                TEST_CASE_TEMPLATE("should equal the max of value_t", sp_p, types, consts, volatiles, volatile_consts)
+                {
+                    CHECK(sp_p::MAX == std::numeric_limits<sp_p::value_t>::max());
+                }
+            }
+
+            TEST_SUITE("TOTAL")
+            {
+                TEST_CASE_TEMPLATE("should equal the total number of possible values for value_t", sp_p, types, consts, volatiles, volatile_consts)
+                {
+                    CHECK(sp_p::TOTAL == static_cast<u64_t>(std::numeric_limits<sp_p::value_t>::max()) + 1);
+                }
+            }
+        }
+
+        TEST_SUITE("object data")
+        {
+
+        }
+
         TEST_SUITE("objects")
         {
             TEST_SUITE("default_ctor()")
