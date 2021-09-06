@@ -10,19 +10,31 @@
 namespace nkr {
 
     template <integer_signed_tr integer_p>
+    inline typename signed_positive_t<integer_p>::value_t signed_positive_t<integer_p>::To_Value(integer_tr auto from)
+    {
+        return from % TOTAL;
+    }
+
+    template <integer_signed_tr integer_p>
     inline signed_positive_t<integer_p>::signed_positive_t() :
         value(MIN)
     {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>::signed_positive_t(convertible_tr<value_t> auto other) :
-        value(other % TOTAL)
+    inline signed_positive_t<integer_p>::signed_positive_t(integer_tr auto other) :
+        value(To_Value(other))
     {
     }
 
     template <integer_signed_tr integer_p>
     inline signed_positive_t<integer_p>::signed_positive_t(const signed_positive_t& other) :
+        value(other.value)
+    {
+    }
+
+    template <integer_signed_tr integer_p>
+    inline signed_positive_t<integer_p>::signed_positive_t(volatile const signed_positive_t& other) :
         value(other.value)
     {
     }
@@ -34,9 +46,22 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>::signed_positive_t(volatile signed_positive_t&& other) noexcept :
+        value(std::exchange(other.value, MIN))
     {
-        new (this) signed_positive_t(other);
+    }
+
+    template <integer_signed_tr integer_p>
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(integer_tr auto other)
+    {
+        this->value = To_Value(other);
+        return *this;
+    }
+
+    template <integer_signed_tr integer_p>
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(integer_tr auto other) volatile
+    {
+        this->value = To_Value(other);
         return *this;
     }
 
@@ -44,7 +69,16 @@ namespace nkr {
     inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(const signed_positive_t& other)
     {
         if (this != std::addressof(other)) {
-            new (this) signed_positive_t(other);
+            this->value = other.value;
+        }
+        return *this;
+    }
+
+    template <integer_signed_tr integer_p>
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(volatile const signed_positive_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->value = other.value;
         }
         return *this;
     }
@@ -53,7 +87,16 @@ namespace nkr {
     inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(signed_positive_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            new (this) signed_positive_t(std::move(other));
+            this->value = std::exchange(other.value, MIN);
+        }
+        return *this;
+    }
+
+    template <integer_signed_tr integer_p>
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(volatile signed_positive_t&& other) volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = std::exchange(other.value, MIN);
         }
         return *this;
     }
@@ -71,31 +114,31 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator +(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator +(integer_tr auto other) volatile const
     {
         return this->value + other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator -(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator -(integer_tr auto other) volatile const
     {
         return this->value - other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator *(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator *(integer_tr auto other) volatile const
     {
         return this->value * other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator /(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator /(integer_tr auto other) volatile const
     {
         return this->value / other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator %(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator %(integer_tr auto other) volatile const
     {
         return this->value % other;
     }
@@ -107,170 +150,170 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator |(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator |(integer_tr auto other) volatile const
     {
         return this->value | other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator &(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator &(integer_tr auto other) volatile const
     {
         return this->value & other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator ^(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator ^(integer_tr auto other) volatile const
     {
         return this->value ^ other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator <<(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator <<(integer_tr auto other) volatile const
     {
         return this->value << other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator >>(convertible_tr<value_t> auto other) volatile const
+    inline signed_positive_t<integer_p> signed_positive_t<integer_p>::operator >>(integer_tr auto other) volatile const
     {
         return this->value >> other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator +=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator +=(integer_tr auto other)
     {
         this->value = operator +(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator +=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator +=(integer_tr auto other) volatile
     {
         this->value = operator +(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator -=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator -=(integer_tr auto other)
     {
         this->value = operator -(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator -=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator -=(integer_tr auto other) volatile
     {
         this->value = operator -(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator *=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator *=(integer_tr auto other)
     {
         this->value = operator *(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator *=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator *=(integer_tr auto other) volatile
     {
         this->value = operator *(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator /=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator /=(integer_tr auto other)
     {
         this->value = operator /(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator /=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator /=(integer_tr auto other) volatile
     {
         this->value = operator /(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator %=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator %=(integer_tr auto other)
     {
         this->value = operator %(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator %=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator %=(integer_tr auto other) volatile
     {
         this->value = operator %(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator |=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator |=(integer_tr auto other)
     {
         this->value = operator |(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator |=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator |=(integer_tr auto other) volatile
     {
         this->value = operator |(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator &=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator &=(integer_tr auto other)
     {
         this->value = operator &(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator &=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator &=(integer_tr auto other) volatile
     {
         this->value = operator &(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator ^=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator ^=(integer_tr auto other)
     {
         this->value = operator ^(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator ^=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator ^=(integer_tr auto other) volatile
     {
         this->value = operator ^(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator <<=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator <<=(integer_tr auto other)
     {
         this->value = operator <<(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator <<=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator <<=(integer_tr auto other) volatile
     {
         this->value = operator <<(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator >>=(convertible_tr<value_t> auto other)
+    inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator >>=(integer_tr auto other)
     {
         this->value = operator >>(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator >>=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator >>=(integer_tr auto other) volatile
     {
         this->value = operator >>(other);
         return *this;
@@ -321,22 +364,35 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
+    inline typename signed_negative_t<integer_p>::value_t signed_negative_t<integer_p>::To_Value(integer_tr auto from)
+    {
+        value_t value = from % TOTAL;
+        if (value != 0) {
+            value -= TOTAL;
+        }
+        return value;
+    }
+
+    template <integer_signed_tr integer_p>
     inline signed_negative_t<integer_p>::signed_negative_t() :
         value(MAX)
     {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>::signed_negative_t(convertible_tr<value_t> auto other) :
-        value(other % TOTAL)
+    inline signed_negative_t<integer_p>::signed_negative_t(integer_tr auto other) :
+        value(To_Value(other))
     {
-        if (value != 0) {
-            value -= TOTAL;
-        }
     }
 
     template <integer_signed_tr integer_p>
     inline signed_negative_t<integer_p>::signed_negative_t(const signed_negative_t& other) :
+        value(other.value)
+    {
+    }
+
+    template <integer_signed_tr integer_p>
+    inline signed_negative_t<integer_p>::signed_negative_t(volatile const signed_negative_t& other) :
         value(other.value)
     {
     }
@@ -348,9 +404,22 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator =(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>::signed_negative_t(volatile signed_negative_t&& other) noexcept :
+        value(std::exchange(other.value, MAX))
     {
-        new (this) signed_negative_t(other);
+    }
+
+    template <integer_signed_tr integer_p>
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator =(integer_tr auto other)
+    {
+        this->value = To_Value(other);
+        return *this;
+    }
+
+    template <integer_signed_tr integer_p>
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator =(integer_tr auto other) volatile
+    {
+        this->value = To_Value(other);
         return *this;
     }
 
@@ -385,31 +454,31 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator +(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator +(integer_tr auto other) volatile const
     {
         return this->value + other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator -(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator -(integer_tr auto other) volatile const
     {
         return this->value - other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator *(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator *(integer_tr auto other) volatile const
     {
         return this->value * other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator /(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator /(integer_tr auto other) volatile const
     {
         return this->value / other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator %(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator %(integer_tr auto other) volatile const
     {
         return this->value % other;
     }
@@ -421,170 +490,170 @@ namespace nkr {
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator |(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator |(integer_tr auto other) volatile const
     {
         return this->value | other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator &(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator &(integer_tr auto other) volatile const
     {
         return this->value & other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator ^(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator ^(integer_tr auto other) volatile const
     {
         return this->value ^ other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator <<(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator <<(integer_tr auto other) volatile const
     {
         return this->value << other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator >>(convertible_tr<value_t> auto other) volatile const
+    inline signed_negative_t<integer_p> signed_negative_t<integer_p>::operator >>(integer_tr auto other) volatile const
     {
         return this->value >> other;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator +=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator +=(integer_tr auto other)
     {
         this->value = operator +(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator +=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator +=(integer_tr auto other) volatile
     {
         this->value = operator +(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator -=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator -=(integer_tr auto other)
     {
         this->value = operator -(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator -=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator -=(integer_tr auto other) volatile
     {
         this->value = operator -(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator *=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator *=(integer_tr auto other)
     {
         this->value = operator *(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator *=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator *=(integer_tr auto other) volatile
     {
         this->value = operator *(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator /=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator /=(integer_tr auto other)
     {
         this->value = operator /(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator /=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator /=(integer_tr auto other) volatile
     {
         this->value = operator /(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator %=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator %=(integer_tr auto other)
     {
         this->value = operator %(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator %=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator %=(integer_tr auto other) volatile
     {
         this->value = operator %(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator |=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator |=(integer_tr auto other)
     {
         this->value = operator |(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator |=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator |=(integer_tr auto other) volatile
     {
         this->value = operator |(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator &=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator &=(integer_tr auto other)
     {
         this->value = operator &(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator &=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator &=(integer_tr auto other) volatile
     {
         this->value = operator &(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator ^=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator ^=(integer_tr auto other)
     {
         this->value = operator ^(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator ^=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator ^=(integer_tr auto other) volatile
     {
         this->value = operator ^(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator <<=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator <<=(integer_tr auto other)
     {
         this->value = operator <<(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator <<=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator <<=(integer_tr auto other) volatile
     {
         this->value = operator <<(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator >>=(convertible_tr<value_t> auto other)
+    inline signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator >>=(integer_tr auto other)
     {
         this->value = operator >>(other);
         return *this;
     }
 
     template <integer_signed_tr integer_p>
-    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator >>=(convertible_tr<value_t> auto other) volatile
+    inline volatile signed_negative_t<integer_p>& signed_negative_t<integer_p>::operator >>=(integer_tr auto other) volatile
     {
         this->value = operator >>(other);
         return *this;

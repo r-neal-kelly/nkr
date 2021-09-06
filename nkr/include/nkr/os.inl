@@ -17,7 +17,7 @@
 namespace nkr { namespace os { namespace atomic {
 
     template <fundamental_tr atom_p>
-    inline atom_p Access(const volatile atom_p& atom)
+    inline atom_p Access(volatile const atom_p& atom)
     {
         atom_p snapshot = atom_p();
         Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), snapshot, atom_p());

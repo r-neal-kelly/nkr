@@ -40,7 +40,7 @@ namespace nkr { namespace os { namespace atomic {
     /// @copydoc _ebc609cf_5026_47e9_87e7_c8ea9ecc71a9
     /// @{
     template <fundamental_tr atom_p>
-    atom_p  Access(const volatile atom_p& atom);    ///< @copydoc _7c65ec60_0408_4a55_8cb6_e01ed4e45aa8
+    atom_p  Access(volatile const atom_p& atom);    ///< @copydoc _7c65ec60_0408_4a55_8cb6_e01ed4e45aa8
     /// @}
     
     /// @name Assign
