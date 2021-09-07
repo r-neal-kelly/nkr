@@ -72,20 +72,20 @@ namespace nkr {
         /// @name operators
         /// @copydoc 
         /// @{
-        signed_positive_t           operator +() volatile const                         = delete;
-        signed_positive_t           operator -() volatile const                         = delete;
-        signed_positive_t           operator +(integer_tr auto other) volatile const;
-        signed_positive_t           operator -(integer_tr auto other) volatile const;
-        signed_positive_t           operator *(integer_tr auto other) volatile const;
-        signed_positive_t           operator /(integer_tr auto other) volatile const;
-        signed_positive_t           operator %(integer_tr auto other) volatile const;
+        auto                        operator +() volatile const                         = delete;
+        auto                        operator -() volatile const                         = delete;
+        auto                        operator +(integer_tr auto other) volatile const;
+        auto                        operator -(integer_tr auto other) volatile const;
+        auto                        operator *(integer_tr auto other) volatile const;
+        auto                        operator /(integer_tr auto other) volatile const;
+        auto                        operator %(integer_tr auto other) volatile const;
 
-        signed_positive_t           operator ~() volatile const;
-        signed_positive_t           operator |(integer_tr auto other) volatile const;
-        signed_positive_t           operator &(integer_tr auto other) volatile const;
-        signed_positive_t           operator ^(integer_tr auto other) volatile const;
-        signed_positive_t           operator <<(integer_tr auto other) volatile const;
-        signed_positive_t           operator >>(integer_tr auto other) volatile const;
+        auto                        operator ~() volatile const;
+        auto                        operator |(integer_tr auto other) volatile const;
+        auto                        operator &(integer_tr auto other) volatile const;
+        auto                        operator ^(integer_tr auto other) volatile const;
+        auto                        operator <<(integer_tr auto other) volatile const;
+        auto                        operator >>(integer_tr auto other) volatile const;
 
         signed_positive_t&          operator +=(integer_tr auto other);
         volatile signed_positive_t& operator +=(integer_tr auto other) volatile;
