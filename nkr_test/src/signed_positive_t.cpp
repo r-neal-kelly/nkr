@@ -145,9 +145,9 @@ namespace nkr {
                 {
                     using value_t = sp_p::value_t;
 
-                    const u64_t random = Random<u64_t>(sp_p::MIN, sp_p::MAX);
+                    const u64_t random = Random<u64_t>();
                     sp_p sp(random);
-                    CHECK(sp == static_cast<value_t>(random));
+                    CHECK(sp == sp_p::To_Value(random));
                 }
 
                 TEST_CASE_TEMPLATE("should wrap any negative numbers to be positive", sp_p, types, consts, volatiles, volatile_consts)
@@ -170,13 +170,13 @@ namespace nkr {
 
                 TEST_CASE_TEMPLATE("should equate MAX when passed MIN - 1", sp_p, types, consts, volatiles, volatile_consts)
                 {
-                    sp_p sp(sp_p::MIN - 1);
+                    sp_p sp(static_cast<u64_t>(sp_p::MIN) - static_cast<u64_t>(1));
                     CHECK(sp == sp_p::MAX);
                 }
 
                 TEST_CASE_TEMPLATE("should equate MIN when passed MAX + 1", sp_p, types, consts, volatiles, volatile_consts)
                 {
-                    sp_p sp(static_cast<u64_t>(sp_p::MAX) + 1);
+                    sp_p sp(static_cast<u64_t>(sp_p::MAX) + static_cast<u64_t>(1));
                     CHECK(sp == sp_p::MIN);
                 }
             }
@@ -275,10 +275,10 @@ namespace nkr {
                 {
                     using value_t = sp_p::value_t;
 
-                    const u64_t random = Random<u64_t>(sp_p::MIN, sp_p::MAX);
+                    const u64_t random = Random<u64_t>();
                     sp_p sp;
                     sp = random;
-                    CHECK(sp == static_cast<value_t>(random));
+                    CHECK(sp == sp_p::To_Value(random));
                 }
 
                 TEST_CASE_TEMPLATE("should wrap any negative numbers to be positive", sp_p, types, volatiles)
@@ -304,14 +304,14 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should equate MAX when passed MIN - 1", sp_p, types, volatiles)
                 {
                     sp_p sp;
-                    sp = sp_p::MIN - 1;
+                    sp = static_cast<u64_t>(sp_p::MIN) - static_cast<u64_t>(1);
                     CHECK(sp == sp_p::MAX);
                 }
 
                 TEST_CASE_TEMPLATE("should equate MIN when passed MAX + 1", sp_p, types, volatiles)
                 {
                     sp_p sp;
-                    sp = static_cast<u64_t>(sp_p::MAX) + 1;
+                    sp = static_cast<u64_t>(sp_p::MAX) + static_cast<u64_t>(1);
                     CHECK(sp == sp_p::MIN);
                 }
             }
@@ -388,7 +388,7 @@ namespace nkr {
 
             TEST_SUITE("dtor()")
             {
-                TEST_CASE_TEMPLATE("should set value to MIN", sp_p, types, consts, volatiles, volatile_consts)
+                TEST_CASE_TEMPLATE("should set value to the default", sp_p, types, consts, volatiles, volatile_consts)
                 {
                     using value_t = sp_p::value_t;
 
@@ -644,7 +644,7 @@ namespace nkr {
 
             TEST_SUITE("~()")
             {
-                TEST_CASE_TEMPLATE("should return ~value", sp_p, types, consts, volatiles, volatile_consts)
+                TEST_CASE_TEMPLATE("should return ~value without changing signedness", sp_p, types, consts, volatiles, volatile_consts)
                 {
                     using value_t = sp_p::value_t;
 
