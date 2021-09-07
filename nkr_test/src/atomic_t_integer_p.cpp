@@ -1211,7 +1211,7 @@ namespace nkr {
                     CHECK_FALSE(atom > random);
                     CHECK(atom <= random);
                     CHECK(atom >= random);
-                    CHECK(atom <=> random == 0);
+                    CHECK((atom <=> random == 0));
                 }
                 /// [_5e48110e_487f_4ee3_b026_36f014f3b9d2]
             }

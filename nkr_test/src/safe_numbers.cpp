@@ -459,7 +459,7 @@ namespace nkr {
                     CHECK_FALSE(sp > random);
                     CHECK(sp <= random);
                     CHECK(sp >= random);
-                    CHECK(sp <=> random == 0);
+                    CHECK((sp <=> random == 0));
                 }
             }
         }

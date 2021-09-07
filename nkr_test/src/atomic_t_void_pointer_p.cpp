@@ -539,7 +539,7 @@ namespace nkr {
                     CHECK_FALSE(atom > random);
                     CHECK(atom <= random);
                     CHECK(atom >= random);
-                    CHECK(atom <=> random == 0);
+                    CHECK((atom <=> random == 0));
                 }
                 /// [_fd690b21_aa70_43d0_9dbd_67fb502e8d5f]
             }

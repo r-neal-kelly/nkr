@@ -619,8 +619,8 @@ namespace nkr {
 
                     CHECK((maybe_boolean = v) == (boolean = v));
 
-                    CHECK(maybe_boolean, boolean);
-                    CHECK(!!maybe_boolean, !!boolean);
+                    CHECK((maybe_boolean, boolean));
+                    CHECK((!!maybe_boolean, !!boolean));
                     CHECK(maybe_boolean && boolean);
                     CHECK(maybe_boolean || boolean);
 
@@ -682,8 +682,8 @@ namespace nkr {
                     CHECK(--maybe_integer == --integer);
                     CHECK(maybe_integer-- == integer--);
 
-                    CHECK(maybe_integer, integer);
-                    CHECK(!!maybe_integer, !!integer);
+                    CHECK((maybe_integer, integer));
+                    CHECK((!!maybe_integer, !!integer));
                     CHECK(maybe_integer && integer);
                     CHECK(maybe_integer || integer);
 
@@ -693,7 +693,7 @@ namespace nkr {
                     CHECK_FALSE(maybe_integer > integer);
                     CHECK(maybe_integer <= integer);
                     CHECK(maybe_integer >= integer);
-                    CHECK(maybe_integer <=> integer == 0);
+                    CHECK((maybe_integer <=> integer == 0));
                     CHECK(maybe_integer ? maybe_integer() : integer);
 
                     CHECK(&maybe_integer != &integer);
@@ -749,8 +749,8 @@ namespace nkr {
                     CHECK(--maybe_character == --character);
                     CHECK(maybe_character-- == character--);
 
-                    CHECK(maybe_character, character);
-                    CHECK(!!maybe_character, !!character);
+                    CHECK((maybe_character, character));
+                    CHECK((!!maybe_character, !!character));
                     CHECK(maybe_character && character);
                     CHECK(maybe_character || character);
 
@@ -760,7 +760,7 @@ namespace nkr {
                     CHECK_FALSE(maybe_character > character);
                     CHECK(maybe_character <= character);
                     CHECK(maybe_character >= character);
-                    CHECK(maybe_character <=> character == 0);
+                    CHECK((maybe_character <=> character == 0));
                     CHECK(maybe_character ? maybe_character() : character);
 
                     CHECK(&maybe_character != &character);
@@ -795,8 +795,8 @@ namespace nkr {
                     CHECK(--maybe_real == --real);
                     CHECK(maybe_real-- == real--);
 
-                    CHECK(maybe_real, real);
-                    CHECK(!!maybe_real, !!real);
+                    CHECK((maybe_real, real));
+                    CHECK((!!maybe_real, !!real));
                     CHECK(maybe_real && real);
                     CHECK(maybe_real || real);
 
@@ -806,7 +806,7 @@ namespace nkr {
                     CHECK_FALSE(maybe_real > real);
                     CHECK(maybe_real <= real);
                     CHECK(maybe_real >= real);
-                    CHECK(maybe_real <=> real == 0);
+                    CHECK((maybe_real <=> real == 0));
                     CHECK(maybe_real ? maybe_real() : real);
 
                     CHECK(&maybe_real != &real);
@@ -854,8 +854,8 @@ namespace nkr {
                     CHECK(maybe_pointer++ == pointer++);
                     CHECK(maybe_pointer-- == pointer--);
 
-                    CHECK(maybe_pointer, pointer);
-                    CHECK(!!maybe_pointer, !!pointer);
+                    CHECK((maybe_pointer, pointer));
+                    CHECK((!!maybe_pointer, !!pointer));
                     CHECK(maybe_pointer && pointer);
                     CHECK(maybe_pointer || pointer);
 
@@ -865,7 +865,7 @@ namespace nkr {
                     CHECK_FALSE(maybe_pointer > pointer);
                     CHECK(maybe_pointer <= pointer);
                     CHECK(maybe_pointer >= pointer);
-                    CHECK(maybe_pointer <=> pointer == 0);
+                    CHECK((maybe_pointer <=> pointer == 0));
                     CHECK(maybe_pointer ? maybe_pointer() : pointer);
 
                     CHECK(*maybe_pointer == *pointer);
@@ -906,14 +906,14 @@ namespace nkr {
 
                     CHECK((maybe_boolean = v) == (boolean = v));
 
-                    CHECK(maybe_boolean, boolean);
-                    CHECK(!!maybe_boolean, !!boolean);
+                    CHECK((maybe_boolean, boolean));
+                    CHECK((!!maybe_boolean, !!boolean));
                     CHECK(maybe_boolean && boolean);
                     CHECK(maybe_boolean || boolean);
 
                     CHECK(maybe_boolean == boolean);
                     CHECK_FALSE(maybe_boolean != boolean);
-                    CHECK(maybe_boolean ? maybe_boolean() : boolean);
+                    CHECK((maybe_boolean ? maybe_boolean() : boolean));
 
                     CHECK(&maybe_boolean != &boolean);
                 }

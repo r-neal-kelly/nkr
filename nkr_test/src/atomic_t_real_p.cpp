@@ -889,7 +889,7 @@ namespace nkr {
                     CHECK_FALSE(atom > random);
                     CHECK(atom <= random);
                     CHECK(atom >= random);
-                    CHECK(atom <=> random == 0);
+                    CHECK((atom <=> random == 0));
                 }
                 /// [_f0057019_a03e_4dc4_9571_008553300c9e]
             }

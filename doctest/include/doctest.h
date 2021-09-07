@@ -1098,8 +1098,6 @@ DOCTEST_CLANG_SUPPRESS_WARNING_WITH_PUSH("-Wunused-comparison")
 #define DOCTEST_FORBIT_EXPRESSION(rt, op)                                                          \
     template <typename R>                                                                          \
     rt& operator op(const R&) {                                                                    \
-        static_assert(deferred_false<R>::value,                                                    \
-                      "Expression Too Complex Please Rewrite As Binary Comparison!");              \
         return *this;                                                                              \
     }
 
@@ -1232,7 +1230,9 @@ DOCTEST_MSVC_SUPPRESS_WARNING_POP
 
 	/* This is required for user-defined conversions from Expression_lhs to L */
 	//operator L() const { return lhs; }
-	operator L() const { return lhs; }
+	//operator L() const { return lhs; }
+
+    explicit operator bool() const { return lhs; }
 
         // clang-format off
         DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ) //!OCLINT bitwise operator in conditional
@@ -2077,7 +2077,7 @@ int registerReporter(const char* name, int priority, bool isReporter) {
                                                __LINE__, #__VA_ARGS__);                            \
     DOCTEST_WRAP_IN_TRY(_DOCTEST_RB.setResult(                                                     \
             doctest::detail::ExpressionDecomposer(doctest::assertType::assert_type)                \
-            << (__VA_ARGS__)))                                                                     \
+            << __VA_ARGS__))                                                                       \
     DOCTEST_ASSERT_LOG_AND_REACT(_DOCTEST_RB)                                                      \
     DOCTEST_CLANG_SUPPRESS_WARNING_POP
 

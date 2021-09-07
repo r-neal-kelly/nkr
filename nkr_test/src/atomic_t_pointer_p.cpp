@@ -820,7 +820,7 @@ namespace nkr {
                     CHECK_FALSE(atom > random);
                     CHECK(atom <= random);
                     CHECK(atom >= random);
-                    CHECK(atom <=> random == 0);
+                    CHECK((atom <=> random == 0));
                 }
                 /// [_ba6c7bcb_a826_4fe1_bd09_2a9bb9541f50]
             }
