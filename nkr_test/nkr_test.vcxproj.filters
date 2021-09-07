@@ -45,7 +45,10 @@
     <ClCompile Include="src\atomic_t_void_pointer_p.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\safe_numbers.cpp">
+    <ClCompile Include="src\signed_positive_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\signed_negative_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

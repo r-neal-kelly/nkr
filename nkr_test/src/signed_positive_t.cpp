@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/safe_numbers.h"
+#include "nkr/signed_positive_t.h"
 
 #include "intrinsics.h"
 
@@ -75,7 +75,7 @@ namespace nkr {
 
             TEST_SUITE("TOTAL")
             {
-                TEST_CASE_TEMPLATE("should equal the total number of possible values for value_t", sp_p, types, consts, volatiles, volatile_consts)
+                TEST_CASE_TEMPLATE("should equal the total number of possible values", sp_p, types, consts, volatiles, volatile_consts)
                 {
                     CHECK(sp_p::TOTAL == static_cast<u64_t>(std::numeric_limits<sp_p::value_t>::max()) + 1);
                 }

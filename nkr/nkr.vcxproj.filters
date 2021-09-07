@@ -87,7 +87,10 @@
     <ClInclude Include="include\nkr\fors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\safe_numbers.h">
+    <ClInclude Include="include\nkr\signed_positive_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\signed_negative_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -140,7 +143,10 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\bool_t.dox" />
-    <None Include="include\nkr\safe_numbers.inl">
+    <None Include="include\nkr\signed_positive_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\signed_negative_t.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
