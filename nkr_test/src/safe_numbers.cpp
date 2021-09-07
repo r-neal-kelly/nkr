@@ -769,31 +769,28 @@ namespace nkr {
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random_a = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    const value_t random_b = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    sp_p sp(random_a);
-                    CHECK((sp << random_b) == (random_a << random_b));
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX / 2);
+                    sp_p sp(random);
+                    CHECK((sp << 1) == (random << 1));
                 }
 
                 TEST_CASE_TEMPLATE("should not change its value", sp_p, types, consts, volatiles, volatile_consts)
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random_a = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    const value_t random_b = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    sp_p sp(random_a);
-                    value_t value = sp << random_b;
-                    CHECK(sp == random_a);
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX / 2);
+                    sp_p sp(random);
+                    value_t value = sp << 1;
+                    CHECK(sp == random);
                 }
 
                 TEST_CASE_TEMPLATE("should work with any integer", sp_p, types, consts, volatiles, volatile_consts)
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random_a = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    const u64_t random_b = Random<u64_t>();
-                    sp_p sp(random_a);
-                    CHECK((sp << random_b) == (random_a << random_b));
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX / 2);
+                    sp_p sp(random);
+                    CHECK((sp << static_cast<u64_t>(1)) == (random << static_cast<u64_t>(1)));
                 }
             }
 
@@ -1115,31 +1112,28 @@ namespace nkr {
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random_a = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    const value_t random_b = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    sp_p sp(random_a);
-                    sp <<= random_b;
-                    CHECK(sp == std::remove_cvref_t<sp_p>(random_a << random_b));
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX / 2);
+                    sp_p sp(random);
+                    sp <<= 1;
+                    CHECK(sp == std::remove_cvref_t<sp_p>(random << 1));
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", sp_p, types, volatiles)
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random_a = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    const value_t random_b = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    sp_p sp(random_a);
-                    CHECK(&(sp <<= random_b) == &sp);
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX / 2);
+                    sp_p sp(random);
+                    CHECK(&(sp <<= 1) == &sp);
                 }
 
                 TEST_CASE_TEMPLATE("should work with any integer", sp_p, types, volatiles)
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random_a = Random<value_t>(sp_p::MIN, sp_p::MAX);
-                    const u64_t random_b = Random<u64_t>();
-                    sp_p sp(random_a);
-                    CHECK((sp <<= random_b) == std::remove_cvref_t<sp_p>(random_a << random_b));
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX / 2);
+                    sp_p sp(random);
+                    CHECK((sp <<= static_cast<u64_t>(1)) == std::remove_cvref_t<sp_p>(random << static_cast<u64_t>(1)));
                 }
             }
 
