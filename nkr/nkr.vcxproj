@@ -160,6 +160,8 @@
     <ClInclude Include="include\nkr\array_dynamic_t.h" />
     <ClInclude Include="include\nkr\atomic_t.h" />
     <ClInclude Include="include\nkr\bool_t.h" />
+    <ClInclude Include="include\nkr\charcoder_utf_16_t.h" />
+    <ClInclude Include="include\nkr\charcoder_utf_32_t.h" />
     <ClInclude Include="include\nkr\fors.h" />
     <ClInclude Include="include\nkr\charcoder_i.h" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl" />
@@ -190,6 +192,8 @@
     <None Include="include\nkr\atomic_t.inl" />
     <None Include="include\nkr\bool_t.dox" />
     <None Include="include\nkr\bool_t.inl" />
+    <None Include="include\nkr\charcoder_utf_16_t.inl" />
+    <None Include="include\nkr\charcoder_utf_32_t.inl" />
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
     <None Include="include\nkr\intrinsics.dox" />
     <None Include="include\nkr\intrinsics.inl" />

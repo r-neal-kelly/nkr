@@ -93,6 +93,12 @@
     <ClInclude Include="include\nkr\signed_negative_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\charcoder_utf_16_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder_utf_32_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -147,6 +153,12 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\signed_negative_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\charcoder_utf_16_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="include\nkr\charcoder_utf_32_t.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

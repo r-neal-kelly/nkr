@@ -34,6 +34,11 @@ namespace nkr {
 #else
     #error "Cannot compile with this architecture."
 #endif
+
+#undef  nkr_IS_BIG_ENDIAN
+#undef  nkr_IS_LITTLE_ENDIAN
+#define nkr_IS_UNKNOWN_ENDIAN
+
     /// @}
     
     /// @ingroup intrinsics_primitives

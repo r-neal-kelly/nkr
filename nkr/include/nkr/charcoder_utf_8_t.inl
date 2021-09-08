@@ -6,11 +6,18 @@
 
 #include "nkr/charcoder_utf_8_t.h"
 
-namespace nkr {
+namespace nkr { namespace charcoder {
 
-    inline size_t charcoder_utf_8_t::unit_size()
+    inline count_t utf_8_t::Unit_Count() const
     {
-        return UNIT_SIZE;
+        return this->unit_count;
     }
 
-}
+    inline typename utf_8_t::unit_t utf_8_t::operator [](index_t index) const
+    {
+        assert(index < this->unit_count);
+
+        return this->units[index];
+    }
+
+}}
