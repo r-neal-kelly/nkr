@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <bit>
+
 #include "nkr/intrinsics.h"
 
 namespace nkr {
@@ -15,5 +17,8 @@ namespace nkr {
 
     static_assert(sizeof(void_t*) == sizeof(word_t), "void_t* must be the same size as word_t");
     static_assert(sizeof(address_t) == sizeof(word_t), "address_t must be the same size as word_t");
+
+    static_assert(std::endian::native == std::endian::big || std::endian::native == std::endian::little,
+                  "must be a big endian or little endian machine.");
 
 }

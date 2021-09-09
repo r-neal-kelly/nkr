@@ -9,22 +9,21 @@
 
 namespace nkr { namespace charcoder {
 
-    class utf_8_t
+    class ascii_t
     {
     public:
-        using unit_t    = u8_t;
+        using unit_t    = s8_t;
 
     protected:
-        unit_t  units[4];
-        count_t unit_count;
+        unit_t  unit;
 
     public:
-        utf_8_t();
-        utf_8_t(const utf_8_t& other);
-        utf_8_t(utf_8_t&& other) noexcept;
-        utf_8_t& operator =(const utf_8_t& other);
-        utf_8_t& operator =(utf_8_t&& other) noexcept;
-        ~utf_8_t();
+        ascii_t();
+        ascii_t(const ascii_t& other);
+        ascii_t(ascii_t&& other) noexcept;
+        ascii_t& operator =(const ascii_t& other);
+        ascii_t& operator =(ascii_t&& other) noexcept;
+        ~ascii_t();
 
     public:
         bool_t  Is_Well_Formed() const;
@@ -40,8 +39,8 @@ namespace nkr { namespace charcoder {
     public:
         unit_t  operator [](index_t index) const;
     };
-    static_assert(charcoder_i<utf_8_t>);
+    static_assert(charcoder_i<ascii_t>);
 
 }}
 
-#include "nkr/charcoder_utf_8_t.inl"
+#include "nkr/charcoder_ascii_t.inl"

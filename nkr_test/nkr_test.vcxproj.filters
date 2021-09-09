@@ -51,6 +51,18 @@
     <ClCompile Include="src\signed_negative_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\charcoder_utf_16_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\charcoder_utf_32_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\charcoder_utf_8_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\charcoder_ascii_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsics.h">

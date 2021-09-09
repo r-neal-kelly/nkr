@@ -99,6 +99,9 @@
     <ClInclude Include="include\nkr\charcoder_utf_32_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\charcoder_ascii_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -161,10 +164,8 @@
     <None Include="include\nkr\charcoder_utf_32_t.inl">
       <Filter>Header Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\os.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <None Include="include\nkr\charcoder_ascii_t.inl">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
