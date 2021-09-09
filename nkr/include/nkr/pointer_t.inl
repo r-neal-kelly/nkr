@@ -16,9 +16,9 @@ namespace nkr {
     }
 
     template <type_tr unit_p>
-    inline pointer_t<unit_p>::pointer_t(unit_t* unit_pointer) :
-        units(unit_pointer),
-        unit_count(unit_pointer ? 1 : 0)
+    inline pointer_t<unit_p>::pointer_t(unit_t* unit) :
+        units(unit),
+        unit_count(unit ? 1 : 0)
     {
     }
 
@@ -27,6 +27,7 @@ namespace nkr {
         units(units),
         unit_count(unit_count)
     {
+        assert(units || unit_count > 0 ? units && unit_count > 0 : true);
     }
 
     template <type_tr unit_p>
@@ -41,6 +42,15 @@ namespace nkr {
         units(std::exchange(other.units, nullptr)),
         unit_count(std::exchange(other.unit_count, 0))
     {
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator =(unit_t* unit)
+    {
+        this->units = unit;
+        this->unit_count = unit ? 1 : 0;
+
+        return *this;
     }
 
     template <type_tr unit_p>
@@ -71,79 +81,126 @@ namespace nkr {
     }
 
     template <type_tr unit_p>
-    inline typename pointer_t<unit_p>::units_t& pointer_t<unit_p>::Units()
+    inline typename pointer_t<unit_p>::units_t pointer_t<unit_p>::Units() volatile const
     {
         return this->units;
     }
 
     template <type_tr unit_p>
-    inline typename const pointer_t<unit_p>::units_t& pointer_t<unit_p>::Units() const
-    {
-        return this->units;
-    }
-
-    template <type_tr unit_p>
-    inline count_t& pointer_t<unit_p>::Unit_Count()
+    inline count_t pointer_t<unit_p>::Unit_Count() volatile const
     {
         return this->unit_count;
     }
 
     template <type_tr unit_p>
-    inline const count_t& pointer_t<unit_p>::Unit_Count() const
-    {
-        return this->unit_count;
-    }
-
-    template <type_tr unit_p>
-    inline address_t pointer_t<unit_p>::Address() const
-    {
-        return reinterpret_cast<address_t>(this->units);
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p>::operator bool_t()
-    {
-        return this->units != nullptr;
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p>::operator const bool_t() const
-    {
-        return const_cast<pointer_t*>(this)->operator bool_t();
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p>::operator units_t& ()
+    inline pointer_t<unit_p>::operator units_t () volatile const
     {
         return this->units;
     }
 
     template <type_tr unit_p>
-    inline pointer_t<unit_p>::operator const units_t& () const
+    inline typename pointer_t<unit_p>::units_t pointer_t<unit_p>::operator ()() volatile const
     {
         return this->units;
     }
 
     template <type_tr unit_p>
-    inline const bool_t pointer_t<unit_p>::operator !() const
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator ()(unit_t* unit)
     {
-        return !operator const bool_t();
+        this->units = unit;
+        this->unit_count = unit ? 1 : 0;
+
+        return *this;
     }
 
     template <type_tr unit_p>
-    inline typename pointer_t<unit_p>::units_t& pointer_t<unit_p>::operator ()()
-    {
-        return this->units;
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator()(units_t units, count_t unit_count){
+        assert(units || unit_count > 0 ? units && unit_count > 0 : true);
+
+        this->units = units;
+        this->unit_count = unit_count;
+
+        return *this;
     }
 
     template <type_tr unit_p>
-    inline typename const pointer_t<unit_p>::units_t& pointer_t<unit_p>::operator ()() const
+    inline pointer_t<unit_p> pointer_t<unit_p>::operator +(integer_tr auto amount)
     {
-        return this->units;
+        assert(this->units != nullptr);
+
+        return pointer_t<unit_p>(this->unit + amount, this->unit_count - amount);
     }
 
     template <type_tr unit_p>
-    inline typename const pointer_t<unit_p>::units_t& pointer_t<unit_p>::operator ->() const
+    inline pointer_t<unit_p> pointer_t<unit_p>::operator -(integer_tr auto amount)
+    {
+        assert(this->units != nullptr);
+
+        return pointer_t<unit_p>(this->unit - amount, this->unit_count + amount);
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator +=(integer_tr auto amount)
+    {
+        assert(this->units != nullptr);
+
+        this->units += amount;
+        this->unit_count -= amount;
+
+        return *this;
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator -=(integer_tr auto amount)
+    {
+        assert(this->units != nullptr);
+
+        this->units -= amount;
+        this->unit_count += amount;
+
+        return *this;
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator ++()
+    {
+        assert(this->units != nullptr);
+
+        return operator +(1);
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p> pointer_t<unit_p>::operator ++(int)
+    {
+        assert(this->units != nullptr);
+
+        pointer_t initial = *this;
+        operator +(1);
+
+        return initial;
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p>& pointer_t<unit_p>::operator --()
+    {
+        assert(this->units != nullptr);
+
+        return operator -(1);
+    }
+
+    template <type_tr unit_p>
+    inline pointer_t<unit_p> pointer_t<unit_p>::operator --(int)
+    {
+        assert(this->units != nullptr);
+
+        pointer_t initial = *this;
+        operator -(1);
+
+        return initial;
+    }
+
+    template <type_tr unit_p>
+    inline typename pointer_t<unit_p>::units_t pointer_t<unit_p>::operator ->() const
     {
         assert(this->units != nullptr);
         assert(this->unit_count > 0);
@@ -167,96 +224,6 @@ namespace nkr {
         assert(index < this->unit_count);
 
         return this->units[index];
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p>& pointer_t<unit_p>::operator ++()
-    {
-        assert(this->units != nullptr);
-
-        this->units += 1;
-        this->unit_count -= 1;
-
-        return *this;
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p> pointer_t<unit_p>::operator ++(int)
-    {
-        assert(this->units != nullptr);
-
-        pointer_t initial = *this;
-
-        this->units += 1;
-        this->unit_count -= 1;
-
-        return initial; // rvo
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p>& pointer_t<unit_p>::operator --()
-    {
-        assert(this->units != nullptr);
-
-        this->units -= 1;
-        this->unit_count += 1;
-
-        return *this;
-    }
-
-    template <type_tr unit_p>
-    inline pointer_t<unit_p> pointer_t<unit_p>::operator --(int)
-    {
-        assert(this->units != nullptr);
-
-        pointer_t initial = *this;
-
-        this->units -= 1;
-        this->unit_count += 1;
-
-        return initial; // rvo
-    }
-
-    template <type_tr unit_p>
-    template <integer_tr integer>
-    inline pointer_t<unit_p>& pointer_t<unit_p>::operator +=(integer count)
-    {
-        assert(this->units != nullptr);
-
-        this->units += count;
-        this->unit_count -= count;
-
-        return *this;
-    }
-
-    template <type_tr unit_p>
-    template <integer_tr integer>
-    inline pointer_t<unit_p>& pointer_t<unit_p>::operator -=(integer count)
-    {
-        assert(this->units != nullptr);
-
-        this->units -= count;
-        this->unit_count += count;
-
-        return *this;
-    }
-
-    template <type_tr unit_p>
-    template <integer_tr integer>
-    inline pointer_t<unit_p> pointer_t<unit_p>::operator +(integer count) const
-    {
-        assert(this->units != nullptr);
-
-        return pointer_t(this->units + count, this->unit_count - count);
-    }
-
-    template <type_tr unit_p>
-    template <integer_tr integer>
-    inline pointer_t<unit_p> pointer_t<unit_p>::operator -(integer count) const
-    {
-        assert(this->units != nullptr);
-
-        return pointer_t(this->units - count, this->unit_count + count);
     }
 
 }

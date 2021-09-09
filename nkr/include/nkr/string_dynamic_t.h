@@ -11,10 +11,9 @@
 
 namespace nkr {
 
-    template <typename charcoder = charcoder_utf_8_t>
-    requires charcoder_i<charcoder>
+    template <charcoder_i charcoder_p = charcoder::utf_8_t>
     class string_dynamic_t :
-        public string_static_t<charcoder>
+        public string_static_t<charcoder_p>
     {
     public:
         string_dynamic_t();
