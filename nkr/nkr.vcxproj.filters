@@ -42,9 +42,6 @@
     <ClInclude Include="include\nkr\array_dynamic_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\pointer_t.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\nkr\traits.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -167,5 +164,7 @@
     <None Include="include\nkr\charcoder_ascii_t.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="include\nkr\pointer_t.h" />
+    <None Include="include\nkr\pointer_t.dox" />
   </ItemGroup>
 </Project>

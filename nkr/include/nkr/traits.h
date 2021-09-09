@@ -20,6 +20,10 @@ namespace nkr {
     concept type_tr =
         sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
 
+    template <typename non_type_p>
+    concept non_type_tr =
+        !type_tr<non_type_p>;
+
     template <typename from_p, typename to_p>
     concept convertible_tr =
         std::convertible_to<from_p, to_p>;
