@@ -48,7 +48,7 @@
     <ClInclude Include="include\nkr\allocator_i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\allocator_heap_t.h">
+    <ClInclude Include="include\nkr\allocator_heap_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\os.h">
@@ -102,6 +102,18 @@
     <ClInclude Include="include\nkr\pointer_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\allocator_heap_zeros_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\allocator_heap_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\allocator_heap_zeros_t_dec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\allocator_heap_zeros_t_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -116,7 +128,7 @@
     <None Include="include\nkr\pointer_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\allocator_heap_t.inl">
+    <None Include="include\nkr\allocator_heap_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\os.inl">
@@ -172,6 +184,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\pointer_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\allocator_heap_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\allocator_heap_zeros_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

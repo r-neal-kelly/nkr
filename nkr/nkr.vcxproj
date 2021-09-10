@@ -156,6 +156,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\nkr\allocator_heap_t.h" />
+    <ClInclude Include="include\nkr\allocator_heap_t_dec.h" />
+    <ClInclude Include="include\nkr\allocator_heap_zeros_t.h" />
+    <ClInclude Include="include\nkr\allocator_heap_zeros_t_dec.h" />
+    <ClInclude Include="include\nkr\allocator_heap_zeros_t_def.h" />
     <ClInclude Include="include\nkr\allocator_i.h" />
     <ClInclude Include="include\nkr\array_dynamic_t.h" />
     <ClInclude Include="include\nkr\atomic_t.h" />
@@ -187,7 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\os.dox" />
-    <None Include="include\nkr\allocator_heap_t.inl" />
+    <None Include="include\nkr\allocator_heap_t_def.h" />
     <None Include="include\nkr\array_dynamic_t.inl" />
     <None Include="include\nkr\atomic_t.dox" />
     <None Include="include\nkr\atomic_t.inl" />
@@ -219,6 +223,8 @@
     <None Include="include\nkr\traits.dox" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\allocator_heap_t.cpp" />
+    <ClCompile Include="src\allocator_heap_zeros_t.cpp" />
     <ClCompile Include="src\pointer_t.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

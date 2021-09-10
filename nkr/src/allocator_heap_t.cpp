@@ -2,7 +2,14 @@
     Copyright 2021 r-neal-kelly
 */
 
-#pragma once
-
 #include "nkr/allocator_heap_t_dec.h"
-#include "nkr/allocator_heap_t_def.h"
+
+#if defined(nkr_DO_EXTERN_TEMPLATES)
+
+namespace nkr {
+
+
+
+}
+
+#endif
