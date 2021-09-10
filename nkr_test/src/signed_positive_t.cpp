@@ -451,7 +451,7 @@ namespace nkr {
                 {
                     using value_t = sp_p::value_t;
 
-                    const value_t random = Random<value_t>(sp_p::MIN + 1, sp_p::MAX);
+                    const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     sp_p sp(random);
                     CHECK(sp == random);
                     CHECK_FALSE(sp != random);

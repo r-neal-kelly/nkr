@@ -93,7 +93,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <type_tr unit_p>
-    inline type_sp<unit_p>::operator unit_t*() volatile const
+    inline type_sp<unit_p>::operator type_sp<unit_p>::unit_t*() volatile const
     {
         return this->units;
     }
@@ -312,7 +312,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <non_type_tr unit_p>
-    inline non_type_sp<unit_p>::operator unit_t*() volatile const
+    inline non_type_sp<unit_p>::operator non_type_sp<unit_p>::unit_t*() volatile const
     {
         return this->units;
     }

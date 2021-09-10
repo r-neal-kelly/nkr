@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/pointer_t.h"
 
 #include "intrinsics.h"
@@ -222,32 +223,190 @@ namespace nkr {
 
             TEST_SUITE("copy_ctor()")
             {
+                TEST_CASE_TEMPLATE("should explicitly copy the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(other);
+                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
 
+                TEST_CASE_TEMPLATE("should implicitly copy the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer = other;
+                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter the units or unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(other);
+                    CHECK(other.Units() == unit);
+                    CHECK(other.Unit_Count() == 1);
+                }
             }
 
             TEST_SUITE("move_ctor()")
             {
+                TEST_CASE_TEMPLATE("should explicitly move the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(std::move(other));
+                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
 
+                TEST_CASE_TEMPLATE("should implicitly move the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer = std::move(other);
+                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should set the units and unit_count of other to the defaults", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(std::move(other));
+                    CHECK(other.Units() == nullptr);
+                    CHECK(other.Unit_Count() == 0);
+                }
             }
 
             TEST_SUITE("unit_assignment_ctor()")
             {
+                TEST_CASE_TEMPLATE("should set passed unit", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> pointer;
+                    pointer = unit;
+                    CHECK(pointer.Units() == unit);
+                }
 
+                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> pointer;
+                    CHECK(&(pointer = unit) == &pointer);
+                }
+
+                TEST_CASE("should convert and set passed unit")
+                {
+                    struct base_t {};
+                    struct derived_t : base_t {};
+
+                    derived_t* unit = Random<derived_t*>();
+                    pointer_t<base_t> pointer;
+                    pointer = unit;
+                    CHECK(pointer.Units() == static_cast<base_t*>(unit));
+                }
+
+                TEST_CASE_TEMPLATE("should set unit_count to 0 if passed nullptr", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    pointer_t<unit_p> pointer;
+                    pointer = nullptr;
+                    CHECK(pointer.Unit_Count() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should set unit_count to 1 if passed non-nullptr", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit;
+                    do {
+                        unit = Random<unit_p*>();
+                    } while (unit == nullptr);
+                    pointer_t<unit_p> pointer;
+                    pointer = unit;
+                    CHECK(pointer.Unit_Count() == 1);
+                }
             }
 
             TEST_SUITE("copy_assignment_ctor()")
             {
+                TEST_CASE_TEMPLATE("should copy the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = other;
+                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
 
+                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    CHECK(&(pointer = other) == &pointer);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter the units or unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = other;
+                    CHECK(other.Units() == unit);
+                    CHECK(other.Unit_Count() == 1);
+                }
             }
 
             TEST_SUITE("move_assignment_ctor()")
             {
+                TEST_CASE_TEMPLATE("should move the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = std::move(other);
+                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
 
+                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    CHECK(&(pointer = std::move(other)) == &pointer);
+                }
+
+                TEST_CASE_TEMPLATE("should set the units and unit_count of other to the defaults", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = std::move(other);
+                    CHECK(other.Units() == nullptr);
+                    CHECK(other.Unit_Count() == 0);
+                }
             }
 
             TEST_SUITE("dtor()")
             {
-
+                TEST_CASE_TEMPLATE("should set the units and unit_count to the defaults", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* units;
+                    do {
+                        units = Random<unit_p*>();
+                    } while (units == nullptr);
+                    count_t unit_count;
+                    do {
+                        unit_count = Random<count_t>();
+                    } while (unit_count == 0);
+                    pointer_t<unit_p> pointer(units, unit_count);
+                    pointer.~pointer_t();
+                    CHECK(pointer.Units() == nullptr);
+                    CHECK(pointer.Unit_Count() == 0);
+                }
             }
         }
 
@@ -255,12 +414,38 @@ namespace nkr {
         {
             TEST_SUITE("Units()")
             {
+                TEST_CASE_TEMPLATE("should return the units", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> pointer(unit);
+                    CHECK(pointer.Units() == unit);
+                }
 
+                TEST_CASE_TEMPLATE("should not change the units", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> pointer(unit);
+                    pointer.Units();
+                    CHECK(pointer.Units() == unit);
+                }
             }
 
             TEST_SUITE("Unit_Count()")
             {
+                TEST_CASE_TEMPLATE("should return the unit_count", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> pointer(unit);
+                    CHECK(pointer.Unit_Count() == 1);
+                }
 
+                TEST_CASE_TEMPLATE("should not change the unit_count", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    pointer_t<unit_p> pointer(unit);
+                    pointer.Unit_Count();
+                    CHECK(pointer.Unit_Count() == 1);
+                }
             }
         }
 
@@ -268,7 +453,56 @@ namespace nkr {
         {
             TEST_SUITE("unit_t*()")
             {
+                TEST_CASE_TEMPLATE("should explicitly return a copy of the units", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> pointer(unit);
+                    unit_p* cast = static_cast<unit_p*>(pointer);
+                    CHECK(cast == unit);
+                }
 
+                TEST_CASE_TEMPLATE("should implicitly return a copy of the units", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> pointer(unit);
+                    unit_p* cast = pointer;
+                    CHECK(cast == unit);
+                }
+
+                TEST_CASE_TEMPLATE("should not change the units", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> pointer(unit);
+                    unit_p* cast = static_cast<unit_p*>(pointer);
+                    CHECK(pointer.Units() == unit);
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for logical operators", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit;
+                    do {
+                        unit = Random<unit_p*>();
+                    } while (unit == nullptr);
+                    const pointer_t<unit_p> pointer(unit);
+                    CHECK(pointer);
+                    CHECK(!!pointer);
+                    CHECK(pointer || false);
+                    CHECK(pointer && true);
+                    CHECK(pointer ? true : false);
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for comparison operators", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    const pointer_t<unit_p> pointer(unit);
+                    CHECK(pointer == unit);
+                    CHECK_FALSE(pointer != unit);
+                    CHECK_FALSE(pointer < unit);
+                    CHECK_FALSE(pointer > unit);
+                    CHECK(pointer <= unit);
+                    CHECK(pointer >= unit);
+                    CHECK((pointer <=> unit == 0));
+                }
             }
         }
 
