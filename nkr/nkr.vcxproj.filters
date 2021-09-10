@@ -99,6 +99,9 @@
     <ClInclude Include="include\nkr\charcoder_ascii_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\pointer_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -110,7 +113,7 @@
     <None Include="include\nkr\array_dynamic_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\pointer_t.inl">
+    <None Include="include\nkr\pointer_t.def">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\allocator_heap_t.inl">
@@ -164,7 +167,12 @@
     <None Include="include\nkr\charcoder_ascii_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\pointer_t.h" />
+    <None Include="include\nkr\pointer_t.dec" />
     <None Include="include\nkr\pointer_t.dox" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\pointer_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

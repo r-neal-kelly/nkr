@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/pointer_t.h"
+#include "nkr/pointer_t.dec"
 
 namespace nkr { namespace $pointer_t {
 
@@ -42,15 +42,6 @@ namespace nkr { namespace $pointer_t {
         units(std::exchange(other.units, nullptr)),
         unit_count(std::exchange(other.unit_count, 0))
     {
-    }
-
-    template <type_tr unit_p>
-    inline type_sp<unit_p>& type_sp<unit_p>::operator =(convertible_tr<unit_t*> auto unit)
-    {
-        this->units = static_cast<unit_t*>(unit);
-        this->unit_count = unit ? 1 : 0;
-
-        return *this;
     }
 
     template <type_tr unit_p>
@@ -99,6 +90,12 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <type_tr unit_p>
+    inline type_sp<unit_p>::operator count_t() volatile const
+    {
+        return this->unit_count;
+    }
+
+    template <type_tr unit_p>
     inline typename type_sp<unit_p>::unit_t* type_sp<unit_p>::operator ()() volatile const
     {
         return this->units;
@@ -125,19 +122,19 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <type_tr unit_p>
-    inline type_sp<unit_p> type_sp<unit_p>::operator +(integer_tr auto amount)
+    inline type_sp<unit_p> type_sp<unit_p>::operator +(integer_tr auto amount) volatile const
     {
         assert(this->units != nullptr);
 
-        return type_sp<unit_p>(this->unit + amount, this->unit_count - amount);
+        return type_sp<unit_p>(this->units + amount, this->unit_count - amount);
     }
 
     template <type_tr unit_p>
-    inline type_sp<unit_p> type_sp<unit_p>::operator -(integer_tr auto amount)
+    inline type_sp<unit_p> type_sp<unit_p>::operator -(integer_tr auto amount) volatile const
     {
         assert(this->units != nullptr);
 
-        return type_sp<unit_p>(this->unit - amount, this->unit_count + amount);
+        return type_sp<unit_p>(this->units - amount, this->unit_count + amount);
     }
 
     template <type_tr unit_p>
@@ -264,15 +261,6 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <non_type_tr unit_p>
-    inline non_type_sp<unit_p>& non_type_sp<unit_p>::operator =(convertible_tr<unit_t*> auto unit)
-    {
-        this->units = static_cast<unit_t*>(unit);
-        this->unit_count = unit ? 1 : 0;
-
-        return *this;
-    }
-
-    template <non_type_tr unit_p>
     inline non_type_sp<unit_p>& non_type_sp<unit_p>::operator =(const non_type_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -318,6 +306,12 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <non_type_tr unit_p>
+    inline non_type_sp<unit_p>::operator count_t() volatile const
+    {
+        return this->unit_count;
+    }
+
+    template <non_type_tr unit_p>
     inline typename non_type_sp<unit_p>::unit_t* non_type_sp<unit_p>::operator ()() volatile const
     {
         return this->units;
@@ -326,10 +320,7 @@ namespace nkr { namespace $pointer_t {
     template <non_type_tr unit_p>
     inline non_type_sp<unit_p>& non_type_sp<unit_p>::operator ()(convertible_tr<unit_t*> auto unit)
     {
-        this->units = static_cast<unit_t*>(unit);
-        this->unit_count = unit ? 1 : 0;
-
-        return *this;
+        return *this = { unit };
     }
 
     template <non_type_tr unit_p>
@@ -337,10 +328,71 @@ namespace nkr { namespace $pointer_t {
     {
         assert(units || unit_count > 0 ? units && unit_count > 0 : true);
 
-        this->units = static_cast<unit_t*>(units);
-        this->unit_count = unit_count;
-
-        return *this;
+        return *this = { units, unit_count };
     }
 
 }}
+
+#if defined(nkr_DO_EXTERN_TEMPLATES)
+
+namespace nkr {
+
+    extern template class pointer_t<void_t>;
+    extern template class pointer_t<std_bool_t>;
+    extern template class pointer_t<bool_t>;
+    extern template class pointer_t<u8_t>;
+    extern template class pointer_t<s8_t>;
+    extern template class pointer_t<u16_t>;
+    extern template class pointer_t<s16_t>;
+    extern template class pointer_t<u32_t>;
+    extern template class pointer_t<s32_t>;
+    extern template class pointer_t<u64_t>;
+    extern template class pointer_t<s64_t>;
+    extern template class pointer_t<r32_t>;
+    extern template class pointer_t<r64_t>;
+
+    extern template class pointer_t<const void_t>;
+    extern template class pointer_t<const std_bool_t>;
+    extern template class pointer_t<const bool_t>;
+    extern template class pointer_t<const u8_t>;
+    extern template class pointer_t<const s8_t>;
+    extern template class pointer_t<const u16_t>;
+    extern template class pointer_t<const s16_t>;
+    extern template class pointer_t<const u32_t>;
+    extern template class pointer_t<const s32_t>;
+    extern template class pointer_t<const u64_t>;
+    extern template class pointer_t<const s64_t>;
+    extern template class pointer_t<const r32_t>;
+    extern template class pointer_t<const r64_t>;
+
+    extern template class pointer_t<volatile void_t>;
+    extern template class pointer_t<volatile std_bool_t>;
+    extern template class pointer_t<volatile bool_t>;
+    extern template class pointer_t<volatile u8_t>;
+    extern template class pointer_t<volatile s8_t>;
+    extern template class pointer_t<volatile u16_t>;
+    extern template class pointer_t<volatile s16_t>;
+    extern template class pointer_t<volatile u32_t>;
+    extern template class pointer_t<volatile s32_t>;
+    extern template class pointer_t<volatile u64_t>;
+    extern template class pointer_t<volatile s64_t>;
+    extern template class pointer_t<volatile r32_t>;
+    extern template class pointer_t<volatile r64_t>;
+
+    extern template class pointer_t<volatile const void_t>;
+    extern template class pointer_t<volatile const std_bool_t>;
+    extern template class pointer_t<volatile const bool_t>;
+    extern template class pointer_t<volatile const u8_t>;
+    extern template class pointer_t<volatile const s8_t>;
+    extern template class pointer_t<volatile const u16_t>;
+    extern template class pointer_t<volatile const s16_t>;
+    extern template class pointer_t<volatile const u32_t>;
+    extern template class pointer_t<volatile const s32_t>;
+    extern template class pointer_t<volatile const u64_t>;
+    extern template class pointer_t<volatile const s64_t>;
+    extern template class pointer_t<volatile const r32_t>;
+    extern template class pointer_t<volatile const r64_t>;
+
+}
+
+#endif

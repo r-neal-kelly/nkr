@@ -34,6 +34,9 @@ namespace nkr {
 #else
     #error "Cannot compile with this architecture."
 #endif
+
+#define nkr_DO_EXTERN_TEMPLATES
+
     /// @}
     
     /// @ingroup intrinsics_primitives

@@ -175,6 +175,7 @@
     <ClInclude Include="include\nkr\none_i.h" />
     <ClInclude Include="include\nkr\none_t.h" />
     <ClInclude Include="include\nkr\os.h" />
+    <ClInclude Include="include\nkr\pointer_t.h" />
     <ClInclude Include="include\nkr\signed_negative_t.h" />
     <ClInclude Include="include\nkr\signed_positive_t.h" />
     <ClInclude Include="include\nkr\some_t.h" />
@@ -206,8 +207,8 @@
     <None Include="include\nkr\none_t.dox" />
     <None Include="include\nkr\os.dox" />
     <None Include="include\nkr\os.inl" />
-    <None Include="include\nkr\pointer_t.h" />
-    <None Include="include\nkr\pointer_t.inl" />
+    <None Include="include\nkr\pointer_t.dec" />
+    <None Include="include\nkr\pointer_t.def" />
     <None Include="include\nkr\pointer_t.dox" />
     <None Include="include\nkr\signed_negative_t.inl" />
     <None Include="include\nkr\signed_positive_t.inl" />
@@ -216,6 +217,9 @@
     <None Include="include\nkr\string_static_t.inl" />
     <None Include="include\nkr\string_dynamic_t.inl" />
     <None Include="include\nkr\traits.dox" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\pointer_t.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
