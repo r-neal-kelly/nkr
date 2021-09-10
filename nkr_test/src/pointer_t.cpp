@@ -736,47 +736,341 @@ namespace nkr {
 
             TEST_SUITE("+=()")
             {
+                TEST_CASE_TEMPLATE("should set units += amount and unit_count -= amount", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        count_t amount = Random<count_t>(0, unit_count);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        pointer += amount;
+                        CHECK(pointer.Units() == (units += amount));
+                        CHECK(pointer.Unit_Count() == (unit_count -= amount));
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        count_t amount = Random<count_t>(0, unit_count);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        CHECK(&(pointer += amount) == &pointer);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should work with any integer", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        s8_t amount = Random<s8_t>(0, std::numeric_limits<s8_t>::max());
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        pointer += amount;
+                        CHECK(pointer.Units() == (units += amount));
+                        CHECK(pointer.Unit_Count() == (unit_count -= amount));
+                    }
+                }
             }
 
             TEST_SUITE("-=()")
             {
+                TEST_CASE_TEMPLATE("should set units -= amount and unit_count += amount", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        count_t amount = Random<count_t>(0, unit_count);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        pointer -= amount;
+                        CHECK(pointer.Units() == (units -= amount));
+                        CHECK(pointer.Unit_Count() == (unit_count += amount));
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        count_t amount = Random<count_t>(0, unit_count);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        CHECK(&(pointer -= amount) == &pointer);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should work with any integer", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        s8_t amount = Random<s8_t>(0, std::numeric_limits<s8_t>::max());
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        pointer -= amount;
+                        CHECK(pointer.Units() == (units -= amount));
+                        CHECK(pointer.Unit_Count() == (unit_count += amount));
+                    }
+                }
             }
 
             TEST_SUITE("++()")
             {
+                TEST_CASE_TEMPLATE("should set units += 1 and unit_count -= 1", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        ++pointer;
+                        CHECK(pointer.Units() == (units += 1));
+                        CHECK(pointer.Unit_Count() == (unit_count -= 1));
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should return itself with the new value", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        CHECK((++pointer).Units() == (units += 1));
+                    }
+                }
             }
 
             TEST_SUITE("++(int)")
             {
+                TEST_CASE_TEMPLATE("should set units += 1 and unit_count -= 1", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        pointer++;
+                        CHECK(pointer.Units() == (units += 1));
+                        CHECK(pointer.Unit_Count() == (unit_count -= 1));
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should return a copy of the old pointer", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        CHECK((pointer++).Units() == units);
+                    }
+                }
             }
 
             TEST_SUITE("--()")
             {
+                TEST_CASE_TEMPLATE("should set units -= 1 and unit_count += 1", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        --pointer;
+                        CHECK(pointer.Units() == (units -= 1));
+                        CHECK(pointer.Unit_Count() == (unit_count += 1));
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should return itself with the new value", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        CHECK((--pointer).Units() == (units -= 1));
+                    }
+                }
             }
 
             TEST_SUITE("--(int)")
             {
+                TEST_CASE_TEMPLATE("should set units -= 1 and unit_count += 1", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        pointer--;
+                        CHECK(pointer.Units() == (units -= 1));
+                        CHECK(pointer.Unit_Count() == (unit_count += 1));
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should return a copy of the old pointer", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* units;
+                        do {
+                            units = Random<unit_p*>();
+                        } while (units == nullptr);
+                        count_t unit_count = Random<count_t>(0x1, 0xFFFF);
+                        pointer_t<unit_p> pointer(units, unit_count);
+                        CHECK((pointer--).Units() == units);
+                    }
+                }
             }
 
             TEST_SUITE("->()")
             {
+                TEST_CASE_TEMPLATE("should be able to access the first unit's values", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* random = Random<unit_p*>();
+                        struct wrap_t { unit_p* random; } wrap(random);
+                        const pointer_t<wrap_t> pointer(&wrap);
+                        CHECK(pointer->random == random);
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should be able to assign the first unit's values", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* random_a = Random<unit_p*>();
+                        unit_p* random_b = Random<unit_p*>();
+                        struct wrap_t { unit_p* value; } wrap(random_a);
+                        const pointer_t<wrap_t> pointer(&wrap);
+                        pointer->value = random_b;
+                        CHECK(wrap.value == random_b);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not change the units", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p* random_a = Random<unit_p*>();
+                        unit_p* random_b = Random<unit_p*>();
+                        struct wrap_t { unit_p* value; } wrap(random_a);
+                        const pointer_t<wrap_t> pointer(&wrap);
+                        pointer->value = random_b;
+                        CHECK(pointer.Units() == &wrap);
+                    }
+                }
             }
 
             TEST_SUITE("*()")
             {
+                TEST_CASE_TEMPLATE("should be able to access the first unit's value", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p random = Random<unit_p>();
+                        const pointer_t<unit_p> pointer(&random);
+                        CHECK(*pointer == random);
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should be able to assign the first unit's value", unit_p, types, volatiles)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p random_a = Random<unit_p>();
+                        unit_p random_b = Random<unit_p>();
+                        const pointer_t<unit_p> pointer(&random_a);
+                        *pointer = random_b;
+                        CHECK(random_a == random_b);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not change the units", unit_p, types, volatiles)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p random_a = Random<unit_p>();
+                        unit_p random_b = Random<unit_p>();
+                        const pointer_t<unit_p> pointer(&random_a);
+                        *pointer = random_b;
+                        CHECK(pointer.Units() == &random_a);
+                    }
+                }
             }
 
             TEST_SUITE("[]()")
             {
+                TEST_CASE_TEMPLATE("should be able to access the indexed unit's value", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        std::remove_const_t<unit_p> randoms[16];
+                        for (index_t idx = 0, end = 16; idx < end; idx += 1) {
+                            randoms[idx] = Random<std::remove_const_t<unit_p>>();
+                        }
+                        const pointer_t<unit_p> pointer(randoms, sizeof(randoms));
+                        index_t index = Random<index_t>(0, 15);
+                        CHECK(pointer[index] == randoms[index]);
+                    }
+                }
 
+                TEST_CASE_TEMPLATE("should be able to assign the indexed unit's value", unit_p, types, volatiles)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p randoms[16];
+                        for (index_t idx = 0, end = 16; idx < end; idx += 1) {
+                            randoms[idx] = Random<unit_p>();
+                        }
+                        const pointer_t<unit_p> pointer(randoms, sizeof(randoms));
+                        index_t index = Random<index_t>(0, 15);
+                        unit_p random = Random<unit_p>();
+                        pointer[index] = random;
+                        CHECK(randoms[index] == random);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not change the units", unit_p, types, volatiles)
+                {
+                    if constexpr (type_tr<unit_p>) {
+                        unit_p randoms[16];
+                        for (index_t idx = 0, end = 16; idx < end; idx += 1) {
+                            randoms[idx] = Random<unit_p>();
+                        }
+                        const pointer_t<unit_p> pointer(randoms, sizeof(randoms));
+                        index_t index = Random<index_t>(0, 15);
+                        unit_p random = Random<unit_p>();
+                        pointer[index] = random;
+                        CHECK(pointer.Units() == randoms);
+                    }
+                }
             }
         }
 

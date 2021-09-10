@@ -113,7 +113,7 @@
     <None Include="include\nkr\array_dynamic_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\pointer_t.def">
+    <None Include="include\nkr\pointer_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\allocator_heap_t.inl">
@@ -167,8 +167,8 @@
     <None Include="include\nkr\charcoder_ascii_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\pointer_t.dec" />
-    <None Include="include\nkr\pointer_t.dox" />
+    <None Include="include\nkr\pointer_t_dec.h" />
+    <None Include="include\nkr\pointer_t_dox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\pointer_t.cpp">

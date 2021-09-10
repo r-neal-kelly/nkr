@@ -2,7 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/pointer_t.dec"
+#include "nkr/pointer_t_dec.h"
 
 #if defined(nkr_DO_EXTERN_TEMPLATES)
 

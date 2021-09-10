@@ -4,5 +4,5 @@
 
 #pragma once
 
-#include "nkr/pointer_t.dec"
-#include "nkr/pointer_t.def"
+#include "nkr/pointer_t_dec.h"
+#include "nkr/pointer_t_def.h"

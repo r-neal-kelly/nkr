@@ -38,8 +38,8 @@ namespace nkr {
 
     template <typename type_p>
     concept boolean_tr =
-        std::same_as<type_p, bool_t> ||
-        std::same_as<type_p, std_bool_t>;           /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+        std::same_as<std::remove_cv_t<type_p>, bool_t> ||
+        std::same_as<std::remove_cv_t<type_p>, std_bool_t>; /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
 
     template <typename type_p>
     concept to_boolean_tr =
@@ -56,7 +56,7 @@ namespace nkr {
     template <typename type_p>
     concept integer_tr =
         std::is_integral<type_p>::value &&
-        !std::same_as<type_p, std_bool_t>;      ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
+        !std::same_as<std::remove_cv_t<type_p>, std_bool_t>;    ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
 
     template <typename type_p>
     concept integer_unsigned_tr =

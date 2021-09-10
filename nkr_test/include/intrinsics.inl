@@ -18,19 +18,21 @@ namespace nkr {
     }
 
     template <integer_tr integer_p>
-    inline integer_p Random(integer_p from_inclusive = std::numeric_limits<integer_p>::lowest(),
-                            integer_p to_inclusive = std::numeric_limits<integer_p>::max())
+    inline integer_p Random(std::remove_cv_t<integer_p> from_inclusive = std::numeric_limits<std::remove_cv_t<integer_p>>::lowest(),
+                            std::remove_cv_t<integer_p> to_inclusive = std::numeric_limits<std::remove_cv_t<integer_p>>::max())
     {
-        if constexpr (sizeof(integer_p) > sizeof(word_t)) {
+        using integer_pp = std::remove_cv_t<integer_p>;
+
+        if constexpr (sizeof(integer_pp) > sizeof(word_t)) {
             std::lock_guard<std::mutex> locker(random_lock);
-            return static_cast<integer_p>(std::uniform_int_distribution<integer_p>(
-                static_cast<integer_p>(from_inclusive),
-                static_cast<integer_p>(to_inclusive))(random_generator));
+            return static_cast<integer_pp>(std::uniform_int_distribution<integer_pp>(
+                static_cast<integer_pp>(from_inclusive),
+                static_cast<integer_pp>(to_inclusive))(random_generator));
         } else {
-            using word_t = word_for_t<integer_p>;
+            using word_t = word_for_t<integer_pp>;
 
             std::lock_guard<std::mutex> locker(random_lock);
-            return static_cast<integer_p>(std::uniform_int_distribution<word_t>(
+            return static_cast<integer_pp>(std::uniform_int_distribution<word_t>(
                 static_cast<word_t>(from_inclusive),
                 static_cast<word_t>(to_inclusive))(random_generator));
         }
@@ -43,13 +45,15 @@ namespace nkr {
     }
 
     template <real_tr real_p>
-    inline real_p Random(real_p from_inclusive = std::numeric_limits<real_p>::lowest(),
-                         real_p to_inclusive = std::numeric_limits<real_p>::max())
+    inline real_p Random(std::remove_cv_t<real_p> from_inclusive = std::numeric_limits<std::remove_cv_t<real_p>>::lowest(),
+                         std::remove_cv_t<real_p> to_inclusive = std::numeric_limits<std::remove_cv_t<real_p>>::max())
     {
+        using real_pp = std::remove_cv_t<real_p>;
+
         bool_t do_negative = false;
         if (from_inclusive < 0.0) {
-            real_p abs_from_inclusive = abs(from_inclusive);
-            real_p abs_to_inclusive = abs(to_inclusive);
+            real_pp abs_from_inclusive = abs(from_inclusive);
+            real_pp abs_to_inclusive = abs(to_inclusive);
             if (to_inclusive > 0.0) {
                 if (abs_from_inclusive > abs_to_inclusive) {
                     do_negative = !Random<bool_t>(real_t(abs_to_inclusive / abs_from_inclusive / 2));
@@ -72,9 +76,9 @@ namespace nkr {
 
         std::lock_guard<std::mutex> locker(random_lock);
         if (do_negative) {
-            return -std::uniform_real_distribution<real_p>(from_inclusive, to_inclusive)(random_generator);
+            return -std::uniform_real_distribution<real_pp>(from_inclusive, to_inclusive)(random_generator);
         } else {
-            return std::uniform_real_distribution<real_p>(from_inclusive, to_inclusive)(random_generator);
+            return std::uniform_real_distribution<real_pp>(from_inclusive, to_inclusive)(random_generator);
         }
     }
 

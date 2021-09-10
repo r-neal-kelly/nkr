@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/pointer_t.dec"
+#include "nkr/pointer_t_dec.h"
 
 namespace nkr { namespace $pointer_t {
 
@@ -164,7 +164,7 @@ namespace nkr { namespace $pointer_t {
     {
         assert(this->units != nullptr);
 
-        return operator +(1);
+        return operator +=(1);
     }
 
     template <type_tr unit_p>
@@ -173,7 +173,7 @@ namespace nkr { namespace $pointer_t {
         assert(this->units != nullptr);
 
         type_sp initial = *this;
-        operator +(1);
+        operator +=(1);
 
         return initial;
     }
@@ -183,7 +183,7 @@ namespace nkr { namespace $pointer_t {
     {
         assert(this->units != nullptr);
 
-        return operator -(1);
+        return operator -=(1);
     }
 
     template <type_tr unit_p>
@@ -192,7 +192,7 @@ namespace nkr { namespace $pointer_t {
         assert(this->units != nullptr);
 
         type_sp initial = *this;
-        operator -(1);
+        operator -=(1);
 
         return initial;
     }
