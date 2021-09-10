@@ -27,7 +27,6 @@ namespace nkr { namespace $pointer_t {
         units(static_cast<unit_t*>(units)),
         unit_count(unit_count)
     {
-        assert(units || unit_count > 0 ? units && unit_count > 0 : true);
     }
 
     template <type_tr unit_p>
@@ -104,21 +103,13 @@ namespace nkr { namespace $pointer_t {
     template <type_tr unit_p>
     inline type_sp<unit_p>& type_sp<unit_p>::operator ()(convertible_tr<unit_t*> auto unit)
     {
-        this->units = static_cast<unit_t*>(unit);
-        this->unit_count = unit ? 1 : 0;
-
-        return *this;
+        return *this = { unit };
     }
 
     template <type_tr unit_p>
     inline type_sp<unit_p>& type_sp<unit_p>::operator ()(convertible_tr<unit_t*> auto units, count_t unit_count)
     {
-        assert(units || unit_count > 0 ? units && unit_count > 0 : true);
-
-        this->units = static_cast<unit_t*>(units);
-        this->unit_count = unit_count;
-
-        return *this;
+        return *this = { units, unit_count };
     }
 
     template <type_tr unit_p>
@@ -243,7 +234,6 @@ namespace nkr { namespace $pointer_t {
         units(static_cast<unit_t*>(units)),
         unit_count(unit_count)
     {
-        assert(units || unit_count > 0 ? units && unit_count > 0 : true);
     }
 
     template <non_type_tr unit_p>
@@ -326,8 +316,6 @@ namespace nkr { namespace $pointer_t {
     template <non_type_tr unit_p>
     inline non_type_sp<unit_p>& non_type_sp<unit_p>::operator ()(convertible_tr<unit_t*> auto units, count_t unit_count)
     {
-        assert(units || unit_count > 0 ? units && unit_count > 0 : true);
-
         return *this = { units, unit_count };
     }
 
