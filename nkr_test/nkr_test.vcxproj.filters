@@ -66,15 +66,15 @@
     <ClCompile Include="src\allocator_heap_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\allocator_heap_zeros_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\intrinsics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\bool_t.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\allocator_heap_zeros_t.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

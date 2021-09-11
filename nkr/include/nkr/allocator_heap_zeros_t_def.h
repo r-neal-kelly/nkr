@@ -45,7 +45,7 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline void_t heap_zeros_t<unit_p>::Deallocate(pointer_t<unit_t>& units)
+    inline void_t heap_zeros_t<unit_p>::Deallocate(units_t& units)
     {
         return os::heap::Deallocate_Zeros(units);
     }

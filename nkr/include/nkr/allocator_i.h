@@ -18,6 +18,7 @@ namespace nkr {
                                    count_t new_unit_count)
     {
         typename allocator_p::unit_t;
+        typename allocator_p::units_t;
 
         allocator_p::MIN_UNIT_COUNT;
         allocator_p::MAX_UNIT_COUNT;
