@@ -18,6 +18,14 @@ namespace nkr { namespace allocator {
         using unit_t    = unit_p;
 
     public:
+        heap_zeros_t()                                          = default;
+        heap_zeros_t(const heap_zeros_t& other)                 = default;
+        heap_zeros_t(heap_zeros_t&& other) noexcept             = default;
+        heap_zeros_t& operator =(const heap_zeros_t& other)     = default;
+        heap_zeros_t& operator =(heap_zeros_t&& other) noexcept = default;
+        ~heap_zeros_t()                                         = default;
+
+    public:
         bool_t  Allocate(pointer_t<unit_t>& units, count_t unit_count);
         bool_t  Reallocate(pointer_t<unit_t>& units, count_t new_unit_count);
         void_t  Deallocate(pointer_t<unit_t>& units);

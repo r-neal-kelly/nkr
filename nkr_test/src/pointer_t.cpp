@@ -82,6 +82,14 @@ namespace nkr {
                     static_assert(std::same_as<pointer_t<unit_p>::unit_t, unit_p>);
                 }
             }
+
+            TEST_SUITE("units_t")
+            {
+                TEST_CASE_TEMPLATE("should equal unit_p*", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    static_assert(std::same_as<pointer_t<unit_p>::units_t, unit_p*>);
+                }
+            }
         }
 
         TEST_SUITE("object data")
@@ -110,13 +118,13 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should set units to nullptr", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     pointer_t<unit_p> pointer;
-                    CHECK(pointer.Units() == nullptr);
+                    CHECK(pointer.units == nullptr);
                 }
 
                 TEST_CASE_TEMPLATE("should set unit_count to 0", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     pointer_t<unit_p> pointer;
-                    CHECK(pointer.Unit_Count() == 0);
+                    CHECK(pointer.unit_count == 0);
                 }
             }
 
@@ -126,14 +134,14 @@ namespace nkr {
                 {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> pointer(unit);
-                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.units == unit);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly set passed unit", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> pointer = unit;
-                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.units == unit);
                 }
 
                 TEST_CASE("should convert and set passed unit")
@@ -143,13 +151,13 @@ namespace nkr {
 
                     derived_t* unit = Random<derived_t*>();
                     pointer_t<base_t> pointer(unit);
-                    CHECK(pointer.Units() == static_cast<base_t*>(unit));
+                    CHECK(pointer.units == static_cast<base_t*>(unit));
                 }
 
                 TEST_CASE_TEMPLATE("should set unit_count to 0 if passed nullptr", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     pointer_t<unit_p> pointer(nullptr);
-                    CHECK(pointer.Unit_Count() == 0);
+                    CHECK(pointer.unit_count == 0);
                 }
 
                 TEST_CASE_TEMPLATE("should set unit_count to 1 if passed non-nullptr", unit_p, types, consts, volatiles, volatile_consts)
@@ -159,7 +167,7 @@ namespace nkr {
                         unit = Random<unit_p*>();
                     } while (unit == nullptr);
                     pointer_t<unit_p> pointer(unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.unit_count == 1);
                 }
             }
 
@@ -176,8 +184,8 @@ namespace nkr {
                         unit_count = Random<count_t>();
                     } while (unit_count == 0);
                     pointer_t<unit_p> pointer(units, unit_count);
-                    CHECK(pointer.Units() == units);
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.units == units);
+                    CHECK(pointer.unit_count == unit_count);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly set passed units and unit_count", unit_p, types, consts, volatiles, volatile_consts)
@@ -191,8 +199,8 @@ namespace nkr {
                         unit_count = Random<count_t>();
                     } while (unit_count == 0);
                     pointer_t<unit_p> pointer = { units, unit_count };
-                    CHECK(pointer.Units() == units);
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.units == units);
+                    CHECK(pointer.unit_count == unit_count);
                 }
 
                 TEST_CASE("should convert and set passed units")
@@ -209,15 +217,15 @@ namespace nkr {
                         unit_count = Random<count_t>();
                     } while (unit_count == 0);
                     pointer_t<base_t> pointer(units, unit_count);
-                    CHECK(pointer.Units() == static_cast<base_t*>(units));
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.units == static_cast<base_t*>(units));
+                    CHECK(pointer.unit_count == unit_count);
                 }
 
                 TEST_CASE_TEMPLATE("should allow a nullptr units and a 0 unit_count", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     pointer_t<unit_p> pointer(nullptr, 0);
-                    CHECK(pointer.Units() == nullptr);
-                    CHECK(pointer.Unit_Count() == 0);
+                    CHECK(pointer.units == nullptr);
+                    CHECK(pointer.unit_count == 0);
                 }
             }
 
@@ -228,8 +236,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     const pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer(other);
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly copy the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
@@ -237,8 +245,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     const pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer = other;
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should not alter the units or unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
@@ -246,8 +254,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     const pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer(other);
-                    CHECK(other.Units() == unit);
-                    CHECK(other.Unit_Count() == 1);
+                    CHECK(other.units == unit);
+                    CHECK(other.unit_count == 1);
                 }
             }
 
@@ -258,8 +266,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer(std::move(other));
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly move the units and unit_count of other", unit_p, types, consts, volatiles, volatile_consts)
@@ -267,8 +275,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer = std::move(other);
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should set the units and unit_count of other to the defaults", unit_p, types, consts, volatiles, volatile_consts)
@@ -276,8 +284,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer(std::move(other));
-                    CHECK(other.Units() == nullptr);
-                    CHECK(other.Unit_Count() == 0);
+                    CHECK(other.units == nullptr);
+                    CHECK(other.unit_count == 0);
                 }
             }
 
@@ -289,8 +297,8 @@ namespace nkr {
                     const pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer;
                     pointer = other;
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
@@ -307,8 +315,8 @@ namespace nkr {
                     const pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer;
                     pointer = other;
-                    CHECK(other.Units() == unit);
-                    CHECK(other.Unit_Count() == 1);
+                    CHECK(other.units == unit);
+                    CHECK(other.unit_count == 1);
                 }
             }
 
@@ -320,8 +328,8 @@ namespace nkr {
                     pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer;
                     pointer = std::move(other);
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
@@ -338,8 +346,8 @@ namespace nkr {
                     pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer;
                     pointer = std::move(other);
-                    CHECK(other.Units() == nullptr);
-                    CHECK(other.Unit_Count() == 0);
+                    CHECK(other.units == nullptr);
+                    CHECK(other.unit_count == 0);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly work with the unit_ctor()", unit_p, types, consts, volatiles, volatile_consts)
@@ -347,8 +355,8 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> pointer;
                     pointer = unit;
-                    CHECK(pointer.Units() == unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly work with the units_ctor()", unit_p, types, consts, volatiles, volatile_consts)
@@ -363,8 +371,8 @@ namespace nkr {
                     } while (unit_count == 0);
                     pointer_t<unit_p> pointer;
                     pointer = { units, unit_count };
-                    CHECK(pointer.Units() == units);
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.units == units);
+                    CHECK(pointer.unit_count == unit_count);
                 }
             }
 
@@ -382,54 +390,15 @@ namespace nkr {
                     } while (unit_count == 0);
                     pointer_t<unit_p> pointer(units, unit_count);
                     pointer.~pointer_t();
-                    CHECK(pointer.Units() == nullptr);
-                    CHECK(pointer.Unit_Count() == 0);
-                }
-            }
-        }
-
-        TEST_SUITE("methods")
-        {
-            TEST_SUITE("Units()")
-            {
-                TEST_CASE_TEMPLATE("should return the units", unit_p, types, consts, volatiles, volatile_consts)
-                {
-                    unit_p* unit = Random<unit_p*>();
-                    pointer_t<unit_p> pointer(unit);
-                    CHECK(pointer.Units() == unit);
-                }
-
-                TEST_CASE_TEMPLATE("should not change the units", unit_p, types, consts, volatiles, volatile_consts)
-                {
-                    unit_p* unit = Random<unit_p*>();
-                    pointer_t<unit_p> pointer(unit);
-                    pointer.Units();
-                    CHECK(pointer.Units() == unit);
-                }
-            }
-
-            TEST_SUITE("Unit_Count()")
-            {
-                TEST_CASE_TEMPLATE("should return the unit_count", unit_p, types, consts, volatiles, volatile_consts)
-                {
-                    unit_p* unit = Random<unit_p*>();
-                    pointer_t<unit_p> pointer(unit);
-                    CHECK(pointer.Unit_Count() == 1);
-                }
-
-                TEST_CASE_TEMPLATE("should not change the unit_count", unit_p, types, consts, volatiles, volatile_consts)
-                {
-                    unit_p* unit = Random<unit_p*>();
-                    pointer_t<unit_p> pointer(unit);
-                    pointer.Unit_Count();
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.units == nullptr);
+                    CHECK(pointer.unit_count == 0);
                 }
             }
         }
 
         TEST_SUITE("casts")
         {
-            TEST_SUITE("unit_t*()")
+            TEST_SUITE("units_t()")
             {
                 TEST_CASE_TEMPLATE("should explicitly return a copy of the units", unit_p, types, consts, volatiles, volatile_consts)
                 {
@@ -452,7 +421,7 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     const pointer_t<unit_p> pointer(unit);
                     unit_p* cast = static_cast<unit_p*>(pointer);
-                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.units == unit);
                 }
 
                 TEST_CASE_TEMPLATE("should implicitly allow for logical operators", unit_p, types, consts, volatiles, volatile_consts)
@@ -500,7 +469,7 @@ namespace nkr {
                     count_t unit_count = Random<count_t>();
                     const pointer_t<unit_p> pointer(unit, unit_count);
                     count_t cast = static_cast<count_t>(pointer);
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.unit_count == unit_count);
                 }
             }
         }
@@ -532,7 +501,7 @@ namespace nkr {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> pointer;
                     pointer(unit);
-                    CHECK(pointer.Units() == unit);
+                    CHECK(pointer.units == unit);
                 }
 
                 TEST_CASE("should convert and set passed unit")
@@ -543,14 +512,14 @@ namespace nkr {
                     derived_t* unit = Random<derived_t*>();
                     pointer_t<base_t> pointer;
                     pointer(unit);
-                    CHECK(pointer.Units() == static_cast<base_t*>(unit));
+                    CHECK(pointer.units == static_cast<base_t*>(unit));
                 }
 
                 TEST_CASE_TEMPLATE("should set unit_count to 0 if passed nullptr", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     pointer_t<unit_p> pointer;
                     pointer(nullptr);
-                    CHECK(pointer.Unit_Count() == 0);
+                    CHECK(pointer.unit_count == 0);
                 }
 
                 TEST_CASE_TEMPLATE("should set unit_count to 1 if passed non-nullptr", unit_p, types, consts, volatiles, volatile_consts)
@@ -561,7 +530,7 @@ namespace nkr {
                     } while (unit == nullptr);
                     pointer_t<unit_p> pointer;
                     pointer(unit);
-                    CHECK(pointer.Unit_Count() == 1);
+                    CHECK(pointer.unit_count == 1);
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
@@ -572,7 +541,7 @@ namespace nkr {
                 }
             }
 
-            TEST_SUITE("()(unit_t*, count_t)")
+            TEST_SUITE("()(units_t, count_t)")
             {
                 TEST_CASE_TEMPLATE("should set passed units and unit_count", unit_p, types, consts, volatiles, volatile_consts)
                 {
@@ -586,8 +555,8 @@ namespace nkr {
                     } while (unit_count == 0);
                     pointer_t<unit_p> pointer;
                     pointer(units, unit_count);
-                    CHECK(pointer.Units() == units);
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.units == units);
+                    CHECK(pointer.unit_count == unit_count);
                 }
 
                 TEST_CASE("should convert and set passed units")
@@ -605,16 +574,16 @@ namespace nkr {
                     } while (unit_count == 0);
                     pointer_t<base_t> pointer;
                     pointer(units, unit_count);
-                    CHECK(pointer.Units() == static_cast<base_t*>(units));
-                    CHECK(pointer.Unit_Count() == unit_count);
+                    CHECK(pointer.units == static_cast<base_t*>(units));
+                    CHECK(pointer.unit_count == unit_count);
                 }
 
                 TEST_CASE_TEMPLATE("should allow a nullptr units and a 0 unit_count", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     pointer_t<unit_p> pointer;
                     pointer(nullptr, 0);
-                    CHECK(pointer.Units() == nullptr);
-                    CHECK(pointer.Unit_Count() == 0);
+                    CHECK(pointer.units == nullptr);
+                    CHECK(pointer.unit_count == 0);
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
@@ -645,8 +614,8 @@ namespace nkr {
                         count_t amount = Random<count_t>(0, unit_count);
                         pointer_t<unit_p> pointer_a(units, unit_count);
                         pointer_t<unit_p> pointer_b = pointer_a + amount;
-                        CHECK(pointer_b.Units() == units + amount);
-                        CHECK(pointer_b.Unit_Count() == unit_count - amount);
+                        CHECK(pointer_b.units == units + amount);
+                        CHECK(pointer_b.unit_count == unit_count - amount);
                     }
                 }
 
@@ -661,8 +630,8 @@ namespace nkr {
                         count_t amount = Random<count_t>(0, unit_count);
                         pointer_t<unit_p> pointer_a(units, unit_count);
                         pointer_t<unit_p> pointer_b = pointer_a + amount;
-                        CHECK(pointer_a.Units() == units);
-                        CHECK(pointer_a.Unit_Count() == unit_count);
+                        CHECK(pointer_a.units == units);
+                        CHECK(pointer_a.unit_count == unit_count);
                     }
                 }
 
@@ -677,8 +646,8 @@ namespace nkr {
                         s8_t amount = Random<s8_t>(0, std::numeric_limits<s8_t>::max());
                         pointer_t<unit_p> pointer_a(units, unit_count);
                         pointer_t<unit_p> pointer_b = pointer_a + amount;
-                        CHECK(pointer_b.Units() == units + amount);
-                        CHECK(pointer_b.Unit_Count() == unit_count - amount);
+                        CHECK(pointer_b.units == units + amount);
+                        CHECK(pointer_b.unit_count == unit_count - amount);
                     }
                 }
             }
@@ -696,8 +665,8 @@ namespace nkr {
                         count_t amount = Random<count_t>(0, unit_count);
                         pointer_t<unit_p> pointer_a(units, unit_count);
                         pointer_t<unit_p> pointer_b = pointer_a - amount;
-                        CHECK(pointer_b.Units() == units - amount);
-                        CHECK(pointer_b.Unit_Count() == unit_count + amount);
+                        CHECK(pointer_b.units == units - amount);
+                        CHECK(pointer_b.unit_count == unit_count + amount);
                     }
                 }
 
@@ -712,8 +681,8 @@ namespace nkr {
                         count_t amount = Random<count_t>(0, unit_count);
                         pointer_t<unit_p> pointer_a(units, unit_count);
                         pointer_t<unit_p> pointer_b = pointer_a - amount;
-                        CHECK(pointer_a.Units() == units);
-                        CHECK(pointer_a.Unit_Count() == unit_count);
+                        CHECK(pointer_a.units == units);
+                        CHECK(pointer_a.unit_count == unit_count);
                     }
                 }
 
@@ -728,8 +697,8 @@ namespace nkr {
                         s8_t amount = Random<s8_t>(0, std::numeric_limits<s8_t>::max());
                         pointer_t<unit_p> pointer_a(units, unit_count);
                         pointer_t<unit_p> pointer_b = pointer_a - amount;
-                        CHECK(pointer_b.Units() == units - amount);
-                        CHECK(pointer_b.Unit_Count() == unit_count + amount);
+                        CHECK(pointer_b.units == units - amount);
+                        CHECK(pointer_b.unit_count == unit_count + amount);
                     }
                 }
             }
@@ -747,8 +716,8 @@ namespace nkr {
                         count_t amount = Random<count_t>(0, unit_count);
                         pointer_t<unit_p> pointer(units, unit_count);
                         pointer += amount;
-                        CHECK(pointer.Units() == (units += amount));
-                        CHECK(pointer.Unit_Count() == (unit_count -= amount));
+                        CHECK(pointer.units == (units += amount));
+                        CHECK(pointer.unit_count == (unit_count -= amount));
                     }
                 }
 
@@ -777,8 +746,8 @@ namespace nkr {
                         s8_t amount = Random<s8_t>(0, std::numeric_limits<s8_t>::max());
                         pointer_t<unit_p> pointer(units, unit_count);
                         pointer += amount;
-                        CHECK(pointer.Units() == (units += amount));
-                        CHECK(pointer.Unit_Count() == (unit_count -= amount));
+                        CHECK(pointer.units == (units += amount));
+                        CHECK(pointer.unit_count == (unit_count -= amount));
                     }
                 }
             }
@@ -796,8 +765,8 @@ namespace nkr {
                         count_t amount = Random<count_t>(0, unit_count);
                         pointer_t<unit_p> pointer(units, unit_count);
                         pointer -= amount;
-                        CHECK(pointer.Units() == (units -= amount));
-                        CHECK(pointer.Unit_Count() == (unit_count += amount));
+                        CHECK(pointer.units == (units -= amount));
+                        CHECK(pointer.unit_count == (unit_count += amount));
                     }
                 }
 
@@ -826,8 +795,8 @@ namespace nkr {
                         s8_t amount = Random<s8_t>(0, std::numeric_limits<s8_t>::max());
                         pointer_t<unit_p> pointer(units, unit_count);
                         pointer -= amount;
-                        CHECK(pointer.Units() == (units -= amount));
-                        CHECK(pointer.Unit_Count() == (unit_count += amount));
+                        CHECK(pointer.units == (units -= amount));
+                        CHECK(pointer.unit_count == (unit_count += amount));
                     }
                 }
             }
@@ -844,8 +813,8 @@ namespace nkr {
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
                         ++pointer;
-                        CHECK(pointer.Units() == (units += 1));
-                        CHECK(pointer.Unit_Count() == (unit_count -= 1));
+                        CHECK(pointer.units == (units += 1));
+                        CHECK(pointer.unit_count == (unit_count -= 1));
                     }
                 }
 
@@ -858,7 +827,7 @@ namespace nkr {
                         } while (units == nullptr);
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
-                        CHECK((++pointer).Units() == (units += 1));
+                        CHECK((++pointer).units == (units += 1));
                     }
                 }
             }
@@ -875,8 +844,8 @@ namespace nkr {
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
                         pointer++;
-                        CHECK(pointer.Units() == (units += 1));
-                        CHECK(pointer.Unit_Count() == (unit_count -= 1));
+                        CHECK(pointer.units == (units += 1));
+                        CHECK(pointer.unit_count == (unit_count -= 1));
                     }
                 }
 
@@ -889,7 +858,7 @@ namespace nkr {
                         } while (units == nullptr);
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
-                        CHECK((pointer++).Units() == units);
+                        CHECK((pointer++).units == units);
                     }
                 }
             }
@@ -906,8 +875,8 @@ namespace nkr {
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
                         --pointer;
-                        CHECK(pointer.Units() == (units -= 1));
-                        CHECK(pointer.Unit_Count() == (unit_count += 1));
+                        CHECK(pointer.units == (units -= 1));
+                        CHECK(pointer.unit_count == (unit_count += 1));
                     }
                 }
 
@@ -920,7 +889,7 @@ namespace nkr {
                         } while (units == nullptr);
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
-                        CHECK((--pointer).Units() == (units -= 1));
+                        CHECK((--pointer).units == (units -= 1));
                     }
                 }
             }
@@ -937,8 +906,8 @@ namespace nkr {
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
                         pointer--;
-                        CHECK(pointer.Units() == (units -= 1));
-                        CHECK(pointer.Unit_Count() == (unit_count += 1));
+                        CHECK(pointer.units == (units -= 1));
+                        CHECK(pointer.unit_count == (unit_count += 1));
                     }
                 }
 
@@ -951,7 +920,7 @@ namespace nkr {
                         } while (units == nullptr);
                         count_t unit_count = Random<count_t>(0x1, 0xFFFF);
                         pointer_t<unit_p> pointer(units, unit_count);
-                        CHECK((pointer--).Units() == units);
+                        CHECK((pointer--).units == units);
                     }
                 }
             }
@@ -988,7 +957,7 @@ namespace nkr {
                         struct wrap_t { unit_p* value; } wrap(random_a);
                         const pointer_t<wrap_t> pointer(&wrap);
                         pointer->value = random_b;
-                        CHECK(pointer.Units() == &wrap);
+                        CHECK(pointer.units == &wrap);
                     }
                 }
             }
@@ -1022,7 +991,7 @@ namespace nkr {
                         unit_p random_b = Random<unit_p>();
                         const pointer_t<unit_p> pointer(&random_a);
                         *pointer = random_b;
-                        CHECK(pointer.Units() == &random_a);
+                        CHECK(pointer.units == &random_a);
                     }
                 }
             }
@@ -1068,7 +1037,7 @@ namespace nkr {
                         index_t index = Random<index_t>(0, 15);
                         unit_p random = Random<unit_p>();
                         pointer[index] = random;
-                        CHECK(pointer.Units() == randoms);
+                        CHECK(pointer.units == randoms);
                     }
                 }
             }
