@@ -583,8 +583,11 @@ namespace nkr { namespace os { namespace heap {
 
     inline void_t Deallocate(type_tr auto*& units)
     {
+        using units_t = std::remove_reference_t<decltype(units)>;
+        using unit_t = std::remove_pointer_t<units_t>;
+
         if (units != nullptr) {
-            ::free(units);
+            ::free(const_cast<std::remove_volatile_t<unit_t>*&>(units));
             units = nullptr;
         }
     }

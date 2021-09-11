@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\allocator_heap_t.cpp" />
     <ClCompile Include="src\atomic_t_boolean_p.cpp" />
     <ClCompile Include="src\atomic_t_integer_p.cpp" />
     <ClCompile Include="src\atomic_t_pointer_p.cpp" />
@@ -179,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="include\bool_t.h" />
     <ClInclude Include="include\intrinsics.h" />
+    <ClInclude Include="src\allocator_heap_zeros_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\doctest\doctest.vcxproj">

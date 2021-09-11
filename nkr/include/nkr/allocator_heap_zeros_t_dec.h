@@ -16,6 +16,11 @@ namespace nkr { namespace allocator {
     {
     public:
         using unit_t    = unit_p;
+        using units_t   = unit_p*;
+
+    public:
+        static constexpr count_t    MIN_UNIT_COUNT  = 1;
+        static constexpr count_t    MAX_UNIT_COUNT  = std::numeric_limits<count_t>::max() / sizeof(unit_t);
 
     public:
         heap_zeros_t()                                          = default;
@@ -26,8 +31,13 @@ namespace nkr { namespace allocator {
         ~heap_zeros_t()                                         = default;
 
     public:
+        bool_t  Allocate(units_t& units, count_t unit_count);
         bool_t  Allocate(pointer_t<unit_t>& units, count_t unit_count);
+
+        bool_t  Reallocate(units_t& units, count_t new_unit_count);
         bool_t  Reallocate(pointer_t<unit_t>& units, count_t new_unit_count);
+
+        void_t  Deallocate(units_t& units);
         void_t  Deallocate(pointer_t<unit_t>& units);
     };
     static_assert(allocator_i<heap_zeros_t<word_t>>);

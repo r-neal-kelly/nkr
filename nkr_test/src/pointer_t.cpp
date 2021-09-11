@@ -257,6 +257,33 @@ namespace nkr {
                     CHECK(other.units == unit);
                     CHECK(other.unit_count == 1);
                 }
+
+                TEST_CASE_TEMPLATE("should explicitly copy the units and unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(other);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly copy the units and unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer = other;
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter the units or unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(other);
+                    CHECK(other.units == unit);
+                    CHECK(other.unit_count == 1);
+                }
             }
 
             TEST_SUITE("move_ctor()")
@@ -287,6 +314,33 @@ namespace nkr {
                     CHECK(other.units == nullptr);
                     CHECK(other.unit_count == 0);
                 }
+
+                TEST_CASE_TEMPLATE("should explicitly move the units and unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(std::move(other));
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly move the units and unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer = std::move(other);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should set the units and unit_count of volatile other to the defaults", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer(std::move(other));
+                    CHECK(other.units == nullptr);
+                    CHECK(other.unit_count == 0);
+                }
             }
 
             TEST_SUITE("copy_assignment_ctor()")
@@ -301,7 +355,7 @@ namespace nkr {
                     CHECK(pointer.unit_count == 1);
                 }
 
-                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                TEST_CASE_TEMPLATE("should return itself after copying other", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     unit_p* unit = Random<unit_p*>();
                     const pointer_t<unit_p> other(unit);
@@ -313,6 +367,34 @@ namespace nkr {
                 {
                     unit_p* unit = Random<unit_p*>();
                     const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = other;
+                    CHECK(other.units == unit);
+                    CHECK(other.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should copy the units and unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = other;
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself after copying volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile const pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    CHECK(&(pointer = other) == &pointer);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter the units or unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile const pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer;
                     pointer = other;
                     CHECK(other.units == unit);
@@ -332,7 +414,7 @@ namespace nkr {
                     CHECK(pointer.unit_count == 1);
                 }
 
-                TEST_CASE_TEMPLATE("should return itself", unit_p, types, consts, volatiles, volatile_consts)
+                TEST_CASE_TEMPLATE("should return itself after moving other", unit_p, types, consts, volatiles, volatile_consts)
                 {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> other(unit);
@@ -344,6 +426,34 @@ namespace nkr {
                 {
                     unit_p* unit = Random<unit_p*>();
                     pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = std::move(other);
+                    CHECK(other.units == nullptr);
+                    CHECK(other.unit_count == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move the units and unit_count of volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    pointer = std::move(other);
+                    CHECK(pointer.units == unit);
+                    CHECK(pointer.unit_count == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself after moving volatile other", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile pointer_t<unit_p> other(unit);
+                    pointer_t<unit_p> pointer;
+                    CHECK(&(pointer = std::move(other)) == &pointer);
+                }
+
+                TEST_CASE_TEMPLATE("should set the units and unit_count of volatile other to the defaults", unit_p, types, consts, volatiles, volatile_consts)
+                {
+                    unit_p* unit = Random<unit_p*>();
+                    volatile pointer_t<unit_p> other(unit);
                     pointer_t<unit_p> pointer;
                     pointer = std::move(other);
                     CHECK(other.units == nullptr);
