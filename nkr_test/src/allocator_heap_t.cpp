@@ -90,7 +90,7 @@ namespace nkr { namespace allocator {
 
                     heap_t allocator;
                     units_t units = nullptr;
-                    count_t unit_count = Random<count_t>(1, 1024);
+                    count_t unit_count = Random<count_t>(1, 16);
                     allocator.Allocate(units, unit_count);
                     CHECK(units != nullptr);
 
@@ -120,7 +120,7 @@ namespace nkr { namespace allocator {
 
                     heap_t allocator;
                     units_t units;
-                    count_t unit_count = Random<count_t>(1, 1024);
+                    count_t unit_count = Random<count_t>(1, 16);
                     CHECK(allocator.Allocate(units, unit_count) == true);
 
                     allocator.Deallocate(units);
@@ -151,7 +151,7 @@ namespace nkr { namespace allocator {
 
                     heap_t allocator;
                     pointer_t<unit_t> units;
-                    count_t unit_count = Random<count_t>(1, 1024);
+                    count_t unit_count = Random<count_t>(1, 16);
                     allocator.Allocate(units, unit_count);
                     CHECK(units.units != nullptr);
 
@@ -166,7 +166,7 @@ namespace nkr { namespace allocator {
 
                     heap_t allocator;
                     pointer_t<unit_t> units;
-                    count_t unit_count = Random<count_t>(1, 1024);
+                    count_t unit_count = Random<count_t>(1, 16);
                     allocator.Allocate(units, unit_count);
                     CHECK(units.unit_count == unit_count);
 
@@ -211,7 +211,7 @@ namespace nkr { namespace allocator {
 
                     heap_t allocator;
                     pointer_t<unit_t> units;
-                    count_t unit_count = Random<count_t>(1, 1024);
+                    count_t unit_count = Random<count_t>(1, 16);
                     CHECK(allocator.Allocate(units, unit_count) == true);
 
                     allocator.Deallocate(units);
@@ -234,22 +234,258 @@ namespace nkr { namespace allocator {
 
             TEST_SUITE("Reallocate(units_t)")
             {
+                TEST_CASE_TEMPLATE("should keep units as non-nullptr if successful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
 
+                    heap_t allocator;
+                    units_t units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = Random<count_t>(17, 32);
+                    allocator.Reallocate(units, new_unit_count);
+                    CHECK(units != nullptr);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should keep units as non-nullptr if unsuccessful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    units_t units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = heap_t::MAX_UNIT_COUNT;
+                    allocator.Reallocate(units, new_unit_count);
+                    CHECK(units != nullptr);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    units_t units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = Random<count_t>(17, 32);
+                    CHECK(allocator.Reallocate(units, new_unit_count) == true);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should return false when unsuccessful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    units_t units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = heap_t::MAX_UNIT_COUNT;
+                    CHECK(allocator.Reallocate(units, new_unit_count) == false);
+
+                    allocator.Deallocate(units);
+                }
             }
 
             TEST_SUITE("Reallocate(pointer_t)")
             {
+                TEST_CASE_TEMPLATE("should keep pointer's units as non-nullptr if successful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
 
+                    heap_t allocator;
+                    pointer_t<unit_t> units;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = Random<count_t>(17, 32);
+                    allocator.Reallocate(units, new_unit_count);
+                    CHECK(units.units != nullptr);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should set pointer's unit_count to new_unit_count if successful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = Random<count_t>(17, 32);
+                    allocator.Reallocate(units, new_unit_count);
+                    CHECK(units.unit_count == new_unit_count);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should keep pointer's units as non-nullptr if unsuccessful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = heap_t::MAX_UNIT_COUNT;
+                    allocator.Reallocate(units, new_unit_count);
+                    CHECK(units.units != nullptr);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should keep pointer's unit_count as unit_count if unsuccessful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = heap_t::MAX_UNIT_COUNT;
+                    allocator.Reallocate(units, new_unit_count);
+                    CHECK(units.unit_count == unit_count);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = Random<count_t>(17, 32);
+                    CHECK(allocator.Reallocate(units, new_unit_count) == true);
+
+                    allocator.Deallocate(units);
+                }
+
+                TEST_CASE_TEMPLATE("should return false when unsuccessful", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    count_t new_unit_count = heap_t::MAX_UNIT_COUNT;
+                    CHECK(allocator.Reallocate(units, new_unit_count) == false);
+
+                    allocator.Deallocate(units);
+                }
             }
 
             TEST_SUITE("Deallocate(units_t)")
             {
+                TEST_CASE_TEMPLATE("should set units to nullptr", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
 
+                    heap_t allocator;
+                    units_t units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    allocator.Deallocate(units);
+                    CHECK(units == nullptr);
+                }
+
+                TEST_CASE_TEMPLATE("should keep units as nullptr if already nullptr", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    units_t units = nullptr;
+                    allocator.Deallocate(units);
+                    CHECK(units == nullptr);
+                }
             }
 
             TEST_SUITE("Deallocate(pointer_t)")
             {
+                TEST_CASE_TEMPLATE("should set pointer's units to nullptr", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
 
+                    heap_t allocator;
+                    pointer_t<unit_t> units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    allocator.Deallocate(units);
+                    CHECK(units.units == nullptr);
+                }
+
+                TEST_CASE_TEMPLATE("should set pointer's unit_count to 0", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units = nullptr;
+                    count_t unit_count = Random<count_t>(1, 16);
+                    allocator.Allocate(units, unit_count);
+                    allocator.Deallocate(units);
+                    CHECK(units.unit_count == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should keep pointer's units as nullptr if already nullptr", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units = nullptr;
+                    allocator.Deallocate(units);
+                    CHECK(units.units == nullptr);
+                }
+
+                TEST_CASE_TEMPLATE("should keep pointer's unit_count as 0 if already nullptr", unit_p, types, volatiles)
+                {
+                    using heap_t = heap_t<unit_p>;
+                    using unit_t = heap_t::unit_t;
+                    using units_t = heap_t::units_t;
+
+                    heap_t allocator;
+                    pointer_t<unit_t> units = nullptr;
+                    allocator.Deallocate(units);
+                    CHECK(units.unit_count == 0);
+                }
             }
         }
 
