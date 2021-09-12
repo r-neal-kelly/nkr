@@ -186,6 +186,10 @@ namespace nkr {
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
+    template <typename type_a_p, typename type_b_p>
+    concept same_as_non_cv_tr =
+        std::same_as<std::remove_cv_t<type_a_p>, std::remove_cv_t<type_b_p>>;
+
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value ||
