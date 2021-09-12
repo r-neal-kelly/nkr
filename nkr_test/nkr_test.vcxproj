@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="src\allocator_heap_t.cpp" />
     <ClCompile Include="src\allocator_heap_zeros_t.cpp" />
+    <ClCompile Include="src\array_dynamic_t.cpp" />
     <ClCompile Include="src\atomic_t_boolean_p.cpp" />
     <ClCompile Include="src\atomic_t_integer_p.cpp" />
     <ClCompile Include="src\atomic_t_pointer_p.cpp" />

@@ -39,7 +39,7 @@
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\array_dynamic_t.h">
+    <ClInclude Include="include\nkr\array_dynamic_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\traits.h">
@@ -114,6 +114,12 @@
     <ClInclude Include="include\nkr\allocator_heap_zeros_t_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\array_dynamic_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -122,7 +128,7 @@
     <None Include="include\nkr\string_dynamic_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\array_dynamic_t.inl">
+    <None Include="include\nkr\array_dynamic_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\pointer_t_def.h">
