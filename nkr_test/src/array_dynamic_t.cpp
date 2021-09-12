@@ -16,7 +16,19 @@ namespace nkr {
         CHECK(array_dynamic.Grow_Rate() == static_cast<real_t>(1.7));
         CHECK(array_dynamic.Capacity(16));
         array_dynamic.Push(8);
-        CHECK(array_dynamic.Access(0) == 8);
+        array_dynamic.Push(16);
+        array_dynamic.Push(32);
+        array_dynamic.Push(64);
+        CHECK(array_dynamic.At(0) == 8);
+        CHECK(array_dynamic.At(1) == 16);
+        CHECK(array_dynamic.At(2) == 32);
+        CHECK(array_dynamic.At(3) == 64);
+        while (array_dynamic.Count() > 0) {
+            array_dynamic.Pop();
+        }
+        array_dynamic.Fit();
+        CHECK(array_dynamic.Capacity() == 0);
+        CHECK(array_dynamic.Pointer() == nullptr);
     }
 
 }

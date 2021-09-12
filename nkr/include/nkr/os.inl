@@ -568,7 +568,6 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_reference_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
-        assert(new_unit_count > 0);
         assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
@@ -617,7 +616,6 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_reference_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
-        assert(new_unit_count > 0);
         assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;

@@ -58,11 +58,15 @@ namespace nkr {
         bool_t      Capacity(count_t new_capacity);
         count_t     Count() const;
 
-        unit_t&     Access(index_t index) const;
+        unit_t&     At(index_t index) const;
         bool_t      Push(const unit_t& unit);
         bool_t      Push(unit_t&& unit);
         unit_t      Pop();
 
+        bool_t      Is_Fit() const;
+        bool_t      Fit();
+
+        bool_t      Is_Clear() const;
         void_t      Clear();
 
         pointer_t   Pointer() const;
@@ -70,6 +74,9 @@ namespace nkr {
     private:
         bool_t  Should_Grow() const;
         bool_t  Grow();
+
+    public:
+        unit_t& operator [](index_t index) const;
     };
 
 }

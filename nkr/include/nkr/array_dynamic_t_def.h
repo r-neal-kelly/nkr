@@ -176,7 +176,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t& array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Access(index_t index) const
+    inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t& array_dynamic_t<unit_p, allocator_p, grow_rate_p>::At(index_t index) const
     {
         assert(index < this->unit_count);
 
@@ -214,12 +214,34 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pop()
+    inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pop()
     {
         assert(this->unit_count > 0);
 
         this->unit_count -= 1;
         return std::move(this->units[this->unit_count]);
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Fit() const
+    {
+        return Count() == Capacity();
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Fit()
+    {
+        if (this->unit_count < this->units.unit_count) {
+            return this->allocator.Reallocate(this->units, this->unit_count);
+        } else {
+            return true;
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Clear() const
+    {
+        return this->unit_count == 0;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -232,7 +254,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer() const
+    inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer() const
     {
         return this->units;
     }
@@ -262,6 +284,14 @@ namespace nkr {
             }
             return Capacity(new_capacity);
         }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t& array_dynamic_t<unit_p, allocator_p, grow_rate_p>::operator [](index_t index) const
+    {
+        assert(index < this->unit_count);
+
+        return this->units[index];
     }
 
 }
