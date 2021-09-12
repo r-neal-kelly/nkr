@@ -10,6 +10,18 @@
 namespace nkr { namespace allocator {
 
     template <type_tr unit_p>
+    inline constexpr count_t heap_t<unit_p>::Min_Unit_Count()
+    {
+        return 1;
+    }
+
+    template <type_tr unit_p>
+    inline constexpr count_t heap_t<unit_p>::Max_Unit_Count()
+    {
+        return std::numeric_limits<count_t>::max() / sizeof(unit_t);
+    }
+
+    template <type_tr unit_p>
     inline bool_t heap_t<unit_p>::Allocate(units_t& units, count_t unit_count)
     {
         return os::heap::Allocate(units, unit_count);

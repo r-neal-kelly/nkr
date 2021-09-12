@@ -20,8 +20,8 @@ namespace nkr {
         typename allocator_p::unit_t;
         typename allocator_p::units_t;
 
-        allocator_p::MIN_UNIT_COUNT;
-        allocator_p::MAX_UNIT_COUNT;
+        { allocator.Min_Unit_Count() }                      -> std::same_as<count_t>;
+        { allocator.Max_Unit_Count() }                      -> std::same_as<count_t>;
 
         { allocator.Allocate(units, unit_count) }           -> std::same_as<bool_t>;
         { allocator.Allocate(pointer, unit_count) }         -> std::same_as<bool_t>;

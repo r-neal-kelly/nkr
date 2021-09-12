@@ -19,8 +19,8 @@ namespace nkr { namespace allocator {
         using units_t   = unit_p*;
 
     public:
-        static constexpr count_t    MIN_UNIT_COUNT  = 1;
-        static constexpr count_t    MAX_UNIT_COUNT  = std::numeric_limits<count_t>::max() / sizeof(unit_t);
+        static constexpr count_t    Min_Unit_Count();
+        static constexpr count_t    Max_Unit_Count();
 
     public:
         heap_t()                                    = default;

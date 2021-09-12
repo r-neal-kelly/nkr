@@ -27,8 +27,7 @@ namespace nkr {
         using grow_rate_t   = grow_rate_p;
 
     public:
-        static constexpr size_t     Unit_Size();
-        static constexpr real_t     Grow_Rate();
+        static constexpr real_t Grow_Rate();
 
     private:
         static void_t   Copy(const same_as_non_cv_tr<this_t> auto& from, same_as_non_cv_tr<this_t> auto& to);
@@ -55,7 +54,22 @@ namespace nkr {
         ~array_dynamic_t();
 
     public:
-        bool_t  Reserve(count_t reserve_unit_count);
+        count_t     Capacity() const;
+        bool_t      Capacity(count_t new_capacity);
+        count_t     Count() const;
+
+        unit_t&     Access(index_t index) const;
+        bool_t      Push(const unit_t& unit);
+        bool_t      Push(unit_t&& unit);
+        unit_t      Pop();
+
+        void_t      Clear();
+
+        pointer_t   Pointer() const;
+
+    private:
+        bool_t  Should_Grow() const;
+        bool_t  Grow();
     };
 
 }
