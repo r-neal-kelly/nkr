@@ -20,7 +20,7 @@ namespace nkr {
     > class array_dynamic_t
     {
     public:
-        using this_t        = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+        using self_t        = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
         using unit_t        = unit_p;
         using pointer_t     = pointer_t<unit_t>;
         using allocator_t   = allocator_p;
@@ -30,8 +30,8 @@ namespace nkr {
         static constexpr real_t Grow_Rate();
 
     private:
-        static void_t   Copy(const same_as_non_cv_tr<this_t> auto& from, same_as_non_cv_tr<this_t> auto& to);
-        static void_t   Destroy(same_as_non_cv_tr<this_t> auto& it);
+        static void_t   Copy(const same_as_non_cv_tr<self_t> auto& from, same_as_non_cv_tr<self_t> auto& to);
+        static void_t   Destroy(same_as_non_cv_tr<self_t> auto& it);
 
     protected:
         pointer_t   units;

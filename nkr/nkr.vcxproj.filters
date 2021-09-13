@@ -114,10 +114,16 @@
     <ClInclude Include="include\nkr\allocator_heap_zeros_t_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\math.h">
+    <ClInclude Include="include\nkr\math_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\array_dynamic_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\math_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

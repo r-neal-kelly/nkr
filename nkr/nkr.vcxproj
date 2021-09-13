@@ -176,6 +176,8 @@
     <ClInclude Include="include\nkr\docs\intrinsic.h" />
     <ClInclude Include="include\nkr\intrinsics.h" />
     <ClInclude Include="include\nkr\macros.h" />
+    <ClInclude Include="include\nkr\math_dec.h" />
+    <ClInclude Include="include\nkr\math_def.h" />
     <ClInclude Include="include\nkr\math.h" />
     <ClInclude Include="include\nkr\maybe_t.h" />
     <ClInclude Include="include\nkr\none_i.h" />

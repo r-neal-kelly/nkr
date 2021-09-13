@@ -13,21 +13,18 @@ namespace nkr {
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline constexpr real_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Grow_Rate()
     {
-        static_assert(grow_rate_t::NUMERATOR >= 0, "numerator must be > 0");
-        static_assert(grow_rate_t::DENOMINATOR >= 0, "denominator must be > 0");
+        static_assert(grow_rate_t::Numerator() >= 0, "numerator must be > 0");
+        static_assert(grow_rate_t::Denominator() >= 0, "denominator must be > 0");
 
-        constexpr real_t grow_rate =
-            static_cast<real_t>(grow_rate_t::NUMERATOR) /
-            static_cast<real_t>(grow_rate_t::DENOMINATOR);
-
+        constexpr real_t grow_rate = grow_rate_t::To_Decimal();
         static_assert(grow_rate >= 1.0, "grow_rate must be >= 1.0");
 
         return grow_rate;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline void_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy(const same_as_non_cv_tr<this_t> auto& from,
-                                                                          same_as_non_cv_tr<this_t> auto& to)
+    inline void_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy(const same_as_non_cv_tr<self_t> auto& from,
+                                                                          same_as_non_cv_tr<self_t> auto& to)
     {
         assert(to.units == nullptr);
         assert(to.unit_count == 0);
@@ -45,7 +42,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline void_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Destroy(same_as_non_cv_tr<this_t> auto& it)
+    inline void_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Destroy(same_as_non_cv_tr<self_t> auto& it)
     {
         it.Clear();
         it.allocator.Deallocate(it.units);
