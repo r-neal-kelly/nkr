@@ -1262,6 +1262,18 @@ namespace nkr { namespace os { namespace heap {
                     os::heap::Deallocate(words);
                     /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
                 }
+
+                TEST_CASE("should deallocate pointer and return nullptr when given a new_unit_count of 0")
+                {
+                    /// []
+                    word_t* words = nullptr;
+                    os::heap::Allocate(words, 0xFF);
+                    CHECK(os::heap::Reallocate(words, 0) == true);
+                    CHECK(words == nullptr);
+
+                    os::heap::Deallocate(words);
+                    /// []
+                }
             }
 
             TEST_SUITE("Deallocate()")
@@ -1323,6 +1335,18 @@ namespace nkr { namespace os { namespace heap {
 
                     os::heap::Deallocate_Zeros(words);
                     /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
+                }
+
+                TEST_CASE("should deallocate pointer and return nullptr when given a new_unit_count of 0")
+                {
+                    /// []
+                    word_t* words = nullptr;
+                    os::heap::Allocate_Zeros(words, 0xFF);
+                    CHECK(os::heap::Reallocate_Zeros(words, 0) == true);
+                    CHECK(words == nullptr);
+
+                    os::heap::Deallocate_Zeros(words);
+                    /// []
                 }
             }
 

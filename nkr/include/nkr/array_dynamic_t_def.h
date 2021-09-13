@@ -7,7 +7,6 @@
 #include "nkr/array_dynamic_t_dec.h"
 #include "nkr/os.h"
 
-
 namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -78,7 +77,7 @@ namespace nkr {
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(array_dynamic_t&& other) noexcept :
         units(std::move(other.units)),
-        unit_count(std::exchange(other.unit_count)),
+        unit_count(std::exchange(other.unit_count, 0)),
         allocator(std::move(other.allocator))
     {
     }
@@ -86,7 +85,7 @@ namespace nkr {
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(volatile array_dynamic_t&& other) noexcept :
         units(std::move(other.units)),
-        unit_count(std::exchange(other.unit_count)),
+        unit_count(std::exchange(other.unit_count, 0)),
         allocator(std::move(other.allocator))
     {
     }
@@ -152,7 +151,7 @@ namespace nkr {
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity(count_t new_capacity)
     {
-        assert(new_capacity > this->allocator.Min_Unit_Count());
+        assert(new_capacity >= this->allocator.Min_Unit_Count());
         assert(new_capacity <= this->allocator.Max_Unit_Count());
 
         if (this->units == nullptr) {

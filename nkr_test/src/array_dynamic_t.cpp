@@ -109,6 +109,113 @@ namespace nkr {
             }
         }
 
+        TEST_SUITE("object data")
+        {
+            TEST_SUITE("units")
+            {
+                TEST_CASE_TEMPLATE("should be a pointer_t<unit_p>", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+
+                    static_assert(std::same_as<decltype(array_dynamic_p::units), pointer_t<unit_p>>);
+                }
+            }
+
+            TEST_SUITE("unit_count")
+            {
+                TEST_CASE_TEMPLATE("should be a count_t", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+
+                    static_assert(std::same_as<decltype(array_dynamic_p::unit_count), count_t>);
+                }
+            }
+
+            TEST_SUITE("allocator")
+            {
+                TEST_CASE_TEMPLATE("should be a allocator_p", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+
+                    static_assert(std::same_as<decltype(array_dynamic_p::allocator), allocator_p>);
+                }
+            }
+        }
+
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("default_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should have a Count() of 0", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+
+                    array_dynamic_p array_dynamic;
+                    CHECK(array_dynamic.Count() == 0);
+                }
+            }
+
+            TEST_SUITE("copy_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should explicitly copy the count of other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+
+                    count_t count = Random<count_t>(0, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    array_dynamic_p array_dynamic(other);
+                    CHECK(array_dynamic.Count() == count);
+                }
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should explicitly move the count of other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+
+                    count_t count = Random<count_t>(0, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    array_dynamic_p array_dynamic(std::move(other));
+                    CHECK(array_dynamic.Count() == count);
+                }
+            }
+        }
+
+        TEST_SUITE("methods")
+        {
+
+        }
+
+        TEST_SUITE("operators")
+        {
+
+        }
+
     #undef types
     }
 
