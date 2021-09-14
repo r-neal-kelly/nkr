@@ -548,9 +548,9 @@ namespace nkr { namespace os { namespace heap {
     // until I know for sure that we don't need to handle them differently,
     // on other systems.
 
-    inline bool_t Allocate(type_tr auto*& units, count_t unit_count)
+    inline bool_t Allocate(type_pointer_tr auto& units, count_t unit_count)
     {
-        using units_t = std::remove_reference_t<decltype(units)>;
+        using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(unit_count > 0);
@@ -566,9 +566,9 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Reallocate(type_tr auto*& units, count_t new_unit_count)
+    inline bool_t Reallocate(type_pointer_tr auto& units, count_t new_unit_count)
     {
-        using units_t = std::remove_reference_t<decltype(units)>;
+        using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
@@ -584,9 +584,9 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline void_t Deallocate(type_tr auto*& units)
+    inline void_t Deallocate(type_pointer_tr auto& units)
     {
-        using units_t = std::remove_reference_t<decltype(units)>;
+        using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
         if (units != nullptr) {
@@ -595,9 +595,9 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Allocate_Zeros(type_tr auto*& units, count_t unit_count)
+    inline bool_t Allocate_Zeros(type_pointer_tr auto& units, count_t unit_count)
     {
-        using units_t = std::remove_reference_t<decltype(units)>;
+        using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(unit_count > 0);
@@ -614,9 +614,9 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Reallocate_Zeros(type_tr auto*& units, count_t new_unit_count)
+    inline bool_t Reallocate_Zeros(type_pointer_tr auto& units, count_t new_unit_count)
     {
-        using units_t = std::remove_reference_t<decltype(units)>;
+        using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
         assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
@@ -633,8 +633,11 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline void_t Deallocate_Zeros(type_tr auto*& units)
+    inline void_t Deallocate_Zeros(type_pointer_tr auto& units)
     {
+        using units_t = std::remove_cvref_t<decltype(units)>;
+        using unit_t = std::remove_pointer_t<units_t>;
+
         return Deallocate(units);
     }
 

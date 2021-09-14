@@ -18,45 +18,78 @@ namespace nkr { namespace allocator {
     public:
         using unit_t    = unit_p;
         using units_t   = unit_p*;
+        using pointer_t = pointer_t<unit_p>;
 
     public:
         static constexpr count_t    Min_Unit_Count();
         static constexpr count_t    Max_Unit_Count();
 
     private:
-        static bool_t   Is_Equal_To(same_as_remove_cvref_tr<heap_t> auto a,
-                                    same_as_remove_cvref_tr<heap_t> auto b);
+        static bool_t   Allocate(same_as_plain_tr<heap_t> auto& self,
+                                 same_as_plain_tr<units_t> auto& units,
+                                 count_t unit_count);
+        static bool_t   Allocate(same_as_plain_tr<heap_t> auto& self,
+                                 same_as_plain_tr<pointer_t> auto& units,
+                                 count_t unit_count);
+
+        static bool_t   Reallocate(same_as_plain_tr<heap_t> auto& self,
+                                   same_as_plain_tr<units_t> auto& units,
+                                   count_t new_unit_count);
+        static bool_t   Reallocate(same_as_plain_tr<heap_t> auto& self,
+                                   same_as_plain_tr<pointer_t> auto& units,
+                                   count_t new_unit_count);
+
+        static void_t   Deallocate(same_as_plain_tr<heap_t> auto& self,
+                                   same_as_plain_tr<units_t> auto& units);
+        static void_t   Deallocate(same_as_plain_tr<heap_t> auto& self,
+                                   same_as_plain_tr<pointer_t> auto& units);
+
+        static bool_t   Is_Equal_To(same_as_plain_tr<heap_t> auto a,
+                                    same_as_plain_tr<heap_t> auto b);
 
     public:
-        friend bool_t   operator ==(same_as_remove_cvref_tr<heap_t> auto a,
-                                    same_as_remove_cvref_tr<heap_t> auto b)
+        friend bool_t   operator ==(same_as_plain_tr<heap_t> auto a,
+                                    same_as_plain_tr<heap_t> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t   operator !=(same_as_remove_cvref_tr<heap_t> auto a,
-                                    same_as_remove_cvref_tr<heap_t> auto b)
+        friend bool_t   operator !=(same_as_plain_tr<heap_t> auto a,
+                                    same_as_plain_tr<heap_t> auto b)
         {
             return !Is_Equal_To(a, b);
         }
 
     public:
-        heap_t()                                    = default;
-        heap_t(const heap_t& other)                 = default;
-        heap_t(heap_t&& other) noexcept             = default;
-        heap_t& operator =(const heap_t& other)     = default;
-        heap_t& operator =(heap_t&& other) noexcept = default;
-        ~heap_t()                                   = default;
+        heap_t()                                                                    = default;
+
+        heap_t(const heap_t& other);
+        heap_t(volatile const heap_t& other);
+        heap_t(heap_t&& other) noexcept;
+        heap_t(volatile heap_t&& other) noexcept;
+
+        heap_t&             operator =(const heap_t& other);
+        volatile heap_t&    operator =(volatile const heap_t& other) volatile;
+        heap_t&             operator =(heap_t&& other) noexcept;
+        volatile heap_t&    operator =(volatile heap_t&& other) volatile noexcept;
+
+        ~heap_t()                                                                   = default;
 
     public:
         bool_t  Allocate(units_t& units, count_t unit_count);
-        bool_t  Allocate(pointer_t<unit_t>& units, count_t unit_count);
+        bool_t  Allocate(volatile units_t& units, count_t unit_count) volatile;
+        bool_t  Allocate(pointer_t& units, count_t unit_count);
+        bool_t  Allocate(volatile pointer_t& units, count_t unit_count) volatile;
         
         bool_t  Reallocate(units_t& units, count_t new_unit_count);
-        bool_t  Reallocate(pointer_t<unit_t>& units, count_t new_unit_count);
+        bool_t  Reallocate(volatile units_t& units, count_t new_unit_count) volatile;
+        bool_t  Reallocate(pointer_t& units, count_t new_unit_count);
+        bool_t  Reallocate(volatile pointer_t& units, count_t new_unit_count) volatile;
 
         void_t  Deallocate(units_t& units);
-        void_t  Deallocate(pointer_t<unit_t>& units);
+        void_t  Deallocate(volatile units_t& units) volatile;
+        void_t  Deallocate(pointer_t& units);
+        void_t  Deallocate(volatile pointer_t& units) volatile;
     };
     static_assert(allocator_i<heap_t<word_t>>);
 

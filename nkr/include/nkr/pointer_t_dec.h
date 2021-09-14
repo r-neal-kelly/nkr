@@ -21,18 +21,18 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(same_as_remove_cvref_tr<type_sp> auto a,
-                                    same_as_remove_cvref_tr<type_sp> auto b);
+        static bool_t   Is_Equal_To(same_as_plain_tr<type_sp> auto a,
+                                    same_as_plain_tr<type_sp> auto b);
 
     public:
-        friend bool_t   operator ==(same_as_remove_cvref_tr<type_sp> auto a,
-                                    same_as_remove_cvref_tr<type_sp> auto b)
+        friend bool_t   operator ==(same_as_plain_tr<type_sp> auto a,
+                                    same_as_plain_tr<type_sp> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t   operator !=(same_as_remove_cvref_tr<type_sp> auto a,
-                                    same_as_remove_cvref_tr<type_sp> auto b)
+        friend bool_t   operator !=(same_as_plain_tr<type_sp> auto a,
+                                    same_as_plain_tr<type_sp> auto b)
         {
             return !Is_Equal_To(a, b);
         }
@@ -127,18 +127,18 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(same_as_remove_cvref_tr<non_type_sp> auto a,
-                                    same_as_remove_cvref_tr<non_type_sp> auto b);
+        static bool_t   Is_Equal_To(same_as_plain_tr<non_type_sp> auto a,
+                                    same_as_plain_tr<non_type_sp> auto b);
 
     public:
-        friend bool_t   operator ==(same_as_remove_cvref_tr<non_type_sp> auto a,
-                                    same_as_remove_cvref_tr<non_type_sp> auto b)
+        friend bool_t   operator ==(same_as_plain_tr<non_type_sp> auto a,
+                                    same_as_plain_tr<non_type_sp> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t   operator !=(same_as_remove_cvref_tr<non_type_sp> auto a,
-                                    same_as_remove_cvref_tr<non_type_sp> auto b)
+        friend bool_t   operator !=(same_as_plain_tr<non_type_sp> auto a,
+                                    same_as_plain_tr<non_type_sp> auto b)
         {
             return !Is_Equal_To(a, b);
         }
@@ -212,10 +212,10 @@ namespace nkr {
     class pointer_t
     {
     public:
-        friend bool_t   operator ==(same_as_remove_cvref_tr<pointer_t> auto a,
-                                    same_as_remove_cvref_tr<pointer_t> auto b) = delete;
-        friend bool_t   operator !=(same_as_remove_cvref_tr<pointer_t> auto a,
-                                    same_as_remove_cvref_tr<pointer_t> auto b) = delete;
+        friend bool_t   operator ==(same_as_plain_tr<pointer_t> auto a,
+                                    same_as_plain_tr<pointer_t> auto b) = delete;
+        friend bool_t   operator !=(same_as_plain_tr<pointer_t> auto a,
+                                    same_as_plain_tr<pointer_t> auto b) = delete;
 
     public:
         /// @name objects
@@ -247,14 +247,14 @@ namespace nkr {
         using base_t    = $pointer_t::type_sp<unit_p>;
 
     public:
-        friend bool_t operator ==(same_as_remove_cvref_tr<pointer_t> auto a,
-                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        friend bool_t operator ==(same_as_plain_tr<pointer_t> auto a,
+                                  same_as_plain_tr<pointer_t> auto b)
         {
             return operator ==(a.Base(), b.Base());
         }
 
-        friend bool_t operator !=(same_as_remove_cvref_tr<pointer_t> auto a,
-                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        friend bool_t operator !=(same_as_plain_tr<pointer_t> auto a,
+                                  same_as_plain_tr<pointer_t> auto b)
         {
             return operator !=(a.Base(), b.Base());
         }
@@ -336,14 +336,14 @@ namespace nkr {
         using base_t    = $pointer_t::non_type_sp<unit_p>;
 
     public:
-        friend bool_t operator ==(same_as_remove_cvref_tr<pointer_t> auto a,
-                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        friend bool_t operator ==(same_as_plain_tr<pointer_t> auto a,
+                                  same_as_plain_tr<pointer_t> auto b)
         {
             return operator ==(a.Base(), b.Base());
         }
 
-        friend bool_t operator !=(same_as_remove_cvref_tr<pointer_t> auto a,
-                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        friend bool_t operator !=(same_as_plain_tr<pointer_t> auto a,
+                                  same_as_plain_tr<pointer_t> auto b)
         {
             return operator !=(a.Base(), b.Base());
         }

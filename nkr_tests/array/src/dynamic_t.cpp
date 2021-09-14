@@ -27,19 +27,6 @@ namespace nkr {
 
         TEST_SUITE("aliases")
         {
-            TEST_SUITE("self_t")
-            {
-                TEST_CASE_TEMPLATE("should equal itself", tuple_p, types)
-                {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
-
-                    static_assert(std::same_as<array_dynamic_p::self_t, array_dynamic_p>);
-                }
-            }
-
             TEST_SUITE("unit_t")
             {
                 TEST_CASE_TEMPLATE("should equal unit_p", tuple_p, types)
@@ -155,7 +142,7 @@ namespace nkr {
         {
             TEST_SUITE("default_ctor()")
             {
-                TEST_CASE_TEMPLATE("should have a default pointer and a count of 0", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a default pointer", tuple_p, types)
                 {
                     using unit_p = std::tuple_element_t<0, tuple_p>;
                     using allocator_p = std::tuple_element_t<1, tuple_p>;
@@ -165,13 +152,64 @@ namespace nkr {
 
                     array_dynamic_p array_dynamic;
                     CHECK(array_dynamic.Pointer() == pointer_t());
+                }
+
+                TEST_CASE_TEMPLATE("should have a count of 0", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    array_dynamic_p array_dynamic;
                     CHECK(array_dynamic.Count() == 0);
                 }
             }
 
             TEST_SUITE("copy_ctor()")
             {
-                TEST_CASE_TEMPLATE("should explicitly copy each unit and count of other. should have a different pointer", tuple_p, types)
+                TEST_CASE_TEMPLATE("should explicitly copy each unit and the count of other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    array_dynamic_p array_dynamic(other);
+                    CHECK(array_dynamic.Count() == count);
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        CHECK(array_dynamic[idx] == other[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly copy each unit and the count of other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    array_dynamic_p array_dynamic = other;
+                    CHECK(array_dynamic.Count() == count);
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        CHECK(array_dynamic[idx] == other[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not change the other", tuple_p, types)
                 {
                     using unit_p = std::tuple_element_t<0, tuple_p>;
                     using allocator_p = std::tuple_element_t<1, tuple_p>;
@@ -185,9 +223,43 @@ namespace nkr {
                         other.Push(Random<unit_p>());
                     }
                     pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic(other);
+                    CHECK(other.Pointer() == pointer);
+                    CHECK(other.Count() == count);
+                }
 
+                TEST_CASE_TEMPLATE("should have a different pointer", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    pointer_t pointer = other.Pointer();
                     array_dynamic_p array_dynamic(other);
                     CHECK(array_dynamic.Pointer() != pointer);
+                }
+
+                TEST_CASE_TEMPLATE("should work with volatile other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    volatile array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    array_dynamic_p array_dynamic(other);
                     CHECK(array_dynamic.Count() == count);
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         CHECK(array_dynamic[idx] == other[idx]);
@@ -197,7 +269,7 @@ namespace nkr {
 
             TEST_SUITE("move_ctor()")
             {
-                TEST_CASE_TEMPLATE("should explicitly move the units and count of other. should have the same pointer", tuple_p, types)
+                TEST_CASE_TEMPLATE("should explicitly move the pointer and count of other", tuple_p, types)
                 {
                     using unit_p = std::tuple_element_t<0, tuple_p>;
                     using allocator_p = std::tuple_element_t<1, tuple_p>;
@@ -211,7 +283,62 @@ namespace nkr {
                         other.Push(Random<unit_p>());
                     }
                     pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic(std::move(other));
+                    CHECK(array_dynamic.Pointer() == pointer);
+                    CHECK(array_dynamic.Count() == count);
+                }
 
+                TEST_CASE_TEMPLATE("should implicitly move the count of other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic = std::move(other);
+                    CHECK(array_dynamic.Pointer() == pointer);
+                    CHECK(array_dynamic.Count() == count);
+                }
+
+                TEST_CASE_TEMPLATE("should set the other to default values", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    array_dynamic_p array_dynamic(std::move(other));
+                    CHECK(other.Pointer() == pointer_t());
+                    CHECK(other.Count() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should work with volatile other", tuple_p, types)
+                {
+                    using unit_p = std::tuple_element_t<0, tuple_p>;
+                    using allocator_p = std::tuple_element_t<1, tuple_p>;
+                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
+                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using pointer_t = array_dynamic_p::pointer_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    volatile array_dynamic_p other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<unit_p>());
+                    }
+                    pointer_t pointer = other.Pointer();
                     array_dynamic_p array_dynamic(std::move(other));
                     CHECK(array_dynamic.Pointer() == pointer);
                     CHECK(array_dynamic.Count() == count);

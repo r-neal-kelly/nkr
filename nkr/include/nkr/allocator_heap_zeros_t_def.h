@@ -22,23 +22,24 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Is_Equal_To(same_as_remove_cvref_tr<heap_zeros_t> auto a,
-                                                    same_as_remove_cvref_tr<heap_zeros_t> auto b)
-    {
-        return true;
-    }
-
-    template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Allocate(units_t& units, count_t unit_count)
+    inline bool_t heap_zeros_t<unit_p>::Allocate(same_as_plain_tr<heap_zeros_t> auto& self,
+                                                 same_as_plain_tr<units_t> auto& units,
+                                                 count_t unit_count)
     {
         return os::heap::Allocate_Zeros(units, unit_count);
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Allocate(pointer_t<unit_t>& units, count_t unit_count)
+    inline bool_t heap_zeros_t<unit_p>::Allocate(same_as_plain_tr<heap_zeros_t> auto& self,
+                                                 same_as_plain_tr<pointer_t> auto& units,
+                                                 count_t unit_count)
     {
         if (os::heap::Allocate_Zeros(units(), unit_count)) {
-            static_cast<count_t&>(units) = unit_count;
+            if constexpr (std::is_volatile_v<std::remove_reference_t<decltype(units)>>) {
+                static_cast<volatile count_t&>(units) = unit_count;
+            } else {
+                static_cast<count_t&>(units) = unit_count;
+            }
             return true;
         } else {
             units = { nullptr, 0 };
@@ -47,16 +48,24 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Reallocate(units_t& units, count_t new_unit_count)
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(same_as_plain_tr<heap_zeros_t> auto& self,
+                                                   same_as_plain_tr<units_t> auto& units,
+                                                   count_t new_unit_count)
     {
         return os::heap::Reallocate_Zeros(units, new_unit_count);
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Reallocate(pointer_t<unit_t>& units, count_t new_unit_count)
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(same_as_plain_tr<heap_zeros_t> auto& self,
+                                                   same_as_plain_tr<pointer_t> auto& units,
+                                                   count_t new_unit_count)
     {
         if (os::heap::Reallocate_Zeros(units(), new_unit_count)) {
-            static_cast<count_t&>(units) = new_unit_count;
+            if constexpr (std::is_volatile_v<std::remove_reference_t<decltype(units)>>) {
+                static_cast<volatile count_t&>(units) = new_unit_count;
+            } else {
+                static_cast<count_t&>(units) = new_unit_count;
+            }
             return true;
         } else {
             return false;
@@ -64,16 +73,141 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline void_t heap_zeros_t<unit_p>::Deallocate(units_t& units)
+    inline void_t heap_zeros_t<unit_p>::Deallocate(same_as_plain_tr<heap_zeros_t> auto& self,
+                                                   same_as_plain_tr<units_t> auto& units)
     {
         return os::heap::Deallocate_Zeros(units);
     }
 
     template <type_tr unit_p>
-    inline void_t heap_zeros_t<unit_p>::Deallocate(pointer_t<unit_t>& units)
+    inline void_t heap_zeros_t<unit_p>::Deallocate(same_as_plain_tr<heap_zeros_t> auto& self,
+                                                   same_as_plain_tr<pointer_t> auto& units)
     {
         os::heap::Deallocate_Zeros(units());
         units = { nullptr, 0 };
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Is_Equal_To(same_as_plain_tr<heap_zeros_t> auto a,
+                                                    same_as_plain_tr<heap_zeros_t> auto b)
+    {
+        return true;
+    }
+
+    template <type_tr unit_p>
+    inline heap_zeros_t<unit_p>::heap_zeros_t(const heap_zeros_t& other)
+    {
+    }
+
+    template <type_tr unit_p>
+    inline heap_zeros_t<unit_p>::heap_zeros_t(volatile const heap_zeros_t& other)
+    {
+    }
+
+    template <type_tr unit_p>
+    inline heap_zeros_t<unit_p>::heap_zeros_t(heap_zeros_t&& other) noexcept
+    {
+    }
+
+    template <type_tr unit_p>
+    inline heap_zeros_t<unit_p>::heap_zeros_t(volatile heap_zeros_t&& other) noexcept
+    {
+    }
+
+    template <type_tr unit_p>
+    inline heap_zeros_t<unit_p>& heap_zeros_t<unit_p>::operator =(const heap_zeros_t& other)
+    {
+        return *this;
+    }
+
+    template <type_tr unit_p>
+    inline volatile heap_zeros_t<unit_p>& heap_zeros_t<unit_p>::operator =(volatile const heap_zeros_t& other) volatile
+    {
+        return *this;
+    }
+
+    template <type_tr unit_p>
+    inline heap_zeros_t<unit_p>& heap_zeros_t<unit_p>::operator =(heap_zeros_t&& other) noexcept
+    {
+        return *this;
+    }
+
+    template <type_tr unit_p>
+    inline volatile heap_zeros_t<unit_p>& heap_zeros_t<unit_p>::operator =(volatile heap_zeros_t&& other) volatile noexcept
+    {
+        return *this;
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Allocate(units_t& units, count_t unit_count)
+    {
+        return Allocate(*this, units, unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Allocate(volatile units_t& units, count_t unit_count) volatile
+    {
+        return Allocate(*this, units, unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Allocate(pointer_t& units, count_t unit_count)
+    {
+        return Allocate(*this, units, unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Allocate(volatile pointer_t& units, count_t unit_count) volatile
+    {
+        return Allocate(*this, units, unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(units_t& units, count_t new_unit_count)
+    {
+        return Reallocate(*this, units, new_unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(volatile units_t& units, count_t new_unit_count) volatile
+    {
+        return Reallocate(*this, units, new_unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(pointer_t& units, count_t new_unit_count)
+    {
+        return Reallocate(*this, units, new_unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(volatile pointer_t& units, count_t new_unit_count) volatile
+    {
+        return Reallocate(*this, units, new_unit_count);
+    }
+
+    template <type_tr unit_p>
+    inline void_t heap_zeros_t<unit_p>::Deallocate(units_t& units)
+    {
+        return Deallocate(*this, units);
+    }
+
+    template <type_tr unit_p>
+    inline void_t heap_zeros_t<unit_p>::Deallocate(volatile units_t& units) volatile
+    {
+        return Deallocate(*this, units);
+    }
+
+    template <type_tr unit_p>
+    inline void_t heap_zeros_t<unit_p>::Deallocate(pointer_t& units)
+    {
+        return Deallocate(*this, units);
+    }
+
+    template <type_tr unit_p>
+    inline void_t heap_zeros_t<unit_p>::Deallocate(volatile pointer_t& units) volatile
+    {
+        return Deallocate(*this, units);
     }
 
 }}
