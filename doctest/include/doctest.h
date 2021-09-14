@@ -2571,6 +2571,7 @@ int registerReporter(const char* name, int priority, bool isReporter) {
 #define WARN_THROWS_WITH_AS(expr, with, ...) DOCTEST_WARN_THROWS_WITH_AS(expr, with, __VA_ARGS__)
 #define WARN_NOTHROW(...) DOCTEST_WARN_NOTHROW(__VA_ARGS__)
 #define CHECK(...) DOCTEST_CHECK(__VA_ARGS__)
+#define CHECK_TRUE(...) DOCTEST_CHECK(__VA_ARGS__)
 #define CHECK_FALSE(...) DOCTEST_CHECK_FALSE(__VA_ARGS__)
 #define CHECK_THROWS(...) DOCTEST_CHECK_THROWS(__VA_ARGS__)
 #define CHECK_THROWS_AS(expr, ...) DOCTEST_CHECK_THROWS_AS(expr, __VA_ARGS__)

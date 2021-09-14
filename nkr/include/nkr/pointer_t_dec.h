@@ -20,6 +20,23 @@ namespace nkr { namespace $pointer_t {
         using units_t   = unit_p*;
         /// @}
 
+    private:
+        static bool_t   Is_Equal_To(same_as_remove_cvref_tr<type_sp> auto a,
+                                    same_as_remove_cvref_tr<type_sp> auto b);
+
+    public:
+        friend bool_t   operator ==(same_as_remove_cvref_tr<type_sp> auto a,
+                                    same_as_remove_cvref_tr<type_sp> auto b)
+        {
+            return Is_Equal_To(a, b);
+        }
+
+        friend bool_t   operator !=(same_as_remove_cvref_tr<type_sp> auto a,
+                                    same_as_remove_cvref_tr<type_sp> auto b)
+        {
+            return !Is_Equal_To(a, b);
+        }
+
     public:
         /// @name object data
         /// @copydoc 
@@ -109,6 +126,23 @@ namespace nkr { namespace $pointer_t {
         using units_t   = unit_p*;
         /// @}
 
+    private:
+        static bool_t   Is_Equal_To(same_as_remove_cvref_tr<non_type_sp> auto a,
+                                    same_as_remove_cvref_tr<non_type_sp> auto b);
+
+    public:
+        friend bool_t   operator ==(same_as_remove_cvref_tr<non_type_sp> auto a,
+                                    same_as_remove_cvref_tr<non_type_sp> auto b)
+        {
+            return Is_Equal_To(a, b);
+        }
+
+        friend bool_t   operator !=(same_as_remove_cvref_tr<non_type_sp> auto a,
+                                    same_as_remove_cvref_tr<non_type_sp> auto b)
+        {
+            return !Is_Equal_To(a, b);
+        }
+
     public:
         /// @name object data
         /// @copydoc 
@@ -178,6 +212,12 @@ namespace nkr {
     class pointer_t
     {
     public:
+        friend bool_t   operator ==(same_as_remove_cvref_tr<pointer_t> auto a,
+                                    same_as_remove_cvref_tr<pointer_t> auto b) = delete;
+        friend bool_t   operator !=(same_as_remove_cvref_tr<pointer_t> auto a,
+                                    same_as_remove_cvref_tr<pointer_t> auto b) = delete;
+
+    public:
         /// @name objects
         /// @copydoc 
         /// @{
@@ -207,6 +247,19 @@ namespace nkr {
         using base_t    = $pointer_t::type_sp<unit_p>;
 
     public:
+        friend bool_t operator ==(same_as_remove_cvref_tr<pointer_t> auto a,
+                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        {
+            return operator ==(a.Base(), b.Base());
+        }
+
+        friend bool_t operator !=(same_as_remove_cvref_tr<pointer_t> auto a,
+                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        {
+            return operator !=(a.Base(), b.Base());
+        }
+
+    public:
         /// @name inherited objects
         /// @{
         using base_t::base_t;
@@ -250,6 +303,27 @@ namespace nkr {
 
         ~pointer_t() = default;
         /// @}
+
+    private:
+        base_t& Base()
+        {
+            return *static_cast<base_t*>(this);
+        }
+
+        const base_t& Base() const
+        {
+            return *static_cast<const base_t*>(this);
+        }
+
+        volatile base_t& Base() volatile
+        {
+            return *static_cast<volatile base_t*>(this);
+        }
+
+        volatile const base_t& Base() volatile const
+        {
+            return *static_cast<volatile const base_t*>(this);
+        }
     };
 
     /// @nosubgrouping
@@ -262,6 +336,19 @@ namespace nkr {
         using base_t    = $pointer_t::non_type_sp<unit_p>;
 
     public:
+        friend bool_t operator ==(same_as_remove_cvref_tr<pointer_t> auto a,
+                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        {
+            return operator ==(a.Base(), b.Base());
+        }
+
+        friend bool_t operator !=(same_as_remove_cvref_tr<pointer_t> auto a,
+                                  same_as_remove_cvref_tr<pointer_t> auto b)
+        {
+            return operator !=(a.Base(), b.Base());
+        }
+
+    public:
         /// @name inherited objects
         /// @{
         using base_t::base_t;
@@ -305,6 +392,27 @@ namespace nkr {
 
         ~pointer_t() = default;
         /// @}
+
+    private:
+        base_t& Base()
+        {
+            return *static_cast<base_t*>(this);
+        }
+
+        const base_t& Base() const
+        {
+            return *static_cast<const base_t*>(this);
+        }
+
+        volatile base_t& Base() volatile
+        {
+            return *static_cast<volatile base_t*>(this);
+        }
+
+        volatile const base_t& Base() volatile const
+        {
+            return *static_cast<volatile const base_t*>(this);
+        }
     };
 
 }

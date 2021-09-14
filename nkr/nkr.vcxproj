@@ -184,6 +184,9 @@
     <ClInclude Include="include\nkr\none_t.h" />
     <ClInclude Include="include\nkr\os.h" />
     <ClInclude Include="include\nkr\pointer_t.h" />
+    <ClInclude Include="include\nkr\random.h" />
+    <ClInclude Include="include\nkr\random_dec.h" />
+    <ClInclude Include="include\nkr\random_def.h" />
     <ClInclude Include="include\nkr\signed_negative_t.h" />
     <ClInclude Include="include\nkr\signed_positive_t.h" />
     <ClInclude Include="include\nkr\some_t.h" />
@@ -230,6 +233,7 @@
     <ClCompile Include="src\allocator_heap_t.cpp" />
     <ClCompile Include="src\allocator_heap_zeros_t.cpp" />
     <ClCompile Include="src\pointer_t.cpp" />
+    <ClCompile Include="src\random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

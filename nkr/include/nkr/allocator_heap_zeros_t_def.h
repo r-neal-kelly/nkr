@@ -22,6 +22,13 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
+    inline bool_t heap_zeros_t<unit_p>::Is_Equal_To(same_as_remove_cvref_tr<heap_zeros_t> auto a,
+                                                    same_as_remove_cvref_tr<heap_zeros_t> auto b)
+    {
+        return true;
+    }
+
+    template <type_tr unit_p>
     inline bool_t heap_zeros_t<unit_p>::Allocate(units_t& units, count_t unit_count)
     {
         return os::heap::Allocate_Zeros(units, unit_count);

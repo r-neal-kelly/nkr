@@ -219,7 +219,6 @@
 * @details
 *   Because nkr::std_bool_t (or `bool`) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making nkr::bool_t a real boolean value as opposed to a pseudo-integer. It behaves like a boolean should and transiently works in expressions like nkr::std_bool_t. It also matches the size of the word of the machine, that is nkr::word_t, whereas nkr::std_bool_t is implementation defined. All library types and functions utilitze nkr::bool_t and use nkr::std_bool_t only for necessary C++ idioms.
 * 
-* @snippet "./include/bool_t.h" _3e7cd520_dafd_4a17_befe_912aeb32e870
 * @snippet "./src/bool_t.cpp" _29b44101_c393_4fdd_b59d_cb9a75802d5a
 */
 

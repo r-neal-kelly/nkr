@@ -59,6 +59,47 @@ namespace nkr {
         /// @}
     };
 
+    template <typename type_p>
+    concept has_bool_deleted_operator_tr =
+        requires(type_p instance) { +instance; } ||
+        requires(type_p instance) { -instance; } ||
+
+        requires(type_p instance) { instance + 1; } ||
+        requires(type_p instance) { instance - 1; } ||
+        requires(type_p instance) { instance * 1; } ||
+        requires(type_p instance) { instance / 1; } ||
+        requires(type_p instance) { instance % 1; } ||
+
+        requires(type_p instance) { ~instance; } ||
+        requires(type_p instance) { instance | 1; } ||
+        requires(type_p instance) { instance & 1; } ||
+        requires(type_p instance) { instance ^ 1; } ||
+        requires(type_p instance) { instance << 1; } ||
+        requires(type_p instance) { instance >> 1; } ||
+
+        requires(type_p instance) { instance += 1; } ||
+        requires(type_p instance) { instance -= 1; } ||
+        requires(type_p instance) { instance *= 1; } ||
+        requires(type_p instance) { instance /= 1; } ||
+        requires(type_p instance) { instance %= 1; } ||
+
+        requires(type_p instance) { instance |= 1; } ||
+        requires(type_p instance) { instance &= 1; } ||
+        requires(type_p instance) { instance ^= 1; } ||
+        requires(type_p instance) { instance <<= 1; } ||
+        requires(type_p instance) { instance >>= 1; } ||
+
+        requires(type_p instance) { ++instance; } ||
+        requires(type_p instance) { instance++; } ||
+        requires(type_p instance) { --instance; } ||
+        requires(type_p instance) { instance--; } ||
+
+        requires(type_p instance) { instance < 1; } ||
+        requires(type_p instance) { instance > 1; } ||
+        requires(type_p instance) { instance <= 1; } ||
+        requires(type_p instance) { instance >= 1; } ||
+        requires(type_p instance) { instance <=> 1; };
+
     /// @nosubgrouping
     /// @copydoc _2add9928_e370_4943_ba5b_2950d9e1da99
     class bool_t :

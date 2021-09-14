@@ -6,6 +6,7 @@
 
 #include "nkr/allocator_heap_t.h"
 #include "nkr/allocator_i.h"
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/math.h"
 #include "nkr/pointer_t.h"
@@ -30,8 +31,9 @@ namespace nkr {
         static constexpr real_t Grow_Rate();
 
     private:
-        static void_t   Copy(const same_as_non_cv_tr<self_t> auto& from, same_as_non_cv_tr<self_t> auto& to);
-        static void_t   Destroy(same_as_non_cv_tr<self_t> auto& it);
+        static void_t   Copy(const same_as_remove_cv_tr<self_t> auto& from,
+                             same_as_remove_cv_tr<self_t> auto& to);
+        static void_t   Destroy(same_as_remove_cv_tr<self_t> auto& it);
 
     protected:
         pointer_t   units;
@@ -54,22 +56,23 @@ namespace nkr {
         ~array_dynamic_t();
 
     public:
-        count_t     Capacity() const;
-        bool_t      Capacity(count_t new_capacity);
-        count_t     Count() const;
+        pointer_t           Pointer() const;
+        count_t             Count() const;
+        const allocator_t&  Allocator() const;
 
-        unit_t&     At(index_t index) const;
-        bool_t      Push(const unit_t& unit);
-        bool_t      Push(unit_t&& unit);
-        unit_t      Pop();
+        count_t             Capacity() const;
+        bool_t              Capacity(count_t new_capacity);
 
-        bool_t      Is_Fit() const;
-        bool_t      Fit();
+        unit_t&             At(index_t index) const;
+        bool_t              Push(const unit_t& unit);
+        bool_t              Push(unit_t&& unit);
+        unit_t              Pop();
 
-        bool_t      Is_Clear() const;
-        void_t      Clear();
+        bool_t              Is_Fit() const;
+        bool_t              Fit();
 
-        pointer_t   Pointer() const;
+        bool_t              Is_Clear() const;
+        void_t              Clear();
 
     private:
         bool_t  Should_Grow() const;

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/allocator_i.h"
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/pointer_t.h"
 #include "nkr/traits.h"
@@ -21,6 +22,23 @@ namespace nkr { namespace allocator {
     public:
         static constexpr count_t    Min_Unit_Count();
         static constexpr count_t    Max_Unit_Count();
+
+    private:
+        static bool_t   Is_Equal_To(same_as_remove_cvref_tr<heap_zeros_t> auto a,
+                                    same_as_remove_cvref_tr<heap_zeros_t> auto b);
+
+    public:
+        friend bool_t   operator ==(same_as_remove_cvref_tr<heap_zeros_t> auto a,
+                                    same_as_remove_cvref_tr<heap_zeros_t> auto b)
+        {
+            return Is_Equal_To(a, b);
+        }
+
+        friend bool_t   operator !=(same_as_remove_cvref_tr<heap_zeros_t> auto a,
+                                    same_as_remove_cvref_tr<heap_zeros_t> auto b)
+        {
+            return !Is_Equal_To(a, b);
+        }
 
     public:
         heap_zeros_t()                                          = default;

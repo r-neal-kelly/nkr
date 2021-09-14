@@ -9,6 +9,13 @@
 namespace nkr { namespace $pointer_t {
 
     template <type_tr unit_p>
+    inline bool_t type_sp<unit_p>::Is_Equal_To(same_as_remove_cvref_tr<type_sp> auto a,
+                                               same_as_remove_cvref_tr<type_sp> auto b)
+    {
+        return a.units == b.units && a.unit_count == b.unit_count;
+    }
+
+    template <type_tr unit_p>
     inline type_sp<unit_p>::type_sp() :
         units(nullptr),
         unit_count(0)
@@ -342,6 +349,13 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <non_type_tr unit_p>
+    inline bool_t non_type_sp<unit_p>::Is_Equal_To(same_as_remove_cvref_tr<non_type_sp> auto a,
+                                                   same_as_remove_cvref_tr<non_type_sp> auto b)
+    {
+        return a.units == b.units && a.unit_count == b.unit_count;
+    }
+
+    template <non_type_tr unit_p>
     inline non_type_sp<unit_p>::non_type_sp() :
         units(nullptr),
         unit_count(0)
@@ -534,6 +548,12 @@ namespace nkr { namespace $pointer_t {
     }
 
 }}
+
+namespace nkr {
+
+
+
+}
 
 #if defined(nkr_DO_EXTERN_TEMPLATES)
 

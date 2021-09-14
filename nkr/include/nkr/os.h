@@ -172,4 +172,17 @@ namespace nkr { namespace os { namespace math {
 
 }}}
 
+namespace nkr { namespace os { namespace time {
+
+    r64_t   Microseconds();
+    r64_t   Milliseconds();
+    r64_t   Seconds();
+
+    template <typename functor_p, typename ...args_p>
+    r64_t   Test_In_Microseconds(count_t trial_count, functor_p functor, args_p... args);
+    template <typename functor_p, typename ...args_p>
+    r64_t   Test_In_Milliseconds(count_t trial_count, functor_p functor, args_p... args);
+
+}}}
+
 #include "nkr/os.inl"

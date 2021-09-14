@@ -12,7 +12,10 @@
 #include "nkr/os.h"
 
 #if defined(nkr_IS_WINDOWS)
+    #define NOMINMAX
+
     #include <intrin.h>
+    #include <windows.h>
 #endif
 
 namespace nkr { namespace os { namespace atomic {
@@ -674,5 +677,59 @@ namespace nkr { namespace os { namespace math {
         return
             (lhs == std::numeric_limits<number_p>::lowest() && rhs == -1);
     }
+
+}}}
+
+namespace nkr { namespace os { namespace time {
+
+#if defined(nkr_IS_WINDOWS)
+
+    inline r64_t Microseconds()
+    {
+        LARGE_INTEGER frequency;
+        LARGE_INTEGER counter;
+        QueryPerformanceFrequency(&frequency);
+        QueryPerformanceCounter(&counter);
+
+        return (counter.QuadPart * 1000000.0) / frequency.QuadPart;
+    }
+
+    inline r64_t Milliseconds()
+    {
+        return Microseconds() * 0.001;
+    }
+
+    inline r64_t Seconds()
+    {
+        return Milliseconds() * 0.001;
+    }
+
+    template <typename functor_p, typename ...args_p>
+    r64_t Test_In_Microseconds(count_t trial_count, functor_p functor, args_p... args)
+    {
+        r64_t total_time = 0.0;
+        for (index_t idx = 0, end = trial_count; idx < end; idx += 1) {
+            r64_t start_time = Microseconds();
+            functor(std::forward<args_p>(args)...);
+            total_time += Microseconds() - start_time;
+        }
+
+        return total_time / trial_count;
+    }
+
+    template <typename functor_p, typename ...args_p>
+    r64_t Test_In_Milliseconds(count_t trial_count, functor_p functor, args_p... args)
+    {
+        r64_t total_time = 0.0;
+        for (index_t idx = 0, end = trial_count; idx < end; idx += 1) {
+            r64_t start_time = Milliseconds();
+            functor(std::forward<args_p>(args)...);
+            total_time += Milliseconds() - start_time;
+        }
+
+        return total_time / trial_count;
+    }
+
+#endif
 
 }}}
