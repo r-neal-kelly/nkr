@@ -1486,7 +1486,7 @@ namespace nkr {
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<std::remove_const_t<unit_t>>();
                         }
-                        pointer_p pointer(randoms, sizeof(randoms));
+                        pointer_p pointer(randoms, sizeof(randoms) / sizeof(unit_t));
                         index_t index = Random<index_t>(0, 15);
                         CHECK(pointer[index] == randoms[index]);
                     }
@@ -1502,7 +1502,7 @@ namespace nkr {
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<unit_t>();
                         }
-                        pointer_p pointer(randoms, sizeof(randoms));
+                        pointer_p pointer(randoms, sizeof(randoms) / sizeof(unit_t));
                         index_t index = Random<index_t>(0, 15);
                         unit_t random = Random<unit_t>();
                         pointer[index] = random;
@@ -1520,7 +1520,7 @@ namespace nkr {
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<unit_t>();
                         }
-                        pointer_p pointer(randoms, sizeof(randoms));
+                        pointer_p pointer(randoms, sizeof(randoms) / sizeof(unit_t));
                         index_t index = Random<index_t>(0, 15);
                         unit_t random = Random<unit_t>();
                         pointer[index] = random;

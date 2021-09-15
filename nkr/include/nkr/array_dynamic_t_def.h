@@ -23,19 +23,34 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <
-        same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_1_p,
-        same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_2_p
-    > inline void_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy(const self_1_p& from, self_2_p& to)
+    inline auto&
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Units(same_as_plain_tr<array_dynamic_t> auto& self)
     {
-        assert(to.units == nullptr);
+        using self_t = std::remove_reference_t<decltype(self)>;
+
+        if constexpr (std::is_volatile_v<self_t> && std::is_const_v<self_t>) {
+            return reinterpret_cast<volatile const pointer_t&>(self.writable_units);
+        } else if constexpr (std::is_volatile_v<self_t>) {
+            return reinterpret_cast<volatile pointer_t&>(self.writable_units);
+        } else if constexpr (std::is_const_v<self_t>) {
+            return reinterpret_cast<const pointer_t&>(self.writable_units);
+        } else {
+            return reinterpret_cast<pointer_t&>(self.writable_units);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline void_t
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy(const same_as_plain_tr<array_dynamic_t> auto& from,
+                                                                same_as_plain_tr<array_dynamic_t> auto& to)
+    {
+        assert(to.writable_units == nullptr);
         assert(to.unit_count == 0);
 
         if (from.unit_count > 0) {
-            if (to.allocator.Allocate(to.units, from.unit_count)) {
+            if (to.allocator.Allocate(Units(to), from.unit_count)) {
                 for (index_t idx = 0, end = from.unit_count; idx < end; idx += 1) {
-                    to.units[idx] = from.units[idx];
+                    to.writable_units[idx] = from.writable_units[idx];
                 }
                 to.unit_count = from.unit_count;
             } else {
@@ -45,60 +60,55 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline void_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Destroy(self_p& it)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Destroy(same_as_plain_tr<array_dynamic_t> auto& self)
     {
-        it.Clear();
-        it.allocator.Deallocate(it.units);
-        it.units = nullptr;
+        self.Clear();
+        self.allocator.Deallocate(Units(self));
+        self.writable_units = nullptr;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
-        return self.units;
+        return Units(self);
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline count_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Count(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Count(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
         return self.unit_count;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline typename const array_dynamic_t<unit_p, allocator_p, grow_rate_p>::allocator_t&
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Allocator(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Allocator(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
         return self.allocator;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline count_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
-        return self.units.unit_count;
+        return self.writable_units.unit_count;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity(self_p& self, count_t new_capacity)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity(same_as_plain_tr<array_dynamic_t> auto& self,
+                                                                    count_t new_capacity)
     {
         assert(new_capacity >= self.allocator.Min_Unit_Count());
         assert(new_capacity <= self.allocator.Max_Unit_Count());
 
-        if (self.units == nullptr) {
-            return self.allocator.Allocate(self.units, new_capacity);
+        if (self.writable_units == nullptr) {
+            return self.allocator.Allocate(Units(self), new_capacity);
         } else {
-            if (self.units.unit_count < new_capacity) {
-                return self.allocator.Reallocate(self.units, new_capacity);
+            if (self.writable_units.unit_count < new_capacity) {
+                return self.allocator.Reallocate(Units(self), new_capacity);
             } else {
                 return true;
             }
@@ -106,9 +116,8 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Should_Grow(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Should_Grow(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
         if (self.unit_count < self.allocator.Max_Unit_Count()) {
             return self.unit_count + 1 > self.Capacity();
@@ -118,9 +127,8 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Grow(self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Grow(same_as_plain_tr<array_dynamic_t> auto& self)
     {
         count_t capacity = self.Capacity();
         assert(capacity < self.allocator.Max_Unit_Count());
@@ -137,19 +145,19 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t&
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::At(const self_p& self, index_t index)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::At(const same_as_plain_tr<array_dynamic_t> auto& self,
+                                                              index_t index)
     {
         assert(index < self.unit_count);
 
-        return self.units[index];
+        return Units(self)[index];
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(self_p& self, const unit_t& unit)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(same_as_plain_tr<array_dynamic_t> auto& self,
+                                                                const unit_t& unit)
     {
         if (self.Should_Grow()) {
             if (!self.Grow()) {
@@ -157,16 +165,16 @@ namespace nkr {
             }
         }
 
-        self.units[self.unit_count] = unit;
+        self.writable_units[self.unit_count] = unit;
         self.unit_count += 1;
 
         return true;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(self_p& self, unit_t&& unit)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(same_as_plain_tr<array_dynamic_t> auto& self,
+                                                                std::remove_const_t<unit_t>&& unit)
     {
         if (self.Should_Grow()) {
             if (!self.Grow()) {
@@ -174,65 +182,60 @@ namespace nkr {
             }
         }
 
-        self.units[self.unit_count] = std::move(unit);
+        self.writable_units[self.unit_count] = std::move(unit);
         self.unit_count += 1;
 
         return true;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline typename array_dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pop(self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Pop(same_as_plain_tr<array_dynamic_t> auto& self)
     {
         assert(self.unit_count > 0);
 
         self.unit_count -= 1;
-        return std::move(self.units[self.unit_count]);
+        return std::move(self.writable_units[self.unit_count]);
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Fit(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Fit(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
         return self.Count() == self.Capacity();
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Fit(self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Fit(same_as_plain_tr<array_dynamic_t> auto& self)
     {
-        if (self.unit_count < self.units.unit_count) {
-            return self.allocator.Reallocate(self.units, self.unit_count);
+        if (self.unit_count < self.writable_units.unit_count) {
+            return self.allocator.Reallocate(Units(self), self.unit_count);
         } else {
             return true;
         }
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Clear(const self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Clear(const same_as_plain_tr<array_dynamic_t> auto& self)
     {
         return self.unit_count == 0;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p>
     inline void_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Clear(self_p& self)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Clear(same_as_plain_tr<array_dynamic_t> auto& self)
     {
         for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-            self.units[idx].~unit_t();
+            self.writable_units[idx].~unit_t();
         }
         self.unit_count = 0;
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t() :
-        units(),
+        writable_units(),
         unit_count(0),
         allocator()
     {
@@ -240,7 +243,7 @@ namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(const array_dynamic_t& other) :
-        units(),
+        writable_units(),
         unit_count(0),
         allocator(other.allocator)
     {
@@ -249,7 +252,7 @@ namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(volatile const array_dynamic_t& other) :
-        units(),
+        writable_units(),
         unit_count(0),
         allocator(other.allocator)
     {
@@ -258,7 +261,7 @@ namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(array_dynamic_t&& other) noexcept :
-        units(std::move(other.units)),
+        writable_units(std::move(other.writable_units)),
         unit_count(std::exchange(other.unit_count, 0)),
         allocator(std::move(other.allocator))
     {
@@ -266,7 +269,7 @@ namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(volatile array_dynamic_t&& other) noexcept :
-        units(std::move(other.units)),
+        writable_units(std::move(other.writable_units)),
         unit_count(std::exchange(other.unit_count, 0)),
         allocator(std::move(other.allocator))
     {
@@ -304,7 +307,7 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             Destroy(*this);
-            this->units = std::move(other.units);
+            this->writable_units = std::move(other.writable_units);
             this->unit_count = std::exchange(other.unit_count, 0);
             this->allocator = std::move(other.allocator);
         }
@@ -318,7 +321,7 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             Destroy(*this);
-            this->units = std::move(other.units);
+            this->writable_units = std::move(other.writable_units);
             this->unit_count = std::exchange(other.unit_count, 0);
             this->allocator = std::move(other.allocator);
         }
@@ -443,14 +446,14 @@ namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(unit_t&& unit)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(std::remove_const_t<unit_t>&& unit)
     {
         return Push(*this, std::move(unit));
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(unit_t&& unit)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(std::remove_const_t<unit_t>&& unit)
         volatile
     {
         return Push(*this, std::move(unit));

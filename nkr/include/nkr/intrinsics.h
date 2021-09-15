@@ -36,6 +36,8 @@ namespace nkr {
 #endif
 
 #define nkr_BLANK
+#define nkr_COMMA ,
+
 #define nkr_DO_EXTERN_TEMPLATES
 
     /// @}

@@ -14,68 +14,90 @@ namespace nkr {
 
     TEST_SUITE("array_dynamic_t<unit_p, allocator_p, grow_rate_p>")
     {
-    #define types                                                                               \
-        std::tuple<std_bool_t, allocator::heap_t<std_bool_t>, math::fraction_t<17, 10>>,        \
-        std::tuple<std_bool_t, allocator::heap_zeros_t<std_bool_t>, math::fraction_t<17, 10>>,  \
-        std::tuple<std_bool_t, allocator::heap_t<std_bool_t>, math::fraction_t<2, 1>>,          \
-        std::tuple<std_bool_t, allocator::heap_zeros_t<std_bool_t>, math::fraction_t<2, 1>>,    \
-                                                                                                \
-        std::tuple<bool_t, allocator::heap_t<bool_t>, math::fraction_t<17, 10>>,                \
-        std::tuple<bool_t, allocator::heap_zeros_t<bool_t>, math::fraction_t<17, 10>>,          \
-        std::tuple<bool_t, allocator::heap_t<bool_t>, math::fraction_t<2, 1>>,                  \
-        std::tuple<bool_t, allocator::heap_zeros_t<bool_t>, math::fraction_t<2, 1>>
+    #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, GROW_RATE_p)                                   \
+        QUALIFIER_p array_dynamic_t<UNIT_p, ALLOCATOR_p<UNIT_p>, GROW_RATE_p>,                              \
+        QUALIFIER_p array_dynamic_t<const UNIT_p, ALLOCATOR_p<const UNIT_p>, GROW_RATE_p>,                  \
+        QUALIFIER_p array_dynamic_t<volatile UNIT_p, ALLOCATOR_p<volatile UNIT_p>, GROW_RATE_p>,            \
+        QUALIFIER_p array_dynamic_t<volatile const UNIT_p, ALLOCATOR_p<volatile const UNIT_p>, GROW_RATE_p>
+
+    #define nkr_GROW_RATES(QUALIFIER_p, UNIT_p, ALLOCATOR_p)                                    \
+        nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, math::fraction_t<17 nkr_COMMA 10>),    \
+        nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, math::fraction_t<2 nkr_COMMA 1>)
+
+    #define nkr_ALLOCATORS(QUALIFIER_p, UNIT_p)                         \
+        nkr_GROW_RATES(QUALIFIER_p, UNIT_p, allocator::heap_t),         \
+        nkr_GROW_RATES(QUALIFIER_p, UNIT_p, allocator::heap_zeros_t)
+
+    #define nkr_UNITS(QUALIFIER_p)                  \
+        nkr_ALLOCATORS(QUALIFIER_p, std_bool_t),    \
+        nkr_ALLOCATORS(QUALIFIER_p, bool_t)
+
+    #define nkr_REGULAR         \
+        nkr_UNITS(nkr_BLANK)
+
+    #define nkr_NON_CONST       \
+        nkr_UNITS(nkr_BLANK),   \
+        nkr_UNITS(volatile)
+
+    #define nkr_CONST               \
+        nkr_UNITS(const),           \
+        nkr_UNITS(volatile const)
+
+    #define nkr_ALL     \
+        nkr_NON_CONST,  \
+        nkr_CONST
 
         TEST_SUITE("aliases")
         {
             TEST_SUITE("unit_t")
             {
-                TEST_CASE_TEMPLATE("should equal unit_p", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a unit_t", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
-                    static_assert(std::same_as<array_dynamic_p::unit_t, unit_p>);
+                    static_assert(std::same_as<unit_t, unit_t>);
                 }
             }
 
             TEST_SUITE("pointer_t")
             {
-                TEST_CASE_TEMPLATE("should equal pointer_t<unit_p>", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a pointer_t with the same unit_t", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
-                    static_assert(std::same_as<array_dynamic_p::pointer_t, pointer_t<unit_p>>);
+                    static_assert(std::same_as<pointer_t::unit_t, unit_t>);
                 }
             }
 
             TEST_SUITE("allocator_t")
             {
-                TEST_CASE_TEMPLATE("should equal allocator_p", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have an allocator_t with the same unit_t", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
-                    static_assert(std::same_as<array_dynamic_p::allocator_t, allocator_p>);
+                    static_assert(std::same_as<allocator_t::unit_t, unit_t>);
                 }
             }
 
             TEST_SUITE("grow_rate_t")
             {
-                TEST_CASE_TEMPLATE("should equal grow_rate_p", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a grow_rate_t", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
-                    static_assert(std::same_as<array_dynamic_p::grow_rate_t, grow_rate_p>);
+                    static_assert(std::same_as<grow_rate_t, grow_rate_t>);
                 }
             }
         }
@@ -84,56 +106,14 @@ namespace nkr {
         {
             TEST_SUITE("Grow_Rate()")
             {
-                TEST_CASE_TEMPLATE("should equate grow_rate_p::To_Decimal()", tuple_p, types)
+                TEST_CASE_TEMPLATE("should equate grow_rate_t::To_Decimal()", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
-                    CHECK(array_dynamic_p::Grow_Rate() == grow_rate_p::To_Decimal());
-                }
-            }
-        }
-
-        TEST_SUITE("object data")
-        {
-            TEST_SUITE("units")
-            {
-                TEST_CASE_TEMPLATE("should be a pointer_t<unit_p>", tuple_p, types)
-                {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
-
-                    static_assert(std::same_as<decltype(array_dynamic_p::units), pointer_t<unit_p>>);
-                }
-            }
-
-            TEST_SUITE("unit_count")
-            {
-                TEST_CASE_TEMPLATE("should be a count_t", tuple_p, types)
-                {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
-
-                    static_assert(std::same_as<decltype(array_dynamic_p::unit_count), count_t>);
-                }
-            }
-
-            TEST_SUITE("allocator")
-            {
-                TEST_CASE_TEMPLATE("should be a allocator_p", tuple_p, types)
-                {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
-
-                    static_assert(std::same_as<decltype(array_dynamic_p::allocator), allocator_p>);
+                    CHECK(array_dynamic_p::Grow_Rate() == grow_rate_t::To_Decimal());
                 }
             }
         }
@@ -142,25 +122,23 @@ namespace nkr {
         {
             TEST_SUITE("default_ctor()")
             {
-                TEST_CASE_TEMPLATE("should have a default pointer", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a default pointer", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     array_dynamic_p array_dynamic;
                     CHECK(array_dynamic.Pointer() == pointer_t());
                 }
 
-                TEST_CASE_TEMPLATE("should have a count of 0", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a count of 0", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     array_dynamic_p array_dynamic;
                     CHECK(array_dynamic.Count() == 0);
@@ -169,18 +147,17 @@ namespace nkr {
 
             TEST_SUITE("copy_ctor()")
             {
-                TEST_CASE_TEMPLATE("should explicitly copy each unit and the count of other", tuple_p, types)
+                TEST_CASE_TEMPLATE("should explicitly copy each unit and the count of other", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     array_dynamic_p array_dynamic(other);
                     CHECK(array_dynamic.Count() == count);
@@ -189,18 +166,17 @@ namespace nkr {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should implicitly copy each unit and the count of other", tuple_p, types)
+                TEST_CASE_TEMPLATE("should implicitly copy each unit and the count of other", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     array_dynamic_p array_dynamic = other;
                     CHECK(array_dynamic.Count() == count);
@@ -209,18 +185,17 @@ namespace nkr {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not change the other", tuple_p, types)
+                TEST_CASE_TEMPLATE("should not change the other", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     pointer_t pointer = other.Pointer();
                     array_dynamic_p array_dynamic(other);
@@ -228,59 +203,37 @@ namespace nkr {
                     CHECK(other.Count() == count);
                 }
 
-                TEST_CASE_TEMPLATE("should have a different pointer", tuple_p, types)
+                TEST_CASE_TEMPLATE("should have a different pointer", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     pointer_t pointer = other.Pointer();
                     array_dynamic_p array_dynamic(other);
                     CHECK(array_dynamic.Pointer() != pointer);
                 }
-
-                TEST_CASE_TEMPLATE("should work with volatile other", tuple_p, types)
-                {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
-                    using pointer_t = array_dynamic_p::pointer_t;
-
-                    count_t count = Random<count_t>(1, 16);
-                    volatile array_dynamic_p other;
-                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
-                    }
-                    array_dynamic_p array_dynamic(other);
-                    CHECK(array_dynamic.Count() == count);
-                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        CHECK(array_dynamic[idx] == other[idx]);
-                    }
-                }
             }
 
             TEST_SUITE("move_ctor()")
             {
-                TEST_CASE_TEMPLATE("should explicitly move the pointer and count of other", tuple_p, types)
+                TEST_CASE_TEMPLATE("should explicitly move the pointer and count of other", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     pointer_t pointer = other.Pointer();
                     array_dynamic_p array_dynamic(std::move(other));
@@ -288,18 +241,17 @@ namespace nkr {
                     CHECK(array_dynamic.Count() == count);
                 }
 
-                TEST_CASE_TEMPLATE("should implicitly move the count of other", tuple_p, types)
+                TEST_CASE_TEMPLATE("should implicitly move the count of other", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     pointer_t pointer = other.Pointer();
                     array_dynamic_p array_dynamic = std::move(other);
@@ -307,41 +259,21 @@ namespace nkr {
                     CHECK(array_dynamic.Count() == count);
                 }
 
-                TEST_CASE_TEMPLATE("should set the other to default values", tuple_p, types)
+                TEST_CASE_TEMPLATE("should set the other to default values", array_dynamic_p, nkr_ALL)
                 {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
+                    using unit_t = array_dynamic_p::unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    array_dynamic_p other;
+                    std::remove_const_t<array_dynamic_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
+                        other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     array_dynamic_p array_dynamic(std::move(other));
                     CHECK(other.Pointer() == pointer_t());
                     CHECK(other.Count() == 0);
-                }
-
-                TEST_CASE_TEMPLATE("should work with volatile other", tuple_p, types)
-                {
-                    using unit_p = std::tuple_element_t<0, tuple_p>;
-                    using allocator_p = std::tuple_element_t<1, tuple_p>;
-                    using grow_rate_p = std::tuple_element_t<2, tuple_p>;
-                    using array_dynamic_p = array_dynamic_t<unit_p, allocator_p, grow_rate_p>;
-                    using pointer_t = array_dynamic_p::pointer_t;
-
-                    count_t count = Random<count_t>(1, 16);
-                    volatile array_dynamic_p other;
-                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<unit_p>());
-                    }
-                    pointer_t pointer = other.Pointer();
-                    array_dynamic_p array_dynamic(std::move(other));
-                    CHECK(array_dynamic.Pointer() == pointer);
-                    CHECK(array_dynamic.Count() == count);
                 }
             }
         }
@@ -355,8 +287,6 @@ namespace nkr {
         {
 
         }
-
-    #undef types
     }
 
     TEST_CASE("temp")

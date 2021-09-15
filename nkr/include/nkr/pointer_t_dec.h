@@ -86,10 +86,10 @@ namespace nkr { namespace $pointer_t {
         /// @name casts
         /// @copydoc 
         /// @{
-        operator            units_t&();
-        operator            const units_t&() const;
-        operator            volatile units_t&() volatile;
-        operator            volatile const units_t&() volatile const;
+        operator    units_t&();
+        operator    const units_t&() const;
+        operator    volatile units_t&() volatile;
+        operator    volatile const units_t&() volatile const;
         /// @}
 
     public:
@@ -203,10 +203,10 @@ namespace nkr { namespace $pointer_t {
         /// @name casts
         /// @copydoc 
         /// @{
-        operator            units_t&();
-        operator            const units_t&() const;
-        operator            volatile units_t&() volatile;
-        operator            volatile const units_t&() volatile const;
+        operator    units_t&();
+        operator    const units_t&() const;
+        operator    volatile units_t&() volatile;
+        operator    volatile const units_t&() volatile const;
         /// @}
 
     public:

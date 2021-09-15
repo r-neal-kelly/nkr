@@ -574,7 +574,7 @@ namespace nkr { namespace os { namespace heap {
         assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
-        units_t new_units = static_cast<units_t>(::realloc(const_cast<std::remove_volatile_t<unit_t>*&>(units),
+        units_t new_units = static_cast<units_t>(::realloc(const_cast<std::remove_cv_t<unit_t>*&>(units),
                                                            new_unit_count * sizeof(unit_t)));
         if (errno == 0) {
             units = new_units;
@@ -590,7 +590,7 @@ namespace nkr { namespace os { namespace heap {
         using unit_t = std::remove_pointer_t<units_t>;
 
         if (units != nullptr) {
-            ::free(const_cast<std::remove_volatile_t<unit_t>*&>(units));
+            ::free(const_cast<std::remove_cv_t<unit_t>*&>(units));
             units = nullptr;
         }
     }
@@ -622,7 +622,7 @@ namespace nkr { namespace os { namespace heap {
         assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
-        units_t new_units = static_cast<units_t>(::_recalloc(const_cast<std::remove_volatile_t<unit_t>*&>(units),
+        units_t new_units = static_cast<units_t>(::_recalloc(const_cast<std::remove_cv_t<unit_t>*&>(units),
                                                              new_unit_count,
                                                              sizeof(unit_t)));
         if (errno == 0) {

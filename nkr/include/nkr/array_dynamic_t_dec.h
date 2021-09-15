@@ -21,57 +21,54 @@ namespace nkr {
     > class array_dynamic_t
     {
     public:
+        static_assert(std::same_as<unit_p, allocator_p::unit_t>,
+                      "allocator has a different unit_t");
+
+    public:
         using unit_t        = unit_p;
         using pointer_t     = pointer_t<unit_t>;
         using allocator_t   = allocator_p;
         using grow_rate_t   = grow_rate_p;
 
+    private:
+        using writable_pointer_t    = nkr::pointer_t<std::remove_const_t<unit_t>>;
+
     public:
         static constexpr real_t Grow_Rate();
 
     private:
-    #define self_tr                                                                     \
-        template <                                                                      \
-            same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_p  \
-        >
+        static auto&                Units(same_as_plain_tr<array_dynamic_t> auto& self);
 
-    #define self_2_tr                                                                       \
-        template <                                                                          \
-            same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_1_p,   \
-            same_as_plain_tr<array_dynamic_t<unit_p, allocator_p, grow_rate_p>> self_2_p    \
-        >
+        static void_t               Copy(const same_as_plain_tr<array_dynamic_t> auto& from,
+                                         same_as_plain_tr<array_dynamic_t> auto& to);
+        static void_t               Destroy(same_as_plain_tr<array_dynamic_t> auto& self);
 
-        self_2_tr static void_t             Copy(const self_1_p& from, self_2_p& to);
-        self_tr static void_t               Destroy(self_p& it);
+        static pointer_t            Pointer(const same_as_plain_tr<array_dynamic_t> auto& self);
+        static count_t              Count(const same_as_plain_tr<array_dynamic_t> auto& self);
+        static const allocator_t&   Allocator(const same_as_plain_tr<array_dynamic_t> auto& self);
 
-        self_tr static pointer_t            Pointer(const self_p& self);
-        self_tr static count_t              Count(const self_p& self);
-        self_tr static const allocator_t&   Allocator(const self_p& self);
+        static count_t              Capacity(const same_as_plain_tr<array_dynamic_t> auto& self);
+        static bool_t               Capacity(same_as_plain_tr<array_dynamic_t> auto& self, count_t new_capacity);
 
-        self_tr static count_t              Capacity(const self_p& self);
-        self_tr static bool_t               Capacity(self_p& self, count_t new_capacity);
+        static bool_t               Should_Grow(const same_as_plain_tr<array_dynamic_t> auto& self);
+        static bool_t               Grow(same_as_plain_tr<array_dynamic_t> auto& self);
 
-        self_tr static bool_t               Should_Grow(const self_p& self);
-        self_tr static bool_t               Grow(self_p& self);
+        static unit_t&              At(const same_as_plain_tr<array_dynamic_t> auto& self, index_t index);
+        static bool_t               Push(same_as_plain_tr<array_dynamic_t> auto& self, const unit_t& unit);
+        static bool_t               Push(same_as_plain_tr<array_dynamic_t> auto& self,
+                                         std::remove_const_t<unit_t>&& unit);
+        static unit_t               Pop(same_as_plain_tr<array_dynamic_t> auto& self);
 
-        self_tr static unit_t&              At(const self_p& self, index_t index);
-        self_tr static bool_t               Push(self_p& self, const unit_t& unit);
-        self_tr static bool_t               Push(self_p& self, unit_t&& unit);
-        self_tr static unit_t               Pop(self_p& self);
+        static bool_t               Is_Fit(const same_as_plain_tr<array_dynamic_t> auto& self);
+        static bool_t               Fit(same_as_plain_tr<array_dynamic_t> auto& self);
 
-        self_tr static bool_t               Is_Fit(const self_p& self);
-        self_tr static bool_t               Fit(self_p& self);
-
-        self_tr static bool_t               Is_Clear(const self_p& self);
-        self_tr static void_t               Clear(self_p& self);
-
-    #undef self_tr
-    #undef self_2_tr
+        static bool_t               Is_Clear(const same_as_plain_tr<array_dynamic_t> auto& self);
+        static void_t               Clear(same_as_plain_tr<array_dynamic_t> auto& self);
 
     protected:
-        pointer_t   units;
-        count_t     unit_count;
-        allocator_t allocator;
+        writable_pointer_t  writable_units;
+        count_t             unit_count;
+        allocator_t         allocator;
 
     public:
         array_dynamic_t();
@@ -105,8 +102,8 @@ namespace nkr {
         unit_t&             At(index_t index) volatile const;
         bool_t              Push(const unit_t& unit);
         bool_t              Push(const unit_t& unit) volatile;
-        bool_t              Push(unit_t&& unit);
-        bool_t              Push(unit_t&& unit) volatile;
+        bool_t              Push(std::remove_const_t<unit_t>&& unit);
+        bool_t              Push(std::remove_const_t<unit_t>&& unit) volatile;
         unit_t              Pop();
         unit_t              Pop() volatile;
 
