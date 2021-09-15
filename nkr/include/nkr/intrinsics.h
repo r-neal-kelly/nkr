@@ -35,6 +35,7 @@ namespace nkr {
     #error "Cannot compile with this architecture."
 #endif
 
+#define nkr_BLANK
 #define nkr_DO_EXTERN_TEMPLATES
 
     /// @}

@@ -35,11 +35,7 @@ namespace nkr { namespace allocator {
                                                  count_t unit_count)
     {
         if (os::heap::Allocate_Zeros(units(), unit_count)) {
-            if constexpr (std::is_volatile_v<std::remove_reference_t<decltype(units)>>) {
-                static_cast<volatile count_t&>(units) = unit_count;
-            } else {
-                static_cast<count_t&>(units) = unit_count;
-            }
+            units.Unit_Count() = unit_count;
             return true;
         } else {
             units = { nullptr, 0 };
@@ -61,11 +57,7 @@ namespace nkr { namespace allocator {
                                                    count_t new_unit_count)
     {
         if (os::heap::Reallocate_Zeros(units(), new_unit_count)) {
-            if constexpr (std::is_volatile_v<std::remove_reference_t<decltype(units)>>) {
-                static_cast<volatile count_t&>(units) = new_unit_count;
-            } else {
-                static_cast<count_t&>(units) = new_unit_count;
-            }
+            units.Unit_Count() = new_unit_count;
             return true;
         } else {
             return false;

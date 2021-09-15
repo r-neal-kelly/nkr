@@ -112,6 +112,99 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <type_tr unit_p>
+    inline typename type_sp<unit_p>::unit_t*&
+        type_sp<unit_p>::Unit()
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename type_sp<unit_p>::unit_t* const&
+        type_sp<unit_p>::Unit()
+        const
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename type_sp<unit_p>::unit_t* volatile&
+        type_sp<unit_p>::Unit()
+        volatile
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename type_sp<unit_p>::unit_t* volatile const&
+        type_sp<unit_p>::Unit()
+        volatile const
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename type_sp<unit_p>::units_t&
+        type_sp<unit_p>::Units()
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename const type_sp<unit_p>::units_t&
+        type_sp<unit_p>::Units()
+        const
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename volatile type_sp<unit_p>::units_t&
+        type_sp<unit_p>::Units()
+        volatile
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline typename volatile const type_sp<unit_p>::units_t&
+        type_sp<unit_p>::Units()
+        volatile const
+    {
+        return this->units;
+    }
+
+    template <type_tr unit_p>
+    inline count_t&
+        type_sp<unit_p>::Unit_Count()
+    {
+        return this->unit_count;
+    }
+
+    template <type_tr unit_p>
+    inline const count_t&
+        type_sp<unit_p>::Unit_Count()
+        const
+    {
+        return this->unit_count;
+    }
+
+    template <type_tr unit_p>
+    inline volatile count_t&
+        type_sp<unit_p>::Unit_Count()
+        volatile
+    {
+        return this->unit_count;
+    }
+
+    template <type_tr unit_p>
+    inline volatile const count_t&
+        type_sp<unit_p>::Unit_Count()
+        volatile const
+    {
+        return this->unit_count;
+    }
+
+    template <type_tr unit_p>
     inline type_sp<unit_p>::operator units_t&()
     {
         return this->units;
@@ -133,30 +226,6 @@ namespace nkr { namespace $pointer_t {
     inline type_sp<unit_p>::operator volatile const units_t&() volatile const
     {
         return this->units;
-    }
-
-    template <type_tr unit_p>
-    inline type_sp<unit_p>::operator count_t&()
-    {
-        return this->unit_count;
-    }
-
-    template <type_tr unit_p>
-    inline type_sp<unit_p>::operator const count_t&() const
-    {
-        return this->unit_count;
-    }
-
-    template <type_tr unit_p>
-    inline type_sp<unit_p>::operator volatile count_t&() volatile
-    {
-        return this->unit_count;
-    }
-
-    template <type_tr unit_p>
-    inline type_sp<unit_p>::operator volatile const count_t&() volatile const
-    {
-        return this->unit_count;
     }
 
     template <type_tr unit_p>
@@ -452,6 +521,99 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <non_type_tr unit_p>
+    inline typename non_type_sp<unit_p>::unit_t*&
+        non_type_sp<unit_p>::Unit()
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename non_type_sp<unit_p>::unit_t* const&
+        non_type_sp<unit_p>::Unit()
+        const
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename non_type_sp<unit_p>::unit_t* volatile&
+        non_type_sp<unit_p>::Unit()
+        volatile
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename non_type_sp<unit_p>::unit_t* volatile const&
+        non_type_sp<unit_p>::Unit()
+        volatile const
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename non_type_sp<unit_p>::units_t&
+        non_type_sp<unit_p>::Units()
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename const non_type_sp<unit_p>::units_t&
+        non_type_sp<unit_p>::Units()
+        const
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename volatile non_type_sp<unit_p>::units_t&
+        non_type_sp<unit_p>::Units()
+        volatile
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline typename volatile const non_type_sp<unit_p>::units_t&
+        non_type_sp<unit_p>::Units()
+        volatile const
+    {
+        return this->units;
+    }
+
+    template <non_type_tr unit_p>
+    inline count_t&
+        non_type_sp<unit_p>::Unit_Count()
+    {
+        return this->unit_count;
+    }
+
+    template <non_type_tr unit_p>
+    inline const count_t&
+        non_type_sp<unit_p>::Unit_Count()
+        const
+    {
+        return this->unit_count;
+    }
+
+    template <non_type_tr unit_p>
+    inline volatile count_t&
+        non_type_sp<unit_p>::Unit_Count()
+        volatile
+    {
+        return this->unit_count;
+    }
+
+    template <non_type_tr unit_p>
+    inline volatile const count_t&
+        non_type_sp<unit_p>::Unit_Count()
+        volatile const
+    {
+        return this->unit_count;
+    }
+
+    template <non_type_tr unit_p>
     inline non_type_sp<unit_p>::operator units_t&()
     {
         return this->units;
@@ -473,30 +635,6 @@ namespace nkr { namespace $pointer_t {
     inline non_type_sp<unit_p>::operator volatile const units_t&() volatile const
     {
         return this->units;
-    }
-
-    template <non_type_tr unit_p>
-    inline non_type_sp<unit_p>::operator count_t&()
-    {
-        return this->unit_count;
-    }
-
-    template <non_type_tr unit_p>
-    inline non_type_sp<unit_p>::operator const count_t&() const
-    {
-        return this->unit_count;
-    }
-
-    template <non_type_tr unit_p>
-    inline non_type_sp<unit_p>::operator volatile count_t&() volatile
-    {
-        return this->unit_count;
-    }
-
-    template <non_type_tr unit_p>
-    inline non_type_sp<unit_p>::operator volatile const count_t&() volatile const
-    {
-        return this->unit_count;
     }
 
     template <non_type_tr unit_p>

@@ -67,6 +67,22 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     public:
+        unit_t*&                Unit();
+        unit_t* const&          Unit() const;
+        unit_t* volatile&       Unit() volatile;
+        unit_t* volatile const& Unit() volatile const;
+
+        units_t&                Units();
+        const units_t&          Units() const;
+        volatile units_t&       Units() volatile;
+        volatile const units_t& Units() volatile const;
+
+        count_t&                Unit_Count();
+        const count_t&          Unit_Count() const;
+        volatile count_t&       Unit_Count() volatile;
+        volatile const count_t& Unit_Count() volatile const;
+
+    public:
         /// @name casts
         /// @copydoc 
         /// @{
@@ -74,11 +90,6 @@ namespace nkr { namespace $pointer_t {
         operator            const units_t&() const;
         operator            volatile units_t&() volatile;
         operator            volatile const units_t&() volatile const;
-
-        explicit operator   count_t&();
-        explicit operator   const count_t&() const;
-        explicit operator   volatile count_t&() volatile;
-        explicit operator   volatile const count_t&() volatile const;
         /// @}
 
     public:
@@ -173,6 +184,22 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     public:
+        unit_t*&                Unit();
+        unit_t* const&          Unit() const;
+        unit_t* volatile&       Unit() volatile;
+        unit_t* volatile const& Unit() volatile const;
+
+        units_t&                Units();
+        const units_t&          Units() const;
+        volatile units_t&       Units() volatile;
+        volatile const units_t& Units() volatile const;
+
+        count_t&                Unit_Count();
+        const count_t&          Unit_Count() const;
+        volatile count_t&       Unit_Count() volatile;
+        volatile const count_t& Unit_Count() volatile const;
+
+    public:
         /// @name casts
         /// @copydoc 
         /// @{
@@ -180,11 +207,6 @@ namespace nkr { namespace $pointer_t {
         operator            const units_t&() const;
         operator            volatile units_t&() volatile;
         operator            volatile const units_t&() volatile const;
-
-        explicit operator   count_t&();
-        explicit operator   const count_t&() const;
-        explicit operator   volatile count_t&() volatile;
-        explicit operator   volatile const count_t&() volatile const;
         /// @}
 
     public:
