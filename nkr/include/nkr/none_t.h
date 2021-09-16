@@ -5,8 +5,11 @@
 #pragma once
 
 #include "nkr/intrinsics.h"
+#include "nkr/traits.h"
 
 namespace nkr {
+
+    class bool_t;
 
     /// @nosubgrouping
     /// @copydoc _e81dde10_53a3_4c5e_b5e3_fa01c3325510
@@ -24,5 +27,15 @@ namespace nkr {
         ~none_t()                                   = default;  ///< @copydoc _d85fbe4a_ed6e_4ea0_8552_91e433238648
         /// @}
     };
+
+    bool_t operator ==(built_in_tr auto built_in, same_as_plain_tr<none_t> auto none)
+    {
+        return built_in == std::remove_cvref_t<decltype(built_in)>(0);
+    }
+
+    bool_t operator !=(built_in_tr auto built_in, same_as_plain_tr<none_t> auto none)
+    {
+        return !operator ==(built_in, none_t());
+    }
 
 }

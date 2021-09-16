@@ -129,4 +129,7 @@ namespace nkr {
     template <typename type_p>
     using integer_signed_for_t  = integer_signed_for_type<type_p>::type_t;
 
+    template <typename type_p>
+    using plain_for_t   = std::remove_cv_t<type_p>;
+
 }

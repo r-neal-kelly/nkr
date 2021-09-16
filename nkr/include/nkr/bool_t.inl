@@ -133,7 +133,17 @@ namespace nkr {
         return !static_cast<std_bool_t>(this->value);
     }
 
+    inline bool_t bool_t::operator ==(none_t) volatile const
+    {
+        return !static_cast<std_bool_t>(this->value);
+    }
+
     inline bool_t bool_t::operator !=(none_t) const
+    {
+        return !operator ==(none_t());
+    }
+
+    inline bool_t bool_t::operator !=(none_t) volatile const
     {
         return !operator ==(none_t());
     }

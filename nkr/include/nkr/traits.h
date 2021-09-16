@@ -205,7 +205,7 @@ namespace nkr {
 
     template <typename type_p>
     concept built_in_tr =
-        std::same_as<type_p, std_bool_t> ||
+        std::same_as<std::remove_cv_t<type_p>, std_bool_t> ||
         integer_tr<type_p> ||
         real_tr<type_p> ||
         pointer_tr<type_p>;                     ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
