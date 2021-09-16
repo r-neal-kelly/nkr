@@ -10,6 +10,35 @@ namespace nkr {
 
     class bool_t;
 
+    template <typename type_p>
+    class is_array_tmpl :
+        public std::false_type
+    {
+    public:
+    };
+
+    template <typename type_p>
+    class is_array_tmpl<type_p[]> :
+        public std::true_type
+    {
+    public:
+        using unit_t    = type_p;
+    };
+
+    template <typename type_p, count_t count_p>
+    class is_array_tmpl<type_p[count_p]> :
+        public std::true_type
+    {
+    public:
+        using unit_t    = type_p;
+
+    public:
+        static constexpr count_t Count()
+        {
+            return count_p;
+        }
+    };
+
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_p>
@@ -164,6 +193,15 @@ namespace nkr {
     concept type_pointer_tr =
         pointer_tr<type_p> &&
         type_tr<std::remove_pointer_t<type_p>>; ///< @copydoc _6a988ebe_eb59_44c5_9b34_45259e710dc7
+
+    template <typename type_p>
+    concept array_tr =
+        is_array_tmpl<type_p>::value;
+
+    template <typename type_p, typename of_p>
+    concept array_of_tr =
+        array_tr<type_p> &&
+        std::same_as<typename is_array_tmpl<type_p>::unit_t, of_p>;
 
     template <typename type_p>
     concept built_in_tr =

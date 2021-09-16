@@ -39,7 +39,7 @@
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\array_dynamic_t_dec.h">
+    <ClInclude Include="include\nkr\dynamic_array_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\traits.h">
@@ -117,7 +117,7 @@
     <ClInclude Include="include\nkr\math_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\array_dynamic_t.h">
+    <ClInclude Include="include\nkr\dynamic_array_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\math_def.h">
@@ -143,7 +143,7 @@
     <None Include="include\nkr\string_dynamic_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\array_dynamic_t_def.h">
+    <None Include="include\nkr\dynamic_array_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\pointer_t_def.h">
