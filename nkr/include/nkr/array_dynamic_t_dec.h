@@ -25,13 +25,12 @@ namespace nkr {
                       "allocator has a different unit_t");
 
     public:
-        using unit_t        = unit_p;
-        using pointer_t     = pointer_t<unit_t>;
-        using allocator_t   = allocator_p;
-        using grow_rate_t   = grow_rate_p;
-
-    private:
-        using writable_pointer_t    = nkr::pointer_t<std::remove_const_t<unit_t>>;
+        using unit_t                = unit_p;
+        using writable_unit_t       = std::remove_const_t<unit_t>;
+        using pointer_t             = nkr::pointer_t<unit_t>;
+        using writable_pointer_t    = nkr::pointer_t<writable_unit_t>;
+        using allocator_t           = allocator_p;
+        using grow_rate_t           = grow_rate_p;
 
     public:
         static constexpr real_t Grow_Rate();
@@ -55,8 +54,7 @@ namespace nkr {
 
         static unit_t&              At(const same_as_plain_tr<array_dynamic_t> auto& self, index_t index);
         static bool_t               Push(same_as_plain_tr<array_dynamic_t> auto& self, const unit_t& unit);
-        static bool_t               Push(same_as_plain_tr<array_dynamic_t> auto& self,
-                                         std::remove_const_t<unit_t>&& unit);
+        static bool_t               Push(same_as_plain_tr<array_dynamic_t> auto& self, writable_unit_t&& unit);
         static unit_t               Pop(same_as_plain_tr<array_dynamic_t> auto& self);
 
         static bool_t               Is_Fit(const same_as_plain_tr<array_dynamic_t> auto& self);
@@ -71,7 +69,19 @@ namespace nkr {
         allocator_t         allocator;
 
     public:
-        array_dynamic_t();
+        array_dynamic_t(const allocator_t& allocator = allocator_t());
+        array_dynamic_t(allocator_t&& allocator);
+
+        array_dynamic_t(count_t capacity, const allocator_t& allocator = allocator_t());
+        array_dynamic_t(count_t capacity, allocator_t&& allocator);
+
+        array_dynamic_t(std::initializer_list<unit_t> initializer, const allocator_t& allocator = allocator_t());
+        array_dynamic_t(std::initializer_list<unit_t> initializer, allocator_t&& allocator);
+
+        array_dynamic_t(const unit_t& filler, count_t count, const allocator_t& allocator = allocator_t());
+        array_dynamic_t(writable_unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t());
+        array_dynamic_t(const unit_t& filler, count_t count, allocator_t&& allocator);
+        array_dynamic_t(writable_unit_t&& filler, count_t count, allocator_t&& allocator);
 
         array_dynamic_t(const array_dynamic_t& other);
         array_dynamic_t(volatile const array_dynamic_t& other);
@@ -102,8 +112,10 @@ namespace nkr {
         unit_t&             At(index_t index) volatile const;
         bool_t              Push(const unit_t& unit);
         bool_t              Push(const unit_t& unit) volatile;
-        bool_t              Push(std::remove_const_t<unit_t>&& unit);
-        bool_t              Push(std::remove_const_t<unit_t>&& unit) volatile;
+        bool_t              Push(writable_unit_t&& unit);
+        bool_t              Push(writable_unit_t&& unit) volatile;
+        bool_t              Push(const unit_t&& unit)                   = delete;
+        bool_t              Push(const unit_t&& unit) volatile          = delete;
         unit_t              Pop();
         unit_t              Pop() volatile;
 

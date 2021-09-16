@@ -23,7 +23,8 @@ namespace nkr {
         nkr_UNIT(QUALIFIER_p, std_bool_t),  \
         nkr_UNIT(QUALIFIER_p, bool_t),      \
         nkr_UNIT(QUALIFIER_p, word_t),      \
-        nkr_UNIT(QUALIFIER_p, real_t)
+        nkr_UNIT(QUALIFIER_p, real_t),      \
+        nkr_UNIT(QUALIFIER_p, void_t*)
 
     #define nkr_REGULAR         \
         nkr_UNITS(nkr_BLANK)

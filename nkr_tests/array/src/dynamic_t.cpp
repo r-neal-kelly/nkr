@@ -21,6 +21,7 @@ namespace nkr {
         QUALIFIER_p array_dynamic_t<volatile const UNIT_p, ALLOCATOR_p<volatile const UNIT_p>, GROW_RATE_p>
 
     #define nkr_GROW_RATES(QUALIFIER_p, UNIT_p, ALLOCATOR_p)                                    \
+        nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, math::fraction_t<1 nkr_COMMA 1>),      \
         nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, math::fraction_t<17 nkr_COMMA 10>),    \
         nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, math::fraction_t<2 nkr_COMMA 1>)
 
@@ -30,7 +31,8 @@ namespace nkr {
 
     #define nkr_UNITS(QUALIFIER_p)                  \
         nkr_ALLOCATORS(QUALIFIER_p, std_bool_t),    \
-        nkr_ALLOCATORS(QUALIFIER_p, bool_t)
+        nkr_ALLOCATORS(QUALIFIER_p, bool_t),        \
+        nkr_ALLOCATORS(QUALIFIER_p, void_t*)
 
     #define nkr_REGULAR         \
         nkr_UNITS(nkr_BLANK)
@@ -54,11 +56,28 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should have a unit_t", array_dynamic_p, nkr_ALL)
                 {
                     using unit_t = array_dynamic_p::unit_t;
+                    using writable_unit_t = array_dynamic_p::writable_unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using writable_pointer_t = array_dynamic_p::writable_pointer_t;
                     using allocator_t = array_dynamic_p::allocator_t;
                     using grow_rate_t = array_dynamic_p::grow_rate_t;
 
                     static_assert(std::same_as<unit_t, unit_t>);
+                }
+            }
+
+            TEST_SUITE("writable_unit_t")
+            {
+                TEST_CASE_TEMPLATE("should have a writable_unit_t that is non-const", array_dynamic_p, nkr_ALL)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using writable_unit_t = array_dynamic_p::writable_unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using writable_pointer_t = array_dynamic_p::writable_pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    static_assert(std::same_as<writable_unit_t, std::remove_const_t<unit_t>>);
                 }
             }
 
@@ -67,11 +86,28 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should have a pointer_t with the same unit_t", array_dynamic_p, nkr_ALL)
                 {
                     using unit_t = array_dynamic_p::unit_t;
+                    using writable_unit_t = array_dynamic_p::writable_unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using writable_pointer_t = array_dynamic_p::writable_pointer_t;
                     using allocator_t = array_dynamic_p::allocator_t;
                     using grow_rate_t = array_dynamic_p::grow_rate_t;
 
-                    static_assert(std::same_as<pointer_t::unit_t, unit_t>);
+                    static_assert(std::same_as<pointer_t, nkr::pointer_t<unit_t>>);
+                }
+            }
+
+            TEST_SUITE("writable_pointer_t")
+            {
+                TEST_CASE_TEMPLATE("should have a writable_pointer_t that is non-const", array_dynamic_p, nkr_ALL)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using writable_unit_t = array_dynamic_p::writable_unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using writable_pointer_t = array_dynamic_p::writable_pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    static_assert(std::same_as<writable_pointer_t, nkr::pointer_t<writable_unit_t>>);
                 }
             }
 
@@ -80,7 +116,9 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should have an allocator_t with the same unit_t", array_dynamic_p, nkr_ALL)
                 {
                     using unit_t = array_dynamic_p::unit_t;
+                    using writable_unit_t = array_dynamic_p::writable_unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using writable_pointer_t = array_dynamic_p::writable_pointer_t;
                     using allocator_t = array_dynamic_p::allocator_t;
                     using grow_rate_t = array_dynamic_p::grow_rate_t;
 
@@ -93,7 +131,9 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should have a grow_rate_t", array_dynamic_p, nkr_ALL)
                 {
                     using unit_t = array_dynamic_p::unit_t;
+                    using writable_unit_t = array_dynamic_p::writable_unit_t;
                     using pointer_t = array_dynamic_p::pointer_t;
+                    using writable_pointer_t = array_dynamic_p::writable_pointer_t;
                     using allocator_t = array_dynamic_p::allocator_t;
                     using grow_rate_t = array_dynamic_p::grow_rate_t;
 
@@ -274,6 +314,160 @@ namespace nkr {
                     array_dynamic_p array_dynamic(std::move(other));
                     CHECK(other.Pointer() == pointer_t());
                     CHECK(other.Count() == 0);
+                }
+            }
+
+            TEST_SUITE("copy_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy each unit and the count of other", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    array_dynamic_p array_dynamic;
+                    array_dynamic = other;
+                    CHECK(array_dynamic.Count() == count);
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        CHECK(array_dynamic[idx] == other[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return itself after copying other", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    array_dynamic_p array_dynamic;
+                    CHECK(&(array_dynamic = other) == &array_dynamic);
+                }
+
+                TEST_CASE_TEMPLATE("should not change the other", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic;
+                    array_dynamic = other;
+                    CHECK(other.Pointer() == pointer);
+                    CHECK(other.Count() == count);
+                }
+
+                TEST_CASE_TEMPLATE("should have a different pointer", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic;
+                    array_dynamic = other;
+                    CHECK(array_dynamic.Pointer() != pointer);
+                }
+            }
+
+            TEST_SUITE("move_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move the pointer and count of other", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic;
+                    array_dynamic = std::move(other);
+                    CHECK(array_dynamic.Pointer() == pointer);
+                    CHECK(array_dynamic.Count() == count);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself after moving other", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    pointer_t pointer = other.Pointer();
+                    array_dynamic_p array_dynamic;
+                    CHECK(&(array_dynamic = std::move(other)) == &array_dynamic);
+                }
+
+                TEST_CASE_TEMPLATE("should set the other to default values", array_dynamic_p, nkr_NON_CONST)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    array_dynamic_p array_dynamic;
+                    array_dynamic = std::move(other);
+                    CHECK(other.Pointer() == pointer_t());
+                    CHECK(other.Count() == 0);
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_CASE_TEMPLATE("should set its values to defaults", array_dynamic_p, nkr_ALL)
+                {
+                    using unit_t = array_dynamic_p::unit_t;
+                    using pointer_t = array_dynamic_p::pointer_t;
+                    using allocator_t = array_dynamic_p::allocator_t;
+                    using grow_rate_t = array_dynamic_p::grow_rate_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<array_dynamic_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<std::remove_const_t<unit_t>>());
+                    }
+                    array_dynamic_p array_dynamic(other);
+                    array_dynamic.~array_dynamic_p();
+                    CHECK(array_dynamic.Pointer() == pointer_t());
+                    CHECK(array_dynamic.Count() == 0);
                 }
             }
         }

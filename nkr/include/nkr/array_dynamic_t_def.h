@@ -104,6 +104,8 @@ namespace nkr {
         assert(new_capacity >= self.allocator.Min_Unit_Count());
         assert(new_capacity <= self.allocator.Max_Unit_Count());
 
+        // I think we can get away with just using Reallocate.
+
         if (self.writable_units == nullptr) {
             return self.allocator.Allocate(Units(self), new_capacity);
         } else {
@@ -131,16 +133,20 @@ namespace nkr {
         array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Grow(same_as_plain_tr<array_dynamic_t> auto& self)
     {
         count_t capacity = self.Capacity();
-        assert(capacity < self.allocator.Max_Unit_Count());
-
-        if (os::math::Will_Overflow_Multiply(static_cast<real_t>(capacity), Grow_Rate())) {
-            return self.Capacity(self.allocator.Max_Unit_Count());
-        } else {
-            count_t new_capacity = static_cast<count_t>(static_cast<real_t>(capacity) * Grow_Rate());
-            if (new_capacity < self.allocator.Max_Unit_Count()) {
-                new_capacity += 1;
+        if (capacity < self.allocator.Max_Unit_Count()) {
+            if (os::math::Will_Overflow_Multiply(static_cast<real_t>(capacity), Grow_Rate())) {
+                return self.Capacity(self.allocator.Max_Unit_Count());
+            } else {
+                count_t new_capacity = static_cast<count_t>(static_cast<real_t>(capacity) * Grow_Rate());
+                if (new_capacity < self.allocator.Max_Unit_Count()) {
+                    new_capacity += 1;
+                } else {
+                    new_capacity = self.allocator.Max_Unit_Count();
+                }
+                return self.Capacity(new_capacity);
             }
-            return self.Capacity(new_capacity);
+        } else {
+            return false;
         }
     }
 
@@ -174,7 +180,7 @@ namespace nkr {
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(same_as_plain_tr<array_dynamic_t> auto& self,
-                                                                std::remove_const_t<unit_t>&& unit)
+                                                                writable_unit_t&& unit)
     {
         if (self.Should_Grow()) {
             if (!self.Grow()) {
@@ -234,11 +240,109 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t() :
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(const allocator_t& allocator) :
         writable_units(),
         unit_count(0),
-        allocator()
+        allocator(allocator)
     {
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(allocator_t&& allocator) :
+        writable_units(),
+        unit_count(0),
+        allocator(std::move(allocator))
+    {
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(count_t capacity, const allocator_t& allocator) :
+        array_dynamic_t(allocator)
+    {
+        if (capacity > 0) {
+            Capacity(*this, capacity);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(count_t capacity, allocator_t&& allocator) :
+        array_dynamic_t(std::move(allocator))
+    {
+        if (capacity > 0) {
+            Capacity(*this, capacity);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(std::initializer_list<unit_t> initializer,
+                                                                              const allocator_t& allocator) :
+        array_dynamic_t(initializer.size(), allocator)
+    {
+        unit_t* data = initializer.data();
+        for (index_t idx = 0, end = initializer.size(); idx < end; idx += 1) {
+            Push(*this, data[idx]);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(std::initializer_list<unit_t> initializer,
+                                                                              allocator_t&& allocator) :
+        array_dynamic_t(initializer.size(), std::move(allocator))
+    {
+        unit_t* data = initializer.data();
+        for (index_t idx = 0, end = initializer.size(); idx < end; idx += 1) {
+            Push(*this, data[idx]);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(const unit_t& filler,
+                                                                              count_t count,
+                                                                              const allocator_t& allocator) :
+        array_dynamic_t(count, allocator)
+    {
+        for (index_t idx = 0, end = count; idx < end; idx += 1) {
+            Push(*this, filler);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(writable_unit_t&& filler,
+                                                                              count_t count,
+                                                                              const allocator_t& allocator) :
+        array_dynamic_t(count, allocator)
+    {
+        if (count > 0) {
+            Push(*this, std::move(filler));
+            for (index_t idx = 0, end = count - 1; idx < end; idx += 1) {
+                Push(*this, At(*this, 0));
+            }
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(const unit_t& filler,
+                                                                              count_t count,
+                                                                              allocator_t&& allocator) :
+        array_dynamic_t(count, std::move(allocator))
+    {
+        for (index_t idx = 0, end = count; idx < end; idx += 1) {
+            Push(*this, filler);
+        }
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline array_dynamic_t<unit_p, allocator_p, grow_rate_p>::array_dynamic_t(writable_unit_t&& filler,
+                                                                              count_t count,
+                                                                              allocator_t&& allocator) :
+        array_dynamic_t(count, std::move(allocator))
+    {
+        if (count > 0) {
+            Push(*this, std::move(filler));
+            for (index_t idx = 0, end = count - 1; idx < end; idx += 1) {
+                Push(*this, At(*this, 0));
+            }
+        }
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -446,14 +550,14 @@ namespace nkr {
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(std::remove_const_t<unit_t>&& unit)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(writable_unit_t&& unit)
     {
         return Push(*this, std::move(unit));
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
-        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(std::remove_const_t<unit_t>&& unit)
+        array_dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(writable_unit_t&& unit)
         volatile
     {
         return Push(*this, std::move(unit));
