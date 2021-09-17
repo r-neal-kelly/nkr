@@ -58,6 +58,11 @@ namespace nkr {
         type_tr<type_p> &&
         !std::is_const_v<type_p>;
 
+    template <typename type_p>
+    concept unwritable_tr =
+        !type_tr<type_p> ||
+        std::is_const_v<type_p>;
+
     template <typename from_p, typename to_p>
     concept convertible_tr =
         std::convertible_to<from_p, to_p>;

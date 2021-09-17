@@ -384,7 +384,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_tr<unit_t> auto& stack_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(stack_array.Count(), allocator)
     {
@@ -392,7 +392,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_tr<unit_t> auto& stack_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(stack_array.Count(), std::move(allocator))
     {
@@ -400,7 +400,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_tr<writable_unit_t> auto&& stack_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_any_writable_tr<unit_t> auto&& stack_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(stack_array.Count(), allocator)
     {
@@ -408,7 +408,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_tr<writable_unit_t> auto&& stack_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_any_writable_tr<unit_t> auto&& stack_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(stack_array.Count(), std::move(allocator))
     {

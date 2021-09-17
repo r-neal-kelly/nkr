@@ -11,7 +11,7 @@
 #include "doctest.h"
 
 namespace nkr {
-
+    /*
     TEST_SUITE("dynamic_array_t<unit_p, allocator_p, grow_rate_p>")
     {
     #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, GROW_RATE_p)                                   \
@@ -903,9 +903,20 @@ namespace nkr {
 
         }
     }
+    */
 
     TEST_CASE("temp")
     {
+        stack_array_t<const bool_t, 2> stack_array = {
+            Random<bool_t>(), Random<bool_t>(),
+        };
+
+        dynamic_array_t<volatile const bool_t> dynamic_array(stack_array);
+        CHECK(dynamic_array.Count() == 2);
+        for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+            CHECK(dynamic_array[idx] == stack_array.Array()[idx]);
+        }
+
         r64_t our_time = os::time::Test_In_Microseconds(
             16,
             []()

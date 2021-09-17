@@ -6,6 +6,7 @@
 
 #include "nkr/allocator_heap_t.h"
 #include "nkr/allocator_i.h"
+#include "nkr/array_i.h"
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/math.h"
@@ -13,18 +14,6 @@
 #include "nkr/traits.h"
 
 namespace nkr {
-
-    template <typename type_p, typename unit_p>
-    concept push_copy_i = requires(type_p instance, unit_p unit)
-    {
-        instance.Push(unit);
-    };
-
-    template <typename type_p, typename unit_p>
-    concept push_move_i = requires(type_p instance, unit_p unit)
-    {
-        instance.Push(std::move(unit));
-    };
 
     // we'll need to make the array be of byte_ts to stop default ctors, I think.
     // check to make sure because it's going to add complications.
@@ -154,6 +143,23 @@ namespace nkr {
         stack_array_tr<type_p> &&
         std::same_as<unit_p, typename type_p::unit_t>;
 
+    template <typename type_p, typename unit_p>
+    concept stack_array_of_any_tr =
+        stack_array_tr<type_p> &&
+        same_as_plain_tr<unit_p, typename type_p::unit_t>;
+
+    template <typename type_p, typename unit_p>
+    concept stack_array_of_any_writable_tr =
+        stack_array_tr<type_p> &&
+        same_as_plain_tr<unit_p, typename type_p::unit_t> &&
+        writable_tr<typename type_p::unit_t>;
+
+    template <typename type_p, typename unit_p>
+    concept stack_array_of_any_unwritable_tr =
+        stack_array_tr<type_p> &&
+        same_as_plain_tr<unit_p, typename type_p::unit_t> &&
+        unwritable_tr<typename type_p::unit_t>;
+
     template <writable_tr head_p, std::same_as<head_p> ...tail_p>
     class instant_array_t :
         public stack_array_t<head_p, 1 + sizeof...(tail_p)>
@@ -232,20 +238,22 @@ namespace nkr {
         dynamic_array_t(const unit_t& filler, count_t count, allocator_t&& allocator);
         dynamic_array_t(writable_unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t());
         dynamic_array_t(writable_unit_t&& filler, count_t count, allocator_t&& allocator);
-        dynamic_array_t(volatile const unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())            = delete;
-        dynamic_array_t(volatile const unit_t&& filler, count_t count, allocator_t&& allocator)                                 = delete;
+        dynamic_array_t(volatile const unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                = delete;
+        dynamic_array_t(volatile const unit_t&& filler, count_t count, allocator_t&& allocator)                                     = delete;
 
         dynamic_array_t(const array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
         dynamic_array_t(array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
-        dynamic_array_t(volatile const array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t()) = delete;
-        dynamic_array_t(volatile const array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                      = delete;
+        dynamic_array_t(volatile const array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())     = delete;
+        dynamic_array_t(volatile const array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                          = delete;
 
-        dynamic_array_t(const stack_array_of_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(const stack_array_of_tr<unit_t> auto& stack_array, allocator_t&& allocator);
-        dynamic_array_t(stack_array_of_tr<writable_unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(stack_array_of_tr<writable_unit_t> auto&& stack_array, allocator_t&& allocator);
+        dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
+        dynamic_array_t(stack_array_of_any_writable_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(stack_array_of_any_writable_tr<unit_t> auto&& stack_array, allocator_t&& allocator);
+        dynamic_array_t(stack_array_of_any_unwritable_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t())  = delete;
+        dynamic_array_t(stack_array_of_any_unwritable_tr<unit_t> auto&& stack_array, allocator_t&& allocator)                       = delete;
 
         template <same_as_plain_tr<dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
         dynamic_array_t(const instant_array_t<units_p...>& instant_array, const allocator_t& allocator = allocator_t());

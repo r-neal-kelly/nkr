@@ -135,6 +135,9 @@
     <ClInclude Include="include\nkr\random_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\array_i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
