@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 #include "nkr/traits.h"
 
 namespace nkr { namespace $pointer_t {
@@ -21,18 +22,18 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(same_as_plain_tr<type_sp> auto a,
-                                    same_as_plain_tr<type_sp> auto b);
+        static bool_t   Is_Equal_To(same_as_any_tr<type_sp> auto a,
+                                    same_as_any_tr<type_sp> auto b);
 
     public:
-        friend bool_t   operator ==(same_as_plain_tr<type_sp> auto a,
-                                    same_as_plain_tr<type_sp> auto b)
+        friend bool_t   operator ==(same_as_any_tr<type_sp> auto a,
+                                    same_as_any_tr<type_sp> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t   operator !=(same_as_plain_tr<type_sp> auto a,
-                                    same_as_plain_tr<type_sp> auto b)
+        friend bool_t   operator !=(same_as_any_tr<type_sp> auto a,
+                                    same_as_any_tr<type_sp> auto b)
         {
             return !Is_Equal_To(a, b);
         }
@@ -138,18 +139,18 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(same_as_plain_tr<non_type_sp> auto a,
-                                    same_as_plain_tr<non_type_sp> auto b);
+        static bool_t   Is_Equal_To(same_as_any_tr<non_type_sp> auto a,
+                                    same_as_any_tr<non_type_sp> auto b);
 
     public:
-        friend bool_t   operator ==(same_as_plain_tr<non_type_sp> auto a,
-                                    same_as_plain_tr<non_type_sp> auto b)
+        friend bool_t   operator ==(same_as_any_tr<non_type_sp> auto a,
+                                    same_as_any_tr<non_type_sp> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t   operator !=(same_as_plain_tr<non_type_sp> auto a,
-                                    same_as_plain_tr<non_type_sp> auto b)
+        friend bool_t   operator !=(same_as_any_tr<non_type_sp> auto a,
+                                    same_as_any_tr<non_type_sp> auto b)
         {
             return !Is_Equal_To(a, b);
         }
@@ -234,10 +235,10 @@ namespace nkr {
     class pointer_t
     {
     public:
-        friend bool_t   operator ==(same_as_plain_tr<pointer_t> auto a,
-                                    same_as_plain_tr<pointer_t> auto b) = delete;
-        friend bool_t   operator !=(same_as_plain_tr<pointer_t> auto a,
-                                    same_as_plain_tr<pointer_t> auto b) = delete;
+        friend bool_t   operator ==(same_as_any_tr<pointer_t> auto a,
+                                    same_as_any_tr<pointer_t> auto b) = delete;
+        friend bool_t   operator !=(same_as_any_tr<pointer_t> auto a,
+                                    same_as_any_tr<pointer_t> auto b) = delete;
 
     public:
         /// @name objects
@@ -269,14 +270,14 @@ namespace nkr {
         using base_t    = $pointer_t::type_sp<unit_p>;
 
     public:
-        friend bool_t operator ==(same_as_plain_tr<pointer_t> auto a,
-                                  same_as_plain_tr<pointer_t> auto b)
+        friend bool_t operator ==(same_as_any_tr<pointer_t> auto a,
+                                  same_as_any_tr<pointer_t> auto b)
         {
             return operator ==(a.Base(), b.Base());
         }
 
-        friend bool_t operator !=(same_as_plain_tr<pointer_t> auto a,
-                                  same_as_plain_tr<pointer_t> auto b)
+        friend bool_t operator !=(same_as_any_tr<pointer_t> auto a,
+                                  same_as_any_tr<pointer_t> auto b)
         {
             return operator !=(a.Base(), b.Base());
         }
@@ -285,67 +286,18 @@ namespace nkr {
         /// @name inherited objects
         /// @{
         using base_t::base_t;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc 
         /// @{
-        pointer_t() = default;
-
-        pointer_t(const pointer_t& other) = default;
-
-        pointer_t(volatile const pointer_t& other) :
-            base_t(static_cast<volatile const base_t&>(other))
-        {
-        }
-
-        pointer_t(pointer_t&& other) noexcept = default;
-
-        pointer_t(volatile pointer_t&& other) noexcept :
-            base_t(static_cast<volatile base_t&&>(other))
-        {
-        }
-
-        pointer_t& operator =(const pointer_t& other) = default;
-
-        volatile pointer_t& operator =(volatile const pointer_t& other) volatile
-        {
-            base_t::operator =(static_cast<volatile const base_t&>(other));
-            return *this;
-        }
-
-        pointer_t& operator =(pointer_t&& other) noexcept = default;
-
-        volatile pointer_t& operator =(volatile pointer_t&& other) volatile noexcept
-        {
-            base_t::operator =(static_cast<volatile base_t&&>(other));
-            return *this;
-        }
-
-        ~pointer_t() = default;
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(pointer_t, base_t);
         /// @}
 
     private:
-        base_t& Base()
-        {
-            return *static_cast<base_t*>(this);
-        }
-
-        const base_t& Base() const
-        {
-            return *static_cast<const base_t*>(this);
-        }
-
-        volatile base_t& Base() volatile
-        {
-            return *static_cast<volatile base_t*>(this);
-        }
-
-        volatile const base_t& Base() volatile const
-        {
-            return *static_cast<volatile const base_t*>(this);
-        }
+        nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(Base, base_t);
     };
 
     /// @nosubgrouping
@@ -358,14 +310,14 @@ namespace nkr {
         using base_t    = $pointer_t::non_type_sp<unit_p>;
 
     public:
-        friend bool_t operator ==(same_as_plain_tr<pointer_t> auto a,
-                                  same_as_plain_tr<pointer_t> auto b)
+        friend bool_t operator ==(same_as_any_tr<pointer_t> auto a,
+                                  same_as_any_tr<pointer_t> auto b)
         {
             return operator ==(a.Base(), b.Base());
         }
 
-        friend bool_t operator !=(same_as_plain_tr<pointer_t> auto a,
-                                  same_as_plain_tr<pointer_t> auto b)
+        friend bool_t operator !=(same_as_any_tr<pointer_t> auto a,
+                                  same_as_any_tr<pointer_t> auto b)
         {
             return operator !=(a.Base(), b.Base());
         }
@@ -374,67 +326,18 @@ namespace nkr {
         /// @name inherited objects
         /// @{
         using base_t::base_t;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc 
         /// @{
-        pointer_t() = default;
-
-        pointer_t(const pointer_t& other) = default;
-
-        pointer_t(volatile const pointer_t& other) :
-            base_t(static_cast<volatile const base_t&>(other))
-        {
-        }
-
-        pointer_t(pointer_t&& other) noexcept = default;
-
-        pointer_t(volatile pointer_t&& other) noexcept :
-            base_t(static_cast<volatile base_t&&>(other))
-        {
-        }
-
-        pointer_t& operator =(const pointer_t& other) = default;
-
-        volatile pointer_t& operator =(volatile const pointer_t& other) volatile
-        {
-            base_t::operator =(static_cast<volatile const base_t&>(other));
-            return *this;
-        }
-
-        pointer_t& operator =(pointer_t&& other) noexcept = default;
-
-        volatile pointer_t& operator =(volatile pointer_t&& other) volatile noexcept
-        {
-            base_t::operator =(static_cast<volatile base_t&&>(other));
-            return *this;
-        }
-
-        ~pointer_t() = default;
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(pointer_t, base_t);
         /// @}
 
     private:
-        base_t& Base()
-        {
-            return *static_cast<base_t*>(this);
-        }
-
-        const base_t& Base() const
-        {
-            return *static_cast<const base_t*>(this);
-        }
-
-        volatile base_t& Base() volatile
-        {
-            return *static_cast<volatile base_t*>(this);
-        }
-
-        volatile const base_t& Base() volatile const
-        {
-            return *static_cast<volatile const base_t*>(this);
-        }
+        nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(Base, base_t);
     };
 
 }

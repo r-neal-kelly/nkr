@@ -25,37 +25,37 @@ namespace nkr { namespace allocator {
         static constexpr count_t    Max_Unit_Count();
 
     private:
-        static bool_t   Allocate(same_as_plain_tr<heap_t> auto& self,
-                                 same_as_plain_tr<units_t> auto& units,
+        static bool_t   Allocate(same_as_any_tr<heap_t> auto& self,
+                                 same_as_any_tr<units_t> auto& units,
                                  count_t unit_count);
-        static bool_t   Allocate(same_as_plain_tr<heap_t> auto& self,
-                                 same_as_plain_tr<pointer_t> auto& units,
+        static bool_t   Allocate(same_as_any_tr<heap_t> auto& self,
+                                 same_as_any_tr<pointer_t> auto& units,
                                  count_t unit_count);
 
-        static bool_t   Reallocate(same_as_plain_tr<heap_t> auto& self,
-                                   same_as_plain_tr<units_t> auto& units,
+        static bool_t   Reallocate(same_as_any_tr<heap_t> auto& self,
+                                   same_as_any_tr<units_t> auto& units,
                                    count_t new_unit_count);
-        static bool_t   Reallocate(same_as_plain_tr<heap_t> auto& self,
-                                   same_as_plain_tr<pointer_t> auto& units,
+        static bool_t   Reallocate(same_as_any_tr<heap_t> auto& self,
+                                   same_as_any_tr<pointer_t> auto& units,
                                    count_t new_unit_count);
 
-        static void_t   Deallocate(same_as_plain_tr<heap_t> auto& self,
-                                   same_as_plain_tr<units_t> auto& units);
-        static void_t   Deallocate(same_as_plain_tr<heap_t> auto& self,
-                                   same_as_plain_tr<pointer_t> auto& units);
+        static void_t   Deallocate(same_as_any_tr<heap_t> auto& self,
+                                   same_as_any_tr<units_t> auto& units);
+        static void_t   Deallocate(same_as_any_tr<heap_t> auto& self,
+                                   same_as_any_tr<pointer_t> auto& units);
 
-        static bool_t   Is_Equal_To(same_as_plain_tr<heap_t> auto a,
-                                    same_as_plain_tr<heap_t> auto b);
+        static bool_t   Is_Equal_To(same_as_any_tr<heap_t> auto a,
+                                    same_as_any_tr<heap_t> auto b);
 
     public:
-        friend bool_t   operator ==(same_as_plain_tr<heap_t> auto a,
-                                    same_as_plain_tr<heap_t> auto b)
+        friend bool_t   operator ==(same_as_any_tr<heap_t> auto a,
+                                    same_as_any_tr<heap_t> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t   operator !=(same_as_plain_tr<heap_t> auto a,
-                                    same_as_plain_tr<heap_t> auto b)
+        friend bool_t   operator !=(same_as_any_tr<heap_t> auto a,
+                                    same_as_any_tr<heap_t> auto b)
         {
             return !Is_Equal_To(a, b);
         }

@@ -22,16 +22,16 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Allocate(same_as_plain_tr<heap_zeros_t> auto& self,
-                                                 same_as_plain_tr<units_t> auto& units,
+    inline bool_t heap_zeros_t<unit_p>::Allocate(same_as_any_tr<heap_zeros_t> auto& self,
+                                                 same_as_any_tr<units_t> auto& units,
                                                  count_t unit_count)
     {
         return os::heap::Allocate_Zeros(units, unit_count);
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Allocate(same_as_plain_tr<heap_zeros_t> auto& self,
-                                                 same_as_plain_tr<pointer_t> auto& units,
+    inline bool_t heap_zeros_t<unit_p>::Allocate(same_as_any_tr<heap_zeros_t> auto& self,
+                                                 same_as_any_tr<pointer_t> auto& units,
                                                  count_t unit_count)
     {
         if (os::heap::Allocate_Zeros(units(), unit_count)) {
@@ -44,16 +44,16 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Reallocate(same_as_plain_tr<heap_zeros_t> auto& self,
-                                                   same_as_plain_tr<units_t> auto& units,
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(same_as_any_tr<heap_zeros_t> auto& self,
+                                                   same_as_any_tr<units_t> auto& units,
                                                    count_t new_unit_count)
     {
         return os::heap::Reallocate_Zeros(units, new_unit_count);
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Reallocate(same_as_plain_tr<heap_zeros_t> auto& self,
-                                                   same_as_plain_tr<pointer_t> auto& units,
+    inline bool_t heap_zeros_t<unit_p>::Reallocate(same_as_any_tr<heap_zeros_t> auto& self,
+                                                   same_as_any_tr<pointer_t> auto& units,
                                                    count_t new_unit_count)
     {
         if (os::heap::Reallocate_Zeros(units(), new_unit_count)) {
@@ -65,23 +65,23 @@ namespace nkr { namespace allocator {
     }
 
     template <type_tr unit_p>
-    inline void_t heap_zeros_t<unit_p>::Deallocate(same_as_plain_tr<heap_zeros_t> auto& self,
-                                                   same_as_plain_tr<units_t> auto& units)
+    inline void_t heap_zeros_t<unit_p>::Deallocate(same_as_any_tr<heap_zeros_t> auto& self,
+                                                   same_as_any_tr<units_t> auto& units)
     {
         return os::heap::Deallocate_Zeros(units);
     }
 
     template <type_tr unit_p>
-    inline void_t heap_zeros_t<unit_p>::Deallocate(same_as_plain_tr<heap_zeros_t> auto& self,
-                                                   same_as_plain_tr<pointer_t> auto& units)
+    inline void_t heap_zeros_t<unit_p>::Deallocate(same_as_any_tr<heap_zeros_t> auto& self,
+                                                   same_as_any_tr<pointer_t> auto& units)
     {
         os::heap::Deallocate_Zeros(units());
         units = { nullptr, 0 };
     }
 
     template <type_tr unit_p>
-    inline bool_t heap_zeros_t<unit_p>::Is_Equal_To(same_as_plain_tr<heap_zeros_t> auto a,
-                                                    same_as_plain_tr<heap_zeros_t> auto b)
+    inline bool_t heap_zeros_t<unit_p>::Is_Equal_To(same_as_any_tr<heap_zeros_t> auto a,
+                                                    same_as_any_tr<heap_zeros_t> auto b)
     {
         return true;
     }

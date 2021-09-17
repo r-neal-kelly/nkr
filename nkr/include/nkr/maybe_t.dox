@@ -379,26 +379,6 @@
         * @private
         */
 
-            // base_copy_ctor()
-            /**
-            * @class _e60caa84_4414_4a79_8920_2cdc47f11e50
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
-
-            // base_move_ctor()
-            /**
-            * @class _e36bef84_f9be_4240_a0f9_c4037100888c
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
-
     // built_in_sp<real_p>
     /**
     * @class _54610ffc_35de_47f2_9b0a_03da52782104
@@ -414,26 +394,6 @@
         * @private
         */
 
-            // base_copy_ctor()
-            /**
-            * @class _e2a0751a_d716_4ead_abd6_570c52f21ecf
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
-
-            // base_move_ctor()
-            /**
-            * @class _bf60fcab_016b_4c03_b769_55c9fa884fa3
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
-
     // built_in_sp<pointer_p>
     /**
     * @class _eb401275_a224_48ec_ab23_6d0c82b83d8a
@@ -448,26 +408,6 @@
         * @class _04720ddf_c679_4933_bf4f_f0da04fe53f8
         * @private
         */
-
-            // base_copy_ctor()
-            /**
-            * @class _689db55b_345d_41ad_ac60_7b8d1fe04cb9
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
-
-            // base_move_ctor()
-            /**
-            * @class _aafaaeb7_615a_4198_9403_a586f755a206
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
 
     // user_defined_sp
     /**
@@ -497,26 +437,6 @@
         * @class _bace7444_fb65_41c3_affb_6fd3c6dee6a1
         * @private
         */
-
-            // base_copy_ctor()
-            /**
-            * @class _c591278a_7e78_49b2_8b88_b854658f5ba4
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
-
-            // base_move_ctor()
-            /**
-            * @class _ce00ff12_a4a5_4d8e_9c9c_740407c17019
-            * @private
-            * 
-            * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-            * @todo
-            *   add tests
-            */
 
         // casts
         /**
@@ -689,26 +609,6 @@
     * @private
     */
 
-        // base_copy_ctor()
-        /**
-        * @class _0439179d_c623_48a3_b1b4_1f474d6e4430
-        * @private
-        * 
-        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-        * @todo
-        *   add tests
-        */
-
-        // base_move_ctor()
-        /**
-        * @class _54a566fd_8049_4215_922b_1a7bdf3f01ab
-        * @private
-        * 
-        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-        * @todo
-        *   add tests
-        */
-
 // maybe_t<user_defined_p>
 /**
 * @class _28243913_2a03_428d_95ac_cbabc3cb3baa
@@ -726,23 +626,3 @@
     * @class _6f6b3ac8_c46b_4c2c_87c1_5cd210808876
     * @private
     */
-
-        // base_copy_ctor()
-        /**
-        * @class _77699440_90af_4027_b538_0cf4a3d76acb
-        * @private
-        * 
-        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-        * @todo
-        *   add tests
-        */
-
-        // base_move_ctor()
-        /**
-        * @class _93c59a22_076c_4282_b2af_9a06fd6b3b79
-        * @private
-        * 
-        * @copydoc _3699f848_5687_47d1_92fc_7d4faf6b47a6
-        * @todo
-        *   add tests
-        */

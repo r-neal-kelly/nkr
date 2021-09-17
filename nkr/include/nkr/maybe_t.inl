@@ -187,18 +187,6 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 namespace nkr { namespace $maybe_t {
 
     template <none_i user_defined_p>
-    inline user_defined_sp<user_defined_p>::user_defined_sp(const value_t& other) :
-        value_t(other)
-    {
-    }
-
-    template <none_i user_defined_p>
-    inline user_defined_sp<user_defined_p>::user_defined_sp(value_t&& other) noexcept :
-        value_t(std::move(other))
-    {
-    }
-
-    template <none_i user_defined_p>
     inline user_defined_sp<user_defined_p>::operator bool_t() const
     {
         return value_t::operator !=(none_t());

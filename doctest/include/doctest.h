@@ -1228,11 +1228,74 @@ DOCTEST_MSVC_SUPPRESS_WARNING_POP
             return Result(res);
         }
 
-	/* This is required for user-defined conversions from Expression_lhs to L */
-	//operator L() const { return lhs; }
-	//operator L() const { return lhs; }
+	    /* This is required for user-defined conversions from Expression_lhs to L */
+	    //operator L() const { return lhs; }
+        operator L() const { return lhs; }
 
-    explicit operator bool() const { return lhs; }
+        explicit operator bool() const { return lhs; }
+
+        // clang-format off
+        DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ) //!OCLINT bitwise operator in conditional
+        DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(!=, " != ", DOCTEST_CMP_NE) //!OCLINT bitwise operator in conditional
+        DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(>,  " >  ", DOCTEST_CMP_GT) //!OCLINT bitwise operator in conditional
+        DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(<,  " <  ", DOCTEST_CMP_LT) //!OCLINT bitwise operator in conditional
+        DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(>=, " >= ", DOCTEST_CMP_GE) //!OCLINT bitwise operator in conditional
+        DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(<=, " <= ", DOCTEST_CMP_LE) //!OCLINT bitwise operator in conditional
+        // clang-format on
+
+        // forbidding some expressions based on this table: https://en.cppreference.com/w/cpp/language/operator_precedence
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, &)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, ^)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, |)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, &&)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, ||)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, =)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, +=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, -=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, *=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, /=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, %=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, <<=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, >>=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, &=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, ^=)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, |=)
+        // these 2 are unfortunate because they should be allowed - they have higher precedence over the comparisons, but the
+        // ExpressionDecomposer class uses the left shift operator to capture the left operand of the binary expression...
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, <<)
+        DOCTEST_FORBIT_EXPRESSION(Expression_lhs, >>)
+    };
+
+    template <>
+    // cppcheck-suppress copyCtorAndEqOperator
+    struct Expression_lhs<bool>
+    {
+        using L = bool;
+
+        L                lhs;
+        assertType::Enum m_at;
+
+        explicit Expression_lhs(L&& in, assertType::Enum at)
+                : lhs(doctest::detail::forward<L>(in))
+                , m_at(at) {}
+
+        DOCTEST_NOINLINE operator Result() {
+// this is needed only foc MSVC 2015:
+// https://ci.appveyor.com/project/onqtam/doctest/builds/38181202
+DOCTEST_MSVC_SUPPRESS_WARNING_WITH_PUSH(4800) // 'int': forcing value to bool
+            bool res = static_cast<bool>(lhs);
+DOCTEST_MSVC_SUPPRESS_WARNING_POP
+            if(m_at & assertType::is_false) //!OCLINT bitwise operator in conditional
+                res = !res;
+
+            if(!res || getContextOptions()->success)
+                return Result(res, toString(lhs));
+            return Result(res);
+        }
+
+	    /* This is required for user-defined conversions from Expression_lhs to L */
+	    //operator L() const { return lhs; }
+        operator L() const { return lhs; }
 
         // clang-format off
         DOCTEST_DO_BINARY_EXPRESSION_COMPARISON(==, " == ", DOCTEST_CMP_EQ) //!OCLINT bitwise operator in conditional

@@ -23,6 +23,9 @@ namespace nkr {
     #define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p) ///< @copydoc doc_nkr_nkr_INITIALIZE_STATIC_SAFELY
     /// @}
 
+    #define nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(WRAPPER_p, BASE_p)
+    #define nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(ACCESSOR_NAME_p, BASE_p)
+
 }
 
 #include "nkr/macros.inl"

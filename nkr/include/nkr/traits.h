@@ -235,13 +235,17 @@ namespace nkr {
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_a_p, typename type_b_p>
-    concept same_as_plain_tr =
+    concept same_as_tr =
+        std::same_as<type_a_p, type_b_p>;
+    
+    template <typename type_a_p, typename type_b_p>
+    concept same_as_any_tr =
         std::same_as<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
 
     template <typename type_a_p, typename type_b_p>
     concept same_as_writable_plain_tr =
         writable_tr<type_a_p> &&
-        same_as_plain_tr<type_a_p, type_b_p>;
+        same_as_any_tr<type_a_p, type_b_p>;
 
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =

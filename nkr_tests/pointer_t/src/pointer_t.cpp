@@ -596,7 +596,7 @@ namespace nkr {
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
                     pointer_p pointer;
-                    CHECK(&(pointer = std::move(other)) == &pointer);
+                    CHECK((&(pointer = std::move(other)) == &pointer));
                 }
 
                 TEST_CASE_TEMPLATE("should set the units and unit_count of other to the defaults", pointer_p, nkr_NON_CONST)

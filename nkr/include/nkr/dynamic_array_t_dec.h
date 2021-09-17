@@ -141,7 +141,7 @@ namespace nkr {
     template <typename type_p, typename unit_p>
     concept stack_array_of_any_tr =
         stack_array_tr<type_p> &&
-        same_as_plain_tr<unit_p, typename type_p::unit_t>;
+        same_as_any_tr<unit_p, typename type_p::unit_t>;
 
     template <typename type_p, typename unit_p>
     concept stack_array_of_any_writable_tr =
@@ -158,7 +158,7 @@ namespace nkr {
         public stack_array_t<head_p, 1 + sizeof...(tail_p)>
     {
     public:
-        using stack_array_t = stack_array_t<head_p, 1 + sizeof...(tail_p)>;
+        using base_t    = stack_array_t<head_p, 1 + sizeof...(tail_p)>;
 
     public:
         static constexpr std_bool_t Is_Instant_Array()
@@ -168,7 +168,7 @@ namespace nkr {
 
     public:
         instant_array_t(head_p&& head, tail_p&& ...tail) :
-            stack_array_t(std::move(head), std::move(tail)...)
+            base_t(std::move(head), std::move(tail)...)
         {
         }
     };
@@ -185,7 +185,7 @@ namespace nkr {
     template <typename type_p, typename unit_p>
     concept instant_array_of_any_tr =
         instant_array_tr<type_p> &&
-        same_as_plain_tr<unit_p, typename type_p::unit_t>;
+        same_as_any_tr<unit_p, typename type_p::unit_t>;
 
     template <typename type_p, typename unit_p>
     concept instant_array_of_any_writable_tr =
@@ -218,32 +218,32 @@ namespace nkr {
         static constexpr real_t Grow_Rate();
 
     private:
-        static auto&                Units(same_as_plain_tr<dynamic_array_t> auto& self);
+        static auto&                Units(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static void_t               Copy(const same_as_plain_tr<dynamic_array_t> auto& from,
-                                         same_as_plain_tr<dynamic_array_t> auto& to);
-        static void_t               Destroy(same_as_plain_tr<dynamic_array_t> auto& self);
+        static void_t               Copy(const same_as_any_tr<dynamic_array_t> auto& from,
+                                         same_as_any_tr<dynamic_array_t> auto& to);
+        static void_t               Destroy(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static pointer_t            Pointer(const same_as_plain_tr<dynamic_array_t> auto& self);
-        static count_t              Count(const same_as_plain_tr<dynamic_array_t> auto& self);
-        static const allocator_t&   Allocator(const same_as_plain_tr<dynamic_array_t> auto& self);
+        static pointer_t            Pointer(const same_as_any_tr<dynamic_array_t> auto& self);
+        static count_t              Count(const same_as_any_tr<dynamic_array_t> auto& self);
+        static const allocator_t&   Allocator(const same_as_any_tr<dynamic_array_t> auto& self);
 
-        static count_t              Capacity(const same_as_plain_tr<dynamic_array_t> auto& self);
-        static bool_t               Capacity(same_as_plain_tr<dynamic_array_t> auto& self, count_t new_capacity);
+        static count_t              Capacity(const same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t               Capacity(same_as_any_tr<dynamic_array_t> auto& self, count_t new_capacity);
 
-        static bool_t               Should_Grow(const same_as_plain_tr<dynamic_array_t> auto& self);
-        static bool_t               Grow(same_as_plain_tr<dynamic_array_t> auto& self);
+        static bool_t               Should_Grow(const same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t               Grow(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static unit_t&              At(const same_as_plain_tr<dynamic_array_t> auto& self, index_t index);
-        static bool_t               Push(same_as_plain_tr<dynamic_array_t> auto& self, const unit_t& unit);
-        static bool_t               Push(same_as_plain_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
-        static unit_t               Pop(same_as_plain_tr<dynamic_array_t> auto& self);
+        static unit_t&              At(const same_as_any_tr<dynamic_array_t> auto& self, index_t index);
+        static bool_t               Push(same_as_any_tr<dynamic_array_t> auto& self, const unit_t& unit);
+        static bool_t               Push(same_as_any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
+        static unit_t               Pop(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static bool_t               Is_Fit(const same_as_plain_tr<dynamic_array_t> auto& self);
-        static bool_t               Fit(same_as_plain_tr<dynamic_array_t> auto& self);
+        static bool_t               Is_Fit(const same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t               Fit(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static bool_t               Is_Clear(const same_as_plain_tr<dynamic_array_t> auto& self);
-        static void_t               Clear(same_as_plain_tr<dynamic_array_t> auto& self);
+        static bool_t               Is_Clear(const same_as_any_tr<dynamic_array_t> auto& self);
+        static void_t               Clear(same_as_any_tr<dynamic_array_t> auto& self);
 
     protected:
         writable_pointer_t  writable_units;

@@ -6,6 +6,7 @@
 
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 #include "nkr/none_i.h"
 #include "nkr/traits.h"
 
@@ -173,26 +174,21 @@ namespace nkr { namespace $maybe_t {
     class built_in_sp :
         public $built_in_sp::any_sp<any_p>
     {
+    private:
+        using base_t    = $built_in_sp::any_sp<any_p>;
+
     public:
         /// @name inherited objects
         /// @{
-        using $built_in_sp::any_sp<any_p>::any_sp;
-        using $built_in_sp::any_sp<any_p>::operator =;
+        using base_t::any_sp;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _f4d38cc3_7d9e_402c_8ddb_0917ce83dc55
         /// @{
-        built_in_sp(const $built_in_sp::any_sp<any_p>& other) :
-            $built_in_sp::any_sp<any_p>(other)
-        {
-        }                                                           ///< @copydoc _e60caa84_4414_4a79_8920_2cdc47f11e50
-
-        built_in_sp($built_in_sp::any_sp<any_p>&& other) noexcept :
-            $built_in_sp::any_sp<any_p>(std::move(other))
-        {
-        }                                                           ///< @copydoc _e36bef84_f9be_4240_a0f9_c4037100888c
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(built_in_sp, base_t);
         /// @}
     };
 
@@ -202,26 +198,21 @@ namespace nkr { namespace $maybe_t {
     class built_in_sp<real_p> :
         public $built_in_sp::real_sp<real_p>
     {
+    private:
+        using base_t    = $built_in_sp::real_sp<real_p>;
+
     public:
         /// @name inherited objects
         /// @{
-        using $built_in_sp::real_sp<real_p>::real_sp;
-        using $built_in_sp::real_sp<real_p>::operator =;
+        using base_t::real_sp;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _5b844485_95be_4c1a_a964_62ddfce97452
         /// @{
-        built_in_sp(const $built_in_sp::real_sp<real_p>& other) :
-            $built_in_sp::real_sp<real_p>(other)
-        {
-        }                                                               ///< @copydoc _e2a0751a_d716_4ead_abd6_570c52f21ecf
-
-        built_in_sp($built_in_sp::real_sp<real_p>&& other) noexcept :
-            $built_in_sp::real_sp<real_p>(std::move(other))
-        {
-        }                                                               ///< @copydoc _bf60fcab_016b_4c03_b769_55c9fa884fa3
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(built_in_sp, base_t);
         /// @}
     };
 
@@ -231,26 +222,21 @@ namespace nkr { namespace $maybe_t {
     class built_in_sp<pointer_p> :
         public $built_in_sp::pointer_sp<pointer_p>
     {
+    private:
+        using base_t    = $built_in_sp::pointer_sp<pointer_p>;
+
     public:
         /// @name inherited objects
         /// @{
-        using $built_in_sp::pointer_sp<pointer_p>::pointer_sp;
-        using $built_in_sp::pointer_sp<pointer_p>::operator =;
+        using base_t::pointer_sp;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _04720ddf_c679_4933_bf4f_f0da04fe53f8
         /// @{
-        built_in_sp(const $built_in_sp::pointer_sp<pointer_p>& other) :
-            $built_in_sp::pointer_sp<pointer_p>(other)
-        {
-        }                                                                   ///< @copydoc _689db55b_345d_41ad_ac60_7b8d1fe04cb9
-
-        built_in_sp($built_in_sp::pointer_sp<pointer_p>&& other) noexcept :
-            $built_in_sp::pointer_sp<pointer_p>(std::move(other))
-        {
-        }                                                                   ///< @copydoc _aafaaeb7_615a_4198_9403_a586f755a206
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(built_in_sp, base_t);
         /// @}
     };
 
@@ -278,8 +264,7 @@ namespace nkr { namespace $maybe_t {
         /// @name objects
         /// @copydoc _bace7444_fb65_41c3_affb_6fd3c6dee6a1
         /// @{
-        user_defined_sp(const value_t& other);      ///< @copydoc _c591278a_7e78_49b2_8b88_b854658f5ba4
-        user_defined_sp(value_t&& other) noexcept;  ///< @copydoc _ce00ff12_a4a5_4d8e_9c9c_740407c17019
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(user_defined_sp, value_t);
         /// @}
 
     public:
@@ -341,26 +326,21 @@ namespace nkr {
     class maybe_t<built_in_p> :
         public $maybe_t::built_in_sp<built_in_p>
     {
+    private:
+        using base_t    = $maybe_t::built_in_sp<built_in_p>;
+
     public:
         /// @name inherited objects
         /// @{
-        using $maybe_t::built_in_sp<built_in_p>::built_in_sp;
-        using $maybe_t::built_in_sp<built_in_p>::operator =;
+        using base_t::built_in_sp;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _26036428_887b_4bb1_a423_e576810532b5
         /// @{
-        maybe_t(const $maybe_t::built_in_sp<built_in_p>& other) :
-            $maybe_t::built_in_sp<built_in_p>(other)
-        {
-        }                                                               ///< @copydoc _0439179d_c623_48a3_b1b4_1f474d6e4430
-
-        maybe_t($maybe_t::built_in_sp<built_in_p>&& other) noexcept :
-            $maybe_t::built_in_sp<built_in_p>(std::move(other))
-        {
-        }                                                               ///< @copydoc _54a566fd_8049_4215_922b_1a7bdf3f01ab
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(maybe_t, base_t);
         /// @}
     };
 
@@ -370,26 +350,21 @@ namespace nkr {
     class maybe_t<user_defined_p> :
         public $maybe_t::user_defined_sp<user_defined_p>
     {
+    private:
+        using base_t    = $maybe_t::user_defined_sp<user_defined_p>;
+
     public:
         /// @name inherited objects
         /// @{
-        using $maybe_t::user_defined_sp<user_defined_p>::user_defined_sp;
-        using $maybe_t::user_defined_sp<user_defined_p>::operator =;
+        using base_t::user_defined_sp;
+        using base_t::operator =;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc _6f6b3ac8_c46b_4c2c_87c1_5cd210808876
         /// @{
-        maybe_t(const $maybe_t::user_defined_sp<user_defined_p>& other) :
-            $maybe_t::user_defined_sp<user_defined_p>(other)
-        {
-        }                                                                       ///< @copydoc _77699440_90af_4027_b538_0cf4a3d76acb
-
-        maybe_t($maybe_t::user_defined_sp<user_defined_p>&& other) noexcept :
-            $maybe_t::user_defined_sp<user_defined_p>(std::move(other))
-        {
-        }                                                                       ///< @copydoc _93c59a22_076c_4282_b2af_9a06fd6b3b79
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(maybe_t, base_t);
         /// @}
     };
 
