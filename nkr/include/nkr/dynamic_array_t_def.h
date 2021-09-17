@@ -416,8 +416,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_t<units_p...>& instant_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(instant_array.Count(), allocator)
     {
@@ -425,8 +424,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_t<units_p...>& instant_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(instant_array.Count(), std::move(allocator))
     {
@@ -434,8 +432,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::writable_unit_t> ...writable_units_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_t<writable_units_p...>&& instant_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_of_any_writable_tr<unit_t> auto&& instant_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(instant_array.Count(), allocator)
     {
@@ -443,8 +440,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::writable_unit_t> ...writable_units_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_t<writable_units_p...>&& instant_array,
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_of_any_writable_tr<unit_t> auto&& instant_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(instant_array.Count(), std::move(allocator))
     {

@@ -169,6 +169,7 @@
     <ClInclude Include="include\nkr\charcoder_ascii_t.h" />
     <ClInclude Include="include\nkr\charcoder_utf_16_t.h" />
     <ClInclude Include="include\nkr\charcoder_utf_32_t.h" />
+    <ClInclude Include="include\nkr\dynamic_array_t_dox.h" />
     <ClInclude Include="include\nkr\fors.h" />
     <ClInclude Include="include\nkr\charcoder_i.h" />
     <ClInclude Include="include\nkr\charcoder_utf_8_t.inl" />
