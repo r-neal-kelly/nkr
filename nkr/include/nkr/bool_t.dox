@@ -301,14 +301,6 @@
         * @snippet "./src/bool_t.cpp" _95b07b9c_0cd5_4b6a_9575_3ae7a8d5853e
         */
 
-        // value_assignment_ctor()
-        /**
-        * @class _195047e0_4c8b_42b1_a7c1_6f104757a05d
-        * @private
-        * 
-        * @snippet "./src/bool_t.cpp" _2ba5c93f_34cc_41cd_9429_de6b7da6f8f5
-        */
-
         // copy_assignment_ctor()
         /**
         * @class _9b3a1871_d4ff_4afb_886d_e0d16ebaad08
@@ -323,14 +315,6 @@
         * @private
         * 
         * @snippet "./src/bool_t.cpp" _89dafc76_93be_49dc_b612_2cd3989b0c3c
-        */
-
-        // volatile_value_assignment_ctor()
-        /**
-        * @class _02a973ac_1b0a_4340_9acd_5d20ac657dfb
-        * @private
-        * 
-        * @snippet "./src/bool_t.cpp" _4b269631_1d91_45de_af15_ab2e1fd878bb
         */
 
         // volatile_copy_assignment_ctor()

@@ -405,7 +405,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should explicitly or implicitly move and array and default the source", dynamic_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should explicitly or implicitly move an array and default the source", dynamic_array_p, nkr_ALL)
                 {
                     using unit_t = dynamic_array_p::unit_t;
                     using writable_unit_t = dynamic_array_p::writable_unit_t;
@@ -444,9 +444,136 @@ namespace nkr {
                 }
             }
 
+            TEST_SUITE("stack_array_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should explicitly or implicitly copy a stack_array without changing it", dynamic_array_p, nkr_ALL)
+                {
+                    using unit_t = dynamic_array_p::unit_t;
+                    using writable_unit_t = dynamic_array_p::writable_unit_t;
+                    using pointer_t = dynamic_array_p::pointer_t;
+                    using writable_pointer_t = dynamic_array_p::writable_pointer_t;
+                    using allocator_t = dynamic_array_p::allocator_t;
+                    using grow_rate_t = dynamic_array_p::grow_rate_t;
+
+                    stack_array_t<unit_t, 16> stack_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    dynamic_array_p dynamic_array = stack_array;
+                    CHECK(dynamic_array.Pointer() != nullptr);
+                    CHECK(dynamic_array.Pointer() != stack_array.Array());
+                    CHECK(dynamic_array.Capacity() == stack_array.Capacity());
+                    CHECK(dynamic_array.Count() == stack_array.Count());
+                    for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+                        CHECK(dynamic_array[idx] == stack_array[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should explicitly or implicitly move a stack_array and default the source", dynamic_array_p, nkr_ALL)
+                {
+                    using unit_t = dynamic_array_p::unit_t;
+                    using writable_unit_t = dynamic_array_p::writable_unit_t;
+                    using pointer_t = dynamic_array_p::pointer_t;
+                    using writable_pointer_t = dynamic_array_p::writable_pointer_t;
+                    using allocator_t = dynamic_array_p::allocator_t;
+                    using grow_rate_t = dynamic_array_p::grow_rate_t;
+
+                    stack_array_t<writable_unit_t, 16> stack_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    const stack_array_t backup = stack_array;
+                    dynamic_array_p dynamic_array = std::move(stack_array);
+                    CHECK(dynamic_array.Pointer() != nullptr);
+                    CHECK(dynamic_array.Pointer() != stack_array.Array());
+                    CHECK(dynamic_array.Capacity() == backup.Capacity());
+                    CHECK(dynamic_array.Count() == backup.Count());
+                    for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+                        CHECK(dynamic_array[idx] == backup[idx]);
+                    }
+                    CHECK(stack_array.Count() == 0);
+                    for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array.Array()[idx] == none_t());
+                    }
+                }
+            }
+
             TEST_SUITE("instant_array_ctor()")
             {
+                TEST_CASE_TEMPLATE("should explicitly or implicitly copy an instant_array without changing it", dynamic_array_p, nkr_ALL)
+                {
+                    using unit_t = dynamic_array_p::unit_t;
+                    using writable_unit_t = dynamic_array_p::writable_unit_t;
+                    using pointer_t = dynamic_array_p::pointer_t;
+                    using writable_pointer_t = dynamic_array_p::writable_pointer_t;
+                    using allocator_t = dynamic_array_p::allocator_t;
+                    using grow_rate_t = dynamic_array_p::grow_rate_t;
 
+                    instant_array_t instant_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    dynamic_array_p dynamic_array = instant_array;
+                    CHECK(dynamic_array.Pointer() != nullptr);
+                    CHECK(dynamic_array.Pointer() != instant_array.Array());
+                    CHECK(dynamic_array.Capacity() == instant_array.Capacity());
+                    CHECK(dynamic_array.Count() == instant_array.Count());
+                    for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+                        CHECK(dynamic_array[idx] == instant_array[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should explicitly or implicitly move an instant_array and default the source", dynamic_array_p, nkr_ALL)
+                {
+                    using unit_t = dynamic_array_p::unit_t;
+                    using writable_unit_t = dynamic_array_p::writable_unit_t;
+                    using pointer_t = dynamic_array_p::pointer_t;
+                    using writable_pointer_t = dynamic_array_p::writable_pointer_t;
+                    using allocator_t = dynamic_array_p::allocator_t;
+                    using grow_rate_t = dynamic_array_p::grow_rate_t;
+
+                    instant_array_t instant_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array_t backup = instant_array;
+                    dynamic_array_p dynamic_array = std::move(instant_array);
+                    CHECK(dynamic_array.Pointer() != nullptr);
+                    CHECK(dynamic_array.Pointer() != instant_array.Array());
+                    CHECK(dynamic_array.Capacity() == backup.Capacity());
+                    CHECK(dynamic_array.Count() == backup.Count());
+                    for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+                        CHECK(dynamic_array[idx] == backup[idx]);
+                    }
+                    CHECK(instant_array.Count() == 0);
+                    for (index_t idx = 0, end = dynamic_array.Count(); idx < end; idx += 1) {
+                        CHECK(instant_array.Array()[idx] == none_t());
+                    }
+                }
             }
 
             TEST_SUITE("copy_ctor()")

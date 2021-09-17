@@ -23,13 +23,13 @@ namespace nkr {
     {
     }
 
-    inline bool_t::bool_t(bool_t&& other) noexcept :
-        value(std::exchange(other.value, static_cast<word_t>(false)))
+    inline bool_t::bool_t(volatile const bool_t& other) :
+        value(other.value)
     {
     }
 
-    inline bool_t::bool_t(volatile const bool_t& other) :
-        value(other.value)
+    inline bool_t::bool_t(bool_t&& other) noexcept :
+        value(std::exchange(other.value, static_cast<word_t>(false)))
     {
     }
 
@@ -38,13 +38,15 @@ namespace nkr {
     {
     }
 
-    inline bool_t& bool_t::operator =(to_std_bool_tr auto value)
+    inline bool_t& bool_t::operator =(const bool_t& other)
     {
-        this->value = static_cast<word_t>(static_cast<std_bool_t>(value));
+        if (this != std::addressof(other)) {
+            this->value = other.value;
+        }
         return *this;
     }
 
-    inline bool_t& bool_t::operator =(const bool_t& other)
+    inline volatile bool_t& bool_t::operator =(volatile const bool_t& other) volatile
     {
         if (this != std::addressof(other)) {
             this->value = other.value;
@@ -56,20 +58,6 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->value = std::exchange(other.value, static_cast<word_t>(false));
-        }
-        return *this;
-    }
-
-    inline volatile bool_t& bool_t::operator =(to_std_bool_tr auto value) volatile
-    {
-        this->value = static_cast<word_t>(static_cast<std_bool_t>(value));
-        return *this;
-    }
-
-    inline volatile bool_t& bool_t::operator =(volatile const bool_t& other) volatile
-    {
-        if (this != std::addressof(other)) {
-            this->value = other.value;
         }
         return *this;
     }

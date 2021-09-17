@@ -53,6 +53,11 @@ namespace nkr {
     concept non_type_tr =
         !type_tr<non_type_p>;
 
+    template <typename type_p>
+    concept writable_tr =
+        type_tr<type_p> &&
+        !std::is_const_v<type_p>;
+
     template <typename from_p, typename to_p>
     concept convertible_tr =
         std::convertible_to<from_p, to_p>;
@@ -227,6 +232,11 @@ namespace nkr {
     template <typename type_a_p, typename type_b_p>
     concept same_as_plain_tr =
         std::same_as<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept same_as_writable_plain_tr =
+        writable_tr<type_a_p> &&
+        same_as_plain_tr<type_a_p, type_b_p>;
 
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =

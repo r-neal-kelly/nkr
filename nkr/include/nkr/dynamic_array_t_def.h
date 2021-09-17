@@ -384,47 +384,71 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <std::same_as<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_tr<unit_t> auto& stack_array,
+                                                                              const allocator_t& allocator) :
+        dynamic_array_t(stack_array.Count(), allocator)
+    {
+        stack_array.Copy_Into(*this);
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_tr<unit_t> auto& stack_array,
+                                                                              allocator_t&& allocator) :
+        dynamic_array_t(stack_array.Count(), std::move(allocator))
+    {
+        stack_array.Copy_Into(*this);
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_tr<writable_unit_t> auto&& stack_array,
+                                                                              const allocator_t& allocator) :
+        dynamic_array_t(stack_array.Count(), allocator)
+    {
+        stack_array.Move_Into(*this);
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_tr<writable_unit_t> auto&& stack_array,
+                                                                              allocator_t&& allocator) :
+        dynamic_array_t(stack_array.Count(), std::move(allocator))
+    {
+        stack_array.Move_Into(*this);
+    }
+
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_t<units_p...>& instant_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(instant_array.Count(), allocator)
     {
-        for (index_t idx = 0, end = instant_array.Count(); idx < end; idx += 1) {
-            Push(*this, instant_array[idx]);
-        }
+        instant_array.Copy_Into(*this);
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <std::same_as<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
+    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t> ...units_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_t<units_p...>& instant_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(instant_array.Count(), std::move(allocator))
     {
-        for (index_t idx = 0, end = instant_array.Count(); idx < end; idx += 1) {
-            Push(*this, instant_array[idx]);
-        }
+        instant_array.Copy_Into(*this);
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <std::same_as<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::writable_unit_t> ...writable_units_p>
+    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::writable_unit_t> ...writable_units_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_t<writable_units_p...>&& instant_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(instant_array.Count(), allocator)
     {
-        for (index_t idx = 0, end = instant_array.Count(); idx < end; idx += 1) {
-            Push(*this, instant_array.Move(idx));
-        }
+        instant_array.Move_Into(*this);
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <std::same_as<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::writable_unit_t> ...writable_units_p>
+    template <same_as_plain_tr<typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::writable_unit_t> ...writable_units_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_t<writable_units_p...>&& instant_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(instant_array.Count(), std::move(allocator))
     {
-        for (index_t idx = 0, end = instant_array.Count(); idx < end; idx += 1) {
-            Push(*this, instant_array.Move(idx));
-        }
+        instant_array.Move_Into(*this);
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
