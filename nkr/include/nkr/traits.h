@@ -237,15 +237,37 @@ namespace nkr {
     template <typename type_a_p, typename type_b_p>
     concept same_as_tr =
         std::same_as<type_a_p, type_b_p>;
-    
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_any_tr =
-        std::same_as<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
 
     template <typename type_a_p, typename type_b_p>
-    concept same_as_writable_plain_tr =
-        writable_tr<type_a_p> &&
-        same_as_any_tr<type_a_p, type_b_p>;
+    concept same_as_any_tr =
+        same_as_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept same_as_any_writable_tr =
+        same_as_any_tr<type_a_p, type_b_p> &&
+        writable_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept same_as_any_unwritable_tr =
+        same_as_any_tr<type_a_p, type_b_p> &&
+        unwritable_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept convertible_to_tr =
+        std::convertible_to<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept convertible_to_any_tr =
+        convertible_to_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept convertible_to_any_writable_tr =
+        convertible_to_any_tr<type_a_p, type_b_p> &&
+        writable_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept convertible_to_any_unwritable_tr =
+        convertible_to_any_tr<type_a_p, type_b_p>;
 
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =

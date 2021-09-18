@@ -4,9 +4,10 @@
 
 #include "nkr/allocator_heap_t.h"
 #include "nkr/allocator_heap_zeros_t.h"
-#include "nkr/dynamic_array_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
+
+#include "nkr/array/dynamic_t.h"
 
 #include "doctest.h"
 

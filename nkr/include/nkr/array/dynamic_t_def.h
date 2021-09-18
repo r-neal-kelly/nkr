@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "nkr/dynamic_array_t_dec.h"
 #include "nkr/os.h"
+
+#include "nkr/array/dynamic_t_dec.h"
 
 namespace nkr {
 
