@@ -35,7 +35,7 @@ namespace nkr {
         TEST_CASE("temp")
         {
             stack_array_t<temp_t, 2> stack_array;
-            stack_array.Push(temp_t());
+            stack_array.Push(temp_t(), temp_t());
             for (index_t idx = 0, end = stack_array.Capacity(); idx < end; idx += 1) {
                 stack_array.Array()[idx].Log();
             }

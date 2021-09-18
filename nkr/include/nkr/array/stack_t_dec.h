@@ -31,8 +31,26 @@ namespace nkr {
                              same_as_any_tr<stack_array_t> auto& to);
         static void_t   Destroy(same_as_any_tr<stack_array_t> auto& self);
 
+        static auto&    Array(same_as_any_tr<stack_array_t> auto& self);
+        static auto&    Writable_Array(same_as_any_writable_tr<stack_array_t> auto& self);
+        static count_t  Count(const same_as_any_tr<stack_array_t> auto& self);
+
+        static auto&    At(same_as_any_tr<stack_array_t> auto& self, index_t index);
+        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
+                             const same_as_any_tr<unit_t> auto& unit,
+                             const same_as_any_tr<unit_t> auto& ...more_units);
+        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
+                             same_as_any_writable_tr<unit_t> auto&& unit,
+                             same_as_any_writable_tr<unit_t> auto&& ...more_units);
+        static auto     Pop(same_as_any_writable_tr<stack_array_t> auto& self);
+
+        static void_t   Copy_Into(const same_as_any_tr<stack_array_t> auto& self,
+                                  push_copy_i<unit_t> auto& other);
+        static void_t   Move_Into(same_as_any_writable_tr<stack_array_t> auto& self,
+                                  push_move_i<unit_t> auto& other);
+
         static bool_t   Is_Clear(const same_as_any_tr<stack_array_t> auto& self);
-        static void_t   Clear(same_as_any_tr<stack_array_t> auto& self);
+        static void_t   Clear(same_as_any_writable_tr<stack_array_t> auto& self);
 
     protected:
         count_t         unit_count;
@@ -46,121 +64,55 @@ namespace nkr {
         stack_array_t(same_as_any_unwritable_tr<unit_t> auto&& ...args) = delete;
 
         stack_array_t(const stack_array_t& other);
-        stack_array_t(volatile const stack_array_t& other);
+        stack_array_t(const volatile stack_array_t& other);
         stack_array_t(stack_array_t&& other) noexcept;
         stack_array_t(volatile stack_array_t&& other) noexcept;
 
         stack_array_t& operator =(const stack_array_t& other);
-        volatile stack_array_t& operator =(volatile const stack_array_t& other) volatile;
+        volatile stack_array_t& operator =(const volatile stack_array_t& other) volatile;
         stack_array_t& operator =(stack_array_t&& other) noexcept;
         volatile stack_array_t& operator =(volatile stack_array_t&& other) volatile noexcept;
 
         ~stack_array_t();
 
     public:
-        array_t& Array()
-        {
-            return reinterpret_cast<array_t&>(this->byte_array);
-        }
+        array_t&                Array();
+        const array_t&          Array() const;
+        volatile array_t&       Array() volatile;
+        const volatile array_t& Array() const volatile;
+        count_t                 Count() const;
+        count_t                 Count() const volatile;
 
-        const array_t& Array() const
-        {
-            return reinterpret_cast<const array_t&>(this->byte_array);
-        }
+        unit_t&                 At(index_t index);
+        const unit_t&           At(index_t index) const;
+        volatile unit_t&        At(index_t index) volatile;
+        const volatile unit_t&  At(index_t index) const volatile;
+        void_t                  Push(const same_as_any_tr<unit_t> auto& ...units);
+        void_t                  Push(const same_as_any_tr<unit_t> auto& ...units) volatile;
+        void_t                  Push(same_as_any_writable_tr<unit_t> auto&& ...units);
+        void_t                  Push(same_as_any_writable_tr<unit_t> auto&& ...units) volatile;
+        unit_t                  Pop();
+        volatile unit_t         Pop() volatile;
 
-        count_t Count() const
-        {
-            return this->unit_count;
-        }
+        void_t                  Copy_Into(push_copy_i<unit_t> auto& other) const;
+        void_t                  Copy_Into(push_copy_i<unit_t> auto& other) const volatile;
+        void_t                  Move_Into(push_move_i<unit_t> auto& other);
+        void_t                  Move_Into(push_move_i<volatile unit_t> auto& other) volatile;
 
-        void_t Push(const unit_t& unit)
-        {
-            assert(this->unit_count < Capacity());
-
-            Writable_Array()[this->unit_count] = unit;
-            this->unit_count += 1;
-        }
-
-        void_t Push_Many(const std::same_as<unit_t> auto& unit, const std::same_as<unit_t> auto& ...tail)
-        {
-            Push(unit);
-            if constexpr (sizeof...(tail) > 0) {
-                Push_Many(tail...);
-            }
-        }
-
-        void_t Push(writable_unit_t&& unit)
-        {
-            assert(this->unit_count < Capacity());
-
-            Writable_Array()[this->unit_count] = std::move(unit);
-            this->unit_count += 1;
-        }
-
-        void_t Push_Many(same_as_any_writable_tr<unit_t> auto&& unit, same_as_any_writable_tr<unit_t> auto&& ...tail)
-        {
-            Push(std::move(unit));
-            if constexpr (sizeof...(tail) > 0) {
-                Push_Many(std::move(tail)...);
-            }
-        }
-
-        unit_t Pop()
-        {
-            assert(this->unit_count > 0);
-
-            this->unit_count -= 1;
-            if constexpr (built_in_tr<unit_t>) {
-                return std::exchange(Writable_Array()[this->unit_count], std::remove_cv_t<unit_t>(0));
-            } else {
-                return std::move(Writable_Array()[this->unit_count]);
-            }
-        }
-
-        void_t Copy_Into(push_copy_i<unit_t> auto& other) const
-        {
-            for (index_t idx = 0, end = this->unit_count; idx < end; idx += 1) {
-                other.Push(Array()[idx]);
-            }
-        }
-
-        void_t Move_Into(push_move_i<unit_t> auto& other)
-        {
-            for (index_t idx = 0, end = this->unit_count; idx < end; idx += 1) {
-                if constexpr (built_in_tr<unit_t>) {
-                    other.Push(std::exchange(Writable_Array()[idx], std::remove_cv_t<unit_t>(0)));
-                } else {
-                    other.Push(std::move(Writable_Array()[idx]));
-                }
-            }
-            this->unit_count = 0;
-        }
-
-        bool_t  Is_Clear() const;
-        bool_t  Is_Clear() volatile const;
-        void_t  Clear();
-        void_t  Clear() volatile;
+        bool_t                  Is_Clear() const;
+        bool_t                  Is_Clear() const volatile;
+        void_t                  Clear();
+        void_t                  Clear() volatile;
 
     private:
-        writable_array_t& Writable_Array()
-        {
-            return reinterpret_cast<writable_array_t&>(this->byte_array);
-        }
+        writable_array_t&           Writable_Array();
+        volatile writable_array_t&  Writable_Array() volatile;
 
     public:
-        unit_t& operator [](index_t index)
-        {
-            assert(index < this->unit_count);
-
-            return Array()[index];
-        }
-
-        const unit_t& operator [](index_t index) const
-        {
-            assert(index < this->unit_count);
-
-            return Array()[index];
-        }
+        unit_t&                 operator [](index_t index);
+        const unit_t&           operator [](index_t index) const;
+        volatile unit_t&        operator [](index_t index) volatile;
+        const volatile unit_t&  operator [](index_t index) const volatile;
     };
 
     template <typename type_p>

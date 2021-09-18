@@ -38,32 +38,32 @@ namespace nkr {
         static constexpr real_t Grow_Rate();
 
     private:
-        static auto&                Units(same_as_any_tr<dynamic_array_t> auto& self);
+        static auto&        Units(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static void_t               Copy(const same_as_any_tr<dynamic_array_t> auto& from,
+        static void_t       Copy(const same_as_any_tr<dynamic_array_t> auto& from,
                                          same_as_any_tr<dynamic_array_t> auto& to);
-        static void_t               Destroy(same_as_any_tr<dynamic_array_t> auto& self);
+        static void_t       Destroy(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static pointer_t            Pointer(const same_as_any_tr<dynamic_array_t> auto& self);
-        static count_t              Count(const same_as_any_tr<dynamic_array_t> auto& self);
-        static const allocator_t&   Allocator(const same_as_any_tr<dynamic_array_t> auto& self);
+        static pointer_t    Pointer(const same_as_any_tr<dynamic_array_t> auto& self);
+        static count_t      Count(const same_as_any_tr<dynamic_array_t> auto& self);
+        static auto&        Allocator(const same_as_any_tr<dynamic_array_t> auto& self);
 
-        static count_t              Capacity(const same_as_any_tr<dynamic_array_t> auto& self);
-        static bool_t               Capacity(same_as_any_tr<dynamic_array_t> auto& self, count_t new_capacity);
+        static count_t      Capacity(const same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Capacity(same_as_any_tr<dynamic_array_t> auto& self, count_t new_capacity);
 
-        static bool_t               Should_Grow(const same_as_any_tr<dynamic_array_t> auto& self);
-        static bool_t               Grow(same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Should_Grow(const same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Grow(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static unit_t&              At(const same_as_any_tr<dynamic_array_t> auto& self, index_t index);
-        static bool_t               Push(same_as_any_tr<dynamic_array_t> auto& self, const unit_t& unit);
-        static bool_t               Push(same_as_any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
-        static unit_t               Pop(same_as_any_tr<dynamic_array_t> auto& self);
+        static unit_t&      At(const same_as_any_tr<dynamic_array_t> auto& self, index_t index);
+        static bool_t       Push(same_as_any_tr<dynamic_array_t> auto& self, const unit_t& unit);
+        static bool_t       Push(same_as_any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
+        static unit_t       Pop(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static bool_t               Is_Fit(const same_as_any_tr<dynamic_array_t> auto& self);
-        static bool_t               Fit(same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Is_Fit(const same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Fit(same_as_any_tr<dynamic_array_t> auto& self);
 
-        static bool_t               Is_Clear(const same_as_any_tr<dynamic_array_t> auto& self);
-        static void_t               Clear(same_as_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Is_Clear(const same_as_any_tr<dynamic_array_t> auto& self);
+        static void_t       Clear(same_as_any_tr<dynamic_array_t> auto& self);
 
     protected:
         writable_pointer_t  writable_units;
@@ -118,38 +118,38 @@ namespace nkr {
         ~dynamic_array_t();
 
     public:
-        pointer_t           Pointer() const;
-        pointer_t           Pointer() volatile const;
-        count_t             Count() const;
-        count_t             Count() volatile const;
-        const allocator_t&  Allocator() const;
-        const allocator_t&  Allocator() volatile const;
+        pointer_t                   Pointer() const;
+        pointer_t                   Pointer() volatile const;
+        count_t                     Count() const;
+        count_t                     Count() volatile const;
+        const allocator_t&          Allocator() const;
+        volatile const allocator_t& Allocator() volatile const;
 
-        count_t             Capacity() const;
-        count_t             Capacity() volatile const;
-        bool_t              Capacity(count_t new_capacity);
-        bool_t              Capacity(count_t new_capacity) volatile;
+        count_t                     Capacity() const;
+        count_t                     Capacity() volatile const;
+        bool_t                      Capacity(count_t new_capacity);
+        bool_t                      Capacity(count_t new_capacity) volatile;
 
-        unit_t&             At(index_t index) const;
-        unit_t&             At(index_t index) volatile const;
-        bool_t              Push(const unit_t& unit);
-        bool_t              Push(const unit_t& unit) volatile;
-        bool_t              Push(writable_unit_t&& unit);
-        bool_t              Push(writable_unit_t&& unit) volatile;
-        bool_t              Push(volatile const unit_t&& unit)          = delete;
-        bool_t              Push(volatile const unit_t&& unit) volatile = delete;
-        unit_t              Pop();
-        unit_t              Pop() volatile;
+        unit_t&                     At(index_t index) const;
+        unit_t&                     At(index_t index) volatile const;
+        bool_t                      Push(const unit_t& unit);
+        bool_t                      Push(const unit_t& unit) volatile;
+        bool_t                      Push(writable_unit_t&& unit);
+        bool_t                      Push(writable_unit_t&& unit) volatile;
+        bool_t                      Push(volatile const unit_t&& unit)          = delete;
+        bool_t                      Push(volatile const unit_t&& unit) volatile = delete;
+        unit_t                      Pop();
+        unit_t                      Pop() volatile;
 
-        bool_t              Is_Fit() const;
-        bool_t              Is_Fit() volatile const;
-        bool_t              Fit();
-        bool_t              Fit() volatile;
+        bool_t                      Is_Fit() const;
+        bool_t                      Is_Fit() volatile const;
+        bool_t                      Fit();
+        bool_t                      Fit() volatile;
 
-        bool_t              Is_Clear() const;
-        bool_t              Is_Clear() volatile const;
-        void_t              Clear();
-        void_t              Clear() volatile;
+        bool_t                      Is_Clear() const;
+        bool_t                      Is_Clear() volatile const;
+        void_t                      Clear();
+        void_t                      Clear() volatile;
 
     private:
         bool_t  Should_Grow() const;

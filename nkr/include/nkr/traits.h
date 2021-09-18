@@ -232,6 +232,35 @@ namespace nkr {
         pointer_tr<type_p>;
     /// @}
 
+    // qualifiers
+    template <typename type_p>
+    concept const_tr =
+        std::is_const_v<type_p>;
+
+    template <typename type_p>
+    concept volatile_tr =
+        std::is_volatile_v<type_p>;
+
+    template <typename type_p>
+    concept unqualified_tr =
+        !const_tr<type_p> &&
+        !volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept only_const_tr =
+        const_tr<type_p> &&
+        !volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept only_volatile_tr =
+        volatile_tr<type_p> &&
+        !const_tr<type_p>;
+
+    template <typename type_p>
+    concept const_volatile_tr =
+        const_tr<type_p> &&
+        volatile_tr<type_p>;
+
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_a_p, typename type_b_p>

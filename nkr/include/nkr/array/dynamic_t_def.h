@@ -84,7 +84,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename const dynamic_array_t<unit_p, allocator_p, grow_rate_p>::allocator_t&
+    inline auto&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Allocator(const same_as_any_tr<dynamic_array_t> auto& self)
     {
         return self.allocator;
@@ -586,7 +586,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename const dynamic_array_t<unit_p, allocator_p, grow_rate_p>::allocator_t&
+    inline typename volatile const dynamic_array_t<unit_p, allocator_p, grow_rate_p>::allocator_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Allocator()
         volatile const
     {
