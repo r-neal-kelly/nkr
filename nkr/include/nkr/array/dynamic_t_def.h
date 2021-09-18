@@ -239,7 +239,11 @@ namespace nkr {
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Clear(same_as_any_tr<dynamic_array_t> auto& self)
     {
         for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-            self.writable_units[idx].~unit_t();
+            if constexpr (built_in_tr<unit_t>) {
+                self.writable_units[idx] = std::remove_cv_t<unit_t>(0);
+            } else {
+                self.writable_units[idx].~unit_t();
+            }
         }
         self.unit_count = 0;
     }

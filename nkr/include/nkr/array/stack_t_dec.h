@@ -22,52 +22,40 @@ namespace nkr {
         using byte_array_t      = byte_t[capacity_p * sizeof(unit_t)];
 
     public:
-        static constexpr count_t Capacity()
-        {
-            return capacity_p;
-        }
+        static constexpr count_t    Capacity();
+
+    private:
+        static void_t   Copy(const same_as_any_tr<stack_array_t> auto& from,
+                             same_as_any_tr<stack_array_t> auto& to);
+        static void_t   Move(const same_as_any_tr<stack_array_t> auto& from,
+                             same_as_any_tr<stack_array_t> auto& to);
+        static void_t   Destroy(same_as_any_tr<stack_array_t> auto& self);
+
+        static bool_t   Is_Clear(const same_as_any_tr<stack_array_t> auto& self);
+        static void_t   Clear(same_as_any_tr<stack_array_t> auto& self);
 
     protected:
         count_t         unit_count;
         byte_array_t    byte_array;
 
     public:
-        stack_array_t() :
-            unit_count(0)
-        {
-        }
+        stack_array_t();
 
-        stack_array_t(const std::same_as<unit_t> auto& ...args) :
-            unit_count(0)
-        {
-            assert(unit_count <= Capacity());
+        stack_array_t(const same_as_any_tr<unit_t> auto& ...args);
+        stack_array_t(same_as_any_writable_tr<unit_t> auto&& ...args);
+        stack_array_t(same_as_any_unwritable_tr<unit_t> auto&& ...args) = delete;
 
-            Push_Many(args...);
-        }
+        stack_array_t(const stack_array_t& other);
+        stack_array_t(volatile const stack_array_t& other);
+        stack_array_t(stack_array_t&& other) noexcept;
+        stack_array_t(volatile stack_array_t&& other) noexcept;
 
-        stack_array_t(same_as_any_writable_tr<unit_t> auto&& ...args) :
-            unit_count(0)
-        {
-            assert(unit_count <= Capacity());
+        stack_array_t& operator =(const stack_array_t& other);
+        volatile stack_array_t& operator =(volatile const stack_array_t& other) volatile;
+        stack_array_t& operator =(stack_array_t&& other) noexcept;
+        volatile stack_array_t& operator =(volatile stack_array_t&& other) volatile noexcept;
 
-            Push_Many(std::move(args)...);
-        }
-
-        stack_array_t(const stack_array_t& other) :
-            unit_count(other.unit_count)
-        {
-            for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
-                Writable_Array()[idx] = other[idx];
-            }
-        }
-
-        stack_array_t(volatile const stack_array_t& other) :
-            unit_count(other.unit_count)
-        {
-            for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
-                Writable_Array()[idx] = other[idx];
-            }
-        }
+        ~stack_array_t();
 
     public:
         array_t& Array()
@@ -147,6 +135,11 @@ namespace nkr {
             }
             this->unit_count = 0;
         }
+
+        bool_t  Is_Clear() const;
+        bool_t  Is_Clear() volatile const;
+        void_t  Clear();
+        void_t  Clear() volatile;
 
     private:
         writable_array_t& Writable_Array()
