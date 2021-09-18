@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/array/stack_t.h"
+#include "nkr/utils.h"
 
 namespace nkr {
 
@@ -36,11 +37,7 @@ namespace nkr {
         assert(to.unit_count == 0);
 
         for (index_t idx = 0, end = from.unit_count; idx < end; idx += 1) {
-            if constexpr (built_in_tr<unit_t>) {
-                to.Writable_Array()[idx] = std::exchange(from.Writable_Array()[idx], std::remove_cv_t<unit_t>(0));
-            } else {
-                to.Writable_Array()[idx] = std::move(from.Writable_Array()[idx]);
-            }
+            to.Writable_Array()[idx] = nkr::Move(from.Writable_Array()[idx]);
         }
         to.unit_count = from.unit_count;
         from.unit_count = 0;
@@ -101,7 +98,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(same_as_any_tr<stack_array_t> auto& self,
+        stack_array_t<unit_p, capacity_p>::Push(same_as_any_writable_tr<stack_array_t> auto& self,
                                                 same_as_any_tr<unit_t> auto& unit,
                                                 same_as_any_tr<unit_t> auto& ...more_units)
     {
@@ -117,17 +114,17 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(same_as_any_tr<stack_array_t> auto& self,
+        stack_array_t<unit_p, capacity_p>::Push(same_as_any_writable_tr<stack_array_t> auto& self,
                                                 same_as_any_writable_tr<unit_t> auto&& unit,
                                                 same_as_any_writable_tr<unit_t> auto&& ...more_units)
     {
         assert(self.unit_count < Capacity());
 
-        Writable_Array(self)[self.unit_count] = std::move(unit);
+        Writable_Array(self)[self.unit_count] = nkr::Move(unit);
         self.unit_count += 1;
 
         if constexpr (sizeof...(more_units) > 0) {
-            Push(self, std::move(more_units)...);
+            Push(self, nkr::Move(more_units)...);
         }
     }
 
@@ -138,11 +135,7 @@ namespace nkr {
         assert(self.unit_count > 0);
 
         self.unit_count -= 1;
-        if constexpr (built_in_tr<unit_t>) {
-            return std::exchange(Writable_Array(self)[self.unit_count], std::remove_cv_t<unit_t>(0));
-        } else {
-            return std::move(Writable_Array(self)[self.unit_count]);
-        }
+        return nkr::Move(Writable_Array(self)[self.unit_count]);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -161,11 +154,7 @@ namespace nkr {
                                                      push_move_i<unit_t> auto& other)
     {
         for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-            if constexpr (built_in_tr<unit_t>) {
-                other.Push(std::exchange(Writable_Array(self)[idx], std::remove_cv_t<unit_t>(0)));
-            } else {
-                other.Push(std::move(Writable_Array(self)[idx]));
-            }
+            other.Push(nkr::Move(Writable_Array(self)[idx]));
         }
         self.unit_count = 0;
     }
@@ -212,7 +201,7 @@ namespace nkr {
     {
         assert(sizeof...(args) <= Capacity());
 
-        Push(*this, std::move(args)...);
+        Push(*this, nkr::Move(args)...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -393,7 +382,7 @@ namespace nkr {
     inline void_t
         stack_array_t<unit_p, capacity_p>::Push(same_as_any_writable_tr<unit_t> auto&& ...units)
     {
-        return Push(*this, std::move(units)...);
+        return Push(*this, nkr::Move(units)...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -401,7 +390,7 @@ namespace nkr {
         stack_array_t<unit_p, capacity_p>::Push(same_as_any_writable_tr<unit_t> auto&& ...units)
         volatile
     {
-        return Push(*this, std::move(units)...);
+        return Push(*this, nkr::Move(units)...);
     }
 
     template <type_tr unit_p, count_t capacity_p>

@@ -200,6 +200,9 @@
     <ClInclude Include="include\nkr\string_t.h" />
     <ClInclude Include="include\nkr\traits.h" />
     <ClInclude Include="include\nkr\docs\intrinsic.dox" />
+    <ClInclude Include="include\nkr\utils.h" />
+    <ClInclude Include="include\nkr\utils_dec.h" />
+    <ClInclude Include="include\nkr\utils_def.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="docs\os.dox" />

@@ -38,13 +38,13 @@ namespace nkr {
         static count_t  Count(const same_as_any_tr<stack_array_t> auto& self);
 
         static auto&    At(same_as_any_tr<stack_array_t> auto& self, index_t index);
-        static void_t   Push(same_as_any_tr<stack_array_t> auto& self,
+        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
                              same_as_any_tr<unit_t> auto& unit,
                              same_as_any_tr<unit_t> auto& ...more_units);
-        static void_t   Push(same_as_any_tr<stack_array_t> auto& self,
+        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
                              same_as_any_writable_tr<unit_t> auto&& unit,
                              same_as_any_writable_tr<unit_t> auto&& ...more_units);
-        static void_t   Push(same_as_any_tr<stack_array_t> auto& self,
+        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
                              same_as_any_unwritable_tr<unit_t> auto&& unit,
                              same_as_any_unwritable_tr<unit_t> auto&& ...more_units)        = delete;
         static auto     Pop(same_as_any_writable_tr<stack_array_t> auto& self);
