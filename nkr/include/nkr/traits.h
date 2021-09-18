@@ -272,9 +272,19 @@ namespace nkr {
         same_as_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
 
     template <typename type_a_p, typename type_b_p>
+    concept same_as_any_lvalue_tr =
+        same_as_any_tr<type_a_p, type_b_p> &&
+        std::is_lvalue_reference_v<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
     concept same_as_any_writable_tr =
         same_as_any_tr<type_a_p, type_b_p> &&
         writable_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept same_as_any_writable_rvalue_tr =
+        same_as_any_writable_tr<type_a_p, type_b_p> &&
+        std::is_rvalue_reference_v<type_a_p>;
 
     template <typename type_a_p, typename type_b_p>
     concept same_as_any_unwritable_tr =

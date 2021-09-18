@@ -101,9 +101,9 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(same_as_any_writable_tr<stack_array_t> auto& self,
-                                                const same_as_any_tr<unit_t> auto& unit,
-                                                const same_as_any_tr<unit_t> auto& ...more_units)
+        stack_array_t<unit_p, capacity_p>::Push(same_as_any_tr<stack_array_t> auto& self,
+                                                same_as_any_tr<unit_t> auto& unit,
+                                                same_as_any_tr<unit_t> auto& ...more_units)
     {
         assert(self.unit_count < Capacity());
 
@@ -117,7 +117,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(same_as_any_writable_tr<stack_array_t> auto& self,
+        stack_array_t<unit_p, capacity_p>::Push(same_as_any_tr<stack_array_t> auto& self,
                                                 same_as_any_writable_tr<unit_t> auto&& unit,
                                                 same_as_any_writable_tr<unit_t> auto&& ...more_units)
     {
@@ -198,12 +198,12 @@ namespace nkr {
     }
 
     template <type_tr unit_p, count_t capacity_p>
-    inline stack_array_t<unit_p, capacity_p>::stack_array_t(const same_as_any_tr<unit_t> auto& ...args) :
+    inline stack_array_t<unit_p, capacity_p>::stack_array_t(same_as_any_tr<unit_t> auto& ...args) :
         unit_count(0)
     {
         assert(sizeof...(args) <= Capacity());
 
-        Push(args...);
+        Push(*this, args...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -212,7 +212,7 @@ namespace nkr {
     {
         assert(sizeof...(args) <= Capacity());
 
-        Push(std::move(args)...);
+        Push(*this, std::move(args)...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -376,14 +376,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(const same_as_any_tr<unit_t> auto& ...units)
+        stack_array_t<unit_p, capacity_p>::Push(same_as_any_tr<unit_t> auto& ...units)
     {
         return Push(*this, units...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(const same_as_any_tr<unit_t> auto& ...units)
+        stack_array_t<unit_p, capacity_p>::Push(same_as_any_tr<unit_t> auto& ...units)
         volatile
     {
         return Push(*this, units...);
