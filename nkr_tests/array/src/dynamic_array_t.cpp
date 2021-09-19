@@ -917,7 +917,7 @@ namespace nkr {
         }
     }
 
-    TEST_CASE("temp")
+    /*TEST_CASE("temp")
     {
         r64_t our_time = os::time::Test_In_Microseconds(
             16,
@@ -939,8 +939,19 @@ namespace nkr {
                 }
             }
         );
+        r64_t stack_time = os::time::Test_In_Microseconds(
+            16,
+            []()
+            {
+                stack_array_t<index_t, 1024> stack_array;
+                for (index_t idx = 0, end = stack_array.Capacity(); idx < end; idx += 1) {
+                    stack_array.Push(Random<index_t>());
+                }
+            }
+        );
         printf("our_time: %g\n", our_time);
         printf("cpp_time: %g\n", cpp_time);
-    }
+        printf("stack_time: %g\n", stack_time);
+    }*/
 
 }
