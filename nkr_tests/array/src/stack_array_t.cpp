@@ -262,6 +262,244 @@ namespace nkr {
                     }
                 }
             }
+
+            TEST_SUITE("copy_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should explicitly or implicitly copy each unit and the count of other", stack_array_p, nkr_ALL)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<writable_unit_t>());
+                    }
+                    stack_array_p stack_array = other;
+                    CHECK(stack_array.Count() == other.Count());
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == other[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not change the other", stack_array_p, nkr_ALL)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_array_p> backup;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        unit_t random = Random<unit_t>();
+                        other.Push(random);
+                        backup.Push(random);
+                    }
+                    stack_array_p stack_array = other;
+                    CHECK(other.Count() == backup.Count());
+                    for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
+                        CHECK(other[idx] == backup[idx]);
+                    }
+                }
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should explicitly or implicitly move each unit and count of other", stack_array_p, nkr_ALL)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_array_p> backup;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        unit_t random = Random<unit_t>();
+                        other.Push(random);
+                        backup.Push(random);
+                    }
+                    stack_array_p stack_array = nkr::Move(other);
+                    CHECK(stack_array.Count() == backup.Count());
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == backup[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should set the other to have none values", stack_array_p, nkr_ALL)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<writable_unit_t>());
+                    }
+                    stack_array_p stack_array = nkr::Move(other);
+                    CHECK(other.Count() == 0);
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(other.Array()[idx] == none_t());
+                    }
+                }
+            }
+
+            TEST_SUITE("copy_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy each unit and the count of other", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<writable_unit_t>());
+                    }
+                    stack_array_p stack_array;
+                    stack_array = other;
+                    CHECK(stack_array.Count() == other.Count());
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == other[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not change the other", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_array_p> backup;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        unit_t random = Random<unit_t>();
+                        other.Push(random);
+                        backup.Push(random);
+                    }
+                    stack_array_p stack_array;
+                    stack_array = other;
+                    CHECK(other.Count() == backup.Count());
+                    for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
+                        CHECK(other[idx] == backup[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<writable_unit_t>());
+                    }
+                    stack_array_p stack_array;
+                    CHECK(&(stack_array = other) == &stack_array);
+                }
+            }
+
+            TEST_SUITE("move_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move each unit and count of other", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_array_p> backup;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        unit_t random = Random<unit_t>();
+                        other.Push(random);
+                        backup.Push(random);
+                    }
+                    stack_array_p stack_array;
+                    stack_array = nkr::Move(other);
+                    CHECK(stack_array.Count() == backup.Count());
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == backup[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should set the other to have none values", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<writable_unit_t>());
+                    }
+                    stack_array_p stack_array;
+                    stack_array = nkr::Move(other);
+                    CHECK(other.Count() == 0);
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(other.Array()[idx] == none_t());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_array_p> backup;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        unit_t random = Random<unit_t>();
+                        other.Push(random);
+                        backup.Push(random);
+                    }
+                    stack_array_p stack_array;
+                    CHECK(&(stack_array = nkr::Move(other)) == &stack_array);
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_CASE_TEMPLATE("should set its values to default", stack_array_p, nkr_ALL)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    count_t count = Random<count_t>(1, 16);
+                    std::remove_const_t<stack_array_p> other;
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(Random<writable_unit_t>());
+                    }
+                    stack_array_p stack_array = other;
+                    stack_array.~stack_array_p();
+                    CHECK(stack_array.Count() == none_t());
+                    for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array.Array()[idx] == none_t());
+                    }
+                }
+            }
         }
     }
 

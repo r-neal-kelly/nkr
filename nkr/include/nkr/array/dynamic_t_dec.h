@@ -41,7 +41,7 @@ namespace nkr {
         static auto&        Units(same_as_any_tr<dynamic_array_t> auto& self);
 
         static void_t       Copy(const same_as_any_tr<dynamic_array_t> auto& from,
-                                         same_as_any_tr<dynamic_array_t> auto& to);
+                                 same_as_any_tr<dynamic_array_t> auto& to);
         static void_t       Destroy(same_as_any_tr<dynamic_array_t> auto& self);
 
         static pointer_t    Pointer(const same_as_any_tr<dynamic_array_t> auto& self);

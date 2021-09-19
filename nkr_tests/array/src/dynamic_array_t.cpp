@@ -141,7 +141,7 @@ namespace nkr {
             }
         }
 
-        TEST_SUITE("static functions")
+        TEST_SUITE("static methods")
         {
             TEST_SUITE("Grow_Rate()")
             {
@@ -925,7 +925,7 @@ namespace nkr {
             {
                 dynamic_array_t<index_t, allocator::heap_t<index_t>, math::fraction_t<17, 10>> dynamic_array;
                 for (index_t idx = 0, end = 1024; idx < end; idx += 1) {
-                    dynamic_array.Push(idx);
+                    dynamic_array.Push(Random<index_t>());
                 }
             }
         );
@@ -935,7 +935,7 @@ namespace nkr {
             {
                 std::vector<index_t> vector;
                 for (index_t idx = 0, end = 1024; idx < end; idx += 1) {
-                    vector.push_back(idx);
+                    vector.push_back(Random<index_t>());
                 }
             }
         );

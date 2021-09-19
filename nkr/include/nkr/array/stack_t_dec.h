@@ -29,7 +29,7 @@ namespace nkr {
     private:
         static void_t   Copy(const same_as_any_tr<stack_array_t> auto& from,
                              same_as_any_tr<stack_array_t> auto& to);
-        static void_t   Move(const same_as_any_tr<stack_array_t> auto& from,
+        static void_t   Move(same_as_any_tr<stack_array_t> auto& from,
                              same_as_any_tr<stack_array_t> auto& to);
         static void_t   Destroy(same_as_any_tr<stack_array_t> auto& self);
 
@@ -58,8 +58,8 @@ namespace nkr {
         static void_t   Clear(same_as_any_writable_tr<stack_array_t> auto& self);
 
     protected:
-        count_t                 unit_count;
-        mutable byte_array_t    byte_array;
+        count_t         unit_count;
+        byte_array_t    byte_array;
 
     public:
         stack_array_t();

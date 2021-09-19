@@ -31,7 +31,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move(const same_as_any_tr<stack_array_t> auto& from,
+        stack_array_t<unit_p, capacity_p>::Move(same_as_any_tr<stack_array_t> auto& from,
                                                 same_as_any_tr<stack_array_t> auto& to)
     {
         assert(to.unit_count == 0);
