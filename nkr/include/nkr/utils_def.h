@@ -26,6 +26,16 @@ namespace nkr {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
+    inline constexpr auto&& Move(const built_in_tr auto&& value) noexcept
+    {
+        return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
+    }
+
+    inline constexpr auto&& Move(user_defined_tr auto& value) noexcept
+    {
+        return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
+    }
+
     inline constexpr auto&& Move(user_defined_tr auto&& value) noexcept
     {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);

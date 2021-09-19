@@ -84,12 +84,12 @@ namespace nkr {
         dynamic_array_t(volatile const unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                    = delete;
         dynamic_array_t(volatile const unit_t&& filler, count_t count, allocator_t&& allocator)                                         = delete;
 
-        dynamic_array_t(const array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(const array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
-        dynamic_array_t(array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
-        dynamic_array_t(volatile const array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())         = delete;
-        dynamic_array_t(volatile const array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                              = delete;
+        dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
+        dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
+        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())     = delete;
+        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                          = delete;
 
         dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
@@ -161,5 +161,9 @@ namespace nkr {
         unit_t& operator [](index_t index) const;
         unit_t& operator [](index_t index) volatile const;
     };
+    static_assert(array_i<dynamic_array_t<word_t>>);
+    static_assert(array_i<dynamic_array_t<const word_t>>);
+    static_assert(array_i<dynamic_array_t<volatile word_t>>);
+    static_assert(array_i<dynamic_array_t<const volatile word_t>>);
 
 }

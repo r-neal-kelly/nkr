@@ -205,12 +205,12 @@ namespace nkr {
         type_tr<std::remove_pointer_t<type_p>>; ///< @copydoc _6a988ebe_eb59_44c5_9b34_45259e710dc7
 
     template <typename type_p>
-    concept array_tr =
+    concept std_array_tr =
         is_array_tmpl<type_p>::value;
 
     template <typename type_p, typename of_p>
-    concept array_of_tr =
-        array_tr<type_p> &&
+    concept std_array_of_tr =
+        std_array_tr<type_p> &&
         std::same_as<typename is_array_tmpl<type_p>::unit_t, of_p>;
 
     template <typename type_p>
