@@ -47,13 +47,13 @@ namespace nkr {
         static auto     Pop(same_as_any_writable_tr<stack_array_t> auto& self);
 
         static void_t   Copy_To(const same_as_any_tr<stack_array_t> auto& self,
-                                array_of_any_tr<unit_t> auto& other);
+                                writable_array_of_any_tr<unit_t> auto& other);
         static void_t   Copy_From(same_as_any_writable_tr<stack_array_t> auto& self,
                                   const array_of_any_tr<unit_t> auto& other);
         static void_t   Move_To(same_as_any_writable_tr<stack_array_t> auto& self,
-                                array_of_any_tr<unit_t> auto& other);
+                                writable_array_of_any_tr<unit_t> auto& other);
         static void_t   Move_From(same_as_any_writable_tr<stack_array_t> auto& self,
-                                  array_of_any_writable_tr<unit_t> auto& other);
+                                  writable_array_of_any_writable_tr<unit_t> auto& other);
 
         static bool_t   Is_Clear(const same_as_any_tr<stack_array_t> auto& self);
         static void_t   Clear(same_as_any_writable_tr<stack_array_t> auto& self);
@@ -97,21 +97,23 @@ namespace nkr {
         void_t                  Push(same_as_any_tr<unit_t> auto& ...units) volatile;
         void_t                  Push(same_as_any_writable_tr<unit_t> auto&& ...units);
         void_t                  Push(same_as_any_writable_tr<unit_t> auto&& ...units) volatile;
-        void_t                  Push(same_as_any_unwritable_tr<unit_t> auto&& ...units)             = delete;
-        void_t                  Push(same_as_any_unwritable_tr<unit_t> auto&& ...units) volatile    = delete;
+        void_t                  Push(same_as_any_unwritable_tr<unit_t> auto&& ...units)                             = delete;
+        void_t                  Push(same_as_any_unwritable_tr<unit_t> auto&& ...units) volatile                    = delete;
         unit_t                  Pop();
         volatile unit_t         Pop() volatile;
 
-        void_t                  Copy_To(array_of_any_tr<unit_t> auto& other) const;
-        void_t                  Copy_To(array_of_any_tr<unit_t> auto& other) const volatile;
+        void_t                  Copy_To(writable_array_of_any_tr<unit_t> auto& other) const;
+        void_t                  Copy_To(writable_array_of_any_tr<unit_t> auto& other) const volatile;
+        void_t                  Copy_To(non_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
         void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other);
         void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Move_To(array_of_any_tr<unit_t> auto& other);
-        void_t                  Move_To(array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Move_From(array_of_any_writable_tr<unit_t> auto& other);
-        void_t                  Move_From(array_of_any_writable_tr<unit_t> auto& other) volatile;
-        void_t                  Move_From(array_of_any_unwritable_tr<unit_t> auto& other)           = delete;
-        void_t                  Move_From(array_of_any_unwritable_tr<unit_t> auto& other) volatile  = delete;
+        void_t                  Copy_From(const non_array_of_any_tr<unit_t> auto& other) const volatile             = delete;
+        void_t                  Move_To(writable_array_of_any_tr<unit_t> auto& other);
+        void_t                  Move_To(writable_array_of_any_tr<unit_t> auto& other) volatile;
+        void_t                  Move_To(non_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
+        void_t                  Move_From(writable_array_of_any_writable_tr<unit_t> auto& other);
+        void_t                  Move_From(writable_array_of_any_writable_tr<unit_t> auto& other) volatile;
+        void_t                  Move_From(non_writable_array_of_any_writable_tr<unit_t> auto& other) const volatile = delete;
 
         bool_t                  Is_Clear() const;
         bool_t                  Is_Clear() const volatile;
@@ -132,6 +134,18 @@ namespace nkr {
     static_assert(array_i<stack_array_t<const word_t, 64>>);
     static_assert(array_i<stack_array_t<volatile word_t, 64>>);
     static_assert(array_i<stack_array_t<const volatile word_t, 64>>);
+    static_assert(array_i<const stack_array_t<word_t, 64>>);
+    static_assert(array_i<const stack_array_t<const word_t, 64>>);
+    static_assert(array_i<const stack_array_t<volatile word_t, 64>>);
+    static_assert(array_i<const stack_array_t<const volatile word_t, 64>>);
+    static_assert(array_i<volatile stack_array_t<word_t, 64>>);
+    static_assert(array_i<volatile stack_array_t<const word_t, 64>>);
+    static_assert(array_i<volatile stack_array_t<volatile word_t, 64>>);
+    static_assert(array_i<volatile stack_array_t<const volatile word_t, 64>>);
+    static_assert(array_i<const volatile stack_array_t<word_t, 64>>);
+    static_assert(array_i<const volatile stack_array_t<const word_t, 64>>);
+    static_assert(array_i<const volatile stack_array_t<volatile word_t, 64>>);
+    static_assert(array_i<const volatile stack_array_t<const volatile word_t, 64>>);
 
     template <typename type_p>
     concept stack_array_tr =

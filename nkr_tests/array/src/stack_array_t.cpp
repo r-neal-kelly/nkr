@@ -816,17 +816,109 @@ namespace nkr {
 
             TEST_SUITE("Copy_To()")
             {
-                TEST_CASE_TEMPLATE("should copy each of its units to another array", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy each of its units to another array without changing them", stack_array_p, nkr_NON_CONST)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
-                }                
+                    const stack_array_p stack_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array_p other;
+                    stack_array.Copy_To(other);
+                    CHECK(other.Count() == stack_array.Count());
+                    for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
+                        CHECK(other[idx] == stack_array[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not remove any units from other array", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    const stack_array_p stack_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array_p other = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array.Copy_To(other);
+                    CHECK(other.Count() == stack_array.Count() + 8);
+                    for (index_t idx = 8, end = other.Count(); idx < end; idx += 1) {
+                        CHECK(other[idx] == stack_array[idx - 8]);
+                    }
+                }
             }
 
             TEST_SUITE("Copy_From()")
             {
-                TEST_CASE_TEMPLATE("should copy each unit from another array", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy each unit from another array without changing them", stack_array_p, nkr_NON_CONST)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
+                    const stack_array_p other = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array_p stack_array;
+                    stack_array.Copy_From(other);
+                    CHECK(stack_array.Count() == other.Count());
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == other[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not remove any of its own units", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    const stack_array_p other = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array_p stack_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array.Copy_From(other);
+                    CHECK(stack_array.Count() == other.Count() + 8);
+                    for (index_t idx = 8, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == other[idx - 8]);
+                    }
                 }
             }
 
@@ -834,15 +926,123 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE("should move each of its units to another array", stack_array_p, nkr_NON_CONST)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
+                    if constexpr (writable_tr<unit_t>) {
+                        stack_array_p stack_array = {
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        };
+                        stack_array_p backup = stack_array;
+                        stack_array_p other;
+                        stack_array.Move_To(other);
+                        CHECK(stack_array.Count() == 0);
+                        CHECK(other.Count() == backup.Count());
+                        for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
+                            CHECK(other[idx] == backup[idx]);
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not remove any units from other array", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    if constexpr (writable_tr<unit_t>) {
+                        stack_array_p stack_array = {
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        };
+                        stack_array_p backup = stack_array;
+                        stack_array_p other = {
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        };
+                        stack_array.Move_To(other);
+                        CHECK(stack_array.Count() == 0);
+                        CHECK(other.Count() == backup.Count() + 8);
+                        for (index_t idx = 8, end = other.Count(); idx < end; idx += 1) {
+                            CHECK(other[idx] == backup[idx - 8]);
+                        }
+                    }
                 }
             }
 
             TEST_SUITE("Move_From()")
             {
-                TEST_CASE_TEMPLATE("should move each unit from another array", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should move each unit from another array", stack_array_p, nkr_NON_CONST)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
+                    if constexpr (writable_tr<unit_t>) {
+                        stack_array_p other = {
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        };
+                        stack_array_p backup = other;
+                        stack_array_p stack_array;
+                        stack_array.Move_From(other);
+                        CHECK(other.Count() == 0);
+                        CHECK(stack_array.Count() == backup.Count());
+                        for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                            CHECK(stack_array[idx] == backup[idx]);
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should not remove any of its own units", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    if constexpr (writable_tr<unit_t>) {
+                        stack_array_p other = {
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        };
+                        stack_array_p backup = other;
+                        stack_array_p stack_array = {
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                            Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        };
+                        stack_array.Move_From(other);
+                        CHECK(other.Count() == 0);
+                        CHECK(stack_array.Count() == backup.Count() + 8);
+                        for (index_t idx = 8, end = stack_array.Count(); idx < end; idx += 1) {
+                            CHECK(stack_array[idx] == backup[idx - 8]);
+                        }
+                    }
                 }
             }
 
@@ -850,12 +1050,24 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE("should return true when there are no units in the array", stack_array_p, nkr_ALL)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
+                    stack_array_p stack_array;
+                    CHECK(stack_array.Is_Clear() == true);
                 }
 
                 TEST_CASE_TEMPLATE("should return false when there are units in the array", stack_array_p, nkr_ALL)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
+                    stack_array_p stack_array = { Random<writable_unit_t>() };
+                    CHECK(stack_array.Is_Clear() == false);
                 }
             }
 
@@ -863,7 +1075,26 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE("should call the destructor of each unit and remove it from the array", stack_array_p, nkr_NON_CONST)
                 {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
 
+                    stack_array_p stack_array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    stack_array.Clear();
+                    CHECK(stack_array.Count() == 0);
+                    for (index_t idx = 0, end = stack_array.Capacity(); idx < end; idx += 1) {
+                        CHECK(stack_array.Array()[idx] == none_t());
+                    }
                 }
             }
         }

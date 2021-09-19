@@ -165,5 +165,17 @@ namespace nkr {
     static_assert(array_i<dynamic_array_t<const word_t>>);
     static_assert(array_i<dynamic_array_t<volatile word_t>>);
     static_assert(array_i<dynamic_array_t<const volatile word_t>>);
+    static_assert(array_i<const dynamic_array_t<word_t>>);
+    static_assert(array_i<const dynamic_array_t<const word_t>>);
+    static_assert(array_i<const dynamic_array_t<volatile word_t>>);
+    static_assert(array_i<const dynamic_array_t<const volatile word_t>>);
+    static_assert(array_i<volatile dynamic_array_t<word_t>>);
+    static_assert(array_i<volatile dynamic_array_t<const word_t>>);
+    static_assert(array_i<volatile dynamic_array_t<volatile word_t>>);
+    static_assert(array_i<volatile dynamic_array_t<const volatile word_t>>);
+    static_assert(array_i<const volatile dynamic_array_t<word_t>>);
+    static_assert(array_i<const volatile dynamic_array_t<const word_t>>);
+    static_assert(array_i<const volatile dynamic_array_t<volatile word_t>>);
+    static_assert(array_i<const volatile dynamic_array_t<const volatile word_t>>);
 
 }
