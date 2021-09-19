@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['total_0',['TOTAL',['../d1/dfc/classnkr_1_1signed__positive__t.html#a8f6ec4c00495b16ef903e190f1237c9a',1,'nkr::signed_positive_t::TOTAL()'],['../df/dc9/classnkr_1_1signed__negative__t.html#a1ce23e0a5d3d04ee0494d555a0e01df4',1,'nkr::signed_negative_t::TOTAL()']]]
+  ['default_5fvalue_0',['DEFAULT_VALUE',['../classnkr_1_1_0batomic__t_1_1boolean__sp.html#a43944b4cbb550f99f1db545c55b050a9',1,'nkr::$atomic_t::boolean_sp::DEFAULT_VALUE()'],['../classnkr_1_1_0batomic__t_1_1integer__sp.html#a67eeb398b93082ad0407069b7e35ae3c',1,'nkr::$atomic_t::integer_sp::DEFAULT_VALUE()'],['../classnkr_1_1_0batomic__t_1_1real__sp.html#ab530c478afaf14bf653348e4d9c29d9d',1,'nkr::$atomic_t::real_sp::DEFAULT_VALUE()'],['../classnkr_1_1_0batomic__t_1_1pointer__sp.html#af5f85370858f6cb0471bd2581f55315d',1,'nkr::$atomic_t::pointer_sp::DEFAULT_VALUE()'],['../classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a851397c20f682df84e1a71ed2494879c',1,'nkr::$atomic_t::void_pointer_sp::DEFAULT_VALUE()']]]
 ];

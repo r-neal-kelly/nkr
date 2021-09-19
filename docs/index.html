@@ -9,13 +9,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="custom.css" rel="stylesheet" type="text/css"/>
@@ -42,34 +43,33 @@
 var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */
-</script>
-<div id="main-nav"></div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="concepts.html"><span>Concepts</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -88,14 +88,14 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">Overview </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a class="anchor" id="mainpage"></a> This library is in the early stages of development, but what better time to start end-user documentation? Currently the most useful things about the library are the <a class="el" href="d5/dde/classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a> and the <a class="el" href="d9/df4/classnkr_1_1pointer__t.html">nkr::pointer_t</a>. These two types have fairly thorough tests in the sister project nkr_test ensuring their functionality, and I'm thinking about making a separate set of documentation for that as well.</p>
+<div class="textblock"><p ><a class="anchor" id="mainpage"></a> This library is in the early stages of development, but what better time to start end-user documentation? Currently the most useful things about the library are the <a class="el" href="classnkr_1_1atomic__t.html" title="The default template for nkr::atomic_t, which invalidates types not matching any specialization.">nkr::atomic_t</a> and the <a class="el" href="classnkr_1_1pointer__t.html">nkr::pointer_t</a>. These two types have fairly thorough tests in the sister project nkr_test ensuring their functionality, and I'm thinking about making a separate set of documentation for that as well.</p>
 <p >More to come as I implement more features! For now I'm going to document the types that are pretty solid.</p>
 <h1><a class="anchor" id="autotoc_md0"></a>
 Designs</h1>
 <h2><a class="anchor" id="_16d56f49_95ba_456e_a026_706c054cb133"></a>
 Class Concept Specializations</h2>
 <p >Because we are using the C++20 concepts feature, which is not fully implemented in all compilers, we do have to work around a couple of bugs that currently exist in two of the big compilers to varying degrees. In order to use out-of-body class definitions, we use a pattern of concept specialization that has the specializations inherit all of their members from a different class, including methods, ctors, dtor, and assignment operators. This effectively makes the specialization the same class as the base. We put these in a name space one step interior to the namespace where the type lives, and it's named after the type with an additional "$" prefixing it. We also put no members in the default class and only use the specializations. This is to avoid yet another bug that currently exists in one of the big compilers:</p>
-<div class="fragment"><div class="line"><span class="keyword">namespace </span><a class="code hl_namespace" href="dc/d0c/namespacenkr.html">nkr</a> { <span class="keyword">namespace </span>$class_t {</div>
+<div class="fragment"><div class="line"><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacenkr.html">nkr</a> { <span class="keyword">namespace </span>$class_t {</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">template</span> &lt;<span class="keywordtype">int</span>eger_tr <span class="keywordtype">int</span>eger_p&gt;</div>
 <div class="line">    <span class="keyword">class </span>integer_sp</div>
@@ -111,7 +111,7 @@ Class Concept Specializations</h2>
 <div class="line"> </div>
 <div class="line">}}</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">namespace </span><a class="code hl_namespace" href="dc/d0c/namespacenkr.html">nkr</a> {</div>
+<div class="line"><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacenkr.html">nkr</a> {</div>
 <div class="line"> </div>
 <div class="line">    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> inval<span class="keywordtype">id</span>_p&gt;</div>
 <div class="line">    <span class="keyword">class </span>class_t</div>
@@ -162,16 +162,13 @@ Class Concept Specializations</h2>
 <div class="line">    };</div>
 <div class="line"> </div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacenkr_html"><div class="ttname"><a href="dc/d0c/namespacenkr.html">nkr</a></div><div class="ttdoc">With the exception of &quot;nkr_&quot; prefixed macros, all other nkr entities are defined in this namespace.</div><div class="ttdef"><b>Definition:</b> allocator_heap_t.h:11</div></div>
+<div class="ttc" id="anamespacenkr_html"><div class="ttname"><a href="namespacenkr.html">nkr</a></div><div class="ttdoc">With the exception of &quot;nkr_&quot; prefixed macros, all other nkr entities are defined in this namespace.</div><div class="ttdef"><b>Definition:</b> allocator_heap_t_dec.h:13</div></div>
 </div><!-- fragment --><p ><a href="https://stackoverflow.com/questions/68589314/how-to-define-a-specialized-class-method-outside-of-class-body-in-c">Read about this on stackoverflow.</a> </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+</small></address>
 </body>
 </html>

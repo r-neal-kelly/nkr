@@ -9,13 +9,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="custom.css" rel="stylesheet" type="text/css"/>
@@ -42,34 +43,75 @@
 var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */
-</script>
-<div id="main-nav"></div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="concepts.html"><span>Concepts</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
+      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow3" class="tabs2">
+    <ul class="tablist">
+      <li class="current"><a href="functions.html"><span>All</span></a></li>
+      <li><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
+      <li><a href="functions_type.html"><span>Typedefs</span></a></li>
+      <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="functions.html#index_a"><span>a</span></a></li>
+      <li><a href="functions_b.html#index_b"><span>b</span></a></li>
+      <li><a href="functions_c.html#index_c"><span>c</span></a></li>
+      <li><a href="functions_d.html#index_d"><span>d</span></a></li>
+      <li><a href="functions_e.html#index_e"><span>e</span></a></li>
+      <li><a href="functions_f.html#index_f"><span>f</span></a></li>
+      <li><a href="functions_g.html#index_g"><span>g</span></a></li>
+      <li><a href="functions_h.html#index_h"><span>h</span></a></li>
+      <li><a href="functions_i.html#index_i"><span>i</span></a></li>
+      <li><a href="functions_m.html#index_m"><span>m</span></a></li>
+      <li><a href="functions_n.html#index_n"><span>n</span></a></li>
+      <li><a href="functions_o.html#index_o"><span>o</span></a></li>
+      <li><a href="functions_p.html#index_p"><span>p</span></a></li>
+      <li><a href="functions_r.html#index_r"><span>r</span></a></li>
+      <li><a href="functions_s.html#index_s"><span>s</span></a></li>
+      <li><a href="functions_t.html#index_t"><span>t</span></a></li>
+      <li class="current"><a href="functions_u.html#index_u"><span>u</span></a></li>
+      <li><a href="functions_v.html#index_v"><span>v</span></a></li>
+      <li><a href="functions_w.html#index_w"><span>w</span></a></li>
+      <li><a href="functions_~.html#index__7E"><span>~</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('functions_u.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -88,24 +130,39 @@ $(document).ready(function(){initNavTree('functions_u.html',''); initResizable()
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_u" name="index_u"></a>- u -</h3><ul>
-<li>unit_count&#160;:&#160;<a class="el" href="d9/df4/classnkr_1_1pointer__t.html#ad965cafc3d4b13a4a8f27607746a6c5f">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>Unit_Count()&#160;:&#160;<a class="el" href="d9/df4/classnkr_1_1pointer__t.html#adcd2782e736eacac3548fece2e78e1a7">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>unit_size()&#160;:&#160;<a class="el" href="da/daa/classnkr_1_1charcoder__utf__8__t.html#aa7e59b0534cd41acb69f146ef77bd725">nkr::charcoder_utf_8_t</a></li>
-<li>UNIT_SIZE&#160;:&#160;<a class="el" href="da/daa/classnkr_1_1charcoder__utf__8__t.html#a832d90168394e2a54193265a07221502">nkr::charcoder_utf_8_t</a>, <a class="el" href="d9/df4/classnkr_1_1pointer__t.html#a529677bd2fc1621f0c88925de8e46dc7">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>unit_size()&#160;:&#160;<a class="el" href="d4/d5c/classnkr_1_1string__static__t.html#a878bcd8328900bc0a3c72dcb0681e01f">nkr::string_static_t&lt; charcoder &gt;</a></li>
-<li>unit_t&#160;:&#160;<a class="el" href="d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</a>, <a class="el" href="d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a0017319be41e505e8bbc7548aaf9bb64">nkr::$atomic_t::void_pointer_sp</a>, <a class="el" href="d9/df1/classnkr_1_1allocator__heap__t.html#aa4409d4f4781efe1ace340f28566031a">nkr::allocator_heap_t&lt; unit &gt;</a>, <a class="el" href="d5/d74/classnkr_1_1array__dynamic__t.html#a2bf32c0d8cedc71a60e58f53d287e800">nkr::array_dynamic_t&lt; unit, allocator &gt;</a>, <a class="el" href="da/daa/classnkr_1_1charcoder__utf__8__t.html#ad150ff271cfe9c19711e127a93096dba">nkr::charcoder_utf_8_t</a>, <a class="el" href="d9/df4/classnkr_1_1pointer__t.html#ae666971cfa3291b0d4f0a77bc81a2f9c">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>units&#160;:&#160;<a class="el" href="d9/df4/classnkr_1_1pointer__t.html#ae75e6a3380fe1af067cffbdb8e3f1264">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>Units()&#160;:&#160;<a class="el" href="d9/df4/classnkr_1_1pointer__t.html#ac3ebfd9044266be07597b7183cc6902d">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>units_t&#160;:&#160;<a class="el" href="d5/d11/classnkr_1_1_0batomic__t_1_1pointer__sp.html#a2429ba8a11b219641924200de3a2bcb0">nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</a>, <a class="el" href="d5/d67/classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#abf6d4657510016d670595176d46c1792">nkr::$atomic_t::void_pointer_sp</a>, <a class="el" href="d9/df4/classnkr_1_1pointer__t.html#adcf5304b5026cb892e8179e380533d6c">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>user_defined_sp()&#160;:&#160;<a class="el" href="d2/d57/classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#a325168f0c11f0fd673eed4014752b7f7">nkr::$maybe_t::user_defined_sp&lt; user_defined_p &gt;</a></li>
+<li>Unit()&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#a18bfe70ad2ccc69a39c2d28e28f14d16">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a890b240e23fddaadbb88a7eeeaed9f0b">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a></li>
+<li>unit&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1ascii__t.html#adf064c562ffa54ed2f9ade7bf3174931">nkr::charcoder::ascii_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__32__t.html#a94e564ec2d59112aeca0e0038efce476">nkr::charcoder::utf_32_t</a></li>
+<li>unit_count&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#aa9e5ae338f0c93d4d120c8c29e4ab9c0">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a></li>
+<li>Unit_Count()&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#aea70cd279e3c45c348cc72b07beca08b">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#afd1b63b5dd285e94c2823a1b77293c67">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a></li>
+<li>unit_count&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a157d70171f80694d484f62b91c4fa83b">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a></li>
+<li>Unit_Count()&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a6aecb9a3f81b88625282869dabf25905">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1charcoder_1_1ascii__t.html#abbb3aea7682e9e11065b437974c77652">nkr::charcoder::ascii_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__16__t.html#a8ff1c03d24989b4c718f5d2be6765eea">nkr::charcoder::utf_16_t</a></li>
+<li>unit_count&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__16__t.html#aa6d33a17e941922366be292aed56cd94">nkr::charcoder::utf_16_t</a></li>
+<li>Unit_Count()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__32__t.html#aa0df2ae691e5cc3ef675edc7198e5832">nkr::charcoder::utf_32_t</a></li>
+<li>unit_count&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__8__t.html#aaab3dcff8701034b6506754680aec468">nkr::charcoder::utf_8_t</a></li>
+<li>Unit_Count()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__8__t.html#a6a4e710cabe6893e957630355e700ae8">nkr::charcoder::utf_8_t</a></li>
+<li>unit_count&#160;:&#160;<a class="el" href="classnkr_1_1dynamic__array__t.html#acc2ebf34634ed62c4fdd0e90e3d3d970">nkr::dynamic_array_t&lt; unit_p, allocator_p, grow_rate_p &gt;</a>, <a class="el" href="classnkr_1_1stack__array__t.html#a7c1ed346df143fcc05d8c4ca3bdfe1d6">nkr::stack_array_t&lt; unit_p, capacity_p &gt;</a></li>
+<li>unit_size()&#160;:&#160;<a class="el" href="classnkr_1_1string__static__t.html#a878bcd8328900bc0a3c72dcb0681e01f">nkr::string_static_t&lt; charcoder &gt;</a></li>
+<li>unit_t&#160;:&#160;<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</a>, <a class="el" href="classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#a0017319be41e505e8bbc7548aaf9bb64">nkr::$atomic_t::void_pointer_sp</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#a86084f855662561af348055b67bf477d">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a9be9d5541918bc45f2c49fff0c17d780">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1allocator_1_1heap__t.html#a5c30b02946b76ad8f35b800510ca8358">nkr::allocator::heap_t&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1allocator_1_1heap__zeros__t.html#a41726f642eb620d38d6800946e89a15a">nkr::allocator::heap_zeros_t&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1charcoder_1_1ascii__t.html#aa3d693e06298a23c1f43354445e81e95">nkr::charcoder::ascii_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__16__t.html#aedc7cdd02ba97882338744860165bfcd">nkr::charcoder::utf_16_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__32__t.html#a6e79fa94731aa4f4a6c542055d359e33">nkr::charcoder::utf_32_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__8__t.html#a480c154f35f76ead7095e8f0c6b3a5d4">nkr::charcoder::utf_8_t</a>, <a class="el" href="classnkr_1_1dynamic__array__t.html#ade3159458571e2cc0fa839d9a154e977">nkr::dynamic_array_t&lt; unit_p, allocator_p, grow_rate_p &gt;</a>, <a class="el" href="classnkr_1_1is__array__tmpl_3_01type__p_0f_0e_4.html#a7f06e58abdd24afcc16c38727c2ab838">nkr::is_array_tmpl&lt; type_p[]&gt;</a>, <a class="el" href="classnkr_1_1is__array__tmpl_3_01type__p_0fcount__p_0e_4.html#a622658c46f2dada85b97a4a76871ee36">nkr::is_array_tmpl&lt; type_p[count_p]&gt;</a>, <a class="el" href="classnkr_1_1stack__array__t.html#a9cd96ce08fd1d9cf8f450e8fa7fd328c">nkr::stack_array_t&lt; unit_p, capacity_p &gt;</a></li>
+<li>Units()&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#acb1f348cb97fec604eb87b77c45169e5">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a></li>
+<li>units&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#a683be2cbaf44afd02c069e93bd3405f3">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a></li>
+<li>Units()&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#a3526692f1cefb31ce2601ea784620a5a">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a91d0b29a546015b8ac20a9f0814679b6">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a></li>
+<li>units&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a80e1d3f2e03e50bac81941604a240a4d">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a></li>
+<li>Units()&#160;:&#160;<a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#a00fe23a601fd889356f9666b5ac02099">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a></li>
+<li>units&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__16__t.html#aac8648eb7e5f3b056b8f788aa228c2d4">nkr::charcoder::utf_16_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__8__t.html#a9730ea6e9d2fa1e8e014c4f1e3c72bb8">nkr::charcoder::utf_8_t</a></li>
+<li>units_t&#160;:&#160;<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a2429ba8a11b219641924200de3a2bcb0">nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</a>, <a class="el" href="classnkr_1_1_0batomic__t_1_1void__pointer__sp.html#abf6d4657510016d670595176d46c1792">nkr::$atomic_t::void_pointer_sp</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1non__type__sp.html#a307b1db0f47218739a3b7bbdb18b953d">nkr::$pointer_t::non_type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1_0bpointer__t_1_1type__sp.html#aed931f2101d3b73034487e4904d63d7a">nkr::$pointer_t::type_sp&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1allocator_1_1heap__t.html#aaf8d87d62b8d22b78e06211a5db68178">nkr::allocator::heap_t&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1allocator_1_1heap__zeros__t.html#a3f059ce989869148ec4edf78d0e52bce">nkr::allocator::heap_zeros_t&lt; unit_p &gt;</a></li>
+<li>user_defined_sp()&#160;:&#160;<a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#a703f1ce2c2f1dea415f7ffb50191d1b8">nkr::$maybe_t::user_defined_sp&lt; user_defined_p &gt;</a>, <a class="el" href="classnkr_1_1maybe__t_3_01user__defined__p_01_4.html#a703f1ce2c2f1dea415f7ffb50191d1b8">nkr::maybe_t&lt; user_defined_p &gt;</a></li>
+<li>utf_16_be_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__16__be__t.html#a29fb5ea726e2dd600c2eb9a53d61dc2d">nkr::charcoder::utf_16_be_t</a></li>
+<li>utf_16_le_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__16__le__t.html#aa3a467d5edfbe73b382dc6f862d710f5">nkr::charcoder::utf_16_le_t</a></li>
+<li>utf_16_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__16__be__t.html#aacc1ec8fcdc4dd31cd1fa570a9771478">nkr::charcoder::utf_16_be_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__16__le__t.html#aacc1ec8fcdc4dd31cd1fa570a9771478">nkr::charcoder::utf_16_le_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__16__t.html#aacc1ec8fcdc4dd31cd1fa570a9771478">nkr::charcoder::utf_16_t</a></li>
+<li>utf_32_be_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__32__be__t.html#ade8cc6ca3018b3096ebb994afe355328">nkr::charcoder::utf_32_be_t</a></li>
+<li>utf_32_le_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__32__le__t.html#aae1611ec6e6ffceda3f0e62e9f057881">nkr::charcoder::utf_32_le_t</a></li>
+<li>utf_32_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__32__be__t.html#aef4f95e4a3b7d78d276779a01a18d851">nkr::charcoder::utf_32_be_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__32__le__t.html#aef4f95e4a3b7d78d276779a01a18d851">nkr::charcoder::utf_32_le_t</a>, <a class="el" href="classnkr_1_1charcoder_1_1utf__32__t.html#aef4f95e4a3b7d78d276779a01a18d851">nkr::charcoder::utf_32_t</a></li>
+<li>utf_8_t()&#160;:&#160;<a class="el" href="classnkr_1_1charcoder_1_1utf__8__t.html#a7ecfaa8b28c546ae69e3689d57563f8f">nkr::charcoder::utf_8_t</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+</small></address>
 </body>
 </html>

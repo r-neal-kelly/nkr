@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['signed_5fnegative_5ft_0',['signed_negative_t',['../df/dc9/classnkr_1_1signed__negative__t.html',1,'nkr']]],
-  ['signed_5fpositive_5ft_1',['signed_positive_t',['../d1/dfc/classnkr_1_1signed__positive__t.html',1,'nkr']]],
-  ['some_5ft_2',['some_t',['../d1/def/classnkr_1_1some__t.html',1,'nkr']]],
-  ['string_5fdynamic_5ft_3',['string_dynamic_t',['../d9/d32/classnkr_1_1string__dynamic__t.html',1,'nkr']]],
-  ['string_5fstatic_5ft_4',['string_static_t',['../d4/d5c/classnkr_1_1string__static__t.html',1,'nkr']]],
-  ['string_5fstatic_5ft_3c_20charcoder_5futf_5f8_5ft_20_3e_5',['string_static_t&lt; charcoder_utf_8_t &gt;',['../d4/d5c/classnkr_1_1string__static__t.html',1,'nkr']]]
+  ['pointer_5fsp_0',['pointer_sp',['../classnkr_1_1_0batomic__t_1_1pointer__sp.html',1,'nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;'],['../classnkr_1_1_0bmaybe__t_1_1_0bbuilt__in__sp_1_1pointer__sp.html',1,'nkr::$maybe_t::$built_in_sp::pointer_sp&lt; pointer_p &gt;']]],
+  ['pointer_5ft_1',['pointer_t',['../classnkr_1_1pointer__t.html',1,'nkr']]],
+  ['pointer_5ft_3c_20unit_5fp_20_3e_2',['pointer_t&lt; unit_p &gt;',['../classnkr_1_1pointer__t_3_01unit__p_01_4.html',1,'nkr']]],
+  ['pointer_5ft_3c_20writable_5funit_5ft_20_3e_3',['pointer_t&lt; writable_unit_t &gt;',['../classnkr_1_1pointer__t.html',1,'nkr']]]
 ];

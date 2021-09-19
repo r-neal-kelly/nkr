@@ -9,13 +9,14 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 <link href="custom.css" rel="stylesheet" type="text/css"/>
@@ -42,34 +43,75 @@
 var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */
-</script>
-<div id="main-nav"></div>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="concepts.html"><span>Concepts</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.svg"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
+      <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow3" class="tabs2">
+    <ul class="tablist">
+      <li class="current"><a href="functions.html"><span>All</span></a></li>
+      <li><a href="functions_func.html"><span>Functions</span></a></li>
+      <li><a href="functions_vars.html"><span>Variables</span></a></li>
+      <li><a href="functions_type.html"><span>Typedefs</span></a></li>
+      <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
+      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="functions.html#index_a"><span>a</span></a></li>
+      <li><a href="functions_b.html#index_b"><span>b</span></a></li>
+      <li><a href="functions_c.html#index_c"><span>c</span></a></li>
+      <li><a href="functions_d.html#index_d"><span>d</span></a></li>
+      <li><a href="functions_e.html#index_e"><span>e</span></a></li>
+      <li><a href="functions_f.html#index_f"><span>f</span></a></li>
+      <li><a href="functions_g.html#index_g"><span>g</span></a></li>
+      <li><a href="functions_h.html#index_h"><span>h</span></a></li>
+      <li><a href="functions_i.html#index_i"><span>i</span></a></li>
+      <li class="current"><a href="functions_m.html#index_m"><span>m</span></a></li>
+      <li><a href="functions_n.html#index_n"><span>n</span></a></li>
+      <li><a href="functions_o.html#index_o"><span>o</span></a></li>
+      <li><a href="functions_p.html#index_p"><span>p</span></a></li>
+      <li><a href="functions_r.html#index_r"><span>r</span></a></li>
+      <li><a href="functions_s.html#index_s"><span>s</span></a></li>
+      <li><a href="functions_t.html#index_t"><span>t</span></a></li>
+      <li><a href="functions_u.html#index_u"><span>u</span></a></li>
+      <li><a href="functions_v.html#index_v"><span>v</span></a></li>
+      <li><a href="functions_w.html#index_w"><span>w</span></a></li>
+      <li><a href="functions_~.html#index__7E"><span>~</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('functions_m.html',''); initResizable(); });
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -88,18 +130,17 @@ $(document).ready(function(){initNavTree('functions_m.html',''); initResizable()
 <div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
 
 <h3><a id="index_m" name="index_m"></a>- m -</h3><ul>
-<li>MAX&#160;:&#160;<a class="el" href="df/dc9/classnkr_1_1signed__negative__t.html#a3cac8ae33fd4fcc61030097d92d6ccef">nkr::signed_negative_t&lt; integer_p &gt;</a>, <a class="el" href="d1/dfc/classnkr_1_1signed__positive__t.html#ac89326caf037ee9e87523c9f83a4e58f">nkr::signed_positive_t&lt; integer_p &gt;</a></li>
-<li>MAX_UNIT_COUNT&#160;:&#160;<a class="el" href="d9/df4/classnkr_1_1pointer__t.html#a0ef30e55989ad8214c52115347b050dd">nkr::pointer_t&lt; unit_p &gt;</a></li>
-<li>maybe_t()&#160;:&#160;<a class="el" href="d3/dd5/classnkr_1_1maybe__t.html#aef84827306ce45cc34b2f2cbe0e158f5">nkr::maybe_t&lt; invalid_p &gt;</a>, <a class="el" href="d4/d6f/classnkr_1_1maybe__t_3_01built__in__p_01_4.html#a20a30c3d15147bf727625cfa1697add9">nkr::maybe_t&lt; built_in_p &gt;</a>, <a class="el" href="d9/d5d/classnkr_1_1maybe__t_3_01user__defined__p_01_4.html#ab150d7223fa00c7a3878dbbfd74df2f7">nkr::maybe_t&lt; user_defined_p &gt;</a></li>
-<li>MIN&#160;:&#160;<a class="el" href="df/dc9/classnkr_1_1signed__negative__t.html#a9a60e5c6b9fb3ee95012cf9c05eb5105">nkr::signed_negative_t&lt; integer_p &gt;</a>, <a class="el" href="d1/dfc/classnkr_1_1signed__positive__t.html#ab230e5eb07ce9465099d1e9c64fcb9cd">nkr::signed_positive_t&lt; integer_p &gt;</a></li>
+<li>MAX&#160;:&#160;<a class="el" href="classnkr_1_1signed__negative__t.html#a3cac8ae33fd4fcc61030097d92d6ccef">nkr::signed_negative_t&lt; integer_p &gt;</a>, <a class="el" href="classnkr_1_1signed__positive__t.html#ac89326caf037ee9e87523c9f83a4e58f">nkr::signed_positive_t&lt; integer_p &gt;</a></li>
+<li>Max_Unit_Count()&#160;:&#160;<a class="el" href="classnkr_1_1allocator_1_1heap__t.html#a0c77d45a11cb4487b21a96d2aa4b6629">nkr::allocator::heap_t&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1allocator_1_1heap__zeros__t.html#a4325f6e14c3d5eae2d1a136c518ca6c1">nkr::allocator::heap_zeros_t&lt; unit_p &gt;</a></li>
+<li>maybe_t()&#160;:&#160;<a class="el" href="classnkr_1_1maybe__t.html#aef84827306ce45cc34b2f2cbe0e158f5">nkr::maybe_t&lt; invalid_p &gt;</a>, <a class="el" href="classnkr_1_1maybe__t_3_01built__in__p_01_4.html#a968301724704c5436646d83698db131b">nkr::maybe_t&lt; built_in_p &gt;</a>, <a class="el" href="classnkr_1_1maybe__t_3_01user__defined__p_01_4.html#a9a524f62c72703255448f044374bf073">nkr::maybe_t&lt; user_defined_p &gt;</a></li>
+<li>MIN&#160;:&#160;<a class="el" href="classnkr_1_1signed__negative__t.html#a9a60e5c6b9fb3ee95012cf9c05eb5105">nkr::signed_negative_t&lt; integer_p &gt;</a>, <a class="el" href="classnkr_1_1signed__positive__t.html#ab230e5eb07ce9465099d1e9c64fcb9cd">nkr::signed_positive_t&lt; integer_p &gt;</a></li>
+<li>Min_Unit_Count()&#160;:&#160;<a class="el" href="classnkr_1_1allocator_1_1heap__t.html#a52e688b3bdafbc14968d98df8a8c9feb">nkr::allocator::heap_t&lt; unit_p &gt;</a>, <a class="el" href="classnkr_1_1allocator_1_1heap__zeros__t.html#a8dd4aedd178b20287895ecd6963f57fe">nkr::allocator::heap_zeros_t&lt; unit_p &gt;</a></li>
+<li>Move_Into()&#160;:&#160;<a class="el" href="classnkr_1_1stack__array__t.html#a91511dde313aaa3e3def264d1f0b3a23">nkr::stack_array_t&lt; unit_p, capacity_p &gt;</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
+</small></address>
 </body>
 </html>

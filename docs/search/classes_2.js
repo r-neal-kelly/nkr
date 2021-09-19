@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['charcoder_5futf_5f8_5ft_0',['charcoder_utf_8_t',['../da/daa/classnkr_1_1charcoder__utf__8__t.html',1,'nkr']]]
+  ['dynamic_5farray_5ft_0',['dynamic_array_t',['../classnkr_1_1dynamic__array__t.html',1,'nkr']]]
 ];

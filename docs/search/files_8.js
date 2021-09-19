@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['pointer_5ft_2eh_0',['pointer_t.h',['../d4/d48/pointer__t_8h.html',1,'']]],
-  ['pointer_5ft_2einl_1',['pointer_t.inl',['../d7/d21/pointer__t_8inl.html',1,'']]]
+  ['os_2edox_0',['os.dox',['../os_8dox.html',1,'']]],
+  ['os_2eh_1',['os.h',['../os_8h.html',1,'']]],
+  ['os_2einl_2',['os.inl',['../os_8inl.html',1,'']]]
 ];
