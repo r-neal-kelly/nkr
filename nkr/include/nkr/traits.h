@@ -47,6 +47,10 @@ namespace nkr {
     concept any_tr =
         is_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
 
+    template <typename type_a_p, typename type_b_p>
+    concept not_any_tr =
+        !any_tr<type_a_p, type_b_p>;
+
     template <typename type_p>
     concept type_tr =
         sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
@@ -64,6 +68,10 @@ namespace nkr {
     concept any_writable_tr =
         any_tr<type_a_p, type_b_p> &&
         writable_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_any_writable_tr =
+        !any_writable_tr<type_a_p, type_b_p>;
 
     template <typename type_p>
     concept unwritable_tr =

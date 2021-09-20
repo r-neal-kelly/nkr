@@ -18,7 +18,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Copy(const any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to)
+        stack_array_t<unit_p, capacity_p>::Copy(const any_stack_array_tr auto& from, any_writable_stack_array_tr auto& to)
     {
         assert(to.unit_count == 0);
 

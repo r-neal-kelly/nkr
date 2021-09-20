@@ -12,6 +12,105 @@
 namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
+    class stack_array_t;
+
+    template <typename array_p>
+    concept stack_array_tr =
+        is_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
+
+    template <typename array_p>
+    concept any_stack_array_tr =
+        any_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
+
+    template <typename array_p>
+    concept any_writable_stack_array_tr =
+        any_writable_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
+
+    template <typename array_p>
+    concept any_unwritable_stack_array_tr =
+        any_unwritable_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
+
+    template <typename array_p, typename unit_p>
+    concept stack_array_of_tr =
+        stack_array_tr<array_p> &&
+        is_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_stack_array_of_tr =
+        any_stack_array_tr<array_p> &&
+        is_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_writable_stack_array_of_tr =
+        any_writable_stack_array_tr<array_p> &&
+        is_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_unwritable_stack_array_of_tr =
+        any_unwritable_stack_array_tr<array_p> &&
+        is_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept stack_array_of_any_tr =
+        stack_array_tr<array_p> &&
+        any_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_stack_array_of_any_tr =
+        any_stack_array_tr<array_p> &&
+        any_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_writable_stack_array_of_any_tr =
+        any_writable_stack_array_tr<array_p> &&
+        any_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_unwritable_stack_array_of_any_tr =
+        any_unwritable_stack_array_tr<array_p> &&
+        any_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept stack_array_of_any_writable_tr =
+        stack_array_tr<array_p> &&
+        any_writable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_stack_array_of_any_writable_tr =
+        any_stack_array_tr<array_p> &&
+        any_writable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_writable_stack_array_of_any_writable_tr =
+        any_writable_stack_array_tr<array_p> &&
+        any_writable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_unwritable_stack_array_of_any_writable_tr =
+        any_unwritable_stack_array_tr<array_p> &&
+        any_writable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept stack_array_of_any_unwritable_tr =
+        stack_array_tr<array_p> &&
+        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_stack_array_of_any_unwritable_tr =
+        any_stack_array_tr<array_p> &&
+        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_writable_stack_array_of_any_unwritable_tr =
+        any_writable_stack_array_tr<array_p> &&
+        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept any_unwritable_stack_array_of_any_unwritable_tr =
+        any_unwritable_stack_array_tr<array_p> &&
+        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+
+    template <type_tr unit_p, count_t capacity_p>
     class stack_array_t
     {
     public:
@@ -27,7 +126,7 @@ namespace nkr {
         static constexpr count_t    Capacity();
 
     private:
-        static void_t   Copy(const any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to);
+        static void_t   Copy(const any_stack_array_tr auto& from, any_writable_stack_array_tr auto& to);
         static void_t   Move(any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to);
         static void_t   Destroy(any_tr<stack_array_t> auto& self);
 
@@ -65,16 +164,15 @@ namespace nkr {
 
         stack_array_t(any_tr<unit_t> auto& ...args);
         stack_array_t(any_writable_tr<unit_t> auto&& ...args);
-        stack_array_t(any_unwritable_tr<unit_t> auto&& ...args)                                 = delete;
 
         stack_array_t(const stack_array_t& other);
         stack_array_t(const volatile stack_array_t& other);
         stack_array_t(stack_array_t&& other) noexcept;
         stack_array_t(volatile stack_array_t&& other) noexcept;
 
-        stack_array_t& operator =(const stack_array_t& other);
+        stack_array_t&          operator =(const stack_array_t& other);
         volatile stack_array_t& operator =(const volatile stack_array_t& other) volatile;
-        stack_array_t& operator =(stack_array_t&& other) noexcept;
+        stack_array_t&          operator =(stack_array_t&& other) noexcept;
         volatile stack_array_t& operator =(volatile stack_array_t&& other) volatile noexcept;
 
         ~stack_array_t();
@@ -93,9 +191,10 @@ namespace nkr {
         const volatile unit_t&  At(index_t index) const volatile;
         void_t                  Push(any_tr<unit_t> auto& ...units);
         void_t                  Push(any_tr<unit_t> auto& ...units) volatile;
+        void_t                  Push(not_any_tr<unit_t> auto& ...units) const volatile                              = delete;
         void_t                  Push(any_writable_tr<unit_t> auto&& ...units);
         void_t                  Push(any_writable_tr<unit_t> auto&& ...units) volatile;
-        void_t                  Push(any_unwritable_tr<unit_t> auto&& ...units) const volatile                      = delete;
+        void_t                  Push(not_any_writable_tr<unit_t> auto&& ...units) const volatile                    = delete;
         unit_t                  Pop();
         volatile unit_t         Pop() volatile;
 
@@ -143,30 +242,6 @@ namespace nkr {
     static_assert(array_i<const volatile stack_array_t<const word_t, 64>>);
     static_assert(array_i<const volatile stack_array_t<volatile word_t, 64>>);
     static_assert(array_i<const volatile stack_array_t<const volatile word_t, 64>>);
-
-    template <typename type_p>
-    concept stack_array_tr =
-        is_tr<type_p, stack_array_t<typename type_p::unit_t, type_p::Capacity()>>;
-
-    template <typename type_p, typename unit_p>
-    concept stack_array_of_tr =
-        stack_array_tr<type_p> &&
-        is_tr<unit_p, typename type_p::unit_t>;
-
-    template <typename type_p, typename unit_p>
-    concept stack_array_of_any_tr =
-        stack_array_tr<type_p> &&
-        any_tr<unit_p, typename type_p::unit_t>;
-
-    template <typename type_p, typename unit_p>
-    concept stack_array_of_any_writable_tr =
-        stack_array_of_any_tr<type_p, unit_p> &&
-        writable_tr<typename type_p::unit_t>;
-
-    template <typename type_p, typename unit_p>
-    concept stack_array_of_any_unwritable_tr =
-        stack_array_of_any_tr<type_p, unit_p> &&
-        unwritable_tr<typename type_p::unit_t>;
 
     template <writable_tr head_p, is_tr<head_p> ...tail_p>
     class instant_array_t :
