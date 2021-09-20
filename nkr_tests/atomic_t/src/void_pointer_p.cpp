@@ -19,7 +19,7 @@ namespace nkr {
                 /// [_29ece5d9_f58b_4dcc_8d1b_0b58447ad4b8]
                 TEST_CASE("should equal the passed in type")
                 {
-                    static_assert(std::same_as<atomic_t<void_t*>::value_t, void_t*>);
+                    static_assert(is_tr<atomic_t<void_t*>::value_t, void_t*>);
                 }
                 /// [_29ece5d9_f58b_4dcc_8d1b_0b58447ad4b8]
             }
@@ -29,7 +29,7 @@ namespace nkr {
                 /// [_575ddcbe_77bb_4096_9044_b9cbdc8b19ae]
                 TEST_CASE("should equal the pointer type being represented")
                 {
-                    static_assert(std::same_as<atomic_t<void_t*>::units_t, void_t*>);
+                    static_assert(is_tr<atomic_t<void_t*>::units_t, void_t*>);
                 }
                 /// [_575ddcbe_77bb_4096_9044_b9cbdc8b19ae]
             }
@@ -39,7 +39,7 @@ namespace nkr {
                 /// [_1156a952_7f99_4e80_a410_33eb95b807e9]
                 TEST_CASE("should equal the type being pointed to")
                 {
-                    static_assert(std::same_as<atomic_t<void_t*>::unit_t, std::remove_pointer_t<void_t*>>);
+                    static_assert(is_tr<atomic_t<void_t*>::unit_t, std::remove_pointer_t<void_t*>>);
                 }
                 /// [_1156a952_7f99_4e80_a410_33eb95b807e9]
             }

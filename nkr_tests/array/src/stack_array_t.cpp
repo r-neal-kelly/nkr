@@ -54,7 +54,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    static_assert(same_as_tr<unit_t, unit_t>);
+                    static_assert(is_tr<unit_t, unit_t>);
                 }
             }
 
@@ -67,7 +67,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    static_assert(same_as_tr<writable_unit_t, std::remove_const_t<unit_t>>);
+                    static_assert(is_tr<writable_unit_t, std::remove_const_t<unit_t>>);
                 }
             }
 
@@ -80,7 +80,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    static_assert(same_as_tr<array_t, unit_t[stack_array_p::Capacity()]>);
+                    static_assert(is_tr<array_t, unit_t[stack_array_p::Capacity()]>);
                 }
             }
 
@@ -93,7 +93,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    static_assert(same_as_tr<writable_array_t, writable_unit_t[stack_array_p::Capacity()]>);
+                    static_assert(is_tr<writable_array_t, writable_unit_t[stack_array_p::Capacity()]>);
                 }
             }
         }

@@ -39,30 +39,43 @@ namespace nkr {
         }
     };
 
-    /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
-    /// @{
-    template <typename type_p>
+    template <typename type_a_p, typename type_b_p>
+    concept is_tr =
+        std::same_as<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
     concept any_tr =
-        true;                                       ///< @copydoc _2a77c3a0_ab8b_448e_a181_72b8efb266bf
+        is_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
 
     template <typename type_p>
     concept type_tr =
         sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
 
-    template <typename non_type_p>
+    template <typename type_p>
     concept non_type_tr =
-        !type_tr<non_type_p>;
+        !type_tr<type_p>;
 
     template <typename type_p>
     concept writable_tr =
         type_tr<type_p> &&
         !std::is_const_v<type_p>;
 
+    template <typename type_a_p, typename type_b_p>
+    concept any_writable_tr =
+        any_tr<type_a_p, type_b_p> &&
+        writable_tr<type_a_p>;
+
     template <typename type_p>
     concept unwritable_tr =
-        !type_tr<type_p> ||
-        std::is_const_v<type_p>;
+        !writable_tr<type_p>;
 
+    template <typename type_a_p, typename type_b_p>
+    concept any_unwritable_tr =
+        any_tr<type_a_p, type_b_p> &&
+        unwritable_tr<type_a_p>;
+
+    /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
+    /// @{
     template <typename from_p, typename to_p>
     concept convertible_tr =
         std::convertible_to<from_p, to_p>;
@@ -77,8 +90,8 @@ namespace nkr {
 
     template <typename type_p>
     concept boolean_tr =
-        std::same_as<std::remove_cv_t<type_p>, bool_t> ||
-        std::same_as<std::remove_cv_t<type_p>, std_bool_t>; /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+        is_tr<std::remove_cv_t<type_p>, bool_t> ||
+        is_tr<std::remove_cv_t<type_p>, std_bool_t>; /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
 
     template <typename type_p>
     concept to_boolean_tr =
@@ -95,7 +108,7 @@ namespace nkr {
     template <typename type_p>
     concept integer_tr =
         std::is_integral<type_p>::value &&
-        !std::same_as<std::remove_cv_t<type_p>, std_bool_t>;    ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
+        !is_tr<std::remove_cv_t<type_p>, std_bool_t>;    ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
 
     template <typename type_p>
     concept integer_unsigned_tr =
@@ -211,11 +224,11 @@ namespace nkr {
     template <typename type_p, typename of_p>
     concept std_array_of_tr =
         std_array_tr<type_p> &&
-        std::same_as<typename is_array_tmpl<type_p>::unit_t, of_p>;
+        is_tr<typename is_array_tmpl<type_p>::unit_t, of_p>;
 
     template <typename type_p>
     concept built_in_tr =
-        std::same_as<std::remove_cv_t<type_p>, std_bool_t> ||
+        is_tr<std::remove_cv_t<type_p>, std_bool_t> ||
         integer_tr<type_p> ||
         real_tr<type_p> ||
         pointer_tr<type_p>;                     ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
@@ -263,51 +276,6 @@ namespace nkr {
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_tr =
-        std::same_as<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_any_tr =
-        same_as_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_any_lvalue_tr =
-        same_as_any_tr<type_a_p, type_b_p> &&
-        std::is_lvalue_reference_v<type_a_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_any_writable_tr =
-        same_as_any_tr<type_a_p, type_b_p> &&
-        writable_tr<type_a_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_any_writable_rvalue_tr =
-        same_as_any_writable_tr<type_a_p, type_b_p> &&
-        std::is_rvalue_reference_v<type_a_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept same_as_any_unwritable_tr =
-        same_as_any_tr<type_a_p, type_b_p> &&
-        unwritable_tr<type_a_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept convertible_to_tr =
-        std::convertible_to<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept convertible_to_any_tr =
-        convertible_to_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept convertible_to_any_writable_tr =
-        convertible_to_any_tr<type_a_p, type_b_p> &&
-        writable_tr<type_a_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept convertible_to_any_unwritable_tr =
-        convertible_to_any_tr<type_a_p, type_b_p>;
-
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value ||

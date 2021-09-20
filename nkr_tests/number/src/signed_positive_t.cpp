@@ -42,14 +42,14 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE("should equal the passed in type", sp_p, types, consts, volatiles, volatile_consts)
                 {
-                    if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp8_t>) {
-                        static_assert(std::same_as<sp_p::value_t, s8_t>);
-                    } else if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp16_t>) {
-                        static_assert(std::same_as<sp_p::value_t, s16_t>);
-                    } else if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp32_t>) {
-                        static_assert(std::same_as<sp_p::value_t, s32_t>);
-                    } else if constexpr (std::same_as<std::remove_cvref_t<sp_p>, sp64_t>) {
-                        static_assert(std::same_as<sp_p::value_t, s64_t>);
+                    if constexpr (is_tr<std::remove_cvref_t<sp_p>, sp8_t>) {
+                        static_assert(is_tr<sp_p::value_t, s8_t>);
+                    } else if constexpr (is_tr<std::remove_cvref_t<sp_p>, sp16_t>) {
+                        static_assert(is_tr<sp_p::value_t, s16_t>);
+                    } else if constexpr (is_tr<std::remove_cvref_t<sp_p>, sp32_t>) {
+                        static_assert(is_tr<sp_p::value_t, s32_t>);
+                    } else if constexpr (is_tr<std::remove_cvref_t<sp_p>, sp64_t>) {
+                        static_assert(is_tr<sp_p::value_t, s64_t>);
                     }
                 }
             }
@@ -103,7 +103,7 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE("should be a value_t", sp_p, types, consts, volatiles, volatile_consts)
                 {
-                    static_assert(std::same_as<decltype(sp_p::value), sp_p::value_t>);
+                    static_assert(is_tr<decltype(sp_p::value), sp_p::value_t>);
                 }
             }
         }

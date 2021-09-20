@@ -50,7 +50,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    static_assert(std::same_as<unit_t, unit_t>);
+                    static_assert(is_tr<unit_t, unit_t>);
                 }
             }
 
@@ -61,7 +61,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    static_assert(std::same_as<units_t, unit_t*>);
+                    static_assert(is_tr<units_t, unit_t*>);
                 }
             }
         }
@@ -294,7 +294,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    static_assert(std::same_as<decltype(pointer_p::units), units_t>);
+                    static_assert(is_tr<decltype(pointer_p::units), units_t>);
                 }
             }
 
@@ -305,7 +305,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    static_assert(std::same_as<decltype(pointer_p::unit_count), count_t>);
+                    static_assert(is_tr<decltype(pointer_p::unit_count), count_t>);
                 }
             }
         }

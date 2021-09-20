@@ -69,13 +69,13 @@ namespace nkr {
             return *this;                                                                                   \
         }                                                                                                   \
                                                                                                             \
-        auto& operator =(same_as_tr<WRAPPER_p> auto&& other) noexcept                                       \
+        auto& operator =(is_tr<WRAPPER_p> auto&& other) noexcept                                            \
         {                                                                                                   \
             BASE_p::operator =(static_cast<BASE_p&&>(std::move(other)));                                    \
             return *this;                                                                                   \
         }                                                                                                   \
                                                                                                             \
-        volatile auto& operator =(volatile same_as_tr<volatile WRAPPER_p> auto&& other) volatile noexcept   \
+        volatile auto& operator =(volatile is_tr<volatile WRAPPER_p> auto&& other) volatile noexcept        \
         {                                                                                                   \
             BASE_p::operator =(static_cast<volatile BASE_p&&>(std::move(other)));                           \
             return *this;                                                                                   \

@@ -46,7 +46,7 @@ namespace nkr { namespace allocator {
             {
                 TEST_CASE_TEMPLATE("should equal unit_p", unit_p, types, volatiles)
                 {
-                    static_assert(std::same_as<heap_t<unit_p>::unit_t, unit_p>);
+                    static_assert(is_tr<heap_t<unit_p>::unit_t, unit_p>);
                 }
             }
 
@@ -54,7 +54,7 @@ namespace nkr { namespace allocator {
             {
                 TEST_CASE_TEMPLATE("should equal unit_p*", unit_p, types, volatiles)
                 {
-                    static_assert(std::same_as<heap_t<unit_p>::units_t, unit_p*>);
+                    static_assert(is_tr<heap_t<unit_p>::units_t, unit_p*>);
                 }
             }
         }

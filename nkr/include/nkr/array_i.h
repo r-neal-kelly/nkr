@@ -26,7 +26,7 @@ namespace nkr {
     template <typename array_p, typename unit_p>
     concept array_of_tr =
         array_i<array_p> &&
-        same_as_tr<typename array_p::unit_t, unit_p>;
+        is_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
     concept writable_array_of_tr =
@@ -41,10 +41,10 @@ namespace nkr {
     template <typename array_p, typename unit_p>
     concept array_of_any_tr =
         array_i<array_p> &&
-        same_as_any_tr<typename array_p::unit_t, unit_p>;
+        any_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept non_array_of_any_tr =
+    concept not_array_of_any_tr =
         !array_of_any_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>
@@ -53,7 +53,7 @@ namespace nkr {
         array_of_any_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept non_writable_array_of_any_tr =
+    concept not_writable_array_of_any_tr =
         !writable_array_of_any_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>
@@ -64,7 +64,7 @@ namespace nkr {
     template <typename array_p, typename unit_p>
     concept array_of_any_writable_tr =
         array_i<array_p> &&
-        same_as_any_writable_tr<typename array_p::unit_t, unit_p>;
+        any_writable_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
     concept writable_array_of_any_writable_tr =
@@ -72,7 +72,7 @@ namespace nkr {
         array_of_any_writable_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept non_writable_array_of_any_writable_tr =
+    concept not_writable_array_of_any_writable_tr =
         !writable_array_of_any_writable_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>

@@ -27,36 +27,34 @@ namespace nkr {
         static constexpr count_t    Capacity();
 
     private:
-        static void_t   Copy(const same_as_any_tr<stack_array_t> auto& from,
-                             same_as_any_tr<stack_array_t> auto& to);
-        static void_t   Move(same_as_any_tr<stack_array_t> auto& from,
-                             same_as_any_tr<stack_array_t> auto& to);
-        static void_t   Destroy(same_as_any_tr<stack_array_t> auto& self);
+        static void_t   Copy(const any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to);
+        static void_t   Move(any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to);
+        static void_t   Destroy(any_tr<stack_array_t> auto& self);
 
-        static auto&    Array(same_as_any_tr<stack_array_t> auto& self);
-        static auto&    Writable_Array(same_as_any_writable_tr<stack_array_t> auto& self);
-        static count_t  Count(const same_as_any_tr<stack_array_t> auto& self);
+        static auto&    Array(any_tr<stack_array_t> auto& self);
+        static auto&    Writable_Array(any_writable_tr<stack_array_t> auto& self);
+        static count_t  Count(const any_tr<stack_array_t> auto& self);
 
-        static auto&    At(same_as_any_tr<stack_array_t> auto& self, index_t index);
-        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
-                             same_as_any_tr<unit_t> auto& unit,
-                             same_as_any_tr<unit_t> auto& ...more_units);
-        static void_t   Push(same_as_any_writable_tr<stack_array_t> auto& self,
-                             same_as_any_writable_tr<unit_t> auto&& unit,
-                             same_as_any_writable_tr<unit_t> auto&& ...more_units);
-        static auto     Pop(same_as_any_writable_tr<stack_array_t> auto& self);
+        static auto&    At(any_tr<stack_array_t> auto& self, index_t index);
+        static void_t   Push(any_writable_tr<stack_array_t> auto& self,
+                             any_tr<unit_t> auto& unit,
+                             any_tr<unit_t> auto& ...more_units);
+        static void_t   Push(any_writable_tr<stack_array_t> auto& self,
+                             any_writable_tr<unit_t> auto&& unit,
+                             any_writable_tr<unit_t> auto&& ...more_units);
+        static auto     Pop(any_writable_tr<stack_array_t> auto& self);
 
-        static void_t   Copy_To(const same_as_any_tr<stack_array_t> auto& self,
+        static void_t   Copy_To(const any_tr<stack_array_t> auto& self,
                                 writable_array_of_any_tr<unit_t> auto& other);
-        static void_t   Copy_From(same_as_any_writable_tr<stack_array_t> auto& self,
+        static void_t   Copy_From(any_writable_tr<stack_array_t> auto& self,
                                   const array_of_any_tr<unit_t> auto& other);
-        static void_t   Move_To(same_as_any_writable_tr<stack_array_t> auto& self,
+        static void_t   Move_To(any_writable_tr<stack_array_t> auto& self,
                                 writable_array_of_any_tr<unit_t> auto& other);
-        static void_t   Move_From(same_as_any_writable_tr<stack_array_t> auto& self,
+        static void_t   Move_From(any_writable_tr<stack_array_t> auto& self,
                                   writable_array_of_any_writable_tr<unit_t> auto& other);
 
-        static bool_t   Is_Clear(const same_as_any_tr<stack_array_t> auto& self);
-        static void_t   Clear(same_as_any_writable_tr<stack_array_t> auto& self);
+        static bool_t   Is_Clear(const any_tr<stack_array_t> auto& self);
+        static void_t   Clear(any_writable_tr<stack_array_t> auto& self);
 
     protected:
         count_t         unit_count;
@@ -65,9 +63,9 @@ namespace nkr {
     public:
         stack_array_t();
 
-        stack_array_t(same_as_any_tr<unit_t> auto& ...args);
-        stack_array_t(same_as_any_writable_tr<unit_t> auto&& ...args);
-        stack_array_t(same_as_any_unwritable_tr<unit_t> auto&& ...args)                         = delete;
+        stack_array_t(any_tr<unit_t> auto& ...args);
+        stack_array_t(any_writable_tr<unit_t> auto&& ...args);
+        stack_array_t(any_unwritable_tr<unit_t> auto&& ...args)                                 = delete;
 
         stack_array_t(const stack_array_t& other);
         stack_array_t(const volatile stack_array_t& other);
@@ -93,27 +91,26 @@ namespace nkr {
         const unit_t&           At(index_t index) const;
         volatile unit_t&        At(index_t index) volatile;
         const volatile unit_t&  At(index_t index) const volatile;
-        void_t                  Push(same_as_any_tr<unit_t> auto& ...units);
-        void_t                  Push(same_as_any_tr<unit_t> auto& ...units) volatile;
-        void_t                  Push(same_as_any_writable_tr<unit_t> auto&& ...units);
-        void_t                  Push(same_as_any_writable_tr<unit_t> auto&& ...units) volatile;
-        void_t                  Push(same_as_any_unwritable_tr<unit_t> auto&& ...units)                             = delete;
-        void_t                  Push(same_as_any_unwritable_tr<unit_t> auto&& ...units) volatile                    = delete;
+        void_t                  Push(any_tr<unit_t> auto& ...units);
+        void_t                  Push(any_tr<unit_t> auto& ...units) volatile;
+        void_t                  Push(any_writable_tr<unit_t> auto&& ...units);
+        void_t                  Push(any_writable_tr<unit_t> auto&& ...units) volatile;
+        void_t                  Push(any_unwritable_tr<unit_t> auto&& ...units) const volatile                      = delete;
         unit_t                  Pop();
         volatile unit_t         Pop() volatile;
 
         void_t                  Copy_To(writable_array_of_any_tr<unit_t> auto& other) const;
         void_t                  Copy_To(writable_array_of_any_tr<unit_t> auto& other) const volatile;
-        void_t                  Copy_To(non_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
+        void_t                  Copy_To(not_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
         void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other);
         void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Copy_From(const non_array_of_any_tr<unit_t> auto& other) const volatile             = delete;
+        void_t                  Copy_From(const not_array_of_any_tr<unit_t> auto& other) const volatile             = delete;
         void_t                  Move_To(writable_array_of_any_tr<unit_t> auto& other);
         void_t                  Move_To(writable_array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Move_To(non_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
+        void_t                  Move_To(not_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
         void_t                  Move_From(writable_array_of_any_writable_tr<unit_t> auto& other);
         void_t                  Move_From(writable_array_of_any_writable_tr<unit_t> auto& other) volatile;
-        void_t                  Move_From(non_writable_array_of_any_writable_tr<unit_t> auto& other) const volatile = delete;
+        void_t                  Move_From(not_writable_array_of_any_writable_tr<unit_t> auto& other) const volatile = delete;
 
         bool_t                  Is_Clear() const;
         bool_t                  Is_Clear() const volatile;
@@ -149,17 +146,17 @@ namespace nkr {
 
     template <typename type_p>
     concept stack_array_tr =
-        std::same_as<type_p, stack_array_t<typename type_p::unit_t, type_p::Capacity()>>;
+        is_tr<type_p, stack_array_t<typename type_p::unit_t, type_p::Capacity()>>;
 
     template <typename type_p, typename unit_p>
     concept stack_array_of_tr =
         stack_array_tr<type_p> &&
-        std::same_as<unit_p, typename type_p::unit_t>;
+        is_tr<unit_p, typename type_p::unit_t>;
 
     template <typename type_p, typename unit_p>
     concept stack_array_of_any_tr =
         stack_array_tr<type_p> &&
-        same_as_any_tr<unit_p, typename type_p::unit_t>;
+        any_tr<unit_p, typename type_p::unit_t>;
 
     template <typename type_p, typename unit_p>
     concept stack_array_of_any_writable_tr =
@@ -171,7 +168,7 @@ namespace nkr {
         stack_array_of_any_tr<type_p, unit_p> &&
         unwritable_tr<typename type_p::unit_t>;
 
-    template <writable_tr head_p, std::same_as<head_p> ...tail_p>
+    template <writable_tr head_p, is_tr<head_p> ...tail_p>
     class instant_array_t :
         public stack_array_t<head_p, 1 + sizeof...(tail_p)>
     {
@@ -201,12 +198,12 @@ namespace nkr {
     template <typename type_p, typename unit_p>
     concept instant_array_of_tr =
         instant_array_tr<type_p> &&
-        std::same_as<unit_p, typename type_p::unit_t>;
+        is_tr<unit_p, typename type_p::unit_t>;
 
     template <typename type_p, typename unit_p>
     concept instant_array_of_any_tr =
         instant_array_tr<type_p> &&
-        same_as_any_tr<unit_p, typename type_p::unit_t>;
+        any_tr<unit_p, typename type_p::unit_t>;
 
     template <typename type_p, typename unit_p>
     concept instant_array_of_any_writable_tr =

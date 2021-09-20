@@ -22,7 +22,7 @@ namespace nkr {
                 /// [_7dbd1a6e_e5ba_41ff_bd34_6b313f79ba66]
                 TEST_CASE_TEMPLATE("should equal the passed in type", pointer_p, _)
                 {
-                    static_assert(std::same_as<atomic_t<pointer_p>::value_t, pointer_p>);
+                    static_assert(is_tr<atomic_t<pointer_p>::value_t, pointer_p>);
                 }
                 /// [_7dbd1a6e_e5ba_41ff_bd34_6b313f79ba66]
             }
@@ -32,7 +32,7 @@ namespace nkr {
                 /// [_0a6532a4_670b_431a_b6e9_61562d590a3e]
                 TEST_CASE_TEMPLATE("should equal the pointer type being represented", pointer_p, _)
                 {
-                    static_assert(std::same_as<atomic_t<pointer_p>::units_t, pointer_p>);
+                    static_assert(is_tr<atomic_t<pointer_p>::units_t, pointer_p>);
                 }
                 /// [_0a6532a4_670b_431a_b6e9_61562d590a3e]
             }
@@ -42,7 +42,7 @@ namespace nkr {
                 /// [_e7db6edc_c3ac_4009_80fb_49fab24918e2]
                 TEST_CASE_TEMPLATE("should equal the type being pointed to", pointer_p, _)
                 {
-                    static_assert(std::same_as<atomic_t<pointer_p>::unit_t, std::remove_pointer_t<pointer_p>>);
+                    static_assert(is_tr<atomic_t<pointer_p>::unit_t, std::remove_pointer_t<pointer_p>>);
                 }
                 /// [_e7db6edc_c3ac_4009_80fb_49fab24918e2]
             }
@@ -75,7 +75,7 @@ namespace nkr {
                 /// [_455eabe1_8fa8_4f26_8d1b_47be1f24b008]
                 TEST_CASE_TEMPLATE("should be a volatile value_t", pointer_p, _)
                 {
-                    static_assert(std::same_as<decltype(atomic_t<pointer_p>::value), volatile pointer_p>);
+                    static_assert(is_tr<decltype(atomic_t<pointer_p>::value), volatile pointer_p>);
                 }
                 /// [_455eabe1_8fa8_4f26_8d1b_47be1f24b008]
             }

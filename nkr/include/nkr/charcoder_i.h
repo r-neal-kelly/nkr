@@ -41,16 +41,16 @@ namespace nkr {
     {
         typename type_p::unit_t;
 
-        { const_charcoder.Is_Well_Formed() }                -> std::same_as<bool_t>;
+        { const_charcoder.Is_Well_Formed() }                -> is_tr<bool_t>;
 
-        { charcoder.Encode(typename charcoder::point_t()) } -> std::same_as<void_t>;
-        { const_charcoder.Decode() }                        -> std::same_as<typename charcoder::point_t>;
+        { charcoder.Encode(typename charcoder::point_t()) } -> is_tr<void_t>;
+        { const_charcoder.Decode() }                        -> is_tr<typename charcoder::point_t>;
 
-        { charcoder.Read_Forward(from_unit) }               -> std::same_as<count_t>;
-        { charcoder.Read_Reverse(from_unit, first_unit) }   -> std::same_as<count_t>;
+        { charcoder.Read_Forward(from_unit) }               -> is_tr<count_t>;
+        { charcoder.Read_Reverse(from_unit, first_unit) }   -> is_tr<count_t>;
 
-        { const_charcoder.Unit_Count() }                    -> std::same_as<count_t>;
-        { const_charcoder.operator[](index_t()) }           -> std::same_as<typename type_p::unit_t>;
+        { const_charcoder.Unit_Count() }                    -> is_tr<count_t>;
+        { const_charcoder.operator[](index_t()) }           -> is_tr<typename type_p::unit_t>;
 
         read_count = charcoder.Read_Forward(from_unit);
         read_count = charcoder.Read_Reverse(from_unit, first_unit);

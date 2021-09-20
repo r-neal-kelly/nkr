@@ -35,7 +35,7 @@ namespace nkr {
                 /// [_06294f3b_7dac_4f59_895a_2fd7f9b33932]
                 TEST_CASE_TEMPLATE("should equal the passed in type", integer_p, _)
                 {
-                    static_assert(std::same_as<atomic_t<integer_p>::value_t, integer_p>);
+                    static_assert(is_tr<atomic_t<integer_p>::value_t, integer_p>);
                 }
                 /// [_06294f3b_7dac_4f59_895a_2fd7f9b33932]
             }
@@ -68,7 +68,7 @@ namespace nkr {
                 /// [_ad87d67f_1180_4b90_89bd_4556539c78fb]
                 TEST_CASE_TEMPLATE("should be a volatile value_t", integer_p, _)
                 {
-                    static_assert(std::same_as<decltype(atomic_t<integer_p>::value), volatile integer_p>);
+                    static_assert(is_tr<decltype(atomic_t<integer_p>::value), volatile integer_p>);
                 }
                 /// [_ad87d67f_1180_4b90_89bd_4556539c78fb]
             }

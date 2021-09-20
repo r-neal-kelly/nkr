@@ -12,7 +12,7 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc _fe4b1321_2470_4544_b8c0_0e93c38e7275
-    template <any_tr any_p>
+    template <typename any_p>
     class some_t :
         public maybe_t<any_p>
     {

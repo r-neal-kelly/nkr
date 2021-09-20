@@ -61,7 +61,7 @@ namespace nkr {
                     using allocator_t = dynamic_array_p::allocator_t;
                     using grow_rate_t = dynamic_array_p::grow_rate_t;
 
-                    static_assert(std::same_as<unit_t, unit_t>);
+                    static_assert(is_tr<unit_t, unit_t>);
                 }
             }
 
@@ -76,7 +76,7 @@ namespace nkr {
                     using allocator_t = dynamic_array_p::allocator_t;
                     using grow_rate_t = dynamic_array_p::grow_rate_t;
 
-                    static_assert(std::same_as<writable_unit_t, std::remove_const_t<unit_t>>);
+                    static_assert(is_tr<writable_unit_t, std::remove_const_t<unit_t>>);
                 }
             }
 
@@ -91,7 +91,7 @@ namespace nkr {
                     using allocator_t = dynamic_array_p::allocator_t;
                     using grow_rate_t = dynamic_array_p::grow_rate_t;
 
-                    static_assert(std::same_as<pointer_t, nkr::pointer_t<unit_t>>);
+                    static_assert(is_tr<pointer_t, nkr::pointer_t<unit_t>>);
                 }
             }
 
@@ -106,7 +106,7 @@ namespace nkr {
                     using allocator_t = dynamic_array_p::allocator_t;
                     using grow_rate_t = dynamic_array_p::grow_rate_t;
 
-                    static_assert(std::same_as<writable_pointer_t, nkr::pointer_t<writable_unit_t>>);
+                    static_assert(is_tr<writable_pointer_t, nkr::pointer_t<writable_unit_t>>);
                 }
             }
 
@@ -121,7 +121,7 @@ namespace nkr {
                     using allocator_t = dynamic_array_p::allocator_t;
                     using grow_rate_t = dynamic_array_p::grow_rate_t;
 
-                    static_assert(std::same_as<allocator_t::unit_t, unit_t>);
+                    static_assert(is_tr<allocator_t::unit_t, unit_t>);
                 }
             }
 
@@ -136,7 +136,7 @@ namespace nkr {
                     using allocator_t = dynamic_array_p::allocator_t;
                     using grow_rate_t = dynamic_array_p::grow_rate_t;
 
-                    static_assert(std::same_as<grow_rate_t, grow_rate_t>);
+                    static_assert(is_tr<grow_rate_t, grow_rate_t>);
                 }
             }
         }
