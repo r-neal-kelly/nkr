@@ -16,19 +16,7 @@ namespace nkr {
 
     template <typename array_p>
     concept stack_array_tr =
-        is_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
-
-    template <typename array_p>
-    concept any_stack_array_tr =
-        any_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
-
-    template <typename array_p>
-    concept any_writable_stack_array_tr =
-        any_writable_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
-
-    template <typename array_p>
-    concept any_unwritable_stack_array_tr =
-        any_unwritable_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
+        is_any_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
 
     template <typename array_p, typename unit_p>
     concept stack_array_of_tr =
@@ -36,79 +24,183 @@ namespace nkr {
         is_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_stack_array_of_tr =
-        any_stack_array_tr<array_p> &&
-        is_tr<typename array_p::unit_t, unit_p>;
+    concept stack_array_of_const_tr =
+        stack_array_tr<array_p> &&
+        is_const_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_writable_stack_array_of_tr =
-        any_writable_stack_array_tr<array_p> &&
-        is_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept any_unwritable_stack_array_of_tr =
-        any_unwritable_stack_array_tr<array_p> &&
-        is_tr<typename array_p::unit_t, unit_p>;
+    concept stack_array_of_non_const_tr =
+        stack_array_tr<array_p> &&
+        is_non_const_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
     concept stack_array_of_any_tr =
         stack_array_tr<array_p> &&
-        any_tr<typename array_p::unit_t, unit_p>;
+        is_any_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_stack_array_of_any_tr =
-        any_stack_array_tr<array_p> &&
-        any_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept any_writable_stack_array_of_any_tr =
-        any_writable_stack_array_tr<array_p> &&
-        any_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept any_unwritable_stack_array_of_any_tr =
-        any_unwritable_stack_array_tr<array_p> &&
-        any_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept stack_array_of_any_writable_tr =
+    concept stack_array_of_any_const_tr =
         stack_array_tr<array_p> &&
-        any_writable_tr<typename array_p::unit_t, unit_p>;
+        is_any_const_tr<typename array_p::unit_t, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_stack_array_of_any_writable_tr =
-        any_stack_array_tr<array_p> &&
-        any_writable_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept any_writable_stack_array_of_any_writable_tr =
-        any_writable_stack_array_tr<array_p> &&
-        any_writable_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept any_unwritable_stack_array_of_any_writable_tr =
-        any_unwritable_stack_array_tr<array_p> &&
-        any_writable_tr<typename array_p::unit_t, unit_p>;
-
-    template <typename array_p, typename unit_p>
-    concept stack_array_of_any_unwritable_tr =
+    concept stack_array_of_any_non_const_tr =
         stack_array_tr<array_p> &&
-        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+        is_any_non_const_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p>
+    concept const_stack_array_tr =
+        const_tr<array_p> &&
+        stack_array_tr<array_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_stack_array_of_any_unwritable_tr =
-        any_stack_array_tr<array_p> &&
-        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+    concept const_stack_array_of_tr =
+        const_tr<array_p> &&
+        stack_array_of_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_writable_stack_array_of_any_unwritable_tr =
-        any_writable_stack_array_tr<array_p> &&
-        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+    concept const_stack_array_of_const_tr =
+        const_tr<array_p> &&
+        stack_array_of_const_tr<array_p, unit_p>;
 
     template <typename array_p, typename unit_p>
-    concept any_unwritable_stack_array_of_any_unwritable_tr =
-        any_unwritable_stack_array_tr<array_p> &&
-        any_unwritable_tr<typename array_p::unit_t, unit_p>;
+    concept const_stack_array_of_non_const_tr =
+        const_tr<array_p> &&
+        stack_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_stack_array_of_any_tr =
+        const_tr<array_p> &&
+        stack_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_stack_array_of_any_const_tr =
+        const_tr<array_p> &&
+        stack_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_stack_array_of_any_non_const_tr =
+        const_tr<array_p> &&
+        stack_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept non_const_stack_array_tr =
+        non_const_tr<array_p> &&
+        stack_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_stack_array_of_tr =
+        non_const_tr<array_p> &&
+        stack_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_stack_array_of_const_tr =
+        non_const_tr<array_p> &&
+        stack_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_stack_array_of_non_const_tr =
+        non_const_tr<array_p> &&
+        stack_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_stack_array_of_any_tr =
+        non_const_tr<array_p> &&
+        stack_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_stack_array_of_any_const_tr =
+        non_const_tr<array_p> &&
+        stack_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_stack_array_of_any_non_const_tr =
+        non_const_tr<array_p> &&
+        stack_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept not_stack_array_tr =
+        !stack_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_stack_array_of_tr =
+        !stack_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_stack_array_of_const_tr =
+        !stack_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_stack_array_of_non_const_tr =
+        !stack_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_stack_array_of_any_tr =
+        !stack_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_stack_array_of_any_const_tr =
+        !stack_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_stack_array_of_any_non_const_tr =
+        !stack_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept not_const_stack_array_tr =
+        !const_stack_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_stack_array_of_tr =
+        !const_stack_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_stack_array_of_const_tr =
+        !const_stack_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_stack_array_of_non_const_tr =
+        !const_stack_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_stack_array_of_any_tr =
+        !const_stack_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_stack_array_of_any_const_tr =
+        !const_stack_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_stack_array_of_any_non_const_tr =
+        !const_stack_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept not_non_const_stack_array_tr =
+        !non_const_stack_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_stack_array_of_tr =
+        !non_const_stack_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_stack_array_of_const_tr =
+        !non_const_stack_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_stack_array_of_non_const_tr =
+        !non_const_stack_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_stack_array_of_any_tr =
+        !non_const_stack_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_stack_array_of_any_const_tr =
+        !non_const_stack_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_stack_array_of_any_non_const_tr =
+        !non_const_stack_array_of_any_non_const_tr<array_p, unit_p>;
 
     template <type_tr unit_p, count_t capacity_p>
     class stack_array_t
@@ -126,34 +218,36 @@ namespace nkr {
         static constexpr count_t    Capacity();
 
     private:
-        static void_t   Copy(const any_stack_array_tr auto& from, any_writable_stack_array_tr auto& to);
-        static void_t   Move(any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to);
-        static void_t   Destroy(any_tr<stack_array_t> auto& self);
+        static void_t   Copy_Construct(non_const_stack_array_of_tr<unit_t> auto& self,
+                                       const stack_array_of_tr<unit_t> auto& other);
+        static void_t   Move_Construct(non_const_stack_array_of_tr<unit_t> auto& self,
+                                       non_const_stack_array_of_tr<unit_t> auto& other);
+        static void_t   Destruct(stack_array_of_tr<unit_t> auto& self);
 
-        static auto&    Array(any_tr<stack_array_t> auto& self);
-        static auto&    Writable_Array(any_writable_tr<stack_array_t> auto& self);
-        static count_t  Count(const any_tr<stack_array_t> auto& self);
+        static auto&    Array(stack_array_of_tr<unit_t> auto& self);
+        static auto&    Writable_Array(non_const_stack_array_of_tr<unit_t> auto& self);
+        static count_t  Count(const stack_array_of_tr<unit_t> auto& self);
 
-        static auto&    At(any_tr<stack_array_t> auto& self, index_t index);
-        static void_t   Push(any_writable_tr<stack_array_t> auto& self,
-                             any_tr<unit_t> auto& unit,
-                             any_tr<unit_t> auto& ...more_units);
-        static void_t   Push(any_writable_tr<stack_array_t> auto& self,
-                             any_writable_tr<unit_t> auto&& unit,
-                             any_writable_tr<unit_t> auto&& ...more_units);
-        static auto     Pop(any_writable_tr<stack_array_t> auto& self);
+        static auto&    At(stack_array_of_tr<unit_t> auto& self, index_t index);
+        static void_t   Push(non_const_stack_array_of_tr<unit_t> auto& self,
+                             is_any_tr<unit_t> auto& unit,
+                             is_any_tr<unit_t> auto& ...more_units);
+        static void_t   Push(non_const_stack_array_of_tr<unit_t> auto& self,
+                             is_any_non_const_tr<unit_t> auto&& unit,
+                             is_any_non_const_tr<unit_t> auto&& ...more_units);
+        static auto     Pop(non_const_stack_array_of_tr<unit_t> auto& self);
 
-        static void_t   Copy_To(const any_tr<stack_array_t> auto& self,
-                                writable_array_of_any_tr<unit_t> auto& other);
-        static void_t   Copy_From(any_writable_tr<stack_array_t> auto& self,
+        static void_t   Copy_To(const stack_array_of_tr<unit_t> auto& self,
+                                non_const_array_of_any_tr<unit_t> auto& other);
+        static void_t   Copy_From(non_const_stack_array_of_tr<unit_t> auto& self,
                                   const array_of_any_tr<unit_t> auto& other);
-        static void_t   Move_To(any_writable_tr<stack_array_t> auto& self,
-                                writable_array_of_any_tr<unit_t> auto& other);
-        static void_t   Move_From(any_writable_tr<stack_array_t> auto& self,
-                                  writable_array_of_any_writable_tr<unit_t> auto& other);
+        static void_t   Move_To(non_const_stack_array_of_any_non_const_tr<unit_t> auto& self,
+                                non_const_array_of_any_tr<unit_t> auto& other);
+        static void_t   Move_From(non_const_stack_array_of_tr<unit_t> auto& self,
+                                  non_const_array_of_any_non_const_tr<unit_t> auto& other);
 
-        static bool_t   Is_Clear(const any_tr<stack_array_t> auto& self);
-        static void_t   Clear(any_writable_tr<stack_array_t> auto& self);
+        static bool_t   Is_Clear(const stack_array_of_tr<unit_t> auto& self);
+        static void_t   Clear(non_const_stack_array_of_tr<unit_t> auto& self);
 
     protected:
         count_t         unit_count;
@@ -162,8 +256,8 @@ namespace nkr {
     public:
         stack_array_t();
 
-        stack_array_t(any_tr<unit_t> auto& ...args);
-        stack_array_t(any_writable_tr<unit_t> auto&& ...args);
+        stack_array_t(is_any_tr<unit_t> auto& ...args);
+        stack_array_t(is_any_non_const_tr<unit_t> auto&& ...args);
 
         stack_array_t(const stack_array_t& other);
         stack_array_t(const volatile stack_array_t& other);
@@ -189,27 +283,27 @@ namespace nkr {
         const unit_t&           At(index_t index) const;
         volatile unit_t&        At(index_t index) volatile;
         const volatile unit_t&  At(index_t index) const volatile;
-        void_t                  Push(any_tr<unit_t> auto& ...units);
-        void_t                  Push(any_tr<unit_t> auto& ...units) volatile;
-        void_t                  Push(not_any_tr<unit_t> auto& ...units) const volatile                              = delete;
-        void_t                  Push(any_writable_tr<unit_t> auto&& ...units);
-        void_t                  Push(any_writable_tr<unit_t> auto&& ...units) volatile;
-        void_t                  Push(not_any_writable_tr<unit_t> auto&& ...units) const volatile                    = delete;
+        void_t                  Push(is_any_tr<unit_t> auto& ...units);
+        void_t                  Push(is_any_tr<unit_t> auto& ...units) volatile;
+        void_t                  Push(not_is_any_tr<unit_t> auto& ...units) const volatile                               = delete;
+        void_t                  Push(is_any_non_const_tr<unit_t> auto&& ...units);
+        void_t                  Push(is_any_non_const_tr<unit_t> auto&& ...units) volatile;
+        void_t                  Push(not_is_any_non_const_tr<unit_t> auto&& ...units) const volatile                    = delete;
         unit_t                  Pop();
         volatile unit_t         Pop() volatile;
 
-        void_t                  Copy_To(writable_array_of_any_tr<unit_t> auto& other) const;
-        void_t                  Copy_To(writable_array_of_any_tr<unit_t> auto& other) const volatile;
-        void_t                  Copy_To(not_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
+        void_t                  Copy_To(non_const_array_of_any_tr<unit_t> auto& other) const;
+        void_t                  Copy_To(non_const_array_of_any_tr<unit_t> auto& other) const volatile;
+        void_t                  Copy_To(not_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
         void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other);
         void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Copy_From(const not_array_of_any_tr<unit_t> auto& other) const volatile             = delete;
-        void_t                  Move_To(writable_array_of_any_tr<unit_t> auto& other);
-        void_t                  Move_To(writable_array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Move_To(not_writable_array_of_any_tr<unit_t> auto& other) const volatile            = delete;
-        void_t                  Move_From(writable_array_of_any_writable_tr<unit_t> auto& other);
-        void_t                  Move_From(writable_array_of_any_writable_tr<unit_t> auto& other) volatile;
-        void_t                  Move_From(not_writable_array_of_any_writable_tr<unit_t> auto& other) const volatile = delete;
+        void_t                  Copy_From(const not_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
+        void_t                  Move_To(non_const_array_of_any_tr<unit_t> auto& other);
+        void_t                  Move_To(non_const_array_of_any_tr<unit_t> auto& other) volatile;
+        void_t                  Move_To(not_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        void_t                  Move_From(non_const_array_of_any_non_const_tr<unit_t> auto& other);
+        void_t                  Move_From(non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
+        void_t                  Move_From(not_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
 
         bool_t                  Is_Clear() const;
         bool_t                  Is_Clear() const volatile;
@@ -243,7 +337,198 @@ namespace nkr {
     static_assert(array_i<const volatile stack_array_t<volatile word_t, 64>>);
     static_assert(array_i<const volatile stack_array_t<const volatile word_t, 64>>);
 
-    template <writable_tr head_p, is_tr<head_p> ...tail_p>
+    template <non_const_tr head_p, is_tr<head_p> ...tail_p>
+    class instant_array_t;
+
+    template <typename type_p>
+    concept instant_array_tr =
+        type_p::Is_Instant_Array();
+
+    template <typename array_p, typename unit_p>
+    concept instant_array_of_tr =
+        instant_array_tr<array_p> &&
+        is_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept instant_array_of_const_tr =
+        instant_array_tr<array_p> &&
+        is_const_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept instant_array_of_non_const_tr =
+        instant_array_tr<array_p> &&
+        is_non_const_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept instant_array_of_any_tr =
+        instant_array_tr<array_p> &&
+        is_any_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept instant_array_of_any_const_tr =
+        instant_array_tr<array_p> &&
+        is_any_const_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept instant_array_of_any_non_const_tr =
+        instant_array_tr<array_p> &&
+        is_any_non_const_tr<typename array_p::unit_t, unit_p>;
+
+    template <typename array_p>
+    concept const_instant_array_tr =
+        const_tr<array_p> &&
+        instant_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_instant_array_of_tr =
+        const_tr<array_p> &&
+        instant_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_instant_array_of_const_tr =
+        const_tr<array_p> &&
+        instant_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_instant_array_of_non_const_tr =
+        const_tr<array_p> &&
+        instant_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_instant_array_of_any_tr =
+        const_tr<array_p> &&
+        instant_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_instant_array_of_any_const_tr =
+        const_tr<array_p> &&
+        instant_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept const_instant_array_of_any_non_const_tr =
+        const_tr<array_p> &&
+        instant_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept non_const_instant_array_tr =
+        non_const_tr<array_p> &&
+        instant_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_instant_array_of_tr =
+        non_const_tr<array_p> &&
+        instant_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_instant_array_of_const_tr =
+        non_const_tr<array_p> &&
+        instant_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_instant_array_of_non_const_tr =
+        non_const_tr<array_p> &&
+        instant_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_instant_array_of_any_tr =
+        non_const_tr<array_p> &&
+        instant_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_instant_array_of_any_const_tr =
+        non_const_tr<array_p> &&
+        instant_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept non_const_instant_array_of_any_non_const_tr =
+        non_const_tr<array_p> &&
+        instant_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept not_instant_array_tr =
+        !instant_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_instant_array_of_tr =
+        !instant_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_instant_array_of_const_tr =
+        !instant_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_instant_array_of_non_const_tr =
+        !instant_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_instant_array_of_any_tr =
+        !instant_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_instant_array_of_any_const_tr =
+        !instant_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_instant_array_of_any_non_const_tr =
+        !instant_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept not_const_instant_array_tr =
+        !const_instant_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_instant_array_of_tr =
+        !const_instant_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_instant_array_of_const_tr =
+        !const_instant_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_instant_array_of_non_const_tr =
+        !const_instant_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_instant_array_of_any_tr =
+        !const_instant_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_instant_array_of_any_const_tr =
+        !const_instant_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_const_instant_array_of_any_non_const_tr =
+        !const_instant_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p>
+    concept not_non_const_instant_array_tr =
+        !non_const_instant_array_tr<array_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_instant_array_of_tr =
+        !non_const_instant_array_of_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_instant_array_of_const_tr =
+        !non_const_instant_array_of_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_instant_array_of_non_const_tr =
+        !non_const_instant_array_of_non_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_instant_array_of_any_tr =
+        !non_const_instant_array_of_any_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_instant_array_of_any_const_tr =
+        !non_const_instant_array_of_any_const_tr<array_p, unit_p>;
+
+    template <typename array_p, typename unit_p>
+    concept not_non_const_instant_array_of_any_non_const_tr =
+        !non_const_instant_array_of_any_non_const_tr<array_p, unit_p>;
+
+    template <non_const_tr head_p, is_tr<head_p> ...tail_p>
     class instant_array_t :
         public stack_array_t<head_p, 1 + sizeof...(tail_p)>
     {
@@ -265,29 +550,5 @@ namespace nkr {
         {
         }
     };
-
-    template <typename type_p>
-    concept instant_array_tr =
-        type_p::Is_Instant_Array();
-
-    template <typename type_p, typename unit_p>
-    concept instant_array_of_tr =
-        instant_array_tr<type_p> &&
-        is_tr<unit_p, typename type_p::unit_t>;
-
-    template <typename type_p, typename unit_p>
-    concept instant_array_of_any_tr =
-        instant_array_tr<type_p> &&
-        any_tr<unit_p, typename type_p::unit_t>;
-
-    template <typename type_p, typename unit_p>
-    concept instant_array_of_any_writable_tr =
-        instant_array_of_any_tr<type_p, unit_p> &&
-        writable_tr<typename type_p::unit_t>;
-
-    template <typename type_p, typename unit_p>
-    concept instant_array_of_any_unwritable_tr =
-        instant_array_of_any_tr<type_p, unit_p> &&
-        unwritable_tr<typename type_p::unit_t>;
 
 }

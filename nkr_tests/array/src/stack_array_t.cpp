@@ -538,7 +538,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         array_t array = {
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -572,7 +572,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<stack_array_p>) {
+                    if constexpr (non_const_tr<stack_array_p>) {
                         stack_array_p stack_array;
                         for (index_t idx = 0, end = stack_array.Capacity(); idx < end; idx += 1) {
                             CHECK(stack_array.Count() == idx);
@@ -624,7 +624,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         array_t array = {
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -931,7 +931,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         stack_array_p stack_array = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -960,7 +960,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         stack_array_p stack_array = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -993,7 +993,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         stack_array_p other = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -1022,7 +1022,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         stack_array_p other = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -1134,7 +1134,7 @@ namespace nkr {
                     using array_t = stack_array_p::array_t;
                     using writable_array_t = stack_array_p::writable_array_t;
 
-                    if constexpr (writable_tr<unit_t>) {
+                    if constexpr (non_const_tr<unit_t>) {
                         array_t array = {
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),

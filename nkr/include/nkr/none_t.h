@@ -28,12 +28,12 @@ namespace nkr {
         /// @}
     };
 
-    bool_t operator ==(built_in_tr auto built_in, any_tr<none_t> auto none)
+    bool_t operator ==(built_in_tr auto built_in, is_any_tr<none_t> auto none)
     {
         return built_in == std::remove_cvref_t<decltype(built_in)>(0);
     }
 
-    bool_t operator !=(built_in_tr auto built_in, any_tr<none_t> auto none)
+    bool_t operator !=(built_in_tr auto built_in, is_any_tr<none_t> auto none)
     {
         return !operator ==(built_in, none_t());
     }

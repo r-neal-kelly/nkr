@@ -39,18 +39,7 @@ namespace nkr {
         }
     };
 
-    template <typename type_a_p, typename type_b_p>
-    concept is_tr =
-        std::same_as<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept any_tr =
-        is_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept not_any_tr =
-        !any_tr<type_a_p, type_b_p>;
-
+    // Types
     template <typename type_p>
     concept type_tr =
         sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
@@ -59,28 +48,101 @@ namespace nkr {
     concept non_type_tr =
         !type_tr<type_p>;
 
+    // Qualifiers
     template <typename type_p>
-    concept writable_tr =
-        type_tr<type_p> &&
-        !std::is_const_v<type_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept any_writable_tr =
-        any_tr<type_a_p, type_b_p> &&
-        writable_tr<type_a_p>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept not_any_writable_tr =
-        !any_writable_tr<type_a_p, type_b_p>;
+    concept const_tr =
+        std::is_const_v<type_p>;
 
     template <typename type_p>
-    concept unwritable_tr =
-        !writable_tr<type_p>;
+    concept non_const_tr =
+        !const_tr<type_p>;
+
+    template <typename type_p>
+    concept volatile_tr =
+        std::is_volatile_v<type_p>;
+
+    template <typename type_p>
+    concept non_volatile_tr =
+        !volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept qualified_tr =
+        const_tr<type_p> ||
+        volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept non_qualified_tr =
+        !qualified_tr<type_p>;
+
+    template <typename type_p>
+    concept const_only_tr =
+        const_tr<type_p> &&
+        non_volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept non_const_only_tr =
+        !const_only_tr<type_p>;
+
+    template <typename type_p>
+    concept volatile_only_tr =
+        non_const_tr<type_p> &&
+        volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept non_volatile_only_tr =
+        !volatile_only_tr<type_p>;
+
+    template <typename type_p>
+    concept const_volatile_tr =
+        const_tr<type_p> &&
+        volatile_tr<type_p>;
+
+    template <typename type_p>
+    concept non_const_volatile_tr =
+        !const_volatile_tr<type_p>;
+
+    // Comparators
+    template <typename type_a_p, typename type_b_p>
+    concept is_tr =
+        std::same_as<type_a_p, type_b_p>;
 
     template <typename type_a_p, typename type_b_p>
-    concept any_unwritable_tr =
-        any_tr<type_a_p, type_b_p> &&
-        unwritable_tr<type_a_p>;
+    concept not_is_tr =
+        !is_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_const_tr =
+        is_tr<type_a_p, std::add_const_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_non_const_tr =
+        is_tr<type_a_p, std::remove_const_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_any_tr =
+        is_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_any_tr =
+        !is_any_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_any_const_tr =
+        is_any_tr<type_a_p, type_b_p> &&
+        const_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_any_const_tr =
+        !is_any_const_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_any_non_const_tr =
+        is_any_tr<type_a_p, type_b_p> &&
+        non_const_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_any_non_const_tr =
+        !is_any_non_const_tr<type_a_p, type_b_p>;
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
@@ -95,6 +157,7 @@ namespace nkr {
     template <typename type_p, typename other_p>
     concept size_le_tr =
         sizeof(type_p) <= sizeof(other_p);
+    /// @}
 
     template <typename type_p>
     concept boolean_tr =
@@ -109,7 +172,6 @@ namespace nkr {
     template <typename type_p>
     concept to_std_bool_tr =
         std::convertible_to<type_p, std_bool_t>;
-    /// @}
 
     /// @addtogroup _222d304c_42db_4988_8611_c8aedc33c6cc
     /// @{
@@ -252,36 +314,7 @@ namespace nkr {
         real_tr<type_p> ||
         pointer_tr<type_p>;
     /// @}
-
-    // qualifiers
-    template <typename type_p>
-    concept const_tr =
-        std::is_const_v<type_p>;
-
-    template <typename type_p>
-    concept volatile_tr =
-        std::is_volatile_v<type_p>;
-
-    template <typename type_p>
-    concept unqualified_tr =
-        !const_tr<type_p> &&
-        !volatile_tr<type_p>;
-
-    template <typename type_p>
-    concept only_const_tr =
-        const_tr<type_p> &&
-        !volatile_tr<type_p>;
-
-    template <typename type_p>
-    concept only_volatile_tr =
-        volatile_tr<type_p> &&
-        !const_tr<type_p>;
-
-    template <typename type_p>
-    concept const_volatile_tr =
-        const_tr<type_p> &&
-        volatile_tr<type_p>;
-
+    
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_p, typename derived_p>

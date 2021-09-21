@@ -38,32 +38,32 @@ namespace nkr {
         static constexpr real_t Grow_Rate();
 
     private:
-        static auto&        Units(any_tr<dynamic_array_t> auto& self);
+        static auto&        Units(is_any_tr<dynamic_array_t> auto& self);
 
-        static void_t       Copy(const any_tr<dynamic_array_t> auto& from,
-                                 any_tr<dynamic_array_t> auto& to);
-        static void_t       Destroy(any_tr<dynamic_array_t> auto& self);
+        static void_t       Copy(const is_any_tr<dynamic_array_t> auto& from,
+                                 is_any_tr<dynamic_array_t> auto& to);
+        static void_t       Destroy(is_any_tr<dynamic_array_t> auto& self);
 
-        static pointer_t    Pointer(const any_tr<dynamic_array_t> auto& self);
-        static count_t      Count(const any_tr<dynamic_array_t> auto& self);
-        static auto&        Allocator(const any_tr<dynamic_array_t> auto& self);
+        static pointer_t    Pointer(const is_any_tr<dynamic_array_t> auto& self);
+        static count_t      Count(const is_any_tr<dynamic_array_t> auto& self);
+        static auto&        Allocator(const is_any_tr<dynamic_array_t> auto& self);
 
-        static count_t      Capacity(const any_tr<dynamic_array_t> auto& self);
-        static bool_t       Capacity(any_tr<dynamic_array_t> auto& self, count_t new_capacity);
+        static count_t      Capacity(const is_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Capacity(is_any_tr<dynamic_array_t> auto& self, count_t new_capacity);
 
-        static bool_t       Should_Grow(const any_tr<dynamic_array_t> auto& self);
-        static bool_t       Grow(any_tr<dynamic_array_t> auto& self);
+        static bool_t       Should_Grow(const is_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Grow(is_any_tr<dynamic_array_t> auto& self);
 
-        static unit_t&      At(const any_tr<dynamic_array_t> auto& self, index_t index);
-        static bool_t       Push(any_tr<dynamic_array_t> auto& self, const unit_t& unit);
-        static bool_t       Push(any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
-        static unit_t       Pop(any_tr<dynamic_array_t> auto& self);
+        static unit_t&      At(const is_any_tr<dynamic_array_t> auto& self, index_t index);
+        static bool_t       Push(is_any_tr<dynamic_array_t> auto& self, const unit_t& unit);
+        static bool_t       Push(is_any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
+        static unit_t       Pop(is_any_tr<dynamic_array_t> auto& self);
 
-        static bool_t       Is_Fit(const any_tr<dynamic_array_t> auto& self);
-        static bool_t       Fit(any_tr<dynamic_array_t> auto& self);
+        static bool_t       Is_Fit(const is_any_tr<dynamic_array_t> auto& self);
+        static bool_t       Fit(is_any_tr<dynamic_array_t> auto& self);
 
-        static bool_t       Is_Clear(const any_tr<dynamic_array_t> auto& self);
-        static void_t       Clear(any_tr<dynamic_array_t> auto& self);
+        static bool_t       Is_Clear(const is_any_tr<dynamic_array_t> auto& self);
+        static void_t       Clear(is_any_tr<dynamic_array_t> auto& self);
 
     protected:
         writable_pointer_t  writable_units;
@@ -93,17 +93,17 @@ namespace nkr {
 
         dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
-        dynamic_array_t(stack_array_of_any_writable_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(stack_array_of_any_writable_tr<unit_t> auto&& stack_array, allocator_t&& allocator);
-        dynamic_array_t(stack_array_of_any_unwritable_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t())      = delete;   ///< @copydoc _075b7e64_4cb5_4651_b911_2fd1dabeef80
-        dynamic_array_t(stack_array_of_any_unwritable_tr<unit_t> auto&& stack_array, allocator_t&& allocator)                           = delete;   ///< @copydoc _d8def8ae_7b56_41a9_8494_b96bbb13c5b9
+        dynamic_array_t(stack_array_of_any_non_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(stack_array_of_any_non_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator);
+        dynamic_array_t(stack_array_of_any_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t())           = delete;   ///< @copydoc _075b7e64_4cb5_4651_b911_2fd1dabeef80
+        dynamic_array_t(stack_array_of_any_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator)                                = delete;   ///< @copydoc _d8def8ae_7b56_41a9_8494_b96bbb13c5b9
 
         dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array, allocator_t&& allocator);
-        dynamic_array_t(instant_array_of_any_writable_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(instant_array_of_any_writable_tr<unit_t> auto&& instant_array, allocator_t&& allocator);
-        dynamic_array_t(instant_array_of_any_unwritable_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t())  = delete;   ///< @copydoc _965c239c_d5ec_4d39_9832_666e6503019d
-        dynamic_array_t(instant_array_of_any_unwritable_tr<unit_t> auto&& instant_array, allocator_t&& allocator)                       = delete;   ///< @copydoc _c1790cd3_ad82_4ddf_9eb2_cc9036a6bc75
+        dynamic_array_t(instant_array_of_any_non_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(instant_array_of_any_non_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator);
+        dynamic_array_t(instant_array_of_any_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t())       = delete;   ///< @copydoc _965c239c_d5ec_4d39_9832_666e6503019d
+        dynamic_array_t(instant_array_of_any_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator)                            = delete;   ///< @copydoc _c1790cd3_ad82_4ddf_9eb2_cc9036a6bc75
 
         dynamic_array_t(const dynamic_array_t& other);
         dynamic_array_t(volatile const dynamic_array_t& other);

@@ -18,39 +18,41 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Copy(const any_stack_array_tr auto& from, any_writable_stack_array_tr auto& to)
+        stack_array_t<unit_p, capacity_p>::Copy_Construct(non_const_stack_array_of_tr<unit_t> auto& self,
+                                                          const stack_array_of_tr<unit_t> auto& other)
     {
-        assert(to.unit_count == 0);
+        assert(self.unit_count == 0);
 
-        for (index_t idx = 0, end = from.unit_count; idx < end; idx += 1) {
-            to.Writable_Array()[idx] = from.Array()[idx];
+        for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
+            self.Writable_Array()[idx] = other.Array()[idx];
         }
-        to.unit_count = from.unit_count;
+        self.unit_count = other.unit_count;
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move(any_tr<stack_array_t> auto& from, any_tr<stack_array_t> auto& to)
+        stack_array_t<unit_p, capacity_p>::Move_Construct(non_const_stack_array_of_tr<unit_t> auto& self,
+                                                          non_const_stack_array_of_tr<unit_t> auto& other)
     {
-        assert(to.unit_count == 0);
+        assert(self.unit_count == 0);
 
-        for (index_t idx = 0, end = from.unit_count; idx < end; idx += 1) {
-            to.Writable_Array()[idx] = nkr::Move(from.Writable_Array()[idx]);
+        for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
+            self.Writable_Array()[idx] = nkr::Move(other.Writable_Array()[idx]);
         }
-        to.unit_count = from.unit_count;
-        from.unit_count = 0;
+        self.unit_count = other.unit_count;
+        other.unit_count = 0;
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Destroy(any_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Destruct(stack_array_of_tr<unit_t> auto& self)
     {
         self.Clear();
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline auto&
-        stack_array_t<unit_p, capacity_p>::Array(any_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Array(stack_array_of_tr<unit_t> auto& self)
     {
         using self_t = std::remove_reference_t<decltype(self)>;
 
@@ -67,7 +69,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline auto&
-        stack_array_t<unit_p, capacity_p>::Writable_Array(any_writable_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Writable_Array(non_const_stack_array_of_tr<unit_t> auto& self)
     {
         using self_t = std::remove_reference_t<decltype(self)>;
 
@@ -80,14 +82,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline count_t
-        stack_array_t<unit_p, capacity_p>::Count(const any_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Count(const stack_array_of_tr<unit_t> auto& self)
     {
         return self.unit_count;
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline auto&
-        stack_array_t<unit_p, capacity_p>::At(any_tr<stack_array_t> auto& self, index_t index)
+        stack_array_t<unit_p, capacity_p>::At(stack_array_of_tr<unit_t> auto& self, index_t index)
     {
         assert(index < self.unit_count);
 
@@ -96,9 +98,9 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(any_writable_tr<stack_array_t> auto& self,
-                                                any_tr<unit_t> auto& unit,
-                                                any_tr<unit_t> auto& ...more_units)
+        stack_array_t<unit_p, capacity_p>::Push(non_const_stack_array_of_tr<unit_t> auto& self,
+                                                is_any_tr<unit_t> auto& unit,
+                                                is_any_tr<unit_t> auto& ...more_units)
     {
         assert(self.unit_count < Capacity());
 
@@ -112,9 +114,9 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(any_writable_tr<stack_array_t> auto& self,
-                                                any_writable_tr<unit_t> auto&& unit,
-                                                any_writable_tr<unit_t> auto&& ...more_units)
+        stack_array_t<unit_p, capacity_p>::Push(non_const_stack_array_of_tr<unit_t> auto& self,
+                                                is_any_non_const_tr<unit_t> auto&& unit,
+                                                is_any_non_const_tr<unit_t> auto&& ...more_units)
     {
         assert(self.unit_count < Capacity());
 
@@ -128,7 +130,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline auto
-        stack_array_t<unit_p, capacity_p>::Pop(any_writable_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Pop(non_const_stack_array_of_tr<unit_t> auto& self)
     {
         assert(self.unit_count > 0);
 
@@ -138,8 +140,8 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Copy_To(const any_tr<stack_array_t> auto& self,
-                                                   writable_array_of_any_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Copy_To(const stack_array_of_tr<unit_t> auto& self,
+                                                   non_const_array_of_any_tr<unit_t> auto& other)
     {
         assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
                reinterpret_cast<const volatile void_t*>(std::addressof(other)));
@@ -151,7 +153,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Copy_From(any_writable_tr<stack_array_t> auto& self,
+        stack_array_t<unit_p, capacity_p>::Copy_From(non_const_stack_array_of_tr<unit_t> auto& self,
                                                      const array_of_any_tr<unit_t> auto& other)
     {
         assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
@@ -162,13 +164,9 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move_To(any_writable_tr<stack_array_t> auto& self,
-                                                   writable_array_of_any_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Move_To(non_const_stack_array_of_any_non_const_tr<unit_t> auto& self,
+                                                   non_const_array_of_any_tr<unit_t> auto& other)
     {
-        if constexpr (unwritable_tr<unit_t>) {
-            static_assert(unwritable_tr<unit_t>, "cannot move unwritable units");
-        }
-
         assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
                reinterpret_cast<const volatile void_t*>(std::addressof(other)));
 
@@ -180,8 +178,8 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move_From(any_writable_tr<stack_array_t> auto& self,
-                                                     writable_array_of_any_writable_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Move_From(non_const_stack_array_of_tr<unit_t> auto& self,
+                                                     non_const_array_of_any_non_const_tr<unit_t> auto& other)
     {
         assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
                reinterpret_cast<const volatile void_t*>(std::addressof(other)));
@@ -191,14 +189,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline bool_t
-        stack_array_t<unit_p, capacity_p>::Is_Clear(const any_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Is_Clear(const stack_array_of_tr<unit_t> auto& self)
     {
         return self.unit_count == 0;
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Clear(any_writable_tr<stack_array_t> auto& self)
+        stack_array_t<unit_p, capacity_p>::Clear(non_const_stack_array_of_tr<unit_t> auto& self)
     {
         for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
             if constexpr (built_in_tr<unit_t>) {
@@ -217,7 +215,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, count_t capacity_p>
-    inline stack_array_t<unit_p, capacity_p>::stack_array_t(any_tr<unit_t> auto& ...args) :
+    inline stack_array_t<unit_p, capacity_p>::stack_array_t(is_any_tr<unit_t> auto& ...args) :
         unit_count(0)
     {
         assert(sizeof...(args) <= Capacity());
@@ -226,7 +224,7 @@ namespace nkr {
     }
 
     template <type_tr unit_p, count_t capacity_p>
-    inline stack_array_t<unit_p, capacity_p>::stack_array_t(any_writable_tr<unit_t> auto&& ...args) :
+    inline stack_array_t<unit_p, capacity_p>::stack_array_t(is_any_non_const_tr<unit_t> auto&& ...args) :
         unit_count(0)
     {
         assert(sizeof...(args) <= Capacity());
@@ -238,28 +236,28 @@ namespace nkr {
     inline stack_array_t<unit_p, capacity_p>::stack_array_t(const stack_array_t& other) :
         unit_count(0)
     {
-        Copy(other, *this);
+        Copy_Construct(*this, other);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline stack_array_t<unit_p, capacity_p>::stack_array_t(const volatile stack_array_t& other) :
         unit_count(0)
     {
-        Copy(other, *this);
+        Copy_Construct(*this, other);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline stack_array_t<unit_p, capacity_p>::stack_array_t(stack_array_t&& other) noexcept :
         unit_count(0)
     {
-        Move(other, *this);
+        Move_Construct(*this, other);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline stack_array_t<unit_p, capacity_p>::stack_array_t(volatile stack_array_t&& other) noexcept :
         unit_count(0)
     {
-        Move(other, *this);
+        Move_Construct(*this, other);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -267,8 +265,8 @@ namespace nkr {
         stack_array_t<unit_p, capacity_p>::operator =(const stack_array_t& other)
     {
         if (this != std::addressof(other)) {
-            Destroy(*this);
-            Copy(other, *this);
+            Destruct(*this);
+            Copy_Construct(*this, other);
         }
         return *this;
     }
@@ -279,8 +277,8 @@ namespace nkr {
         volatile
     {
         if (this != std::addressof(other)) {
-            Destroy(*this);
-            Copy(other, *this);
+            Destruct(*this);
+            Copy_Construct(*this, other);
         }
         return *this;
     }
@@ -291,8 +289,8 @@ namespace nkr {
         noexcept
     {
         if (this != std::addressof(other)) {
-            Destroy(*this);
-            Move(other, *this);
+            Destruct(*this);
+            Move_Construct(*this, other);
         }
         return *this;
     }
@@ -303,8 +301,8 @@ namespace nkr {
         volatile noexcept
     {
         if (this != std::addressof(other)) {
-            Destroy(*this);
-            Move(other, *this);
+            Destruct(*this);
+            Move_Construct(*this, other);
         }
         return *this;
     }
@@ -312,7 +310,7 @@ namespace nkr {
     template <type_tr unit_p, count_t capacity_p>
     inline stack_array_t<unit_p, capacity_p>::~stack_array_t()
     {
-        Destroy(*this);
+        Destruct(*this);
     }
 
     template <type_tr unit_p, count_t capacity_p>
@@ -395,14 +393,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(any_tr<unit_t> auto& ...units)
+        stack_array_t<unit_p, capacity_p>::Push(is_any_tr<unit_t> auto& ...units)
     {
         return Push(*this, units...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(any_tr<unit_t> auto& ...units)
+        stack_array_t<unit_p, capacity_p>::Push(is_any_tr<unit_t> auto& ...units)
         volatile
     {
         return Push(*this, units...);
@@ -410,14 +408,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(any_writable_tr<unit_t> auto&& ...units)
+        stack_array_t<unit_p, capacity_p>::Push(is_any_non_const_tr<unit_t> auto&& ...units)
     {
         return Push(*this, nkr::Move(units)...);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Push(any_writable_tr<unit_t> auto&& ...units)
+        stack_array_t<unit_p, capacity_p>::Push(is_any_non_const_tr<unit_t> auto&& ...units)
         volatile
     {
         return Push(*this, nkr::Move(units)...);
@@ -440,7 +438,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Copy_To(writable_array_of_any_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Copy_To(non_const_array_of_any_tr<unit_t> auto& other)
         const
     {
         return Copy_To(*this, other);
@@ -448,7 +446,7 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Copy_To(writable_array_of_any_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Copy_To(non_const_array_of_any_tr<unit_t> auto& other)
         const volatile
     {
         return Copy_To(*this, other);
@@ -471,14 +469,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move_To(writable_array_of_any_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Move_To(non_const_array_of_any_tr<unit_t> auto& other)
     {
         return Move_To(*this, other);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move_To(writable_array_of_any_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Move_To(non_const_array_of_any_tr<unit_t> auto& other)
         volatile
     {
         return Move_To(*this, other);
@@ -486,14 +484,14 @@ namespace nkr {
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move_From(writable_array_of_any_writable_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Move_From(non_const_array_of_any_non_const_tr<unit_t> auto& other)
     {
         return Move_From(*this, other);
     }
 
     template <type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_array_t<unit_p, capacity_p>::Move_From(writable_array_of_any_writable_tr<unit_t> auto& other)
+        stack_array_t<unit_p, capacity_p>::Move_From(non_const_array_of_any_non_const_tr<unit_t> auto& other)
         volatile
     {
         return Move_From(*this, other);
