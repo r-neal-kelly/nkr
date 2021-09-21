@@ -19,6 +19,8 @@ namespace nkr {
     #undef nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR
     #undef nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS
 
+    #undef nkr_DEFINE_COMMON_CONTAINER_TRAITS
+
     #define nkr_M   \
         (
 
@@ -103,5 +105,190 @@ namespace nkr {
         {                                                                           \
             return *static_cast<volatile const BASE_p*>(this);                      \
         }
+
+    #define nkr_DEFINE_COMMON_CONTAINER_TRAITS(NAME_p, PRIMARY_TRAIT_p)     \
+        template <typename container_p, typename unit_p>                    \
+        concept NAME_p##_of_tr =                                            \
+            PRIMARY_TRAIT_p<container_p> &&                                 \
+            is_tr<typename container_p::unit_t, unit_p>;                    \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept NAME_p##_of_const_tr =                                      \
+            PRIMARY_TRAIT_p<container_p> &&                                 \
+            is_const_tr<typename container_p::unit_t, unit_p>;              \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept NAME_p##_of_non_const_tr =                                  \
+            PRIMARY_TRAIT_p<container_p> &&                                 \
+            is_non_const_tr<typename container_p::unit_t, unit_p>;          \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept NAME_p##_of_any_tr =                                        \
+            PRIMARY_TRAIT_p<container_p> &&                                 \
+            is_any_tr<typename container_p::unit_t, unit_p>;                \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept NAME_p##_of_any_const_tr =                                  \
+            PRIMARY_TRAIT_p<container_p> &&                                 \
+            is_any_const_tr<typename container_p::unit_t, unit_p>;          \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept NAME_p##_of_any_non_const_tr =                              \
+            PRIMARY_TRAIT_p<container_p> &&                                 \
+            is_any_non_const_tr<typename container_p::unit_t, unit_p>;      \
+                                                                            \
+        template <typename container_p>                                     \
+        concept const_##NAME_p##_tr =                                       \
+            const_tr<container_p> &&                                        \
+            PRIMARY_TRAIT_p<container_p>;                                   \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept const_##NAME_p##_of_tr =                                    \
+            const_tr<container_p> &&                                        \
+            NAME_p##_of_tr<container_p, unit_p>;                            \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept const_##NAME_p##_of_const_tr =                              \
+            const_tr<container_p> &&                                        \
+            NAME_p##_of_const_tr<container_p, unit_p>;                      \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept const_##NAME_p##_of_non_const_tr =                          \
+            const_tr<container_p> &&                                        \
+            NAME_p##_of_non_const_tr<container_p, unit_p>;                  \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept const_##NAME_p##_of_any_tr =                                \
+            const_tr<container_p> &&                                        \
+            NAME_p##_of_any_tr<container_p, unit_p>;                        \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept const_##NAME_p##_of_any_const_tr =                          \
+            const_tr<container_p> &&                                        \
+            NAME_p##_of_any_const_tr<container_p, unit_p>;                  \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept const_##NAME_p##_of_any_non_const_tr =                      \
+            const_tr<container_p> &&                                        \
+            NAME_p##_of_any_non_const_tr<container_p, unit_p>;              \
+                                                                            \
+        template <typename container_p>                                     \
+        concept non_const_##NAME_p##_tr =                                   \
+            non_const_tr<container_p> &&                                    \
+            PRIMARY_TRAIT_p<container_p>;                                   \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept non_const_##NAME_p##_of_tr =                                \
+            non_const_tr<container_p> &&                                    \
+            NAME_p##_of_tr<container_p, unit_p>;                            \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept non_const_##NAME_p##_of_const_tr =                          \
+            non_const_tr<container_p> &&                                    \
+            NAME_p##_of_const_tr<container_p, unit_p>;                      \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept non_const_##NAME_p##_of_non_const_tr =                      \
+            non_const_tr<container_p> &&                                    \
+            NAME_p##_of_non_const_tr<container_p, unit_p>;                  \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept non_const_##NAME_p##_of_any_tr =                            \
+            non_const_tr<container_p> &&                                    \
+            NAME_p##_of_any_tr<container_p, unit_p>;                        \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept non_const_##NAME_p##_of_any_const_tr =                      \
+            non_const_tr<container_p> &&                                    \
+            NAME_p##_of_any_const_tr<container_p, unit_p>;                  \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept non_const_##NAME_p##_of_any_non_const_tr =                  \
+            non_const_tr<container_p> &&                                    \
+            NAME_p##_of_any_non_const_tr<container_p, unit_p>;              \
+                                                                            \
+        template <typename container_p>                                     \
+        concept not_##NAME_p##_tr =                                         \
+            !PRIMARY_TRAIT_p<container_p>;                                  \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_##NAME_p##_of_tr =                                      \
+            !NAME_p##_of_tr<container_p, unit_p>;                           \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_##NAME_p##_of_const_tr =                                \
+            !NAME_p##_of_const_tr<container_p, unit_p>;                     \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_##NAME_p##_of_non_const_tr =                            \
+            !NAME_p##_of_non_const_tr<container_p, unit_p>;                 \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_##NAME_p##_of_any_tr =                                  \
+            !NAME_p##_of_any_tr<container_p, unit_p>;                       \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_##NAME_p##_of_any_const_tr =                            \
+            !NAME_p##_of_any_const_tr<container_p, unit_p>;                 \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_##NAME_p##_of_any_non_const_tr =                        \
+            !NAME_p##_of_any_non_const_tr<container_p, unit_p>;             \
+                                                                            \
+        template <typename container_p>                                     \
+        concept not_const_##NAME_p##_tr =                                   \
+            !const_##NAME_p##_tr<container_p>;                              \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_const_##NAME_p##_of_tr =                                \
+            !const_##NAME_p##_of_tr<container_p, unit_p>;                   \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_const_##NAME_p##_of_const_tr =                          \
+            !const_##NAME_p##_of_const_tr<container_p, unit_p>;             \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_const_##NAME_p##_of_non_const_tr =                      \
+            !const_##NAME_p##_of_non_const_tr<container_p, unit_p>;         \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_const_##NAME_p##_of_any_tr =                            \
+            !const_##NAME_p##_of_any_tr<container_p, unit_p>;               \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_const_##NAME_p##_of_any_const_tr =                      \
+            !const_##NAME_p##_of_any_const_tr<container_p, unit_p>;         \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_const_##NAME_p##_of_any_non_const_tr =                  \
+            !const_##NAME_p##_of_any_non_const_tr<container_p, unit_p>;     \
+                                                                            \
+        template <typename container_p>                                     \
+        concept not_non_const_##NAME_p##_tr =                               \
+            !non_const_##NAME_p##_tr<container_p>;                          \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_non_const_##NAME_p##_of_tr =                            \
+            !non_const_##NAME_p##_of_tr<container_p, unit_p>;               \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_non_const_##NAME_p##_of_const_tr =                      \
+            !non_const_##NAME_p##_of_const_tr<container_p, unit_p>;         \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_non_const_##NAME_p##_of_non_const_tr =                  \
+            !non_const_##NAME_p##_of_non_const_tr<container_p, unit_p>;     \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_non_const_##NAME_p##_of_any_tr =                        \
+            !non_const_##NAME_p##_of_any_tr<container_p, unit_p>;           \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_non_const_##NAME_p##_of_any_const_tr =                  \
+            !non_const_##NAME_p##_of_any_const_tr<container_p, unit_p>;     \
+                                                                            \
+        template <typename container_p, typename unit_p>                    \
+        concept not_non_const_##NAME_p##_of_any_non_const_tr =              \
+            !non_const_##NAME_p##_of_any_non_const_tr<container_p, unit_p>
 
 }

@@ -107,10 +107,6 @@ namespace nkr {
         std::same_as<type_a_p, type_b_p>;
 
     template <typename type_a_p, typename type_b_p>
-    concept not_is_tr =
-        !is_tr<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
     concept is_const_tr =
         is_tr<type_a_p, std::add_const_t<type_b_p>>;
 
@@ -123,22 +119,34 @@ namespace nkr {
         is_tr<std::remove_cvref_t<type_a_p>, std::remove_cvref_t<type_b_p>>;
 
     template <typename type_a_p, typename type_b_p>
-    concept not_is_any_tr =
-        !is_any_tr<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
     concept is_any_const_tr =
         is_any_tr<type_a_p, type_b_p> &&
         const_tr<type_a_p>;
 
     template <typename type_a_p, typename type_b_p>
-    concept not_is_any_const_tr =
-        !is_any_const_tr<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
     concept is_any_non_const_tr =
         is_any_tr<type_a_p, type_b_p> &&
         non_const_tr<type_a_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_tr =
+        !is_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_const_tr =
+        !is_const_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_non_const_tr =
+        !is_non_const_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_any_tr =
+        !is_any_tr<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept not_is_any_const_tr =
+        !is_any_const_tr<type_a_p, type_b_p>;
 
     template <typename type_a_p, typename type_b_p>
     concept not_is_any_non_const_tr =

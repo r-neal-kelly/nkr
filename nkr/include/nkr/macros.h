@@ -26,6 +26,8 @@ namespace nkr {
     #define nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(WRAPPER_p, BASE_p)
     #define nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(ACCESSOR_NAME_p, BASE_p)
 
+    #define nkr_DEFINE_COMMON_CONTAINER_TRAITS(NAME_p, PRIMARY_DEFINITION_p)
+
 }
 
 #include "nkr/macros.inl"

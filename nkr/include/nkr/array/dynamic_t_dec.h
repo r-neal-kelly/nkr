@@ -17,6 +17,19 @@
 
 namespace nkr {
 
+    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    class dynamic_array_t;
+
+    template <typename array_p>
+    concept dynamic_array_tr =
+        is_any_tr<array_p, dynamic_array_t<typename array_p::unit_t, typename array_p::allocator_t, typename array_p::grow_rate_t>>;
+
+    nkr_DEFINE_COMMON_CONTAINER_TRAITS(dynamic_array, dynamic_array_tr);
+
+}
+
+namespace nkr {
+
     template <
         type_tr             unit_p,
         allocator_i         allocator_p = allocator::heap_t<unit_p>,
