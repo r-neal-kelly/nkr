@@ -56,12 +56,12 @@ namespace nkr {
     {
         using self_t = std::remove_reference_t<decltype(self)>;
 
-        if constexpr (just_const_volatile_tr<self_t>) {
-            return reinterpret_cast<const volatile array_t&>(self.byte_array);
-        } else if constexpr (any_const_tr<self_t>) {
+        if constexpr (just_const_tr<self_t>) {
             return reinterpret_cast<const array_t&>(self.byte_array);
-        } else if constexpr (any_volatile_tr<self_t>) {
+        } else if constexpr (just_volatile_tr<self_t>) {
             return reinterpret_cast<volatile array_t&>(self.byte_array);
+        } else if constexpr (just_const_volatile_tr<self_t>) {
+            return reinterpret_cast<const volatile array_t&>(self.byte_array);
         } else {
             return reinterpret_cast<array_t&>(self.byte_array);
         }

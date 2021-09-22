@@ -760,13 +760,13 @@ namespace nkr {
 
                     unit_t* unit = Random<unit_t*>();
                     pointer_p pointer(unit);
-                    if constexpr (std::is_volatile_v<pointer_p> && std::is_const_v<pointer_p>) {
+                    if constexpr (just_const_volatile_tr<pointer_p>) {
                         volatile const units_t cast = static_cast<volatile const units_t&>(pointer);
                         CHECK(cast == unit);
-                    } else if constexpr (std::is_volatile_v<pointer_p>) {
+                    } else if constexpr (just_volatile_tr<pointer_p>) {
                         volatile units_t cast = static_cast<volatile units_t&>(pointer);
                         CHECK(cast == unit);
-                    } else if constexpr (std::is_const_v<pointer_p>) {
+                    } else if constexpr (just_const_tr<pointer_p>) {
                         const units_t cast = static_cast<const units_t&>(pointer);
                         CHECK(cast == unit);
                     } else {
@@ -782,13 +782,13 @@ namespace nkr {
 
                     unit_t* unit = Random<unit_t*>();
                     pointer_p pointer(unit);
-                    if constexpr (std::is_volatile_v<pointer_p> && std::is_const_v<pointer_p>) {
+                    if constexpr (just_const_volatile_tr<pointer_p>) {
                         volatile const units_t cast = pointer;
                         CHECK(cast == unit);
-                    } else if constexpr (std::is_volatile_v<pointer_p>) {
+                    } else if constexpr (just_volatile_tr<pointer_p>) {
                         volatile units_t cast = pointer;
                         CHECK(cast == unit);
-                    } else if constexpr (std::is_const_v<pointer_p>) {
+                    } else if constexpr (just_const_tr<pointer_p>) {
                         const units_t cast = pointer;
                         CHECK(cast == unit);
                     } else {
@@ -805,7 +805,7 @@ namespace nkr {
                     unit_t* unit_a = Random<unit_t*>();
                     unit_t* unit_b = Random<unit_t*>();
                     pointer_p pointer(unit_a);
-                    if constexpr (std::is_volatile_v<pointer_p>) {
+                    if constexpr (any_volatile_tr<pointer_p>) {
                         static_cast<volatile units_t&>(pointer) = unit_b;
                         CHECK(pointer.units == unit_b);
                     } else {
@@ -1451,7 +1451,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && any_non_const_tr<unit_t>) {
                         unit_t random_a = Random<unit_t>();
                         unit_t random_b = Random<unit_t>();
                         pointer_p pointer(&random_a);
@@ -1465,7 +1465,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && any_non_const_tr<unit_t>) {
                         unit_t random_a = Random<unit_t>();
                         unit_t random_b = Random<unit_t>();
                         pointer_p pointer(&random_a);
@@ -1498,7 +1498,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && any_non_const_tr<unit_t>) {
                         unit_t randoms[16];
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<unit_t>();
@@ -1516,7 +1516,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && any_non_const_tr<unit_t>) {
                         unit_t randoms[16];
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<unit_t>();

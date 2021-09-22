@@ -53,9 +53,9 @@ namespace nkr {
     private:
         static auto&        Units(is_any_tr<dynamic_array_t> auto& self);
 
-        static void_t       Copy(const is_any_tr<dynamic_array_t> auto& from,
-                                 is_any_tr<dynamic_array_t> auto& to);
-        static void_t       Destroy(is_any_tr<dynamic_array_t> auto& self);
+        static void_t       Copy_Construct(is_any_non_const_tr<dynamic_array_t> auto& self,
+                                           const is_any_tr<dynamic_array_t> auto& other);
+        static void_t       Destruct(is_any_tr<dynamic_array_t> auto& self);
 
         static pointer_t    Pointer(const is_any_tr<dynamic_array_t> auto& self);
         static count_t      Count(const is_any_tr<dynamic_array_t> auto& self);
@@ -71,6 +71,15 @@ namespace nkr {
         static bool_t       Push(is_any_tr<dynamic_array_t> auto& self, const unit_t& unit);
         static bool_t       Push(is_any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit);
         static unit_t       Pop(is_any_tr<dynamic_array_t> auto& self);
+
+        static void_t       Copy_To(const is_any_tr<dynamic_array_t> auto& self,
+                                    any_non_const_array_of_any_tr<unit_t> auto& other);
+        static void_t       Copy_From(is_any_non_const_tr<dynamic_array_t> auto& self,
+                                      const any_array_of_any_tr<unit_t> auto& other);
+        static void_t       Move_To(any_non_const_dynamic_array_of_any_non_const_tr<unit_t> auto& self,
+                                    any_non_const_array_of_any_tr<unit_t> auto& other);
+        static void_t       Move_From(is_any_non_const_tr<dynamic_array_t> auto& self,
+                                      any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
 
         static bool_t       Is_Fit(const is_any_tr<dynamic_array_t> auto& self);
         static bool_t       Fit(is_any_tr<dynamic_array_t> auto& self);
@@ -153,6 +162,19 @@ namespace nkr {
         bool_t                      Push(volatile const unit_t&& unit) volatile = delete;
         unit_t                      Pop();
         unit_t                      Pop() volatile;
+
+        void_t                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const;
+        void_t                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
+        void_t                      Copy_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        void_t                      Copy_From(const any_array_of_any_tr<unit_t> auto& other);
+        void_t                      Copy_From(const any_array_of_any_tr<unit_t> auto& other) volatile;
+        void_t                      Copy_From(const not_any_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
+        void_t                      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other);
+        void_t                      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other) volatile;
+        void_t                      Move_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        void_t                      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
+        void_t                      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
+        void_t                      Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
 
         bool_t                      Is_Fit() const;
         bool_t                      Is_Fit() volatile const;

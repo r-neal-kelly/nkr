@@ -25,14 +25,24 @@ namespace nkr { namespace allocator {
         static constexpr count_t    Max_Unit_Count();
 
     private:
-        static bool_t   Allocate(is_any_tr<heap_t> auto& self, is_any_tr<units_t> auto& units, count_t unit_count);
-        static bool_t   Allocate(is_any_tr<heap_t> auto& self, is_any_tr<pointer_t> auto& units, count_t unit_count);
+        static bool_t   Allocate(is_any_tr<heap_t> auto& self,
+                                 is_any_non_const_tr<units_t> auto& units,
+                                 count_t unit_count);
+        static bool_t   Allocate(is_any_tr<heap_t> auto& self,
+                                 is_any_non_const_tr<pointer_t> auto& units,
+                                 count_t unit_count);
 
-        static bool_t   Reallocate(is_any_tr<heap_t> auto& self, is_any_tr<units_t> auto& units, count_t new_unit_count);
-        static bool_t   Reallocate(is_any_tr<heap_t> auto& self, is_any_tr<pointer_t> auto& units, count_t new_unit_count);
+        static bool_t   Reallocate(is_any_tr<heap_t> auto& self,
+                                   is_any_non_const_tr<units_t> auto& units,
+                                   count_t new_unit_count);
+        static bool_t   Reallocate(is_any_tr<heap_t> auto& self,
+                                   is_any_non_const_tr<pointer_t> auto& units,
+                                   count_t new_unit_count);
 
-        static void_t   Deallocate(is_any_tr<heap_t> auto& self, is_any_tr<units_t> auto& units);
-        static void_t   Deallocate(is_any_tr<heap_t> auto& self, is_any_tr<pointer_t> auto& units);
+        static void_t   Deallocate(is_any_tr<heap_t> auto& self,
+                                   is_any_non_const_tr<units_t> auto& units);
+        static void_t   Deallocate(is_any_tr<heap_t> auto& self,
+                                   is_any_non_const_tr<pointer_t> auto& units);
 
         static bool_t   Is_Equal_To(is_any_tr<heap_t> auto a, is_any_tr<heap_t> auto b);
 
@@ -63,20 +73,20 @@ namespace nkr { namespace allocator {
         ~heap_t()                                                                   = default;
 
     public:
-        bool_t  Allocate(units_t& units, count_t unit_count);
-        bool_t  Allocate(volatile units_t& units, count_t unit_count) volatile;
-        bool_t  Allocate(pointer_t& units, count_t unit_count);
-        bool_t  Allocate(volatile pointer_t& units, count_t unit_count) volatile;
+        bool_t  Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count) const;
+        bool_t  Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count) const volatile;
+        bool_t  Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count) const;
+        bool_t  Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count) const volatile;
         
-        bool_t  Reallocate(units_t& units, count_t new_unit_count);
-        bool_t  Reallocate(volatile units_t& units, count_t new_unit_count) volatile;
-        bool_t  Reallocate(pointer_t& units, count_t new_unit_count);
-        bool_t  Reallocate(volatile pointer_t& units, count_t new_unit_count) volatile;
+        bool_t  Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count) const;
+        bool_t  Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count) const volatile;
+        bool_t  Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count) const;
+        bool_t  Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count) const volatile;
 
-        void_t  Deallocate(units_t& units);
-        void_t  Deallocate(volatile units_t& units) volatile;
-        void_t  Deallocate(pointer_t& units);
-        void_t  Deallocate(volatile pointer_t& units) volatile;
+        void_t  Deallocate(is_any_non_const_tr<units_t> auto& units) const;
+        void_t  Deallocate(is_any_non_const_tr<units_t> auto& units) const volatile;
+        void_t  Deallocate(is_any_non_const_tr<pointer_t> auto& units) const;
+        void_t  Deallocate(is_any_non_const_tr<pointer_t> auto& units) const volatile;
     };
     static_assert(allocator_i<heap_t<word_t>>);
 

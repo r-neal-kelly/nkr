@@ -74,7 +74,7 @@ namespace nkr {
                 {
                     using value_t = atomic_t<void_t*>::value_t;
 
-                    static_assert(std::is_same_v<decltype(atomic_t<void_t*>::value), volatile value_t>);
+                    static_assert(is_tr<decltype(atomic_t<void_t*>::value), volatile value_t>);
                 }
                 /// [_1a8ce10a_a464_42e8_a58f_cbe4030491ed]
             }
