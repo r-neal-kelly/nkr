@@ -10,8 +10,8 @@
 
 namespace nkr { namespace $pointer_t {
 
-    template <type_tr unit_p>
-    class type_sp
+    template <any_type_tr unit_p>
+    class any_type_sp
     {
     public:
         /// @name aliases
@@ -22,15 +22,15 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(is_any_tr<type_sp> auto a, is_any_tr<type_sp> auto b);
+        static bool_t   Is_Equal_To(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b);
 
     public:
-        friend bool_t operator ==(is_any_tr<type_sp> auto a, is_any_tr<type_sp> auto b)
+        friend bool_t operator ==(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t operator !=(is_any_tr<type_sp> auto a, is_any_tr<type_sp> auto b)
+        friend bool_t operator !=(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b)
         {
             return !Is_Equal_To(a, b);
         }
@@ -47,21 +47,21 @@ namespace nkr { namespace $pointer_t {
         /// @name objects
         /// @copydoc 
         /// @{
-        type_sp();
-        type_sp(convertible_tr<unit_t*> auto unit);
-        type_sp(convertible_tr<units_t> auto units, count_t unit_count);
+        any_type_sp();
+        any_type_sp(convertible_tr<unit_t*> auto unit);
+        any_type_sp(convertible_tr<units_t> auto units, count_t unit_count);
 
-        type_sp(const type_sp& other);
-        type_sp(volatile const type_sp& other);
-        type_sp(type_sp&& other) noexcept;
-        type_sp(volatile type_sp&& other) noexcept;
+        any_type_sp(const any_type_sp& other);
+        any_type_sp(volatile const any_type_sp& other);
+        any_type_sp(any_type_sp&& other) noexcept;
+        any_type_sp(volatile any_type_sp&& other) noexcept;
 
-        type_sp&            operator =(const type_sp& other);
-        volatile type_sp&   operator =(volatile const type_sp& other) volatile;
-        type_sp&            operator =(type_sp&& other) noexcept;
-        volatile type_sp&   operator =(volatile type_sp&& other) volatile noexcept;
+        any_type_sp&            operator =(const any_type_sp& other);
+        volatile any_type_sp&   operator =(volatile const any_type_sp& other) volatile;
+        any_type_sp&            operator =(any_type_sp&& other) noexcept;
+        volatile any_type_sp&   operator =(volatile any_type_sp&& other) volatile noexcept;
 
-        ~type_sp();
+        ~any_type_sp();
         /// @}
 
     public:
@@ -98,25 +98,25 @@ namespace nkr { namespace $pointer_t {
         const units_t&          operator ()() const;
         volatile units_t&       operator ()() volatile;
         volatile const units_t& operator ()() volatile const;
-        type_sp&                operator ()(convertible_tr<unit_t*> auto unit);
-        volatile type_sp&       operator ()(convertible_tr<unit_t*> auto unit) volatile;
-        type_sp&                operator ()(convertible_tr<units_t> auto units, count_t unit_count);
-        volatile type_sp&       operator ()(convertible_tr<units_t> auto units, count_t unit_count) volatile;
+        any_type_sp&            operator ()(convertible_tr<unit_t*> auto unit);
+        volatile any_type_sp&   operator ()(convertible_tr<unit_t*> auto unit) volatile;
+        any_type_sp&            operator ()(convertible_tr<units_t> auto units, count_t unit_count);
+        volatile any_type_sp&   operator ()(convertible_tr<units_t> auto units, count_t unit_count) volatile;
 
-        type_sp                 operator +(integer_tr auto amount) volatile const;
-        type_sp                 operator -(integer_tr auto amount) volatile const;
+        any_type_sp             operator +(integer_tr auto amount) volatile const;
+        any_type_sp             operator -(integer_tr auto amount) volatile const;
 
-        type_sp&                operator +=(integer_tr auto amount);
-        volatile type_sp&       operator +=(integer_tr auto amount) volatile;
-        type_sp&                operator -=(integer_tr auto amount);
-        volatile type_sp&       operator -=(integer_tr auto amount) volatile;
+        any_type_sp&            operator +=(integer_tr auto amount);
+        volatile any_type_sp&   operator +=(integer_tr auto amount) volatile;
+        any_type_sp&            operator -=(integer_tr auto amount);
+        volatile any_type_sp&   operator -=(integer_tr auto amount) volatile;
 
-        type_sp&                operator ++();
-        volatile type_sp&       operator ++() volatile;
-        type_sp                 operator ++(int) volatile;
-        type_sp&                operator --();
-        volatile type_sp&       operator --() volatile;
-        type_sp                 operator --(int) volatile;
+        any_type_sp&            operator ++();
+        volatile any_type_sp&   operator ++() volatile;
+        any_type_sp             operator ++(int) volatile;
+        any_type_sp&            operator --();
+        volatile any_type_sp&   operator --() volatile;
+        any_type_sp             operator --(int) volatile;
 
         units_t                 operator ->() volatile const;
         unit_t&                 operator *() volatile const;
@@ -124,8 +124,8 @@ namespace nkr { namespace $pointer_t {
         /// @}
     };
 
-    template <non_type_tr unit_p>
-    class non_type_sp
+    template <any_non_type_tr unit_p>
+    class any_non_type_sp
     {
     public:
         /// @name aliases
@@ -136,15 +136,15 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(is_any_tr<non_type_sp> auto a, is_any_tr<non_type_sp> auto b);
+        static bool_t   Is_Equal_To(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b);
 
     public:
-        friend bool_t operator ==(is_any_tr<non_type_sp> auto a, is_any_tr<non_type_sp> auto b)
+        friend bool_t operator ==(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b)
         {
             return Is_Equal_To(a, b);
         }
 
-        friend bool_t operator !=(is_any_tr<non_type_sp> auto a, is_any_tr<non_type_sp> auto b)
+        friend bool_t operator !=(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b)
         {
             return !Is_Equal_To(a, b);
         }
@@ -161,21 +161,21 @@ namespace nkr { namespace $pointer_t {
         /// @name objects
         /// @copydoc 
         /// @{
-        non_type_sp();
-        non_type_sp(convertible_tr<unit_t*> auto unit);
-        non_type_sp(convertible_tr<units_t> auto units, count_t unit_count);
+        any_non_type_sp();
+        any_non_type_sp(convertible_tr<unit_t*> auto unit);
+        any_non_type_sp(convertible_tr<units_t> auto units, count_t unit_count);
 
-        non_type_sp(const non_type_sp& other);
-        non_type_sp(volatile const non_type_sp& other);
-        non_type_sp(non_type_sp&& other) noexcept;
-        non_type_sp(volatile non_type_sp&& other) noexcept;
+        any_non_type_sp(const any_non_type_sp& other);
+        any_non_type_sp(volatile const any_non_type_sp& other);
+        any_non_type_sp(any_non_type_sp&& other) noexcept;
+        any_non_type_sp(volatile any_non_type_sp&& other) noexcept;
 
-        non_type_sp&            operator =(const non_type_sp& other);
-        volatile non_type_sp&   operator =(volatile const non_type_sp& other) volatile;
-        non_type_sp&            operator =(non_type_sp&& other) noexcept;
-        volatile non_type_sp&   operator =(volatile non_type_sp&& other) volatile noexcept;
+        any_non_type_sp&            operator =(const any_non_type_sp& other);
+        volatile any_non_type_sp&   operator =(volatile const any_non_type_sp& other) volatile;
+        any_non_type_sp&            operator =(any_non_type_sp&& other) noexcept;
+        volatile any_non_type_sp&   operator =(volatile any_non_type_sp&& other) volatile noexcept;
 
-        ~non_type_sp();
+        ~any_non_type_sp();
         /// @}
 
     public:
@@ -208,14 +208,14 @@ namespace nkr { namespace $pointer_t {
         /// @name operators
         /// @copydoc 
         /// @{
-        units_t&                operator ()();
-        const units_t&          operator ()() const;
-        volatile units_t&       operator ()() volatile;
-        volatile const units_t& operator ()() volatile const;
-        non_type_sp&            operator ()(convertible_tr<unit_t*> auto unit);
-        volatile non_type_sp&   operator ()(convertible_tr<unit_t*> auto unit) volatile;
-        non_type_sp&            operator ()(convertible_tr<units_t> auto units, count_t unit_count);
-        volatile non_type_sp&   operator ()(convertible_tr<units_t> auto units, count_t unit_count) volatile;
+        units_t&                    operator ()();
+        const units_t&              operator ()() const;
+        volatile units_t&           operator ()() volatile;
+        volatile const units_t&     operator ()() volatile const;
+        any_non_type_sp&            operator ()(convertible_tr<unit_t*> auto unit);
+        volatile any_non_type_sp&   operator ()(convertible_tr<unit_t*> auto unit) volatile;
+        any_non_type_sp&            operator ()(convertible_tr<units_t> auto units, count_t unit_count);
+        volatile any_non_type_sp&   operator ()(convertible_tr<units_t> auto units, count_t unit_count) volatile;
         /// @}
     };
 
@@ -254,12 +254,12 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc 
-    template <type_tr unit_p>
+    template <any_type_tr unit_p>
     class pointer_t<unit_p> :
-        public $pointer_t::type_sp<unit_p>
+        public $pointer_t::any_type_sp<unit_p>
     {
     private:
-        using base_t    = $pointer_t::type_sp<unit_p>;
+        using base_t    = $pointer_t::any_type_sp<unit_p>;
 
     public:
         friend bool_t operator ==(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)
@@ -292,12 +292,12 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc 
-    template <non_type_tr unit_p>
+    template <any_non_type_tr unit_p>
     class pointer_t<unit_p> :
-        public $pointer_t::non_type_sp<unit_p>
+        public $pointer_t::any_non_type_sp<unit_p>
     {
     private:
-        using base_t    = $pointer_t::non_type_sp<unit_p>;
+        using base_t    = $pointer_t::any_non_type_sp<unit_p>;
 
     public:
         friend bool_t operator ==(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)

@@ -11,20 +11,20 @@
 
 namespace nkr {
 
-    template <type_tr unit_p, count_t capacity_p>
+    template <any_type_tr unit_p, count_t capacity_p>
     class stack_array_t;
 
     template <typename array_p>
-    concept stack_array_tr =
+    concept any_stack_array_tr =
         is_any_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
 
-    nkr_DEFINE_COMMON_CONTAINER_TRAITS(stack_array, stack_array_tr);
+    nkr_DEFINE_CONTAINER_TRAITS(stack_array);
 
 }
 
 namespace nkr {
 
-    template <type_tr unit_p, count_t capacity_p>
+    template <any_type_tr unit_p, count_t capacity_p>
     class stack_array_t
     {
     public:
@@ -60,13 +60,13 @@ namespace nkr {
         static auto     Pop(is_any_non_const_tr<stack_array_t> auto& self);
 
         static void_t   Copy_To(const is_any_tr<stack_array_t> auto& self,
-                                non_const_array_of_any_tr<unit_t> auto& other);
+                                any_non_const_array_of_any_tr<unit_t> auto& other);
         static void_t   Copy_From(is_any_non_const_tr<stack_array_t> auto& self,
-                                  const array_of_any_tr<unit_t> auto& other);
-        static void_t   Move_To(non_const_stack_array_of_any_non_const_tr<unit_t> auto& self,
-                                non_const_array_of_any_tr<unit_t> auto& other);
+                                  const any_array_of_any_tr<unit_t> auto& other);
+        static void_t   Move_To(any_non_const_stack_array_of_any_non_const_tr<unit_t> auto& self,
+                                any_non_const_array_of_any_tr<unit_t> auto& other);
         static void_t   Move_From(is_any_non_const_tr<stack_array_t> auto& self,
-                                  non_const_array_of_any_non_const_tr<unit_t> auto& other);
+                                  any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
 
         static bool_t   Is_Clear(const is_any_tr<stack_array_t> auto& self);
         static void_t   Clear(is_any_non_const_tr<stack_array_t> auto& self);
@@ -107,25 +107,25 @@ namespace nkr {
         const volatile unit_t&  At(index_t index) const volatile;
         void_t                  Push(is_any_tr<unit_t> auto& ...units);
         void_t                  Push(is_any_tr<unit_t> auto& ...units) volatile;
-        void_t                  Push(not_is_any_tr<unit_t> auto& ...units) const volatile                               = delete;
+        void_t                  Push(not_is_any_tr<unit_t> auto& ...units) const volatile                                   = delete;
         void_t                  Push(is_any_non_const_tr<unit_t> auto&& ...units);
         void_t                  Push(is_any_non_const_tr<unit_t> auto&& ...units) volatile;
-        void_t                  Push(not_is_any_non_const_tr<unit_t> auto&& ...units) const volatile                    = delete;
+        void_t                  Push(not_is_any_non_const_tr<unit_t> auto&& ...units) const volatile                        = delete;
         unit_t                  Pop();
         volatile unit_t         Pop() volatile;
 
-        void_t                  Copy_To(non_const_array_of_any_tr<unit_t> auto& other) const;
-        void_t                  Copy_To(non_const_array_of_any_tr<unit_t> auto& other) const volatile;
-        void_t                  Copy_To(not_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
-        void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other);
-        void_t                  Copy_From(const array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Copy_From(const not_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
-        void_t                  Move_To(non_const_array_of_any_tr<unit_t> auto& other);
-        void_t                  Move_To(non_const_array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                  Move_To(not_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
-        void_t                  Move_From(non_const_array_of_any_non_const_tr<unit_t> auto& other);
-        void_t                  Move_From(non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
-        void_t                  Move_From(not_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
+        void_t                  Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const;
+        void_t                  Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
+        void_t                  Copy_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        void_t                  Copy_From(const any_array_of_any_tr<unit_t> auto& other);
+        void_t                  Copy_From(const any_array_of_any_tr<unit_t> auto& other) volatile;
+        void_t                  Copy_From(const not_any_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
+        void_t                  Move_To(any_non_const_array_of_any_tr<unit_t> auto& other);
+        void_t                  Move_To(any_non_const_array_of_any_tr<unit_t> auto& other) volatile;
+        void_t                  Move_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        void_t                  Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
+        void_t                  Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
+        void_t                  Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
 
         bool_t                  Is_Clear() const;
         bool_t                  Is_Clear() const volatile;
@@ -163,20 +163,20 @@ namespace nkr {
 
 namespace nkr {
 
-    template <non_const_tr head_p, is_tr<head_p> ...tail_p>
+    template <any_non_const_tr head_p, is_tr<head_p> ...tail_p>
     class instant_array_t;
 
     template <typename type_p>
-    concept instant_array_tr =
+    concept any_instant_array_tr =
         type_p::Is_Instant_Array();
 
-    nkr_DEFINE_COMMON_CONTAINER_TRAITS(instant_array, instant_array_tr);
+    nkr_DEFINE_CONTAINER_TRAITS(instant_array);
 
 }
 
 namespace nkr {
 
-    template <non_const_tr head_p, is_tr<head_p> ...tail_p>
+    template <any_non_const_tr head_p, is_tr<head_p> ...tail_p>
     class instant_array_t :
         public stack_array_t<head_p, 1 + sizeof...(tail_p)>
     {

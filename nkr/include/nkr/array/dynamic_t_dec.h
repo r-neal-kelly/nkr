@@ -17,21 +17,21 @@
 
 namespace nkr {
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     class dynamic_array_t;
 
     template <typename array_p>
-    concept dynamic_array_tr =
+    concept any_dynamic_array_tr =
         is_any_tr<array_p, dynamic_array_t<typename array_p::unit_t, typename array_p::allocator_t, typename array_p::grow_rate_t>>;
 
-    nkr_DEFINE_COMMON_CONTAINER_TRAITS(dynamic_array, dynamic_array_tr);
+    nkr_DEFINE_CONTAINER_TRAITS(dynamic_array);
 
 }
 
 namespace nkr {
 
     template <
-        type_tr             unit_p,
+        any_type_tr         unit_p,
         allocator_i         allocator_p = allocator::heap_t<unit_p>,
         math::fraction_i    grow_rate_p = math::fraction_t<17, 10>
     > class dynamic_array_t
@@ -94,29 +94,29 @@ namespace nkr {
         dynamic_array_t(const unit_t& filler, count_t count, allocator_t&& allocator);
         dynamic_array_t(writable_unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t());
         dynamic_array_t(writable_unit_t&& filler, count_t count, allocator_t&& allocator);
-        dynamic_array_t(volatile const unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                    = delete;
-        dynamic_array_t(volatile const unit_t&& filler, count_t count, allocator_t&& allocator)                                         = delete;
+        dynamic_array_t(volatile const unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                                    = delete;
+        dynamic_array_t(volatile const unit_t&& filler, count_t count, allocator_t&& allocator)                                                         = delete;
 
         dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
         dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
-        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())     = delete;
-        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                          = delete;
+        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())                     = delete;
+        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                                          = delete;
 
-        dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
-        dynamic_array_t(stack_array_of_any_non_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(stack_array_of_any_non_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator);
-        dynamic_array_t(stack_array_of_any_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t())           = delete;   ///< @copydoc _075b7e64_4cb5_4651_b911_2fd1dabeef80
-        dynamic_array_t(stack_array_of_any_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator)                                = delete;   ///< @copydoc _d8def8ae_7b56_41a9_8494_b96bbb13c5b9
+        dynamic_array_t(const any_stack_array_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(const any_stack_array_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
+        dynamic_array_t(any_non_const_stack_array_of_any_non_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(any_non_const_stack_array_of_any_non_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator);
+        dynamic_array_t(any_stack_array_of_any_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t())                       = delete;   ///< @copydoc _075b7e64_4cb5_4651_b911_2fd1dabeef80
+        dynamic_array_t(any_stack_array_of_any_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator)                                            = delete;   ///< @copydoc _d8def8ae_7b56_41a9_8494_b96bbb13c5b9
 
-        dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array, allocator_t&& allocator);
-        dynamic_array_t(instant_array_of_any_non_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t());
-        dynamic_array_t(instant_array_of_any_non_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator);
-        dynamic_array_t(instant_array_of_any_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t())       = delete;   ///< @copydoc _965c239c_d5ec_4d39_9832_666e6503019d
-        dynamic_array_t(instant_array_of_any_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator)                            = delete;   ///< @copydoc _c1790cd3_ad82_4ddf_9eb2_cc9036a6bc75
+        dynamic_array_t(const any_instant_array_of_any_tr<unit_t> auto& instant_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(const any_instant_array_of_any_tr<unit_t> auto& instant_array, allocator_t&& allocator);
+        dynamic_array_t(any_non_const_instant_array_of_any_non_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t());
+        dynamic_array_t(any_non_const_instant_array_of_any_non_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator);
+        dynamic_array_t(any_instant_array_of_any_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t())                   = delete;   ///< @copydoc _965c239c_d5ec_4d39_9832_666e6503019d
+        dynamic_array_t(any_instant_array_of_any_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator)                                        = delete;   ///< @copydoc _c1790cd3_ad82_4ddf_9eb2_cc9036a6bc75
 
         dynamic_array_t(const dynamic_array_t& other);
         dynamic_array_t(volatile const dynamic_array_t& other);

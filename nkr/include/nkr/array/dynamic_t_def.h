@@ -10,7 +10,7 @@
 
 namespace nkr {
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline constexpr real_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Grow_Rate()
     {
@@ -23,7 +23,7 @@ namespace nkr {
         return grow_rate;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline auto&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Units(is_any_tr<dynamic_array_t> auto& self)
     {
@@ -40,7 +40,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline void_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Copy(const is_any_tr<dynamic_array_t> auto& from,
                                                                 is_any_tr<dynamic_array_t> auto& to)
@@ -60,7 +60,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline void_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Destroy(is_any_tr<dynamic_array_t> auto& self)
     {
@@ -69,35 +69,35 @@ namespace nkr {
         self.writable_units = nullptr;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::pointer_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Pointer(const is_any_tr<dynamic_array_t> auto& self)
     {
         return Units(self);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Count(const is_any_tr<dynamic_array_t> auto& self)
     {
         return self.unit_count;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline auto&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Allocator(const is_any_tr<dynamic_array_t> auto& self)
     {
         return self.allocator;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Capacity(const is_any_tr<dynamic_array_t> auto& self)
     {
         return self.writable_units.unit_count;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Capacity(is_any_tr<dynamic_array_t> auto& self, count_t new_capacity)
     {
@@ -117,7 +117,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Should_Grow(const is_any_tr<dynamic_array_t> auto& self)
     {
@@ -128,7 +128,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Grow(is_any_tr<dynamic_array_t> auto& self)
     {
@@ -150,7 +150,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::At(const is_any_tr<dynamic_array_t> auto& self, index_t index)
     {
@@ -159,7 +159,7 @@ namespace nkr {
         return Units(self)[index];
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_array_t> auto& self, const unit_t& unit)
     {
@@ -175,7 +175,7 @@ namespace nkr {
         return true;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_array_t> auto& self, writable_unit_t&& unit)
     {
@@ -191,7 +191,7 @@ namespace nkr {
         return true;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Pop(is_any_tr<dynamic_array_t> auto& self)
     {
@@ -205,14 +205,14 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Is_Fit(const is_any_tr<dynamic_array_t> auto& self)
     {
         return self.Count() == self.Capacity();
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Fit(is_any_tr<dynamic_array_t> auto& self)
     {
@@ -223,14 +223,14 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Is_Clear(const is_any_tr<dynamic_array_t> auto& self)
     {
         return self.unit_count == 0;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline void_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Clear(is_any_tr<dynamic_array_t> auto& self)
     {
@@ -244,7 +244,7 @@ namespace nkr {
         self.unit_count = 0;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const allocator_t& allocator) :
         writable_units(),
         unit_count(0),
@@ -252,7 +252,7 @@ namespace nkr {
     {
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(allocator_t&& allocator) :
         writable_units(),
         unit_count(0),
@@ -260,7 +260,7 @@ namespace nkr {
     {
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(count_t capacity, const allocator_t& allocator) :
         dynamic_array_t(allocator)
     {
@@ -269,7 +269,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(count_t capacity, allocator_t&& allocator) :
         dynamic_array_t(std::move(allocator))
     {
@@ -278,7 +278,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const unit_t& filler,
                                                                               count_t count,
                                                                               const allocator_t& allocator) :
@@ -289,7 +289,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const unit_t& filler,
                                                                               count_t count,
                                                                               allocator_t&& allocator) :
@@ -300,7 +300,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(writable_unit_t&& filler,
                                                                               count_t count,
                                                                               const allocator_t& allocator) :
@@ -318,7 +318,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(writable_unit_t&& filler,
                                                                               count_t count,
                                                                               allocator_t&& allocator) :
@@ -336,7 +336,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(sizeof(array) / sizeof(unit_t), allocator)
@@ -346,7 +346,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(sizeof(array) / sizeof(unit_t), std::move(allocator))
@@ -356,7 +356,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(sizeof(array) / sizeof(unit_t), allocator)
@@ -370,7 +370,7 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(sizeof(array) / sizeof(unit_t), std::move(allocator))
@@ -384,71 +384,71 @@ namespace nkr {
         }
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const any_stack_array_of_any_tr<unit_t> auto& stack_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(stack_array.Count(), allocator)
     {
         stack_array.Copy_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const stack_array_of_any_tr<unit_t> auto& stack_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const any_stack_array_of_any_tr<unit_t> auto& stack_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(stack_array.Count(), std::move(allocator))
     {
         stack_array.Copy_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_any_non_const_tr<unit_t> auto&& stack_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(any_non_const_stack_array_of_any_non_const_tr<unit_t> auto&& stack_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(stack_array.Count(), allocator)
     {
         stack_array.Move_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(stack_array_of_any_non_const_tr<unit_t> auto&& stack_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(any_non_const_stack_array_of_any_non_const_tr<unit_t> auto&& stack_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(stack_array.Count(), std::move(allocator))
     {
         stack_array.Move_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const any_instant_array_of_any_tr<unit_t> auto& instant_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(instant_array.Count(), allocator)
     {
         instant_array.Copy_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const instant_array_of_any_tr<unit_t> auto& instant_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const any_instant_array_of_any_tr<unit_t> auto& instant_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(instant_array.Count(), std::move(allocator))
     {
         instant_array.Copy_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_of_any_non_const_tr<unit_t> auto&& instant_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(any_non_const_instant_array_of_any_non_const_tr<unit_t> auto&& instant_array,
                                                                               const allocator_t& allocator) :
         dynamic_array_t(instant_array.Count(), allocator)
     {
         instant_array.Move_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(instant_array_of_any_non_const_tr<unit_t> auto&& instant_array,
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(any_non_const_instant_array_of_any_non_const_tr<unit_t> auto&& instant_array,
                                                                               allocator_t&& allocator) :
         dynamic_array_t(instant_array.Count(), std::move(allocator))
     {
         instant_array.Move_To(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(const dynamic_array_t& other) :
         writable_units(),
         unit_count(0),
@@ -457,7 +457,7 @@ namespace nkr {
         Copy(other, *this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(volatile const dynamic_array_t& other) :
         writable_units(),
         unit_count(0),
@@ -466,7 +466,7 @@ namespace nkr {
         Copy(other, *this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(dynamic_array_t&& other) noexcept :
         writable_units(std::move(other.writable_units)),
         unit_count(std::exchange(other.unit_count, 0)),
@@ -474,7 +474,7 @@ namespace nkr {
     {
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::dynamic_array_t(volatile dynamic_array_t&& other) noexcept :
         writable_units(std::move(other.writable_units)),
         unit_count(std::exchange(other.unit_count, 0)),
@@ -482,7 +482,7 @@ namespace nkr {
     {
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(const dynamic_array_t& other)
     {
@@ -494,7 +494,7 @@ namespace nkr {
         return *this;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline volatile dynamic_array_t<unit_p, allocator_p, grow_rate_p>&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(volatile const dynamic_array_t& other)
         volatile
@@ -507,7 +507,7 @@ namespace nkr {
         return *this;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(dynamic_array_t&& other)
         noexcept
@@ -521,7 +521,7 @@ namespace nkr {
         return *this;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline volatile dynamic_array_t<unit_p, allocator_p, grow_rate_p>&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(volatile dynamic_array_t&& other)
         volatile noexcept
@@ -535,13 +535,13 @@ namespace nkr {
         return *this;
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>::~dynamic_array_t()
     {
         Destroy(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::pointer_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Pointer()
         const
@@ -549,7 +549,7 @@ namespace nkr {
         return Pointer(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::pointer_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Pointer()
         volatile const
@@ -557,7 +557,7 @@ namespace nkr {
         return Pointer(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Count()
         const
@@ -565,7 +565,7 @@ namespace nkr {
         return Count(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Count()
         volatile const
@@ -573,7 +573,7 @@ namespace nkr {
         return Count(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename const dynamic_array_t<unit_p, allocator_p, grow_rate_p>::allocator_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Allocator()
         const
@@ -581,7 +581,7 @@ namespace nkr {
         return Allocator(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename volatile const dynamic_array_t<unit_p, allocator_p, grow_rate_p>::allocator_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Allocator()
         volatile const
@@ -589,7 +589,7 @@ namespace nkr {
         return Allocator(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Capacity()
         const
@@ -597,7 +597,7 @@ namespace nkr {
         return Capacity(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Capacity()
         volatile const
@@ -605,14 +605,14 @@ namespace nkr {
         return Capacity(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Capacity(count_t new_capacity)
     {
         return Capacity(*this, new_capacity);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Capacity(count_t new_capacity)
         volatile
@@ -620,7 +620,7 @@ namespace nkr {
         return Capacity(*this, new_capacity);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::At(index_t index)
         const
@@ -628,7 +628,7 @@ namespace nkr {
         return At(*this, index);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::At(index_t index)
         volatile const
@@ -636,14 +636,14 @@ namespace nkr {
         return At(*this, index);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Push(const unit_t& unit)
     {
         return Push(*this, unit);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Push(const unit_t& unit)
         volatile
@@ -651,14 +651,14 @@ namespace nkr {
         return Push(*this, unit);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Push(writable_unit_t&& unit)
     {
         return Push(*this, std::move(unit));
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Push(writable_unit_t&& unit)
         volatile
@@ -666,14 +666,14 @@ namespace nkr {
         return Push(*this, std::move(unit));
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Pop()
     {
         return Pop(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Pop()
         volatile
@@ -681,7 +681,7 @@ namespace nkr {
         return Pop(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Is_Fit()
         const
@@ -689,7 +689,7 @@ namespace nkr {
         return Is_Fit(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Is_Fit()
         volatile const
@@ -697,14 +697,14 @@ namespace nkr {
         return Is_Fit(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Fit()
     {
         return Fit(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Fit()
         volatile
@@ -712,7 +712,7 @@ namespace nkr {
         return Fit(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Is_Clear()
         const
@@ -720,7 +720,7 @@ namespace nkr {
         return Is_Clear(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Is_Clear()
         volatile const
@@ -728,14 +728,14 @@ namespace nkr {
         return Is_Clear(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline void_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Clear()
     {
         return Clear(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline void_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Clear()
         volatile
@@ -743,7 +743,7 @@ namespace nkr {
         return Clear(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Should_Grow()
         const
@@ -751,7 +751,7 @@ namespace nkr {
         return Should_Grow(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Should_Grow()
         volatile const
@@ -759,14 +759,14 @@ namespace nkr {
         return Should_Grow(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Grow()
     {
         return Grow(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::Grow()
         volatile
@@ -774,7 +774,7 @@ namespace nkr {
         return Grow(*this);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator [](index_t index)
         const
@@ -782,7 +782,7 @@ namespace nkr {
         return At(*this, index);
     }
 
-    template <type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_array_t<unit_p, allocator_p, grow_rate_p>::unit_t&
         dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator [](index_t index)
         volatile const

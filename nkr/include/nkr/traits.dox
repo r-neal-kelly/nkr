@@ -17,7 +17,7 @@
 *   Add an example or several.
 */
 
-    // type_tr
+    // any_type_tr
     /**
     * @class _0faa812f_3422_4143_b1d3_8987fcf84eae
     * @private
@@ -156,7 +156,7 @@
     * @private
     * 
     * @brief
-    *   Only pointers that point to a type_tr type, which includes std::nullptr_t.
+    *   Only pointers that point to a any_type_tr type, which includes std::nullptr_t.
     */
 
     // built_in_tr

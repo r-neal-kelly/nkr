@@ -12,7 +12,7 @@
 
 namespace nkr { namespace allocator {
 
-    template <type_tr unit_p>
+    template <any_type_tr unit_p>
     class heap_zeros_t
     {
     public:

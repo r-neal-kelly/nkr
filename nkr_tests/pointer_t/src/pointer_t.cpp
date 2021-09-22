@@ -1009,7 +1009,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1028,7 +1028,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1047,7 +1047,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1069,7 +1069,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1088,7 +1088,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1107,7 +1107,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1129,7 +1129,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1148,7 +1148,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1165,7 +1165,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1187,7 +1187,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1206,7 +1206,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1223,7 +1223,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1245,7 +1245,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1263,7 +1263,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1282,7 +1282,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1300,7 +1300,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1319,7 +1319,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1337,7 +1337,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1356,7 +1356,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1374,7 +1374,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         units_t units;
                         do {
                             units = Random<units_t>();
@@ -1393,7 +1393,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         unit_t* random = Random<unit_t*>();
                         struct wrap_t { unit_t* random; } wrap(random);
                         const pointer_t<wrap_t> pointer(&wrap);
@@ -1406,7 +1406,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         unit_t* random_a = Random<unit_t*>();
                         unit_t* random_b = Random<unit_t*>();
                         struct wrap_t { unit_t* random; } wrap(random_a);
@@ -1421,7 +1421,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         unit_t* random_a = Random<unit_t*>();
                         unit_t* random_b = Random<unit_t*>();
                         struct wrap_t { unit_t* random; } wrap(random_a);
@@ -1439,7 +1439,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         unit_t random = Random<unit_t>();
                         pointer_p pointer(&random);
                         CHECK(*pointer == random);
@@ -1451,7 +1451,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
                         unit_t random_a = Random<unit_t>();
                         unit_t random_b = Random<unit_t>();
                         pointer_p pointer(&random_a);
@@ -1465,7 +1465,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
                         unit_t random_a = Random<unit_t>();
                         unit_t random_b = Random<unit_t>();
                         pointer_p pointer(&random_a);
@@ -1482,7 +1482,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t>) {
+                    if constexpr (any_type_tr<unit_t>) {
                         std::remove_const_t<unit_t> randoms[16];
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<std::remove_const_t<unit_t>>();
@@ -1498,7 +1498,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
                         unit_t randoms[16];
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<unit_t>();
@@ -1516,7 +1516,7 @@ namespace nkr {
                     using unit_t = pointer_p::unit_t;
                     using units_t = pointer_p::units_t;
 
-                    if constexpr (type_tr<unit_t> && !std::is_const_v<unit_t>) {
+                    if constexpr (any_type_tr<unit_t> && !std::is_const_v<unit_t>) {
                         unit_t randoms[16];
                         for (index_t idx = 0, end = 16; idx < end; idx += 1) {
                             randoms[idx] = Random<unit_t>();

@@ -25,9 +25,9 @@ namespace nkr {
     };
 
     template <typename array_p>
-    concept array_tr =
+    concept any_array_tr =
         array_i<array_p>;
 
-    nkr_DEFINE_COMMON_CONTAINER_TRAITS(array, array_tr);
+    nkr_DEFINE_CONTAINER_TRAITS(array);
 
 }
