@@ -48,6 +48,27 @@ namespace nkr {
     concept non_type_tr =
         !type_tr<type_p>;
 
+    // ...Qualifiers...
+    // just_...
+    // just_not...
+    // any_...
+    // not_any_...
+    //
+    // ...Comparators...
+    // is_just_...
+    // is_just_not...
+    // is_any_...
+    // is_not_any...
+    // 
+    // ex.
+    // just_array_of_any_const
+    // any_const_array_of_just_volatile
+    // just_not_volatile_array_of_const_volatile
+    // not_any_const_array_of_not_any_volatile
+    //
+    // just_tr can be "unqualified" or maybe true because is_just_tr acts like same_as. might skip just_tr to avoid confusion
+    // any_tr can be true
+
     // Qualifiers
     template <typename type_p>
     concept const_tr =
@@ -75,22 +96,14 @@ namespace nkr {
         !qualified_tr<type_p>;
 
     template <typename type_p>
-    concept const_only_tr =
+    concept just_const_tr =
         const_tr<type_p> &&
         non_volatile_tr<type_p>;
 
     template <typename type_p>
-    concept non_const_only_tr =
-        !const_only_tr<type_p>;
-
-    template <typename type_p>
-    concept volatile_only_tr =
+    concept just_volatile_tr =
         non_const_tr<type_p> &&
         volatile_tr<type_p>;
-
-    template <typename type_p>
-    concept non_volatile_only_tr =
-        !volatile_only_tr<type_p>;
 
     template <typename type_p>
     concept const_volatile_tr =
