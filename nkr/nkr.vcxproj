@@ -165,6 +165,7 @@
     <ClInclude Include="include\nkr\array\dynamic_t.h" />
     <ClInclude Include="include\nkr\array\dynamic_t_dec.h" />
     <ClInclude Include="include\nkr\atomic_t.h" />
+    <ClInclude Include="include\nkr\atomic_t_dec.h" />
     <ClInclude Include="include\nkr\bool_t.h" />
     <ClInclude Include="include\nkr\charcoder_ascii_t.h" />
     <ClInclude Include="include\nkr\charcoder_utf_16_t.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="include\nkr\math_def.h" />
     <ClInclude Include="include\nkr\math.h" />
     <ClInclude Include="include\nkr\maybe_t.h" />
+    <ClInclude Include="include\nkr\maybe_t_dec.h" />
     <ClInclude Include="include\nkr\none_i.h" />
     <ClInclude Include="include\nkr\none_t.h" />
     <ClInclude Include="include\nkr\os.h" />
@@ -208,8 +210,8 @@
     <None Include="docs\os.dox" />
     <None Include="include\nkr\allocator_heap_t_def.h" />
     <None Include="include\nkr\array\dynamic_t_def.h" />
-    <None Include="include\nkr\atomic_t.dox" />
-    <None Include="include\nkr\atomic_t.inl" />
+    <None Include="include\nkr\atomic_t_dox.h" />
+    <None Include="include\nkr\atomic_t_def.h" />
     <None Include="include\nkr\bool_t.dox" />
     <None Include="include\nkr\bool_t.inl" />
     <None Include="include\nkr\charcoder_ascii_t.inl" />
@@ -220,8 +222,8 @@
     <None Include="include\nkr\intrinsics.inl" />
     <None Include="include\nkr\macros.dox" />
     <None Include="include\nkr\macros.inl" />
-    <None Include="include\nkr\maybe_t.dox" />
-    <None Include="include\nkr\maybe_t.inl" />
+    <None Include="include\nkr\maybe_t_dox.h" />
+    <None Include="include\nkr\maybe_t_def.h" />
     <None Include="include\nkr\none_i.dox" />
     <None Include="include\nkr\none_t.dox" />
     <None Include="include\nkr\os.dox" />

@@ -54,6 +54,14 @@ namespace nkr {
         !any_type_tr<type_p>;
 
     template <typename type_p>
+    concept any_lvalue_reference_tr =
+        std::is_lvalue_reference_v<type_p>;
+
+    template <typename type_p>
+    concept any_rvalue_reference_tr =
+        std::is_rvalue_reference_v<type_p>;
+
+    template <typename type_p>
     concept any_qualified_tr =
         std::is_const_v<type_p> ||
         std::is_volatile_v<type_p>;

@@ -20,10 +20,17 @@ namespace nkr { namespace charcoder {
 
     public:
         utf_8_t();
+
         utf_8_t(const utf_8_t& other);
+        utf_8_t(const volatile utf_8_t& other);
         utf_8_t(utf_8_t&& other) noexcept;
-        utf_8_t& operator =(const utf_8_t& other);
-        utf_8_t& operator =(utf_8_t&& other) noexcept;
+        utf_8_t(volatile utf_8_t&& other) noexcept;
+
+        utf_8_t&            operator =(const utf_8_t& other);
+        volatile utf_8_t&   operator =(const volatile utf_8_t& other) volatile;
+        utf_8_t&            operator =(utf_8_t&& other) noexcept;
+        volatile utf_8_t&   operator =(volatile utf_8_t&& other) volatile noexcept;
+
         ~utf_8_t();
 
     public:

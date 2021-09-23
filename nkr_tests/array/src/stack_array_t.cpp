@@ -476,6 +476,79 @@ namespace nkr {
                     stack_array_p stack_array;
                     CHECK(&(stack_array = nkr::Move(other)) == &stack_array);
                 }
+
+                TEST_CASE_TEMPLATE("should work with the copy_initializer_list_ctor()", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    array_t array = {
+                        Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
+                        Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
+                        Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
+                        Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
+                    };
+                    stack_array_p stack_array;
+                    stack_array = {
+                        array[0], array[1], array[2], array[3],
+                        array[4], array[5], array[6], array[7],
+                        array[8], array[9], array[10], array[11],
+                        array[12], array[13], array[14], array[15],
+                    };
+                    CHECK(stack_array.Count() == 16);
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == array[idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should work with the move_initializer_list_ctor()", stack_array_p, nkr_NON_CONST)
+                {
+                    using unit_t = stack_array_p::unit_t;
+                    using writable_unit_t = stack_array_p::writable_unit_t;
+                    using array_t = stack_array_p::array_t;
+                    using writable_array_t = stack_array_p::writable_array_t;
+
+                    writable_array_t array = {
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                        Random<writable_unit_t>(), Random<writable_unit_t>(),
+                    };
+                    writable_array_t backup = {
+                        array[0], array[1],
+                        array[2], array[3],
+                        array[4], array[5],
+                        array[6], array[7],
+                        array[8], array[9],
+                        array[10], array[11],
+                        array[12], array[13],
+                        array[14], array[15],
+                    };
+                    stack_array_p stack_array;
+                    stack_array = {
+                        nkr::Move(array[0]), nkr::Move(array[1]),
+                        nkr::Move(array[2]), nkr::Move(array[3]),
+                        nkr::Move(array[4]), nkr::Move(array[5]),
+                        nkr::Move(array[6]), nkr::Move(array[7]),
+                        nkr::Move(array[8]), nkr::Move(array[9]),
+                        nkr::Move(array[10]), nkr::Move(array[11]),
+                        nkr::Move(array[12]), nkr::Move(array[13]),
+                        nkr::Move(array[14]), nkr::Move(array[15]),
+                    };
+                    CHECK(stack_array.Count() == 16);
+                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        CHECK(stack_array[idx] == backup[idx]);
+                    }
+                    for (index_t idx = 0, end = sizeof(array) / sizeof(writable_unit_t); idx < end; idx += 1) {
+                        CHECK(array[idx] == none_t());
+                    }
+                }
             }
 
             TEST_SUITE("dtor()")

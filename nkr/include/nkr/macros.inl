@@ -49,6 +49,9 @@ namespace nkr {
     nkr_b
 
     #define nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(WRAPPER_p, BASE_p)                                \
+        using BASE_p::BASE_p;                                                                               \
+        using BASE_p::operator =;                                                                           \
+                                                                                                            \
         WRAPPER_p() = default;                                                                              \
                                                                                                             \
         WRAPPER_p(const WRAPPER_p& other) = default;                                                        \

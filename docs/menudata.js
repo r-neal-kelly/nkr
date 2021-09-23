@@ -140,5 +140,9 @@ var menudata={children:[
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[
-{text:"All",url:"globals.html"},
-{text:"Macros",url:"globals_defs.html"}]}]}]}
+{text:"All",url:"globals.html",children:[
+{text:"n",url:"globals.html#index_n"},
+{text:"r",url:"globals.html#index_r"}]},
+{text:"Macros",url:"globals_defs.html",children:[
+{text:"n",url:"globals_defs.html#index_n"},
+{text:"r",url:"globals_defs.html#index_r"}]}]}]}]}

@@ -105,16 +105,16 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 <div class="line">    {</div>
 <div class="line">        <span class="keyword">typename</span> type_p::unit_t;</div>
 <div class="line"> </div>
-<div class="line">        { const_charcoder.Is_Well_Formed() }                -&gt; std::same_as&lt;bool_t&gt;;</div>
+<div class="line">        { const_charcoder.Is_Well_Formed() }                -&gt; is_tr&lt;bool_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { charcoder.Encode(<span class="keyword">typename</span> <a class="code hl_typedef" href="namespacenkr_1_1charcoder.html#af13dcfe2b33d6893a9dc4d13943e13c1">charcoder::point_t</a>()) } -&gt; std::same_as&lt;void_t&gt;;</div>
-<div class="line">        { const_charcoder.Decode() }                        -&gt; std::same_as&lt;typename charcoder::point_t&gt;;</div>
+<div class="line">        { charcoder.Encode(<span class="keyword">typename</span> <a class="code hl_typedef" href="namespacenkr_1_1charcoder.html#af13dcfe2b33d6893a9dc4d13943e13c1">charcoder::point_t</a>()) } -&gt; is_tr&lt;void_t&gt;;</div>
+<div class="line">        { const_charcoder.Decode() }                        -&gt; is_tr&lt;typename charcoder::point_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { charcoder.Read_Forward(from_unit) }               -&gt; std::same_as&lt;count_t&gt;;</div>
-<div class="line">        { charcoder.Read_Reverse(from_unit, first_unit) }   -&gt; std::same_as&lt;count_t&gt;;</div>
+<div class="line">        { charcoder.Read_Forward(from_unit) }               -&gt; is_tr&lt;count_t&gt;;</div>
+<div class="line">        { charcoder.Read_Reverse(from_unit, first_unit) }   -&gt; is_tr&lt;count_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { const_charcoder.Unit_Count() }                    -&gt; std::same_as&lt;count_t&gt;;</div>
-<div class="line">        { const_charcoder.operator[](<a class="code hl_typedef" href="group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a>()) }           -&gt; std::same_as&lt;typename type_p::unit_t&gt;;</div>
+<div class="line">        { const_charcoder.Unit_Count() }                    -&gt; is_tr&lt;count_t&gt;;</div>
+<div class="line">        { const_charcoder.operator[](<a class="code hl_typedef" href="group__intrinsics__contextuals.html#gafcd45a8ee0ce155f841b4cadb25d9b4f">index_t</a>()) }           -&gt; is_tr&lt;typename type_p::unit_t&gt;;</div>
 <div class="line"> </div>
 <div class="line">        read_count = charcoder.Read_Forward(from_unit);</div>
 <div class="line">        read_count = charcoder.Read_Reverse(from_unit, first_unit);</div>

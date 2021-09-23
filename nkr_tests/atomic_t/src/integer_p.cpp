@@ -337,12 +337,12 @@ namespace nkr {
                 /// [_462b7d6b_c8a5_4dee_ae70_ccc0dcd03aab]
 
                 /// [_53ccc85e_aed3_48c4_814d_e8ce4dfaf2fb]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign(random_b) == &atom);
+                    CHECK(atom.Assign(random_b) == random_b);
                 }
                 /// [_53ccc85e_aed3_48c4_814d_e8ce4dfaf2fb]
 
@@ -372,12 +372,12 @@ namespace nkr {
                 /// [_850f475f_e992_4702_89ee_75951b846355]
 
                 /// [_2e6b7143_0393_4868_b3a6_63fe75892a7c]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Add(random_b) == &atom);
+                    CHECK(atom.Assign_Add(random_b) == integer_p(random_a + random_b));
                 }
                 /// [_2e6b7143_0393_4868_b3a6_63fe75892a7c]
 
@@ -407,12 +407,12 @@ namespace nkr {
                 /// [_769826f2_dc35_4c34_81ec_563705f5b8b1]
 
                 /// [_1f0cb070_88ea_4cde_a856_8c9277868147]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Subtract(random_b) == &atom);
+                    CHECK(atom.Assign_Subtract(random_b) == integer_p(random_a - random_b));
                 }
                 /// [_1f0cb070_88ea_4cde_a856_8c9277868147]
 
@@ -442,12 +442,12 @@ namespace nkr {
                 /// [_01a7f689_bf5e_4e92_893c_2a6fe003a102]
 
                 /// [_244d0aa1_9f9c_49d8_bdb7_6589fbd70695]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Multiply(random_b) == &atom);
+                    CHECK(atom.Assign_Multiply(random_b) == integer_p(random_a * random_b));
                 }
                 /// [_244d0aa1_9f9c_49d8_bdb7_6589fbd70695]
 
@@ -480,7 +480,7 @@ namespace nkr {
                 /// [_fc6e49a0_93b5_4648_bb14_55f6323d5357]
 
                 /// [_7f22e857_b490_48ea_b2bb_fec159826aef]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b;
@@ -488,7 +488,7 @@ namespace nkr {
                         random_b = Random<integer_p>();
                     } while (random_b == 0);
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Divide(random_b) == &atom);
+                    CHECK(atom.Assign_Divide(random_b) == integer_p(random_a / random_b));
                 }
                 /// [_7f22e857_b490_48ea_b2bb_fec159826aef]
 
@@ -525,7 +525,7 @@ namespace nkr {
                 /// [_6ee19c91_0635_4d43_89b2_c53eb92470a4]
 
                 /// [_7938c7d7_4b45_428e_adc2_2b5c42ee0dfc]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b;
@@ -533,7 +533,7 @@ namespace nkr {
                         random_b = Random<integer_p>();
                     } while (random_b == 0);
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Modulus(random_b) == &atom);
+                    CHECK(atom.Assign_Modulus(random_b) == integer_p(random_a % random_b));
                 }
                 /// [_7938c7d7_4b45_428e_adc2_2b5c42ee0dfc]
             }
@@ -552,12 +552,12 @@ namespace nkr {
                 /// [_494f5f48_3736_4c51_a3d5_6c6ca2e1ab2e]
 
                 /// [_6e8e5794_2d91_4b50_8112_7783016d1138]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Or(random_b) == &atom);
+                    CHECK(atom.Assign_Or(random_b) == integer_p(random_a | random_b));
                 }
                 /// [_6e8e5794_2d91_4b50_8112_7783016d1138]
             }
@@ -576,12 +576,12 @@ namespace nkr {
                 /// [_e74154f8_434f_479b_be32_931202e4875e]
 
                 /// [_6b977656_4615_4d89_9760_ed48cd612758]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_And(random_b) == &atom);
+                    CHECK(atom.Assign_And(random_b) == integer_p(random_a & random_b));
                 }
                 /// [_6b977656_4615_4d89_9760_ed48cd612758]
             }
@@ -600,12 +600,12 @@ namespace nkr {
                 /// [_0985ca53_d5d9_4a0b_b2bf_dc77d7461a51]
 
                 /// [_e26dea4c_bf26_4b2c_b439_e1a704795176]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Xor(random_b) == &atom);
+                    CHECK(atom.Assign_Xor(random_b) == integer_p(random_a ^ random_b));
                 }
                 /// [_e26dea4c_bf26_4b2c_b439_e1a704795176]
             }
@@ -624,12 +624,12 @@ namespace nkr {
                 /// [_70d051d2_d135_4efc_860c_ce4768ba4d3b]
 
                 /// [_37a2fae1_e932_4a07_964e_108aae375c29]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Left_Shift(random_b) == &atom);
+                    CHECK(atom.Assign_Left_Shift(random_b) == integer_p(random_a << random_b));
                 }
                 /// [_37a2fae1_e932_4a07_964e_108aae375c29]
             }
@@ -648,12 +648,12 @@ namespace nkr {
                 /// [_1f5fb835_81e7_44cb_a500_708a9c1889eb]
 
                 /// [_a7890a7b_d625_4b46_a6b9_052b92fdd21b]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&atom.Assign_Right_Shift(random_b) == &atom);
+                    CHECK(atom.Assign_Right_Shift(random_b) == integer_p(random_a >> random_b));
                 }
                 /// [_a7890a7b_d625_4b46_a6b9_052b92fdd21b]
             }
@@ -1257,12 +1257,12 @@ namespace nkr {
                 /// [_3bc7cbc1_a80d_41a3_92ff_ab39e2ddf0ab]
 
                 /// [_85454b3e_106a_4e15_bc02_36587b2234dd]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom += random_b) == &atom);
+                    CHECK((atom += random_b) == integer_p(random_a += random_b));
                 }
                 /// [_85454b3e_106a_4e15_bc02_36587b2234dd]
 
@@ -1292,12 +1292,12 @@ namespace nkr {
                 /// [_6b7bb56b_bbf8_4088_a135_f8e5275187bc]
 
                 /// [_22def221_d510_4b3f_b462_3eea759ef816]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom -= random_b) == &atom);
+                    CHECK((atom -= random_b) == integer_p(random_a -= random_b));
                 }
                 /// [_22def221_d510_4b3f_b462_3eea759ef816]
 
@@ -1327,12 +1327,12 @@ namespace nkr {
                 /// [_8f85ea2e_1025_4789_a379_6b6c408b5f71]
 
                 /// [_040cd689_01ff_4731_853e_88efaa46c5eb]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom *= random_b) == &atom);
+                    CHECK((atom *= random_b) == integer_p(random_a *= random_b));
                 }
                 /// [_040cd689_01ff_4731_853e_88efaa46c5eb]
 
@@ -1365,7 +1365,7 @@ namespace nkr {
                 /// [_01d8f79c_e4bf_47db_b87a_13f79ad1464e]
 
                 /// [_17d85d03_3e46_4b65_8226_696aa1f9d48b]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b;
@@ -1373,7 +1373,7 @@ namespace nkr {
                         random_b = Random<integer_p>();
                     } while (random_b == 0);
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom /= random_b) == &atom);
+                    CHECK((atom /= random_b) == integer_p(random_a /= random_b));
                 }
                 /// [_17d85d03_3e46_4b65_8226_696aa1f9d48b]
 
@@ -1410,7 +1410,7 @@ namespace nkr {
                 /// [_aeb1e694_f9fd_4707_8686_33c8855253d5]
 
                 /// [_2834d744_2c14_4f3b_8ad6_6503536cf990]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b;
@@ -1418,7 +1418,7 @@ namespace nkr {
                         random_b = Random<integer_p>();
                     } while (random_b == 0);
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom %= random_b) == &atom);
+                    CHECK((atom %= random_b) == integer_p(random_a %= random_b));
                 }
                 /// [_2834d744_2c14_4f3b_8ad6_6503536cf990]
             }
@@ -1437,12 +1437,12 @@ namespace nkr {
                 /// [_6cd16c72_5b92_471f_945d_f2aed858532c]
 
                 /// [_e70ff06d_bf2c_4da0_a5f0_8cc68319a6a5]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom |= random_b) == &atom);
+                    CHECK((atom |= random_b) == integer_p(random_a |= random_b));
                 }
                 /// [_e70ff06d_bf2c_4da0_a5f0_8cc68319a6a5]
             }
@@ -1461,12 +1461,12 @@ namespace nkr {
                 /// [_06cdfcfd_62a3_4442_b6d8_fd9ca3a9af8e]
 
                 /// [_c55162a7_2c7c_4e7c_97f4_92ef8f4483a5]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom &= random_b) == &atom);
+                    CHECK((atom &= random_b) == integer_p(random_a &= random_b));
                 }
                 /// [_c55162a7_2c7c_4e7c_97f4_92ef8f4483a5]
             }
@@ -1485,12 +1485,12 @@ namespace nkr {
                 /// [_b78b363b_e21a_4f27_a0d9_fa83a3bda86c]
 
                 /// [_c14ff81d_2486_4e45_b1be_e47c3805333f]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom ^= random_b) == &atom);
+                    CHECK((atom ^= random_b) == integer_p(random_a ^= random_b));
                 }
                 /// [_c14ff81d_2486_4e45_b1be_e47c3805333f]
             }
@@ -1509,12 +1509,12 @@ namespace nkr {
                 /// [_00f72b33_e5d1_4eef_982b_e35fa4246a6b]
 
                 /// [_3686c835_89ae_47f7_8f54_6c85d959e8de]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom <<= random_b) == &atom);
+                    CHECK((atom <<= random_b) == integer_p(random_a <<= random_b));
                 }
                 /// [_3686c835_89ae_47f7_8f54_6c85d959e8de]
             }
@@ -1533,12 +1533,12 @@ namespace nkr {
                 /// [_98811442_5cca_4d8f_ba9d_722c11f2a694]
 
                 /// [_8e89b2a7_8897_4892_9684_4f90a38c4113]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random_a = Random<integer_p>();
                     integer_p random_b = Random<integer_p>();
                     atomic_t<integer_p> atom(random_a);
-                    CHECK(&(atom >>= random_b) == &atom);
+                    CHECK((atom >>= random_b) == integer_p(random_a >>= random_b));
                 }
                 /// [_8e89b2a7_8897_4892_9684_4f90a38c4113]
             }
@@ -1556,11 +1556,11 @@ namespace nkr {
                 /// [_cb9f4aed_9aeb_4897_bc54_3ee3f27b27ef]
 
                 /// [_9fd0cad2_0392_4026_b4b4_591605459477]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> atom(random);
-                    CHECK(&(++atom) == &atom);
+                    CHECK((++atom) == integer_p(++random));
                 }
                 /// [_9fd0cad2_0392_4026_b4b4_591605459477]
             }
@@ -1600,11 +1600,11 @@ namespace nkr {
                 /// [_98acc80e_1a9e_455f_8d97_733f3189aedf]
 
                 /// [_b8dce600_3c99_440c_aee4_f9de4ec598c3]
-                TEST_CASE_TEMPLATE("should return itself", integer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", integer_p, _)
                 {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> atom(random);
-                    CHECK(&(--atom) == &atom);
+                    CHECK((--atom) == integer_p(--random));
                 }
                 /// [_b8dce600_3c99_440c_aee4_f9de4ec598c3]
             }

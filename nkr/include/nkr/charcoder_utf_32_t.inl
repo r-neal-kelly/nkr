@@ -44,7 +44,17 @@ namespace nkr { namespace charcoder {
         this->unit = other.unit;
     }
 
+    inline utf_32_t::utf_32_t(const volatile utf_32_t& other)
+    {
+        this->unit = other.unit;
+    }
+
     inline utf_32_t::utf_32_t(utf_32_t&& other) noexcept
+    {
+        this->unit = std::exchange(other.unit, 0);
+    }
+
+    inline utf_32_t::utf_32_t(volatile utf_32_t&& other) noexcept
     {
         this->unit = std::exchange(other.unit, 0);
     }
@@ -57,7 +67,23 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
+    inline volatile utf_32_t& utf_32_t::operator =(const volatile utf_32_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->unit = other.unit;
+        }
+        return *this;
+    }
+
     inline utf_32_t& utf_32_t::operator =(utf_32_t&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->unit = std::exchange(other.unit, 0);
+        }
+        return *this;
+    }
+
+    inline volatile utf_32_t& utf_32_t::operator =(volatile utf_32_t&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->unit = std::exchange(other.unit, 0);
@@ -180,16 +206,6 @@ namespace nkr { namespace charcoder {
         return this->unit;
     }
 
-    inline utf_32_be_t::utf_32_be_t(const utf_32_t& other) :
-        utf_32_t(other)
-    {
-    }
-
-    inline utf_32_be_t::utf_32_be_t(utf_32_t&& other) noexcept :
-        utf_32_t(std::move(other))
-    {
-    }
-
     template <typename>
     inline bool_t utf_32_be_t::Is_Well_Formed() const
     {
@@ -248,16 +264,6 @@ namespace nkr { namespace charcoder {
         } else {
             static_assert(false);
         }
-    }
-
-    inline utf_32_le_t::utf_32_le_t(const utf_32_t& other) :
-        utf_32_t(other)
-    {
-    }
-
-    inline utf_32_le_t::utf_32_le_t(utf_32_t&& other) noexcept :
-        utf_32_t(std::move(other))
-    {
     }
 
     template <typename>

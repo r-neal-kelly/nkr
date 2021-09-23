@@ -6,6 +6,7 @@
 
 #include "nkr/charcoder_i.h"
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 
 namespace nkr { namespace charcoder {
 
@@ -44,10 +45,17 @@ namespace nkr { namespace charcoder {
 
     public:
         utf_32_t();
+
         utf_32_t(const utf_32_t& other);
+        utf_32_t(const volatile utf_32_t& other);
         utf_32_t(utf_32_t&& other) noexcept;
-        utf_32_t& operator =(const utf_32_t& other);
-        utf_32_t& operator =(utf_32_t&& other) noexcept;
+        utf_32_t(volatile utf_32_t&& other) noexcept;
+
+        utf_32_t&           operator =(const utf_32_t& other);
+        volatile utf_32_t&  operator =(const volatile utf_32_t& other) volatile;
+        utf_32_t&           operator =(utf_32_t&& other) noexcept;
+        volatile utf_32_t&  operator =(volatile utf_32_t&& other) volatile noexcept;
+
         ~utf_32_t();
 
     public:
@@ -74,12 +82,14 @@ namespace nkr { namespace charcoder {
         public utf_32_t
     {
     public:
-        using utf_32_t::utf_32_t;
-        using utf_32_t::operator =;
+        using base_t    = utf_32_t;
 
     public:
-        utf_32_be_t(const utf_32_t& other);
-        utf_32_be_t(utf_32_t&& other) noexcept;
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(utf_32_be_t, base_t);
+        /// @}
 
     public:
         template <typename = void_t>
@@ -101,12 +111,14 @@ namespace nkr { namespace charcoder {
         public utf_32_t
     {
     public:
-        using utf_32_t::utf_32_t;
-        using utf_32_t::operator =;
+        using base_t    = utf_32_t;
 
     public:
-        utf_32_le_t(const utf_32_t& other);
-        utf_32_le_t(utf_32_t&& other) noexcept;
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(utf_32_le_t, base_t);
+        /// @}
 
     public:
         template <typename = void_t>

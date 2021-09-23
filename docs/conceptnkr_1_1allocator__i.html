@@ -109,32 +109,32 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 <div class="line">        <span class="keyword">typename</span> allocator_p::units_t;</div>
 <div class="line">        <span class="keyword">typename</span> allocator_p::pointer_t;</div>
 <div class="line"> </div>
-<div class="line">        { allocator.Min_Unit_Count() }                                      -&gt; std::same_as&lt;count_t&gt;;</div>
-<div class="line">        { volatile_allocator.Min_Unit_Count() }                             -&gt; std::same_as&lt;count_t&gt;;</div>
-<div class="line">        { allocator.Max_Unit_Count() }                                      -&gt; std::same_as&lt;count_t&gt;;</div>
-<div class="line">        { volatile_allocator.Max_Unit_Count() }                             -&gt; std::same_as&lt;count_t&gt;;</div>
+<div class="line">        { allocator.Min_Unit_Count() }                                      -&gt; is_tr&lt;count_t&gt;;</div>
+<div class="line">        { volatile_allocator.Min_Unit_Count() }                             -&gt; is_tr&lt;count_t&gt;;</div>
+<div class="line">        { allocator.Max_Unit_Count() }                                      -&gt; is_tr&lt;count_t&gt;;</div>
+<div class="line">        { volatile_allocator.Max_Unit_Count() }                             -&gt; is_tr&lt;count_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { allocator == allocator }                                          -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { allocator == volatile_allocator }                                 -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { volatile_allocator == allocator }                                 -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { allocator != allocator }                                          -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { allocator != volatile_allocator }                                 -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { volatile_allocator != allocator }                                 -&gt; std::same_as&lt;bool_t&gt;;</div>
+<div class="line">        { allocator == allocator }                                          -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { allocator == volatile_allocator }                                 -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { volatile_allocator == allocator }                                 -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { allocator != allocator }                                          -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { allocator != volatile_allocator }                                 -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { volatile_allocator != allocator }                                 -&gt; is_tr&lt;bool_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { allocator.Allocate(units, unit_count) }                           -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { volatile_allocator.Allocate(volatile_units, unit_count) }         -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { allocator.Allocate(pointer, unit_count) }                         -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { volatile_allocator.Allocate(volatile_pointer, unit_count) }       -&gt; std::same_as&lt;bool_t&gt;;</div>
+<div class="line">        { allocator.Allocate(units, unit_count) }                           -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { volatile_allocator.Allocate(volatile_units, unit_count) }         -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { allocator.Allocate(pointer, unit_count) }                         -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { volatile_allocator.Allocate(volatile_pointer, unit_count) }       -&gt; is_tr&lt;bool_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { allocator.Reallocate(units, new_unit_count) }                     -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { volatile_allocator.Reallocate(volatile_units, new_unit_count) }   -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { allocator.Reallocate(pointer, new_unit_count) }                   -&gt; std::same_as&lt;bool_t&gt;;</div>
-<div class="line">        { volatile_allocator.Reallocate(volatile_pointer, new_unit_count) } -&gt; std::same_as&lt;bool_t&gt;;</div>
+<div class="line">        { allocator.Reallocate(units, new_unit_count) }                     -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { volatile_allocator.Reallocate(volatile_units, new_unit_count) }   -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { allocator.Reallocate(pointer, new_unit_count) }                   -&gt; is_tr&lt;bool_t&gt;;</div>
+<div class="line">        { volatile_allocator.Reallocate(volatile_pointer, new_unit_count) } -&gt; is_tr&lt;bool_t&gt;;</div>
 <div class="line"> </div>
-<div class="line">        { allocator.Deallocate(units) }                                     -&gt; std::same_as&lt;void_t&gt;;</div>
-<div class="line">        { volatile_allocator.Deallocate(volatile_units) }                   -&gt; std::same_as&lt;void_t&gt;;</div>
-<div class="line">        { allocator.Deallocate(pointer) }                                   -&gt; std::same_as&lt;void_t&gt;;</div>
-<div class="line">        { volatile_allocator.Deallocate(volatile_pointer) }                 -&gt; std::same_as&lt;void_t&gt;;</div>
+<div class="line">        { allocator.Deallocate(units) }                                     -&gt; is_tr&lt;void_t&gt;;</div>
+<div class="line">        { volatile_allocator.Deallocate(volatile_units) }                   -&gt; is_tr&lt;void_t&gt;;</div>
+<div class="line">        { allocator.Deallocate(pointer) }                                   -&gt; is_tr&lt;void_t&gt;;</div>
+<div class="line">        { volatile_allocator.Deallocate(volatile_pointer) }                 -&gt; is_tr&lt;void_t&gt;;</div>
 <div class="line">    }</div>
 <div class="ttc" id="aconceptnkr_1_1allocator__i_html"><div class="ttname"><a href="conceptnkr_1_1allocator__i.html">nkr::allocator_i</a></div><div class="ttdef"><b>Definition:</b> allocator_i.h:14</div></div>
 <div class="ttc" id="agroup__intrinsics__contextuals_html_ga962bdb5ad1c5bc05d87739e09df6082b"><div class="ttname"><a href="group__intrinsics__contextuals.html#ga962bdb5ad1c5bc05d87739e09df6082b">nkr::count_t</a></div><div class="ttdeci">word_t count_t</div><div class="ttdoc">Used for unit counts of any arbitrary type.</div><div class="ttdef"><b>Definition:</b> intrinsics.h:95</div></div>

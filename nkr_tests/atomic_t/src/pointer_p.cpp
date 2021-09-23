@@ -393,12 +393,12 @@ namespace nkr {
                 /// [_a5dba8d0_be71_4233_8961_db3a3ce0e68f]
 
                 /// [_2ba4b32d_f0ab_40a2_83ca_f9426b07f465]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random_a = Random<pointer_p>();
                     pointer_p random_b = Random<pointer_p>();
                     atomic_t<pointer_p> atom(random_a);
-                    CHECK(&atom.Assign(random_b) == &atom);
+                    CHECK(atom.Assign(random_b) == random_b);
                 }
                 /// [_2ba4b32d_f0ab_40a2_83ca_f9426b07f465]
 
@@ -454,12 +454,12 @@ namespace nkr {
                 /// [_d6c7e655_adff_40c3_a80e_1b35b549bc89]
 
                 /// [_5f5c1fe9_dab4_482a_9a1f_1a22f18dc13e]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random_a = Random<pointer_p>();
                     word_t random_b = Random<word_t>();
                     atomic_t<pointer_p> atom(random_a);
-                    CHECK(&atom.Assign_Add(random_b) == &atom);
+                    CHECK(atom.Assign_Add(random_b) == pointer_p(random_a + random_b));
                 }
                 /// [_5f5c1fe9_dab4_482a_9a1f_1a22f18dc13e]
             }
@@ -478,12 +478,12 @@ namespace nkr {
                 /// [_32c7f550_1845_4949_9d0d_b31ca54bcbe3]
 
                 /// [_970432e1_4d91_4253_9d13_2f98e9067528]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random_a = Random<pointer_p>();
                     word_t random_b = Random<word_t>();
                     atomic_t<pointer_p> atom(random_a);
-                    CHECK(&atom.Assign_Subtract(random_b) == &atom);
+                    CHECK(atom.Assign_Subtract(random_b) == pointer_p(random_a - random_b));
                 }
                 /// [_970432e1_4d91_4253_9d13_2f98e9067528]
             }
@@ -866,12 +866,12 @@ namespace nkr {
                 /// [_552f17e6_f0b0_4115_9009_e427abb2c831]
 
                 /// [_d5c9ce80_6b42_46a8_8fe3_aa77c24d87a0]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random_a = Random<pointer_p>();
                     word_t random_b = Random<word_t>();
                     atomic_t<pointer_p> atom(random_a);
-                    CHECK(&(atom += random_b) == &atom);
+                    CHECK((atom += random_b) == pointer_p(random_a += random_b));
                 }
                 /// [_d5c9ce80_6b42_46a8_8fe3_aa77c24d87a0]
             }
@@ -890,12 +890,12 @@ namespace nkr {
                 /// [_d207364c_c304_4dd2_92d4_74d0a02091eb]
 
                 /// [_eed6fe54_8e60_4acc_bdc8_419b3ec4bdac]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random_a = Random<pointer_p>();
                     word_t random_b = Random<word_t>();
                     atomic_t<pointer_p> atom(random_a);
-                    CHECK(&(atom -= random_b) == &atom);
+                    CHECK((atom -= random_b) == pointer_p(random_a -= random_b));
                 }
                 /// [_eed6fe54_8e60_4acc_bdc8_419b3ec4bdac]
             }
@@ -913,11 +913,11 @@ namespace nkr {
                 /// [_bd616d99_2e42_4cc8_9df3_ba5c40b16233]
 
                 /// [_c5e5d4d4_e90d_4fe1_8705_df3dab86ad33]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random = Random<pointer_p>();
                     atomic_t<pointer_p> atom(random);
-                    CHECK(&(++atom) == &atom);
+                    CHECK((++atom) == pointer_p(++random));
                 }
                 /// [_c5e5d4d4_e90d_4fe1_8705_df3dab86ad33]
             }
@@ -957,11 +957,11 @@ namespace nkr {
                 /// [_19bda1d1_2e7d_47c2_8b7a_5b686254fde6]
 
                 /// [_050adc8f_0f21_4dde_bdaa_9f5e4a984ead]
-                TEST_CASE_TEMPLATE("should return itself", pointer_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", pointer_p, _)
                 {
                     pointer_p random = Random<pointer_p>();
                     atomic_t<pointer_p> atom(random);
-                    CHECK(&(--atom) == &atom);
+                    CHECK((--atom) == pointer_p(--random));
                 }
                 /// [_050adc8f_0f21_4dde_bdaa_9f5e4a984ead]
             }

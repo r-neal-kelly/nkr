@@ -41,4 +41,24 @@ namespace nkr {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
+    inline constexpr auto Is_LValue(any_tr auto& value)
+    {
+        return std::true_type();
+    }
+
+    inline constexpr auto Is_LValue(any_tr auto&& value)
+    {
+        return std::false_type();
+    }
+
+    inline constexpr auto Is_RValue(any_tr auto& value)
+    {
+        return std::false_type();
+    }
+
+    inline constexpr auto Is_RValue(any_tr auto&& value)
+    {
+        return std::true_type();
+    }
+
 }

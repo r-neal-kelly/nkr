@@ -343,12 +343,12 @@ namespace nkr {
                 /// [_ed925f01_ecd8_4569_9ec0_bb3eb87e4cee]
 
                 /// [_24aa3917_1765_4bfb_8f8c_1eec15eb950c]
-                TEST_CASE("should return itself")
+                TEST_CASE("should return the new value")
                 {
                     void_t* random_a = Random<void_t*>();
                     void_t* random_b = Random<void_t*>();
                     atomic_t<void_t*> atom(random_a);
-                    CHECK(&atom.Assign(random_b) == &atom);
+                    CHECK(atom.Assign(random_b) == random_b);
                 }
                 /// [_24aa3917_1765_4bfb_8f8c_1eec15eb950c]
 

@@ -24,7 +24,21 @@ namespace nkr { namespace charcoder {
         this->unit_count = other.unit_count;
     }
 
+    inline utf_16_t::utf_16_t(const volatile utf_16_t& other)
+    {
+        this->units[0] = other.units[0];
+        this->units[1] = other.units[1];
+        this->unit_count = other.unit_count;
+    }
+
     inline utf_16_t::utf_16_t(utf_16_t&& other) noexcept
+    {
+        this->units[0] = std::exchange(other.units[0], 0);
+        this->units[1] = std::exchange(other.units[1], 0);
+        this->unit_count = std::exchange(other.unit_count, 1);
+    }
+
+    inline utf_16_t::utf_16_t(volatile utf_16_t&& other) noexcept
     {
         this->units[0] = std::exchange(other.units[0], 0);
         this->units[1] = std::exchange(other.units[1], 0);
@@ -41,7 +55,27 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
+    inline volatile utf_16_t& utf_16_t::operator =(const volatile utf_16_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = other.units[0];
+            this->units[1] = other.units[1];
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
     inline utf_16_t& utf_16_t::operator =(utf_16_t&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = std::exchange(other.units[0], 0);
+            this->units[1] = std::exchange(other.units[1], 0);
+            this->unit_count = std::exchange(other.unit_count, 1);
+        }
+        return *this;
+    }
+
+    inline volatile utf_16_t& utf_16_t::operator =(volatile utf_16_t&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = std::exchange(other.units[0], 0);
@@ -282,16 +316,6 @@ namespace nkr { namespace charcoder {
         return this->units[index];
     }
 
-    inline utf_16_be_t::utf_16_be_t(const utf_16_t& other) :
-        utf_16_t(other)
-    {
-    }
-
-    inline utf_16_be_t::utf_16_be_t(utf_16_t&& other) noexcept :
-        utf_16_t(std::move(other))
-    {
-    }
-
     template <typename>
     inline bool_t utf_16_be_t::Is_Well_Formed() const
     {
@@ -350,16 +374,6 @@ namespace nkr { namespace charcoder {
         } else {
             static_assert(false);
         }
-    }
-
-    inline utf_16_le_t::utf_16_le_t(const utf_16_t& other) :
-        utf_16_t(other)
-    {
-    }
-
-    inline utf_16_le_t::utf_16_le_t(utf_16_t&& other) noexcept :
-        utf_16_t(std::move(other))
-    {
     }
 
     template <typename>

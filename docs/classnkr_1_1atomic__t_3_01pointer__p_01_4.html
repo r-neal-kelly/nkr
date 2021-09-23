@@ -98,6 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="classnkr_1_1atomic__t_3_01pointer__p_01_4-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">nkr::atomic_t&lt; pointer_p &gt; Class Template Reference</div></div>
 </div><!--header-->
@@ -106,7 +107,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 <p>A wrapper for <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html" title="A specialization for pointers to be used atomically.">nkr::$atomic_t::pointer_sp</a>.  
  <a href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#details">More...</a></p>
 
-<p><code>#include &quot;atomic_t.h&quot;</code></p>
+<p><code>#include &quot;atomic_t_dec.h&quot;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for nkr::atomic_t&lt; pointer_p &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -119,16 +120,10 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader">objects</h2></td></tr>
-<tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp5891da2d64975cae48d175d1e001f5da"></a></p>
-</td></tr>
-<tr class="memitem:a1112fad4a37ebe62a6327850aeba4f4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a1112fad4a37ebe62a6327850aeba4f4d">atomic_t</a> (const $atomic_t::pointer_sp&lt; pointer_p &gt; &amp;other)</td></tr>
-<tr class="separator:a1112fad4a37ebe62a6327850aeba4f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08911fc400a566835562b66579176279"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a08911fc400a566835562b66579176279">atomic_t</a> ($atomic_t::pointer_sp&lt; pointer_p &gt; &amp;&amp;other) noexcept</td></tr>
-<tr class="separator:a08911fc400a566835562b66579176279"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a84ba0ff13b54808dcf56f0bb46d090ea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a84ba0ff13b54808dcf56f0bb46d090ea">base_t</a> = $atomic_t::pointer_sp&lt; pointer_p &gt;</td></tr>
+<tr class="separator:a84ba0ff13b54808dcf56f0bb46d090ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</a></td></tr>
 <tr class="memitem:aa7fc23760980b203d95153b5e366c430 inherit pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> = pointer_p</td></tr>
 <tr class="memdesc:aa7fc23760980b203d95153b5e366c430 inherit pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="mdescLeft">&#160;</td><td class="mdescRight">The underlying type of this wrapper.  <a href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">More...</a><br /></td></tr>
@@ -139,6 +134,33 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:ab1f8a07af7489e46395627fb7c642855 inherit pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> = std::remove_pointer_t&lt; pointer_p &gt;</td></tr>
 <tr class="memdesc:ab1f8a07af7489e46395627fb7c642855 inherit pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="mdescLeft">&#160;</td><td class="mdescRight">The underlying type pointed to by this pointer wrapper.  <a href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">More...</a><br /></td></tr>
 <tr class="separator:ab1f8a07af7489e46395627fb7c642855 inherit pub_types_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">objects</h2></td></tr>
+<tr><td class="ititle" colspan="2"><p ><a class="anchor" id="amgrp5891da2d64975cae48d175d1e001f5da"></a></p>
+</td></tr>
+<tr class="memitem:a0a2936d3b24a91dcf6f1e1181e23e1e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a0a2936d3b24a91dcf6f1e1181e23e1e4">atomic_t</a> ()=default</td></tr>
+<tr class="separator:a0a2936d3b24a91dcf6f1e1181e23e1e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe0ffe30ea8a7facb9af3ad12666637f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#abe0ffe30ea8a7facb9af3ad12666637f">atomic_t</a> (const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;other)=default</td></tr>
+<tr class="separator:abe0ffe30ea8a7facb9af3ad12666637f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ae056358d3c8f833a71d9b44d5f2305"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a5ae056358d3c8f833a71d9b44d5f2305">atomic_t</a> (volatile const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;other)</td></tr>
+<tr class="separator:a5ae056358d3c8f833a71d9b44d5f2305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaab6a3704382b9848407ab5299eb7ecf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#aaab6a3704382b9848407ab5299eb7ecf">atomic_t</a> (<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="separator:aaab6a3704382b9848407ab5299eb7ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a592683212490df58725f3db9f4bcdfa4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a592683212490df58725f3db9f4bcdfa4">atomic_t</a> (volatile <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a592683212490df58725f3db9f4bcdfa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9096aa5cb608f60e25991cdf46b467fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a9096aa5cb608f60e25991cdf46b467fe">operator=</a> (const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;other)=default</td></tr>
+<tr class="separator:a9096aa5cb608f60e25991cdf46b467fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05416d27a1cfdeb2d659e060ded33a13"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a05416d27a1cfdeb2d659e060ded33a13">operator=</a> (volatile const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp;other) volatile</td></tr>
+<tr class="separator:a05416d27a1cfdeb2d659e060ded33a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abec6eba42dd279726a5323c0df8cfd76"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#abec6eba42dd279726a5323c0df8cfd76">operator=</a> (is_tr&lt; <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &gt; auto &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:abec6eba42dd279726a5323c0df8cfd76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7225f360fb40ff70f35e58a7cffe1e5"><td class="memItemLeft" align="right" valign="top">volatile auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#ae7225f360fb40ff70f35e58a7cffe1e5">operator=</a> (volatile is_tr&lt; volatile <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &gt; auto &amp;&amp;other) volatile noexcept</td></tr>
+<tr class="separator:ae7225f360fb40ff70f35e58a7cffe1e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab943242dcd844cc277668f664783b6a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#ab943242dcd844cc277668f664783b6a6">~atomic_t</a> ()=default</td></tr>
+<tr class="separator:ab943242dcd844cc277668f664783b6a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">nkr::$atomic_t::pointer_sp&lt; pointer_p &gt;</a></td></tr>
 <tr class="memitem:a3190f8b34877039e47e19ae7fe950cd2 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a3190f8b34877039e47e19ae7fe950cd2">pointer_sp</a> ()</td></tr>
 <tr class="separator:a3190f8b34877039e47e19ae7fe950cd2 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,54 +168,98 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a57d7e4d39af3627e65489856692a0520 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00a6faf1d85d7f37cabbf5ceb20ec168 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a00a6faf1d85d7f37cabbf5ceb20ec168">pointer_sp</a> (const <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;other)</td></tr>
 <tr class="separator:a00a6faf1d85d7f37cabbf5ceb20ec168 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6a86b105c6007c4817ba789ebcf7171 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#af6a86b105c6007c4817ba789ebcf7171">pointer_sp</a> (const volatile <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;other)</td></tr>
+<tr class="separator:af6a86b105c6007c4817ba789ebcf7171 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30d8f57d7058b22b4ed460fedf3e174a inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a30d8f57d7058b22b4ed460fedf3e174a">pointer_sp</a> (<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:a30d8f57d7058b22b4ed460fedf3e174a inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc757dae62c32f7e9afa7aa2aaf845d7 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afc757dae62c32f7e9afa7aa2aaf845d7">operator=</a> (convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="separator:afc757dae62c32f7e9afa7aa2aaf845d7 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa304b8d9992968db24f05970825978ae inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa304b8d9992968db24f05970825978ae">pointer_sp</a> (volatile <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:aa304b8d9992968db24f05970825978ae inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b903d28b04217b96e722be61880ca77 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a1b903d28b04217b96e722be61880ca77">operator=</a> (const <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;other)</td></tr>
 <tr class="separator:a1b903d28b04217b96e722be61880ca77 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a316ff8d54e1ac61fac45e781dd1142d4 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a316ff8d54e1ac61fac45e781dd1142d4">operator=</a> (const volatile <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;other) volatile</td></tr>
+<tr class="separator:a316ff8d54e1ac61fac45e781dd1142d4 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae06ab1133c06c943393f78022b41d2bf inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ae06ab1133c06c943393f78022b41d2bf">operator=</a> (<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:ae06ab1133c06c943393f78022b41d2bf inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c18e135b7356329661221997dd68dfc inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4c18e135b7356329661221997dd68dfc">operator=</a> (volatile <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&amp;other) volatile noexcept</td></tr>
+<tr class="separator:a4c18e135b7356329661221997dd68dfc inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d4ebc741fdd6238084abcbb6dfcded inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa1d4ebc741fdd6238084abcbb6dfcded">~pointer_sp</a> ()</td></tr>
 <tr class="separator:aa1d4ebc741fdd6238084abcbb6dfcded inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f806bef92669e1c8b6a8fe253394bf3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a0f806bef92669e1c8b6a8fe253394bf3">Access</a> () const</td></tr>
 <tr class="separator:a0f806bef92669e1c8b6a8fe253394bf3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d23dd5a8e93859805a540dd2c879b20 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a4d23dd5a8e93859805a540dd2c879b20">Assign</a> (convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="separator:a4d23dd5a8e93859805a540dd2c879b20 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac477cd653a1d16daf2a36517454f271c inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ac477cd653a1d16daf2a36517454f271c">Assign_Add</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="separator:ac477cd653a1d16daf2a36517454f271c inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf79585eb3ed92f44acd52b1ab599863 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#adf79585eb3ed92f44acd52b1ab599863">Assign_Subtract</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="separator:adf79585eb3ed92f44acd52b1ab599863 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c1abc8ba584fb6724d213980bc9a820 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a2c1abc8ba584fb6724d213980bc9a820">Access</a> () const volatile</td></tr>
+<tr class="separator:a2c1abc8ba584fb6724d213980bc9a820 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0709d9679c97ff320ecfb592475384e3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a0709d9679c97ff320ecfb592475384e3">Assign</a> (convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
+<tr class="separator:a0709d9679c97ff320ecfb592475384e3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f83083902f867fb68a19c8c602cedc inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a84f83083902f867fb68a19c8c602cedc">Assign</a> (convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a84f83083902f867fb68a19c8c602cedc inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3ca7f534c16c402400f4db5759b7ad5 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#af3ca7f534c16c402400f4db5759b7ad5">Assign_Add</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
+<tr class="separator:af3ca7f534c16c402400f4db5759b7ad5 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25074cda646a8c10dfc6a1662ed792fd inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a25074cda646a8c10dfc6a1662ed792fd">Assign_Add</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a25074cda646a8c10dfc6a1662ed792fd inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72af6c273278d0c3eafe4c1e68304297 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a72af6c273278d0c3eafe4c1e68304297">Assign_Subtract</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
+<tr class="separator:a72af6c273278d0c3eafe4c1e68304297 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd82760eda1adf67858942de85e0678c inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#abd82760eda1adf67858942de85e0678c">Assign_Subtract</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:abd82760eda1adf67858942de85e0678c inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeae33dfd11eb20122a1a9173808a65b8 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aeae33dfd11eb20122a1a9173808a65b8">Exchange</a> (convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
 <tr class="separator:aeae33dfd11eb20122a1a9173808a65b8 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a8318df17f0e25ef3e15577eab324d3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a3a8318df17f0e25ef3e15577eab324d3">Exchange</a> (convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a3a8318df17f0e25ef3e15577eab324d3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadab7bc3a507967ab5b3fdcaea4d75c6 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aadab7bc3a507967ab5b3fdcaea4d75c6">Exchange_Add</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
 <tr class="separator:aadab7bc3a507967ab5b3fdcaea4d75c6 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0985963608322e15b28f4cdfafee9ff9 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a0985963608322e15b28f4cdfafee9ff9">Exchange_Add</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a0985963608322e15b28f4cdfafee9ff9 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad245008a9bb55bd17b20f3568c7b44a2 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ad245008a9bb55bd17b20f3568c7b44a2">Exchange_Subtract</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
 <tr class="separator:ad245008a9bb55bd17b20f3568c7b44a2 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a148e056be90ab871afba284a7b4c7d63 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a148e056be90ab871afba284a7b4c7d63">Exchange_Subtract</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a148e056be90ab871afba284a7b4c7d63 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75ed136429fb7ddf3c1574847193e632 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a75ed136429fb7ddf3c1574847193e632">Exchange_If_Equals</a> (<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &amp;snapshot, convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
 <tr class="separator:a75ed136429fb7ddf3c1574847193e632 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714fa581844358eb164efe629b5b7f86 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1bool__t.html">bool_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a714fa581844358eb164efe629b5b7f86">Exchange_If_Equals</a> (<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &amp;snapshot, convertible_tr&lt; <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a> &gt; auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a714fa581844358eb164efe629b5b7f86 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c5b69fa97e427d26ad0126dc8b69e47 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a9c5b69fa97e427d26ad0126dc8b69e47">operator value_t</a> () const</td></tr>
 <tr class="separator:a9c5b69fa97e427d26ad0126dc8b69e47 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12edbb93919edc87936fff6c5bbd6655 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a12edbb93919edc87936fff6c5bbd6655">operator value_t</a> () const volatile</td></tr>
+<tr class="separator:a12edbb93919edc87936fff6c5bbd6655 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20aef98a827a052d108f84702e5c9b11 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a20aef98a827a052d108f84702e5c9b11">operator()</a> () const</td></tr>
 <tr class="separator:a20aef98a827a052d108f84702e5c9b11 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bf54cee44d1dd88728b9794640f9789 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a2bf54cee44d1dd88728b9794640f9789">operator+=</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="separator:a2bf54cee44d1dd88728b9794640f9789 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b11ca123895c0dd73282e9e7451991f inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a5b11ca123895c0dd73282e9e7451991f">operator-=</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
-<tr class="separator:a5b11ca123895c0dd73282e9e7451991f inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9d72f7ce22e973ce5f6ae0871e71f2e inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#af9d72f7ce22e973ce5f6ae0871e71f2e">operator++</a> ()</td></tr>
-<tr class="separator:af9d72f7ce22e973ce5f6ae0871e71f2e inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ee7dfd64b37e2878bd3ca2006ff7b2 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab6ee7dfd64b37e2878bd3ca2006ff7b2">operator()</a> () const volatile</td></tr>
+<tr class="separator:ab6ee7dfd64b37e2878bd3ca2006ff7b2 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f9375b8240b9c08ea7411d06a5d8a1f inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a5f9375b8240b9c08ea7411d06a5d8a1f">operator+=</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
+<tr class="separator:a5f9375b8240b9c08ea7411d06a5d8a1f inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5100a7826ae32c72b3061706b6d56873 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a5100a7826ae32c72b3061706b6d56873">operator+=</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:a5100a7826ae32c72b3061706b6d56873 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8780e5a0382ac14444a14d5daea7b347 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a8780e5a0382ac14444a14d5daea7b347">operator-=</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>)</td></tr>
+<tr class="separator:a8780e5a0382ac14444a14d5daea7b347 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf33ce95055b2869b28ddabc7e37255d inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#abf33ce95055b2869b28ddabc7e37255d">operator-=</a> (integer_tr auto <a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#afe6516841ceb83a0712039cf364d09c5">value</a>) volatile</td></tr>
+<tr class="separator:abf33ce95055b2869b28ddabc7e37255d inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24ebcb67b70480d9c48f0ebe09efd12e inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a24ebcb67b70480d9c48f0ebe09efd12e">operator++</a> ()</td></tr>
+<tr class="separator:a24ebcb67b70480d9c48f0ebe09efd12e inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd1584f64154b37e46dd6faf7e11e10 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a5dd1584f64154b37e46dd6faf7e11e10">operator++</a> () volatile</td></tr>
+<tr class="separator:a5dd1584f64154b37e46dd6faf7e11e10 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a704efdad41e44e3d48cfa372acb5282e inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a704efdad41e44e3d48cfa372acb5282e">operator++</a> (int)</td></tr>
 <tr class="separator:a704efdad41e44e3d48cfa372acb5282e inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8102e554102f700456cb0ae91a0d7a81 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a8102e554102f700456cb0ae91a0d7a81">operator--</a> ()</td></tr>
-<tr class="separator:a8102e554102f700456cb0ae91a0d7a81 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a714f03a6e22280e3c386780161d22274 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a714f03a6e22280e3c386780161d22274">operator++</a> (int) volatile</td></tr>
+<tr class="separator:a714f03a6e22280e3c386780161d22274 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad88413b59d30bc704c3f085bf3006d31 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ad88413b59d30bc704c3f085bf3006d31">operator--</a> ()</td></tr>
+<tr class="separator:ad88413b59d30bc704c3f085bf3006d31 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4460a8081ab517aa244e4b2d311c49b inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab4460a8081ab517aa244e4b2d311c49b">operator--</a> () volatile</td></tr>
+<tr class="separator:ab4460a8081ab517aa244e4b2d311c49b inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d2c9312f1e24b1591bda3b360665f81 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a6d2c9312f1e24b1591bda3b360665f81">operator--</a> (int)</td></tr>
 <tr class="separator:a6d2c9312f1e24b1591bda3b360665f81 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88159eb4bdc8ab6ee29d725460410f56 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a88159eb4bdc8ab6ee29d725460410f56">operator--</a> (int) volatile</td></tr>
+<tr class="separator:a88159eb4bdc8ab6ee29d725460410f56 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2af7c3eb65f84b99abafcdbd4530f010 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a2af7c3eb65f84b99abafcdbd4530f010">operator-&gt;</a> () const</td></tr>
 <tr class="separator:a2af7c3eb65f84b99abafcdbd4530f010 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23a2ab766c9b7e95dcc96685a22cbe2b inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa7fc23760980b203d95153b5e366c430">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a23a2ab766c9b7e95dcc96685a22cbe2b">operator-&gt;</a> () const volatile</td></tr>
+<tr class="separator:a23a2ab766c9b7e95dcc96685a22cbe2b inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0fe980eb4fd6258fe3f929cecc089b3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ad0fe980eb4fd6258fe3f929cecc089b3">operator*</a> () const</td></tr>
 <tr class="separator:ad0fe980eb4fd6258fe3f929cecc089b3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35fd4a4d7d9d808b3ddd5f77d569f121 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a35fd4a4d7d9d808b3ddd5f77d569f121">operator*</a> () const volatile</td></tr>
+<tr class="separator:a35fd4a4d7d9d808b3ddd5f77d569f121 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5db49cfca1d9fbf52c6f598568db11f inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aa5db49cfca1d9fbf52c6f598568db11f">operator[]</a> (integer_tr auto index) const</td></tr>
 <tr class="separator:aa5db49cfca1d9fbf52c6f598568db11f inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a431401d929d70698dcd1241b3796bfdb inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#ab1f8a07af7489e46395627fb7c642855">unit_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a431401d929d70698dcd1241b3796bfdb">operator[]</a> (integer_tr auto index) const volatile</td></tr>
+<tr class="separator:a431401d929d70698dcd1241b3796bfdb inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed47130db8edacabe8ac084ae5529e5a inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#aed47130db8edacabe8ac084ae5529e5a">pointer_sp</a> (<a class="el" href="classnkr_1_1none__t.html">none_t</a>)</td></tr>
 <tr class="separator:aed47130db8edacabe8ac084ae5529e5a inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e03f4d13193461b48ce62f0514466d3 inherit pub_methods_classnkr_1_1_0batomic__t_1_1pointer__sp"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html">pointer_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a9e03f4d13193461b48ce62f0514466d3">operator=</a> (<a class="el" href="classnkr_1_1none__t.html">none_t</a>)</td></tr>
@@ -217,9 +283,26 @@ class nkr::atomic_t&lt; pointer_p &gt;</div><p >A wrapper for <a class="el" href
 <dl class="section user"><dt></dt><dd></dd></dl>
 <dl class="section note"><dt>Note</dt><dd>See <a class="el" href="index.html#_16d56f49_95ba_456e_a026_706c054cb133">Class Concept Specializations</a> for why we use inheritance to define this specialization.</dd></dl>
 <dl class="section user"><dt></dt><dd></dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1112fad4a37ebe62a6327850aeba4f4d" name="a1112fad4a37ebe62a6327850aeba4f4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1112fad4a37ebe62a6327850aeba4f4d">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[1/2]</span></h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a84ba0ff13b54808dcf56f0bb46d090ea" name="a84ba0ff13b54808dcf56f0bb46d090ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84ba0ff13b54808dcf56f0bb46d090ea">&#9670;&nbsp;</a></span>base_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1atomic__t_3_01pointer__p_01_4.html#a84ba0ff13b54808dcf56f0bb46d090ea">base_t</a> =  $atomic_t::pointer_sp&lt;pointer_p&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0a2936d3b24a91dcf6f1e1181e23e1e4" name="a0a2936d3b24a91dcf6f1e1181e23e1e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2936d3b24a91dcf6f1e1181e23e1e4">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +315,62 @@ template&lt;pointer_tr pointer_p&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> </td>
           <td>(</td>
-          <td class="paramtype">const $<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1_0batomic__t_1_1pointer__sp.html#a3190f8b34877039e47e19ae7fe950cd2">pointer_sp</a>&lt; pointer_p &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe0ffe30ea8a7facb9af3ad12666637f" name="abe0ffe30ea8a7facb9af3ad12666637f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe0ffe30ea8a7facb9af3ad12666637f">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5ae056358d3c8f833a71d9b44d5f2305" name="a5ae056358d3c8f833a71d9b44d5f2305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ae056358d3c8f833a71d9b44d5f2305">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> </td>
+          <td>(</td>
+          <td class="paramtype">volatile const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -244,14 +382,10 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p></p>
-<dl class="section note"><dt>Note</dt><dd>This ensures that the base can construct this wrapper even with the <code>=</code> operator. This is distinct from <code>operator =</code> which can be inherited but only comes into play after an object is constructed.</dd></dl>
-<dl class="section user"><dt></dt><dd></dd></dl>
-
 </div>
 </div>
-<a id="a08911fc400a566835562b66579176279" name="a08911fc400a566835562b66579176279"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08911fc400a566835562b66579176279">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[2/2]</span></h2>
+<a id="aaab6a3704382b9848407ab5299eb7ecf" name="aaab6a3704382b9848407ab5299eb7ecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab6a3704382b9848407ab5299eb7ecf">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,8 +398,36 @@ template&lt;pointer_tr pointer_p&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$atomic_t::pointer_sp&lt; pointer_p &gt; &amp;&amp;</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a592683212490df58725f3db9f4bcdfa4" name="a592683212490df58725f3db9f4bcdfa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592683212490df58725f3db9f4bcdfa4">&#9670;&nbsp;</a></span>atomic_t() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> </td>
+          <td>(</td>
+          <td class="paramtype">volatile <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -276,14 +438,150 @@ template&lt;pointer_tr pointer_p&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p></p>
-<dl class="section note"><dt>Note</dt><dd>This ensures that the base can construct this wrapper even with the <code>=</code> operator. This is distinct from <code>operator =</code> which can be inherited but only comes into play after an object is constructed.</dd></dl>
-<dl class="section user"><dt></dt><dd></dd></dl>
+</div>
+</div>
+<a id="ab943242dcd844cc277668f664783b6a6" name="ab943242dcd844cc277668f664783b6a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab943242dcd844cc277668f664783b6a6">&#9670;&nbsp;</a></span>~atomic_t()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::~<a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9096aa5cb608f60e25991cdf46b467fe" name="a9096aa5cb608f60e25991cdf46b467fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9096aa5cb608f60e25991cdf46b467fe">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp; <a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abec6eba42dd279726a5323c0df8cfd76" name="abec6eba42dd279726a5323c0df8cfd76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abec6eba42dd279726a5323c0df8cfd76">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp; <a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">is_tr&lt; <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a05416d27a1cfdeb2d659e060ded33a13" name="a05416d27a1cfdeb2d659e060ded33a13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05416d27a1cfdeb2d659e060ded33a13">&#9670;&nbsp;</a></span>operator=() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a> &amp; <a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">volatile const <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> volatile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae7225f360fb40ff70f35e58a7cffe1e5" name="ae7225f360fb40ff70f35e58a7cffe1e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7225f360fb40ff70f35e58a7cffe1e5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;pointer_tr pointer_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile auto &amp; <a class="el" href="classnkr_1_1atomic__t.html">nkr::atomic_t</a>&lt; pointer_p &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">volatile is_tr&lt; volatile <a class="el" href="classnkr_1_1atomic__t.html">atomic_t</a>&lt; pointer_p &gt; &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> volatile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>nkr/include/nkr/<a class="el" href="atomic__t_8h.html">atomic_t.h</a></li>
+<li>nkr/include/nkr/<a class="el" href="atomic__t__dec_8h.html">atomic_t_dec.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

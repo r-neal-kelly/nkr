@@ -15,6 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\void_pointer_p.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\boolean_p.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -25,9 +28,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\real_p.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\void_pointer_p.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,14 +20,15 @@ namespace nkr {
         /// @name aliases
         /// @copydoc _68e8ea24_c725_481e_96e2_83379ee8f177
         /// @{
-        using value_t   = any_p;    ///< @copydoc _afe969ef_b9ff_4532_a311_5900ca7fba62
+        using base_t    = maybe_t<any_p>;   ///< @copydoc 
+        using value_t   = any_p;            ///< @copydoc _afe969ef_b9ff_4532_a311_5900ca7fba62
         /// @}
 
     public:
-        /// @name inherited objects
+        /// @name objects
+        /// @copydoc 
         /// @{
-        using maybe_t<value_t>::maybe_t;
-        using maybe_t<value_t>::operator =;
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(some_t, base_t);
         /// @}
 
     public:

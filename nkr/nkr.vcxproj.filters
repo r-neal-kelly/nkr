@@ -54,7 +54,7 @@
     <ClInclude Include="include\nkr\os.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\atomic_t.h">
+    <ClInclude Include="include\nkr\atomic_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\docs\intrinsic.dox">
@@ -159,6 +159,12 @@
     <ClInclude Include="include\nkr\utils_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\maybe_t_dec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\atomic_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -179,7 +185,7 @@
     <None Include="include\nkr\os.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\atomic_t.inl">
+    <None Include="include\nkr\atomic_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
@@ -194,11 +200,11 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\traits.dox" />
-    <None Include="include\nkr\atomic_t.dox" />
-    <None Include="include\nkr\maybe_t.inl">
+    <None Include="include\nkr\atomic_t_dox.h" />
+    <None Include="include\nkr\maybe_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\maybe_t.dox" />
+    <None Include="include\nkr\maybe_t_dox.h" />
     <None Include="include\nkr\bool_t.inl">
       <Filter>Header Files</Filter>
     </None>

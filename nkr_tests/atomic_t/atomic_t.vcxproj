@@ -160,19 +160,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\pointer_p.cpp" />
-    <ClCompile Include="src\real_p.cpp" />
-    <ClCompile Include="src\boolean_p.cpp" />
-    <ClCompile Include="src\void_pointer_p.cpp" />
-    <ClCompile Include="src\integer_p.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">
       <Project>{8c1ddcad-1148-45e7-b63e-d1225ad747ad}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\nkr\nkr.vcxproj">
       <Project>{260dd159-a788-4bbb-9690-628aa81aaa9c}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\boolean_p.cpp" />
+    <ClCompile Include="src\integer_p.cpp" />
+    <ClCompile Include="src\pointer_p.cpp" />
+    <ClCompile Include="src\real_p.cpp" />
+    <ClCompile Include="src\void_pointer_p.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

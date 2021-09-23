@@ -106,7 +106,7 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 <p>A <a class="el" href="classnkr_1_1maybe__t.html" title="Wraps a type whose object may have a value.">nkr::maybe_t</a> specialization for user-defined types, including types defined in this library.  
  <a href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#details">More...</a></p>
 
-<p><code>#include &quot;maybe_t.h&quot;</code></p>
+<p><code>#include &quot;maybe_t_dec.h&quot;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for nkr::$maybe_t::user_defined_sp&lt; user_defined_p &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -143,10 +143,10 @@ var searchBox = new SearchBox("searchBox", "search",'Search','.html');
 <tr class="separator:a9e2fea0b88ef78be9cdb4530c48dc9dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7463ddb480821cb7d396c90b1b4e0352"><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#a7463ddb480821cb7d396c90b1b4e0352">operator=</a> (volatile const <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a> &amp;other) volatile</td></tr>
 <tr class="separator:a7463ddb480821cb7d396c90b1b4e0352"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc7ed8e81d8e9b6121d2ae1dfda46752"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#abc7ed8e81d8e9b6121d2ae1dfda46752">operator=</a> (same_as_tr&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a> &gt; auto &amp;&amp;other) noexcept</td></tr>
-<tr class="separator:abc7ed8e81d8e9b6121d2ae1dfda46752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e84d48e0610a8fa371d6ace23696ad1"><td class="memItemLeft" align="right" valign="top">volatile auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#a4e84d48e0610a8fa371d6ace23696ad1">operator=</a> (volatile same_as_tr&lt; volatile <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a> &gt; auto &amp;&amp;other) volatile noexcept</td></tr>
-<tr class="separator:a4e84d48e0610a8fa371d6ace23696ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3399b05b366a5489bde1de9a7ce5fc03"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#a3399b05b366a5489bde1de9a7ce5fc03">operator=</a> (is_tr&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a> &gt; auto &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a3399b05b366a5489bde1de9a7ce5fc03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9542cfea6df4b9e9c7f22a294c0dcb"><td class="memItemLeft" align="right" valign="top">volatile auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#acb9542cfea6df4b9e9c7f22a294c0dcb">operator=</a> (volatile is_tr&lt; volatile <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a> &gt; auto &amp;&amp;other) volatile noexcept</td></tr>
+<tr class="separator:acb9542cfea6df4b9e9c7f22a294c0dcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e6bdd80bc72d446af60634bfbb15ff3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html#a2e6bdd80bc72d446af60634bfbb15ff3">~user_defined_sp</a> ()=default</td></tr>
 <tr class="separator:a2e6bdd80bc72d446af60634bfbb15ff3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -624,8 +624,36 @@ template&lt;none_i user_defined_p&gt; </div>
 
 </div>
 </div>
+<a id="a3399b05b366a5489bde1de9a7ce5fc03" name="a3399b05b366a5489bde1de9a7ce5fc03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3399b05b366a5489bde1de9a7ce5fc03">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;none_i user_defined_p&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto &amp; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">nkr::$maybe_t::user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">is_tr&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt; &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="acec9dbfca375418e9cb14648420c2f1d" name="acec9dbfca375418e9cb14648420c2f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acec9dbfca375418e9cb14648420c2f1d">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/5]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acec9dbfca375418e9cb14648420c2f1d">&#9670;&nbsp;</a></span>operator=() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -651,34 +679,6 @@ template&lt;none_i user_defined_p&gt; </div>
 </div><div class="memdoc">
 
 <p></p>
-
-</div>
-</div>
-<a id="abc7ed8e81d8e9b6121d2ae1dfda46752" name="abc7ed8e81d8e9b6121d2ae1dfda46752"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc7ed8e81d8e9b6121d2ae1dfda46752">&#9670;&nbsp;</a></span>operator=() <span class="overload">[3/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;none_i user_defined_p&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto &amp; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">nkr::$maybe_t::user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype">same_as_tr&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt; &gt; auto &amp;&amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -710,8 +710,8 @@ template&lt;none_i user_defined_p&gt; </div>
 
 </div>
 </div>
-<a id="a4e84d48e0610a8fa371d6ace23696ad1" name="a4e84d48e0610a8fa371d6ace23696ad1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e84d48e0610a8fa371d6ace23696ad1">&#9670;&nbsp;</a></span>operator=() <span class="overload">[5/5]</span></h2>
+<a id="acb9542cfea6df4b9e9c7f22a294c0dcb" name="acb9542cfea6df4b9e9c7f22a294c0dcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb9542cfea6df4b9e9c7f22a294c0dcb">&#9670;&nbsp;</a></span>operator=() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -724,7 +724,7 @@ template&lt;none_i user_defined_p&gt; </div>
         <tr>
           <td class="memname">volatile auto &amp; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">nkr::$maybe_t::user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype">volatile same_as_tr&lt; volatile <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt; &gt; auto &amp;&amp;&#160;</td>
+          <td class="paramtype">volatile is_tr&lt; volatile <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__sp.html">user_defined_sp</a>&lt; <a class="el" href="classnkr_1_1_0bmaybe__t_1_1user__defined__p.html">user_defined_p</a> &gt; &gt; auto &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> volatile</td>
         </tr>
@@ -769,8 +769,8 @@ template&lt;none_i user_defined_p&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>nkr/include/nkr/<a class="el" href="maybe__t_8h.html">maybe_t.h</a></li>
-<li>nkr/include/nkr/<a class="el" href="maybe__t_8inl.html">maybe_t.inl</a></li>
+<li>nkr/include/nkr/<a class="el" href="maybe__t__dec_8h.html">maybe_t_dec.h</a></li>
+<li>nkr/include/nkr/<a class="el" href="maybe__t__def_8h.html">maybe_t_def.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

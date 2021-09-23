@@ -337,12 +337,12 @@ namespace nkr {
                 /// [_20335514_31fd_467d_a7d0_cad170e33b6b]
 
                 /// [_448d3d5b_3cf4_45b8_9223_72de45840db9]
-                TEST_CASE_TEMPLATE("should return itself", boolean_p, _)
+                TEST_CASE_TEMPLATE("should return the new value", boolean_p, _)
                 {
                     boolean_p random_a = Random<boolean_p>();
                     boolean_p random_b = Random<boolean_p>();
                     atomic_t<boolean_p> atom(random_a);
-                    CHECK(&atom.Assign(random_b) == &atom);
+                    CHECK(atom.Assign(random_b) == random_b);
                 }
                 /// [_448d3d5b_3cf4_45b8_9223_72de45840db9]
 

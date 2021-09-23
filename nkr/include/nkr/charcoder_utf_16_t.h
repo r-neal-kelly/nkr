@@ -6,6 +6,7 @@
 
 #include "nkr/charcoder_i.h"
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 
 namespace nkr { namespace charcoder {
 
@@ -20,10 +21,17 @@ namespace nkr { namespace charcoder {
 
     public:
         utf_16_t();
+
         utf_16_t(const utf_16_t& other);
+        utf_16_t(const volatile utf_16_t& other);
         utf_16_t(utf_16_t&& other) noexcept;
-        utf_16_t& operator =(const utf_16_t& other);
-        utf_16_t& operator =(utf_16_t&& other) noexcept;
+        utf_16_t(volatile utf_16_t&& other) noexcept;
+
+        utf_16_t&           operator =(const utf_16_t& other);
+        volatile utf_16_t&  operator =(const volatile utf_16_t& other) volatile;
+        utf_16_t&           operator =(utf_16_t&& other) noexcept;
+        volatile utf_16_t&  operator =(volatile utf_16_t&& other) volatile noexcept;
+
         ~utf_16_t();
 
     public:
@@ -50,12 +58,14 @@ namespace nkr { namespace charcoder {
         public utf_16_t
     {
     public:
-        using utf_16_t::utf_16_t;
-        using utf_16_t::operator =;
+        using base_t    = utf_16_t;
 
     public:
-        utf_16_be_t(const utf_16_t& other);
-        utf_16_be_t(utf_16_t&& other) noexcept;
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(utf_16_be_t, base_t);
+        /// @}
 
     public:
         template <typename = void_t>
@@ -77,12 +87,14 @@ namespace nkr { namespace charcoder {
         public utf_16_t
     {
     public:
-        using utf_16_t::utf_16_t;
-        using utf_16_t::operator =;
+        using base_t    = utf_16_t;
 
     public:
-        utf_16_le_t(const utf_16_t& other);
-        utf_16_le_t(utf_16_t&& other) noexcept;
+        /// @name objects
+        /// @copydoc 
+        /// @{
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(utf_16_le_t, base_t);
+        /// @}
 
     public:
         template <typename = void_t>

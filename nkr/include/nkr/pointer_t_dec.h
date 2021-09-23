@@ -273,13 +273,6 @@ namespace nkr {
         }
 
     public:
-        /// @name inherited objects
-        /// @{
-        using base_t::base_t;
-        using base_t::operator =;
-        /// @}
-
-    public:
         /// @name objects
         /// @copydoc 
         /// @{
@@ -309,13 +302,6 @@ namespace nkr {
         {
             return operator !=(a.Base(), b.Base());
         }
-
-    public:
-        /// @name inherited objects
-        /// @{
-        using base_t::base_t;
-        using base_t::operator =;
-        /// @}
 
     public:
         /// @name objects
