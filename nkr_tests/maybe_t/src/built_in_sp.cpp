@@ -448,71 +448,6 @@ namespace nkr {
                 CHECK(!void_pointer == true);
                 /// [_1b43a17a_7465_4cb0_a4a1_0b003631b869]
             }
-
-            TEST_CASE("&() should return a pointer to the mutable value")
-            {
-                /// [_b76a6df5_b732_4953_b5af_51069e28cd09]
-                maybe_t<bool_t> boolean;
-                CHECK(&boolean == &boolean());
-                *&boolean = true;
-                CHECK(boolean == true);
-                *&boolean = false;
-                CHECK(boolean == false);
-
-                maybe_t<word_t> integer;
-                CHECK(&integer == &integer());
-                *&integer = 1;
-                CHECK(integer == 1);
-                *&integer = 0;
-                CHECK(integer == 0);
-
-                maybe_t<c32_t> character;
-                CHECK(&character == &character());
-                *&character = 'a';
-                CHECK(character == 'a');
-                *&character = '\0';
-                CHECK(character == '\0');
-
-                maybe_t<real_t> real;
-                CHECK(&real == &real());
-                *&real = 1.0;
-                CHECK(real == 1.0);
-                *&real = 0.0;
-                CHECK(real == 0.0);
-
-                maybe_t<void_t*> void_pointer;
-                CHECK(&void_pointer == &void_pointer());
-                *&void_pointer = &boolean;
-                CHECK(void_pointer == &boolean);
-                *&void_pointer = nullptr;
-                CHECK(void_pointer == nullptr);
-                /// [_b76a6df5_b732_4953_b5af_51069e28cd09]
-            }
-
-            TEST_CASE("&() const should return a pointer to the immutable value")
-            {
-                /// [_43e8dc8f_d49a_421a_b902_10970abb2f6a]
-                const maybe_t<bool_t> boolean;
-                CHECK(&boolean == &boolean());
-                CHECK(*&boolean == false);
-
-                const maybe_t<word_t> integer;
-                CHECK(&integer == &integer());
-                CHECK(*&integer == 0);
-
-                const maybe_t<c32_t> character;
-                CHECK(&character == &character());
-                CHECK(*&character == '\0');
-
-                const maybe_t<real_t> real;
-                CHECK(&real == &real());
-                CHECK(*&real == 0.0);
-
-                const maybe_t<void_t*> void_pointer;
-                CHECK(&void_pointer == &void_pointer());
-                CHECK(*&void_pointer == nullptr);
-                /// [_43e8dc8f_d49a_421a_b902_10970abb2f6a]
-            }
         }
 
         TEST_SUITE("none_t interface")
@@ -629,7 +564,7 @@ namespace nkr {
                     CHECK_FALSE(maybe_boolean != boolean);
                     CHECK(maybe_boolean ? maybe_boolean() : boolean);
 
-                    CHECK(&maybe_boolean != &boolean);
+                    CHECK(&maybe_boolean() != &boolean);
                 }
 
                 TEST_CASE("integer")
@@ -697,7 +632,7 @@ namespace nkr {
                     CHECK((maybe_integer <=> integer == 0));
                     CHECK(maybe_integer ? maybe_integer() : integer);
 
-                    CHECK(&maybe_integer != &integer);
+                    CHECK(&maybe_integer() != &integer);
                 }
 
                 TEST_CASE("character")
@@ -764,7 +699,7 @@ namespace nkr {
                     CHECK((maybe_character <=> character == 0));
                     CHECK(maybe_character ? maybe_character() : character);
 
-                    CHECK(&maybe_character != &character);
+                    CHECK(&maybe_character() != &character);
                 }
 
                 TEST_CASE("real")
@@ -810,7 +745,7 @@ namespace nkr {
                     CHECK((maybe_real <=> real == 0));
                     CHECK(maybe_real ? maybe_real() : real);
 
-                    CHECK(&maybe_real != &real);
+                    CHECK(&maybe_real() != &real);
                 }
 
                 TEST_CASE("pointer")
@@ -870,63 +805,11 @@ namespace nkr {
                     CHECK(maybe_pointer ? maybe_pointer() : pointer);
 
                     CHECK(*maybe_pointer == *pointer);
-                    CHECK(&maybe_pointer != &pointer);
+                    CHECK(&maybe_pointer() != &pointer);
                     CHECK(maybe_pointer->value == pointer->value);
                     CHECK(maybe_pointer[0] == pointer[0]);
                 }
             }
-        }
-    }
-
-    TEST_SUITE("maybe_t<user_defined_p>")
-    {
-        TEST_SUITE("casts")
-        {
-
-        }
-
-        TEST_SUITE("operators")
-        {
-
-        }
-
-        TEST_SUITE("none_t interface")
-        {
-
-        }
-
-        TEST_SUITE("type")
-        {
-            TEST_SUITE("this type should be able to act like its underlying value")
-            {
-                TEST_CASE("bool_t")
-                {
-                    bool_t v = true;
-                    bool_t boolean = v;
-                    maybe_t<bool_t> maybe_boolean = v;
-
-                    CHECK((maybe_boolean = v) == (boolean = v));
-
-                    CHECK((maybe_boolean, boolean));
-                    CHECK((!!maybe_boolean, !!boolean));
-                    CHECK(maybe_boolean && boolean);
-                    CHECK(maybe_boolean || boolean);
-
-                    CHECK(maybe_boolean == boolean);
-                    CHECK_FALSE(maybe_boolean != boolean);
-                    CHECK((maybe_boolean ? maybe_boolean() : boolean));
-
-                    CHECK(&maybe_boolean != &boolean);
-                }
-            }
-        }
-    }
-
-    TEST_SUITE("some_t<any_p>")
-    {
-        TEST_SUITE("operators")
-        {
-
         }
     }
 

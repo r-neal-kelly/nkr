@@ -399,7 +399,7 @@ namespace nkr {
         std::is_base_of_v<std::remove_reference_t<type_p>, derived_p>;
 
     template <typename type_p, typename other_p>
-    concept is_same_or_base_lvalue_reference_of_tr =
+    concept is_or_is_base_lvalue_reference_of_tr =
         is_lvalue_reference_of_tr<type_p, other_p> ||
         is_base_lvalue_reference_of_tr<type_p, other_p>;
     

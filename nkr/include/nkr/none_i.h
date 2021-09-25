@@ -18,8 +18,8 @@ namespace nkr { namespace $none_i {
     {
         std::remove_cv_t<type_p>(none_t());
 
-        { instance.operator =(none_t()) }           -> is_same_or_base_lvalue_reference_of_tr<std::remove_cv_t<type_p>>;
-        { volatile_instance.operator =(none_t()) }  -> is_same_or_base_lvalue_reference_of_tr<volatile std::remove_cv_t<type_p>>;
+        { instance.operator =(none_t()) }           -> is_or_is_base_lvalue_reference_of_tr<std::remove_cv_t<type_p>>;
+        { volatile_instance.operator =(none_t()) }  -> is_or_is_base_lvalue_reference_of_tr<volatile std::remove_cv_t<type_p>>;
     };
 
     template <typename type_p>

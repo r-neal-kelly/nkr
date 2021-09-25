@@ -212,37 +212,6 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    inline auto*
-        any_sp<any_p>::operator &()
-    {
-        return &this->value;
-    }
-
-    template <typename any_p>
-    inline const auto*
-        any_sp<any_p>::operator &()
-        const
-    {
-        return &this->value;
-    }
-
-    template <typename any_p>
-    inline volatile auto*
-        any_sp<any_p>::operator &()
-        volatile
-    {
-        return &this->value;
-    }
-
-    template <typename any_p>
-    inline const volatile auto*
-        any_sp<any_p>::operator &()
-        const volatile
-    {
-        return &this->value;
-    }
-
-    template <typename any_p>
     inline any_sp<any_p>::any_sp(none_t) :
         value(static_cast<value_t>(0))
     {
@@ -428,37 +397,6 @@ namespace nkr { namespace $maybe_t {
         const volatile
     {
         return static_cast<const volatile value_t&>(*this);
-    }
-
-    template <maybe_i user_defined_p>
-    inline auto*
-        user_defined_sp<user_defined_p>::operator &()
-    {
-        return &static_cast<value_t&>(*this);
-    }
-
-    template <maybe_i user_defined_p>
-    inline const auto*
-        user_defined_sp<user_defined_p>::operator &()
-        const
-    {
-        return &static_cast<const value_t&>(*this);
-    }
-
-    template <maybe_i user_defined_p>
-    inline volatile auto*
-        user_defined_sp<user_defined_p>::operator &()
-        volatile
-    {
-        return &static_cast<volatile value_t&>(*this);
-    }
-
-    template <maybe_i user_defined_p>
-    inline const volatile auto*
-        user_defined_sp<user_defined_p>::operator &()
-        const volatile
-    {
-        return &static_cast<const volatile value_t&>(*this);
     }
 
 }}

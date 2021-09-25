@@ -228,6 +228,49 @@ namespace nkr {
 
         TEST_SUITE("casts")
         {
+            TEST_SUITE("base_t")
+            {
+                TEST_CASE_TEMPLATE("should implicitly allow for base_t constructors", maybe_p, nkr_ALL)
+                {
+                    using base_t = maybe_p::base_t;
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (is_any_tr<value_t, bool_t>) {
+                        std_bool_t random = Random<std_bool_t>();
+                        maybe_p maybe(random);
+                        CHECK(maybe == random);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for logical operators", maybe_p, nkr_ALL)
+                {
+                    using base_t = maybe_p::base_t;
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (is_any_tr<value_t, bool_t>) {
+                        maybe_p maybe(true);
+                        CHECK(maybe);
+                        CHECK(!!maybe);
+                        CHECK(maybe || false);
+                        CHECK(maybe && true);
+                        CHECK(maybe ? true : false);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for comparison operators", maybe_p, nkr_ALL)
+                {
+                    using base_t = maybe_p::base_t;
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (is_any_tr<value_t, bool_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe(random);
+                        CHECK(maybe == random);
+                        CHECK_FALSE(maybe != random);
+                    }
+                }
+            }
+
             TEST_SUITE("bool_t")
             {
                 TEST_CASE_TEMPLATE("should cast to true if its underlying value does not equal none_t()", maybe_p, nkr_ALL)
@@ -248,7 +291,32 @@ namespace nkr {
 
         TEST_SUITE("operators")
         {
+            TEST_SUITE("()()")
+            {
+                TEST_CASE_TEMPLATE("should return a reference to its value", maybe_p, nkr_ALL)
+                {
+                    using base_t = maybe_p::base_t;
+                    using value_t = maybe_p::value_t;
 
+                    value_t random = Random<value_t>();
+                    maybe_p maybe = random;
+                    CHECK(maybe() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should be able to alter its value", maybe_p, nkr_NON_CONST)
+                {
+                    using base_t = maybe_p::base_t;
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (not_any_const_tr<value_t>) {
+                        value_t random_a = Random<value_t>();
+                        value_t random_b = Random<value_t>();
+                        maybe_p maybe = random_a;
+                        maybe() = random_b;
+                        CHECK(maybe == random_b);
+                    }
+                }
+            }
         }
     }
 

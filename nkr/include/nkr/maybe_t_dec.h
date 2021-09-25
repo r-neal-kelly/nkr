@@ -92,11 +92,6 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         const value_t&          operator ()() const;            ///< @copydoc _b0a0511e_f1e4_4c6a_a9f4_487e27a55d9f
         volatile value_t&       operator ()() volatile;         ///< @copydoc 
         const volatile value_t& operator ()() const volatile;   ///< @copydoc 
-
-        auto*                   operator &();                   ///< @copydoc _818b2694_ff2d_40b7_bb82_b91338a71319
-        const auto*             operator &() const;             ///< @copydoc _11a0b137_9ce6_4389_b814_fc3dbd707581
-        volatile auto*          operator &() volatile;          ///< @copydoc 
-        const volatile auto*    operator &() const volatile;    ///< @copydoc 
         /// @}
 
         /// @name none_t interface
@@ -280,11 +275,6 @@ namespace nkr { namespace $maybe_t {
         const value_t&          operator ()() const;            ///< @copydoc _110607cd_bdbe_488b_8c8a_15a03e07523b
         volatile value_t&       operator ()() volatile;         ///< @copydoc 
         const volatile value_t& operator ()() const volatile;   ///< @copydoc 
-
-        auto*                   operator &();                   ///< @copydoc _3aa1aabe_9154_40a3_8e90_4159a3e155a3
-        const auto*             operator &() const;             ///< @copydoc _82fde6d1_3c38_4a5e_9686_8dac3c57c28c
-        volatile auto*          operator &() volatile;          ///< @copydoc 
-        const volatile auto*    operator &() const volatile;    ///< @copydoc 
         /// @}
     };
     static_assert(maybe_i<user_defined_sp<bool_t>>);

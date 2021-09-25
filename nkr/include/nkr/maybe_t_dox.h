@@ -160,28 +160,6 @@
                 * @snippet "./src/maybe_t.cpp" _4ae71520_60de_44f6_91e3_ad72a54234ea
                 */
 
-                // &()
-                /**
-                * @class _818b2694_ff2d_40b7_bb82_b91338a71319
-                * @private
-                * 
-                * @details
-                *   With this defined, it behaves similiarly to the sister specialization nkr::$maybe_t::user_defined_sp.
-                * 
-                * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
-                * @snippet "./src/maybe_t.cpp" _b76a6df5_b732_4953_b5af_51069e28cd09
-                */
-
-                // &() const
-                /**
-                * @class _11a0b137_9ce6_4389_b814_fc3dbd707581
-                * @private
-                * 
-                * @copydetails _818b2694_ff2d_40b7_bb82_b91338a71319
-                * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
-                * @snippet "./src/maybe_t.cpp" _43e8dc8f_d49a_421a_b902_10970abb2f6a
-                */
-
             // none_t interface
             /**
             * @class _1dfe08c1_275f_46e1_af39_240c6b354178
@@ -410,22 +388,6 @@
             /**
             * @class _110607cd_bdbe_488b_8c8a_15a03e07523b
             * @private
-            */
-
-            // &()
-            /**
-            * @class _3aa1aabe_9154_40a3_8e90_4159a3e155a3
-            * @private
-            * 
-            * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
-            */
-
-            // &() const
-            /**
-            * @class _82fde6d1_3c38_4a5e_9686_8dac3c57c28c
-            * @private
-            * 
-            * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
             */
 
 // maybe_t<invalid_p>
