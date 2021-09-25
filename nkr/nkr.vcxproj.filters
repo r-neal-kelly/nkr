@@ -72,7 +72,7 @@
     <ClInclude Include="include\nkr\bool_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\none_t.h">
+    <ClInclude Include="include\nkr\none_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\none_i.h">
@@ -171,6 +171,12 @@
     <ClInclude Include="include\nkr\some_i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\none_t_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\none_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -214,7 +220,7 @@
     <None Include="include\nkr\bool_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\none_t.dox" />
+    <None Include="include\nkr\none_t_dox.h" />
     <None Include="include\nkr\none_i.dox" />
     <None Include="include\nkr\some_t.dox" />
     <None Include="include\nkr\some_t.inl">

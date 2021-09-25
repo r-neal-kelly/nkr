@@ -187,6 +187,8 @@
     <ClInclude Include="include\nkr\maybe_t_dec.h" />
     <ClInclude Include="include\nkr\none_i.h" />
     <ClInclude Include="include\nkr\none_t.h" />
+    <ClInclude Include="include\nkr\none_t_dec.h" />
+    <ClInclude Include="include\nkr\none_t_def.h" />
     <ClInclude Include="include\nkr\os.h" />
     <ClInclude Include="include\nkr\pointer_t.h" />
     <ClInclude Include="include\nkr\random.h" />
@@ -227,7 +229,7 @@
     <None Include="include\nkr\maybe_t_dox.h" />
     <None Include="include\nkr\maybe_t_def.h" />
     <None Include="include\nkr\none_i.dox" />
-    <None Include="include\nkr\none_t.dox" />
+    <None Include="include\nkr\none_t_dox.h" />
     <None Include="include\nkr\os.dox" />
     <None Include="include\nkr\os.inl" />
     <None Include="include\nkr\pointer_t_dec.h" />
