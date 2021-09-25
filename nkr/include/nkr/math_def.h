@@ -29,3 +29,12 @@ namespace nkr { namespace math { namespace $fraction_t {
     }
 
 }}}
+
+namespace nkr { namespace math {
+
+    inline bool_t Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer)
+    {
+        return unsigned_integer != 0 && !(unsigned_integer & (unsigned_integer - 1));
+    }
+
+}}

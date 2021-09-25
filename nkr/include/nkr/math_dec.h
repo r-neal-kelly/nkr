@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
@@ -44,5 +45,11 @@ namespace nkr { namespace math {
     {
     };
     static_assert(fraction_i<fraction_t<1, 1>>);
+
+}}
+
+namespace nkr { namespace math {
+
+    bool_t  Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer);
 
 }}
