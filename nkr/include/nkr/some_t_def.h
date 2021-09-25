@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/some_t.h"
+#include "nkr/some_t_dec.h"
 
 namespace nkr {
 

@@ -10,7 +10,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>
     inline any_sp<any_p>::any_sp() :
-        value(static_cast<value_t>(0))
+        value(static_cast<std::remove_cv_t<value_t>>(0))
     {
     }
 
@@ -150,7 +150,9 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     template <typename any_p>
     inline any_sp<any_p>::~any_sp()
     {
-        this->value = static_cast<value_t>(0);
+        if constexpr (any_non_const_tr<value_t>) {
+            this->value = static_cast<std::remove_cv_t<value_t>>(0);
+        }
     }
 
     template <typename any_p>
@@ -213,7 +215,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>
     inline any_sp<any_p>::any_sp(none_t) :
-        value(static_cast<value_t>(0))
+        value(static_cast<std::remove_cv_t<value_t>>(0))
     {
     }
 
@@ -221,7 +223,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     inline any_sp<any_p>&
         any_sp<any_p>::operator =(none_t)
     {
-        this->value = static_cast<value_t>(0);
+        this->value = static_cast<std::remove_cv_t<value_t>>(0);
         return *this;
     }
 
@@ -230,7 +232,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         any_sp<any_p>::operator =(none_t)
         volatile
     {
-        this->value = static_cast<value_t>(0);
+        this->value = static_cast<std::remove_cv_t<value_t>>(0);
         return *this;
     }
 
@@ -239,7 +241,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         any_sp<any_p>::operator ==(none_t)
         const
     {
-        return this->value == static_cast<value_t>(0);
+        return this->value == static_cast<std::remove_cv_t<value_t>>(0);
     }
 
     template <typename any_p>
@@ -247,7 +249,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         any_sp<any_p>::operator ==(none_t)
         const volatile
     {
-        return this->value == static_cast<value_t>(0);
+        return this->value == static_cast<std::remove_cv_t<value_t>>(0);
     }
 
     template <typename any_p>
@@ -353,20 +355,6 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 }}}
 
 namespace nkr { namespace $maybe_t {
-
-    template <maybe_i user_defined_p>
-    inline user_defined_sp<user_defined_p>::operator bool_t()
-        const
-    {
-        return value_t::operator !=(none_t());
-    }
-
-    template <maybe_i user_defined_p>
-    inline user_defined_sp<user_defined_p>::operator bool_t()
-        const volatile
-    {
-        return value_t::operator !=(none_t());
-    }
 
     template <maybe_i user_defined_p>
     inline typename user_defined_sp<user_defined_p>::value_t&

@@ -357,21 +357,6 @@
         * @private
         */
 
-        // casts
-        /**
-        * @class _4d8d9df3_d8f9_4b63_bacf_e7cb8d2a45f4
-        * @private
-        */
-
-            // bool_t()
-            /**
-            * @class _a4d05d29_07c0_4bdf_857d_2e932c5a77a8
-            * @private
-            * 
-            * @details
-            *   We define this to make sure that the user-defined value is checked against none_t.
-            */
-
         // operators
         /**
         * @class _923f1cf1_39a3_4bdb_87a2_0378c0de9bf4

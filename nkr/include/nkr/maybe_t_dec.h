@@ -121,9 +121,11 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name aliases
         /// @copydoc _bb2c1a35_af7a_4084_ad9d_59a969254b54
         /// @{
-        using base_t    = any_sp<real_p>;   ///< @copydoc 
         using value_t   = real_p;           ///< @copydoc _6337ae7b_7866_4d54_8259_2228811679c6
         /// @}
+
+    private:
+        using base_t    = any_sp<real_p>;
 
     public:
         /// @name objects
@@ -158,9 +160,11 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name aliases
         /// @copydoc _9f86f607_6972_4326_b817_4a06a53d154d
         /// @{
-        using base_t    = any_sp<pointer_p>;    ///< @copydoc 
         using value_t   = pointer_p;            ///< @copydoc _febf525c_e1d2_43d7_93f2_8cc96a495097
         /// @}
+
+    private:
+        using base_t    = any_sp<pointer_p>;
 
     public:
         /// @name objects
@@ -189,7 +193,7 @@ namespace nkr { namespace $maybe_t {
     class built_in_sp :
         public $built_in_sp::any_sp<any_p>
     {
-    public:
+    private:
         using base_t    = $built_in_sp::any_sp<any_p>;
 
     public:
@@ -208,7 +212,7 @@ namespace nkr { namespace $maybe_t {
     class built_in_sp<real_p> :
         public $built_in_sp::real_sp<real_p>
     {
-    public:
+    private:
         using base_t    = $built_in_sp::real_sp<real_p>;
 
     public:
@@ -226,7 +230,7 @@ namespace nkr { namespace $maybe_t {
     class built_in_sp<pointer_p> :
         public $built_in_sp::pointer_sp<pointer_p>
     {
-    public:
+    private:
         using base_t    = $built_in_sp::pointer_sp<pointer_p>;
 
     public:
@@ -248,23 +252,17 @@ namespace nkr { namespace $maybe_t {
         /// @name aliases
         /// @copydoc _9582d918_063d_484b_be3a_28b753f1e85b
         /// @{
-        using base_t    = user_defined_p;   ///< @copydoc 
         using value_t   = user_defined_p;   ///< @copydoc _6cc07b8c_e756_474e_886d_be8bbee3392e
         /// @}
+
+    private:
+        using base_t    = user_defined_p;
 
     public:
         /// @name objects
         /// @copydoc _bace7444_fb65_41c3_affb_6fd3c6dee6a1
         /// @{
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(user_defined_sp, base_t);
-        /// @}
-
-    public:
-        /// @name casts
-        /// @copydoc _4d8d9df3_d8f9_4b63_bacf_e7cb8d2a45f4
-        /// @{
-        operator    bool_t() const;             ///< @copydoc _a4d05d29_07c0_4bdf_857d_2e932c5a77a8
-        operator    bool_t() const volatile;    ///< @copydoc 
         /// @}
 
     public:
@@ -318,7 +316,7 @@ namespace nkr {
     class maybe_t<built_in_p> :
         public $maybe_t::built_in_sp<built_in_p>
     {
-    public:
+    private:
         using base_t    = $maybe_t::built_in_sp<built_in_p>;
 
     public:
@@ -335,7 +333,7 @@ namespace nkr {
     class maybe_t<user_defined_p> :
         public $maybe_t::user_defined_sp<user_defined_p>
     {
-    public:
+    private:
         using base_t    = $maybe_t::user_defined_sp<user_defined_p>;
 
     public:

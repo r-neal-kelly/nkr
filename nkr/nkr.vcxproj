@@ -198,6 +198,7 @@
     <ClInclude Include="include\nkr\signed_positive_t.h" />
     <ClInclude Include="include\nkr\some_i.h" />
     <ClInclude Include="include\nkr\some_t.h" />
+    <ClInclude Include="include\nkr\some_t_dec.h" />
     <ClInclude Include="include\nkr\array\stack_t.h" />
     <ClInclude Include="include\nkr\array\stack_t_dec.h" />
     <ClInclude Include="include\nkr\array\stack_t_def.h" />
@@ -228,7 +229,7 @@
     <None Include="include\nkr\macros.inl" />
     <None Include="include\nkr\maybe_t_dox.h" />
     <None Include="include\nkr\maybe_t_def.h" />
-    <None Include="include\nkr\none_i.dox" />
+    <None Include="include\nkr\none_i_dox.h" />
     <None Include="include\nkr\none_t_dox.h" />
     <None Include="include\nkr\os.dox" />
     <None Include="include\nkr\os.inl" />
@@ -237,8 +238,8 @@
     <None Include="include\nkr\pointer_t_dox.h" />
     <None Include="include\nkr\signed_negative_t.inl" />
     <None Include="include\nkr\signed_positive_t.inl" />
-    <None Include="include\nkr\some_t.dox" />
-    <None Include="include\nkr\some_t.inl" />
+    <None Include="include\nkr\some_t_dox.h" />
+    <None Include="include\nkr\some_t_def.h" />
     <None Include="include\nkr\string_static_t.inl" />
     <None Include="include\nkr\string_dynamic_t.inl" />
     <None Include="include\nkr\traits.dox" />

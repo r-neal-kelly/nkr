@@ -5,6 +5,7 @@
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/maybe_t.h"
+#include "nkr/random.h"
 
 #include "doctest.h"
 
@@ -39,775 +40,561 @@ namespace nkr {
 
     TEST_SUITE("maybe_t<built_in_p>")
     {
+    #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p)     \
+        QUALIFIER_p maybe_t<UNIT_p>,                \
+        QUALIFIER_p maybe_t<const UNIT_p>,          \
+        QUALIFIER_p maybe_t<volatile UNIT_p>,       \
+        QUALIFIER_p maybe_t<volatile const UNIT_p>
+
+    #define nkr_VALUES(QUALIFIER_p)                 \
+        nkr_ALL_PARAMS(QUALIFIER_p, std_bool_t),    \
+        nkr_ALL_PARAMS(QUALIFIER_p, u8_t),          \
+        nkr_ALL_PARAMS(QUALIFIER_p, s8_t),          \
+        nkr_ALL_PARAMS(QUALIFIER_p, u16_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, s16_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, u32_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, s32_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, u64_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, s64_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, c8_t),          \
+        nkr_ALL_PARAMS(QUALIFIER_p, c16_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, c32_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, r32_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, r64_t),         \
+        nkr_ALL_PARAMS(QUALIFIER_p, void_t*),       \
+        nkr_ALL_PARAMS(QUALIFIER_p, word_t*)
+
+    #define nkr_NON_QUALIFIED   \
+        nkr_VALUES(nkr_BLANK)
+
+    #define nkr_NON_CONST       \
+        nkr_VALUES(nkr_BLANK),  \
+        nkr_VALUES(volatile)
+
+    #define nkr_CONST               \
+        nkr_VALUES(const),          \
+        nkr_VALUES(volatile const)
+
+    #define nkr_ALL     \
+        nkr_NON_CONST,  \
+        nkr_CONST
+
+        TEST_SUITE("aliases")
+        {
+            TEST_SUITE("value_t")
+            {
+                TEST_CASE_TEMPLATE("should have a value_t", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    static_assert(is_tr<value_t, value_t>);
+                }
+            }
+        }
+
         TEST_SUITE("objects")
         {
-            TEST_CASE("default_ctor() should set the value to the default of the built-in")
+            TEST_SUITE("default_ctor()")
             {
-                /// [_3947e943_7bb5_4461_8fb6_7c52bae80b6c]
-                maybe_t<bool_t> boolean;
-                CHECK(boolean == false);
+                TEST_CASE_TEMPLATE("should equal the default value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<u64_t> integer;
-                CHECK(integer == 0);
+                    value_t value = static_cast<std::remove_cv_t<value_t>>(0);
+                    maybe_p maybe;
+                    CHECK(maybe == value);
+                }
 
-                maybe_t<c32_t> character;
-                CHECK(character == '\0');
+                TEST_CASE_TEMPLATE("should equal none_t()", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real;
-                CHECK(real == 0.0);
-
-                maybe_t<void_t*> void_pointer;
-                CHECK(void_pointer == nullptr);
-                /// [_3947e943_7bb5_4461_8fb6_7c52bae80b6c]
+                    maybe_p maybe;
+                    CHECK(maybe == none_t());
+                }
             }
 
-            TEST_CASE("value_ctor() should set the value to the value passed in")
+            TEST_SUITE("copy_ctor()")
             {
-                /// [_b2f13fd4_de97_43a6_9592_933c225f64b3]
-                maybe_t<bool_t> boolean(true);
-                CHECK(boolean == true);
+                TEST_CASE_TEMPLATE("should copy another", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer(1);
-                CHECK(integer == 1);
+                    value_t random = Random<value_t>();
+                    maybe_p other = random;
+                    maybe_p maybe = other;
+                    CHECK(maybe == other);
+                    CHECK(other == random);
+                }
 
-                maybe_t<c32_t> character('a');
-                CHECK(character == 'a');
+                TEST_CASE_TEMPLATE("should copy another value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real(1.0);
-                CHECK(real == 1.0);
-
-                maybe_t<void_t*> void_pointer(&boolean);
-                CHECK(void_pointer == &boolean);
-                /// [_b2f13fd4_de97_43a6_9592_933c225f64b3]
+                    value_t random = Random<value_t>();
+                    value_t other = random;
+                    maybe_p maybe = other;
+                    CHECK(maybe == other);
+                    CHECK(other == random);
+                }
             }
 
-            TEST_CASE("copy_ctor() should copy other's value without changing it")
+            TEST_SUITE("move_ctor()")
             {
-                /// [_e886a1de_1282_4231_9772_a2554ff0b93e]
-                maybe_t<bool_t> other_boolean(true);
-                maybe_t<bool_t> boolean(other_boolean);
-                CHECK(other_boolean == true);
-                CHECK(boolean == true);
+                TEST_CASE_TEMPLATE("should move another, setting it to none_t()", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> other_integer(1);
-                maybe_t<word_t> integer(other_integer);
-                CHECK(other_integer == 1);
-                CHECK(integer == 1);
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        std::remove_const_t<maybe_p> other = random;
+                        maybe_p maybe = nkr::Move(other);
+                        CHECK(maybe == random);
+                        CHECK(other == none_t());
+                    }
+                }
 
-                maybe_t<c32_t> other_character('a');
-                maybe_t<c32_t> character(other_character);
-                CHECK(other_character == 'a');
-                CHECK(character == 'a');
+                TEST_CASE_TEMPLATE("should move another value, setting it to none_t()", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> other_real(1.0);
-                maybe_t<real_t> real(other_real);
-                CHECK(other_real == 1.0);
-                CHECK(real == 1.0);
-
-                maybe_t<void_t*> other_void_pointer(&boolean);
-                maybe_t<void_t*> void_pointer(other_void_pointer);
-                CHECK(other_void_pointer == &boolean);
-                CHECK(void_pointer == &boolean);
-                /// [_e886a1de_1282_4231_9772_a2554ff0b93e]
+                    value_t random = Random<value_t>();
+                    std::remove_const_t<value_t> other = random;
+                    maybe_p maybe = nkr::Move(other);
+                    CHECK(maybe == random);
+                    CHECK(other == none_t());
+                }
             }
 
-            TEST_CASE("move_ctor() should exchange other's value for the default")
+            TEST_SUITE("copy_assignment_ctor()")
             {
-                /// [_c08944e9_0848_4e7a_b121_821a82f89118]
-                maybe_t<bool_t> other_boolean(true);
-                maybe_t<bool_t> boolean(std::move(other_boolean));
-                CHECK(other_boolean == false);
-                CHECK(boolean == true);
+                TEST_CASE_TEMPLATE("should copy another", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> other_integer(1);
-                maybe_t<word_t> integer(std::move(other_integer));
-                CHECK(other_integer == 0);
-                CHECK(integer == 1);
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        std::add_const_t<maybe_p> other = random;
+                        maybe_p maybe;
+                        maybe = other;
+                        CHECK(maybe == other);
+                        CHECK(other == random);
+                    }
+                }
 
-                maybe_t<c32_t> other_character('a');
-                maybe_t<c32_t> character(std::move(other_character));
-                CHECK(other_character == '\0');
-                CHECK(character == 'a');
+                TEST_CASE_TEMPLATE("should copy another value", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> other_real(1.0);
-                maybe_t<real_t> real(std::move(other_real));
-                CHECK(other_real == 0.0);
-                CHECK(real == 1.0);
-
-                maybe_t<void_t*> other_void_pointer(&boolean);
-                maybe_t<void_t*> void_pointer(std::move(other_void_pointer));
-                CHECK(other_void_pointer == nullptr);
-                CHECK(void_pointer == &boolean);
-                /// [_c08944e9_0848_4e7a_b121_821a82f89118]
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        std::add_const_t<value_t> other = random;
+                        maybe_p maybe;
+                        maybe = other;
+                        CHECK(maybe == other);
+                        CHECK(other == random);
+                    }
+                }
             }
 
-            TEST_CASE("value_assignment_ctor() should set value to the rhs value")
+            TEST_SUITE("move_assignment_ctor()")
             {
-                /// [_fcd0d654_7864_4bd9_b798_18a69d737e71]
-                maybe_t<bool_t> boolean = true;
-                CHECK(boolean == true);
-                boolean = false;
-                CHECK(boolean == false);
+                TEST_CASE_TEMPLATE("should move another, setting it to none_t()", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer = 1;
-                CHECK(integer == 1);
-                integer = 0;
-                CHECK(integer == 0);
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p other = random;
+                        maybe_p maybe;
+                        maybe = nkr::Move(other);
+                        CHECK(maybe == random);
+                        CHECK(other == none_t());
+                    }
+                }
 
-                maybe_t<c32_t> character = 'a';
-                CHECK(character == 'a');
-                character = '\0';
-                CHECK(character == '\0');
+                TEST_CASE_TEMPLATE("should move another value, setting it to none_t()", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real = 1.0;
-                CHECK(real == 1.0);
-                real = 0.0;
-                CHECK(real == 0.0);
-
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(void_pointer == &boolean);
-                void_pointer = nullptr;
-                CHECK(void_pointer == nullptr);
-                /// [_fcd0d654_7864_4bd9_b798_18a69d737e71]
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        value_t other = random;
+                        maybe_p maybe;
+                        maybe = nkr::Move(other);
+                        CHECK(maybe == random);
+                        CHECK(other == none_t());
+                    }
+                }
             }
 
-            TEST_CASE("copy_assignment_ctor() should copy other's value without changing it")
+            TEST_SUITE("dtor()")
             {
-                /// [_45d04972_08a7_492c_90a1_3936d1ed7bcb]
-                maybe_t<bool_t> other_boolean(true);
-                maybe_t<bool_t> boolean = other_boolean;
-                CHECK(other_boolean == true);
-                CHECK(boolean == true);
+                TEST_CASE_TEMPLATE("should set the value to none_t()", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> other_integer(1);
-                maybe_t<word_t> integer = other_integer;
-                CHECK(other_integer == 1);
-                CHECK(integer == 1);
-
-                maybe_t<c32_t> other_character('a');
-                maybe_t<c32_t> character = other_character;
-                CHECK(other_character == 'a');
-                CHECK(character == 'a');
-
-                maybe_t<real_t> other_real(1.0);
-                maybe_t<real_t> real = other_real;
-                CHECK(other_real == 1.0);
-                CHECK(real == 1.0);
-
-                maybe_t<void_t*> other_void_pointer(&boolean);
-                maybe_t<void_t*> void_pointer = other_void_pointer;
-                CHECK(other_void_pointer == &boolean);
-                CHECK(void_pointer == &boolean);
-                /// [_45d04972_08a7_492c_90a1_3936d1ed7bcb]
-            }
-
-            TEST_CASE("move_assignment_ctor() should exchange other's value for the default")
-            {
-                /// [_71ee8a31_68ef_4cc1_8906_9cb9e5d7fa45]
-                maybe_t<bool_t> other_boolean(true);
-                maybe_t<bool_t> boolean = std::move(other_boolean);
-                CHECK(other_boolean == false);
-                CHECK(boolean == true);
-
-                maybe_t<word_t> other_integer(1);
-                maybe_t<word_t> integer = std::move(other_integer);
-                CHECK(other_integer == 0);
-                CHECK(integer == 1);
-
-                maybe_t<c32_t> other_character('a');
-                maybe_t<c32_t> character = std::move(other_character);
-                CHECK(other_character == '\0');
-                CHECK(character == 'a');
-
-                maybe_t<real_t> other_real(1.0);
-                maybe_t<real_t> real = std::move(other_real);
-                CHECK(other_real == 0.0);
-                CHECK(real == 1.0);
-
-                maybe_t<void_t*> other_void_pointer(&boolean);
-                maybe_t<void_t*> void_pointer = std::move(other_void_pointer);
-                CHECK(other_void_pointer == nullptr);
-                CHECK(void_pointer == &boolean);
-                /// [_71ee8a31_68ef_4cc1_8906_9cb9e5d7fa45]
-            }
-
-            TEST_CASE("dtor() should set its value to default")
-            {
-                /// [_b76161ed_4157_4d10_9297_7acc4df805d4]
-                maybe_t<bool_t> boolean(true);
-                boolean.~maybe_t<bool_t>();
-                CHECK(boolean == false);
-
-                maybe_t<word_t> integer(1);
-                integer.~maybe_t<word_t>();
-                CHECK(integer == 0);
-
-                maybe_t<c32_t> character('a');
-                character.~maybe_t<c32_t>();
-                CHECK(character == '\0');
-
-                maybe_t<real_t> real(1.0);
-                real.~maybe_t<real_t>();
-                CHECK(real == 0.0);
-
-                maybe_t<void_t*> void_pointer(&boolean);
-                void_pointer.~maybe_t<void_t*>();
-                CHECK(void_pointer == nullptr);
-                /// [_b76161ed_4157_4d10_9297_7acc4df805d4]
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe = random;
+                        maybe.~maybe_p();
+                        CHECK(maybe == none_t());
+                    }
+                }
             }
         }
 
         TEST_SUITE("casts")
         {
-            TEST_CASE("value_t&() should return the mutable built-in type")
+            TEST_SUITE("value_t")
             {
-                /// [_862b58a5_fbb6_43cc_a7cd_54ca4f580b37]
-                maybe_t<bool_t> boolean = true;
-                CHECK(boolean == true);
-                CHECK(!boolean == false);
-                boolean = false;
-                CHECK(boolean == false);
-                CHECK(!boolean == true);
+                TEST_CASE_TEMPLATE("should explicitly return a reference to its value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer = 1;
-                CHECK(integer == 1);
-                CHECK(static_cast<bool_t>(integer) == true);
-                CHECK(!integer == false);
-                integer = 0;
-                CHECK(integer == 0);
-                CHECK(static_cast<bool_t>(integer) == false);
-                CHECK(!integer == true);
+                    value_t random = Random<value_t>();
+                    maybe_p maybe = random;
+                    if constexpr (just_non_qualified_tr<maybe_p>) {
+                        CHECK(static_cast<value_t&>(maybe) == random);
+                    } else if constexpr (just_const_tr<maybe_p>) {
+                        CHECK(static_cast<const value_t&>(maybe) == random);
+                    } else if constexpr (just_volatile_tr<maybe_p>) {
+                        CHECK(static_cast<volatile value_t&>(maybe) == random);
+                    } else if constexpr (just_const_volatile_tr<maybe_p>) {
+                        CHECK(static_cast<const volatile value_t&>(maybe) == random);
+                    }
+                }
 
-                maybe_t<c32_t> character = 'a';
-                CHECK(character == 'a');
-                CHECK(static_cast<bool_t>(character) == true);
-                CHECK(!character == false);
-                character = '\0';
-                CHECK(character == '\0');
-                CHECK(static_cast<bool_t>(character) == false);
-                CHECK(!character == true);
+                TEST_CASE_TEMPLATE("should implicitly return a reference to its value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real = 1.0;
-                CHECK(real == 1.0);
-                CHECK(static_cast<bool_t>(real) == true);
-                CHECK(!real == false);
-                real = 0.0;
-                CHECK(real == 0.0);
-                CHECK(static_cast<bool_t>(real) == false);
-                CHECK(!real == true);
+                    value_t random = Random<value_t>();
+                    maybe_p maybe = random;
+                    CHECK(maybe == random);
+                }
 
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(void_pointer == &boolean);
-                CHECK(static_cast<bool_t>(void_pointer) == true);
-                CHECK(!void_pointer == false);
-                void_pointer = nullptr;
-                CHECK(void_pointer == nullptr);
-                CHECK(static_cast<bool_t>(void_pointer) == false);
-                CHECK(!void_pointer == true);
-                /// [_862b58a5_fbb6_43cc_a7cd_54ca4f580b37]
+                TEST_CASE_TEMPLATE("should be able to alter non-const values", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random_a = Random<value_t>();
+                        value_t random_b = Random<value_t>();
+                        maybe_p maybe = random_a;
+                        if constexpr (just_non_qualified_tr<maybe_p>) {
+                            static_cast<value_t&>(maybe) = random_b;
+                        } else if constexpr (just_const_tr<maybe_p>) {
+                            static_cast<const value_t&>(maybe) = random_b;
+                        } else if constexpr (just_volatile_tr<maybe_p>) {
+                            static_cast<volatile value_t&>(maybe) = random_b;
+                        } else if constexpr (just_const_volatile_tr<maybe_p>) {
+                            static_cast<const volatile value_t&>(maybe) = random_b;
+                        }
+                        CHECK(maybe == random_b);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for logical operators", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (boolean_tr<value_t> || integer_tr<value_t> || real_tr<value_t> || pointer_tr<value_t>) {
+                        std::remove_const_t<value_t> random;
+                        do {
+                            random = Random<std::remove_const_t<value_t>>();
+                        } while (random == none_t());
+
+                        maybe_p maybe(random);
+                        CHECK(maybe);
+                        CHECK(!!maybe);
+                        CHECK(maybe || false);
+                        CHECK(maybe && true);
+                        CHECK(maybe ? true : false);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for comparison operators", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (boolean_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe(random);
+                        CHECK(maybe == random);
+                        CHECK_FALSE(maybe != random);
+                    } else if constexpr (integer_tr<value_t> || real_tr<value_t> || pointer_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe(random);
+                        CHECK(maybe == random);
+                        CHECK_FALSE(maybe != random);
+                        CHECK_FALSE(maybe < random);
+                        CHECK_FALSE(maybe > random);
+                        CHECK(maybe <= random);
+                        CHECK(maybe >= random);
+                        CHECK((maybe <=> random == 0));
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for arithmetic operators", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (integer_tr<value_t>) {
+                        std::remove_const_t<value_t> random_a = Random<std::remove_const_t<value_t>>();
+                        std::remove_const_t<value_t> random_b;
+                        do {
+                            random_b = Random<std::remove_const_t<value_t>>();
+                        } while (random_b == none_t());
+                        maybe_p maybe(random_a);
+                        CHECK(+maybe == +random_a);
+                        if constexpr (integer_signed_tr<value_t>) {
+                            CHECK(-maybe == -random_a);
+                        }
+                        CHECK((maybe + random_b) == (random_a + random_b));
+                        CHECK((maybe - random_b) == (random_a - random_b));
+                        CHECK((maybe * random_b) == (random_a * random_b));
+                        CHECK((maybe / random_b) == (random_a / random_b));
+                        CHECK((maybe % random_b) == (random_a % random_b));
+                        if constexpr (any_non_const_tr<maybe_p> && any_non_const_tr<value_t>) {
+                            CHECK((maybe += random_b) == (random_a += random_b));
+                            CHECK((maybe -= random_b) == (random_a -= random_b));
+                            CHECK((maybe *= random_b) == (random_a *= random_b));
+                            CHECK((maybe /= random_b) == (random_a /= random_b));
+                            CHECK((maybe %= random_b) == (random_a %= random_b));
+                        }
+                    } else if constexpr (real_tr<value_t>) {
+                        std::remove_const_t<value_t> random_a = Random<std::remove_const_t<value_t>>();
+                        std::remove_const_t<value_t> random_b;
+                        do {
+                            random_b = Random<std::remove_const_t<value_t>>();
+                        } while (random_b == none_t());
+                        maybe_p maybe(random_a);
+                        CHECK(+maybe == +random_a);
+                        CHECK(-maybe == -random_a);
+                        CHECK((maybe + random_b) == (random_a + random_b));
+                        CHECK((maybe - random_b) == (random_a - random_b));
+                        CHECK((maybe * random_b) == (random_a * random_b));
+                        CHECK((maybe / random_b) == (random_a / random_b));
+                        if constexpr (any_non_const_tr<maybe_p> && any_non_const_tr<value_t>) {
+                            CHECK((maybe += random_b) == (random_a += random_b));
+                            CHECK((maybe -= random_b) == (random_a -= random_b));
+                            CHECK((maybe *= random_b) == (random_a *= random_b));
+                            CHECK((maybe /= random_b) == (random_a /= random_b));
+                        }
+                    } else if constexpr (type_pointer_tr<value_t>) {
+                        std::remove_const_t<value_t> random_a = Random<std::remove_const_t<value_t>>();
+                        word_t random_b = Random<word_t>();
+                        maybe_p maybe(random_a);
+                        CHECK((maybe + random_b) == (random_a + random_b));
+                        CHECK((maybe - random_b) == (random_a - random_b));
+                        if constexpr (any_non_const_tr<maybe_p> && any_non_const_tr<value_t>) {
+                            CHECK((maybe += random_b) == (random_a += random_b));
+                            CHECK((maybe -= random_b) == (random_a -= random_b));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should implicitly allow for bitwise operators", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (integer_tr<value_t>) {
+                        std::remove_const_t<value_t> random_a = Random<std::remove_const_t<value_t>>();
+                        std::remove_const_t<value_t> random_b = Random<std::remove_const_t<value_t>>();
+                        maybe_p maybe(random_a);
+                        CHECK(~maybe == ~random_a);
+                        CHECK((maybe | random_b) == (random_a | random_b));
+                        CHECK((maybe & random_b) == (random_a & random_b));
+                        CHECK((maybe ^ random_b) == (random_a ^ random_b));
+                        CHECK((maybe << random_b) == (random_a << random_b));
+                        CHECK((maybe >> random_b) == (random_a >> random_b));
+                        if constexpr (any_non_const_tr<maybe_p> && any_non_const_tr<value_t>) {
+                            CHECK((maybe |= random_b) == (random_a |= random_b));
+                            CHECK((maybe &= random_b) == (random_a &= random_b));
+                            CHECK((maybe ^= random_b) == (random_a ^= random_b));
+                            CHECK((maybe <<= random_b) == (random_a <<= random_b));
+                            CHECK((maybe >>= random_b) == (random_a >>= random_b));
+                        }
+                    }
+                }
             }
 
-            TEST_CASE("const value_t&() should return the immutable built-in type")
+            TEST_SUITE("std_bool_t")
             {
-                /// [_f755ffdd_dead_4f09_9348_643b5f6b089e]
-                const maybe_t<bool_t> boolean = true;
-                CHECK(boolean == true);
-                CHECK(!boolean == false);
+                TEST_CASE_TEMPLATE("should cast to true if its underlying value does not equal none_t()", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                const maybe_t<word_t> integer = 1;
-                CHECK(integer == 1);
-                CHECK(static_cast<bool_t>(integer) == true);
-                CHECK(!integer == false);
-
-                const maybe_t<c32_t> character = 'a';
-                CHECK(character == 'a');
-                CHECK(static_cast<bool_t>(character) == true);
-                CHECK(!character == false);
-
-                const maybe_t<real_t> real = 1.0;
-                CHECK(real == 1.0);
-                CHECK(static_cast<bool_t>(real) == true);
-                CHECK(!real == false);
-
-                const maybe_t<const void_t*> void_pointer = &boolean;
-                CHECK(void_pointer == &boolean);
-                CHECK(static_cast<bool_t>(void_pointer) == true);
-                CHECK(!void_pointer == false);
-                /// [_f755ffdd_dead_4f09_9348_643b5f6b089e]
-            }
-
-            TEST_CASE("bool_t() should return true if value != none_t() and false if value == none_t()")
-            {
-                /// [_5b448395_0813_4618_86e4_a2413ac28b1b]
-                maybe_t<bool_t> boolean = true;
-                CHECK(static_cast<bool_t>(boolean) == true);
-                boolean = false;
-                CHECK(static_cast<bool_t>(boolean) == false);
-
-                maybe_t<word_t> integer = 1;
-                CHECK(static_cast<bool_t>(integer) == true);
-                integer = 0;
-                CHECK(static_cast<bool_t>(integer) == false);
-
-                maybe_t<c32_t> character = 'a';
-                CHECK(static_cast<bool_t>(character) == true);
-                character = '\0';
-                CHECK(static_cast<bool_t>(character) == false);
-
-                maybe_t<real_t> real = 1.0;
-                CHECK(static_cast<bool_t>(real) == true);
-                real = 0.0;
-                CHECK(static_cast<bool_t>(real) == false);
-
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(static_cast<bool_t>(void_pointer) == true);
-                void_pointer = nullptr;
-                CHECK(static_cast<bool_t>(void_pointer) == false);
-                /// [_5b448395_0813_4618_86e4_a2413ac28b1b]
+                    value_t random = Random<value_t>();
+                    maybe_p maybe = random;
+                    if (random != none_t()) {
+                        CHECK(maybe);
+                    } else {
+                        CHECK(!maybe);
+                    }
+                }
             }
         }
 
         TEST_SUITE("operators")
         {
-            TEST_CASE("()() should return its mutable value")
+            TEST_SUITE("()()")
             {
-                /// [_43216f39_12c8_4163_8c44_e23e9b8a26d5]
-                maybe_t<bool_t> boolean = true;
-                CHECK(boolean() == true);
-                boolean() = false;
-                CHECK(boolean() == false);
+                TEST_CASE_TEMPLATE("should return a reference to its value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer = 1;
-                CHECK(integer() == 1);
-                integer() = 0;
-                CHECK(integer() == 0);
+                    value_t random = Random<value_t>();
+                    maybe_p maybe = random;
+                    CHECK(maybe() == random);
+                }
 
-                maybe_t<c32_t> character = 'a';
-                CHECK(character() == 'a');
-                character() = '\0';
-                CHECK(character() == '\0');
+                TEST_CASE_TEMPLATE("should be able to alter non-const values", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real = 1.0;
-                CHECK(real() == 1.0);
-                real() = 0.0;
-                CHECK(real() == 0.0);
-
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(void_pointer() == &boolean);
-                void_pointer() = nullptr;
-                CHECK(void_pointer() == nullptr);
-                /// [_43216f39_12c8_4163_8c44_e23e9b8a26d5]
-            }
-
-            TEST_CASE("()() const should return its immutable value")
-            {
-                /// [_4ae71520_60de_44f6_91e3_ad72a54234ea]
-                const maybe_t<bool_t> boolean = true;
-                CHECK(boolean() == true);
-
-                const maybe_t<word_t> integer = 1;
-                CHECK(integer() == 1);
-
-                const maybe_t<c32_t> character = 'a';
-                CHECK(character() == 'a');
-
-                const maybe_t<real_t> real = 1.0;
-                CHECK(real() == 1.0);
-
-                const maybe_t<const void_t*> void_pointer = &boolean;
-                CHECK(void_pointer() == &boolean);
-                /// [_4ae71520_60de_44f6_91e3_ad72a54234ea]
-            }
-
-            TEST_CASE("!() should return true if value == none_t() and false if value != none_t()")
-            {
-                /// [_1b43a17a_7465_4cb0_a4a1_0b003631b869]
-                maybe_t<bool_t> boolean = true;
-                CHECK(!boolean == false);
-                boolean = false;
-                CHECK(!boolean == true);
-
-                maybe_t<word_t> integer = 1;
-                CHECK(!integer == false);
-                integer = 0;
-                CHECK(!integer == true);
-
-                maybe_t<c32_t> character = 'a';
-                CHECK(!character == false);
-                character = '\0';
-                CHECK(!character == true);
-
-                maybe_t<real_t> real = 1.0;
-                CHECK(!real == false);
-                real = 0.0;
-                CHECK(!real == true);
-
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(!void_pointer == false);
-                void_pointer = nullptr;
-                CHECK(!void_pointer == true);
-                /// [_1b43a17a_7465_4cb0_a4a1_0b003631b869]
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random_a = Random<value_t>();
+                        value_t random_b = Random<value_t>();
+                        maybe_p maybe = random_a;
+                        maybe() = random_b;
+                        CHECK(maybe == random_b);
+                    }
+                }
             }
         }
 
         TEST_SUITE("none_t interface")
         {
-            TEST_CASE("=(none_t) should set its value to the default value and return itself")
+            TEST_SUITE("none_ctor()")
             {
-                /// [_07804510_9e9d_4297_bf1e_53cc951ccde9]
-                maybe_t<bool_t> boolean = true;
-                CHECK(boolean != none_t());
-                CHECK(&(boolean = none_t()) == &boolean);
-                CHECK(boolean == none_t());
+                TEST_CASE_TEMPLATE("should set its value to the default value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer = 1;
-                CHECK(integer != none_t());
-                CHECK(&(integer = none_t()) == &integer);
-                CHECK(integer == none_t());
-
-                maybe_t<c32_t> character = 'a';
-                CHECK(character != none_t());
-                CHECK(&(character = none_t()) == &character);
-                CHECK(character == none_t());
-
-                maybe_t<real_t> real = 1.0;
-                CHECK(real != none_t());
-                CHECK(&(real = none_t()) == &real);
-                CHECK(real == none_t());
-
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(void_pointer != none_t());
-                CHECK(&(void_pointer = none_t()) == &void_pointer);
-                CHECK(void_pointer == none_t());
-                /// [_07804510_9e9d_4297_bf1e_53cc951ccde9]
+                    maybe_p maybe = none_t();
+                    CHECK(maybe == static_cast<std::remove_cv_t<value_t>>(0));
+                }
             }
 
-            TEST_CASE("==(none_t) should return true if the value is the default, else false")
+            TEST_SUITE("=(none_t)")
             {
-                /// [_db6ed293_bce8_433f_adb1_26371f0faef5]
-                maybe_t<bool_t> boolean = true;
-                CHECK(!(boolean == none_t()));
-                boolean = none_t();
-                CHECK(boolean == none_t());
+                TEST_CASE_TEMPLATE("should set its value to none", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer = 1;
-                CHECK(!(integer == none_t()));
-                integer = none_t();
-                CHECK(integer == none_t());
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe(random);
+                        maybe = none_t();
+                        CHECK(maybe == none_t());
+                    }
+                }
 
-                maybe_t<c32_t> character = 'a';
-                CHECK(!(character == none_t()));
-                character = none_t();
-                CHECK(character == none_t());
+                TEST_CASE_TEMPLATE("should evaluate as false after being set to none", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real = 1.0;
-                CHECK(!(real == none_t()));
-                real = none_t();
-                CHECK(real == none_t());
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe(random);
+                        maybe = none_t();
+                        CHECK_FALSE(maybe);
+                    }
+                }
 
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(!(void_pointer == none_t()));
-                void_pointer = none_t();
-                CHECK(void_pointer == none_t());
-                /// [_db6ed293_bce8_433f_adb1_26371f0faef5]
+                TEST_CASE_TEMPLATE("should return itself", maybe_p, nkr_NON_CONST)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t random = Random<value_t>();
+                        maybe_p maybe(random);
+                        CHECK(&(maybe = none_t()) == &maybe);
+                    }
+                }
             }
 
-            TEST_CASE("!=(none_t) should return true if the value is not the default, else false")
+            TEST_SUITE("==(none_t)")
             {
-                /// [_d1852cf1_429a_44f9_83fe_e5cceeee5af6]
-                maybe_t<bool_t> boolean = true;
-                CHECK(boolean != none_t());
-                boolean = none_t();
-                CHECK(!(boolean != none_t()));
+                TEST_CASE_TEMPLATE("should return true when default constructed", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<word_t> integer = 1;
-                CHECK(integer != none_t());
-                integer = none_t();
-                CHECK(!(integer != none_t()));
+                    const maybe_p maybe;
+                    CHECK(maybe == none_t());
+                }
 
-                maybe_t<c32_t> character = 'a';
-                CHECK(character != none_t());
-                character = none_t();
-                CHECK(!(character != none_t()));
+                TEST_CASE_TEMPLATE("should return true if its value is the default", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
 
-                maybe_t<real_t> real = 1.0;
-                CHECK(real != none_t());
-                real = none_t();
-                CHECK(!(real != none_t()));
+                    const maybe_p maybe(std::remove_cv_t<value_t>(0));
+                    CHECK(maybe == none_t());
+                }
 
-                maybe_t<void_t*> void_pointer = &boolean;
-                CHECK(void_pointer != none_t());
-                void_pointer = none_t();
-                CHECK(!(void_pointer != none_t()));
-                /// [_d1852cf1_429a_44f9_83fe_e5cceeee5af6]
+                TEST_CASE_TEMPLATE("should return false if its value is not the default", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    std::remove_const_t<value_t> random;
+                    do {
+                        random = Random<std::remove_const_t<value_t>>();
+                    } while (random == std::remove_cv_t<value_t>(0));
+                    const maybe_p maybe(random);
+                    CHECK_FALSE(maybe == none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should not change its value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    value_t random = Random<value_t>();
+                    const maybe_p maybe(random);
+                    maybe == none_t();
+                    CHECK(maybe == random);
+                }
             }
-        }
 
-        TEST_SUITE("type")
-        {
-            TEST_SUITE("this type should be able to act like its underlying value")
+            TEST_SUITE("!=(none_t)")
             {
-                TEST_CASE("standard boolean")
+                TEST_CASE_TEMPLATE("should return false when default constructed", maybe_p, nkr_ALL)
                 {
-                    std_bool_t v = true;
-                    std_bool_t boolean = v;
-                    maybe_t<std_bool_t> maybe_boolean = v;
+                    using value_t = maybe_p::value_t;
 
-                    CHECK((maybe_boolean = v) == (boolean = v));
-
-                    CHECK((maybe_boolean, boolean));
-                    CHECK((!!maybe_boolean, !!boolean));
-                    CHECK(maybe_boolean && boolean);
-                    CHECK(maybe_boolean || boolean);
-
-                    CHECK(maybe_boolean == boolean);
-                    CHECK_FALSE(maybe_boolean != boolean);
-                    CHECK(maybe_boolean ? maybe_boolean() : boolean);
-
-                    CHECK(&maybe_boolean() != &boolean);
+                    const maybe_p maybe;
+                    CHECK_FALSE(maybe != none_t());
                 }
 
-                TEST_CASE("integer")
+                TEST_CASE_TEMPLATE("should return false if its value is the default", maybe_p, nkr_ALL)
                 {
-                    using integer_t = s32_t;
-                    constexpr const integer_t v = 16;
-                    integer_t integer = v;
-                    maybe_t<integer_t> maybe_integer = v;
+                    using value_t = maybe_p::value_t;
 
-                    CHECK(+maybe_integer == +integer);
-                    CHECK(-maybe_integer == -integer);
-                    CHECK(maybe_integer + v == integer + v);
-                    CHECK(maybe_integer - v == integer - v);
-                    CHECK(maybe_integer * v == integer * v);
-                    CHECK(maybe_integer / v == integer / v);
-                    CHECK(maybe_integer % v == integer % v);
-
-                    CHECK(~maybe_integer == ~integer);
-                    CHECK((maybe_integer | v) == (integer | v));
-                    CHECK((maybe_integer & v) == (integer & v));
-                    CHECK((maybe_integer ^ v) == (integer ^ v));
-                    CHECK((maybe_integer << 1) == (integer << 1));
-                    CHECK((maybe_integer >> 1) == (integer >> 1));
-
-                    CHECK((maybe_integer = v) == (integer = v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer += v) == (integer += v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer -= v) == (integer -= v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer *= v) == (integer *= v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer /= v) == (integer /= v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer %= v) == (integer %= v));
-                    maybe_integer = integer = v;
-
-                    CHECK((maybe_integer |= v) == (integer |= v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer &= v) == (integer &= v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer ^= v) == (integer ^= v));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer <<= 1) == (integer <<= 1));
-                    maybe_integer = integer = v;
-                    CHECK((maybe_integer >>= 1) == (integer >>= 1));
-                    maybe_integer = integer = v;
-
-                    CHECK(++maybe_integer == ++integer);
-                    CHECK(maybe_integer++ == integer++);
-                    CHECK(--maybe_integer == --integer);
-                    CHECK(maybe_integer-- == integer--);
-
-                    CHECK((maybe_integer, integer));
-                    CHECK((!!maybe_integer, !!integer));
-                    CHECK(maybe_integer && integer);
-                    CHECK(maybe_integer || integer);
-
-                    CHECK(maybe_integer == integer);
-                    CHECK_FALSE(maybe_integer != integer);
-                    CHECK_FALSE(maybe_integer < integer);
-                    CHECK_FALSE(maybe_integer > integer);
-                    CHECK(maybe_integer <= integer);
-                    CHECK(maybe_integer >= integer);
-                    CHECK((maybe_integer <=> integer == 0));
-                    CHECK(maybe_integer ? maybe_integer() : integer);
-
-                    CHECK(&maybe_integer() != &integer);
+                    const maybe_p maybe(std::remove_cv_t<value_t>(0));
+                    CHECK_FALSE(maybe != none_t());
                 }
 
-                TEST_CASE("character")
+                TEST_CASE_TEMPLATE("should return true if its value is not the default", maybe_p, nkr_ALL)
                 {
-                    using character_t = c32_t;
-                    constexpr const character_t v = 'a';
-                    character_t character = v;
-                    maybe_t<character_t> maybe_character = v;
+                    using value_t = maybe_p::value_t;
 
-                    CHECK(+maybe_character == +character);
-                    CHECK(maybe_character + v == character + v);
-                    CHECK(maybe_character - v == character - v);
-                    CHECK(maybe_character * v == character * v);
-                    CHECK(maybe_character / v == character / v);
-                    CHECK(maybe_character % v == character % v);
-
-                    CHECK(~maybe_character == ~character);
-                    CHECK((maybe_character | v) == (character | v));
-                    CHECK((maybe_character & v) == (character & v));
-                    CHECK((maybe_character ^ v) == (character ^ v));
-                    CHECK((maybe_character << 1) == (character << 1));
-                    CHECK((maybe_character >> 1) == (character >> 1));
-
-                    CHECK((maybe_character = v) == (character = v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character += v) == (character += v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character -= v) == (character -= v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character *= v) == (character *= v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character /= v) == (character /= v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character %= v) == (character %= v));
-                    maybe_character = character = v;
-
-                    CHECK((maybe_character |= v) == (character |= v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character &= v) == (character &= v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character ^= v) == (character ^= v));
-                    maybe_character = character = v;
-                    CHECK((maybe_character <<= 1) == (character <<= 1));
-                    maybe_character = character = v;
-                    CHECK((maybe_character >>= 1) == (character >>= 1));
-                    maybe_character = character = v;
-
-                    CHECK(++maybe_character == ++character);
-                    CHECK(maybe_character++ == character++);
-                    CHECK(--maybe_character == --character);
-                    CHECK(maybe_character-- == character--);
-
-                    CHECK((maybe_character, character));
-                    CHECK((!!maybe_character, !!character));
-                    CHECK(maybe_character && character);
-                    CHECK(maybe_character || character);
-
-                    CHECK(maybe_character == character);
-                    CHECK_FALSE(maybe_character != character);
-                    CHECK_FALSE(maybe_character < character);
-                    CHECK_FALSE(maybe_character > character);
-                    CHECK(maybe_character <= character);
-                    CHECK(maybe_character >= character);
-                    CHECK((maybe_character <=> character == 0));
-                    CHECK(maybe_character ? maybe_character() : character);
-
-                    CHECK(&maybe_character() != &character);
+                    std::remove_const_t<value_t> random;
+                    do {
+                        random = Random<std::remove_const_t<value_t>>();
+                    } while (random == std::remove_cv_t<value_t>(0));
+                    const maybe_p maybe(random);
+                    CHECK(maybe != none_t());
                 }
 
-                TEST_CASE("real")
+                TEST_CASE_TEMPLATE("should not change its value", maybe_p, nkr_ALL)
                 {
-                    constexpr const real_t v = 16.0;
-                    real_t real = v;
-                    maybe_t<real_t> maybe_real = v;
+                    using value_t = maybe_p::value_t;
 
-                    CHECK(+maybe_real == +real);
-                    CHECK(-maybe_real == -real);
-                    CHECK(maybe_real + v == real + v);
-                    CHECK(maybe_real - v == real - v);
-                    CHECK(maybe_real * v == real * v);
-                    CHECK(maybe_real / v == real / v);
-
-                    CHECK((maybe_real = v) == (real = v));
-                    maybe_real = real = v;
-                    CHECK((maybe_real += v) == (real += v));
-                    maybe_real = real = v;
-                    CHECK((maybe_real -= v) == (real -= v));
-                    maybe_real = real = v;
-                    CHECK((maybe_real *= v) == (real *= v));
-                    maybe_real = real = v;
-                    CHECK((maybe_real /= v) == (real /= v));
-                    maybe_real = real = v;
-
-                    CHECK(++maybe_real == ++real);
-                    CHECK(maybe_real++ == real++);
-                    CHECK(--maybe_real == --real);
-                    CHECK(maybe_real-- == real--);
-
-                    CHECK((maybe_real, real));
-                    CHECK((!!maybe_real, !!real));
-                    CHECK(maybe_real && real);
-                    CHECK(maybe_real || real);
-
-                    CHECK(maybe_real == real);
-                    CHECK_FALSE(maybe_real != real);
-                    CHECK_FALSE(maybe_real < real);
-                    CHECK_FALSE(maybe_real > real);
-                    CHECK(maybe_real <= real);
-                    CHECK(maybe_real >= real);
-                    CHECK((maybe_real <=> real == 0));
-                    CHECK(maybe_real ? maybe_real() : real);
-
-                    CHECK(&maybe_real() != &real);
-                }
-
-                TEST_CASE("pointer")
-                {
-                    class type_t
-                    {
-                    public:
-                        word_t value;
-
-                    public:
-                        type_t(word_t value) :
-                            value(value)
-                        {
-                        }
-
-                        ~type_t()
-                        {
-                        }
-
-                    public:
-                        bool_t operator ==(const type_t& other)
-                        {
-                            return this->value == other.value;
-                        }
-                    };
-
-                    using pointer_t = type_t*;
-                    type_t vs[3] = { 16, 16, 16 };
-                    pointer_t pointer = vs + 1;
-                    maybe_t<pointer_t> maybe_pointer = pointer;
-
-                    CHECK(+maybe_pointer == +pointer);
-                    CHECK(maybe_pointer + 1 == pointer + 1);
-                    CHECK(maybe_pointer - 1 == pointer - 1);
-
-                    CHECK((maybe_pointer = vs + 1) == (pointer = vs + 1));
-                    CHECK((maybe_pointer += 1) == (pointer += 1));
-                    CHECK((maybe_pointer -= 1) == (pointer -= 1));
-
-                    CHECK(++maybe_pointer == ++pointer);
-                    CHECK(--maybe_pointer == --pointer);
-                    CHECK(maybe_pointer++ == pointer++);
-                    CHECK(maybe_pointer-- == pointer--);
-
-                    CHECK((maybe_pointer, pointer));
-                    CHECK((!!maybe_pointer, !!pointer));
-                    CHECK(maybe_pointer && pointer);
-                    CHECK(maybe_pointer || pointer);
-
-                    CHECK(maybe_pointer == pointer);
-                    CHECK_FALSE(maybe_pointer != pointer);
-                    CHECK_FALSE(maybe_pointer < pointer);
-                    CHECK_FALSE(maybe_pointer > pointer);
-                    CHECK(maybe_pointer <= pointer);
-                    CHECK(maybe_pointer >= pointer);
-                    CHECK((maybe_pointer <=> pointer == 0));
-                    CHECK(maybe_pointer ? maybe_pointer() : pointer);
-
-                    CHECK(*maybe_pointer == *pointer);
-                    CHECK(&maybe_pointer() != &pointer);
-                    CHECK(maybe_pointer->value == pointer->value);
-                    CHECK(maybe_pointer[0] == pointer[0]);
+                    value_t random = Random<value_t>();
+                    const maybe_p maybe(random);
+                    maybe != none_t();
+                    CHECK(maybe == random);
                 }
             }
         }
