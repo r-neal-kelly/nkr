@@ -7,6 +7,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 #include "nkr/traits.h"
+#include "nkr/utils.h"
 
 namespace nkr { namespace $pointer_t {
 
@@ -258,7 +259,7 @@ namespace nkr {
     class pointer_t<unit_p> :
         public $pointer_t::any_type_sp<unit_p>
     {
-    private:
+    public:
         using base_t    = $pointer_t::any_type_sp<unit_p>;
 
     public:
@@ -289,7 +290,7 @@ namespace nkr {
     class pointer_t<unit_p> :
         public $pointer_t::any_non_type_sp<unit_p>
     {
-    private:
+    public:
         using base_t    = $pointer_t::any_non_type_sp<unit_p>;
 
     public:

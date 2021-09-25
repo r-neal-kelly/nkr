@@ -4,6 +4,7 @@
 
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/maybe_t.h"
 
 #include "doctest.h"
 
@@ -485,6 +486,17 @@ namespace nkr {
                 boolean = none_t();
                 CHECK(!(boolean != none_t()));
                 /// [_9a721957_28c0_4dbc_a65e_a74d4f395002]
+            }
+        }
+
+        TEST_SUITE("maybe_t")
+        {
+            TEST_CASE("should have working ctors with maybe_t")
+            {
+                maybe_t<bool_t> maybe = true;
+                CHECK(maybe == true);
+                maybe = false;
+                CHECK(maybe == false);
             }
         }
     }

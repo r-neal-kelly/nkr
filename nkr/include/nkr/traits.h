@@ -46,6 +46,15 @@ namespace nkr {
         true;
 
     template <typename type_p>
+    concept just_tr =
+        true;
+
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_tr, type_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_tr, type_p);
+    /// @}
+
+    /// @{
+    template <typename type_p>
     concept any_type_tr =
         sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
 
@@ -53,14 +62,11 @@ namespace nkr {
     concept any_non_type_tr =
         !any_type_tr<type_p>;
 
-    template <typename type_p>
-    concept any_lvalue_reference_tr =
-        std::is_lvalue_reference_v<type_p>;
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_type_tr, type_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_type_tr, type_p);
+    /// @}
 
-    template <typename type_p>
-    concept any_rvalue_reference_tr =
-        std::is_rvalue_reference_v<type_p>;
-
+    /// @{
     template <typename type_p>
     concept any_qualified_tr =
         std::is_const_v<type_p> ||
@@ -88,10 +94,6 @@ namespace nkr {
         !std::is_volatile_v<type_p>;
 
     template <typename type_p>
-    concept just_tr =
-        true;
-
-    template <typename type_p>
     concept just_non_qualified_tr =
         std::same_as<type_p, std::remove_cv_t<type_p>>;
 
@@ -107,16 +109,12 @@ namespace nkr {
     concept just_const_volatile_tr =
         std::same_as<type_p, const volatile std::remove_cv_t<type_p>>;
 
-    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_tr, type_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_type_tr, type_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_type_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_qualified_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_qualified_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_const_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_const_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_volatile_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_volatile_tr, type_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_non_qualified_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_const_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_volatile_tr, type_p);
@@ -133,6 +131,16 @@ namespace nkr {
         std::same_as<std::remove_cv_t<type_a_p>, std::remove_cv_t<type_b_p>>;
 
     template <typename type_a_p, typename type_b_p>
+    concept is_just_tr =
+        std::same_as<type_a_p, type_b_p>;
+
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_tr, type_a_p, type_b_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_tr, type_a_p, type_b_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_tr, type_a_p, type_b_p);
+    /// @}
+
+    /// @{
+    template <typename type_a_p, typename type_b_p>
     concept is_any_type_tr =
         is_any_tr<type_a_p, type_b_p> &&
         any_type_tr<type_a_p>;
@@ -142,6 +150,11 @@ namespace nkr {
         is_any_tr<type_a_p, type_b_p> &&
         any_non_type_tr<type_a_p>;
 
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_type_tr, type_a_p, type_b_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_non_type_tr, type_a_p, type_b_p);
+    /// @}
+    
+    /// @{
     template <typename type_a_p, typename type_b_p>
     concept is_any_qualified_tr =
         is_any_tr<type_a_p, type_b_p> &&
@@ -173,10 +186,6 @@ namespace nkr {
         any_non_volatile_tr<type_a_p>;
 
     template <typename type_a_p, typename type_b_p>
-    concept is_just_tr =
-        std::same_as<type_a_p, type_b_p>;
-
-    template <typename type_a_p, typename type_b_p>
     concept is_just_non_qualified_tr =
         is_just_tr<type_a_p, std::remove_cv_t<type_b_p>>;
 
@@ -192,16 +201,12 @@ namespace nkr {
     concept is_just_const_volatile_tr =
         is_just_tr<type_a_p, const volatile std::remove_cv_t<type_b_p>>;
 
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_tr, type_a_p, type_b_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_type_tr, type_a_p, type_b_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_non_type_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_qualified_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_non_qualified_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_const_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_non_const_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_volatile_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_non_volatile_tr, type_a_p, type_b_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_non_qualified_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_const_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_volatile_tr, type_a_p, type_b_p);
@@ -223,6 +228,7 @@ namespace nkr {
         sizeof(type_p) <= sizeof(other_p);
     /// @}
 
+    /// @{
     template <typename type_p>
     concept boolean_tr =
         is_any_tr<type_p, bool_t> ||
@@ -236,6 +242,7 @@ namespace nkr {
     template <typename type_p>
     concept to_std_bool_tr =
         std::convertible_to<type_p, std_bool_t>;
+    /// @}
 
     /// @addtogroup _222d304c_42db_4988_8611_c8aedc33c6cc
     /// @{
@@ -381,6 +388,21 @@ namespace nkr {
     
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
+    template <typename type_p, typename other_p>
+    concept is_lvalue_reference_of_tr =
+        std::is_lvalue_reference_v<std::remove_cv_t<type_p>> &&
+        is_tr<std::remove_reference_t<type_p>, other_p>;
+
+    template <typename type_p, typename derived_p>
+    concept is_base_lvalue_reference_of_tr =
+        std::is_lvalue_reference_v<std::remove_cv_t<type_p>> &&
+        std::is_base_of_v<std::remove_reference_t<type_p>, derived_p>;
+
+    template <typename type_p, typename other_p>
+    concept is_same_or_base_lvalue_reference_of_tr =
+        is_lvalue_reference_of_tr<type_p, other_p> ||
+        is_base_lvalue_reference_of_tr<type_p, other_p>;
+    
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value ||

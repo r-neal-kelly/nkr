@@ -625,12 +625,19 @@ namespace nkr {
         /// @name objects
         /// @copydoc _dce4c888_983a_42e1_9fa3_2bf954717d41
         /// @{
-        atomic_t()                                      = delete;   ///< @copydoc _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
-        atomic_t(const atomic_t& other)                 = delete;   ///< @copydoc _9727488c_e0cc_4056_a68f_d12b84d5ceca
-        atomic_t(atomic_t&& other) noexcept             = delete;   ///< @copydoc _20433dd1_bd70_44ec_b6a3_7b5311f12825
-        atomic_t& operator =(const atomic_t& other)     = delete;   ///< @copydoc _28d6f470_34eb_4d0d_8dc5_239e23c1c253
-        atomic_t& operator =(atomic_t&& other) noexcept = delete;   ///< @copydoc _388db58d_c89b_420b_bad9_c3e0334cdd9f
-        ~atomic_t()                                     = delete;   ///< @copydoc _e7cda9ac_182a_48c9_8ace_1a6f8887a65a
+        atomic_t()                                                                  = delete;   ///< @copydoc _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
+
+        atomic_t(const atomic_t& other)                                             = delete;   ///< @copydoc _9727488c_e0cc_4056_a68f_d12b84d5ceca
+        atomic_t(const volatile atomic_t& other)                                    = delete;   ///< @copydoc 
+        atomic_t(atomic_t&& other) noexcept                                         = delete;   ///< @copydoc _20433dd1_bd70_44ec_b6a3_7b5311f12825
+        atomic_t(volatile atomic_t&& other) noexcept                                = delete;   ///< @copydoc 
+
+        atomic_t&           operator =(const atomic_t& other)                       = delete;   ///< @copydoc _28d6f470_34eb_4d0d_8dc5_239e23c1c253
+        volatile atomic_t&  operator =(const volatile atomic_t& other) volatile     = delete;   ///< @copydoc 
+        atomic_t&           operator =(atomic_t&& other) noexcept                   = delete;   ///< @copydoc _388db58d_c89b_420b_bad9_c3e0334cdd9f
+        volatile atomic_t&  operator =(volatile atomic_t&& other) volatile noexcept = delete;   ///< @copydoc 
+
+        ~atomic_t()                                                                 = delete;   ///< @copydoc _e7cda9ac_182a_48c9_8ace_1a6f8887a65a
         /// @}
     };
 

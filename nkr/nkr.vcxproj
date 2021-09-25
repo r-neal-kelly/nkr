@@ -182,6 +182,7 @@
     <ClInclude Include="include\nkr\math_dec.h" />
     <ClInclude Include="include\nkr\math_def.h" />
     <ClInclude Include="include\nkr\math.h" />
+    <ClInclude Include="include\nkr\maybe_i.h" />
     <ClInclude Include="include\nkr\maybe_t.h" />
     <ClInclude Include="include\nkr\maybe_t_dec.h" />
     <ClInclude Include="include\nkr\none_i.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="include\nkr\random_def.h" />
     <ClInclude Include="include\nkr\signed_negative_t.h" />
     <ClInclude Include="include\nkr\signed_positive_t.h" />
+    <ClInclude Include="include\nkr\some_i.h" />
     <ClInclude Include="include\nkr\some_t.h" />
     <ClInclude Include="include\nkr\array\stack_t.h" />
     <ClInclude Include="include\nkr\array\stack_t_dec.h" />

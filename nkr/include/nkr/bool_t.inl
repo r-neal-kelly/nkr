@@ -23,7 +23,7 @@ namespace nkr {
     {
     }
 
-    inline bool_t::bool_t(volatile const bool_t& other) :
+    inline bool_t::bool_t(const volatile bool_t& other) :
         value(other.value)
     {
     }
@@ -38,7 +38,23 @@ namespace nkr {
     {
     }
 
-    inline bool_t& bool_t::operator =(const bool_t& other)
+    inline bool_t&
+        bool_t::operator =(to_std_bool_tr auto value)
+    {
+        this->value = static_cast<word_t>(static_cast<std_bool_t>(value));
+        return *this;
+    }
+
+    inline volatile bool_t&
+        bool_t::operator =(to_std_bool_tr auto value)
+        volatile
+    {
+        this->value = static_cast<word_t>(static_cast<std_bool_t>(value));
+        return *this;
+    }
+
+    inline bool_t&
+        bool_t::operator =(const bool_t& other)
     {
         if (this != std::addressof(other)) {
             this->value = other.value;
@@ -46,7 +62,9 @@ namespace nkr {
         return *this;
     }
 
-    inline volatile bool_t& bool_t::operator =(volatile const bool_t& other) volatile
+    inline volatile bool_t&
+        bool_t::operator =(const bool_t& other)
+        volatile
     {
         if (this != std::addressof(other)) {
             this->value = other.value;
@@ -54,7 +72,28 @@ namespace nkr {
         return *this;
     }
 
-    inline bool_t& bool_t::operator =(bool_t&& other) noexcept
+    inline bool_t&
+        bool_t::operator =(const volatile bool_t& other)
+    {
+        if (this != std::addressof(other)) {
+            this->value = other.value;
+        }
+        return *this;
+    }
+
+    inline volatile bool_t&
+        bool_t::operator =(const volatile bool_t& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            this->value = other.value;
+        }
+        return *this;
+    }
+
+    inline bool_t&
+        bool_t::operator =(bool_t&& other)
+        noexcept
     {
         if (this != std::addressof(other)) {
             this->value = std::exchange(other.value, static_cast<word_t>(false));
@@ -62,7 +101,29 @@ namespace nkr {
         return *this;
     }
 
-    inline volatile bool_t& bool_t::operator =(volatile bool_t&& other) volatile noexcept
+    inline volatile bool_t&
+        bool_t::operator =(bool_t&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = std::exchange(other.value, static_cast<word_t>(false));
+        }
+        return *this;
+    }
+
+    inline bool_t&
+        bool_t::operator =(volatile bool_t&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = std::exchange(other.value, static_cast<word_t>(false));
+        }
+        return *this;
+    }
+
+    inline volatile bool_t&
+        bool_t::operator =(volatile bool_t&& other)
+        volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->value = std::exchange(other.value, static_cast<word_t>(false));
@@ -75,12 +136,14 @@ namespace nkr {
         this->value = static_cast<word_t>(false);
     }
 
-    inline bool_t::operator std_bool_t() const
+    inline bool_t::operator std_bool_t()
+        const
     {
         return static_cast<std_bool_t>(this->value);
     }
 
-    inline bool_t::operator std_bool_t() volatile const
+    inline bool_t::operator std_bool_t()
+        const volatile
     {
         return static_cast<std_bool_t>(this->value);
     }
@@ -90,17 +153,20 @@ namespace nkr {
         return this->value;
     }
 
-    inline bool_t::operator const word_t&() const
+    inline bool_t::operator const word_t&()
+        const
     {
         return this->value;
     }
 
-    inline bool_t::operator volatile word_t&() volatile
+    inline bool_t::operator volatile word_t&()
+        volatile
     {
         return this->value;
     }
 
-    inline bool_t::operator volatile const word_t&() volatile const
+    inline bool_t::operator const volatile word_t&()
+        const volatile
     {
         return this->value;
     }
@@ -110,28 +176,45 @@ namespace nkr {
     {
     }
 
-    inline bool_t& bool_t::operator =(none_t)
+    inline bool_t&
+        bool_t::operator =(none_t)
     {
         this->value = static_cast<word_t>(false);
         return *this;
     }
 
-    inline bool_t bool_t::operator ==(none_t) const
+    inline volatile bool_t&
+        bool_t::operator =(none_t)
+        volatile
+    {
+        this->value = static_cast<word_t>(false);
+        return *this;
+    }
+
+    inline bool_t
+        bool_t::operator ==(none_t)
+        const
     {
         return !static_cast<std_bool_t>(this->value);
     }
 
-    inline bool_t bool_t::operator ==(none_t) volatile const
+    inline bool_t
+        bool_t::operator ==(none_t)
+        const volatile
     {
         return !static_cast<std_bool_t>(this->value);
     }
 
-    inline bool_t bool_t::operator !=(none_t) const
+    inline bool_t
+        bool_t::operator !=(none_t)
+        const
     {
         return !operator ==(none_t());
     }
 
-    inline bool_t bool_t::operator !=(none_t) volatile const
+    inline bool_t
+        bool_t::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }

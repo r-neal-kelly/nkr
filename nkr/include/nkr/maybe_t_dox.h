@@ -99,13 +99,6 @@
                 * @snippet "./src/maybe_t.cpp" _c08944e9_0848_4e7a_b121_821a82f89118
                 */
 
-                // value_assignment_ctor()
-                /**
-                * @class _40d586e6_43ec_4f57_a15f_9809bb2a36b4
-                * @private
-                * @snippet "./src/maybe_t.cpp" _fcd0d654_7864_4bd9_b798_18a69d737e71
-                */
-
                 // copy_assignment_ctor()
                 /**
                 * @class _6693684a_9d8b_45e3_9196_3e20af210319
@@ -419,15 +412,6 @@
             * @private
             */
 
-            // !()
-            /**
-            * @class _ca79e353_f369_498d_9002_23fc79478493
-            * @private
-            * 
-            * @details
-            *   We define this to make sure that the user-defined value is checked against none_t.
-            */
-
             // &()
             /**
             * @class _3aa1aabe_9154_40a3_8e90_4159a3e155a3
@@ -442,39 +426,6 @@
             * @private
             * 
             * @copydoc _2217847b_e23e_4253_bb7f_04ece0d5099a
-            */
-
-        // none_t interface
-        /**
-        * @class _83fd4e8c_fb12_4092_b6b7_0a2a5fe7e3ae
-        * @private
-        * 
-        * @brief
-        *   These are added in case the user_defined_p cannot take nkr::none_t&. It calls the underlying implementation.
-        */
-
-            // none_ctor()
-            /**
-            * @class _e6a84081_f2de_4db3_8d9b_ba72a93e5455
-            * @private
-            */
-
-            // =(none_t)
-            /**
-            * @class _89e3c342_705e_4f5e_8c5a_d4a30c8e93aa
-            * @private
-            */
-
-            // ==(none_t)
-            /**
-            * @class _0ba0e3d3_efa9_47a9_9843_c0bd2bb99dd5
-            * @private
-            */
-
-            // !=(none_t)
-            /**
-            * @class _e03588e1_54fd_4f9b_9b34_54ff74341ccd
-            * @private
             */
 
 // maybe_t<invalid_p>

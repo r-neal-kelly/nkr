@@ -10,7 +10,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>
     inline any_sp<any_p>::any_sp() :
-        value(value_t())
+        value(static_cast<value_t>(0))
     {
     }
 
@@ -27,20 +27,43 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>::any_sp(any_sp&& other) noexcept :
-        value(std::exchange(other.value, value_t()))
+    inline any_sp<any_p>::any_sp(const volatile any_sp& other) :
+        value(other.value)
     {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>& any_sp<any_p>::operator =(value_t value)
+    inline any_sp<any_p>::any_sp(any_sp&& other) noexcept :
+        value(nkr::Move(other.value))
+    {
+    }
+
+    template <typename any_p>
+    inline any_sp<any_p>::any_sp(volatile any_sp&& other) noexcept :
+        value(nkr::Move(other.value))
+    {
+    }
+
+    template <typename any_p>
+    inline any_sp<any_p>&
+        any_sp<any_p>::operator =(value_t value)
     {
         this->value = value;
         return *this;
     }
 
     template <typename any_p>
-    inline any_sp<any_p>& any_sp<any_p>::operator =(const any_sp& other)
+    inline volatile any_sp<any_p>&
+        any_sp<any_p>::operator =(value_t value)
+        volatile
+    {
+        this->value = value;
+        return *this;
+    }
+
+    template <typename any_p>
+    inline any_sp<any_p>&
+        any_sp<any_p>::operator =(const any_sp& other)
     {
         if (this != std::addressof(other)) {
             this->value = other.value;
@@ -49,10 +72,77 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>& any_sp<any_p>::operator =(any_sp&& other) noexcept
+    inline volatile any_sp<any_p>&
+        any_sp<any_p>::operator =(const any_sp& other)
+        volatile
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, value_t());
+            this->value = other.value;
+        }
+        return *this;
+    }
+
+    template <typename any_p>
+    inline any_sp<any_p>&
+        any_sp<any_p>::operator =(const volatile any_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            this->value = other.value;
+        }
+        return *this;
+    }
+
+    template <typename any_p>
+    inline volatile any_sp<any_p>&
+        any_sp<any_p>::operator =(const volatile any_sp& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            this->value = other.value;
+        }
+        return *this;
+    }
+
+    template <typename any_p>
+    inline any_sp<any_p>&
+        any_sp<any_p>::operator =(any_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = nkr::Move(other.value);
+        }
+        return *this;
+    }
+
+    template <typename any_p>
+    inline volatile any_sp<any_p>&
+        any_sp<any_p>::operator =(any_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = nkr::Move(other.value);
+        }
+        return *this;
+    }
+
+    template <typename any_p>
+    inline any_sp<any_p>&
+        any_sp<any_p>::operator =(volatile any_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = nkr::Move(other.value);
+        }
+        return *this;
+    }
+
+    template <typename any_p>
+    inline volatile any_sp<any_p>&
+        any_sp<any_p>::operator =(volatile any_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -60,7 +150,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     template <typename any_p>
     inline any_sp<any_p>::~any_sp()
     {
-        this->value = value_t();
+        this->value = static_cast<value_t>(0);
     }
 
     template <typename any_p>
@@ -70,68 +160,161 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>::operator const value_t&() const
+    inline any_sp<any_p>::operator const value_t&()
+        const
     {
         return this->value;
     }
 
     template <typename any_p>
-    inline typename any_sp<any_p>::value_t& any_sp<any_p>::operator ()()
+    inline any_sp<any_p>::operator volatile value_t& ()
+        volatile
     {
         return this->value;
     }
 
     template <typename any_p>
-    inline typename const any_sp<any_p>::value_t& any_sp<any_p>::operator ()() const
+    inline any_sp<any_p>::operator const volatile value_t& ()
+        const volatile
     {
         return this->value;
     }
 
     template <typename any_p>
-    inline auto* any_sp<any_p>::operator &()
+    inline typename any_sp<any_p>::value_t&
+        any_sp<any_p>::operator ()()
+    {
+        return this->value;
+    }
+
+    template <typename any_p>
+    inline typename const any_sp<any_p>::value_t&
+        any_sp<any_p>::operator ()()
+        const
+    {
+        return this->value;
+    }
+
+    template <typename any_p>
+    inline typename volatile any_sp<any_p>::value_t&
+        any_sp<any_p>::operator ()()
+        volatile
+    {
+        return this->value;
+    }
+
+    template <typename any_p>
+    inline typename const volatile any_sp<any_p>::value_t&
+        any_sp<any_p>::operator ()()
+        const volatile
+    {
+        return this->value;
+    }
+
+    template <typename any_p>
+    inline auto*
+        any_sp<any_p>::operator &()
     {
         return &this->value;
     }
 
     template <typename any_p>
-    inline const auto* any_sp<any_p>::operator &() const
+    inline const auto*
+        any_sp<any_p>::operator &()
+        const
+    {
+        return &this->value;
+    }
+
+    template <typename any_p>
+    inline volatile auto*
+        any_sp<any_p>::operator &()
+        volatile
+    {
+        return &this->value;
+    }
+
+    template <typename any_p>
+    inline const volatile auto*
+        any_sp<any_p>::operator &()
+        const volatile
     {
         return &this->value;
     }
 
     template <typename any_p>
     inline any_sp<any_p>::any_sp(none_t) :
-        value(value_t())
+        value(static_cast<value_t>(0))
     {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>& any_sp<any_p>::operator =(none_t)
+    inline any_sp<any_p>&
+        any_sp<any_p>::operator =(none_t)
     {
-        this->value = value_t();
+        this->value = static_cast<value_t>(0);
         return *this;
     }
 
     template <typename any_p>
-    inline bool_t any_sp<any_p>::operator ==(none_t) const
+    inline volatile any_sp<any_p>&
+        any_sp<any_p>::operator =(none_t)
+        volatile
     {
-        return this->value == value_t();
+        this->value = static_cast<value_t>(0);
+        return *this;
     }
 
     template <typename any_p>
-    inline bool_t any_sp<any_p>::operator !=(none_t) const
+    inline bool_t
+        any_sp<any_p>::operator ==(none_t)
+        const
+    {
+        return this->value == static_cast<value_t>(0);
+    }
+
+    template <typename any_p>
+    inline bool_t
+        any_sp<any_p>::operator ==(none_t)
+        const volatile
+    {
+        return this->value == static_cast<value_t>(0);
+    }
+
+    template <typename any_p>
+    inline bool_t
+        any_sp<any_p>::operator !=(none_t)
+        const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <typename any_p>
+    inline bool_t
+        any_sp<any_p>::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }
 
     template <real_tr real_p>
-    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ++()
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator ++()
     {
         return this->value += 1.0;
     }
 
     template <real_tr real_p>
-    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator ++(int)
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator ++()
+        volatile
+    {
+        return this->value += 1.0;
+    }
+
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator ++(int)
     {
         value_t value = this->value;
         this->value += 1.0;
@@ -139,13 +322,43 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <real_tr real_p>
-    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator --()
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator ++(int)
+        volatile
+    {
+        value_t value = this->value;
+        this->value += 1.0;
+        return value;
+    }
+
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator --()
     {
         return this->value -= 1.0;
     }
 
     template <real_tr real_p>
-    inline typename real_sp<real_p>::value_t real_sp<real_p>::operator --(int)
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator --()
+        volatile
+    {
+        return this->value -= 1.0;
+    }
+
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator --(int)
+    {
+        value_t value = this->value;
+        this->value -= 1.0;
+        return value;
+    }
+
+    template <real_tr real_p>
+    inline typename real_sp<real_p>::value_t
+        real_sp<real_p>::operator --(int)
+        volatile
     {
         value_t value = this->value;
         this->value -= 1.0;
@@ -153,7 +366,17 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::pointer_sp::value_t pointer_sp<pointer_p>::operator ->() const
+    inline typename pointer_sp<pointer_p>::pointer_sp::value_t
+        pointer_sp<pointer_p>::operator ->()
+        const
+    {
+        return this->value;
+    }
+
+    template <pointer_tr pointer_p>
+    inline typename pointer_sp<pointer_p>::pointer_sp::value_t
+        pointer_sp<pointer_p>::operator ->()
+        const volatile
     {
         return this->value;
     }
@@ -162,65 +385,80 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
 namespace nkr { namespace $maybe_t {
 
-    template <none_i user_defined_p>
-    inline user_defined_sp<user_defined_p>::operator bool_t() const
+    template <maybe_i user_defined_p>
+    inline user_defined_sp<user_defined_p>::operator bool_t()
+        const
     {
         return value_t::operator !=(none_t());
     }
 
-    template <none_i user_defined_p>
-    inline typename user_defined_sp<user_defined_p>::value_t& user_defined_sp<user_defined_p>::operator ()()
+    template <maybe_i user_defined_p>
+    inline user_defined_sp<user_defined_p>::operator bool_t()
+        const volatile
+    {
+        return value_t::operator !=(none_t());
+    }
+
+    template <maybe_i user_defined_p>
+    inline typename user_defined_sp<user_defined_p>::value_t&
+        user_defined_sp<user_defined_p>::operator ()()
     {
         return static_cast<value_t&>(*this);
     }
 
-    template <none_i user_defined_p>
-    inline typename const user_defined_sp<user_defined_p>::value_t& user_defined_sp<user_defined_p>::operator ()() const
+    template <maybe_i user_defined_p>
+    inline typename const user_defined_sp<user_defined_p>::value_t&
+        user_defined_sp<user_defined_p>::operator ()()
+        const
     {
         return static_cast<const value_t&>(*this);
     }
 
-    template <none_i user_defined_p>
-    inline bool_t user_defined_sp<user_defined_p>::operator !() const
+    template <maybe_i user_defined_p>
+    inline typename volatile user_defined_sp<user_defined_p>::value_t&
+        user_defined_sp<user_defined_p>::operator ()()
+        volatile
     {
-        return !operator bool_t();
+        return static_cast<volatile value_t&>(*this);
     }
 
-    template <none_i user_defined_p>
-    inline auto* user_defined_sp<user_defined_p>::operator &()
+    template <maybe_i user_defined_p>
+    inline typename const volatile user_defined_sp<user_defined_p>::value_t&
+        user_defined_sp<user_defined_p>::operator ()()
+        const volatile
+    {
+        return static_cast<const volatile value_t&>(*this);
+    }
+
+    template <maybe_i user_defined_p>
+    inline auto*
+        user_defined_sp<user_defined_p>::operator &()
     {
         return &static_cast<value_t&>(*this);
     }
 
-    template <none_i user_defined_p>
-    inline const auto* user_defined_sp<user_defined_p>::operator &() const
+    template <maybe_i user_defined_p>
+    inline const auto*
+        user_defined_sp<user_defined_p>::operator &()
+        const
     {
         return &static_cast<const value_t&>(*this);
     }
 
-    template <none_i user_defined_p>
-    inline user_defined_sp<user_defined_p>::user_defined_sp(none_t) :
-        value_t(none_t)
+    template <maybe_i user_defined_p>
+    inline volatile auto*
+        user_defined_sp<user_defined_p>::operator &()
+        volatile
     {
+        return &static_cast<volatile value_t&>(*this);
     }
 
-    template <none_i user_defined_p>
-    inline user_defined_sp<user_defined_p>& user_defined_sp<user_defined_p>::operator =(none_t)
+    template <maybe_i user_defined_p>
+    inline const volatile auto*
+        user_defined_sp<user_defined_p>::operator &()
+        const volatile
     {
-        value_t::operator =(none_t());
-        return *this;
-    }
-
-    template <none_i user_defined_p>
-    inline bool_t user_defined_sp<user_defined_p>::operator ==(none_t) const
-    {
-        return value_t::operator ==(none_t());
-    }
-
-    template <none_i user_defined_p>
-    inline bool_t user_defined_sp<user_defined_p>::operator !=(none_t) const
-    {
-        return value_t::operator !=(none_t());
+        return &static_cast<const volatile value_t&>(*this);
     }
 
 }}
