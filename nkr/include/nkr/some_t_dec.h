@@ -21,9 +21,11 @@ namespace nkr {
         /// @name aliases
         /// @copydoc _68e8ea24_c725_481e_96e2_83379ee8f177
         /// @{
-        using base_t    = maybe_t<any_p>;   ///< @copydoc 
-        using value_t   = any_p;            ///< @copydoc _afe969ef_b9ff_4532_a311_5900ca7fba62
+        using value_t   = any_p;    ///< @copydoc _afe969ef_b9ff_4532_a311_5900ca7fba62
         /// @}
+
+    private:
+        using base_t    = maybe_t<any_p>;
 
     public:
         /// @name objects

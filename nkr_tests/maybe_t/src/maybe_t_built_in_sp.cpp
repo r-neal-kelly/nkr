@@ -11,33 +11,6 @@
 
 namespace nkr {
 
-    TEST_SUITE("none_t")
-    {
-        TEST_SUITE("objects")
-        {
-            TEST_CASE("default_ctor() should create a simple none_t")
-            {
-                /// [_320a98e7_654c_4711_b09e_cda91e7704d4]
-                auto lambda = [](none_t a, none_t& b) -> bool_t
-                {
-                    return true;
-                };
-
-                none_t none;
-                CHECK(lambda(none_t(), none));
-                /// [_320a98e7_654c_4711_b09e_cda91e7704d4]
-            }
-
-            TEST_CASE("dtor() should destroy a simple none_t")
-            {
-                /// [_f57bed6f_8d65_4a14_8ed3_6b68d4f18536]
-                none_t none;
-                none.~none_t();
-                /// [_f57bed6f_8d65_4a14_8ed3_6b68d4f18536]
-            }
-        }
-    }
-
     TEST_SUITE("maybe_t<built_in_p>")
     {
     #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p)     \

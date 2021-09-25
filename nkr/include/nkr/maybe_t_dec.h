@@ -121,7 +121,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name aliases
         /// @copydoc _bb2c1a35_af7a_4084_ad9d_59a969254b54
         /// @{
-        using value_t   = real_p;           ///< @copydoc _6337ae7b_7866_4d54_8259_2228811679c6
+        using value_t   = real_p;   ///< @copydoc _6337ae7b_7866_4d54_8259_2228811679c6
         /// @}
 
     private:
@@ -160,7 +160,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name aliases
         /// @copydoc _9f86f607_6972_4326_b817_4a06a53d154d
         /// @{
-        using value_t   = pointer_p;            ///< @copydoc _febf525c_e1d2_43d7_93f2_8cc96a495097
+        using value_t   = pointer_p;    ///< @copydoc _febf525c_e1d2_43d7_93f2_8cc96a495097
         /// @}
 
     private:

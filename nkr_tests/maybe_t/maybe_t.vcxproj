@@ -160,8 +160,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\built_in_sp.cpp" />
-    <ClCompile Include="src\user_defined_sp.cpp" />
+    <ClCompile Include="src\maybe_t_built_in_sp.cpp" />
+    <ClCompile Include="src\none_t.cpp" />
+    <ClCompile Include="src\some_t.cpp" />
+    <ClCompile Include="src\maybe_t_user_defined_sp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">

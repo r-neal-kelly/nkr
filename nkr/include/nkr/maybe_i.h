@@ -16,6 +16,8 @@ namespace nkr { namespace $maybe_i {
                                     volatile std::remove_cv_t<type_p> volatile_instance,
                                     const volatile std::remove_cv_t<type_p> const_volatile_instance)
     {
+        std::remove_cv_t<type_p>();
+
         std::remove_cv_t<type_p>(instance);
         std::remove_cv_t<type_p>(const_instance);
         std::remove_cv_t<type_p>(volatile_instance);
