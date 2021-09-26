@@ -58,19 +58,23 @@ namespace nkr { namespace allocator {
         }
 
     public:
-        heap_zeros_t()                                                                          = default;
+        heap_zeros_t()                                                                                          = default;
 
         heap_zeros_t(const heap_zeros_t& other);
-        heap_zeros_t(volatile const heap_zeros_t& other);
+        heap_zeros_t(const volatile heap_zeros_t& other);
         heap_zeros_t(heap_zeros_t&& other) noexcept;
         heap_zeros_t(volatile heap_zeros_t&& other) noexcept;
 
         heap_zeros_t&           operator =(const heap_zeros_t& other);
-        volatile heap_zeros_t&  operator =(volatile const heap_zeros_t& other) volatile;
+        volatile heap_zeros_t&  operator =(const heap_zeros_t& other) volatile;
+        heap_zeros_t&           operator =(const volatile heap_zeros_t& other);
+        volatile heap_zeros_t&  operator =(const volatile heap_zeros_t& other) volatile;
         heap_zeros_t&           operator =(heap_zeros_t&& other) noexcept;
-        volatile heap_zeros_t&  operator =(volatile heap_zeros_t&& other) volatile noexcept;
+        volatile heap_zeros_t&  operator =(heap_zeros_t&& other) volatile noexcept;
+        heap_zeros_t&           operator =(is_just_volatile_tr<heap_zeros_t> auto&& other) noexcept;
+        volatile heap_zeros_t&  operator =(is_just_volatile_tr<heap_zeros_t> auto&& other) volatile noexcept;
 
-        ~heap_zeros_t()                                                                         = default;
+        ~heap_zeros_t()                                                                                         = default;
 
     public:
         bool_t  Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count) const;

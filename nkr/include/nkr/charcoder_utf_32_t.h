@@ -52,9 +52,13 @@ namespace nkr { namespace charcoder {
         utf_32_t(volatile utf_32_t&& other) noexcept;
 
         utf_32_t&           operator =(const utf_32_t& other);
+        volatile utf_32_t&  operator =(const utf_32_t& other) volatile;
+        utf_32_t&           operator =(const volatile utf_32_t& other);
         volatile utf_32_t&  operator =(const volatile utf_32_t& other) volatile;
         utf_32_t&           operator =(utf_32_t&& other) noexcept;
-        volatile utf_32_t&  operator =(volatile utf_32_t&& other) volatile noexcept;
+        volatile utf_32_t&  operator =(utf_32_t&& other) volatile noexcept;
+        utf_32_t&           operator =(is_just_volatile_tr<utf_32_t> auto&& other) noexcept;
+        volatile utf_32_t&  operator =(is_just_volatile_tr<utf_32_t> auto&& other) volatile noexcept;
 
         ~utf_32_t();
 

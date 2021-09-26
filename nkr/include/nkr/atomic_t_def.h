@@ -52,23 +52,6 @@ namespace nkr { namespace $atomic_t {
 
     template <boolean_tr boolean_p>
     inline boolean_sp<boolean_p>&
-        boolean_sp<boolean_p>::operator =(convertible_tr<value_t> auto value)
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <boolean_tr boolean_p>
-    inline volatile boolean_sp<boolean_p>&
-        boolean_sp<boolean_p>::operator =(convertible_tr<value_t> auto value)
-        volatile
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <boolean_tr boolean_p>
-    inline boolean_sp<boolean_p>&
         boolean_sp<boolean_p>::operator =(const boolean_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -133,7 +116,7 @@ namespace nkr { namespace $atomic_t {
 
     template <boolean_tr boolean_p>
     inline boolean_sp<boolean_p>&
-        boolean_sp<boolean_p>::operator =(volatile boolean_sp&& other)
+        boolean_sp<boolean_p>::operator =(is_just_volatile_tr<boolean_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -144,7 +127,7 @@ namespace nkr { namespace $atomic_t {
 
     template <boolean_tr boolean_p>
     inline volatile boolean_sp<boolean_p>&
-        boolean_sp<boolean_p>::operator =(volatile boolean_sp&& other)
+        boolean_sp<boolean_p>::operator =(is_just_volatile_tr<boolean_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {
@@ -347,23 +330,6 @@ namespace nkr { namespace $atomic_t {
 
     template <integer_tr integer_p>
     inline integer_sp<integer_p>&
-        integer_sp<integer_p>::operator =(convertible_tr<value_t> auto value)
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <integer_tr integer_p>
-    inline volatile integer_sp<integer_p>&
-        integer_sp<integer_p>::operator =(convertible_tr<value_t> auto value)
-        volatile
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <integer_tr integer_p>
-    inline integer_sp<integer_p>&
         integer_sp<integer_p>::operator =(const integer_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -428,7 +394,7 @@ namespace nkr { namespace $atomic_t {
 
     template <integer_tr integer_p>
     inline integer_sp<integer_p>&
-        integer_sp<integer_p>::operator =(volatile integer_sp&& other)
+        integer_sp<integer_p>::operator =(is_just_volatile_tr<integer_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -439,7 +405,7 @@ namespace nkr { namespace $atomic_t {
 
     template <integer_tr integer_p>
     inline volatile integer_sp<integer_p>&
-        integer_sp<integer_p>::operator =(volatile integer_sp&& other)
+        integer_sp<integer_p>::operator =(is_just_volatile_tr<integer_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {
@@ -1152,23 +1118,6 @@ namespace nkr { namespace $atomic_t {
 
     template <real_tr real_p>
     inline real_sp<real_p>&
-        real_sp<real_p>::operator =(convertible_tr<value_t> auto value)
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <real_tr real_p>
-    inline volatile real_sp<real_p>&
-        real_sp<real_p>::operator =(convertible_tr<value_t> auto value)
-        volatile
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <real_tr real_p>
-    inline real_sp<real_p>&
         real_sp<real_p>::operator =(const real_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -1233,7 +1182,7 @@ namespace nkr { namespace $atomic_t {
 
     template <real_tr real_p>
     inline real_sp<real_p>&
-        real_sp<real_p>::operator =(volatile real_sp&& other)
+        real_sp<real_p>::operator =(is_just_volatile_tr<real_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1244,7 +1193,7 @@ namespace nkr { namespace $atomic_t {
 
     template <real_tr real_p>
     inline volatile real_sp<real_p>&
-        real_sp<real_p>::operator =(volatile real_sp&& other)
+        real_sp<real_p>::operator =(is_just_volatile_tr<real_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {
@@ -1687,23 +1636,6 @@ namespace nkr { namespace $atomic_t {
 
     template <pointer_tr pointer_p>
     inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(convertible_tr<value_t> auto value)
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <pointer_tr pointer_p>
-    inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(convertible_tr<value_t> auto value)
-        volatile
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>&
         pointer_sp<pointer_p>::operator =(const pointer_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -1768,7 +1700,7 @@ namespace nkr { namespace $atomic_t {
 
     template <pointer_tr pointer_p>
     inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(volatile pointer_sp&& other)
+        pointer_sp<pointer_p>::operator =(is_just_volatile_tr<pointer_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1779,7 +1711,7 @@ namespace nkr { namespace $atomic_t {
 
     template <pointer_tr pointer_p>
     inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(volatile pointer_sp&& other)
+        pointer_sp<pointer_p>::operator =(is_just_volatile_tr<pointer_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {
@@ -2172,21 +2104,6 @@ namespace nkr { namespace $atomic_t {
     }
 
     inline void_pointer_sp&
-        void_pointer_sp::operator =(convertible_tr<value_t> auto value)
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    inline volatile void_pointer_sp&
-        void_pointer_sp::operator =(convertible_tr<value_t> auto value)
-        volatile
-    {
-        Assign(static_cast<value_t>(value));
-        return *this;
-    }
-
-    inline void_pointer_sp&
         void_pointer_sp::operator =(const void_pointer_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -2245,7 +2162,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     inline void_pointer_sp&
-        void_pointer_sp::operator =(volatile void_pointer_sp&& other)
+        void_pointer_sp::operator =(is_just_volatile_tr<void_pointer_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -2255,7 +2172,7 @@ namespace nkr { namespace $atomic_t {
     }
 
     inline volatile void_pointer_sp&
-        void_pointer_sp::operator =(volatile void_pointer_sp&& other)
+        void_pointer_sp::operator =(is_just_volatile_tr<void_pointer_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {

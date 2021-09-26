@@ -17,7 +17,7 @@ namespace nkr {
         QUALIFIER_p some_t<UNIT_p>,                 \
         QUALIFIER_p some_t<const UNIT_p>,           \
         QUALIFIER_p some_t<volatile UNIT_p>,        \
-        QUALIFIER_p some_t<volatile const UNIT_p>
+        QUALIFIER_p some_t<const volatile UNIT_p>
 
     #define nkr_VALUES(QUALIFIER_p)                 \
         nkr_ALL_PARAMS(QUALIFIER_p, std_bool_t),    \
@@ -48,7 +48,7 @@ namespace nkr {
 
     #define nkr_CONST               \
         nkr_VALUES(const),          \
-        nkr_VALUES(volatile const)
+        nkr_VALUES(const volatile)
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \

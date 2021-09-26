@@ -18,7 +18,7 @@ namespace nkr {
         QUALIFIER_p stack_array_t<UNIT_p, CAPACITY_p>,                  \
         QUALIFIER_p stack_array_t<const UNIT_p, CAPACITY_p>,            \
         QUALIFIER_p stack_array_t<volatile UNIT_p, CAPACITY_p>,         \
-        QUALIFIER_p stack_array_t<volatile const UNIT_p, CAPACITY_p>
+        QUALIFIER_p stack_array_t<const volatile UNIT_p, CAPACITY_p>
 
     #define nkr_CAPACITIES(QUALIFIER_p, UNIT_p) \
         nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, 16)
@@ -37,7 +37,7 @@ namespace nkr {
 
     #define nkr_CONST               \
         nkr_UNITS(const),           \
-        nkr_UNITS(volatile const)
+        nkr_UNITS(const volatile)
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \

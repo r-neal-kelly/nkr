@@ -48,85 +48,85 @@ namespace nkr {
         }                                                   \
     nkr_b
 
-    #define nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(WRAPPER_p, BASE_p)            \
-        using BASE_p::BASE_p;                                                           \
-        using BASE_p::operator =;                                                       \
-                                                                                        \
-        WRAPPER_p() :                                                                   \
-            BASE_p()                                                                    \
-        {                                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p(const WRAPPER_p& other) :                                             \
-            BASE_p(static_cast<const BASE_p&>(other))                                   \
-        {                                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p(const volatile WRAPPER_p& other) :                                    \
-            BASE_p(static_cast<const volatile BASE_p&>(other))                          \
-        {                                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p(WRAPPER_p&& other) noexcept :                                         \
-            BASE_p(nkr::Move(static_cast<BASE_p&>(other)))                              \
-        {                                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p(volatile WRAPPER_p&& other) noexcept :                                \
-            BASE_p(nkr::Move(static_cast<volatile BASE_p&>(other)))                     \
-        {                                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p& operator =(const WRAPPER_p& other)                                   \
-        {                                                                               \
-            BASE_p::operator =(static_cast<const BASE_p&>(other));                      \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        volatile WRAPPER_p& operator =(const WRAPPER_p& other) volatile                 \
-        {                                                                               \
-            BASE_p::operator =(static_cast<const BASE_p&>(other));                      \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p& operator =(const volatile WRAPPER_p& other)                          \
-        {                                                                               \
-            BASE_p::operator =(static_cast<const volatile BASE_p&>(other));             \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        volatile WRAPPER_p& operator =(const volatile WRAPPER_p& other) volatile        \
-        {                                                                               \
-            BASE_p::operator =(static_cast<const volatile BASE_p&>(other));             \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p& operator =(WRAPPER_p&& other) noexcept                               \
-        {                                                                               \
-            BASE_p::operator =(nkr::Move(static_cast<BASE_p&>(other)));                 \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        volatile WRAPPER_p& operator =(WRAPPER_p&& other) volatile noexcept             \
-        {                                                                               \
-            BASE_p::operator =(nkr::Move(static_cast<BASE_p&>(other)));                 \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        WRAPPER_p& operator =(volatile WRAPPER_p&& other) noexcept                      \
-        {                                                                               \
-            BASE_p::operator =(nkr::Move(static_cast<volatile BASE_p&>(other)));        \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        volatile WRAPPER_p& operator =(volatile WRAPPER_p&& other) volatile noexcept    \
-        {                                                                               \
-            BASE_p::operator =(nkr::Move(static_cast<volatile BASE_p&>(other)));        \
-            return *this;                                                               \
-        }                                                                               \
-                                                                                        \
-        ~WRAPPER_p()                                                                    \
-        {                                                                               \
+    #define nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(WRAPPER_p, BASE_p)                            \
+        using BASE_p::BASE_p;                                                                           \
+        using BASE_p::operator =;                                                                       \
+                                                                                                        \
+        WRAPPER_p() :                                                                                   \
+            BASE_p()                                                                                    \
+        {                                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        WRAPPER_p(const WRAPPER_p& other) :                                                             \
+            BASE_p(static_cast<const BASE_p&>(other))                                                   \
+        {                                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        WRAPPER_p(const volatile WRAPPER_p& other) :                                                    \
+            BASE_p(static_cast<const volatile BASE_p&>(other))                                          \
+        {                                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        WRAPPER_p(WRAPPER_p&& other) noexcept :                                                         \
+            BASE_p(nkr::Move(static_cast<BASE_p&>(other)))                                              \
+        {                                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        WRAPPER_p(volatile WRAPPER_p&& other) noexcept :                                                \
+            BASE_p(nkr::Move(static_cast<volatile BASE_p&>(other)))                                     \
+        {                                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        WRAPPER_p& operator =(const WRAPPER_p& other)                                                   \
+        {                                                                                               \
+            BASE_p::operator =(static_cast<const BASE_p&>(other));                                      \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        volatile WRAPPER_p& operator =(const WRAPPER_p& other) volatile                                 \
+        {                                                                                               \
+            BASE_p::operator =(static_cast<const BASE_p&>(other));                                      \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        WRAPPER_p& operator =(const volatile WRAPPER_p& other)                                          \
+        {                                                                                               \
+            BASE_p::operator =(static_cast<const volatile BASE_p&>(other));                             \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        volatile WRAPPER_p& operator =(const volatile WRAPPER_p& other) volatile                        \
+        {                                                                                               \
+            BASE_p::operator =(static_cast<const volatile BASE_p&>(other));                             \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        auto& operator =(is_just_tr<WRAPPER_p> auto&& other) noexcept                               \
+        {                                                                                               \
+            BASE_p::operator =(nkr::Move(static_cast<BASE_p&>(other)));                                 \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        volatile auto& operator =(is_just_tr<WRAPPER_p> auto&& other) volatile noexcept             \
+        {                                                                                               \
+            BASE_p::operator =(nkr::Move(static_cast<BASE_p&>(other)));                                 \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        auto& operator =(is_just_volatile_tr<WRAPPER_p> auto&& other) noexcept                      \
+        {                                                                                               \
+            BASE_p::operator =(nkr::Move(static_cast<volatile BASE_p&>(other)));                        \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        volatile auto& operator =(is_just_volatile_tr<WRAPPER_p> auto&& other) volatile noexcept    \
+        {                                                                                               \
+            BASE_p::operator =(nkr::Move(static_cast<volatile BASE_p&>(other)));                        \
+            return *this;                                                                               \
+        }                                                                                               \
+                                                                                                        \
+        ~WRAPPER_p()                                                                                    \
+        {                                                                                               \
         }
 
     #define nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(ACCESSOR_NAME_p, BASE_p)  \

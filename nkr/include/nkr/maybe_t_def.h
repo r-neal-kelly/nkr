@@ -46,23 +46,6 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>
     inline any_sp<any_p>&
-        any_sp<any_p>::operator =(value_t value)
-    {
-        this->value = value;
-        return *this;
-    }
-
-    template <typename any_p>
-    inline volatile any_sp<any_p>&
-        any_sp<any_p>::operator =(value_t value)
-        volatile
-    {
-        this->value = value;
-        return *this;
-    }
-
-    template <typename any_p>
-    inline any_sp<any_p>&
         any_sp<any_p>::operator =(const any_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -127,7 +110,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>
     inline any_sp<any_p>&
-        any_sp<any_p>::operator =(volatile any_sp&& other)
+        any_sp<any_p>::operator =(is_just_volatile_tr<any_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -138,7 +121,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>
     inline volatile any_sp<any_p>&
-        any_sp<any_p>::operator =(volatile any_sp&& other)
+        any_sp<any_p>::operator =(is_just_volatile_tr<any_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {

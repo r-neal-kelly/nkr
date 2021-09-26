@@ -18,7 +18,17 @@ namespace nkr { namespace charcoder {
         this->unit = other.unit;
     }
 
+    inline ascii_t::ascii_t(const volatile ascii_t& other)
+    {
+        this->unit = other.unit;
+    }
+
     inline ascii_t::ascii_t(ascii_t&& other) noexcept
+    {
+        this->unit = std::exchange(other.unit, 0);
+    }
+
+    inline ascii_t::ascii_t(volatile ascii_t&& other) noexcept
     {
         this->unit = std::exchange(other.unit, 0);
     }
@@ -31,7 +41,55 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
+    inline volatile ascii_t& ascii_t::operator =(const ascii_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->unit = other.unit;
+        }
+        return *this;
+    }
+
+    inline ascii_t& ascii_t::operator =(const volatile ascii_t& other)
+    {
+        if (this != std::addressof(other)) {
+            this->unit = other.unit;
+        }
+        return *this;
+    }
+
+    inline volatile ascii_t& ascii_t::operator =(const volatile ascii_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->unit = other.unit;
+        }
+        return *this;
+    }
+
     inline ascii_t& ascii_t::operator =(ascii_t&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->unit = std::exchange(other.unit, 0);
+        }
+        return *this;
+    }
+
+    inline volatile ascii_t& ascii_t::operator =(ascii_t&& other) volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->unit = std::exchange(other.unit, 0);
+        }
+        return *this;
+    }
+
+    inline ascii_t& ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->unit = std::exchange(other.unit, 0);
+        }
+        return *this;
+    }
+
+    inline volatile ascii_t& ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->unit = std::exchange(other.unit, 0);

@@ -12,7 +12,7 @@
 namespace nkr {
 
     class test_flags_e :
-        public enum_flags_t<atomic_t<u8_t>>
+        public enum_flags_t<u8_t>
     {
     public:
         enum : value_t
@@ -37,6 +37,58 @@ namespace nkr {
         CHECK(test_flags.Is_Flagged(test_flags_e::FLAG_6));
         test_flags.Flag(test_flags_e::FLAG_7);
         CHECK(test_flags.Is_Flagged(test_flags_e::FLAG_7));
+
+        $enum_flags_t::any_sp<u8_t, u8_t> a;
+        $enum_flags_t::any_sp<u8_t, u8_t> volatile_a;
+
+        enum_flags_t<u8_t> b;
+        volatile enum_flags_t<u8_t> volatile_b;
+
+        test_flags_e c;
+        volatile test_flags_e volatile_c;
+
+        a = nkr::Move(a);
+        a = nkr::Move(volatile_a);
+        volatile_a = nkr::Move(a);
+        volatile_a = nkr::Move(volatile_a);
+        a = 0;
+        a = { 0 };
+        volatile_a = 0;
+        volatile_a = { 0 };
+
+        b = nkr::Move(a);
+        b = nkr::Move(b);
+        b = nkr::Move(volatile_a);
+        b = nkr::Move(volatile_b);
+        volatile_b = nkr::Move(a);
+        volatile_b = nkr::Move(b);
+        volatile_b = nkr::Move(volatile_a);
+        volatile_b = nkr::Move(volatile_b);
+        b = 0;
+        b = { 0 };
+        volatile_b = 0;
+        volatile_b = { 0 };
+
+        c = nkr::Move(a);
+        c = nkr::Move(b);
+        c = nkr::Move(c);
+        c = nkr::Move(volatile_a);
+        c = nkr::Move(volatile_b);
+        c = nkr::Move(volatile_c);
+        volatile_c = nkr::Move(a);
+        volatile_c = nkr::Move(b);
+        volatile_c = nkr::Move(c);
+        volatile_c = nkr::Move(volatile_a);
+        volatile_c = nkr::Move(volatile_b);
+        volatile_c = nkr::Move(volatile_c);
+        c = 0;
+        c = { 0 };
+        volatile_c = 0;
+        volatile_c = { 0 };
+
+        a = a = 0;
+        b = b = 0;
+        c = c = 0;
     }
 
 }

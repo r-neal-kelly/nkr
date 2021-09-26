@@ -286,7 +286,7 @@ namespace nkr {
                 volatile_boolean.~bool_t();
                 CHECK(volatile_boolean == false);
 
-                volatile const bool_t volatile_const_boolean(true);
+                const volatile bool_t volatile_const_boolean(true);
                 volatile_const_boolean.~bool_t();
                 CHECK(volatile_const_boolean == false);
                 /// [_6fd7e147_ba41_4d98_adfe_e140a227e79a]
@@ -312,11 +312,11 @@ namespace nkr {
                 /// [_c90cbd67_36ee_49a8_809d_380c54085e40]
             }
 
-            TEST_CASE("std_bool_t() volatile const should convert value to std_bool_t explicity")
+            TEST_CASE("std_bool_t() const volatile should convert value to std_bool_t explicity")
             {
                 /// [_21637196_10ce_4fc2_add4_3d95f5351f34]
                 volatile bool_t boolean(true);
-                volatile const bool_t const_boolean(true);
+                const volatile bool_t const_boolean(true);
                 CHECK(std_bool_t(boolean) == true);
                 CHECK(std_bool_t(const_boolean) == true);
 
@@ -373,14 +373,14 @@ namespace nkr {
                 /// [_7acf2bea_986a_4fea_ac75_b69447b0b864]
             }
 
-            TEST_CASE("volatile const word_t&() should convert value to volatile const word_t& explicity")
+            TEST_CASE("const volatile word_t&() should convert value to const volatile word_t& explicity")
             {
                 /// [_ff97659e_50ba_4233_820b_c1f30f56a4b4]
-                volatile const bool_t boolean(true);
+                const volatile bool_t boolean(true);
                 CHECK(word_t(boolean) == 1);
 
                 word_t word = static_cast<word_t>(boolean);
-                volatile const word_t& word_ref = static_cast<volatile const word_t&>(boolean);
+                const volatile word_t& word_ref = static_cast<const volatile word_t&>(boolean);
                 CHECK(word == 1 && word_ref == 1);
                 /// [_ff97659e_50ba_4233_820b_c1f30f56a4b4]
             }
@@ -394,7 +394,7 @@ namespace nkr {
                 bool_t boolean(true);
                 const bool_t const_boolean(true);
                 volatile bool_t volatile_boolean(true);
-                volatile const bool_t volatile_const_boolean(true);
+                const volatile bool_t volatile_const_boolean(true);
                 CHECK(!boolean == false);
                 CHECK(!const_boolean == false);
                 CHECK(!volatile_boolean == false);
@@ -411,7 +411,7 @@ namespace nkr {
                 bool_t boolean(true);
                 const bool_t const_boolean(true);
                 volatile bool_t volatile_boolean(true);
-                volatile const bool_t volatile_const_boolean(true);
+                const volatile bool_t volatile_const_boolean(true);
                 CHECK(boolean == const_boolean);
                 CHECK(boolean == volatile_boolean);
                 CHECK(boolean == volatile_const_boolean);
@@ -428,7 +428,7 @@ namespace nkr {
                 bool_t boolean(true);
                 const bool_t const_boolean(false);
                 volatile bool_t volatile_boolean(false);
-                volatile const bool_t volatile_const_boolean(false);
+                const volatile bool_t volatile_const_boolean(false);
                 CHECK(boolean != const_boolean);
                 CHECK(boolean != volatile_boolean);
                 CHECK(boolean != volatile_const_boolean);

@@ -19,10 +19,21 @@ namespace nkr { namespace charcoder {
 
     public:
         ascii_t();
+
         ascii_t(const ascii_t& other);
+        ascii_t(const volatile ascii_t& other);
         ascii_t(ascii_t&& other) noexcept;
-        ascii_t& operator =(const ascii_t& other);
-        ascii_t& operator =(ascii_t&& other) noexcept;
+        ascii_t(volatile ascii_t&& other) noexcept;
+
+        ascii_t&            operator =(const ascii_t& other);
+        volatile ascii_t&   operator =(const ascii_t& other) volatile;
+        ascii_t&            operator =(const volatile ascii_t& other);
+        volatile ascii_t&   operator =(const volatile ascii_t& other) volatile;
+        ascii_t&            operator =(ascii_t&& other) noexcept;
+        volatile ascii_t&   operator =(ascii_t&& other) volatile noexcept;
+        ascii_t&            operator =(is_just_volatile_tr<ascii_t> auto&& other) noexcept;
+        volatile ascii_t&   operator =(is_just_volatile_tr<ascii_t> auto&& other) volatile noexcept;
+
         ~ascii_t();
 
     public:

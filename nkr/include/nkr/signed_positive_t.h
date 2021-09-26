@@ -47,17 +47,23 @@ namespace nkr {
         /// @copydoc 
         /// @{
         signed_positive_t();
-        signed_positive_t(integer_tr auto other);
+
+        signed_positive_t(integer_tr auto value);
+
         signed_positive_t(const signed_positive_t& other);
-        signed_positive_t(volatile const signed_positive_t& other);
+        signed_positive_t(const volatile signed_positive_t& other);
         signed_positive_t(signed_positive_t&& other) noexcept;
         signed_positive_t(volatile signed_positive_t&& other) noexcept;
-        signed_positive_t& operator =(integer_tr auto other);
-        volatile signed_positive_t& operator =(integer_tr auto other) volatile;
-        signed_positive_t& operator =(const signed_positive_t& other);
-        volatile signed_positive_t& operator =(volatile const signed_positive_t& other) volatile;
-        signed_positive_t& operator =(signed_positive_t&& other) noexcept;
-        volatile signed_positive_t& operator =(volatile signed_positive_t&& other) volatile noexcept;
+
+        signed_positive_t&          operator =(const signed_positive_t& other);
+        volatile signed_positive_t& operator =(const signed_positive_t& other) volatile;
+        signed_positive_t&          operator =(const volatile signed_positive_t& other);
+        volatile signed_positive_t& operator =(const volatile signed_positive_t& other) volatile;
+        signed_positive_t&          operator =(signed_positive_t&& other) noexcept;
+        volatile signed_positive_t& operator =(signed_positive_t&& other) volatile noexcept;
+        signed_positive_t&          operator =(is_just_volatile_tr<signed_positive_t> auto&& other) noexcept;
+        volatile signed_positive_t& operator =(is_just_volatile_tr<signed_positive_t> auto&& other) volatile noexcept;
+
         ~signed_positive_t();
         /// @}
 
@@ -65,27 +71,27 @@ namespace nkr {
         /// @name casts
         /// @copydoc 
         /// @{
-        operator    value_t() volatile const;
+        operator    value_t() const volatile;
         /// @}
 
     public:
         /// @name operators
         /// @copydoc 
         /// @{
-        auto                        operator +() volatile const                         = delete;
-        auto                        operator -() volatile const                         = delete;
-        auto                        operator +(integer_tr auto other) volatile const;
-        auto                        operator -(integer_tr auto other) volatile const;
-        auto                        operator *(integer_tr auto other) volatile const;
-        auto                        operator /(integer_tr auto other) volatile const;
-        auto                        operator %(integer_tr auto other) volatile const;
+        auto                        operator +() const volatile                         = delete;
+        auto                        operator -() const volatile                         = delete;
+        auto                        operator +(integer_tr auto other) const volatile;
+        auto                        operator -(integer_tr auto other) const volatile;
+        auto                        operator *(integer_tr auto other) const volatile;
+        auto                        operator /(integer_tr auto other) const volatile;
+        auto                        operator %(integer_tr auto other) const volatile;
 
-        auto                        operator ~() volatile const;
-        auto                        operator |(integer_tr auto other) volatile const;
-        auto                        operator &(integer_tr auto other) volatile const;
-        auto                        operator ^(integer_tr auto other) volatile const;
-        auto                        operator <<(integer_tr auto other) volatile const;
-        auto                        operator >>(integer_tr auto other) volatile const;
+        auto                        operator ~() const volatile;
+        auto                        operator |(integer_tr auto other) const volatile;
+        auto                        operator &(integer_tr auto other) const volatile;
+        auto                        operator ^(integer_tr auto other) const volatile;
+        auto                        operator <<(integer_tr auto other) const volatile;
+        auto                        operator >>(integer_tr auto other) const volatile;
 
         signed_positive_t&          operator +=(integer_tr auto other);
         volatile signed_positive_t& operator +=(integer_tr auto other) volatile;

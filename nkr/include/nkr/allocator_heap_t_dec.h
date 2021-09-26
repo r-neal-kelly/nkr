@@ -58,19 +58,23 @@ namespace nkr { namespace allocator {
         }
 
     public:
-        heap_t()                                                                    = default;
+        heap_t()                                                                                    = default;
 
         heap_t(const heap_t& other);
-        heap_t(volatile const heap_t& other);
+        heap_t(const volatile heap_t& other);
         heap_t(heap_t&& other) noexcept;
         heap_t(volatile heap_t&& other) noexcept;
 
         heap_t&             operator =(const heap_t& other);
-        volatile heap_t&    operator =(volatile const heap_t& other) volatile;
+        volatile heap_t&    operator =(const heap_t& other) volatile;
+        heap_t&             operator =(const volatile heap_t& other);
+        volatile heap_t&    operator =(const volatile heap_t& other) volatile;
         heap_t&             operator =(heap_t&& other) noexcept;
-        volatile heap_t&    operator =(volatile heap_t&& other) volatile noexcept;
+        volatile heap_t&    operator =(heap_t&& other) volatile noexcept;
+        heap_t&             operator =(is_just_volatile_tr<heap_t> auto&& other) noexcept;
+        volatile heap_t&    operator =(is_just_volatile_tr<heap_t> auto&& other) volatile noexcept;
 
-        ~heap_t()                                                                   = default;
+        ~heap_t()                                                                                   = default;
 
     public:
         bool_t  Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count) const;

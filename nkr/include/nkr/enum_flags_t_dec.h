@@ -38,17 +38,14 @@ namespace nkr { namespace $enum_flags_t {
         any_sp(any_sp&& other) noexcept;
         any_sp(volatile any_sp&& other) noexcept;
 
-        any_sp&             operator =(value_t value);
-        volatile any_sp&    operator =(value_t value) volatile;
-
         any_sp&             operator =(const any_sp& other);
         volatile any_sp&    operator =(const any_sp& other) volatile;
         any_sp&             operator =(const volatile any_sp& other);
         volatile any_sp&    operator =(const volatile any_sp& other) volatile;
         any_sp&             operator =(any_sp&& other) noexcept;
         volatile any_sp&    operator =(any_sp&& other) volatile noexcept;
-        any_sp&             operator =(volatile any_sp&& other) noexcept;
-        volatile any_sp&    operator =(volatile any_sp&& other) volatile noexcept;
+        any_sp&             operator =(is_just_volatile_tr<any_sp> auto&& other) noexcept;
+        volatile any_sp&    operator =(is_just_volatile_tr<any_sp> auto&& other) volatile noexcept;
 
         ~any_sp();
 
@@ -69,10 +66,27 @@ namespace nkr { namespace $enum_flags_t {
 
 namespace nkr {
 
-    template <typename any_p>
+    template <typename value_p>
     class enum_flags_t
     {
     public:
+        enum_flags_t()                                                                                          = delete;
+
+        enum_flags_t(const enum_flags_t& other)                                                                 = delete;
+        enum_flags_t(const volatile enum_flags_t& other)                                                        = delete;
+        enum_flags_t(enum_flags_t&& other) noexcept                                                             = delete;
+        enum_flags_t(volatile enum_flags_t&& other) noexcept                                                    = delete;
+
+        enum_flags_t&           operator =(const enum_flags_t& other)                                           = delete;
+        volatile enum_flags_t&  operator =(const enum_flags_t& other) volatile                                  = delete;
+        enum_flags_t&           operator =(const volatile enum_flags_t& other)                                  = delete;
+        volatile enum_flags_t&  operator =(const volatile enum_flags_t& other) volatile                         = delete;
+        enum_flags_t&           operator =(enum_flags_t&& other) noexcept                                       = delete;
+        volatile enum_flags_t&  operator =(enum_flags_t&& other) volatile noexcept                              = delete;
+        enum_flags_t&           operator =(is_just_volatile_tr<enum_flags_t> auto&& other) noexcept             = delete;
+        volatile enum_flags_t&  operator =(is_just_volatile_tr<enum_flags_t> auto&& other) volatile noexcept    = delete;
+
+        ~enum_flags_t()                                                                                         = delete;
     };
 
     template <integer_unsigned_tr integer_p>

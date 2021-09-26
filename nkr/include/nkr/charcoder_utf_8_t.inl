@@ -107,6 +107,30 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
+    inline volatile utf_8_t& utf_8_t::operator =(const utf_8_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = other.units[0];
+            this->units[1] = other.units[1];
+            this->units[2] = other.units[2];
+            this->units[3] = other.units[3];
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
+    inline utf_8_t& utf_8_t::operator =(const volatile utf_8_t& other)
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = other.units[0];
+            this->units[1] = other.units[1];
+            this->units[2] = other.units[2];
+            this->units[3] = other.units[3];
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
     inline volatile utf_8_t& utf_8_t::operator =(const volatile utf_8_t& other) volatile
     {
         if (this != std::addressof(other)) {
@@ -131,7 +155,31 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile utf_8_t& utf_8_t::operator =(volatile utf_8_t&& other) volatile noexcept
+    inline volatile utf_8_t& utf_8_t::operator =(utf_8_t&& other) volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = std::exchange(other.units[0], 0);
+            this->units[1] = std::exchange(other.units[1], 0);
+            this->units[2] = std::exchange(other.units[2], 0);
+            this->units[3] = std::exchange(other.units[3], 0);
+            this->unit_count = std::exchange(other.unit_count, 1);
+        }
+        return *this;
+    }
+
+    inline utf_8_t& utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = std::exchange(other.units[0], 0);
+            this->units[1] = std::exchange(other.units[1], 0);
+            this->units[2] = std::exchange(other.units[2], 0);
+            this->units[3] = std::exchange(other.units[3], 0);
+            this->unit_count = std::exchange(other.unit_count, 1);
+        }
+        return *this;
+    }
+
+    inline volatile utf_8_t& utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = std::exchange(other.units[0], 0);

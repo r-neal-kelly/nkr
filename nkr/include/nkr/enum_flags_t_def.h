@@ -73,23 +73,6 @@ namespace nkr { namespace $enum_flags_t {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline any_sp<integer_p, actual_value_p>&
-        any_sp<integer_p, actual_value_p>::operator =(value_t value)
-    {
-        this->value = value;
-        return *this;
-    }
-
-    template <integer_unsigned_tr integer_p, typename actual_value_p>
-    inline volatile any_sp<integer_p, actual_value_p>&
-        any_sp<integer_p, actual_value_p>::operator =(value_t value)
-        volatile
-    {
-        this->value = value;
-        return *this;
-    }
-
-    template <integer_unsigned_tr integer_p, typename actual_value_p>
-    inline any_sp<integer_p, actual_value_p>&
         any_sp<integer_p, actual_value_p>::operator =(const any_sp& other)
     {
         if (this != std::addressof(other)) {
@@ -154,7 +137,7 @@ namespace nkr { namespace $enum_flags_t {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline any_sp<integer_p, actual_value_p>&
-        any_sp<integer_p, actual_value_p>::operator =(volatile any_sp&& other)
+        any_sp<integer_p, actual_value_p>::operator =(is_just_volatile_tr<any_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -165,7 +148,7 @@ namespace nkr { namespace $enum_flags_t {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline volatile any_sp<integer_p, actual_value_p>&
-        any_sp<integer_p, actual_value_p>::operator =(volatile any_sp&& other)
+        any_sp<integer_p, actual_value_p>::operator =(is_just_volatile_tr<any_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {

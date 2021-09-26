@@ -100,7 +100,7 @@ namespace nkr { namespace allocator {
     }
 
     template <any_type_tr unit_p>
-    inline heap_zeros_t<unit_p>::heap_zeros_t(volatile const heap_zeros_t& other)
+    inline heap_zeros_t<unit_p>::heap_zeros_t(const volatile heap_zeros_t& other)
     {
     }
 
@@ -125,7 +125,22 @@ namespace nkr { namespace allocator {
 
     template <any_type_tr unit_p>
     inline volatile heap_zeros_t<unit_p>&
-        heap_zeros_t<unit_p>::operator =(volatile const heap_zeros_t& other)
+        heap_zeros_t<unit_p>::operator =(const heap_zeros_t& other)
+        volatile
+    {
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline heap_zeros_t<unit_p>&
+        heap_zeros_t<unit_p>::operator =(const volatile heap_zeros_t& other)
+    {
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile heap_zeros_t<unit_p>&
+        heap_zeros_t<unit_p>::operator =(const volatile heap_zeros_t& other)
         volatile
     {
         return *this;
@@ -141,7 +156,23 @@ namespace nkr { namespace allocator {
 
     template <any_type_tr unit_p>
     inline volatile heap_zeros_t<unit_p>&
-        heap_zeros_t<unit_p>::operator =(volatile heap_zeros_t&& other)
+        heap_zeros_t<unit_p>::operator =(heap_zeros_t&& other)
+        volatile noexcept
+    {
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline heap_zeros_t<unit_p>&
+        heap_zeros_t<unit_p>::operator =(is_just_volatile_tr<heap_zeros_t> auto&& other)
+        noexcept
+    {
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile heap_zeros_t<unit_p>&
+        heap_zeros_t<unit_p>::operator =(is_just_volatile_tr<heap_zeros_t> auto&& other)
         volatile noexcept
     {
         return *this;

@@ -19,7 +19,7 @@ namespace nkr {
         QUALIFIER_p dynamic_array_t<UNIT_p, ALLOCATOR_p<UNIT_p>, GROW_RATE_p>,                              \
         QUALIFIER_p dynamic_array_t<const UNIT_p, ALLOCATOR_p<const UNIT_p>, GROW_RATE_p>,                  \
         QUALIFIER_p dynamic_array_t<volatile UNIT_p, ALLOCATOR_p<volatile UNIT_p>, GROW_RATE_p>,            \
-        QUALIFIER_p dynamic_array_t<volatile const UNIT_p, ALLOCATOR_p<volatile const UNIT_p>, GROW_RATE_p>
+        QUALIFIER_p dynamic_array_t<const volatile UNIT_p, ALLOCATOR_p<const volatile UNIT_p>, GROW_RATE_p>
 
     #define nkr_GROW_RATES(QUALIFIER_p, UNIT_p, ALLOCATOR_p)                                \
         nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, ALLOCATOR_p, math::fraction_t<17 nkr_COMMA 10>)
@@ -42,7 +42,7 @@ namespace nkr {
 
     #define nkr_CONST               \
         nkr_UNITS(const),           \
-        nkr_UNITS(volatile const)
+        nkr_UNITS(const volatile)
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \

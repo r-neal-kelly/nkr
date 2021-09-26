@@ -50,28 +50,25 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name objects
         /// @copydoc _1fcb90e5_b65a_4312_ac7f_9951456b3425
         /// @{
-        any_sp();                                                                   ///< @copydoc _d18299ac_6d7e_4560_88ff_e53f4bb77069
+        any_sp();                                                                                   ///< @copydoc _d18299ac_6d7e_4560_88ff_e53f4bb77069
 
-        any_sp(value_t value);                                                      ///< @copydoc _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
+        any_sp(value_t value);                                                                      ///< @copydoc _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
 
-        any_sp(const any_sp& other);                                                ///< @copydoc _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
-        any_sp(const volatile any_sp& other);                                       ///< @copydoc 
-        any_sp(any_sp&& other) noexcept;                                            ///< @copydoc _72a66390_63d7_4076_966f_c4a6c6d94c0a
-        any_sp(volatile any_sp&& other) noexcept;                                   ///< @copydoc 
+        any_sp(const any_sp& other);                                                                ///< @copydoc _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
+        any_sp(const volatile any_sp& other);                                                       ///< @copydoc 
+        any_sp(any_sp&& other) noexcept;                                                            ///< @copydoc _72a66390_63d7_4076_966f_c4a6c6d94c0a
+        any_sp(volatile any_sp&& other) noexcept;                                                   ///< @copydoc 
 
-        any_sp&             operator =(value_t value);                              ///< @copydoc 
-        volatile any_sp&    operator =(value_t value) volatile;                     ///< @copydoc 
+        any_sp&             operator =(const any_sp& other);                                        ///< @copydoc _6693684a_9d8b_45e3_9196_3e20af210319
+        volatile any_sp&    operator =(const any_sp& other) volatile;                               ///< @copydoc 
+        any_sp&             operator =(const volatile any_sp& other);                               ///< @copydoc 
+        volatile any_sp&    operator =(const volatile any_sp& other) volatile;                      ///< @copydoc 
+        any_sp&             operator =(any_sp&& other) noexcept;                                    ///< @copydoc _003d4488_8885_414a_b34c_e6beb6c1019a
+        volatile any_sp&    operator =(any_sp&& other) volatile noexcept;                           ///< @copydoc 
+        any_sp&             operator =(is_just_volatile_tr<any_sp> auto&& other) noexcept;          ///< @copydoc 
+        volatile any_sp&    operator =(is_just_volatile_tr<any_sp> auto&& other) volatile noexcept; ///< @copydoc 
 
-        any_sp&             operator =(const any_sp& other);                        ///< @copydoc _6693684a_9d8b_45e3_9196_3e20af210319
-        volatile any_sp&    operator =(const any_sp& other) volatile;               ///< @copydoc 
-        any_sp&             operator =(const volatile any_sp& other);               ///< @copydoc 
-        volatile any_sp&    operator =(const volatile any_sp& other) volatile;      ///< @copydoc 
-        any_sp&             operator =(any_sp&& other) noexcept;                    ///< @copydoc _003d4488_8885_414a_b34c_e6beb6c1019a
-        volatile any_sp&    operator =(any_sp&& other) volatile noexcept;           ///< @copydoc 
-        any_sp&             operator =(volatile any_sp&& other) noexcept;           ///< @copydoc 
-        volatile any_sp&    operator =(volatile any_sp&& other) volatile noexcept;  ///< @copydoc 
-
-        ~any_sp();                                                                  ///< @copydoc _8befff79_9dcc_4bd8_91e6_a3cddab84821
+        ~any_sp();                                                                                  ///< @copydoc _8befff79_9dcc_4bd8_91e6_a3cddab84821
         /// @}
 
     public:
@@ -290,23 +287,23 @@ namespace nkr {
         /// @name objects
         /// @copydoc _dbabc9c5_cd8c_484e_9c15_b2a1b9a189a6
         /// @{
-        maybe_t()                                                                   = delete;   ///< @copydoc _b38b11f9_98b1_45b5_8242_7d1da0aa4949
+        maybe_t()                                                                                   = delete;   ///< @copydoc _b38b11f9_98b1_45b5_8242_7d1da0aa4949
 
-        maybe_t(const maybe_t& other)                                               = delete;   ///< @copydoc _4ad91ffe_91d1_4aab_b371_2e45fced4bb0
-        maybe_t(const volatile maybe_t& other)                                      = delete;   ///< @copydoc 
-        maybe_t(maybe_t&& other) noexcept                                           = delete;   ///< @copydoc _783181a7_0ea9_467e_8c37_c0cee4b8cd77
-        maybe_t(volatile maybe_t&& other) noexcept                                  = delete;   ///< @copydoc 
+        maybe_t(const maybe_t& other)                                                               = delete;   ///< @copydoc _4ad91ffe_91d1_4aab_b371_2e45fced4bb0
+        maybe_t(const volatile maybe_t& other)                                                      = delete;   ///< @copydoc 
+        maybe_t(maybe_t&& other) noexcept                                                           = delete;   ///< @copydoc _783181a7_0ea9_467e_8c37_c0cee4b8cd77
+        maybe_t(volatile maybe_t&& other) noexcept                                                  = delete;   ///< @copydoc 
 
-        maybe_t&            operator =(const maybe_t& other)                        = delete;   ///< @copydoc _2fffa10c_fa78_4309_8ce7_0c9dfef9d911
-        volatile maybe_t&   operator =(const maybe_t& other) volatile               = delete;   ///< @copydoc 
-        maybe_t&            operator =(const volatile maybe_t& other)               = delete;   ///< @copydoc 
-        volatile maybe_t&   operator =(const volatile maybe_t& other) volatile      = delete;   ///< @copydoc 
-        maybe_t&            operator =(maybe_t&& other) noexcept                    = delete;   ///< @copydoc _b57f9ee7_7133_4f1d_b8aa_e93038b42189
-        volatile maybe_t&   operator =(maybe_t&& other) volatile noexcept           = delete;   ///< @copydoc 
-        maybe_t&            operator =(volatile maybe_t&& other) noexcept           = delete;   ///< @copydoc 
-        volatile maybe_t&   operator =(volatile maybe_t&& other) volatile noexcept  = delete;   ///< @copydoc 
+        maybe_t&            operator =(const maybe_t& other)                                        = delete;   ///< @copydoc _2fffa10c_fa78_4309_8ce7_0c9dfef9d911
+        volatile maybe_t&   operator =(const maybe_t& other) volatile                               = delete;   ///< @copydoc 
+        maybe_t&            operator =(const volatile maybe_t& other)                               = delete;   ///< @copydoc 
+        volatile maybe_t&   operator =(const volatile maybe_t& other) volatile                      = delete;   ///< @copydoc 
+        maybe_t&            operator =(maybe_t&& other) noexcept                                    = delete;   ///< @copydoc _b57f9ee7_7133_4f1d_b8aa_e93038b42189
+        volatile maybe_t&   operator =(maybe_t&& other) volatile noexcept                           = delete;   ///< @copydoc 
+        maybe_t&            operator =(is_just_volatile_tr<maybe_t> auto&& other) noexcept          = delete;   ///< @copydoc 
+        volatile maybe_t&   operator =(is_just_volatile_tr<maybe_t> auto&& other) volatile noexcept = delete;   ///< @copydoc 
 
-        ~maybe_t()                                                                  = delete;   ///< @copydoc _60fcb0e7_0dbe_4f97_a940_a31508f6363f
+        ~maybe_t()                                                                                  = delete;   ///< @copydoc _60fcb0e7_0dbe_4f97_a940_a31508f6363f
         /// @}
     };
 

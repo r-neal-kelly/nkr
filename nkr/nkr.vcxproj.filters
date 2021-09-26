@@ -204,6 +204,9 @@
     <ClInclude Include="include\nkr\enum_flags_t_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\array\stack_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">

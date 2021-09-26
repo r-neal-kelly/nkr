@@ -43,7 +43,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline any_type_sp<unit_p>::any_type_sp(volatile const any_type_sp& other) :
+    inline any_type_sp<unit_p>::any_type_sp(const volatile any_type_sp& other) :
         units(other.units),
         unit_count(other.unit_count)
     {
@@ -74,7 +74,27 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(volatile const any_type_sp& other) volatile
+    inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(const any_type_sp& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->units = other.units;
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(const volatile any_type_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            this->units = other.units;
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(const volatile any_type_sp& other) volatile
     {
         if (this != std::addressof(other)) {
             this->units = other.units;
@@ -94,7 +114,27 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(volatile any_type_sp&& other) volatile noexcept
+    inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(any_type_sp&& other) volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units = std::exchange(other.units, nullptr);
+            this->unit_count = std::exchange(other.unit_count, 0);
+        }
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(is_just_volatile_tr<any_type_sp> auto&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units = std::exchange(other.units, nullptr);
+            this->unit_count = std::exchange(other.unit_count, 0);
+        }
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(is_just_volatile_tr<any_type_sp> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units = std::exchange(other.units, nullptr);
@@ -134,9 +174,9 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline typename any_type_sp<unit_p>::unit_t* volatile const&
+    inline typename any_type_sp<unit_p>::unit_t* const volatile&
         any_type_sp<unit_p>::Unit()
-        volatile const
+        const volatile
     {
         return this->units;
     }
@@ -165,9 +205,9 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline typename volatile const any_type_sp<unit_p>::units_t&
+    inline typename const volatile any_type_sp<unit_p>::units_t&
         any_type_sp<unit_p>::Units()
-        volatile const
+        const volatile
     {
         return this->units;
     }
@@ -196,9 +236,9 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline volatile const count_t&
+    inline const volatile count_t&
         any_type_sp<unit_p>::Unit_Count()
-        volatile const
+        const volatile
     {
         return this->unit_count;
     }
@@ -222,7 +262,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline any_type_sp<unit_p>::operator volatile const units_t&() volatile const
+    inline any_type_sp<unit_p>::operator const volatile units_t&() const volatile
     {
         return this->units;
     }
@@ -246,7 +286,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline typename volatile const any_type_sp<unit_p>::units_t& any_type_sp<unit_p>::operator ()() volatile const
+    inline typename const volatile any_type_sp<unit_p>::units_t& any_type_sp<unit_p>::operator ()() const volatile
     {
         return this->units;
     }
@@ -276,7 +316,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline any_type_sp<unit_p> any_type_sp<unit_p>::operator +(integer_tr auto amount) volatile const
+    inline any_type_sp<unit_p> any_type_sp<unit_p>::operator +(integer_tr auto amount) const volatile
     {
         assert(this->units != nullptr);
 
@@ -284,7 +324,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline any_type_sp<unit_p> any_type_sp<unit_p>::operator -(integer_tr auto amount) volatile const
+    inline any_type_sp<unit_p> any_type_sp<unit_p>::operator -(integer_tr auto amount) const volatile
     {
         assert(this->units != nullptr);
 
@@ -390,7 +430,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline typename any_type_sp<unit_p>::unit_t* any_type_sp<unit_p>::operator ->() volatile const
+    inline typename any_type_sp<unit_p>::unit_t* any_type_sp<unit_p>::operator ->() const volatile
     {
         assert(this->units != nullptr);
         assert(this->unit_count > 0);
@@ -399,7 +439,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline typename any_type_sp<unit_p>::unit_t& any_type_sp<unit_p>::operator *() volatile const
+    inline typename any_type_sp<unit_p>::unit_t& any_type_sp<unit_p>::operator *() const volatile
     {
         assert(this->units != nullptr);
         assert(this->unit_count > 0);
@@ -408,7 +448,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_type_tr unit_p>
-    inline typename any_type_sp<unit_p>::unit_t& any_type_sp<unit_p>::operator [](index_t index) volatile const
+    inline typename any_type_sp<unit_p>::unit_t& any_type_sp<unit_p>::operator [](index_t index) const volatile
     {
         assert(this->units != nullptr);
         assert(index < this->unit_count);
@@ -451,7 +491,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline any_non_type_sp<unit_p>::any_non_type_sp(volatile const any_non_type_sp& other) :
+    inline any_non_type_sp<unit_p>::any_non_type_sp(const volatile any_non_type_sp& other) :
         units(other.units),
         unit_count(other.unit_count)
     {
@@ -482,7 +522,27 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(volatile const any_non_type_sp& other) volatile
+    inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(const any_non_type_sp& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->units = other.units;
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(const volatile any_non_type_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            this->units = other.units;
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(const volatile any_non_type_sp& other) volatile
     {
         if (this != std::addressof(other)) {
             this->units = other.units;
@@ -502,7 +562,27 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(volatile any_non_type_sp&& other) volatile noexcept
+    inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(any_non_type_sp&& other) volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units = std::exchange(other.units, nullptr);
+            this->unit_count = std::exchange(other.unit_count, 0);
+        }
+        return *this;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(is_just_volatile_tr<any_non_type_sp> auto&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units = std::exchange(other.units, nullptr);
+            this->unit_count = std::exchange(other.unit_count, 0);
+        }
+        return *this;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(is_just_volatile_tr<any_non_type_sp> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units = std::exchange(other.units, nullptr);
@@ -542,9 +622,9 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline typename any_non_type_sp<unit_p>::unit_t* volatile const&
+    inline typename any_non_type_sp<unit_p>::unit_t* const volatile&
         any_non_type_sp<unit_p>::Unit()
-        volatile const
+        const volatile
     {
         return this->units;
     }
@@ -573,9 +653,9 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline typename volatile const any_non_type_sp<unit_p>::units_t&
+    inline typename const volatile any_non_type_sp<unit_p>::units_t&
         any_non_type_sp<unit_p>::Units()
-        volatile const
+        const volatile
     {
         return this->units;
     }
@@ -604,9 +684,9 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline volatile const count_t&
+    inline const volatile count_t&
         any_non_type_sp<unit_p>::Unit_Count()
-        volatile const
+        const volatile
     {
         return this->unit_count;
     }
@@ -630,7 +710,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline any_non_type_sp<unit_p>::operator volatile const units_t&() volatile const
+    inline any_non_type_sp<unit_p>::operator const volatile units_t&() const volatile
     {
         return this->units;
     }
@@ -654,7 +734,7 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline typename volatile const any_non_type_sp<unit_p>::units_t& any_non_type_sp<unit_p>::operator ()() volatile const
+    inline typename const volatile any_non_type_sp<unit_p>::units_t& any_non_type_sp<unit_p>::operator ()() const volatile
     {
         return this->units;
     }
@@ -731,19 +811,19 @@ namespace nkr {
     extern template class pointer_t<volatile r32_t>;
     extern template class pointer_t<volatile r64_t>;
 
-    extern template class pointer_t<volatile const void_t>;
-    extern template class pointer_t<volatile const std_bool_t>;
-    extern template class pointer_t<volatile const bool_t>;
-    extern template class pointer_t<volatile const u8_t>;
-    extern template class pointer_t<volatile const s8_t>;
-    extern template class pointer_t<volatile const u16_t>;
-    extern template class pointer_t<volatile const s16_t>;
-    extern template class pointer_t<volatile const u32_t>;
-    extern template class pointer_t<volatile const s32_t>;
-    extern template class pointer_t<volatile const u64_t>;
-    extern template class pointer_t<volatile const s64_t>;
-    extern template class pointer_t<volatile const r32_t>;
-    extern template class pointer_t<volatile const r64_t>;
+    extern template class pointer_t<const volatile void_t>;
+    extern template class pointer_t<const volatile std_bool_t>;
+    extern template class pointer_t<const volatile bool_t>;
+    extern template class pointer_t<const volatile u8_t>;
+    extern template class pointer_t<const volatile s8_t>;
+    extern template class pointer_t<const volatile u16_t>;
+    extern template class pointer_t<const volatile s16_t>;
+    extern template class pointer_t<const volatile u32_t>;
+    extern template class pointer_t<const volatile s32_t>;
+    extern template class pointer_t<const volatile u64_t>;
+    extern template class pointer_t<const volatile s64_t>;
+    extern template class pointer_t<const volatile r32_t>;
+    extern template class pointer_t<const volatile r64_t>;
 
 }
 

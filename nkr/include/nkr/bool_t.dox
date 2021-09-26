@@ -355,7 +355,7 @@
         * @snippet "./src/bool_t.cpp" _c90cbd67_36ee_49a8_809d_380c54085e40
         */
 
-        // std_bool_t() volatile const
+        // std_bool_t() const volatile
         /**
         * @class _676141d7_bb06_45a8_8b65_0f5ae7bee673
         * @private
@@ -391,7 +391,7 @@
         * @snippet "./src/bool_t.cpp" _7acf2bea_986a_4fea_ac75_b69447b0b864
         */
 
-        // volatile const word_t&()
+        // const volatile word_t&()
         /**
         * @class _3e6e7fd1_df11_44b3_a3d6_4f5073359d92
         * @private

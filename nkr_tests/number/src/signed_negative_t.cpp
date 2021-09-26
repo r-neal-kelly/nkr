@@ -31,10 +31,10 @@ namespace nkr {
         volatile sn64_t
 
     #define volatile_consts     \
-        volatile const sn8_t,   \
-        volatile const sn16_t,  \
-        volatile const sn32_t,  \
-        volatile const sn64_t
+        const volatile sn8_t,   \
+        const volatile sn16_t,  \
+        const volatile sn32_t,  \
+        const volatile sn64_t
 
         TEST_SUITE("aliases")
         {

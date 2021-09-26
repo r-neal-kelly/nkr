@@ -49,18 +49,23 @@ namespace nkr { namespace $pointer_t {
         /// @copydoc 
         /// @{
         any_type_sp();
+
         any_type_sp(convertible_tr<unit_t*> auto unit);
         any_type_sp(convertible_tr<units_t> auto units, count_t unit_count);
 
         any_type_sp(const any_type_sp& other);
-        any_type_sp(volatile const any_type_sp& other);
+        any_type_sp(const volatile any_type_sp& other);
         any_type_sp(any_type_sp&& other) noexcept;
         any_type_sp(volatile any_type_sp&& other) noexcept;
 
         any_type_sp&            operator =(const any_type_sp& other);
-        volatile any_type_sp&   operator =(volatile const any_type_sp& other) volatile;
+        volatile any_type_sp&   operator =(const any_type_sp& other) volatile;
+        any_type_sp&            operator =(const volatile any_type_sp& other);
+        volatile any_type_sp&   operator =(const volatile any_type_sp& other) volatile;
         any_type_sp&            operator =(any_type_sp&& other) noexcept;
-        volatile any_type_sp&   operator =(volatile any_type_sp&& other) volatile noexcept;
+        volatile any_type_sp&   operator =(any_type_sp&& other) volatile noexcept;
+        any_type_sp&            operator =(is_just_volatile_tr<any_type_sp> auto&& other) noexcept;
+        volatile any_type_sp&   operator =(is_just_volatile_tr<any_type_sp> auto&& other) volatile noexcept;
 
         ~any_type_sp();
         /// @}
@@ -69,17 +74,17 @@ namespace nkr { namespace $pointer_t {
         unit_t*&                Unit();
         unit_t* const&          Unit() const;
         unit_t* volatile&       Unit() volatile;
-        unit_t* volatile const& Unit() volatile const;
+        unit_t* const volatile& Unit() const volatile;
 
         units_t&                Units();
         const units_t&          Units() const;
         volatile units_t&       Units() volatile;
-        volatile const units_t& Units() volatile const;
+        const volatile units_t& Units() const volatile;
 
         count_t&                Unit_Count();
         const count_t&          Unit_Count() const;
         volatile count_t&       Unit_Count() volatile;
-        volatile const count_t& Unit_Count() volatile const;
+        const volatile count_t& Unit_Count() const volatile;
 
     public:
         /// @name casts
@@ -88,7 +93,7 @@ namespace nkr { namespace $pointer_t {
         operator    units_t&();
         operator    const units_t&() const;
         operator    volatile units_t&() volatile;
-        operator    volatile const units_t&() volatile const;
+        operator    const volatile units_t&() const volatile;
         /// @}
 
     public:
@@ -98,14 +103,14 @@ namespace nkr { namespace $pointer_t {
         units_t&                operator ()();
         const units_t&          operator ()() const;
         volatile units_t&       operator ()() volatile;
-        volatile const units_t& operator ()() volatile const;
+        const volatile units_t& operator ()() const volatile;
         any_type_sp&            operator ()(convertible_tr<unit_t*> auto unit);
         volatile any_type_sp&   operator ()(convertible_tr<unit_t*> auto unit) volatile;
         any_type_sp&            operator ()(convertible_tr<units_t> auto units, count_t unit_count);
         volatile any_type_sp&   operator ()(convertible_tr<units_t> auto units, count_t unit_count) volatile;
 
-        any_type_sp             operator +(integer_tr auto amount) volatile const;
-        any_type_sp             operator -(integer_tr auto amount) volatile const;
+        any_type_sp             operator +(integer_tr auto amount) const volatile;
+        any_type_sp             operator -(integer_tr auto amount) const volatile;
 
         any_type_sp&            operator +=(integer_tr auto amount);
         volatile any_type_sp&   operator +=(integer_tr auto amount) volatile;
@@ -119,9 +124,9 @@ namespace nkr { namespace $pointer_t {
         volatile any_type_sp&   operator --() volatile;
         any_type_sp             operator --(int) volatile;
 
-        units_t                 operator ->() volatile const;
-        unit_t&                 operator *() volatile const;
-        unit_t&                 operator [](index_t index) volatile const;
+        units_t                 operator ->() const volatile;
+        unit_t&                 operator *() const volatile;
+        unit_t&                 operator [](index_t index) const volatile;
         /// @}
     };
 
@@ -167,14 +172,18 @@ namespace nkr { namespace $pointer_t {
         any_non_type_sp(convertible_tr<units_t> auto units, count_t unit_count);
 
         any_non_type_sp(const any_non_type_sp& other);
-        any_non_type_sp(volatile const any_non_type_sp& other);
+        any_non_type_sp(const volatile any_non_type_sp& other);
         any_non_type_sp(any_non_type_sp&& other) noexcept;
         any_non_type_sp(volatile any_non_type_sp&& other) noexcept;
 
         any_non_type_sp&            operator =(const any_non_type_sp& other);
-        volatile any_non_type_sp&   operator =(volatile const any_non_type_sp& other) volatile;
+        volatile any_non_type_sp&   operator =(const any_non_type_sp& other) volatile;
+        any_non_type_sp&            operator =(const volatile any_non_type_sp& other);
+        volatile any_non_type_sp&   operator =(const volatile any_non_type_sp& other) volatile;
         any_non_type_sp&            operator =(any_non_type_sp&& other) noexcept;
-        volatile any_non_type_sp&   operator =(volatile any_non_type_sp&& other) volatile noexcept;
+        volatile any_non_type_sp&   operator =(any_non_type_sp&& other) volatile noexcept;
+        any_non_type_sp&            operator =(is_just_volatile_tr<any_non_type_sp> auto&& other) noexcept;
+        volatile any_non_type_sp&   operator =(is_just_volatile_tr<any_non_type_sp> auto&& other) volatile noexcept;
 
         ~any_non_type_sp();
         /// @}
@@ -183,17 +192,17 @@ namespace nkr { namespace $pointer_t {
         unit_t*&                Unit();
         unit_t* const&          Unit() const;
         unit_t* volatile&       Unit() volatile;
-        unit_t* volatile const& Unit() volatile const;
+        unit_t* const volatile& Unit() const volatile;
 
         units_t&                Units();
         const units_t&          Units() const;
         volatile units_t&       Units() volatile;
-        volatile const units_t& Units() volatile const;
+        const volatile units_t& Units() const volatile;
 
         count_t&                Unit_Count();
         const count_t&          Unit_Count() const;
         volatile count_t&       Unit_Count() volatile;
-        volatile const count_t& Unit_Count() volatile const;
+        const volatile count_t& Unit_Count() const volatile;
 
     public:
         /// @name casts
@@ -202,7 +211,7 @@ namespace nkr { namespace $pointer_t {
         operator    units_t&();
         operator    const units_t&() const;
         operator    volatile units_t&() volatile;
-        operator    volatile const units_t&() volatile const;
+        operator    const volatile units_t&() const volatile;
         /// @}
 
     public:
@@ -212,7 +221,7 @@ namespace nkr { namespace $pointer_t {
         units_t&                    operator ()();
         const units_t&              operator ()() const;
         volatile units_t&           operator ()() volatile;
-        volatile const units_t&     operator ()() volatile const;
+        const volatile units_t&     operator ()() const volatile;
         any_non_type_sp&            operator ()(convertible_tr<unit_t*> auto unit);
         volatile any_non_type_sp&   operator ()(convertible_tr<unit_t*> auto unit) volatile;
         any_non_type_sp&            operator ()(convertible_tr<units_t> auto units, count_t unit_count);
@@ -237,19 +246,23 @@ namespace nkr {
         /// @name objects
         /// @copydoc 
         /// @{
-        pointer_t()                                                                     = delete;
+        pointer_t()                                                                                     = delete;
 
-        pointer_t(const pointer_t& other)                                               = delete;
-        pointer_t(volatile const pointer_t& other)                                      = delete;
-        pointer_t(pointer_t&& other) noexcept                                           = delete;
-        pointer_t(volatile pointer_t&& other) noexcept                                  = delete;
+        pointer_t(const pointer_t& other)                                                               = delete;
+        pointer_t(const volatile pointer_t& other)                                                      = delete;
+        pointer_t(pointer_t&& other) noexcept                                                           = delete;
+        pointer_t(volatile pointer_t&& other) noexcept                                                  = delete;
 
-        pointer_t&          operator =(const pointer_t& other)                          = delete;
-        volatile pointer_t& operator =(volatile const pointer_t& other) volatile        = delete;
-        pointer_t&          operator =(pointer_t&& other) noexcept                      = delete;
-        volatile pointer_t& operator =(volatile pointer_t&& other) volatile noexcept    = delete;
+        pointer_t&          operator =(const pointer_t& other)                                          = delete;
+        volatile pointer_t& operator =(const pointer_t& other) volatile                                 = delete;
+        pointer_t&          operator =(const volatile pointer_t& other)                                 = delete;
+        volatile pointer_t& operator =(const volatile pointer_t& other) volatile                        = delete;
+        pointer_t&          operator =(pointer_t&& other) noexcept                                      = delete;
+        volatile pointer_t& operator =(pointer_t&& other) volatile noexcept                             = delete;
+        pointer_t&          operator =(is_just_volatile_tr<pointer_t> auto&& other) noexcept            = delete;
+        volatile pointer_t& operator =(is_just_volatile_tr<pointer_t> auto&& other) volatile noexcept   = delete;
 
-        ~pointer_t()                                                                    = delete;
+        ~pointer_t()                                                                                    = delete;
         /// @}
     };
 

@@ -116,28 +116,25 @@ namespace nkr {
         /// @name objects
         /// @copydoc _727e30a1_ed17_4451_aefd_e9ff35d4be9c
         /// @{
-        bool_t();                                                                   ///< @copydoc _507e6865_70dc_4e5b_97ab_c0d33e53dc67
+        bool_t();                                                                                   ///< @copydoc _507e6865_70dc_4e5b_97ab_c0d33e53dc67
 
-        bool_t(to_std_bool_tr auto value);                                          ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
+        bool_t(to_std_bool_tr auto value);                                                          ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
         
-        bool_t(const bool_t& other);                                                ///< @copydoc _c692880f_ea8a_47c2_b8c8_98a00607b79b
-        bool_t(const volatile bool_t& other);                                       ///< @copydoc _c2c40c6d_4153_4079_8231_a8f818fc4999
-        bool_t(bool_t&& other) noexcept;                                            ///< @copydoc _f2621569_562c_44b6_a4be_cddfaf0b1147
-        bool_t(volatile bool_t&& other) noexcept;                                   ///< @copydoc _e5e66483_541d_4798_b386_2874446fb0de
+        bool_t(const bool_t& other);                                                                ///< @copydoc _c692880f_ea8a_47c2_b8c8_98a00607b79b
+        bool_t(const volatile bool_t& other);                                                       ///< @copydoc _c2c40c6d_4153_4079_8231_a8f818fc4999
+        bool_t(bool_t&& other) noexcept;                                                            ///< @copydoc _f2621569_562c_44b6_a4be_cddfaf0b1147
+        bool_t(volatile bool_t&& other) noexcept;                                                   ///< @copydoc _e5e66483_541d_4798_b386_2874446fb0de
 
-        bool_t&             operator =(to_std_bool_tr auto value);                  ///< @copydoc 
-        volatile bool_t&    operator =(to_std_bool_tr auto value) volatile;         ///< @copydoc 
+        bool_t&             operator =(const bool_t& other);                                        ///< @copydoc _9b3a1871_d4ff_4afb_886d_e0d16ebaad08
+        volatile bool_t&    operator =(const bool_t& other) volatile;                               ///< @copydoc 
+        bool_t&             operator =(const volatile bool_t& other);                               ///< @copydoc 
+        volatile bool_t&    operator =(const volatile bool_t& other) volatile;                      ///< @copydoc _462d0286_9a2d_4ea9_8b92_3f75d50199ae
+        bool_t&             operator =(bool_t&& other) noexcept;                                    ///< @copydoc _cf5bcded_4eb2_4cdb_92cd_aa5b66b3138b
+        volatile bool_t&    operator =(bool_t&& other) volatile noexcept;                           ///< @copydoc 
+        bool_t&             operator =(is_just_volatile_tr<bool_t> auto&& other) noexcept;          ///< @copydoc 
+        volatile bool_t&    operator =(is_just_volatile_tr<bool_t> auto&& other) volatile noexcept; ///< @copydoc _b047b3ab_68ee_46f3_b210_6f27f6f34ef1
 
-        bool_t&             operator =(const bool_t& other);                        ///< @copydoc _9b3a1871_d4ff_4afb_886d_e0d16ebaad08
-        volatile bool_t&    operator =(const bool_t& other) volatile;               ///< @copydoc 
-        bool_t&             operator =(const volatile bool_t& other);               ///< @copydoc 
-        volatile bool_t&    operator =(const volatile bool_t& other) volatile;      ///< @copydoc _462d0286_9a2d_4ea9_8b92_3f75d50199ae
-        bool_t&             operator =(bool_t&& other) noexcept;                    ///< @copydoc _cf5bcded_4eb2_4cdb_92cd_aa5b66b3138b
-        volatile bool_t&    operator =(bool_t&& other) volatile noexcept;           ///< @copydoc 
-        bool_t&             operator =(volatile bool_t&& other) noexcept;           ///< @copydoc 
-        volatile bool_t&    operator =(volatile bool_t&& other) volatile noexcept;  ///< @copydoc _b047b3ab_68ee_46f3_b210_6f27f6f34ef1
-
-        ~bool_t();                                                                  ///< @copydoc _4c312eec_919f_4b48_98e5_a3539442c7d2
+        ~bool_t();                                                                                  ///< @copydoc _4c312eec_919f_4b48_98e5_a3539442c7d2
         /// @}
 
     public:

@@ -73,28 +73,25 @@ namespace nkr { namespace $atomic_t {
         /// @name objects
         /// @copydoc _1053c39e_78e4_4501_bdd5_fa790bfe8bd5
         /// @{
-        boolean_sp();                                                                       ///< @copydoc _95db9ad8_4d39_4de5_bc38_28d054451654
+        boolean_sp();                                                                                       ///< @copydoc _95db9ad8_4d39_4de5_bc38_28d054451654
         
-        boolean_sp(convertible_tr<value_t> auto value);                                     ///< @copydoc _79178fc7_46e8_412f_b875_222389e8c699
+        boolean_sp(convertible_tr<value_t> auto value);                                                     ///< @copydoc _79178fc7_46e8_412f_b875_222389e8c699
         
-        boolean_sp(const boolean_sp& other);                                                ///< @copydoc _f13e81f0_5ced_4185_8bfb_6a17811bf402
-        boolean_sp(const volatile boolean_sp& other);                                       ///< @copydoc 
-        boolean_sp(boolean_sp&& other) noexcept;                                            ///< @copydoc _2051d33c_31c9_402b_b7b0_30ed311bae55
-        boolean_sp(volatile boolean_sp&& other) noexcept;                                   ///< @copydoc 
-        
-        boolean_sp&             operator =(convertible_tr<value_t> auto value);             ///< @copydoc 
-        volatile boolean_sp&    operator =(convertible_tr<value_t> auto value) volatile;    ///< @copydoc 
+        boolean_sp(const boolean_sp& other);                                                                ///< @copydoc _f13e81f0_5ced_4185_8bfb_6a17811bf402
+        boolean_sp(const volatile boolean_sp& other);                                                       ///< @copydoc 
+        boolean_sp(boolean_sp&& other) noexcept;                                                            ///< @copydoc _2051d33c_31c9_402b_b7b0_30ed311bae55
+        boolean_sp(volatile boolean_sp&& other) noexcept;                                                   ///< @copydoc 
 
-        boolean_sp&             operator =(const boolean_sp& other);                        ///< @copydoc _754a3b96_c816_4875_b1c5_bd94f74975fe
-        volatile boolean_sp&    operator =(const boolean_sp& other) volatile;               ///< @copydoc 
-        boolean_sp&             operator =(const volatile boolean_sp& other);               ///< @copydoc 
-        volatile boolean_sp&    operator =(const volatile boolean_sp& other) volatile;      ///< @copydoc 
-        boolean_sp&             operator =(boolean_sp&& other) noexcept;                    ///< @copydoc _27b572bf_b851_4bbb_bf27_5be01e5164d0
-        volatile boolean_sp&    operator =(boolean_sp&& other) volatile noexcept;           ///< @copydoc 
-        boolean_sp&             operator =(volatile boolean_sp&& other) noexcept;           ///< @copydoc 
-        volatile boolean_sp&    operator =(volatile boolean_sp&& other) volatile noexcept;  ///< @copydoc 
+        boolean_sp&             operator =(const boolean_sp& other);                                        ///< @copydoc _754a3b96_c816_4875_b1c5_bd94f74975fe
+        volatile boolean_sp&    operator =(const boolean_sp& other) volatile;                               ///< @copydoc 
+        boolean_sp&             operator =(const volatile boolean_sp& other);                               ///< @copydoc 
+        volatile boolean_sp&    operator =(const volatile boolean_sp& other) volatile;                      ///< @copydoc 
+        boolean_sp&             operator =(boolean_sp&& other) noexcept;                                    ///< @copydoc _27b572bf_b851_4bbb_bf27_5be01e5164d0
+        volatile boolean_sp&    operator =(boolean_sp&& other) volatile noexcept;                           ///< @copydoc 
+        boolean_sp&             operator =(is_just_volatile_tr<boolean_sp> auto&& other) noexcept;          ///< @copydoc 
+        volatile boolean_sp&    operator =(is_just_volatile_tr<boolean_sp> auto&& other) volatile noexcept; ///< @copydoc 
         
-        ~boolean_sp();                                                                      ///< @copydoc _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
+        ~boolean_sp();                                                                                      ///< @copydoc _70f5c9d9_6b00_4e4b_ab7a_8f43cf310780
         /// @}
 
     public:
@@ -175,28 +172,25 @@ namespace nkr { namespace $atomic_t {
         /// @name objects
         /// @copydoc _162f5a89_c587_40d2_ac4c_9b43659dfa9a
         /// @{
-        integer_sp();                                                                       ///< @copydoc _6214730b_aeb9_4083_998c_f9e1c020924e
+        integer_sp();                                                                                       ///< @copydoc _6214730b_aeb9_4083_998c_f9e1c020924e
         
-        integer_sp(convertible_tr<value_t> auto value);                                     ///< @copydoc _934d0d25_c160_42c4_a269_363ce0e78da6
+        integer_sp(convertible_tr<value_t> auto value);                                                     ///< @copydoc _934d0d25_c160_42c4_a269_363ce0e78da6
         
-        integer_sp(const integer_sp& other);                                                ///< @copydoc _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
-        integer_sp(const volatile integer_sp& other);                                       ///< @copydoc 
-        integer_sp(integer_sp&& other) noexcept;                                            ///< @copydoc _0d15101b_2293_4225_8f70_3edb3f8618de
-        integer_sp(volatile integer_sp&& other) noexcept;                                   ///< @copydoc 
+        integer_sp(const integer_sp& other);                                                                ///< @copydoc _ca4f92b3_f5c8_470d_a3da_c7f8a334d441
+        integer_sp(const volatile integer_sp& other);                                                       ///< @copydoc 
+        integer_sp(integer_sp&& other) noexcept;                                                            ///< @copydoc _0d15101b_2293_4225_8f70_3edb3f8618de
+        integer_sp(volatile integer_sp&& other) noexcept;                                                   ///< @copydoc 
 
-        integer_sp&             operator =(convertible_tr<value_t> auto value);             ///< @copydoc 
-        volatile integer_sp&    operator =(convertible_tr<value_t> auto value) volatile;    ///< @copydoc 
+        integer_sp&             operator =(const integer_sp& other);                                        ///< @copydoc _eeeb1194_9900_46ab_8e15_1e8a0a663395
+        volatile integer_sp&    operator =(const integer_sp& other) volatile;                               ///< @copydoc 
+        integer_sp&             operator =(const volatile integer_sp& other);                               ///< @copydoc 
+        volatile integer_sp&    operator =(const volatile integer_sp& other) volatile;                      ///< @copydoc 
+        integer_sp&             operator =(integer_sp&& other) noexcept;                                    ///< @copydoc _ccf84af8_3181_43e0_a892_9850e2a4c6f0
+        volatile integer_sp&    operator =(integer_sp&& other) volatile noexcept;                           ///< @copydoc 
+        integer_sp&             operator =(is_just_volatile_tr<integer_sp> auto&& other) noexcept;          ///< @copydoc 
+        volatile integer_sp&    operator =(is_just_volatile_tr<integer_sp> auto&& other) volatile noexcept; ///< @copydoc 
         
-        integer_sp&             operator =(const integer_sp& other);                        ///< @copydoc _eeeb1194_9900_46ab_8e15_1e8a0a663395
-        volatile integer_sp&    operator =(const integer_sp& other) volatile;               ///< @copydoc 
-        integer_sp&             operator =(const volatile integer_sp& other);               ///< @copydoc 
-        volatile integer_sp&    operator =(const volatile integer_sp& other) volatile;      ///< @copydoc 
-        integer_sp&             operator =(integer_sp&& other) noexcept;                    ///< @copydoc _ccf84af8_3181_43e0_a892_9850e2a4c6f0
-        volatile integer_sp&    operator =(integer_sp&& other) volatile noexcept;           ///< @copydoc 
-        integer_sp&             operator =(volatile integer_sp&& other) noexcept;           ///< @copydoc 
-        volatile integer_sp&    operator =(volatile integer_sp&& other) volatile noexcept;  ///< @copydoc 
-        
-        ~integer_sp();                                                                      ///< @copydoc _01602bc3_a017_47e4_b34e_b8a1dd6dae2f
+        ~integer_sp();                                                                                      ///< @copydoc _01602bc3_a017_47e4_b34e_b8a1dd6dae2f
         /// @}
 
     public:
@@ -347,28 +341,25 @@ namespace nkr { namespace $atomic_t {
         /// @name objects
         /// @copydoc _be559580_3edb_4338_b9e4_8281092c81ed
         /// @{
-        real_sp();                                                                      ///< @copydoc _78362e25_29db_484e_860f_66bf63ef0702
+        real_sp();                                                                                      ///< @copydoc _78362e25_29db_484e_860f_66bf63ef0702
         
-        real_sp(convertible_tr<value_t> auto value);                                    ///< @copydoc _e33edbdb_fbf4_49f0_add1_08599e7824b6
+        real_sp(convertible_tr<value_t> auto value);                                                    ///< @copydoc _e33edbdb_fbf4_49f0_add1_08599e7824b6
         
-        real_sp(const real_sp& other);                                                  ///< @copydoc _61a595a9_8bea_4302_a9cf_5c0c84e88502
-        real_sp(const volatile real_sp& other);                                         ///< @copydoc 
-        real_sp(real_sp&& other) noexcept;                                              ///< @copydoc _d20308c7_ca46_4f3b_ac5d_4817164d0a99
-        real_sp(volatile real_sp&& other) noexcept;                                     ///< @copydoc 
+        real_sp(const real_sp& other);                                                                  ///< @copydoc _61a595a9_8bea_4302_a9cf_5c0c84e88502
+        real_sp(const volatile real_sp& other);                                                         ///< @copydoc 
+        real_sp(real_sp&& other) noexcept;                                                              ///< @copydoc _d20308c7_ca46_4f3b_ac5d_4817164d0a99
+        real_sp(volatile real_sp&& other) noexcept;                                                     ///< @copydoc 
 
-        real_sp&            operator =(convertible_tr<value_t> auto value);             ///< @copydoc 
-        volatile real_sp&   operator =(convertible_tr<value_t> auto value) volatile;    ///< @copydoc 
-        
-        real_sp&            operator =(const real_sp& other);                           ///< @copydoc _13e2fc20_6a84_42c2_8e14_5464b2a92bd2
-        volatile real_sp&   operator =(const real_sp& other) volatile;                  ///< @copydoc 
-        real_sp&            operator =(const volatile real_sp& other);                  ///< @copydoc 
-        volatile real_sp&   operator =(const volatile real_sp& other) volatile;         ///< @copydoc 
-        real_sp&            operator =(real_sp&& other) noexcept;                       ///< @copydoc _111623c4_8569_44fe_ac45_eb839d13677c
-        volatile real_sp&   operator =(real_sp&& other) volatile noexcept;              ///< @copydoc 
-        real_sp&            operator =(volatile real_sp&& other) noexcept;              ///< @copydoc 
-        volatile real_sp&   operator =(volatile real_sp&& other) volatile noexcept;     ///< @copydoc 
+        real_sp&            operator =(const real_sp& other);                                           ///< @copydoc _13e2fc20_6a84_42c2_8e14_5464b2a92bd2
+        volatile real_sp&   operator =(const real_sp& other) volatile;                                  ///< @copydoc 
+        real_sp&            operator =(const volatile real_sp& other);                                  ///< @copydoc 
+        volatile real_sp&   operator =(const volatile real_sp& other) volatile;                         ///< @copydoc 
+        real_sp&            operator =(real_sp&& other) noexcept;                                       ///< @copydoc _111623c4_8569_44fe_ac45_eb839d13677c
+        volatile real_sp&   operator =(real_sp&& other) volatile noexcept;                              ///< @copydoc 
+        real_sp&            operator =(is_just_volatile_tr<real_sp> auto&& other) noexcept;             ///< @copydoc 
+        volatile real_sp&   operator =(is_just_volatile_tr<real_sp> auto&& other) volatile noexcept;    ///< @copydoc 
 
-        ~real_sp();                                                                     ///< @copydoc _41d0b192_af22_4282_b188_40f164bf851e
+        ~real_sp();                                                                                     ///< @copydoc _41d0b192_af22_4282_b188_40f164bf851e
         /// @}
 
     public:
@@ -485,28 +476,25 @@ namespace nkr { namespace $atomic_t {
         /// @name objects
         /// @copydoc _02cb02e0_23f1_48c1_94fb_56163a661f5f
         /// @{
-        pointer_sp();                                                                       ///< @copydoc _b54cf1c4_55a9_4de6_8d00_dcb2d3ca9d25
+        pointer_sp();                                                                                       ///< @copydoc _b54cf1c4_55a9_4de6_8d00_dcb2d3ca9d25
         
-        pointer_sp(convertible_tr<value_t> auto value);                                     ///< @copydoc _6fe3639a_9af9_482a_ac65_71dd762b87c4
+        pointer_sp(convertible_tr<value_t> auto value);                                                     ///< @copydoc _6fe3639a_9af9_482a_ac65_71dd762b87c4
         
-        pointer_sp(const pointer_sp& other);                                                ///< @copydoc _7daf8ec0_a6a6_422c_a4be_367b0a320abd
-        pointer_sp(const volatile pointer_sp& other);                                       ///< @copydoc 
-        pointer_sp(pointer_sp&& other) noexcept;                                            ///< @copydoc _9004776c_b34b_4004_a28b_aa3405d0705a
-        pointer_sp(volatile pointer_sp&& other) noexcept;                                   ///< @copydoc 
-        
-        pointer_sp&             operator =(convertible_tr<value_t> auto value);             ///< @copydoc 
-        volatile pointer_sp&    operator =(convertible_tr<value_t> auto value) volatile;    ///< @copydoc 
+        pointer_sp(const pointer_sp& other);                                                                ///< @copydoc _7daf8ec0_a6a6_422c_a4be_367b0a320abd
+        pointer_sp(const volatile pointer_sp& other);                                                       ///< @copydoc 
+        pointer_sp(pointer_sp&& other) noexcept;                                                            ///< @copydoc _9004776c_b34b_4004_a28b_aa3405d0705a
+        pointer_sp(volatile pointer_sp&& other) noexcept;                                                   ///< @copydoc 
 
-        pointer_sp&             operator =(const pointer_sp& other);                        ///< @copydoc _4010b13b_d165_40e2_9ee1_4c1cd9d9347e
-        volatile pointer_sp&    operator =(const pointer_sp& other) volatile;               ///< @copydoc 
-        pointer_sp&             operator =(const volatile pointer_sp& other);               ///< @copydoc 
-        volatile pointer_sp&    operator =(const volatile pointer_sp& other) volatile;      ///< @copydoc 
-        pointer_sp&             operator =(pointer_sp&& other) noexcept;                    ///< @copydoc _aa527a17_a527_4c42_a747_e666b3ad3def
-        volatile pointer_sp&    operator =(pointer_sp&& other) volatile noexcept;           ///< @copydoc 
-        pointer_sp&             operator =(volatile pointer_sp&& other) noexcept;           ///< @copydoc 
-        volatile pointer_sp&    operator =(volatile pointer_sp&& other) volatile noexcept;  ///< @copydoc 
+        pointer_sp&             operator =(const pointer_sp& other);                                        ///< @copydoc _4010b13b_d165_40e2_9ee1_4c1cd9d9347e
+        volatile pointer_sp&    operator =(const pointer_sp& other) volatile;                               ///< @copydoc 
+        pointer_sp&             operator =(const volatile pointer_sp& other);                               ///< @copydoc 
+        volatile pointer_sp&    operator =(const volatile pointer_sp& other) volatile;                      ///< @copydoc 
+        pointer_sp&             operator =(pointer_sp&& other) noexcept;                                    ///< @copydoc _aa527a17_a527_4c42_a747_e666b3ad3def
+        volatile pointer_sp&    operator =(pointer_sp&& other) volatile noexcept;                           ///< @copydoc 
+        pointer_sp&             operator =(is_just_volatile_tr<pointer_sp> auto&& other) noexcept;          ///< @copydoc 
+        volatile pointer_sp&    operator =(is_just_volatile_tr<pointer_sp> auto&& other) volatile noexcept; ///< @copydoc 
         
-        ~pointer_sp();                                                                      ///< @copydoc _2f13ca94_e440_4c22_8716_ad04477faeec
+        ~pointer_sp();                                                                                      ///< @copydoc _2f13ca94_e440_4c22_8716_ad04477faeec
         /// @}
 
     public:
@@ -617,28 +605,25 @@ namespace nkr { namespace $atomic_t {
         /// @name objects
         /// @copydoc _efde0406_9ccb_4bb9_a8d3_233743e9bea5
         /// @{
-        void_pointer_sp();                                                                          ///< @copydoc _4aaf8533_9fae_4e73_a496_b809f4182419
+        void_pointer_sp();                                                                                              ///< @copydoc _4aaf8533_9fae_4e73_a496_b809f4182419
         
-        void_pointer_sp(convertible_tr<value_t> auto value);                                        ///< @copydoc _6835eb33_5782_4b57_b536_6176a01989f8
+        void_pointer_sp(convertible_tr<value_t> auto value);                                                            ///< @copydoc _6835eb33_5782_4b57_b536_6176a01989f8
         
-        void_pointer_sp(const void_pointer_sp& other);                                              ///< @copydoc _c8551a6c_8e62_416a_9f73_a5b1b99f984f
-        void_pointer_sp(const volatile void_pointer_sp& other);                                     ///< @copydoc 
-        void_pointer_sp(void_pointer_sp&& other) noexcept;                                          ///< @copydoc _ebfcfe7d_9340_4d7a_b128_df74de441f1f
-        void_pointer_sp(volatile void_pointer_sp&& other) noexcept;                                 ///< @copydoc 
+        void_pointer_sp(const void_pointer_sp& other);                                                                  ///< @copydoc _c8551a6c_8e62_416a_9f73_a5b1b99f984f
+        void_pointer_sp(const volatile void_pointer_sp& other);                                                         ///< @copydoc 
+        void_pointer_sp(void_pointer_sp&& other) noexcept;                                                              ///< @copydoc _ebfcfe7d_9340_4d7a_b128_df74de441f1f
+        void_pointer_sp(volatile void_pointer_sp&& other) noexcept;                                                     ///< @copydoc 
 
-        void_pointer_sp&            operator =(convertible_tr<value_t> auto value);                 ///< @copydoc 
-        volatile void_pointer_sp&   operator =(convertible_tr<value_t> auto value) volatile;        ///< @copydoc 
-
-        void_pointer_sp&            operator =(const void_pointer_sp& other);                       ///< @copydoc _86b76904_0174_4cdc_a369_2673d1740ec5
-        volatile void_pointer_sp&   operator =(const void_pointer_sp& other) volatile;              ///< @copydoc 
-        void_pointer_sp&            operator =(const volatile void_pointer_sp& other);              ///< @copydoc 
-        volatile void_pointer_sp&   operator =(const volatile void_pointer_sp& other) volatile;     ///< @copydoc 
-        void_pointer_sp&            operator =(void_pointer_sp&& other) noexcept;                   ///< @copydoc _0eea443f_df0b_442e_a8fa_3173c412e675
-        volatile void_pointer_sp&   operator =(void_pointer_sp&& other) volatile noexcept;          ///< @copydoc 
-        void_pointer_sp&            operator =(volatile void_pointer_sp&& other) noexcept;          ///< @copydoc 
-        volatile void_pointer_sp&   operator =(volatile void_pointer_sp&& other) volatile noexcept; ///< @copydoc 
+        void_pointer_sp&            operator =(const void_pointer_sp& other);                                           ///< @copydoc _86b76904_0174_4cdc_a369_2673d1740ec5
+        volatile void_pointer_sp&   operator =(const void_pointer_sp& other) volatile;                                  ///< @copydoc 
+        void_pointer_sp&            operator =(const volatile void_pointer_sp& other);                                  ///< @copydoc 
+        volatile void_pointer_sp&   operator =(const volatile void_pointer_sp& other) volatile;                         ///< @copydoc 
+        void_pointer_sp&            operator =(void_pointer_sp&& other) noexcept;                                       ///< @copydoc _0eea443f_df0b_442e_a8fa_3173c412e675
+        volatile void_pointer_sp&   operator =(void_pointer_sp&& other) volatile noexcept;                              ///< @copydoc 
+        void_pointer_sp&            operator =(is_just_volatile_tr<void_pointer_sp> auto&& other) noexcept;             ///< @copydoc 
+        volatile void_pointer_sp&   operator =(is_just_volatile_tr<void_pointer_sp> auto&& other) volatile noexcept;    ///< @copydoc 
         
-        ~void_pointer_sp();                                                                         ///< @copydoc _e286417e_9f29_48fc_b76e_b118d557d1e1
+        ~void_pointer_sp();                                                                                             ///< @copydoc _e286417e_9f29_48fc_b76e_b118d557d1e1
         /// @}
 
     public:
@@ -702,23 +687,23 @@ namespace nkr {
         /// @name objects
         /// @copydoc _dce4c888_983a_42e1_9fa3_2bf954717d41
         /// @{
-        atomic_t()                                                                  = delete;   ///< @copydoc _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
+        atomic_t()                                                                                      = delete;   ///< @copydoc _8e2cc8ab_3e8d_4c9a_8cbc_cf0f5ed55d1a
 
-        atomic_t(const atomic_t& other)                                             = delete;   ///< @copydoc _9727488c_e0cc_4056_a68f_d12b84d5ceca
-        atomic_t(const volatile atomic_t& other)                                    = delete;   ///< @copydoc 
-        atomic_t(atomic_t&& other) noexcept                                         = delete;   ///< @copydoc _20433dd1_bd70_44ec_b6a3_7b5311f12825
-        atomic_t(volatile atomic_t&& other) noexcept                                = delete;   ///< @copydoc 
+        atomic_t(const atomic_t& other)                                                                 = delete;   ///< @copydoc _9727488c_e0cc_4056_a68f_d12b84d5ceca
+        atomic_t(const volatile atomic_t& other)                                                        = delete;   ///< @copydoc 
+        atomic_t(atomic_t&& other) noexcept                                                             = delete;   ///< @copydoc _20433dd1_bd70_44ec_b6a3_7b5311f12825
+        atomic_t(volatile atomic_t&& other) noexcept                                                    = delete;   ///< @copydoc 
 
-        atomic_t&           operator =(const atomic_t& other)                       = delete;   ///< @copydoc _28d6f470_34eb_4d0d_8dc5_239e23c1c253
-        volatile atomic_t&  operator =(const atomic_t& other) volatile              = delete;   ///< @copydoc 
-        atomic_t&           operator =(const volatile atomic_t& other)              = delete;   ///< @copydoc 
-        volatile atomic_t&  operator =(const volatile atomic_t& other) volatile     = delete;   ///< @copydoc 
-        atomic_t&           operator =(atomic_t&& other) noexcept                   = delete;   ///< @copydoc _388db58d_c89b_420b_bad9_c3e0334cdd9f
-        volatile atomic_t&  operator =(atomic_t&& other) volatile noexcept          = delete;   ///< @copydoc 
-        atomic_t&           operator =(volatile atomic_t&& other) noexcept          = delete;   ///< @copydoc 
-        volatile atomic_t&  operator =(volatile atomic_t&& other) volatile noexcept = delete;   ///< @copydoc 
+        atomic_t&           operator =(const atomic_t& other)                                           = delete;   ///< @copydoc _28d6f470_34eb_4d0d_8dc5_239e23c1c253
+        volatile atomic_t&  operator =(const atomic_t& other) volatile                                  = delete;   ///< @copydoc 
+        atomic_t&           operator =(const volatile atomic_t& other)                                  = delete;   ///< @copydoc 
+        volatile atomic_t&  operator =(const volatile atomic_t& other) volatile                         = delete;   ///< @copydoc 
+        atomic_t&           operator =(atomic_t&& other) noexcept                                       = delete;   ///< @copydoc _388db58d_c89b_420b_bad9_c3e0334cdd9f
+        volatile atomic_t&  operator =(atomic_t&& other) volatile noexcept                              = delete;   ///< @copydoc 
+        atomic_t&           operator =(is_just_volatile_tr<atomic_t> auto&& other) noexcept             = delete;   ///< @copydoc 
+        volatile atomic_t&  operator =(is_just_volatile_tr<atomic_t> auto&& other) volatile noexcept    = delete;   ///< @copydoc 
 
-        ~atomic_t()                                                                 = delete;   ///< @copydoc _e7cda9ac_182a_48c9_8ace_1a6f8887a65a
+        ~atomic_t()                                                                                     = delete;   ///< @copydoc _e7cda9ac_182a_48c9_8ace_1a6f8887a65a
         /// @}
     };
 

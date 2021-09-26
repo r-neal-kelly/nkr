@@ -55,6 +55,26 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
+    inline volatile utf_16_t& utf_16_t::operator =(const utf_16_t& other) volatile
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = other.units[0];
+            this->units[1] = other.units[1];
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
+    inline utf_16_t& utf_16_t::operator =(const volatile utf_16_t& other)
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = other.units[0];
+            this->units[1] = other.units[1];
+            this->unit_count = other.unit_count;
+        }
+        return *this;
+    }
+
     inline volatile utf_16_t& utf_16_t::operator =(const volatile utf_16_t& other) volatile
     {
         if (this != std::addressof(other)) {
@@ -75,7 +95,27 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile utf_16_t& utf_16_t::operator =(volatile utf_16_t&& other) volatile noexcept
+    inline volatile utf_16_t& utf_16_t::operator =(utf_16_t&& other) volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = std::exchange(other.units[0], 0);
+            this->units[1] = std::exchange(other.units[1], 0);
+            this->unit_count = std::exchange(other.unit_count, 1);
+        }
+        return *this;
+    }
+
+    inline utf_16_t& utf_16_t::operator =(is_just_volatile_tr<utf_16_t> auto&& other) noexcept
+    {
+        if (this != std::addressof(other)) {
+            this->units[0] = std::exchange(other.units[0], 0);
+            this->units[1] = std::exchange(other.units[1], 0);
+            this->unit_count = std::exchange(other.unit_count, 1);
+        }
+        return *this;
+    }
+
+    inline volatile utf_16_t& utf_16_t::operator =(is_just_volatile_tr<utf_16_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = std::exchange(other.units[0], 0);

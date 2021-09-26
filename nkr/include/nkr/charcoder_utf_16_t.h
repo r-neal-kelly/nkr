@@ -28,9 +28,13 @@ namespace nkr { namespace charcoder {
         utf_16_t(volatile utf_16_t&& other) noexcept;
 
         utf_16_t&           operator =(const utf_16_t& other);
+        volatile utf_16_t&  operator =(const utf_16_t& other) volatile;
+        utf_16_t&           operator =(const volatile utf_16_t& other);
         volatile utf_16_t&  operator =(const volatile utf_16_t& other) volatile;
         utf_16_t&           operator =(utf_16_t&& other) noexcept;
-        volatile utf_16_t&  operator =(volatile utf_16_t&& other) volatile noexcept;
+        volatile utf_16_t&  operator =(utf_16_t&& other) volatile noexcept;
+        utf_16_t&           operator =(is_just_volatile_tr<utf_16_t> auto&& other) noexcept;
+        volatile utf_16_t&  operator =(is_just_volatile_tr<utf_16_t> auto&& other) volatile noexcept;
 
         ~utf_16_t();
 

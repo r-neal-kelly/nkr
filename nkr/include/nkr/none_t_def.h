@@ -69,14 +69,14 @@ namespace nkr {
     }
 
     inline none_t&
-        none_t::operator =(volatile none_t&& other)
+        none_t::operator =(is_just_volatile_tr<none_t> auto&& other)
         noexcept
     {
         return *this;
     }
 
     inline volatile none_t&
-        none_t::operator =(volatile none_t&& other)
+        none_t::operator =(is_just_volatile_tr<none_t> auto&& other)
         volatile noexcept
     {
         return *this;

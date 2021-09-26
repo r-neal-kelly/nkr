@@ -16,7 +16,7 @@ namespace nkr {
         QUALIFIER_p pointer_t<UNIT_p>,                  \
         QUALIFIER_p pointer_t<volatile UNIT_p>,         \
         QUALIFIER_p pointer_t<const UNIT_p>,            \
-        QUALIFIER_p pointer_t<volatile const UNIT_p>
+        QUALIFIER_p pointer_t<const volatile UNIT_p>
 
     #define nkr_UNITS(QUALIFIER_p)          \
         nkr_UNIT(QUALIFIER_p, void_t),      \
@@ -35,7 +35,7 @@ namespace nkr {
 
     #define nkr_CONST               \
         nkr_UNITS(const),           \
-        nkr_UNITS(volatile const)
+        nkr_UNITS(const volatile)
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \
@@ -119,10 +119,10 @@ namespace nkr {
 
                     pointer_t<unit_t> a;
                     volatile pointer_t<unit_t> b;
-                    volatile const pointer_t<unit_t> c;
+                    const volatile pointer_t<unit_t> c;
                     pointer_t<unit_t>& d = a;
                     volatile pointer_t<unit_t>& e = b;
-                    volatile const pointer_t<unit_t>& f = c;
+                    const volatile pointer_t<unit_t>& f = c;
 
                     CHECK_TRUE(a == b);
                     CHECK_TRUE(a == c);
@@ -227,10 +227,10 @@ namespace nkr {
 
                     pointer_t<unit_t> a;
                     volatile pointer_t<unit_t> b;
-                    volatile const pointer_t<unit_t> c;
+                    const volatile pointer_t<unit_t> c;
                     pointer_t<unit_t>& d = a;
                     volatile pointer_t<unit_t>& e = b;
-                    volatile const pointer_t<unit_t>& f = c;
+                    const volatile pointer_t<unit_t>& f = c;
 
                     CHECK_FALSE(a != b);
                     CHECK_FALSE(a != c);
@@ -761,7 +761,7 @@ namespace nkr {
                     unit_t* unit = Random<unit_t*>();
                     pointer_p pointer(unit);
                     if constexpr (just_const_volatile_tr<pointer_p>) {
-                        volatile const units_t cast = static_cast<volatile const units_t&>(pointer);
+                        const volatile units_t cast = static_cast<const volatile units_t&>(pointer);
                         CHECK(cast == unit);
                     } else if constexpr (just_volatile_tr<pointer_p>) {
                         volatile units_t cast = static_cast<volatile units_t&>(pointer);
@@ -783,7 +783,7 @@ namespace nkr {
                     unit_t* unit = Random<unit_t*>();
                     pointer_p pointer(unit);
                     if constexpr (just_const_volatile_tr<pointer_p>) {
-                        volatile const units_t cast = pointer;
+                        const volatile units_t cast = pointer;
                         CHECK(cast == unit);
                     } else if constexpr (just_volatile_tr<pointer_p>) {
                         volatile units_t cast = pointer;

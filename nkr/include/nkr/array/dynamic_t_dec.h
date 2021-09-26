@@ -103,15 +103,15 @@ namespace nkr {
         dynamic_array_t(const unit_t& filler, count_t count, allocator_t&& allocator);
         dynamic_array_t(writable_unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t());
         dynamic_array_t(writable_unit_t&& filler, count_t count, allocator_t&& allocator);
-        dynamic_array_t(volatile const unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                                    = delete;
-        dynamic_array_t(volatile const unit_t&& filler, count_t count, allocator_t&& allocator)                                                         = delete;
+        dynamic_array_t(const volatile unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                                    = delete;
+        dynamic_array_t(const volatile unit_t&& filler, count_t count, allocator_t&& allocator)                                                         = delete;
 
         dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const std_array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
         dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
-        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())                     = delete;
-        dynamic_array_t(volatile const std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                                          = delete;
+        dynamic_array_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())                     = delete;
+        dynamic_array_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                                          = delete;
 
         dynamic_array_t(const any_stack_array_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
         dynamic_array_t(const any_stack_array_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
@@ -128,38 +128,42 @@ namespace nkr {
         dynamic_array_t(any_instant_array_of_any_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator)                                        = delete;   ///< @copydoc _c1790cd3_ad82_4ddf_9eb2_cc9036a6bc75
 
         dynamic_array_t(const dynamic_array_t& other);
-        dynamic_array_t(volatile const dynamic_array_t& other);
+        dynamic_array_t(const volatile dynamic_array_t& other);
         dynamic_array_t(dynamic_array_t&& other) noexcept;
         dynamic_array_t(volatile dynamic_array_t&& other) noexcept;
 
         dynamic_array_t&            operator =(const dynamic_array_t& other);
-        volatile dynamic_array_t&   operator =(volatile const dynamic_array_t& other) volatile;
+        volatile dynamic_array_t&   operator =(const dynamic_array_t& other) volatile;
+        dynamic_array_t&            operator =(const volatile dynamic_array_t& other);
+        volatile dynamic_array_t&   operator =(const volatile dynamic_array_t& other) volatile;
         dynamic_array_t&            operator =(dynamic_array_t&& other) noexcept;
-        volatile dynamic_array_t&   operator =(volatile dynamic_array_t&& other) volatile noexcept;
+        volatile dynamic_array_t&   operator =(dynamic_array_t&& other) volatile noexcept;
+        dynamic_array_t&            operator =(is_just_volatile_tr<dynamic_array_t> auto&& other) noexcept;
+        volatile dynamic_array_t&   operator =(is_just_volatile_tr<dynamic_array_t> auto&& other) volatile noexcept;
 
         ~dynamic_array_t();
 
     public:
         pointer_t                   Pointer() const;
-        pointer_t                   Pointer() volatile const;
+        pointer_t                   Pointer() const volatile;
         count_t                     Count() const;
-        count_t                     Count() volatile const;
+        count_t                     Count() const volatile;
         const allocator_t&          Allocator() const;
-        volatile const allocator_t& Allocator() volatile const;
+        const volatile allocator_t& Allocator() const volatile;
 
         count_t                     Capacity() const;
-        count_t                     Capacity() volatile const;
+        count_t                     Capacity() const volatile;
         bool_t                      Capacity(count_t new_capacity);
         bool_t                      Capacity(count_t new_capacity) volatile;
 
         unit_t&                     At(index_t index) const;
-        unit_t&                     At(index_t index) volatile const;
+        unit_t&                     At(index_t index) const volatile;
         bool_t                      Push(const unit_t& unit);
         bool_t                      Push(const unit_t& unit) volatile;
         bool_t                      Push(writable_unit_t&& unit);
         bool_t                      Push(writable_unit_t&& unit) volatile;
-        bool_t                      Push(volatile const unit_t&& unit)          = delete;
-        bool_t                      Push(volatile const unit_t&& unit) volatile = delete;
+        bool_t                      Push(const volatile unit_t&& unit)          = delete;
+        bool_t                      Push(const volatile unit_t&& unit) volatile = delete;
         unit_t                      Pop();
         unit_t                      Pop() volatile;
 
@@ -177,24 +181,24 @@ namespace nkr {
         void_t                      Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
 
         bool_t                      Is_Fit() const;
-        bool_t                      Is_Fit() volatile const;
+        bool_t                      Is_Fit() const volatile;
         bool_t                      Fit();
         bool_t                      Fit() volatile;
 
         bool_t                      Is_Clear() const;
-        bool_t                      Is_Clear() volatile const;
+        bool_t                      Is_Clear() const volatile;
         void_t                      Clear();
         void_t                      Clear() volatile;
 
     private:
         bool_t  Should_Grow() const;
-        bool_t  Should_Grow() volatile const;
+        bool_t  Should_Grow() const volatile;
         bool_t  Grow();
         bool_t  Grow() volatile;
 
     public:
         unit_t& operator [](index_t index) const;
-        unit_t& operator [](index_t index) volatile const;
+        unit_t& operator [](index_t index) const volatile;
     };
     static_assert(array_i<dynamic_array_t<word_t>>);
     static_assert(array_i<dynamic_array_t<const word_t>>);

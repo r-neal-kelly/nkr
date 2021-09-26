@@ -9,6 +9,8 @@
 
 namespace nkr { namespace charcoder {
 
+    // eventually we can use the stack_array_t as units
+
     class utf_8_t
     {
     public:
@@ -27,9 +29,13 @@ namespace nkr { namespace charcoder {
         utf_8_t(volatile utf_8_t&& other) noexcept;
 
         utf_8_t&            operator =(const utf_8_t& other);
+        volatile utf_8_t&   operator =(const utf_8_t& other) volatile;
+        utf_8_t&            operator =(const volatile utf_8_t& other);
         volatile utf_8_t&   operator =(const volatile utf_8_t& other) volatile;
         utf_8_t&            operator =(utf_8_t&& other) noexcept;
-        volatile utf_8_t&   operator =(volatile utf_8_t&& other) volatile noexcept;
+        volatile utf_8_t&   operator =(utf_8_t&& other) volatile noexcept;
+        utf_8_t&            operator =(is_just_volatile_tr<utf_8_t> auto&& other) noexcept;
+        volatile utf_8_t&   operator =(is_just_volatile_tr<utf_8_t> auto&& other) volatile noexcept;
 
         ~utf_8_t();
 

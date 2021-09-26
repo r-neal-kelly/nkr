@@ -28,7 +28,7 @@ namespace nkr {
 
     #define nkr_CONST                   \
         nkr_ALL_PARAMS(const),          \
-        nkr_ALL_PARAMS(volatile const)
+        nkr_ALL_PARAMS(const volatile)
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \
