@@ -24,7 +24,7 @@ namespace nkr {
     concept any_dynamic_array_tr =
         is_any_tr<array_p, dynamic_array_t<typename array_p::unit_t, typename array_p::allocator_t, typename array_p::grow_rate_t>>;
 
-    nkr_DEFINE_CONTAINER_TRAITS(dynamic_array);
+    nkr_DEFINE_CONTAINER_TRAITS(dynamic_array, unit_t);
 
 }
 

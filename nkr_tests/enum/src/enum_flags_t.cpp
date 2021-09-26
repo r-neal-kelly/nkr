@@ -2,6 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/atomic_t.h"
 #include "nkr/enum_flags_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
@@ -9,6 +10,8 @@
 #include "doctest.h"
 
 namespace nkr {
+
+    // need to fill out the assignment ops on atomic_t to get it to work with this.
 
     class test_flags_e :
         public enum_flags_t<u8_t>
@@ -27,7 +30,7 @@ namespace nkr {
         };
 
     public:
-        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_flags_e, base_t);
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_flags_e, base_enum_t);
     };
 
     TEST_CASE("temp")

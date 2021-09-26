@@ -18,7 +18,7 @@ namespace nkr {
     concept any_stack_array_tr =
         is_any_tr<array_p, stack_array_t<typename array_p::unit_t, array_p::Capacity()>>;
 
-    nkr_DEFINE_CONTAINER_TRAITS(stack_array);
+    nkr_DEFINE_CONTAINER_TRAITS(stack_array, unit_t);
 
 }
 
@@ -170,7 +170,7 @@ namespace nkr {
     concept any_instant_array_tr =
         type_p::Is_Instant_Array();
 
-    nkr_DEFINE_CONTAINER_TRAITS(instant_array);
+    nkr_DEFINE_CONTAINER_TRAITS(instant_array, unit_t);
 
 }
 

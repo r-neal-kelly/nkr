@@ -9,12 +9,34 @@
 #include "nkr/macros.h"
 #include "nkr/none_i.h"
 #include "nkr/traits.h"
+#include "nkr/utils.h"
 
 namespace nkr {
 
     /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
     /// @copydoc _80ba6268_583c_45c1_8d5c_d5d84565dae8
     namespace $atomic_t {};
+
+}
+
+namespace nkr {
+
+    template <typename value_p>
+    class atomic_t;
+
+    template <typename atomic_p>
+    concept any_atomic_tr =
+        is_any_tr<atomic_p, atomic_t<typename atomic_p::value_t>>;
+
+    nkr_DEFINE_CONTAINER_TRAITS(atomic, value_t);
+
+    template <typename atomic_p>
+    concept any_non_const_atomic_of_any_non_const_unsigned_integer_tr =
+        any_non_const_atomic_tr<atomic_p> &&
+        any_non_const_tr<typename atomic_p::value_t> &&
+        integer_unsigned_tr<typename atomic_p::value_t>;
+
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_const_atomic_of_any_non_const_unsigned_integer_tr, atomic_p);
 
 }
 
@@ -618,7 +640,7 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc _d6e046d8_6c2e_4075_905b_563f1c8f2455
-    template <typename invalid_p>
+    template <typename value_p>
     class atomic_t
     {
     public:

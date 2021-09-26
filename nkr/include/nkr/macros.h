@@ -29,7 +29,7 @@ namespace nkr {
 
     #define nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(TRAIT_p, PARAM_1_p)
     #define nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(TRAIT_p, PARAM_1_p, PARAM_2_p)
-    #define nkr_DEFINE_CONTAINER_TRAITS(CONTAINER_NAME_p)
+    #define nkr_DEFINE_CONTAINER_TRAITS(CONTAINER_NAME_p, CONTAINEE_ALIAS_p)
     /// @}
 
 }

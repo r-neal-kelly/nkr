@@ -4,22 +4,19 @@
 
 #pragma once
 
+#include "nkr/atomic_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 #include "nkr/traits.h"
 
-namespace nkr {
+namespace nkr { namespace $enum_flags_t {
 
-    // we need to make a specialization for atomic unsigned integers
-
-    template <integer_unsigned_tr value_p>
-    class enum_flags_t
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    class any_sp
     {
     public:
-        using value_t           = value_p;
-        using writable_value_t  = std::remove_const_t<value_t>;
-
-    protected:
-        using base_t    = enum_flags_t;
+        using value_t           = integer_p;
+        using actual_value_t    = actual_value_p;
 
     public:
         static constexpr index_t    Min_Index();
@@ -29,31 +26,31 @@ namespace nkr {
         static constexpr value_t    Define();
 
     public:
-        value_t value;
+        actual_value_t  value;
 
     public:
-        enum_flags_t();
+        any_sp();
 
-        enum_flags_t(value_t value);
+        any_sp(value_t value);
 
-        enum_flags_t(const enum_flags_t& other);
-        enum_flags_t(const volatile enum_flags_t& other);
-        enum_flags_t(enum_flags_t&& other) noexcept;
-        enum_flags_t(volatile enum_flags_t&& other) noexcept;
+        any_sp(const any_sp& other);
+        any_sp(const volatile any_sp& other);
+        any_sp(any_sp&& other) noexcept;
+        any_sp(volatile any_sp&& other) noexcept;
 
-        enum_flags_t&           operator =(value_t value);
-        volatile enum_flags_t&  operator =(value_t value) volatile;
+        any_sp&             operator =(value_t value);
+        volatile any_sp&    operator =(value_t value) volatile;
 
-        enum_flags_t&           operator =(const enum_flags_t& other);
-        volatile enum_flags_t&  operator =(const enum_flags_t& other) volatile;
-        enum_flags_t&           operator =(const volatile enum_flags_t& other);
-        volatile enum_flags_t&  operator =(const volatile enum_flags_t& other) volatile;
-        enum_flags_t&           operator =(enum_flags_t&& other) noexcept;
-        volatile enum_flags_t&  operator =(enum_flags_t&& other) volatile noexcept;
-        enum_flags_t&           operator =(volatile enum_flags_t&& other) noexcept;
-        volatile enum_flags_t&  operator =(volatile enum_flags_t&& other) volatile noexcept;
+        any_sp&             operator =(const any_sp& other);
+        volatile any_sp&    operator =(const any_sp& other) volatile;
+        any_sp&             operator =(const volatile any_sp& other);
+        volatile any_sp&    operator =(const volatile any_sp& other) volatile;
+        any_sp&             operator =(any_sp&& other) noexcept;
+        volatile any_sp&    operator =(any_sp&& other) volatile noexcept;
+        any_sp&             operator =(volatile any_sp&& other) noexcept;
+        volatile any_sp&    operator =(volatile any_sp&& other) volatile noexcept;
 
-        ~enum_flags_t();
+        ~any_sp();
 
     public:
         value_t Flags() const;
@@ -66,6 +63,44 @@ namespace nkr {
         void_t  Flag(value_t flag) volatile;
         void_t  Unflag(value_t flag);
         void_t  Unflag(value_t flag) volatile;
+    };
+
+}}
+
+namespace nkr {
+
+    template <typename any_p>
+    class enum_flags_t
+    {
+    public:
+    };
+
+    template <integer_unsigned_tr integer_p>
+    class enum_flags_t<integer_p> :
+        public $enum_flags_t::any_sp<integer_p, integer_p>
+    {
+    public:
+        using base_enum_t   = enum_flags_t;
+
+    private:
+        using base_t    = $enum_flags_t::any_sp<integer_p, integer_p>;
+
+    public:
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(enum_flags_t, base_t);
+    };
+
+    template <any_non_const_atomic_of_any_non_const_unsigned_integer_tr atomic_p>
+    class enum_flags_t<atomic_p> :
+        public $enum_flags_t::any_sp<typename atomic_p::value_t, atomic_p>
+    {
+    public:
+        using base_enum_t   = enum_flags_t;
+
+    private:
+        using base_t    = $enum_flags_t::any_sp<typename atomic_p::value_t, atomic_p>;
+
+    public:
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(enum_flags_t, base_t);
     };
 
 }

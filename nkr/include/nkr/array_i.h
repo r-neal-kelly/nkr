@@ -18,6 +18,8 @@ namespace nkr {
                                typename array_p::unit_t& lvalue_unit,
                                typename array_p::writable_unit_t&& rvalue_unit)
     {
+        typename array_p::unit_t;
+
         count = const_array.Count();
 
         array.Push(lvalue_unit);
@@ -28,6 +30,6 @@ namespace nkr {
     concept any_array_tr =
         array_i<array_p>;
 
-    nkr_DEFINE_CONTAINER_TRAITS(array);
+    nkr_DEFINE_CONTAINER_TRAITS(array, unit_t);
 
 }
