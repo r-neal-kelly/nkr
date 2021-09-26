@@ -11,10 +11,8 @@
 
 namespace nkr {
 
-    // need to fill out the assignment ops on atomic_t to get it to work with this.
-
     class test_flags_e :
-        public enum_flags_t<u8_t>
+        public enum_flags_t<atomic_t<u8_t>>
     {
     public:
         enum : value_t

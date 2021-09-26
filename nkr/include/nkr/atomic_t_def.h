@@ -52,7 +52,45 @@ namespace nkr { namespace $atomic_t {
 
     template <boolean_tr boolean_p>
     inline boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(convertible_tr<value_t> auto value)
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline volatile boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(convertible_tr<value_t> auto value)
+        volatile
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>&
         boolean_sp<boolean_p>::operator =(const boolean_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline volatile boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(const boolean_sp& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(const volatile boolean_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -74,6 +112,28 @@ namespace nkr { namespace $atomic_t {
     template <boolean_tr boolean_p>
     inline boolean_sp<boolean_p>&
         boolean_sp<boolean_p>::operator =(boolean_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline volatile boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(boolean_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
+    inline boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(volatile boolean_sp&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -205,6 +265,15 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <boolean_tr boolean_p>
+    inline volatile boolean_sp<boolean_p>&
+        boolean_sp<boolean_p>::operator =(none_t)
+        volatile
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    template <boolean_tr boolean_p>
     inline bool_t
         boolean_sp<boolean_p>::operator ==(none_t)
         const
@@ -214,8 +283,24 @@ namespace nkr { namespace $atomic_t {
 
     template <boolean_tr boolean_p>
     inline bool_t
+        boolean_sp<boolean_p>::operator ==(none_t)
+        const volatile
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    template <boolean_tr boolean_p>
+    inline bool_t
         boolean_sp<boolean_p>::operator !=(none_t)
         const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <boolean_tr boolean_p>
+    inline bool_t
+        boolean_sp<boolean_p>::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }
@@ -262,7 +347,45 @@ namespace nkr { namespace $atomic_t {
 
     template <integer_tr integer_p>
     inline integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(convertible_tr<value_t> auto value)
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline volatile integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(convertible_tr<value_t> auto value)
+        volatile
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>&
         integer_sp<integer_p>::operator =(const integer_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline volatile integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(const integer_sp& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(const volatile integer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -284,6 +407,28 @@ namespace nkr { namespace $atomic_t {
     template <integer_tr integer_p>
     inline integer_sp<integer_p>&
         integer_sp<integer_p>::operator =(integer_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline volatile integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(integer_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <integer_tr integer_p>
+    inline integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(volatile integer_sp&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -925,6 +1070,15 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <integer_tr integer_p>
+    inline volatile integer_sp<integer_p>&
+        integer_sp<integer_p>::operator =(none_t)
+        volatile
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    template <integer_tr integer_p>
     inline bool_t
         integer_sp<integer_p>::operator ==(none_t)
         const
@@ -934,8 +1088,24 @@ namespace nkr { namespace $atomic_t {
 
     template <integer_tr integer_p>
     inline bool_t
+        integer_sp<integer_p>::operator ==(none_t)
+        const volatile
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    template <integer_tr integer_p>
+    inline bool_t
         integer_sp<integer_p>::operator !=(none_t)
         const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <integer_tr integer_p>
+    inline bool_t
+        integer_sp<integer_p>::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }
@@ -982,7 +1152,45 @@ namespace nkr { namespace $atomic_t {
 
     template <real_tr real_p>
     inline real_sp<real_p>&
+        real_sp<real_p>::operator =(convertible_tr<value_t> auto value)
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <real_tr real_p>
+    inline volatile real_sp<real_p>&
+        real_sp<real_p>::operator =(convertible_tr<value_t> auto value)
+        volatile
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <real_tr real_p>
+    inline real_sp<real_p>&
         real_sp<real_p>::operator =(const real_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <real_tr real_p>
+    inline volatile real_sp<real_p>&
+        real_sp<real_p>::operator =(const real_sp& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <real_tr real_p>
+    inline real_sp<real_p>&
+        real_sp<real_p>::operator =(const volatile real_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -1004,6 +1212,28 @@ namespace nkr { namespace $atomic_t {
     template <real_tr real_p>
     inline real_sp<real_p>&
         real_sp<real_p>::operator =(real_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <real_tr real_p>
+    inline volatile real_sp<real_p>&
+        real_sp<real_p>::operator =(real_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <real_tr real_p>
+    inline real_sp<real_p>&
+        real_sp<real_p>::operator =(volatile real_sp&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1375,6 +1605,15 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <real_tr real_p>
+    inline volatile real_sp<real_p>&
+        real_sp<real_p>::operator =(none_t)
+        volatile
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    template <real_tr real_p>
     inline bool_t
         real_sp<real_p>::operator ==(none_t)
         const
@@ -1384,8 +1623,24 @@ namespace nkr { namespace $atomic_t {
 
     template <real_tr real_p>
     inline bool_t
+        real_sp<real_p>::operator ==(none_t)
+        const volatile
+    {
+        return Access() == DEFAULT_VALUE;
+    }
+
+    template <real_tr real_p>
+    inline bool_t
         real_sp<real_p>::operator !=(none_t)
         const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <real_tr real_p>
+    inline bool_t
+        real_sp<real_p>::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }
@@ -1432,7 +1687,45 @@ namespace nkr { namespace $atomic_t {
 
     template <pointer_tr pointer_p>
     inline pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(convertible_tr<value_t> auto value)
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline volatile pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(convertible_tr<value_t> auto value)
+        volatile
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>&
         pointer_sp<pointer_p>::operator =(const pointer_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline volatile pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(const pointer_sp& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(const volatile pointer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -1454,6 +1747,28 @@ namespace nkr { namespace $atomic_t {
     template <pointer_tr pointer_p>
     inline pointer_sp<pointer_p>&
         pointer_sp<pointer_p>::operator =(pointer_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline volatile pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(pointer_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
+    inline pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(volatile pointer_sp&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1783,6 +2098,15 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <pointer_tr pointer_p>
+    inline volatile pointer_sp<pointer_p>&
+        pointer_sp<pointer_p>::operator =(none_t)
+        volatile
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
+    template <pointer_tr pointer_p>
     inline bool_t
         pointer_sp<pointer_p>::operator ==(none_t)
         const
@@ -1792,8 +2116,24 @@ namespace nkr { namespace $atomic_t {
 
     template <pointer_tr pointer_p>
     inline bool_t
+        pointer_sp<pointer_p>::operator ==(none_t)
+        const volatile
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    template <pointer_tr pointer_p>
+    inline bool_t
         pointer_sp<pointer_p>::operator !=(none_t)
         const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <pointer_tr pointer_p>
+    inline bool_t
+        pointer_sp<pointer_p>::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }
@@ -1832,7 +2172,41 @@ namespace nkr { namespace $atomic_t {
     }
 
     inline void_pointer_sp&
+        void_pointer_sp::operator =(convertible_tr<value_t> auto value)
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    inline volatile void_pointer_sp&
+        void_pointer_sp::operator =(convertible_tr<value_t> auto value)
+        volatile
+    {
+        Assign(static_cast<value_t>(value));
+        return *this;
+    }
+
+    inline void_pointer_sp&
         void_pointer_sp::operator =(const void_pointer_sp& other)
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    inline volatile void_pointer_sp&
+        void_pointer_sp::operator =(const void_pointer_sp& other)
+        volatile
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Access());
+        }
+        return *this;
+    }
+
+    inline void_pointer_sp&
+        void_pointer_sp::operator =(const volatile void_pointer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -1852,6 +2226,26 @@ namespace nkr { namespace $atomic_t {
 
     inline void_pointer_sp&
         void_pointer_sp::operator =(void_pointer_sp&& other)
+        noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    inline volatile void_pointer_sp&
+        void_pointer_sp::operator =(void_pointer_sp&& other)
+        volatile noexcept
+    {
+        if (this != std::addressof(other)) {
+            Assign(other.Exchange(DEFAULT_VALUE));
+        }
+        return *this;
+    }
+
+    inline void_pointer_sp&
+        void_pointer_sp::operator =(volatile void_pointer_sp&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1966,6 +2360,14 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
+    inline volatile void_pointer_sp&
+        void_pointer_sp::operator =(none_t)
+        volatile
+    {
+        Assign(DEFAULT_VALUE);
+        return *this;
+    }
+
     inline bool_t
         void_pointer_sp::operator ==(none_t)
         const
@@ -1974,8 +2376,22 @@ namespace nkr { namespace $atomic_t {
     }
 
     inline bool_t
+        void_pointer_sp::operator ==(none_t)
+        const volatile
+    {
+        return static_cast<bool_t>(Access()) == false;
+    }
+
+    inline bool_t
         void_pointer_sp::operator !=(none_t)
         const
+    {
+        return !operator ==(none_t());
+    }
+
+    inline bool_t
+        void_pointer_sp::operator !=(none_t)
+        const volatile
     {
         return !operator ==(none_t());
     }
