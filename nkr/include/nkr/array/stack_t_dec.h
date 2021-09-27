@@ -188,19 +188,10 @@ namespace nkr {
         using base_t    = stack_array_t<head_p, 1 + sizeof...(tail_p)>;
 
     public:
-        static constexpr std_bool_t Is_Instant_Array()
-        {
-            return true;
-        }
+        static constexpr std_bool_t Is_Instant_Array();
 
     public:
-        // I don't know about the compiler's optimizer, but I don't like the param pack expansion
-        // in the base. we can just write all the same funcs that we want here and just do the
-        // optimal init with the acutal array type, rather than the byte_array.
-        instant_array_t(head_p&& head, tail_p&& ...tail) :
-            base_t(std::move(head), std::move(tail)...)
-        {
-        }
+        instant_array_t(head_p&& head, tail_p&& ...tail);
     };
     static_assert(array_i<instant_array_t<word_t>>);
     static_assert(array_i<instant_array_t<volatile word_t>>);

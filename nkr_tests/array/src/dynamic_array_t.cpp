@@ -6,6 +6,7 @@
 #include "nkr/allocator_heap_zeros_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "nkr/array/dynamic_t.h"
 
@@ -285,7 +286,7 @@ namespace nkr {
 
                     count_t capacity = Random<count_t>(1, 16);
                     allocator_t allocator;
-                    dynamic_array_p dynamic_array(capacity, std::move(allocator));
+                    dynamic_array_p dynamic_array(capacity, nkr::Move(allocator));
                     CHECK(dynamic_array.Pointer() != nullptr);
                     CHECK(dynamic_array.Capacity() == capacity);
                     CHECK(dynamic_array.Count() == 0);
@@ -326,7 +327,7 @@ namespace nkr {
                     writable_unit_t filler = Random<writable_unit_t>();
                     writable_unit_t backup_filler = filler;
                     count_t count = Random<count_t>(1, 16);
-                    dynamic_array_p dynamic_array(std::move(filler), count);
+                    dynamic_array_p dynamic_array(nkr::Move(filler), count);
                     CHECK(dynamic_array.Pointer() != nullptr);
                     CHECK(dynamic_array.Capacity() == count);
                     CHECK(dynamic_array.Count() == count);
@@ -369,7 +370,7 @@ namespace nkr {
                     unit_t filler = Random<unit_t>();
                     count_t count = Random<count_t>(1, 16);
                     allocator_t allocator;
-                    dynamic_array_p dynamic_array(filler, count, std::move(allocator));
+                    dynamic_array_p dynamic_array(filler, count, nkr::Move(allocator));
                     CHECK(dynamic_array.Pointer() != nullptr);
                     CHECK(dynamic_array.Capacity() == count);
                     CHECK(dynamic_array.Count() == count);
@@ -431,7 +432,7 @@ namespace nkr {
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    dynamic_array_p dynamic_array = std::move(array);
+                    dynamic_array_p dynamic_array = nkr::Move(array);
                     CHECK(dynamic_array.Pointer() != nullptr);
                     CHECK(dynamic_array.Pointer() != array);
                     CHECK(dynamic_array.Capacity() == sizeof(array) / sizeof(unit_t));
@@ -496,7 +497,7 @@ namespace nkr {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
                     const stack_array_t backup = stack_array;
-                    dynamic_array_p dynamic_array = std::move(stack_array);
+                    dynamic_array_p dynamic_array = nkr::Move(stack_array);
                     CHECK(dynamic_array.Pointer() != nullptr);
                     CHECK(dynamic_array.Pointer() != stack_array.Array());
                     CHECK(dynamic_array.Capacity() == backup.Capacity());
@@ -514,7 +515,7 @@ namespace nkr {
                 concept allows_rvalue_with_unwritable_unit_t = requires(dynamic_array_p& dynamic_array,
                                                                         stack_array_t<const typename dynamic_array_p::unit_t, 1>& stack_array)
                 {
-                    new (&dynamic_array) dynamic_array_t(std::move(stack_array));
+                    new (&dynamic_array) dynamic_array_t(nkr::Move(stack_array));
                 };
 
                 TEST_CASE_TEMPLATE("should not allow an rvalue stack_array with unwritable unit_t", dynamic_array_p, nkr_ALL)
@@ -574,7 +575,7 @@ namespace nkr {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
                     stack_array_t backup = instant_array;
-                    dynamic_array_p dynamic_array = std::move(instant_array);
+                    dynamic_array_p dynamic_array = nkr::Move(instant_array);
                     CHECK(dynamic_array.Pointer() != nullptr);
                     CHECK(dynamic_array.Pointer() != instant_array.Array());
                     CHECK(dynamic_array.Capacity() == backup.Capacity());
@@ -690,7 +691,7 @@ namespace nkr {
                         other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     pointer_t pointer = other.Pointer();
-                    dynamic_array_p dynamic_array(std::move(other));
+                    dynamic_array_p dynamic_array(nkr::Move(other));
                     CHECK(dynamic_array.Pointer() == pointer);
                     CHECK(dynamic_array.Count() == count);
                 }
@@ -710,7 +711,7 @@ namespace nkr {
                         other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     pointer_t pointer = other.Pointer();
-                    dynamic_array_p dynamic_array = std::move(other);
+                    dynamic_array_p dynamic_array = nkr::Move(other);
                     CHECK(dynamic_array.Pointer() == pointer);
                     CHECK(dynamic_array.Count() == count);
                 }
@@ -729,7 +730,7 @@ namespace nkr {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>());
                     }
-                    dynamic_array_p dynamic_array(std::move(other));
+                    dynamic_array_p dynamic_array(nkr::Move(other));
                     CHECK(other.Pointer() == pointer_t());
                     CHECK(other.Count() == 0);
                 }
@@ -837,7 +838,7 @@ namespace nkr {
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_array_p dynamic_array;
-                    dynamic_array = std::move(other);
+                    dynamic_array = nkr::Move(other);
                     CHECK(dynamic_array.Pointer() == pointer);
                     CHECK(dynamic_array.Count() == count);
                 }
@@ -858,7 +859,7 @@ namespace nkr {
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_array_p dynamic_array;
-                    CHECK(&(dynamic_array = std::move(other)) == &dynamic_array);
+                    CHECK(&(dynamic_array = nkr::Move(other)) == &dynamic_array);
                 }
 
                 TEST_CASE_TEMPLATE("should set the other to default values", dynamic_array_p, nkr_NON_CONST)
@@ -876,7 +877,7 @@ namespace nkr {
                         other.Push(Random<std::remove_const_t<unit_t>>());
                     }
                     dynamic_array_p dynamic_array;
-                    dynamic_array = std::move(other);
+                    dynamic_array = nkr::Move(other);
                     CHECK(other.Pointer() == pointer_t());
                     CHECK(other.Count() == 0);
                 }

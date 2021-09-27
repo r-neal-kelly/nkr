@@ -5,6 +5,7 @@
 #include "nkr/atomic_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
@@ -155,7 +156,7 @@ namespace nkr {
                 {
                     real_p random = Random<real_p>();
                     atomic_t<real_p> other(random);
-                    atomic_t<real_p> atom(std::move(other));
+                    atomic_t<real_p> atom(nkr::Move(other));
                     CHECK(atom == random);
                 }
                 /// [_ad08e960_ce87_457e_9795_e81944307359]
@@ -165,7 +166,7 @@ namespace nkr {
                 {
                     real_p random = Random<real_p>();
                     atomic_t<real_p> other(random);
-                    atomic_t<real_p> atom = std::move(other);
+                    atomic_t<real_p> atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_83d42476_ed81_4e4c_b548_fc3a10af5fbe]
@@ -175,7 +176,7 @@ namespace nkr {
                 {
                     real_p random = Random<real_p>();
                     atomic_t<real_p> other(random);
-                    atomic_t<real_p> atom(std::move(other));
+                    atomic_t<real_p> atom(nkr::Move(other));
                     CHECK(other == atomic_t<real_p>::DEFAULT_VALUE);
                 }
                 /// [_e9f233ed_244c_4a3d_9a83_d09274e9097b]
@@ -256,7 +257,7 @@ namespace nkr {
                     real_p random = Random<real_p>();
                     atomic_t<real_p> other(random);
                     atomic_t<real_p> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_d98fa40a_5147_482b_8a01_95809a294e2b]
@@ -267,7 +268,7 @@ namespace nkr {
                     real_p random = Random<real_p>();
                     atomic_t<real_p> other(random);
                     atomic_t<real_p> atom;
-                    CHECK(&(atom = std::move(other)) == &atom);
+                    CHECK(&(atom = nkr::Move(other)) == &atom);
                 }
                 /// [_8fe990ca_7ced_419a_a2a6_d10796e8d4a1]
 
@@ -277,7 +278,7 @@ namespace nkr {
                     real_p random = Random<real_p>();
                     atomic_t<real_p> other(random);
                     atomic_t<real_p> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(other == atomic_t<real_p>::DEFAULT_VALUE);
                 }
                 /// [_0d1b8d2e_33b4_4576_a466_761fb7452efc]

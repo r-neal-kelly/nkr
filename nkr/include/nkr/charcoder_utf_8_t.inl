@@ -6,6 +6,7 @@
 
 #include "nkr/charcoder_utf_8_t.h"
 #include "nkr/charcoder_utf_32_t.h"
+#include "nkr/utils.h"
 
 namespace nkr { namespace charcoder {
 
@@ -79,20 +80,20 @@ namespace nkr { namespace charcoder {
 
     inline utf_8_t::utf_8_t(utf_8_t&& other) noexcept
     {
-        this->units[0] = std::exchange(other.units[0], 0);
-        this->units[1] = std::exchange(other.units[1], 0);
-        this->units[2] = std::exchange(other.units[2], 0);
-        this->units[3] = std::exchange(other.units[3], 0);
-        this->unit_count = std::exchange(other.unit_count, 1);
+        this->units[0] = nkr::Move(other.units[0]);
+        this->units[1] = nkr::Move(other.units[1]);
+        this->units[2] = nkr::Move(other.units[2]);
+        this->units[3] = nkr::Move(other.units[3]);
+        this->unit_count = nkr::Exchange(other.unit_count, 1);
     }
 
     inline utf_8_t::utf_8_t(volatile utf_8_t&& other) noexcept
     {
-        this->units[0] = std::exchange(other.units[0], 0);
-        this->units[1] = std::exchange(other.units[1], 0);
-        this->units[2] = std::exchange(other.units[2], 0);
-        this->units[3] = std::exchange(other.units[3], 0);
-        this->unit_count = std::exchange(other.unit_count, 1);
+        this->units[0] = nkr::Move(other.units[0]);
+        this->units[1] = nkr::Move(other.units[1]);
+        this->units[2] = nkr::Move(other.units[2]);
+        this->units[3] = nkr::Move(other.units[3]);
+        this->unit_count = nkr::Exchange(other.unit_count, 1);
     }
 
     inline utf_8_t& utf_8_t::operator =(const utf_8_t& other)
@@ -146,11 +147,11 @@ namespace nkr { namespace charcoder {
     inline utf_8_t& utf_8_t::operator =(utf_8_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->units[0] = std::exchange(other.units[0], 0);
-            this->units[1] = std::exchange(other.units[1], 0);
-            this->units[2] = std::exchange(other.units[2], 0);
-            this->units[3] = std::exchange(other.units[3], 0);
-            this->unit_count = std::exchange(other.unit_count, 1);
+            this->units[0] = nkr::Move(other.units[0]);
+            this->units[1] = nkr::Move(other.units[1]);
+            this->units[2] = nkr::Move(other.units[2]);
+            this->units[3] = nkr::Move(other.units[3]);
+            this->unit_count = nkr::Exchange(other.unit_count, 1);
         }
         return *this;
     }
@@ -158,11 +159,11 @@ namespace nkr { namespace charcoder {
     inline volatile utf_8_t& utf_8_t::operator =(utf_8_t&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->units[0] = std::exchange(other.units[0], 0);
-            this->units[1] = std::exchange(other.units[1], 0);
-            this->units[2] = std::exchange(other.units[2], 0);
-            this->units[3] = std::exchange(other.units[3], 0);
-            this->unit_count = std::exchange(other.unit_count, 1);
+            this->units[0] = nkr::Move(other.units[0]);
+            this->units[1] = nkr::Move(other.units[1]);
+            this->units[2] = nkr::Move(other.units[2]);
+            this->units[3] = nkr::Move(other.units[3]);
+            this->unit_count = nkr::Exchange(other.unit_count, 1);
         }
         return *this;
     }
@@ -170,11 +171,11 @@ namespace nkr { namespace charcoder {
     inline utf_8_t& utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->units[0] = std::exchange(other.units[0], 0);
-            this->units[1] = std::exchange(other.units[1], 0);
-            this->units[2] = std::exchange(other.units[2], 0);
-            this->units[3] = std::exchange(other.units[3], 0);
-            this->unit_count = std::exchange(other.unit_count, 1);
+            this->units[0] = nkr::Move(other.units[0]);
+            this->units[1] = nkr::Move(other.units[1]);
+            this->units[2] = nkr::Move(other.units[2]);
+            this->units[3] = nkr::Move(other.units[3]);
+            this->unit_count = nkr::Exchange(other.unit_count, 1);
         }
         return *this;
     }
@@ -182,11 +183,11 @@ namespace nkr { namespace charcoder {
     inline volatile utf_8_t& utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->units[0] = std::exchange(other.units[0], 0);
-            this->units[1] = std::exchange(other.units[1], 0);
-            this->units[2] = std::exchange(other.units[2], 0);
-            this->units[3] = std::exchange(other.units[3], 0);
-            this->unit_count = std::exchange(other.unit_count, 1);
+            this->units[0] = nkr::Move(other.units[0]);
+            this->units[1] = nkr::Move(other.units[1]);
+            this->units[2] = nkr::Move(other.units[2]);
+            this->units[3] = nkr::Move(other.units[3]);
+            this->unit_count = nkr::Exchange(other.unit_count, 1);
         }
         return *this;
     }

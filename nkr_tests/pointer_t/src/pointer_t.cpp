@@ -5,6 +5,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/pointer_t.h"
 #include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
@@ -503,7 +504,7 @@ namespace nkr {
 
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
-                    pointer_p pointer(std::move(other));
+                    pointer_p pointer(nkr::Move(other));
                     CHECK(pointer.units == unit);
                     CHECK(pointer.unit_count == 1);
                 }
@@ -515,7 +516,7 @@ namespace nkr {
 
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
-                    pointer_p pointer = std::move(other);
+                    pointer_p pointer = nkr::Move(other);
                     CHECK(pointer.units == unit);
                     CHECK(pointer.unit_count == 1);
                 }
@@ -527,7 +528,7 @@ namespace nkr {
 
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
-                    pointer_p pointer(std::move(other));
+                    pointer_p pointer(nkr::Move(other));
                     CHECK(other.units == nullptr);
                     CHECK(other.unit_count == 0);
                 }
@@ -583,7 +584,7 @@ namespace nkr {
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
                     pointer_p pointer;
-                    pointer = std::move(other);
+                    pointer = nkr::Move(other);
                     CHECK(pointer.units == unit);
                     CHECK(pointer.unit_count == 1);
                 }
@@ -596,7 +597,7 @@ namespace nkr {
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
                     pointer_p pointer;
-                    CHECK((&(pointer = std::move(other)) == &pointer));
+                    CHECK((&(pointer = nkr::Move(other)) == &pointer));
                 }
 
                 TEST_CASE_TEMPLATE("should set the units and unit_count of other to the defaults", pointer_p, nkr_NON_CONST)
@@ -607,7 +608,7 @@ namespace nkr {
                     unit_t* unit = Random<unit_t*>();
                     pointer_p other(unit);
                     pointer_p pointer;
-                    pointer = std::move(other);
+                    pointer = nkr::Move(other);
                     CHECK(other.units == nullptr);
                     CHECK(other.unit_count == 0);
                 }

@@ -52,7 +52,7 @@ namespace nkr {
         }
 
         class_t($class_t::integer_sp<integer_p>&& other) noexcept :
-            $class_t::integer_sp<integer_p>(std::move(other))
+            $class_t::integer_sp<integer_p>(nkr::Move(other))
         {
         }
     };
@@ -72,7 +72,7 @@ namespace nkr {
         }
 
         class_t($class_t::pointer_sp<pointer_p>&& other) noexcept :
-            $class_t::pointer_sp<pointer_p>(std::move(other))
+            $class_t::pointer_sp<pointer_p>(nkr::Move(other))
         {
         }
     };

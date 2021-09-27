@@ -5,6 +5,7 @@
 #include "nkr/atomic_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
@@ -157,7 +158,7 @@ namespace nkr {
                 {
                     boolean_p random = Random<boolean_p>();
                     atomic_t<boolean_p> other(random);
-                    atomic_t<boolean_p> atom(std::move(other));
+                    atomic_t<boolean_p> atom(nkr::Move(other));
                     CHECK(atom == random);
                 }
                 /// [_058e2373_0770_4779_8121_a285dd5ec20b]
@@ -167,7 +168,7 @@ namespace nkr {
                 {
                     boolean_p random = Random<boolean_p>();
                     atomic_t<boolean_p> other(random);
-                    atomic_t<boolean_p> atom = std::move(other);
+                    atomic_t<boolean_p> atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_126072fd_aad9_40b6_914d_1972c77f1405]
@@ -177,7 +178,7 @@ namespace nkr {
                 {
                     boolean_p random = Random<boolean_p>();
                     atomic_t<boolean_p> other(random);
-                    atomic_t<boolean_p> atom(std::move(other));
+                    atomic_t<boolean_p> atom(nkr::Move(other));
                     CHECK(other == atomic_t<boolean_p>::DEFAULT_VALUE);
                 }
                 /// [_9002eaf6_3a96_411b_858a_09f20ca48445]
@@ -258,7 +259,7 @@ namespace nkr {
                     boolean_p random = Random<boolean_p>();
                     atomic_t<boolean_p> other(random);
                     atomic_t<boolean_p> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_9126fa91_1613_4c39_aa73_0383e6b594e3]
@@ -269,7 +270,7 @@ namespace nkr {
                     boolean_p random = Random<boolean_p>();
                     atomic_t<boolean_p> other(random);
                     atomic_t<boolean_p> atom;
-                    CHECK(&(atom = std::move(other)) == &atom);
+                    CHECK(&(atom = nkr::Move(other)) == &atom);
                 }
                 /// [_669d3937_13ea_47c6_b239_4d76976572e5]
 
@@ -279,7 +280,7 @@ namespace nkr {
                     boolean_p random = Random<boolean_p>();
                     atomic_t<boolean_p> other(random);
                     atomic_t<boolean_p> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(other == atomic_t<boolean_p>::DEFAULT_VALUE);
                 }
                 /// [_88a7e1bc_ae69_4890_aa29_9f8189297093]

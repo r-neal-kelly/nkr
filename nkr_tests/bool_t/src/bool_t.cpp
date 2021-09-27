@@ -5,20 +5,11 @@
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/maybe_t.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
 namespace nkr {
-
-    TEST_CASE("temp")
-    {
-        maybe_t<volatile bool_t> maybe;
-        volatile bool_t boolean = true;
-        CHECK(!maybe);
-        maybe = nkr::Move(boolean);
-        maybe = nkr::Move(maybe);
-        CHECK(maybe);
-    }
 
     TEST_SUITE("bool_t")
     {
@@ -116,7 +107,7 @@ namespace nkr {
             {
                 /// [_93151c91_7466_446f_9886_a448bfa178dc]
                 bool_t other(true);
-                CHECK(bool_t(std::move(other)) == true);
+                CHECK(bool_t(nkr::Move(other)) == true);
                 CHECK(other == false);
                 /// [_93151c91_7466_446f_9886_a448bfa178dc]
             }
@@ -125,7 +116,7 @@ namespace nkr {
             {
                 /// [_23f44a66_a616_4359_8cc3_7c98f7f2227c]
                 bool_t other(true);
-                bool_t boolean = std::move(other);
+                bool_t boolean = nkr::Move(other);
                 CHECK(boolean == true);
                 CHECK(other == false);
                 /// [_23f44a66_a616_4359_8cc3_7c98f7f2227c]
@@ -154,7 +145,7 @@ namespace nkr {
             {
                 /// [_1b1d0b0f_2c1e_46d8_924b_cbaaf8a604d6]
                 volatile bool_t other(true);
-                CHECK(bool_t(std::move(other)) == true);
+                CHECK(bool_t(nkr::Move(other)) == true);
                 CHECK(other == false);
                 /// [_1b1d0b0f_2c1e_46d8_924b_cbaaf8a604d6]
             }
@@ -163,7 +154,7 @@ namespace nkr {
             {
                 /// [_95b07b9c_0cd5_4b6a_9575_3ae7a8d5853e]
                 volatile bool_t other(true);
-                volatile bool_t boolean = std::move(other);
+                volatile bool_t boolean = nkr::Move(other);
                 CHECK(boolean == true);
                 CHECK(other == false);
                 /// [_95b07b9c_0cd5_4b6a_9575_3ae7a8d5853e]
@@ -219,7 +210,7 @@ namespace nkr {
                 /// [_89dafc76_93be_49dc_b612_2cd3989b0c3c]
                 bool_t boolean;
                 bool_t other(true);
-                boolean = std::move(other);
+                boolean = nkr::Move(other);
                 CHECK(boolean == true);
                 CHECK(other == false);
                 /// [_89dafc76_93be_49dc_b612_2cd3989b0c3c]
@@ -275,7 +266,7 @@ namespace nkr {
                 /// [_e57cfa69_54fa_4e91_8509_2cd75aedcb1a]
                 volatile bool_t boolean;
                 volatile bool_t other(true);
-                boolean = std::move(other);
+                boolean = nkr::Move(other);
                 CHECK(boolean == true);
                 CHECK(other == false);
                 /// [_e57cfa69_54fa_4e91_8509_2cd75aedcb1a]

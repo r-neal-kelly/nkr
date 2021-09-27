@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/pointer_t_dec.h"
+#include "nkr/utils.h"
 
 namespace nkr { namespace $pointer_t {
 
@@ -51,15 +52,15 @@ namespace nkr { namespace $pointer_t {
 
     template <any_type_tr unit_p>
     inline any_type_sp<unit_p>::any_type_sp(any_type_sp&& other) noexcept :
-        units(std::exchange(other.units, nullptr)),
-        unit_count(std::exchange(other.unit_count, 0))
+        units(nkr::Move(other.units)),
+        unit_count(nkr::Move(other.unit_count))
     {
     }
 
     template <any_type_tr unit_p>
     inline any_type_sp<unit_p>::any_type_sp(volatile any_type_sp&& other) noexcept :
-        units(std::exchange(other.units, nullptr)),
-        unit_count(std::exchange(other.unit_count, 0))
+        units(nkr::Move(other.units)),
+        unit_count(nkr::Move(other.unit_count))
     {
     }
 
@@ -107,8 +108,8 @@ namespace nkr { namespace $pointer_t {
     inline any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(any_type_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -117,8 +118,8 @@ namespace nkr { namespace $pointer_t {
     inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(any_type_sp&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -127,8 +128,8 @@ namespace nkr { namespace $pointer_t {
     inline any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(is_just_volatile_tr<any_type_sp> auto&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -137,8 +138,8 @@ namespace nkr { namespace $pointer_t {
     inline volatile any_type_sp<unit_p>& any_type_sp<unit_p>::operator =(is_just_volatile_tr<any_type_sp> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -499,15 +500,15 @@ namespace nkr { namespace $pointer_t {
 
     template <any_non_type_tr unit_p>
     inline any_non_type_sp<unit_p>::any_non_type_sp(any_non_type_sp&& other) noexcept :
-        units(std::exchange(other.units, nullptr)),
-        unit_count(std::exchange(other.unit_count, 0))
+        units(nkr::Move(other.units)),
+        unit_count(nkr::Move(other.unit_count))
     {
     }
 
     template <any_non_type_tr unit_p>
     inline any_non_type_sp<unit_p>::any_non_type_sp(volatile any_non_type_sp&& other) noexcept :
-        units(std::exchange(other.units, nullptr)),
-        unit_count(std::exchange(other.unit_count, 0))
+        units(nkr::Move(other.units)),
+        unit_count(nkr::Move(other.unit_count))
     {
     }
 
@@ -555,8 +556,8 @@ namespace nkr { namespace $pointer_t {
     inline any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(any_non_type_sp&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -565,8 +566,8 @@ namespace nkr { namespace $pointer_t {
     inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(any_non_type_sp&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -575,8 +576,8 @@ namespace nkr { namespace $pointer_t {
     inline any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(is_just_volatile_tr<any_non_type_sp> auto&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }
@@ -585,8 +586,8 @@ namespace nkr { namespace $pointer_t {
     inline volatile any_non_type_sp<unit_p>& any_non_type_sp<unit_p>::operator =(is_just_volatile_tr<any_non_type_sp> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->units = std::exchange(other.units, nullptr);
-            this->unit_count = std::exchange(other.unit_count, 0);
+            this->units = nkr::Move(other.units);
+            this->unit_count = nkr::Move(other.unit_count);
         }
         return *this;
     }

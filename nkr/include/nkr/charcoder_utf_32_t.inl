@@ -6,6 +6,7 @@
 
 #include "nkr/charcoder_utf_32_t.h"
 #include "nkr/os.h"
+#include "nkr/utils.h"
 
 namespace nkr { namespace charcoder {
 
@@ -51,12 +52,12 @@ namespace nkr { namespace charcoder {
 
     inline utf_32_t::utf_32_t(utf_32_t&& other) noexcept
     {
-        this->unit = std::exchange(other.unit, 0);
+        this->unit = nkr::Move(other.unit);
     }
 
     inline utf_32_t::utf_32_t(volatile utf_32_t&& other) noexcept
     {
-        this->unit = std::exchange(other.unit, 0);
+        this->unit = nkr::Move(other.unit);
     }
 
     inline utf_32_t& utf_32_t::operator =(const utf_32_t& other)
@@ -94,7 +95,7 @@ namespace nkr { namespace charcoder {
     inline utf_32_t& utf_32_t::operator =(utf_32_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }
@@ -102,7 +103,7 @@ namespace nkr { namespace charcoder {
     inline volatile utf_32_t& utf_32_t::operator =(utf_32_t&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }
@@ -110,7 +111,7 @@ namespace nkr { namespace charcoder {
     inline utf_32_t& utf_32_t::operator =(is_just_volatile_tr<utf_32_t> auto&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }
@@ -118,7 +119,7 @@ namespace nkr { namespace charcoder {
     inline volatile utf_32_t& utf_32_t::operator =(is_just_volatile_tr<utf_32_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }

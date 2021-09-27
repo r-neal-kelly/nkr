@@ -5,6 +5,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
 #include "nkr/signed_positive_t.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
@@ -223,7 +224,7 @@ namespace nkr {
 
                     const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     other_t other(random);
-                    sp_p sp(std::move(other));
+                    sp_p sp(nkr::Move(other));
                     CHECK(sp == random);
                 }
 
@@ -234,7 +235,7 @@ namespace nkr {
 
                     const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     other_t other(random);
-                    sp_p sp = std::move(other);
+                    sp_p sp = nkr::Move(other);
                     CHECK(sp == random);
                 }
 
@@ -245,7 +246,7 @@ namespace nkr {
 
                     const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     other_t other(random);
-                    sp_p sp(std::move(other));
+                    sp_p sp(nkr::Move(other));
                     CHECK(other == sp_p::MIN);
                 }
             }
@@ -360,7 +361,7 @@ namespace nkr {
                     const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     sp_p other(random);
                     sp_p sp;
-                    sp = std::move(other);
+                    sp = nkr::Move(other);
                     CHECK(sp == random);
                 }
 
@@ -371,7 +372,7 @@ namespace nkr {
                     const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     sp_p other(random);
                     sp_p sp;
-                    CHECK(&(sp = std::move(other)) == &sp);
+                    CHECK(&(sp = nkr::Move(other)) == &sp);
                 }
 
                 TEST_CASE_TEMPLATE("should set the value of other to the default", sp_p, types, volatiles)
@@ -381,7 +382,7 @@ namespace nkr {
                     const value_t random = Random<value_t>(sp_p::MIN, sp_p::MAX);
                     sp_p other(random);
                     sp_p sp;
-                    sp = std::move(other);
+                    sp = nkr::Move(other);
                     CHECK(other == sp_p::MIN);
                 }
             }

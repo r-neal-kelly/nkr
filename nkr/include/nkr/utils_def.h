@@ -41,6 +41,28 @@ namespace nkr {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
+    inline constexpr auto Exchange(any_type_tr auto& value, any_type_tr auto& with) noexcept
+    {
+        using value_t = std::remove_reference_t<decltype(value)>;
+        using with_t = std::remove_reference_t<decltype(with)>;
+
+        value_t old = static_cast<value_t&&>(value);
+        value = with;
+
+        return old;
+    }
+
+    inline constexpr auto Exchange(any_type_tr auto& value, any_non_const_tr auto&& with) noexcept
+    {
+        using value_t = std::remove_reference_t<decltype(value)>;
+        using with_t = std::remove_reference_t<decltype(with)>;
+
+        value_t old = static_cast<value_t&&>(value);
+        value = static_cast<with_t&&>(with);
+
+        return old;
+    }
+
     inline constexpr auto Is_LValue(any_tr auto& value)
     {
         return std::true_type();

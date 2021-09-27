@@ -5,6 +5,7 @@
 #include "nkr/atomic_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
@@ -163,7 +164,7 @@ namespace nkr {
                 {
                     void_t* random = Random<void_t*>();
                     atomic_t<void_t*> other(random);
-                    atomic_t<void_t*> atom(std::move(other));
+                    atomic_t<void_t*> atom(nkr::Move(other));
                     CHECK(atom == random);
                 }
                 /// [_f2733e43_459e_41ac_862c_bc9b0d947a31]
@@ -173,7 +174,7 @@ namespace nkr {
                 {
                     void_t* random = Random<void_t*>();
                     atomic_t<void_t*> other(random);
-                    atomic_t<void_t*> atom = std::move(other);
+                    atomic_t<void_t*> atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_c2aed2f8_7838_424c_ba34_c500cee9488f]
@@ -183,7 +184,7 @@ namespace nkr {
                 {
                     void_t* random = Random<void_t*>();
                     atomic_t<void_t*> other(random);
-                    atomic_t<void_t*> atom(std::move(other));
+                    atomic_t<void_t*> atom(nkr::Move(other));
                     CHECK(other == atomic_t<void_t*>::DEFAULT_VALUE);
                 }
                 /// [_e3a3417b_73d1_4479_b2e8_d3c1b832ecd3]
@@ -264,7 +265,7 @@ namespace nkr {
                     void_t* random = Random<void_t*>();
                     atomic_t<void_t*> other(random);
                     atomic_t<void_t*> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_2f1f0715_ec21_4a00_8619_6308e8af10e7]
@@ -275,7 +276,7 @@ namespace nkr {
                     void_t* random = Random<void_t*>();
                     atomic_t<void_t*> other(random);
                     atomic_t<void_t*> atom;
-                    CHECK(&(atom = std::move(other)) == &atom);
+                    CHECK(&(atom = nkr::Move(other)) == &atom);
                 }
                 /// [_71359e72_420d_4b0d_b96b_4cc06e3f6073]
 
@@ -285,7 +286,7 @@ namespace nkr {
                     void_t* random = Random<void_t*>();
                     atomic_t<void_t*> other(random);
                     atomic_t<void_t*> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(other == atomic_t<void_t*>::DEFAULT_VALUE);
                 }
                 /// [_f7f03cad_0853_4929_92b2_df8b10577eb7]

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/charcoder_ascii_t.h"
+#include "nkr/utils.h"
 
 namespace nkr { namespace charcoder {
 
@@ -25,12 +26,12 @@ namespace nkr { namespace charcoder {
 
     inline ascii_t::ascii_t(ascii_t&& other) noexcept
     {
-        this->unit = std::exchange(other.unit, 0);
+        this->unit = nkr::Move(other.unit);
     }
 
     inline ascii_t::ascii_t(volatile ascii_t&& other) noexcept
     {
-        this->unit = std::exchange(other.unit, 0);
+        this->unit = nkr::Move(other.unit);
     }
 
     inline ascii_t& ascii_t::operator =(const ascii_t& other)
@@ -68,7 +69,7 @@ namespace nkr { namespace charcoder {
     inline ascii_t& ascii_t::operator =(ascii_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }
@@ -76,7 +77,7 @@ namespace nkr { namespace charcoder {
     inline volatile ascii_t& ascii_t::operator =(ascii_t&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }
@@ -84,7 +85,7 @@ namespace nkr { namespace charcoder {
     inline ascii_t& ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }
@@ -92,7 +93,7 @@ namespace nkr { namespace charcoder {
     inline volatile ascii_t& ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->unit = std::exchange(other.unit, 0);
+            this->unit = nkr::Move(other.unit);
         }
         return *this;
     }

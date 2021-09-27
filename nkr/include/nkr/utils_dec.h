@@ -14,9 +14,12 @@ namespace nkr {
     constexpr auto&&    Move(built_in_tr auto&& value) noexcept;
     constexpr auto&&    Move(const built_in_tr auto&& value) noexcept;
     constexpr auto&&    Move(user_defined_tr auto& value) noexcept;
-    constexpr auto&&    Move(const user_defined_tr auto& value) noexcept    = delete;
+    constexpr auto&&    Move(const user_defined_tr auto& value) noexcept                            = delete;
     constexpr auto&&    Move(user_defined_tr auto&& value) noexcept;
-    constexpr auto&&    Move(const user_defined_tr auto&& value) noexcept   = delete;
+    constexpr auto&&    Move(const user_defined_tr auto&& value) noexcept                           = delete;
+
+    constexpr auto      Exchange(any_type_tr auto& value, any_type_tr auto& with) noexcept;
+    constexpr auto      Exchange(any_type_tr auto& value, any_non_const_tr auto&& with) noexcept;
 
     constexpr auto      Is_LValue(any_tr auto& value);
     constexpr auto      Is_LValue(any_tr auto&& value);

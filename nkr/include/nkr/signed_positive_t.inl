@@ -6,6 +6,7 @@
 
 #include "nkr/fors.h"
 #include "nkr/signed_positive_t.h"
+#include "nkr/utils.h"
 
 namespace nkr {
 
@@ -41,13 +42,13 @@ namespace nkr {
 
     template <integer_signed_tr integer_p>
     inline signed_positive_t<integer_p>::signed_positive_t(signed_positive_t&& other) noexcept :
-        value(std::exchange(other.value, MIN))
+        value(nkr::Move(other.value))
     {
     }
 
     template <integer_signed_tr integer_p>
     inline signed_positive_t<integer_p>::signed_positive_t(volatile signed_positive_t&& other) noexcept :
-        value(std::exchange(other.value, MIN))
+        value(nkr::Move(other.value))
     {
     }
 
@@ -91,7 +92,7 @@ namespace nkr {
     inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(signed_positive_t&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, MIN);
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -100,7 +101,7 @@ namespace nkr {
     inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(signed_positive_t&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, MIN);
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -109,7 +110,7 @@ namespace nkr {
     inline signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(is_just_volatile_tr<signed_positive_t> auto&& other) noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, MIN);
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -118,7 +119,7 @@ namespace nkr {
     inline volatile signed_positive_t<integer_p>& signed_positive_t<integer_p>::operator =(is_just_volatile_tr<signed_positive_t> auto&& other) volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, MIN);
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }

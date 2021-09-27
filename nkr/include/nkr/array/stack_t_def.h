@@ -622,3 +622,19 @@ namespace nkr {
     }
 
 }
+
+namespace nkr {
+
+    template <any_non_const_tr head_p, is_tr<head_p> ...tail_p>
+    constexpr std_bool_t instant_array_t<head_p, tail_p...>::Is_Instant_Array()
+    {
+        return true;
+    }
+
+    template <any_non_const_tr head_p, is_tr<head_p> ...tail_p>
+    instant_array_t<head_p, tail_p...>::instant_array_t(head_p&& head, tail_p&&... tail) :
+        base_t(nkr::Move(head), nkr::Move(tail)...)
+    {
+    }
+
+}

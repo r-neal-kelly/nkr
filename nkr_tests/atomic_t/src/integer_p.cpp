@@ -5,6 +5,7 @@
 #include "nkr/atomic_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 
@@ -157,7 +158,7 @@ namespace nkr {
                 {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> other(random);
-                    atomic_t<integer_p> atom(std::move(other));
+                    atomic_t<integer_p> atom(nkr::Move(other));
                     CHECK(atom == random);
                 }
                 /// [_df38cfbc_868b_4f2c_828f_3aa70a944d78]
@@ -167,7 +168,7 @@ namespace nkr {
                 {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> other(random);
-                    atomic_t<integer_p> atom = std::move(other);
+                    atomic_t<integer_p> atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_8edb3262_6441_43a6_9694_69b85f2481e9]
@@ -177,7 +178,7 @@ namespace nkr {
                 {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> other(random);
-                    atomic_t<integer_p> atom(std::move(other));
+                    atomic_t<integer_p> atom(nkr::Move(other));
                     CHECK(other == atomic_t<integer_p>::DEFAULT_VALUE);
                 }
                 /// [_39b27c0d_e3eb_499d_9f6c_4b0ce03570f3]
@@ -258,7 +259,7 @@ namespace nkr {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> other(random);
                     atomic_t<integer_p> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(atom == random);
                 }
                 /// [_10fa738b_55bf_4081_b795_dbe866f86a5d]
@@ -269,7 +270,7 @@ namespace nkr {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> other(random);
                     atomic_t<integer_p> atom;
-                    CHECK(&(atom = std::move(other)) == &atom);
+                    CHECK(&(atom = nkr::Move(other)) == &atom);
                 }
                 /// [_339b80e7_b5fb_4deb_a5e6_0b5099243dcb]
 
@@ -279,7 +280,7 @@ namespace nkr {
                     integer_p random = Random<integer_p>();
                     atomic_t<integer_p> other(random);
                     atomic_t<integer_p> atom;
-                    atom = std::move(other);
+                    atom = nkr::Move(other);
                     CHECK(other == atomic_t<integer_p>::DEFAULT_VALUE);
                 }
                 /// [_0d97f08b_3ca7_4129_b8e0_a0bf4d8f0d8a]

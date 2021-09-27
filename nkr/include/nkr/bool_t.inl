@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/bool_t.h"
+#include "nkr/utils.h"
 
 namespace nkr {
 
@@ -29,12 +30,12 @@ namespace nkr {
     }
 
     inline bool_t::bool_t(bool_t&& other) noexcept :
-        value(std::exchange(other.value, static_cast<word_t>(false)))
+        value(nkr::Move(other.value))
     {
     }
 
     inline bool_t::bool_t(volatile bool_t&& other) noexcept :
-        value(std::exchange(other.value, static_cast<word_t>(false)))
+        value(nkr::Move(other.value))
     {
     }
 
@@ -81,7 +82,7 @@ namespace nkr {
         noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, static_cast<word_t>(false));
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -91,7 +92,7 @@ namespace nkr {
         volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, static_cast<word_t>(false));
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -101,7 +102,7 @@ namespace nkr {
         noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, static_cast<word_t>(false));
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
@@ -111,7 +112,7 @@ namespace nkr {
         volatile noexcept
     {
         if (this != std::addressof(other)) {
-            this->value = std::exchange(other.value, static_cast<word_t>(false));
+            this->value = nkr::Move(other.value);
         }
         return *this;
     }
