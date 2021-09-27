@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "nkr/allocator_heap_t_dec.h"
 #include "nkr/os.h"
+
+#include "nkr/allocator/heap_t_dec.h"
 
 namespace nkr { namespace allocator {
 

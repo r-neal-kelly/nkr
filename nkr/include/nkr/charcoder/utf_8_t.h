@@ -57,4 +57,4 @@ namespace nkr { namespace charcoder {
 
 }}
 
-#include "nkr/charcoder_utf_8_t.inl"
+#include "nkr/charcoder/utf_8_t.inl"

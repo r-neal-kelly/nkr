@@ -2,7 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/allocator_heap_t_dec.h"
+#include "nkr/allocator/heap_t_dec.h"
 
 #if defined(nkr_DO_EXTERN_TEMPLATES)
 

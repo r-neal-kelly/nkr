@@ -2,8 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/charcoder_utf_32_t.h"
 #include "nkr/intrinsics.h"
+
+#include "nkr/charcoder/utf_32_t.h"
 
 #include "doctest.h"
 

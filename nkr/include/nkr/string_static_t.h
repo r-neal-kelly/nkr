@@ -4,10 +4,11 @@
 
 #pragma once
 
-#include "nkr/charcoder_i.h"
-#include "nkr/charcoder_utf_8_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/maybe_pointer_t.h"
+
+#include "nkr/charcoder_i.h"
+#include "nkr/charcoder/utf_8_t.h"
 
 namespace nkr {
 

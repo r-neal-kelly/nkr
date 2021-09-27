@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "nkr/charcoder_utf_8_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/string_dynamic_t.h"
+
+#include "nkr/charcoder/utf_8_t.h"
 
 namespace nkr {
 

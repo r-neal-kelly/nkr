@@ -4,10 +4,11 @@
 
 #pragma once
 
-#include "nkr/charcoder_utf_16_t.h"
-#include "nkr/charcoder_utf_32_t.h"
 #include "nkr/os.h"
 #include "nkr/utils.h"
+
+#include "nkr/charcoder/utf_16_t.h"
+#include "nkr/charcoder/utf_32_t.h"
 
 namespace nkr { namespace charcoder {
 

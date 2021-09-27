@@ -3,9 +3,10 @@
 */
 
 #include "nkr/atomic_t.h"
-#include "nkr/enum_flags_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
+
+#include "nkr/enum/flags_t.h"
 
 #include "doctest.h"
 

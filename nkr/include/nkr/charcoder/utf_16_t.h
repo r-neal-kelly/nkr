@@ -119,4 +119,4 @@ namespace nkr { namespace charcoder {
 
 }}
 
-#include "nkr/charcoder_utf_16_t.inl"
+#include "nkr/charcoder/utf_16_t.inl"

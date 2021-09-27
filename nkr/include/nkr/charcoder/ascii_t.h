@@ -54,4 +54,4 @@ namespace nkr { namespace charcoder {
 
 }}
 
-#include "nkr/charcoder_ascii_t.inl"
+#include "nkr/charcoder/ascii_t.inl"

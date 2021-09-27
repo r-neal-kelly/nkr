@@ -4,8 +4,9 @@
 
 #pragma once
 
-#include "nkr/charcoder_ascii_t.h"
 #include "nkr/utils.h"
+
+#include "nkr/charcoder/ascii_t.h"
 
 namespace nkr { namespace charcoder {
 

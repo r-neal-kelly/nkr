@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "nkr/enum_flags_t_dec.h"
 #include "nkr/math.h"
 #include "nkr/utils.h"
+
+#include "nkr/enum/flags_t_dec.h"
 
 namespace nkr { namespace $enum_flags_t {
 

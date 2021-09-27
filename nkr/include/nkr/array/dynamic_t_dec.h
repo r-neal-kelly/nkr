@@ -4,13 +4,14 @@
 
 #pragma once
 
-#include "nkr/allocator_heap_t.h"
-#include "nkr/allocator_i.h"
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/math.h"
 #include "nkr/pointer_t.h"
 #include "nkr/traits.h"
+
+#include "nkr/allocator_i.h"
+#include "nkr/allocator/heap_t.h"
 
 #include "nkr/array_i.h"
 #include "nkr/array/stack_t.h"

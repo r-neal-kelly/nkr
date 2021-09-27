@@ -143,4 +143,4 @@ namespace nkr { namespace charcoder {
 
 }}
 
-#include "nkr/charcoder_utf_32_t.inl"
+#include "nkr/charcoder/utf_32_t.inl"
