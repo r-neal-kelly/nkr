@@ -7,6 +7,7 @@
 #include "nkr/charcoder_i.h"
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
+#include "nkr/utils.h"
 
 namespace nkr { namespace charcoder {
 

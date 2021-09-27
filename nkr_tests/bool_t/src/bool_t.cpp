@@ -10,6 +10,16 @@
 
 namespace nkr {
 
+    TEST_CASE("temp")
+    {
+        maybe_t<volatile bool_t> maybe;
+        volatile bool_t boolean = true;
+        CHECK(!maybe);
+        maybe = nkr::Move(boolean);
+        maybe = nkr::Move(maybe);
+        CHECK(maybe);
+    }
+
     TEST_SUITE("bool_t")
     {
         TEST_CASE("certain operators are unwanted")

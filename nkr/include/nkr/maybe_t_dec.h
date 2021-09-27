@@ -50,25 +50,27 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         /// @name objects
         /// @copydoc _1fcb90e5_b65a_4312_ac7f_9951456b3425
         /// @{
-        any_sp();                                                                                   ///< @copydoc _d18299ac_6d7e_4560_88ff_e53f4bb77069
+        any_sp();                                                               ///< @copydoc _d18299ac_6d7e_4560_88ff_e53f4bb77069
 
-        any_sp(value_t value);                                                                      ///< @copydoc _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
+        any_sp(value_t value);                                                  ///< @copydoc _aa14e4f4_23ce_4d01_a6be_c12342adf7e7
 
-        any_sp(const any_sp& other);                                                                ///< @copydoc _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
-        any_sp(const volatile any_sp& other);                                                       ///< @copydoc 
-        any_sp(any_sp&& other) noexcept;                                                            ///< @copydoc _72a66390_63d7_4076_966f_c4a6c6d94c0a
-        any_sp(volatile any_sp&& other) noexcept;                                                   ///< @copydoc 
+        any_sp(const any_sp& other);                                            ///< @copydoc _b8bf31fb_a852_4c94_aa33_f6dc791a7a9f
+        any_sp(const volatile any_sp& other);                                   ///< @copydoc 
+        any_sp(any_sp&& other) noexcept;                                        ///< @copydoc _72a66390_63d7_4076_966f_c4a6c6d94c0a
+        any_sp(volatile any_sp&& other) noexcept;                               ///< @copydoc 
 
-        any_sp&             operator =(const any_sp& other);                                        ///< @copydoc _6693684a_9d8b_45e3_9196_3e20af210319
-        volatile any_sp&    operator =(const any_sp& other) volatile;                               ///< @copydoc 
-        any_sp&             operator =(const volatile any_sp& other);                               ///< @copydoc 
-        volatile any_sp&    operator =(const volatile any_sp& other) volatile;                      ///< @copydoc 
-        any_sp&             operator =(any_sp&& other) noexcept;                                    ///< @copydoc _003d4488_8885_414a_b34c_e6beb6c1019a
-        volatile any_sp&    operator =(any_sp&& other) volatile noexcept;                           ///< @copydoc 
-        any_sp&             operator =(is_just_volatile_tr<any_sp> auto&& other) noexcept;          ///< @copydoc 
-        volatile any_sp&    operator =(is_just_volatile_tr<any_sp> auto&& other) volatile noexcept; ///< @copydoc 
+        any_sp&             operator =(const any_sp& other);                    ///< @copydoc _6693684a_9d8b_45e3_9196_3e20af210319
+        volatile any_sp&    operator =(const any_sp& other) volatile;           ///< @copydoc 
+        any_sp&             operator =(const volatile any_sp& other);           ///< @copydoc 
+        volatile any_sp&    operator =(const volatile any_sp& other) volatile;  ///< @copydoc 
+        any_sp&             operator =(any_sp&& other) noexcept;                ///< @copydoc _003d4488_8885_414a_b34c_e6beb6c1019a
+        volatile any_sp&    operator =(any_sp&& other) volatile noexcept;       ///< @copydoc 
+        template <is_just_volatile_tr<any_sp<any_p>> other_p>
+        any_sp&             operator =(other_p&& other) noexcept;               ///< @copydoc 
+        template <is_just_volatile_tr<any_sp<any_p>> other_p>
+        volatile any_sp&    operator =(other_p&& other) volatile noexcept;      ///< @copydoc 
 
-        ~any_sp();                                                                                  ///< @copydoc _8befff79_9dcc_4bd8_91e6_a3cddab84821
+        ~any_sp();                                                              ///< @copydoc _8befff79_9dcc_4bd8_91e6_a3cddab84821
         /// @}
 
     public:
