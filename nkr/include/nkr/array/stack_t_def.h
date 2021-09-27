@@ -261,7 +261,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename stack_array_t<unit_p, capacity_p>&
+    inline stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(const stack_array_t& other)
     {
         if (this != std::addressof(other)) {
@@ -272,7 +272,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename volatile stack_array_t<unit_p, capacity_p>&
+    inline volatile stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(const stack_array_t& other)
         volatile
     {
@@ -284,7 +284,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename stack_array_t<unit_p, capacity_p>&
+    inline stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(const volatile stack_array_t& other)
     {
         if (this != std::addressof(other)) {
@@ -295,7 +295,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename volatile stack_array_t<unit_p, capacity_p>&
+    inline volatile stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(const volatile stack_array_t& other)
         volatile
     {
@@ -307,7 +307,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename stack_array_t<unit_p, capacity_p>&
+    inline stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(stack_array_t&& other)
         noexcept
     {
@@ -319,7 +319,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename volatile stack_array_t<unit_p, capacity_p>&
+    inline volatile stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(stack_array_t&& other)
         volatile noexcept
     {
@@ -331,7 +331,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename stack_array_t<unit_p, capacity_p>&
+    inline stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(is_just_volatile_tr<stack_array_t> auto&& other)
         noexcept
     {
@@ -343,7 +343,7 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline typename volatile stack_array_t<unit_p, capacity_p>&
+    inline volatile stack_array_t<unit_p, capacity_p>&
         stack_array_t<unit_p, capacity_p>::operator =(is_just_volatile_tr<stack_array_t> auto&& other)
         volatile noexcept
     {
