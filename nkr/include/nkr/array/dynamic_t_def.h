@@ -561,9 +561,8 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <is_just_volatile_tr<dynamic_array_t<unit_p, allocator_p, grow_rate_p>> other_p>
     inline dynamic_array_t<unit_p, allocator_p, grow_rate_p>&
-        dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(other_p&& other)
+        dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(is_just_volatile_tr<dynamic_array_t> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -576,9 +575,8 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <is_just_volatile_tr<dynamic_array_t<unit_p, allocator_p, grow_rate_p>> other_p>
     inline volatile dynamic_array_t<unit_p, allocator_p, grow_rate_p>&
-        dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(other_p&& other)
+        dynamic_array_t<unit_p, allocator_p, grow_rate_p>::operator =(is_just_volatile_tr<dynamic_array_t> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {

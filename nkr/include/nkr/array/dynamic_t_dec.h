@@ -138,10 +138,8 @@ namespace nkr {
         volatile dynamic_array_t&   operator =(const volatile dynamic_array_t& other) volatile;
         dynamic_array_t&            operator =(dynamic_array_t&& other) noexcept;
         volatile dynamic_array_t&   operator =(dynamic_array_t&& other) volatile noexcept;
-        template <is_just_volatile_tr<dynamic_array_t<unit_p, allocator_p, grow_rate_p>> other_p>
-        dynamic_array_t&            operator =(other_p&& other) noexcept;
-        template <is_just_volatile_tr<dynamic_array_t<unit_p, allocator_p, grow_rate_p>> other_p>
-        volatile dynamic_array_t&   operator =(other_p&& other) volatile noexcept;
+        dynamic_array_t&            operator =(is_just_volatile_tr<dynamic_array_t> auto&& other) noexcept;
+        volatile dynamic_array_t&   operator =(is_just_volatile_tr<dynamic_array_t> auto&& other) volatile noexcept;
 
         ~dynamic_array_t();
 

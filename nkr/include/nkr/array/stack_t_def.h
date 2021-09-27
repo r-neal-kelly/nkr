@@ -331,9 +331,8 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    template <is_just_volatile_tr<stack_array_t<unit_p, capacity_p>> other_p>
     inline typename stack_array_t<unit_p, capacity_p>&
-        stack_array_t<unit_p, capacity_p>::operator =(other_p&& other)
+        stack_array_t<unit_p, capacity_p>::operator =(is_just_volatile_tr<stack_array_t> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -344,9 +343,8 @@ namespace nkr {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    template <is_just_volatile_tr<stack_array_t<unit_p, capacity_p>> other_p>
     inline typename volatile stack_array_t<unit_p, capacity_p>&
-        stack_array_t<unit_p, capacity_p>::operator =(other_p&& other)
+        stack_array_t<unit_p, capacity_p>::operator =(is_just_volatile_tr<stack_array_t> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {

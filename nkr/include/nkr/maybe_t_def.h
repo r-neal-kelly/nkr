@@ -109,9 +109,8 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    template <is_just_volatile_tr<any_sp<any_p>> other_p>
     inline any_sp<any_p>&
-        any_sp<any_p>::operator =(other_p&& other)
+        any_sp<any_p>::operator =(is_just_volatile_tr<any_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -121,9 +120,8 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    template <is_just_volatile_tr<any_sp<any_p>> other_p>
     inline volatile any_sp<any_p>&
-        any_sp<any_p>::operator =(other_p&& other)
+        any_sp<any_p>::operator =(is_just_volatile_tr<any_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {

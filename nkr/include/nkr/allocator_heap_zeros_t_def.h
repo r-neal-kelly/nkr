@@ -163,18 +163,16 @@ namespace nkr { namespace allocator {
     }
 
     template <any_type_tr unit_p>
-    template <is_just_volatile_tr<heap_zeros_t<unit_p>> other_p>
     inline heap_zeros_t<unit_p>&
-        heap_zeros_t<unit_p>::operator =(other_p&& other)
+        heap_zeros_t<unit_p>::operator =(is_just_volatile_tr<heap_zeros_t> auto&& other)
         noexcept
     {
         return *this;
     }
 
     template <any_type_tr unit_p>
-    template <is_just_volatile_tr<heap_zeros_t<unit_p>> other_p>
     inline volatile heap_zeros_t<unit_p>&
-        heap_zeros_t<unit_p>::operator =(other_p&& other)
+        heap_zeros_t<unit_p>::operator =(is_just_volatile_tr<heap_zeros_t> auto&& other)
         volatile noexcept
     {
         return *this;
