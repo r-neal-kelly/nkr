@@ -92,8 +92,10 @@ namespace nkr {
         volatile stack_array_t& operator =(const volatile stack_array_t& other) volatile;
         stack_array_t&          operator =(stack_array_t&& other) noexcept;
         volatile stack_array_t& operator =(stack_array_t&& other) volatile noexcept;
-        stack_array_t&          operator =(is_just_volatile_tr<stack_array_t> auto&& other) noexcept;
-        volatile stack_array_t& operator =(is_just_volatile_tr<stack_array_t> auto&& other) volatile noexcept;
+        template <is_just_volatile_tr<stack_array_t<unit_p, capacity_p>> other_p>
+        stack_array_t&          operator =(other_p&& other) noexcept;
+        template <is_just_volatile_tr<stack_array_t<unit_p, capacity_p>> other_p>
+        volatile stack_array_t& operator =(other_p&& other) volatile noexcept;
 
         ~stack_array_t();
 

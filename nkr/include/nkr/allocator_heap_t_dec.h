@@ -58,7 +58,7 @@ namespace nkr { namespace allocator {
         }
 
     public:
-        heap_t()                                                                                    = default;
+        heap_t()                                                                = default;
 
         heap_t(const heap_t& other);
         heap_t(const volatile heap_t& other);
@@ -71,10 +71,12 @@ namespace nkr { namespace allocator {
         volatile heap_t&    operator =(const volatile heap_t& other) volatile;
         heap_t&             operator =(heap_t&& other) noexcept;
         volatile heap_t&    operator =(heap_t&& other) volatile noexcept;
-        heap_t&             operator =(is_just_volatile_tr<heap_t> auto&& other) noexcept;
-        volatile heap_t&    operator =(is_just_volatile_tr<heap_t> auto&& other) volatile noexcept;
+        template <is_just_volatile_tr<heap_t<unit_p>> other_p>
+        heap_t&             operator =(other_p&& other) noexcept;
+        template <is_just_volatile_tr<heap_t<unit_p>> other_p>
+        volatile heap_t&    operator =(other_p&& other) volatile noexcept;
 
-        ~heap_t()                                                                                   = default;
+        ~heap_t()                                                               = default;
 
     public:
         bool_t  Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count) const;
