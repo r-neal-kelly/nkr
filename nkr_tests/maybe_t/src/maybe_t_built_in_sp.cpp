@@ -375,19 +375,24 @@ namespace nkr {
                     if constexpr (integer_tr<value_t>) {
                         std::remove_const_t<value_t> random_a = Random<std::remove_const_t<value_t>>();
                         std::remove_const_t<value_t> random_b = Random<std::remove_const_t<value_t>>();
+                        word_t random_c = Random<word_t>(0, sizeof(value_t) * 8);
                         maybe_p maybe(random_a);
                         CHECK(~maybe == ~random_a);
                         CHECK((maybe | random_b) == (random_a | random_b));
                         CHECK((maybe & random_b) == (random_a & random_b));
                         CHECK((maybe ^ random_b) == (random_a ^ random_b));
-                        CHECK((maybe << random_b) == (random_a << random_b));
-                        CHECK((maybe >> random_b) == (random_a >> random_b));
+                        if constexpr (integer_unsigned_tr<value_t>) {
+                            CHECK((maybe << random_c) == (random_a << random_c));
+                            CHECK((maybe >> random_c) == (random_a >> random_c));
+                        }
                         if constexpr (any_non_const_tr<maybe_p> && any_non_const_tr<value_t>) {
                             CHECK((maybe |= random_b) == (random_a |= random_b));
                             CHECK((maybe &= random_b) == (random_a &= random_b));
                             CHECK((maybe ^= random_b) == (random_a ^= random_b));
-                            CHECK((maybe <<= random_b) == (random_a <<= random_b));
-                            CHECK((maybe >>= random_b) == (random_a >>= random_b));
+                            if constexpr (integer_unsigned_tr<value_t>) {
+                                CHECK((maybe <<= random_c) == (random_a <<= random_c));
+                                CHECK((maybe >>= random_c) == (random_a >>= random_c));
+                            }
                         }
                     }
                 }

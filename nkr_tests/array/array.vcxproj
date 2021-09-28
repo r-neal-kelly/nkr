@@ -160,8 +160,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\dynamic_array_t.cpp" />
-    <ClCompile Include="src\stack_array_t.cpp" />
+    <ClCompile Include="src\dynamic_t.cpp" />
+    <ClCompile Include="src\instant_t.cpp" />
+    <ClCompile Include="src\stack_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">

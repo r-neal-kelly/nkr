@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\stack_array_t.cpp">
+    <ClCompile Include="src\stack_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\dynamic_array_t.cpp">
+    <ClCompile Include="src\dynamic_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\instant_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

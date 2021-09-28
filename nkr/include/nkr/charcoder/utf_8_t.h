@@ -9,7 +9,7 @@
 
 namespace nkr { namespace charcoder {
 
-    // eventually we can use the stack_array_t as units
+    // eventually we can use the array::stack_t as units
 
     class utf_8_t
     {

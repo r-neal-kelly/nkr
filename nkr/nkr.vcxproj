@@ -161,6 +161,9 @@
     <ClInclude Include="include\nkr\allocator\heap_zeros_t_dec.h" />
     <ClInclude Include="include\nkr\allocator\heap_zeros_t_def.h" />
     <ClInclude Include="include\nkr\allocator_i.h" />
+    <ClInclude Include="include\nkr\array\instant_t.h" />
+    <ClInclude Include="include\nkr\array\instant_t_dec.h" />
+    <ClInclude Include="include\nkr\array\instant_t_def.h" />
     <ClInclude Include="include\nkr\array\stack_t_dox.h" />
     <ClInclude Include="include\nkr\array_i.h" />
     <ClInclude Include="include\nkr\array\dynamic_t.h" />

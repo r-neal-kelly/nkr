@@ -10,15 +10,15 @@
 
 #include "doctest.h"
 
-namespace nkr {
+namespace nkr { namespace array {
 
-    TEST_SUITE("stack_array_t<unit_p, capacity_p>")
+    TEST_SUITE("stack_t<unit_p, capacity_p>")
     {
     #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, CAPACITY_p)             \
-        QUALIFIER_p stack_array_t<UNIT_p, CAPACITY_p>,                  \
-        QUALIFIER_p stack_array_t<const UNIT_p, CAPACITY_p>,            \
-        QUALIFIER_p stack_array_t<volatile UNIT_p, CAPACITY_p>,         \
-        QUALIFIER_p stack_array_t<const volatile UNIT_p, CAPACITY_p>
+        QUALIFIER_p stack_t<UNIT_p, CAPACITY_p>,                  \
+        QUALIFIER_p stack_t<const UNIT_p, CAPACITY_p>,            \
+        QUALIFIER_p stack_t<volatile UNIT_p, CAPACITY_p>,         \
+        QUALIFIER_p stack_t<const volatile UNIT_p, CAPACITY_p>
 
     #define nkr_CAPACITIES(QUALIFIER_p, UNIT_p) \
         nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, 16)
@@ -47,12 +47,12 @@ namespace nkr {
         {
             TEST_SUITE("unit_t")
             {
-                TEST_CASE_TEMPLATE("should have a unit_t", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a unit_t", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     static_assert(is_tr<unit_t, unit_t>);
                 }
@@ -60,12 +60,12 @@ namespace nkr {
 
             TEST_SUITE("writable_unit_t")
             {
-                TEST_CASE_TEMPLATE("should have a writable_unit_t that is non-const", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a writable_unit_t that is non-const", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     static_assert(is_tr<writable_unit_t, std::remove_const_t<unit_t>>);
                 }
@@ -73,27 +73,27 @@ namespace nkr {
 
             TEST_SUITE("array_t")
             {
-                TEST_CASE_TEMPLATE("should have an array_t of unit_t[Capacity()]", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have an array_t of unit_t[Capacity()]", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    static_assert(is_tr<array_t, unit_t[stack_array_p::Capacity()]>);
+                    static_assert(is_tr<array_t, unit_t[stack_p::Capacity()]>);
                 }
             }
 
             TEST_SUITE("writable_array_t")
             {
-                TEST_CASE_TEMPLATE("should have an writable_array_t of writable_unit_t[Capacity()]", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have an writable_array_t of writable_unit_t[Capacity()]", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    static_assert(is_tr<writable_array_t, writable_unit_t[stack_array_p::Capacity()]>);
+                    static_assert(is_tr<writable_array_t, writable_unit_t[stack_p::Capacity()]>);
                 }
             }
         }
@@ -102,14 +102,14 @@ namespace nkr {
         {
             TEST_SUITE("Capacity()")
             {
-                TEST_CASE_TEMPLATE("should return the unit_count of the underlying array_t", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the unit_count of the underlying array_t", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    CHECK(stack_array_p::Capacity() == sizeof(array_t) / sizeof(unit_t));
+                    CHECK(stack_p::Capacity() == sizeof(array_t) / sizeof(unit_t));
                 }
             }
         }
@@ -118,26 +118,26 @@ namespace nkr {
         {
             TEST_SUITE("default_ctor()")
             {
-                TEST_CASE_TEMPLATE("should have a count of 0", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a count of 0", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    stack_array_p stack_array;
-                    CHECK(stack_array.Count() == 0);
+                    stack_p stack;
+                    CHECK(stack.Count() == 0);
                 }
             }
 
             TEST_SUITE("copy_initializer_list_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy arguments, set count, and not change the source", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy arguments, set count, and not change the source", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -145,49 +145,49 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    CHECK(stack_array.Count() == 16);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == array[idx]);
+                    CHECK(stack.Count() == 16);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == array[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should only copy upto the argument count, even if it has more capacity", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should only copy upto the argument count, even if it has more capacity", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                     };
-                    CHECK(stack_array.Count() == 8);
-                    CHECK(stack_array.Count() < stack_array.Capacity());
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == array[idx]);
+                    CHECK(stack.Count() == 8);
+                    CHECK(stack.Count() < stack.Capacity());
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == array[idx]);
                     }
                 }
             }
 
             TEST_SUITE("move_initializer_list_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move arguments, set count, and default the source", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should move arguments, set count, and default the source", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     writable_array_t array = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -209,7 +209,7 @@ namespace nkr {
                         array[12], array[13],
                         array[14], array[15],
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         nkr::Move(array[0]), nkr::Move(array[1]),
                         nkr::Move(array[2]), nkr::Move(array[3]),
                         nkr::Move(array[4]), nkr::Move(array[5]),
@@ -219,21 +219,21 @@ namespace nkr {
                         nkr::Move(array[12]), nkr::Move(array[13]),
                         nkr::Move(array[14]), nkr::Move(array[15]),
                     };
-                    CHECK(stack_array.Count() == 16);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == backup[idx]);
+                    CHECK(stack.Count() == 16);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == backup[idx]);
                     }
                     for (index_t idx = 0, end = sizeof(array) / sizeof(writable_unit_t); idx < end; idx += 1) {
                         CHECK(array[idx] == none_t());
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should only copy upto the argument count, even if it has more capacity", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should only copy upto the argument count, even if it has more capacity", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     writable_array_t array = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -247,15 +247,15 @@ namespace nkr {
                         array[4], array[5],
                         array[6], array[7],
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         nkr::Move(array[0]), nkr::Move(array[1]),
                         nkr::Move(array[2]), nkr::Move(array[3]),
                         nkr::Move(array[4]), nkr::Move(array[5]),
                         nkr::Move(array[6]), nkr::Move(array[7]),
                     };
-                    CHECK(stack_array.Count() == 8);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == backup[idx]);
+                    CHECK(stack.Count() == 8);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == backup[idx]);
                     }
                     for (index_t idx = 0, end = sizeof(array) / sizeof(writable_unit_t); idx < end; idx += 1) {
                         CHECK(array[idx] == none_t());
@@ -265,41 +265,41 @@ namespace nkr {
 
             TEST_SUITE("copy_ctor()")
             {
-                TEST_CASE_TEMPLATE("should explicitly or implicitly copy each unit and the count of other", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should explicitly or implicitly copy each unit and the count of other", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<writable_unit_t>());
                     }
-                    stack_array_p stack_array = other;
-                    CHECK(stack_array.Count() == other.Count());
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == other[idx]);
+                    stack_p stack = other;
+                    CHECK(stack.Count() == other.Count());
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == other[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not change the other", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should not change the other", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
-                    std::remove_const_t<stack_array_p> backup;
+                    std::remove_const_t<stack_p> other;
+                    std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
                         other.Push(random);
                         backup.Push(random);
                     }
-                    stack_array_p stack_array = other;
+                    stack_p stack = other;
                     CHECK(other.Count() == backup.Count());
                     for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
                         CHECK(other[idx] == backup[idx]);
@@ -309,43 +309,43 @@ namespace nkr {
 
             TEST_SUITE("move_ctor()")
             {
-                TEST_CASE_TEMPLATE("should explicitly or implicitly move each unit and count of other", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should explicitly or implicitly move each unit and count of other", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
-                    std::remove_const_t<stack_array_p> backup;
+                    std::remove_const_t<stack_p> other;
+                    std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
                         other.Push(random);
                         backup.Push(random);
                     }
-                    stack_array_p stack_array = nkr::Move(other);
-                    CHECK(stack_array.Count() == backup.Count());
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == backup[idx]);
+                    stack_p stack = nkr::Move(other);
+                    CHECK(stack.Count() == backup.Count());
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == backup[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should set the other to have none values", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the other to have none values", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<writable_unit_t>());
                     }
-                    stack_array_p stack_array = nkr::Move(other);
+                    stack_p stack = nkr::Move(other);
                     CHECK(other.Count() == 0);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                         CHECK(other.Array()[idx] == none_t());
                     }
                 }
@@ -353,136 +353,136 @@ namespace nkr {
 
             TEST_SUITE("copy_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy each unit and the count of other", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy each unit and the count of other", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<writable_unit_t>());
                     }
-                    stack_array_p stack_array;
-                    stack_array = other;
-                    CHECK(stack_array.Count() == other.Count());
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == other[idx]);
+                    stack_p stack;
+                    stack = other;
+                    CHECK(stack.Count() == other.Count());
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == other[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not change the other", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not change the other", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
-                    std::remove_const_t<stack_array_p> backup;
+                    std::remove_const_t<stack_p> other;
+                    std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
                         other.Push(random);
                         backup.Push(random);
                     }
-                    stack_array_p stack_array;
-                    stack_array = other;
+                    stack_p stack;
+                    stack = other;
                     CHECK(other.Count() == backup.Count());
                     for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
                         CHECK(other[idx] == backup[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return itself", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return itself", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<writable_unit_t>());
                     }
-                    stack_array_p stack_array;
-                    CHECK(&(stack_array = other) == &stack_array);
+                    stack_p stack;
+                    CHECK(&(stack = other) == &stack);
                 }
             }
 
             TEST_SUITE("move_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move each unit and count of other", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move each unit and count of other", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
-                    std::remove_const_t<stack_array_p> backup;
+                    std::remove_const_t<stack_p> other;
+                    std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
                         other.Push(random);
                         backup.Push(random);
                     }
-                    stack_array_p stack_array;
-                    stack_array = nkr::Move(other);
-                    CHECK(stack_array.Count() == backup.Count());
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == backup[idx]);
+                    stack_p stack;
+                    stack = nkr::Move(other);
+                    CHECK(stack.Count() == backup.Count());
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == backup[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should set the other to have none values", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should set the other to have none values", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<writable_unit_t>());
                     }
-                    stack_array_p stack_array;
-                    stack_array = nkr::Move(other);
+                    stack_p stack;
+                    stack = nkr::Move(other);
                     CHECK(other.Count() == 0);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                         CHECK(other.Array()[idx] == none_t());
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return itself", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return itself", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
-                    std::remove_const_t<stack_array_p> backup;
+                    std::remove_const_t<stack_p> other;
+                    std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
                         other.Push(random);
                         backup.Push(random);
                     }
-                    stack_array_p stack_array;
-                    CHECK(&(stack_array = nkr::Move(other)) == &stack_array);
+                    stack_p stack;
+                    CHECK(&(stack = nkr::Move(other)) == &stack);
                 }
 
-                TEST_CASE_TEMPLATE("should work with the copy_initializer_list_ctor()", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should work with the copy_initializer_list_ctor()", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -490,25 +490,25 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array;
-                    stack_array = {
+                    stack_p stack;
+                    stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    CHECK(stack_array.Count() == 16);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == array[idx]);
+                    CHECK(stack.Count() == 16);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == array[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should work with the move_initializer_list_ctor()", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should work with the move_initializer_list_ctor()", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     writable_array_t array = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -530,8 +530,8 @@ namespace nkr {
                         array[12], array[13],
                         array[14], array[15],
                     };
-                    stack_array_p stack_array;
-                    stack_array = {
+                    stack_p stack;
+                    stack = {
                         nkr::Move(array[0]), nkr::Move(array[1]),
                         nkr::Move(array[2]), nkr::Move(array[3]),
                         nkr::Move(array[4]), nkr::Move(array[5]),
@@ -541,9 +541,9 @@ namespace nkr {
                         nkr::Move(array[12]), nkr::Move(array[13]),
                         nkr::Move(array[14]), nkr::Move(array[15]),
                     };
-                    CHECK(stack_array.Count() == 16);
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == backup[idx]);
+                    CHECK(stack.Count() == 16);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == backup[idx]);
                     }
                     for (index_t idx = 0, end = sizeof(array) / sizeof(writable_unit_t); idx < end; idx += 1) {
                         CHECK(array[idx] == none_t());
@@ -553,23 +553,23 @@ namespace nkr {
 
             TEST_SUITE("dtor()")
             {
-                TEST_CASE_TEMPLATE("should set its values to default", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set its values to default", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<stack_array_p> other;
+                    std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<writable_unit_t>());
                     }
-                    stack_array_p stack_array = other;
-                    stack_array.~stack_array_p();
-                    CHECK(stack_array.Count() == none_t());
+                    stack_p stack = other;
+                    stack.~stack_p();
+                    CHECK(stack.Count() == none_t());
                     for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array.Array()[idx] == none_t());
+                        CHECK(stack.Array()[idx] == none_t());
                     }
                 }
             }
@@ -579,12 +579,12 @@ namespace nkr {
         {
             TEST_SUITE("Array()")
             {
-                TEST_CASE_TEMPLATE("should retun the unit_t[Capacity()] array with each unit", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should retun the unit_t[Capacity()] array with each unit", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -592,24 +592,24 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    CHECK(sizeof(stack_array.Array()) == sizeof(array));
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array.Array()[idx] == array[idx]);
+                    CHECK(sizeof(stack.Array()) == sizeof(array));
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack.Array()[idx] == array[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should be able to alter non-const units", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should be able to alter non-const units", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
                         array_t array = {
@@ -618,19 +618,19 @@ namespace nkr {
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         };
-                        stack_array_p stack_array = {
+                        stack_p stack = {
                             array[0], array[1], array[2], array[3],
                             array[4], array[5], array[6], array[7],
                             array[8], array[9], array[10], array[11],
                             array[12], array[13], array[14], array[15],
                         };
-                        for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                             writable_unit_t random;
                             do {
                                 random = Random<writable_unit_t>();
                             } while (random == array[idx]);
-                            stack_array.Array()[idx] = random;
-                            CHECK(stack_array.Array()[idx] != array[idx]);
+                            stack.Array()[idx] = random;
+                            CHECK(stack.Array()[idx] != array[idx]);
                         }
                     }
                 }
@@ -638,40 +638,40 @@ namespace nkr {
 
             TEST_SUITE("Count()")
             {
-                TEST_CASE_TEMPLATE("should return the current count", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the current count", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    if constexpr (any_non_const_tr<stack_array_p>) {
-                        stack_array_p stack_array;
-                        for (index_t idx = 0, end = stack_array.Capacity(); idx < end; idx += 1) {
-                            CHECK(stack_array.Count() == idx);
-                            stack_array.Push(Random<writable_unit_t>());
+                    if constexpr (any_non_const_tr<stack_p>) {
+                        stack_p stack;
+                        for (index_t idx = 0, end = stack.Capacity(); idx < end; idx += 1) {
+                            CHECK(stack.Count() == idx);
+                            stack.Push(Random<writable_unit_t>());
                         }
-                        CHECK(stack_array.Count() == stack_array.Capacity());
+                        CHECK(stack.Count() == stack.Capacity());
                     } else {
-                        stack_array_p stack_array = {
+                        stack_p stack = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        CHECK(stack_array.Count() == 8);
+                        CHECK(stack.Count() == 8);
                     }
                 }
             }
 
             TEST_SUITE("At()")
             {
-                TEST_CASE_TEMPLATE("should return unit_t& at the specified index", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return unit_t& at the specified index", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -679,23 +679,23 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array.At(idx) == array[idx]);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack.At(idx) == array[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should be able to alter non-const units", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should be able to alter non-const units", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
                         array_t array = {
@@ -704,19 +704,19 @@ namespace nkr {
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         };
-                        stack_array_p stack_array = {
+                        stack_p stack = {
                             array[0], array[1], array[2], array[3],
                             array[4], array[5], array[6], array[7],
                             array[8], array[9], array[10], array[11],
                             array[12], array[13], array[14], array[15],
                         };
-                        for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                             unit_t random;
                             do {
                                 random = Random<unit_t>();
                             } while (random == array[idx]);
-                            stack_array.At(idx) = random;
-                            CHECK(stack_array.At(idx) != array[idx]);
+                            stack.At(idx) = random;
+                            CHECK(stack.At(idx) != array[idx]);
                         }
                     }
                 }
@@ -724,12 +724,12 @@ namespace nkr {
 
             TEST_SUITE("Push()")
             {
-                TEST_CASE_TEMPLATE("should copy a unit into the array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy a unit into the array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -737,20 +737,20 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array;
+                    stack_p stack;
                     for (index_t idx = 0, end = sizeof(array) / sizeof(unit_t); idx < end; idx += 1) {
-                        stack_array.Push(array[idx]);
-                        CHECK(stack_array[idx] == array[idx]);
+                        stack.Push(array[idx]);
+                        CHECK(stack[idx] == array[idx]);
                     }
-                    CHECK(stack_array.Count() == sizeof(array) / sizeof(unit_t));
+                    CHECK(stack.Count() == sizeof(array) / sizeof(unit_t));
                 }
 
-                TEST_CASE_TEMPLATE("should copy multiple units into the array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy multiple units into the array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -758,25 +758,25 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array;
-                    stack_array.Push(
+                    stack_p stack;
+                    stack.Push(
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15]
                     );
-                    CHECK(stack_array.Count() == sizeof(array) / sizeof(unit_t));
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == array[idx]);
+                    CHECK(stack.Count() == sizeof(array) / sizeof(unit_t));
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == array[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should move a writable unit into the array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move a writable unit into the array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     writable_array_t array = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -798,23 +798,23 @@ namespace nkr {
                         array[12], array[13],
                         array[14], array[15],
                     };
-                    stack_array_p stack_array;
+                    stack_p stack;
                     for (index_t idx = 0, end = sizeof(array) / sizeof(unit_t); idx < end; idx += 1) {
-                        stack_array.Push(nkr::Move(array[idx]));
-                        CHECK(stack_array[idx] == backup[idx]);
+                        stack.Push(nkr::Move(array[idx]));
+                        CHECK(stack[idx] == backup[idx]);
                     }
-                    CHECK(stack_array.Count() == sizeof(backup) / sizeof(unit_t));
+                    CHECK(stack.Count() == sizeof(backup) / sizeof(unit_t));
                     for (index_t idx = 0, end = sizeof(array) / sizeof(writable_unit_t); idx < end; idx += 1) {
                         CHECK(array[idx] == none_t());
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should move multiple writable units into the array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move multiple writable units into the array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     writable_array_t array = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -836,8 +836,8 @@ namespace nkr {
                         array[12], array[13],
                         array[14], array[15],
                     };
-                    stack_array_p stack_array;
-                    stack_array.Push(
+                    stack_p stack;
+                    stack.Push(
                         nkr::Move(array[0]), nkr::Move(array[1]),
                         nkr::Move(array[2]), nkr::Move(array[3]),
                         nkr::Move(array[4]), nkr::Move(array[5]),
@@ -847,9 +847,9 @@ namespace nkr {
                         nkr::Move(array[12]), nkr::Move(array[13]),
                         nkr::Move(array[14]), nkr::Move(array[15])
                     );
-                    CHECK(stack_array.Count() == sizeof(backup) / sizeof(writable_unit_t));
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == backup[idx]);
+                    CHECK(stack.Count() == sizeof(backup) / sizeof(writable_unit_t));
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == backup[idx]);
                     }
                     for (index_t idx = 0, end = sizeof(array) / sizeof(writable_unit_t); idx < end; idx += 1) {
                         CHECK(array[idx] == none_t());
@@ -859,12 +859,12 @@ namespace nkr {
 
             TEST_SUITE("Pop()")
             {
-                TEST_CASE_TEMPLATE("should move the last unit out of the array and return it by value", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the last unit out of the array and return it by value", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -872,31 +872,31 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    CHECK(stack_array.Count() == sizeof(array) / sizeof(unit_t));
-                    while (stack_array.Count() > 0) {
-                        unit_t value = stack_array.Pop();
-                        CHECK(array[stack_array.Count()] == value);
+                    CHECK(stack.Count() == sizeof(array) / sizeof(unit_t));
+                    while (stack.Count() > 0) {
+                        unit_t value = stack.Pop();
+                        CHECK(array[stack.Count()] == value);
                     }
-                    CHECK(stack_array.Count() == 0);
+                    CHECK(stack.Count() == 0);
                 }
             }
 
             TEST_SUITE("Copy_To()")
             {
-                TEST_CASE_TEMPLATE("should copy each of its units to another array without changing them", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy each of its units to another array without changing them", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    const stack_array_p stack_array = {
+                    const stack_p stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -906,51 +906,51 @@ namespace nkr {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array_p other;
-                    stack_array.Copy_To(other);
-                    CHECK(other.Count() == stack_array.Count());
+                    stack_p other;
+                    stack.Copy_To(other);
+                    CHECK(other.Count() == stack.Count());
                     for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
-                        CHECK(other[idx] == stack_array[idx]);
+                        CHECK(other[idx] == stack[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not remove any units from other array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not remove any units from other array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    const stack_array_p stack_array = {
+                    const stack_p stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array_p other = {
+                    stack_p other = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array.Copy_To(other);
-                    CHECK(other.Count() == stack_array.Count() + 8);
+                    stack.Copy_To(other);
+                    CHECK(other.Count() == stack.Count() + 8);
                     for (index_t idx = 8, end = other.Count(); idx < end; idx += 1) {
-                        CHECK(other[idx] == stack_array[idx - 8]);
+                        CHECK(other[idx] == stack[idx - 8]);
                     }
                 }
             }
 
             TEST_SUITE("Copy_From()")
             {
-                TEST_CASE_TEMPLATE("should copy each unit from another array without changing them", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy each unit from another array without changing them", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    const stack_array_p other = {
+                    const stack_p other = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -960,52 +960,52 @@ namespace nkr {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array_p stack_array;
-                    stack_array.Copy_From(other);
-                    CHECK(stack_array.Count() == other.Count());
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == other[idx]);
+                    stack_p stack;
+                    stack.Copy_From(other);
+                    CHECK(stack.Count() == other.Count());
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == other[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not remove any of its own units", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not remove any of its own units", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    const stack_array_p other = {
+                    const stack_p other = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array.Copy_From(other);
-                    CHECK(stack_array.Count() == other.Count() + 8);
-                    for (index_t idx = 8, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == other[idx - 8]);
+                    stack.Copy_From(other);
+                    CHECK(stack.Count() == other.Count() + 8);
+                    for (index_t idx = 8, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == other[idx - 8]);
                     }
                 }
             }
 
             TEST_SUITE("Move_To()")
             {
-                TEST_CASE_TEMPLATE("should move each of its units to another array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move each of its units to another array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
-                        stack_array_p stack_array = {
+                        stack_p stack = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -1015,10 +1015,10 @@ namespace nkr {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack_array_p backup = stack_array;
-                        stack_array_p other;
-                        stack_array.Move_To(other);
-                        CHECK(stack_array.Count() == 0);
+                        stack_p backup = stack;
+                        stack_p other;
+                        stack.Move_To(other);
+                        CHECK(stack.Count() == 0);
                         CHECK(other.Count() == backup.Count());
                         for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
                             CHECK(other[idx] == backup[idx]);
@@ -1026,29 +1026,29 @@ namespace nkr {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not remove any units from other array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not remove any units from other array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
-                        stack_array_p stack_array = {
+                        stack_p stack = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack_array_p backup = stack_array;
-                        stack_array_p other = {
+                        stack_p backup = stack;
+                        stack_p other = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack_array.Move_To(other);
-                        CHECK(stack_array.Count() == 0);
+                        stack.Move_To(other);
+                        CHECK(stack.Count() == 0);
                         CHECK(other.Count() == backup.Count() + 8);
                         for (index_t idx = 8, end = other.Count(); idx < end; idx += 1) {
                             CHECK(other[idx] == backup[idx - 8]);
@@ -1059,15 +1059,15 @@ namespace nkr {
 
             TEST_SUITE("Move_From()")
             {
-                TEST_CASE_TEMPLATE("should move each unit from another array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move each unit from another array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
-                        stack_array_p other = {
+                        stack_p other = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -1077,43 +1077,43 @@ namespace nkr {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack_array_p backup = other;
-                        stack_array_p stack_array;
-                        stack_array.Move_From(other);
+                        stack_p backup = other;
+                        stack_p stack;
+                        stack.Move_From(other);
                         CHECK(other.Count() == 0);
-                        CHECK(stack_array.Count() == backup.Count());
-                        for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                            CHECK(stack_array[idx] == backup[idx]);
+                        CHECK(stack.Count() == backup.Count());
+                        for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                            CHECK(stack[idx] == backup[idx]);
                         }
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should not remove any of its own units", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not remove any of its own units", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
-                        stack_array_p other = {
+                        stack_p other = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack_array_p backup = other;
-                        stack_array_p stack_array = {
+                        stack_p backup = other;
+                        stack_p stack = {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack_array.Move_From(other);
+                        stack.Move_From(other);
                         CHECK(other.Count() == 0);
-                        CHECK(stack_array.Count() == backup.Count() + 8);
-                        for (index_t idx = 8, end = stack_array.Count(); idx < end; idx += 1) {
-                            CHECK(stack_array[idx] == backup[idx - 8]);
+                        CHECK(stack.Count() == backup.Count() + 8);
+                        for (index_t idx = 8, end = stack.Count(); idx < end; idx += 1) {
+                            CHECK(stack[idx] == backup[idx - 8]);
                         }
                     }
                 }
@@ -1121,39 +1121,39 @@ namespace nkr {
 
             TEST_SUITE("Is_Clear()")
             {
-                TEST_CASE_TEMPLATE("should return true when there are no units in the array", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when there are no units in the array", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    stack_array_p stack_array;
-                    CHECK(stack_array.Is_Clear() == true);
+                    stack_p stack;
+                    CHECK(stack.Is_Clear() == true);
                 }
 
-                TEST_CASE_TEMPLATE("should return false when there are units in the array", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when there are units in the array", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    stack_array_p stack_array = { Random<writable_unit_t>() };
-                    CHECK(stack_array.Is_Clear() == false);
+                    stack_p stack = { Random<writable_unit_t>() };
+                    CHECK(stack.Is_Clear() == false);
                 }
             }
 
             TEST_SUITE("Clear()")
             {
-                TEST_CASE_TEMPLATE("should call the destructor of each unit and remove it from the array", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should call the destructor of each unit and remove it from the array", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -1163,10 +1163,10 @@ namespace nkr {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack_array.Clear();
-                    CHECK(stack_array.Count() == 0);
-                    for (index_t idx = 0, end = stack_array.Capacity(); idx < end; idx += 1) {
-                        CHECK(stack_array.Array()[idx] == none_t());
+                    stack.Clear();
+                    CHECK(stack.Count() == 0);
+                    for (index_t idx = 0, end = stack.Capacity(); idx < end; idx += 1) {
+                        CHECK(stack.Array()[idx] == none_t());
                     }
                 }
             }
@@ -1176,12 +1176,12 @@ namespace nkr {
         {
             TEST_SUITE("[]()")
             {
-                TEST_CASE_TEMPLATE("should return unit_t& at the specified index", stack_array_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return unit_t& at the specified index", stack_p, nkr_ALL)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     array_t array = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -1189,23 +1189,23 @@ namespace nkr {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                     };
-                    stack_array_p stack_array = {
+                    stack_p stack = {
                         array[0], array[1], array[2], array[3],
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15],
                     };
-                    for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
-                        CHECK(stack_array[idx] == array[idx]);
+                    for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
+                        CHECK(stack[idx] == array[idx]);
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should be able to alter non-const units", stack_array_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should be able to alter non-const units", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_array_p::unit_t;
-                    using writable_unit_t = stack_array_p::writable_unit_t;
-                    using array_t = stack_array_p::array_t;
-                    using writable_array_t = stack_array_p::writable_array_t;
+                    using unit_t = stack_p::unit_t;
+                    using writable_unit_t = stack_p::writable_unit_t;
+                    using array_t = stack_p::array_t;
+                    using writable_array_t = stack_p::writable_array_t;
 
                     if constexpr (any_non_const_tr<unit_t>) {
                         array_t array = {
@@ -1214,19 +1214,19 @@ namespace nkr {
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                             Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
                         };
-                        stack_array_p stack_array = {
+                        stack_p stack = {
                             array[0], array[1], array[2], array[3],
                             array[4], array[5], array[6], array[7],
                             array[8], array[9], array[10], array[11],
                             array[12], array[13], array[14], array[15],
                         };
-                        for (index_t idx = 0, end = stack_array.Count(); idx < end; idx += 1) {
+                        for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                             unit_t random;
                             do {
                                 random = Random<unit_t>();
                             } while (random == array[idx]);
-                            stack_array[idx] = random;
-                            CHECK(stack_array[idx] != array[idx]);
+                            stack[idx] = random;
+                            CHECK(stack[idx] != array[idx]);
                         }
                     }
                 }
@@ -1234,4 +1234,4 @@ namespace nkr {
         }
     }
 
-}
+}}
