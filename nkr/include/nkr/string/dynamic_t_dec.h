@@ -5,21 +5,16 @@
 #pragma once
 
 #include "nkr/intrinsics.h"
-#include "nkr/string_static_t.h"
 
 #include "nkr/charcoder_i.h"
 #include "nkr/charcoder/utf_8_t.h"
 
-namespace nkr {
+namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p = charcoder::utf_8_t>
-    class string_dynamic_t :
-        public string_static_t<charcoder_p>
+    class dynamic_t
     {
     public:
-        string_dynamic_t();
     };
 
-}
-
-#include "nkr/string_dynamic_t.inl"
+}}

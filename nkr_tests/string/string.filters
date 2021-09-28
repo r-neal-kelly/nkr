@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\random.cpp">
+    <ClCompile Include="src\dynamic_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\static_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

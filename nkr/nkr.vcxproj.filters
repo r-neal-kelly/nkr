@@ -18,19 +18,16 @@
     <ClInclude Include="include\nkr\maybe_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\string_dynamic_t.h">
+    <ClInclude Include="include\nkr\string\dynamic_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\intrinsics_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\string_static_t.h">
+    <ClInclude Include="include\nkr\string\static_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\charcoder\utf_8_t_dec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\nkr\string_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\charcoder_i.h">
@@ -288,12 +285,24 @@
     <ClInclude Include="include\nkr\number\signed_positive_t_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\string\dynamic_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\string\static_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\string\dynamic_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\string\static_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="include\nkr\string_static_t.inl">
+    <None Include="include\nkr\string\static_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\string_dynamic_t.inl">
+    <None Include="include\nkr\string\dynamic_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\array\dynamic_t_def.h">

@@ -237,9 +237,12 @@
     <ClInclude Include="include\nkr\array\stack_t.h" />
     <ClInclude Include="include\nkr\array\stack_t_dec.h" />
     <ClInclude Include="include\nkr\array\stack_t_def.h" />
-    <ClInclude Include="include\nkr\string_static_t.h" />
-    <ClInclude Include="include\nkr\string_dynamic_t.h" />
-    <ClInclude Include="include\nkr\string_t.h" />
+    <ClInclude Include="include\nkr\string\dynamic_t.h" />
+    <ClInclude Include="include\nkr\string\dynamic_t_dox.h" />
+    <ClInclude Include="include\nkr\string\static_t.h" />
+    <ClInclude Include="include\nkr\string\static_t_dec.h" />
+    <ClInclude Include="include\nkr\string\dynamic_t_dec.h" />
+    <ClInclude Include="include\nkr\string\static_t_dox.h" />
     <ClInclude Include="include\nkr\traits.h" />
     <ClInclude Include="include\nkr\docs\intrinsic.dox" />
     <ClInclude Include="include\nkr\utils.h" />
@@ -276,8 +279,8 @@
     <None Include="include\nkr\number\signed_positive_t_def.h" />
     <None Include="include\nkr\some_t_dox.h" />
     <None Include="include\nkr\some_t_def.h" />
-    <None Include="include\nkr\string_static_t.inl" />
-    <None Include="include\nkr\string_dynamic_t.inl" />
+    <None Include="include\nkr\string\static_t_def.h" />
+    <None Include="include\nkr\string\dynamic_t_def.h" />
     <None Include="include\nkr\traits_dox.h" />
   </ItemGroup>
   <ItemGroup>
