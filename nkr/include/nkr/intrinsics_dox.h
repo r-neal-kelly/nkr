@@ -65,15 +65,18 @@
     *
     * @brief
     *   Primitive types aliased for consistency.
-    * 
-    * @details
-    *   Honestly, I can't stand my IDE having one color for user-defined types and another for intrinsic built-ins types.
     */
 
         // void_t
         /**
         * @class _dbb0c2f2_8907_4cee_8bdd_463eea2421c8
         * @private
+        * 
+        * @brief
+        *   Same as `void` with a _t suffix.
+        * 
+        * @details
+        *   Also, I can't stand my IDE having one color for user-defined types and another for intrinsic built-in types.
         */
 
         // std_bool_t
