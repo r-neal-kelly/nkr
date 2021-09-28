@@ -21,7 +21,8 @@
 namespace nkr { namespace os { namespace atomic {
 
     template <fundamental_tr atom_p>
-    inline atom_p Access(const volatile atom_p& atom)
+    inline atom_p
+        Access(const volatile atom_p& atom)
     {
         atom_p snapshot = atom_p();
         Exchange_If_Equals(const_cast<volatile std::remove_cvref_t<decltype(atom)>&>(atom), snapshot, atom_p());
@@ -29,79 +30,92 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign(volatile atom_p& atom, value_p value)
     {
         return Exchange(atom, value), static_cast<atom_p>(value);
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Add(volatile atom_p& atom, value_p value)
     {
         return Exchange_Add(atom, value) + static_cast<atom_p>(value);
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Add(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Add(volatile atom_p& atom, value_p value)
     {
         return Exchange_Add(atom, value) + value;
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Subtract(volatile atom_p& atom, value_p value)
     {
         return Exchange_Subtract(atom, value) - static_cast<atom_p>(value);
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Subtract(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Subtract(volatile atom_p& atom, value_p value)
     {
         return Exchange_Subtract(atom, value) - value;
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Multiply(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Multiply(volatile atom_p& atom, value_p value)
     {
         return Exchange_Multiply(atom, value) * static_cast<atom_p>(value);
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Assign_Divide(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Divide(volatile atom_p& atom, value_p value)
     {
         return Exchange_Divide(atom, value) / static_cast<atom_p>(value);
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Modulus(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Modulus(volatile atom_p& atom, value_p value)
     {
         return Exchange_Modulus(atom, value) % static_cast<atom_p>(value);
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Or(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Or(volatile atom_p& atom, value_p value)
     {
         return Exchange_Or(atom, value) | static_cast<atom_p>(value);
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_And(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_And(volatile atom_p& atom, value_p value)
     {
         return Exchange_And(atom, value) & static_cast<atom_p>(value);
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Xor(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Xor(volatile atom_p& atom, value_p value)
     {
         return Exchange_Xor(atom, value) ^ static_cast<atom_p>(value);
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Left_Shift(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Left_Shift(volatile atom_p& atom, value_p value)
     {
         return Exchange_Left_Shift(atom, value) << static_cast<atom_p>(value);
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Assign_Right_Shift(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Assign_Right_Shift(volatile atom_p& atom, value_p value)
     {
         return Exchange_Right_Shift(atom, value) >> static_cast<atom_p>(value);
     }
@@ -109,7 +123,8 @@ namespace nkr { namespace os { namespace atomic {
 #if defined(nkr_IS_WINDOWS)
 
     template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p> ||
@@ -146,7 +161,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Add(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p>) {
@@ -187,7 +203,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Add(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Add(volatile atom_p& atom, value_p value)
     {
         address_t result = Exchange_Add(reinterpret_cast<volatile address_t&>(atom),
                                         sizeof(std::remove_pointer_t<atom_p>) * value);
@@ -195,7 +212,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Subtract(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p>) {
@@ -236,7 +254,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <type_pointer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Subtract(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Subtract(volatile atom_p& atom, value_p value)
     {
         address_t result = Exchange_Subtract(reinterpret_cast<volatile address_t&>(atom),
                                              sizeof(std::remove_pointer_t<atom_p>) * value);
@@ -244,7 +263,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Multiply(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Multiply(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p> ||
@@ -269,7 +289,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <number_tr atom_p, convertible_tr<atom_p> value_p>
-    inline atom_p Exchange_Divide(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Divide(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p> ||
@@ -294,7 +315,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Modulus(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Modulus(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p> ||
@@ -317,7 +339,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Or(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Or(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p>) {
@@ -346,7 +369,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_And(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_And(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p>) {
@@ -375,7 +399,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Xor(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Xor(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p>) {
@@ -404,7 +429,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Left_Shift(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Left_Shift(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p> ||
@@ -427,7 +453,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <integer_tr atom_p, integer_tr value_p>
-    inline atom_p Exchange_Right_Shift(volatile atom_p& atom, value_p value)
+    inline atom_p
+        Exchange_Right_Shift(volatile atom_p& atom, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         if constexpr (integer_8_tr<atom_p> ||
@@ -450,7 +477,8 @@ namespace nkr { namespace os { namespace atomic {
     }
 
     template <fundamental_tr atom_p, convertible_tr<atom_p> value_p>
-    bool_t Exchange_If_Equals(volatile atom_p& atom, atom_p& snapshot, value_p value)
+    inline bool_t
+        Exchange_If_Equals(volatile atom_p& atom, atom_p& snapshot, value_p value)
     {
         atom_p atom_value = static_cast<atom_p>(value);
         atom_p atom_result;
@@ -504,12 +532,14 @@ namespace nkr { namespace os { namespace atomic {
 
 namespace nkr { namespace os { namespace endian {
 
-    inline constexpr std_bool_t Is_Big()
+    inline constexpr std_bool_t
+        Is_Big()
     {
         return std::endian::native == std::endian::big;
     }
 
-    inline constexpr std_bool_t Is_Little()
+    inline constexpr std_bool_t
+        Is_Little()
     {
         return std::endian::native == std::endian::little;
     }
@@ -517,19 +547,22 @@ namespace nkr { namespace os { namespace endian {
 #if defined(nkr_IS_WINDOWS)
 
     template <integer_16_tr integer_p>
-    inline integer_p Swap(integer_p bytes)
+    inline integer_p
+        Swap(integer_p bytes)
     {
         return ::_byteswap_ushort(bytes);
     }
 
     template <integer_32_tr integer_p>
-    inline integer_p Swap(integer_p bytes)
+    inline integer_p
+        Swap(integer_p bytes)
     {
         return ::_byteswap_ulong(bytes);
     }
 
     template <integer_64_tr integer_p>
-    inline integer_p Swap(integer_p bytes)
+    inline integer_p
+        Swap(integer_p bytes)
     {
         return ::_byteswap_uint64(bytes);
     }
@@ -548,7 +581,8 @@ namespace nkr { namespace os { namespace heap {
     // until I know for sure that we don't need to handle them differently,
     // on other systems.
 
-    inline bool_t Allocate(type_pointer_tr auto& units, count_t unit_count)
+    inline bool_t
+        Allocate(type_pointer_tr auto& units, count_t unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -566,7 +600,8 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Reallocate(type_pointer_tr auto& units, count_t new_unit_count)
+    inline bool_t
+        Reallocate(type_pointer_tr auto& units, count_t new_unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -584,7 +619,8 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline void_t Deallocate(type_pointer_tr auto& units)
+    inline void_t
+        Deallocate(type_pointer_tr auto& units)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -595,7 +631,8 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Allocate_Zeros(type_pointer_tr auto& units, count_t unit_count)
+    inline bool_t
+        Allocate_Zeros(type_pointer_tr auto& units, count_t unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -614,7 +651,8 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t Reallocate_Zeros(type_pointer_tr auto& units, count_t new_unit_count)
+    inline bool_t
+        Reallocate_Zeros(type_pointer_tr auto& units, count_t new_unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -633,7 +671,8 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline void_t Deallocate_Zeros(type_pointer_tr auto& units)
+    inline void_t
+        Deallocate_Zeros(type_pointer_tr auto& units)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
@@ -648,7 +687,8 @@ namespace nkr { namespace os { namespace heap {
 namespace nkr { namespace os { namespace math {
 
     template <number_tr number_p>
-    inline bool_t Will_Overflow_Add(number_p lhs, number_p rhs)
+    inline bool_t
+        Will_Overflow_Add(number_p lhs, number_p rhs)
     {
         return
             (lhs > 0 && rhs > std::numeric_limits<number_p>::max() - lhs) ||
@@ -656,7 +696,8 @@ namespace nkr { namespace os { namespace math {
     }
 
     template <number_tr number_p>
-    inline bool_t Will_Overflow_Subtract(number_p lhs, number_p rhs)
+    inline bool_t
+        Will_Overflow_Subtract(number_p lhs, number_p rhs)
     {
         return
             (lhs > 0 && rhs < std::numeric_limits<number_p>::max() - lhs) ||
@@ -664,7 +705,8 @@ namespace nkr { namespace os { namespace math {
     }
 
     template <number_tr number_p>
-    inline bool_t Will_Overflow_Multiply(number_p lhs, number_p rhs)
+    inline bool_t
+        Will_Overflow_Multiply(number_p lhs, number_p rhs)
     {
         return
             lhs != 0 &&
@@ -675,7 +717,8 @@ namespace nkr { namespace os { namespace math {
     }
 
     template <number_tr number_p>
-    inline bool_t Will_Overflow_Divide(number_p lhs, number_p rhs)
+    inline bool_t
+        Will_Overflow_Divide(number_p lhs, number_p rhs)
     {
         return
             (lhs == std::numeric_limits<number_p>::lowest() && rhs == -1);
@@ -687,7 +730,8 @@ namespace nkr { namespace os { namespace time {
 
 #if defined(nkr_IS_WINDOWS)
 
-    inline r64_t Microseconds()
+    inline r64_t
+        Microseconds()
     {
         LARGE_INTEGER frequency;
         LARGE_INTEGER counter;
@@ -697,18 +741,21 @@ namespace nkr { namespace os { namespace time {
         return (counter.QuadPart * 1000000.0) / frequency.QuadPart;
     }
 
-    inline r64_t Milliseconds()
+    inline r64_t
+        Milliseconds()
     {
         return Microseconds() * 0.001;
     }
 
-    inline r64_t Seconds()
+    inline r64_t
+        Seconds()
     {
         return Milliseconds() * 0.001;
     }
 
     template <typename functor_p, typename ...args_p>
-    r64_t Test_In_Microseconds(count_t trial_count, functor_p functor, args_p... args)
+    inline r64_t
+        Test_In_Microseconds(count_t trial_count, functor_p functor, args_p... args)
     {
         r64_t total_time = 0.0;
         for (index_t idx = 0, end = trial_count; idx < end; idx += 1) {
@@ -721,7 +768,8 @@ namespace nkr { namespace os { namespace time {
     }
 
     template <typename functor_p, typename ...args_p>
-    r64_t Test_In_Milliseconds(count_t trial_count, functor_p functor, args_p... args)
+    inline r64_t
+        Test_In_Milliseconds(count_t trial_count, functor_p functor, args_p... args)
     {
         r64_t total_time = 0.0;
         for (index_t idx = 0, end = trial_count; idx < end; idx += 1) {

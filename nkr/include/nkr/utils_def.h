@@ -9,7 +9,9 @@
 
 namespace nkr {
 
-    inline constexpr auto Move(built_in_tr auto& value) noexcept
+    inline constexpr auto
+        Move(built_in_tr auto& value)
+        noexcept
     {
         auto old = static_cast<std::remove_reference_t<decltype(value)>&&>(value);
         value = static_cast<std::remove_cvref_t<decltype(value)>>(0);
@@ -17,32 +19,44 @@ namespace nkr {
         return old;
     }
 
-    inline constexpr auto&& Move(const built_in_tr auto& value) noexcept
+    inline constexpr auto&&
+        Move(const built_in_tr auto& value)
+        noexcept
     {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
-    inline constexpr auto&& Move(built_in_tr auto&& value) noexcept
+    inline constexpr auto&&
+        Move(built_in_tr auto&& value)
+        noexcept
     {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
-    inline constexpr auto&& Move(const built_in_tr auto&& value) noexcept
+    inline constexpr auto&&
+        Move(const built_in_tr auto&& value)
+        noexcept
     {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
-    inline constexpr auto&& Move(user_defined_tr auto& value) noexcept
+    inline constexpr auto&&
+        Move(user_defined_tr auto& value)
+        noexcept
     {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
-    inline constexpr auto&& Move(user_defined_tr auto&& value) noexcept
+    inline constexpr auto&&
+        Move(user_defined_tr auto&& value)
+        noexcept
     {
         return static_cast<std::remove_reference_t<decltype(value)>&&>(value);
     }
 
-    inline constexpr auto Exchange(any_type_tr auto& value, any_type_tr auto& with) noexcept
+    inline constexpr auto
+        Exchange(any_type_tr auto& value, any_type_tr auto& with)
+        noexcept
     {
         using value_t = std::remove_reference_t<decltype(value)>;
         using with_t = std::remove_reference_t<decltype(with)>;
@@ -53,7 +67,9 @@ namespace nkr {
         return old;
     }
 
-    inline constexpr auto Exchange(any_type_tr auto& value, any_non_const_tr auto&& with) noexcept
+    inline constexpr auto
+        Exchange(any_type_tr auto& value, any_non_const_tr auto&& with)
+        noexcept
     {
         using value_t = std::remove_reference_t<decltype(value)>;
         using with_t = std::remove_reference_t<decltype(with)>;
@@ -64,36 +80,42 @@ namespace nkr {
         return old;
     }
 
-    inline constexpr auto Is_LValue(any_tr auto& value)
+    inline constexpr auto
+        Is_LValue(any_tr auto& value)
     {
         return std::true_type();
     }
 
-    inline constexpr auto Is_LValue(any_tr auto&& value)
+    inline constexpr auto
+        Is_LValue(any_tr auto&& value)
     {
         return std::false_type();
     }
 
-    inline constexpr auto Is_RValue(any_tr auto& value)
+    inline constexpr auto
+        Is_RValue(any_tr auto& value)
     {
         return std::false_type();
     }
 
-    inline constexpr auto Is_RValue(any_tr auto&& value)
+    inline constexpr auto
+        Is_RValue(any_tr auto&& value)
     {
         return std::true_type();
     }
 
     template <boolean_tr boolean_p>
-    inline boolean_p Random(real_t probability_for_true = 0.5)
+    inline boolean_p
+        Random(real_t probability_for_true = 0.5)
     {
         std::lock_guard<std::mutex> locker(random_lock);
         return std::bernoulli_distribution(probability_for_true)(random_generator);
     }
 
     template <integer_tr integer_p>
-    inline integer_p Random(std::remove_cv_t<integer_p> from_inclusive = std::numeric_limits<std::remove_cv_t<integer_p>>::lowest(),
-                            std::remove_cv_t<integer_p> to_inclusive = std::numeric_limits<std::remove_cv_t<integer_p>>::max())
+    inline integer_p
+        Random(std::remove_cv_t<integer_p> from_inclusive = std::numeric_limits<std::remove_cv_t<integer_p>>::lowest(),
+               std::remove_cv_t<integer_p> to_inclusive = std::numeric_limits<std::remove_cv_t<integer_p>>::max())
     {
         using integer_pp = std::remove_cv_t<integer_p>;
 
@@ -113,14 +135,16 @@ namespace nkr {
     }
 
     template <integer_tr integer_p, real_tr real_p>
-    inline integer_p Random(real_p from_inclusive, real_p to_inclusive)
+    inline integer_p
+        Random(real_p from_inclusive, real_p to_inclusive)
     {
         return Random<integer_p>(static_cast<integer_p>(from_inclusive), static_cast<integer_p>(to_inclusive));
     }
 
     template <real_tr real_p>
-    inline real_p Random(std::remove_cv_t<real_p> from_inclusive = std::numeric_limits<std::remove_cv_t<real_p>>::lowest(),
-                         std::remove_cv_t<real_p> to_inclusive = std::numeric_limits<std::remove_cv_t<real_p>>::max())
+    inline real_p
+        Random(std::remove_cv_t<real_p> from_inclusive = std::numeric_limits<std::remove_cv_t<real_p>>::lowest(),
+               std::remove_cv_t<real_p> to_inclusive = std::numeric_limits<std::remove_cv_t<real_p>>::max())
     {
         using real_pp = std::remove_cv_t<real_p>;
 
@@ -157,13 +181,15 @@ namespace nkr {
     }
 
     template <real_tr real_p, integer_tr integer_p>
-    inline real_p Random(integer_p from_inclusive, integer_p to_inclusive)
+    inline real_p
+        Random(integer_p from_inclusive, integer_p to_inclusive)
     {
         return Random<real_p>(static_cast<real_p>(from_inclusive), static_cast<real_p>(to_inclusive));
     }
 
     template <pointer_tr pointer_p>
-    inline pointer_p Random()
+    inline pointer_p
+        Random()
     {
         return reinterpret_cast<pointer_p>(Random<address_t>());
     }

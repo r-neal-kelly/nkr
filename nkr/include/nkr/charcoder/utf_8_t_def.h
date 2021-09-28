@@ -97,7 +97,8 @@ namespace nkr { namespace charcoder {
         this->unit_count = nkr::Exchange(other.unit_count, 1);
     }
 
-    inline utf_8_t& utf_8_t::operator =(const utf_8_t& other)
+    inline utf_8_t&
+        utf_8_t::operator =(const utf_8_t& other)
     {
         if (this != std::addressof(other)) {
             this->units[0] = other.units[0];
@@ -109,7 +110,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile utf_8_t& utf_8_t::operator =(const utf_8_t& other) volatile
+    inline volatile utf_8_t&
+        utf_8_t::operator =(const utf_8_t& other)
+        volatile
     {
         if (this != std::addressof(other)) {
             this->units[0] = other.units[0];
@@ -121,7 +124,8 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline utf_8_t& utf_8_t::operator =(const volatile utf_8_t& other)
+    inline utf_8_t&
+        utf_8_t::operator =(const volatile utf_8_t& other)
     {
         if (this != std::addressof(other)) {
             this->units[0] = other.units[0];
@@ -133,7 +137,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile utf_8_t& utf_8_t::operator =(const volatile utf_8_t& other) volatile
+    inline volatile utf_8_t&
+        utf_8_t::operator =(const volatile utf_8_t& other)
+        volatile
     {
         if (this != std::addressof(other)) {
             this->units[0] = other.units[0];
@@ -145,7 +151,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline utf_8_t& utf_8_t::operator =(utf_8_t&& other) noexcept
+    inline utf_8_t&
+        utf_8_t::operator =(utf_8_t&& other)
+        noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = nkr::Move(other.units[0]);
@@ -157,7 +165,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile utf_8_t& utf_8_t::operator =(utf_8_t&& other) volatile noexcept
+    inline volatile utf_8_t&
+        utf_8_t::operator =(utf_8_t&& other)
+        volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = nkr::Move(other.units[0]);
@@ -169,7 +179,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline utf_8_t& utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other) noexcept
+    inline utf_8_t&
+        utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other)
+        noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = nkr::Move(other.units[0]);
@@ -181,7 +193,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile utf_8_t& utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other) volatile noexcept
+    inline volatile utf_8_t&
+        utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other)
+        volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->units[0] = nkr::Move(other.units[0]);
@@ -202,7 +216,9 @@ namespace nkr { namespace charcoder {
         this->unit_count = 1;
     }
 
-    inline bool_t utf_8_t::Is_Well_Formed() const
+    inline bool_t
+        utf_8_t::Is_Well_Formed()
+        const
     {
         if (this->unit_count == 1) {
             if (this->units[0] >= 0x00 && this->units[0] <= 0x7F) {
@@ -261,7 +277,8 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    inline void_t utf_8_t::Encode(point_t point)
+    inline void_t
+        utf_8_t::Encode(point_t point)
     {
         if (utf_32_t::Is_Scalar(point)) {
             if (point <= 0x7F) {
@@ -293,7 +310,9 @@ namespace nkr { namespace charcoder {
         assert(Is_Well_Formed());
     }
 
-    inline point_t utf_8_t::Decode() const
+    inline point_t
+        utf_8_t::Decode()
+        const
     {
         assert(Is_Well_Formed());
 
@@ -318,7 +337,8 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    inline count_t utf_8_t::Read_Forward(const unit_t* from)
+    inline count_t
+        utf_8_t::Read_Forward(const unit_t* from)
     {
         assert(from);
 
@@ -471,7 +491,8 @@ namespace nkr { namespace charcoder {
     #undef replace
     }
 
-    inline count_t utf_8_t::Read_Reverse(const unit_t* from, const unit_t* first)
+    inline count_t
+        utf_8_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
         assert(from);
         assert(first);
@@ -628,12 +649,16 @@ namespace nkr { namespace charcoder {
     #undef replace
     }
 
-    inline count_t utf_8_t::Unit_Count() const
+    inline count_t
+        utf_8_t::Unit_Count()
+        const
     {
         return this->unit_count;
     }
 
-    inline typename utf_8_t::unit_t utf_8_t::operator [](index_t index) const
+    inline typename utf_8_t::unit_t
+        utf_8_t::operator [](index_t index)
+        const
     {
         assert(index < this->unit_count);
 

@@ -35,7 +35,8 @@ namespace nkr { namespace charcoder {
         this->unit = nkr::Move(other.unit);
     }
 
-    inline ascii_t& ascii_t::operator =(const ascii_t& other)
+    inline ascii_t&
+        ascii_t::operator =(const ascii_t& other)
     {
         if (this != std::addressof(other)) {
             this->unit = other.unit;
@@ -43,7 +44,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile ascii_t& ascii_t::operator =(const ascii_t& other) volatile
+    inline volatile ascii_t&
+        ascii_t::operator =(const ascii_t& other)
+        volatile
     {
         if (this != std::addressof(other)) {
             this->unit = other.unit;
@@ -51,7 +54,8 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline ascii_t& ascii_t::operator =(const volatile ascii_t& other)
+    inline ascii_t&
+        ascii_t::operator =(const volatile ascii_t& other)
     {
         if (this != std::addressof(other)) {
             this->unit = other.unit;
@@ -59,7 +63,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile ascii_t& ascii_t::operator =(const volatile ascii_t& other) volatile
+    inline volatile ascii_t&
+        ascii_t::operator =(const volatile ascii_t& other)
+        volatile
     {
         if (this != std::addressof(other)) {
             this->unit = other.unit;
@@ -67,7 +73,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline ascii_t& ascii_t::operator =(ascii_t&& other) noexcept
+    inline ascii_t&
+        ascii_t::operator =(ascii_t&& other)
+        noexcept
     {
         if (this != std::addressof(other)) {
             this->unit = nkr::Move(other.unit);
@@ -75,7 +83,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile ascii_t& ascii_t::operator =(ascii_t&& other) volatile noexcept
+    inline volatile ascii_t&
+        ascii_t::operator =(ascii_t&& other)
+        volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->unit = nkr::Move(other.unit);
@@ -83,7 +93,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline ascii_t& ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other) noexcept
+    inline ascii_t&
+        ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other)
+        noexcept
     {
         if (this != std::addressof(other)) {
             this->unit = nkr::Move(other.unit);
@@ -91,7 +103,9 @@ namespace nkr { namespace charcoder {
         return *this;
     }
 
-    inline volatile ascii_t& ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other) volatile noexcept
+    inline volatile ascii_t&
+        ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other)
+        volatile noexcept
     {
         if (this != std::addressof(other)) {
             this->unit = nkr::Move(other.unit);
@@ -104,26 +118,32 @@ namespace nkr { namespace charcoder {
         this->unit = 0;
     }
 
-    inline bool_t ascii_t::Is_Well_Formed() const
+    inline bool_t
+        ascii_t::Is_Well_Formed()
+        const
     {
         return this->unit > -1;
     }
 
-    inline void_t ascii_t::Encode(point_t point)
+    inline void_t
+        ascii_t::Encode(point_t point)
     {
         this->unit = point > 127 ? '?' : static_cast<unit_t>(point);
 
         assert(Is_Well_Formed());
     }
 
-    inline point_t ascii_t::Decode() const
+    inline point_t
+        ascii_t::Decode()
+        const
     {
         assert(Is_Well_Formed());
 
         return static_cast<point_t>(this->unit);
     }
 
-    inline count_t ascii_t::Read_Forward(const unit_t* from)
+    inline count_t
+        ascii_t::Read_Forward(const unit_t* from)
     {
         assert(from);
 
@@ -132,7 +152,8 @@ namespace nkr { namespace charcoder {
         return 1;
     }
 
-    inline count_t ascii_t::Read_Reverse(const unit_t* from, const unit_t* first)
+    inline count_t
+        ascii_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
         assert(from);
         assert(first);
@@ -143,12 +164,16 @@ namespace nkr { namespace charcoder {
         return 1;
     }
 
-    inline count_t ascii_t::Unit_Count() const
+    inline count_t
+        ascii_t::Unit_Count()
+        const
     {
         return 1;
     }
 
-    inline typename ascii_t::unit_t ascii_t::operator [](index_t index) const
+    inline typename ascii_t::unit_t
+        ascii_t::operator [](index_t index)
+        const
     {
         assert(index < 1);
 
