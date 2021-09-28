@@ -27,7 +27,7 @@
     <ClInclude Include="include\nkr\string_static_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\charcoder\utf_8_t.h">
+    <ClInclude Include="include\nkr\charcoder\utf_8_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\string_t.h">
@@ -36,7 +36,7 @@
     <ClInclude Include="include\nkr\charcoder_i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\charcoder\utf_8_t.inl">
+    <ClInclude Include="include\nkr\charcoder\utf_8_t_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\array\dynamic_t_dec.h">
@@ -90,13 +90,13 @@
     <ClInclude Include="include\nkr\signed_negative_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\charcoder\utf_16_t.h">
+    <ClInclude Include="include\nkr\charcoder\utf_16_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\charcoder\utf_32_t.h">
+    <ClInclude Include="include\nkr\charcoder\utf_32_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\charcoder\ascii_t.h">
+    <ClInclude Include="include\nkr\charcoder\ascii_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\pointer_t.h">
@@ -216,6 +216,18 @@
     <ClInclude Include="include\nkr\array\instant_t_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\ascii_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\utf_8_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\utf_16_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\utf_32_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -272,13 +284,13 @@
     <None Include="include\nkr\signed_negative_t.inl">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\charcoder\utf_16_t.inl">
+    <None Include="include\nkr\charcoder\utf_16_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\charcoder\utf_32_t.inl">
+    <None Include="include\nkr\charcoder\utf_32_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\charcoder\ascii_t.inl">
+    <None Include="include\nkr\charcoder\ascii_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\pointer_t_dec.h" />

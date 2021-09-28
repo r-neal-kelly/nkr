@@ -172,9 +172,13 @@
     <ClInclude Include="include\nkr\atomic_t_dec.h" />
     <ClInclude Include="include\nkr\bool_t.h" />
     <ClInclude Include="include\nkr\charcoder\ascii_t.h" />
+    <ClInclude Include="include\nkr\charcoder\ascii_t_dec.h" />
     <ClInclude Include="include\nkr\charcoder\utf_16_t.h" />
+    <ClInclude Include="include\nkr\charcoder\utf_16_t_dec.h" />
     <ClInclude Include="include\nkr\charcoder\utf_32_t.h" />
+    <ClInclude Include="include\nkr\charcoder\utf_32_t_dec.h" />
     <ClInclude Include="include\nkr\array\dynamic_t_dox.h" />
+    <ClInclude Include="include\nkr\charcoder\utf_8_t.h" />
     <ClInclude Include="include\nkr\enum\flags_t.h" />
     <ClInclude Include="include\nkr\enum\flags_t_dec.h" />
     <ClInclude Include="include\nkr\enum\flags_t_def.h" />
@@ -185,8 +189,8 @@
     <ClInclude Include="include\nkr\enum\type_t_dox.h" />
     <ClInclude Include="include\nkr\fors.h" />
     <ClInclude Include="include\nkr\charcoder_i.h" />
-    <ClInclude Include="include\nkr\charcoder\utf_8_t.inl" />
-    <ClInclude Include="include\nkr\charcoder\utf_8_t.h" />
+    <ClInclude Include="include\nkr\charcoder\utf_8_t_def.h" />
+    <ClInclude Include="include\nkr\charcoder\utf_8_t_dec.h" />
     <ClInclude Include="include\nkr\docs\f6f68334-a834-4809-8bd6-6eac9025135c.h" />
     <ClInclude Include="include\nkr\docs\intrinsic.h" />
     <ClInclude Include="include\nkr\intrinsics.h" />
@@ -231,9 +235,9 @@
     <None Include="include\nkr\atomic_t_def.h" />
     <None Include="include\nkr\bool_t.dox" />
     <None Include="include\nkr\bool_t.inl" />
-    <None Include="include\nkr\charcoder\ascii_t.inl" />
-    <None Include="include\nkr\charcoder\utf_16_t.inl" />
-    <None Include="include\nkr\charcoder\utf_32_t.inl" />
+    <None Include="include\nkr\charcoder\ascii_t_def.h" />
+    <None Include="include\nkr\charcoder\utf_16_t_def.h" />
+    <None Include="include\nkr\charcoder\utf_32_t_def.h" />
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
     <None Include="include\nkr\intrinsics.dox" />
     <None Include="include\nkr\intrinsics.inl" />

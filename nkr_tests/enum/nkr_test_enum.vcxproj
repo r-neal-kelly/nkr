@@ -159,8 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\enum_flags_t.cpp" />
-    <ClCompile Include="src\enum_type_t.cpp" />
+    <ClCompile Include="src\flags_t.cpp" />
+    <ClCompile Include="src\type_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">

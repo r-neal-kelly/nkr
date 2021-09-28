@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\enum_flags_t.cpp">
+    <ClCompile Include="src\flags_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\enum_type_t.cpp">
+    <ClCompile Include="src\type_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
