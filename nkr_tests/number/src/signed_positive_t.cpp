@@ -3,7 +3,6 @@
 */
 
 #include "nkr/intrinsics.h"
-#include "nkr/random.h"
 #include "nkr/signed_positive_t.h"
 #include "nkr/utils.h"
 

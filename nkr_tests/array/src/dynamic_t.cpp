@@ -3,7 +3,6 @@
 */
 
 #include "nkr/intrinsics.h"
-#include "nkr/random.h"
 #include "nkr/utils.h"
 
 #include "nkr/allocator/heap_t.h"

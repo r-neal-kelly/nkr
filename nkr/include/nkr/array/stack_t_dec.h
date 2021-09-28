@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 

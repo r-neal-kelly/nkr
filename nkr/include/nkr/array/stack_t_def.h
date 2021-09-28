@@ -6,7 +6,7 @@
 
 #include "nkr/utils.h"
 
-#include "nkr/array/stack_t.h"
+#include "nkr/array/stack_t_dec.h"
 
 namespace nkr { namespace array {
 

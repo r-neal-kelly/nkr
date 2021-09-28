@@ -6,7 +6,7 @@
 
 #include "nkr/utils.h"
 
-#include "nkr/array/instant_t.h"
+#include "nkr/array/instant_t_dec.h"
 
 namespace nkr { namespace array {
 

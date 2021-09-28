@@ -6,7 +6,7 @@
 
 #include "nkr/utils.h"
 
-#include "nkr/charcoder/utf_8_t.h"
+#include "nkr/charcoder/utf_8_t_dec.h"
 #include "nkr/charcoder/utf_32_t.h"
 
 namespace nkr { namespace charcoder {

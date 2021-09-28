@@ -5,7 +5,7 @@
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/none_t.h"
-#include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 

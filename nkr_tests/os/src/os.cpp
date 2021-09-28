@@ -4,7 +4,7 @@
 
 #include "nkr/intrinsics.h"
 #include "nkr/os.h"
-#include "nkr/random.h"
+#include "nkr/utils.h"
 
 #include "doctest.h"
 

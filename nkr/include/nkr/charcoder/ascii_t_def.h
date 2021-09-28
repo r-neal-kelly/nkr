@@ -6,7 +6,7 @@
 
 #include "nkr/utils.h"
 
-#include "nkr/charcoder/ascii_t.h"
+#include "nkr/charcoder/ascii_t_dec.h"
 
 namespace nkr { namespace charcoder {
 

@@ -21,7 +21,7 @@
     <ClInclude Include="include\nkr\string_dynamic_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\intrinsics.h">
+    <ClInclude Include="include\nkr\intrinsics_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\string_static_t.h">
@@ -51,7 +51,7 @@
     <ClInclude Include="include\nkr\allocator\heap_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\os.h">
+    <ClInclude Include="include\nkr\os_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\atomic_t_dec.h">
@@ -66,10 +66,10 @@
     <ClInclude Include="include\nkr\docs\f6f68334-a834-4809-8bd6-6eac9025135c.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\macros.h">
+    <ClInclude Include="include\nkr\macros_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\bool_t.h">
+    <ClInclude Include="include\nkr\bool_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\none_t_dec.h">
@@ -126,15 +126,6 @@
     <ClInclude Include="include\nkr\math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\random_dec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\nkr\random.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\nkr\random_def.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\nkr\array_i.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -180,28 +171,28 @@
     <ClInclude Include="include\nkr\some_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\type_t.h">
+    <ClInclude Include="include\nkr\enumeration\types_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\flags_t.h">
+    <ClInclude Include="include\nkr\enumeration\flags_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\flags_t_dec.h">
+    <ClInclude Include="include\nkr\enumeration\flags_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\flags_t_def.h">
+    <ClInclude Include="include\nkr\enumeration\flags_t_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\type_t_dec.h">
+    <ClInclude Include="include\nkr\enumeration\types_t_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\type_t_def.h">
+    <ClInclude Include="include\nkr\enumeration\types_t_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\type_t_dox.h">
+    <ClInclude Include="include\nkr\enumeration\types_t_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\enum\flags_t_dox.h">
+    <ClInclude Include="include\nkr\enumeration\flags_t_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\array\stack_t_dox.h">
@@ -228,6 +219,63 @@
     <ClInclude Include="include\nkr\charcoder\utf_32_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\array\instant_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\allocator\heap_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\allocator\heap_zeros_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\ascii_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\utf_8_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\utf_16_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder\utf_32_t_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\bool_t.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\math_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\utils_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\intrinsics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\fors_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\allocator_i_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\array_i_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\charcoder_i_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\maybe_i_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\some_i_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string_static_t.inl">
@@ -245,7 +293,7 @@
     <None Include="include\nkr\allocator\heap_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\os.inl">
+    <None Include="include\nkr\os_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\atomic_t_def.h">
@@ -253,22 +301,22 @@
     </None>
     <None Include="include\nkr\docs\nkr_INITIALIZE_STATIC_SAFELY.dox" />
     <None Include="docs\os.dox" />
-    <None Include="include\nkr\os.dox" />
-    <None Include="include\nkr\intrinsics.dox" />
-    <None Include="include\nkr\macros.inl">
+    <None Include="include\nkr\os_dox.h" />
+    <None Include="include\nkr\intrinsics_dox.h" />
+    <None Include="include\nkr\macros_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\macros.dox" />
-    <None Include="include\nkr\intrinsics.inl">
+    <None Include="include\nkr\macros_dox.h" />
+    <None Include="include\nkr\intrinsics_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\traits.dox" />
+    <None Include="include\nkr\traits_dox.h" />
     <None Include="include\nkr\atomic_t_dox.h" />
     <None Include="include\nkr\maybe_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\maybe_t_dox.h" />
-    <None Include="include\nkr\bool_t.inl">
+    <None Include="include\nkr\bool_t_def.h">
       <Filter>Header Files</Filter>
     </None>
     <None Include="include\nkr\none_t_dox.h" />
@@ -277,7 +325,7 @@
     <None Include="include\nkr\some_t_def.h">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="include\nkr\bool_t.dox" />
+    <None Include="include\nkr\bool_t_dox.h" />
     <None Include="include\nkr\signed_positive_t.inl">
       <Filter>Header Files</Filter>
     </None>
@@ -306,7 +354,7 @@
     <ClCompile Include="src\allocator_heap_zeros_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\random.cpp">
+    <ClCompile Include="src\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
