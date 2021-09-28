@@ -5,8 +5,9 @@
 #pragma once
 
 #include "nkr/fors.h"
-#include "nkr/signed_positive_t.h"
 #include "nkr/utils.h"
+
+#include "nkr/number/signed_positive_t_dec.h"
 
 namespace nkr {
 

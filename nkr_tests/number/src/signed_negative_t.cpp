@@ -3,8 +3,9 @@
 */
 
 #include "nkr/intrinsics.h"
-#include "nkr/signed_negative_t.h"
 #include "nkr/utils.h"
+
+#include "nkr/number/signed_negative_t.h"
 
 #include "doctest.h"
 

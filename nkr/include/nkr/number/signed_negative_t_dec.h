@@ -130,5 +130,3 @@ namespace nkr {
     using sn64_t    = signed_negative_t<s64_t>;
 
 }
-
-#include "signed_negative_t.inl"

@@ -130,5 +130,3 @@ namespace nkr {
     using sp64_t    = signed_positive_t<s64_t>;
 
 }
-
-#include "signed_positive_t.inl"
