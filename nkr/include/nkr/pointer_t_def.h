@@ -514,6 +514,64 @@ namespace nkr { namespace $pointer_t {
         return this->units[index];
     }
 
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>::any_type_sp(none_t) :
+        units(nullptr),
+        unit_count(0)
+    {
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>&
+        any_type_sp<unit_p>::operator =(none_t)
+    {
+        this->units = nullptr;
+        this->unit_count = 0;
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile any_type_sp<unit_p>&
+        any_type_sp<unit_p>::operator =(none_t)
+        volatile
+    {
+        this->units = nullptr;
+        this->unit_count = 0;
+        return *this;
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        any_type_sp<unit_p>::operator ==(none_t)
+        const
+    {
+        return this->units == nullptr;
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        any_type_sp<unit_p>::operator ==(none_t)
+        const volatile
+    {
+        return this->units == nullptr;
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        any_type_sp<unit_p>::operator !=(none_t)
+        const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        any_type_sp<unit_p>::operator !=(none_t)
+        const volatile
+    {
+        return !operator ==(none_t());
+    }
+
     template <any_non_type_tr unit_p>
     inline bool_t
         any_non_type_sp<unit_p>::Is_Equal_To(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b)
@@ -850,6 +908,64 @@ namespace nkr { namespace $pointer_t {
         volatile
     {
         return *this = { units, unit_count };
+    }
+
+    template <any_non_type_tr unit_p>
+    inline any_non_type_sp<unit_p>::any_non_type_sp(none_t) :
+        units(nullptr),
+        unit_count(0)
+    {
+    }
+
+    template <any_non_type_tr unit_p>
+    inline any_non_type_sp<unit_p>&
+        any_non_type_sp<unit_p>::operator =(none_t)
+    {
+        this->units = nullptr;
+        this->unit_count = 0;
+        return *this;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline volatile any_non_type_sp<unit_p>&
+        any_non_type_sp<unit_p>::operator =(none_t)
+        volatile
+    {
+        this->units = nullptr;
+        this->unit_count = 0;
+        return *this;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline bool_t
+        any_non_type_sp<unit_p>::operator ==(none_t)
+        const
+    {
+        return this->units == nullptr;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline bool_t
+        any_non_type_sp<unit_p>::operator ==(none_t)
+        const volatile
+    {
+        return this->units == nullptr;
+    }
+
+    template <any_non_type_tr unit_p>
+    inline bool_t
+        any_non_type_sp<unit_p>::operator !=(none_t)
+        const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <any_non_type_tr unit_p>
+    inline bool_t
+        any_non_type_sp<unit_p>::operator !=(none_t)
+        const volatile
+    {
+        return !operator ==(none_t());
     }
 
 }}

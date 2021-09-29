@@ -5,8 +5,10 @@
 #pragma once
 
 #include "nkr/atomic_t.h"
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
+#include "nkr/none_t.h"
 #include "nkr/traits.h"
 
 namespace nkr { namespace enumeration { namespace $flags_t {
@@ -60,6 +62,21 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         void_t  Flag(value_t flag) volatile;
         void_t  Unflag(value_t flag);
         void_t  Unflag(value_t flag) volatile;
+
+    public:
+        /// @name none_t interface
+        /// @copydoc 
+        /// @{
+        any_sp(none_t);                                         ///< @copydoc 
+
+        any_sp&             operator =(none_t);                 ///< @copydoc 
+        volatile any_sp&    operator =(none_t) volatile;        ///< @copydoc 
+
+        bool_t              operator ==(none_t) const;          ///< @copydoc 
+        bool_t              operator ==(none_t) const volatile; ///< @copydoc 
+        bool_t              operator !=(none_t) const;          ///< @copydoc 
+        bool_t              operator !=(none_t) const volatile; ///< @copydoc 
+        /// @}
     };
 
 }}}

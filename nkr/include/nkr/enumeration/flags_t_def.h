@@ -240,4 +240,59 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         this->value &= ~flag;
     }
 
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline any_sp<integer_p, actual_value_p>::any_sp(none_t)
+    {
+        this->value == 0;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline any_sp<integer_p, actual_value_p>&
+        any_sp<integer_p, actual_value_p>::operator =(none_t)
+    {
+        this->value == 0;
+        return *this;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline volatile any_sp<integer_p, actual_value_p>&
+        any_sp<integer_p, actual_value_p>::operator =(none_t)
+        volatile
+    {
+        this->value == 0;
+        return *this;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline bool_t
+        any_sp<integer_p, actual_value_p>::operator ==(none_t)
+        const
+    {
+        return this->value == 0;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline bool_t
+        any_sp<integer_p, actual_value_p>::operator ==(none_t)
+        const volatile
+    {
+        return this->value == 0;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline bool_t
+        any_sp<integer_p, actual_value_p>::operator !=(none_t)
+        const
+    {
+        return !operator ==(none_t());
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline bool_t
+        any_sp<integer_p, actual_value_p>::operator !=(none_t)
+        const volatile
+    {
+        return !operator ==(none_t());
+    }
+
 }}}

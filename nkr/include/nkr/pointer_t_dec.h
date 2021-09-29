@@ -129,6 +129,21 @@ namespace nkr { namespace $pointer_t {
         unit_t&                 operator *() const volatile;
         unit_t&                 operator [](index_t index) const volatile;
         /// @}
+
+    public:
+        /// @name none_t interface
+        /// @copydoc 
+        /// @{
+        any_type_sp(none_t);                                        ///< @copydoc 
+
+        any_type_sp&            operator =(none_t);                 ///< @copydoc 
+        volatile any_type_sp&   operator =(none_t) volatile;        ///< @copydoc 
+
+        bool_t                  operator ==(none_t) const;          ///< @copydoc 
+        bool_t                  operator ==(none_t) const volatile; ///< @copydoc 
+        bool_t                  operator !=(none_t) const;          ///< @copydoc 
+        bool_t                  operator !=(none_t) const volatile; ///< @copydoc 
+        /// @}
     };
 
     template <any_non_type_tr unit_p>
@@ -227,6 +242,21 @@ namespace nkr { namespace $pointer_t {
         volatile any_non_type_sp&   operator ()(convertible_tr<unit_t*> auto unit) volatile;
         any_non_type_sp&            operator ()(convertible_tr<units_t> auto units, count_t unit_count);
         volatile any_non_type_sp&   operator ()(convertible_tr<units_t> auto units, count_t unit_count) volatile;
+        /// @}
+
+    public:
+        /// @name none_t interface
+        /// @copydoc 
+        /// @{
+        any_non_type_sp(none_t);                                        ///< @copydoc 
+
+        any_non_type_sp&            operator =(none_t);                 ///< @copydoc 
+        volatile any_non_type_sp&   operator =(none_t) volatile;        ///< @copydoc 
+
+        bool_t                      operator ==(none_t) const;          ///< @copydoc 
+        bool_t                      operator ==(none_t) const volatile; ///< @copydoc 
+        bool_t                      operator !=(none_t) const;          ///< @copydoc 
+        bool_t                      operator !=(none_t) const volatile; ///< @copydoc 
         /// @}
     };
 

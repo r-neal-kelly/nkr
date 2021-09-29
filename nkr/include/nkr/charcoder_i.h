@@ -6,6 +6,7 @@
 
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/none_i.h"
 
 namespace nkr { namespace charcoder {
 
@@ -13,7 +14,7 @@ namespace nkr { namespace charcoder {
 
 }}
 
-namespace nkr {
+namespace nkr { namespace $charcoder_i {
 
     /*
         Assumptions:
@@ -32,28 +33,37 @@ namespace nkr {
     */
 
     template <typename type_p>
-    concept charcoder_i = requires (type_p charcoder,
-                                    type_p const_charcoder,
+    concept methods_i = requires (type_p charcoder,
+                                  type_p const_charcoder,
 
-                                    count_t read_count,
-                                    const typename type_p::unit_t* from_unit,
-                                    const typename type_p::unit_t* first_unit)
+                                  count_t read_count,
+                                  const typename type_p::unit_t * from_unit,
+                                  const typename type_p::unit_t * first_unit)
     {
         typename type_p::unit_t;
 
-        { const_charcoder.Is_Well_Formed() }                -> is_tr<bool_t>;
+        { const_charcoder.Is_Well_Formed() }                        -> is_tr<bool_t>;
 
-        { charcoder.Encode(typename charcoder::point_t()) } -> is_tr<void_t>;
-        { const_charcoder.Decode() }                        -> is_tr<typename charcoder::point_t>;
+        { charcoder.Encode(typename charcoder::point_t()) }         -> is_tr<void_t>;
+        { const_charcoder.Decode() }                                -> is_tr<typename charcoder::point_t>;
 
-        { charcoder.Read_Forward(from_unit) }               -> is_tr<count_t>;
-        { charcoder.Read_Reverse(from_unit, first_unit) }   -> is_tr<count_t>;
+        { charcoder.Read_Forward(from_unit) }                       -> is_tr<count_t>;
+        { charcoder.Read_Reverse(from_unit, first_unit) }           -> is_tr<count_t>;
 
-        { const_charcoder.Unit_Count() }                    -> is_tr<count_t>;
-        { const_charcoder.operator[](index_t()) }           -> is_tr<typename type_p::unit_t>;
+        { const_charcoder.Unit_Count() }                            -> is_tr<count_t>;
+        { const_charcoder.operator[](index_t()) }                   -> is_tr<typename type_p::unit_t>;
 
         read_count = charcoder.Read_Forward(from_unit);
         read_count = charcoder.Read_Reverse(from_unit, first_unit);
     };
+
+}}
+
+namespace nkr {
+
+    template <typename type_p>
+    concept charcoder_i =
+        $charcoder_i::methods_i<type_p> &&
+        none_i<type_p>;
 
 }
