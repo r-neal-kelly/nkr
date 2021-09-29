@@ -50,6 +50,10 @@ namespace nkr { namespace math {
 
 namespace nkr { namespace math {
 
-    bool_t  Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer);
+    constexpr auto          Absolute(integer_unsigned_tr auto unsigned_integer);
+    constexpr auto          Absolute(integer_signed_tr auto signed_integer);
+
+    constexpr std_bool_t    Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer);
+    constexpr std_bool_t    Is_Power_Of_2(integer_signed_tr auto signed_integer);
 
 }}

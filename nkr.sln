@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_string", "nkr_test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_enumeration", "nkr_tests\enumeration\enumeration.vcxproj", "{2FFBE437-87B2-4F0E-96AA-0E32725B18DE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_math", "nkr_tests\math\math.vcxproj", "{8140498B-F835-43C2-A76F-D0993FBC94BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -151,6 +153,14 @@ Global
 		{2FFBE437-87B2-4F0E-96AA-0E32725B18DE}.Release|x64.Build.0 = Release|x64
 		{2FFBE437-87B2-4F0E-96AA-0E32725B18DE}.Release|x86.ActiveCfg = Release|Win32
 		{2FFBE437-87B2-4F0E-96AA-0E32725B18DE}.Release|x86.Build.0 = Release|Win32
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Debug|x64.ActiveCfg = Debug|x64
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Debug|x64.Build.0 = Debug|x64
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Debug|x86.ActiveCfg = Debug|Win32
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Debug|x86.Build.0 = Debug|Win32
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Release|x64.ActiveCfg = Release|x64
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Release|x64.Build.0 = Release|x64
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Release|x86.ActiveCfg = Release|Win32
+		{8140498B-F835-43C2-A76F-D0993FBC94BC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -110,9 +110,6 @@ namespace nkr { namespace enumeration {
     class flags_t<integer_p> :
         public $flags_t::any_sp<integer_p, integer_p>
     {
-    public:
-        using enumeration_base_t    = flags_t;
-
     private:
         using base_t    = $flags_t::any_sp<integer_p, integer_p>;
 
@@ -124,9 +121,6 @@ namespace nkr { namespace enumeration {
     class flags_t<atomic_p> :
         public $flags_t::any_sp<typename atomic_p::value_t, atomic_p>
     {
-    public:
-        using enumeration_base_t    = flags_t;
-
     private:
         using base_t    = $flags_t::any_sp<typename atomic_p::value_t, atomic_p>;
 
