@@ -4,8 +4,10 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/charcoder_i.h"
 #include "nkr/intrinsics.h"
+#include "nkr/none_t.h"
 
 namespace nkr { namespace charcoder {
 
@@ -17,8 +19,8 @@ namespace nkr { namespace charcoder {
         using unit_t    = u8_t;
 
     protected:
-        unit_t  units[4];
         count_t unit_count;
+        unit_t  units[4];
 
     public:
         utf_8_t();
@@ -52,6 +54,21 @@ namespace nkr { namespace charcoder {
 
     public:
         unit_t  operator [](index_t index) const;
+
+    public:
+        /// @name none_t interface
+        /// @copydoc 
+        /// @{
+        utf_8_t(none_t);                                        ///< @copydoc 
+
+        utf_8_t&            operator =(none_t);                 ///< @copydoc 
+        volatile utf_8_t&   operator =(none_t) volatile;        ///< @copydoc 
+
+        bool_t              operator ==(none_t) const;          ///< @copydoc 
+        bool_t              operator ==(none_t) const volatile; ///< @copydoc 
+        bool_t              operator !=(none_t) const;          ///< @copydoc 
+        bool_t              operator !=(none_t) const volatile; ///< @copydoc 
+        /// @}
     };
     static_assert(charcoder_i<utf_8_t>);
 

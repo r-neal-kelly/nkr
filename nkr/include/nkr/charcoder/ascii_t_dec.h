@@ -4,8 +4,10 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/charcoder_i.h"
 #include "nkr/intrinsics.h"
+#include "nkr/none_t.h"
 
 namespace nkr { namespace charcoder {
 
@@ -49,6 +51,21 @@ namespace nkr { namespace charcoder {
 
     public:
         unit_t  operator [](index_t index) const;
+
+    public:
+        /// @name none_t interface
+        /// @copydoc 
+        /// @{
+        ascii_t(none_t);                                        ///< @copydoc 
+
+        ascii_t&            operator =(none_t);                 ///< @copydoc 
+        volatile ascii_t&   operator =(none_t) volatile;        ///< @copydoc 
+
+        bool_t              operator ==(none_t) const;          ///< @copydoc 
+        bool_t              operator ==(none_t) const volatile; ///< @copydoc 
+        bool_t              operator !=(none_t) const;          ///< @copydoc 
+        bool_t              operator !=(none_t) const volatile; ///< @copydoc 
+        /// @}
     };
     static_assert(charcoder_i<ascii_t>);
 

@@ -277,6 +277,54 @@ namespace nkr { namespace charcoder {
         return this->unit;
     }
 
+    inline utf_32_t::utf_32_t(none_t)
+    {
+        this->unit = 0;
+    }
+
+    inline utf_32_t&
+        utf_32_t::operator =(none_t)
+    {
+        this->unit = 0;
+        return *this;
+    }
+
+    inline volatile utf_32_t&
+        utf_32_t::operator =(none_t)
+        volatile
+    {
+        this->unit = 0;
+        return *this;
+    }
+
+    inline bool_t
+        utf_32_t::operator ==(none_t)
+        const
+    {
+        return this->unit == 0;
+    }
+
+    inline bool_t
+        utf_32_t::operator ==(none_t)
+        const volatile
+    {
+        return this->unit == 0;
+    }
+
+    inline bool_t
+        utf_32_t::operator !=(none_t)
+        const
+    {
+        return !operator ==(none_t());
+    }
+
+    inline bool_t
+        utf_32_t::operator !=(none_t)
+        const volatile
+    {
+        return !operator ==(none_t());
+    }
+
     template <typename>
     inline bool_t
         utf_32_be_t::Is_Well_Formed()
