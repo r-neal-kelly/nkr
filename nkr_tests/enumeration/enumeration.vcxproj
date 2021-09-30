@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\errors_t.cpp" />
     <ClCompile Include="src\flags_t.cpp" />
     <ClCompile Include="src\types_t.cpp" />
   </ItemGroup>

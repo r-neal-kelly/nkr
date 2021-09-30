@@ -16,6 +16,9 @@ namespace nkr {
         public enumeration::flags_t<u8_t>
     {
     public:
+        using base_t    = enumeration::flags_t<u8_t>;
+
+    public:
         enum : value_t
         {
             FLAG_0 = Define<0>(),
@@ -29,7 +32,7 @@ namespace nkr {
         };
 
     public:
-        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_flags_e, enumeration_base_t);
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_flags_e, base_t);
     };
 
 }

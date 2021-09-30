@@ -11,6 +11,19 @@
 #include "nkr/none_t.h"
 #include "nkr/traits.h"
 
+namespace nkr { namespace enumeration {
+
+    template <typename value_p>
+    class flags_t;
+
+    template <typename flags_p>
+    concept any_flags_tr =
+        is_any_tr<flags_p, flags_t<typename flags_p::actual_value_t>>;
+
+    nkr_DEFINE_CONTAINER_TRAITS(flags, actual_value_t);
+
+}}
+
 namespace nkr { namespace enumeration { namespace $flags_t {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>

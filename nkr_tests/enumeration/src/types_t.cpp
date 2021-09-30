@@ -3,6 +3,7 @@
 */
 
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 
 #include "nkr/enumeration/types_t.h"
 
@@ -10,6 +11,10 @@
 
 namespace nkr {
 
-
+    TEST_CASE("temp")
+    {
+        enumeration::types_t<int> types;
+        static_assert(enumeration::types_t<int>::NONE == -1);
+    }
 
 }

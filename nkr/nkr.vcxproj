@@ -198,6 +198,10 @@
     <ClInclude Include="include\nkr\enumeration\types_t_dec.h" />
     <ClInclude Include="include\nkr\enumeration\types_t_def.h" />
     <ClInclude Include="include\nkr\enumeration\types_t_dox.h" />
+    <ClInclude Include="include\nkr\enumeration\errors_t.h" />
+    <ClInclude Include="include\nkr\enumeration\errors_t_dec.h" />
+    <ClInclude Include="include\nkr\enumeration\errors_t_def.h" />
+    <ClInclude Include="include\nkr\enumeration\errors_t_dox.h" />
     <ClInclude Include="include\nkr\fors.h" />
     <ClInclude Include="include\nkr\charcoder_i.h" />
     <ClInclude Include="include\nkr\charcoder\utf_8_t_def.h" />

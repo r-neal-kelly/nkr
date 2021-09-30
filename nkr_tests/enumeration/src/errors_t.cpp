@@ -1,0 +1,40 @@
+/*
+    Copyright 2021 r-neal-kelly
+*/
+
+#include "nkr/intrinsics.h"
+#include "nkr/macros.h"
+
+#include "nkr/enumeration/errors_t.h"
+
+#include "doctest.h"
+
+namespace nkr { namespace enumeration {
+
+    class test_error_e :
+        public errors_t<signed_word_t>
+    {
+    private:
+        using base_t    = errors_t<signed_word_t>;
+
+    public:
+        enum : value_t
+        {
+            NONE = 0,
+            ERROR_A,
+            ERROR_B,
+        };
+
+    public:
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_error_e, base_t);
+    };
+
+    TEST_CASE("temp")
+    {
+        CHECK(test_error_e::NONE == 0);
+
+        test_error_e error(test_error_e::ERROR_A);
+        CHECK(error == test_error_e::ERROR_A);
+    }
+
+}}

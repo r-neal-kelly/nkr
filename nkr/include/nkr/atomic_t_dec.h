@@ -36,7 +36,14 @@ namespace nkr {
         any_non_const_tr<typename atomic_p::value_t> &&
         integer_unsigned_tr<typename atomic_p::value_t>;
 
+    template <typename atomic_p>
+    concept any_non_const_atomic_of_any_non_const_signed_integer_tr =
+        any_non_const_atomic_tr<atomic_p> &&
+        any_non_const_tr<typename atomic_p::value_t> &&
+        integer_signed_tr<typename atomic_p::value_t>;
+
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_const_atomic_of_any_non_const_unsigned_integer_tr, atomic_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_const_atomic_of_any_non_const_signed_integer_tr, atomic_p);
 
 }
 
