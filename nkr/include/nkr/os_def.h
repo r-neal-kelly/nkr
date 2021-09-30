@@ -575,13 +575,9 @@ namespace nkr { namespace os { namespace heap {
 
 #if defined(nkr_IS_WINDOWS)
 
-    // since C++11 using errno is thread-safe.
-    
-    // most of these calls are standard, but we're currently wrapping them
-    // until I know for sure that we don't need to handle them differently,
-    // on other systems.
+    // since C++11, using errno is thread-safe.
 
-    inline bool_t
+    inline maybe_t<allocator_err>
         Allocate(type_pointer_tr auto& units, count_t unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
@@ -593,14 +589,15 @@ namespace nkr { namespace os { namespace heap {
         errno = 0;
         units = static_cast<units_t>(::malloc(unit_count * sizeof(unit_t)));
         if (errno == 0) {
-            return true;
+            return allocator_err::NONE;
         } else {
             units = nullptr;
-            return false;
+
+            return allocator_err::OUT_OF_MEMORY;
         }
     }
 
-    inline bool_t
+    inline maybe_t<allocator_err>
         Reallocate(type_pointer_tr auto& units, count_t new_unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
@@ -613,9 +610,10 @@ namespace nkr { namespace os { namespace heap {
                                                            new_unit_count * sizeof(unit_t)));
         if (errno == 0) {
             units = new_units;
-            return true;
+
+            return allocator_err::NONE;
         } else {
-            return false;
+            return allocator_err::OUT_OF_MEMORY;
         }
     }
 
@@ -631,7 +629,7 @@ namespace nkr { namespace os { namespace heap {
         }
     }
 
-    inline bool_t
+    inline maybe_t<allocator_err>
         Allocate_Zeros(type_pointer_tr auto& units, count_t unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
@@ -641,17 +639,17 @@ namespace nkr { namespace os { namespace heap {
         assert(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         errno = 0;
-        units = static_cast<units_t>(::calloc(unit_count,
-                                              sizeof(unit_t)));
+        units = static_cast<units_t>(::calloc(unit_count, sizeof(unit_t)));
         if (errno == 0) {
-            return true;
+            return allocator_err::NONE;
         } else {
             units = nullptr;
-            return false;
+
+            return allocator_err::OUT_OF_MEMORY;
         }
     }
 
-    inline bool_t
+    inline maybe_t<allocator_err>
         Reallocate_Zeros(type_pointer_tr auto& units, count_t new_unit_count)
     {
         using units_t = std::remove_cvref_t<decltype(units)>;
@@ -665,9 +663,10 @@ namespace nkr { namespace os { namespace heap {
                                                              sizeof(unit_t)));
         if (errno == 0) {
             units = new_units;
-            return true;
+
+            return allocator_err::NONE;
         } else {
-            return false;
+            return allocator_err::OUT_OF_MEMORY;
         }
     }
 

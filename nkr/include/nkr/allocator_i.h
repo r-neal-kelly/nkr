@@ -4,8 +4,10 @@
 
 #pragma once
 
+#include "nkr/allocator_err.h"
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/maybe_t.h"
 #include "nkr/pointer_t.h"
 
 namespace nkr {
@@ -36,15 +38,15 @@ namespace nkr {
         { allocator != volatile_allocator }                                 -> is_tr<bool_t>;
         { volatile_allocator != allocator }                                 -> is_tr<bool_t>;
 
-        { allocator.Allocate(units, unit_count) }                           -> is_tr<bool_t>;
-        { volatile_allocator.Allocate(volatile_units, unit_count) }         -> is_tr<bool_t>;
-        { allocator.Allocate(pointer, unit_count) }                         -> is_tr<bool_t>;
-        { volatile_allocator.Allocate(volatile_pointer, unit_count) }       -> is_tr<bool_t>;
+        { allocator.Allocate(units, unit_count) }                           -> is_tr<maybe_t<allocator_err>>;
+        { volatile_allocator.Allocate(volatile_units, unit_count) }         -> is_tr<maybe_t<allocator_err>>;
+        { allocator.Allocate(pointer, unit_count) }                         -> is_tr<maybe_t<allocator_err>>;
+        { volatile_allocator.Allocate(volatile_pointer, unit_count) }       -> is_tr<maybe_t<allocator_err>>;
 
-        { allocator.Reallocate(units, new_unit_count) }                     -> is_tr<bool_t>;
-        { volatile_allocator.Reallocate(volatile_units, new_unit_count) }   -> is_tr<bool_t>;
-        { allocator.Reallocate(pointer, new_unit_count) }                   -> is_tr<bool_t>;
-        { volatile_allocator.Reallocate(volatile_pointer, new_unit_count) } -> is_tr<bool_t>;
+        { allocator.Reallocate(units, new_unit_count) }                     -> is_tr<maybe_t<allocator_err>>;
+        { volatile_allocator.Reallocate(volatile_units, new_unit_count) }   -> is_tr<maybe_t<allocator_err>>;
+        { allocator.Reallocate(pointer, new_unit_count) }                   -> is_tr<maybe_t<allocator_err>>;
+        { volatile_allocator.Reallocate(volatile_pointer, new_unit_count) } -> is_tr<maybe_t<allocator_err>>;
 
         { allocator.Deallocate(units) }                                     -> is_tr<void_t>;
         { volatile_allocator.Deallocate(volatile_units) }                   -> is_tr<void_t>;

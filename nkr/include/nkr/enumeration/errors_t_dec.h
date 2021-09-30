@@ -53,6 +53,21 @@ namespace nkr { namespace enumeration {
 
         explicit operator   std_bool_t() const;
         explicit operator   std_bool_t() const volatile;
+
+    public:
+        /// @name none_t interface
+        /// @copydoc 
+        /// @{
+        errors_t(none_t);                                       ///< @copydoc 
+
+        errors_t&           operator =(none_t);                 ///< @copydoc 
+        volatile errors_t&  operator =(none_t) volatile;        ///< @copydoc 
+
+        bool_t              operator ==(none_t) const;          ///< @copydoc 
+        bool_t              operator ==(none_t) const volatile; ///< @copydoc 
+        bool_t              operator !=(none_t) const;          ///< @copydoc 
+        bool_t              operator !=(none_t) const volatile; ///< @copydoc 
+        /// @}
     };
 
 }}

@@ -174,15 +174,73 @@ namespace nkr { namespace enumeration {
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>
-    inline errors_t<integer_p, none_p>::operator std_bool_t() const
+    inline errors_t<integer_p, none_p>::operator std_bool_t()
+        const
     {
         return static_cast<std_bool_t>(this->value);
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>
-    inline errors_t<integer_p, none_p>::operator std_bool_t() const volatile
+    inline errors_t<integer_p, none_p>::operator std_bool_t()
+        const volatile
     {
         return static_cast<std_bool_t>(this->value);
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline errors_t<integer_p, none_p>::errors_t(none_t) :
+        has_been_checked(false),
+        value(NONE)
+    {
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline errors_t<integer_p, none_p>&
+        errors_t<integer_p, none_p>::operator =(none_t)
+    {
+        this->value = NONE;
+        return *this;
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline volatile errors_t<integer_p, none_p>&
+        errors_t<integer_p, none_p>::operator =(none_t)
+        volatile
+    {
+        this->value = NONE;
+        return *this;
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline bool_t
+        errors_t<integer_p, none_p>::operator ==(none_t)
+        const
+    {
+        return this->value == NONE;
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline bool_t
+        errors_t<integer_p, none_p>::operator ==(none_t)
+        const volatile
+    {
+        return this->value == NONE;
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline bool_t
+        errors_t<integer_p, none_p>::operator !=(none_t)
+        const
+    {
+        return !operator =(none_t());
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline bool_t
+        errors_t<integer_p, none_p>::operator !=(none_t)
+        const volatile
+    {
+        return !operator =(none_t());
     }
 
 }}

@@ -4,6 +4,7 @@
 
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
+#include "nkr/maybe_t.h"
 
 #include "nkr/enumeration/errors_t.h"
 
@@ -11,7 +12,7 @@
 
 namespace nkr { namespace enumeration {
 
-    class test_error_e :
+    class test_err :
         public errors_t<signed_word_t>
     {
     private:
@@ -26,15 +27,17 @@ namespace nkr { namespace enumeration {
         };
 
     public:
-        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_error_e, base_t);
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_err, base_t);
     };
 
     TEST_CASE("temp")
     {
-        CHECK(test_error_e::NONE == 0);
+        CHECK(test_err::NONE == 0);
 
-        test_error_e error(test_error_e::ERROR_A);
-        CHECK(error == test_error_e::ERROR_A);
+        test_err error(test_err::ERROR_A);
+        CHECK(error == test_err::ERROR_A);
+
+        maybe_t<test_err> err;
     }
 
 }}

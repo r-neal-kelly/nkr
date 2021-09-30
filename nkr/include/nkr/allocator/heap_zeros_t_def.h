@@ -25,50 +25,49 @@ namespace nkr { namespace allocator {
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Allocate(is_any_tr<heap_zeros_t> auto& self,
                                        is_any_non_const_tr<units_t> auto& units,
                                        count_t unit_count)
     {
-        return os::heap::Allocate_Zeros(units, unit_count);
+        return nkr::Move(os::heap::Allocate_Zeros(units, unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Allocate(is_any_tr<heap_zeros_t> auto& self,
                                        is_any_non_const_tr<pointer_t> auto& units,
                                        count_t unit_count)
     {
-        if (os::heap::Allocate_Zeros(units(), unit_count)) {
-            units.Unit_Count() = unit_count;
-            return true;
-        } else {
+        maybe_t<allocator_err> err = os::heap::Allocate_Zeros(units(), unit_count);
+        if (err) {
             units = { nullptr, 0 };
-            return false;
+        } else {
+            units.Unit_Count() = unit_count;
         }
+        return err;
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Reallocate(is_any_tr<heap_zeros_t> auto& self,
                                          is_any_non_const_tr<units_t> auto& units,
                                          count_t new_unit_count)
     {
-        return os::heap::Reallocate_Zeros(units, new_unit_count);
+        return nkr::Move(os::heap::Reallocate_Zeros(units, new_unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Reallocate(is_any_tr<heap_zeros_t> auto& self,
                                          is_any_non_const_tr<pointer_t> auto& units,
                                          count_t new_unit_count)
     {
-        if (os::heap::Reallocate_Zeros(units(), new_unit_count)) {
+        maybe_t<allocator_err> err = os::heap::Reallocate_Zeros(units(), new_unit_count);
+        if (!err) {
             units.Unit_Count() = new_unit_count;
-            return true;
-        } else {
-            return false;
         }
+        return err;
     }
 
     template <any_type_tr unit_p>
@@ -180,67 +179,67 @@ namespace nkr { namespace allocator {
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count)
         const
     {
-        return Allocate(*this, units, unit_count);
+        return nkr::Move(Allocate(*this, units, unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count)
         const volatile
     {
-        return Allocate(*this, units, unit_count);
+        return nkr::Move(Allocate(*this, units, unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count)
         const
     {
-        return Allocate(*this, units, unit_count);
+        return nkr::Move(Allocate(*this, units, unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count)
         const volatile
     {
-        return Allocate(*this, units, unit_count);
+        return nkr::Move(Allocate(*this, units, unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count)
         const
     {
-        return Reallocate(*this, units, new_unit_count);
+        return nkr::Move(Reallocate(*this, units, new_unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count)
         const volatile
     {
-        return Reallocate(*this, units, new_unit_count);
+        return nkr::Move(Reallocate(*this, units, new_unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count)
         const
     {
-        return Reallocate(*this, units, new_unit_count);
+        return nkr::Move(Reallocate(*this, units, new_unit_count));
     }
 
     template <any_type_tr unit_p>
-    inline bool_t
+    inline maybe_t<allocator_err>
         heap_zeros_t<unit_p>::Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count)
         const volatile
     {
-        return Reallocate(*this, units, new_unit_count);
+        return nkr::Move(Reallocate(*this, units, new_unit_count));
     }
 
     template <any_type_tr unit_p>

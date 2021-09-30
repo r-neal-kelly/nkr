@@ -4,8 +4,10 @@
 
 #pragma once
 
+#include "nkr/allocator_err.h"
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/maybe_t.h"
 #include "nkr/traits.h"
 
 namespace nkr {
@@ -141,17 +143,17 @@ namespace nkr { namespace os { namespace heap {
     /// @name Allocation
     /// @copydoc _30c0ffe4_d85f_45e5_ab29_bd3f18629cb9
     /// @{
-    bool_t  Allocate(type_pointer_tr auto& units, count_t unit_count);          ///< @copydoc _52a0d839_49c8_4d77_93b1_353137fecd3b
-    bool_t  Reallocate(type_pointer_tr auto& units, count_t new_unit_count);    ///< @copydoc _06fa627b_ba42_4b70_b0dd_66146e6d863a
-    void_t  Deallocate(type_pointer_tr auto& units);                            ///< @copydoc _de0237bf_9b0a_47fc_a5ab_99f21504f570
+    maybe_t<allocator_err>  Allocate(type_pointer_tr auto& units, count_t unit_count);          ///< @copydoc _52a0d839_49c8_4d77_93b1_353137fecd3b
+    maybe_t<allocator_err>  Reallocate(type_pointer_tr auto& units, count_t new_unit_count);    ///< @copydoc _06fa627b_ba42_4b70_b0dd_66146e6d863a
+    void_t                  Deallocate(type_pointer_tr auto& units);                            ///< @copydoc _de0237bf_9b0a_47fc_a5ab_99f21504f570
     /// @}
     
     /// @name Zero-Initialized Allocation
     /// @copydoc _eca47636_431b_4d2a_a102_679075b3cf17
     /// @{
-    bool_t  Allocate_Zeros(type_pointer_tr auto& units, count_t unit_count);        ///< @copydoc _9c5a7296_5644_47bf_bd3f_ff7de3518ce9
-    bool_t  Reallocate_Zeros(type_pointer_tr auto& units, count_t new_unit_count);  ///< @copydoc _7d7887a0_3e2d_4502_af8c_d409aae73f0b
-    void_t  Deallocate_Zeros(type_pointer_tr auto& units);                          ///< @copydoc _04d9a3fe_30b3_4ae2_bbc4_2a3cfc4768d6
+    maybe_t<allocator_err>  Allocate_Zeros(type_pointer_tr auto& units, count_t unit_count);        ///< @copydoc _9c5a7296_5644_47bf_bd3f_ff7de3518ce9
+    maybe_t<allocator_err>  Reallocate_Zeros(type_pointer_tr auto& units, count_t new_unit_count);  ///< @copydoc _7d7887a0_3e2d_4502_af8c_d409aae73f0b
+    void_t                  Deallocate_Zeros(type_pointer_tr auto& units);                          ///< @copydoc _04d9a3fe_30b3_4ae2_bbc4_2a3cfc4768d6
     /// @}
 
 }}}

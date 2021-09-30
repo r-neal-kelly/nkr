@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/atomic_t.h"
+#include "nkr/atomic_t_dec.h"
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"

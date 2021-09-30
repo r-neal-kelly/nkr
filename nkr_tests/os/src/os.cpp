@@ -1230,11 +1230,11 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// [_a06ecc73_e7ac_43b2_b231_059675458c15]
                     word_t* words = nullptr;
-                    CHECK(os::heap::Allocate(words, 0xFF));
+                    CHECK(os::heap::Allocate(words, 0xFF) == allocator_err::NONE);
                     CHECK(words != nullptr);
 
                     word_t* too_many = nullptr;
-                    CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(os::heap::Allocate(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == allocator_err::OUT_OF_MEMORY);
                     CHECK(too_many == nullptr);
 
                     os::heap::Deallocate(words);
@@ -1248,12 +1248,12 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
                     word_t* words = nullptr;
-                    os::heap::Allocate(words, 0xFF);
-                    CHECK(os::heap::Reallocate(words, 0x100) == true);
+                    CHECK(os::heap::Allocate(words, 0xFF) == allocator_err::NONE);
+                    CHECK(os::heap::Reallocate(words, 0x100) == allocator_err::NONE);
                     CHECK(words != nullptr);
 
                     word_t* backup = words;
-                    CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(os::heap::Reallocate(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == allocator_err::OUT_OF_MEMORY);
                     CHECK(words == backup);
 
                     os::heap::Deallocate(words);
@@ -1264,13 +1264,15 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// []
                     word_t* words = nullptr;
-                    os::heap::Allocate(words, 0xFF);
-                    CHECK(os::heap::Reallocate(words, 0) == true);
+                    CHECK(os::heap::Allocate(words, 0xFF) == allocator_err::NONE);
+                    CHECK(os::heap::Reallocate(words, 0) == allocator_err::NONE);
                     CHECK(words == nullptr);
 
                     os::heap::Deallocate(words);
                     /// []
                 }
+
+                // should act like allocate with nullptr or should assert.
             }
 
             TEST_SUITE("Deallocate()")
@@ -1279,7 +1281,7 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// [_09113b05_5f70_459c_9827_f53c58816243]
                     word_t* words = nullptr;
-                    os::heap::Allocate(words, 0xFF);
+                    CHECK(os::heap::Allocate(words, 0xFF) == allocator_err::NONE);
                     os::heap::Deallocate(words);
                     CHECK(words == nullptr);
 
@@ -1298,14 +1300,14 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// [_fc02c748_8572_4062_b2b1_8cfaa78bc002]
                     word_t* words = nullptr;
-                    CHECK(os::heap::Allocate_Zeros(words, 0xFF));
+                    CHECK(os::heap::Allocate_Zeros(words, 0xFF) == allocator_err::NONE);
                     CHECK(words != nullptr);
                     for (index_t idx = 0, end = 0xFF; idx < end; idx += 1) {
                         WARN(words[idx] == 0);
                     }
 
                     word_t* too_many = nullptr;
-                    CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(os::heap::Allocate_Zeros(too_many, std::numeric_limits<count_t>::max() / sizeof(word_t)) == allocator_err::OUT_OF_MEMORY);
                     CHECK(too_many == nullptr);
 
                     os::heap::Deallocate_Zeros(words);
@@ -1319,15 +1321,15 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
                     word_t* words = nullptr;
-                    os::heap::Allocate_Zeros(words, 0xFF);
-                    CHECK(os::heap::Reallocate_Zeros(words, 0x100) == true);
+                    CHECK(os::heap::Allocate_Zeros(words, 0xFF) == allocator_err::NONE);
+                    CHECK(os::heap::Reallocate_Zeros(words, 0x100) == allocator_err::NONE);
                     CHECK(words != nullptr);
                     for (index_t idx = 0, end = 0x100; idx < end; idx += 1) {
                         WARN(words[idx] == 0);
                     }
 
                     word_t* backup = words;
-                    CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == false);
+                    CHECK(os::heap::Reallocate_Zeros(words, std::numeric_limits<count_t>::max() / sizeof(word_t)) == allocator_err::OUT_OF_MEMORY);
                     CHECK(words == backup);
 
                     os::heap::Deallocate_Zeros(words);
@@ -1338,8 +1340,8 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// []
                     word_t* words = nullptr;
-                    os::heap::Allocate_Zeros(words, 0xFF);
-                    CHECK(os::heap::Reallocate_Zeros(words, 0) == true);
+                    CHECK(os::heap::Allocate_Zeros(words, 0xFF) == allocator_err::NONE);
+                    CHECK(os::heap::Reallocate_Zeros(words, 0) == allocator_err::NONE);
                     CHECK(words == nullptr);
 
                     os::heap::Deallocate_Zeros(words);
@@ -1353,7 +1355,7 @@ namespace nkr { namespace os { namespace heap {
                 {
                     /// [_6c279b29_119d_4ca0_8c6a_552cb9ea6431]
                     word_t* words = nullptr;
-                    os::heap::Allocate_Zeros(words, 0xFF);
+                    CHECK(os::heap::Allocate_Zeros(words, 0xFF) == allocator_err::NONE);
                     os::heap::Deallocate_Zeros(words);
                     CHECK(words == nullptr);
 
