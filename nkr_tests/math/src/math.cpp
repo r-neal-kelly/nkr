@@ -110,4 +110,76 @@ namespace nkr { namespace math {
         }
     }
 
+    TEST_SUITE("Overflow")
+    {
+    #define numbers \
+        u8_t,       \
+        s8_t,       \
+        u16_t,      \
+        s16_t,      \
+        u32_t,      \
+        s32_t,      \
+        u64_t,      \
+        s64_t,      \
+        r32_t,      \
+        r64_t
+
+        TEST_SUITE("Will_Overflow_Add")
+        {
+            TEST_CASE_TEMPLATE("should return true if a + b would overflow", number_p, numbers)
+            {
+                CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::max(), number_p(1)) == true);
+
+                if constexpr (std::is_signed_v<number_p>) {
+                    CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::lowest(), number_p(-1)) == true);
+                } else {
+                    CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::lowest(), number_p(-1)) == false);
+                }
+
+                CHECK(Will_Overflow_Add<number_p>(0, -1) == false);
+            }
+        }
+
+        TEST_SUITE("Will_Overflow_Subtract")
+        {
+            TEST_CASE_TEMPLATE("should return true if a - b would overflow", number_p, numbers)
+            {
+
+            }
+        }
+
+        TEST_SUITE("Will_Overflow_Multiply")
+        {
+            TEST_CASE_TEMPLATE("should return true if a * b would overflow", number_p, numbers)
+            {
+                CHECK(Will_Overflow_Multiply<number_p>(std::numeric_limits<number_p>::max(), 2) == true);
+
+                for (u8_t count = 1, last = 5; count <= last; count += 1) {
+                    number_p random_a = Random<number_p>(0, std::numeric_limits<number_p>::max() / count);
+                    number_p random_b = Random<number_p>(1, count);
+                    CHECK(Will_Overflow_Multiply<number_p>(random_a, random_b) == false);
+                    if constexpr (std::is_signed_v<number_p>) {
+                        CHECK(Will_Overflow_Multiply<number_p>(random_a, -random_b) == false);
+                    }
+                }
+
+                if constexpr (std::is_signed_v<number_p>) {
+                    CHECK(Will_Overflow_Multiply<number_p>(2, -2) == false);
+                }
+            }
+        }
+
+        TEST_SUITE("Will_Overflow_Divide")
+        {
+            TEST_CASE_TEMPLATE("should return true if a / b would overflow", number_p, numbers)
+            {
+                if constexpr (std::is_signed_v<number_p>) {
+                    CHECK(Will_Overflow_Divide<number_p>(std::numeric_limits<number_p>::lowest(), -1) == true);
+                }
+            }
+        }
+
+    #undef numbers
+    }
+
 }}

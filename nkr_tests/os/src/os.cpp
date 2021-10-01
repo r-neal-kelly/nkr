@@ -1226,7 +1226,7 @@ namespace nkr { namespace os { namespace heap {
         {
             TEST_SUITE("Allocate()")
             {
-                TEST_CASE("should allocate heap memory, set pointer, and return true, or set nullptr and return false")
+                TEST_CASE("should allocate heap memory and set pointer. sets nullptr on failure. returns maybe error")
                 {
                     /// [_a06ecc73_e7ac_43b2_b231_059675458c15]
                     word_t* words = nullptr;
@@ -1244,7 +1244,7 @@ namespace nkr { namespace os { namespace heap {
 
             TEST_SUITE("Reallocate()")
             {
-                TEST_CASE("should reallocate heap memory, set pointer, and return true, else leave pointer and return false")
+                TEST_CASE("should reallocate heap memory and set pointer. leaves pointer on failure. returns maybe error")
                 {
                     /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
                     word_t* words = nullptr;
@@ -1260,7 +1260,7 @@ namespace nkr { namespace os { namespace heap {
                     /// [_3c97398a_6fe6_4b47_81a2_18efd5ab72d5]
                 }
 
-                TEST_CASE("should deallocate pointer and return nullptr when given a new_unit_count of 0")
+                TEST_CASE("should deallocate pointer when given a new_unit_count of 0. sets nullptr. returns maybe error")
                 {
                     /// []
                     word_t* words = nullptr;
@@ -1272,7 +1272,14 @@ namespace nkr { namespace os { namespace heap {
                     /// []
                 }
 
-                // should act like allocate with nullptr or should assert.
+                TEST_CASE("should allocate pointer when given nullptr. returns maybe error")
+                {
+                    word_t* words = nullptr;
+                    CHECK(os::heap::Reallocate(words, 0xFF) == allocator_err::NONE);
+                    CHECK(words != nullptr);
+
+                    os::heap::Deallocate(words);
+                }
             }
 
             TEST_SUITE("Deallocate()")
@@ -1296,7 +1303,7 @@ namespace nkr { namespace os { namespace heap {
         {
             TEST_SUITE("Allocate_Zeros()")
             {
-                TEST_CASE("should allocate heap memory, set pointer, set memory to zero, and return true, or set nullptr and return false")
+                TEST_CASE("should allocate heap memory and set pointer. sets memory to zero. sets nullptr on failure. returns maybe error")
                 {
                     /// [_fc02c748_8572_4062_b2b1_8cfaa78bc002]
                     word_t* words = nullptr;
@@ -1317,7 +1324,7 @@ namespace nkr { namespace os { namespace heap {
 
             TEST_SUITE("Reallocate_Zeros()")
             {
-                TEST_CASE("should reallocate heap memory, set pointer, set memory to zero, and return true, else leave pointer and return false")
+                TEST_CASE("should reallocate heap memory and set pointer. sets memory to zero. leaves pointer on failure. returns maybe error")
                 {
                     /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
                     word_t* words = nullptr;
@@ -1336,7 +1343,7 @@ namespace nkr { namespace os { namespace heap {
                     /// [_831dc6ca_17bd_4515_9fd9_48f36c1014da]
                 }
 
-                TEST_CASE("should deallocate pointer and return nullptr when given a new_unit_count of 0")
+                TEST_CASE("should deallocate pointer when given a new_unit_count of 0. sets nullptr. returns maybe error")
                 {
                     /// []
                     word_t* words = nullptr;
@@ -1346,6 +1353,15 @@ namespace nkr { namespace os { namespace heap {
 
                     os::heap::Deallocate_Zeros(words);
                     /// []
+                }
+
+                TEST_CASE("should allocate pointer when given nullptr. returns maybe error")
+                {
+                    word_t* words = nullptr;
+                    CHECK(os::heap::Reallocate_Zeros(words, 0xFF) == allocator_err::NONE);
+                    CHECK(words != nullptr);
+
+                    os::heap::Deallocate_Zeros(words);
                 }
             }
 
@@ -1364,85 +1380,6 @@ namespace nkr { namespace os { namespace heap {
                     /// [_6c279b29_119d_4ca0_8c6a_552cb9ea6431]
                 }
             }
-        }
-    }
-
-}}}
-
-namespace nkr { namespace os { namespace math {
-
-    TEST_SUITE("nkr::os::math")
-    {
-        TEST_SUITE("Overflow")
-        {
-        #define numbers \
-            u8_t,       \
-            s8_t,       \
-            u16_t,      \
-            s16_t,      \
-            u32_t,      \
-            s32_t,      \
-            u64_t,      \
-            s64_t,      \
-            r32_t,      \
-            r64_t
-
-            TEST_SUITE("Will_Overflow_Add")
-            {
-                TEST_CASE_TEMPLATE("should return true if a + b would overflow", number_p, numbers)
-                {
-                    CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::max(), number_p(1)) == true);
-
-                    if constexpr (std::is_signed_v<number_p>) {
-                        CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::lowest(), number_p(-1)) == true);
-                    } else {
-                        CHECK(Will_Overflow_Add(std::numeric_limits<number_p>::lowest(), number_p(-1)) == false);
-                    }
-
-                    CHECK(Will_Overflow_Add<number_p>(0, -1) == false);
-                }
-            }
-
-            TEST_SUITE("Will_Overflow_Subtract")
-            {
-                TEST_CASE_TEMPLATE("should return true if a - b would overflow", number_p, numbers)
-                {
-
-                }
-            }
-
-            TEST_SUITE("Will_Overflow_Multiply")
-            {
-                TEST_CASE_TEMPLATE("should return true if a * b would overflow", number_p, numbers)
-                {
-                    CHECK(Will_Overflow_Multiply<number_p>(std::numeric_limits<number_p>::max(), 2) == true);
-
-                    for (u8_t count = 1, last = 5; count <= last; count += 1) {
-                        number_p random_a = Random<number_p>(0, std::numeric_limits<number_p>::max() / count);
-                        number_p random_b = Random<number_p>(1, count);
-                        CHECK(Will_Overflow_Multiply<number_p>(random_a, random_b) == false);
-                        if constexpr (std::is_signed_v<number_p>) {
-                            CHECK(Will_Overflow_Multiply<number_p>(random_a, -random_b) == false);
-                        }
-                    }
-
-                    if constexpr (std::is_signed_v<number_p>) {
-                        CHECK(Will_Overflow_Multiply<number_p>(2, -2) == false);
-                    }
-                }
-            }
-
-            TEST_SUITE("Will_Overflow_Divide")
-            {
-                TEST_CASE_TEMPLATE("should return true if a / b would overflow", number_p, numbers)
-                {
-                    if constexpr (std::is_signed_v<number_p>) {
-                        CHECK(Will_Overflow_Divide<number_p>(std::numeric_limits<number_p>::lowest(), -1) == true);
-                    }
-                }
-            }
-
-        #undef numbers
         }
     }
 

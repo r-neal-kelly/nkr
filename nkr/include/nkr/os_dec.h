@@ -158,22 +158,6 @@ namespace nkr { namespace os { namespace heap {
 
 }}}
 
-namespace nkr { namespace os { namespace math {
-
-    /// @name Overflow
-    /// @{
-    template <number_tr number_p>
-    bool_t  Will_Overflow_Add(number_p lhs, number_p rhs);
-    template <number_tr number_p>
-    bool_t  Will_Overflow_Subtract(number_p lhs, number_p rhs);
-    template <number_tr number_p>
-    bool_t  Will_Overflow_Multiply(number_p lhs, number_p rhs);
-    template <number_tr number_p>
-    bool_t  Will_Overflow_Divide(number_p lhs, number_p rhs);
-    /// @}
-
-}}}
-
 namespace nkr { namespace os { namespace time {
 
     r64_t   Microseconds();

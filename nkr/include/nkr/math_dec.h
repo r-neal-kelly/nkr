@@ -56,4 +56,13 @@ namespace nkr { namespace math {
     constexpr std_bool_t    Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer);
     constexpr std_bool_t    Is_Power_Of_2(integer_signed_tr auto signed_integer);
 
+    template <number_tr number_p>
+    bool_t                  Will_Overflow_Add(number_p lhs, number_p rhs);
+    template <number_tr number_p>
+    bool_t                  Will_Overflow_Subtract(number_p lhs, number_p rhs);
+    template <number_tr number_p>
+    bool_t                  Will_Overflow_Multiply(number_p lhs, number_p rhs);
+    template <number_tr number_p>
+    bool_t                  Will_Overflow_Divide(number_p lhs, number_p rhs);
+
 }}

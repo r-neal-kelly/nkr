@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/math.h"
 #include "nkr/os.h"
 #include "nkr/utils.h"
 
@@ -135,7 +136,7 @@ namespace nkr { namespace array {
     {
         count_t capacity = self.Capacity();
         if (capacity < self.allocator.Max_Unit_Count()) {
-            if (os::math::Will_Overflow_Multiply(static_cast<real_t>(capacity), Grow_Rate())) {
+            if (math::Will_Overflow_Multiply(static_cast<real_t>(capacity), Grow_Rate())) {
                 return self.Capacity(self.allocator.Max_Unit_Count());
             } else {
                 count_t new_capacity = static_cast<count_t>(static_cast<real_t>(capacity) * Grow_Rate());

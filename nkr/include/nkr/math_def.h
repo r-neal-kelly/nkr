@@ -65,4 +65,42 @@ namespace nkr { namespace math {
         return Is_Power_Of_2(Absolute(signed_integer));
     }
 
+    template <number_tr number_p>
+    inline bool_t
+        Will_Overflow_Add(number_p lhs, number_p rhs)
+    {
+        return
+            (lhs > 0 && rhs > std::numeric_limits<number_p>::max() - lhs) ||
+            (lhs < 0 && rhs < std::numeric_limits<number_p>::lowest() - lhs);
+    }
+
+    template <number_tr number_p>
+    inline bool_t
+        Will_Overflow_Subtract(number_p lhs, number_p rhs)
+    {
+        return
+            (lhs > 0 && rhs < std::numeric_limits<number_p>::max() - lhs) ||
+            (lhs < 0 && rhs > std::numeric_limits<number_p>::lowest() - lhs);
+    }
+
+    template <number_tr number_p>
+    inline bool_t
+        Will_Overflow_Multiply(number_p lhs, number_p rhs)
+    {
+        return
+            lhs != 0 &&
+            ((lhs == std::numeric_limits<number_p>::lowest() && rhs == -1) ||
+             (lhs == -1 && rhs == std::numeric_limits<number_p>::lowest()) ||
+             (rhs > std::numeric_limits<number_p>::max() / lhs) ||
+             (rhs < std::numeric_limits<number_p>::lowest() / lhs));
+    }
+
+    template <number_tr number_p>
+    inline bool_t
+        Will_Overflow_Divide(number_p lhs, number_p rhs)
+    {
+        return
+            (lhs == std::numeric_limits<number_p>::lowest() && rhs == -1);
+    }
+
 }}
