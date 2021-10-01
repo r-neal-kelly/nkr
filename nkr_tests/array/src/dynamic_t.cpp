@@ -602,9 +602,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic(other);
                     CHECK(dynamic.Count() == count);
@@ -623,9 +624,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic = other;
                     CHECK(dynamic.Count() == count);
@@ -644,9 +646,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic(other);
@@ -664,9 +667,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic(other);
@@ -686,9 +690,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic(nkr::Move(other));
@@ -706,9 +711,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic = nkr::Move(other);
@@ -726,9 +732,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic(nkr::Move(other));
                     CHECK(other.Pointer() == pointer_t());
@@ -748,9 +755,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic;
                     dynamic = other;
@@ -770,9 +778,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic;
                     CHECK(&(dynamic = other) == &dynamic);
@@ -788,9 +797,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic;
@@ -809,9 +819,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic;
@@ -832,9 +843,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic;
@@ -853,9 +865,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     pointer_t pointer = other.Pointer();
                     dynamic_p dynamic;
@@ -872,9 +885,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic;
                     dynamic = nkr::Move(other);
@@ -895,9 +909,10 @@ namespace nkr { namespace array {
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
-                    std::remove_const_t<dynamic_p> other;
+                    std::remove_const_t<dynamic_p> other(count);
+                    nkr_ASSERT_THAT(other.Has_Memory());
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<std::remove_const_t<unit_t>>());
+                        other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic(other);
                     dynamic.~dynamic_p();

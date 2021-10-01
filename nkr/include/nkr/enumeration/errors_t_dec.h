@@ -48,6 +48,9 @@ namespace nkr { namespace enumeration {
         ~errors_t();
 
     public:
+        void_t  Ignore_Error();
+
+    public:
         operator            value_t() const;
         operator            value_t() const volatile;
 

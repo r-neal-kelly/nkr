@@ -7,9 +7,11 @@
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/math.h"
+#include "nkr/maybe_t.h"
 #include "nkr/pointer_t.h"
 #include "nkr/traits.h"
 
+#include "nkr/allocator_err.h"
 #include "nkr/allocator_i.h"
 #include "nkr/allocator/heap_t.h"
 
@@ -53,41 +55,43 @@ namespace nkr { namespace array {
         static constexpr real_t Grow_Rate();
 
     private:
-        static auto&        Units(is_any_tr<dynamic_t> auto& self);
+        static auto&                    Units(is_any_tr<dynamic_t> auto& self);
 
-        static void_t       Copy_Construct(is_any_non_const_tr<dynamic_t> auto& self,
-                                           const is_any_tr<dynamic_t> auto& other);
-        static void_t       Destruct(is_any_tr<dynamic_t> auto& self);
+        static void_t                   Copy_Construct(is_any_non_const_tr<dynamic_t> auto& self,
+                                                       const is_any_tr<dynamic_t> auto& other);
+        static void_t                   Destruct(is_any_tr<dynamic_t> auto& self);
 
-        static pointer_t    Pointer(const is_any_tr<dynamic_t> auto& self);
-        static count_t      Count(const is_any_tr<dynamic_t> auto& self);
-        static auto&        Allocator(const is_any_tr<dynamic_t> auto& self);
+        static pointer_t                Pointer(const is_any_tr<dynamic_t> auto& self);
+        static count_t                  Count(const is_any_tr<dynamic_t> auto& self);
+        static auto&                    Allocator(const is_any_tr<dynamic_t> auto& self);
 
-        static count_t      Capacity(const is_any_tr<dynamic_t> auto& self);
-        static bool_t       Capacity(is_any_tr<dynamic_t> auto& self, count_t new_capacity);
+        static count_t                  Capacity(const is_any_tr<dynamic_t> auto& self);
+        static maybe_t<allocator_err>   Capacity(is_any_tr<dynamic_t> auto& self, count_t new_capacity);
 
-        static bool_t       Should_Grow(const is_any_tr<dynamic_t> auto& self);
-        static bool_t       Grow(is_any_tr<dynamic_t> auto& self);
+        static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
 
-        static unit_t&      At(const is_any_tr<dynamic_t> auto& self, index_t index);
-        static bool_t       Push(is_any_tr<dynamic_t> auto& self, const unit_t& unit);
-        static bool_t       Push(is_any_tr<dynamic_t> auto& self, writable_unit_t&& unit);
-        static unit_t       Pop(is_any_tr<dynamic_t> auto& self);
+        static bool_t                   Should_Grow(const is_any_tr<dynamic_t> auto& self);
+        static maybe_t<allocator_err>   Grow(is_any_tr<dynamic_t> auto& self);
 
-        static void_t       Copy_To(const is_any_tr<dynamic_t> auto& self,
-                                    any_non_const_array_of_any_tr<unit_t> auto& other);
-        static void_t       Copy_From(is_any_non_const_tr<dynamic_t> auto& self,
-                                      const any_array_of_any_tr<unit_t> auto& other);
-        static void_t       Move_To(any_non_const_dynamic_of_any_non_const_tr<unit_t> auto& self,
-                                    any_non_const_array_of_any_tr<unit_t> auto& other);
-        static void_t       Move_From(is_any_non_const_tr<dynamic_t> auto& self,
-                                      any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
+        static unit_t&                  At(const is_any_tr<dynamic_t> auto& self, index_t index);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const unit_t& unit);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, writable_unit_t&& unit);
+        static unit_t                   Pop(is_any_tr<dynamic_t> auto& self);
 
-        static bool_t       Is_Fit(const is_any_tr<dynamic_t> auto& self);
-        static bool_t       Fit(is_any_tr<dynamic_t> auto& self);
+        static maybe_t<allocator_err>   Copy_To(const is_any_tr<dynamic_t> auto& self,
+                                                any_non_const_array_of_any_tr<unit_t> auto& other);
+        static maybe_t<allocator_err>   Copy_From(is_any_non_const_tr<dynamic_t> auto& self,
+                                                  const any_array_of_any_tr<unit_t> auto& other);
+        static maybe_t<allocator_err>   Move_To(any_non_const_dynamic_of_any_non_const_tr<unit_t> auto& self,
+                                                any_non_const_array_of_any_tr<unit_t> auto& other);
+        static maybe_t<allocator_err>   Move_From(is_any_non_const_tr<dynamic_t> auto& self,
+                                                  any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
 
-        static bool_t       Is_Clear(const is_any_tr<dynamic_t> auto& self);
-        static void_t       Clear(is_any_tr<dynamic_t> auto& self);
+        static bool_t                   Is_Fit(const is_any_tr<dynamic_t> auto& self);
+        static maybe_t<allocator_err>   Fit(is_any_tr<dynamic_t> auto& self);
+
+        static bool_t                   Is_Clear(const is_any_tr<dynamic_t> auto& self);
+        static void_t                   Clear(is_any_tr<dynamic_t> auto& self);
 
     protected:
         writable_pointer_t  writable_units;
@@ -105,15 +109,15 @@ namespace nkr { namespace array {
         dynamic_t(const unit_t& filler, count_t count, allocator_t&& allocator);
         dynamic_t(writable_unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t());
         dynamic_t(writable_unit_t&& filler, count_t count, allocator_t&& allocator);
-        dynamic_t(const volatile unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                                    = delete;
-        dynamic_t(const volatile unit_t&& filler, count_t count, allocator_t&& allocator)                                                         = delete;
+        dynamic_t(const volatile unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                              = delete;
+        dynamic_t(const volatile unit_t&& filler, count_t count, allocator_t&& allocator)                                                   = delete;
 
         dynamic_t(const std_array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
         dynamic_t(const std_array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
         dynamic_t(std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
         dynamic_t(std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
-        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())                     = delete;
-        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                                          = delete;
+        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())               = delete;
+        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                                    = delete;
 
         dynamic_t(const any_stack_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
         dynamic_t(const any_stack_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
@@ -155,48 +159,45 @@ namespace nkr { namespace array {
 
         count_t                     Capacity() const;
         count_t                     Capacity() const volatile;
-        bool_t                      Capacity(count_t new_capacity);
-        bool_t                      Capacity(count_t new_capacity) volatile;
+        maybe_t<allocator_err>      Capacity(count_t new_capacity);
+        maybe_t<allocator_err>      Capacity(count_t new_capacity) volatile;
+
+        bool_t                      Has_Memory() const;
+        bool_t                      Has_Memory() const volatile;
 
         unit_t&                     At(index_t index) const;
         unit_t&                     At(index_t index) const volatile;
-        bool_t                      Push(const unit_t& unit);
-        bool_t                      Push(const unit_t& unit) volatile;
-        bool_t                      Push(writable_unit_t&& unit);
-        bool_t                      Push(writable_unit_t&& unit) volatile;
-        bool_t                      Push(const volatile unit_t&& unit)          = delete;
-        bool_t                      Push(const volatile unit_t&& unit) volatile = delete;
+        maybe_t<allocator_err>      Push(const unit_t& unit);
+        maybe_t<allocator_err>      Push(const unit_t& unit) volatile;
+        maybe_t<allocator_err>      Push(writable_unit_t&& unit);
+        maybe_t<allocator_err>      Push(writable_unit_t&& unit) volatile;
+        maybe_t<allocator_err>      Push(const volatile unit_t&& unit)                                                          = delete;
+        maybe_t<allocator_err>      Push(const volatile unit_t&& unit) volatile                                                 = delete;
         unit_t                      Pop();
         unit_t                      Pop() volatile;
 
-        void_t                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const;
-        void_t                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
-        void_t                      Copy_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
-        void_t                      Copy_From(const any_array_of_any_tr<unit_t> auto& other);
-        void_t                      Copy_From(const any_array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                      Copy_From(const not_any_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
-        void_t                      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other);
-        void_t                      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other) volatile;
-        void_t                      Move_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
-        void_t                      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
-        void_t                      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
-        void_t                      Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
+        maybe_t<allocator_err>      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const;
+        maybe_t<allocator_err>      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
+        maybe_t<allocator_err>      Copy_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        maybe_t<allocator_err>      Copy_From(const any_array_of_any_tr<unit_t> auto& other);
+        maybe_t<allocator_err>      Copy_From(const any_array_of_any_tr<unit_t> auto& other) volatile;
+        maybe_t<allocator_err>      Copy_From(const not_any_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
+        maybe_t<allocator_err>      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other);
+        maybe_t<allocator_err>      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other) volatile;
+        maybe_t<allocator_err>      Move_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        maybe_t<allocator_err>      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
+        maybe_t<allocator_err>      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
+        maybe_t<allocator_err>      Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
 
         bool_t                      Is_Fit() const;
         bool_t                      Is_Fit() const volatile;
-        bool_t                      Fit();
-        bool_t                      Fit() volatile;
+        maybe_t<allocator_err>      Fit();
+        maybe_t<allocator_err>      Fit() volatile;
 
         bool_t                      Is_Clear() const;
         bool_t                      Is_Clear() const volatile;
         void_t                      Clear();
         void_t                      Clear() volatile;
-
-    private:
-        bool_t  Should_Grow() const;
-        bool_t  Should_Grow() const volatile;
-        bool_t  Grow();
-        bool_t  Grow() volatile;
 
     public:
         unit_t& operator [](index_t index) const;

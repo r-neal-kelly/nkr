@@ -8,7 +8,7 @@
 #include <mutex>
 
 #include "nkr/fors.h"
-#include "nkr/macros.h"
+#include "nkr/macros_def.h"
 #include "nkr/os_dec.h"
 
 #if defined(nkr_IS_WINDOWS)
@@ -583,17 +583,22 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
-        assert(unit_count > 0);
-        assert(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
+        nkr_ASSERT_THAT(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
-        errno = 0;
-        units = static_cast<units_t>(::malloc(unit_count * sizeof(unit_t)));
-        if (errno == 0) {
-            return allocator_err::NONE;
+        if (unit_count > 0) {
+            errno = 0;
+            units = static_cast<units_t>(::malloc(unit_count * sizeof(unit_t)));
+            if (errno == 0) {
+                return allocator_err::NONE;
+            } else {
+                units = nullptr;
+
+                return allocator_err::OUT_OF_MEMORY;
+            }
         } else {
             units = nullptr;
 
-            return allocator_err::OUT_OF_MEMORY;
+            return allocator_err::NONE;
         }
     }
 
@@ -603,18 +608,21 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
-        assert(units != nullptr || new_unit_count > 0);
-        assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
+        nkr_ASSERT_THAT(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
-        errno = 0;
-        units_t new_units = static_cast<units_t>(::realloc(const_cast<std::remove_cv_t<unit_t>*&>(units),
-                                                           new_unit_count * sizeof(unit_t)));
-        if (errno == 0) {
-            units = new_units;
+        if (units != nullptr || new_unit_count > 0) {
+            errno = 0;
+            units_t new_units = static_cast<units_t>(::realloc(const_cast<std::remove_cv_t<unit_t>*&>(units),
+                                                               new_unit_count * sizeof(unit_t)));
+            if (errno == 0) {
+                units = new_units;
 
-            return allocator_err::NONE;
+                return allocator_err::NONE;
+            } else {
+                return allocator_err::OUT_OF_MEMORY;
+            }
         } else {
-            return allocator_err::OUT_OF_MEMORY;
+            return allocator_err::NONE;
         }
     }
 
@@ -636,17 +644,22 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
-        assert(unit_count > 0);
-        assert(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
+        nkr_ASSERT_THAT(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
-        errno = 0;
-        units = static_cast<units_t>(::calloc(unit_count, sizeof(unit_t)));
-        if (errno == 0) {
-            return allocator_err::NONE;
+        if (unit_count > 0) {
+            errno = 0;
+            units = static_cast<units_t>(::calloc(unit_count, sizeof(unit_t)));
+            if (errno == 0) {
+                return allocator_err::NONE;
+            } else {
+                units = nullptr;
+
+                return allocator_err::OUT_OF_MEMORY;
+            }
         } else {
             units = nullptr;
 
-            return allocator_err::OUT_OF_MEMORY;
+            return allocator_err::NONE;
         }
     }
 
@@ -656,19 +669,22 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
-        assert(units != nullptr || new_unit_count > 0);
-        assert(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
+        nkr_ASSERT_THAT(new_unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
-        errno = 0;
-        units_t new_units = static_cast<units_t>(::_recalloc(const_cast<std::remove_cv_t<unit_t>*&>(units),
-                                                             new_unit_count,
-                                                             sizeof(unit_t)));
-        if (errno == 0) {
-            units = new_units;
+        if (units != nullptr || new_unit_count > 0) {
+            errno = 0;
+            units_t new_units = static_cast<units_t>(::_recalloc(const_cast<std::remove_cv_t<unit_t>*&>(units),
+                                                                 new_unit_count,
+                                                                 sizeof(unit_t)));
+            if (errno == 0) {
+                units = new_units;
 
-            return allocator_err::NONE;
+                return allocator_err::NONE;
+            } else {
+                return allocator_err::OUT_OF_MEMORY;
+            }
         } else {
-            return allocator_err::OUT_OF_MEMORY;
+            return allocator_err::NONE;
         }
     }
 

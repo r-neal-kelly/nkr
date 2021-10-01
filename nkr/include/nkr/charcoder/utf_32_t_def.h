@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/os.h"
 #include "nkr/utils.h"
 
@@ -172,7 +173,7 @@ namespace nkr { namespace charcoder {
             this->unit = REPLACEMENT_CHARACTER;
         }
 
-        assert(Is_Well_Formed_Normal());
+        nkr_ASSERT_THAT(Is_Well_Formed_Normal());
     }
 
     inline void_t
@@ -184,14 +185,14 @@ namespace nkr { namespace charcoder {
             this->unit = REPLACEMENT_CHARACTER_32_SWAPPED;
         }
 
-        assert(Is_Well_Formed_Swapped());
+        nkr_ASSERT_THAT(Is_Well_Formed_Swapped());
     }
 
     inline point_t
         utf_32_t::Decode_Normal()
         const
     {
-        assert(Is_Well_Formed_Normal());
+        nkr_ASSERT_THAT(Is_Well_Formed_Normal());
 
         return this->unit;
     }
@@ -200,7 +201,7 @@ namespace nkr { namespace charcoder {
         utf_32_t::Decode_Swapped()
         const
     {
-        assert(Is_Well_Formed_Swapped());
+        nkr_ASSERT_THAT(Is_Well_Formed_Swapped());
 
         return os::endian::Swap(this->unit);
     }
@@ -208,7 +209,7 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_32_t::Read_Forward_Normal(const unit_t* from)
     {
-        assert(from);
+        nkr_ASSERT_THAT(from);
 
         this->unit = *from;
         if (!Is_Well_Formed_Normal()) {
@@ -221,7 +222,7 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_32_t::Read_Forward_Swapped(const unit_t* from)
     {
-        assert(from);
+        nkr_ASSERT_THAT(from);
 
         this->unit = *from;
         if (!Is_Well_Formed_Swapped()) {
@@ -234,9 +235,9 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_32_t::Read_Reverse_Normal(const unit_t* from, const unit_t* first)
     {
-        assert(from);
-        assert(first);
-        assert(from > first);
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
 
         this->unit = *(from - 1);
         if (!Is_Well_Formed_Normal()) {
@@ -249,9 +250,9 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_32_t::Read_Reverse_Swapped(const unit_t* from, const unit_t* first)
     {
-        assert(from);
-        assert(first);
-        assert(from > first);
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
 
         this->unit = *(from - 1);
         if (!Is_Well_Formed_Swapped()) {
@@ -272,7 +273,7 @@ namespace nkr { namespace charcoder {
         utf_32_t::operator [](index_t index)
         const
     {
-        assert(index < 1);
+        nkr_ASSERT_THAT(index < 1);
 
         return this->unit;
     }

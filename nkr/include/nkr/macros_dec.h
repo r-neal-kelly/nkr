@@ -16,7 +16,8 @@ namespace nkr {
     #define nkr_P   ///< @copydoc doc_nkr_nkr_P
     #define nkr_b   ///< @copydoc doc_nkr_nkr_b
     /// @}
-    
+
+    #define nkr_ASSERT_THAT(EXPRESSION_p)
 
     /// @ingroup macros_procedures
     /// @{

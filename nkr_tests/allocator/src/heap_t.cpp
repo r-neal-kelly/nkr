@@ -64,9 +64,9 @@ namespace nkr { namespace allocator {
         {
             TEST_SUITE("Min_Unit_Count()")
             {
-                TEST_CASE_TEMPLATE("should be 1", unit_p, types, volatiles)
+                TEST_CASE_TEMPLATE("should be 0", unit_p, types, volatiles)
                 {
-                    static_assert(heap_t<unit_p>::Min_Unit_Count() == 1);
+                    static_assert(heap_t<unit_p>::Min_Unit_Count() == 0);
                 }
             }
 

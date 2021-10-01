@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/utils.h"
 
 #include "nkr/charcoder/utf_8_t_dec.h"
@@ -307,14 +308,14 @@ namespace nkr { namespace charcoder {
             this->unit_count = 3;
         }
 
-        assert(Is_Well_Formed());
+        nkr_ASSERT_THAT(Is_Well_Formed());
     }
 
     inline point_t
         utf_8_t::Decode()
         const
     {
-        assert(Is_Well_Formed());
+        nkr_ASSERT_THAT(Is_Well_Formed());
 
         if (this->unit_count == 1) {
             return
@@ -340,7 +341,7 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_8_t::Read_Forward(const unit_t* from)
     {
-        assert(from);
+        nkr_ASSERT_THAT(from);
 
     #define read_1()                    \
     {                                   \
@@ -494,9 +495,9 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_8_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
-        assert(from);
-        assert(first);
-        assert(from > first);
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
 
     #define read_1()                    \
     {                                   \
@@ -660,7 +661,7 @@ namespace nkr { namespace charcoder {
         utf_8_t::operator [](index_t index)
         const
     {
-        assert(index < this->unit_count);
+        nkr_ASSERT_THAT(index < this->unit_count);
 
         return this->units[index];
     }

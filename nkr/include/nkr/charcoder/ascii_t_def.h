@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/utils.h"
 
 #include "nkr/charcoder/ascii_t_dec.h"
@@ -130,14 +131,14 @@ namespace nkr { namespace charcoder {
     {
         this->unit = point > 127 ? '?' : static_cast<unit_t>(point);
 
-        assert(Is_Well_Formed());
+        nkr_ASSERT_THAT(Is_Well_Formed());
     }
 
     inline point_t
         ascii_t::Decode()
         const
     {
-        assert(Is_Well_Formed());
+        nkr_ASSERT_THAT(Is_Well_Formed());
 
         return static_cast<point_t>(this->unit);
     }
@@ -145,7 +146,7 @@ namespace nkr { namespace charcoder {
     inline count_t
         ascii_t::Read_Forward(const unit_t* from)
     {
-        assert(from);
+        nkr_ASSERT_THAT(from);
 
         Encode(*from);
 
@@ -155,9 +156,9 @@ namespace nkr { namespace charcoder {
     inline count_t
         ascii_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
-        assert(from);
-        assert(first);
-        assert(from > first);
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
 
         Encode(*(from - 1));
 
@@ -175,7 +176,7 @@ namespace nkr { namespace charcoder {
         ascii_t::operator [](index_t index)
         const
     {
-        assert(index < 1);
+        nkr_ASSERT_THAT(index < 1);
 
         return this->unit;
     }

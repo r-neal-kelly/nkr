@@ -274,7 +274,7 @@ namespace nkr { namespace array {
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<writable_unit_t>());
+                        other.Push(Random<writable_unit_t>()).Ignore_Error();
                     }
                     stack_p stack = other;
                     CHECK(stack.Count() == other.Count());
@@ -295,8 +295,8 @@ namespace nkr { namespace array {
                     std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
-                        other.Push(random);
-                        backup.Push(random);
+                        other.Push(random).Ignore_Error();
+                        backup.Push(random).Ignore_Error();
                     }
                     stack_p stack = other;
                     CHECK(other.Count() == backup.Count());
@@ -320,8 +320,8 @@ namespace nkr { namespace array {
                     std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
-                        other.Push(random);
-                        backup.Push(random);
+                        other.Push(random).Ignore_Error();
+                        backup.Push(random).Ignore_Error();
                     }
                     stack_p stack = nkr::Move(other);
                     CHECK(stack.Count() == backup.Count());
@@ -340,7 +340,7 @@ namespace nkr { namespace array {
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<writable_unit_t>());
+                        other.Push(Random<writable_unit_t>()).Ignore_Error();
                     }
                     stack_p stack = nkr::Move(other);
                     CHECK(other.Count() == 0);
@@ -362,7 +362,7 @@ namespace nkr { namespace array {
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<writable_unit_t>());
+                        other.Push(Random<writable_unit_t>()).Ignore_Error();
                     }
                     stack_p stack;
                     stack = other;
@@ -384,8 +384,8 @@ namespace nkr { namespace array {
                     std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
-                        other.Push(random);
-                        backup.Push(random);
+                        other.Push(random).Ignore_Error();
+                        backup.Push(random).Ignore_Error();
                     }
                     stack_p stack;
                     stack = other;
@@ -405,7 +405,7 @@ namespace nkr { namespace array {
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<writable_unit_t>());
+                        other.Push(Random<writable_unit_t>()).Ignore_Error();
                     }
                     stack_p stack;
                     CHECK(&(stack = other) == &stack);
@@ -426,8 +426,8 @@ namespace nkr { namespace array {
                     std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
-                        other.Push(random);
-                        backup.Push(random);
+                        other.Push(random).Ignore_Error();
+                        backup.Push(random).Ignore_Error();
                     }
                     stack_p stack;
                     stack = nkr::Move(other);
@@ -447,7 +447,7 @@ namespace nkr { namespace array {
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<writable_unit_t>());
+                        other.Push(Random<writable_unit_t>()).Ignore_Error();
                     }
                     stack_p stack;
                     stack = nkr::Move(other);
@@ -469,8 +469,8 @@ namespace nkr { namespace array {
                     std::remove_const_t<stack_p> backup;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         unit_t random = Random<unit_t>();
-                        other.Push(random);
-                        backup.Push(random);
+                        other.Push(random).Ignore_Error();
+                        backup.Push(random).Ignore_Error();
                     }
                     stack_p stack;
                     CHECK(&(stack = nkr::Move(other)) == &stack);
@@ -562,7 +562,7 @@ namespace nkr { namespace array {
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<stack_p> other;
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
-                        other.Push(Random<writable_unit_t>());
+                        other.Push(Random<writable_unit_t>()).Ignore_Error();
                     }
                     stack_p stack = other;
                     stack.~stack_p();
@@ -648,7 +648,7 @@ namespace nkr { namespace array {
                         stack_p stack;
                         for (index_t idx = 0, end = stack.Capacity(); idx < end; idx += 1) {
                             CHECK(stack.Count() == idx);
-                            stack.Push(Random<writable_unit_t>());
+                            stack.Push(Random<writable_unit_t>()).Ignore_Error();
                         }
                         CHECK(stack.Count() == stack.Capacity());
                     } else {
@@ -738,7 +738,7 @@ namespace nkr { namespace array {
                     };
                     stack_p stack;
                     for (index_t idx = 0, end = sizeof(array) / sizeof(unit_t); idx < end; idx += 1) {
-                        stack.Push(array[idx]);
+                        stack.Push(array[idx]).Ignore_Error();
                         CHECK(stack[idx] == array[idx]);
                     }
                     CHECK(stack.Count() == sizeof(array) / sizeof(unit_t));
@@ -763,7 +763,7 @@ namespace nkr { namespace array {
                         array[4], array[5], array[6], array[7],
                         array[8], array[9], array[10], array[11],
                         array[12], array[13], array[14], array[15]
-                    );
+                    ).Ignore_Error();
                     CHECK(stack.Count() == sizeof(array) / sizeof(unit_t));
                     for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                         CHECK(stack[idx] == array[idx]);
@@ -799,7 +799,7 @@ namespace nkr { namespace array {
                     };
                     stack_p stack;
                     for (index_t idx = 0, end = sizeof(array) / sizeof(unit_t); idx < end; idx += 1) {
-                        stack.Push(nkr::Move(array[idx]));
+                        stack.Push(nkr::Move(array[idx])).Ignore_Error();
                         CHECK(stack[idx] == backup[idx]);
                     }
                     CHECK(stack.Count() == sizeof(backup) / sizeof(unit_t));
@@ -845,7 +845,7 @@ namespace nkr { namespace array {
                         nkr::Move(array[10]), nkr::Move(array[11]),
                         nkr::Move(array[12]), nkr::Move(array[13]),
                         nkr::Move(array[14]), nkr::Move(array[15])
-                    );
+                    ).Ignore_Error();
                     CHECK(stack.Count() == sizeof(backup) / sizeof(writable_unit_t));
                     for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                         CHECK(stack[idx] == backup[idx]);
@@ -906,7 +906,7 @@ namespace nkr { namespace array {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
                     stack_p other;
-                    stack.Copy_To(other);
+                    stack.Copy_To(other).Ignore_Error();
                     CHECK(other.Count() == stack.Count());
                     for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
                         CHECK(other[idx] == stack[idx]);
@@ -932,7 +932,7 @@ namespace nkr { namespace array {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack.Copy_To(other);
+                    stack.Copy_To(other).Ignore_Error();
                     CHECK(other.Count() == stack.Count() + 8);
                     for (index_t idx = 8, end = other.Count(); idx < end; idx += 1) {
                         CHECK(other[idx] == stack[idx - 8]);
@@ -960,7 +960,7 @@ namespace nkr { namespace array {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
                     stack_p stack;
-                    stack.Copy_From(other);
+                    stack.Copy_From(other).Ignore_Error();
                     CHECK(stack.Count() == other.Count());
                     for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
                         CHECK(stack[idx] == other[idx]);
@@ -986,7 +986,7 @@ namespace nkr { namespace array {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
                     };
-                    stack.Copy_From(other);
+                    stack.Copy_From(other).Ignore_Error();
                     CHECK(stack.Count() == other.Count() + 8);
                     for (index_t idx = 8, end = stack.Count(); idx < end; idx += 1) {
                         CHECK(stack[idx] == other[idx - 8]);
@@ -1016,7 +1016,7 @@ namespace nkr { namespace array {
                         };
                         stack_p backup = stack;
                         stack_p other;
-                        stack.Move_To(other);
+                        stack.Move_To(other).Ignore_Error();
                         CHECK(stack.Count() == 0);
                         CHECK(other.Count() == backup.Count());
                         for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
@@ -1046,7 +1046,7 @@ namespace nkr { namespace array {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack.Move_To(other);
+                        stack.Move_To(other).Ignore_Error();
                         CHECK(stack.Count() == 0);
                         CHECK(other.Count() == backup.Count() + 8);
                         for (index_t idx = 8, end = other.Count(); idx < end; idx += 1) {
@@ -1078,7 +1078,7 @@ namespace nkr { namespace array {
                         };
                         stack_p backup = other;
                         stack_p stack;
-                        stack.Move_From(other);
+                        stack.Move_From(other).Ignore_Error();
                         CHECK(other.Count() == 0);
                         CHECK(stack.Count() == backup.Count());
                         for (index_t idx = 0, end = stack.Count(); idx < end; idx += 1) {
@@ -1108,7 +1108,7 @@ namespace nkr { namespace array {
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                             Random<writable_unit_t>(), Random<writable_unit_t>(),
                         };
-                        stack.Move_From(other);
+                        stack.Move_From(other).Ignore_Error();
                         CHECK(other.Count() == 0);
                         CHECK(stack.Count() == backup.Count() + 8);
                         for (index_t idx = 8, end = stack.Count(); idx < end; idx += 1) {

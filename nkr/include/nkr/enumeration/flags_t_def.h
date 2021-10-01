@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/math.h"
 #include "nkr/utils.h"
 
@@ -187,7 +188,7 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         any_sp<integer_p, actual_value_p>::Is_Flagged(value_t flag)
         const
     {
-        assert(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
 
         return (this->value & flag) != 0;
     }
@@ -197,7 +198,7 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         any_sp<integer_p, actual_value_p>::Is_Flagged(value_t flag)
         const volatile
     {
-        assert(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
 
         return (this->value & flag) != 0;
     }
@@ -206,7 +207,7 @@ namespace nkr { namespace enumeration { namespace $flags_t {
     inline void_t
         any_sp<integer_p, actual_value_p>::Flag(value_t flag)
     {
-        assert(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
 
         this->value |= flag;
     }
@@ -216,7 +217,7 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         any_sp<integer_p, actual_value_p>::Flag(value_t flag)
         volatile
     {
-        assert(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
 
         this->value |= flag;
     }
@@ -225,7 +226,7 @@ namespace nkr { namespace enumeration { namespace $flags_t {
     inline void_t
         any_sp<integer_p, actual_value_p>::Unflag(value_t flag)
     {
-        assert(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
 
         this->value &= ~flag;
     }
@@ -235,7 +236,7 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         any_sp<integer_p, actual_value_p>::Unflag(value_t flag)
         volatile
     {
-        assert(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
 
         this->value &= ~flag;
     }

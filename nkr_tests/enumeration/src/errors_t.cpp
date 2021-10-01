@@ -38,6 +38,7 @@ namespace nkr { namespace enumeration {
         CHECK(error == test_err::ERROR_A);
 
         maybe_t<test_err> err;
+        CHECK(!err);
     }
 
 }}

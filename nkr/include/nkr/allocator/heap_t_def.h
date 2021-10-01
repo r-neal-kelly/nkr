@@ -14,7 +14,7 @@ namespace nkr { namespace allocator {
     inline constexpr count_t
         heap_t<unit_p>::Min_Unit_Count()
     {
-        return 1;
+        return 0;
     }
 
     template <any_type_tr unit_p>

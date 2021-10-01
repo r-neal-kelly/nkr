@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/utils.h"
 
 #include "nkr/enumeration/errors_t_dec.h"
@@ -149,10 +150,16 @@ namespace nkr { namespace enumeration {
     template <integer_signed_tr integer_p, integer_p none_p>
     inline errors_t<integer_p, none_p>::~errors_t()
     {
-        assert(this->has_been_checked);
+        nkr_ASSERT_THAT(this->has_been_checked);
 
         this->has_been_checked = true;
         this->value = NONE;
+    }
+
+    template <integer_signed_tr integer_p, integer_p none_p>
+    inline void_t errors_t<integer_p, none_p>::Ignore_Error()
+    {
+        this->has_been_checked = true;
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>
@@ -177,6 +184,8 @@ namespace nkr { namespace enumeration {
     inline errors_t<integer_p, none_p>::operator std_bool_t()
         const
     {
+        this->has_been_checked = true;
+
         return static_cast<std_bool_t>(this->value);
     }
 
@@ -184,6 +193,8 @@ namespace nkr { namespace enumeration {
     inline errors_t<integer_p, none_p>::operator std_bool_t()
         const volatile
     {
+        this->has_been_checked = true;
+
         return static_cast<std_bool_t>(this->value);
     }
 

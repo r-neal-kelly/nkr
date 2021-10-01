@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/pointer_t_dec.h"
 #include "nkr/utils.h"
 
@@ -352,7 +353,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator +(integer_tr auto amount)
         const volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         return any_type_sp<unit_p>(this->units + amount, this->unit_count - amount);
     }
@@ -362,7 +363,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator -(integer_tr auto amount)
         const volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         return any_type_sp<unit_p>(this->units - amount, this->unit_count + amount);
     }
@@ -371,7 +372,7 @@ namespace nkr { namespace $pointer_t {
     inline any_type_sp<unit_p>&
         any_type_sp<unit_p>::operator +=(integer_tr auto amount)
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         this->units += amount;
         this->unit_count -= amount;
@@ -384,7 +385,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator +=(integer_tr auto amount)
         volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         this->units += amount;
         this->unit_count -= amount;
@@ -396,7 +397,7 @@ namespace nkr { namespace $pointer_t {
     inline any_type_sp<unit_p>&
         any_type_sp<unit_p>::operator -=(integer_tr auto amount)
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         this->units -= amount;
         this->unit_count += amount;
@@ -409,7 +410,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator -=(integer_tr auto amount)
         volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         this->units -= amount;
         this->unit_count += amount;
@@ -421,7 +422,7 @@ namespace nkr { namespace $pointer_t {
     inline any_type_sp<unit_p>&
         any_type_sp<unit_p>::operator ++()
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         return operator +=(1);
     }
@@ -431,7 +432,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator ++()
         volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         return operator +=(1);
     }
@@ -441,7 +442,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator ++(int)
         volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         any_type_sp initial = *this;
         operator +=(1);
@@ -453,7 +454,7 @@ namespace nkr { namespace $pointer_t {
     inline any_type_sp<unit_p>&
         any_type_sp<unit_p>::operator --()
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         return operator -=(1);
     }
@@ -463,7 +464,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator --()
         volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         return operator -=(1);
     }
@@ -473,7 +474,7 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator --(int)
         volatile
     {
-        assert(this->units != nullptr);
+        nkr_ASSERT_THAT(this->units != nullptr);
 
         any_type_sp initial = *this;
         operator -=(1);
@@ -486,8 +487,8 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator ->()
         const volatile
     {
-        assert(this->units != nullptr);
-        assert(this->unit_count > 0);
+        nkr_ASSERT_THAT(this->units != nullptr);
+        nkr_ASSERT_THAT(this->unit_count > 0);
 
         return this->units;
     }
@@ -497,8 +498,8 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator *()
         const volatile
     {
-        assert(this->units != nullptr);
-        assert(this->unit_count > 0);
+        nkr_ASSERT_THAT(this->units != nullptr);
+        nkr_ASSERT_THAT(this->unit_count > 0);
 
         return *this->units;
     }
@@ -508,8 +509,8 @@ namespace nkr { namespace $pointer_t {
         any_type_sp<unit_p>::operator [](index_t index)
         const volatile
     {
-        assert(this->units != nullptr);
-        assert(index < this->unit_count);
+        nkr_ASSERT_THAT(this->units != nullptr);
+        nkr_ASSERT_THAT(index < this->unit_count);
 
         return this->units[index];
     }

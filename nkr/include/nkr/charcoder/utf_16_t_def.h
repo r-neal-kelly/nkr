@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
 #include "nkr/os.h"
 #include "nkr/utils.h"
 
@@ -200,7 +201,7 @@ namespace nkr { namespace charcoder {
             this->unit_count = 1;
         }
 
-        assert(Is_Well_Formed_Normal());
+        nkr_ASSERT_THAT(Is_Well_Formed_Normal());
     }
 
     inline void_t
@@ -223,14 +224,14 @@ namespace nkr { namespace charcoder {
             this->unit_count = 1;
         }
 
-        assert(Is_Well_Formed_Swapped());
+        nkr_ASSERT_THAT(Is_Well_Formed_Swapped());
     }
 
     inline point_t
         utf_16_t::Decode_Normal()
         const
     {
-        assert(Is_Well_Formed_Normal());
+        nkr_ASSERT_THAT(Is_Well_Formed_Normal());
 
         if (this->unit_count == 1) {
             return
@@ -246,7 +247,7 @@ namespace nkr { namespace charcoder {
         utf_16_t::Decode_Swapped()
         const
     {
-        assert(Is_Well_Formed_Swapped());
+        nkr_ASSERT_THAT(Is_Well_Formed_Swapped());
 
         if (this->unit_count == 1) {
             return
@@ -261,7 +262,7 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_16_t::Read_Forward_Normal(const unit_t* from)
     {
-        assert(from);
+        nkr_ASSERT_THAT(from);
 
         this->units[0] = *from;
         if (utf_32_t::Is_Surrogate_High(this->units[0])) {
@@ -285,7 +286,7 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_16_t::Read_Forward_Swapped(const unit_t* from)
     {
-        assert(from);
+        nkr_ASSERT_THAT(from);
 
         this->units[0] = *from;
         if (utf_32_t::Is_Surrogate_High(os::endian::Swap(this->units[0]))) {
@@ -309,9 +310,9 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_16_t::Read_Reverse_Normal(const unit_t* from, const unit_t* first)
     {
-        assert(from);
-        assert(first);
-        assert(from > first);
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
 
         unit_t unit_a = *(from - 1);
         if (utf_32_t::Is_Surrogate_Low(unit_a)) {
@@ -343,9 +344,9 @@ namespace nkr { namespace charcoder {
     inline count_t
         utf_16_t::Read_Reverse_Swapped(const unit_t* from, const unit_t* first)
     {
-        assert(from);
-        assert(first);
-        assert(from > first);
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
 
         unit_t unit_a = *(from - 1);
         if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(unit_a))) {
@@ -385,7 +386,7 @@ namespace nkr { namespace charcoder {
         utf_16_t::operator [](index_t index)
         const
     {
-        assert(index < this->unit_count);
+        nkr_ASSERT_THAT(index < this->unit_count);
 
         return this->units[index];
     }

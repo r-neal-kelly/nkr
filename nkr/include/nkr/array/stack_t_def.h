@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "nkr/macros_def.h"
+#include "nkr/math_def.h"
 #include "nkr/utils.h"
 
 #include "nkr/array/stack_t_dec.h"
@@ -18,16 +20,32 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
+    {
+        if (new_capacity > Capacity()) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            return allocator_err::NONE;
+        }
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline void_t
         stack_t<unit_p, capacity_p>::Copy_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                     const is_any_tr<stack_t> auto& other)
     {
-        assert(self.unit_count == 0);
+        nkr_ASSERT_THAT(self.unit_count == 0);
 
-        for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
-            self.Writable_Array()[idx] = other.Array()[idx];
+        if (other.unit_count > 0) {
+            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            if (!err) {
+                for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
+                    Writable_Array(self)[idx] = Array(other)[idx];
+                }
+                self.unit_count = other.unit_count;
+            }
         }
-        self.unit_count = other.unit_count;
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -35,13 +53,18 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::Move_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                     is_any_non_const_tr<stack_t> auto& other)
     {
-        assert(self.unit_count == 0);
+        nkr_ASSERT_THAT(self.unit_count == 0);
 
-        for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
-            self.Writable_Array()[idx] = nkr::Move(other.Writable_Array()[idx]);
+        if (other.unit_count > 0) {
+            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            if (!err) {
+                for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
+                    Writable_Array(self)[idx] = nkr::Move(Writable_Array(other)[idx]);
+                }
+                self.unit_count = other.unit_count;
+                other.unit_count = 0;
+            }
         }
-        self.unit_count = other.unit_count;
-        other.unit_count = 0;
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -92,40 +115,82 @@ namespace nkr { namespace array {
     inline auto&
         stack_t<unit_p, capacity_p>::At(is_any_tr<stack_t> auto& self, index_t index)
     {
-        assert(index < self.unit_count);
+        nkr_ASSERT_THAT(index < self.unit_count);
 
         return Array(self)[index];
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
-                                          is_any_tr<unit_t> auto& unit,
-                                          is_any_tr<unit_t> auto& ...more_units)
+                                          is_any_tr<unit_t> auto& ...units)
     {
-        assert(self.unit_count < Capacity());
+        count_t count = Count(self);
+        count_t other_count = sizeof...(units);
+        if (math::Will_Overflow_Add(count, other_count)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            maybe_t<allocator_err> err = Capacity(count + other_count);
+            if (err) {
+                return nkr::Move(err);
+            } else {
+                Push_Recursively(self, units...);
 
-        Writable_Array(self)[self.unit_count] = unit;
-        self.unit_count += 1;
-
-        if constexpr (sizeof...(more_units) > 0) {
-            Push(self, more_units...);
+                return allocator_err::NONE;
+            }
         }
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
     inline void_t
-        stack_t<unit_p, capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
-                                          is_any_non_const_tr<unit_t> auto&& unit,
-                                          is_any_non_const_tr<unit_t> auto&& ...more_units)
+        stack_t<unit_p, capacity_p>::Push_Recursively(is_any_non_const_tr<stack_t> auto& self,
+                                                      is_any_tr<unit_t> auto& unit,
+                                                      is_any_tr<unit_t> auto& ...more_units)
     {
-        assert(self.unit_count < Capacity());
+        nkr_ASSERT_THAT(self.unit_count < Capacity());
+
+        Writable_Array(self)[self.unit_count] = unit;
+        self.unit_count += 1;
+
+        if constexpr (sizeof...(more_units) > 0) {
+            Push_Recursively(self, more_units...);
+        }
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
+                                          is_any_non_const_tr<unit_t> auto&& ...units)
+    {
+        count_t count = Count(self);
+        count_t other_count = sizeof...(units);
+        if (math::Will_Overflow_Add(count, other_count)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            maybe_t<allocator_err> err = Capacity(count + other_count);
+            if (err) {
+                return nkr::Move(err);
+            } else {
+                Push_Recursively(self, nkr::Move(units)...);
+
+                return allocator_err::NONE;
+            }
+        }
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline void_t
+        stack_t<unit_p, capacity_p>::Push_Recursively(is_any_non_const_tr<stack_t> auto& self,
+                                                      is_any_non_const_tr<unit_t> auto&& unit,
+                                                      is_any_non_const_tr<unit_t> auto&& ...more_units)
+    {
+        nkr_ASSERT_THAT(self.unit_count < Capacity());
 
         Writable_Array(self)[self.unit_count] = nkr::Move(unit);
         self.unit_count += 1;
 
         if constexpr (sizeof...(more_units) > 0) {
-            Push(self, nkr::Move(more_units)...);
+            Push_Recursively(self, nkr::Move(more_units)...);
         }
     }
 
@@ -133,59 +198,85 @@ namespace nkr { namespace array {
     inline auto
         stack_t<unit_p, capacity_p>::Pop(is_any_non_const_tr<stack_t> auto& self)
     {
-        assert(self.unit_count > 0);
+        nkr_ASSERT_THAT(self.unit_count > 0);
 
         self.unit_count -= 1;
         return nkr::Move(Writable_Array(self)[self.unit_count]);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Copy_To(const is_any_tr<stack_t> auto& self,
                                              any_non_const_array_of_any_tr<unit_t> auto& other)
     {
-        assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-               reinterpret_cast<const volatile void_t*>(std::addressof(other)));
+        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
 
-        for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-            other.Push(Array(self)[idx]);
+        count_t other_count = other.Count();
+        count_t count = Count(self);
+        if (math::Will_Overflow_Add(other_count, count)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            maybe_t<allocator_err> err = other.Capacity(other_count + count);
+            if (err) {
+                return nkr::Move(err);
+            } else {
+                for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                    other.Push(Array(self)[idx]).Ignore_Error();
+                }
+
+                return allocator_err::NONE;
+            }
         }
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Copy_From(is_any_non_const_tr<stack_t> auto& self,
                                                const any_array_of_any_tr<unit_t> auto& other)
     {
-        assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-               reinterpret_cast<const volatile void_t*>(std::addressof(other)));
+        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
 
-        return other.Copy_To(self);
+        return nkr::Move(other.Copy_To(self));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Move_To(any_non_const_stack_of_any_non_const_tr<unit_t> auto& self,
                                              any_non_const_array_of_any_tr<unit_t> auto& other)
     {
-        assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-               reinterpret_cast<const volatile void_t*>(std::addressof(other)));
+        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
 
-        for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-            other.Push(nkr::Move(Writable_Array(self)[idx]));
+        count_t other_count = other.Count();
+        count_t count = Count(self);
+        if (math::Will_Overflow_Add(other_count, count)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            maybe_t<allocator_err> err = other.Capacity(other_count + count);
+            if (err) {
+                return nkr::Move(err);
+            } else {
+                for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
+                    other.Push(nkr::Move(Writable_Array(self)[idx])).Ignore_Error();
+                }
+                self.unit_count = 0;
+
+                return allocator_err::NONE;
+            }
         }
-        self.unit_count = 0;
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Move_From(is_any_non_const_tr<stack_t> auto& self,
                                                any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
     {
-        assert(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-               reinterpret_cast<const volatile void_t*>(std::addressof(other)));
+        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
 
-        return other.Move_To(self);
+        return nkr::Move(other.Move_To(self));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -201,9 +292,9 @@ namespace nkr { namespace array {
     {
         for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
             if constexpr (built_in_tr<unit_t>) {
-                self.Writable_Array()[idx] = std::remove_cv_t<unit_t>(0);
+                Writable_Array(self)[idx] = std::remove_cv_t<unit_t>(0);
             } else {
-                self.Writable_Array()[idx].~unit_t();
+                Writable_Array(self)[idx].~unit_t();
             }
         }
         self.unit_count = 0;
@@ -219,18 +310,18 @@ namespace nkr { namespace array {
     inline stack_t<unit_p, capacity_p>::stack_t(is_any_tr<unit_t> auto& ...args) :
         unit_count(0)
     {
-        assert(sizeof...(args) <= Capacity());
+        nkr_ASSERT_THAT(sizeof...(args) <= Capacity());
 
-        Push(*this, args...);
+        Push(*this, args...).Ignore_Error();
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
     inline stack_t<unit_p, capacity_p>::stack_t(is_any_non_const_tr<unit_t> auto&& ...args) :
         unit_count(0)
     {
-        assert(sizeof...(args) <= Capacity());
+        nkr_ASSERT_THAT(sizeof...(args) <= Capacity());
 
-        Push(*this, nkr::Move(args)...);
+        Push(*this, nkr::Move(args)...).Ignore_Error();
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -440,33 +531,33 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Push(is_any_tr<unit_t> auto& ...units)
     {
-        return Push(*this, units...);
+        return nkr::Move(Push(*this, units...));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Push(is_any_tr<unit_t> auto& ...units)
         volatile
     {
-        return Push(*this, units...);
+        return nkr::Move(Push(*this, units...));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Push(is_any_non_const_tr<unit_t> auto&& ...units)
     {
-        return Push(*this, nkr::Move(units)...);
+        return nkr::Move(Push(*this, nkr::Move(units)...));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Push(is_any_non_const_tr<unit_t> auto&& ...units)
         volatile
     {
-        return Push(*this, nkr::Move(units)...);
+        return nkr::Move(Push(*this, nkr::Move(units)...));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -485,64 +576,64 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other)
         const
     {
-        return Copy_To(*this, other);
+        return nkr::Move(Copy_To(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other)
         const volatile
     {
-        return Copy_To(*this, other);
+        return nkr::Move(Copy_To(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Copy_From(const any_array_of_any_tr<unit_t> auto& other)
     {
-        return Copy_From(*this, other);
+        return nkr::Move(Copy_From(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Copy_From(const any_array_of_any_tr<unit_t> auto& other)
         volatile
     {
-        return Copy_From(*this, other);
+        return nkr::Move(Copy_From(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Move_To(any_non_const_array_of_any_tr<unit_t> auto& other)
     {
-        return Move_To(*this, other);
+        return nkr::Move(Move_To(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Move_To(any_non_const_array_of_any_tr<unit_t> auto& other)
         volatile
     {
-        return Move_To(*this, other);
+        return nkr::Move(Move_To(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
     {
-        return Move_From(*this, other);
+        return nkr::Move(Move_From(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
         volatile
     {
-        return Move_From(*this, other);
+        return nkr::Move(Move_From(*this, other));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -574,21 +665,6 @@ namespace nkr { namespace array {
         volatile
     {
         return Clear(*this);
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline typename stack_t<unit_p, capacity_p>::writable_array_t&
-        stack_t<unit_p, capacity_p>::Writable_Array()
-    {
-        return Writable_Array(*this);
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline typename volatile stack_t<unit_p, capacity_p>::writable_array_t&
-        stack_t<unit_p, capacity_p>::Writable_Array()
-        volatile
-    {
-        return Writable_Array(*this);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

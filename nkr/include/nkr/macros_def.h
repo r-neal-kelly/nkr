@@ -14,6 +14,8 @@ namespace nkr {
     #undef nkr_P
     #undef nkr_b
 
+    #undef nkr_ASSERT_THAT
+
     #undef nkr_INITIALIZE_STATIC_SAFELY
 
     #undef nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR
@@ -34,6 +36,9 @@ namespace nkr {
 
     #define nkr_b       \
         } while(false)
+
+    #define nkr_ASSERT_THAT(EXPRESSION_p) \
+        assert(EXPRESSION_p)
 
     #define nkr_INITIALIZE_STATIC_SAFELY(INITIALIZER_p)     \
     nkr_P                                                   \
