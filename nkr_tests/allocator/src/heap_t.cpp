@@ -159,22 +159,6 @@ namespace nkr { namespace allocator {
                     allocator.Deallocate(units);
                 }
 
-                TEST_CASE_TEMPLATE("should set pointer's unit_count to 0 if unsuccessful", unit_p, types, volatiles)
-                {
-                    using heap_t = heap_t<unit_p>;
-                    using unit_t = heap_t::unit_t;
-                    using units_t = heap_t::units_t;
-
-                    heap_t allocator;
-                    pointer_t<unit_t> units;
-                    units.Unit_Count() = 1;
-                    count_t unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::OUT_OF_MEMORY);
-                    CHECK(units.Unit_Count() == 0);
-
-                    allocator.Deallocate(units);
-                }
-
                 TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
                 {
                     using heap_t = heap_t<unit_p>;

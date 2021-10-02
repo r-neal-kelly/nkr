@@ -30,6 +30,8 @@ namespace nkr { namespace allocator {
                                        is_any_non_const_tr<units_t> auto& units,
                                        count_t unit_count)
     {
+        nkr_ASSERT_THAT(units == none_t());
+
         return nkr::Move(os::heap::Allocate_Zeros(units, unit_count));
     }
 
@@ -39,10 +41,10 @@ namespace nkr { namespace allocator {
                                        is_any_non_const_tr<pointer_t> auto& units,
                                        count_t unit_count)
     {
+        nkr_ASSERT_THAT(units == none_t());
+
         maybe_t<allocator_err> err = os::heap::Allocate_Zeros(units(), unit_count);
-        if (err) {
-            units = { nullptr, 0 };
-        } else {
+        if (!err) {
             units.Unit_Count() = unit_count;
         }
         return err;
@@ -84,7 +86,7 @@ namespace nkr { namespace allocator {
                                          is_any_non_const_tr<pointer_t> auto& units)
     {
         os::heap::Deallocate_Zeros(units());
-        units = { nullptr, 0 };
+        units = none_t();
     }
 
     template <any_type_tr unit_p>
