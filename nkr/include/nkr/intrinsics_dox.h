@@ -275,7 +275,29 @@
 *   The various structs, types, and concepts with the "_i" postfix.
 */
 
-// Common Notes
+/////////////////////////////////////////////////////////////////////////////// Notes
+
+// Using is_just_volatile_tr with move_volatile_assignment_ctor()
+/**
+* @class _8e1e5754_1178_4a81_a815_bc87771b148b
+* @private
+* 
+* @note
+*   This uses a templated assignment operator in order to avoid an overload resolution conflict with the move unqualified assignment operator. This allows you to assign either a volatile or an unqualified object of this type without any issue.
+* 
+* @par
+*/
+
+// Deleted Template Base-Case
+/**
+* @class _bce7ac69_38d5_4477_a659_c8cf291f1173
+* @private
+* 
+* @note
+*   This default class template acts as a base-case for any template parameters that do not match any available specialization, hence all the deleted functionality.
+* 
+* @par
+*/
 
 // Inheritance wrapper
 /**
@@ -283,18 +305,7 @@
 * @private
 * 
 * @note
-*   Inherits all constructors, the destructor, and all assignment operators in addition to all other members of the base class. Also defines copy and move constructors for the base to ensure that base objects can construct a new instance of this type with the `=` operator.
-* 
-* @par
-*/
-
-// Inheritnace wrapper base ctors
-/**
-* @class _3699f848_5687_47d1_92fc_7d4faf6b47a6
-* @private
-* 
-* @note
-*   This ensures that the base can construct this wrapper even with the `=` operator. This is distinct from `operator =` which can be inherited but only comes into play after an object is constructed.
+*   Inherits all constructors, the destructor, and all assignment operators in addition to all other members of the base class. This essentailly makes this capable of acting exactly like the base class through use of nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR macro.
 * 
 * @par
 */
@@ -306,17 +317,6 @@
 * 
 * @note
 *   See @ref _16d56f49_95ba_456e_a026_706c054cb133 for why we use inheritance to define this specialization.
-* 
-* @par
-*/
-
-// Returning auto for operator &()
-/**
-* @class _2217847b_e23e_4253_bb7f_04ece0d5099a
-* @private
-* 
-* @note
-*   Returns auto to ensure that we don't break any `operator &` chain.
 * 
 * @par
 */

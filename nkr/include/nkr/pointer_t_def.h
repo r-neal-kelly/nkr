@@ -351,11 +351,31 @@ namespace nkr { namespace $pointer_t {
     template <any_type_tr unit_p>
     inline any_type_sp<unit_p>
         any_type_sp<unit_p>::operator +(integer_tr auto amount)
+        const
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+
+        return any_type_sp<unit_p>(this->units + amount, this->unit_count - amount);
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>
+        any_type_sp<unit_p>::operator +(integer_tr auto amount)
         const volatile
     {
         nkr_ASSERT_THAT(this->units != nullptr);
 
         return any_type_sp<unit_p>(this->units + amount, this->unit_count - amount);
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>
+        any_type_sp<unit_p>::operator -(integer_tr auto amount)
+        const
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+
+        return any_type_sp<unit_p>(this->units - amount, this->unit_count + amount);
     }
 
     template <any_type_tr unit_p>
@@ -440,6 +460,18 @@ namespace nkr { namespace $pointer_t {
     template <any_type_tr unit_p>
     inline any_type_sp<unit_p>
         any_type_sp<unit_p>::operator ++(int)
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+
+        any_type_sp initial = *this;
+        operator +=(1);
+
+        return initial;
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>
+        any_type_sp<unit_p>::operator ++(int)
         volatile
     {
         nkr_ASSERT_THAT(this->units != nullptr);
@@ -472,6 +504,18 @@ namespace nkr { namespace $pointer_t {
     template <any_type_tr unit_p>
     inline any_type_sp<unit_p>
         any_type_sp<unit_p>::operator --(int)
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+
+        any_type_sp initial = *this;
+        operator -=(1);
+
+        return initial;
+    }
+
+    template <any_type_tr unit_p>
+    inline any_type_sp<unit_p>
+        any_type_sp<unit_p>::operator --(int)
         volatile
     {
         nkr_ASSERT_THAT(this->units != nullptr);
@@ -480,6 +524,17 @@ namespace nkr { namespace $pointer_t {
         operator -=(1);
 
         return initial;
+    }
+
+    template <any_type_tr unit_p>
+    inline typename any_type_sp<unit_p>::unit_t*
+        any_type_sp<unit_p>::operator ->()
+        const
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+        nkr_ASSERT_THAT(this->unit_count > 0);
+
+        return this->units;
     }
 
     template <any_type_tr unit_p>
@@ -496,12 +551,34 @@ namespace nkr { namespace $pointer_t {
     template <any_type_tr unit_p>
     inline typename any_type_sp<unit_p>::unit_t&
         any_type_sp<unit_p>::operator *()
+        const
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+        nkr_ASSERT_THAT(this->unit_count > 0);
+
+        return *this->units;
+    }
+
+    template <any_type_tr unit_p>
+    inline typename any_type_sp<unit_p>::unit_t&
+        any_type_sp<unit_p>::operator *()
         const volatile
     {
         nkr_ASSERT_THAT(this->units != nullptr);
         nkr_ASSERT_THAT(this->unit_count > 0);
 
         return *this->units;
+    }
+
+    template <any_type_tr unit_p>
+    inline typename any_type_sp<unit_p>::unit_t&
+        any_type_sp<unit_p>::operator [](index_t index)
+        const
+    {
+        nkr_ASSERT_THAT(this->units != nullptr);
+        nkr_ASSERT_THAT(index < this->unit_count);
+
+        return this->units[index];
     }
 
     template <any_type_tr unit_p>

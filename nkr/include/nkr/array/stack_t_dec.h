@@ -28,6 +28,8 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace array {
 
+    /// @nosubgrouping
+    /// @copydoc _eea2eeb3_2ca8_4bbf_bdd0_0eca56b1ebae
     template <any_type_tr unit_p, count_t capacity_p>
     class stack_t
     {
