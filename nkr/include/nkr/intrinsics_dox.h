@@ -277,7 +277,7 @@
 
 /////////////////////////////////////////////////////////////////////////////// Notes
 
-// Using is_just_volatile_tr with move_volatile_assignment_ctor()
+// Using is_just_volatile_tr with move_volatile_assignment_ctor() and volatile_move_volatile_assignment_ctor()
 /**
 * @class _8e1e5754_1178_4a81_a815_bc87771b148b
 * @private
