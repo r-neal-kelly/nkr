@@ -10,8 +10,12 @@
 #include "nkr/maybe_t.h"
 #include "nkr/pointer_t.h"
 
+/// @copydoc _627e5174_65ef_4aee_bb2a_034d9715cb0d
+namespace nkr::allocator {};
+
 namespace nkr {
 
+    /// @copydoc _5fe34260_b2c5_442b_aa23_44ddb41cb7b6
     template <typename allocator_p>
     concept allocator_i = requires(allocator_p allocator,
                                    volatile allocator_p volatile_allocator,

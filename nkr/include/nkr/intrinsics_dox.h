@@ -294,7 +294,7 @@
 * @private
 * 
 * @note
-*   This default class template acts as a base-case for any template parameters that do not match any available specialization, hence all the deleted functionality.
+*   This default class template acts as a base-case for any template parameters that do not match any available specialization, hence all the deleted functionality. Read up on its specializations to find all the functionality and any further documentation.
 * 
 * @par
 */

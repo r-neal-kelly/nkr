@@ -510,7 +510,7 @@
     * @private
     *
     * @brief
-    *   Functions that interface with memory located on the heap. Primarily, this is an extension of the standard C library Allocation methods `malloc`, `realloc`, `free`, `calloc` and a handful of OS specific extensions, such as a function to reallocate zero-initialized memory.
+    *   Functions that interface with memory located on the heap. Primarily, this is an extension of the standard C library Allocation methods `malloc`, `realloc`, `free`, `calloc` and a handful of OS specific extensions, such as a function to reallocate zero-initialized memory where available.
     */
 
         // Allocation

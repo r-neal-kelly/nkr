@@ -11,10 +11,9 @@
 * @private
 * 
 * @brief
-*   A wrapper for the nkr::os::heap allocator, often used by other types around the library as the default allocator.
+*   A wrapper for the nkr::os::heap allocator, often used by other types around the library as their default allocator.
 * 
-* @details
-*   In addition to working directly with C pointers, in order to satisfy the nkr::allocator_i this also handles nkr::pointer_t objects, correctly setting their unit counts after operating upon them. The primary purpose of this type and others like it is to provide an interchangable set of allocators with which to use with other types around the library, for example nkr::array::dynamic_t.
+* @copydoc _68c297e4_e2e3_4002_a52f_29edf775aa83
 */
 
     // aliases
@@ -278,13 +277,19 @@
         * @copydoc _03faac45_b05d_4a80_83ad_a4767f5e15da
         */
 
-        // const Reallocate(units_t)
+        //////////////////////////////////////////////////////////// Reallocate(units_t) Details
         /**
-        * @class _cd380e7e_2493_42d7_837e_5f993f5c0676
+        * @class _84a0dc6d_eab4_4c41_afbe_e56046d5e318
         * @private
         * 
         * @brief
         *   A wrapper for nkr::os::heap::Reallocate.
+        * 
+        * @param units
+        *   should be a non const pointer that this function can write a new address to. The qualification of the unit_t itself does not matter. You can also use this function to allocate by passing a nullptr. See nkr::os::heap::Reallocate for more information.
+        * 
+        * @param new_unit_count
+        *   is the number of unit_t objects for which to allocate space. You can also use this function to deallocate by passing a zero count. If this number is more than nkr::allocator::heap_t::Max_Unit_Count, it will assert. See nkr::os::heap::Reallocate for more information.
         * 
         * @returns
         *   nkr::allocator_err::NONE if it succeeds.
@@ -293,13 +298,35 @@
         *   nkr::allocator_err::OUT_OF_MEMORY if it fails.
         */
 
+        // const Reallocate(units_t)
+        /**
+        * @class _cd380e7e_2493_42d7_837e_5f993f5c0676
+        * @private
+        * 
+        * @copydoc _84a0dc6d_eab4_4c41_afbe_e56046d5e318
+        */
+
         // const volatile Reallocate(units_t)
         /**
         * @class _4c81b585_1a41_42ea_9b16_b3867e517b31
         * @private
         * 
+        * @copydoc _84a0dc6d_eab4_4c41_afbe_e56046d5e318
+        */
+
+        //////////////////////////////////////////////////////////// Reallocate(pointer_t) Details
+        /**
+        * @class _cc9d55d1_c5df_47b7_8043_14604aa7b1cc
+        * @private
+        * 
         * @brief
-        *   A wrapper for nkr::os::heap::Reallocate.
+        *   A wrapper for nkr::os::heap::Reallocate, but it can handle a nkr::pointer_t.
+        * 
+        * @param units
+        *   should be a non const pointer that this function can write a new address to. The qualification of the unit_t itself does not matter. You can also use this function to allocate by passing a nullptr. See nkr::os::heap::Reallocate for more information.
+        * 
+        * @param new_unit_count
+        *   is the number of unit_t objects for which to allocate space. You can also use this function to deallocate by passing a zero count. If this number is more than nkr::allocator::heap_t::Max_Unit_Count, it will assert. See nkr::os::heap::Reallocate for more information.
         * 
         * @returns
         *   nkr::allocator_err::NONE if it succeeds.
@@ -313,14 +340,7 @@
         * @class _931cb620_74fd_423d_8294_0ecb4bd0f550
         * @private
         * 
-        * @brief
-        *   A wrapper for nkr::os::heap::Reallocate, but it can handle a nkr::pointer_t.
-        * 
-        * @returns
-        *   nkr::allocator_err::NONE if it succeeds.
-        * 
-        * @returns
-        *   nkr::allocator_err::OUT_OF_MEMORY if it fails.
+        * @copydoc _cc9d55d1_c5df_47b7_8043_14604aa7b1cc
         */
 
         // const volatile Reallocate(pointer_t)
@@ -328,14 +348,19 @@
         * @class _89101faa_a287_42a8_b946_6c9585b51cb2
         * @private
         * 
+        * @copydoc _cc9d55d1_c5df_47b7_8043_14604aa7b1cc
+        */
+
+        //////////////////////////////////////////////////////////// Deallocate(units_t) Details
+        /**
+        * @class _f84fa58c_65e3_42cf_a65e_db536e24b4dd
+        * @private
+        * 
         * @brief
-        *   A wrapper for nkr::os::heap::Reallocate, but t can handle a nkr::pointer_t.
+        *   A wrapper for nkr::os::heap::Deallocate.
         * 
-        * @returns
-        *   nkr::allocator_err::NONE if it succeeds.
-        * 
-        * @returns
-        *   nkr::allocator_err::OUT_OF_MEMORY if it fails.
+        * @param units
+        *   should be a non const pointer that this function can write nullptr to after deallocating. The qualification of the unit_t itself does not matter. If given nullptr it will return without issue. See nkr::os::heap::Deallocate for more information.
         */
 
         // const Deallocate(units_t)
@@ -343,8 +368,7 @@
         * @class _fe8a3e78_0335_4de8_8283_c6a7a2a2322b
         * @private
         * 
-        * @brief
-        *   A wrapper for nkr::os::heap::Deallocate.
+        * @copydoc _f84fa58c_65e3_42cf_a65e_db536e24b4dd
         */
 
         // const volatile Deallocate(units_t)
@@ -352,8 +376,19 @@
         * @class _ff19cbdc_d4d9_4c50_b9db_493f833701b2
         * @private
         * 
+        * @copydoc _f84fa58c_65e3_42cf_a65e_db536e24b4dd
+        */
+
+        //////////////////////////////////////////////////////////// Deallocate(units_t) Details
+        /**
+        * @class _b79f3dbf_0539_495c_a245_35895bca640a
+        * @private
+        * 
         * @brief
-        *   A wrapper for nkr::os::heap::Deallocate.
+        *   A wrapper for nkr::os::heap::Deallocate, but it can handle a nkr::pointer_t.
+        * 
+        * @param units
+        *   should be a non const pointer that this function can write nullptr to after deallocating. The qualification of the unit_t itself does not matter. If given nullptr it will return without issue. See nkr::os::heap::Deallocate for more information.
         */
 
         // const Deallocate(pointer_t)
@@ -361,8 +396,7 @@
         * @class _f9a2828e_5083_4628_afe9_35d66bd17d69
         * @private
         * 
-        * @brief
-        *   A wrapper for nkr::os::heap::Deallocate, but it can handle a nkr::pointer_t.
+        * @copydoc _b79f3dbf_0539_495c_a245_35895bca640a
         */
 
         // const volatile Deallocate(pointer_t)
@@ -370,6 +404,5 @@
         * @class _7fb233cf_5433_47e9_8cd8_9fbe593b9e3a
         * @private
         * 
-        * @brief
-        *   A wrapper for nkr::os::heap::Deallocate, but it can handle a nkr::pointer_t.
+        * @copydoc _b79f3dbf_0539_495c_a245_35895bca640a
         */

@@ -9,6 +9,11 @@
 /**
 * @class _9ed461b6_85ad_4d8b_a9f0_2dda17493f3a
 * @private
+* 
+* @brief
+*   A wrapper for the nkr::os::heap allocator that zero-initializes memory, often used by other types around the library as their default allocator.
+* 
+* @copydoc _68c297e4_e2e3_4002_a52f_29edf775aa83
 */
 
     // aliases

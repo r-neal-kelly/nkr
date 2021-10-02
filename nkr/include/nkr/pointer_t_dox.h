@@ -1276,9 +1276,11 @@
 * @private
 * 
 * @brief
-*   A fat pointer that stores a pointer and the number of units that the pointer points to.
+*   A fat pointer that stores a pointer to any unit_t and a unit count indicating the size of memory being pointed to.
 * 
 * @details
+*   This type is primarly used to avoid read violations which happen when indexing beyond the last unit of memory being pointed to. It's a great building block for other types that need to manage their own memory through pointers or for functions and types that need to iterate a pointer. It's even useful for simply allocating memory through any of the various allocators in the nkr::allocator namespace.
+* 
 *   Additionally, this class provides methods which alter both the pointer and the number of units as you increment or decrement the object. It also plays things safe and defaults the pointer's data on construction and destruction, which can help track down bugs when trying to access data that has for example, been deallocated. Allows you to work with the underlying pointer easily by providing the expected methods and operators.
 * 
 * @par Specializations
