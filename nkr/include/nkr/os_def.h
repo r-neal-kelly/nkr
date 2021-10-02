@@ -583,6 +583,7 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
+        nkr_ASSERT_THAT(units == nullptr);
         nkr_ASSERT_THAT(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         if (unit_count > 0) {
@@ -644,6 +645,7 @@ namespace nkr { namespace os { namespace heap {
         using units_t = std::remove_cvref_t<decltype(units)>;
         using unit_t = std::remove_pointer_t<units_t>;
 
+        nkr_ASSERT_THAT(units == nullptr);
         nkr_ASSERT_THAT(unit_count <= std::numeric_limits<count_t>::max() / sizeof(unit_t));
 
         if (unit_count > 0) {
