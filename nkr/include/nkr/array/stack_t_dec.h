@@ -34,17 +34,29 @@ namespace nkr { namespace array {
     class stack_t
     {
     public:
+        /// @name aliases
+        /// @copydoc 
+        /// @{
         using unit_t            = unit_p;
         using writable_unit_t   = std::remove_const_t<unit_t>;
         using array_t           = unit_t[capacity_p];
         using writable_array_t  = writable_unit_t[capacity_p];
+        /// @}
 
     protected:
+        /// @name protected aliases
+        /// @copydoc 
+        /// @{
         using byte_array_t  = byte_t[capacity_p * sizeof(unit_t)];
+        /// @}
 
     public:
+        /// @name static functions
+        /// @copydoc 
+        /// @{
         static constexpr count_t        Capacity();
         static maybe_t<allocator_err>   Capacity(count_t new_capacity);
+        /// @}
 
     private:
         static void_t                   Copy_Construct(is_any_non_const_tr<stack_t> auto& self,
@@ -83,10 +95,17 @@ namespace nkr { namespace array {
         static void_t                   Clear(is_any_non_const_tr<stack_t> auto& self);
 
     protected:
+        /// @name object data
+        /// @copydoc 
+        /// @{
         count_t         unit_count;
         byte_array_t    byte_array;
+        /// @}
 
     public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
         stack_t();
 
         stack_t(is_any_tr<unit_t> auto& ...args);
@@ -107,8 +126,12 @@ namespace nkr { namespace array {
         volatile stack_t&   operator =(is_just_volatile_tr<stack_t> auto&& other) volatile noexcept;
 
         ~stack_t();
+        /// @}
 
     public:
+        /// @name methods
+        /// @copydoc 
+        /// @{
         array_t&                Array();
         const array_t&          Array() const;
         volatile array_t&       Array() volatile;
@@ -146,12 +169,17 @@ namespace nkr { namespace array {
         bool_t                  Is_Clear() const volatile;
         void_t                  Clear();
         void_t                  Clear() volatile;
+        /// @}
 
     public:
+        /// @name operators
+        /// @copydoc 
+        /// @{
         unit_t&                 operator [](index_t index);
         const unit_t&           operator [](index_t index) const;
         volatile unit_t&        operator [](index_t index) volatile;
         const volatile unit_t&  operator [](index_t index) const volatile;
+        /// @}
     };
     static_assert(array_i<stack_t<word_t, 64>>);
     static_assert(array_i<stack_t<const word_t, 64>>);

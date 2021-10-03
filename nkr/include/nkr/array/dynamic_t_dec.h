@@ -34,6 +34,8 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace array {
 
+    /// @nosubgrouping
+    /// @copydoc _70413fdc_3017_4341_a1d3_090d577803c8
     template <
         any_type_tr         unit_p,
         allocator_i         allocator_p = allocator::heap_t<unit_p>,
@@ -44,15 +46,23 @@ namespace nkr { namespace array {
         static_assert(is_tr<unit_p, allocator_p::unit_t>, "allocator has a different unit_t");
 
     public:
+        /// @name aliases
+        /// @copydoc 
+        /// @{
         using unit_t                = unit_p;
         using writable_unit_t       = std::remove_const_t<unit_t>;
         using pointer_t             = nkr::pointer_t<unit_t>;
         using writable_pointer_t    = nkr::pointer_t<writable_unit_t>;
         using allocator_t           = allocator_p;
         using grow_rate_t           = grow_rate_p;
+        /// @}
 
     public:
+        /// @name static functions
+        /// @copydoc 
+        /// @{
         static constexpr real_t Grow_Rate();
+        /// @}
 
     private:
         static auto&                    Units(is_any_tr<dynamic_t> auto& self);
@@ -94,11 +104,18 @@ namespace nkr { namespace array {
         static void_t                   Clear(is_any_tr<dynamic_t> auto& self);
 
     protected:
+        /// @name object data
+        /// @copydoc 
+        /// @{
         writable_pointer_t  writable_units;
         count_t             unit_count;
         allocator_t         allocator;
+        /// @}
 
     public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
         dynamic_t(const allocator_t& allocator = allocator_t());
         dynamic_t(allocator_t&& allocator);
 
@@ -148,8 +165,12 @@ namespace nkr { namespace array {
         volatile dynamic_t& operator =(is_just_volatile_tr<dynamic_t> auto&& other) volatile noexcept;
 
         ~dynamic_t();
+        /// @}
 
     public:
+        /// @name methods
+        /// @copydoc 
+        /// @{
         pointer_t                   Pointer() const;
         pointer_t                   Pointer() const volatile;
         count_t                     Count() const;
@@ -198,10 +219,15 @@ namespace nkr { namespace array {
         bool_t                      Is_Clear() const volatile;
         void_t                      Clear();
         void_t                      Clear() volatile;
+        /// @}
 
     public:
+        /// @name operators
+        /// @copydoc 
+        /// @{
         unit_t& operator [](index_t index) const;
         unit_t& operator [](index_t index) const volatile;
+        /// @}
     };
     static_assert(array_i<dynamic_t<word_t>>);
     static_assert(array_i<dynamic_t<const word_t>>);
