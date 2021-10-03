@@ -179,67 +179,6 @@ namespace nkr { namespace array {
                 }
             }
 
-            TEST_SUITE("allocator_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should explicitly and implicitly copy the allocator and default everything else", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    allocator_t allocator = allocator_t();
-                    dynamic_p dynamic(allocator);
-                    CHECK(dynamic.Pointer() == pointer_t());
-                    CHECK(dynamic.Count() == 0);
-                }
-
-                TEST_CASE_TEMPLATE("should explicitly and implicitly copy the allocator and default everything else", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    allocator_t allocator = allocator_t();
-                    dynamic_p dynamic = allocator;
-                    CHECK(dynamic.Pointer() == pointer_t());
-                    CHECK(dynamic.Count() == 0);
-                }
-
-                TEST_CASE_TEMPLATE("should explicitly move the allocator and default everything else", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    dynamic_p dynamic((allocator_t()));
-                    CHECK(dynamic.Pointer() == pointer_t());
-                    CHECK(dynamic.Count() == 0);
-                }
-
-                TEST_CASE_TEMPLATE("should implicitly move the allocator and default everything else", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    dynamic_p dynamic = allocator_t();
-                    CHECK(dynamic.Pointer() == pointer_t());
-                    CHECK(dynamic.Count() == 0);
-                }
-            }
-
             TEST_SUITE("capacity_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the capacity and default everything else", dynamic_p, nkr_ALL)
@@ -253,40 +192,6 @@ namespace nkr { namespace array {
 
                     count_t capacity = Random<count_t>(1, 16);
                     dynamic_p dynamic(capacity);
-                    CHECK(dynamic.Pointer() != nullptr);
-                    CHECK(dynamic.Capacity() == capacity);
-                    CHECK(dynamic.Count() == 0);
-                }
-
-                TEST_CASE_TEMPLATE("should copy an allocator", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    count_t capacity = Random<count_t>(1, 16);
-                    allocator_t allocator;
-                    dynamic_p dynamic(capacity, allocator);
-                    CHECK(dynamic.Pointer() != nullptr);
-                    CHECK(dynamic.Capacity() == capacity);
-                    CHECK(dynamic.Count() == 0);
-                }
-
-                TEST_CASE_TEMPLATE("should move an allocator", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    count_t capacity = Random<count_t>(1, 16);
-                    allocator_t allocator;
-                    dynamic_p dynamic(capacity, nkr::Move(allocator));
                     CHECK(dynamic.Pointer() != nullptr);
                     CHECK(dynamic.Capacity() == capacity);
                     CHECK(dynamic.Count() == 0);
@@ -335,48 +240,6 @@ namespace nkr { namespace array {
                         CHECK(dynamic[idx] == backup_filler);
                     }
                     CHECK(filler == none_t());
-                }
-
-                TEST_CASE_TEMPLATE("should copy an allocator", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    unit_t filler = Random<unit_t>();
-                    count_t count = Random<count_t>(1, 16);
-                    allocator_t allocator;
-                    dynamic_p dynamic(filler, count, allocator);
-                    CHECK(dynamic.Pointer() != nullptr);
-                    CHECK(dynamic.Capacity() == count);
-                    CHECK(dynamic.Count() == count);
-                    for (index_t idx = 0, end = dynamic.Count(); idx < end; idx += 1) {
-                        CHECK(dynamic[idx] == filler);
-                    }
-                }
-
-                TEST_CASE_TEMPLATE("should move an allocator", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    unit_t filler = Random<unit_t>();
-                    count_t count = Random<count_t>(1, 16);
-                    allocator_t allocator;
-                    dynamic_p dynamic(filler, count, nkr::Move(allocator));
-                    CHECK(dynamic.Pointer() != nullptr);
-                    CHECK(dynamic.Capacity() == count);
-                    CHECK(dynamic.Count() == count);
-                    for (index_t idx = 0, end = dynamic.Count(); idx < end; idx += 1) {
-                        CHECK(dynamic[idx] == filler);
-                    }
                 }
             }
 

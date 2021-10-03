@@ -26,9 +26,7 @@ namespace nkr { namespace allocator {
 
     template <any_type_tr unit_p>
     inline maybe_t<allocator_err>
-        heap_t<unit_p>::Allocate(is_any_tr<heap_t> auto& self,
-                                 is_any_non_const_tr<units_t> auto& units,
-                                 count_t unit_count)
+        heap_t<unit_p>::Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count)
     {
         nkr_ASSERT_THAT(units == none_t());
 
@@ -37,9 +35,7 @@ namespace nkr { namespace allocator {
 
     template <any_type_tr unit_p>
     inline maybe_t<allocator_err>
-        heap_t<unit_p>::Allocate(is_any_tr<heap_t> auto& self,
-                                 is_any_non_const_tr<pointer_t> auto& units,
-                                 count_t unit_count)
+        heap_t<unit_p>::Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count)
     {
         nkr_ASSERT_THAT(units == none_t());
 
@@ -52,18 +48,14 @@ namespace nkr { namespace allocator {
 
     template <any_type_tr unit_p>
     inline maybe_t<allocator_err>
-        heap_t<unit_p>::Reallocate(is_any_tr<heap_t> auto& self,
-                                   is_any_non_const_tr<units_t> auto& units,
-                                   count_t new_unit_count)
+        heap_t<unit_p>::Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count)
     {
         return nkr::Move(os::heap::Reallocate(units, new_unit_count));
     }
 
     template <any_type_tr unit_p>
     inline maybe_t<allocator_err>
-        heap_t<unit_p>::Reallocate(is_any_tr<heap_t> auto& self,
-                                   is_any_non_const_tr<pointer_t> auto& units,
-                                   count_t new_unit_count)
+        heap_t<unit_p>::Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count)
     {
         maybe_t<allocator_err> err = os::heap::Reallocate(units(), new_unit_count);
         if (!err) {
@@ -74,206 +66,17 @@ namespace nkr { namespace allocator {
 
     template <any_type_tr unit_p>
     inline void_t
-        heap_t<unit_p>::Deallocate(is_any_tr<heap_t> auto& self,
-                                   is_any_non_const_tr<units_t> auto& units)
+        heap_t<unit_p>::Deallocate(is_any_non_const_tr<units_t> auto& units)
     {
         return os::heap::Deallocate(units);
     }
 
     template <any_type_tr unit_p>
     inline void_t
-        heap_t<unit_p>::Deallocate(is_any_tr<heap_t> auto& self,
-                                   is_any_non_const_tr<pointer_t> auto& units)
+        heap_t<unit_p>::Deallocate(is_any_non_const_tr<pointer_t> auto& units)
     {
         os::heap::Deallocate(units());
         units = none_t();
-    }
-
-    template <any_type_tr unit_p>
-    inline bool_t
-        heap_t<unit_p>::Is_Equal_To(is_any_tr<heap_t> auto a, is_any_tr<heap_t> auto b)
-    {
-        return true;
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>::heap_t(const heap_t& other)
-    {
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>::heap_t(const volatile heap_t& other)
-    {
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>::heap_t(heap_t&& other)
-        noexcept
-    {
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>::heap_t(volatile heap_t&& other)
-        noexcept
-    {
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>&
-        heap_t<unit_p>::operator =(const heap_t& other)
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline volatile heap_t<unit_p>&
-        heap_t<unit_p>::operator =(const heap_t& other)
-        volatile
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>&
-        heap_t<unit_p>::operator =(const volatile heap_t& other)
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline volatile heap_t<unit_p>&
-        heap_t<unit_p>::operator =(const volatile heap_t& other)
-        volatile
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>&
-        heap_t<unit_p>::operator =(heap_t&& other)
-        noexcept
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline volatile heap_t<unit_p>&
-        heap_t<unit_p>::operator =(heap_t&& other)
-        volatile noexcept
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline heap_t<unit_p>&
-        heap_t<unit_p>::operator =(is_just_volatile_tr<heap_t> auto&& other)
-        noexcept
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline volatile heap_t<unit_p>&
-        heap_t<unit_p>::operator =(is_just_volatile_tr<heap_t> auto&& other)
-        volatile noexcept
-    {
-        return *this;
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count)
-        const
-    {
-        return nkr::Move(Allocate(*this, units, unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Allocate(is_any_non_const_tr<units_t> auto& units, count_t unit_count)
-        const volatile
-    {
-        return nkr::Move(Allocate(*this, units, unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count)
-        const
-    {
-        return nkr::Move(Allocate(*this, units, unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Allocate(is_any_non_const_tr<pointer_t> auto& units, count_t unit_count)
-        const volatile
-    {
-        return nkr::Move(Allocate(*this, units, unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count)
-        const
-    {
-        return nkr::Move(Reallocate(*this, units, new_unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Reallocate(is_any_non_const_tr<units_t> auto& units, count_t new_unit_count)
-        const volatile
-    {
-        return nkr::Move(Reallocate(*this, units, new_unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count)
-        const
-    {
-        return nkr::Move(Reallocate(*this, units, new_unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline maybe_t<allocator_err>
-        heap_t<unit_p>::Reallocate(is_any_non_const_tr<pointer_t> auto& units, count_t new_unit_count)
-        const volatile
-    {
-        return nkr::Move(Reallocate(*this, units, new_unit_count));
-    }
-
-    template <any_type_tr unit_p>
-    inline void_t
-        heap_t<unit_p>::Deallocate(is_any_non_const_tr<units_t> auto& units)
-        const
-    {
-        return Deallocate(*this, units);
-    }
-
-    template <any_type_tr unit_p>
-    inline void_t
-        heap_t<unit_p>::Deallocate(is_any_non_const_tr<units_t> auto& units)
-        const volatile
-    {
-        return Deallocate(*this, units);
-    }
-
-    template <any_type_tr unit_p>
-    inline void_t
-        heap_t<unit_p>::Deallocate(is_any_non_const_tr<pointer_t> auto& units)
-        const
-    {
-        return Deallocate(*this, units);
-    }
-
-    template <any_type_tr unit_p>
-    inline void_t
-        heap_t<unit_p>::Deallocate(is_any_non_const_tr<pointer_t> auto& units)
-        const volatile
-    {
-        return Deallocate(*this, units);
     }
 
 }}

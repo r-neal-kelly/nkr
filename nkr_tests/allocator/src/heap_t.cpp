@@ -77,10 +77,7 @@ namespace nkr { namespace allocator {
                     static_assert(heap_t<unit_p>::Max_Unit_Count() == std::numeric_limits<count_t>::max() / sizeof(unit_p));
                 }
             }
-        }
 
-        TEST_SUITE("methods")
-        {
             TEST_SUITE("Allocate(units_t)")
             {
                 TEST_CASE_TEMPLATE("should set units to non-nullptr if successful", unit_p, types, volatiles)
@@ -89,13 +86,12 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     CHECK(units != nullptr);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
@@ -104,12 +100,11 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return false when unsuccessful", unit_p, types, volatiles)
@@ -118,12 +113,11 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::OUT_OF_MEMORY);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
             }
 
@@ -135,13 +129,12 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     CHECK(units.Units() != nullptr);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should set pointer's unit_count to unit_count if successful", unit_p, types, volatiles)
@@ -150,13 +143,12 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     CHECK(units.Unit_Count() == unit_count);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
@@ -165,12 +157,11 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return false when unsuccessful", unit_p, types, volatiles)
@@ -179,12 +170,11 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::OUT_OF_MEMORY);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
             }
 
@@ -196,15 +186,14 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = Random<count_t>(17, 32);
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::NONE);
                     CHECK(units != nullptr);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should keep units as non-nullptr if unsuccessful", unit_p, types, volatiles)
@@ -213,15 +202,14 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
                     CHECK(units != nullptr);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
@@ -230,14 +218,13 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = Random<count_t>(17, 32);
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::NONE);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return false when unsuccessful", unit_p, types, volatiles)
@@ -246,14 +233,13 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
             }
 
@@ -265,15 +251,14 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = Random<count_t>(17, 32);
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::NONE);
                     CHECK(units.Units() != nullptr);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should set pointer's unit_count to new_unit_count if successful", unit_p, types, volatiles)
@@ -282,15 +267,14 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = Random<count_t>(17, 32);
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::NONE);
                     CHECK(units.Unit_Count() == new_unit_count);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should keep pointer's units as non-nullptr if unsuccessful", unit_p, types, volatiles)
@@ -299,15 +283,14 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
                     CHECK(units.Units() != nullptr);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should keep pointer's unit_count as unit_count if unsuccessful", unit_p, types, volatiles)
@@ -316,15 +299,14 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
                     CHECK(units.Unit_Count() == unit_count);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return true when successful", unit_p, types, volatiles)
@@ -333,14 +315,13 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = Random<count_t>(17, 32);
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::NONE);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
 
                 TEST_CASE_TEMPLATE("should return false when unsuccessful", unit_p, types, volatiles)
@@ -349,14 +330,13 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
                     count_t new_unit_count = heap_t::Max_Unit_Count();
-                    CHECK(allocator.Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
+                    CHECK(heap_t::Reallocate(units, new_unit_count) == allocator_err::OUT_OF_MEMORY);
 
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                 }
             }
 
@@ -368,11 +348,10 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
-                    allocator.Deallocate(units);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
+                    heap_t::Deallocate(units);
                     CHECK(units == nullptr);
                 }
 
@@ -382,9 +361,8 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     units_t units = nullptr;
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                     CHECK(units == nullptr);
                 }
             }
@@ -397,11 +375,10 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
-                    allocator.Deallocate(units);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
+                    heap_t::Deallocate(units);
                     CHECK(units.Units() == nullptr);
                 }
 
@@ -411,11 +388,10 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units = nullptr;
                     count_t unit_count = Random<count_t>(1, 16);
-                    CHECK(allocator.Allocate(units, unit_count) == allocator_err::NONE);
-                    allocator.Deallocate(units);
+                    CHECK(heap_t::Allocate(units, unit_count) == allocator_err::NONE);
+                    heap_t::Deallocate(units);
                     CHECK(units.Unit_Count() == 0);
                 }
 
@@ -425,9 +401,8 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units = nullptr;
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                     CHECK(units.Units() == nullptr);
                 }
 
@@ -437,9 +412,8 @@ namespace nkr { namespace allocator {
                     using unit_t = heap_t::unit_t;
                     using units_t = heap_t::units_t;
 
-                    heap_t allocator;
                     pointer_t<unit_t> units = nullptr;
-                    allocator.Deallocate(units);
+                    heap_t::Deallocate(units);
                     CHECK(units.Unit_Count() == 0);
                 }
             }

@@ -85,8 +85,9 @@ namespace nkr { namespace string {
         using charcoder_t   = charcoder_p;
         using array_t       = array::dynamic_t<typename charcoder_t::unit_t, allocator_p, grow_rate_p>;
         using unit_t        = array_t::unit_t;
-        using allocator_t   = array_t::allocator_;
+        using allocator_t   = array_t::allocator_t;
         using grow_rate_t   = array_t::grow_rate_t;
+        using iterator_t    = dynamic_itr<dynamic_t>;
 
     protected:
         count_t point_count;
@@ -128,11 +129,11 @@ namespace nkr { namespace string {
 
         unit_t*                 C_String(); // this should point at first, and not prefix.
 
-        dynamic_itr             At_Prefix();
-        dynamic_itr             At_First();
-        dynamic_itr             At_Last();
-        dynamic_itr             At_Null();
-        dynamic_itr             At_Postfix();
+        iterator_t              At_Prefix();
+        iterator_t              At_First();
+        iterator_t              At_Last();
+        iterator_t              At_Null();
+        iterator_t              At_Postfix();
 
         maybe_t<allocator_err>  Push(point_t point);
         maybe_t<allocator_err>  Push(charcoder_t& charcoder);

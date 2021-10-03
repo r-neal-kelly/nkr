@@ -74,7 +74,6 @@ namespace nkr { namespace array {
 
         static pointer_t                Pointer(const is_any_tr<dynamic_t> auto& self);
         static count_t                  Count(const is_any_tr<dynamic_t> auto& self);
-        static auto&                    Allocator(const is_any_tr<dynamic_t> auto& self);
 
         static count_t                  Capacity(const is_any_tr<dynamic_t> auto& self);
         static maybe_t<allocator_err>   Capacity(is_any_tr<dynamic_t> auto& self, count_t new_capacity);
@@ -110,46 +109,31 @@ namespace nkr { namespace array {
         /// @{
         writable_pointer_t  writable_units;
         count_t             unit_count;
-        allocator_t         allocator;
         /// @}
 
     public:
         /// @name objects
         /// @copydoc 
         /// @{
-        dynamic_t(const allocator_t& allocator = allocator_t());
-        dynamic_t(allocator_t&& allocator);
+        dynamic_t();
 
-        dynamic_t(count_t capacity, const allocator_t& allocator = allocator_t());
-        dynamic_t(count_t capacity, allocator_t&& allocator);
+        dynamic_t(count_t capacity);
 
-        dynamic_t(const unit_t& filler, count_t count, const allocator_t& allocator = allocator_t());
-        dynamic_t(const unit_t& filler, count_t count, allocator_t&& allocator);
-        dynamic_t(writable_unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t());
-        dynamic_t(writable_unit_t&& filler, count_t count, allocator_t&& allocator);
-        dynamic_t(const volatile unit_t&& filler, count_t count, const allocator_t& allocator = allocator_t())                              = delete;
-        dynamic_t(const volatile unit_t&& filler, count_t count, allocator_t&& allocator)                                                   = delete;
+        dynamic_t(const unit_t& filler, count_t count);
+        dynamic_t(writable_unit_t&& filler, count_t count);
+        dynamic_t(const volatile unit_t&& filler, count_t count)                            = delete;
 
-        dynamic_t(const std_array_of_tr<writable_unit_t> auto& array, const allocator_t& allocator = allocator_t());
-        dynamic_t(const std_array_of_tr<writable_unit_t> auto& array, allocator_t&& allocator);
-        dynamic_t(std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t());
-        dynamic_t(std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator);
-        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, const allocator_t& allocator = allocator_t())               = delete;
-        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array, allocator_t&& allocator)                                    = delete;
+        dynamic_t(const std_array_of_tr<writable_unit_t> auto& array);
+        dynamic_t(std_array_of_tr<writable_unit_t> auto&& array);
+        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array)             = delete;
 
-        dynamic_t(const any_stack_of_any_tr<unit_t> auto& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_t(const any_stack_of_any_tr<unit_t> auto& stack_array, allocator_t&& allocator);
-        dynamic_t(any_non_const_stack_of_any_non_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t());
-        dynamic_t(any_non_const_stack_of_any_non_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator);
-        dynamic_t(any_stack_of_any_const_tr<unit_t> auto&& stack_array, const allocator_t& allocator = allocator_t())                       = delete;   ///< @copydoc _075b7e64_4cb5_4651_b911_2fd1dabeef80
-        dynamic_t(any_stack_of_any_const_tr<unit_t> auto&& stack_array, allocator_t&& allocator)                                            = delete;   ///< @copydoc _d8def8ae_7b56_41a9_8494_b96bbb13c5b9
+        dynamic_t(const any_stack_of_any_tr<unit_t> auto& stack_array);
+        dynamic_t(any_non_const_stack_of_any_non_const_tr<unit_t> auto&& stack_array);
+        dynamic_t(any_stack_of_any_const_tr<unit_t> auto&& stack_array)                     = delete;   ///< @copydoc _075b7e64_4cb5_4651_b911_2fd1dabeef80
 
-        dynamic_t(const any_instant_of_any_tr<unit_t> auto& instant_array, const allocator_t& allocator = allocator_t());
-        dynamic_t(const any_instant_of_any_tr<unit_t> auto& instant_array, allocator_t&& allocator);
-        dynamic_t(any_non_const_instant_of_any_non_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t());
-        dynamic_t(any_non_const_instant_of_any_non_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator);
-        dynamic_t(any_instant_of_any_const_tr<unit_t> auto&& instant_array, const allocator_t& allocator = allocator_t())                   = delete;   ///< @copydoc _965c239c_d5ec_4d39_9832_666e6503019d
-        dynamic_t(any_instant_of_any_const_tr<unit_t> auto&& instant_array, allocator_t&& allocator)                                        = delete;   ///< @copydoc _c1790cd3_ad82_4ddf_9eb2_cc9036a6bc75
+        dynamic_t(const any_instant_of_any_tr<unit_t> auto& instant_array);
+        dynamic_t(any_non_const_instant_of_any_non_const_tr<unit_t> auto&& instant_array);
+        dynamic_t(any_instant_of_any_const_tr<unit_t> auto&& instant_array)                 = delete;   ///< @copydoc _965c239c_d5ec_4d39_9832_666e6503019d
 
         dynamic_t(const dynamic_t& other);
         dynamic_t(const volatile dynamic_t& other);
@@ -176,8 +160,6 @@ namespace nkr { namespace array {
         pointer_t                   Pointer() const volatile;
         count_t                     Count() const;
         count_t                     Count() const volatile;
-        const allocator_t&          Allocator() const;
-        const volatile allocator_t& Allocator() const volatile;
 
         count_t                     Capacity() const;
         count_t                     Capacity() const volatile;
