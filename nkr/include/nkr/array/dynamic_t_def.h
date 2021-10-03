@@ -212,6 +212,79 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy_To(const is_any_tr<dynamic_t> auto& self,
+                                                             any_non_const_array_of_any_tr<unit_t> auto& other)
+    {
+        const count_t other_count = other.Count();
+        const count_t count = Count(self);
+        if (math::Will_Overflow_Add(other_count, count)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            maybe_t<allocator_err> err = other.Capacity(other_count + count);
+            if (err) {
+                return nkr::Move(err);
+            } else {
+                for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                    other.Push(Array(self)[idx]).Ignore_Error();
+                }
+
+                return allocator_err::NONE;
+            }
+        }
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy_From(is_any_non_const_tr<dynamic_t> auto& self,
+                                                               const any_array_of_any_tr<unit_t> auto& other)
+    {
+        return nkr::Move(other.Copy_To(self));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Move_To(any_non_const_dynamic_of_any_non_const_tr<unit_t> auto& self,
+                                                             any_non_const_array_of_any_tr<unit_t> auto& other)
+    {
+        if (reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+            reinterpret_cast<const volatile void_t*>(std::addressof(other))) {
+            const count_t other_count = other.Count();
+            const count_t count = Count(self);
+            if (math::Will_Overflow_Add(other_count, count)) {
+                return allocator_err::OUT_OF_MEMORY;
+            } else {
+                maybe_t<allocator_err> err = other.Capacity(other_count + count);
+                if (err) {
+                    return nkr::Move(err);
+                } else {
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(nkr::Move(Writable_Array(self)[idx])).Ignore_Error();
+                    }
+                    self.unit_count = 0;
+
+                    return allocator_err::NONE;
+                }
+            }
+        } else {
+            return allocator_err::NONE;
+        }
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Move_From(is_any_non_const_tr<dynamic_t> auto& self,
+                                                               any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
+    {
+        if (reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+            reinterpret_cast<const volatile void_t*>(std::addressof(other))) {
+            return nkr::Move(other.Move_To(self));
+        } else {
+            return allocator_err::NONE;
+        }
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Is_Fit(const is_any_tr<dynamic_t> auto& self)
     {
@@ -766,6 +839,67 @@ namespace nkr { namespace array {
         volatile
     {
         return Pop(*this);
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other)
+        const
+    {
+        return nkr::Move(Copy_To(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other)
+        const volatile
+    {
+        return nkr::Move(Copy_To(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy_From(const any_array_of_any_tr<unit_t> auto& other)
+    {
+        return nkr::Move(Copy_From(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Copy_From(const any_array_of_any_tr<unit_t> auto& other)
+        volatile
+    {
+        return nkr::Move(Copy_From(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Move_To(any_non_const_array_of_any_tr<unit_t> auto& other)
+    {
+        return nkr::Move(Move_To(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Move_To(any_non_const_array_of_any_tr<unit_t> auto& other)
+        volatile
+    {
+        return nkr::Move(Move_To(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
+    {
+        return nkr::Move(Move_From(*this, other));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
+        volatile
+    {
+        return nkr::Move(Move_From(*this, other));
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

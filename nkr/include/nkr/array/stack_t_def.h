@@ -209,11 +209,8 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::Copy_To(const is_any_tr<stack_t> auto& self,
                                              any_non_const_array_of_any_tr<unit_t> auto& other)
     {
-        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
-
-        count_t other_count = other.Count();
-        count_t count = Count(self);
+        const count_t other_count = other.Count();
+        const count_t count = Count(self);
         if (math::Will_Overflow_Add(other_count, count)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
@@ -235,9 +232,6 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::Copy_From(is_any_non_const_tr<stack_t> auto& self,
                                                const any_array_of_any_tr<unit_t> auto& other)
     {
-        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
-
         return nkr::Move(other.Copy_To(self));
     }
 
@@ -246,25 +240,27 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::Move_To(any_non_const_stack_of_any_non_const_tr<unit_t> auto& self,
                                              any_non_const_array_of_any_tr<unit_t> auto& other)
     {
-        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
-
-        count_t other_count = other.Count();
-        count_t count = Count(self);
-        if (math::Will_Overflow_Add(other_count, count)) {
-            return allocator_err::OUT_OF_MEMORY;
-        } else {
-            maybe_t<allocator_err> err = other.Capacity(other_count + count);
-            if (err) {
-                return nkr::Move(err);
+        if (reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+            reinterpret_cast<const volatile void_t*>(std::addressof(other))) {
+            const count_t other_count = other.Count();
+            const count_t count = Count(self);
+            if (math::Will_Overflow_Add(other_count, count)) {
+                return allocator_err::OUT_OF_MEMORY;
             } else {
-                for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-                    other.Push(nkr::Move(Writable_Array(self)[idx])).Ignore_Error();
-                }
-                self.unit_count = 0;
+                maybe_t<allocator_err> err = other.Capacity(other_count + count);
+                if (err) {
+                    return nkr::Move(err);
+                } else {
+                    for (index_t idx = 0, end = count; idx < end; idx += 1) {
+                        other.Push(nkr::Move(Writable_Array(self)[idx])).Ignore_Error();
+                    }
+                    self.unit_count = 0;
 
-                return allocator_err::NONE;
+                    return allocator_err::NONE;
+                }
             }
+        } else {
+            return allocator_err::NONE;
         }
     }
 
@@ -273,10 +269,12 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::Move_From(is_any_non_const_tr<stack_t> auto& self,
                                                any_non_const_array_of_any_non_const_tr<unit_t> auto& other)
     {
-        nkr_ASSERT_THAT(reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
-                        reinterpret_cast<const volatile void_t*>(std::addressof(other)));
-
-        return nkr::Move(other.Move_To(self));
+        if (reinterpret_cast<const volatile void_t*>(std::addressof(self)) !=
+            reinterpret_cast<const volatile void_t*>(std::addressof(other))) {
+            return nkr::Move(other.Move_To(self));
+        } else {
+            return allocator_err::NONE;
+        }
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

@@ -4,10 +4,17 @@
 
 #pragma once
 
+/////////////////////////////////////////////////////////////////////////////// Docs
 // bool_deleted_operators_t
 /**
 * @class _56a7c1d1_2a01_4357_bfd8_68f2c4ba0a0b
 * @private
+* 
+* @brief
+*   Operators that shouldn't be usable with a boolean value.
+* 
+* @details
+*   Although there is nothing prohibiting a user from using a nkr::std_bool_t to achieve anything they need to with the regular C++ `bool`, our custom nkr::bool_t and other types which act as a bool disallow any usage of operators which just don't make any sense with a boolean data type.
 */
 
     // operators
@@ -214,7 +221,7 @@
 * @private
 * 
 * @brief
-*   The default boolean type of this library which replaces nkr::std_bool_t, i.e. `bool`.
+*   The default boolean type of this library which replaces nkr::std_bool_t.
 * 
 * @details
 *   Because nkr::std_bool_t (or `bool`) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making nkr::bool_t a real boolean value as opposed to a pseudo-integer. It behaves like a boolean should and transiently works in expressions like nkr::std_bool_t. It also matches the size of the word of the machine, that is nkr::word_t, whereas nkr::std_bool_t is implementation defined. All library types and functions utilitze nkr::bool_t and use nkr::std_bool_t only for necessary C++ idioms.

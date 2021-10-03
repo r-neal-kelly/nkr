@@ -6,6 +6,7 @@
 
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/macros.h"
 #include "nkr/math.h"
 #include "nkr/maybe_t.h"
 #include "nkr/pointer_t.h"

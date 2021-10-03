@@ -32,6 +32,10 @@ namespace nkr { namespace $charcoder_i {
             - points always have the same endianness as that of the excecuting machine.
     */
 
+    // the charcoder implementations should probably be able to accept const unit_ts, however it is not expected that
+    // the implementation will use const in its footprint. but this is helfpul for string_t which utilizes the unit_t
+    // on charcoder, and the array the string uses needs to know the actual type to be stored qualified or not.
+
     template <typename type_p>
     concept methods_i = requires (type_p charcoder,
                                   type_p const_charcoder,

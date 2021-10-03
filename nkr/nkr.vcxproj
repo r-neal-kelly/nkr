@@ -249,6 +249,8 @@
     <ClInclude Include="include\nkr\string\static_t_dec.h" />
     <ClInclude Include="include\nkr\string\dynamic_t_dec.h" />
     <ClInclude Include="include\nkr\string\static_t_dox.h" />
+    <ClInclude Include="include\nkr\string_i.h" />
+    <ClInclude Include="include\nkr\string_i_dox.h" />
     <ClInclude Include="include\nkr\traits.h" />
     <ClInclude Include="include\nkr\docs\intrinsic.dox" />
     <ClInclude Include="include\nkr\utils.h" />
