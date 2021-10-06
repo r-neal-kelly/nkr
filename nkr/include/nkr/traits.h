@@ -54,6 +54,24 @@ namespace nkr {
     /// @}
 
     /// @{
+    template <typename type_a_p, typename type_b_p>
+    concept is_tr =
+        std::same_as<type_a_p, type_b_p>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_any_tr =
+        std::same_as<std::remove_cv_t<type_a_p>, std::remove_cv_t<type_b_p>>;
+
+    template <typename type_a_p, typename type_b_p>
+    concept is_just_tr =
+        std::same_as<type_a_p, type_b_p>;
+
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_tr, type_a_p, type_b_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_tr, type_a_p, type_b_p);
+    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_tr, type_a_p, type_b_p);
+    /// @}
+
+    /// @{
     template <typename type_p>
     concept any_type_tr =
         sizeof(type_p) > 0;                         ///< @copydoc _0faa812f_3422_4143_b1d3_8987fcf84eae
@@ -122,23 +140,36 @@ namespace nkr {
     /// @}
 
     /// @{
-    template <typename type_a_p, typename type_b_p>
-    concept is_tr =
-        std::same_as<type_a_p, type_b_p>;
+    template <typename type_p>
+    concept any_unsigned_integer_tr =
+        is_any_tr<type_p, u8_t> ||
+        is_any_tr<type_p, u16_t> ||
+        is_any_tr<type_p, u32_t> ||
+        is_any_tr<type_p, u64_t>;
 
-    template <typename type_a_p, typename type_b_p>
-    concept is_any_tr =
-        std::same_as<std::remove_cv_t<type_a_p>, std::remove_cv_t<type_b_p>>;
+    template <typename type_p>
+    concept any_signed_integer_tr =
+        is_any_tr<type_p, s8_t> ||
+        is_any_tr<type_p, s16_t> ||
+        is_any_tr<type_p, s32_t> ||
+        is_any_tr<type_p, s64_t>;
 
-    template <typename type_a_p, typename type_b_p>
-    concept is_just_tr =
-        std::same_as<type_a_p, type_b_p>;
-
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_tr, type_a_p, type_b_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_tr, type_a_p, type_b_p);
-    nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_tr, type_a_p, type_b_p);
+    template <typename type_p>
+    concept any_integer_tr =
+        any_unsigned_integer_tr<type_p> ||
+        any_signed_integer_tr<type_p>;
     /// @}
 
+    /// @{
+    template <typename type_p>
+    concept any_character_tr =
+        is_any_tr<type_p, c8_t> ||
+        is_any_tr<type_p, c16_t> ||
+        is_any_tr<type_p, c32_t>;
+
+    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_character_tr, type_p);
+    /// @}
+    
     /// @{
     template <typename type_a_p, typename type_b_p>
     concept is_any_type_tr =

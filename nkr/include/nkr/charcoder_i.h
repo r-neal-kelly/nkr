@@ -37,6 +37,10 @@ namespace nkr { namespace $charcoder_i {
     // on charcoder, and the array the string uses needs to know the actual type to be stored qualified or not.
 
     template <typename type_p>
+    concept unit_i =
+        any_character_tr<typename type_p::unit_t>;
+
+    template <typename type_p>
     concept methods_i = requires (type_p charcoder,
                                   type_p const_charcoder,
 
@@ -44,8 +48,6 @@ namespace nkr { namespace $charcoder_i {
                                   const typename type_p::unit_t * from_unit,
                                   const typename type_p::unit_t * first_unit)
     {
-        typename type_p::unit_t;
-
         { const_charcoder.Is_Well_Formed() }                        -> is_tr<bool_t>;
 
         { charcoder.Encode(typename charcoder::point_t()) }         -> is_tr<void_t>;
@@ -67,6 +69,7 @@ namespace nkr {
 
     template <typename type_p>
     concept charcoder_i =
+        $charcoder_i::unit_i<type_p> &&
         $charcoder_i::methods_i<type_p> &&
         none_i<type_p>;
 

@@ -16,7 +16,7 @@ namespace nkr { namespace charcoder {
     class utf_16_t
     {
     public:
-        using unit_t    = u16_t;
+        using unit_t    = c16_t;
 
     protected:
         count_t unit_count;

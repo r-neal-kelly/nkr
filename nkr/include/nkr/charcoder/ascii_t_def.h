@@ -123,13 +123,13 @@ namespace nkr { namespace charcoder {
         ascii_t::Is_Well_Formed()
         const
     {
-        return this->unit > -1;
+        return this->unit < 128;
     }
 
     inline void_t
         ascii_t::Encode(point_t point)
     {
-        this->unit = point > 127 ? '?' : static_cast<unit_t>(point);
+        this->unit = point < 128 ? static_cast<unit_t>(point) : '?';
 
         nkr_ASSERT_THAT(Is_Well_Formed());
     }

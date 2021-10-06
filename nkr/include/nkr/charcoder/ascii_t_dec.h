@@ -14,7 +14,7 @@ namespace nkr { namespace charcoder {
     class ascii_t
     {
     public:
-        using unit_t    = s8_t;
+        using unit_t    = c8_t;
 
     protected:
         unit_t  unit;

@@ -9,6 +9,7 @@
 #include "nkr/macros.h"
 #include "nkr/math.h"
 #include "nkr/maybe_t.h"
+#include "nkr/some_t.h"
 #include "nkr/traits.h"
 
 #include "nkr/allocator_err.h"
@@ -60,20 +61,18 @@ namespace nkr { namespace string {
         bool_t  Is_At_Null() const;
         bool_t  Is_At_Postfix() const;
 
-        bool_t  Next(); // Forward
-        bool_t  Previous(); // Backward, Reverse
-
         point_t Point() const;
         index_t Unit_Index() const;
         index_t Point_Index() const;
-        unit_t* C_String() const;
+
+        bool_t  Next(); // Forward
+        bool_t  Previous(); // Backward, Reverse
     };
 
 }}
 
 namespace nkr { namespace string {
 
-    // don't forget that we allocate an extra unit at the front of the array as a prefix.
     // don't forget that when given a string to work with that has the same charcoder, you can just plain copy instead of decode
     template <
         charcoder_i         charcoder_p = charcoder::utf_8_t,
@@ -82,30 +81,54 @@ namespace nkr { namespace string {
     > class dynamic_t
     {
     public:
+        static_assert(is_tr<charcoder_p::unit_t, allocator_p::unit_t>, "charcoder and allocator have different unit types");
+
+    public:
         using charcoder_t   = charcoder_p;
-        using array_t       = array::dynamic_t<typename charcoder_t::unit_t, allocator_p, grow_rate_p>;
-        using unit_t        = array_t::unit_t;
-        using allocator_t   = array_t::allocator_t;
-        using grow_rate_t   = array_t::grow_rate_t;
+        using unit_t        = charcoder_p::unit_t;
+        using allocator_t   = allocator_p;
+        using grow_rate_t   = grow_rate_p;
+        using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
         using iterator_t    = dynamic_itr<dynamic_t>;
+
+    private:
+        static void_t                   Copy_Construct(is_any_non_const_tr<dynamic_t> auto& self, const is_any_tr<dynamic_t> auto& other);
+        static void_t                   Move_Construct(is_any_non_const_tr<dynamic_t> auto& self, is_any_non_const_tr<dynamic_t> auto&& other);
+        static void_t                   Destruct(is_any_tr<dynamic_t> auto& self);
+
+        static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
+
+        static count_t                  Unit_Count(const is_any_tr<dynamic_t> auto& self);
+        static count_t                  Unit_Length(const is_any_tr<dynamic_t> auto& self);
+        static count_t                  Point_Count(const is_any_tr<dynamic_t> auto& self);
+        static count_t                  Point_Length(const is_any_tr<dynamic_t> auto& self);
+
+        static count_t                  Unit_Capacity(const is_any_tr<dynamic_t> auto& self);
+        static maybe_t<allocator_err>   Unit_Capacity(is_any_tr<dynamic_t> auto& self, count_t unit_capacity_including_null);
+
+        static some_t<const unit_t*>    C_String(const is_any_tr<dynamic_t> auto& self);
+
+        static void_t                   Push_Null(is_any_tr<dynamic_t> auto& self);
+        static void_t                   Pop_Null(is_any_tr<dynamic_t> auto& self);
+
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, point_t point);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const charcoder_t& charcoder);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string);
 
     protected:
         count_t point_count;
         array_t array;
 
     public:
-        dynamic_t(const allocator_t& allocator = allocator_t());
-        dynamic_t(allocator_t&& allocator);
+        dynamic_t();
 
-        dynamic_t(const is_any_tr<unit_t> auto* string, const allocator_t& allocator = allocator_t());
-        dynamic_t(const is_any_tr<unit_t> auto* string, allocator_t&& allocator);
+        dynamic_t(count_t unit_capacity_including_null);
 
-        dynamic_t(const any_string_tr auto& string, const allocator_t& allocator = allocator_t());
-        dynamic_t(const any_string_tr auto& string, allocator_t&& allocator);
-        dynamic_t(any_non_const_string_tr auto&& string, const allocator_t& allocator = allocator_t());
-        dynamic_t(any_non_const_string_tr auto&& string, allocator_t&& allocator);
-        dynamic_t(any_const_string_tr auto&& string, const allocator_t& allocator = allocator_t()) = delete;
-        dynamic_t(any_const_string_tr auto&& string, allocator_t&& allocator) = delete;
+        dynamic_t(const is_any_tr<unit_t> auto* c_string); // const is_any_some_of_any_tr<unit_t> auto*
+
+        dynamic_t(const any_string_tr auto& string);
+        dynamic_t(any_non_const_string_tr auto&& string);
+        dynamic_t(any_const_string_tr auto&& string)                                                    = delete;
 
         dynamic_t(const dynamic_t& other);
         dynamic_t(const volatile dynamic_t& other);
@@ -124,21 +147,38 @@ namespace nkr { namespace string {
         ~dynamic_t();
 
     public:
-        count_t                 Unit_Count();
-        count_t                 Point_Count();
+        bool_t                  Has_Memory() const;
+        bool_t                  Has_Memory() const volatile;
 
-        unit_t*                 C_String(); // this should point at first, and not prefix.
+        count_t                 Unit_Count() const;
+        count_t                 Unit_Count() const volatile;
+        count_t                 Unit_Length() const;
+        count_t                 Unit_Length() const volatile;
+        count_t                 Point_Count() const;
+        count_t                 Point_Count() const volatile;
+        count_t                 Point_Length() const;
+        count_t                 Point_Length() const volatile;
 
-        iterator_t              At_Prefix();
-        iterator_t              At_First();
-        iterator_t              At_Last();
-        iterator_t              At_Null();
-        iterator_t              At_Postfix();
+        count_t                 Unit_Capacity() const;
+        count_t                 Unit_Capacity() const volatile;
+        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_null);
+        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_null) volatile;
+
+        some_t<const unit_t*>   C_String() const;
+        some_t<const unit_t*>   C_String() const volatile;
+
+        iterator_t              At_Prefix() const;
+        iterator_t              At_First() const;
+        iterator_t              At_Last() const;
+        iterator_t              At_Null() const;
+        iterator_t              At_Postfix() const;
 
         maybe_t<allocator_err>  Push(point_t point);
-        maybe_t<allocator_err>  Push(charcoder_t& charcoder);
-        maybe_t<allocator_err>  Push(unit_t* c_string);
-        maybe_t<allocator_err>  Push(const unit_t* c_string);
+        maybe_t<allocator_err>  Push(point_t point) volatile;
+        maybe_t<allocator_err>  Push(const charcoder_t& charcoder);
+        maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
+        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
+        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
     };
     static_assert(string_i<dynamic_t<>>);
     static_assert(string_i<const dynamic_t<>>);

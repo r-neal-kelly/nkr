@@ -15,6 +15,8 @@
 * 
 * @details
 *   Arguably the most important dynamic data structure of all time, the dynamic array allows you to easily modify its capacity as well as perform other customary functionality, such as adding and removing units with ease. With such ease comes a cost however, and that is in the form of the infamous allocator out of memory error. However every function which can possible run into this error is clearly and explicitly marked as such by the fact that they all return a nkr::maybe_t<allocator_err>.
+* 
+*   When an error is returned the state of the array is internally kept the same as before the method returning the error was called. This allows you to correctly solve the issue before proceeding to try again.
 *
 *   This templated array allows you to alter several behaviors, including what memory source it allocates from. As it accepts any allocator that satisfies nkr::allocator_i, you can use publically global or privately local allocators. It stores an instance of the allocator in the footprint of the array, so for global allocators this is trivially small but with local allocators the memory used would be privately all encompassing and thus completely dedicated to the array. (Note: This is still be tested. The standard C++ library implements allocators in this way but I'm not dead set on following in their footsteps. We may end up making the allocator interface only work with global allocators.)
 * 

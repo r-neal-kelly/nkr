@@ -16,7 +16,7 @@ namespace nkr { namespace charcoder {
     class utf_32_t
     {
     public:
-        using unit_t    = u32_t;
+        using unit_t    = c32_t;
 
     public:
         enum : unit_t

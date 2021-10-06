@@ -216,7 +216,7 @@ namespace nkr { namespace array {
         } else {
             maybe_t<allocator_err> err = other.Capacity(other_count + count);
             if (err) {
-                return nkr::Move(err);
+                return err;
             } else {
                 for (index_t idx = 0, end = count; idx < end; idx += 1) {
                     other.Push(Array(self)[idx]).Ignore_Error();
@@ -249,7 +249,7 @@ namespace nkr { namespace array {
             } else {
                 maybe_t<allocator_err> err = other.Capacity(other_count + count);
                 if (err) {
-                    return nkr::Move(err);
+                    return err;
                 } else {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(nkr::Move(Writable_Array(self)[idx])).Ignore_Error();
