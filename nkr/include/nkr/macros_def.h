@@ -21,6 +21,8 @@ namespace nkr {
     #undef nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR
     #undef nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS
 
+    #undef nkr_DEFINE_ENUMERATION_TYPES_BOOL_AND_NOT_AND_NONE
+
     #undef nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM
     #undef nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS
     #undef nkr_DEFINE_CONTAINER_TRAITS
@@ -171,6 +173,47 @@ namespace nkr {
         const volatile BASE_p& ACCESSOR_NAME_p() const volatile                     \
         {                                                                           \
             return *static_cast<const volatile BASE_p*>(this);                      \
+        }
+
+    #define nkr_DEFINE_ENUMERATION_TYPES_BOOL_AND_NOT_AND_NONE(BOOLEAN_EXPRESSION_p)    \
+        explicit operator std_bool_t() const                                            \
+        {                                                                               \
+            return BOOLEAN_EXPRESSION_p;                                                \
+        }                                                                               \
+                                                                                        \
+        explicit operator std_bool_t() const volatile                                   \
+        {                                                                               \
+            return BOOLEAN_EXPRESSION_p;                                                \
+        }                                                                               \
+                                                                                        \
+        bool_t operator !() const                                                       \
+        {                                                                               \
+            return !(BOOLEAN_EXPRESSION_p);                                             \
+        }                                                                               \
+                                                                                        \
+        bool_t operator !() const volatile                                              \
+        {                                                                               \
+            return !(BOOLEAN_EXPRESSION_p);                                             \
+        }                                                                               \
+                                                                                        \
+        bool_t operator ==(none_t) const                                                \
+        {                                                                               \
+            return !(BOOLEAN_EXPRESSION_p);                                             \
+        }                                                                               \
+                                                                                        \
+        bool_t operator ==(none_t) const volatile                                       \
+        {                                                                               \
+            return !(BOOLEAN_EXPRESSION_p);                                             \
+        }                                                                               \
+                                                                                        \
+        bool_t operator !=(none_t) const                                                \
+        {                                                                               \
+            return BOOLEAN_EXPRESSION_p;                                                \
+        }                                                                               \
+                                                                                        \
+        bool_t operator !=(none_t) const volatile                                       \
+        {                                                                               \
+            return BOOLEAN_EXPRESSION_p;                                                \
         }
 
     #define nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(TRAIT_p, PARAM_1_p)   \

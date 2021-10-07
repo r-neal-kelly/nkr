@@ -45,8 +45,8 @@ namespace nkr { namespace $charcoder_i {
                                   type_p const_charcoder,
 
                                   count_t read_count,
-                                  const typename type_p::unit_t * from_unit,
-                                  const typename type_p::unit_t * first_unit)
+                                  const typename type_p::unit_t* from_unit,
+                                  const typename type_p::unit_t* first_unit)
     {
         { const_charcoder.Is_Well_Formed() }                        -> is_tr<bool_t>;
 

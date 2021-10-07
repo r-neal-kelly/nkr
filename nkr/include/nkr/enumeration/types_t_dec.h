@@ -68,6 +68,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
 
         explicit operator   std_bool_t() const;
         explicit operator   std_bool_t() const volatile;
+        // probably should define !(), because I can't remember what will happen in that case. it should call std_bool_t, but it might not?
 
     public:
         /// @name none_t interface
@@ -112,6 +113,10 @@ namespace nkr { namespace enumeration {
         ~types_t()                                                                                  = delete;
     };
 
+    // does this actually need to be signed or can't we use unsigned as well????
+    // if it's for the sake of the none_p, just make the unsigned one max instead of -1.
+    // I just tried to make an enum using the word_t and was confused for like, five minutes why it wasn't working.
+    // I would think the intellisense would tell me about the incompatible type, but it didn't.
     template <integer_signed_tr integer_p, integer_p none_p>
     class types_t<integer_p, none_p> :
         public $types_t::any_sp<integer_p, integer_p, none_p>

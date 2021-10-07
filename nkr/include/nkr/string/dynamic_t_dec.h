@@ -22,6 +22,7 @@
 #include "nkr/charcoder/utf_8_t.h"
 
 #include "nkr/string_i.h"
+#include "nkr/string_itr.h"
 
 namespace nkr { namespace string {
 
@@ -33,41 +34,6 @@ namespace nkr { namespace string {
         is_any_tr<string_p, dynamic_t<typename string_p::charcoder_t, typename string_p::allocator_t, typename string_p::grow_rate_t>>;
 
     nkr_DEFINE_CONTAINER_TRAITS(dynamic, charcoder_t);
-
-}}
-
-namespace nkr { namespace string {
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    class dynamic_t;
-
-    // we might be able to abstract this to work with any string type that satisfies string_i.
-    template <any_dynamic_tr string_p>
-    class dynamic_itr
-    {
-    public:
-        using string_t  = string_p;
-        using unit_t    = string_t::unit_t;
-
-    public:
-        string_t&   string;
-        unit_t*     unit;
-        index_t     point_index;
-
-    public:
-        bool_t  Is_At_Prefix() const;
-        bool_t  Is_At_First() const;
-        bool_t  Is_At_Last() const;
-        bool_t  Is_At_Null() const;
-        bool_t  Is_At_Postfix() const;
-
-        point_t Point() const;
-        index_t Unit_Index() const;
-        index_t Point_Index() const;
-
-        bool_t  Next(); // Forward
-        bool_t  Previous(); // Backward, Reverse
-    };
 
 }}
 
@@ -89,7 +55,7 @@ namespace nkr { namespace string {
         using allocator_t   = allocator_p;
         using grow_rate_t   = grow_rate_p;
         using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
-        using iterator_t    = dynamic_itr<dynamic_t>;
+        using iterator_t    = string_itr<dynamic_t>;
 
     private:
         static void_t                   Copy_Construct(is_any_non_const_tr<dynamic_t> auto& self, const is_any_tr<dynamic_t> auto& other);
@@ -97,6 +63,7 @@ namespace nkr { namespace string {
         static void_t                   Destruct(is_any_tr<dynamic_t> auto& self);
 
         static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
+        static bool_t                   Has_Null(const is_any_tr<dynamic_t> auto& self);
 
         static count_t                  Unit_Count(const is_any_tr<dynamic_t> auto& self);
         static count_t                  Unit_Length(const is_any_tr<dynamic_t> auto& self);
@@ -114,6 +81,10 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const charcoder_t& charcoder);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, any_string_tr auto& other);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, any_non_const_string_tr auto&& other);
+
+        static auto&                    Unit(is_any_tr<dynamic_t> auto& self, index_t unit_index);
 
     protected:
         count_t point_count;
@@ -149,6 +120,8 @@ namespace nkr { namespace string {
     public:
         bool_t                  Has_Memory() const;
         bool_t                  Has_Memory() const volatile;
+        bool_t                  Has_Null() const;
+        bool_t                  Has_Null() const volatile;
 
         count_t                 Unit_Count() const;
         count_t                 Unit_Count() const volatile;
@@ -179,10 +152,19 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
+        maybe_t<allocator_err>  Push(any_string_tr auto& string);
+        maybe_t<allocator_err>  Push(any_string_tr auto& string) volatile;
+        maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
+        maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string) volatile;
+
+        unit_t&                 Unit(index_t unit_index);
+        const unit_t&           Unit(index_t unit_index) const;
+        volatile unit_t&        Unit(index_t unit_index) volatile;
+        const volatile unit_t&  Unit(index_t unit_index) const volatile;
     };
-    static_assert(string_i<dynamic_t<>>);
+    /*static_assert(string_i<dynamic_t<>>);
     static_assert(string_i<const dynamic_t<>>);
     static_assert(string_i<volatile dynamic_t<>>);
-    static_assert(string_i<const volatile dynamic_t<>>);
+    static_assert(string_i<const volatile dynamic_t<>>);*/
 
 }}

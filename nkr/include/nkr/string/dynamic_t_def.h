@@ -75,6 +75,19 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Has_Null(const is_any_tr<dynamic_t> auto& self)
+    {
+        if (self.array.Has_Memory()) {
+            count_t unit_count = Unit_Count(self);
+
+            return unit_count > 0 && self.array[unit_count - 1] == 0;
+        } else {
+            return false;
+        }
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit_Count(const is_any_tr<dynamic_t> auto& self)
     {
@@ -144,6 +157,8 @@ namespace nkr { namespace string {
         nkr_ASSERT_THAT(Has_Memory(self));
         nkr_ASSERT_THAT(Unit_Count(self) < Unit_Capacity(self));
 
+        // should this push when null is already there? probably not...
+
         self.array.Push(0).Ignore_Error();
         self.point_count += 1;
     }
@@ -178,7 +193,7 @@ namespace nkr { namespace string {
         if (math::Will_Overflow_Add(unit_count, charcoder_length)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = Unic_Capacity(self, unit_count + charcoder_length);
+            maybe_t<allocator_err> err = Unit_Capacity(self, unit_count + charcoder_length);
             if (err) {
                 return err;
             } else {
@@ -227,6 +242,66 @@ namespace nkr { namespace string {
                 return allocator_err::NONE;
             }
         }
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, any_string_tr auto& other)
+    {
+        using other_charcoder_t = std::remove_reference_t<decltype(other)>::charcoder_t;
+
+        if constexpr (is_tr<charcoder_t, other_charcoder_t>) {
+            // can probably just call Copy_From
+
+            count_t unit_length = Unit_Length(self);
+            count_t other_unit_count = other.Unit_Count();
+
+            if (math::Will_Overflow_Add(unit_length, other_unit_count)) {
+                return allocator_err::OUT_OF_MEMORY;
+            } else {
+                maybe_t<allocator_err> err = Unit_Capacity(self, unit_length + other_unit_count);
+                if (err) {
+                    return err;
+                } else {
+                    Pop_Null(self);
+
+                    for (index_t idx = 0, end = other_unit_count; idx < end; idx += 1) {
+                        self.array.Push(other[idx]).Ignore_Error();
+                    }
+
+                    return allocator_err::NONE;
+                }
+            }
+        } else {
+            const count_t unit_length = Unit_Length(self);
+            const count_t unit_count = Unit_Count(self);
+            const count_t point_length = Point_Length(self);
+
+            // for these we have to deallocate on failure and try to call fit, ignoring failure. don't forget to add back null on failure
+
+            Pop_Null(*this);
+
+            // would be nice to use iterator here
+            charcoder_t charcoder;
+            other_charcoder_t other_charcoder;
+
+        }
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, any_non_const_string_tr auto&& other)
+    {
+
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline auto&
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit(is_any_tr<dynamic_t> auto& self, index_t unit_index)
+    {
+        nkr_ASSERT_THAT(self.array.Count() > unit_index);
+
+        return self.array[unit_index];
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -402,6 +477,22 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Has_Null()
+        const
+    {
+        return Has_Null(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Has_Null()
+        const volatile
+    {
+        return Has_Null(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit_Count()
         const
@@ -555,6 +646,67 @@ namespace nkr { namespace string {
         volatile
     {
         return nkr::Move(Push(*this, c_string));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(any_string_tr auto& string)
+    {
+        return nkr::Move(Push(*this, string));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(any_string_tr auto& string)
+        volatile
+    {
+        return nkr::Move(Push(*this, string));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(any_non_const_string_tr auto&& string)
+    {
+        return nkr::Move(Push(*this, nkr::Move(string)));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(any_non_const_string_tr auto&& string)
+        volatile
+    {
+        return nkr::Move(Push(*this, nkr::Move(string)));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t&
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit(index_t unit_index)
+    {
+        return Unit(*this, unit_index);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline const typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t&
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit(index_t unit_index)
+        const
+    {
+        return Unit(*this, unit_index);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline volatile typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t&
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit(index_t unit_index)
+        volatile
+    {
+        return Unit(*this, unit_index);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline const volatile typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t&
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit(index_t unit_index)
+        const volatile
+    {
+        return Unit(*this, unit_index);
     }
 
 }}
