@@ -19,7 +19,7 @@ namespace nkr { namespace string {
 
         string_itr<dynamic_t<charcoder::ascii_t>> itr(&dynamic, string::position_e::FIRST);
         while (!itr.Is_Postfix()) {
-            printf("%c", static_cast<char>(itr.Point()));
+            //printf("%c", static_cast<char>(itr.Point()));
             itr.Next();
         }
     }

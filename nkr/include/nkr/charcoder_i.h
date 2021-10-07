@@ -20,7 +20,7 @@ namespace nkr { namespace $charcoder_i {
         Assumptions:
             - strings (sequences) are made of a continguous series of units, which are grouped into substrings.
             - each unit is of the same integral size, e.g. u8_t, u16_t, u32_t, etc.
-            - strings end with a null-terminated unit, i.e. the last unit must be 0.
+            - strings end with a null-terminated unit (the terminus), i.e. the last unit must be 0.
 
             - substrings (subsequences) are an encoded subseries of units that can be decoded.
             - a charcoder either contains or operates upon one substring at a time.

@@ -18,8 +18,6 @@
 
 #include "nkr/string_i.h"
 
-#undef NULL
-
 namespace nkr { namespace string {
 
     class position_e :
@@ -36,7 +34,7 @@ namespace nkr { namespace string {
             PREFIX,
             FIRST,
             LAST,
-            NULL,
+            TERMINUS,
             POSTFIX,
         };
 
@@ -63,13 +61,13 @@ namespace nkr {
         static bool_t           Is_Prefix(const is_any_tr<string_itr> auto& self);
         static bool_t           Is_First(const is_any_tr<string_itr> auto& self);
         static bool_t           Is_Last(const is_any_tr<string_itr> auto& self);
-        static bool_t           Is_Null(const is_any_tr<string_itr> auto& self);
+        static bool_t           Is_Terminus(const is_any_tr<string_itr> auto& self);
         static bool_t           Is_Postfix(const is_any_tr<string_itr> auto& self);
 
         static void_t           Prefix(is_any_non_const_tr<string_itr> auto& self);
         static void_t           First(is_any_non_const_tr<string_itr> auto& self);
         static void_t           Last(is_any_non_const_tr<string_itr> auto& self);
-        static void_t           Null(is_any_non_const_tr<string_itr> auto& self);
+        static void_t           Terminus(is_any_non_const_tr<string_itr> auto& self);
         static void_t           Postfix(is_any_non_const_tr<string_itr> auto& self);
 
         static bool_t           Next(is_any_non_const_tr<string_itr> auto& self);
@@ -77,7 +75,10 @@ namespace nkr {
 
         static index_t          Unit_Index(const is_any_tr<string_itr> auto& self);
         static index_t          Point_Index(const is_any_tr<string_itr> auto& self);
+
         static string::point_t  Point(const is_any_tr<string_itr> auto& self);
+        static count_t          Point_Unit_Count(const is_any_tr<string_itr> auto& self);
+        static unit_t           Point_Unit(const is_any_tr<string_itr> auto& self, index_t index);
 
     protected:
         some_t<const string_t*> string;
@@ -118,8 +119,8 @@ namespace nkr {
         bool_t          Is_First() const volatile;
         bool_t          Is_Last() const;
         bool_t          Is_Last() const volatile;
-        bool_t          Is_Null() const;
-        bool_t          Is_Null() const volatile;
+        bool_t          Is_Terminus() const;
+        bool_t          Is_Terminus() const volatile;
         bool_t          Is_Postfix() const;
         bool_t          Is_Postfix() const volatile;
 
@@ -129,8 +130,8 @@ namespace nkr {
         void_t          First() volatile;
         void_t          Last();
         void_t          Last() volatile;
-        void_t          Null();
-        void_t          Null() volatile;
+        void_t          Terminus();
+        void_t          Terminus() volatile;
         void_t          Postfix();
         void_t          Postfix() volatile;
 
@@ -143,8 +144,13 @@ namespace nkr {
         index_t         Unit_Index() const volatile;
         index_t         Point_Index() const;
         index_t         Point_Index() const volatile;
+
         string::point_t Point() const;
         string::point_t Point() const volatile;
+        count_t         Point_Unit_Count() const;
+        count_t         Point_Unit_Count() const volatile;
+        unit_t          Point_Unit(index_t index) const;
+        unit_t          Point_Unit(index_t index) const volatile;
     };
 
 }

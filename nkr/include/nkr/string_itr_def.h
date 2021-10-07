@@ -16,7 +16,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(self.string);
 
-        return self.string->Has_Null();
+        return self.string->Has_Terminus();
     }
 
     template <string_i string_p>
@@ -53,7 +53,7 @@ namespace nkr {
 
     template <string_i string_p>
     inline bool_t
-        string_itr<string_p>::Is_Null(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Is_Terminus(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -115,7 +115,7 @@ namespace nkr {
 
     template <string_i string_p>
     inline void_t
-        string_itr<string_p>::Null(is_any_non_const_tr<string_itr> auto& self)
+        string_itr<string_p>::Terminus(is_any_non_const_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -147,7 +147,7 @@ namespace nkr {
             First(self);
 
             return true;
-        } else if (Is_Null(self)) {
+        } else if (Is_Terminus(self)) {
             Postfix(self);
 
             return true;
@@ -175,11 +175,11 @@ namespace nkr {
 
             return true;
         } else if (Is_Postfix(self)) {
-            Null(self);
+            Terminus(self);
 
             return true;
         } else {
-            self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index));
+            self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), self.string->C_String());
             self.unit_index -= self.charcoder.Unit_Count();
             self.point_index -= 1;
 
@@ -191,6 +191,8 @@ namespace nkr {
     inline index_t
         string_itr<string_p>::Unit_Index(const is_any_tr<string_itr> auto& self)
     {
+        nkr_ASSERT_THAT(Has_String(self));
+
         return self.unit_index;
     }
 
@@ -198,6 +200,8 @@ namespace nkr {
     inline index_t
         string_itr<string_p>::Point_Index(const is_any_tr<string_itr> auto& self)
     {
+        nkr_ASSERT_THAT(Has_String(self));
+
         return self.point_index;
     }
 
@@ -205,7 +209,28 @@ namespace nkr {
     inline string::point_t
         string_itr<string_p>::Point(const is_any_tr<string_itr> auto& self)
     {
+        nkr_ASSERT_THAT(Has_String(self));
+
         return self.charcoder.Decode();
+    }
+
+    template <string_i string_p>
+    inline count_t
+        string_itr<string_p>::Point_Unit_Count(const is_any_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return self.charcoder.Unit_Count();
+    }
+
+    template <string_i string_p>
+    inline typename string_itr<string_p>::unit_t
+        string_itr<string_p>::Point_Unit(const is_any_tr<string_itr> auto& self, index_t index)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(index < Point_Unit_Count(self));
+
+        return self.charcoder[index];
     }
 
     template <string_i string_p>
@@ -226,8 +251,8 @@ namespace nkr {
             First();
         } else if (position == string::position_e::LAST) {
             Last();
-        } else if (position == string::position_e::NULL) {
-            Null();
+        } else if (position == string::position_e::TERMINUS) {
+            Terminus();
         } else if (position == string::position_e::POSTFIX) {
             Postfix();
         } else {
@@ -469,18 +494,18 @@ namespace nkr {
 
     template <string_i string_p>
     inline bool_t
-        string_itr<string_p>::Is_Null()
+        string_itr<string_p>::Is_Terminus()
         const
     {
-        return Is_Null(*this);
+        return Is_Terminus(*this);
     }
 
     template <string_i string_p>
     inline bool_t
-        string_itr<string_p>::Is_Null()
+        string_itr<string_p>::Is_Terminus()
         const volatile
     {
-        return Is_Null(*this);
+        return Is_Terminus(*this);
     }
 
     template <string_i string_p>
@@ -546,17 +571,17 @@ namespace nkr {
 
     template <string_i string_p>
     inline void_t
-        string_itr<string_p>::Null()
+        string_itr<string_p>::Terminus()
     {
-        return Null(*this);
+        return Terminus(*this);
     }
 
     template <string_i string_p>
     inline void_t
-        string_itr<string_p>::Null()
+        string_itr<string_p>::Terminus()
         volatile
     {
-        return Null(*this);
+        return Terminus(*this);
     }
 
     template <string_i string_p>
@@ -650,6 +675,38 @@ namespace nkr {
         const volatile
     {
         return Point(*this);
+    }
+
+    template <string_i string_p>
+    inline count_t
+        string_itr<string_p>::Point_Unit_Count()
+        const
+    {
+        return Point_Unit_Count(*this);
+    }
+
+    template <string_i string_p>
+    inline count_t
+        string_itr<string_p>::Point_Unit_Count()
+        const volatile
+    {
+        return Point_Unit_Count(*this);
+    }
+
+    template <string_i string_p>
+    inline typename string_itr<string_p>::unit_t
+        string_itr<string_p>::Point_Unit(index_t index)
+        const
+    {
+        return Point_Unit(*this, index);
+    }
+
+    template <string_i string_p>
+    inline typename string_itr<string_p>::unit_t
+        string_itr<string_p>::Point_Unit(index_t index)
+        const volatile
+    {
+        return Point_Unit(*this, index);
     }
 
 }
