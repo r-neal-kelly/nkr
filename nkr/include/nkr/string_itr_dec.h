@@ -27,6 +27,15 @@ namespace nkr { namespace string {
         using base_t    = enumeration::types_t<signed_word_t>;
 
     public:
+        struct none_tg      {};
+
+        struct prefix_tg    {};
+        struct first_tg     {};
+        struct last_tg      {};
+        struct terminus_tg  {};
+        struct postfix_tg   {};
+
+    public:
         enum : value_t
         {
             NONE = base_t::NONE,
@@ -65,12 +74,14 @@ namespace nkr {
         static bool_t           Is_Last(const is_any_tr<string_itr> auto& self);
         static bool_t           Is_Terminus(const is_any_tr<string_itr> auto& self);
         static bool_t           Is_Postfix(const is_any_tr<string_itr> auto& self);
+        static bool_t           Is_At(const is_any_tr<string_itr> auto& self, index_t point_index);
 
         static void_t           Prefix(is_any_non_const_tr<string_itr> auto& self);
         static void_t           First(is_any_non_const_tr<string_itr> auto& self);
         static void_t           Last(is_any_non_const_tr<string_itr> auto& self);
         static void_t           Terminus(is_any_non_const_tr<string_itr> auto& self);
         static void_t           Postfix(is_any_non_const_tr<string_itr> auto& self);
+        static void_t           At(is_any_non_const_tr<string_itr> auto& self, index_t point_index);
 
         static bool_t           Next(is_any_non_const_tr<string_itr> auto& self);
         static bool_t           Prior(is_any_non_const_tr<string_itr> auto& self);
@@ -82,6 +93,14 @@ namespace nkr {
         static count_t          Point_Unit_Count(const is_any_tr<string_itr> auto& self);
         static unit_t           Point_Unit(const is_any_tr<string_itr> auto& self, index_t index);
 
+        static auto&            Operator_Plus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
+        static auto&            Operator_Minus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
+
+        static auto&            Operator_Increment_Prefix(is_any_non_const_tr<string_itr> auto& self);
+        static auto             Operator_Increment_Postfix(is_any_non_const_tr<string_itr> auto& self);
+        static auto&            Operator_Decrement_Prefix(is_any_non_const_tr<string_itr> auto& self);
+        static auto             Operator_Decrement_Postfix(is_any_non_const_tr<string_itr> auto& self);
+
     protected:
         some_t<const string_t*> string;
         index_t                 unit_index;
@@ -92,8 +111,12 @@ namespace nkr {
     public:
         string_itr()                                                                                        = delete;
 
-        // maybe we should create a compile time branch set of ctors that take the position.
-        string_itr(some_t<const string_t*> string, some_t<string::position_e> position);
+        string_itr(some_t<const string_t*> string, string::position_e::prefix_tg);
+        string_itr(some_t<const string_t*> string, string::position_e::first_tg);
+        string_itr(some_t<const string_t*> string, string::position_e::last_tg);
+        string_itr(some_t<const string_t*> string, string::position_e::terminus_tg);
+        string_itr(some_t<const string_t*> string, string::position_e::postfix_tg);
+        string_itr(some_t<const string_t*> string, index_t point_index);
 
         string_itr(const string_itr& other);
         string_itr(const volatile string_itr& other);
@@ -127,6 +150,8 @@ namespace nkr {
         bool_t          Is_Terminus() const volatile;
         bool_t          Is_Postfix() const;
         bool_t          Is_Postfix() const volatile;
+        bool_t          Is_At(index_t point_index) const;
+        bool_t          Is_At(index_t point_index) const volatile;
 
         void_t          Prefix();
         void_t          Prefix() volatile;
@@ -138,6 +163,8 @@ namespace nkr {
         void_t          Terminus() volatile;
         void_t          Postfix();
         void_t          Postfix() volatile;
+        void_t          At(index_t point_index);
+        void_t          At(index_t point_index) volatile;
 
         bool_t          Next();
         bool_t          Next() volatile;
@@ -155,6 +182,21 @@ namespace nkr {
         count_t         Point_Unit_Count() const volatile;
         unit_t          Point_Unit(index_t index) const;
         unit_t          Point_Unit(index_t index) const volatile;
+
+    public:
+        string_itr&             operator +=(count_t point_count);
+        volatile string_itr&    operator +=(count_t point_count) volatile;
+        string_itr&             operator -=(count_t point_count);
+        volatile string_itr&    operator -=(count_t point_count) volatile;
+
+        string_itr&             operator ++();
+        volatile string_itr&    operator ++() volatile;
+        string_itr              operator ++(int);
+        volatile string_itr     operator ++(int) volatile;
+        string_itr&             operator --();
+        volatile string_itr&    operator --() volatile;
+        string_itr              operator --(int);
+        volatile string_itr     operator --(int) volatile;
     };
 
 }

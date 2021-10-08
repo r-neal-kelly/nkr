@@ -39,6 +39,9 @@ namespace nkr { namespace string {
 
 namespace nkr { namespace string {
 
+    // might it be worth adding an iterator to the string itself? that way we can allow things like the access operator to be more efficient
+    // also, the we wouldn't necessarily have to use the stack for charcoders, unless we wanted to.
+
     // don't forget that when given a string to work with that has the same charcoder, you can just plain copy instead of decode
     template <
         charcoder_i         charcoder_p = charcoder::utf_8_t,
@@ -84,6 +87,7 @@ namespace nkr { namespace string {
         static iterator_t               Last(const is_any_tr<dynamic_t> auto& self);
         static iterator_t               Terminus(const is_any_tr<dynamic_t> auto& self);
         static iterator_t               Postfix(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               At(const is_any_tr<dynamic_t> auto& self, index_t point_index);
 
         static void_t                   Push_Terminus(is_any_tr<dynamic_t> auto& self);
         static void_t                   Pop_Terminus(is_any_tr<dynamic_t> auto& self);
@@ -160,6 +164,8 @@ namespace nkr { namespace string {
         iterator_t              Terminus() const volatile;
         iterator_t              Postfix() const;
         iterator_t              Postfix() const volatile;
+        iterator_t              At(index_t point_index) const;
+        iterator_t              At(index_t point_index) const volatile;
 
         maybe_t<allocator_err>  Push(point_t point);
         maybe_t<allocator_err>  Push(point_t point) volatile;

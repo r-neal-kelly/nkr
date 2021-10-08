@@ -33,6 +33,14 @@ namespace nkr {
         for (auto itr = string.Last(); !itr.Is_Prefix(); itr.Prior()) {
             Print_Point(itr);
         }
+        for (auto itr = string.First(); !itr.Is_Last(); itr.Next()) {
+            Print_Point(itr);
+        }
+
+        CHECK(string.At(4).Point() == '.');
+        CHECK(string.At(9).Point() == '.');
+        CHECK(string.At(14).Point() == '.');
+        CHECK(string.At(19).Point() == '.');
     }
 
 }

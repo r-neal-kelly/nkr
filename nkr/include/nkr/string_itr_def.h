@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/math.h"
 #include "nkr/utils.h"
 
 #include "nkr/string_itr_dec.h"
@@ -79,6 +80,15 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At(const is_any_tr<string_itr> auto& self, index_t point_index)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return self.point_index == point_index;
+    }
+
+    template <typename string_p>
     inline void_t
         string_itr<string_p>::Prefix(is_any_non_const_tr<string_itr> auto& self)
     {
@@ -134,6 +144,56 @@ namespace nkr {
         self.point_index = self.string->Point_Count();
         self.is_prefix = false;
         self.charcoder = none_t();
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At(is_any_non_const_tr<string_itr> auto& self, index_t point_index)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(point_index < self.string->Point_Count());
+
+        // kind of arbitrary until we do tests. also may not be as good for some charcoders as others.
+        constexpr const count_t THRESHOLD = 16;
+
+        // we can offer a quicker method if the charcoder always has a 1:1 unit to point ratio (like ascii_t utf_32_t), should constexpr if it
+
+        if (self.point_index != point_index) {
+            if (Is_Prefix(self)) {
+                Next(self);
+            } else if (Is_Postfix(self)) {
+                Prior(self);
+            }
+
+            count_t point_count = self.string->Point_Count();
+            if (point_count > THRESHOLD) {
+                if (point_index > self.point_index) {
+                    count_t difference_from_current = point_index - self.point_index;
+                    count_t difference_from_terminus = point_count - 1 - point_index;
+                    if (difference_from_current < difference_from_terminus) {
+                        self += difference_from_current;
+                    } else {
+                        Terminus(self);
+                        self -= difference_from_terminus;
+                    }
+                } else {
+                    count_t difference_from_current = self.point_index - point_index;
+                    count_t difference_from_first = point_index - 0;
+                    if (difference_from_current < difference_from_first) {
+                        self -= difference_from_current;
+                    } else {
+                        First(self);
+                        self += difference_from_first;
+                    }
+                }
+            } else {
+                if (point_index > self.point_index) {
+                    self += point_index - self.point_index;
+                } else {
+                    self -= self.point_index - point_index;
+                }
+            }
+        }
     }
 
     template <typename string_p>
@@ -233,7 +293,86 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, some_t<string::position_e> position) :
+    inline auto&
+        string_itr<string_p>::Operator_Plus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(!math::Will_Overflow_Add(self.point_index, point_count));
+        nkr_ASSERT_THAT(self.point_index + point_count <= self.string->Point_Count());
+
+        for (; point_count > 0; point_count -= 1) {
+            Next(self);
+        }
+
+        return self;
+    }
+
+    template <typename string_p>
+    inline auto&
+        string_itr<string_p>::Operator_Minus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(point_count > self.point_index ? point_count - self.point_index == 1 : true);
+
+        for (; point_count > 0; point_count -= 1) {
+            Prior(self);
+        }
+
+        return self;
+    }
+
+    template <typename string_p>
+    inline auto&
+        string_itr<string_p>::Operator_Increment_Prefix(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(!Is_Postfix(self));
+
+        Next(self);
+
+        return self;
+    }
+
+    template <typename string_p>
+    inline auto
+        string_itr<string_p>::Operator_Increment_Postfix(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(!Is_Postfix(self));
+
+        auto old = self;
+        Next(self);
+
+        return old;
+    }
+
+    template <typename string_p>
+    inline auto&
+        string_itr<string_p>::Operator_Decrement_Prefix(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(!Is_Prefix(self));
+
+        Prior(self);
+
+        return self;
+    }
+
+    template <typename string_p>
+    inline auto
+        string_itr<string_p>::Operator_Decrement_Postfix(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(!Is_Prefix(self));
+
+        auto old = self;
+        Prior(self);
+
+        return old;
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, string::position_e::prefix_tg) :
         string(string),
         unit_index(0),
         point_index(0),
@@ -241,22 +380,80 @@ namespace nkr {
         charcoder(none_t())
     {
         nkr_ASSERT_THAT(string);
-        nkr_ASSERT_THAT(position);
         nkr_ASSERT_THAT(Has_String());
 
-        if (position == string::position_e::PREFIX) {
-            Prefix();
-        } else if (position == string::position_e::FIRST) {
-            First();
-        } else if (position == string::position_e::LAST) {
-            Last();
-        } else if (position == string::position_e::TERMINUS) {
-            Terminus();
-        } else if (position == string::position_e::POSTFIX) {
-            Postfix();
-        } else {
-            nkr_ASSERT_THAT(false);
-        }
+        Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, string::position_e::first_tg) :
+        string(string),
+        unit_index(0),
+        point_index(0),
+        is_prefix(false),
+        charcoder(none_t())
+    {
+        nkr_ASSERT_THAT(string);
+        nkr_ASSERT_THAT(Has_String());
+
+        First(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, string::position_e::last_tg) :
+        string(string),
+        unit_index(0),
+        point_index(0),
+        is_prefix(false),
+        charcoder(none_t())
+    {
+        nkr_ASSERT_THAT(string);
+        nkr_ASSERT_THAT(Has_String());
+
+        Last(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, string::position_e::terminus_tg) :
+        string(string),
+        unit_index(0),
+        point_index(0),
+        is_prefix(false),
+        charcoder(none_t())
+    {
+        nkr_ASSERT_THAT(string);
+        nkr_ASSERT_THAT(Has_String());
+
+        Terminus(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, string::position_e::postfix_tg) :
+        string(string),
+        unit_index(0),
+        point_index(0),
+        is_prefix(false),
+        charcoder(none_t())
+    {
+        nkr_ASSERT_THAT(string);
+        nkr_ASSERT_THAT(Has_String());
+
+        Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string, index_t point_index) :
+        string(string),
+        unit_index(0),
+        point_index(0),
+        is_prefix(false),
+        charcoder(none_t())
+    {
+        nkr_ASSERT_THAT(string);
+        nkr_ASSERT_THAT(Has_String());
+
+        First(*this);
+        At(*this, point_index);
     }
 
     template <typename string_p>
@@ -540,6 +737,20 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At(index_t point_index) const
+    {
+        return Is_At(*this, point_index);
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At(index_t point_index) const volatile
+    {
+        return Is_At(*this, point_index);
+    }
+
+    template <typename string_p>
     inline void_t
         string_itr<string_p>::Prefix()
     {
@@ -612,6 +823,21 @@ namespace nkr {
         volatile
     {
         return Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At(index_t point_index)
+    {
+        return At(*this, point_index);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At(index_t point_index)
+        volatile
+    {
+        return At(*this, point_index);
     }
 
     template <typename string_p>
@@ -722,6 +948,96 @@ namespace nkr {
         const volatile
     {
         return Point_Unit(*this, index);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>&
+        string_itr<string_p>::operator +=(count_t point_count)
+    {
+        return Operator_Plus_Equals(*this, point_count);
+    }
+
+    template <typename string_p>
+    inline volatile string_itr<string_p>&
+        string_itr<string_p>::operator +=(count_t point_count)
+        volatile
+    {
+        return Operator_Plus_Equals(*this, point_count);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>&
+        string_itr<string_p>::operator -=(count_t point_count)
+    {
+        return Operator_Minus_Equals(*this, point_count);
+    }
+
+    template <typename string_p>
+    inline volatile string_itr<string_p>&
+        string_itr<string_p>::operator -=(count_t point_count)
+        volatile
+    {
+        return Operator_Minus_Equals(*this, point_count);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>&
+        string_itr<string_p>::operator ++()
+    {
+        return Operator_Increment_Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline volatile string_itr<string_p>&
+        string_itr<string_p>::operator ++()
+        volatile
+    {
+        return Operator_Increment_Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>
+        string_itr<string_p>::operator ++(int)
+    {
+        return Operator_Increment_Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline volatile string_itr<string_p>
+        string_itr<string_p>::operator ++(int)
+        volatile
+    {
+        return Operator_Increment_Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>&
+        string_itr<string_p>::operator --()
+    {
+        return Operator_Decrement_Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline volatile string_itr<string_p>&
+        string_itr<string_p>::operator --()
+        volatile
+    {
+        return Operator_Decrement_Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline string_itr<string_p>
+        string_itr<string_p>::operator --(int)
+    {
+        return Operator_Decrement_Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline volatile string_itr<string_p>
+        string_itr<string_p>::operator --(int)
+        volatile
+    {
+        return Operator_Decrement_Postfix(*this);
     }
 
 }
