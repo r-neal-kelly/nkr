@@ -47,7 +47,8 @@ namespace nkr { namespace string {
 
 namespace nkr {
 
-    template <string_i string_p>
+    // using string_i makes it recursively fail compilation atm. we should try another way to constrain here
+    template <typename string_p>
     class string_itr
     {
     public:
@@ -57,6 +58,7 @@ namespace nkr {
 
     private:
         static bool_t           Has_String(const is_any_tr<string_itr> auto& self);
+        static const string_t&  String(const is_any_tr<string_itr> auto& self);
 
         static bool_t           Is_Prefix(const is_any_tr<string_itr> auto& self);
         static bool_t           Is_First(const is_any_tr<string_itr> auto& self);
@@ -112,6 +114,8 @@ namespace nkr {
     public:
         bool_t          Has_String() const;
         bool_t          Has_String() const volatile;
+        const string_t& String() const;
+        const string_t& String() const volatile;
 
         bool_t          Is_Prefix() const;
         bool_t          Is_Prefix() const volatile;

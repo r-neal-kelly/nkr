@@ -30,6 +30,7 @@ namespace nkr {
     {
         typename string_p::charcoder_t;
         typename string_p::array_t; // we need to verify that the array_t satisfies array_i, but we have to move the code around a bit first
+        typename string_p::iterator_t;
     
         // need to add more constraints.
     };

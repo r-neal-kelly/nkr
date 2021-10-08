@@ -70,7 +70,10 @@ namespace nkr { namespace array {
 
         static void_t                   Copy_Construct(is_any_non_const_tr<dynamic_t> auto& self,
                                                        const is_any_tr<dynamic_t> auto& other);
-        static void_t                   Destruct(is_any_tr<dynamic_t> auto& self);
+        static auto&                    Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
+                                                    const is_any_tr<dynamic_t> auto& other);
+        static auto&                    Move_Assign(is_any_non_const_tr<dynamic_t> auto& self,
+                                                    is_any_non_const_tr<dynamic_t> auto& other);
 
         static pointer_t                Pointer(const is_any_tr<dynamic_t> auto& self);
         static count_t                  Count(const is_any_tr<dynamic_t> auto& self);

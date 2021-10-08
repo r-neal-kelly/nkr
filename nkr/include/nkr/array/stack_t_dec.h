@@ -63,7 +63,10 @@ namespace nkr { namespace array {
                                                        const is_any_tr<stack_t> auto& other);
         static void_t                   Move_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                        is_any_non_const_tr<stack_t> auto& other);
-        static void_t                   Destruct(is_any_tr<stack_t> auto& self);
+        static auto&                    Copy_Assign(is_any_non_const_tr<stack_t> auto& self,
+                                                    const is_any_tr<stack_t> auto& other);
+        static auto&                    Move_Assign(is_any_non_const_tr<stack_t> auto& self,
+                                                    is_any_non_const_tr<stack_t> auto& other);
 
         static auto&                    Array(is_any_tr<stack_t> auto& self);
         static auto&                    Writable_Array(is_any_non_const_tr<stack_t> auto& self);

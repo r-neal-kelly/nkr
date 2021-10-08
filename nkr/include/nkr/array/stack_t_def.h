@@ -61,17 +61,46 @@ namespace nkr { namespace array {
                 for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
                     Writable_Array(self)[idx] = nkr::Move(Writable_Array(other)[idx]);
                 }
-                self.unit_count = other.unit_count;
-                other.unit_count = 0;
+                self.unit_count = nkr::Move(other.unit_count);
             }
         }
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
-        stack_t<unit_p, capacity_p>::Destruct(is_any_tr<stack_t> auto& self)
+    inline auto&
+        stack_t<unit_p, capacity_p>::Copy_Assign(is_any_non_const_tr<stack_t> auto& self,
+                                                 const is_any_tr<stack_t> auto& other)
     {
-        self.Clear();
+        if (&self != std::addressof(other)) {
+            Clear(self);
+            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            if (!err) {
+                for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
+                    Writable_Array(self)[idx] = Array(other)[idx];
+                }
+                self.unit_count = other.unit_count;
+            }
+
+        }
+        return self;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline auto&
+        stack_t<unit_p, capacity_p>::Move_Assign(is_any_non_const_tr<stack_t> auto& self,
+                                                 is_any_non_const_tr<stack_t> auto& other)
+    {
+        if (&self != std::addressof(other)) {
+            Clear(self);
+            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            if (!err) {
+                for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
+                    Writable_Array(self)[idx] = nkr::Move(Writable_Array(other)[idx]);
+                }
+                self.unit_count = nkr::Move(other.unit_count);
+            }
+        }
+        return self;
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -354,11 +383,7 @@ namespace nkr { namespace array {
     inline stack_t<unit_p, capacity_p>&
         stack_t<unit_p, capacity_p>::operator =(const stack_t& other)
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Copy_Construct(*this, other);
-        }
-        return *this;
+        return Copy_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -366,22 +391,14 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::operator =(const stack_t& other)
         volatile
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Copy_Construct(*this, other);
-        }
-        return *this;
+        return Copy_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
     inline stack_t<unit_p, capacity_p>&
         stack_t<unit_p, capacity_p>::operator =(const volatile stack_t& other)
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Copy_Construct(*this, other);
-        }
-        return *this;
+        return Copy_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -389,11 +406,7 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::operator =(const volatile stack_t& other)
         volatile
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Copy_Construct(*this, other);
-        }
-        return *this;
+        return Copy_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -401,11 +414,7 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::operator =(stack_t&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Move_Construct(*this, other);
-        }
-        return *this;
+        return Move_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -413,11 +422,7 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::operator =(stack_t&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Move_Construct(*this, other);
-        }
-        return *this;
+        return Move_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -425,11 +430,7 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::operator =(is_just_volatile_tr<stack_t> auto&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Move_Construct(*this, other);
-        }
-        return *this;
+        return Move_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -437,17 +438,13 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::operator =(is_just_volatile_tr<stack_t> auto&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            Destruct(*this);
-            Move_Construct(*this, other);
-        }
-        return *this;
+        return Move_Assign(*this, other);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
     inline stack_t<unit_p, capacity_p>::~stack_t()
     {
-        Destruct(*this);
+        Clear(*this);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

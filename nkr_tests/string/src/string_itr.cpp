@@ -24,10 +24,10 @@ namespace nkr {
             printf(")\n");
         };
 
-        for (auto itr = string.At_First(); !itr.Is_Postfix(); itr.Next()) {
+        for (auto itr = string.First(); !itr.Is_Postfix(); itr.Next()) {
             Print_Point(itr);
         }
-        for (auto itr = string.At_Terminus(); !itr.Is_Prefix(); itr.Prior()) {
+        for (auto itr = string.Terminus(); !itr.Is_Prefix(); itr.Prior()) {
             Print_Point(itr);
         }
     }

@@ -61,9 +61,10 @@ namespace nkr { namespace string {
         static const unit_t DEFAULT_C_STRING[1];
 
     private:
-        static void_t                   Copy_Construct(is_any_non_const_tr<dynamic_t> auto& self, const is_any_tr<dynamic_t> auto& other);
-        static void_t                   Move_Construct(is_any_non_const_tr<dynamic_t> auto& self, is_any_non_const_tr<dynamic_t> auto&& other);
-        static void_t                   Destruct(is_any_tr<dynamic_t> auto& self);
+        static auto&                    Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
+                                                    const is_any_tr<dynamic_t> auto& other);
+        static auto&                    Move_Assign(is_any_non_const_tr<dynamic_t> auto& self,
+                                                    is_any_non_const_tr<dynamic_t> auto& other);
 
         static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
         static bool_t                   Has_Terminus(const is_any_tr<dynamic_t> auto& self);
@@ -78,11 +79,11 @@ namespace nkr { namespace string {
 
         static some_t<const unit_t*>    C_String(const is_any_tr<dynamic_t> auto& self);
 
-        static iterator_t               At_Prefix(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_First(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_Last(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_Terminus(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_Postfix(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               Prefix(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               First(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               Last(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               Terminus(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               Postfix(const is_any_tr<dynamic_t> auto& self);
 
         static void_t                   Push_Terminus(is_any_tr<dynamic_t> auto& self);
         static void_t                   Pop_Terminus(is_any_tr<dynamic_t> auto& self);
@@ -149,16 +150,16 @@ namespace nkr { namespace string {
         some_t<const unit_t*>   C_String() const;
         some_t<const unit_t*>   C_String() const volatile;
 
-        iterator_t              At_Prefix() const;
-        iterator_t              At_Prefix() const volatile;
-        iterator_t              At_First() const;
-        iterator_t              At_First() const volatile;
-        iterator_t              At_Last() const;
-        iterator_t              At_Last() const volatile;
-        iterator_t              At_Terminus() const;
-        iterator_t              At_Terminus() const volatile;
-        iterator_t              At_Postfix() const;
-        iterator_t              At_Postfix() const volatile;
+        iterator_t              Prefix() const;
+        iterator_t              Prefix() const volatile;
+        iterator_t              First() const;
+        iterator_t              First() const volatile;
+        iterator_t              Last() const;
+        iterator_t              Last() const volatile;
+        iterator_t              Terminus() const;
+        iterator_t              Terminus() const volatile;
+        iterator_t              Postfix() const;
+        iterator_t              Postfix() const volatile;
 
         maybe_t<allocator_err>  Push(point_t point);
         maybe_t<allocator_err>  Push(point_t point) volatile;
@@ -176,9 +177,9 @@ namespace nkr { namespace string {
         volatile unit_t&        Unit(index_t unit_index) volatile;
         const volatile unit_t&  Unit(index_t unit_index) const volatile;
     };
-    /*static_assert(string_i<dynamic_t<>>);
+    static_assert(string_i<dynamic_t<>>);
     static_assert(string_i<const dynamic_t<>>);
     static_assert(string_i<volatile dynamic_t<>>);
-    static_assert(string_i<const volatile dynamic_t<>>);*/
+    static_assert(string_i<const volatile dynamic_t<>>);
 
 }}
