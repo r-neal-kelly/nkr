@@ -182,6 +182,8 @@ namespace nkr { namespace string {
         const unit_t&           Unit(index_t unit_index) const;
         volatile unit_t&        Unit(index_t unit_index) volatile;
         const volatile unit_t&  Unit(index_t unit_index) const volatile;
+
+        // Split and Join should return new strings without altering this one.
     };
     static_assert(string_i<dynamic_t<>>);
     static_assert(string_i<const dynamic_t<>>);
