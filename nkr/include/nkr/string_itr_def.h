@@ -52,11 +52,11 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        count_t unit_length = self.string->Unit_Length();
-        if (unit_length > 0) {
-            return self.unit_index == unit_length - 1 && self.is_prefix == false;
+        count_t point_length = self.string->Point_Length();
+        if (point_length > 0) {
+            return self.point_index == point_length - 1 && self.is_prefix == false;
         } else {
-            return self.unit_index == 0 && self.is_prefix == false;
+            return Is_Prefix(self);
         }
     }
 
@@ -108,18 +108,8 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        count_t unit_length = self.string->Unit_Length();
-        if (unit_length > 0) {
-            self.unit_index = unit_length - 1;
-            self.point_index = self.string->Point_Length() - 1;
-            self.is_prefix = false;
-            self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
-        } else {
-            self.unit_index = 0;
-            self.point_index = 0;
-            self.is_prefix = false;
-            self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
-        }
+        Terminus(self);
+        Prior(self);
     }
 
     template <typename string_p>

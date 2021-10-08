@@ -13,7 +13,7 @@ namespace nkr {
 
     TEST_CASE("temp")
     {
-        string::dynamic_t<> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
+        string::dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
 
         auto Print_Point = [](auto& itr)
         {
@@ -28,6 +28,9 @@ namespace nkr {
             Print_Point(itr);
         }
         for (auto itr = string.Terminus(); !itr.Is_Prefix(); itr.Prior()) {
+            Print_Point(itr);
+        }
+        for (auto itr = string.Last(); !itr.Is_Prefix(); itr.Prior()) {
             Print_Point(itr);
         }
     }
