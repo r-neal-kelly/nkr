@@ -14,7 +14,7 @@ namespace nkr { namespace string {
 
     TEST_CASE("temp")
     {
-        dynamic_t<charcoder::ascii_t> dynamic(u8"test");
+        dynamic_t<charcoder::ascii_t> dynamic("test");
         CHECK(dynamic.Point_Count() == 5);
     }
 

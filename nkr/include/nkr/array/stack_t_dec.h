@@ -71,6 +71,7 @@ namespace nkr { namespace array {
         static auto&                    Array(is_any_tr<stack_t> auto& self);
         static auto&                    Writable_Array(is_any_non_const_tr<stack_t> auto& self);
         static count_t                  Count(const is_any_tr<stack_t> auto& self);
+        static void_t                   Count(is_any_non_const_tr<stack_t> auto& self, count_t count);
 
         static auto&                    At(is_any_tr<stack_t> auto& self, index_t index);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self,
@@ -141,6 +142,8 @@ namespace nkr { namespace array {
         const volatile array_t& Array() const volatile;
         count_t                 Count() const;
         count_t                 Count() const volatile;
+        void_t                  Count(count_t count);
+        void_t                  Count(count_t count) volatile;
 
         unit_t&                 At(index_t index);
         const unit_t&           At(index_t index) const;

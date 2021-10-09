@@ -11,107 +11,179 @@
 
 namespace nkr { namespace charcoder {
 
-    inline ascii_t::ascii_t()
+    inline constexpr std_bool_t
+        ascii_t::Has_1_To_1_Unit_To_Point_Ratio()
     {
-        this->unit = 0;
+        return true;
     }
 
-    inline ascii_t::ascii_t(const ascii_t& other)
+    inline auto&
+        ascii_t::Assign_Copy(is_any_non_const_tr<ascii_t> auto& self, const is_any_tr<ascii_t> auto& other)
     {
-        this->unit = other.unit;
+        if (&self != std::addressof(other)) {
+            self.unit = other.unit;
+        }
+        return self;
     }
 
-    inline ascii_t::ascii_t(const volatile ascii_t& other)
+    inline auto&
+        ascii_t::Assign_Move(is_any_non_const_tr<ascii_t> auto& self, is_any_non_const_tr<ascii_t> auto& other)
     {
-        this->unit = other.unit;
+        if (&self != std::addressof(other)) {
+            self.unit = nkr::Move(other.unit);
+        }
+        return self;
     }
 
-    inline ascii_t::ascii_t(ascii_t&& other) noexcept
+    inline void_t
+        ascii_t::Encode(is_any_non_const_tr<ascii_t> auto& self, point_t point)
     {
-        this->unit = nkr::Move(other.unit);
+        self.unit = point > -1 ? static_cast<unit_t>(point) : '?';
+
+        nkr_ASSERT_THAT(Is_Well_Formed(self));
     }
 
-    inline ascii_t::ascii_t(volatile ascii_t&& other) noexcept
+    inline point_t
+        ascii_t::Decode(const is_any_tr<ascii_t> auto& self)
     {
-        this->unit = nkr::Move(other.unit);
+        nkr_ASSERT_THAT(Is_Well_Formed(self));
+
+        return static_cast<point_t>(self.unit);
+    }
+
+    inline count_t
+        ascii_t::Read_Forward(is_any_non_const_tr<ascii_t> auto& self, const unit_t* from)
+    {
+        nkr_ASSERT_THAT(from);
+
+        Encode(self, *from);
+
+        return 1;
+    }
+
+    inline count_t
+        ascii_t::Read_Reverse(is_any_non_const_tr<ascii_t> auto& self, const unit_t* from, const unit_t* first)
+    {
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
+
+        Encode(self, *(from - 1));
+
+        return 1;
+    }
+
+    inline count_t
+        ascii_t::Unit_Count(const is_any_tr<ascii_t> auto& self)
+    {
+        return 1;
+    }
+
+    inline bool_t
+        ascii_t::Is_Well_Formed(const is_any_tr<ascii_t> auto& self)
+    {
+        return self.unit > -1;
+    }
+
+    inline typename ascii_t::unit_t
+        ascii_t::Operator_Access(const is_any_tr<ascii_t> auto& self, index_t index)
+    {
+        nkr_ASSERT_THAT(index < 1);
+
+        return self.unit;
+    }
+
+    inline auto&
+        ascii_t::Assign_None(is_any_non_const_tr<ascii_t> auto& self)
+    {
+        self.unit = 0;
+
+        return self;
+    }
+
+    inline bool_t
+        ascii_t::Is_Equal_To_None(const is_any_tr<ascii_t> auto& self)
+    {
+        return self.unit == 0;
+    }
+
+    inline ascii_t::ascii_t() :
+        unit(0)
+    {
+    }
+
+    inline ascii_t::ascii_t(const ascii_t& other) :
+        unit(other.unit)
+    {
+    }
+
+    inline ascii_t::ascii_t(const volatile ascii_t& other) :
+        unit(other.unit)
+    {
+    }
+
+    inline ascii_t::ascii_t(ascii_t&& other) noexcept :
+        unit(nkr::Move(other.unit))
+    {
+    }
+
+    inline ascii_t::ascii_t(volatile ascii_t&& other) noexcept :
+        unit(nkr::Move(other.unit))
+    {
     }
 
     inline ascii_t&
         ascii_t::operator =(const ascii_t& other)
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline volatile ascii_t&
         ascii_t::operator =(const ascii_t& other)
         volatile
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline ascii_t&
         ascii_t::operator =(const volatile ascii_t& other)
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline volatile ascii_t&
         ascii_t::operator =(const volatile ascii_t& other)
         volatile
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline ascii_t&
         ascii_t::operator =(ascii_t&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline volatile ascii_t&
         ascii_t::operator =(ascii_t&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline ascii_t&
         ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline volatile ascii_t&
         ascii_t::operator =(is_just_volatile_tr<ascii_t> auto&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline ascii_t::~ascii_t()
@@ -119,66 +191,99 @@ namespace nkr { namespace charcoder {
         this->unit = 0;
     }
 
-    inline bool_t
-        ascii_t::Is_Well_Formed()
-        const
+    inline void_t
+        ascii_t::Encode(point_t point)
     {
-        return this->unit < 128;
+        return Encode(*this, point);
     }
 
     inline void_t
         ascii_t::Encode(point_t point)
+        volatile
     {
-        this->unit = point < 128 ? static_cast<unit_t>(point) : '?';
-
-        nkr_ASSERT_THAT(Is_Well_Formed());
+        return Encode(*this, point);
     }
 
     inline point_t
         ascii_t::Decode()
         const
     {
-        nkr_ASSERT_THAT(Is_Well_Formed());
+        return Decode(*this);
+    }
 
-        return static_cast<point_t>(this->unit);
+    inline point_t
+        ascii_t::Decode()
+        const volatile
+    {
+        return Decode(*this);
     }
 
     inline count_t
         ascii_t::Read_Forward(const unit_t* from)
     {
-        nkr_ASSERT_THAT(from);
+        return Read_Forward(*this, from);
+    }
 
-        Encode(*from);
-
-        return 1;
+    inline count_t
+        ascii_t::Read_Forward(const unit_t* from)
+        volatile
+    {
+        return Read_Forward(*this, from);
     }
 
     inline count_t
         ascii_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
-        nkr_ASSERT_THAT(from);
-        nkr_ASSERT_THAT(first);
-        nkr_ASSERT_THAT(from > first);
+        return Read_Reverse(*this, from, first);
+    }
 
-        Encode(*(from - 1));
-
-        return 1;
+    inline count_t
+        ascii_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        volatile
+    {
+        return Read_Reverse(*this, from, first);
     }
 
     inline count_t
         ascii_t::Unit_Count()
         const
     {
-        return 1;
+        return Unit_Count(*this);
+    }
+
+    inline count_t
+        ascii_t::Unit_Count()
+        const volatile
+    {
+        return Unit_Count(*this);
+    }
+
+    inline bool_t
+        ascii_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        ascii_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
     }
 
     inline typename ascii_t::unit_t
         ascii_t::operator [](index_t index)
         const
     {
-        nkr_ASSERT_THAT(index < 1);
+        return Operator_Access(*this, index);
+    }
 
-        return this->unit;
+    inline typename ascii_t::unit_t
+        ascii_t::operator [](index_t index)
+        const volatile
+    {
+        return Operator_Access(*this, index);
     }
 
     inline ascii_t::ascii_t(none_t) :
@@ -189,44 +294,42 @@ namespace nkr { namespace charcoder {
     inline ascii_t&
         ascii_t::operator =(none_t)
     {
-        this->unit = 0;
-        return *this;
+        return Assign_None(*this);
     }
 
     inline volatile ascii_t&
         ascii_t::operator =(none_t)
         volatile
     {
-        this->unit = 0;
-        return *this;
+        return Assign_None(*this);
     }
 
     inline bool_t
         ascii_t::operator ==(none_t)
         const
     {
-        return this->unit == 0;
+        return Is_Equal_To_None(*this);
     }
 
     inline bool_t
         ascii_t::operator ==(none_t)
         const volatile
     {
-        return this->unit == 0;
+        return Is_Equal_To_None(*this);
     }
 
     inline bool_t
         ascii_t::operator !=(none_t)
         const
     {
-        return !operator ==(none_t());
+        return !Is_Equal_To_None(*this);
     }
 
     inline bool_t
         ascii_t::operator !=(none_t)
         const volatile
     {
-        return !operator ==(none_t());
+        return !Is_Equal_To_None(*this);
     }
 
 }}

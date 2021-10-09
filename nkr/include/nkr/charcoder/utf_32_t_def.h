@@ -12,137 +12,273 @@
 
 namespace nkr { namespace charcoder {
 
-    inline bool_t
+    inline constexpr std_bool_t
+        utf_32_t::Has_1_To_1_Unit_To_Point_Ratio()
+    {
+        return true;
+    }
+
+    inline constexpr std_bool_t
         utf_32_t::Is_Point(point_t point)
     {
         return point <= POINT_LAST;
     }
 
-    inline bool_t
+    inline constexpr std_bool_t
         utf_32_t::Is_Scalar(point_t point)
     {
         return point <= POINT_LAST && (point < SURROGATE_HIGH_FIRST || point > SURROGATE_LOW_LAST);
     }
 
-    inline bool_t
+    inline constexpr std_bool_t
         utf_32_t::Is_Surrogate(point_t point)
     {
         return point >= SURROGATE_HIGH_FIRST && point <= SURROGATE_LOW_LAST;
     }
 
-    inline bool_t
+    inline constexpr std_bool_t
         utf_32_t::Is_Surrogate_High(point_t point)
     {
         return point >= SURROGATE_HIGH_FIRST && point <= SURROGATE_HIGH_LAST;
     }
 
-    inline bool_t
+    inline constexpr std_bool_t
         utf_32_t::Is_Surrogate_Low(point_t point)
     {
         return point >= SURROGATE_LOW_FIRST && point <= SURROGATE_LOW_LAST;
     }
 
-    inline utf_32_t::utf_32_t()
+    inline auto&
+        utf_32_t::Assign_Copy(is_any_non_const_tr<utf_32_t> auto& self, const is_any_tr<utf_32_t> auto& other)
     {
-        this->unit = 0;
+        if (&self != std::addressof(other)) {
+            self.unit = other.unit;
+        }
+        return self;
     }
 
-    inline utf_32_t::utf_32_t(const utf_32_t& other)
+    inline auto&
+        utf_32_t::Assign_Move(is_any_non_const_tr<utf_32_t> auto& self, is_any_non_const_tr<utf_32_t> auto& other)
     {
-        this->unit = other.unit;
+        if (&self != std::addressof(other)) {
+            self.unit = nkr::Move(other.unit);
+        }
+        return self;
     }
 
-    inline utf_32_t::utf_32_t(const volatile utf_32_t& other)
+    inline void_t
+        utf_32_t::Encode_Normal(is_any_non_const_tr<utf_32_t> auto& self, point_t point)
     {
-        this->unit = other.unit;
+        if (Is_Scalar(point)) {
+            self.unit = unit_t(point);
+        } else {
+            self.unit = REPLACEMENT_CHARACTER;
+        }
+
+        nkr_ASSERT_THAT(Is_Well_Formed_Normal(self));
     }
 
-    inline utf_32_t::utf_32_t(utf_32_t&& other) noexcept
+    inline void_t
+        utf_32_t::Encode_Swapped(is_any_non_const_tr<utf_32_t> auto& self, point_t point)
     {
-        this->unit = nkr::Move(other.unit);
+        if (Is_Scalar(point)) {
+            self.unit = os::endian::Swap(unit_t(point));
+        } else {
+            self.unit = REPLACEMENT_CHARACTER_32_SWAPPED;
+        }
+
+        nkr_ASSERT_THAT(Is_Well_Formed_Swapped(self));
     }
 
-    inline utf_32_t::utf_32_t(volatile utf_32_t&& other) noexcept
+    inline point_t
+        utf_32_t::Decode_Normal(const is_any_tr<utf_32_t> auto& self)
     {
-        this->unit = nkr::Move(other.unit);
+        nkr_ASSERT_THAT(Is_Well_Formed_Normal(self));
+
+        return self.unit;
+    }
+
+    inline point_t
+        utf_32_t::Decode_Swapped(const is_any_tr<utf_32_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Is_Well_Formed_Swapped(self));
+
+        return os::endian::Swap(self.unit);
+    }
+
+    inline count_t
+        utf_32_t::Read_Forward_Normal(is_any_non_const_tr<utf_32_t> auto& self, const unit_t* from)
+    {
+        nkr_ASSERT_THAT(from);
+
+        self.unit = *from;
+        if (!Is_Well_Formed_Normal(self)) {
+            self.unit = REPLACEMENT_CHARACTER;
+        }
+
+        return 1;
+    }
+
+    inline count_t
+        utf_32_t::Read_Forward_Swapped(is_any_non_const_tr<utf_32_t> auto& self, const unit_t* from)
+    {
+        nkr_ASSERT_THAT(from);
+
+        self.unit = *from;
+        if (!Is_Well_Formed_Swapped(self)) {
+            self.unit = REPLACEMENT_CHARACTER_32_SWAPPED;
+        }
+
+        return 1;
+    }
+
+    inline count_t
+        utf_32_t::Read_Reverse_Normal(is_any_non_const_tr<utf_32_t> auto& self, const unit_t* from, const unit_t* first)
+    {
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
+
+        self.unit = *(from - 1);
+        if (!Is_Well_Formed_Normal(self)) {
+            self.unit = REPLACEMENT_CHARACTER;
+        }
+
+        return 1;
+    }
+
+    inline count_t
+        utf_32_t::Read_Reverse_Swapped(is_any_non_const_tr<utf_32_t> auto& self, const unit_t* from, const unit_t* first)
+    {
+        nkr_ASSERT_THAT(from);
+        nkr_ASSERT_THAT(first);
+        nkr_ASSERT_THAT(from > first);
+
+        self.unit = *(from - 1);
+        if (!Is_Well_Formed_Swapped(self)) {
+            self.unit = REPLACEMENT_CHARACTER_32_SWAPPED;
+        }
+
+        return 1;
+    }
+
+    inline count_t
+        utf_32_t::Unit_Count(const is_any_tr<utf_32_t> auto& self)
+    {
+        return 1;
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Normal(const is_any_tr<utf_32_t> auto& self)
+    {
+        return Is_Scalar(self.unit);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Swapped(const is_any_tr<utf_32_t> auto& self)
+    {
+        return Is_Scalar(os::endian::Swap(self.unit));
+    }
+
+    inline typename utf_32_t::unit_t
+        utf_32_t::Operator_Access(const is_any_tr<utf_32_t> auto& self, index_t index)
+    {
+        nkr_ASSERT_THAT(index < 1);
+
+        return self.unit;
+    }
+
+    inline auto&
+        utf_32_t::Assign_None(is_any_non_const_tr<utf_32_t> auto& self)
+    {
+        self.unit = 0;
+
+        return self;
+    }
+
+    inline bool_t
+        utf_32_t::Is_Equal_To_None(const is_any_tr<utf_32_t> auto& self)
+    {
+        return self.unit == 0;
+    }
+
+    inline utf_32_t::utf_32_t() :
+        unit(0)
+    {
+    }
+
+    inline utf_32_t::utf_32_t(const utf_32_t& other) :
+        unit(other.unit)
+    {
+    }
+
+    inline utf_32_t::utf_32_t(const volatile utf_32_t& other) :
+        unit(other.unit)
+    {
+    }
+
+    inline utf_32_t::utf_32_t(utf_32_t&& other) noexcept :
+        unit(nkr::Move(other.unit))
+    {
+    }
+
+    inline utf_32_t::utf_32_t(volatile utf_32_t&& other) noexcept :
+        unit(nkr::Move(other.unit))
+    {
     }
 
     inline utf_32_t&
         utf_32_t::operator =(const utf_32_t& other)
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline volatile utf_32_t&
         utf_32_t::operator =(const utf_32_t& other)
         volatile
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline utf_32_t&
         utf_32_t::operator =(const volatile utf_32_t& other)
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline volatile utf_32_t&
         utf_32_t::operator =(const volatile utf_32_t& other)
         volatile
     {
-        if (this != std::addressof(other)) {
-            this->unit = other.unit;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
     inline utf_32_t&
         utf_32_t::operator =(utf_32_t&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline volatile utf_32_t&
         utf_32_t::operator =(utf_32_t&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline utf_32_t&
         utf_32_t::operator =(is_just_volatile_tr<utf_32_t> auto&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline volatile utf_32_t&
         utf_32_t::operator =(is_just_volatile_tr<utf_32_t> auto&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->unit = nkr::Move(other.unit);
-        }
-        return *this;
+        return Assign_Move(*this, other);
     }
 
     inline utf_32_t::~utf_32_t()
@@ -150,271 +286,354 @@ namespace nkr { namespace charcoder {
         this->unit = 0;
     }
 
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Normal()
-        const
+    inline void_t
+        utf_32_t::Encode_Normal(point_t point)
     {
-        return Is_Scalar(this->unit);
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Swapped()
-        const
-    {
-        return Is_Scalar(os::endian::Swap(this->unit));
+        return Encode_Normal(*this, point);
     }
 
     inline void_t
         utf_32_t::Encode_Normal(point_t point)
+        volatile
     {
-        if (Is_Scalar(point)) {
-            this->unit = static_cast<unit_t>(point);
-        } else {
-            this->unit = REPLACEMENT_CHARACTER;
-        }
-
-        nkr_ASSERT_THAT(Is_Well_Formed_Normal());
+        return Encode_Normal(*this, point);
     }
 
     inline void_t
         utf_32_t::Encode_Swapped(point_t point)
     {
-        if (Is_Scalar(point)) {
-            this->unit = os::endian::Swap(static_cast<unit_t>(point));
-        } else {
-            this->unit = REPLACEMENT_CHARACTER_32_SWAPPED;
-        }
+        return Encode_Swapped(*this, point);
+    }
 
-        nkr_ASSERT_THAT(Is_Well_Formed_Swapped());
+    inline void_t
+        utf_32_t::Encode_Swapped(point_t point)
+        volatile
+    {
+        return Encode_Swapped(*this, point);
     }
 
     inline point_t
         utf_32_t::Decode_Normal()
         const
     {
-        nkr_ASSERT_THAT(Is_Well_Formed_Normal());
+        return Decode_Normal(*this);
+    }
 
-        return this->unit;
+    inline point_t
+        utf_32_t::Decode_Normal()
+        const volatile
+    {
+        return Decode_Normal(*this);
     }
 
     inline point_t
         utf_32_t::Decode_Swapped()
         const
     {
-        nkr_ASSERT_THAT(Is_Well_Formed_Swapped());
+        return Decode_Swapped(*this);
+    }
 
-        return os::endian::Swap(this->unit);
+    inline point_t
+        utf_32_t::Decode_Swapped()
+        const volatile
+    {
+        return Decode_Swapped(*this);
     }
 
     inline count_t
         utf_32_t::Read_Forward_Normal(const unit_t* from)
     {
-        nkr_ASSERT_THAT(from);
+        return Read_Forward_Normal(*this, from);
+    }
 
-        this->unit = *from;
-        if (!Is_Well_Formed_Normal()) {
-            this->unit = REPLACEMENT_CHARACTER;
-        }
-
-        return 1;
+    inline count_t
+        utf_32_t::Read_Forward_Normal(const unit_t* from)
+        volatile
+    {
+        return Read_Forward_Normal(*this, from);
     }
 
     inline count_t
         utf_32_t::Read_Forward_Swapped(const unit_t* from)
     {
-        nkr_ASSERT_THAT(from);
+        return Read_Forward_Swapped(*this, from);
+    }
 
-        this->unit = *from;
-        if (!Is_Well_Formed_Swapped()) {
-            this->unit = REPLACEMENT_CHARACTER_32_SWAPPED;
-        }
-
-        return 1;
+    inline count_t
+        utf_32_t::Read_Forward_Swapped(const unit_t* from)
+        volatile
+    {
+        return Read_Forward_Swapped(*this, from);
     }
 
     inline count_t
         utf_32_t::Read_Reverse_Normal(const unit_t* from, const unit_t* first)
     {
-        nkr_ASSERT_THAT(from);
-        nkr_ASSERT_THAT(first);
-        nkr_ASSERT_THAT(from > first);
+        return Read_Reverse_Normal(*this, from, first);
+    }
 
-        this->unit = *(from - 1);
-        if (!Is_Well_Formed_Normal()) {
-            this->unit = REPLACEMENT_CHARACTER;
-        }
-
-        return 1;
+    inline count_t
+        utf_32_t::Read_Reverse_Normal(const unit_t* from, const unit_t* first)
+        volatile
+    {
+        return Read_Reverse_Normal(*this, from, first);
     }
 
     inline count_t
         utf_32_t::Read_Reverse_Swapped(const unit_t* from, const unit_t* first)
     {
-        nkr_ASSERT_THAT(from);
-        nkr_ASSERT_THAT(first);
-        nkr_ASSERT_THAT(from > first);
+        return Read_Reverse_Swapped(*this, from, first);
+    }
 
-        this->unit = *(from - 1);
-        if (!Is_Well_Formed_Swapped()) {
-            this->unit = REPLACEMENT_CHARACTER_32_SWAPPED;
-        }
-
-        return 1;
+    inline count_t
+        utf_32_t::Read_Reverse_Swapped(const unit_t* from, const unit_t* first)
+        volatile
+    {
+        return Read_Reverse_Swapped(*this, from, first);
     }
 
     inline count_t
         utf_32_t::Unit_Count()
         const
     {
-        return 1;
+        return Unit_Count(*this);
+    }
+
+    inline count_t
+        utf_32_t::Unit_Count()
+        const volatile
+    {
+        return Unit_Count(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Normal()
+        const
+    {
+        return Is_Well_Formed_Normal(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Normal()
+        const volatile
+    {
+        return Is_Well_Formed_Normal(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Swapped()
+        const
+    {
+        return Is_Well_Formed_Swapped(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Swapped()
+        const volatile
+    {
+        return Is_Well_Formed_Swapped(*this);
     }
 
     inline typename utf_32_t::unit_t
         utf_32_t::operator [](index_t index)
         const
     {
-        nkr_ASSERT_THAT(index < 1);
-
-        return this->unit;
+        return Operator_Access(*this, index);
     }
 
-    inline utf_32_t::utf_32_t(none_t)
+    inline typename utf_32_t::unit_t
+        utf_32_t::operator [](index_t index)
+        const volatile
     {
-        this->unit = 0;
+        return Operator_Access(*this, index);
+    }
+
+    inline utf_32_t::utf_32_t(none_t) :
+        utf_32_t()
+    {
     }
 
     inline utf_32_t&
         utf_32_t::operator =(none_t)
     {
-        this->unit = 0;
-        return *this;
+        return Assign_None(*this);
     }
 
     inline volatile utf_32_t&
         utf_32_t::operator =(none_t)
         volatile
     {
-        this->unit = 0;
-        return *this;
+        return Assign_None(*this);
     }
 
     inline bool_t
         utf_32_t::operator ==(none_t)
         const
     {
-        return this->unit == 0;
+        return Is_Equal_To_None(*this);
     }
 
     inline bool_t
         utf_32_t::operator ==(none_t)
         const volatile
     {
-        return this->unit == 0;
+        return Is_Equal_To_None(*this);
     }
 
     inline bool_t
         utf_32_t::operator !=(none_t)
         const
     {
-        return !operator ==(none_t());
+        return !Is_Equal_To_None(*this);
     }
 
     inline bool_t
         utf_32_t::operator !=(none_t)
         const volatile
     {
-        return !operator ==(none_t());
-    }
-
-    template <typename>
-    inline bool_t
-        utf_32_be_t::Is_Well_Formed()
-        const
-    {
-        if constexpr (os::endian::Is_Big()) {
-            return Is_Well_Formed_Normal();
-        } else if constexpr (os::endian::Is_Little()) {
-            return Is_Well_Formed_Swapped();
-        } else {
-            static_assert(false);
-        }
+        return !Is_Equal_To_None(*this);
     }
 
     template <typename>
     inline void_t
-        utf_32_be_t::Encode(point_t point)
+        utf_32_be_t::Encode(is_any_non_const_tr<utf_32_be_t> auto& self, point_t point)
     {
         if constexpr (os::endian::Is_Big()) {
-            return Encode_Normal(point);
+            return self.Encode_Normal(point);
         } else if constexpr (os::endian::Is_Little()) {
-            return Encode_Swapped(point);
+            return self.Encode_Swapped(point);
         } else {
             static_assert(false);
         }
     }
 
     template <typename>
+    inline point_t
+        utf_32_be_t::Decode(const is_any_tr<utf_32_be_t> auto& self)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Decode_Normal();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Decode_Swapped();
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
+    inline count_t
+        utf_32_be_t::Read_Forward(is_any_non_const_tr<utf_32_be_t> auto& self, const unit_t* from)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Read_Forward_Normal(from);
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Read_Forward_Swapped(from);
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
+    inline count_t
+        utf_32_be_t::Read_Reverse(is_any_non_const_tr<utf_32_be_t> auto& self, const unit_t* from, const unit_t* first)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Read_Reverse_Normal(from, first);
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Read_Reverse_Swapped(from, first);
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
+    inline bool_t
+        utf_32_be_t::Is_Well_Formed(const is_any_tr<utf_32_be_t> auto& self)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Is_Well_Formed_Normal();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Is_Well_Formed_Swapped();
+        } else {
+            static_assert(false);
+        }
+    }
+
+    inline void_t
+        utf_32_be_t::Encode(point_t point)
+    {
+        return Encode(*this, point);
+    }
+
+    inline void_t
+        utf_32_be_t::Encode(point_t point)
+        volatile
+    {
+        return Encode(*this, point);
+    }
+
     inline point_t
         utf_32_be_t::Decode()
         const
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Decode_Normal();
-        } else if constexpr (os::endian::Is_Little()) {
-            return Decode_Swapped();
-        } else {
-            static_assert(false);
-        }
+        return Decode(*this);
     }
 
-    template <typename>
+    inline point_t
+        utf_32_be_t::Decode()
+        const volatile
+    {
+        return Decode(*this);
+    }
+
     inline count_t
         utf_32_be_t::Read_Forward(const unit_t* from)
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Read_Forward_Normal(from);
-        } else if constexpr (os::endian::Is_Little()) {
-            return Read_Forward_Swapped(from);
-        } else {
-            static_assert(false);
-        }
+        return Read_Forward(*this, from);
     }
 
-    template <typename>
+    inline count_t
+        utf_32_be_t::Read_Forward(const unit_t* from)
+        volatile
+    {
+        return Read_Forward(*this, from);
+    }
+
     inline count_t
         utf_32_be_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Read_Reverse_Normal(from, first);
-        } else if constexpr (os::endian::Is_Little()) {
-            return Read_Reverse_Swapped(from, first);
-        } else {
-            static_assert(false);
-        }
+        return Read_Reverse(*this, from, first);
     }
 
-    template <typename>
+    inline count_t
+        utf_32_be_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        volatile
+    {
+        return Read_Reverse(*this, from, first);
+    }
+
     inline bool_t
-        utf_32_le_t::Is_Well_Formed()
+        utf_32_be_t::Is_Well_Formed()
         const
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Is_Well_Formed_Swapped();
-        } else if constexpr (os::endian::Is_Little()) {
-            return Is_Well_Formed_Normal();
-        } else {
-            static_assert(false);
-        }
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_32_be_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
     }
 
     template <typename>
     inline void_t
-        utf_32_le_t::Encode(point_t point)
+        utf_32_le_t::Encode(is_any_non_const_tr<utf_32_le_t> auto& self, point_t point)
     {
         if constexpr (os::endian::Is_Big()) {
-            return Encode_Swapped(point);
+            return self.Encode_Swapped(point);
         } else if constexpr (os::endian::Is_Little()) {
-            return Encode_Normal(point);
+            return self.Encode_Normal(point);
         } else {
             static_assert(false);
         }
@@ -422,42 +641,121 @@ namespace nkr { namespace charcoder {
 
     template <typename>
     inline point_t
+        utf_32_le_t::Decode(const is_any_tr<utf_32_le_t> auto& self)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Decode_Swapped();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Decode_Normal();
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
+    inline count_t
+        utf_32_le_t::Read_Forward(is_any_non_const_tr<utf_32_le_t> auto& self, const unit_t* from)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Read_Forward_Swapped(from);
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Read_Forward_Normal(from);
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
+    inline count_t
+        utf_32_le_t::Read_Reverse(is_any_non_const_tr<utf_32_le_t> auto& self, const unit_t* from, const unit_t* first)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Read_Reverse_Swapped(from, first);
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Read_Reverse_Normal(from, first);
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
+    inline bool_t
+        utf_32_le_t::Is_Well_Formed(const is_any_tr<utf_32_le_t> auto& self)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Is_Well_Formed_Swapped();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Is_Well_Formed_Normal();
+        } else {
+            static_assert(false);
+        }
+    }
+
+    inline void_t
+        utf_32_le_t::Encode(point_t point)
+    {
+        return Encode(*this, point);
+    }
+
+    inline void_t
+        utf_32_le_t::Encode(point_t point)
+        volatile
+    {
+        return Encode(*this, point);
+    }
+
+    inline point_t
         utf_32_le_t::Decode()
         const
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Decode_Swapped();
-        } else if constexpr (os::endian::Is_Little()) {
-            return Decode_Normal();
-        } else {
-            static_assert(false);
-        }
+        return Decode(*this);
     }
 
-    template <typename>
+    inline point_t
+        utf_32_le_t::Decode()
+        const volatile
+    {
+        return Decode(*this);
+    }
+
     inline count_t
         utf_32_le_t::Read_Forward(const unit_t* from)
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Read_Forward_Swapped(from);
-        } else if constexpr (os::endian::Is_Little()) {
-            return Read_Forward_Normal(from);
-        } else {
-            static_assert(false);
-        }
+        return Read_Forward(*this, from);
     }
 
-    template <typename>
+    inline count_t
+        utf_32_le_t::Read_Forward(const unit_t* from)
+        volatile
+    {
+        return Read_Forward(*this, from);
+    }
+
     inline count_t
         utf_32_le_t::Read_Reverse(const unit_t* from, const unit_t* first)
     {
-        if constexpr (os::endian::Is_Big()) {
-            return Read_Reverse_Swapped(from, first);
-        } else if constexpr (os::endian::Is_Little()) {
-            return Read_Reverse_Normal(from, first);
-        } else {
-            static_assert(false);
-        }
+        return Read_Reverse(*this, from, first);
+    }
+
+    inline count_t
+        utf_32_le_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        volatile
+    {
+        return Read_Reverse(*this, from, first);
+    }
+
+    inline bool_t
+        utf_32_le_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_32_le_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
     }
 
 }}

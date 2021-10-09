@@ -14,7 +14,6 @@ namespace nkr { namespace charcoder {
     {
         utf_32_be_t utf_32_be;
         CHECK(utf_32_be[0] == 0);
-        CHECK(utf_32_be.Is_Well_Formed());
     }
 
 }}

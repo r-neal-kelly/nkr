@@ -38,26 +38,42 @@ namespace nkr { namespace $charcoder_i {
 
     template <typename type_p>
     concept unit_i =
+        any_integer_tr<typename type_p::unit_t> ||
         any_character_tr<typename type_p::unit_t>;
 
     template <typename type_p>
-    concept methods_i = requires (type_p charcoder,
-                                  type_p const_charcoder,
+    concept methods_i = requires (std::remove_cv_t<type_p> charcoder,
+                                  const std::remove_cv_t<type_p> const_charcoder,
+                                  volatile std::remove_cv_t<type_p> volatile_charcoder,
+                                  const volatile std::remove_cv_t<type_p> const_volatile_charcoder,
 
                                   count_t read_count,
                                   const typename type_p::unit_t* from_unit,
                                   const typename type_p::unit_t* first_unit)
     {
-        { const_charcoder.Is_Well_Formed() }                        -> is_tr<bool_t>;
+        { std::remove_cv_t<type_p>::Has_1_To_1_Unit_To_Point_Ratio() }  -> is_tr<std_bool_t>; // constexpr
 
-        { charcoder.Encode(typename charcoder::point_t()) }         -> is_tr<void_t>;
-        { const_charcoder.Decode() }                                -> is_tr<typename charcoder::point_t>;
+        { charcoder.Encode(typename charcoder::point_t()) }             -> is_tr<void_t>;
+        { volatile_charcoder.Encode(typename charcoder::point_t()) }    -> is_tr<void_t>;
+        { charcoder.Decode() }                                          -> is_tr<typename charcoder::point_t>;
+        { const_charcoder.Decode() }                                    -> is_tr<typename charcoder::point_t>;
+        { volatile_charcoder.Decode() }                                 -> is_tr<typename charcoder::point_t>;
+        { const_volatile_charcoder.Decode() }                           -> is_tr<typename charcoder::point_t>;
 
-        { charcoder.Read_Forward(from_unit) }                       -> is_tr<count_t>;
-        { charcoder.Read_Reverse(from_unit, first_unit) }           -> is_tr<count_t>;
+        { charcoder.Read_Forward(from_unit) }                           -> is_tr<count_t>;
+        { volatile_charcoder.Read_Forward(from_unit) }                  -> is_tr<count_t>;
+        { charcoder.Read_Reverse(from_unit, first_unit) }               -> is_tr<count_t>;
+        { volatile_charcoder.Read_Reverse(from_unit, first_unit) }      -> is_tr<count_t>;
 
-        { const_charcoder.Unit_Count() }                            -> is_tr<count_t>;
-        { const_charcoder.operator[](index_t()) }                   -> is_tr<typename type_p::unit_t>;
+        { charcoder.Unit_Count() }                                      -> is_tr<count_t>;
+        { const_charcoder.Unit_Count() }                                -> is_tr<count_t>;
+        { volatile_charcoder.Unit_Count() }                             -> is_tr<count_t>;
+        { const_volatile_charcoder.Unit_Count() }                       -> is_tr<count_t>;
+
+        { charcoder.operator[](index_t()) }                             -> is_tr<typename type_p::unit_t>;
+        { const_charcoder.operator[](index_t()) }                       -> is_tr<typename type_p::unit_t>;
+        { volatile_charcoder.operator[](index_t()) }                    -> is_tr<typename type_p::unit_t>;
+        { const_volatile_charcoder.operator[](index_t()) }              -> is_tr<typename type_p::unit_t>;
 
         read_count = charcoder.Read_Forward(from_unit);
         read_count = charcoder.Read_Reverse(from_unit, first_unit);

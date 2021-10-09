@@ -53,340 +53,154 @@ namespace nkr { namespace charcoder {
         This holds true when reading a UTF-8 sequence backwards or forwards.
     */
 
-    inline utf_8_t::utf_8_t()
+    inline constexpr std_bool_t
+        utf_8_t::Has_1_To_1_Unit_To_Point_Ratio()
     {
-        this->unit_count = 1;
-        this->units[0] = 0;
-        this->units[1] = 0;
-        this->units[2] = 0;
-        this->units[3] = 0;
+        return false;
     }
 
-    inline utf_8_t::utf_8_t(const utf_8_t& other)
+    inline auto&
+        utf_8_t::Assign_Copy(is_any_non_const_tr<utf_8_t> auto& self, const is_any_tr<utf_8_t> auto& other)
     {
-        this->unit_count = other.unit_count;
-        this->units[0] = other.units[0];
-        this->units[1] = other.units[1];
-        this->units[2] = other.units[2];
-        this->units[3] = other.units[3];
-    }
-
-    inline utf_8_t::utf_8_t(const volatile utf_8_t& other)
-    {
-        this->unit_count = other.unit_count;
-        this->units[0] = other.units[0];
-        this->units[1] = other.units[1];
-        this->units[2] = other.units[2];
-        this->units[3] = other.units[3];
-    }
-
-    inline utf_8_t::utf_8_t(utf_8_t&& other) noexcept
-    {
-        this->unit_count = nkr::Exchange(other.unit_count, 1);
-        this->units[0] = nkr::Move(other.units[0]);
-        this->units[1] = nkr::Move(other.units[1]);
-        this->units[2] = nkr::Move(other.units[2]);
-        this->units[3] = nkr::Move(other.units[3]);
-    }
-
-    inline utf_8_t::utf_8_t(volatile utf_8_t&& other) noexcept
-    {
-        this->unit_count = nkr::Exchange(other.unit_count, 1);
-        this->units[0] = nkr::Move(other.units[0]);
-        this->units[1] = nkr::Move(other.units[1]);
-        this->units[2] = nkr::Move(other.units[2]);
-        this->units[3] = nkr::Move(other.units[3]);
-    }
-
-    inline utf_8_t&
-        utf_8_t::operator =(const utf_8_t& other)
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = other.unit_count;
-            this->units[0] = other.units[0];
-            this->units[1] = other.units[1];
-            this->units[2] = other.units[2];
-            this->units[3] = other.units[3];
+        if (&self != std::addressof(other)) {
+            self.units = other.units;
         }
-        return *this;
+        return self;
     }
 
-    inline volatile utf_8_t&
-        utf_8_t::operator =(const utf_8_t& other)
-        volatile
+    inline auto&
+        utf_8_t::Assign_Move(is_any_non_const_tr<utf_8_t> auto& self, is_any_non_const_tr<utf_8_t> auto& other)
     {
-        if (this != std::addressof(other)) {
-            this->unit_count = other.unit_count;
-            this->units[0] = other.units[0];
-            this->units[1] = other.units[1];
-            this->units[2] = other.units[2];
-            this->units[3] = other.units[3];
+        if (&self != std::addressof(other)) {
+            self.units = nkr::Exchange(other.units, units_t{ unit_t(0) });
         }
-        return *this;
-    }
-
-    inline utf_8_t&
-        utf_8_t::operator =(const volatile utf_8_t& other)
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = other.unit_count;
-            this->units[0] = other.units[0];
-            this->units[1] = other.units[1];
-            this->units[2] = other.units[2];
-            this->units[3] = other.units[3];
-        }
-        return *this;
-    }
-
-    inline volatile utf_8_t&
-        utf_8_t::operator =(const volatile utf_8_t& other)
-        volatile
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = other.unit_count;
-            this->units[0] = other.units[0];
-            this->units[1] = other.units[1];
-            this->units[2] = other.units[2];
-            this->units[3] = other.units[3];
-        }
-        return *this;
-    }
-
-    inline utf_8_t&
-        utf_8_t::operator =(utf_8_t&& other)
-        noexcept
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = nkr::Exchange(other.unit_count, 1);
-            this->units[0] = nkr::Move(other.units[0]);
-            this->units[1] = nkr::Move(other.units[1]);
-            this->units[2] = nkr::Move(other.units[2]);
-            this->units[3] = nkr::Move(other.units[3]);
-        }
-        return *this;
-    }
-
-    inline volatile utf_8_t&
-        utf_8_t::operator =(utf_8_t&& other)
-        volatile noexcept
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = nkr::Exchange(other.unit_count, 1);
-            this->units[0] = nkr::Move(other.units[0]);
-            this->units[1] = nkr::Move(other.units[1]);
-            this->units[2] = nkr::Move(other.units[2]);
-            this->units[3] = nkr::Move(other.units[3]);
-        }
-        return *this;
-    }
-
-    inline utf_8_t&
-        utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other)
-        noexcept
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = nkr::Exchange(other.unit_count, 1);
-            this->units[0] = nkr::Move(other.units[0]);
-            this->units[1] = nkr::Move(other.units[1]);
-            this->units[2] = nkr::Move(other.units[2]);
-            this->units[3] = nkr::Move(other.units[3]);
-        }
-        return *this;
-    }
-
-    inline volatile utf_8_t&
-        utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other)
-        volatile noexcept
-    {
-        if (this != std::addressof(other)) {
-            this->unit_count = nkr::Exchange(other.unit_count, 1);
-            this->units[0] = nkr::Move(other.units[0]);
-            this->units[1] = nkr::Move(other.units[1]);
-            this->units[2] = nkr::Move(other.units[2]);
-            this->units[3] = nkr::Move(other.units[3]);
-        }
-        return *this;
-    }
-
-    inline utf_8_t::~utf_8_t()
-    {
-        this->unit_count = 1;
-        this->units[0] = 0;
-        this->units[1] = 0;
-        this->units[2] = 0;
-        this->units[3] = 0;
-    }
-
-    inline bool_t
-        utf_8_t::Is_Well_Formed()
-        const
-    {
-        if (this->unit_count == 1) {
-            if (this->units[0] >= 0x00 && this->units[0] <= 0x7F) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (this->unit_count == 2) {
-            if (this->units[0] >= 0xC2 && this->units[0] <= 0xDF &&
-                this->units[1] >= 0x80 && this->units[1] <= 0xBF) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (this->unit_count == 3) {
-            if (this->units[0] == 0xE0 &&
-                this->units[1] >= 0xA0 && this->units[1] <= 0xBF &&
-                this->units[2] >= 0x80 && this->units[2] <= 0xBF) {
-                return true;
-            } else if (this->units[0] >= 0xE1 && this->units[0] <= 0xEC &&
-                       this->units[1] >= 0x80 && this->units[1] <= 0xBF &&
-                       this->units[2] >= 0x80 && this->units[2] <= 0xBF) {
-                return true;
-            } else if (this->units[0] == 0xED &&
-                       this->units[1] >= 0x80 && this->units[1] <= 0x9F &&
-                       this->units[2] >= 0x80 && this->units[2] <= 0xBF) {
-                return true;
-            } else if (this->units[0] >= 0xEE && this->units[0] <= 0xEF &&
-                       this->units[1] >= 0x80 && this->units[1] <= 0xBF &&
-                       this->units[2] >= 0x80 && this->units[2] <= 0xBF) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (this->unit_count == 4) {
-            if (this->units[0] == 0xF0 &&
-                this->units[1] >= 0x90 && this->units[1] <= 0xBF &&
-                this->units[2] >= 0x80 && this->units[2] <= 0xBF &&
-                this->units[3] >= 0x80 && this->units[3] <= 0xBF) {
-                return true;
-            } else if (this->units[0] >= 0xF1 && this->units[0] <= 0xF3 &&
-                       this->units[1] >= 0x80 && this->units[1] <= 0xBF &&
-                       this->units[2] >= 0x80 && this->units[2] <= 0xBF &&
-                       this->units[3] >= 0x80 && this->units[3] <= 0xBF) {
-                return true;
-            } else if (this->units[0] == 0xF4 &&
-                       this->units[1] >= 0x80 && this->units[1] <= 0x8F &&
-                       this->units[2] >= 0x80 && this->units[2] <= 0xBF &&
-                       this->units[3] >= 0x80 && this->units[3] <= 0xBF) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return self;
     }
 
     inline void_t
-        utf_8_t::Encode(point_t point)
+        utf_8_t::Encode(is_any_non_const_tr<utf_8_t> auto& self, point_t point)
     {
+        self.units.Count(0);
+
         if (utf_32_t::Is_Scalar(point)) {
             if (point <= 0x7F) {
-                this->units[0] = static_cast<unit_t>(point);
-                this->unit_count = 1;
+                self.units = {
+                    unit_t(point),
+                };
             } else if (point <= 0x7FF) {
-                this->units[0] = static_cast<unit_t>(((point >> 6) & 0x1F) | 0xC0);
-                this->units[1] = static_cast<unit_t>((point & 0x3F) | 0x80);
-                this->unit_count = 2;
+                self.units = {
+                    unit_t(((point >> 6) & 0x1F) | 0xC0),
+                    unit_t((point & 0x3F) | 0x80),
+                };
             } else if (point <= 0xFFFF) {
-                this->units[0] = static_cast<unit_t>(((point >> 12) & 0x0F) | 0xE0);
-                this->units[1] = static_cast<unit_t>(((point >> 6) & 0x3F) | 0x80);
-                this->units[2] = static_cast<unit_t>((point & 0x3F) | 0x80);
-                this->unit_count = 3;
+                self.units = {
+                    unit_t(((point >> 12) & 0x0F) | 0xE0),
+                    unit_t(((point >> 6) & 0x3F) | 0x80),
+                    unit_t((point & 0x3F) | 0x80),
+                };
             } else {
-                this->units[0] = static_cast<unit_t>(((point >> 18) & 0x07) | 0xF0);
-                this->units[1] = static_cast<unit_t>(((point >> 12) & 0x3F) | 0x80);
-                this->units[2] = static_cast<unit_t>(((point >> 6) & 0x3F) | 0x80);
-                this->units[3] = static_cast<unit_t>((point & 0x3F) | 0x80);
-                this->unit_count = 4;
+                self.units = {
+                    unit_t(((point >> 18) & 0x07) | 0xF0),
+                    unit_t(((point >> 12) & 0x3F) | 0x80),
+                    unit_t(((point >> 6) & 0x3F) | 0x80),
+                    unit_t((point & 0x3F) | 0x80),
+                };
             }
         } else {
-            this->units[0] = 0xEF;
-            this->units[1] = 0xBF;
-            this->units[2] = 0xBD;
-            this->unit_count = 3;
+            self.units = {
+                unit_t(0xEF),
+                unit_t(0xBF),
+                unit_t(0xBD),
+            };
         }
 
-        nkr_ASSERT_THAT(Is_Well_Formed());
+        nkr_ASSERT_THAT(Is_Well_Formed(self));
     }
 
     inline point_t
-        utf_8_t::Decode()
-        const
+        utf_8_t::Decode(const is_any_tr<utf_8_t> auto& self)
     {
-        nkr_ASSERT_THAT(Is_Well_Formed());
+        nkr_ASSERT_THAT(Is_Well_Formed(self));
 
-        if (this->unit_count == 1) {
+        const count_t unit_count = self.units.Count();
+
+        if (unit_count == 1) {
             return
-                static_cast<u32_t>(this->units[0]);
-        } else if (this->unit_count == 2) {
+                u32_t(self.units[0]);
+        } else if (unit_count == 2) {
             return
-                ((static_cast<u32_t>(this->units[0]) & 0x1F) << 6) |
-                (static_cast<u32_t>(this->units[1]) & 0x3F);
-        } else if (this->unit_count == 3) {
+                ((u32_t(self.units[0]) & 0x1F) << 6) |
+                (u32_t(self.units[1]) & 0x3F);
+        } else if (unit_count == 3) {
             return
-                ((static_cast<u32_t>(this->units[0]) & 0x0F) << 12) |
-                ((static_cast<u32_t>(this->units[1]) & 0x3F) << 6) |
-                (static_cast<u32_t>(this->units[2]) & 0x3F);
+                ((u32_t(self.units[0]) & 0x0F) << 12) |
+                ((u32_t(self.units[1]) & 0x3F) << 6) |
+                (u32_t(self.units[2]) & 0x3F);
         } else {
             return
-                ((static_cast<u32_t>(this->units[0]) & 0x07) << 18) |
-                ((static_cast<u32_t>(this->units[1]) & 0x3F) << 12) |
-                ((static_cast<u32_t>(this->units[2]) & 0x3F) << 6) |
-                (static_cast<u32_t>(this->units[3]) & 0x3F);
+                ((u32_t(self.units[0]) & 0x07) << 18) |
+                ((u32_t(self.units[1]) & 0x3F) << 12) |
+                ((u32_t(self.units[2]) & 0x3F) << 6) |
+                (u32_t(self.units[3]) & 0x3F);
         }
     }
 
     inline count_t
-        utf_8_t::Read_Forward(const unit_t* from)
+        utf_8_t::Read_Forward(is_any_non_const_tr<utf_8_t> auto& self, const unit_t* from)
     {
         nkr_ASSERT_THAT(from);
 
-    #define read_1()                    \
-    {                                   \
-        this->units[0] = *(from + 0);   \
-        this->unit_count = 1;           \
-                                        \
-        return 1;                       \
+        auto& raw_units = self.units.Array();
+
+    #define read_1()                \
+    {                               \
+        raw_units[0] = *(from + 0); \
+                                    \
+        self.units.Count(1);        \
+                                    \
+        return 1;                   \
     }
 
-    #define read_2()                    \
-    {                                   \
-        this->units[0] = *(from + 0);   \
-        this->units[1] = *(from + 1);   \
-        this->unit_count = 2;           \
-                                        \
-        return 2;                       \
+    #define read_2()                \
+    {                               \
+        raw_units[0] = *(from + 0); \
+        raw_units[1] = *(from + 1); \
+                                    \
+        self.units.Count(2);        \
+                                    \
+        return 2;                   \
     }
 
-    #define read_3()                    \
-    {                                   \
-        this->units[0] = *(from + 0);   \
-        this->units[1] = *(from + 1);   \
-        this->units[2] = *(from + 2);   \
-        this->unit_count = 3;           \
-                                        \
-        return 3;                       \
+    #define read_3()                \
+    {                               \
+        raw_units[0] = *(from + 0); \
+        raw_units[1] = *(from + 1); \
+        raw_units[2] = *(from + 2); \
+                                    \
+        self.units.Count(3);        \
+                                    \
+        return 3;                   \
     }
 
-    #define read_4()                    \
-    {                                   \
-        this->units[0] = *(from + 0);   \
-        this->units[1] = *(from + 1);   \
-        this->units[2] = *(from + 2);   \
-        this->units[3] = *(from + 3);   \
-        this->unit_count = 4;           \
-                                        \
-        return 4;                       \
+    #define read_4()                \
+    {                               \
+        raw_units[0] = *(from + 0); \
+        raw_units[1] = *(from + 1); \
+        raw_units[2] = *(from + 2); \
+        raw_units[3] = *(from + 3); \
+                                    \
+        self.units.Count(4);        \
+                                    \
+        return 4;                   \
     }
 
     #define replace(READ_UNIT_COUNT_p)  \
     {                                   \
-        this->units[0] = 0xEF;          \
-        this->units[1] = 0xBF;          \
-        this->units[2] = 0xBD;          \
-        this->unit_count = 3;           \
+        raw_units[0] = unit_t(0xEF);    \
+        raw_units[1] = unit_t(0xBF);    \
+        raw_units[2] = unit_t(0xBD);    \
+                                        \
+        self.units.Count(3);            \
                                         \
         return READ_UNIT_COUNT_p;       \
     }
@@ -493,59 +307,66 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_8_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        utf_8_t::Read_Reverse(is_any_non_const_tr<utf_8_t> auto& self, const unit_t* from, const unit_t* first)
     {
         nkr_ASSERT_THAT(from);
         nkr_ASSERT_THAT(first);
         nkr_ASSERT_THAT(from > first);
 
-    #define read_1()                    \
-    {                                   \
-        this->units[0] = *(from - 1);   \
-        this->unit_count = 1;           \
-                                        \
-        return 1;                       \
+        auto& raw_units = self.units.Array();
+
+    #define read_1()                \
+    {                               \
+        raw_units[0] = *(from - 1); \
+                                    \
+        self.units.Count(1);        \
+                                    \
+        return 1;                   \
     }
 
-    #define read_2()                    \
-    {                                   \
-        this->units[0] = *(from - 2);   \
-        this->units[1] = *(from - 1);   \
-        this->unit_count = 2;           \
-                                        \
-        return 2;                       \
+    #define read_2()                \
+    {                               \
+        raw_units[0] = *(from - 2); \
+        raw_units[1] = *(from - 1); \
+                                    \
+        self.units.Count(2);        \
+                                    \
+        return 2;                   \
     }
 
-    #define read_3()                    \
-    {                                   \
-        this->units[0] = *(from - 3);   \
-        this->units[1] = *(from - 2);   \
-        this->units[2] = *(from - 1);   \
-        this->unit_count = 3;           \
-                                        \
-        return 3;                       \
+    #define read_3()                \
+    {                               \
+        raw_units[0] = *(from - 3); \
+        raw_units[1] = *(from - 2); \
+        raw_units[2] = *(from - 1); \
+                                    \
+        self.units.Count(3);        \
+                                    \
+        return 3;                   \
     }
 
-    #define read_4()                    \
-    {                                   \
-        this->units[0] = *(from - 4);   \
-        this->units[1] = *(from - 3);   \
-        this->units[2] = *(from - 2);   \
-        this->units[3] = *(from - 1);   \
-        this->unit_count = 4;           \
-                                        \
-        return 4;                       \
+    #define read_4()                \
+    {                               \
+        raw_units[0] = *(from - 4); \
+        raw_units[1] = *(from - 3); \
+        raw_units[2] = *(from - 2); \
+        raw_units[3] = *(from - 1); \
+                                    \
+        self.units.Count(4);        \
+                                    \
+        return 4;                   \
     }
 
     #define replace(READ_UNIT_COUNT_p)  \
     {                                   \
-        this->units[0] = 0xEF;          \
-        this->units[1] = 0xBF;          \
-        this->units[2] = 0xBD;          \
-        this->unit_count = 3;           \
+        raw_units[0] = unit_t(0xEF);    \
+        raw_units[1] = unit_t(0xBF);    \
+        raw_units[2] = unit_t(0xBD);    \
+                                        \
+        self.units.Count(3);            \
                                         \
         return READ_UNIT_COUNT_p;       \
-    }
+    }   
 
         if (*(from - 1) >= 0x00 && *(from - 1) <= 0x7F) {
             read_1(); // w[00..7F]
@@ -651,79 +472,322 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
+        utf_8_t::Unit_Count(const is_any_tr<utf_8_t> auto& self)
+    {
+        return self.units.Count();
+    }
+
+    inline bool_t
+        utf_8_t::Is_Well_Formed(const is_any_tr<utf_8_t> auto& self)
+    {
+        const count_t unit_count = self.units.Count();
+
+        if (unit_count == 1) {
+            if (self.units[0] >= 0x00 && self.units[0] <= 0x7F) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (unit_count == 2) {
+            if (self.units[0] >= 0xC2 && self.units[0] <= 0xDF &&
+                self.units[1] >= 0x80 && self.units[1] <= 0xBF) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (unit_count == 3) {
+            if (self.units[0] == 0xE0 &&
+                self.units[1] >= 0xA0 && self.units[1] <= 0xBF &&
+                self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else if (self.units[0] >= 0xE1 && self.units[0] <= 0xEC &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else if (self.units[0] == 0xED &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0x9F &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else if (self.units[0] >= 0xEE && self.units[0] <= 0xEF &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (unit_count == 4) {
+            if (self.units[0] == 0xF0 &&
+                self.units[1] >= 0x90 && self.units[1] <= 0xBF &&
+                self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
+                self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
+                return true;
+            } else if (self.units[0] >= 0xF1 && self.units[0] <= 0xF3 &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
+                       self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
+                return true;
+            } else if (self.units[0] == 0xF4 &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0x8F &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
+                       self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    inline typename utf_8_t::unit_t
+        utf_8_t::Operator_Access(const is_any_tr<utf_8_t> auto& self, index_t index)
+    {
+        nkr_ASSERT_THAT(index < self.units.Count());
+
+        return self.units[index];
+    }
+
+    inline auto&
+        utf_8_t::Assign_None(is_any_non_const_tr<utf_8_t> auto& self)
+    {
+        self.units = {
+            unit_t(0),
+        };
+
+        return self;
+    }
+
+    inline bool_t
+        utf_8_t::Is_Equal_To_None(const is_any_tr<utf_8_t> auto& self)
+    {
+        return self.units.Count() == 1 && self.units[0] == 0;
+    }
+
+    inline utf_8_t::utf_8_t() :
+        units{ unit_t(0) }
+    {
+    }
+
+    inline utf_8_t::utf_8_t(const utf_8_t& other) :
+        units(other.units)
+    {
+    }
+
+    inline utf_8_t::utf_8_t(const volatile utf_8_t& other) :
+        units(other.units)
+    {
+    }
+
+    inline utf_8_t::utf_8_t(utf_8_t&& other) noexcept :
+        units(nkr::Exchange(other.units, units_t{ unit_t(0) }))
+    {
+    }
+
+    inline utf_8_t::utf_8_t(volatile utf_8_t&& other) noexcept :
+        units(nkr::Exchange(other.units, units_t{ unit_t(0) }))
+    {
+    }
+
+    inline utf_8_t&
+        utf_8_t::operator =(const utf_8_t& other)
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline volatile utf_8_t&
+        utf_8_t::operator =(const utf_8_t& other)
+        volatile
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline utf_8_t&
+        utf_8_t::operator =(const volatile utf_8_t& other)
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline volatile utf_8_t&
+        utf_8_t::operator =(const volatile utf_8_t& other)
+        volatile
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline utf_8_t&
+        utf_8_t::operator =(utf_8_t&& other)
+        noexcept
+    {
+        return Assign_Move(*this, other);
+    }
+
+    inline volatile utf_8_t&
+        utf_8_t::operator =(utf_8_t&& other)
+        volatile noexcept
+    {
+        return Assign_Move(*this, other);
+    }
+
+    inline utf_8_t&
+        utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other)
+        noexcept
+    {
+        return Assign_Move(*this, other);
+    }
+
+    inline volatile utf_8_t&
+        utf_8_t::operator =(is_just_volatile_tr<utf_8_t> auto&& other)
+        volatile noexcept
+    {
+        return Assign_Move(*this, other);
+    }
+
+    inline utf_8_t::~utf_8_t()
+    {
+        this->units = {
+            unit_t(0),
+        };
+    }
+
+    inline void_t
+        utf_8_t::Encode(point_t point)
+    {
+        return Encode(*this, point);
+    }
+
+    inline void_t
+        utf_8_t::Encode(point_t point)
+        volatile
+    {
+        return Encode(*this, point);
+    }
+
+    inline point_t
+        utf_8_t::Decode()
+        const
+    {
+        return Decode(*this);
+    }
+
+    inline point_t
+        utf_8_t::Decode()
+        const volatile
+    {
+        return Decode(*this);
+    }
+
+    inline count_t
+        utf_8_t::Read_Forward(const unit_t* from)
+    {
+        return Read_Forward(*this, from);
+    }
+
+    inline count_t
+        utf_8_t::Read_Forward(const unit_t* from)
+        volatile
+    {
+        return Read_Forward(*this, from);
+    }
+
+    inline count_t
+        utf_8_t::Read_Reverse(const unit_t* from, const unit_t* first)
+    {
+        return Read_Reverse(*this, from, first);
+    }
+
+    inline count_t
+        utf_8_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        volatile
+    {
+        return Read_Reverse(*this, from, first);
+    }
+
+    inline count_t
         utf_8_t::Unit_Count()
         const
     {
-        return this->unit_count;
+        return Unit_Count(*this);
+    }
+
+    inline count_t
+        utf_8_t::Unit_Count()
+        const volatile
+    {
+        return Unit_Count(*this);
+    }
+
+    inline bool_t
+        utf_8_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_8_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
     }
 
     inline typename utf_8_t::unit_t
         utf_8_t::operator [](index_t index)
         const
     {
-        nkr_ASSERT_THAT(index < this->unit_count);
-
-        return this->units[index];
+        return Operator_Access(*this, index);
     }
 
-    inline utf_8_t::utf_8_t(none_t)
+    inline typename utf_8_t::unit_t
+        utf_8_t::operator [](index_t index)
+        const volatile
     {
-        this->unit_count = 1;
-        this->units[0] = 0;
-        this->units[1] = 0;
-        this->units[2] = 0;
-        this->units[3] = 0;
+        return Operator_Access(*this, index);
+    }
+
+    inline utf_8_t::utf_8_t(none_t) :
+        utf_8_t()
+    {
     }
 
     inline utf_8_t&
         utf_8_t::operator =(none_t)
     {
-        this->unit_count = 1;
-        this->units[0] = 0;
-        this->units[1] = 0;
-        this->units[2] = 0;
-        this->units[3] = 0;
-        return *this;
+        return Assign_None(*this);
     }
 
     inline volatile utf_8_t&
         utf_8_t::operator =(none_t)
         volatile
     {
-        this->unit_count = 1;
-        this->units[0] = 0;
-        this->units[1] = 0;
-        this->units[2] = 0;
-        this->units[3] = 0;
-        return *this;
+        return Assign_None(*this);
     }
 
     inline bool_t
         utf_8_t::operator ==(none_t)
         const
     {
-        return this->unit_count == 1 && this->units[0] == 0;
+        return Is_Equal_To_None(*this);
     }
 
     inline bool_t
         utf_8_t::operator ==(none_t)
         const volatile
     {
-        return this->unit_count == 1 && this->units[0] == 0;
+        return Is_Equal_To_None(*this);
     }
 
     inline bool_t
         utf_8_t::operator !=(none_t)
         const
     {
-        return !operator ==(none_t());
+        return !Is_Equal_To_None(*this);
     }
 
     inline bool_t
         utf_8_t::operator !=(none_t)
         const volatile
     {
-        return !operator ==(none_t());
+        return !Is_Equal_To_None(*this);
     }
 
 }}

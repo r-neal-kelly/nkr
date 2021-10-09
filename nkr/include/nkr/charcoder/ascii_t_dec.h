@@ -13,13 +13,53 @@ namespace nkr { namespace charcoder {
 
     class ascii_t
     {
+    private:
+        static_assert(sizeof(point_t) >= sizeof(u8_t));
+
     public:
-        using unit_t    = c8_t;
+        /// @name aliases
+        /// @copydoc 
+        /// @{
+        using unit_t    = char;
+        /// @}
+
+    public:
+        /// @name static constexpr functions
+        /// @copydoc 
+        /// @{
+        static constexpr std_bool_t Has_1_To_1_Unit_To_Point_Ratio();
+        /// @}
+
+    private:
+        static auto&    Assign_Copy(is_any_non_const_tr<ascii_t> auto& self, const is_any_tr<ascii_t> auto& other);
+        static auto&    Assign_Move(is_any_non_const_tr<ascii_t> auto& self, is_any_non_const_tr<ascii_t> auto& other);
+
+        static void_t   Encode(is_any_non_const_tr<ascii_t> auto& self, point_t point);
+        static point_t  Decode(const is_any_tr<ascii_t> auto& self);
+
+        static count_t  Read_Forward(is_any_non_const_tr<ascii_t> auto& self, const unit_t* from);
+        static count_t  Read_Reverse(is_any_non_const_tr<ascii_t> auto& self, const unit_t* from, const unit_t* first);
+
+        static count_t  Unit_Count(const is_any_tr<ascii_t> auto& self);
+
+        static bool_t   Is_Well_Formed(const is_any_tr<ascii_t> auto& self);
+
+        static unit_t   Operator_Access(const is_any_tr<ascii_t> auto& self, index_t index);
+
+        static auto&    Assign_None(is_any_non_const_tr<ascii_t> auto& self);
+        static bool_t   Is_Equal_To_None(const is_any_tr<ascii_t> auto& self);
 
     protected:
+        /// @name protected object data
+        /// @copydoc 
+        /// @{
         unit_t  unit;
+        /// @}
 
     public:
+        /// @name objects
+        /// @copydoc 
+        /// @{
         ascii_t();
 
         ascii_t(const ascii_t& other);
@@ -37,20 +77,41 @@ namespace nkr { namespace charcoder {
         volatile ascii_t&   operator =(is_just_volatile_tr<ascii_t> auto&& other) volatile noexcept;
 
         ~ascii_t();
+        /// @}
 
     public:
-        bool_t  Is_Well_Formed() const;
-
+        /// @name methods
+        /// @copydoc 
+        /// @{
         void_t  Encode(point_t point);
+        void_t  Encode(point_t point) volatile;
         point_t Decode() const;
+        point_t Decode() const volatile;
 
         count_t Read_Forward(const unit_t* from);
+        count_t Read_Forward(const unit_t* from) volatile;
         count_t Read_Reverse(const unit_t* from, const unit_t* first);
+        count_t Read_Reverse(const unit_t* from, const unit_t* first) volatile;
 
         count_t Unit_Count() const;
+        count_t Unit_Count() const volatile;
+        /// @}
+
+    protected:
+        /// @name protected methods
+        /// @copydoc 
+        /// @{
+        bool_t  Is_Well_Formed() const;
+        bool_t  Is_Well_Formed() const volatile;
+        /// @}
 
     public:
+        /// @name operators
+        /// @copydoc 
+        /// @{
         unit_t  operator [](index_t index) const;
+        unit_t  operator [](index_t index) const volatile;
+        /// @}
 
     public:
         /// @name none_t interface

@@ -163,6 +163,7 @@ namespace nkr {
     /// @{
     template <typename type_p>
     concept any_character_tr =
+        is_any_tr<type_p, char> ||
         is_any_tr<type_p, c8_t> ||
         is_any_tr<type_p, c16_t> ||
         is_any_tr<type_p, c32_t>;

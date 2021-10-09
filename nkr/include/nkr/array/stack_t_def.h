@@ -141,6 +141,15 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline void_t
+        stack_t<unit_p, capacity_p>::Count(is_any_non_const_tr<stack_t> auto& self, count_t count)
+    {
+        nkr_ASSERT_THAT(count <= Capacity());
+
+        self.unit_count = count;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline auto&
         stack_t<unit_p, capacity_p>::At(is_any_tr<stack_t> auto& self, index_t index)
     {
@@ -492,6 +501,21 @@ namespace nkr { namespace array {
         const volatile
     {
         return Count(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline void_t
+        stack_t<unit_p, capacity_p>::Count(count_t count)
+    {
+        return Count(*this, count);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline void_t
+        stack_t<unit_p, capacity_p>::Count(count_t count)
+        volatile
+    {
+        return Count(*this, count);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
