@@ -11,6 +11,12 @@
 
 namespace nkr { namespace charcoder {
 
+    inline constexpr point_t
+        ascii_t::Replacement_Point()
+    {
+        return '?';
+    }
+
     inline constexpr std_bool_t
         ascii_t::Has_1_To_1_Unit_To_Point_Ratio()
     {
@@ -38,7 +44,11 @@ namespace nkr { namespace charcoder {
     inline void_t
         ascii_t::Encode(is_any_non_const_tr<ascii_t> auto& self, point_t point)
     {
-        self.unit = point > -1 ? static_cast<unit_t>(point) : '?';
+        if (point >= 0 && point <= 127) {
+            self.unit = unit_t(point);
+        } else {
+            self.unit = '?';
+        }
 
         nkr_ASSERT_THAT(Is_Well_Formed(self));
     }
@@ -110,6 +120,12 @@ namespace nkr { namespace charcoder {
     inline ascii_t::ascii_t() :
         unit(0)
     {
+    }
+
+    inline ascii_t::ascii_t(point_t point) :
+        ascii_t()
+    {
+        Encode(*this, point);
     }
 
     inline ascii_t::ascii_t(const ascii_t& other) :

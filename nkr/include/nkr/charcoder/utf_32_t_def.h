@@ -12,6 +12,12 @@
 
 namespace nkr { namespace charcoder {
 
+    inline constexpr point_t
+        utf_32_t::Replacement_Point()
+    {
+        return utf_32_t::REPLACEMENT_CHARACTER;
+    }
+
     inline constexpr std_bool_t
         utf_32_t::Has_1_To_1_Unit_To_Point_Ratio()
     {
@@ -559,6 +565,12 @@ namespace nkr { namespace charcoder {
         }
     }
 
+    inline utf_32_be_t::utf_32_be_t(point_t point) :
+        utf_32_be_t()
+    {
+        Encode(*this, point);
+    }
+
     inline void_t
         utf_32_be_t::Encode(point_t point)
     {
@@ -689,6 +701,12 @@ namespace nkr { namespace charcoder {
         } else {
             static_assert(false);
         }
+    }
+
+    inline utf_32_le_t::utf_32_le_t(point_t point) :
+        utf_32_le_t()
+    {
+        Encode(*this, point);
     }
 
     inline void_t

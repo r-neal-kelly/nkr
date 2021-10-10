@@ -53,6 +53,12 @@ namespace nkr { namespace charcoder {
         This holds true when reading a UTF-8 sequence backwards or forwards.
     */
 
+    inline constexpr point_t
+        utf_8_t::Replacement_Point()
+    {
+        return utf_32_t::REPLACEMENT_CHARACTER;
+    }
+
     inline constexpr std_bool_t
         utf_8_t::Has_1_To_1_Unit_To_Point_Ratio()
     {
@@ -566,6 +572,12 @@ namespace nkr { namespace charcoder {
     inline utf_8_t::utf_8_t() :
         units{ unit_t(0) }
     {
+    }
+
+    inline utf_8_t::utf_8_t(point_t point) :
+        utf_8_t()
+    {
+        Encode(*this, point);
     }
 
     inline utf_8_t::utf_8_t(const utf_8_t& other) :

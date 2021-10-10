@@ -42,6 +42,19 @@ namespace nkr { namespace $charcoder_i {
         any_character_tr<typename type_p::unit_t>;
 
     template <typename type_p>
+    concept static_constexpr_functions_i = requires()
+    {
+        { std::remove_cv_t<type_p>::Replacement_Point() }               -> is_tr<charcoder::point_t>;
+        { std::remove_cv_t<type_p>::Has_1_To_1_Unit_To_Point_Ratio() }  -> is_tr<std_bool_t>;
+    };
+
+    template <typename type_p>
+    concept objects_i = requires()
+    {
+        { std::remove_cv_t<type_p>(typename charcoder::point_t()) } -> is_tr<std::remove_cv_t<type_p>>;
+    };
+
+    template <typename type_p>
     concept methods_i = requires (std::remove_cv_t<type_p> charcoder,
                                   const std::remove_cv_t<type_p> const_charcoder,
                                   volatile std::remove_cv_t<type_p> volatile_charcoder,
@@ -51,8 +64,6 @@ namespace nkr { namespace $charcoder_i {
                                   const typename type_p::unit_t* from_unit,
                                   const typename type_p::unit_t* first_unit)
     {
-        { std::remove_cv_t<type_p>::Has_1_To_1_Unit_To_Point_Ratio() }  -> is_tr<std_bool_t>; // constexpr
-
         { charcoder.Encode(typename charcoder::point_t()) }             -> is_tr<void_t>;
         { volatile_charcoder.Encode(typename charcoder::point_t()) }    -> is_tr<void_t>;
         { charcoder.Decode() }                                          -> is_tr<typename charcoder::point_t>;
@@ -86,6 +97,8 @@ namespace nkr {
     template <typename type_p>
     concept charcoder_i =
         $charcoder_i::unit_i<type_p> &&
+        $charcoder_i::static_constexpr_functions_i<type_p> &&
+        $charcoder_i::objects_i<type_p> &&
         $charcoder_i::methods_i<type_p> &&
         none_i<type_p>;
 

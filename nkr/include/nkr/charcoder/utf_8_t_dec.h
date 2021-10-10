@@ -30,6 +30,7 @@ namespace nkr { namespace charcoder {
         /// @name static constexpr functions
         /// @copydoc 
         /// @{
+        static constexpr point_t    Replacement_Point();
         static constexpr std_bool_t Has_1_To_1_Unit_To_Point_Ratio();
         /// @}
 
@@ -64,6 +65,8 @@ namespace nkr { namespace charcoder {
         /// @copydoc 
         /// @{
         utf_8_t();
+
+        utf_8_t(point_t point);
 
         utf_8_t(const utf_8_t& other);
         utf_8_t(const volatile utf_8_t& other);
