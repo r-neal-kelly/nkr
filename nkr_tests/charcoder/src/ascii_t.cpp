@@ -27,7 +27,17 @@ namespace nkr { namespace charcoder {
         nkr_NON_CONST,  \
         nkr_CONST
 
-        static point_t Random_Non_Replacement_And_Non_Terminus_Point()
+        static inline point_t Random_Valid_Point()
+        {
+            return Random<point_t>(0, 127);
+        }
+
+        static inline point_t Random_Valid_And_Non_Terminus_Point()
+        {
+            return Random<point_t>(1, 127);
+        }
+
+        static inline point_t Random_Valid_And_Non_Replacement_And_Non_Terminus_Point()
         {
             point_t random;
             do {
@@ -37,7 +47,7 @@ namespace nkr { namespace charcoder {
             return random;
         }
 
-        static typename ascii_t::unit_t Random_Non_Replacement_And_Non_Terminus_Unit()
+        static inline typename ascii_t::unit_t Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit()
         {
             ascii_t::unit_t random;
             do {
@@ -62,6 +72,16 @@ namespace nkr { namespace charcoder {
 
         TEST_SUITE("static constexpr functions")
         {
+            TEST_SUITE("Replacement_Point()")
+            {
+                TEST_CASE_TEMPLATE("should return the replacement character, currently '?'", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    static_assert(ascii_p::Replacement_Point() == '?');
+                }
+            }
+
             TEST_SUITE("Has_1_To_1_Unit_To_Point_Ratio()")
             {
                 TEST_CASE_TEMPLATE("should always return true", ascii_p, nkr_ALL)
@@ -143,7 +163,162 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("copy_ctor()")
             {
+                TEST_CASE_TEMPLATE("should copy other's data so that it decodes the same point", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
 
+                    point_t random = Random_Valid_Point();
+                    ascii_p other = random;
+                    ascii_p ascii = other;
+                    CHECK(ascii.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter other", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    ascii_p other = random;
+                    ascii_p ascii = other;
+                    CHECK(other.Decode() == random);
+                }
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move other's data so that it decodes the other's point", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    std::remove_const_t<ascii_p> other = random;
+                    ascii_p ascii = nkr::Move(other);
+                    CHECK(ascii.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should set other's data so that it decodes the terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    std::remove_const_t<ascii_p> other = random;
+                    ascii_p ascii = nkr::Move(other);
+                    CHECK(other.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("copy_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy others data so that it decodes the same point", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    const ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = other;
+                    CHECK(ascii.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter other", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    const ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = other;
+                    CHECK(other.Decode() == random);
+                }
+            }
+
+            TEST_SUITE("copy_volatile_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy others data so that it decodes the same point", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    const volatile ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = other;
+                    CHECK(ascii.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter other", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    const volatile ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = other;
+                    CHECK(other.Decode() == random);
+                }
+            }
+
+            TEST_SUITE("move_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move others data so that it decodes to same point", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = nkr::Move(other);
+                    CHECK(ascii.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should set other's data so that it decodes the terminus", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = nkr::Move(other);
+                    CHECK(other.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("move_volatile assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move others data so that it decodes to same point", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_Point();
+                    volatile ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = nkr::Move(other);
+                    CHECK(ascii.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should set other's data so that it decodes the terminus", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    volatile ascii_p other = random;
+                    ascii_p ascii;
+                    ascii = nkr::Move(other);
+                    CHECK(other.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_CASE_TEMPLATE("should set its data to decode the terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+                    
+                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    ascii_p ascii = random;
+                    CHECK(ascii.Decode() != 0);
+                    ascii.~ascii_t();
+                    CHECK(ascii.Decode() == 0);
+                }
             }
         }
 
@@ -216,13 +391,13 @@ namespace nkr { namespace charcoder {
 
                     constexpr count_t c_string_unit_count = 8;
                     const unit_t c_string[c_string_unit_count] = {
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
                         0,
                     };
                     const index_t index = Random<index_t>(0, c_string_unit_count - 2);
@@ -239,13 +414,13 @@ namespace nkr { namespace charcoder {
 
                     constexpr count_t c_string_unit_count = 8;
                     const unit_t c_string[c_string_unit_count] = {
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
                         0,
                     };
                     const index_t index = Random<index_t>(0, c_string_unit_count - 2);
@@ -260,13 +435,13 @@ namespace nkr { namespace charcoder {
 
                     constexpr count_t c_string_unit_count = 8;
                     const unit_t c_string[c_string_unit_count] = {
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
                         0,
                     };
                     const unit_t* pointer = c_string;
@@ -289,13 +464,13 @@ namespace nkr { namespace charcoder {
 
                     constexpr count_t c_string_unit_count = 8;
                     const unit_t c_string[c_string_unit_count] = {
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
                         0,
                     };
                     const index_t index = Random<index_t>(1, c_string_unit_count - 1);
@@ -312,13 +487,13 @@ namespace nkr { namespace charcoder {
 
                     constexpr count_t c_string_unit_count = 8;
                     const unit_t c_string[c_string_unit_count] = {
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
                         0,
                     };
                     const index_t index = Random<index_t>(1, c_string_unit_count - 1);
@@ -333,13 +508,13 @@ namespace nkr { namespace charcoder {
 
                     constexpr count_t c_string_unit_count = 8;
                     const unit_t c_string[c_string_unit_count] = {
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
+                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
                         0,
                     };
                     const unit_t* pointer = c_string + c_string_unit_count;
@@ -374,9 +549,82 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Non_Replacement_And_Non_Terminus_Point();
+                    point_t random = Random_Valid_And_Non_Replacement_And_Non_Terminus_Point();
                     ascii_p ascii = random;
                     CHECK(ascii[0] == random);
+                }
+            }
+        }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_SUITE("none_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set to terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = none_t();
+                    CHECK(ascii.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("none_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set to terminus", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    CHECK(ascii.Decode() != 0);
+                    ascii = none_t();
+                    CHECK(ascii.Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    CHECK(&(ascii = none_t()) == &ascii);
+                }
+            }
+
+            TEST_SUITE("==(none_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true if equal to terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = 0;
+                    CHECK_TRUE(ascii == none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should return false if not equal to terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    CHECK_FALSE(ascii == none_t());
+                }
+            }
+
+            TEST_SUITE("!=(none_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true if not equal to terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    CHECK_TRUE(ascii != none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should return false if equal to terminus", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    ascii_p ascii = 0;
+                    CHECK_FALSE(ascii != none_t());
                 }
             }
         }
