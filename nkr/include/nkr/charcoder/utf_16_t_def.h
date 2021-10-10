@@ -43,6 +43,36 @@ namespace nkr { namespace charcoder {
         return self;
     }
 
+    inline bool_t
+        utf_16_t::Is_Well_Formed_Normal(const is_any_tr<utf_16_t> auto& self)
+    {
+        if (self.units.Count() == 1) {
+            return
+                utf_32_t::Is_Scalar(self.units[0]);
+        } else if (self.units.Count() == 2) {
+            return
+                utf_32_t::Is_Surrogate_High(self.units[0]) &&
+                utf_32_t::Is_Surrogate_Low(self.units[1]);
+        } else {
+            return false;
+        }
+    }
+
+    inline bool_t
+        utf_16_t::Is_Well_Formed_Swapped(const is_any_tr<utf_16_t> auto& self)
+    {
+        if (self.units.Count() == 1) {
+            return
+                utf_32_t::Is_Scalar(os::endian::Swap(self.units[0]));
+        } else if (self.units.Count() == 2) {
+            return
+                utf_32_t::Is_Surrogate_High(os::endian::Swap(self.units[0])) &&
+                utf_32_t::Is_Surrogate_Low(os::endian::Swap(self.units[1]));
+        } else {
+            return false;
+        }
+    }
+
     inline void_t
         utf_16_t::Encode_Normal(is_any_non_const_tr<utf_16_t> auto& self, point_t point)
     {
@@ -253,36 +283,6 @@ namespace nkr { namespace charcoder {
         return self.units.Count();
     }
 
-    inline bool_t
-        utf_16_t::Is_Well_Formed_Normal(const is_any_tr<utf_16_t> auto& self)
-    {
-        if (self.units.Count() == 1) {
-            return
-                utf_32_t::Is_Scalar(self.units[0]);
-        } else if (self.units.Count() == 2) {
-            return
-                utf_32_t::Is_Surrogate_High(self.units[0]) &&
-                utf_32_t::Is_Surrogate_Low(self.units[1]);
-        } else {
-            return false;
-        }
-    }
-
-    inline bool_t
-        utf_16_t::Is_Well_Formed_Swapped(const is_any_tr<utf_16_t> auto& self)
-    {
-        if (self.units.Count() == 1) {
-            return
-                utf_32_t::Is_Scalar(os::endian::Swap(self.units[0]));
-        } else if (self.units.Count() == 2) {
-            return
-                utf_32_t::Is_Surrogate_High(os::endian::Swap(self.units[0])) &&
-                utf_32_t::Is_Surrogate_Low(os::endian::Swap(self.units[1]));
-        } else {
-            return false;
-        }
-    }
-
     inline typename utf_16_t::unit_t
         utf_16_t::Operator_Access(const is_any_tr<utf_16_t> auto& self, index_t index)
     {
@@ -393,6 +393,34 @@ namespace nkr { namespace charcoder {
         };
     }
 
+    inline bool_t
+        utf_16_t::Is_Well_Formed_Normal()
+        const
+    {
+        return Is_Well_Formed_Normal(*this);
+    }
+
+    inline bool_t
+        utf_16_t::Is_Well_Formed_Normal()
+        const volatile
+    {
+        return Is_Well_Formed_Normal(*this);
+    }
+
+    inline bool_t
+        utf_16_t::Is_Well_Formed_Swapped()
+        const
+    {
+        return Is_Well_Formed_Swapped(*this);
+    }
+
+    inline bool_t
+        utf_16_t::Is_Well_Formed_Swapped()
+        const volatile
+    {
+        return Is_Well_Formed_Swapped(*this);
+    }
+
     inline void_t
         utf_16_t::Encode_Normal(point_t point)
     {
@@ -511,34 +539,6 @@ namespace nkr { namespace charcoder {
         const volatile
     {
         return Unit_Count(*this);
-    }
-
-    inline bool_t
-        utf_16_t::Is_Well_Formed_Normal()
-        const
-    {
-        return Is_Well_Formed_Normal(*this);
-    }
-
-    inline bool_t
-        utf_16_t::Is_Well_Formed_Normal()
-        const volatile
-    {
-        return Is_Well_Formed_Normal(*this);
-    }
-
-    inline bool_t
-        utf_16_t::Is_Well_Formed_Swapped()
-        const
-    {
-        return Is_Well_Formed_Swapped(*this);
-    }
-
-    inline bool_t
-        utf_16_t::Is_Well_Formed_Swapped()
-        const volatile
-    {
-        return Is_Well_Formed_Swapped(*this);
     }
 
     inline typename utf_16_t::unit_t
@@ -602,6 +602,19 @@ namespace nkr { namespace charcoder {
     }
 
     template <typename>
+    inline bool_t
+        utf_16_be_t::Is_Well_Formed(const is_any_tr<utf_16_be_t> auto& self)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Is_Well_Formed_Normal();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Is_Well_Formed_Swapped();
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
     inline void_t
         utf_16_be_t::Encode(is_any_non_const_tr<utf_16_be_t> auto& self, point_t point)
     {
@@ -653,25 +666,26 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
-    inline bool_t
-        utf_16_be_t::Is_Well_Formed(const is_any_tr<utf_16_be_t> auto& self)
-    {
-        if constexpr (os::endian::Is_Big()) {
-            return self.Is_Well_Formed_Normal();
-        } else if constexpr (os::endian::Is_Little()) {
-            return self.Is_Well_Formed_Swapped();
-        } else {
-            static_assert(false);
-        }
-    }
-
     inline utf_16_be_t::utf_16_be_t(point_t point) :
         utf_16_be_t()
     {
         Encode(*this, point);
     }
 
+    inline bool_t
+        utf_16_be_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_16_be_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
+    }
+
     inline void_t
         utf_16_be_t::Encode(point_t point)
     {
@@ -725,18 +739,17 @@ namespace nkr { namespace charcoder {
         return Read_Reverse(*this, from, first);
     }
 
+    template <typename>
     inline bool_t
-        utf_16_be_t::Is_Well_Formed()
-        const
+        utf_16_le_t::Is_Well_Formed(const is_any_tr<utf_16_le_t> auto& self)
     {
-        return Is_Well_Formed(*this);
-    }
-
-    inline bool_t
-        utf_16_be_t::Is_Well_Formed()
-        const volatile
-    {
-        return Is_Well_Formed(*this);
+        if constexpr (os::endian::Is_Big()) {
+            return self.Is_Well_Formed_Swapped();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Is_Well_Formed_Normal();
+        } else {
+            static_assert(false);
+        }
     }
 
     template <typename>
@@ -791,25 +804,26 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
-    inline bool_t
-        utf_16_le_t::Is_Well_Formed(const is_any_tr<utf_16_le_t> auto& self)
-    {
-        if constexpr (os::endian::Is_Big()) {
-            return self.Is_Well_Formed_Swapped();
-        } else if constexpr (os::endian::Is_Little()) {
-            return self.Is_Well_Formed_Normal();
-        } else {
-            static_assert(false);
-        }
-    }
-
     inline utf_16_le_t::utf_16_le_t(point_t point) :
         utf_16_le_t()
     {
         Encode(*this, point);
     }
 
+    inline bool_t
+        utf_16_le_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_16_le_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
+    }
+
     inline void_t
         utf_16_le_t::Encode(point_t point)
     {
@@ -861,20 +875,6 @@ namespace nkr { namespace charcoder {
         volatile
     {
         return Read_Reverse(*this, from, first);
-    }
-
-    inline bool_t
-        utf_16_le_t::Is_Well_Formed()
-        const
-    {
-        return Is_Well_Formed(*this);
-    }
-
-    inline bool_t
-        utf_16_le_t::Is_Well_Formed()
-        const volatile
-    {
-        return Is_Well_Formed(*this);
     }
 
 }}

@@ -72,6 +72,18 @@ namespace nkr { namespace charcoder {
         return self;
     }
 
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Normal(const is_any_tr<utf_32_t> auto& self)
+    {
+        return Is_Scalar(self.unit);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Swapped(const is_any_tr<utf_32_t> auto& self)
+    {
+        return Is_Scalar(os::endian::Swap(self.unit));
+    }
+
     inline void_t
         utf_32_t::Encode_Normal(is_any_non_const_tr<utf_32_t> auto& self, point_t point)
     {
@@ -172,18 +184,6 @@ namespace nkr { namespace charcoder {
         utf_32_t::Unit_Count(const is_any_tr<utf_32_t> auto& self)
     {
         return 1;
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Normal(const is_any_tr<utf_32_t> auto& self)
-    {
-        return Is_Scalar(self.unit);
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Swapped(const is_any_tr<utf_32_t> auto& self)
-    {
-        return Is_Scalar(os::endian::Swap(self.unit));
     }
 
     inline typename utf_32_t::unit_t
@@ -292,6 +292,34 @@ namespace nkr { namespace charcoder {
         this->unit = 0;
     }
 
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Normal()
+        const
+    {
+        return Is_Well_Formed_Normal(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Normal()
+        const volatile
+    {
+        return Is_Well_Formed_Normal(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Swapped()
+        const
+    {
+        return Is_Well_Formed_Swapped(*this);
+    }
+
+    inline bool_t
+        utf_32_t::Is_Well_Formed_Swapped()
+        const volatile
+    {
+        return Is_Well_Formed_Swapped(*this);
+    }
+
     inline void_t
         utf_32_t::Encode_Normal(point_t point)
     {
@@ -410,34 +438,6 @@ namespace nkr { namespace charcoder {
         const volatile
     {
         return Unit_Count(*this);
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Normal()
-        const
-    {
-        return Is_Well_Formed_Normal(*this);
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Normal()
-        const volatile
-    {
-        return Is_Well_Formed_Normal(*this);
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Swapped()
-        const
-    {
-        return Is_Well_Formed_Swapped(*this);
-    }
-
-    inline bool_t
-        utf_32_t::Is_Well_Formed_Swapped()
-        const volatile
-    {
-        return Is_Well_Formed_Swapped(*this);
     }
 
     inline typename utf_32_t::unit_t
@@ -501,6 +501,19 @@ namespace nkr { namespace charcoder {
     }
 
     template <typename>
+    inline bool_t
+        utf_32_be_t::Is_Well_Formed(const is_any_tr<utf_32_be_t> auto& self)
+    {
+        if constexpr (os::endian::Is_Big()) {
+            return self.Is_Well_Formed_Normal();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Is_Well_Formed_Swapped();
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <typename>
     inline void_t
         utf_32_be_t::Encode(is_any_non_const_tr<utf_32_be_t> auto& self, point_t point)
     {
@@ -552,25 +565,26 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
-    inline bool_t
-        utf_32_be_t::Is_Well_Formed(const is_any_tr<utf_32_be_t> auto& self)
-    {
-        if constexpr (os::endian::Is_Big()) {
-            return self.Is_Well_Formed_Normal();
-        } else if constexpr (os::endian::Is_Little()) {
-            return self.Is_Well_Formed_Swapped();
-        } else {
-            static_assert(false);
-        }
-    }
-
     inline utf_32_be_t::utf_32_be_t(point_t point) :
         utf_32_be_t()
     {
         Encode(*this, point);
     }
 
+    inline bool_t
+        utf_32_be_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_32_be_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
+    }
+
     inline void_t
         utf_32_be_t::Encode(point_t point)
     {
@@ -624,18 +638,17 @@ namespace nkr { namespace charcoder {
         return Read_Reverse(*this, from, first);
     }
 
+    template <typename>
     inline bool_t
-        utf_32_be_t::Is_Well_Formed()
-        const
+        utf_32_le_t::Is_Well_Formed(const is_any_tr<utf_32_le_t> auto& self)
     {
-        return Is_Well_Formed(*this);
-    }
-
-    inline bool_t
-        utf_32_be_t::Is_Well_Formed()
-        const volatile
-    {
-        return Is_Well_Formed(*this);
+        if constexpr (os::endian::Is_Big()) {
+            return self.Is_Well_Formed_Swapped();
+        } else if constexpr (os::endian::Is_Little()) {
+            return self.Is_Well_Formed_Normal();
+        } else {
+            static_assert(false);
+        }
     }
 
     template <typename>
@@ -690,25 +703,26 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
-    inline bool_t
-        utf_32_le_t::Is_Well_Formed(const is_any_tr<utf_32_le_t> auto& self)
-    {
-        if constexpr (os::endian::Is_Big()) {
-            return self.Is_Well_Formed_Swapped();
-        } else if constexpr (os::endian::Is_Little()) {
-            return self.Is_Well_Formed_Normal();
-        } else {
-            static_assert(false);
-        }
-    }
-
     inline utf_32_le_t::utf_32_le_t(point_t point) :
         utf_32_le_t()
     {
         Encode(*this, point);
     }
 
+    inline bool_t
+        utf_32_le_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_32_le_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
+    }
+
     inline void_t
         utf_32_le_t::Encode(point_t point)
     {
@@ -760,20 +774,6 @@ namespace nkr { namespace charcoder {
         volatile
     {
         return Read_Reverse(*this, from, first);
-    }
-
-    inline bool_t
-        utf_32_le_t::Is_Well_Formed()
-        const
-    {
-        return Is_Well_Formed(*this);
-    }
-
-    inline bool_t
-        utf_32_le_t::Is_Well_Formed()
-        const volatile
-    {
-        return Is_Well_Formed(*this);
     }
 
 }}

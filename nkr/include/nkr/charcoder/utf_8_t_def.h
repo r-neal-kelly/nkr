@@ -83,6 +83,68 @@ namespace nkr { namespace charcoder {
         return self;
     }
 
+    inline bool_t
+        utf_8_t::Is_Well_Formed(const is_any_tr<utf_8_t> auto& self)
+    {
+        const count_t unit_count = self.units.Count();
+
+        if (unit_count == 1) {
+            if (self.units[0] >= 0x00 && self.units[0] <= 0x7F) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (unit_count == 2) {
+            if (self.units[0] >= 0xC2 && self.units[0] <= 0xDF &&
+                self.units[1] >= 0x80 && self.units[1] <= 0xBF) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (unit_count == 3) {
+            if (self.units[0] == 0xE0 &&
+                self.units[1] >= 0xA0 && self.units[1] <= 0xBF &&
+                self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else if (self.units[0] >= 0xE1 && self.units[0] <= 0xEC &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else if (self.units[0] == 0xED &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0x9F &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else if (self.units[0] >= 0xEE && self.units[0] <= 0xEF &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (unit_count == 4) {
+            if (self.units[0] == 0xF0 &&
+                self.units[1] >= 0x90 && self.units[1] <= 0xBF &&
+                self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
+                self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
+                return true;
+            } else if (self.units[0] >= 0xF1 && self.units[0] <= 0xF3 &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
+                       self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
+                return true;
+            } else if (self.units[0] == 0xF4 &&
+                       self.units[1] >= 0x80 && self.units[1] <= 0x8F &&
+                       self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
+                       self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     inline void_t
         utf_8_t::Encode(is_any_non_const_tr<utf_8_t> auto& self, point_t point)
     {
@@ -483,68 +545,6 @@ namespace nkr { namespace charcoder {
         return self.units.Count();
     }
 
-    inline bool_t
-        utf_8_t::Is_Well_Formed(const is_any_tr<utf_8_t> auto& self)
-    {
-        const count_t unit_count = self.units.Count();
-
-        if (unit_count == 1) {
-            if (self.units[0] >= 0x00 && self.units[0] <= 0x7F) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (unit_count == 2) {
-            if (self.units[0] >= 0xC2 && self.units[0] <= 0xDF &&
-                self.units[1] >= 0x80 && self.units[1] <= 0xBF) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (unit_count == 3) {
-            if (self.units[0] == 0xE0 &&
-                self.units[1] >= 0xA0 && self.units[1] <= 0xBF &&
-                self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
-                return true;
-            } else if (self.units[0] >= 0xE1 && self.units[0] <= 0xEC &&
-                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
-                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
-                return true;
-            } else if (self.units[0] == 0xED &&
-                       self.units[1] >= 0x80 && self.units[1] <= 0x9F &&
-                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
-                return true;
-            } else if (self.units[0] >= 0xEE && self.units[0] <= 0xEF &&
-                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
-                       self.units[2] >= 0x80 && self.units[2] <= 0xBF) {
-                return true;
-            } else {
-                return false;
-            }
-        } else if (unit_count == 4) {
-            if (self.units[0] == 0xF0 &&
-                self.units[1] >= 0x90 && self.units[1] <= 0xBF &&
-                self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
-                self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
-                return true;
-            } else if (self.units[0] >= 0xF1 && self.units[0] <= 0xF3 &&
-                       self.units[1] >= 0x80 && self.units[1] <= 0xBF &&
-                       self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
-                       self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
-                return true;
-            } else if (self.units[0] == 0xF4 &&
-                       self.units[1] >= 0x80 && self.units[1] <= 0x8F &&
-                       self.units[2] >= 0x80 && self.units[2] <= 0xBF &&
-                       self.units[3] >= 0x80 && self.units[3] <= 0xBF) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
     inline typename utf_8_t::unit_t
         utf_8_t::Operator_Access(const is_any_tr<utf_8_t> auto& self, index_t index)
     {
@@ -661,6 +661,20 @@ namespace nkr { namespace charcoder {
         };
     }
 
+    inline bool_t
+        utf_8_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        utf_8_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
+    }
+
     inline void_t
         utf_8_t::Encode(point_t point)
     {
@@ -726,20 +740,6 @@ namespace nkr { namespace charcoder {
         const volatile
     {
         return Unit_Count(*this);
-    }
-
-    inline bool_t
-        utf_8_t::Is_Well_Formed()
-        const
-    {
-        return Is_Well_Formed(*this);
-    }
-
-    inline bool_t
-        utf_8_t::Is_Well_Formed()
-        const volatile
-    {
-        return Is_Well_Formed(*this);
     }
 
     inline typename utf_8_t::unit_t

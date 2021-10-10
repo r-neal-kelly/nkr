@@ -40,6 +40,9 @@ namespace nkr { namespace charcoder {
         static auto&    Assign_Copy(is_any_non_const_tr<utf_16_t> auto& self, const is_any_tr<utf_16_t> auto& other);
         static auto&    Assign_Move(is_any_non_const_tr<utf_16_t> auto& self, is_any_non_const_tr<utf_16_t> auto& other);
 
+        static bool_t   Is_Well_Formed_Normal(const is_any_tr<utf_16_t> auto& self);
+        static bool_t   Is_Well_Formed_Swapped(const is_any_tr<utf_16_t> auto& self);
+
         static void_t   Encode_Normal(is_any_non_const_tr<utf_16_t> auto& self, point_t point);
         static void_t   Encode_Swapped(is_any_non_const_tr<utf_16_t> auto& self, point_t point);
         static point_t  Decode_Normal(const is_any_tr<utf_16_t> auto& self);
@@ -51,9 +54,6 @@ namespace nkr { namespace charcoder {
         static count_t  Read_Reverse_Swapped(is_any_non_const_tr<utf_16_t> auto& self, const unit_t* from, const unit_t* first);
 
         static count_t  Unit_Count(const is_any_tr<utf_16_t> auto& self);
-
-        static bool_t   Is_Well_Formed_Normal(const is_any_tr<utf_16_t> auto& self);
-        static bool_t   Is_Well_Formed_Swapped(const is_any_tr<utf_16_t> auto& self);
 
         static unit_t   Operator_Access(const is_any_tr<utf_16_t> auto& self, index_t index);
 
@@ -94,6 +94,11 @@ namespace nkr { namespace charcoder {
         /// @name methods
         /// @copydoc 
         /// @{
+        bool_t  Is_Well_Formed_Normal() const;
+        bool_t  Is_Well_Formed_Normal() const volatile;
+        bool_t  Is_Well_Formed_Swapped() const;
+        bool_t  Is_Well_Formed_Swapped() const volatile;
+        
         void_t  Encode_Normal(point_t point);
         void_t  Encode_Normal(point_t point) volatile;
         void_t  Encode_Swapped(point_t point);
@@ -114,16 +119,6 @@ namespace nkr { namespace charcoder {
 
         count_t Unit_Count() const;
         count_t Unit_Count() const volatile;
-        /// @}
-
-    protected:
-        /// @name protected methods
-        /// @copydoc 
-        /// @{
-        bool_t  Is_Well_Formed_Normal() const;
-        bool_t  Is_Well_Formed_Normal() const volatile;
-        bool_t  Is_Well_Formed_Swapped() const;
-        bool_t  Is_Well_Formed_Swapped() const volatile;
         /// @}
 
     public:
@@ -158,6 +153,9 @@ namespace nkr { namespace charcoder {
 
     private:
         template <typename = void_t>
+        static bool_t   Is_Well_Formed(const is_any_tr<utf_16_be_t> auto& self);
+
+        template <typename = void_t>
         static void_t   Encode(is_any_non_const_tr<utf_16_be_t> auto& self, point_t point);
         template <typename = void_t>
         static point_t  Decode(const is_any_tr<utf_16_be_t> auto& self);
@@ -166,9 +164,6 @@ namespace nkr { namespace charcoder {
         static count_t  Read_Forward(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from);
         template <typename = void_t>
         static count_t  Read_Reverse(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from, const unit_t* first);
-
-        template <typename = void_t>
-        static bool_t   Is_Well_Formed(const is_any_tr<utf_16_be_t> auto& self);
 
     public:
         /// @name objects
@@ -183,6 +178,9 @@ namespace nkr { namespace charcoder {
         /// @name methods
         /// @copydoc 
         /// @{
+        bool_t  Is_Well_Formed() const;
+        bool_t  Is_Well_Formed() const volatile;
+        
         void_t  Encode(point_t point);
         void_t  Encode(point_t point) volatile;
         point_t Decode() const;
@@ -192,14 +190,6 @@ namespace nkr { namespace charcoder {
         count_t Read_Forward(const unit_t* from) volatile;
         count_t Read_Reverse(const unit_t* from, const unit_t* first);
         count_t Read_Reverse(const unit_t* from, const unit_t* first) volatile;
-        /// @}
-
-    protected:
-        /// @name protected methods
-        /// @copydoc 
-        /// @{
-        bool_t  Is_Well_Formed() const;
-        bool_t  Is_Well_Formed() const volatile;
         /// @}
     };
     static_assert(charcoder_i<utf_16_be_t>);
@@ -212,6 +202,9 @@ namespace nkr { namespace charcoder {
 
     private:
         template <typename = void_t>
+        static bool_t   Is_Well_Formed(const is_any_tr<utf_16_le_t> auto& self);
+
+        template <typename = void_t>
         static void_t   Encode(is_any_non_const_tr<utf_16_le_t> auto& self, point_t point);
         template <typename = void_t>
         static point_t  Decode(const is_any_tr<utf_16_le_t> auto& self);
@@ -220,9 +213,6 @@ namespace nkr { namespace charcoder {
         static count_t  Read_Forward(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from);
         template <typename = void_t>
         static count_t  Read_Reverse(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from, const unit_t* first);
-
-        template <typename = void_t>
-        static bool_t   Is_Well_Formed(const is_any_tr<utf_16_le_t> auto& self);
 
     public:
         /// @name objects
@@ -237,6 +227,9 @@ namespace nkr { namespace charcoder {
         /// @name methods
         /// @copydoc 
         /// @{
+        bool_t  Is_Well_Formed() const;
+        bool_t  Is_Well_Formed() const volatile;
+        
         void_t  Encode(point_t point);
         void_t  Encode(point_t point) volatile;
         point_t Decode() const;
@@ -246,14 +239,6 @@ namespace nkr { namespace charcoder {
         count_t Read_Forward(const unit_t* from) volatile;
         count_t Read_Reverse(const unit_t* from, const unit_t* first);
         count_t Read_Reverse(const unit_t* from, const unit_t* first) volatile;
-        /// @}
-
-    protected:
-        /// @name protected methods
-        /// @copydoc 
-        /// @{
-        bool_t  Is_Well_Formed() const;
-        bool_t  Is_Well_Formed() const volatile;
         /// @}
     };
     static_assert(charcoder_i<utf_16_le_t>);

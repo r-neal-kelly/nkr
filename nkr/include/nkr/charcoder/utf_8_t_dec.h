@@ -38,6 +38,8 @@ namespace nkr { namespace charcoder {
         static auto&    Assign_Copy(is_any_non_const_tr<utf_8_t> auto& self, const is_any_tr<utf_8_t> auto& other);
         static auto&    Assign_Move(is_any_non_const_tr<utf_8_t> auto& self, is_any_non_const_tr<utf_8_t> auto& other);
 
+        static bool_t   Is_Well_Formed(const is_any_tr<utf_8_t> auto& self);
+
         static void_t   Encode(is_any_non_const_tr<utf_8_t> auto& self, point_t point);
         static point_t  Decode(const is_any_tr<utf_8_t> auto& self);
 
@@ -45,8 +47,6 @@ namespace nkr { namespace charcoder {
         static count_t  Read_Reverse(is_any_non_const_tr<utf_8_t> auto& self, const unit_t* from, const unit_t* first);
 
         static count_t  Unit_Count(const is_any_tr<utf_8_t> auto& self);
-
-        static bool_t   Is_Well_Formed(const is_any_tr<utf_8_t> auto& self);
 
         static unit_t   Operator_Access(const is_any_tr<utf_8_t> auto& self, index_t index);
 
@@ -89,6 +89,9 @@ namespace nkr { namespace charcoder {
         /// @name methods
         /// @copydoc 
         /// @{
+        bool_t  Is_Well_Formed() const;
+        bool_t  Is_Well_Formed() const volatile;
+        
         void_t  Encode(point_t point);
         void_t  Encode(point_t point) volatile;
         point_t Decode() const;
@@ -101,14 +104,6 @@ namespace nkr { namespace charcoder {
 
         count_t Unit_Count() const;
         count_t Unit_Count() const volatile;
-        /// @}
-
-    protected:
-        /// @name protected methods
-        /// @copydoc 
-        /// @{
-        bool_t  Is_Well_Formed() const;
-        bool_t  Is_Well_Formed() const volatile;
         /// @}
 
     public:

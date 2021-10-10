@@ -41,6 +41,12 @@ namespace nkr { namespace charcoder {
         return self;
     }
 
+    inline bool_t
+        ascii_t::Is_Well_Formed(const is_any_tr<ascii_t> auto& self)
+    {
+        return self.unit > -1;
+    }
+
     inline void_t
         ascii_t::Encode(is_any_non_const_tr<ascii_t> auto& self, point_t point)
     {
@@ -87,12 +93,6 @@ namespace nkr { namespace charcoder {
         ascii_t::Unit_Count(const is_any_tr<ascii_t> auto& self)
     {
         return 1;
-    }
-
-    inline bool_t
-        ascii_t::Is_Well_Formed(const is_any_tr<ascii_t> auto& self)
-    {
-        return self.unit > -1;
     }
 
     inline typename ascii_t::unit_t
@@ -207,6 +207,20 @@ namespace nkr { namespace charcoder {
         this->unit = 0;
     }
 
+    inline bool_t
+        ascii_t::Is_Well_Formed()
+        const
+    {
+        return Is_Well_Formed(*this);
+    }
+
+    inline bool_t
+        ascii_t::Is_Well_Formed()
+        const volatile
+    {
+        return Is_Well_Formed(*this);
+    }
+
     inline void_t
         ascii_t::Encode(point_t point)
     {
@@ -272,20 +286,6 @@ namespace nkr { namespace charcoder {
         const volatile
     {
         return Unit_Count(*this);
-    }
-
-    inline bool_t
-        ascii_t::Is_Well_Formed()
-        const
-    {
-        return Is_Well_Formed(*this);
-    }
-
-    inline bool_t
-        ascii_t::Is_Well_Formed()
-        const volatile
-    {
-        return Is_Well_Formed(*this);
     }
 
     inline typename ascii_t::unit_t
