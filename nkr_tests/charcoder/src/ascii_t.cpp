@@ -84,7 +84,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("Has_1_To_1_Unit_To_Point_Ratio()")
             {
-                TEST_CASE_TEMPLATE("should always return true", ascii_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should always return true for this charcoder", ascii_p, nkr_ALL)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -123,7 +123,7 @@ namespace nkr { namespace charcoder {
                     CHECK(ascii.Decode() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should have a unit count of 1", ascii_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should always have a unit count of 1 for this charcoder", ascii_p, nkr_ALL)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -209,7 +209,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("copy_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy others data so that it decodes the same point", ascii_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy other's data so that it decodes the same point", ascii_p, nkr_NON_CONST)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -234,7 +234,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("copy_volatile_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy others data so that it decodes the same point", ascii_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy other's data so that it decodes the same point", ascii_p, nkr_NON_CONST)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -259,7 +259,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("move_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move others data so that it decodes to same point", ascii_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move other's data so that it decodes to same point", ascii_p, nkr_NON_CONST)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -284,7 +284,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("move_volatile assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move others data so that it decodes to same point", ascii_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move other's data so that it decodes to same point", ascii_p, nkr_NON_CONST)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -316,7 +316,7 @@ namespace nkr { namespace charcoder {
                     point_t random = Random_Valid_And_Non_Terminus_Point();
                     ascii_p ascii = random;
                     CHECK(ascii.Decode() != 0);
-                    ascii.~ascii_t();
+                    ascii.~ascii_p();
                     CHECK(ascii.Decode() == 0);
                 }
             }
