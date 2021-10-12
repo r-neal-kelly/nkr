@@ -61,6 +61,36 @@ namespace nkr { namespace charcoder {
             return Random<point_t>(utf_32_t::POINT_LAST + 1);
         }
 
+        static inline point_t Random_BMP_Point()
+        {
+            return Random<point_t>(utf_32_t::BMP_FIRST, utf_32_t::BMP_LAST);
+        }
+
+        static inline point_t Random_Non_BMP_Point()
+        {
+            return Random<point_t>(utf_32_t::BMP_LAST + 1, utf_32_t::POINT_LAST);
+        }
+
+        static inline point_t Random_Non_Terminus_BMP_Point()
+        {
+            point_t random;
+            do {
+                random = Random_BMP_Point();
+            } while (random == 0);
+
+            return random;
+        }
+
+        static inline point_t Random_Non_Terminus_And_Non_Replacement_BMP_Point()
+        {
+            point_t random;
+            do {
+                random = Random_Non_Terminus_BMP_Point();
+            } while (random == utf_16_t::Replacement_Point());
+
+            return random;
+        }
+
         static inline point_t Random_Scalar()
         {
             point_t random;
@@ -101,9 +131,67 @@ namespace nkr { namespace charcoder {
             return random;
         }
 
+        static inline point_t Random_BMP_Scalar()
+        {
+            point_t random;
+            do {
+                random = Random_BMP_Point();
+            } while (!utf_32_t::Is_Scalar(random));
+
+            return random;
+        }
+
+        static inline point_t Random_Non_BMP_Scalar()
+        {
+            return Random_Non_BMP_Point();
+        }
+
         static inline point_t Random_Surrogate()
         {
             return Random<point_t>(utf_32_t::SURROGATE_HIGH_FIRST, utf_32_t::SURROGATE_LOW_LAST);
+        }
+
+        static inline point_t Random_High_Surrogate()
+        {
+            return Random<point_t>(utf_32_t::SURROGATE_HIGH_FIRST, utf_32_t::SURROGATE_HIGH_LAST);
+        }
+
+        static inline point_t Random_Low_Surrogate()
+        {
+            return Random<point_t>(utf_32_t::SURROGATE_LOW_FIRST, utf_32_t::SURROGATE_LOW_LAST);
+        }
+
+        template <typename charcoder_p, count_t point_count_p>
+        static inline auto Random_C_String()
+        {
+            constexpr const real_t bmp_probability = real_t(utf_32_t::BMP_LAST + 1) / real_t(utf_32_t::POINT_LAST + 1);
+
+            array::stack_t<typename charcoder_p::unit_t, point_count_p * 2> string;
+            if constexpr (has_native_endianness_tr<charcoder_p>) {
+                for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+                    if (Random<bool_t>(bmp_probability)) {
+                        string.Push(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_BMP_Point())).Ignore_Error();
+                    } else {
+                        string.Push(charcoder_p::unit_t(Random_High_Surrogate())).Ignore_Error();
+                        string.Push(charcoder_p::unit_t(Random_Low_Surrogate())).Ignore_Error();
+                    }
+                }
+                string.Push(charcoder_p::unit_t(0)).Ignore_Error();
+            } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
+                for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+                    if (Random<bool_t>(bmp_probability)) {
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_BMP_Point()))).Ignore_Error();
+                    } else {
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_High_Surrogate()))).Ignore_Error();
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Low_Surrogate()))).Ignore_Error();
+                    }
+                }
+                string.Push(charcoder_p::unit_t(0)).Ignore_Error();
+            } else {
+                static_assert(false);
+            }
+
+            return string;
         }
 
         TEST_SUITE("aliases")
@@ -420,6 +508,386 @@ namespace nkr { namespace charcoder {
                     CHECK(utf.Decode() != 0);
                     utf.~utf_p();
                     CHECK(!utf.Is_Well_Formed());
+                }
+            }
+        }
+
+        TEST_SUITE("methods")
+        {
+            TEST_SUITE("Is_Well_Formed()")
+            {
+                TEST_CASE_TEMPLATE("should check if the units make a valid point."
+                                   "should always return true because the charcoder can never be invalid, except when destructed."
+                                   "(only meant for assertions)",
+                                   utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Any();
+                    utf_p utf = random;
+                    CHECK(utf.Is_Well_Formed() == true);
+                }
+            }
+
+            TEST_SUITE("Encode()")
+            {
+                TEST_CASE_TEMPLATE("should encode a scalar", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    utf_p utf;
+                    utf.Encode(random);
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should encode a non-point with the replacement point", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_Point();
+                    utf_p utf;
+                    utf.Encode(random);
+                    CHECK(utf.Decode() == utf_p::Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should encode a surrogate with the replacement point", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Surrogate();
+                    utf_p utf;
+                    utf.Encode(random);
+                    CHECK(utf.Decode() == utf_p::Replacement_Point());
+                }
+            }
+
+            TEST_SUITE("Decode()")
+            {
+                TEST_CASE_TEMPLATE("should decode a scalar", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    utf_p utf = random;
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should decode a non-point with the replacement point", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_Point();
+                    utf_p utf = random;
+                    CHECK(utf.Decode() == utf_p::Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should decode a surrogate with the replacement point", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Surrogate();
+                    utf_p utf = random;
+                    CHECK(utf.Decode() == utf_p::Replacement_Point());
+                }
+            }
+
+            TEST_SUITE("Read_Forward()")
+            {
+                TEST_CASE_TEMPLATE("should read forward from a given pointer to string", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 8>();
+                    index_t index = Random<index_t>(0, c_string.Count() - 2);
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(c_string[index])) {
+                            nkr_ASSERT_THAT(index > 0);
+                            index -= 1;
+                        }
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(c_string[index]))) {
+                            nkr_ASSERT_THAT(index > 0);
+                            index -= 1;
+                        }
+                    } else {
+                        static_assert(false);
+                    }
+
+                    utf_p utf;
+                    utf.Read_Forward(&c_string[index]);
+                    CHECK(utf.Decode() != 0);
+                    CHECK(utf.Decode() != utf_p::Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return the number of units read", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 8>();
+                    index_t index = Random<index_t>(0, c_string.Count() - 2);
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(c_string[index])) {
+                            nkr_ASSERT_THAT(index > 0);
+                            index -= 1;
+                        }
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(c_string[index]))) {
+                            nkr_ASSERT_THAT(index > 0);
+                            index -= 1;
+                        }
+                    } else {
+                        static_assert(false);
+                    }
+
+                    utf_p utf;
+                    CHECK(utf.Read_Forward(&c_string[index]) != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should allow for iteration over the string", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 8>();
+                    const unit_t* pointer = c_string.Array();
+
+                    utf_p utf;
+                    point_t point;
+                    pointer += utf.Read_Forward(pointer);
+                    point = utf.Decode();
+                    for (; point != 0; pointer += utf.Read_Forward(pointer), point = utf.Decode()) {
+                        CHECK(utf.Decode() != utf_p::Replacement_Point());
+                    }
+                }
+            }
+
+            TEST_SUITE("Read_Reverse()")
+            {
+                TEST_CASE_TEMPLATE("should read reverse from a given pointer to string and pointer to first unit."
+                                   "should not read the unit pointed to",
+                                   utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 8>();
+                    index_t index = Random<index_t>(1, c_string.Count() - 1);
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(c_string[index])) {
+                            index += 1;
+                        }
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(c_string[index]))) {
+                            index += 1;
+                        }
+                    } else {
+                        static_assert(false);
+                    }
+
+                    utf_p utf;
+                    utf.Read_Reverse(&c_string[index], &c_string[0]);
+                    CHECK(utf.Decode() != 0);
+                    CHECK(utf.Decode() != utf_p::Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return the number of units read", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 8>();
+                    index_t index = Random<index_t>(1, c_string.Count() - 1);
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(c_string[index])) {
+                            index += 1;
+                        }
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(c_string[index]))) {
+                            index += 1;
+                        }
+                    } else {
+                        static_assert(false);
+                    }
+
+                    utf_p utf;
+                    CHECK(utf.Read_Reverse(&c_string[index], &c_string[0]) != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should allow for iteration over the string", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 8>();
+                    const unit_t* pointer = c_string.Array() + c_string.Count();
+
+                    utf_p utf;
+                    count_t read_count = 0;
+                    for (; pointer != c_string.Array(); read_count = utf.Read_Reverse(pointer, c_string.Array()), pointer -= read_count) {
+                        CHECK(utf.Decode() != utf_p::Replacement_Point());
+                    }
+                }
+            }
+
+            TEST_SUITE("Unit_Count()")
+            {
+                TEST_CASE_TEMPLATE("should return the number of units the charcoder holds", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_Scalar();
+                    CHECK((utf.Unit_Count() == 1 || utf.Unit_Count() == 2));
+                }
+
+                TEST_CASE_TEMPLATE("should return 1 when holding a BMP scalar", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_BMP_Scalar();
+                    CHECK(utf.Unit_Count() == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should return 2 when holding a non BMP scalar", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_Non_BMP_Scalar();
+                    CHECK(utf.Unit_Count() == 2);
+                }
+            }
+        }
+
+        TEST_SUITE("operators")
+        {
+            TEST_SUITE("[]()")
+            {
+                TEST_CASE_TEMPLATE("should return a copy of the indexed unit held by a charcoder with a BMP scalar", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_BMP_Scalar();
+                    utf_p utf = random;
+                    CHECK(utf.Unit_Count() == 1);
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        CHECK(utf[0] == random);
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        CHECK(utf[0] == os::endian::Swap(utf_p::unit_t(random)));
+                    } else {
+                        static_assert(false);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should returna a copy of the indexed unit held by a charcoder with a non BMP scalar", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_BMP_Scalar();
+                    utf_p utf = random;
+                    CHECK(utf.Unit_Count() == 2);
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        CHECK(utf_32_t::Is_Surrogate_High(utf[0]));
+                        CHECK(utf_32_t::Is_Surrogate_Low(utf[1]));
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        CHECK(utf_32_t::Is_Surrogate_High(os::endian::Swap(utf[0])));
+                        CHECK(utf_32_t::Is_Surrogate_Low(os::endian::Swap(utf[1])));
+                    } else {
+                        static_assert(false);
+                    }
+                }
+            }
+        }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_SUITE("none_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = none_t();
+                    CHECK(utf.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("none_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set to terminus", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK(utf.Decode() != 0);
+                    utf = none_t();
+                    CHECK(utf.Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK(&(utf = none_t()) == &utf);
+                }
+            }
+
+            TEST_SUITE("==(none_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true if equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = 0;
+                    CHECK_TRUE(utf == none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should return false if not equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK_FALSE(utf == none_t());
+                }
+            }
+
+            TEST_SUITE("!=(none_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true if not equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK_TRUE(utf != none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should return false if equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    utf_p utf = 0;
+                    CHECK_FALSE(utf != none_t());
                 }
             }
         }

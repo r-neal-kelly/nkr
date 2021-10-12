@@ -157,6 +157,17 @@ namespace nkr {
 
                 CHECK(positive_count > negative_count);
             }
+
+            TEST_CASE("should only return numbers from the given range")
+            {
+                for (index_t idx = 0, end = RANDOM_ITERATION_COUNT; idx < end; idx += 1) {
+                    real_t from = Random<real_t>(-10.0, 0.0);
+                    real_t to = Random<real_t>(0.0, 10.0);
+                    real_t random = Random<real_t>(from, to);
+                    CHECK(random >= from);
+                    CHECK(random <= to);
+                }
+            }
         }
     }
 

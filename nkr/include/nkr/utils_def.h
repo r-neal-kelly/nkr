@@ -108,6 +108,9 @@ namespace nkr {
     inline boolean_p
         Random(real_t probability_for_true = 0.5)
     {
+        nkr_ASSERT_THAT(probability_for_true >= 0.0);
+        nkr_ASSERT_THAT(probability_for_true <= 1.0);
+
         std::lock_guard<std::mutex> locker(random_lock);
         return std::bernoulli_distribution(probability_for_true)(random_generator);
     }
@@ -148,6 +151,9 @@ namespace nkr {
     {
         using real_pp = std::remove_cv_t<real_p>;
 
+        // we want a proportional chance of getting a negative number. if from is -10 and to is 10
+        // then it should return either 50% of the time. if from is -10 and to is 20, then negative
+        // should be returned 25% of the time and positive 75% of the time.
         bool_t do_negative = false;
         if (from_inclusive < 0.0) {
             real_pp abs_from_inclusive = abs(from_inclusive);

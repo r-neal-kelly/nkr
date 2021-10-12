@@ -34,6 +34,9 @@ namespace nkr { namespace charcoder {
             POINT_FIRST                         = 0x00000000,
             POINT_LAST                          = 0x0010FFFF,
 
+            BMP_FIRST                           = 0x00000000,
+            BMP_LAST                            = 0x0000FFFF,
+
             SURROGATE_HIGH_FIRST                = 0x0000D800,
             SURROGATE_HIGH_LAST                 = 0x0000DBFF,
             SURROGATE_LOW_FIRST                 = 0x0000DC00,

@@ -337,7 +337,7 @@ namespace nkr { namespace charcoder {
             {
                 TEST_CASE_TEMPLATE("should check if the units make a valid point."
                                    "should always return true because the charcoder can never be invalid."
-                                   "(available for assertions)",
+                                   "(only meant for assertions)",
                                    ascii_p, nkr_ALL)
                 {
                     using unit_t = ascii_p::unit_t;

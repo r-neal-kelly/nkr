@@ -106,19 +106,19 @@ namespace nkr { namespace charcoder {
         }
 
         template <typename charcoder_p, count_t unit_count_p>
-        static inline array::stack_t<typename utf_32_t::unit_t, unit_count_p> Random_C_String()
+        static inline array::stack_t<typename charcoder_p::unit_t, unit_count_p> Random_C_String()
         {
-            array::stack_t<typename utf_32_t::unit_t, unit_count_p> string;
+            array::stack_t<typename charcoder_p::unit_t, unit_count_p> string;
             if constexpr (has_native_endianness_tr<charcoder_p>) {
                 for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
-                    string.Push(utf_32_t::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar())).Ignore_Error();
+                    string.Push(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar())).Ignore_Error();
                 }
-                string.Push(utf_32_t::unit_t(0)).Ignore_Error();
+                string.Push(charcoder_p::unit_t(0)).Ignore_Error();
             } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                 for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
-                    string.Push(os::endian::Swap(utf_32_t::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar()))).Ignore_Error();
+                    string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar()))).Ignore_Error();
                 }
-                string.Push(utf_32_t::unit_t(0)).Ignore_Error();
+                string.Push(charcoder_p::unit_t(0)).Ignore_Error();
             } else {
                 static_assert(false);
             }
@@ -415,7 +415,7 @@ namespace nkr { namespace charcoder {
             {
                 TEST_CASE_TEMPLATE("should check if the units make a valid point."
                                    "should always return true because the charcoder can never be invalid."
-                                   "(available for assertions)",
+                                   "(only meant for assertions)",
                                    utf_p, nkr_ALL)
                 {
                     using unit_t = utf_p::unit_t;
@@ -601,7 +601,7 @@ namespace nkr { namespace charcoder {
                     if constexpr (has_native_endianness_tr<utf_p>) {
                         CHECK(utf[0] == random);
                     } else if constexpr (has_non_native_endianness_tr<utf_p>) {
-                        CHECK(utf[0] == os::endian::Swap(utf_32_t::unit_t(random)));
+                        CHECK(utf[0] == os::endian::Swap(utf_p::unit_t(random)));
                     } else {
                         static_assert(false);
                     }
