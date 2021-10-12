@@ -282,7 +282,7 @@ namespace nkr { namespace charcoder {
                 }
             }
 
-            TEST_SUITE("move_volatile assignment_ctor()")
+            TEST_SUITE("move_volatile_assignment_ctor()")
             {
                 TEST_CASE_TEMPLATE("should move other's data so that it decodes to same point", ascii_p, nkr_NON_CONST)
                 {

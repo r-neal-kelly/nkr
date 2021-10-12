@@ -161,10 +161,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\ascii_t.cpp" />
-    <ClCompile Include="src\utf_32_be_t.cpp" />
     <ClCompile Include="src\utf_8_t.cpp" />
     <ClCompile Include="src\utf_16_t.cpp" />
-    <ClCompile Include="src\utf_32_le_t.cpp" />
+    <ClCompile Include="src\utf_32_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">

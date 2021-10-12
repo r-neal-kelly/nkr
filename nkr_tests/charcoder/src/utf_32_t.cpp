@@ -13,22 +13,37 @@
 
 namespace nkr { namespace charcoder {
 
-    TEST_SUITE("utf_32_le_t")
+    TEST_SUITE("utf_32_t")
     {
     #define nkr_REGULAR \
+        utf_32_be_t,    \
         utf_32_le_t
 
     #define nkr_NON_CONST       \
+        utf_32_be_t,            \
         utf_32_le_t,            \
+        volatile utf_32_be_t,   \
         volatile utf_32_le_t
 
     #define nkr_CONST               \
+        const utf_32_be_t,          \
         const utf_32_le_t,          \
+        const volatile utf_32_be_t, \
         const volatile utf_32_le_t
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \
         nkr_CONST
+
+        template <typename charcoder_p>
+        concept has_native_endianness_tr =
+            is_any_tr<charcoder_p, utf_32_be_t> && os::endian::Is_Big() ||
+            is_any_tr<charcoder_p, utf_32_le_t> && os::endian::Is_Little();
+
+        template <typename charcoder_p>
+        concept has_non_native_endianness_tr =
+            is_any_tr<charcoder_p, utf_32_be_t> && os::endian::Is_Little() ||
+            is_any_tr<charcoder_p, utf_32_le_t> && os::endian::Is_Big();
 
         static inline point_t Random_Any()
         {
@@ -37,12 +52,12 @@ namespace nkr { namespace charcoder {
 
         static inline point_t Random_Point()
         {
-            return Random<point_t>(utf_32_le_t::POINT_FIRST, utf_32_le_t::POINT_LAST);
+            return Random<point_t>(utf_32_t::POINT_FIRST, utf_32_t::POINT_LAST);
         }
 
         static inline point_t Random_Non_Point()
         {
-            return Random<point_t>(utf_32_le_t::POINT_LAST + 1);
+            return Random<point_t>(utf_32_t::POINT_LAST + 1);
         }
 
         static inline point_t Random_Scalar()
@@ -50,7 +65,7 @@ namespace nkr { namespace charcoder {
             point_t random;
             do {
                 random = Random_Point();
-            } while (!utf_32_le_t::Is_Scalar(random));
+            } while (!utf_32_t::Is_Scalar(random));
 
             return random;
         }
@@ -65,35 +80,45 @@ namespace nkr { namespace charcoder {
             return random;
         }
 
+        static inline point_t Random_Non_Replacement_Scalar()
+        {
+            point_t random;
+            do {
+                random = Random_Scalar();
+            } while (random == utf_32_t::Replacement_Point());
+
+            return random;
+        }
+
         static inline point_t Random_Non_Terminus_And_Non_Replacement_Scalar()
         {
             point_t random;
             do {
                 random = Random_Non_Terminus_Scalar();
-            } while (random == utf_32_le_t::Replacement_Point());
+            } while (random == utf_32_t::Replacement_Point());
 
             return random;
         }
 
         static inline point_t Random_Surrogate()
         {
-            return Random<point_t>(utf_32_le_t::SURROGATE_HIGH_FIRST, utf_32_le_t::SURROGATE_LOW_LAST);
+            return Random<point_t>(utf_32_t::SURROGATE_HIGH_FIRST, utf_32_t::SURROGATE_LOW_LAST);
         }
 
-        template <count_t unit_count_p>
-        static inline array::stack_t<typename utf_32_le_t::unit_t, unit_count_p> Random_C_String()
+        template <typename charcoder_p, count_t unit_count_p>
+        static inline array::stack_t<typename utf_32_t::unit_t, unit_count_p> Random_C_String()
         {
-            array::stack_t<typename utf_32_le_t::unit_t, unit_count_p> string;
-            if constexpr (os::endian::Is_Little()) {
+            array::stack_t<typename utf_32_t::unit_t, unit_count_p> string;
+            if constexpr (has_native_endianness_tr<charcoder_p>) {
                 for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
-                    string.Push(utf_32_le_t::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar())).Ignore_Error();
+                    string.Push(utf_32_t::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar())).Ignore_Error();
                 }
-                string.Push(utf_32_le_t::unit_t(0)).Ignore_Error();
-            } else if constexpr (os::endian::Is_Big()) {
+                string.Push(utf_32_t::unit_t(0)).Ignore_Error();
+            } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                 for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
-                    string.Push(os::endian::Swap(utf_32_le_t::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar()))).Ignore_Error();
+                    string.Push(os::endian::Swap(utf_32_t::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar()))).Ignore_Error();
                 }
-                string.Push(utf_32_le_t::unit_t(0)).Ignore_Error();
+                string.Push(utf_32_t::unit_t(0)).Ignore_Error();
             } else {
                 static_assert(false);
             }
@@ -122,7 +147,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    static_assert(utf_p::Replacement_Point() == utf_32_le_t::REPLACEMENT_CHARACTER);
+                    static_assert(utf_p::Replacement_Point() == utf_32_t::REPLACEMENT_CHARACTER);
                 }
             }
 
@@ -335,7 +360,7 @@ namespace nkr { namespace charcoder {
                 }
             }
 
-            TEST_SUITE("move_volatile assignment_ctor()")
+            TEST_SUITE("move_volatile_assignment_ctor()")
             {
                 TEST_CASE_TEMPLATE("should move other's data so that it decodes to same point", utf_p, nkr_NON_CONST)
                 {
@@ -461,7 +486,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    auto c_string = Random_C_String<8>();
+                    auto c_string = Random_C_String<utf_p, 8>();
                     const index_t index = Random<index_t>(0, c_string.Count() - 2);
 
                     utf_p utf;
@@ -474,7 +499,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    auto c_string = Random_C_String<8>();
+                    auto c_string = Random_C_String<utf_p, 8>();
                     const index_t index = Random<index_t>(0, c_string.Count() - 2);
 
                     utf_p utf;
@@ -485,12 +510,14 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    auto c_string = Random_C_String<8>();
+                    auto c_string = Random_C_String<utf_p, 8>();
                     const unit_t* pointer = c_string.Array();
 
                     utf_p utf;
-                    count_t read_count = utf.Read_Forward(pointer);
-                    for (; utf.Decode() != 0; pointer += read_count, read_count = utf.Read_Forward(pointer)) {
+                    point_t point;
+                    pointer += utf.Read_Forward(pointer);
+                    point = utf.Decode();
+                    for (; point != 0; pointer += utf.Read_Forward(pointer), point = utf.Decode()) {
                         CHECK(utf.Decode() != utf_p::Replacement_Point());
                     }
                 }
@@ -504,7 +531,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    auto c_string = Random_C_String<8>();
+                    auto c_string = Random_C_String<utf_p, 8>();
                     const index_t index = Random<index_t>(1, c_string.Count() - 1);
 
                     utf_p utf;
@@ -517,7 +544,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    auto c_string = Random_C_String<8>();
+                    auto c_string = Random_C_String<utf_p, 8>();
                     const index_t index = Random<index_t>(1, c_string.Count() - 1);
 
                     utf_p utf;
@@ -528,7 +555,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    auto c_string = Random_C_String<8>();
+                    auto c_string = Random_C_String<utf_p, 8>();
                     const unit_t* pointer = c_string.Array() + c_string.Count();
 
                     utf_p utf;
@@ -548,6 +575,100 @@ namespace nkr { namespace charcoder {
                     utf_p utf = Random_Scalar();
                     CHECK(utf_p::Has_1_To_1_Unit_To_Point_Ratio());
                     CHECK(utf.Unit_Count() == 1);
+                }
+            }
+        }
+
+        TEST_SUITE("operators")
+        {
+            TEST_SUITE("[]()")
+            {
+                TEST_CASE_TEMPLATE("should return a copy of the indexed unit held by the charcoder", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    point_t random = Random_Non_Replacement_Scalar();
+                    utf_p utf = random;
+                    if constexpr (has_native_endianness_tr<utf_p>) {
+                        CHECK(utf[0] == random);
+                    } else if constexpr (has_non_native_endianness_tr<utf_p>) {
+                        CHECK(utf[0] == os::endian::Swap(utf_32_t::unit_t(random)));
+                    } else {
+                        static_assert(false);
+                    }
+                }
+            }
+        }
+
+        TEST_SUITE("none_t interface")
+        {
+            TEST_SUITE("none_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = none_t();
+                    CHECK(utf.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("none_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set to terminus", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK(utf.Decode() != 0);
+                    utf = none_t();
+                    CHECK(utf.Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK(&(utf = none_t()) == &utf);
+                }
+            }
+
+            TEST_SUITE("==(none_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true if equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = 0;
+                    CHECK_TRUE(utf == none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should return false if not equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK_FALSE(utf == none_t());
+                }
+            }
+
+            TEST_SUITE("!=(none_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true if not equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = Random_Non_Terminus_Scalar();
+                    CHECK_TRUE(utf != none_t());
+                }
+
+                TEST_CASE_TEMPLATE("should return false if equal to terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    utf_p utf = 0;
+                    CHECK_FALSE(utf != none_t());
                 }
             }
         }
