@@ -65,7 +65,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    static_assert(is_tr<typename ascii_p::unit_t, char>);
+                    static_assert(is_tr<unit_t, char>);
                 }
             }
         }
@@ -105,7 +105,7 @@ namespace nkr { namespace charcoder {
                         public ascii_p
                     {
                     public:
-                        static_assert(is_tr<typename ascii_p::unit_t, decltype(ascii_p::unit)>);
+                        static_assert(is_tr<decltype(ascii_p::unit), unit_t>);
                     };
                 }
             }
@@ -123,7 +123,7 @@ namespace nkr { namespace charcoder {
                     CHECK(ascii.Decode() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should always have a unit count of 1 for this charcoder", ascii_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should always have a unit count of 1", ascii_p, nkr_ALL)
                 {
                     using unit_t = ascii_p::unit_t;
 
@@ -158,6 +158,15 @@ namespace nkr { namespace charcoder {
                     point_t random = Random<point_t>(128);
                     ascii_p ascii = random;
                     CHECK(ascii.Decode() == ascii_p::Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should always have a unit count of 1 for this charcoder", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    point_t random = Random<point_t>(0, 127);
+                    ascii_p ascii = random;
+                    CHECK(ascii.Unit_Count() == 1);
                 }
             }
 
