@@ -59,10 +59,7 @@ namespace nkr {
         using BASE_p::BASE_p;                                                           \
         using BASE_p::operator =;                                                       \
                                                                                         \
-        WRAPPER_p() :                                                                   \
-            BASE_p()                                                                    \
-        {                                                                               \
-        }                                                                               \
+        WRAPPER_p() = default;                                                          \
                                                                                         \
         WRAPPER_p(const WRAPPER_p& other) :                                             \
             BASE_p(static_cast<const BASE_p&>(other))                                   \
@@ -150,9 +147,7 @@ namespace nkr {
             }                                                                           \
         }                                                                               \
                                                                                         \
-        ~WRAPPER_p()                                                                    \
-        {                                                                               \
-        }
+        ~WRAPPER_p() = default
 
     #define nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(ACCESSOR_NAME_p, BASE_p)  \
         BASE_p& ACCESSOR_NAME_p()                                                   \

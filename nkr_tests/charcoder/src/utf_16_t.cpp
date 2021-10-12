@@ -410,7 +410,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("dtor()")
             {
-                TEST_CASE_TEMPLATE("should set its data to decode the terminus", utf_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should allow itself to become invalid as a charcoder", utf_p, nkr_ALL)
                 {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
@@ -419,7 +419,7 @@ namespace nkr { namespace charcoder {
                     utf_p utf = random;
                     CHECK(utf.Decode() != 0);
                     utf.~utf_p();
-                    CHECK(utf.Decode() == 0);
+                    CHECK(!utf.Is_Well_Formed());
                 }
             }
         }

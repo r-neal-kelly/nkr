@@ -654,13 +654,6 @@ namespace nkr { namespace charcoder {
         return Assign_Move(*this, other);
     }
 
-    inline utf_8_t::~utf_8_t()
-    {
-        this->units = {
-            unit_t(0),
-        };
-    }
-
     inline bool_t
         utf_8_t::Is_Well_Formed()
         const

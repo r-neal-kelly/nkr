@@ -82,7 +82,7 @@ namespace nkr { namespace charcoder {
         utf_8_t&            operator =(is_just_volatile_tr<utf_8_t> auto&& other) noexcept;
         volatile utf_8_t&   operator =(is_just_volatile_tr<utf_8_t> auto&& other) volatile noexcept;
 
-        ~utf_8_t();
+        ~utf_8_t()                                                                                      = default;
         /// @}
 
     public:
