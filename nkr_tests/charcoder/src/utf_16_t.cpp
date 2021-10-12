@@ -249,6 +249,179 @@ namespace nkr { namespace charcoder {
                     CHECK((utf.Unit_Count() == 1 || utf.Unit_Count() == 2));
                 }
             }
+
+            TEST_SUITE("copy_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy other's data so that it decodes the same point", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    utf_p other = random;
+                    utf_p utf = other;
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter other", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    utf_p other = random;
+                    utf_p utf = other;
+                    CHECK(other.Decode() == random);
+                }
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move other's data so that it decodes the other's point", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    std::remove_const_t<utf_p> other = random;
+                    utf_p utf = nkr::Move(other);
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should set other's data so that it decodes the terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_Terminus_Scalar();
+                    std::remove_const_t<utf_p> other = random;
+                    utf_p utf = nkr::Move(other);
+                    CHECK(other.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("copy_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy other's data so that it decodes the same point", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    const utf_p other = random;
+                    utf_p utf;
+                    utf = other;
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter other", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    const utf_p other = random;
+                    utf_p utf;
+                    utf = other;
+                    CHECK(other.Decode() == random);
+                }
+            }
+
+            TEST_SUITE("copy_volatile_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy other's data so that it decodes the same point", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    const volatile utf_p other = random;
+                    utf_p utf;
+                    utf = other;
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should not alter other", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    const volatile utf_p other = random;
+                    utf_p utf;
+                    utf = other;
+                    CHECK(other.Decode() == random);
+                }
+            }
+
+            TEST_SUITE("move_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move other's data so that it decodes to same point", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    utf_p other = random;
+                    utf_p utf;
+                    utf = nkr::Move(other);
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should set other's data so that it decodes the terminus", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_Terminus_Scalar();
+                    utf_p other = random;
+                    utf_p utf;
+                    utf = nkr::Move(other);
+                    CHECK(other.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("move_volatile_assignment_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move other's data so that it decodes to same point", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Scalar();
+                    volatile utf_p other = random;
+                    utf_p utf;
+                    utf = nkr::Move(other);
+                    CHECK(utf.Decode() == random);
+                }
+
+                TEST_CASE_TEMPLATE("should set other's data so that it decodes the terminus", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_Terminus_Scalar();
+                    volatile utf_p other = random;
+                    utf_p utf;
+                    utf = nkr::Move(other);
+                    CHECK(other.Decode() == 0);
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_CASE_TEMPLATE("should set its data to decode the terminus", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    point_t random = Random_Non_Terminus_Scalar();
+                    utf_p utf = random;
+                    CHECK(utf.Decode() != 0);
+                    utf.~utf_p();
+                    CHECK(utf.Decode() == 0);
+                }
+            }
         }
     }
 
