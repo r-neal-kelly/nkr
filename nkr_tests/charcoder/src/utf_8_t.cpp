@@ -8,6 +8,11 @@
 
 namespace nkr { namespace charcoder {
 
+    // we should also test that acculumating points from reading forward and reading reverse equate. that is to say, they all get the same errors even.
+    // want to use a totally randomized string for that.
+
+    // also want to test that a totally randomized string just works at all.
+
     TEST_SUITE("utf_8_t")
     {
     #define nkr_REGULAR \
@@ -541,7 +546,7 @@ namespace nkr { namespace charcoder {
                 }
             }
 
-            /*TEST_SUITE("Read_Reverse()")
+            TEST_SUITE("Read_Reverse()")
             {
                 TEST_CASE_TEMPLATE("should read reverse from a given pointer to string and pointer to first unit."
                                    "should not read the unit pointed to",
@@ -593,7 +598,7 @@ namespace nkr { namespace charcoder {
                         CHECK(utf.Decode() != utf_p::Replacement_Point());
                     }
                 }
-            }*/
+            }
 
             TEST_SUITE("Unit_Count()")
             {
