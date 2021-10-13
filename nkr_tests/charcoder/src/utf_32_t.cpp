@@ -2,14 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-#include "nkr/os.h"
-
-#include "nkr/array/stack_t.h"
-
-#include "nkr/charcoder/utf_32_t.h"
-
 #include "doctest.h"
+
+#include "unicode.h"
 
 namespace nkr { namespace charcoder {
 
@@ -34,76 +29,6 @@ namespace nkr { namespace charcoder {
     #define nkr_ALL     \
         nkr_NON_CONST,  \
         nkr_CONST
-
-        template <typename charcoder_p>
-        concept has_native_endianness_tr =
-            is_any_tr<charcoder_p, utf_32_be_t> && os::endian::Is_Big() ||
-            is_any_tr<charcoder_p, utf_32_le_t> && os::endian::Is_Little();
-
-        template <typename charcoder_p>
-        concept has_non_native_endianness_tr =
-            is_any_tr<charcoder_p, utf_32_be_t> && os::endian::Is_Little() ||
-            is_any_tr<charcoder_p, utf_32_le_t> && os::endian::Is_Big();
-
-        static inline point_t Random_Any()
-        {
-            return Random<point_t>();
-        }
-
-        static inline point_t Random_Point()
-        {
-            return Random<point_t>(utf_32_t::POINT_FIRST, utf_32_t::POINT_LAST);
-        }
-
-        static inline point_t Random_Non_Point()
-        {
-            return Random<point_t>(utf_32_t::POINT_LAST + 1);
-        }
-
-        static inline point_t Random_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Point();
-            } while (!utf_32_t::Is_Scalar(random));
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Terminus_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Scalar();
-            } while (random == 0);
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Replacement_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Scalar();
-            } while (random == utf_32_t::Replacement_Point());
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Terminus_And_Non_Replacement_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Non_Terminus_Scalar();
-            } while (random == utf_32_t::Replacement_Point());
-
-            return random;
-        }
-
-        static inline point_t Random_Surrogate()
-        {
-            return Random<point_t>(utf_32_t::SURROGATE_HIGH_FIRST, utf_32_t::SURROGATE_LOW_LAST);
-        }
 
         template <typename charcoder_p, count_t unit_count_p>
         static inline array::stack_t<typename charcoder_p::unit_t, unit_count_p> Random_C_String()
@@ -420,7 +345,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = utf_p::unit_t;
 
-                    point_t random = Random_Any();
+                    point_t random = Random_Value();
                     utf_p utf = random;
                     CHECK(utf.Is_Well_Formed() == true);
                 }

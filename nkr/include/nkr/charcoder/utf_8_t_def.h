@@ -434,7 +434,10 @@ namespace nkr { namespace charcoder {
         self.units.Count(3);            \
                                         \
         return READ_UNIT_COUNT_p;       \
-    }   
+    }
+
+        // oh, it looks like we'll need to repeat some of the code in some of the sub-groups, we're not checking all the cases.
+        // I rewrite this next session.
 
         if (*(from - 1) >= 0x00 && *(from - 1) <= 0x7F) {
             read_1(); // w[00..7F]

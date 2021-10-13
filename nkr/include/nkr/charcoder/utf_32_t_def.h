@@ -54,6 +54,42 @@ namespace nkr { namespace charcoder {
         return point >= SURROGATE_LOW_FIRST && point <= SURROGATE_LOW_LAST;
     }
 
+    inline constexpr std_bool_t
+        utf_32_t::Is_UTF_8_Bracket_1_Point(point_t point)
+    {
+        return point >= UTF_8_BRACKET_1_FIRST && point <= UTF_8_BRACKET_1_LAST;
+    }
+
+    inline constexpr std_bool_t
+        utf_32_t::Is_UTF_8_Bracket_2_Point(point_t point)
+    {
+        return point >= UTF_8_BRACKET_2_FIRST && point <= UTF_8_BRACKET_2_LAST;
+    }
+
+    inline constexpr std_bool_t
+        utf_32_t::Is_UTF_8_Bracket_3_Point(point_t point)
+    {
+        return point >= UTF_8_BRACKET_3_FIRST && point <= UTF_8_BRACKET_3_LAST;
+    }
+
+    inline constexpr std_bool_t
+        utf_32_t::Is_UTF_8_Bracket_4_Point(point_t point)
+    {
+        return point >= UTF_8_BRACKET_4_FIRST && point <= UTF_8_BRACKET_4_LAST;
+    }
+
+    inline constexpr std_bool_t
+        utf_32_t::Is_UTF_8_Lead_Byte(byte_t byte)
+    {
+        return (byte >> 6) != 2;
+    }
+
+    inline constexpr std_bool_t
+        utf_32_t::Is_UTF_8_Trailing_Byte(byte_t byte)
+    {
+        return (byte >> 6) == 2;
+    }
+
     inline auto&
         utf_32_t::Assign_Copy(is_any_non_const_tr<utf_32_t> auto& self, const is_any_tr<utf_32_t> auto& other)
     {

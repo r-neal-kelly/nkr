@@ -13,6 +13,8 @@
 
 namespace nkr { namespace charcoder {
 
+    // I really want to move the enum and static funcs out of the charcoder an into a separate space, because it's used by all Unicode charcoders.
+
     class utf_32_t
     {
     private:
@@ -42,6 +44,15 @@ namespace nkr { namespace charcoder {
             SURROGATE_LOW_FIRST                 = 0x0000DC00,
             SURROGATE_LOW_LAST                  = 0x0000DFFF,
 
+            UTF_8_BRACKET_1_FIRST               = 0x00000000,
+            UTF_8_BRACKET_1_LAST                = 0x0000007F,
+            UTF_8_BRACKET_2_FIRST               = 0x00000080,
+            UTF_8_BRACKET_2_LAST                = 0x000007FF,
+            UTF_8_BRACKET_3_FIRST               = 0x00000800,
+            UTF_8_BRACKET_3_LAST                = 0x0000FFFF,
+            UTF_8_BRACKET_4_FIRST               = 0x00010000,
+            UTF_8_BRACKET_4_LAST                = 0x0010FFFF,
+
             BYTE_ORDER_MARKER                   = 0x0000FEFF,
 
             REPLACEMENT_CHARACTER               = 0x0000FFFD,
@@ -62,6 +73,13 @@ namespace nkr { namespace charcoder {
         static constexpr std_bool_t Is_Surrogate(point_t point);
         static constexpr std_bool_t Is_Surrogate_High(point_t point);
         static constexpr std_bool_t Is_Surrogate_Low(point_t point);
+
+        static constexpr std_bool_t Is_UTF_8_Bracket_1_Point(point_t point);
+        static constexpr std_bool_t Is_UTF_8_Bracket_2_Point(point_t point);
+        static constexpr std_bool_t Is_UTF_8_Bracket_3_Point(point_t point);
+        static constexpr std_bool_t Is_UTF_8_Bracket_4_Point(point_t point);
+        static constexpr std_bool_t Is_UTF_8_Lead_Byte(byte_t byte);
+        static constexpr std_bool_t Is_UTF_8_Trailing_Byte(byte_t byte);
         /// @}
 
     private:

@@ -2,15 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-#include "nkr/os.h"
-
-#include "nkr/array/stack_t.h"
-
-#include "nkr/charcoder/utf_16_t.h"
-#include "nkr/charcoder/utf_32_t.h"
-
 #include "doctest.h"
+
+#include "unicode.h"
 
 namespace nkr { namespace charcoder {
 
@@ -36,131 +30,6 @@ namespace nkr { namespace charcoder {
         nkr_NON_CONST,  \
         nkr_CONST
 
-        template <typename charcoder_p>
-        concept has_native_endianness_tr =
-            is_any_tr<charcoder_p, utf_16_be_t> && os::endian::Is_Big() ||
-            is_any_tr<charcoder_p, utf_16_le_t> && os::endian::Is_Little();
-
-        template <typename charcoder_p>
-        concept has_non_native_endianness_tr =
-            is_any_tr<charcoder_p, utf_16_be_t> && os::endian::Is_Little() ||
-            is_any_tr<charcoder_p, utf_16_le_t> && os::endian::Is_Big();
-
-        static inline point_t Random_Any()
-        {
-            return Random<point_t>();
-        }
-
-        static inline point_t Random_Point()
-        {
-            return Random<point_t>(utf_32_t::POINT_FIRST, utf_32_t::POINT_LAST);
-        }
-
-        static inline point_t Random_Non_Point()
-        {
-            return Random<point_t>(utf_32_t::POINT_LAST + 1);
-        }
-
-        static inline point_t Random_BMP_Point()
-        {
-            return Random<point_t>(utf_32_t::BMP_FIRST, utf_32_t::BMP_LAST);
-        }
-
-        static inline point_t Random_Non_BMP_Point()
-        {
-            return Random<point_t>(utf_32_t::BMP_LAST + 1, utf_32_t::POINT_LAST);
-        }
-
-        static inline point_t Random_Non_Terminus_BMP_Point()
-        {
-            point_t random;
-            do {
-                random = Random_BMP_Point();
-            } while (random == 0);
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Terminus_And_Non_Replacement_BMP_Point()
-        {
-            point_t random;
-            do {
-                random = Random_Non_Terminus_BMP_Point();
-            } while (random == utf_16_t::Replacement_Point());
-
-            return random;
-        }
-
-        static inline point_t Random_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Point();
-            } while (!utf_32_t::Is_Scalar(random));
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Terminus_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Scalar();
-            } while (random == 0);
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Replacement_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Scalar();
-            } while (random == utf_32_t::Replacement_Point());
-
-            return random;
-        }
-
-        static inline point_t Random_Non_Terminus_And_Non_Replacement_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_Non_Terminus_Scalar();
-            } while (random == utf_32_t::Replacement_Point());
-
-            return random;
-        }
-
-        static inline point_t Random_BMP_Scalar()
-        {
-            point_t random;
-            do {
-                random = Random_BMP_Point();
-            } while (!utf_32_t::Is_Scalar(random));
-
-            return random;
-        }
-
-        static inline point_t Random_Non_BMP_Scalar()
-        {
-            return Random_Non_BMP_Point();
-        }
-
-        static inline point_t Random_Surrogate()
-        {
-            return Random<point_t>(utf_32_t::SURROGATE_HIGH_FIRST, utf_32_t::SURROGATE_LOW_LAST);
-        }
-
-        static inline point_t Random_High_Surrogate()
-        {
-            return Random<point_t>(utf_32_t::SURROGATE_HIGH_FIRST, utf_32_t::SURROGATE_HIGH_LAST);
-        }
-
-        static inline point_t Random_Low_Surrogate()
-        {
-            return Random<point_t>(utf_32_t::SURROGATE_LOW_FIRST, utf_32_t::SURROGATE_LOW_LAST);
-        }
-
         template <typename charcoder_p, count_t point_count_p>
         static inline auto Random_C_String()
         {
@@ -170,7 +39,7 @@ namespace nkr { namespace charcoder {
             if constexpr (has_native_endianness_tr<charcoder_p>) {
                 for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
                     if (Random<bool_t>(bmp_probability)) {
-                        string.Push(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_BMP_Point())).Ignore_Error();
+                        string.Push(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_BMP_Scalar())).Ignore_Error();
                     } else {
                         string.Push(charcoder_p::unit_t(Random_High_Surrogate())).Ignore_Error();
                         string.Push(charcoder_p::unit_t(Random_Low_Surrogate())).Ignore_Error();
@@ -180,7 +49,7 @@ namespace nkr { namespace charcoder {
             } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                 for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
                     if (Random<bool_t>(bmp_probability)) {
-                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_BMP_Point()))).Ignore_Error();
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_BMP_Scalar()))).Ignore_Error();
                     } else {
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_High_Surrogate()))).Ignore_Error();
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Low_Surrogate()))).Ignore_Error();
@@ -209,7 +78,7 @@ namespace nkr { namespace charcoder {
 
             TEST_SUITE("units_t")
             {
-                TEST_CASE_TEMPLATE("should have a stack array to hold its units", utf_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a stack array to hold its total possible number of units", utf_p, nkr_ALL)
                 {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
@@ -503,9 +372,8 @@ namespace nkr { namespace charcoder {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
 
-                    point_t random = Random_Non_Terminus_Scalar();
+                    point_t random = Random_Scalar();
                     utf_p utf = random;
-                    CHECK(utf.Decode() != 0);
                     utf.~utf_p();
                     CHECK(!utf.Is_Well_Formed());
                 }
@@ -524,7 +392,7 @@ namespace nkr { namespace charcoder {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
 
-                    point_t random = Random_Any();
+                    point_t random = Random_Value();
                     utf_p utf = random;
                     CHECK(utf.Is_Well_Formed() == true);
                 }
@@ -684,10 +552,12 @@ namespace nkr { namespace charcoder {
                     index_t index = Random<index_t>(1, c_string.Count() - 1);
                     if constexpr (has_native_endianness_tr<utf_p>) {
                         if (utf_32_t::Is_Surrogate_Low(c_string[index])) {
+                            nkr_ASSERT_THAT(index < c_string.Count() - 1);
                             index += 1;
                         }
                     } else if constexpr (has_non_native_endianness_tr<utf_p>) {
                         if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(c_string[index]))) {
+                            nkr_ASSERT_THAT(index < c_string.Count() - 1);
                             index += 1;
                         }
                     } else {
@@ -791,7 +661,7 @@ namespace nkr { namespace charcoder {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should returna a copy of the indexed unit held by a charcoder with a non BMP scalar", utf_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a copy of the indexed unit held by a charcoder with a non BMP scalar", utf_p, nkr_ALL)
                 {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
