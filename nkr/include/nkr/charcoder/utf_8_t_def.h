@@ -222,64 +222,16 @@ namespace nkr { namespace charcoder {
 
         auto& raw_units = self.units.Array();
 
-    #define read_1()                \
-    {                               \
-        raw_units[0] = *(from + 0); \
-                                    \
-        self.units.Count(1);        \
-                                    \
-        return 1;                   \
-    }
-
-    #define read_2()                \
-    {                               \
-        raw_units[0] = *(from + 0); \
-        raw_units[1] = *(from + 1); \
-                                    \
-        self.units.Count(2);        \
-                                    \
-        return 2;                   \
-    }
-
-    #define read_3()                \
-    {                               \
-        raw_units[0] = *(from + 0); \
-        raw_units[1] = *(from + 1); \
-        raw_units[2] = *(from + 2); \
-                                    \
-        self.units.Count(3);        \
-                                    \
-        return 3;                   \
-    }
-
-    #define read_4()                \
-    {                               \
-        raw_units[0] = *(from + 0); \
-        raw_units[1] = *(from + 1); \
-        raw_units[2] = *(from + 2); \
-        raw_units[3] = *(from + 3); \
-                                    \
-        self.units.Count(4);        \
-                                    \
-        return 4;                   \
-    }
-
-    #define replace(READ_UNIT_COUNT_p)  \
-    {                                   \
-        raw_units[0] = unit_t(0xEF);    \
-        raw_units[1] = unit_t(0xBF);    \
-        raw_units[2] = unit_t(0xBD);    \
-                                        \
-        self.units.Count(3);            \
-                                        \
-        return READ_UNIT_COUNT_p;       \
-    }
-
         if (*(from + 0) >= 0x00 && *(from + 0) <= 0x7F) {
-            read_1();
+            raw_units[0] = *(from + 0);
+            self.units.Count(1);
+            return 1;
         } else if (*(from + 0) >= 0xC2 && *(from + 0) <= 0xDF &&
                    *(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
-            read_2();
+            raw_units[0] = *(from + 0);
+            raw_units[1] = *(from + 1);
+            self.units.Count(2);
+            return 2;
         } else if (*(from + 0) == 0xE0 &&
                    *(from + 1) >= 0xA0 && *(from + 1) <= 0xBF &&
                    *(from + 2) >= 0x80 && *(from + 2) <= 0xBF ||
@@ -295,7 +247,11 @@ namespace nkr { namespace charcoder {
                    *(from + 0) >= 0xEE && *(from + 0) <= 0xEF &&
                    *(from + 1) >= 0x80 && *(from + 1) <= 0xBF &&
                    *(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-            read_3();
+            raw_units[0] = *(from + 0);
+            raw_units[1] = *(from + 1);
+            raw_units[2] = *(from + 2);
+            self.units.Count(3);
+            return 3;
         } else if (*(from + 0) == 0xF0 &&
                    *(from + 1) >= 0x90 && *(from + 1) <= 0xBF &&
                    *(from + 2) >= 0x80 && *(from + 2) <= 0xBF &&
@@ -310,7 +266,12 @@ namespace nkr { namespace charcoder {
                    *(from + 1) >= 0x80 && *(from + 1) <= 0x8F &&
                    *(from + 2) >= 0x80 && *(from + 2) <= 0xBF &&
                    *(from + 3) >= 0x80 && *(from + 3) <= 0xBF) {
-            read_4();
+            raw_units[0] = *(from + 0);
+            raw_units[1] = *(from + 1);
+            raw_units[2] = *(from + 2);
+            raw_units[3] = *(from + 3);
+            self.units.Count(4);
+            return 4;
         } else {
             if (*(from + 0) == 0xF0 &&
                 *(from + 1) >= 0x90 && *(from + 1) <= 0xBF &&
@@ -323,7 +284,11 @@ namespace nkr { namespace charcoder {
                 *(from + 0) == 0xF4 &&
                 *(from + 1) >= 0x80 && *(from + 1) <= 0x8F &&
                 *(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                replace(3);
+                raw_units[0] = unit_t(0xEF);
+                raw_units[1] = unit_t(0xBF);
+                raw_units[2] = unit_t(0xBD);
+                self.units.Count(3);
+                return 3;
             } else if (*(from + 0) >= 0xE0 &&
                        *(from + 1) >= 0xA0 && *(from + 1) <= 0xBF ||
 
@@ -344,17 +309,19 @@ namespace nkr { namespace charcoder {
 
                        *(from + 0) >= 0xF4 &&
                        *(from + 1) >= 0x80 && *(from + 1) <= 0x8F) {
-                replace(2);
+                raw_units[0] = unit_t(0xEF);
+                raw_units[1] = unit_t(0xBF);
+                raw_units[2] = unit_t(0xBD);
+                self.units.Count(3);
+                return 2;
             } else {
-                replace(1);
+                raw_units[0] = unit_t(0xEF);
+                raw_units[1] = unit_t(0xBF);
+                raw_units[2] = unit_t(0xBD);
+                self.units.Count(3);
+                return 1;
             }
         }
-
-    #undef read_1
-    #undef read_2
-    #undef read_3
-    #undef read_4
-    #undef replace
     }
 
     inline count_t
@@ -366,66 +333,18 @@ namespace nkr { namespace charcoder {
 
         auto& raw_units = self.units.Array();
 
-    #define read_1()                \
-    {                               \
-        raw_units[0] = *(from - 1); \
-                                    \
-        self.units.Count(1);        \
-                                    \
-        return 1;                   \
-    }
-
-    #define read_2()                \
-    {                               \
-        raw_units[0] = *(from - 2); \
-        raw_units[1] = *(from - 1); \
-                                    \
-        self.units.Count(2);        \
-                                    \
-        return 2;                   \
-    }
-
-    #define read_3()                \
-    {                               \
-        raw_units[0] = *(from - 3); \
-        raw_units[1] = *(from - 2); \
-        raw_units[2] = *(from - 1); \
-                                    \
-        self.units.Count(3);        \
-                                    \
-        return 3;                   \
-    }
-
-    #define read_4()                \
-    {                               \
-        raw_units[0] = *(from - 4); \
-        raw_units[1] = *(from - 3); \
-        raw_units[2] = *(from - 2); \
-        raw_units[3] = *(from - 1); \
-                                    \
-        self.units.Count(4);        \
-                                    \
-        return 4;                   \
-    }
-
-    #define replace(READ_UNIT_COUNT_p)  \
-    {                                   \
-        raw_units[0] = unit_t(0xEF);    \
-        raw_units[1] = unit_t(0xBF);    \
-        raw_units[2] = unit_t(0xBD);    \
-                                        \
-        self.units.Count(3);            \
-                                        \
-        return READ_UNIT_COUNT_p;       \
-    }
-
         if (*(from - 1) >= 0x00 && *(from - 1) <= 0x7F) {
-            read_1();
+            raw_units[0] = *(from - 1);
+            self.units.Count(1);
+            return 1;
         } else if (from - first >= 2 &&
 
                    (*(from - 2) >= 0xC2 && *(from - 2) <= 0xDF &&
                     *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
-            read_2();
+            raw_units[0] = *(from - 2);
+            raw_units[1] = *(from - 1);
+            self.units.Count(2);
+            return 2;
         } else if (from - first >= 3 &&
 
                    (*(from - 3) == 0xE0 &&
@@ -443,7 +362,11 @@ namespace nkr { namespace charcoder {
                     *(from - 3) >= 0xEE && *(from - 3) <= 0xEF &&
                     *(from - 2) >= 0x80 && *(from - 2) <= 0xBF &&
                     *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
-            read_3();
+            raw_units[0] = *(from - 3);
+            raw_units[1] = *(from - 2);
+            raw_units[2] = *(from - 1);
+            self.units.Count(3);
+            return 3;
         } else if (from - first >= 4 &&
 
                    (*(from - 4) == 0xF0 &&
@@ -460,7 +383,12 @@ namespace nkr { namespace charcoder {
                     *(from - 3) >= 0x80 && *(from - 3) <= 0x8F &&
                     *(from - 2) >= 0x80 && *(from - 2) <= 0xBF &&
                     *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
-            read_4();
+            raw_units[0] = *(from - 4);
+            raw_units[1] = *(from - 3);
+            raw_units[2] = *(from - 2);
+            raw_units[3] = *(from - 1);
+            self.units.Count(4);
+            return 4;
         } else {
             if (from - first >= 3 &&
 
@@ -475,7 +403,11 @@ namespace nkr { namespace charcoder {
                  *(from - 3) == 0xF4 &&
                  *(from - 2) >= 0x80 && *(from - 2) <= 0x8F &&
                  *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
-                replace(3);
+                raw_units[0] = unit_t(0xEF);
+                raw_units[1] = unit_t(0xBF);
+                raw_units[2] = unit_t(0xBD);
+                self.units.Count(3);
+                return 3;
             } else if (from - first >= 2 &&
 
                        (*(from - 2) >= 0xE0 &&
@@ -498,17 +430,19 @@ namespace nkr { namespace charcoder {
 
                         *(from - 2) >= 0xF4 &&
                         *(from - 1) >= 0x80 && *(from - 1) <= 0x8F)) {
-                replace(2);
+                raw_units[0] = unit_t(0xEF);
+                raw_units[1] = unit_t(0xBF);
+                raw_units[2] = unit_t(0xBD);
+                self.units.Count(3);
+                return 2;
             } else {
-                replace(1);
+                raw_units[0] = unit_t(0xEF);
+                raw_units[1] = unit_t(0xBF);
+                raw_units[2] = unit_t(0xBD);
+                self.units.Count(3);
+                return 1;
             }
         }
-
-    #undef read_1
-    #undef read_2
-    #undef read_3
-    #undef read_4
-    #undef replace
     }
 
     inline count_t
