@@ -608,7 +608,7 @@ namespace nkr { namespace charcoder {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should interpret the same point in an error-free string when reading forwards", utf_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-free string as when reading forwards", utf_p, nkr_NON_CONST)
                 {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
@@ -644,7 +644,7 @@ namespace nkr { namespace charcoder {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should interpret the same points in an error-ridden string when reading forwards", utf_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-ridden string as when reading forwards", utf_p, nkr_NON_CONST)
                 {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;

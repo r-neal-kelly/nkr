@@ -30,6 +30,8 @@ namespace nkr { namespace enumeration {
         errors_t();
 
         errors_t(value_t value);
+        errors_t(std_bool_t value)                                                                      = delete;
+        errors_t(bool_t value)                                                                          = delete;
 
         errors_t(const errors_t& other);
         errors_t(const volatile errors_t& other);

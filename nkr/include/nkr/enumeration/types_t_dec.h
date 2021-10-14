@@ -43,6 +43,8 @@ namespace nkr { namespace enumeration { namespace $types_t {
         any_sp();
 
         any_sp(value_t value);
+        any_sp(std_bool_t value)                                                                    = delete;
+        any_sp(bool_t value)                                                                        = delete;
 
         any_sp(const any_sp& other);
         any_sp(const volatile any_sp& other);
