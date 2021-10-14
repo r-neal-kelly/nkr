@@ -8,10 +8,7 @@
 
 namespace nkr { namespace charcoder {
 
-    // we should also test that acculumating points from reading forward and reading reverse equate. that is to say, they all get the same errors even.
-    // want to use a totally randomized string for that.
-
-    // also want to test that a totally randomized string just works at all.
+    // I kind of want a test that ensures every single unicode point. I wonder how slow it will be? hopefully not very...
 
     TEST_SUITE("utf_8_t")
     {
@@ -86,6 +83,18 @@ namespace nkr { namespace charcoder {
 
             return string;
         }
+
+        template <typename charcoder_p, count_t unit_count_p>
+        static inline auto Error_Ridden_C_String()
+        {
+            array::stack_t<typename charcoder_p::unit_t, unit_count_p> string;
+            for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
+                string.Push(charcoder_p::unit_t(Random<byte_t>())).Ignore_Error();
+            }
+            string.Push(charcoder_p::unit_t(0)).Ignore_Error();
+
+            return string;
+        };
 
         TEST_SUITE("aliases")
         {
@@ -596,6 +605,78 @@ namespace nkr { namespace charcoder {
                     count_t read_count = 0;
                     for (; pointer != c_string.Array(); read_count = utf.Read_Reverse(pointer, c_string.Array()), pointer -= read_count) {
                         CHECK(utf.Decode() != utf_p::Replacement_Point());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should interpret the same point in an error-free string when reading forwards", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Random_C_String<utf_p, 128>();
+                    array::dynamic_t<point_t> forward_points(128);
+                    array::dynamic_t<point_t> backward_points(128);
+                    nkr_ASSERT_THAT(forward_points.Has_Memory());
+                    nkr_ASSERT_THAT(backward_points.Has_Memory());
+
+                    unit_t* const first = c_string.Array();
+                    unit_t* const postfix = first + c_string.Count();
+
+                    utf_p utf;
+
+                    for (unit_t* itr = first; itr != postfix;) {
+                        itr += utf.Read_Forward(itr);
+                        if (forward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    for (unit_t* itr = postfix; itr != first;) {
+                        itr -= utf.Read_Reverse(itr, first);
+                        if (backward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    CHECK(forward_points.Count() == backward_points.Count());
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-ridden string when reading forwards", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+                    using units_t = utf_p::units_t;
+
+                    auto c_string = Error_Ridden_C_String<utf_p, 128>();
+                    array::dynamic_t<point_t> forward_points(128);
+                    array::dynamic_t<point_t> backward_points(128);
+                    nkr_ASSERT_THAT(forward_points.Has_Memory());
+                    nkr_ASSERT_THAT(backward_points.Has_Memory());
+
+                    unit_t* const first = c_string.Array();
+                    unit_t* const postfix = first + c_string.Count();
+
+                    utf_p utf;
+
+                    for (unit_t* itr = first; itr != postfix;) {
+                        itr += utf.Read_Forward(itr);
+                        if (forward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    for (unit_t* itr = postfix; itr != first;) {
+                        itr -= utf.Read_Reverse(itr, first);
+                        if (backward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    CHECK(forward_points.Count() == backward_points.Count());
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
                     }
                 }
             }

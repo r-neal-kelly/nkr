@@ -191,14 +191,14 @@ namespace nkr { namespace array {
         if (Should_Grow(self)) {
             maybe_t<allocator_err> err = Grow(self);
             if (err) {
-                return nkr::Move(err);
+                return err;
             }
         }
 
         self.writable_units[self.unit_count] = unit;
         self.unit_count += 1;
 
-        return true;
+        return allocator_err::NONE;
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -208,14 +208,14 @@ namespace nkr { namespace array {
         if (Should_Grow(self)) {
             maybe_t<allocator_err> err = Grow(self);
             if (err) {
-                return nkr::Move(err);
+                return err;
             }
         }
 
         self.writable_units[self.unit_count] = nkr::Move(unit);
         self.unit_count += 1;
 
-        return true;
+        return allocator_err::NONE;
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

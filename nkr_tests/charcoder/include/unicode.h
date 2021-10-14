@@ -8,6 +8,7 @@
 #include "nkr/os.h"
 #include "nkr/utils.h"
 
+#include "nkr/array/dynamic_t.h"
 #include "nkr/array/stack_t.h"
 
 #include "nkr/charcoder_i.h"

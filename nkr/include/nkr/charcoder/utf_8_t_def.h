@@ -51,6 +51,8 @@ namespace nkr { namespace charcoder {
         Each invalid byte in an ill-formed UTF-8 sequence is replaced with a REPLACEMENT_CHARACTER
         except truncated UTF-8 subsequences, which are replaced with a single REPLACEMENT_CHARACTER.
         This holds true when reading a UTF-8 sequence backwards or forwards.
+
+        See Unicode Standard: 3.9 Unicode Encoding Forms
     */
 
     inline constexpr point_t
@@ -275,96 +277,77 @@ namespace nkr { namespace charcoder {
 
         if (*(from + 0) >= 0x00 && *(from + 0) <= 0x7F) {
             read_1();
-        } else if (*(from + 0) >= 0xC2 && *(from + 0) <= 0xDF) {
-            if (*(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
-                read_2();
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) == 0xE0) {
-            if (*(from + 1) >= 0xA0 && *(from + 1) <= 0xBF) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    read_3();
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) >= 0xE1 && *(from + 0) <= 0xEC) {
-            if (*(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    read_3();
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) == 0xED) {
-            if (*(from + 1) >= 0x80 && *(from + 1) <= 0x9F) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    read_3();
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) >= 0xEE && *(from + 0) <= 0xEF) {
-            if (*(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    read_3();
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) == 0xF0) {
-            if (*(from + 1) >= 0x90 && *(from + 1) <= 0xBF) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    if (*(from + 3) >= 0x80 && *(from + 3) <= 0xBF) {
-                        read_4();
-                    } else {
-                        replace(3);
-                    }
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) >= 0xF1 && *(from + 0) <= 0xF3) {
-            if (*(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    if (*(from + 3) >= 0x80 && *(from + 3) <= 0xBF) {
-                        read_4();
-                    } else {
-                        replace(3);
-                    }
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
-        } else if (*(from + 0) == 0xF4) {
-            if (*(from + 1) >= 0x80 && *(from + 1) <= 0x8F) {
-                if (*(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
-                    if (*(from + 3) >= 0x80 && *(from + 3) <= 0xBF) {
-                        read_4();
-                    } else {
-                        replace(3);
-                    }
-                } else {
-                    replace(2);
-                }
-            } else {
-                replace(1);
-            }
+        } else if (*(from + 0) >= 0xC2 && *(from + 0) <= 0xDF &&
+                   *(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
+            read_2();
+        } else if (*(from + 0) == 0xE0 &&
+                   *(from + 1) >= 0xA0 && *(from + 1) <= 0xBF &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF ||
+
+                   *(from + 0) >= 0xE1 && *(from + 0) <= 0xEC &&
+                   *(from + 1) >= 0x80 && *(from + 1) <= 0xBF &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF ||
+
+                   *(from + 0) == 0xED &&
+                   *(from + 1) >= 0x80 && *(from + 1) <= 0x9F &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF ||
+
+                   *(from + 0) >= 0xEE && *(from + 0) <= 0xEF &&
+                   *(from + 1) >= 0x80 && *(from + 1) <= 0xBF &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
+            read_3();
+        } else if (*(from + 0) == 0xF0 &&
+                   *(from + 1) >= 0x90 && *(from + 1) <= 0xBF &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF &&
+                   *(from + 3) >= 0x80 && *(from + 3) <= 0xBF ||
+
+                   *(from + 0) >= 0xF1 && *(from + 0) <= 0xF3 &&
+                   *(from + 1) >= 0x80 && *(from + 1) <= 0xBF &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF &&
+                   *(from + 3) >= 0x80 && *(from + 3) <= 0xBF ||
+
+                   *(from + 0) == 0xF4 &&
+                   *(from + 1) >= 0x80 && *(from + 1) <= 0x8F &&
+                   *(from + 2) >= 0x80 && *(from + 2) <= 0xBF &&
+                   *(from + 3) >= 0x80 && *(from + 3) <= 0xBF) {
+            read_4();
         } else {
-            replace(1);
+            if (*(from + 0) == 0xF0 &&
+                *(from + 1) >= 0x90 && *(from + 1) <= 0xBF &&
+                *(from + 2) >= 0x80 && *(from + 2) <= 0xBF ||
+
+                *(from + 0) >= 0xF1 && *(from + 0) <= 0xF3 &&
+                *(from + 1) >= 0x80 && *(from + 1) <= 0xBF &&
+                *(from + 2) >= 0x80 && *(from + 2) <= 0xBF ||
+
+                *(from + 0) == 0xF4 &&
+                *(from + 1) >= 0x80 && *(from + 1) <= 0x8F &&
+                *(from + 2) >= 0x80 && *(from + 2) <= 0xBF) {
+                replace(3);
+            } else if (*(from + 0) >= 0xE0 &&
+                       *(from + 1) >= 0xA0 && *(from + 1) <= 0xBF ||
+
+                       *(from + 0) >= 0xE1 && *(from + 0) <= 0xEC &&
+                       *(from + 1) >= 0x80 && *(from + 1) <= 0xBF ||
+
+                       *(from + 0) >= 0xED &&
+                       *(from + 1) >= 0x80 && *(from + 1) <= 0x9F ||
+
+                       *(from + 0) >= 0xEE && *(from + 0) <= 0xEF &&
+                       *(from + 1) >= 0x80 && *(from + 1) <= 0xBF ||
+
+                       *(from + 0) >= 0xF0 &&
+                       *(from + 1) >= 0x90 && *(from + 1) <= 0xBF ||
+
+                       *(from + 0) >= 0xF1 && *(from + 0) <= 0xF3 &&
+                       *(from + 1) >= 0x80 && *(from + 1) <= 0xBF ||
+
+                       *(from + 0) >= 0xF4 &&
+                       *(from + 1) >= 0x80 && *(from + 1) <= 0x8F) {
+                replace(2);
+            } else {
+                replace(1);
+            }
         }
 
     #undef read_1
@@ -479,8 +462,20 @@ namespace nkr { namespace charcoder {
                     *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
             read_4();
         } else {
-            if (*(from - 1) >= 0xC2 && *(from - 1) <= 0xF4) {
-                replace(1);
+            if (from - first >= 3 &&
+
+                (*(from - 3) == 0xF0 &&
+                 *(from - 2) >= 0x90 && *(from - 2) <= 0xBF &&
+                 *(from - 1) >= 0x80 && *(from - 1) <= 0xBF ||
+
+                 *(from - 3) >= 0xF1 && *(from - 3) <= 0xF3 &&
+                 *(from - 2) >= 0x80 && *(from - 2) <= 0xBF &&
+                 *(from - 1) >= 0x80 && *(from - 1) <= 0xBF ||
+
+                 *(from - 3) == 0xF4 &&
+                 *(from - 2) >= 0x80 && *(from - 2) <= 0x8F &&
+                 *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
+                replace(3);
             } else if (from - first >= 2 &&
 
                        (*(from - 2) >= 0xE0 &&
@@ -504,20 +499,6 @@ namespace nkr { namespace charcoder {
                         *(from - 2) >= 0xF4 &&
                         *(from - 1) >= 0x80 && *(from - 1) <= 0x8F)) {
                 replace(2);
-            } else if (from - first >= 3 &&
-
-                       (*(from - 3) == 0xF0 &&
-                        *(from - 2) >= 0x90 && *(from - 2) <= 0xBF &&
-                        *(from - 1) >= 0x80 && *(from - 1) <= 0xBF ||
-
-                        *(from - 3) >= 0xF1 && *(from - 3) <= 0xF3 &&
-                        *(from - 2) >= 0x80 && *(from - 2) <= 0xBF &&
-                        *(from - 1) >= 0x80 && *(from - 1) <= 0xBF ||
-
-                        *(from - 3) == 0xF4 &&
-                        *(from - 2) >= 0x80 && *(from - 2) <= 0x8F &&
-                        *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
-                replace(3);
             } else {
                 replace(1);
             }
