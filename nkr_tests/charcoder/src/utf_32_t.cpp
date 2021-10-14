@@ -30,23 +30,64 @@ namespace nkr { namespace charcoder {
         nkr_NON_CONST,  \
         nkr_CONST
 
-        template <typename charcoder_p, count_t unit_count_p>
-        static inline array::stack_t<typename charcoder_p::unit_t, unit_count_p> Random_C_String()
+        template <typename charcoder_p, count_t point_count_p>
+        static inline auto
+            Random_C_String()
         {
-            array::stack_t<typename charcoder_p::unit_t, unit_count_p> string;
+            array::stack_t<typename charcoder_p::unit_t, point_count_p> string;
             if constexpr (has_native_endianness_tr<charcoder_p>) {
-                for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
+                for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
                     string.Push(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar())).Ignore_Error();
                 }
                 string.Push(charcoder_p::unit_t(0)).Ignore_Error();
             } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
-                for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
+                for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
                     string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_Scalar()))).Ignore_Error();
                 }
                 string.Push(charcoder_p::unit_t(0)).Ignore_Error();
             } else {
                 static_assert(false);
             }
+
+            return string;
+        }
+
+        template <typename charcoder_p, count_t unit_count_p>
+        static inline auto
+            Error_Ridden_C_String()
+        {
+            array::stack_t<typename charcoder_p::unit_t, unit_count_p> string;
+            for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
+                index_t random = Random<index_t>(0, 2);
+                if (random == 0) {
+                    if constexpr (has_native_endianness_tr<charcoder_p>) {
+                        string.Push(charcoder_p::unit_t(Random_Scalar())).Ignore_Error();
+                    } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Scalar()))).Ignore_Error();
+                    } else {
+                        static_assert(false);
+                    }
+                } else if (random == 1) {
+                    if constexpr (has_native_endianness_tr<charcoder_p>) {
+                        string.Push(charcoder_p::unit_t(Random_Surrogate())).Ignore_Error();
+                    } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Surrogate()))).Ignore_Error();
+                    } else {
+                        static_assert(false);
+                    }
+                } else if (random == 2) {
+                    if constexpr (has_native_endianness_tr<charcoder_p>) {
+                        string.Push(charcoder_p::unit_t(Random_Non_Point())).Ignore_Error();
+                    } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
+                        string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Point()))).Ignore_Error();
+                    } else {
+                        static_assert(false);
+                    }
+                } else {
+                    nkr_ASSERT_THAT(false);
+                }
+            }
+            string.Push(charcoder_p::unit_t(0)).Ignore_Error();
 
             return string;
         }
@@ -496,6 +537,76 @@ namespace nkr { namespace charcoder {
                     count_t read_count = 0;
                     for (; pointer != c_string.Array(); read_count = utf.Read_Reverse(pointer, c_string.Array()), pointer -= read_count) {
                         CHECK(utf.Decode() != utf_p::Replacement_Point());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-free string as when reading forwards", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    auto c_string = Random_C_String<utf_p, 128>();
+                    array::dynamic_t<point_t> forward_points(128);
+                    array::dynamic_t<point_t> backward_points(128);
+                    nkr_ASSERT_THAT(forward_points.Has_Memory());
+                    nkr_ASSERT_THAT(backward_points.Has_Memory());
+
+                    unit_t* const first = c_string.Array();
+                    unit_t* const postfix = first + c_string.Count();
+
+                    utf_p utf;
+
+                    for (unit_t* itr = first; itr != postfix;) {
+                        itr += utf.Read_Forward(itr);
+                        if (forward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    for (unit_t* itr = postfix; itr != first;) {
+                        itr -= utf.Read_Reverse(itr, first);
+                        if (backward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    CHECK(forward_points.Count() == backward_points.Count());
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-ridden string as when reading forwards", utf_p, nkr_NON_CONST)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    auto c_string = Error_Ridden_C_String<utf_p, 128>();
+                    array::dynamic_t<point_t> forward_points(128);
+                    array::dynamic_t<point_t> backward_points(128);
+                    nkr_ASSERT_THAT(forward_points.Has_Memory());
+                    nkr_ASSERT_THAT(backward_points.Has_Memory());
+
+                    unit_t* const first = c_string.Array();
+                    unit_t* const postfix = first + c_string.Count();
+
+                    utf_p utf;
+
+                    for (unit_t* itr = first; itr != postfix;) {
+                        itr += utf.Read_Forward(itr);
+                        if (forward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    for (unit_t* itr = postfix; itr != first;) {
+                        itr -= utf.Read_Reverse(itr, first);
+                        if (backward_points.Push(utf.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    CHECK(forward_points.Count() == backward_points.Count());
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
                     }
                 }
             }

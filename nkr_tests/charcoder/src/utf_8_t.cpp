@@ -28,7 +28,8 @@ namespace nkr { namespace charcoder {
         nkr_CONST
 
         template <typename charcoder_p, count_t point_count_p>
-        static inline auto Random_C_String()
+        static inline auto
+            Random_C_String()
         {
             array::stack_t<typename charcoder_p::unit_t, point_count_p * 4> string;
             for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
@@ -85,7 +86,8 @@ namespace nkr { namespace charcoder {
         }
 
         template <typename charcoder_p, count_t unit_count_p>
-        static inline auto Error_Ridden_C_String()
+        static inline auto
+            Error_Ridden_C_String()
         {
             array::stack_t<typename charcoder_p::unit_t, unit_count_p> string;
             for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
@@ -94,7 +96,7 @@ namespace nkr { namespace charcoder {
             string.Push(charcoder_p::unit_t(0)).Ignore_Error();
 
             return string;
-        };
+        }
 
         TEST_SUITE("aliases")
         {

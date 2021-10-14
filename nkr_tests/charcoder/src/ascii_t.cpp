@@ -4,6 +4,9 @@
 
 #include "nkr/intrinsics.h"
 
+#include "nkr/array/dynamic_t.h"
+#include "nkr/array/stack_t.h"
+
 #include "nkr/charcoder/ascii_t.h"
 
 #include "doctest.h"
@@ -27,34 +30,70 @@ namespace nkr { namespace charcoder {
         nkr_NON_CONST,  \
         nkr_CONST
 
-        static inline point_t Random_Valid_Point()
+        static inline point_t
+            Random_Point()
         {
             return Random<point_t>(0, 127);
         }
 
-        static inline point_t Random_Valid_And_Non_Terminus_Point()
+        static inline point_t
+            Random_Non_Point()
+        {
+            return Random<point_t>(128);
+        }
+
+        static inline point_t
+            Random_Non_Terminus_Point()
         {
             return Random<point_t>(1, 127);
         }
 
-        static inline point_t Random_Valid_And_Non_Replacement_And_Non_Terminus_Point()
+        static inline point_t
+            Random_Non_Replacement_Point()
         {
             point_t random;
             do {
-                random = Random<point_t>(1, 127);
+                random = Random_Point();
             } while (random == ascii_t::Replacement_Point());
 
             return random;
         }
 
-        static inline typename ascii_t::unit_t Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit()
+        static inline point_t
+            Random_Non_Terminus_And_Non_Replacement_Point()
         {
-            ascii_t::unit_t random;
+            point_t random;
             do {
-                random = Random<ascii_t::unit_t>(1, 127);
+                random = Random_Non_Terminus_Point();
             } while (random == ascii_t::Replacement_Point());
 
             return random;
+        }
+
+        template <typename charcoder_p, count_t point_count_p>
+        static inline auto
+            Random_C_String()
+        {
+            array::stack_t<typename charcoder_p::unit_t, point_count_p> string;
+            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+                string.Push(charcoder_p::unit_t(Random_Non_Terminus_And_Non_Replacement_Point())).Ignore_Error();
+            }
+            string.Push(charcoder_p::unit_t(0)).Ignore_Error();
+
+            return string;
+        }
+
+        template <typename charcoder_p, count_t unit_count_p>
+        static inline auto
+            Error_Ridden_C_String()
+        {
+            array::stack_t<typename charcoder_p::unit_t, unit_count_p> string;
+            for (index_t idx = 0, end = unit_count_p - 1; idx < end; idx += 1) {
+                string.Push(charcoder_p::unit_t(Random_Non_Point())).Ignore_Error();
+            }
+            string.Push(charcoder_p::unit_t(0)).Ignore_Error();
+
+            return string;
         }
 
         TEST_SUITE("aliases")
@@ -176,7 +215,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     ascii_p other = random;
                     ascii_p ascii = other;
                     CHECK(ascii.Decode() == random);
@@ -186,7 +225,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     ascii_p other = random;
                     ascii_p ascii = other;
                     CHECK(other.Decode() == random);
@@ -199,7 +238,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     std::remove_const_t<ascii_p> other = random;
                     ascii_p ascii = nkr::Move(other);
                     CHECK(ascii.Decode() == random);
@@ -209,7 +248,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    point_t random = Random_Non_Terminus_Point();
                     std::remove_const_t<ascii_p> other = random;
                     ascii_p ascii = nkr::Move(other);
                     CHECK(other.Decode() == 0);
@@ -222,7 +261,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     const ascii_p other = random;
                     ascii_p ascii;
                     ascii = other;
@@ -233,7 +272,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     const ascii_p other = random;
                     ascii_p ascii;
                     ascii = other;
@@ -247,7 +286,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     const volatile ascii_p other = random;
                     ascii_p ascii;
                     ascii = other;
@@ -258,7 +297,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     const volatile ascii_p other = random;
                     ascii_p ascii;
                     ascii = other;
@@ -272,7 +311,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     ascii_p other = random;
                     ascii_p ascii;
                     ascii = nkr::Move(other);
@@ -283,7 +322,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    point_t random = Random_Non_Terminus_Point();
                     ascii_p other = random;
                     ascii_p ascii;
                     ascii = nkr::Move(other);
@@ -297,7 +336,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_Point();
+                    point_t random = Random_Point();
                     volatile ascii_p other = random;
                     ascii_p ascii;
                     ascii = nkr::Move(other);
@@ -308,7 +347,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    point_t random = Random_Non_Terminus_Point();
                     volatile ascii_p other = random;
                     ascii_p ascii;
                     ascii = nkr::Move(other);
@@ -322,7 +361,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
                     
-                    point_t random = Random_Valid_And_Non_Terminus_Point();
+                    point_t random = Random_Non_Terminus_Point();
                     ascii_p ascii = random;
                     CHECK(ascii.Decode() != 0);
                     ascii.~ascii_p();
@@ -398,21 +437,11 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    constexpr count_t c_string_unit_count = 8;
-                    const unit_t c_string[c_string_unit_count] = {
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        0,
-                    };
-                    const index_t index = Random<index_t>(0, c_string_unit_count - 2);
+                    auto c_string = Random_C_String<ascii_p, 8>();
+                    const index_t index = Random<index_t>(0, c_string.Count() - 2);
 
                     ascii_p ascii;
-                    ascii.Read_Forward(c_string + index);
+                    ascii.Read_Forward(&c_string[index]);
                     CHECK(ascii.Decode() != 0);
                     CHECK(ascii.Decode() != ascii_p::Replacement_Point());
                 }
@@ -421,39 +450,19 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    constexpr count_t c_string_unit_count = 8;
-                    const unit_t c_string[c_string_unit_count] = {
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        0,
-                    };
-                    const index_t index = Random<index_t>(0, c_string_unit_count - 2);
+                    auto c_string = Random_C_String<ascii_p, 8>();
+                    const index_t index = Random<index_t>(0, c_string.Count() - 2);
 
                     ascii_p ascii;
-                    CHECK(ascii.Read_Forward(c_string + index) != 0);
+                    CHECK(ascii.Read_Forward(&c_string[index]) != 0);
                 }
 
                 TEST_CASE_TEMPLATE("should allow for iteration over the string", ascii_p, nkr_NON_CONST)
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    constexpr count_t c_string_unit_count = 8;
-                    const unit_t c_string[c_string_unit_count] = {
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        0,
-                    };
-                    const unit_t* pointer = c_string;
+                    auto c_string = Random_C_String<ascii_p, 8>();
+                    const unit_t* pointer = c_string.Array();
 
                     ascii_p ascii;
                     count_t read_count = ascii.Read_Forward(pointer);
@@ -471,21 +480,11 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    constexpr count_t c_string_unit_count = 8;
-                    const unit_t c_string[c_string_unit_count] = {
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        0,
-                    };
-                    const index_t index = Random<index_t>(1, c_string_unit_count - 1);
+                    auto c_string = Random_C_String<ascii_p, 8>();
+                    const index_t index = Random<index_t>(1, c_string.Count() - 1);
 
                     ascii_p ascii;
-                    ascii.Read_Reverse(c_string + index, c_string);
+                    ascii.Read_Reverse(&c_string[index], &c_string[0]);
                     CHECK(ascii.Decode() != 0);
                     CHECK(ascii.Decode() != ascii_p::Replacement_Point());
                 }
@@ -494,44 +493,94 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    constexpr count_t c_string_unit_count = 8;
-                    const unit_t c_string[c_string_unit_count] = {
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        0,
-                    };
-                    const index_t index = Random<index_t>(1, c_string_unit_count - 1);
+                    auto c_string = Random_C_String<ascii_p, 8>();
+                    const index_t index = Random<index_t>(1, c_string.Count() - 1);
 
                     ascii_p ascii;
-                    CHECK(ascii.Read_Reverse(c_string + index, c_string) != 0);
+                    CHECK(ascii.Read_Reverse(&c_string[index], &c_string[0]) != 0);
                 }
 
                 TEST_CASE_TEMPLATE("should allow for iteration over the string", ascii_p, nkr_NON_CONST)
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    constexpr count_t c_string_unit_count = 8;
-                    const unit_t c_string[c_string_unit_count] = {
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        Random_Valid_And_Non_Replacement_And_Non_Terminus_Unit(),
-                        0,
-                    };
-                    const unit_t* pointer = c_string + c_string_unit_count;
+                    auto c_string = Random_C_String<ascii_p, 8>();
+                    const unit_t* pointer = c_string.Array() + c_string.Count();
 
                     ascii_p ascii;
                     count_t read_count = 0;
-                    for (; pointer != c_string; read_count = ascii.Read_Reverse(pointer, c_string), pointer -= read_count) {
+                    for (; pointer != c_string.Array(); read_count = ascii.Read_Reverse(pointer, c_string.Array()), pointer -= read_count) {
                         CHECK(ascii.Decode() != ascii_p::Replacement_Point());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-free string as when reading forwards", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    auto c_string = Random_C_String<ascii_p, 128>();
+                    array::dynamic_t<point_t> forward_points(128);
+                    array::dynamic_t<point_t> backward_points(128);
+                    nkr_ASSERT_THAT(forward_points.Has_Memory());
+                    nkr_ASSERT_THAT(backward_points.Has_Memory());
+
+                    unit_t* const first = c_string.Array();
+                    unit_t* const postfix = first + c_string.Count();
+
+                    ascii_p ascii;
+
+                    for (unit_t* itr = first; itr != postfix;) {
+                        itr += ascii.Read_Forward(itr);
+                        if (forward_points.Push(ascii.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    for (unit_t* itr = postfix; itr != first;) {
+                        itr -= ascii.Read_Reverse(itr, first);
+                        if (backward_points.Push(ascii.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    CHECK(forward_points.Count() == backward_points.Count());
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should interpret the same points in an error-ridden string as when reading forwards", ascii_p, nkr_NON_CONST)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    auto c_string = Error_Ridden_C_String<ascii_p, 128>();
+                    array::dynamic_t<point_t> forward_points(128);
+                    array::dynamic_t<point_t> backward_points(128);
+                    nkr_ASSERT_THAT(forward_points.Has_Memory());
+                    nkr_ASSERT_THAT(backward_points.Has_Memory());
+
+                    unit_t* const first = c_string.Array();
+                    unit_t* const postfix = first + c_string.Count();
+
+                    ascii_p ascii;
+
+                    for (unit_t* itr = first; itr != postfix;) {
+                        itr += ascii.Read_Forward(itr);
+                        if (forward_points.Push(ascii.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    for (unit_t* itr = postfix; itr != first;) {
+                        itr -= ascii.Read_Reverse(itr, first);
+                        if (backward_points.Push(ascii.Decode()) != allocator_err::NONE) {
+                            nkr_ASSERT_THAT(false);
+                        }
+                    }
+
+                    CHECK(forward_points.Count() == backward_points.Count());
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
                     }
                 }
             }
@@ -558,7 +607,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    point_t random = Random_Valid_And_Non_Replacement_And_Non_Terminus_Point();
+                    point_t random = Random_Non_Terminus_And_Non_Replacement_Point();
                     ascii_p ascii = random;
                     CHECK(ascii[0] == random);
                 }
@@ -584,7 +633,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    ascii_p ascii = Random_Non_Terminus_Point();
                     CHECK(ascii.Decode() != 0);
                     ascii = none_t();
                     CHECK(ascii.Decode() == 0);
@@ -594,7 +643,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    ascii_p ascii = Random_Non_Terminus_Point();
                     CHECK(&(ascii = none_t()) == &ascii);
                 }
             }
@@ -613,7 +662,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    ascii_p ascii = Random_Non_Terminus_Point();
                     CHECK_FALSE(ascii == none_t());
                 }
             }
@@ -624,7 +673,7 @@ namespace nkr { namespace charcoder {
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    ascii_p ascii = Random_Valid_And_Non_Terminus_Point();
+                    ascii_p ascii = Random_Non_Terminus_Point();
                     CHECK_TRUE(ascii != none_t());
                 }
 
