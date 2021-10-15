@@ -60,8 +60,12 @@ namespace nkr { namespace string {
         using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
         using iterator_t    = string_itr<dynamic_t>;
 
-    public:
+    private:
         static const unit_t DEFAULT_C_STRING[1];
+
+    public:
+        template <count_t point_count_p>
+        static dynamic_t    Random();
 
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
@@ -141,6 +145,7 @@ namespace nkr { namespace string {
         count_t                 Unit_Count() const volatile;
         count_t                 Unit_Length() const;
         count_t                 Unit_Length() const volatile;
+
         count_t                 Point_Count() const;
         count_t                 Point_Count() const volatile;
         count_t                 Point_Length() const;

@@ -12,15 +12,21 @@
 namespace nkr { namespace charcoder {
 
     inline constexpr point_t
+        ascii_t::Last_Point()
+    {
+        return 127;
+    }
+
+    inline constexpr point_t
         ascii_t::Replacement_Point()
     {
         return '?';
     }
 
-    inline constexpr std_bool_t
-        ascii_t::Has_1_To_1_Unit_To_Point_Ratio()
+    inline constexpr count_t
+        ascii_t::Max_Unit_Count()
     {
-        return true;
+        return 1;
     }
 
     inline auto&
@@ -50,7 +56,7 @@ namespace nkr { namespace charcoder {
     inline void_t
         ascii_t::Encode(is_any_non_const_tr<ascii_t> auto& self, point_t point)
     {
-        if (point >= 0 && point <= 127) {
+        if (point >= 0 && point <= Last_Point()) {
             self.unit = unit_t(point);
         } else {
             self.unit = '?';

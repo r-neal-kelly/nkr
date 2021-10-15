@@ -111,6 +111,16 @@ namespace nkr { namespace charcoder {
 
         TEST_SUITE("static constexpr functions")
         {
+            TEST_SUITE("Last_Point()")
+            {
+                TEST_CASE_TEMPLATE("should return the last ascii point", ascii_p, nkr_ALL)
+                {
+                    using unit_t = ascii_p::unit_t;
+
+                    static_assert(ascii_p::Last_Point() == 127);
+                }
+            }
+
             TEST_SUITE("Replacement_Point()")
             {
                 TEST_CASE_TEMPLATE("should return the replacement character, currently '?'", ascii_p, nkr_ALL)
@@ -121,13 +131,13 @@ namespace nkr { namespace charcoder {
                 }
             }
 
-            TEST_SUITE("Has_1_To_1_Unit_To_Point_Ratio()")
+            TEST_SUITE("Max_Unit_Count()")
             {
-                TEST_CASE_TEMPLATE("should always return true for this charcoder", ascii_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 1", ascii_p, nkr_ALL)
                 {
                     using unit_t = ascii_p::unit_t;
 
-                    static_assert(ascii_p::Has_1_To_1_Unit_To_Point_Ratio() == true);
+                    static_assert(ascii_p::Max_Unit_Count() == 1);
                 }
             }
         }
@@ -593,7 +603,7 @@ namespace nkr { namespace charcoder {
 
                     point_t random = Random<point_t>();
                     ascii_p ascii = random;
-                    CHECK(ascii_p::Has_1_To_1_Unit_To_Point_Ratio());
+                    CHECK(ascii_p::Max_Unit_Count() == 1);
                     CHECK(ascii.Unit_Count() == 1);
                 }
             }

@@ -88,7 +88,7 @@ namespace nkr { namespace array {
 
         static unit_t&                  At(const is_any_tr<dynamic_t> auto& self, index_t index);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const unit_t& unit);
-        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, writable_unit_t&& unit);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, is_any_non_const_tr<unit_t> auto&& unit);
         static unit_t                   Pop(is_any_tr<dynamic_t> auto& self);
 
         static maybe_t<allocator_err>   Copy_To(const is_any_tr<dynamic_t> auto& self,
@@ -176,10 +176,10 @@ namespace nkr { namespace array {
         unit_t&                     At(index_t index) const volatile;
         maybe_t<allocator_err>      Push(const unit_t& unit);
         maybe_t<allocator_err>      Push(const unit_t& unit) volatile;
-        maybe_t<allocator_err>      Push(writable_unit_t&& unit);
-        maybe_t<allocator_err>      Push(writable_unit_t&& unit) volatile;
-        maybe_t<allocator_err>      Push(const volatile unit_t&& unit)                                                          = delete;
-        maybe_t<allocator_err>      Push(const volatile unit_t&& unit) volatile                                                 = delete;
+        maybe_t<allocator_err>      Push(is_any_non_const_tr<unit_t> auto&& unit);
+        maybe_t<allocator_err>      Push(is_any_non_const_tr<unit_t> auto&& unit) volatile;
+        maybe_t<allocator_err>      Push(is_any_const_tr<unit_t> auto&& unit)                                                   = delete;
+        maybe_t<allocator_err>      Push(is_any_const_tr<unit_t> auto&& unit) volatile                                          = delete;
         unit_t                      Pop();
         unit_t                      Pop() volatile;
 

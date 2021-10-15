@@ -4,6 +4,11 @@
 
 #include "nkr/intrinsics.h"
 
+#include "nkr/charcoder/ascii_t.h"
+#include "nkr/charcoder/utf_8_t.h"
+#include "nkr/charcoder/utf_16_t.h"
+#include "nkr/charcoder/utf_32_t.h"
+
 #include "nkr/string_itr.h"
 #include "nkr/string/dynamic_t.h"
 
@@ -11,9 +16,30 @@
 
 namespace nkr {
 
+    // we maybe should have a c_string_t or string::plain_t, which unlike the string::static_t
+    // would not actually carry anything but the pointer in its footprint and may even be changable.
+    // or instead of a pointer it uses the array::stack_t. so maybe string::stack_t? then we can
+    // make random stack strings or c_strings which we can use with all this testing.
+
+    // the difficulty is adding something to the charcoder interface which would make random strings
+    // possible for any charcoder. It would be useful for testing, even for end users of the library
+    // testing their own code. A "Random_Point() function would be sufficient, or having a couple constexpr
+    // funcs outlining the range of the points. this is distinct from our random charcoder strings which are
+    // testing the charcoder itself. these would be on the end user side.
+
+    TEST_SUITE("string_itr<string_p>")
+    {
+        TEST_SUITE("aliases")
+        {
+
+        }
+    }
+
     TEST_CASE("temp")
     {
-        string::dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
+        //string::dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
+        string::dynamic_t<charcoder::ascii_t> string = string::dynamic_t<charcoder::ascii_t>::Random<16>();
+        nkr_ASSERT_THAT(string.Has_Memory());
 
         auto Print_Point = [](auto& itr)
         {
@@ -37,10 +63,10 @@ namespace nkr {
             Print_Point(itr);
         }
 
-        CHECK(string.At(4).Point() == '.');
+        /*CHECK(string.At(4).Point() == '.');
         CHECK(string.At(9).Point() == '.');
         CHECK(string.At(14).Point() == '.');
-        CHECK(string.At(19).Point() == '.');
+        CHECK(string.At(19).Point() == '.');*/
     }
 
 }

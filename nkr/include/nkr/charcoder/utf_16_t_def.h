@@ -14,15 +14,21 @@
 namespace nkr { namespace charcoder {
 
     inline constexpr point_t
+        utf_16_t::Last_Point()
+    {
+        return utf_32_t::POINT_LAST;
+    }
+
+    inline constexpr point_t
         utf_16_t::Replacement_Point()
     {
         return utf_32_t::REPLACEMENT_CHARACTER;
     }
 
-    inline constexpr std_bool_t
-        utf_16_t::Has_1_To_1_Unit_To_Point_Ratio()
+    inline constexpr count_t
+        utf_16_t::Max_Unit_Count()
     {
-        return false;
+        return 2;
     }
 
     inline auto&

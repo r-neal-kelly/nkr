@@ -30,8 +30,10 @@ namespace nkr { namespace charcoder {
         /// @name static constexpr functions
         /// @copydoc 
         /// @{
+        static constexpr point_t    Last_Point();
         static constexpr point_t    Replacement_Point();
-        static constexpr std_bool_t Has_1_To_1_Unit_To_Point_Ratio();
+
+        static constexpr count_t    Max_Unit_Count();
         /// @}
 
     private:

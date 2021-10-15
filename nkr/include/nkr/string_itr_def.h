@@ -11,6 +11,9 @@
 
 namespace nkr {
 
+    // we should use the charcoder Max_Unit_Count func to determine if we can use
+    // the simpler algorithm when it equals 1.
+
     template <typename string_p>
     inline bool_t
         string_itr<string_p>::Has_String(const is_any_tr<string_itr> auto& self)

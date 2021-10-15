@@ -107,6 +107,16 @@ namespace nkr { namespace charcoder {
 
         TEST_SUITE("static constexpr functions")
         {
+            TEST_SUITE("Last_Point()")
+            {
+                TEST_CASE_TEMPLATE("should return the last Unicode point", utf_p, nkr_ALL)
+                {
+                    using unit_t = utf_p::unit_t;
+
+                    static_assert(utf_p::Last_Point() == utf_32_t::POINT_LAST);
+                }
+            }
+
             TEST_SUITE("Replacement_Point()")
             {
                 TEST_CASE_TEMPLATE("should return the Unicode replacement character", utf_p, nkr_ALL)
@@ -117,13 +127,13 @@ namespace nkr { namespace charcoder {
                 }
             }
 
-            TEST_SUITE("Has_1_To_1_Unit_To_Point_Ratio()")
+            TEST_SUITE("Max_Unit_Count()")
             {
-                TEST_CASE_TEMPLATE("should always return true for this charcoder", utf_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 1", utf_p, nkr_ALL)
                 {
                     using unit_t = utf_p::unit_t;
 
-                    static_assert(utf_p::Has_1_To_1_Unit_To_Point_Ratio() == true);
+                    static_assert(utf_p::Max_Unit_Count() == 1);
                 }
             }
         }
@@ -618,7 +628,7 @@ namespace nkr { namespace charcoder {
                     using unit_t = utf_p::unit_t;
 
                     utf_p utf = Random_Scalar();
-                    CHECK(utf_p::Has_1_To_1_Unit_To_Point_Ratio());
+                    CHECK(utf_p::Max_Unit_Count() == 1);
                     CHECK(utf.Unit_Count() == 1);
                 }
             }

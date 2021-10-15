@@ -124,12 +124,15 @@ namespace nkr { namespace array {
         nkr_ASSERT_THAT(new_capacity >= allocator_t::Min_Unit_Count());
         nkr_ASSERT_THAT(new_capacity <= allocator_t::Max_Unit_Count());
 
-        if (self.writable_units == nullptr) {
-            return nkr::Move(allocator_t::Allocate(Units(self), new_capacity));
+        if (self.unit_count <= new_capacity) {
+            return nkr::Move(allocator_t::Reallocate(Units(self), new_capacity));
         } else {
-            if (self.writable_units.Unit_Count() < new_capacity) {
-                return nkr::Move(allocator_t::Reallocate(Units(self), new_capacity));
+            maybe_t<allocator_err> err = allocator_t::Reallocate(Units(self), new_capacity);
+            if (err) {
+                return err;
             } else {
+                self.unit_count = new_capacity;
+
                 return allocator_err::NONE;
             }
         }
@@ -203,7 +206,7 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline maybe_t<allocator_err>
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, writable_unit_t&& unit)
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, is_any_non_const_tr<unit_t> auto&& unit)
     {
         if (Should_Grow(self)) {
             maybe_t<allocator_err> err = Grow(self);
@@ -650,14 +653,14 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline maybe_t<allocator_err>
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(writable_unit_t&& unit)
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(is_any_non_const_tr<unit_t> auto&& unit)
     {
         return nkr::Move(Push(*this, nkr::Move(unit)));
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline maybe_t<allocator_err>
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(writable_unit_t&& unit)
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Push(is_any_non_const_tr<unit_t> auto&& unit)
         volatile
     {
         return nkr::Move(Push(*this, nkr::Move(unit)));

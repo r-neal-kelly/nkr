@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "nkr/utils.h"
+
 #include "nkr/string/dynamic_t_dec.h"
 
 namespace nkr { namespace string {
@@ -39,6 +41,20 @@ namespace nkr { namespace string {
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::DEFAULT_C_STRING[1] = { 0 };
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    template <count_t point_count_p>
+    inline dynamic_t<charcoder_p, allocator_p, grow_rate_p>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Random()
+    {
+        dynamic_t string(point_count_p * charcoder_t::Max_Unit_Count());
+        if (string.Has_Terminus()) {
+            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+                string.Push(nkr::Random<point_t>(1, charcoder_t::Last_Point())).Ignore_Error();
+            }
+        }
+        return string;
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline auto&
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
                                                                       const is_any_tr<dynamic_t> auto& other)
@@ -47,6 +63,8 @@ namespace nkr { namespace string {
             self.array = other.array;
             if (self.array.Has_Memory()) {
                 self.point_count = other.point_count;
+            } else {
+                self.point_count = 0;
             }
         }
         return self;
@@ -133,6 +151,9 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Unit_Capacity(is_any_tr<dynamic_t> auto& self, count_t unit_capacity_including_terminus)
     {
+        // I think it would be an anit-pattern to allow otherwise, because it breaks the point count and possibly the last point before terminus
+        nkr_ASSERT_THAT(Unit_Count(self) <= unit_capacity_including_terminus);
+
         return nkr::Move(self.array.Capacity(unit_capacity_including_terminus));
     }
 
@@ -140,7 +161,7 @@ namespace nkr { namespace string {
     inline some_t<const typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t*>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::C_String(const is_any_tr<dynamic_t> auto& self)
     {
-        if (Has_Memory(self)) {
+        if (Has_Terminus(self)) {
             return self.array.Pointer().Units();
         } else {
             return DEFAULT_C_STRING;
@@ -230,7 +251,7 @@ namespace nkr { namespace string {
     {
         charcoder_t charcoder;
         charcoder.Encode(point);
-        Push(self, charcoder);
+        return nkr::Move(Push(self, charcoder));
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

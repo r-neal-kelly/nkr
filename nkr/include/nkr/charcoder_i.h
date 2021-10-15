@@ -44,8 +44,10 @@ namespace nkr { namespace $charcoder_i {
     template <typename type_p>
     concept static_constexpr_functions_i = requires()
     {
-        { std::remove_cv_t<type_p>::Replacement_Point() }               -> is_tr<charcoder::point_t>;
-        { std::remove_cv_t<type_p>::Has_1_To_1_Unit_To_Point_Ratio() }  -> is_tr<std_bool_t>;
+        { std::remove_cv_t<type_p>::Last_Point() }          -> is_tr<charcoder::point_t>;
+        { std::remove_cv_t<type_p>::Replacement_Point() }   -> is_tr<charcoder::point_t>;
+
+        { std::remove_cv_t<type_p>::Max_Unit_Count() }      -> is_tr<count_t>;
     };
 
     template <typename type_p>

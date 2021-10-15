@@ -56,10 +56,14 @@ namespace nkr { namespace string {
 
 namespace nkr {
 
-    // using string_i makes it recursively fail compilation atm. we should try another way to constrain here
     template <typename string_p>
     class string_itr
     {
+    private:
+        // annoyingly, we can't use this in the type constraint directly
+        // because we use this type in declarations on the string_p itself.
+        static_assert(string_i<string_p>);
+
     public:
         using string_t      = string_p;
         using charcoder_t   = string_p::charcoder_t;
