@@ -60,10 +60,10 @@ namespace nkr { namespace string {
         using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
         using iterator_t    = string_itr<dynamic_t>;
 
-    private:
-        static const unit_t DEFAULT_C_STRING[1];
-
     public:
+        static const unit_t*    Default_C_String();
+
+        // will move this to the test suite
         template <count_t point_count_p>
         static dynamic_t    Random();
 
@@ -76,13 +76,14 @@ namespace nkr { namespace string {
         static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
         static bool_t                   Has_Terminus(const is_any_tr<dynamic_t> auto& self);
 
-        static count_t                  Unit_Count(const is_any_tr<dynamic_t> auto& self);
-        static count_t                  Unit_Length(const is_any_tr<dynamic_t> auto& self);
-        static count_t                  Point_Count(const is_any_tr<dynamic_t> auto& self);
-        static count_t                  Point_Length(const is_any_tr<dynamic_t> auto& self);
-
         static count_t                  Unit_Capacity(const is_any_tr<dynamic_t> auto& self);
         static maybe_t<allocator_err>   Unit_Capacity(is_any_tr<dynamic_t> auto& self, count_t unit_capacity_including_terminus);
+
+        static count_t                  Unit_Count(const is_any_tr<dynamic_t> auto& self);
+        static count_t                  Unit_Length(const is_any_tr<dynamic_t> auto& self);
+
+        static count_t                  Point_Count(const is_any_tr<dynamic_t> auto& self);
+        static count_t                  Point_Length(const is_any_tr<dynamic_t> auto& self);
 
         static some_t<const unit_t*>    C_String(const is_any_tr<dynamic_t> auto& self);
 
@@ -99,7 +100,7 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const charcoder_t& charcoder);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string);
-        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, any_string_tr auto& other);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, any_non_const_string_tr auto&& other);
 
         static auto&                    Unit(is_any_tr<dynamic_t> auto& self, index_t unit_index);
@@ -141,6 +142,11 @@ namespace nkr { namespace string {
         bool_t                  Has_Terminus() const;
         bool_t                  Has_Terminus() const volatile;
 
+        count_t                 Unit_Capacity() const;
+        count_t                 Unit_Capacity() const volatile;
+        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus);
+        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
+
         count_t                 Unit_Count() const;
         count_t                 Unit_Count() const volatile;
         count_t                 Unit_Length() const;
@@ -150,11 +156,6 @@ namespace nkr { namespace string {
         count_t                 Point_Count() const volatile;
         count_t                 Point_Length() const;
         count_t                 Point_Length() const volatile;
-
-        count_t                 Unit_Capacity() const;
-        count_t                 Unit_Capacity() const volatile;
-        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus);
-        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
 
         some_t<const unit_t*>   C_String() const;
         some_t<const unit_t*>   C_String() const volatile;
@@ -178,8 +179,8 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
-        maybe_t<allocator_err>  Push(any_string_tr auto& string);
-        maybe_t<allocator_err>  Push(any_string_tr auto& string) volatile;
+        maybe_t<allocator_err>  Push(const any_string_tr auto& string);
+        maybe_t<allocator_err>  Push(const any_string_tr auto& string) volatile;
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string) volatile;
 

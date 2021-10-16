@@ -28,6 +28,8 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace array {
 
+    // these two template params should be reversed to follow the string::stack_t pattern.
+
     /// @nosubgrouping
     /// @copydoc _eea2eeb3_2ca8_4bbf_bdd0_0eca56b1ebae
     template <any_type_tr unit_p, count_t capacity_p>
@@ -50,14 +52,6 @@ namespace nkr { namespace array {
         using byte_array_t  = byte_t[capacity_p * sizeof(unit_t)];
         /// @}
 
-    public:
-        /// @name static functions
-        /// @copydoc 
-        /// @{
-        static constexpr count_t        Capacity();
-        static maybe_t<allocator_err>   Capacity(count_t new_capacity);
-        /// @}
-
     private:
         static void_t                   Copy_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                        const is_any_tr<stack_t> auto& other);
@@ -72,6 +66,9 @@ namespace nkr { namespace array {
         static auto&                    Writable_Array(is_any_non_const_tr<stack_t> auto& self);
         static count_t                  Count(const is_any_tr<stack_t> auto& self);
         static void_t                   Count(is_any_non_const_tr<stack_t> auto& self, count_t count);
+
+        static constexpr count_t        Capacity(const is_any_tr<stack_t> auto& self);
+        static maybe_t<allocator_err>   Capacity(is_any_non_const_tr<stack_t> auto& self, count_t new_capacity);
 
         static auto&                    At(is_any_tr<stack_t> auto& self, index_t index);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self,
@@ -144,6 +141,11 @@ namespace nkr { namespace array {
         count_t                 Count() const volatile;
         void_t                  Count(count_t count);
         void_t                  Count(count_t count) volatile;
+
+        count_t                 Capacity() const;
+        count_t                 Capacity() const volatile;
+        maybe_t<allocator_err>  Capacity(count_t new_capacity);
+        maybe_t<allocator_err>  Capacity(count_t new_capacity) volatile;
 
         unit_t&                 At(index_t index);
         const unit_t&           At(index_t index) const;

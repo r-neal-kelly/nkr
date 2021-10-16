@@ -101,7 +101,7 @@ namespace nkr { namespace array {
                                                   any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
 
         static bool_t                   Is_Fit(const is_any_tr<dynamic_t> auto& self);
-        static maybe_t<allocator_err>   Fit(is_any_tr<dynamic_t> auto& self);
+        static void_t                   Fit(is_any_tr<dynamic_t> auto& self);
 
         static bool_t                   Is_Clear(const is_any_tr<dynamic_t> auto& self);
         static void_t                   Clear(is_any_tr<dynamic_t> auto& self);
@@ -198,8 +198,8 @@ namespace nkr { namespace array {
 
         bool_t                      Is_Fit() const;
         bool_t                      Is_Fit() const volatile;
-        maybe_t<allocator_err>      Fit();
-        maybe_t<allocator_err>      Fit() volatile;
+        void_t                      Fit();
+        void_t                      Fit() volatile;
 
         bool_t                      Is_Clear() const;
         bool_t                      Is_Clear() const volatile;

@@ -29,6 +29,9 @@ namespace nkr {
     constexpr auto      Is_RValue(any_tr auto& value);
     constexpr auto      Is_RValue(any_tr auto&& value);
 
+    count_t C_String_Unit_Count(const any_character_tr auto* c_string);
+    count_t C_String_Unit_Length(const any_character_tr auto* c_string);
+
     extern std::random_device   random_device;
     extern std::mt19937_64      random_generator;
     extern std::mutex           random_lock;

@@ -13,24 +13,6 @@
 namespace nkr { namespace array {
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline constexpr count_t
-        stack_t<unit_p, capacity_p>::Capacity()
-    {
-        return capacity_p;
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline maybe_t<allocator_err>
-        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
-    {
-        if (new_capacity > Capacity()) {
-            return allocator_err::OUT_OF_MEMORY;
-        } else {
-            return allocator_err::NONE;
-        }
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
     inline void_t
         stack_t<unit_p, capacity_p>::Copy_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                     const is_any_tr<stack_t> auto& other)
@@ -38,7 +20,7 @@ namespace nkr { namespace array {
         nkr_ASSERT_THAT(self.unit_count == 0);
 
         if (other.unit_count > 0) {
-            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            maybe_t<allocator_err> err = Capacity(self, other.unit_count);
             if (!err) {
                 for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
                     Writable_Array(self)[idx] = Array(other)[idx];
@@ -56,7 +38,7 @@ namespace nkr { namespace array {
         nkr_ASSERT_THAT(self.unit_count == 0);
 
         if (other.unit_count > 0) {
-            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            maybe_t<allocator_err> err = Capacity(self, other.unit_count);
             if (!err) {
                 for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
                     Writable_Array(self)[idx] = nkr::Move(Writable_Array(other)[idx]);
@@ -73,7 +55,7 @@ namespace nkr { namespace array {
     {
         if (&self != std::addressof(other)) {
             Clear(self);
-            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            maybe_t<allocator_err> err = Capacity(self, other.unit_count);
             if (!err) {
                 for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
                     Writable_Array(self)[idx] = Array(other)[idx];
@@ -92,7 +74,7 @@ namespace nkr { namespace array {
     {
         if (&self != std::addressof(other)) {
             Clear(self);
-            maybe_t<allocator_err> err = Capacity(other.unit_count);
+            maybe_t<allocator_err> err = Capacity(self, other.unit_count);
             if (!err) {
                 for (index_t idx = 0, end = other.unit_count; idx < end; idx += 1) {
                     Writable_Array(self)[idx] = nkr::Move(Writable_Array(other)[idx]);
@@ -144,9 +126,35 @@ namespace nkr { namespace array {
     inline void_t
         stack_t<unit_p, capacity_p>::Count(is_any_non_const_tr<stack_t> auto& self, count_t count)
     {
-        nkr_ASSERT_THAT(count <= Capacity());
+        nkr_ASSERT_THAT(count <= Capacity(self));
 
         self.unit_count = count;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline constexpr count_t
+        stack_t<unit_p, capacity_p>::Capacity(const is_any_tr<stack_t> auto& self)
+    {
+        return capacity_p;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Capacity(is_any_non_const_tr<stack_t> auto& self, count_t new_capacity)
+    {
+        if (new_capacity > Capacity(self)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            const count_t unit_count = Count(self);
+            if (new_capacity < unit_count) {
+                // has consistent behavior with the array::dynamic_t
+                for (count_t pop_count = unit_count - new_capacity; pop_count > 0; pop_count -= 1) {
+                    Pop(self);
+                }
+            }
+
+            return allocator_err::NONE;
+        }
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -168,7 +176,7 @@ namespace nkr { namespace array {
         if (math::Will_Overflow_Add(count, other_count)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = Capacity(count + other_count);
+            maybe_t<allocator_err> err = Capacity(self, count + other_count);
             if (err) {
                 return nkr::Move(err);
             } else {
@@ -185,7 +193,7 @@ namespace nkr { namespace array {
                                                       is_any_tr<unit_t> auto& unit,
                                                       is_any_tr<unit_t> auto& ...more_units)
     {
-        nkr_ASSERT_THAT(self.unit_count < Capacity());
+        nkr_ASSERT_THAT(self.unit_count < Capacity(self));
 
         Writable_Array(self)[self.unit_count] = unit;
         self.unit_count += 1;
@@ -205,7 +213,7 @@ namespace nkr { namespace array {
         if (math::Will_Overflow_Add(count, other_count)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = Capacity(count + other_count);
+            maybe_t<allocator_err> err = Capacity(self, count + other_count);
             if (err) {
                 return nkr::Move(err);
             } else {
@@ -222,7 +230,7 @@ namespace nkr { namespace array {
                                                       is_any_non_const_tr<unit_t> auto&& unit,
                                                       is_any_non_const_tr<unit_t> auto&& ...more_units)
     {
-        nkr_ASSERT_THAT(self.unit_count < Capacity());
+        nkr_ASSERT_THAT(self.unit_count < Capacity(self));
 
         Writable_Array(self)[self.unit_count] = nkr::Move(unit);
         self.unit_count += 1;
@@ -252,7 +260,7 @@ namespace nkr { namespace array {
         if (math::Will_Overflow_Add(other_count, count)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = other.Capacity(other_count + count);
+            maybe_t<allocator_err> err = other.Capacity(self, other_count + count);
             if (err) {
                 return err;
             } else {
@@ -285,7 +293,7 @@ namespace nkr { namespace array {
             if (math::Will_Overflow_Add(other_count, count)) {
                 return allocator_err::OUT_OF_MEMORY;
             } else {
-                maybe_t<allocator_err> err = other.Capacity(other_count + count);
+                maybe_t<allocator_err> err = other.Capacity(self, other_count + count);
                 if (err) {
                     return err;
                 } else {
@@ -516,6 +524,37 @@ namespace nkr { namespace array {
         volatile
     {
         return Count(*this, count);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline count_t
+        stack_t<unit_p, capacity_p>::Capacity()
+        const
+    {
+        return Capacity(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline count_t
+        stack_t<unit_p, capacity_p>::Capacity()
+        const volatile
+    {
+        return Capacity(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
+    {
+        return nkr::Move(Capacity(*this, new_capacity));
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
+        volatile
+    {
+        return nkr::Move(Capacity(*this, new_capacity));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

@@ -127,14 +127,13 @@ namespace nkr { namespace array {
         if (self.unit_count <= new_capacity) {
             return nkr::Move(allocator_t::Reallocate(Units(self), new_capacity));
         } else {
-            maybe_t<allocator_err> err = allocator_t::Reallocate(Units(self), new_capacity);
-            if (err) {
-                return err;
-            } else {
-                self.unit_count = new_capacity;
-
-                return allocator_err::NONE;
+            // to prevent memory leaks
+            for (count_t pop_count = self.unit_count - new_capacity; pop_count > 0; pop_count -= 1) {
+                Pop(self);
             }
+            Fit(self);
+
+            return allocator_err::NONE;
         }
     }
 
@@ -313,13 +312,14 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline maybe_t<allocator_err>
+    inline void_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Fit(is_any_tr<dynamic_t> auto& self)
     {
-        if (self.unit_count < self.writable_units.Unit_Count()) {
-            return nkr::Move(allocator_t::Reallocate(Units(self), self.unit_count));
-        } else {
-            return allocator_err::NONE;
+        const count_t unit_count = Count(self);
+        if (unit_count < Capacity(self)) {
+            // what allocator fails to trim memory?
+            maybe_t<allocator_err> err = allocator_t::Reallocate(Units(self), unit_count);
+            nkr_ASSERT_THAT(err == allocator_err::NONE);
         }
     }
 
@@ -759,14 +759,14 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline maybe_t<allocator_err>
+    inline void_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Fit()
     {
         return nkr::Move(Fit(*this));
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline maybe_t<allocator_err>
+    inline void_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Fit()
         volatile
     {

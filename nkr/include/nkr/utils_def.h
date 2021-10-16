@@ -104,6 +104,34 @@ namespace nkr {
         return std::true_type();
     }
 
+    inline count_t
+        C_String_Unit_Count(const any_character_tr auto* c_string)
+    {
+        nkr_ASSERT_THAT(c_string != nullptr);
+
+        count_t count = 0;
+        while (*c_string != 0) {
+            count += 1;
+            c_string += 1;
+        }
+
+        return count + 1;
+    }
+
+    inline count_t
+        C_String_Unit_Length(const any_character_tr auto* c_string)
+    {
+        nkr_ASSERT_THAT(c_string != nullptr);
+
+        count_t count = 0;
+        while (*c_string != 0) {
+            count += 1;
+            c_string += 1;
+        }
+
+        return count;
+    }
+
     template <boolean_tr boolean_p>
     inline boolean_p
         Random(real_t probability_for_true = 0.5)
