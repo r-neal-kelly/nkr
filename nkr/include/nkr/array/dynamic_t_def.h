@@ -105,13 +105,6 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Count(const is_any_tr<dynamic_t> auto& self)
-    {
-        return self.unit_count;
-    }
-
-    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline count_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity(const is_any_tr<dynamic_t> auto& self)
     {
         return self.writable_units.Unit_Count();
@@ -138,6 +131,13 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline count_t
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Count(const is_any_tr<dynamic_t> auto& self)
+    {
+        return self.unit_count;
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline bool_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory(const is_any_tr<dynamic_t> auto& self)
     {
@@ -149,7 +149,7 @@ namespace nkr { namespace array {
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Should_Grow(const is_any_tr<dynamic_t> auto& self)
     {
         if (self.unit_count < allocator_t::Max_Unit_Count()) {
-            return self.unit_count + 1 > self.Capacity();
+            return self.unit_count + 1 > Capacity(self);
         } else {
             return true;
         }
@@ -159,7 +159,7 @@ namespace nkr { namespace array {
     inline maybe_t<allocator_err>
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Grow(is_any_tr<dynamic_t> auto& self)
     {
-        count_t capacity = self.Capacity();
+        count_t capacity = Capacity(self);
         if (capacity < allocator_t::Max_Unit_Count()) {
             if (math::Will_Overflow_Multiply(static_cast<real_t>(capacity), Grow_Rate())) {
                 return nkr::Move(self.Capacity(allocator_t::Max_Unit_Count()));
@@ -559,22 +559,6 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline count_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Count()
-        const
-    {
-        return Count(*this);
-    }
-
-    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline count_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Count()
-        const volatile
-    {
-        return Count(*this);
-    }
-
-    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline count_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Capacity()
         const
     {
@@ -602,6 +586,22 @@ namespace nkr { namespace array {
         volatile
     {
         return nkr::Move(Capacity(*this, new_capacity));
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline count_t
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Count()
+        const
+    {
+        return Count(*this);
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline count_t
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Count()
+        const volatile
+    {
+        return Count(*this);
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

@@ -52,6 +52,13 @@ namespace nkr { namespace array {
         using byte_array_t  = byte_t[capacity_p * sizeof(unit_t)];
         /// @}
 
+    public:
+        /// @name static constexpr functions
+        /// @copydoc 
+        /// @{
+        static constexpr count_t    Capacity();
+        /// @}
+
     private:
         static void_t                   Copy_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                        const is_any_tr<stack_t> auto& other);
@@ -64,11 +71,12 @@ namespace nkr { namespace array {
 
         static auto&                    Array(is_any_tr<stack_t> auto& self);
         static auto&                    Writable_Array(is_any_non_const_tr<stack_t> auto& self);
+
+        static count_t                  Capacity(const is_any_tr<stack_t> auto& self);
+        static maybe_t<allocator_err>   Capacity(is_any_non_const_tr<stack_t> auto& self, count_t new_capacity);
+
         static count_t                  Count(const is_any_tr<stack_t> auto& self);
         static void_t                   Count(is_any_non_const_tr<stack_t> auto& self, count_t count);
-
-        static constexpr count_t        Capacity(const is_any_tr<stack_t> auto& self);
-        static maybe_t<allocator_err>   Capacity(is_any_non_const_tr<stack_t> auto& self, count_t new_capacity);
 
         static auto&                    At(is_any_tr<stack_t> auto& self, index_t index);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self,
@@ -137,15 +145,14 @@ namespace nkr { namespace array {
         const array_t&          Array() const;
         volatile array_t&       Array() volatile;
         const volatile array_t& Array() const volatile;
+
+        maybe_t<allocator_err>  Capacity(count_t new_capacity);
+        maybe_t<allocator_err>  Capacity(count_t new_capacity) volatile;
+
         count_t                 Count() const;
         count_t                 Count() const volatile;
         void_t                  Count(count_t count);
         void_t                  Count(count_t count) volatile;
-
-        count_t                 Capacity() const;
-        count_t                 Capacity() const volatile;
-        maybe_t<allocator_err>  Capacity(count_t new_capacity);
-        maybe_t<allocator_err>  Capacity(count_t new_capacity) volatile;
 
         unit_t&                 At(index_t index);
         const unit_t&           At(index_t index) const;

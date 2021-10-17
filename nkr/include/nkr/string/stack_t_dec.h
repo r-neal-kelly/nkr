@@ -22,12 +22,12 @@
 
 namespace nkr { namespace string {
 
-    template <count_t capacity_p, charcoder_i charcoder_p>
+    template <count_t unit_capacity_p, charcoder_i charcoder_p>
     class stack_t;
 
     template <typename string_p>
     concept any_stack_tr =
-        is_any_tr<string_p, stack_t<string_p::Capacity(), typename string_p::charcoder_t>>;
+        is_any_tr<string_p, stack_t<string_p::Unit_Capacity(), typename string_p::charcoder_t>>;
 
     nkr_DEFINE_CONTAINER_TRAITS(stack, charcoder_t);
 
@@ -37,20 +37,23 @@ namespace nkr { namespace string {
 
     // should we reverse this or keep it so it's easy to have a default charcoder?
 
-    template <count_t capacity_p, charcoder_i charcoder_p = charcoder::utf_8_t>
+    template <count_t unit_capacity_p, charcoder_i charcoder_p = charcoder::utf_8_t>
     class stack_t
     {
     public:
-        static_assert(capacity_p >= 1, "string::stack_t must have at least a capacity of 1 to fit the terminus");
+        static_assert(unit_capacity_p >= 1, "string::stack_t must have at least a unit_capacity of 1 to fit the terminus");
 
     public:
         using charcoder_t   = charcoder_p;
         using unit_t        = charcoder_p::unit_t;
-        using array_t       = array::stack_t<unit_t, capacity_p>;
+        using array_t       = array::stack_t<unit_t, unit_capacity_p>;
         using iterator_t    = string_itr<stack_t>;
 
     public:
-        static const unit_t*            Default_C_String();
+        static constexpr count_t    Unit_Capacity();
+
+    public:
+        static const unit_t*    Default_C_String();
 
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<stack_t> auto& other);
@@ -109,8 +112,6 @@ namespace nkr { namespace string {
         bool_t                  Has_Terminus() const;
         bool_t                  Has_Terminus() const volatile;
 
-        count_t                 Unit_Capacity() const;
-        count_t                 Unit_Capacity() const volatile;
         maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus);
         maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
 

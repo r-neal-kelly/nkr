@@ -13,6 +13,13 @@
 namespace nkr { namespace array {
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline constexpr count_t
+        stack_t<unit_p, capacity_p>::Capacity()
+    {
+        return capacity_p;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline void_t
         stack_t<unit_p, capacity_p>::Copy_Construct(is_any_non_const_tr<stack_t> auto& self,
                                                     const is_any_tr<stack_t> auto& other)
@@ -117,22 +124,6 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p, count_t capacity_p>
     inline count_t
-        stack_t<unit_p, capacity_p>::Count(const is_any_tr<stack_t> auto& self)
-    {
-        return self.unit_count;
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
-        stack_t<unit_p, capacity_p>::Count(is_any_non_const_tr<stack_t> auto& self, count_t count)
-    {
-        nkr_ASSERT_THAT(count <= Capacity(self));
-
-        self.unit_count = count;
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline constexpr count_t
         stack_t<unit_p, capacity_p>::Capacity(const is_any_tr<stack_t> auto& self)
     {
         return capacity_p;
@@ -155,6 +146,22 @@ namespace nkr { namespace array {
 
             return allocator_err::NONE;
         }
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline count_t
+        stack_t<unit_p, capacity_p>::Count(const is_any_tr<stack_t> auto& self)
+    {
+        return self.unit_count;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline void_t
+        stack_t<unit_p, capacity_p>::Count(is_any_non_const_tr<stack_t> auto& self, count_t count)
+    {
+        nkr_ASSERT_THAT(count <= Capacity(self));
+
+        self.unit_count = count;
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -260,7 +267,7 @@ namespace nkr { namespace array {
         if (math::Will_Overflow_Add(other_count, count)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = other.Capacity(self, other_count + count);
+            maybe_t<allocator_err> err = other.Capacity(other_count + count);
             if (err) {
                 return err;
             } else {
@@ -293,7 +300,7 @@ namespace nkr { namespace array {
             if (math::Will_Overflow_Add(other_count, count)) {
                 return allocator_err::OUT_OF_MEMORY;
             } else {
-                maybe_t<allocator_err> err = other.Capacity(self, other_count + count);
+                maybe_t<allocator_err> err = other.Capacity(other_count + count);
                 if (err) {
                     return err;
                 } else {
@@ -496,6 +503,21 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
+    {
+        return nkr::Move(Capacity(*this, new_capacity));
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
+        volatile
+    {
+        return nkr::Move(Capacity(*this, new_capacity));
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline count_t
         stack_t<unit_p, capacity_p>::Count()
         const
@@ -524,37 +546,6 @@ namespace nkr { namespace array {
         volatile
     {
         return Count(*this, count);
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline count_t
-        stack_t<unit_p, capacity_p>::Capacity()
-        const
-    {
-        return Capacity(*this);
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline count_t
-        stack_t<unit_p, capacity_p>::Capacity()
-        const volatile
-    {
-        return Capacity(*this);
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline maybe_t<allocator_err>
-        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
-    {
-        return nkr::Move(Capacity(*this, new_capacity));
-    }
-
-    template <any_type_tr unit_p, count_t capacity_p>
-    inline maybe_t<allocator_err>
-        stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
-        volatile
-    {
-        return nkr::Move(Capacity(*this, new_capacity));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

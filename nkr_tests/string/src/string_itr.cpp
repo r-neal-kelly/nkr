@@ -40,12 +40,12 @@ namespace nkr {
     TEST_CASE("temp")
     {
         auto stack_string = Random_Stack_String<128, charcoder::ascii_t>();
-        CHECK(stack_string.Point_Count() == 1);
+        CHECK(stack_string.Point_Count() == 128);
         CHECK(stack_string.Has_Terminus());
 
-        //string::dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
-        string::dynamic_t<charcoder::ascii_t> string = string::dynamic_t<charcoder::ascii_t>::Random<16>();
-        nkr_ASSERT_THAT(string.Has_Memory());
+
+
+        string::dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
 
         auto Print_Point = [](auto& itr)
         {

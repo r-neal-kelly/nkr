@@ -18,18 +18,53 @@
 
 namespace nkr {
 
-    void_t Test()
+    template <count_t point_count_p, charcoder_i charcoder_p>
+    auto Random_Stack_String()
     {
-        1 + 1 == 2;
+        if constexpr (is_tr<charcoder_p, charcoder::utf_8_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_16_be_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_16_le_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_32_be_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_32_le_t>) {
+            static_assert(false, "under development");
+        } else {
+            string::stack_t<point_count_p* charcoder_p::Max_Unit_Count(), charcoder_p> string;
+            nkr_ASSERT_THAT(string.Has_Terminus());
+
+            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+                string.Push(nkr::Random<string::point_t>(1, charcoder_p::Last_Point())).Ignore_Error();
+            }
+
+            return string;
+        }
     }
 
     template <count_t point_count_p, charcoder_i charcoder_p>
-    string::stack_t<point_count_p, charcoder_p> Random_Stack_String()
+    auto Random_Stack_String_With_Errors()
     {
-        if constexpr (is_tr<charcoder_p, charcoder::ascii_t>) {
-            return string::stack_t<point_count_p, charcoder::ascii_t>();
+        if constexpr (is_tr<charcoder_p, charcoder::utf_8_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_16_be_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_16_le_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_32_be_t>) {
+            static_assert(false, "under development");
+        } else if constexpr (is_tr<charcoder_p, charcoder::utf_32_le_t>) {
+            static_assert(false, "under development");
         } else {
-            static_assert(false, "undefined Random_Stack_String() for passed charcoder");
+            string::stack_t<point_count_p* charcoder_p::Max_Unit_Count(), charcoder_p> string;
+            nkr_ASSERT_THAT(string.Has_Terminus());
+
+            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+                string.Push(nkr::Random<string::point_t>(1)).Ignore_Error();
+            }
+
+            return string;
         }
     }
 

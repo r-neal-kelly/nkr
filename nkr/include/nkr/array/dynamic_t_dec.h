@@ -76,10 +76,11 @@ namespace nkr { namespace array {
                                                     is_any_non_const_tr<dynamic_t> auto& other);
 
         static pointer_t                Pointer(const is_any_tr<dynamic_t> auto& self);
-        static count_t                  Count(const is_any_tr<dynamic_t> auto& self);
 
         static count_t                  Capacity(const is_any_tr<dynamic_t> auto& self);
         static maybe_t<allocator_err>   Capacity(is_any_tr<dynamic_t> auto& self, count_t new_capacity);
+
+        static count_t                  Count(const is_any_tr<dynamic_t> auto& self);
 
         static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
 
@@ -161,13 +162,14 @@ namespace nkr { namespace array {
         /// @{
         pointer_t                   Pointer() const;
         pointer_t                   Pointer() const volatile;
-        count_t                     Count() const;
-        count_t                     Count() const volatile;
 
         count_t                     Capacity() const;
         count_t                     Capacity() const volatile;
         maybe_t<allocator_err>      Capacity(count_t new_capacity);
         maybe_t<allocator_err>      Capacity(count_t new_capacity) volatile;
+
+        count_t                     Count() const;
+        count_t                     Count() const volatile;
 
         bool_t                      Has_Memory() const;
         bool_t                      Has_Memory() const volatile;
