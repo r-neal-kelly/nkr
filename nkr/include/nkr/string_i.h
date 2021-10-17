@@ -92,6 +92,6 @@ namespace nkr {
     concept any_string_tr =
         string_i<string_p>;
 
-    nkr_DEFINE_CONTAINER_TRAITS(string, unit_t);
+    nkr_DEFINE_CONTAINER_TRAITS(string, charcoder_t);
 
 }

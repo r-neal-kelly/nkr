@@ -65,7 +65,41 @@ namespace nkr {
 
         TEST_SUITE("aliases")
         {
+            TEST_SUITE("string_t")
+            {
+                TEST_CASE_TEMPLATE("should have a string_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
 
+                    static_assert(any_string_tr<string_t>);
+                }
+            }
+
+            TEST_SUITE("charcoder_t")
+            {
+                TEST_CASE_TEMPLATE("should have the same charcoder_t as its string_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    static_assert(is_tr<charcoder_t, typename string_t::charcoder_t>);
+                }
+            }
+
+            TEST_SUITE("unit_t")
+            {
+                TEST_CASE_TEMPLATE("should have the same unit_t as its string_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    static_assert(is_tr<unit_t, string_t::unit_t>);
+                }
+            }
         }
 
         TEST_CASE("temp")
