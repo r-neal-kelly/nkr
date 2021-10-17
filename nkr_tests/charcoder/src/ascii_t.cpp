@@ -11,6 +11,8 @@
 
 #include "doctest.h"
 
+#include "random.h"
+
 namespace nkr { namespace charcoder {
 
     TEST_SUITE("ascii_t")

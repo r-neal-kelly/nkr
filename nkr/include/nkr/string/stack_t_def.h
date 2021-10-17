@@ -222,7 +222,7 @@ namespace nkr { namespace string {
             const count_t original_point_length = Point_Length(self);
             const count_t other_point_count = other.Point_Count();
             if (math::Will_Overflow_Add(original_point_length, other_point_count)) {
-                return allocator_err:OUT_OF_MEMORY;
+                return allocator_err::OUT_OF_MEMORY;
             } else {
                 const count_t original_capacity = Unit_Capacity(self);
                 const count_t original_unit_length = Unit_Length(self);
@@ -284,7 +284,7 @@ namespace nkr { namespace string {
     template <count_t capacity_p, charcoder_i charcoder_p>
     inline stack_t<capacity_p, charcoder_p>::stack_t() :
         point_count(1),
-        array{ 0 }
+        array{ unit_t(0) }
     {
     }
 
@@ -429,7 +429,7 @@ namespace nkr { namespace string {
         stack_t<capacity_p, charcoder_p>::Unit_Capacity()
         const
     {
-        return Unit_Capacity(*this, unit_capacity_including_terminus);
+        return Unit_Capacity(*this);
     }
 
     template <count_t capacity_p, charcoder_i charcoder_p>
@@ -437,7 +437,7 @@ namespace nkr { namespace string {
         stack_t<capacity_p, charcoder_p>::Unit_Capacity()
         const volatile
     {
-        return Unit_Capacity(*this, unit_capacity_including_terminus);
+        return Unit_Capacity(*this);
     }
 
     template <count_t capacity_p, charcoder_i charcoder_p>

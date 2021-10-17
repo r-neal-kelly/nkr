@@ -154,17 +154,12 @@ namespace nkr { namespace charcoder {
         using base_t    = utf_16_t;
 
     private:
-        template <typename = void_t>
         static bool_t   Is_Well_Formed(const is_any_tr<utf_16_be_t> auto& self);
 
-        template <typename = void_t>
         static void_t   Encode(is_any_non_const_tr<utf_16_be_t> auto& self, point_t point);
-        template <typename = void_t>
         static point_t  Decode(const is_any_tr<utf_16_be_t> auto& self);
 
-        template <typename = void_t>
         static count_t  Read_Forward(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from);
-        template <typename = void_t>
         static count_t  Read_Reverse(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from, const unit_t* first);
 
     public:
@@ -203,17 +198,12 @@ namespace nkr { namespace charcoder {
         using base_t    = utf_16_t;
 
     private:
-        template <typename = void_t>
         static bool_t   Is_Well_Formed(const is_any_tr<utf_16_le_t> auto& self);
 
-        template <typename = void_t>
         static void_t   Encode(is_any_non_const_tr<utf_16_le_t> auto& self, point_t point);
-        template <typename = void_t>
         static point_t  Decode(const is_any_tr<utf_16_le_t> auto& self);
 
-        template <typename = void_t>
         static count_t  Read_Forward(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from);
-        template <typename = void_t>
         static count_t  Read_Reverse(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from, const unit_t* first);
 
     public:

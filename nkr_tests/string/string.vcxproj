@@ -131,7 +131,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;$(SolutionDir);</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -149,7 +149,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;$(SolutionDir);</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>

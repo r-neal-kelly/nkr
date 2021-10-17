@@ -600,7 +600,6 @@ namespace nkr { namespace charcoder {
         return !Is_Equal_To_None(*this);
     }
 
-    template <typename>
     inline bool_t
         utf_16_be_t::Is_Well_Formed(const is_any_tr<utf_16_be_t> auto& self)
     {
@@ -613,7 +612,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline void_t
         utf_16_be_t::Encode(is_any_non_const_tr<utf_16_be_t> auto& self, point_t point)
     {
@@ -626,7 +624,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline point_t
         utf_16_be_t::Decode(const is_any_tr<utf_16_be_t> auto& self)
     {
@@ -639,7 +636,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline count_t
         utf_16_be_t::Read_Forward(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from)
     {
@@ -652,7 +648,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline count_t
         utf_16_be_t::Read_Reverse(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from, const unit_t* first)
     {
@@ -738,7 +733,6 @@ namespace nkr { namespace charcoder {
         return Read_Reverse(*this, from, first);
     }
 
-    template <typename>
     inline bool_t
         utf_16_le_t::Is_Well_Formed(const is_any_tr<utf_16_le_t> auto& self)
     {
@@ -751,7 +745,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline void_t
         utf_16_le_t::Encode(is_any_non_const_tr<utf_16_le_t> auto& self, point_t point)
     {
@@ -764,7 +757,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline point_t
         utf_16_le_t::Decode(const is_any_tr<utf_16_le_t> auto& self)
     {
@@ -777,7 +769,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline count_t
         utf_16_le_t::Read_Forward(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from)
     {
@@ -790,7 +781,6 @@ namespace nkr { namespace charcoder {
         }
     }
 
-    template <typename>
     inline count_t
         utf_16_le_t::Read_Reverse(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from, const unit_t* first)
     {
