@@ -174,7 +174,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\random.h" />
     <ClInclude Include="include\shared.h" />
     <ClInclude Include="include\unicode.h" />
   </ItemGroup>

@@ -42,9 +42,8 @@ namespace nkr { namespace string {
     // might it be worth adding an iterator to the string itself? that way we can allow things like the access operator to be more efficient
     // also, the we wouldn't necessarily have to use the stack for charcoders, unless we wanted to.
 
-    // don't forget that when given a string to work with that has the same charcoder, you can just plain copy instead of decode
     template <
-        charcoder_i         charcoder_p = charcoder::utf_8_t,
+        charcoder_i         charcoder_p,
         allocator_i         allocator_p = allocator::heap_t<typename charcoder_p::unit_t>,
         math::fraction_i    grow_rate_p = math::fraction_t<17, 10>
     > class dynamic_t
@@ -187,9 +186,9 @@ namespace nkr { namespace string {
 
         // Split and Join should return new strings without altering this one.
     };
-    static_assert(string_i<dynamic_t<>>);
-    static_assert(string_i<const dynamic_t<>>);
-    static_assert(string_i<volatile dynamic_t<>>);
-    static_assert(string_i<const volatile dynamic_t<>>);
+    static_assert(string_i<dynamic_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const dynamic_t<charcoder::utf_8_t>>);
+    static_assert(string_i<volatile dynamic_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const volatile dynamic_t<charcoder::utf_8_t>>);
 
 }}

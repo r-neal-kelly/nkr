@@ -22,12 +22,12 @@
 
 namespace nkr { namespace string {
 
-    template <count_t unit_capacity_p, charcoder_i charcoder_p>
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     class stack_t;
 
     template <typename string_p>
     concept any_stack_tr =
-        is_any_tr<string_p, stack_t<string_p::Unit_Capacity(), typename string_p::charcoder_t>>;
+        is_any_tr<string_p, stack_t<typename string_p::charcoder_t, string_p::Unit_Capacity()>>;
 
     nkr_DEFINE_CONTAINER_TRAITS(stack, charcoder_t);
 
@@ -35,9 +35,7 @@ namespace nkr { namespace string {
 
 namespace nkr { namespace string {
 
-    // should we reverse this or keep it so it's easy to have a default charcoder?
-
-    template <count_t unit_capacity_p, charcoder_i charcoder_p = charcoder::utf_8_t>
+    template <charcoder_i charcoder_p, count_t unit_capacity_p = 128>
     class stack_t
     {
     public:
@@ -136,9 +134,9 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string) volatile;
     };
-    static_assert(string_i<stack_t<64>>);
-    static_assert(string_i<const stack_t<64>>);
-    static_assert(string_i<volatile stack_t<64>>);
-    static_assert(string_i<const volatile stack_t<64>>);
+    static_assert(string_i<stack_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const stack_t<charcoder::utf_8_t>>);
+    static_assert(string_i<volatile stack_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const volatile stack_t<charcoder::utf_8_t>>);
 
 }}

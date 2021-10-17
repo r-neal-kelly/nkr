@@ -61,6 +61,12 @@ namespace nkr { namespace charcoder {
     }
 
     inline constexpr std_bool_t
+        utf_32_t::Is_Replacement_Point(point_t point)
+    {
+        return point == Replacement_Point();
+    }
+
+    inline constexpr std_bool_t
         utf_32_t::Is_UTF_8_Bracket_1_Point(point_t point)
     {
         return point >= UTF_8_BRACKET_1_FIRST && point <= UTF_8_BRACKET_1_LAST;

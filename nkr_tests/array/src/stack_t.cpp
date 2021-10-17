@@ -13,10 +13,10 @@ namespace nkr { namespace array {
 
     TEST_SUITE("stack_t<unit_p, capacity_p>")
     {
-    #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, CAPACITY_p)             \
-        QUALIFIER_p stack_t<UNIT_p, CAPACITY_p>,                  \
-        QUALIFIER_p stack_t<const UNIT_p, CAPACITY_p>,            \
-        QUALIFIER_p stack_t<volatile UNIT_p, CAPACITY_p>,         \
+    #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, CAPACITY_p)     \
+        QUALIFIER_p stack_t<UNIT_p, CAPACITY_p>,                \
+        QUALIFIER_p stack_t<const UNIT_p, CAPACITY_p>,          \
+        QUALIFIER_p stack_t<volatile UNIT_p, CAPACITY_p>,       \
         QUALIFIER_p stack_t<const volatile UNIT_p, CAPACITY_p>
 
     #define nkr_CAPACITIES(QUALIFIER_p, UNIT_p) \

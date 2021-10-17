@@ -75,6 +75,7 @@ namespace nkr { namespace charcoder {
         static constexpr std_bool_t Is_Surrogate(point_t point);
         static constexpr std_bool_t Is_Surrogate_High(point_t point);
         static constexpr std_bool_t Is_Surrogate_Low(point_t point);
+        static constexpr std_bool_t Is_Replacement_Point(point_t point);
 
         static constexpr std_bool_t Is_UTF_8_Bracket_1_Point(point_t point);
         static constexpr std_bool_t Is_UTF_8_Bracket_2_Point(point_t point);

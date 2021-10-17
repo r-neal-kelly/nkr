@@ -28,11 +28,9 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace array {
 
-    // these two template params should be reversed to follow the string::stack_t pattern.
-
     /// @nosubgrouping
     /// @copydoc _eea2eeb3_2ca8_4bbf_bdd0_0eca56b1ebae
-    template <any_type_tr unit_p, count_t capacity_p>
+    template <any_type_tr unit_p, count_t capacity_p = 128>
     class stack_t
     {
     public:
@@ -196,21 +194,21 @@ namespace nkr { namespace array {
         const volatile unit_t&  operator [](index_t index) const volatile;
         /// @}
     };
-    static_assert(array_i<stack_t<word_t, 64>>);
-    static_assert(array_i<stack_t<const word_t, 64>>);
-    static_assert(array_i<stack_t<volatile word_t, 64>>);
-    static_assert(array_i<stack_t<const volatile word_t, 64>>);
-    static_assert(array_i<const stack_t<word_t, 64>>);
-    static_assert(array_i<const stack_t<const word_t, 64>>);
-    static_assert(array_i<const stack_t<volatile word_t, 64>>);
-    static_assert(array_i<const stack_t<const volatile word_t, 64>>);
-    static_assert(array_i<volatile stack_t<word_t, 64>>);
-    static_assert(array_i<volatile stack_t<const word_t, 64>>);
-    static_assert(array_i<volatile stack_t<volatile word_t, 64>>);
-    static_assert(array_i<volatile stack_t<const volatile word_t, 64>>);
-    static_assert(array_i<const volatile stack_t<word_t, 64>>);
-    static_assert(array_i<const volatile stack_t<const word_t, 64>>);
-    static_assert(array_i<const volatile stack_t<volatile word_t, 64>>);
-    static_assert(array_i<const volatile stack_t<const volatile word_t, 64>>);
+    static_assert(array_i<stack_t<word_t>>);
+    static_assert(array_i<stack_t<const word_t>>);
+    static_assert(array_i<stack_t<volatile word_t>>);
+    static_assert(array_i<stack_t<const volatile word_t>>);
+    static_assert(array_i<const stack_t<word_t>>);
+    static_assert(array_i<const stack_t<const word_t>>);
+    static_assert(array_i<const stack_t<volatile word_t>>);
+    static_assert(array_i<const stack_t<const volatile word_t>>);
+    static_assert(array_i<volatile stack_t<word_t>>);
+    static_assert(array_i<volatile stack_t<const word_t>>);
+    static_assert(array_i<volatile stack_t<volatile word_t>>);
+    static_assert(array_i<volatile stack_t<const volatile word_t>>);
+    static_assert(array_i<const volatile stack_t<word_t>>);
+    static_assert(array_i<const volatile stack_t<const word_t>>);
+    static_assert(array_i<const volatile stack_t<volatile word_t>>);
+    static_assert(array_i<const volatile stack_t<const volatile word_t>>);
 
 }}
