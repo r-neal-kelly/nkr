@@ -18,17 +18,6 @@
 
 namespace nkr {
 
-    // we maybe should have a c_string_t or string::plain_t, which unlike the string::static_t
-    // would not actually carry anything but the pointer in its footprint and may even be changable.
-    // or instead of a pointer it uses the array::stack_t. so maybe string::stack_t? then we can
-    // make random stack strings or c_strings which we can use with all this testing.
-
-    // the difficulty is adding something to the charcoder interface which would make random strings
-    // possible for any charcoder. It would be useful for testing, even for end users of the library
-    // testing their own code. A "Random_Point() function would be sufficient, or having a couple constexpr
-    // funcs outlining the range of the points. this is distinct from our random charcoder strings which are
-    // testing the charcoder itself. these would be on the end user side.
-
     TEST_SUITE("string_itr<string_p>")
     {
         TEST_SUITE("aliases")
