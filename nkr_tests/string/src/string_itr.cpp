@@ -197,6 +197,20 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_Prefix());
                 }
             }
+
+            TEST_SUITE("first_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to point at the first point of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::first_tg());
+                    CHECK(itr.Is_First());
+                }
+            }
         }
 
         /*TEST_CASE("temp")

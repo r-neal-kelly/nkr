@@ -45,8 +45,8 @@ namespace nkr { namespace charcoder {
         static void_t   Encode(is_any_non_const_tr<utf_8_t> auto& self, point_t point);
         static point_t  Decode(const is_any_tr<utf_8_t> auto& self);
 
-        static count_t  Read_Forward(is_any_non_const_tr<utf_8_t> auto& self, const unit_t* from);
-        static count_t  Read_Reverse(is_any_non_const_tr<utf_8_t> auto& self, const unit_t* from, const unit_t* first);
+        static count_t  Read_Forward(is_any_non_const_tr<utf_8_t> auto& self, const is_any_tr<unit_t> auto* from);
+        static count_t  Read_Reverse(is_any_non_const_tr<utf_8_t> auto& self, const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first);
 
         static count_t  Unit_Count(const is_any_tr<utf_8_t> auto& self);
 
@@ -99,10 +99,10 @@ namespace nkr { namespace charcoder {
         point_t Decode() const;
         point_t Decode() const volatile;
 
-        count_t Read_Forward(const unit_t* from);
-        count_t Read_Forward(const unit_t* from) volatile;
-        count_t Read_Reverse(const unit_t* from, const unit_t* first);
-        count_t Read_Reverse(const unit_t* from, const unit_t* first) volatile;
+        count_t Read_Forward(const is_any_tr<unit_t> auto* from);
+        count_t Read_Forward(const is_any_tr<unit_t> auto* from) volatile;
+        count_t Read_Reverse(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first);
+        count_t Read_Reverse(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first) volatile;
 
         count_t Unit_Count() const;
         count_t Unit_Count() const volatile;

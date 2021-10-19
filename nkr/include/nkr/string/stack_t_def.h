@@ -312,6 +312,15 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto&
+        stack_t<charcoder_p, unit_capacity_p>::Unit(is_any_tr<stack_t> auto& self, index_t unit_index)
+    {
+        nkr_ASSERT_THAT(unit_index < Unit_Count(self));
+
+        return self.array[unit_index];
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline stack_t<charcoder_p, unit_capacity_p>::stack_t() :
         point_count(1),
         array{ unit_t(0) }
@@ -606,6 +615,34 @@ namespace nkr { namespace string {
         volatile
     {
         return nkr::Move(Push(*this, nkr::Move(string)));
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline typename stack_t<charcoder_p, unit_capacity_p>::unit_t&
+        stack_t<charcoder_p, unit_capacity_p>::Unit(index_t unit_index)
+    {
+        return Unit(*this, unit_index);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline const typename stack_t<charcoder_p, unit_capacity_p>::unit_t&
+        stack_t<charcoder_p, unit_capacity_p>::Unit(index_t unit_index) const
+    {
+        return Unit(*this, unit_index);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline volatile typename stack_t<charcoder_p, unit_capacity_p>::unit_t&
+        stack_t<charcoder_p, unit_capacity_p>::Unit(index_t unit_index) volatile
+    {
+        return Unit(*this, unit_index);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline const volatile typename stack_t<charcoder_p, unit_capacity_p>::unit_t&
+        stack_t<charcoder_p, unit_capacity_p>::Unit(index_t unit_index) const volatile
+    {
+        return Unit(*this, unit_index);
     }
 
 }}

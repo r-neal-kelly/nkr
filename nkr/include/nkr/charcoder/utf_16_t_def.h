@@ -160,7 +160,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_t::Read_Forward_Normal(is_any_non_const_tr<utf_16_t> auto& self, const unit_t* from)
+        utf_16_t::Read_Forward_Normal(is_any_non_const_tr<utf_16_t> auto& self, const is_any_tr<unit_t> auto* from)
     {
         nkr_ASSERT_THAT(from);
 
@@ -186,7 +186,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_t::Read_Forward_Swapped(is_any_non_const_tr<utf_16_t> auto& self, const unit_t* from)
+        utf_16_t::Read_Forward_Swapped(is_any_non_const_tr<utf_16_t> auto& self, const is_any_tr<unit_t> auto* from)
     {
         nkr_ASSERT_THAT(from);
 
@@ -212,7 +212,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_t::Read_Reverse_Normal(is_any_non_const_tr<utf_16_t> auto& self, const unit_t* from, const unit_t* first)
+        utf_16_t::Read_Reverse_Normal(is_any_non_const_tr<utf_16_t> auto& self, const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         nkr_ASSERT_THAT(from);
         nkr_ASSERT_THAT(first);
@@ -248,7 +248,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_t::Read_Reverse_Swapped(is_any_non_const_tr<utf_16_t> auto& self, const unit_t* from, const unit_t* first)
+        utf_16_t::Read_Reverse_Swapped(is_any_non_const_tr<utf_16_t> auto& self, const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         nkr_ASSERT_THAT(from);
         nkr_ASSERT_THAT(first);
@@ -475,52 +475,52 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_t::Read_Forward_Normal(const unit_t* from)
+        utf_16_t::Read_Forward_Normal(const is_any_tr<unit_t> auto* from)
     {
         return Read_Forward_Normal(*this, from);
     }
 
     inline count_t
-        utf_16_t::Read_Forward_Normal(const unit_t* from)
+        utf_16_t::Read_Forward_Normal(const is_any_tr<unit_t> auto* from)
         volatile
     {
         return Read_Forward_Normal(*this, from);
     }
 
     inline count_t
-        utf_16_t::Read_Forward_Swapped(const unit_t* from)
+        utf_16_t::Read_Forward_Swapped(const is_any_tr<unit_t> auto* from)
     {
         return Read_Forward_Swapped(*this, from);
     }
 
     inline count_t
-        utf_16_t::Read_Forward_Swapped(const unit_t* from)
+        utf_16_t::Read_Forward_Swapped(const is_any_tr<unit_t> auto* from)
         volatile
     {
         return Read_Forward_Swapped(*this, from);
     }
 
     inline count_t
-        utf_16_t::Read_Reverse_Normal(const unit_t* from, const unit_t* first)
+        utf_16_t::Read_Reverse_Normal(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         return Read_Reverse_Normal(*this, from, first);
     }
 
     inline count_t
-        utf_16_t::Read_Reverse_Normal(const unit_t* from, const unit_t* first)
+        utf_16_t::Read_Reverse_Normal(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
         volatile
     {
         return Read_Reverse_Normal(*this, from, first);
     }
 
     inline count_t
-        utf_16_t::Read_Reverse_Swapped(const unit_t* from, const unit_t* first)
+        utf_16_t::Read_Reverse_Swapped(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         return Read_Reverse_Swapped(*this, from, first);
     }
 
     inline count_t
-        utf_16_t::Read_Reverse_Swapped(const unit_t* from, const unit_t* first)
+        utf_16_t::Read_Reverse_Swapped(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
         volatile
     {
         return Read_Reverse_Swapped(*this, from, first);
@@ -637,7 +637,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_be_t::Read_Forward(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from)
+        utf_16_be_t::Read_Forward(is_any_non_const_tr<utf_16_be_t> auto& self, const is_any_tr<unit_t> auto* from)
     {
         if constexpr (os::endian::Is_Big()) {
             return self.Read_Forward_Normal(from);
@@ -649,7 +649,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_be_t::Read_Reverse(is_any_non_const_tr<utf_16_be_t> auto& self, const unit_t* from, const unit_t* first)
+        utf_16_be_t::Read_Reverse(is_any_non_const_tr<utf_16_be_t> auto& self, const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         if constexpr (os::endian::Is_Big()) {
             return self.Read_Reverse_Normal(from, first);
@@ -708,26 +708,26 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_be_t::Read_Forward(const unit_t* from)
+        utf_16_be_t::Read_Forward(const is_any_tr<unit_t> auto* from)
     {
         return Read_Forward(*this, from);
     }
 
     inline count_t
-        utf_16_be_t::Read_Forward(const unit_t* from)
+        utf_16_be_t::Read_Forward(const is_any_tr<unit_t> auto* from)
         volatile
     {
         return Read_Forward(*this, from);
     }
 
     inline count_t
-        utf_16_be_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        utf_16_be_t::Read_Reverse(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         return Read_Reverse(*this, from, first);
     }
 
     inline count_t
-        utf_16_be_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        utf_16_be_t::Read_Reverse(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
         volatile
     {
         return Read_Reverse(*this, from, first);
@@ -770,7 +770,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_le_t::Read_Forward(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from)
+        utf_16_le_t::Read_Forward(is_any_non_const_tr<utf_16_le_t> auto& self, const is_any_tr<unit_t> auto* from)
     {
         if constexpr (os::endian::Is_Big()) {
             return self.Read_Forward_Swapped(from);
@@ -782,7 +782,7 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_le_t::Read_Reverse(is_any_non_const_tr<utf_16_le_t> auto& self, const unit_t* from, const unit_t* first)
+        utf_16_le_t::Read_Reverse(is_any_non_const_tr<utf_16_le_t> auto& self, const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         if constexpr (os::endian::Is_Big()) {
             return self.Read_Reverse_Swapped(from, first);
@@ -841,26 +841,26 @@ namespace nkr { namespace charcoder {
     }
 
     inline count_t
-        utf_16_le_t::Read_Forward(const unit_t* from)
+        utf_16_le_t::Read_Forward(const is_any_tr<unit_t> auto* from)
     {
         return Read_Forward(*this, from);
     }
 
     inline count_t
-        utf_16_le_t::Read_Forward(const unit_t* from)
+        utf_16_le_t::Read_Forward(const is_any_tr<unit_t> auto* from)
         volatile
     {
         return Read_Forward(*this, from);
     }
 
     inline count_t
-        utf_16_le_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        utf_16_le_t::Read_Reverse(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
     {
         return Read_Reverse(*this, from, first);
     }
 
     inline count_t
-        utf_16_le_t::Read_Reverse(const unit_t* from, const unit_t* first)
+        utf_16_le_t::Read_Reverse(const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first)
         volatile
     {
         return Read_Reverse(*this, from, first);

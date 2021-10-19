@@ -80,6 +80,8 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other);
 
+        static auto&                    Unit(is_any_tr<stack_t> auto& self, index_t unit_index);
+
     protected:
         count_t point_count;
         array_t array;
@@ -136,6 +138,11 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>  Push(const any_string_tr auto& string) volatile;
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string) volatile;
+
+        unit_t&                 Unit(index_t unit_index);
+        const unit_t&           Unit(index_t unit_index) const;
+        volatile unit_t&        Unit(index_t unit_index) volatile;
+        const volatile unit_t&  Unit(index_t unit_index) const volatile;
     };
     static_assert(string_i<stack_t<charcoder::utf_8_t>>);
     static_assert(string_i<const stack_t<charcoder::utf_8_t>>);

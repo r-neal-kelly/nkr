@@ -45,7 +45,9 @@ namespace nkr { namespace $string_i {
                                  volatile std::remove_cv_t<string_p> volatile_string,
                                  const volatile std::remove_cv_t<string_p> const_volatile_string,
 
-                                 count_t unit_capacity_including_terminus)
+                                 count_t unit_capacity_including_terminus,
+                                 
+                                 index_t unit_index)
     {
         { string.Has_Terminus() }                                           -> is_tr<bool_t>;
         { const_string.Has_Terminus() }                                     -> is_tr<bool_t>;
@@ -76,6 +78,11 @@ namespace nkr { namespace $string_i {
         { const_string.Point_Length() }                                     -> is_tr<count_t>;
         { volatile_string.Point_Length() }                                  -> is_tr<count_t>;
         { const_volatile_string.Point_Length() }                            -> is_tr<count_t>;
+
+        { string.Unit(unit_index) }                                         -> is_tr<typename string_p::unit_t&>;
+        { const_string.Unit(unit_index) }                                   -> is_tr<const typename string_p::unit_t&>;
+        { volatile_string.Unit(unit_index) }                                -> is_tr<volatile typename string_p::unit_t&>;
+        { const_volatile_string.Unit(unit_index) }                          -> is_tr<const volatile typename string_p::unit_t&>;
     };
 
 }}
