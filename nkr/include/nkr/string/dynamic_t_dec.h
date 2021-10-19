@@ -62,6 +62,9 @@ namespace nkr { namespace string {
     public:
         static const unit_t*    Default_C_String();
 
+        template <count_t point_count_p>
+        static auto             Random(bool_t allow_replacement_point = false);
+
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
                                                     const is_any_tr<dynamic_t> auto& other);

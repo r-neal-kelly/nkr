@@ -15,27 +15,30 @@
 
 #include "doctest.h"
 
-namespace nkr {
+namespace nkr { namespace string {
 
     TEST_SUITE("string_itr<string_p>")
     {
-    #define nkr_UNIT(QUALIFIER_p, STRING_p, CHARCODER_p)                \
-        QUALIFIER_p string_itr<STRING_p<CHARCODER_p>>,                  \
-        QUALIFIER_p string_itr<volatile STRING_p<CHARCODER_p>>,         \
-        QUALIFIER_p string_itr<const STRING_p<CHARCODER_p>>,            \
-        QUALIFIER_p string_itr<const volatile STRING_p<CHARCODER_p>>
+    #define nkr_RANDOM_POINT_COUNT  \
+        128
 
-    #define nkr_CHARCODERS(QUALIFIER_p, STRING_p)                   \
-        nkr_UNIT(QUALIFIER_p, STRING_p, charcoder::ascii_t),        \
-        nkr_UNIT(QUALIFIER_p, STRING_p, charcoder::utf_8_t),        \
-        nkr_UNIT(QUALIFIER_p, STRING_p, charcoder::utf_16_be_t),    \
-        nkr_UNIT(QUALIFIER_p, STRING_p, charcoder::utf_16_le_t),    \
-        nkr_UNIT(QUALIFIER_p, STRING_p, charcoder::utf_32_be_t),    \
-        nkr_UNIT(QUALIFIER_p, STRING_p, charcoder::utf_32_le_t)
+    #define nkr_RESOLVED(QUALIFIER_p, STRING_p, CHARCODER_p)                                                        \
+        QUALIFIER_p string_itr<decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>,                  \
+        QUALIFIER_p string_itr<const decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>,            \
+        QUALIFIER_p string_itr<volatile decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>,         \
+        QUALIFIER_p string_itr<const volatile decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>
 
-    #define nkr_STRINGS(QUALIFIER_p)                    \
-        nkr_CHARCODERS(QUALIFIER_p, string::dynamic_t), \
-        nkr_CHARCODERS(QUALIFIER_p, string::stack_t)
+    #define nkr_CHARCODERS(QUALIFIER_p, STRING_p)                       \
+        nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::ascii_t),        \
+        nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::utf_8_t),        \
+        nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::utf_16_be_t),    \
+        nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::utf_16_le_t),    \
+        nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::utf_32_be_t),    \
+        nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::utf_32_le_t)
+
+    #define nkr_STRINGS(QUALIFIER_p)            \
+        nkr_CHARCODERS(QUALIFIER_p, dynamic_t), \
+        nkr_CHARCODERS(QUALIFIER_p, stack_t)
 
     #define nkr_REGULAR         \
         nkr_STRINGS(nkr_BLANK)
@@ -51,17 +54,6 @@ namespace nkr {
     #define nkr_ALL     \
         nkr_NON_CONST,  \
         nkr_CONST
-
-        template <charcoder_i charcoder_p, count_t point_count_p>
-        auto Random_Stack_String()
-        {
-            string::stack_t<charcoder_p, point_count_p* charcoder_p::Max_Unit_Count()> string;
-            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
-                string.Push(nkr::Random<string::point_t>(1, charcoder_p::Last_Point())).Ignore_Error();
-            }
-
-            return string;
-        }
 
         TEST_SUITE("aliases")
         {
@@ -102,13 +94,114 @@ namespace nkr {
             }
         }
 
-        TEST_CASE("temp")
+        TEST_SUITE("protected object data")
         {
-            auto stack_string = Random_Stack_String<charcoder::ascii_t, 128>();
-            CHECK(stack_string.Point_Count() == 128);
-            CHECK(stack_string.Has_Terminus());
+            TEST_SUITE("string")
+            {
+                TEST_CASE_TEMPLATE("should have a string that's a some_t<const string_t*>", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
 
-            string::dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
+                    class derived_t :
+                        public itr_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(itr_p::string), some_t<const string_t*>>);
+                    };
+                }
+            }
+
+            TEST_SUITE("unit_index")
+            {
+                TEST_CASE_TEMPLATE("should have a unit_index that's an index_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    class derived_t :
+                        public itr_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(itr_p::unit_index), index_t>);
+                    };
+                }
+            }
+
+            TEST_SUITE("point_index")
+            {
+                TEST_CASE_TEMPLATE("should have a point_index that's an index_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    class derived_t :
+                        public itr_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(itr_p::point_index), index_t>);
+                    };
+                }
+            }
+
+            TEST_SUITE("is_prefix")
+            {
+                TEST_CASE_TEMPLATE("should have a is_prefix that's a bool_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    class derived_t :
+                        public itr_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(itr_p::is_prefix), bool_t>);
+                    };
+                }
+            }
+
+            TEST_SUITE("charcoder")
+            {
+                TEST_CASE_TEMPLATE("should have a charcoder that's a charcoder_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    class derived_t :
+                        public itr_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(itr_p::charcoder), charcoder_t>);
+                    };
+                }
+            }
+        }
+
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("prefix_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to point at the prefix of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::prefix_tg());
+                    CHECK(itr.Is_Prefix());
+                }
+            }
+        }
+
+        /*TEST_CASE("temp")
+        {
+            dynamic_t<charcoder::utf_8_t> string(u8"neal.νηαλ.נהאל.ነሐአለ.𐌍𐌄𐌀𐌋");
 
             auto Print_Point = [](auto& itr)
             {
@@ -136,6 +229,6 @@ namespace nkr {
             CHECK(string.At(9).Point() == '.');
             CHECK(string.At(14).Point() == '.');
             CHECK(string.At(19).Point() == '.');
-        }
+        }*/
     }
-}
+}}

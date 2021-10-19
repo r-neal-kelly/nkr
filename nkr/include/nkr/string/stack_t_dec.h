@@ -39,7 +39,7 @@ namespace nkr { namespace string {
     class stack_t
     {
     public:
-        static_assert(unit_capacity_p >= 1, "string::stack_t must have at least a unit_capacity of 1 to fit the terminus");
+        static_assert(unit_capacity_p >= 1, "string::stack_t must have at least a unit_capacity of 1 to fit the terminus.");
 
     public:
         using charcoder_t   = charcoder_p;
@@ -52,6 +52,9 @@ namespace nkr { namespace string {
 
     public:
         static const unit_t*    Default_C_String();
+
+        template <count_t point_count_p>
+        static auto             Random(bool_t allow_replacement_point = false);
 
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<stack_t> auto& other);
