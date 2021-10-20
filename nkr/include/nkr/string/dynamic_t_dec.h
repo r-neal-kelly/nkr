@@ -62,9 +62,6 @@ namespace nkr { namespace string {
     public:
         static const unit_t*    Default_C_String();
 
-        template <count_t max_point_count_p>
-        static auto             Random(bool_t allow_replacement_point = false);
-
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
                                                     const is_any_tr<dynamic_t> auto& other);
@@ -195,3 +192,14 @@ namespace nkr { namespace string {
     static_assert(string_i<const volatile dynamic_t<charcoder::utf_8_t>>);
 
 }}
+
+namespace nkr {
+
+    template <
+        string::any_dynamic_tr  string_p,
+        count_t                 min_point_count_p = 1,
+        count_t                 max_point_count_p = 128,
+        std_bool_t              allow_replacement_point_p = false
+    > auto  Random();
+
+}
