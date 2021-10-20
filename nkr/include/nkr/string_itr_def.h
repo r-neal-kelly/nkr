@@ -154,46 +154,54 @@ namespace nkr {
         string_itr<string_p>::At(is_any_non_const_tr<string_itr> auto& self, index_t point_index)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(point_index < self.string->Point_Count());
-
-        // kind of arbitrary until we do tests. also may not be as good for some charcoders as others.
-        constexpr const count_t THRESHOLD = 16;
-
-        // we can offer a quicker method if the charcoder always has a 1:1 unit to point ratio (like ascii_t utf_32_t), should constexpr if it
+        nkr_ASSERT_THAT(point_index <= self.string->Point_Count());
 
         if (self.point_index != point_index) {
-            if (Is_Prefix(self)) {
-                Next(self);
-            } else if (Is_Postfix(self)) {
-                Prior(self);
-            }
-
-            count_t point_count = self.string->Point_Count();
-            if (point_count > THRESHOLD) {
-                if (point_index > self.point_index) {
-                    count_t difference_from_current = point_index - self.point_index;
-                    count_t difference_from_terminus = point_count - 1 - point_index;
-                    if (difference_from_current < difference_from_terminus) {
-                        self += difference_from_current;
-                    } else {
-                        Terminus(self);
-                        self -= difference_from_terminus;
-                    }
-                } else {
-                    count_t difference_from_current = self.point_index - point_index;
-                    count_t difference_from_first = point_index - 0;
-                    if (difference_from_current < difference_from_first) {
-                        self -= difference_from_current;
-                    } else {
-                        First(self);
-                        self += difference_from_first;
-                    }
-                }
+            const count_t point_count = self.string->Point_Count();
+            if (point_index == point_count) {
+                Postfix(self);
             } else {
-                if (point_index > self.point_index) {
-                    self += point_index - self.point_index;
+                if constexpr (charcoder_t::Max_Unit_Count() == 1) {
+                    self.unit_index = point_index;
+                    self.point_index = point_index;
+                    self.is_prefix = false;
+                    self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
                 } else {
-                    self -= self.point_index - point_index;
+                    constexpr const count_t THRESHOLD = 16;
+
+                    if (Is_Prefix(self)) {
+                        Next(self);
+                    } else if (Is_Postfix(self)) {
+                        Prior(self);
+                    }
+
+                    if (point_count > THRESHOLD) {
+                        if (point_index > self.point_index) {
+                            count_t difference_from_current = point_index - self.point_index;
+                            count_t difference_from_terminus = point_count - 1 - point_index;
+                            if (difference_from_current < difference_from_terminus) {
+                                self += difference_from_current;
+                            } else {
+                                Terminus(self);
+                                self -= difference_from_terminus;
+                            }
+                        } else {
+                            count_t difference_from_current = self.point_index - point_index;
+                            count_t difference_from_first = point_index - 0;
+                            if (difference_from_current < difference_from_first) {
+                                self -= difference_from_current;
+                            } else {
+                                First(self);
+                                self += difference_from_first;
+                            }
+                        }
+                    } else {
+                        if (point_index > self.point_index) {
+                            self += point_index - self.point_index;
+                        } else {
+                            self -= self.point_index - point_index;
+                        }
+                    }
                 }
             }
         }
@@ -383,6 +391,12 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline string_itr<string_p>::string_itr(some_t<const string_t*> string) :
+        string_itr(string, string::position_e::first_tg())
+    {
+    }
+
+    template <typename string_p>
     inline string_itr<string_p>::string_itr(some_t<const string_t*> string, string::position_e::prefix_tg) :
         string(string),
         unit_index(0),
@@ -454,16 +468,8 @@ namespace nkr {
 
     template <typename string_p>
     inline string_itr<string_p>::string_itr(some_t<const string_t*> string, index_t point_index) :
-        string(string),
-        unit_index(0),
-        point_index(0),
-        is_prefix(false),
-        charcoder(none_t())
+        string_itr(string, string::position_e::first_tg())
     {
-        nkr_ASSERT_THAT(string);
-        nkr_ASSERT_THAT(Has_String());
-
-        First(*this);
         At(*this, point_index);
     }
 

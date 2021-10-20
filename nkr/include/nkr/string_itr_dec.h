@@ -117,6 +117,7 @@ namespace nkr {
     public:
         string_itr()                                                                                        = delete;
 
+        string_itr(some_t<const string_t*> string);
         string_itr(some_t<const string_t*> string, string::position_e::prefix_tg);
         string_itr(some_t<const string_t*> string, string::position_e::first_tg);
         string_itr(some_t<const string_t*> string, string::position_e::last_tg);
