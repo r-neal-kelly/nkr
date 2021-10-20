@@ -165,7 +165,7 @@ namespace nkr { namespace string {
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
-        return iterator_t(&self, position_e::prefix_tg());
+        return iterator_t(self, position_e::prefix_tg());
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -174,7 +174,7 @@ namespace nkr { namespace string {
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
-        return iterator_t(&self, position_e::first_tg());
+        return iterator_t(self, position_e::first_tg());
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -183,7 +183,7 @@ namespace nkr { namespace string {
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
-        return iterator_t(&self, position_e::last_tg());
+        return iterator_t(self, position_e::last_tg());
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -192,7 +192,7 @@ namespace nkr { namespace string {
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
-        return iterator_t(&self, position_e::terminus_tg());
+        return iterator_t(self, position_e::terminus_tg());
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -201,7 +201,7 @@ namespace nkr { namespace string {
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
-        return iterator_t(&self, position_e::postfix_tg());
+        return iterator_t(self, position_e::postfix_tg());
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -211,7 +211,7 @@ namespace nkr { namespace string {
         nkr_ASSERT_THAT(Has_Terminus(self));
         nkr_ASSERT_THAT(point_index < self.point_count);
 
-        return iterator_t(&self, point_index);
+        return iterator_t(self, point_index);
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

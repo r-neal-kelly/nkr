@@ -12,6 +12,7 @@
 #include "nkr/none_t.h"
 #include "nkr/optional_t.h"
 #include "nkr/some_t.h"
+#include "nkr/traits.h"
 
 #include "nkr/charcoder_i.h"
 
@@ -117,13 +118,13 @@ namespace nkr {
     public:
         string_itr()                                                                                        = delete;
 
-        string_itr(some_t<const string_t*> string);
-        string_itr(some_t<const string_t*> string, string::position_e::prefix_tg);
-        string_itr(some_t<const string_t*> string, string::position_e::first_tg);
-        string_itr(some_t<const string_t*> string, string::position_e::last_tg);
-        string_itr(some_t<const string_t*> string, string::position_e::terminus_tg);
-        string_itr(some_t<const string_t*> string, string::position_e::postfix_tg);
-        string_itr(some_t<const string_t*> string, index_t point_index);
+        string_itr(const is_any_tr<string_t> auto& string);
+        string_itr(const is_any_tr<string_t> auto& string, string::position_e::prefix_tg);
+        string_itr(const is_any_tr<string_t> auto& string, string::position_e::first_tg);
+        string_itr(const is_any_tr<string_t> auto& string, string::position_e::last_tg);
+        string_itr(const is_any_tr<string_t> auto& string, string::position_e::terminus_tg);
+        string_itr(const is_any_tr<string_t> auto& string, string::position_e::postfix_tg);
+        string_itr(const is_any_tr<string_t> auto& string, index_t point_index);
 
         string_itr(const string_itr& other);
         string_itr(const volatile string_itr& other);
@@ -142,8 +143,6 @@ namespace nkr {
         ~string_itr();
 
     public:
-        bool_t              Has_String() const;
-        bool_t              Has_String() const volatile;
         const string_t&     String() const;
         const string_t&     String() const volatile;
 
