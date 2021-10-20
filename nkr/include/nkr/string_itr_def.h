@@ -250,21 +250,29 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline index_t
+    inline optional_t<index_t>
         string_itr<string_p>::Unit_Index(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.unit_index;
+        if (Is_Prefix(self)) {
+            return optional_t<index_t>(index_t(0), false);
+        } else {
+            return optional_t<index_t>(self.unit_index, true);
+        }
     }
 
     template <typename string_p>
-    inline index_t
+    inline optional_t<index_t>
         string_itr<string_p>::Point_Index(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.point_index;
+        if (Is_Prefix(self)) {
+            return optional_t<index_t>(index_t(0), false);
+        } else {
+            return optional_t<index_t>(self.point_index, true);
+        }
     }
 
     template <typename string_p>
@@ -874,7 +882,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline index_t
+    inline optional_t<index_t>
         string_itr<string_p>::Unit_Index()
         const
     {
@@ -882,7 +890,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline index_t
+    inline optional_t<index_t>
         string_itr<string_p>::Unit_Index()
         const volatile
     {
@@ -890,7 +898,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline index_t
+    inline optional_t<index_t>
         string_itr<string_p>::Point_Index()
         const
     {
@@ -898,7 +906,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline index_t
+    inline optional_t<index_t>
         string_itr<string_p>::Point_Index()
         const volatile
     {

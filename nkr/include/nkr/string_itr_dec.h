@@ -10,6 +10,7 @@
 #include "nkr/maybe_t.h"
 #include "nkr/none_i.h"
 #include "nkr/none_t.h"
+#include "nkr/optional_t.h"
 #include "nkr/some_t.h"
 
 #include "nkr/charcoder_i.h"
@@ -61,7 +62,8 @@ namespace nkr {
     {
     private:
         // annoyingly, we can't use this in the type constraint directly
-        // because we use this type in declarations on the string_p itself.
+        // because we use this type in declarations on the string_p, and
+        // that causes a recursive compiler error.
         static_assert(string_i<string_p>);
 
     public:
@@ -70,40 +72,40 @@ namespace nkr {
         using unit_t        = string_p::unit_t;
 
     private:
-        static bool_t           Has_String(const is_any_tr<string_itr> auto& self);
-        static const string_t&  String(const is_any_tr<string_itr> auto& self);
+        static bool_t               Has_String(const is_any_tr<string_itr> auto& self);
+        static const string_t&      String(const is_any_tr<string_itr> auto& self);
 
-        static bool_t           Is_Prefix(const is_any_tr<string_itr> auto& self);
-        static bool_t           Is_First(const is_any_tr<string_itr> auto& self);
-        static bool_t           Is_Last(const is_any_tr<string_itr> auto& self);
-        static bool_t           Is_Terminus(const is_any_tr<string_itr> auto& self);
-        static bool_t           Is_Postfix(const is_any_tr<string_itr> auto& self);
-        static bool_t           Is_At(const is_any_tr<string_itr> auto& self, index_t point_index);
+        static bool_t               Is_Prefix(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_First(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_Last(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_Terminus(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_Postfix(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_At(const is_any_tr<string_itr> auto& self, index_t point_index);
 
-        static void_t           Prefix(is_any_non_const_tr<string_itr> auto& self);
-        static void_t           First(is_any_non_const_tr<string_itr> auto& self);
-        static void_t           Last(is_any_non_const_tr<string_itr> auto& self);
-        static void_t           Terminus(is_any_non_const_tr<string_itr> auto& self);
-        static void_t           Postfix(is_any_non_const_tr<string_itr> auto& self);
-        static void_t           At(is_any_non_const_tr<string_itr> auto& self, index_t point_index);
+        static void_t               Prefix(is_any_non_const_tr<string_itr> auto& self);
+        static void_t               First(is_any_non_const_tr<string_itr> auto& self);
+        static void_t               Last(is_any_non_const_tr<string_itr> auto& self);
+        static void_t               Terminus(is_any_non_const_tr<string_itr> auto& self);
+        static void_t               Postfix(is_any_non_const_tr<string_itr> auto& self);
+        static void_t               At(is_any_non_const_tr<string_itr> auto& self, index_t point_index);
 
-        static bool_t           Next(is_any_non_const_tr<string_itr> auto& self);
-        static bool_t           Prior(is_any_non_const_tr<string_itr> auto& self);
+        static bool_t               Next(is_any_non_const_tr<string_itr> auto& self);
+        static bool_t               Prior(is_any_non_const_tr<string_itr> auto& self);
 
-        static index_t          Unit_Index(const is_any_tr<string_itr> auto& self);
-        static index_t          Point_Index(const is_any_tr<string_itr> auto& self);
+        static optional_t<index_t>  Unit_Index(const is_any_tr<string_itr> auto& self);
+        static optional_t<index_t>  Point_Index(const is_any_tr<string_itr> auto& self);
 
-        static string::point_t  Point(const is_any_tr<string_itr> auto& self);
-        static count_t          Point_Unit_Count(const is_any_tr<string_itr> auto& self);
-        static unit_t           Point_Unit(const is_any_tr<string_itr> auto& self, index_t index);
+        static string::point_t      Point(const is_any_tr<string_itr> auto& self);
+        static count_t              Point_Unit_Count(const is_any_tr<string_itr> auto& self);
+        static unit_t               Point_Unit(const is_any_tr<string_itr> auto& self, index_t index);
 
-        static auto&            Operator_Plus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
-        static auto&            Operator_Minus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
+        static auto&                Operator_Plus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
+        static auto&                Operator_Minus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
 
-        static auto&            Operator_Increment_Prefix(is_any_non_const_tr<string_itr> auto& self);
-        static auto             Operator_Increment_Postfix(is_any_non_const_tr<string_itr> auto& self);
-        static auto&            Operator_Decrement_Prefix(is_any_non_const_tr<string_itr> auto& self);
-        static auto             Operator_Decrement_Postfix(is_any_non_const_tr<string_itr> auto& self);
+        static auto&                Operator_Increment_Prefix(is_any_non_const_tr<string_itr> auto& self);
+        static auto                 Operator_Increment_Postfix(is_any_non_const_tr<string_itr> auto& self);
+        static auto&                Operator_Decrement_Prefix(is_any_non_const_tr<string_itr> auto& self);
+        static auto                 Operator_Decrement_Postfix(is_any_non_const_tr<string_itr> auto& self);
 
     protected:
         some_t<const string_t*> string;
@@ -139,53 +141,53 @@ namespace nkr {
         ~string_itr();
 
     public:
-        bool_t          Has_String() const;
-        bool_t          Has_String() const volatile;
-        const string_t& String() const;
-        const string_t& String() const volatile;
+        bool_t              Has_String() const;
+        bool_t              Has_String() const volatile;
+        const string_t&     String() const;
+        const string_t&     String() const volatile;
 
-        bool_t          Is_Prefix() const;
-        bool_t          Is_Prefix() const volatile;
-        bool_t          Is_First() const;
-        bool_t          Is_First() const volatile;
-        bool_t          Is_Last() const;
-        bool_t          Is_Last() const volatile;
-        bool_t          Is_Terminus() const;
-        bool_t          Is_Terminus() const volatile;
-        bool_t          Is_Postfix() const;
-        bool_t          Is_Postfix() const volatile;
-        bool_t          Is_At(index_t point_index) const;
-        bool_t          Is_At(index_t point_index) const volatile;
+        bool_t              Is_Prefix() const;
+        bool_t              Is_Prefix() const volatile;
+        bool_t              Is_First() const;
+        bool_t              Is_First() const volatile;
+        bool_t              Is_Last() const;
+        bool_t              Is_Last() const volatile;
+        bool_t              Is_Terminus() const;
+        bool_t              Is_Terminus() const volatile;
+        bool_t              Is_Postfix() const;
+        bool_t              Is_Postfix() const volatile;
+        bool_t              Is_At(index_t point_index) const;
+        bool_t              Is_At(index_t point_index) const volatile;
 
-        void_t          Prefix();
-        void_t          Prefix() volatile;
-        void_t          First();
-        void_t          First() volatile;
-        void_t          Last();
-        void_t          Last() volatile;
-        void_t          Terminus();
-        void_t          Terminus() volatile;
-        void_t          Postfix();
-        void_t          Postfix() volatile;
-        void_t          At(index_t point_index);
-        void_t          At(index_t point_index) volatile;
+        void_t              Prefix();
+        void_t              Prefix() volatile;
+        void_t              First();
+        void_t              First() volatile;
+        void_t              Last();
+        void_t              Last() volatile;
+        void_t              Terminus();
+        void_t              Terminus() volatile;
+        void_t              Postfix();
+        void_t              Postfix() volatile;
+        void_t              At(index_t point_index);
+        void_t              At(index_t point_index) volatile;
 
-        bool_t          Next();
-        bool_t          Next() volatile;
-        bool_t          Prior();
-        bool_t          Prior() volatile;
+        bool_t              Next();
+        bool_t              Next() volatile;
+        bool_t              Prior();
+        bool_t              Prior() volatile;
 
-        index_t         Unit_Index() const;
-        index_t         Unit_Index() const volatile;
-        index_t         Point_Index() const;
-        index_t         Point_Index() const volatile;
+        optional_t<index_t> Unit_Index() const;
+        optional_t<index_t> Unit_Index() const volatile;
+        optional_t<index_t> Point_Index() const;
+        optional_t<index_t> Point_Index() const volatile;
 
-        string::point_t Point() const;
-        string::point_t Point() const volatile;
-        count_t         Point_Unit_Count() const;
-        count_t         Point_Unit_Count() const volatile;
-        unit_t          Point_Unit(index_t index) const;
-        unit_t          Point_Unit(index_t index) const volatile;
+        string::point_t     Point() const;
+        string::point_t     Point() const volatile;
+        count_t             Point_Unit_Count() const;
+        count_t             Point_Unit_Count() const volatile;
+        unit_t              Point_Unit(index_t index) const;
+        unit_t              Point_Unit(index_t index) const volatile;
 
     public:
         string_itr&             operator +=(count_t point_count);

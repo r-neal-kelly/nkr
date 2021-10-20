@@ -17,28 +17,14 @@ namespace nkr {
     }
 
     template <any_type_tr value_p>
-    inline optional_t<value_p>::optional_t(const value_t& value) :
-        has_value(static_cast<bool_t>(value)),
-        value(value)
-    {
-    }
-
-    template <any_type_tr value_p>
-    inline optional_t<value_p>::optional_t(value_t&& value) noexcept :
-        has_value(static_cast<bool_t>(value)),
-        value(nkr::Move(value))
-    {
-    }
-
-    template <any_type_tr value_p>
-    inline optional_t<value_p>::optional_t(const value_t& value, bool_t has_value) :
+    inline optional_t<value_p>::optional_t(const is_any_tr<value_t> auto& value, bool_t has_value) :
         has_value(has_value),
         value(value)
     {
     }
 
     template <any_type_tr value_p>
-    inline optional_t<value_p>::optional_t(value_t&& value, bool_t has_value) noexcept :
+    inline optional_t<value_p>::optional_t(is_any_non_const_tr<value_t> auto&& value, bool_t has_value) noexcept :
         has_value(has_value),
         value(nkr::Move(value))
     {
@@ -204,6 +190,8 @@ namespace nkr {
     inline typename optional_t<value_p>::value_t&
         optional_t<value_p>::Value()
     {
+        nkr_ASSERT_THAT(Has_Value());
+
         return this->value;
     }
 
@@ -212,6 +200,8 @@ namespace nkr {
         optional_t<value_p>::Value()
         const
     {
+        nkr_ASSERT_THAT(Has_Value());
+
         return this->value;
     }
 
@@ -220,6 +210,8 @@ namespace nkr {
         optional_t<value_p>::Value()
         volatile
     {
+        nkr_ASSERT_THAT(Has_Value());
+
         return this->value;
     }
 
@@ -228,6 +220,8 @@ namespace nkr {
         optional_t<value_p>::Value()
         const volatile
     {
+        nkr_ASSERT_THAT(Has_Value());
+
         return this->value;
     }
 

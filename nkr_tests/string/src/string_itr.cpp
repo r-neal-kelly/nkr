@@ -19,14 +19,14 @@ namespace nkr { namespace string {
 
     TEST_SUITE("string_itr<string_p>")
     {
-    #define nkr_RANDOM_POINT_COUNT  \
+    #define nkr_RANDOM_MAX_POINT_COUNT  \
         128
 
-    #define nkr_RESOLVED(QUALIFIER_p, STRING_p, CHARCODER_p)                                                        \
-        QUALIFIER_p string_itr<decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>,                  \
-        QUALIFIER_p string_itr<const decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>,            \
-        QUALIFIER_p string_itr<volatile decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>,         \
-        QUALIFIER_p string_itr<const volatile decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_POINT_COUNT>())>
+    #define nkr_RESOLVED(QUALIFIER_p, STRING_p, CHARCODER_p)                                                            \
+        QUALIFIER_p string_itr<decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_MAX_POINT_COUNT>())>,                  \
+        QUALIFIER_p string_itr<const decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_MAX_POINT_COUNT>())>,            \
+        QUALIFIER_p string_itr<volatile decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_MAX_POINT_COUNT>())>,         \
+        QUALIFIER_p string_itr<const volatile decltype(STRING_p<CHARCODER_p>::Random<nkr_RANDOM_MAX_POINT_COUNT>())>
 
     #define nkr_CHARCODERS(QUALIFIER_p, STRING_p)                       \
         nkr_RESOLVED(QUALIFIER_p, STRING_p, charcoder::ascii_t),        \
@@ -192,7 +192,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
-                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
                     itr_p itr(&random, position_e::prefix_tg());
                     CHECK(itr.Is_Prefix());
                 }
@@ -206,7 +206,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
-                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
                     itr_p itr(&random, position_e::first_tg());
                     CHECK(itr.Is_First());
                 }
@@ -220,7 +220,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
-                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
                     itr_p itr(&random, position_e::last_tg());
                     CHECK(itr.Is_Last());
                 }
@@ -234,7 +234,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
-                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
                     itr_p itr(&random, position_e::terminus_tg());
                     CHECK(itr.Is_Terminus());
                 }
@@ -248,10 +248,85 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
-                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
                     itr_p itr(&random, position_e::postfix_tg());
                     CHECK(itr.Is_Postfix());
                 }
+            }
+        }
+
+        TEST_SUITE("methods")
+        {
+            TEST_SUITE("Unit_Index")
+            {
+                TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::prefix_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(!unit_index);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::first_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(unit_index && unit_index.Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::last_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    if (random.Unit_Length() > 0) {
+                        CHECK(unit_index && unit_index.Value() == random.Unit_Length() - itr.Point_Unit_Count());
+                    } else {
+                        CHECK(!unit_index);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::terminus_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(unit_index && unit_index.Value() == random.Unit_Count() - 1);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_MAX_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::postfix_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(unit_index && unit_index.Value() == random.Unit_Count());
+                }
+            }
+
+            TEST_SUITE("Point_Index")
+            {
+
             }
         }
 

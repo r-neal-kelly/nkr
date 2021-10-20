@@ -23,10 +23,8 @@ namespace nkr {
     public:
         optional_t();
 
-        optional_t(const value_t& value);
-        optional_t(value_t&& value) noexcept;
-        optional_t(const value_t& value, bool_t has_value);
-        optional_t(value_t&& value, bool_t has_value) noexcept;
+        optional_t(const is_any_tr<value_t> auto& value, bool_t has_value);
+        optional_t(is_any_non_const_tr<value_t> auto&& value, bool_t has_value) noexcept;
 
         optional_t(const optional_t& other);
         optional_t(const volatile optional_t& other);
