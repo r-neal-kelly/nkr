@@ -53,7 +53,7 @@ namespace nkr { namespace string {
     public:
         static const unit_t*    Default_C_String();
 
-        template <count_t point_count_p>
+        template <count_t max_point_count_p>
         static auto             Random(bool_t allow_replacement_point = false);
 
     private:

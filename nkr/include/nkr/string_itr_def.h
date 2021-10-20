@@ -241,7 +241,7 @@ namespace nkr {
 
             return true;
         } else {
-            self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), self.string->C_String());
+            self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), &self.string->Unit(0));
             self.unit_index -= self.charcoder.Unit_Count();
             self.point_index -= 1;
 

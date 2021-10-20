@@ -186,7 +186,7 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("prefix_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to point at the prefix of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -200,7 +200,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("first_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to point at the first point of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -209,6 +209,48 @@ namespace nkr { namespace string {
                     auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
                     itr_p itr(&random, position_e::first_tg());
                     CHECK(itr.Is_First());
+                }
+            }
+
+            TEST_SUITE("last_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the last point of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::last_tg());
+                    CHECK(itr.Is_Last());
+                }
+            }
+
+            TEST_SUITE("terminus_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the terminus of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::terminus_tg());
+                    CHECK(itr.Is_Terminus());
+                }
+            }
+
+            TEST_SUITE("postfix_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the postfix of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    auto random = string_t::Random<nkr_RANDOM_POINT_COUNT>(false);
+                    itr_p itr(&random, position_e::postfix_tg());
+                    CHECK(itr.Is_Postfix());
                 }
             }
         }

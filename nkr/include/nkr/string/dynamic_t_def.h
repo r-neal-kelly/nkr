@@ -20,18 +20,21 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    template <count_t point_count_p>
+    template <count_t max_point_count_p>
     inline auto
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Random(bool_t allow_replacement_point)
     {
-        dynamic_t string(point_count_p * charcoder_t::Max_Unit_Count());
+        nkr_ASSERT_THAT(max_point_count_p >= 1);
+
+        const count_t point_count = nkr::Random<count_t>(1, max_point_count_p);
+        dynamic_t string(point_count * charcoder_t::Max_Unit_Count());
         if (allow_replacement_point) {
-            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+            for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {
                 string.Push(nkr::Random<point_t>(1, charcoder_t::Last_Point())).Ignore_Error();
             }
         } else {
             charcoder_t charcoder;
-            for (index_t idx = 0, end = point_count_p - 1; idx < end; idx += 1) {
+            for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {
                 do {
                     charcoder.Encode(nkr::Random<point_t>(1, charcoder_t::Last_Point()));
                 } while (charcoder.Decode() == charcoder_t::Replacement_Point());
