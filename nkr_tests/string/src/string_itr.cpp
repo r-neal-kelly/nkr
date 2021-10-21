@@ -110,6 +110,23 @@ namespace nkr { namespace string {
                 }
             }
 
+            TEST_SUITE("is_prefix")
+            {
+                TEST_CASE_TEMPLATE("should have a is_prefix that's a bool_t", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    class derived_t :
+                        public itr_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(itr_p::is_prefix), bool_t>);
+                    };
+                }
+            }
+
             TEST_SUITE("unit_index")
             {
                 TEST_CASE_TEMPLATE("should have a unit_index that's an index_t", itr_p, nkr_ALL)
@@ -144,9 +161,9 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("is_prefix")
+            TEST_SUITE("read_unit_count")
             {
-                TEST_CASE_TEMPLATE("should have a is_prefix that's a bool_t", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a read_unit_count of count_t", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -156,7 +173,7 @@ namespace nkr { namespace string {
                         public itr_p
                     {
                     public:
-                        static_assert(is_tr<decltype(itr_p::is_prefix), bool_t>);
+                        static_assert(is_tr<decltype(itr_p::read_unit_count), count_t>);
                     };
                 }
             }
@@ -192,77 +209,7 @@ namespace nkr { namespace string {
                     string_t string = Random<string_t>();
                     static_assert(is_tr<string_t, decltype(string)>);
                     itr_p itr(string);
-                    CHECK(itr.Is_First());
-                }
-            }
-
-            TEST_SUITE("prefix_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a string", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK(itr.Is_Prefix());
-                }
-            }
-
-            TEST_SUITE("first_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
-                    CHECK(itr.Is_First());
-                }
-            }
-
-            TEST_SUITE("last_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should set the iterator to the last point of a string", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
-                    CHECK(itr.Is_Last());
-                }
-            }
-
-            TEST_SUITE("terminus_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should set the iterator to the terminus of a string", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
-                    CHECK(itr.Is_Terminus());
-                }
-            }
-
-            TEST_SUITE("postfix_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should set the iterator to the postfix of a string", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK(itr.Is_Postfix());
+                    CHECK(itr.Is_At_First());
                 }
             }
 
@@ -289,7 +236,77 @@ namespace nkr { namespace string {
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, string.Point_Count());
-                    CHECK(itr.Is_Postfix());
+                    CHECK(itr.Is_At_Postfix());
+                }
+            }
+
+            TEST_SUITE("prefix_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK(itr.Is_At_Prefix());
+                }
+            }
+
+            TEST_SUITE("first_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK(itr.Is_At_First());
+                }
+            }
+
+            TEST_SUITE("last_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the last point of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK(itr.Is_At_Last());
+                }
+            }
+
+            TEST_SUITE("terminus_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the terminus of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK(itr.Is_At_Terminus());
+                }
+            }
+
+            TEST_SUITE("postfix_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the postfix of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK(itr.Is_At_Postfix());
                 }
             }
 
@@ -306,7 +323,7 @@ namespace nkr { namespace string {
                     const std::remove_cv_t<itr_p> other(string, point_index);
                     itr_p itr(other);
                     CHECK(&itr.String() == &other.String());
-                    CHECK(!itr.Is_Prefix() && !other.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() == other.Unit_Index().Value());
                     CHECK(itr.Point_Index().Value() == other.Point_Index().Value());
                     CHECK(itr.Point() == other.Point());
@@ -326,7 +343,7 @@ namespace nkr { namespace string {
                     const volatile std::remove_cv_t<itr_p> other(string, point_index);
                     itr_p itr(other);
                     CHECK(&itr.String() == &other.String());
-                    CHECK(!itr.Is_Prefix() && !other.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() == other.Unit_Index().Value());
                     CHECK(itr.Point_Index().Value() == other.Point_Index().Value());
                     CHECK(itr.Point() == other.Point());
@@ -346,7 +363,7 @@ namespace nkr { namespace string {
                     std::remove_cv_t<itr_p> other(string, point_index);
                     itr_p itr(nkr::Move(other));
                     CHECK(&itr.String() == &string);
-                    CHECK(!itr.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() >= point_index);
                     CHECK(itr.Point_Index().Value() == point_index);
                 }
@@ -365,7 +382,7 @@ namespace nkr { namespace string {
                     volatile std::remove_cv_t<itr_p> other(string, point_index);
                     itr_p itr(nkr::Move(other));
                     CHECK(&itr.String() == &string);
-                    CHECK(!itr.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() >= point_index);
                     CHECK(itr.Point_Index().Value() == point_index);
                 }
@@ -385,7 +402,7 @@ namespace nkr { namespace string {
                     itr_p itr(string);
                     itr = other;
                     CHECK(&itr.String() == &other.String());
-                    CHECK(!itr.Is_Prefix() && !other.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() == other.Unit_Index().Value());
                     CHECK(itr.Point_Index().Value() == other.Point_Index().Value());
                     CHECK(itr.Point() == other.Point());
@@ -406,7 +423,7 @@ namespace nkr { namespace string {
                     itr_p itr(string);
                     itr = other;
                     CHECK(&itr.String() == &other.String());
-                    CHECK(!itr.Is_Prefix() && !other.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() == other.Unit_Index().Value());
                     CHECK(itr.Point_Index().Value() == other.Point_Index().Value());
                     CHECK(itr.Point() == other.Point());
@@ -427,7 +444,7 @@ namespace nkr { namespace string {
                     itr_p itr(string);
                     itr = nkr::Move(other);
                     CHECK(&itr.String() == &string);
-                    CHECK(!itr.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() >= point_index);
                     CHECK(itr.Point_Index().Value() == point_index);
                 }
@@ -447,7 +464,7 @@ namespace nkr { namespace string {
                     itr_p itr(string);
                     itr = nkr::Move(other);
                     CHECK(&itr.String() == &string);
-                    CHECK(!itr.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() >= point_index);
                     CHECK(itr.Point_Index().Value() == point_index);
                 }
@@ -470,7 +487,7 @@ namespace nkr { namespace string {
 
         TEST_SUITE("methods")
         {
-            TEST_SUITE("String")
+            TEST_SUITE("String()")
             {
                 TEST_CASE_TEMPLATE("should return the underlying string", itr_p, nkr_ALL)
                 {
@@ -484,243 +501,7 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Is_Prefix")
-            {
-                TEST_CASE_TEMPLATE("should return true when at the prefix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_TRUE(itr.Is_Prefix());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK_FALSE(itr.Is_Prefix());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at any point index", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    CHECK_FALSE(itr.Is_Prefix());
-                }
-            }
-
-            TEST_SUITE("Is_First")
-            {
-                TEST_CASE_TEMPLATE("should return true when at the first point", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
-                    CHECK_TRUE(itr.Is_First());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_FALSE(itr.Is_First());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK_FALSE(itr.Is_First());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(1, string.Point_Count()));
-                    CHECK_FALSE(itr.Is_First());
-                }
-            }
-
-            TEST_SUITE("Is_Last")
-            {
-                TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
-                    CHECK_TRUE(itr.Is_Last());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the prefix of a string with a length greather than zero", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_FALSE(itr.Is_Last());
-                }
-
-                TEST_CASE_TEMPLATE("should return true when at the prefix of a string with a length of zero", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string;
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_TRUE(itr.Is_Last());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK_FALSE(itr.Is_Last());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t, 2>();
-                    const count_t point_count = string.Point_Count();
-                    const index_t last_point_index = point_count - 2;
-                    index_t random_point_index;
-                    do {
-                        random_point_index = Random<index_t>(0, point_count);
-                    } while (random_point_index == last_point_index);
-                    itr_p itr(string, random_point_index);
-                    CHECK_FALSE(itr.Is_Last());
-                }
-            }
-
-            TEST_SUITE("Is_Terminus")
-            {
-                TEST_CASE_TEMPLATE("should return true when at the terminus", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
-                    CHECK_TRUE(itr.Is_Terminus());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_FALSE(itr.Is_Terminus());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK_FALSE(itr.Is_Terminus());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    const count_t point_count = string.Point_Count();
-                    const index_t terminus_point_index = point_count - 1;
-                    index_t random_point_index;
-                    do {
-                        random_point_index = Random<index_t>(0, point_count);
-                    } while (random_point_index == terminus_point_index);
-                    itr_p itr(string, random_point_index);
-                    CHECK_FALSE(itr.Is_Terminus());
-                }
-            }
-
-            TEST_SUITE("Is_Postfix")
-            {
-                TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK_TRUE(itr.Is_Postfix());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_FALSE(itr.Is_Postfix());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
-                    CHECK_FALSE(itr.Is_Postfix());
-                }
-            }
-
-            TEST_SUITE("Is_At")
+            TEST_SUITE("Is_At()")
             {
                 TEST_CASE_TEMPLATE("should return true when at the point index", itr_p, nkr_ALL)
                 {
@@ -753,7 +534,7 @@ namespace nkr { namespace string {
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    itr.Prefix();
+                    itr.At_Prefix();
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count())));
                 }
 
@@ -786,9 +567,31 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Prefix")
+            TEST_SUITE("Is_At_Prefix()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return true when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_TRUE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at any point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -796,72 +599,224 @@ namespace nkr { namespace string {
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    itr.Prefix();
-                    CHECK_TRUE(itr.Is_Prefix());
+                    CHECK_FALSE(itr.Is_At_Prefix());
                 }
             }
 
-            TEST_SUITE("First")
+            TEST_SUITE("Is_At_First()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the first point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return true when at the first point", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    itr.First();
-                    CHECK_TRUE(itr.Is_First());
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_TRUE(itr.Is_At_First());
                 }
-            }
 
-            TEST_SUITE("Last")
-            {
-                TEST_CASE_TEMPLATE("should move the iterator to the last point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    itr.Last();
-                    CHECK_TRUE(itr.Is_Last());
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_First());
                 }
-            }
 
-            TEST_SUITE("Terminus")
-            {
-                TEST_CASE_TEMPLATE("should move the iterator to the terminus", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    itr.Terminus();
-                    CHECK_TRUE(itr.Is_Terminus());
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_First());
                 }
-            }
 
-            TEST_SUITE("Postfix")
-            {
-                TEST_CASE_TEMPLATE("should move the iterator to the postfix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
-                    itr.Postfix();
-                    CHECK_TRUE(itr.Is_Postfix());
+                    itr_p itr(string, Random<index_t>(1, string.Point_Count()));
+                    CHECK_FALSE(itr.Is_At_First());
                 }
             }
 
-            TEST_SUITE("At")
+            TEST_SUITE("Is_At_Last()")
+            {
+                TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a string with a length greather than zero", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t, 2>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the prefix of a string with a length of zero", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string;
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t, 2>();
+                    const count_t point_count = string.Point_Count();
+                    const index_t last_point_index = point_count - 2;
+                    index_t random_point_index;
+                    do {
+                        random_point_index = Random<index_t>(0, point_count);
+                    } while (random_point_index == last_point_index);
+                    itr_p itr(string, random_point_index);
+                    CHECK_FALSE(itr.Is_At_Last());
+                }
+            }
+
+            TEST_SUITE("Is_At_Terminus()")
+            {
+                TEST_CASE_TEMPLATE("should return true when at the terminus", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK_TRUE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    const count_t point_count = string.Point_Count();
+                    const index_t terminus_point_index = point_count - 1;
+                    index_t random_point_index;
+                    do {
+                        random_point_index = Random<index_t>(0, point_count);
+                    } while (random_point_index == terminus_point_index);
+                    itr_p itr(string, random_point_index);
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+            }
+
+            TEST_SUITE("Is_At_Postfix()")
+            {
+                TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_TRUE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+            }
+
+            TEST_SUITE("Is_At_Error()")
+            {
+                TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL)
+                {
+
+                }
+            }
+
+            TEST_SUITE("At()")
             {
                 TEST_CASE_TEMPLATE("should move the iterator to the indexed point", itr_p, nkr_NON_CONST)
                 {
@@ -877,27 +832,162 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Next")
+            TEST_SUITE("At_Prefix()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the prefix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Prefix();
+                    CHECK_TRUE(itr.Is_At_Prefix());
                 }
             }
 
-            TEST_SUITE("Prior")
+            TEST_SUITE("At_First()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the first point", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_First();
+                    CHECK_TRUE(itr.Is_At_First());
                 }
             }
 
-            TEST_SUITE("Unit_Index")
+            TEST_SUITE("At_Last()")
+            {
+                TEST_CASE_TEMPLATE("should move the iterator to the last point", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Last();
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+            }
+
+            TEST_SUITE("At_Terminus()")
+            {
+                TEST_CASE_TEMPLATE("should move the iterator to the terminus", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Terminus();
+                    CHECK_TRUE(itr.Is_At_Terminus());
+                }
+            }
+
+            TEST_SUITE("At_Postfix()")
+            {
+                TEST_CASE_TEMPLATE("should move the iterator to the postfix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Postfix();
+                    CHECK_TRUE(itr.Is_At_Postfix());
+                }
+            }
+
+            TEST_SUITE("Next()")
+            {
+                TEST_CASE_TEMPLATE("should move to the next point when not at the postfix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    itr.Next();
+                    CHECK(itr.Is_At(point_index + 1));
+                }
+
+                TEST_CASE_TEMPLATE("should return true when not at the postfix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK_TRUE(itr.Next());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Next());
+                }
+            }
+
+            TEST_SUITE("Prior()")
+            {
+                TEST_CASE_TEMPLATE("should move to the prior point when not at the prefix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    itr_p itr(string, point_index);
+                    itr.Prior();
+                    if (point_index == 0) {
+                        CHECK(itr.Is_At_Prefix());
+                    } else {
+                        CHECK(itr.Is_At(point_index - 1));
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return true when not at the prefix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    CHECK_TRUE(itr.Prior());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Prior());
+                }
+            }
+
+            TEST_SUITE("Unit_Index()")
             {
                 TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
                 {
@@ -964,7 +1054,7 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Point_Index")
+            TEST_SUITE("Point_Index()")
             {
                 TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
                 {
@@ -1031,7 +1121,7 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Point")
+            TEST_SUITE("Point()")
             {
                 TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
                 {
@@ -1075,7 +1165,7 @@ namespace nkr { namespace string {
                     string_t string;
                     itr_p itr(string, position_e::last_tg());
                     CHECK(itr.Point() == 0);
-                    CHECK(itr.Is_Prefix());
+                    CHECK(itr.Is_At_Prefix());
                 }
 
                 TEST_CASE_TEMPLATE("should not return 0 when at the last point in a string with a length greater than 0", itr_p, nkr_ALL)
@@ -1087,7 +1177,7 @@ namespace nkr { namespace string {
                     string_t string = Random<string_t, 2>();
                     itr_p itr(string, position_e::last_tg());
                     CHECK(itr.Point() != 0);
-                    CHECK(!itr.Is_Prefix());
+                    CHECK(!itr.Is_At_Prefix());
                 }
 
                 TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL)
@@ -1113,7 +1203,7 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Point_Unit_Count")
+            TEST_SUITE("Point_Unit_Count()")
             {
                 TEST_CASE_TEMPLATE("should return the actual number of units which represent the point", itr_p, nkr_ALL)
                 {
@@ -1129,13 +1219,29 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("Point_Unit")
+            TEST_SUITE("Point_Unit()")
             {
                 TEST_CASE_TEMPLATE("should ", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
+                }
+            }
+
+            TEST_SUITE("Substring_Unit_Count()")
+            {
+                TEST_CASE_TEMPLATE("should return the number of units in the substring, as opposed to in the point", itr_p, nkr_ALL)
+                {
+
+                }
+            }
+
+            TEST_SUITE("Substring_Unit()")
+            {
+                TEST_CASE_TEMPLATE("should return the indexed unit in the substring, as opposed to in the point", itr_p, nkr_ALL)
+                {
+
                 }
             }
         }

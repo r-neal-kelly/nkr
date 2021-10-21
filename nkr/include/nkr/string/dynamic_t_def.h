@@ -135,7 +135,17 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Prefix(const is_any_tr<dynamic_t> auto& self)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At(const is_any_tr<dynamic_t> auto& self, index_t point_index)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+        nkr_ASSERT_THAT(point_index < self.point_count);
+
+        return iterator_t(self, point_index);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Prefix(const is_any_tr<dynamic_t> auto& self)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
@@ -144,7 +154,7 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::First(const is_any_tr<dynamic_t> auto& self)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_First(const is_any_tr<dynamic_t> auto& self)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
@@ -153,7 +163,7 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Last(const is_any_tr<dynamic_t> auto& self)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Last(const is_any_tr<dynamic_t> auto& self)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
@@ -162,7 +172,7 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Terminus(const is_any_tr<dynamic_t> auto& self)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Terminus(const is_any_tr<dynamic_t> auto& self)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
@@ -171,21 +181,11 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Postfix(const is_any_tr<dynamic_t> auto& self)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Postfix(const is_any_tr<dynamic_t> auto& self)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
 
         return iterator_t(self, position_e::postfix_tg());
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At(const is_any_tr<dynamic_t> auto& self, index_t point_index)
-    {
-        nkr_ASSERT_THAT(Has_Terminus(self));
-        nkr_ASSERT_THAT(point_index < self.point_count);
-
-        return iterator_t(self, point_index);
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -305,56 +305,7 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, const any_string_tr auto& other)
     {
-
         // this needs to be redone and completed, look at how stack_t does it
-
-        using other_charcoder_t = std::remove_reference_t<decltype(other)>::charcoder_t;
-
-        if constexpr (is_tr<charcoder_t, other_charcoder_t>) {
-            // can probably just call Copy_From
-
-            count_t unit_length = Unit_Length(self);
-            count_t other_unit_count = other.Unit_Count();
-
-            if (math::Will_Overflow_Add(unit_length, other_unit_count)) {
-                return allocator_err::OUT_OF_MEMORY;
-            } else {
-                maybe_t<allocator_err> err = Unit_Capacity(self, unit_length + other_unit_count);
-                if (err) {
-                    return err;
-                } else {
-                    if (Has_Terminus(self)) {
-                        Pop_Terminus(self);
-                    }
-
-                    for (index_t idx = 0, end = other_unit_count; idx < end; idx += 1) {
-                        self.array.Push(other[idx]).Ignore_Error();
-                    }
-
-                    return allocator_err::NONE;
-                }
-            }
-        } else {
-            const count_t unit_length = Unit_Length(self);
-            const count_t unit_count = Unit_Count(self);
-            const count_t point_length = Point_Length(self);
-
-            // for these we have to deallocate on failure and try to call fit, ignoring failure. don't forget to add back terminus on failure
-
-            // the problem is that we would have to iterate and convert string twice to get the accurate unit count we'll need to prevent allocation
-            // failure before doing any changes to the array. so we have to change the array an if we run into an allocation error, we have to reset the state
-            // of the string, by calling Fit with the original capacity and making sure that we set Terminus back on the original unit count.
-            // that way performance is not punished in the most common case, when there is a lack of allocation failure.
-
-            if (Has_Terminus(self)) {
-                Pop_Terminus(self);
-            }
-
-            // would be nice to use iterator here
-            charcoder_t charcoder;
-            other_charcoder_t other_charcoder;
-
-        }
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -639,86 +590,6 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Prefix()
-        const
-    {
-        return Prefix(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Prefix()
-        const volatile
-    {
-        return Prefix(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::First()
-        const
-    {
-        return First(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::First()
-        const volatile
-    {
-        return First(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Last()
-        const
-    {
-        return Last(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Last()
-        const volatile
-    {
-        return Last(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Terminus()
-        const
-    {
-        return Terminus(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Terminus()
-        const volatile
-    {
-        return Terminus(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Postfix()
-        const
-    {
-        return Postfix(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Postfix()
-        const volatile
-    {
-        return Postfix(*this);
-    }
-
-    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At(index_t point_index)
         const
     {
@@ -731,6 +602,86 @@ namespace nkr { namespace string {
         const volatile
     {
         return At(*this, point_index);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Prefix()
+        const
+    {
+        return At_Prefix(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Prefix()
+        const volatile
+    {
+        return At_Prefix(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_First()
+        const
+    {
+        return At_First(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_First()
+        const volatile
+    {
+        return At_First(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Last()
+        const
+    {
+        return At_Last(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Last()
+        const volatile
+    {
+        return At_Last(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Terminus()
+        const
+    {
+        return At_Terminus(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Terminus()
+        const volatile
+    {
+        return At_Terminus(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Postfix()
+        const
+    {
+        return At_Postfix(*this);
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::iterator_t
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At_Postfix()
+        const volatile
+    {
+        return At_Postfix(*this);
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

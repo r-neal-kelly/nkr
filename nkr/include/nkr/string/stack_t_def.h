@@ -240,7 +240,7 @@ namespace nkr { namespace string {
 
                 charcoder_t charcoder;
                 maybe_t<allocator_err> err = allocator_err::NONE;
-                for (auto other_itr = other.First(); !other_itr.Is_Postfix(); other_itr += 1) {
+                for (auto other_itr = other.At_First(); !other_itr.Is_At_Postfix(); other_itr += 1) {
                     charcoder.Encode(other_itr.Point());
                     for (index_t idx = 0, end = charcoder.Unit_Count(); idx < end; idx += 1) {
                         err = self.array.Push(charcoder[idx]);

@@ -31,7 +31,16 @@ namespace nkr {
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_Prefix(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Is_At(const is_any_tr<string_itr> auto& self, index_t point_index)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return !Is_At_Prefix(self) && self.point_index == point_index;
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Prefix(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -40,7 +49,7 @@ namespace nkr {
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_First(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Is_At_First(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -49,7 +58,7 @@ namespace nkr {
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_Last(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Is_At_Last(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -57,13 +66,13 @@ namespace nkr {
         if (point_length > 0) {
             return self.point_index == point_length - 1 && self.is_prefix == false;
         } else {
-            return Is_Prefix(self);
+            return Is_At_Prefix(self);
         }
     }
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_Terminus(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Is_At_Terminus(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -72,7 +81,7 @@ namespace nkr {
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_Postfix(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Is_At_Postfix(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
@@ -81,71 +90,22 @@ namespace nkr {
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_At(const is_any_tr<string_itr> auto& self, index_t point_index)
+        string_itr<string_p>::Is_At_Error(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return !Is_Prefix(self) && self.point_index == point_index;
-    }
+        count_t point_unit_count = Point_Unit_Count(self);
+        if (point_unit_count == Substring_Unit_Count(self)) {
+            for (index_t idx = 0, end = point_unit_count; idx < end; idx += 1) {
+                if (Point_Unit(self, idx) != Substring_Unit(self, idx)) {
+                    return true;
+                }
+            }
 
-    template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Prefix(is_any_non_const_tr<string_itr> auto& self)
-    {
-        nkr_ASSERT_THAT(Has_String(self));
-
-        self.is_prefix = true;
-        self.unit_index = 0;
-        self.point_index = 0;
-        self.read_unit_count = 0;
-        self.charcoder = none_t();
-    }
-
-    template <typename string_p>
-    inline void_t
-        string_itr<string_p>::First(is_any_non_const_tr<string_itr> auto& self)
-    {
-        nkr_ASSERT_THAT(Has_String(self));
-
-        self.is_prefix = false;
-        self.unit_index = 0;
-        self.point_index = 0;
-        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
-    }
-
-    template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Last(is_any_non_const_tr<string_itr> auto& self)
-    {
-        nkr_ASSERT_THAT(Has_String(self));
-
-        Terminus(self);
-        Prior(self);
-    }
-
-    template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Terminus(is_any_non_const_tr<string_itr> auto& self)
-    {
-        nkr_ASSERT_THAT(Has_String(self));
-
-        self.is_prefix = false;
-        self.unit_index = self.string->Unit_Count() - 1;
-        self.point_index = self.string->Point_Count() - 1;
-        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
-    }
-
-    template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Postfix(is_any_non_const_tr<string_itr> auto& self)
-    {
-        nkr_ASSERT_THAT(Has_String(self));
-
-        self.is_prefix = false;
-        self.unit_index = self.string->Unit_Count();
-        self.point_index = self.string->Point_Count();
-        self.read_unit_count = 0;
-        self.charcoder = none_t();
+            return false;
+        } else {
+            return true;
+        }
     }
 
     template <typename string_p>
@@ -158,7 +118,7 @@ namespace nkr {
         if (self.point_index != point_index) {
             const count_t point_count = self.string->Point_Count();
             if (point_index == point_count) {
-                Postfix(self);
+                At_Postfix(self);
             } else {
                 if constexpr (charcoder_t::Max_Unit_Count() == 1) {
                     self.is_prefix = false;
@@ -168,9 +128,9 @@ namespace nkr {
                 } else {
                     constexpr const count_t THRESHOLD = 16;
 
-                    if (Is_Prefix(self)) {
+                    if (Is_At_Prefix(self)) {
                         Next(self);
-                    } else if (Is_Postfix(self)) {
+                    } else if (Is_At_Postfix(self)) {
                         Prior(self);
                     }
 
@@ -181,7 +141,7 @@ namespace nkr {
                             if (difference_from_current < difference_from_terminus) {
                                 self += difference_from_current;
                             } else {
-                                Terminus(self);
+                                At_Terminus(self);
                                 self -= difference_from_terminus;
                             }
                         } else {
@@ -190,7 +150,7 @@ namespace nkr {
                             if (difference_from_current < difference_from_first) {
                                 self -= difference_from_current;
                             } else {
-                                First(self);
+                                At_First(self);
                                 self += difference_from_first;
                             }
                         }
@@ -207,20 +167,80 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Prefix(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        self.is_prefix = true;
+        self.unit_index = 0;
+        self.point_index = 0;
+        self.read_unit_count = 0;
+        self.charcoder = none_t();
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_First(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        self.is_prefix = false;
+        self.unit_index = 0;
+        self.point_index = 0;
+        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Last(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        At_Terminus(self);
+        Prior(self);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Terminus(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        self.is_prefix = false;
+        self.unit_index = self.string->Unit_Count() - 1;
+        self.point_index = self.string->Point_Count() - 1;
+        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Postfix(is_any_non_const_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        self.is_prefix = false;
+        self.unit_index = self.string->Unit_Count();
+        self.point_index = self.string->Point_Count();
+        self.read_unit_count = 0;
+        self.charcoder = none_t();
+    }
+
+    template <typename string_p>
     inline bool_t
         string_itr<string_p>::Next(is_any_non_const_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        if (Is_Prefix(self)) {
-            First(self);
+        if (Is_At_Prefix(self)) {
+            At_First(self);
 
             return true;
-        } else if (Is_Terminus(self)) {
-            Postfix(self);
+        } else if (Is_At_Terminus(self)) {
+            At_Postfix(self);
 
             return true;
-        } else if (Is_Postfix(self)) {
+        } else if (Is_At_Postfix(self)) {
             return false;
         } else {
             self.unit_index += self.read_unit_count;
@@ -237,14 +257,14 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        if (Is_Prefix(self)) {
+        if (Is_At_Prefix(self)) {
             return false;
-        } else if (Is_First(self)) {
-            Prefix(self);
+        } else if (Is_At_First(self)) {
+            At_Prefix(self);
 
             return true;
-        } else if (Is_Postfix(self)) {
-            Terminus(self);
+        } else if (Is_At_Postfix(self)) {
+            At_Terminus(self);
 
             return true;
         } else {
@@ -262,7 +282,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        if (Is_Prefix(self)) {
+        if (Is_At_Prefix(self)) {
             return optional_t<index_t>(index_t(0), false);
         } else {
             return optional_t<index_t>(self.unit_index, true);
@@ -275,7 +295,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        if (Is_Prefix(self)) {
+        if (Is_At_Prefix(self)) {
             return optional_t<index_t>(index_t(0), false);
         } else {
             return optional_t<index_t>(self.point_index, true);
@@ -308,6 +328,25 @@ namespace nkr {
         nkr_ASSERT_THAT(index < Point_Unit_Count(self));
 
         return self.charcoder[index];
+    }
+
+    template <typename string_p>
+    inline count_t
+        string_itr<string_p>::Substring_Unit_Count(const is_any_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return self.read_unit_count;
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::unit_t
+        string_itr<string_p>::Substring_Unit(const is_any_tr<string_itr> auto& self, index_t index)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(index < Substring_Unit_Count(self));
+
+        return self.string->Unit(Unit_Index(self) + index);
     }
 
     template <typename string_p>
@@ -344,7 +383,7 @@ namespace nkr {
         string_itr<string_p>::Operator_Increment_Prefix(is_any_non_const_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(!Is_Postfix(self));
+        nkr_ASSERT_THAT(!Is_At_Postfix(self));
 
         Next(self);
 
@@ -356,7 +395,7 @@ namespace nkr {
         string_itr<string_p>::Operator_Increment_Postfix(is_any_non_const_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(!Is_Postfix(self));
+        nkr_ASSERT_THAT(!Is_At_Postfix(self));
 
         auto old = self;
         Next(self);
@@ -369,7 +408,7 @@ namespace nkr {
         string_itr<string_p>::Operator_Decrement_Prefix(is_any_non_const_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(!Is_Prefix(self));
+        nkr_ASSERT_THAT(!Is_At_Prefix(self));
 
         Prior(self);
 
@@ -381,7 +420,7 @@ namespace nkr {
         string_itr<string_p>::Operator_Decrement_Postfix(is_any_non_const_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(!Is_Prefix(self));
+        nkr_ASSERT_THAT(!Is_At_Prefix(self));
 
         auto old = self;
         Prior(self);
@@ -396,6 +435,13 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline string_itr<string_p>::string_itr(const string_t& string, index_t point_index) :
+        string_itr(string, string::position_e::first_tg())
+    {
+        At(*this, point_index);
+    }
+
+    template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::prefix_tg) :
         string(&string),
         is_prefix(false),
@@ -407,7 +453,7 @@ namespace nkr {
         nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
-        Prefix(*this);
+        At_Prefix(*this);
     }
 
     template <typename string_p>
@@ -422,7 +468,7 @@ namespace nkr {
         nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
-        First(*this);
+        At_First(*this);
     }
 
     template <typename string_p>
@@ -437,7 +483,7 @@ namespace nkr {
         nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
-        Last(*this);
+        At_Last(*this);
     }
 
     template <typename string_p>
@@ -452,7 +498,7 @@ namespace nkr {
         nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
-        Terminus(*this);
+        At_Terminus(*this);
     }
 
     template <typename string_p>
@@ -467,14 +513,7 @@ namespace nkr {
         nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
-        Postfix(*this);
-    }
-
-    template <typename string_p>
-    inline string_itr<string_p>::string_itr(const string_t& string, index_t point_index) :
-        string_itr(string, string::position_e::first_tg())
-    {
-        At(*this, point_index);
+        At_Postfix(*this);
     }
 
     template <typename string_p>
@@ -675,86 +714,6 @@ namespace nkr {
 
     template <typename string_p>
     inline bool_t
-        string_itr<string_p>::Is_Prefix()
-        const
-    {
-        return Is_Prefix(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Prefix()
-        const volatile
-    {
-        return Is_Prefix(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_First()
-        const
-    {
-        return Is_First(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_First()
-        const volatile
-    {
-        return Is_First(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Last()
-        const
-    {
-        return Is_Last(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Last()
-        const volatile
-    {
-        return Is_Last(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Terminus()
-        const
-    {
-        return Is_Terminus(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Terminus()
-        const volatile
-    {
-        return Is_Terminus(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Postfix()
-        const
-    {
-        return Is_Postfix(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
-        string_itr<string_p>::Is_Postfix()
-        const volatile
-    {
-        return Is_Postfix(*this);
-    }
-
-    template <typename string_p>
-    inline bool_t
         string_itr<string_p>::Is_At(index_t point_index) const
     {
         return Is_At(*this, point_index);
@@ -768,78 +727,99 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Prefix()
+    inline bool_t
+        string_itr<string_p>::Is_At_Prefix()
+        const
     {
-        return Prefix(*this);
+        return Is_At_Prefix(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Prefix()
-        volatile
+    inline bool_t
+        string_itr<string_p>::Is_At_Prefix()
+        const volatile
     {
-        return Prefix(*this);
+        return Is_At_Prefix(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::First()
+    inline bool_t
+        string_itr<string_p>::Is_At_First()
+        const
     {
-        return First(*this);
+        return Is_At_First(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::First()
-        volatile
+    inline bool_t
+        string_itr<string_p>::Is_At_First()
+        const volatile
     {
-        return First(*this);
+        return Is_At_First(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Last()
+    inline bool_t
+        string_itr<string_p>::Is_At_Last()
+        const
     {
-        return Last(*this);
+        return Is_At_Last(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Last()
-        volatile
+    inline bool_t
+        string_itr<string_p>::Is_At_Last()
+        const volatile
     {
-        return Last(*this);
+        return Is_At_Last(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Terminus()
+    inline bool_t
+        string_itr<string_p>::Is_At_Terminus()
+        const
     {
-        return Terminus(*this);
+        return Is_At_Terminus(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Terminus()
-        volatile
+    inline bool_t
+        string_itr<string_p>::Is_At_Terminus()
+        const volatile
     {
-        return Terminus(*this);
+        return Is_At_Terminus(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Postfix()
+    inline bool_t
+        string_itr<string_p>::Is_At_Postfix()
+        const
     {
-        return Postfix(*this);
+        return Is_At_Postfix(*this);
     }
 
     template <typename string_p>
-    inline void_t
-        string_itr<string_p>::Postfix()
-        volatile
+    inline bool_t
+        string_itr<string_p>::Is_At_Postfix()
+        const volatile
     {
-        return Postfix(*this);
+        return Is_At_Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Error()
+        const
+    {
+        return Is_At_Error(*this);
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Error()
+        const volatile
+    {
+        return Is_At_Error(*this);
     }
 
     template <typename string_p>
@@ -855,6 +835,81 @@ namespace nkr {
         volatile
     {
         return At(*this, point_index);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Prefix()
+    {
+        return At_Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Prefix()
+        volatile
+    {
+        return At_Prefix(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_First()
+    {
+        return At_First(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_First()
+        volatile
+    {
+        return At_First(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Last()
+    {
+        return At_Last(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Last()
+        volatile
+    {
+        return At_Last(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Terminus()
+    {
+        return At_Terminus(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Terminus()
+        volatile
+    {
+        return At_Terminus(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Postfix()
+    {
+        return At_Postfix(*this);
+    }
+
+    template <typename string_p>
+    inline void_t
+        string_itr<string_p>::At_Postfix()
+        volatile
+    {
+        return At_Postfix(*this);
     }
 
     template <typename string_p>
@@ -965,6 +1020,38 @@ namespace nkr {
         const volatile
     {
         return Point_Unit(*this, index);
+    }
+
+    template <typename string_p>
+    inline count_t
+        string_itr<string_p>::Substring_Unit_Count()
+        const
+    {
+        return Substring_Unit_Count(*this);
+    }
+
+    template <typename string_p>
+    inline count_t
+        string_itr<string_p>::Substring_Unit_Count()
+        const volatile
+    {
+        return Substring_Unit_Count(*this);
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::unit_t
+        string_itr<string_p>::Substring_Unit(index_t index)
+        const
+    {
+        return Substring_Unit(*this, index);
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::unit_t
+        string_itr<string_p>::Substring_Unit(index_t index)
+        const volatile
+    {
+        return Substring_Unit(*this, index);
     }
 
     template <typename string_p>

@@ -82,12 +82,12 @@ namespace nkr { namespace string {
 
         static some_t<const unit_t*>    C_String(const is_any_tr<dynamic_t> auto& self);
 
-        static iterator_t               Prefix(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               First(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               Last(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               Terminus(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               Postfix(const is_any_tr<dynamic_t> auto& self);
         static iterator_t               At(const is_any_tr<dynamic_t> auto& self, index_t point_index);
+        static iterator_t               At_Prefix(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               At_First(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               At_Last(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               At_Terminus(const is_any_tr<dynamic_t> auto& self);
+        static iterator_t               At_Postfix(const is_any_tr<dynamic_t> auto& self);
 
         static void_t                   Push_Terminus(is_any_tr<dynamic_t> auto& self);
         static void_t                   Pop_Terminus(is_any_tr<dynamic_t> auto& self);
@@ -156,18 +156,18 @@ namespace nkr { namespace string {
         some_t<const unit_t*>   C_String() const;
         some_t<const unit_t*>   C_String() const volatile;
 
-        iterator_t              Prefix() const;
-        iterator_t              Prefix() const volatile;
-        iterator_t              First() const;
-        iterator_t              First() const volatile;
-        iterator_t              Last() const;
-        iterator_t              Last() const volatile;
-        iterator_t              Terminus() const;
-        iterator_t              Terminus() const volatile;
-        iterator_t              Postfix() const;
-        iterator_t              Postfix() const volatile;
         iterator_t              At(index_t point_index) const;
         iterator_t              At(index_t point_index) const volatile;
+        iterator_t              At_Prefix() const;
+        iterator_t              At_Prefix() const volatile;
+        iterator_t              At_First() const;
+        iterator_t              At_First() const volatile;
+        iterator_t              At_Last() const;
+        iterator_t              At_Last() const volatile;
+        iterator_t              At_Terminus() const;
+        iterator_t              At_Terminus() const volatile;
+        iterator_t              At_Postfix() const;
+        iterator_t              At_Postfix() const volatile;
 
         maybe_t<allocator_err>  Push(point_t point);
         maybe_t<allocator_err>  Push(point_t point) volatile;
