@@ -388,13 +388,13 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string) :
+    inline string_itr<string_p>::string_itr(const string_t& string) :
         string_itr(string, string::position_e::first_tg())
     {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string, string::position_e::prefix_tg) :
+    inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::prefix_tg) :
         string(&string),
         unit_index(0),
         point_index(0),
@@ -408,7 +408,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string, string::position_e::first_tg) :
+    inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::first_tg) :
         string(&string),
         unit_index(0),
         point_index(0),
@@ -422,7 +422,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string, string::position_e::last_tg) :
+    inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::last_tg) :
         string(&string),
         unit_index(0),
         point_index(0),
@@ -436,7 +436,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string, string::position_e::terminus_tg) :
+    inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::terminus_tg) :
         string(&string),
         unit_index(0),
         point_index(0),
@@ -450,7 +450,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string, string::position_e::postfix_tg) :
+    inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::postfix_tg) :
         string(&string),
         unit_index(0),
         point_index(0),
@@ -464,7 +464,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline string_itr<string_p>::string_itr(const is_any_tr<string_t> auto& string, index_t point_index) :
+    inline string_itr<string_p>::string_itr(const string_t& string, index_t point_index) :
         string_itr(string, string::position_e::first_tg())
     {
         At(*this, point_index);

@@ -152,9 +152,9 @@ namespace nkr {
 
     template <
         string::any_stack_tr    string_p,
-        count_t                 min_point_count_p = 1,
-        count_t                 max_point_count_p = 128,
-        std_bool_t              allow_replacement_point_p = false
+        count_t                 min_point_count_p           = 1,
+        count_t                 max_point_count_p           = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count(),
+        std_bool_t              allow_replacement_point_p   = false
     > auto  Random();
 
 }

@@ -95,6 +95,7 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const charcoder_t& charcoder);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string);
+        static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_tr<dynamic_t> auto& self, any_non_const_string_tr auto&& other);
 
@@ -174,6 +175,8 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
+        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push);
+        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push) volatile;
         maybe_t<allocator_err>  Push(const any_string_tr auto& string);
         maybe_t<allocator_err>  Push(const any_string_tr auto& string) volatile;
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);

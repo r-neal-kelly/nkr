@@ -204,10 +204,10 @@ namespace nkr { namespace string {
     inline void_t
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Pop_Terminus(is_any_tr<dynamic_t> auto& self)
     {
-        if (Has_Terminus(self)) {
-            self.array.Pop();
-            self.point_count -= 1;
-        }
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        self.array.Pop();
+        self.point_count -= 1;
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -233,14 +233,18 @@ namespace nkr { namespace string {
             if (err) {
                 return err;
             } else {
-                Pop_Terminus(self);
+                if (Has_Terminus(self)) {
+                    Pop_Terminus(self);
+                }
 
                 for (index_t idx = 0, end = charcoder_length; idx < end; idx += 1) {
                     self.array.Push(charcoder[idx]).Ignore_Error();
                 }
                 self.point_count += 1;
 
-                Push_Terminus(self);
+                if (!Has_Terminus(self)) {
+                    Push_Terminus(self);
+                }
 
                 return allocator_err::NONE;
             }
@@ -251,29 +255,46 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string)
     {
-        count_t unit_length = Unit_Length(self);
-        count_t c_string_unit_count = C_String_Unit_Count(c_string);
+        nkr_ASSERT_THAT(c_string);
 
-        if (math::Will_Overflow_Add(unit_length, c_string_unit_count)) {
+        return nkr::Move(Push(self, c_string, C_String_Unit_Length(c_string)));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self,
+                                                               const is_any_tr<unit_t> auto* c_string,
+                                                               count_t unit_length_to_push)
+    {
+        nkr_ASSERT_THAT(c_string);
+
+        const count_t unit_count = Unit_Count(self);
+
+        if (math::Will_Overflow_Add(unit_count, unit_length_to_push)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = Unit_Capacity(self, unit_length + c_string_unit_count);
+            maybe_t<allocator_err> err = Unit_Capacity(self, unit_count + unit_length_to_push);
             if (err) {
                 return err;
             } else {
-                Pop_Terminus(self);
+                if (Has_Terminus(self)) {
+                    Pop_Terminus(self);
+                }
 
                 // we need point_count, so we interpret the string with charcoder which guarantees a point even from erroneous units.
                 // we copy the actual units of c_string as they are though, errors included. this simplifies out of memory recovery,
                 // and can only punish performance on the rare case that there is actually an error in the string.
                 charcoder_t charcoder;
-                for (index_t idx = 0, next_point_idx = 0, end = c_string_unit_count; idx < end;) {
+                for (index_t idx = 0, next_point_idx = 0, end = unit_length_to_push; idx < end;) {
                     next_point_idx = idx + charcoder.Read_Forward(c_string + idx);
                     for (; idx < next_point_idx; idx += 1) {
+                        nkr_ASSERT_THAT(c_string[idx] != 0);
                         self.array.Push(c_string[idx]).Ignore_Error();
                     }
                     self.point_count += 1;
                 }
+
+                Push_Terminus(self);
 
                 return allocator_err::NONE;
             }
@@ -284,6 +305,9 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, const any_string_tr auto& other)
     {
+
+        // this needs to be redone and completed, look at how stack_t does it
+
         using other_charcoder_t = std::remove_reference_t<decltype(other)>::charcoder_t;
 
         if constexpr (is_tr<charcoder_t, other_charcoder_t>) {
@@ -299,7 +323,9 @@ namespace nkr { namespace string {
                 if (err) {
                     return err;
                 } else {
-                    Pop_Terminus(self);
+                    if (Has_Terminus(self)) {
+                        Pop_Terminus(self);
+                    }
 
                     for (index_t idx = 0, end = other_unit_count; idx < end; idx += 1) {
                         self.array.Push(other[idx]).Ignore_Error();
@@ -320,7 +346,9 @@ namespace nkr { namespace string {
             // of the string, by calling Fit with the original capacity and making sure that we set Terminus back on the original unit count.
             // that way performance is not punished in the most common case, when there is a lack of allocation failure.
 
-            Pop_Terminus(*this);
+            if (Has_Terminus(self)) {
+                Pop_Terminus(self);
+            }
 
             // would be nice to use iterator here
             charcoder_t charcoder;
@@ -347,12 +375,8 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_t<charcoder_p, allocator_p, grow_rate_p>::dynamic_t() :
-        array(),
-        point_count(0)
+        dynamic_t(1)
     {
-        // we allow a non-allocated state for the sake of memory recovery and also because it can be inefficient
-        // just to allocate for terminus when the user actually wants more. this allows for cheap declarations.
-        // we don't use a static pointer either because it doesn't seem worth it at this time to check it constantly.
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -367,10 +391,11 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline dynamic_t<charcoder_p, allocator_p, grow_rate_p>::dynamic_t(const is_any_tr<unit_t> auto* c_string) :
-        array(),
-        point_count(0)
+        dynamic_t(C_String_Unit_Count(c_string))
     {
-        Push(*this, c_string).Ignore_Error();
+        if (Has_Memory(*this)) {
+            Push(*this, c_string, Unit_Capacity(*this) - 1).Ignore_Error();
+        }
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -751,6 +776,21 @@ namespace nkr { namespace string {
         volatile
     {
         return nkr::Move(Push(*this, c_string));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push)
+    {
+        return nkr::Move(Push(*this, c_string, unit_length_to_push));
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<allocator_err>
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push)
+        volatile
+    {
+        return nkr::Move(Push(*this, c_string, unit_length_to_push));
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
