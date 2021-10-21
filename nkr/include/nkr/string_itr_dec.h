@@ -110,9 +110,10 @@ namespace nkr {
 
     protected:
         some_t<const string_t*> string;
+        bool_t                  is_prefix;
         index_t                 unit_index;
         index_t                 point_index;
-        bool_t                  is_prefix;
+        count_t                 read_unit_count;
         charcoder_t             charcoder;
 
     public:

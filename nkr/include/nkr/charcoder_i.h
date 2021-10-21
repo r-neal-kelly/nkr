@@ -17,19 +17,26 @@ namespace nkr { namespace charcoder {
 namespace nkr { namespace $charcoder_i {
 
     /*
-        Assumptions:
-            - strings (sequences) are made of a continguous series of units, which are grouped into substrings.
-            - each unit is of the same integral size, e.g. u8_t, u16_t, u32_t, etc.
-            - strings end with a null-terminated unit (the terminus), i.e. the last unit must be 0.
+        Requirements:
+            - strings (sequences) are made of a continguous series of units, which are divided into substrings (subsequences).
+            - each unit in a string is of the same integral size, e.g. u8_t, u16_t, u32_t, etc.
+            - strings must terminate with a 0 (the terminus), i.e. the last unit must be 0.
+            - the terminus must take up the space of a single unit, no more and no less.
 
-            - substrings (subsequences) are an encoded subseries of units that can be decoded.
-            - a charcoder either contains or operates upon one substring at a time.
-            - a charcoder's contained units always have the same endianness as their encoding.
-            - a charcoder must at all times be well-formed and thus valid.
+            - substrings (subsequences) are an encoded series of units that can be decoded into a point, and vice-versa.
+            - each substring may be of varying width or each substring may be of the same width.
+            - a charcoder contains and operates only one substring at a time.
+            - a charcoder's contained units must always have the same endianness as their encoding.
+            - a charcoder must at all times be well-formed and thus valid. it should not cache any errorneous units.
+            - a charcoder should replace errorneous units with a substring that decodes into a singular replacement point, defined per encoding.
+            - during the reading process, the charcoder must return the actual number of units read, whether they are errorneous or not.
 
-            - points are decoded substrings.
+            - points are decoded substrings and are completely distinct from every other point defined by the encoding.
             - points must fit within the word of the machine.
             - points always have the same endianness as that of the excecuting machine.
+            - a charcoder's encoding scheme may decode into points of its own definition. but most charcoders use Unicode for points.
+            - although not a hard rule, the best practice is to decode into the Unicode point if you wish it to be translated into other encodings.
+            - a static array can be used to efficiently translate a different point into a Unicode point if desired.
     */
 
     // the charcoder implementations should probably be able to accept const unit_ts, however it is not expected that

@@ -85,7 +85,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.point_index == point_index;
+        return !Is_Prefix(self) && self.point_index == point_index;
     }
 
     template <typename string_p>
@@ -94,9 +94,10 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
+        self.is_prefix = true;
         self.unit_index = 0;
         self.point_index = 0;
-        self.is_prefix = true;
+        self.read_unit_count = 0;
         self.charcoder = none_t();
     }
 
@@ -106,10 +107,10 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
+        self.is_prefix = false;
         self.unit_index = 0;
         self.point_index = 0;
-        self.is_prefix = false;
-        self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
     }
 
     template <typename string_p>
@@ -128,10 +129,10 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
+        self.is_prefix = false;
         self.unit_index = self.string->Unit_Count() - 1;
         self.point_index = self.string->Point_Count() - 1;
-        self.is_prefix = false;
-        self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
     }
 
     template <typename string_p>
@@ -140,9 +141,10 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
+        self.is_prefix = false;
         self.unit_index = self.string->Unit_Count();
         self.point_index = self.string->Point_Count();
-        self.is_prefix = false;
+        self.read_unit_count = 0;
         self.charcoder = none_t();
     }
 
@@ -159,10 +161,10 @@ namespace nkr {
                 Postfix(self);
             } else {
                 if constexpr (charcoder_t::Max_Unit_Count() == 1) {
+                    self.is_prefix = false;
                     self.unit_index = point_index;
                     self.point_index = point_index;
-                    self.is_prefix = false;
-                    self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+                    self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
                 } else {
                     constexpr const count_t THRESHOLD = 16;
 
@@ -221,9 +223,9 @@ namespace nkr {
         } else if (Is_Postfix(self)) {
             return false;
         } else {
-            self.unit_index += self.charcoder.Unit_Count();
+            self.unit_index += self.read_unit_count;
             self.point_index += 1;
-            self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+            self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
 
             return true;
         }
@@ -246,8 +248,8 @@ namespace nkr {
 
             return true;
         } else {
-            self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), &self.string->Unit(0));
-            self.unit_index -= self.charcoder.Unit_Count();
+            self.read_unit_count = self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), &self.string->Unit(0));
+            self.unit_index -= self.read_unit_count;
             self.point_index -= 1;
 
             return true;
@@ -396,9 +398,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::prefix_tg) :
         string(&string),
+        is_prefix(false),
         unit_index(0),
         point_index(0),
-        is_prefix(false),
+        read_unit_count(0),
         charcoder(none_t())
     {
         nkr_ASSERT_THAT(this->string);
@@ -410,9 +413,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::first_tg) :
         string(&string),
+        is_prefix(false),
         unit_index(0),
         point_index(0),
-        is_prefix(false),
+        read_unit_count(0),
         charcoder(none_t())
     {
         nkr_ASSERT_THAT(this->string);
@@ -424,9 +428,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::last_tg) :
         string(&string),
+        is_prefix(false),
         unit_index(0),
         point_index(0),
-        is_prefix(false),
+        read_unit_count(0),
         charcoder(none_t())
     {
         nkr_ASSERT_THAT(this->string);
@@ -438,9 +443,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::terminus_tg) :
         string(&string),
+        is_prefix(false),
         unit_index(0),
         point_index(0),
-        is_prefix(false),
+        read_unit_count(0),
         charcoder(none_t())
     {
         nkr_ASSERT_THAT(this->string);
@@ -452,9 +458,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_t& string, string::position_e::postfix_tg) :
         string(&string),
+        is_prefix(false),
         unit_index(0),
         point_index(0),
-        is_prefix(false),
+        read_unit_count(0),
         charcoder(none_t())
     {
         nkr_ASSERT_THAT(this->string);
@@ -473,9 +480,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const string_itr& other) :
         string(other.string),
+        is_prefix(other.is_prefix),
         unit_index(other.unit_index),
         point_index(other.point_index),
-        is_prefix(other.is_prefix),
+        read_unit_count(other.read_unit_count),
         charcoder(other.charcoder)
     {
     }
@@ -483,9 +491,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(const volatile string_itr& other) :
         string(other.string),
+        is_prefix(other.is_prefix),
         unit_index(other.unit_index),
         point_index(other.point_index),
-        is_prefix(other.is_prefix),
+        read_unit_count(other.read_unit_count),
         charcoder(other.charcoder)
     {
     }
@@ -493,9 +502,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(string_itr&& other) noexcept :
         string(nkr::Move(other.string)),
+        is_prefix(nkr::Move(other.is_prefix)),
         unit_index(nkr::Move(other.unit_index)),
         point_index(nkr::Move(other.point_index)),
-        is_prefix(nkr::Move(other.is_prefix)),
+        read_unit_count(nkr::Move(other.read_unit_count)),
         charcoder(nkr::Move(other.charcoder))
     {
     }
@@ -503,9 +513,10 @@ namespace nkr {
     template <typename string_p>
     inline string_itr<string_p>::string_itr(volatile string_itr&& other) noexcept :
         string(nkr::Move(other.string)),
+        is_prefix(nkr::Move(other.is_prefix)),
         unit_index(nkr::Move(other.unit_index)),
         point_index(nkr::Move(other.point_index)),
-        is_prefix(nkr::Move(other.is_prefix)),
+        read_unit_count(nkr::Move(other.read_unit_count)),
         charcoder(nkr::Move(other.charcoder))
     {
     }
@@ -516,9 +527,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = other.string;
+            this->is_prefix = other.is_prefix;
             this->unit_index = other.unit_index;
             this->point_index = other.point_index;
-            this->is_prefix = other.is_prefix;
+            this->read_unit_count = other.read_unit_count;
             this->charcoder = other.charcoder;
         }
         return *this;
@@ -531,9 +543,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = other.string;
+            this->is_prefix = other.is_prefix;
             this->unit_index = other.unit_index;
             this->point_index = other.point_index;
-            this->is_prefix = other.is_prefix;
+            this->read_unit_count = other.read_unit_count;
             this->charcoder = other.charcoder;
         }
         return *this;
@@ -545,9 +558,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = other.string;
+            this->is_prefix = other.is_prefix;
             this->unit_index = other.unit_index;
             this->point_index = other.point_index;
-            this->is_prefix = other.is_prefix;
+            this->read_unit_count = other.read_unit_count;
             this->charcoder = other.charcoder;
         }
         return *this;
@@ -560,9 +574,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = other.string;
+            this->is_prefix = other.is_prefix;
             this->unit_index = other.unit_index;
             this->point_index = other.point_index;
-            this->is_prefix = other.is_prefix;
+            this->read_unit_count = other.read_unit_count;
             this->charcoder = other.charcoder;
         }
         return *this;
@@ -575,9 +590,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = nkr::Move(other.string);
+            this->is_prefix = nkr::Move(other.is_prefix);
             this->unit_index = nkr::Move(other.unit_index);
             this->point_index = nkr::Move(other.point_index);
-            this->is_prefix = nkr::Move(other.is_prefix);
+            this->read_unit_count = nkr::Move(other.read_unit_count);
             this->charcoder = nkr::Move(other.charcoder);
         }
         return *this;
@@ -590,9 +606,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = nkr::Move(other.string);
+            this->is_prefix = nkr::Move(other.is_prefix);
             this->unit_index = nkr::Move(other.unit_index);
             this->point_index = nkr::Move(other.point_index);
-            this->is_prefix = nkr::Move(other.is_prefix);
+            this->read_unit_count = nkr::Move(other.read_unit_count);
             this->charcoder = nkr::Move(other.charcoder);
         }
         return *this;
@@ -605,9 +622,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = nkr::Move(other.string);
+            this->is_prefix = nkr::Move(other.is_prefix);
             this->unit_index = nkr::Move(other.unit_index);
             this->point_index = nkr::Move(other.point_index);
-            this->is_prefix = nkr::Move(other.is_prefix);
+            this->read_unit_count = nkr::Move(other.read_unit_count);
             this->charcoder = nkr::Move(other.charcoder);
         }
         return *this;
@@ -620,9 +638,10 @@ namespace nkr {
     {
         if (this != std::addressof(other)) {
             this->string = nkr::Move(other.string);
+            this->is_prefix = nkr::Move(other.is_prefix);
             this->unit_index = nkr::Move(other.unit_index);
             this->point_index = nkr::Move(other.point_index);
-            this->is_prefix = nkr::Move(other.is_prefix);
+            this->read_unit_count = nkr::Move(other.read_unit_count);
             this->charcoder = nkr::Move(other.charcoder);
         }
         return *this;
@@ -632,10 +651,10 @@ namespace nkr {
     inline string_itr<string_p>::~string_itr()
     {
         this->string = nullptr;
+        this->is_prefix = false;
         this->unit_index = 0;
         this->point_index = 0;
-        this->is_prefix = false;
-        this->charcoder = none_t();
+        this->read_unit_count = 0;
     }
 
     template <typename string_p>
