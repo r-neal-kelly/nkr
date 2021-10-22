@@ -235,9 +235,9 @@ namespace nkr { namespace charcoder {
     }
 
     inline typename utf_32_t::unit_t
-        utf_32_t::Operator_Access(const is_any_tr<utf_32_t> auto& self, index_t index)
+        utf_32_t::Unit(const is_any_tr<utf_32_t> auto& self, index_t unit_index)
     {
-        nkr_ASSERT_THAT(index < 1);
+        nkr_ASSERT_THAT(unit_index < 1);
 
         return self.unit;
     }
@@ -489,17 +489,31 @@ namespace nkr { namespace charcoder {
     }
 
     inline typename utf_32_t::unit_t
-        utf_32_t::operator [](index_t index)
+        utf_32_t::Unit(index_t unit_index)
         const
     {
-        return Operator_Access(*this, index);
+        return Unit(*this, unit_index);
     }
 
     inline typename utf_32_t::unit_t
-        utf_32_t::operator [](index_t index)
+        utf_32_t::Unit(index_t unit_index)
         const volatile
     {
-        return Operator_Access(*this, index);
+        return Unit(*this, unit_index);
+    }
+
+    inline typename utf_32_t::unit_t
+        utf_32_t::operator [](index_t unit_index)
+        const
+    {
+        return Unit(*this, unit_index);
+    }
+
+    inline typename utf_32_t::unit_t
+        utf_32_t::operator [](index_t unit_index)
+        const volatile
+    {
+        return Unit(*this, unit_index);
     }
 
     inline utf_32_t::utf_32_t(none_t) :

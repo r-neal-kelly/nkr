@@ -49,8 +49,7 @@ namespace nkr { namespace charcoder {
         static count_t  Read_Reverse(is_any_non_const_tr<utf_8_t> auto& self, const is_any_tr<unit_t> auto* from, const is_any_tr<unit_t> auto* first);
 
         static count_t  Unit_Count(const is_any_tr<utf_8_t> auto& self);
-
-        static unit_t   Operator_Access(const is_any_tr<utf_8_t> auto& self, index_t index);
+        static unit_t   Unit(const is_any_tr<utf_8_t> auto& self, index_t unit_index);
 
         static auto&    Assign_None(is_any_non_const_tr<utf_8_t> auto& self);
         static bool_t   Is_Equal_To_None(const is_any_tr<utf_8_t> auto& self);
@@ -106,14 +105,16 @@ namespace nkr { namespace charcoder {
 
         count_t Unit_Count() const;
         count_t Unit_Count() const volatile;
+        unit_t  Unit(index_t unit_index) const;
+        unit_t  Unit(index_t unit_index) const volatile;
         /// @}
 
     public:
         /// @name operators
         /// @copydoc 
         /// @{
-        unit_t  operator [](index_t index) const;
-        unit_t  operator [](index_t index) const volatile;
+        unit_t  operator [](index_t unit_index) const;
+        unit_t  operator [](index_t unit_index) const volatile;
         /// @}
 
     public:

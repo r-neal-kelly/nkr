@@ -102,9 +102,9 @@ namespace nkr { namespace charcoder {
     }
 
     inline typename ascii_t::unit_t
-        ascii_t::Operator_Access(const is_any_tr<ascii_t> auto& self, index_t index)
+        ascii_t::Unit(const is_any_tr<ascii_t> auto& self, index_t unit_index)
     {
-        nkr_ASSERT_THAT(index < 1);
+        nkr_ASSERT_THAT(unit_index < 1);
 
         return self.unit;
     }
@@ -295,17 +295,31 @@ namespace nkr { namespace charcoder {
     }
 
     inline typename ascii_t::unit_t
-        ascii_t::operator [](index_t index)
+        ascii_t::Unit(index_t unit_index)
         const
     {
-        return Operator_Access(*this, index);
+        return Unit(*this, unit_index);
     }
 
     inline typename ascii_t::unit_t
-        ascii_t::operator [](index_t index)
+        ascii_t::Unit(index_t unit_index)
         const volatile
     {
-        return Operator_Access(*this, index);
+        return Unit(*this, unit_index);
+    }
+
+    inline typename ascii_t::unit_t
+        ascii_t::operator [](index_t unit_index)
+        const
+    {
+        return Unit(*this, unit_index);
+    }
+
+    inline typename ascii_t::unit_t
+        ascii_t::operator [](index_t unit_index)
+        const volatile
+    {
+        return Unit(*this, unit_index);
     }
 
     inline ascii_t::ascii_t(none_t) :

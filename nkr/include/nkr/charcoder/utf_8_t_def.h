@@ -458,11 +458,11 @@ namespace nkr { namespace charcoder {
     }
 
     inline typename utf_8_t::unit_t
-        utf_8_t::Operator_Access(const is_any_tr<utf_8_t> auto& self, index_t index)
+        utf_8_t::Unit(const is_any_tr<utf_8_t> auto& self, index_t unit_index)
     {
-        nkr_ASSERT_THAT(index < self.units.Count());
+        nkr_ASSERT_THAT(unit_index < self.units.Count());
 
-        return self.units[index];
+        return self.units[unit_index];
     }
 
     inline auto&
@@ -648,17 +648,31 @@ namespace nkr { namespace charcoder {
     }
 
     inline typename utf_8_t::unit_t
-        utf_8_t::operator [](index_t index)
+        utf_8_t::Unit(index_t unit_index)
         const
     {
-        return Operator_Access(*this, index);
+        return Unit(*this, unit_index);
     }
 
     inline typename utf_8_t::unit_t
-        utf_8_t::operator [](index_t index)
+        utf_8_t::Unit(index_t unit_index)
         const volatile
     {
-        return Operator_Access(*this, index);
+        return Unit(*this, unit_index);
+    }
+
+    inline typename utf_8_t::unit_t
+        utf_8_t::operator [](index_t unit_index)
+        const
+    {
+        return Unit(*this, unit_index);
+    }
+
+    inline typename utf_8_t::unit_t
+        utf_8_t::operator [](index_t unit_index)
+        const volatile
+    {
+        return Unit(*this, unit_index);
     }
 
     inline utf_8_t::utf_8_t(none_t) :

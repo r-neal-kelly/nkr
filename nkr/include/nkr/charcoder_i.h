@@ -39,10 +39,6 @@ namespace nkr { namespace $charcoder_i {
             - a static array can be used to efficiently translate a different point into a Unicode point if desired.
     */
 
-    // the charcoder implementations should probably be able to accept const unit_ts, however it is not expected that
-    // the implementation will use const in its footprint. but this is helfpul for string_t which utilizes the unit_t
-    // on charcoder, and the array the string uses needs to know the actual type to be stored qualified or not.
-
     template <typename type_p>
     concept unit_i =
         any_integer_tr<typename type_p::unit_t> ||
@@ -79,6 +75,8 @@ namespace nkr { namespace $charcoder_i {
                                   volatile typename type_p::unit_t* volatile_first_unit,
                                   const volatile typename type_p::unit_t* const_volatile_first_unit,
                                   
+                                  index_t unit_index,
+
                                   count_t read_count)
     {
         { charcoder.Encode(typename charcoder::point_t()) }                                         -> is_tr<void_t>;
@@ -109,11 +107,15 @@ namespace nkr { namespace $charcoder_i {
         { const_charcoder.Unit_Count() }                                                            -> is_tr<count_t>;
         { volatile_charcoder.Unit_Count() }                                                         -> is_tr<count_t>;
         { const_volatile_charcoder.Unit_Count() }                                                   -> is_tr<count_t>;
+        { charcoder.Unit(unit_index) }                                                              -> is_tr<typename type_p::unit_t>;
+        { const_charcoder.Unit(unit_index) }                                                        -> is_tr<typename type_p::unit_t>;
+        { volatile_charcoder.Unit(unit_index) }                                                     -> is_tr<typename type_p::unit_t>;
+        { const_volatile_charcoder.Unit(unit_index) }                                               -> is_tr<typename type_p::unit_t>;
 
-        { charcoder.operator[](index_t()) }                                                         -> is_tr<typename type_p::unit_t>;
-        { const_charcoder.operator[](index_t()) }                                                   -> is_tr<typename type_p::unit_t>;
-        { volatile_charcoder.operator[](index_t()) }                                                -> is_tr<typename type_p::unit_t>;
-        { const_volatile_charcoder.operator[](index_t()) }                                          -> is_tr<typename type_p::unit_t>;
+        { charcoder.operator[](unit_index) }                                                        -> is_tr<typename type_p::unit_t>;
+        { const_charcoder.operator[](unit_index) }                                                  -> is_tr<typename type_p::unit_t>;
+        { volatile_charcoder.operator[](unit_index) }                                               -> is_tr<typename type_p::unit_t>;
+        { const_volatile_charcoder.operator[](unit_index) }                                         -> is_tr<typename type_p::unit_t>;
 
         read_count = charcoder.Read_Forward(from_unit);
         read_count = charcoder.Read_Reverse(from_unit, first_unit);

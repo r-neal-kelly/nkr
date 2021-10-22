@@ -1205,7 +1205,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Point_Unit_Count()")
             {
-                TEST_CASE_TEMPLATE("should return the actual number of units which represent the point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the number of units which represent the point", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1221,11 +1221,19 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Point_Unit()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the indexed unit of the point", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
+
+                    string_t string = Random<string_t, 1>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    charcoder_t charcoder;
+                    charcoder.Encode(itr.Point());
+                    for (index_t idx = 0, end = itr.Point_Unit_Count(); idx < end; idx += 1) {
+                        CHECK(itr.Point_Unit(idx) == charcoder.Unit(idx));
+                    }
                 }
             }
 
@@ -1250,7 +1258,14 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("+=()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the index that is point_count points after the current index", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1260,7 +1275,14 @@ namespace nkr { namespace string {
 
             TEST_SUITE("-=()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the index that is point_count points before the current index", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1270,7 +1292,21 @@ namespace nkr { namespace string {
 
             TEST_SUITE("++()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1280,7 +1316,21 @@ namespace nkr { namespace string {
 
             TEST_SUITE("++(int)")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1290,7 +1340,21 @@ namespace nkr { namespace string {
 
             TEST_SUITE("--()")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1300,7 +1364,21 @@ namespace nkr { namespace string {
 
             TEST_SUITE("--(int)")
             {
-                TEST_CASE_TEMPLATE("should ", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                }
+
+                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
