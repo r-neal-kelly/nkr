@@ -22,7 +22,13 @@
 #include "nkr/charcoder/utf_8_t.h"
 
 #include "nkr/string_i.h"
-#include "nkr/string_itr.h"
+
+namespace nkr {
+
+    template <typename string_p>
+    class string_itr;
+
+}
 
 namespace nkr { namespace string {
 

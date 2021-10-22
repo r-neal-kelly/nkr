@@ -8,6 +8,7 @@
 #include "nkr/utils.h"
 
 #include "nkr/string_itr_dec.h"
+#include "nkr/string/stack_t_def.h"
 
 namespace nkr {
 
@@ -94,18 +95,40 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        count_t point_unit_count = Point_Unit_Count(self);
-        if (point_unit_count == Substring_Unit_Count(self)) {
-            for (index_t idx = 0, end = point_unit_count; idx < end; idx += 1) {
-                if (Point_Unit(self, idx) != Substring_Unit(self, idx)) {
-                    return true;
-                }
-            }
-
+        if (Is_At_Prefix(self) || Is_At_Postfix(self)) {
             return false;
         } else {
-            return true;
+            count_t point_unit_count = Point_Unit_Count(self);
+            if (point_unit_count != Substring_Unit_Count(self)) {
+                return true;
+            } else {
+                for (index_t idx = 0, end = point_unit_count; idx < end; idx += 1) {
+                    if (Point_Unit(self, idx) != Substring_Unit(self, idx)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Replacement_Point(const is_any_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return Point(self) == charcoder_t::Replacement_Point();
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Replacement_Substring(const is_any_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return Is_At_Replacement_Point(self) && !Is_At_Error(self);
     }
 
     template <typename string_p>
@@ -303,6 +326,15 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline typename string_itr<string_p>::charcoder_t
+        string_itr<string_p>::Charcoder(const is_any_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        return self.charcoder;
+    }
+
+    template <typename string_p>
     inline string::point_t
         string_itr<string_p>::Point(const is_any_tr<string_itr> auto& self)
     {
@@ -322,12 +354,26 @@ namespace nkr {
 
     template <typename string_p>
     inline typename string_itr<string_p>::unit_t
-        string_itr<string_p>::Point_Unit(const is_any_tr<string_itr> auto& self, index_t index)
+        string_itr<string_p>::Point_Unit(const is_any_tr<string_itr> auto& self, index_t point_unit_index)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(index < Point_Unit_Count(self));
+        nkr_ASSERT_THAT(point_unit_index < Point_Unit_Count(self));
 
-        return self.charcoder[index];
+        return self.charcoder[point_unit_index];
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::substring_t
+        string_itr<string_p>::Substring(const is_any_tr<string_itr> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_String(self));
+
+        substring_t substring;
+        if (!Is_At_Prefix(self) && !Is_At_Postfix(self)) {
+            substring.Push(&self.string->Unit(self.unit_index), Substring_Unit_Count(self)).Ignore_Error();
+        }
+
+        return substring;
     }
 
     template <typename string_p>
@@ -335,18 +381,21 @@ namespace nkr {
         string_itr<string_p>::Substring_Unit_Count(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(self.read_unit_count <= charcoder_t::Max_Unit_Count());
 
         return self.read_unit_count;
     }
 
     template <typename string_p>
     inline typename string_itr<string_p>::unit_t
-        string_itr<string_p>::Substring_Unit(const is_any_tr<string_itr> auto& self, index_t index)
+        string_itr<string_p>::Substring_Unit(const is_any_tr<string_itr> auto& self, index_t substring_unit_index)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(index < Substring_Unit_Count(self));
+        nkr_ASSERT_THAT(!Is_At_Prefix(self));
+        nkr_ASSERT_THAT(!Is_At_Postfix(self));
+        nkr_ASSERT_THAT(substring_unit_index < Substring_Unit_Count(self));
 
-        return self.string->Unit(Unit_Index(self) + index);
+        return self.string->Unit(Unit_Index(self).Value() + substring_unit_index);
     }
 
     template <typename string_p>
@@ -823,6 +872,38 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Replacement_Point()
+        const
+    {
+        return Is_At_Replacement_Point(*this);
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Replacement_Point()
+        const volatile
+    {
+        return Is_At_Replacement_Point(*this);
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Replacement_Substring()
+        const
+    {
+        return Is_At_Replacement_Substring(*this);
+    }
+
+    template <typename string_p>
+    inline bool_t
+        string_itr<string_p>::Is_At_Replacement_Substring()
+        const volatile
+    {
+        return Is_At_Replacement_Substring(*this);
+    }
+
+    template <typename string_p>
     inline void_t
         string_itr<string_p>::At(index_t point_index)
     {
@@ -975,6 +1056,22 @@ namespace nkr {
     }
 
     template <typename string_p>
+    inline typename string_itr<string_p>::charcoder_t
+        string_itr<string_p>::Charcoder()
+        const
+    {
+        return Charcoder(*this);
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::charcoder_t
+        string_itr<string_p>::Charcoder()
+        const volatile
+    {
+        return Charcoder(*this);
+    }
+
+    template <typename string_p>
     inline string::point_t
         string_itr<string_p>::Point()
         const
@@ -1008,18 +1105,34 @@ namespace nkr {
 
     template <typename string_p>
     inline typename string_itr<string_p>::unit_t
-        string_itr<string_p>::Point_Unit(index_t index)
+        string_itr<string_p>::Point_Unit(index_t point_unit_index)
         const
     {
-        return Point_Unit(*this, index);
+        return Point_Unit(*this, point_unit_index);
     }
 
     template <typename string_p>
     inline typename string_itr<string_p>::unit_t
-        string_itr<string_p>::Point_Unit(index_t index)
+        string_itr<string_p>::Point_Unit(index_t point_unit_index)
         const volatile
     {
-        return Point_Unit(*this, index);
+        return Point_Unit(*this, point_unit_index);
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::substring_t
+        string_itr<string_p>::Substring()
+        const
+    {
+        return Substring(*this);
+    }
+
+    template <typename string_p>
+    inline typename string_itr<string_p>::substring_t
+        string_itr<string_p>::Substring()
+        const volatile
+    {
+        return Substring(*this);
     }
 
     template <typename string_p>
@@ -1040,18 +1153,18 @@ namespace nkr {
 
     template <typename string_p>
     inline typename string_itr<string_p>::unit_t
-        string_itr<string_p>::Substring_Unit(index_t index)
+        string_itr<string_p>::Substring_Unit(index_t substring_unit_index)
         const
     {
-        return Substring_Unit(*this, index);
+        return Substring_Unit(*this, substring_unit_index);
     }
 
     template <typename string_p>
     inline typename string_itr<string_p>::unit_t
-        string_itr<string_p>::Substring_Unit(index_t index)
+        string_itr<string_p>::Substring_Unit(index_t substring_unit_index)
         const volatile
     {
-        return Substring_Unit(*this, index);
+        return Substring_Unit(*this, substring_unit_index);
     }
 
     template <typename string_p>

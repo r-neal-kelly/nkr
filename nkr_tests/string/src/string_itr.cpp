@@ -89,6 +89,16 @@ namespace nkr { namespace string {
                     static_assert(is_tr<unit_t, string_t::unit_t>);
                 }
             }
+
+            TEST_SUITE("substring_t")
+            {
+                TEST_CASE_TEMPLATE("should have a substring_t that is a string::stack_t", itr_p, nkr_ALL)
+                {
+                    using substring_t = itr_p::substring_t;
+
+                    static_assert(string::any_stack_tr<substring_t>);
+                }
+            }
         }
 
         TEST_SUITE("protected object data")
@@ -805,20 +815,32 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Error()")
             {
-                TEST_CASE_TEMPLATE("should return true when at a substring that doesn't match the charcoder", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a replacement point when at an error", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t, 16>(true);
-                    CHECK(string.Unit_Count() >= 16);
+                    itr_p itr(string);
+                    count_t error_count = 0;
+                    for (; !itr.Is_At_Postfix(); itr.Next()) {
+                        if (itr.Is_At_Error()) {
+                            error_count += 1;
+                            CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                        }
+                    }
                 }
+            }
 
-                TEST_CASE_TEMPLATE("should return false when at a substring that does match the charcoder", itr_p, nkr_ALL)
-                {
+            TEST_SUITE("Is_At_Replacement_Point()")
+            {
 
-                }
+            }
+
+            TEST_SUITE("Is_At_Replacement_Substring()")
+            {
+
             }
 
             TEST_SUITE("At()")
@@ -1126,6 +1148,14 @@ namespace nkr { namespace string {
                 }
             }
 
+            TEST_SUITE("Charcoder()")
+            {
+                TEST_CASE_TEMPLATE("should return a copy of the charcoder at the current point", itr_p, nkr_ALL)
+                {
+
+                }
+            }
+
             TEST_SUITE("Point()")
             {
                 TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
@@ -1239,6 +1269,29 @@ namespace nkr { namespace string {
                     for (index_t idx = 0, end = itr.Point_Unit_Count(); idx < end; idx += 1) {
                         CHECK(itr.Point_Unit(idx) == charcoder.Unit(idx));
                     }
+                }
+            }
+
+            TEST_SUITE("Substring()")
+            {
+                TEST_CASE_TEMPLATE("should return a string::stack_t containing the substring the iterator is at", itr_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should return the actual units even when there is an error", itr_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty string::stack_t when at the prefix", itr_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty string::stack_t when at the postfix", itr_p, nkr_ALL)
+                {
+
                 }
             }
 

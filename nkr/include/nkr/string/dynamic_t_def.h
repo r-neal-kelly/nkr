@@ -8,6 +8,7 @@
 
 #include "nkr/array/stack_t.h"
 
+#include "nkr/string_itr_def.h"
 #include "nkr/string/dynamic_t_dec.h"
 
 namespace nkr { namespace string {

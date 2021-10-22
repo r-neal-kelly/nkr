@@ -7,6 +7,7 @@
 #include "nkr/math.h"
 #include "nkr/utils.h"
 
+#include "nkr/string_itr_def.h"
 #include "nkr/string/stack_t_dec.h"
 
 namespace nkr { namespace string {

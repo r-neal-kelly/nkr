@@ -19,6 +19,7 @@
 #include "nkr/enumeration/types_t.h"
 
 #include "nkr/string_i.h"
+#include "nkr/string/stack_t_dec.h"
 
 namespace nkr { namespace string {
 
@@ -71,6 +72,7 @@ namespace nkr {
         using string_t      = string_p;
         using charcoder_t   = string_p::charcoder_t;
         using unit_t        = string_p::unit_t;
+        using substring_t   = string::stack_t<charcoder_t, charcoder_t::Max_Unit_Count() + 1>;
 
     private:
         static bool_t               Has_String(const is_any_tr<string_itr> auto& self);
@@ -83,6 +85,8 @@ namespace nkr {
         static bool_t               Is_At_Terminus(const is_any_tr<string_itr> auto& self);
         static bool_t               Is_At_Postfix(const is_any_tr<string_itr> auto& self);
         static bool_t               Is_At_Error(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_At_Replacement_Point(const is_any_tr<string_itr> auto& self);
+        static bool_t               Is_At_Replacement_Substring(const is_any_tr<string_itr> auto& self);
 
         static void_t               At(is_any_non_const_tr<string_itr> auto& self, index_t point_index);
         static void_t               At_Prefix(is_any_non_const_tr<string_itr> auto& self);
@@ -97,12 +101,15 @@ namespace nkr {
         static optional_t<index_t>  Unit_Index(const is_any_tr<string_itr> auto& self);
         static optional_t<index_t>  Point_Index(const is_any_tr<string_itr> auto& self);
 
+        static charcoder_t          Charcoder(const is_any_tr<string_itr> auto& self);
+
         static string::point_t      Point(const is_any_tr<string_itr> auto& self);
         static count_t              Point_Unit_Count(const is_any_tr<string_itr> auto& self);
-        static unit_t               Point_Unit(const is_any_tr<string_itr> auto& self, index_t index);
+        static unit_t               Point_Unit(const is_any_tr<string_itr> auto& self, index_t point_unit_index);
 
+        static substring_t          Substring(const is_any_tr<string_itr> auto& self);
         static count_t              Substring_Unit_Count(const is_any_tr<string_itr> auto& self);
-        static unit_t               Substring_Unit(const is_any_tr<string_itr> auto& self, index_t index);
+        static unit_t               Substring_Unit(const is_any_tr<string_itr> auto& self, index_t substring_unit_index);
 
         static auto&                Operator_Plus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
         static auto&                Operator_Minus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
@@ -165,6 +172,10 @@ namespace nkr {
         bool_t              Is_At_Postfix() const volatile;
         bool_t              Is_At_Error() const;
         bool_t              Is_At_Error() const volatile;
+        bool_t              Is_At_Replacement_Point() const;
+        bool_t              Is_At_Replacement_Point() const volatile;
+        bool_t              Is_At_Replacement_Substring() const;
+        bool_t              Is_At_Replacement_Substring() const volatile;
 
         void_t              At(index_t point_index);
         void_t              At(index_t point_index) volatile;
@@ -189,17 +200,22 @@ namespace nkr {
         optional_t<index_t> Point_Index() const;
         optional_t<index_t> Point_Index() const volatile;
 
+        charcoder_t         Charcoder() const;
+        charcoder_t         Charcoder() const volatile;
+
         string::point_t     Point() const;
         string::point_t     Point() const volatile;
         count_t             Point_Unit_Count() const;
         count_t             Point_Unit_Count() const volatile;
-        unit_t              Point_Unit(index_t index) const;
-        unit_t              Point_Unit(index_t index) const volatile;
+        unit_t              Point_Unit(index_t point_unit_index) const;
+        unit_t              Point_Unit(index_t point_unit_index) const volatile;
 
+        substring_t         Substring() const;
+        substring_t         Substring() const volatile;
         count_t             Substring_Unit_Count() const;
         count_t             Substring_Unit_Count() const volatile;
-        unit_t              Substring_Unit(index_t index) const;
-        unit_t              Substring_Unit(index_t index) const volatile;
+        unit_t              Substring_Unit(index_t substring_unit_index) const;
+        unit_t              Substring_Unit(index_t substring_unit_index) const volatile;
 
     public:
         string_itr&             operator +=(count_t point_count);
