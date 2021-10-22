@@ -74,6 +74,7 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<unit_t> auto* c_string);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<unit_t> auto* c_string, count_t unit_length);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other);
 
@@ -131,6 +132,8 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
         maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
+        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length);
+        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length) volatile;
         maybe_t<allocator_err>  Push(const any_string_tr auto& string);
         maybe_t<allocator_err>  Push(const any_string_tr auto& string) volatile;
         maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
@@ -152,9 +155,8 @@ namespace nkr {
 
     template <
         string::any_stack_tr    string_p,
-        count_t                 min_point_count_p           = 1,
-        count_t                 max_point_count_p           = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count(),
-        std_bool_t              allow_replacement_point_p   = false
-    > auto  Random();
+        count_t                 min_point_count_p       = 1,
+        count_t                 max_point_count_p       = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
+    > auto  Random(bool_t use_errorneous_units = false);
 
 }

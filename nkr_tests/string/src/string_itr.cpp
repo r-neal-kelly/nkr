@@ -805,12 +805,17 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Error()")
             {
-                TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at a substring that doesn't match the charcoder", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
 
+                    string_t string = Random<string_t, 16>(true);
+                    CHECK(string.Unit_Count() >= 16);
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at a substring that does match the charcoder", itr_p, nkr_ALL)
                 {
 
                 }

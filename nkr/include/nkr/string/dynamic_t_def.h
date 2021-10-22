@@ -6,6 +6,8 @@
 
 #include "nkr/utils.h"
 
+#include "nkr/array/stack_t.h"
+
 #include "nkr/string/dynamic_t_dec.h"
 
 namespace nkr { namespace string {
@@ -264,28 +266,27 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self,
                                                                const is_any_tr<unit_t> auto* c_string,
-                                                               count_t unit_length_to_push)
+                                                               count_t unit_length)
     {
         nkr_ASSERT_THAT(c_string);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         const count_t unit_count = Unit_Count(self);
 
-        if (math::Will_Overflow_Add(unit_count, unit_length_to_push)) {
+        if (math::Will_Overflow_Add(unit_count, unit_length)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = Unit_Capacity(self, unit_count + unit_length_to_push);
+            maybe_t<allocator_err> err = Unit_Capacity(self, unit_count + unit_length);
             if (err) {
                 return err;
             } else {
-                if (Has_Terminus(self)) {
-                    Pop_Terminus(self);
-                }
+                Pop_Terminus(self);
 
                 // we need point_count, so we interpret the string with charcoder which guarantees a point even from erroneous units.
                 // we copy the actual units of c_string as they are though, errors included. this simplifies out of memory recovery,
                 // and can only punish performance on the rare case that there is actually an error in the string.
                 charcoder_t charcoder;
-                for (index_t idx = 0, next_point_idx = 0, end = unit_length_to_push; idx < end;) {
+                for (index_t idx = 0, next_point_idx = 0, end = unit_length; idx < end;) {
                     next_point_idx = idx + charcoder.Read_Forward(c_string + idx);
                     for (; idx < next_point_idx; idx += 1) {
                         nkr_ASSERT_THAT(c_string[idx] != 0);
@@ -731,17 +732,17 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline maybe_t<allocator_err>
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length)
     {
-        return nkr::Move(Push(*this, c_string, unit_length_to_push));
+        return nkr::Move(Push(*this, c_string, unit_length));
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline maybe_t<allocator_err>
-        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length_to_push)
+        dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length)
         volatile
     {
-        return nkr::Move(Push(*this, c_string, unit_length_to_push));
+        return nkr::Move(Push(*this, c_string, unit_length));
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -809,11 +810,12 @@ namespace nkr { namespace string {
 
 namespace nkr {
 
-    template <string::any_dynamic_tr string_p, count_t min_point_count_p, count_t max_point_count_p, std_bool_t allow_replacement_point_p>
-    inline auto Random()
+    template <string::any_dynamic_tr string_p, count_t min_point_count_p, count_t max_point_count_p>
+    inline auto Random(bool_t use_errorneous_units)
     {
         using string_t = string_p;
         using charcoder_t = string_t::charcoder_t;
+        using unit_t = string_t::unit_t;
 
         nkr_ASSERT_THAT(min_point_count_p >= 1);
         nkr_ASSERT_THAT(max_point_count_p >= 1);
@@ -821,9 +823,14 @@ namespace nkr {
 
         const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
         std::remove_const_t<string_t> string(point_count * charcoder_t::Max_Unit_Count());
-        if constexpr (allow_replacement_point_p) {
+        if (use_errorneous_units) {
+            array::stack_t<unit_t, charcoder_t::Max_Unit_Count()> units;
             for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {
-                string.Push(nkr::Random<string::point_t>(1, charcoder_t::Last_Point())).Ignore_Error();
+                for (index_t idx = 0, end = Random<count_t>(1, units.Capacity()); idx < end; idx += 1) {
+                    units.Push(Random<unit_t>(1)).Ignore_Error();
+                }
+                string.Push(units.Array(), units.Count()).Ignore_Error();
+                units.Clear();
             }
         } else {
             charcoder_t charcoder;
