@@ -367,6 +367,7 @@ namespace nkr {
         string_itr<string_p>::Substring(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
+        nkr_ASSERT_THAT(Substring_Unit_Count(self) < substring_t::Unit_Capacity());
 
         substring_t substring;
         if (!Is_At_Prefix(self) && !Is_At_Postfix(self)) {

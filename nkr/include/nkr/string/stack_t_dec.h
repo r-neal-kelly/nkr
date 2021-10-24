@@ -93,6 +93,7 @@ namespace nkr { namespace string {
     public:
         stack_t();
 
+        stack_t(const charcoder_t& charcoder);
         stack_t(const is_any_tr<unit_t> auto* c_string); // const is_any_some_of_any_tr<unit_t> auto*
 
         stack_t(const any_string_tr auto& string);

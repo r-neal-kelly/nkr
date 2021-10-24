@@ -139,6 +139,8 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, point_t point)
     {
+        nkr_ASSERT_THAT(point > 0);
+
         charcoder_t charcoder;
         charcoder.Encode(point);
 
@@ -149,6 +151,8 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder)
     {
+        nkr_ASSERT_THAT(charcoder.Decode() > 0);
+
         count_t unit_count = Unit_Count(self);
         count_t charcoder_length = charcoder.Unit_Count();
 
@@ -316,6 +320,15 @@ namespace nkr { namespace string {
         point_count(1),
         array{ unit_t(0) }
     {
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(const charcoder_t& charcoder) :
+        stack_t()
+    {
+        if (charcoder.Decode() > 0) {
+            Push(*this, charcoder).Ignore_Error();
+        }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>

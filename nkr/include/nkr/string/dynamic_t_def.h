@@ -217,6 +217,8 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, point_t point)
     {
+        nkr_ASSERT_THAT(point > 0);
+
         charcoder_t charcoder;
         charcoder.Encode(point);
         return nkr::Move(Push(self, charcoder));
@@ -226,6 +228,8 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, const charcoder_t& charcoder)
     {
+        nkr_ASSERT_THAT(charcoder.Decode() > 0);
+
         count_t unit_count = Unit_Count(self);
         count_t charcoder_length = charcoder.Unit_Count();
 
@@ -339,6 +343,15 @@ namespace nkr { namespace string {
     {
         if (Has_Memory(*this)) {
             Push_Terminus(*this);
+        }
+    }
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline dynamic_t<charcoder_p, allocator_p, grow_rate_p>::dynamic_t(const charcoder_t& charcoder) :
+        dynamic_t(charcoder.Unit_Count() + 1)
+    {
+        if (Has_Memory(*this) && charcoder.Decode() > 0) {
+            Push(*this, charcoder).Ignore_Error();
         }
     }
 

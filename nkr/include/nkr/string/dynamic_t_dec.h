@@ -116,6 +116,7 @@ namespace nkr { namespace string {
 
         dynamic_t(count_t unit_capacity_including_terminus);
 
+        dynamic_t(const charcoder_t& charcoder);
         dynamic_t(const is_any_tr<unit_t> auto* c_string); // const is_any_some_of_any_tr<unit_t> auto*
 
         dynamic_t(const any_string_tr auto& string);

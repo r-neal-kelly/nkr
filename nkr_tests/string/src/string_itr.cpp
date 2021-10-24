@@ -815,18 +815,119 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Error()")
             {
-                TEST_CASE_TEMPLATE("should have a replacement point when at an error", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
+                    using substring_t = itr_p::substring_t;
+
+                    array::stack_t<unit_t, 2> units;
+                    if constexpr (is_tr<charcoder_t, charcoder::ascii_t>) {
+                        units = {
+                            Random<unit_t>(std::numeric_limits<unit_t>::lowest(), -1),
+                            unit_t(0),
+                        };
+                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_8_t>) {
+                        units = {
+                            Random<unit_t>(unit_t(charcoder::utf_32_t::UTF_8_BRACKET_1_LAST + 1)),
+                            unit_t(0),
+                        };
+                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_16_be_t> && os::endian::Is_Big() ||
+                                         is_tr<charcoder_t, charcoder::utf_16_le_t> && os::endian::Is_Little()) {
+                        units = {
+                            Random<unit_t>(charcoder::utf_32_t::SURROGATE_HIGH_FIRST, charcoder::utf_32_t::SURROGATE_LOW_LAST),
+                            unit_t(0),
+                        };
+                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_16_be_t> && os::endian::Is_Little() ||
+                                         is_tr<charcoder_t, charcoder::utf_16_le_t> && os::endian::Is_Big()) {
+                        units = {
+                            os::endian::Swap(Random<unit_t>(charcoder::utf_32_t::SURROGATE_HIGH_FIRST, charcoder::utf_32_t::SURROGATE_LOW_LAST)),
+                            unit_t(0),
+                        };
+                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_32_be_t> && os::endian::Is_Big() ||
+                                         is_tr<charcoder_t, charcoder::utf_32_le_t> && os::endian::Is_Little()) {
+                        units = {
+                            Random<unit_t>(charcoder::utf_32_t::POINT_LAST + 1),
+                            unit_t(0),
+                        };
+                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_32_be_t> && os::endian::Is_Little() ||
+                                         is_tr<charcoder_t, charcoder::utf_32_le_t> && os::endian::Is_Big()) {
+                        units = {
+                            os::endian::Swap(Random<unit_t>(charcoder::utf_32_t::POINT_LAST + 1)),
+                            unit_t(0),
+                        };
+                    } else {
+                        static_assert(false);
+                    }
+
+                    string_t string = units.Array();
+                    itr_p itr(string);
+                    CHECK_TRUE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                    using substring_t = itr_p::substring_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                    using substring_t = itr_p::substring_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                    using substring_t = itr_p::substring_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at a replacement substring", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                    using substring_t = itr_p::substring_t;
+
+                    charcoder_t charcoder;
+                    charcoder.Encode(charcoder_t::Replacement_Point());
+                    string_t string(charcoder);
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at an error", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using unit_t = itr_p::unit_t;
+                    using substring_t = itr_p::substring_t;
 
                     string_t string = Random<string_t, 16>(true);
                     itr_p itr(string);
-                    count_t error_count = 0;
                     for (; !itr.Is_At_Postfix(); itr.Next()) {
                         if (itr.Is_At_Error()) {
-                            error_count += 1;
                             CHECK(itr.Point() == charcoder_t::Replacement_Point());
                         }
                     }
