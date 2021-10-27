@@ -129,11 +129,9 @@ namespace nkr { namespace string {
     inline some_t<const typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t*>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::C_String(const is_any_tr<dynamic_t> auto& self)
     {
-        if (Has_Terminus(self)) {
-            return self.array.Pointer().Units();
-        } else {
-            return Default_C_String();
-        }
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return &self.array[0];
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

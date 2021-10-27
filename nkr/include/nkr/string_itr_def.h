@@ -95,11 +95,11 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        if (Is_At_Prefix(self) || Is_At_Postfix(self)) {
+        if (Is_At_Prefix(self) || Is_At_Terminus(self) || Is_At_Postfix(self)) {
             return false;
         } else {
             count_t point_unit_count = Point_Unit_Count(self);
-            if (point_unit_count != Substring_Unit_Count(self)) {
+            if (point_unit_count != Substring_Unit_Length(self)) {
                 return true;
             } else {
                 for (index_t idx = 0, end = point_unit_count; idx < end; idx += 1) {
@@ -326,7 +326,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline typename string_itr<string_p>::charcoder_t
+    inline auto&
         string_itr<string_p>::Charcoder(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
@@ -367,11 +367,11 @@ namespace nkr {
         string_itr<string_p>::Substring(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(Substring_Unit_Count(self) < substring_t::Unit_Capacity());
+        nkr_ASSERT_THAT(Substring_Unit_Length(self) < substring_t::Unit_Capacity());
 
         substring_t substring;
-        if (!Is_At_Prefix(self) && !Is_At_Postfix(self)) {
-            substring.Push(&self.string->Unit(self.unit_index), Substring_Unit_Count(self)).Ignore_Error();
+        if (!Is_At_Prefix(self) && !Is_At_Terminus(self) && !Is_At_Postfix(self)) {
+            substring.Push(&self.string->Unit(self.unit_index), Substring_Unit_Length(self)).Ignore_Error();
         }
 
         return substring;
@@ -379,12 +379,16 @@ namespace nkr {
 
     template <typename string_p>
     inline count_t
-        string_itr<string_p>::Substring_Unit_Count(const is_any_tr<string_itr> auto& self)
+        string_itr<string_p>::Substring_Unit_Length(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
         nkr_ASSERT_THAT(self.read_unit_count <= charcoder_t::Max_Unit_Count());
 
-        return self.read_unit_count;
+        if (Is_At_Prefix(self) || Is_At_Terminus(self) || Is_At_Postfix(self)) {
+            return 0;
+        } else {
+            return self.read_unit_count;
+        }
     }
 
     template <typename string_p>
@@ -393,8 +397,9 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
         nkr_ASSERT_THAT(!Is_At_Prefix(self));
+        nkr_ASSERT_THAT(!Is_At_Terminus(self));
         nkr_ASSERT_THAT(!Is_At_Postfix(self));
-        nkr_ASSERT_THAT(substring_unit_index < Substring_Unit_Count(self));
+        nkr_ASSERT_THAT(substring_unit_index < Substring_Unit_Length(self));
 
         return self.string->Unit(Unit_Index(self).Value() + substring_unit_index);
     }
@@ -1057,7 +1062,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline typename string_itr<string_p>::charcoder_t
+    inline const typename string_itr<string_p>::charcoder_t&
         string_itr<string_p>::Charcoder()
         const
     {
@@ -1065,7 +1070,7 @@ namespace nkr {
     }
 
     template <typename string_p>
-    inline typename string_itr<string_p>::charcoder_t
+    inline const volatile typename string_itr<string_p>::charcoder_t&
         string_itr<string_p>::Charcoder()
         const volatile
     {
@@ -1138,18 +1143,18 @@ namespace nkr {
 
     template <typename string_p>
     inline count_t
-        string_itr<string_p>::Substring_Unit_Count()
+        string_itr<string_p>::Substring_Unit_Length()
         const
     {
-        return Substring_Unit_Count(*this);
+        return Substring_Unit_Length(*this);
     }
 
     template <typename string_p>
     inline count_t
-        string_itr<string_p>::Substring_Unit_Count()
+        string_itr<string_p>::Substring_Unit_Length()
         const volatile
     {
-        return Substring_Unit_Count(*this);
+        return Substring_Unit_Length(*this);
     }
 
     template <typename string_p>

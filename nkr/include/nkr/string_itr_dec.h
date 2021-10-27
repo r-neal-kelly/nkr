@@ -101,14 +101,14 @@ namespace nkr {
         static optional_t<index_t>  Unit_Index(const is_any_tr<string_itr> auto& self);
         static optional_t<index_t>  Point_Index(const is_any_tr<string_itr> auto& self);
 
-        static charcoder_t          Charcoder(const is_any_tr<string_itr> auto& self);
+        static auto&                Charcoder(const is_any_tr<string_itr> auto& self);
 
         static string::point_t      Point(const is_any_tr<string_itr> auto& self);
         static count_t              Point_Unit_Count(const is_any_tr<string_itr> auto& self);
         static unit_t               Point_Unit(const is_any_tr<string_itr> auto& self, index_t point_unit_index);
 
         static substring_t          Substring(const is_any_tr<string_itr> auto& self);
-        static count_t              Substring_Unit_Count(const is_any_tr<string_itr> auto& self);
+        static count_t              Substring_Unit_Length(const is_any_tr<string_itr> auto& self);
         static unit_t               Substring_Unit(const is_any_tr<string_itr> auto& self, index_t substring_unit_index);
 
         static auto&                Operator_Plus_Equals(is_any_non_const_tr<string_itr> auto& self, count_t point_count);
@@ -155,67 +155,67 @@ namespace nkr {
         ~string_itr();
 
     public:
-        const string_t&     String() const;
-        const string_t&     String() const volatile;
+        const string_t&             String() const;
+        const string_t&             String() const volatile;
 
-        bool_t              Is_At(index_t point_index) const;
-        bool_t              Is_At(index_t point_index) const volatile;
-        bool_t              Is_At_Prefix() const;
-        bool_t              Is_At_Prefix() const volatile;
-        bool_t              Is_At_First() const;
-        bool_t              Is_At_First() const volatile;
-        bool_t              Is_At_Last() const;
-        bool_t              Is_At_Last() const volatile;
-        bool_t              Is_At_Terminus() const;
-        bool_t              Is_At_Terminus() const volatile;
-        bool_t              Is_At_Postfix() const;
-        bool_t              Is_At_Postfix() const volatile;
-        bool_t              Is_At_Error() const;
-        bool_t              Is_At_Error() const volatile;
-        bool_t              Is_At_Replacement_Point() const;
-        bool_t              Is_At_Replacement_Point() const volatile;
-        bool_t              Is_At_Replacement_Substring() const;
-        bool_t              Is_At_Replacement_Substring() const volatile;
+        bool_t                      Is_At(index_t point_index) const;
+        bool_t                      Is_At(index_t point_index) const volatile;
+        bool_t                      Is_At_Prefix() const;
+        bool_t                      Is_At_Prefix() const volatile;
+        bool_t                      Is_At_First() const;
+        bool_t                      Is_At_First() const volatile;
+        bool_t                      Is_At_Last() const;
+        bool_t                      Is_At_Last() const volatile;
+        bool_t                      Is_At_Terminus() const;
+        bool_t                      Is_At_Terminus() const volatile;
+        bool_t                      Is_At_Postfix() const;
+        bool_t                      Is_At_Postfix() const volatile;
+        bool_t                      Is_At_Error() const;
+        bool_t                      Is_At_Error() const volatile;
+        bool_t                      Is_At_Replacement_Point() const;
+        bool_t                      Is_At_Replacement_Point() const volatile;
+        bool_t                      Is_At_Replacement_Substring() const;
+        bool_t                      Is_At_Replacement_Substring() const volatile;
 
-        void_t              At(index_t point_index);
-        void_t              At(index_t point_index) volatile;
-        void_t              At_Prefix();
-        void_t              At_Prefix() volatile;
-        void_t              At_First();
-        void_t              At_First() volatile;
-        void_t              At_Last();
-        void_t              At_Last() volatile;
-        void_t              At_Terminus();
-        void_t              At_Terminus() volatile;
-        void_t              At_Postfix();
-        void_t              At_Postfix() volatile;
+        void_t                      At(index_t point_index);
+        void_t                      At(index_t point_index) volatile;
+        void_t                      At_Prefix();
+        void_t                      At_Prefix() volatile;
+        void_t                      At_First();
+        void_t                      At_First() volatile;
+        void_t                      At_Last();
+        void_t                      At_Last() volatile;
+        void_t                      At_Terminus();
+        void_t                      At_Terminus() volatile;
+        void_t                      At_Postfix();
+        void_t                      At_Postfix() volatile;
 
-        bool_t              Next();
-        bool_t              Next() volatile;
-        bool_t              Prior();
-        bool_t              Prior() volatile;
+        bool_t                      Next();
+        bool_t                      Next() volatile;
+        bool_t                      Prior();
+        bool_t                      Prior() volatile;
 
-        optional_t<index_t> Unit_Index() const;
-        optional_t<index_t> Unit_Index() const volatile;
-        optional_t<index_t> Point_Index() const;
-        optional_t<index_t> Point_Index() const volatile;
+        optional_t<index_t>         Unit_Index() const;
+        optional_t<index_t>         Unit_Index() const volatile;
+        optional_t<index_t>         Point_Index() const;
+        optional_t<index_t>         Point_Index() const volatile;
 
-        charcoder_t         Charcoder() const;
-        charcoder_t         Charcoder() const volatile;
+        const charcoder_t&          Charcoder() const;
+        const volatile charcoder_t& Charcoder() const volatile;
 
-        string::point_t     Point() const;
-        string::point_t     Point() const volatile;
-        count_t             Point_Unit_Count() const;
-        count_t             Point_Unit_Count() const volatile;
-        unit_t              Point_Unit(index_t point_unit_index) const;
-        unit_t              Point_Unit(index_t point_unit_index) const volatile;
+        string::point_t             Point() const;
+        string::point_t             Point() const volatile;
+        count_t                     Point_Unit_Count() const;
+        count_t                     Point_Unit_Count() const volatile;
+        unit_t                      Point_Unit(index_t point_unit_index) const;
+        unit_t                      Point_Unit(index_t point_unit_index) const volatile;
 
-        substring_t         Substring() const;
-        substring_t         Substring() const volatile;
-        count_t             Substring_Unit_Count() const;
-        count_t             Substring_Unit_Count() const volatile;
-        unit_t              Substring_Unit(index_t substring_unit_index) const;
-        unit_t              Substring_Unit(index_t substring_unit_index) const volatile;
+        substring_t                 Substring() const;
+        substring_t                 Substring() const volatile;
+        count_t                     Substring_Unit_Length() const;
+        count_t                     Substring_Unit_Length() const volatile;
+        unit_t                      Substring_Unit(index_t substring_unit_index) const;
+        unit_t                      Substring_Unit(index_t substring_unit_index) const volatile;
 
     public:
         string_itr&             operator +=(count_t point_count);

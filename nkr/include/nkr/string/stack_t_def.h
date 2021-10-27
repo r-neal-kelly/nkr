@@ -115,6 +115,15 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline some_t<const typename stack_t<charcoder_p, unit_capacity_p>::unit_t*>
+        stack_t<charcoder_p, unit_capacity_p>::C_String(const is_any_tr<stack_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return &self.array[0];
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline void_t
         stack_t<charcoder_p, unit_capacity_p>::Push_Terminus(is_any_non_const_tr<stack_t> auto& self)
     {
@@ -541,6 +550,22 @@ namespace nkr { namespace string {
         const volatile
     {
         return Point_Length(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline some_t<const typename stack_t<charcoder_p, unit_capacity_p>::unit_t*>
+        stack_t<charcoder_p, unit_capacity_p>::C_String()
+        const
+    {
+        return C_String(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline some_t<const typename stack_t<charcoder_p, unit_capacity_p>::unit_t*>
+        stack_t<charcoder_p, unit_capacity_p>::C_String()
+        const volatile
+    {
+        return C_String(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>

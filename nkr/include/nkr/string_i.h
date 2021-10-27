@@ -8,6 +8,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 #include "nkr/maybe_t.h"
+#include "nkr/some_t.h"
 #include "nkr/traits.h"
 #include "nkr/utils.h"
 
@@ -78,6 +79,11 @@ namespace nkr { namespace $string_i {
         { const_string.Point_Length() }                                     -> is_tr<count_t>;
         { volatile_string.Point_Length() }                                  -> is_tr<count_t>;
         { const_volatile_string.Point_Length() }                            -> is_tr<count_t>;
+
+        { string.C_String() }                                               -> is_tr<some_t<const typename string_p::unit_t*>>;
+        { const_string.C_String() }                                         -> is_tr<some_t<const typename string_p::unit_t*>>;
+        { volatile_string.C_String() }                                      -> is_tr<some_t<const typename string_p::unit_t*>>;
+        { const_volatile_string.C_String() }                                -> is_tr<some_t<const typename string_p::unit_t*>>;
 
         { string.Unit(unit_index) }                                         -> is_tr<typename string_p::unit_t&>;
         { const_string.Unit(unit_index) }                                   -> is_tr<const typename string_p::unit_t&>;

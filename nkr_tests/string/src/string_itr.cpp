@@ -52,6 +52,54 @@ namespace nkr { namespace string {
         nkr_NON_CONST,  \
         nkr_CONST
 
+        template <typename string_p>
+        string_p Error_String()
+        {
+            using charcoder_t = string_p::charcoder_t;
+            using unit_t = string_p::unit_t;
+
+            array::stack_t<unit_t, 2> units;
+            if constexpr (is_tr<charcoder_t, charcoder::ascii_t>) {
+                units = {
+                    Random<unit_t>(std::numeric_limits<unit_t>::lowest(), -1),
+                    unit_t(0),
+                };
+            } else if constexpr (is_tr<charcoder_t, charcoder::utf_8_t>) {
+                units = {
+                    Random<unit_t>(unit_t(charcoder::utf_32_t::UTF_8_BRACKET_1_LAST + 1)),
+                    unit_t(0),
+                };
+            } else if constexpr (is_tr<charcoder_t, charcoder::utf_16_be_t> && os::endian::Is_Big() ||
+                                 is_tr<charcoder_t, charcoder::utf_16_le_t> && os::endian::Is_Little()) {
+                units = {
+                    Random<unit_t>(charcoder::utf_32_t::SURROGATE_HIGH_FIRST, charcoder::utf_32_t::SURROGATE_LOW_LAST),
+                    unit_t(0),
+                };
+            } else if constexpr (is_tr<charcoder_t, charcoder::utf_16_be_t> && os::endian::Is_Little() ||
+                                 is_tr<charcoder_t, charcoder::utf_16_le_t> && os::endian::Is_Big()) {
+                units = {
+                    os::endian::Swap(Random<unit_t>(charcoder::utf_32_t::SURROGATE_HIGH_FIRST, charcoder::utf_32_t::SURROGATE_LOW_LAST)),
+                    unit_t(0),
+                };
+            } else if constexpr (is_tr<charcoder_t, charcoder::utf_32_be_t> && os::endian::Is_Big() ||
+                                 is_tr<charcoder_t, charcoder::utf_32_le_t> && os::endian::Is_Little()) {
+                units = {
+                    Random<unit_t>(charcoder::utf_32_t::POINT_LAST + 1),
+                    unit_t(0),
+                };
+            } else if constexpr (is_tr<charcoder_t, charcoder::utf_32_be_t> && os::endian::Is_Little() ||
+                                 is_tr<charcoder_t, charcoder::utf_32_le_t> && os::endian::Is_Big()) {
+                units = {
+                    os::endian::Swap(Random<unit_t>(charcoder::utf_32_t::POINT_LAST + 1)),
+                    unit_t(0),
+                };
+            } else {
+                static_assert(false);
+            }
+
+            return std::remove_cv_t<string_p>(units.Array());
+        }
+
         TEST_SUITE("aliases")
         {
             TEST_SUITE("string_t")
@@ -59,8 +107,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should have a string_t", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     static_assert(any_string_tr<string_t>);
                 }
@@ -72,7 +118,6 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     static_assert(is_tr<charcoder_t, typename string_t::charcoder_t>);
                 }
@@ -83,7 +128,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should have the same unit_t as its string_t", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
                     using unit_t = itr_p::unit_t;
 
                     static_assert(is_tr<unit_t, string_t::unit_t>);
@@ -108,8 +152,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should have a string that's a some_t<const string_t*>", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     class derived_t :
                         public itr_p
@@ -124,10 +166,6 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should have a is_prefix that's a bool_t", itr_p, nkr_ALL)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
                     class derived_t :
                         public itr_p
                     {
@@ -141,10 +179,6 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should have a unit_index that's an index_t", itr_p, nkr_ALL)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
                     class derived_t :
                         public itr_p
                     {
@@ -158,10 +192,6 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should have a point_index that's an index_t", itr_p, nkr_ALL)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
                     class derived_t :
                         public itr_p
                     {
@@ -175,10 +205,6 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should have a read_unit_count of count_t", itr_p, nkr_ALL)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-
                     class derived_t :
                         public itr_p
                     {
@@ -192,9 +218,7 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should have a charcoder that's a charcoder_t", itr_p, nkr_ALL)
                 {
-                    using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     class derived_t :
                         public itr_p
@@ -213,8 +237,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     static_assert(is_tr<string_t, decltype(string)>);
@@ -223,13 +245,11 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("point_index_ctor()")
+            TEST_SUITE("at_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the iterator to the indexed point of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -241,8 +261,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should be able to set the iterator to the postfix of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, string.Point_Count());
@@ -250,13 +268,11 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("prefix_ctor()")
+            TEST_SUITE("at_prefix_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the iterator to the prefix of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -264,13 +280,11 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("first_ctor()")
+            TEST_SUITE("at_first_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::first_tg());
@@ -278,13 +292,11 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("last_ctor()")
+            TEST_SUITE("at_last_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the iterator to the last point of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::last_tg());
@@ -292,13 +304,11 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("terminus_ctor()")
+            TEST_SUITE("at_terminus_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the iterator to the terminus of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::terminus_tg());
@@ -306,13 +316,11 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("postfix_ctor()")
+            TEST_SUITE("at_postfix_ctor()")
             {
                 TEST_CASE_TEMPLATE("should set the iterator to the postfix of a string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -325,8 +333,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -345,8 +351,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -365,8 +369,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -384,8 +386,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -403,8 +403,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -424,8 +422,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -445,8 +441,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -465,8 +459,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -485,8 +477,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should make the iterator assert if used any further", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string);
@@ -502,8 +492,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the underlying string", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string);
@@ -516,8 +504,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     const index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -528,8 +514,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -539,8 +523,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when moved to the prefix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -551,8 +533,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the postfix and given the postfix index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -562,8 +542,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     const count_t point_count = string.Point_Count();
@@ -582,8 +560,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -593,8 +569,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -604,8 +578,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at any point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -618,8 +590,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the first point", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::first_tg());
@@ -629,8 +599,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -640,8 +608,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -651,8 +617,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(1, string.Point_Count()));
@@ -665,8 +629,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::last_tg());
@@ -676,8 +638,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the prefix of a string with a length greather than zero", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t, 2>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -687,8 +647,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the prefix of a string with a length of zero", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string;
                     itr_p itr(string, position_e::prefix_tg());
@@ -698,8 +656,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -709,8 +665,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t, 2>();
                     const count_t point_count = string.Point_Count();
@@ -729,8 +683,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the terminus", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::terminus_tg());
@@ -740,8 +692,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -751,8 +701,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -762,8 +710,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     const count_t point_count = string.Point_Count();
@@ -782,8 +728,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -793,8 +737,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -804,8 +746,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
@@ -818,50 +758,8 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-                    using substring_t = itr_p::substring_t;
 
-                    array::stack_t<unit_t, 2> units;
-                    if constexpr (is_tr<charcoder_t, charcoder::ascii_t>) {
-                        units = {
-                            Random<unit_t>(std::numeric_limits<unit_t>::lowest(), -1),
-                            unit_t(0),
-                        };
-                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_8_t>) {
-                        units = {
-                            Random<unit_t>(unit_t(charcoder::utf_32_t::UTF_8_BRACKET_1_LAST + 1)),
-                            unit_t(0),
-                        };
-                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_16_be_t> && os::endian::Is_Big() ||
-                                         is_tr<charcoder_t, charcoder::utf_16_le_t> && os::endian::Is_Little()) {
-                        units = {
-                            Random<unit_t>(charcoder::utf_32_t::SURROGATE_HIGH_FIRST, charcoder::utf_32_t::SURROGATE_LOW_LAST),
-                            unit_t(0),
-                        };
-                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_16_be_t> && os::endian::Is_Little() ||
-                                         is_tr<charcoder_t, charcoder::utf_16_le_t> && os::endian::Is_Big()) {
-                        units = {
-                            os::endian::Swap(Random<unit_t>(charcoder::utf_32_t::SURROGATE_HIGH_FIRST, charcoder::utf_32_t::SURROGATE_LOW_LAST)),
-                            unit_t(0),
-                        };
-                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_32_be_t> && os::endian::Is_Big() ||
-                                         is_tr<charcoder_t, charcoder::utf_32_le_t> && os::endian::Is_Little()) {
-                        units = {
-                            Random<unit_t>(charcoder::utf_32_t::POINT_LAST + 1),
-                            unit_t(0),
-                        };
-                    } else if constexpr (is_tr<charcoder_t, charcoder::utf_32_be_t> && os::endian::Is_Little() ||
-                                         is_tr<charcoder_t, charcoder::utf_32_le_t> && os::endian::Is_Big()) {
-                        units = {
-                            os::endian::Swap(Random<unit_t>(charcoder::utf_32_t::POINT_LAST + 1)),
-                            unit_t(0),
-                        };
-                    } else {
-                        static_assert(false);
-                    }
-
-                    string_t string = units.Array();
+                    string_t string = Error_String<string_t>();
                     itr_p itr(string);
                     CHECK_TRUE(itr.Is_At_Error());
                 }
@@ -869,36 +767,9 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-                    using substring_t = itr_p::substring_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
-                    CHECK_FALSE(itr.Is_At_Error());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-                    using substring_t = itr_p::substring_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_FALSE(itr.Is_At_Error());
-                }
-
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
-                {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-                    using substring_t = itr_p::substring_t;
-
-                    string_t string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -906,8 +777,6 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-                    using substring_t = itr_p::substring_t;
 
                     charcoder_t charcoder;
                     charcoder.Encode(charcoder_t::Replacement_Point());
@@ -917,12 +786,28 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
                 TEST_CASE_TEMPLATE("should decode to a replacement point when at an error", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
-                    using substring_t = itr_p::substring_t;
 
                     string_t string = Random<string_t, 16>(true);
                     itr_p itr(string);
@@ -936,12 +821,106 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Replacement_Point()")
             {
+                TEST_CASE_TEMPLATE("should return true when at a replacement point", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Error_String<string_t>();
+                    itr_p itr(string);
+                    CHECK_TRUE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at a replacement point", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    charcoder_t charcoder;
+                    charcoder.Encode(charcoder_t::Replacement_Point());
+                    string_t string(charcoder);
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_TRUE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
             }
 
             TEST_SUITE("Is_At_Replacement_Substring()")
             {
+                TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
 
+                    charcoder_t charcoder;
+                    charcoder.Encode(charcoder_t::Replacement_Point());
+                    string_t string(charcoder);
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_TRUE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at a replacement substring", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at an error", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Error_String<string_t>();
+                    itr_p itr(string);
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
             }
 
             TEST_SUITE("At()")
@@ -949,8 +928,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the iterator to the indexed point", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -965,8 +942,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the iterator to the prefix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -980,8 +955,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the iterator to the first point", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -995,8 +968,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the iterator to the last point", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -1010,8 +981,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the iterator to the terminus", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -1025,8 +994,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move the iterator to the postfix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -1040,8 +1007,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move to the next point when not at the postfix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
@@ -1053,8 +1018,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when not at the postfix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
@@ -1064,8 +1027,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -1078,8 +1039,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should move to the prior point when not at the prefix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
@@ -1095,8 +1054,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return true when not at the prefix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -1106,8 +1063,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -1120,8 +1075,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -1132,8 +1085,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::first_tg());
@@ -1144,8 +1095,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::last_tg());
@@ -1160,8 +1109,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::terminus_tg());
@@ -1172,8 +1119,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -1187,8 +1132,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -1199,8 +1142,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::first_tg());
@@ -1211,8 +1152,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::last_tg());
@@ -1227,8 +1166,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::terminus_tg());
@@ -1239,8 +1176,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -1251,9 +1186,31 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Charcoder()")
             {
-                TEST_CASE_TEMPLATE("should return a copy of the charcoder at the current point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder at the current point", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK(itr.Charcoder().Decode() == itr.Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK(itr.Charcoder().Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK(itr.Charcoder().Decode() == 0);
                 }
             }
 
@@ -1262,8 +1219,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
@@ -1273,8 +1228,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return 0 when at the first point in a string with a length of 0", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string;
                     itr_p itr(string, position_e::first_tg());
@@ -1284,8 +1237,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not return 0 when at the first point in a string with a length greater than 0", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t, 2>();
                     itr_p itr(string, position_e::first_tg());
@@ -1295,8 +1246,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return 0 when at the last point in a string with a length of 0", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string;
                     itr_p itr(string, position_e::last_tg());
@@ -1307,8 +1256,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not return 0 when at the last point in a string with a length greater than 0", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t, 2>();
                     itr_p itr(string, position_e::last_tg());
@@ -1319,8 +1266,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::terminus_tg());
@@ -1330,8 +1275,6 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, position_e::postfix_tg());
@@ -1345,7 +1288,6 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
@@ -1361,7 +1303,6 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
 
                     string_t string = Random<string_t, 1>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
@@ -1375,40 +1316,144 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Substring()")
             {
-                TEST_CASE_TEMPLATE("should return a string::stack_t containing the substring the iterator is at", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a substring_t containing non-error units", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
 
+                    string_t string = Random<string_t, 2>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    CHECK(!itr.Is_At_Error());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    CHECK(substring.Unit_Length() == itr.Point_Unit_Count());
+                    for (index_t idx = 0, end = substring.Unit_Length(); idx < end; idx += 1) {
+                        CHECK(substring.Unit(idx) == itr.Point_Unit(idx));
+                    }
                 }
 
-                TEST_CASE_TEMPLATE("should return the actual units even when there is an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a substring_t containing error units", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
 
+                    string_t string = Error_String<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    CHECK(itr.Is_At_Error());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    string_itr<substring_t> substring_itr(substring);
+                    CHECK(substring_itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty string::stack_t when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return an empty substring_t when at the prefix", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
 
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty string::stack_t when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return an empty substring_t when at the terminus", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
 
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring_t when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() == 0);
                 }
             }
 
-            TEST_SUITE("Substring_Unit_Count()")
+            TEST_SUITE("Substring_Unit_Length()")
             {
-                TEST_CASE_TEMPLATE("should return the number of units in the substring, as opposed to in the point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the same number of units in the point when not at an error", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 2>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should return the number of units read by a charcoder, which may vary from the point count", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using substring_t = itr_p::substring_t;
+
+                    string_t string = Error_String<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    charcoder_t charcoder;
+                    substring_t substring = itr.Substring();
+                    CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
                 }
             }
 
             TEST_SUITE("Substring_Unit()")
             {
-                TEST_CASE_TEMPLATE("should return the indexed unit in the substring, as opposed to in the point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the same unit as Point_Unit when there is no error", itr_p, nkr_ALL)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 2>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
+                    index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(substring_unit_index) == itr.Point_Unit(substring_unit_index));
+                }
+
+                TEST_CASE_TEMPLATE("should return the same unit as is found in the string when there is an error", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Error_String<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    index_t itr_unit_index = itr.Unit_Index().Value();
+                    index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(substring_unit_index) == itr.String().Unit(itr_unit_index + substring_unit_index));
                 }
             }
         }
@@ -1419,16 +1464,12 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator to the index that is point_count points after the current index", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
             }
 
@@ -1436,16 +1477,12 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator to the index that is point_count points before the current index", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
             }
 
@@ -1453,23 +1490,17 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
             }
 
@@ -1477,23 +1508,17 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
             }
 
@@ -1501,23 +1526,17 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
             }
 
@@ -1525,25 +1544,24 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
 
                 TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
                 {
-                    using string_t = itr_p::string_t;
-                    using charcoder_t = itr_p::charcoder_t;
-                    using unit_t = itr_p::unit_t;
+
                 }
             }
+        }
+
+        TEST_SUITE("loops")
+        {
+
         }
     }
 

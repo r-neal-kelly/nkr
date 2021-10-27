@@ -8,6 +8,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 #include "nkr/maybe_t.h"
+#include "nkr/some_t.h"
 #include "nkr/traits.h"
 
 #include "nkr/allocator_err.h"
@@ -74,6 +75,8 @@ namespace nkr { namespace string {
         static count_t                  Point_Count(const is_any_tr<stack_t> auto& self);
         static count_t                  Point_Length(const is_any_tr<stack_t> auto& self);
 
+        static some_t<const unit_t*>    C_String(const is_any_tr<stack_t> auto& self);
+
         static void_t                   Push_Terminus(is_any_non_const_tr<stack_t> auto& self);
         static void_t                   Pop_Terminus(is_any_non_const_tr<stack_t> auto& self);
 
@@ -132,6 +135,9 @@ namespace nkr { namespace string {
         count_t                 Point_Count() const volatile;
         count_t                 Point_Length() const;
         count_t                 Point_Length() const volatile;
+
+        some_t<const unit_t*>   C_String() const;
+        some_t<const unit_t*>   C_String() const volatile;
 
         maybe_t<allocator_err>  Push(point_t point);
         maybe_t<allocator_err>  Push(point_t point) volatile;
