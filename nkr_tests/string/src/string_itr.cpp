@@ -1462,27 +1462,73 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("+=()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the index that is point_count points after the current index", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should increment the iterator by the given point count", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    count_t point_count = Random<count_t>(0, string.Point_Count() - 1 - point_index);
+                    itr += point_count;
+                    CHECK(itr.Is_At(point_index + point_count));
                 }
 
-                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
+                    string_t string = Random<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    itr += 0;
+                    CHECK(itr.Is_At(point_index));
+                }
 
+                TEST_CASE_TEMPLATE("should be able to move unto the postfix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    itr += string.Point_Count() - point_index;
+                    CHECK(itr.Is_At_Postfix());
                 }
             }
 
             TEST_SUITE("-=()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the index that is point_count points before the current index", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should decrement the iterator by the given point count", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    count_t point_count = Random<count_t>(0, point_index);
+                    itr -= point_count;
+                    CHECK(itr.Is_At(point_index - point_count));
                 }
 
-                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
+                    string_t string = Random<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    itr -= 0;
+                    CHECK(itr.Is_At(point_index));
+                }
 
+                TEST_CASE_TEMPLATE("should be able to move unto the prefix", itr_p, nkr_NON_CONST)
+                {
+                    using string_t = itr_p::string_t;
+
+                    string_t string = Random<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    itr -= point_index + 1;
+                    CHECK(itr.Is_At_Prefix());
                 }
             }
 
@@ -1490,17 +1536,32 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 2);
+                    itr_p itr(string, point_index);
+                    ++itr;
+                    CHECK(itr.Is_At(point_index + 1));
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    ++itr;
+                    CHECK(itr.Is_At_Postfix());
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK(&++itr == &itr);
                 }
             }
 
@@ -1508,17 +1569,33 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 2);
+                    itr_p itr(string, point_index);
+                    itr++;
+                    CHECK(itr.Is_At(point_index + 1));
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    itr++;
+                    CHECK(itr.Is_At_Postfix());
                 }
 
                 TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    CHECK((itr++).Is_At(point_index));
                 }
             }
 
@@ -1526,17 +1603,32 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    --itr;
+                    CHECK(itr.Is_At(point_index - 1));
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    itr_p itr(string, position_e::first_tg());
+                    --itr;
+                    CHECK(itr.Is_At_Prefix());
                 }
 
                 TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    itr_p itr(string, Random<index_t>(1, string.Point_Count()));
+                    CHECK(&--itr == &itr);
                 }
             }
 
@@ -1544,24 +1636,35 @@ namespace nkr { namespace string {
             {
                 TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count() - 1);
+                    itr_p itr(string, point_index);
+                    itr--;
+                    CHECK(itr.Is_At(point_index - 1));
                 }
 
                 TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    itr_p itr(string, position_e::first_tg());
+                    itr--;
+                    CHECK(itr.Is_At_Prefix());
                 }
 
                 TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
                 {
+                    using string_t = itr_p::string_t;
 
+                    string_t string = Random<string_t, 16>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count());
+                    itr_p itr(string, point_index);
+                    CHECK((itr--).Is_At(point_index));
                 }
             }
-        }
-
-        TEST_SUITE("loops")
-        {
-
         }
     }
 
