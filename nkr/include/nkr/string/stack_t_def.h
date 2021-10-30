@@ -21,7 +21,7 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline const typename stack_t<charcoder_p, unit_capacity_p>::unit_t*
-        stack_t<charcoder_p, unit_capacity_p>::Default_C_String()
+        stack_t<charcoder_p, unit_capacity_p>::Empty_C_String()
     {
         static const unit_t default_c_string[1] = { 0 };
 

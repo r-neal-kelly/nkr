@@ -58,15 +58,14 @@ namespace nkr { namespace string {
         static_assert(is_tr<charcoder_p::unit_t, allocator_p::unit_t>, "charcoder and allocator have different unit types");
 
     public:
-        using charcoder_t   = charcoder_p;
+        using charcoder_t   = std::remove_cv_t<charcoder_p>;
         using unit_t        = charcoder_p::unit_t;
         using allocator_t   = allocator_p;
         using grow_rate_t   = grow_rate_p;
         using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
-        using iterator_t    = string_itr<dynamic_t>;
 
     public:
-        static const unit_t*    Default_C_String();
+        static const unit_t*    Empty_C_String();
 
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<dynamic_t> auto& self,
@@ -88,12 +87,12 @@ namespace nkr { namespace string {
 
         static some_t<const unit_t*>    C_String(const is_any_tr<dynamic_t> auto& self);
 
-        static iterator_t               At(const is_any_tr<dynamic_t> auto& self, index_t point_index);
-        static iterator_t               At_Prefix(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_First(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_Last(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_Terminus(const is_any_tr<dynamic_t> auto& self);
-        static iterator_t               At_Postfix(const is_any_tr<dynamic_t> auto& self);
+        static auto                     At(const is_any_tr<dynamic_t> auto& self, index_t point_index);
+        static auto                     At_Prefix(const is_any_tr<dynamic_t> auto& self);
+        static auto                     At_First(const is_any_tr<dynamic_t> auto& self);
+        static auto                     At_Last(const is_any_tr<dynamic_t> auto& self);
+        static auto                     At_Terminus(const is_any_tr<dynamic_t> auto& self);
+        static auto                     At_Postfix(const is_any_tr<dynamic_t> auto& self);
 
         static void_t                   Push_Terminus(is_any_tr<dynamic_t> auto& self);
         static void_t                   Pop_Terminus(is_any_tr<dynamic_t> auto& self);
@@ -140,61 +139,61 @@ namespace nkr { namespace string {
         ~dynamic_t();
 
     public:
-        bool_t                  Has_Memory() const;
-        bool_t                  Has_Memory() const volatile;
-        bool_t                  Has_Terminus() const;
-        bool_t                  Has_Terminus() const volatile;
+        bool_t                                  Has_Memory() const;
+        bool_t                                  Has_Memory() const volatile;
+        bool_t                                  Has_Terminus() const;
+        bool_t                                  Has_Terminus() const volatile;
 
-        count_t                 Unit_Capacity() const;
-        count_t                 Unit_Capacity() const volatile;
-        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus);
-        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
+        count_t                                 Unit_Capacity() const;
+        count_t                                 Unit_Capacity() const volatile;
+        maybe_t<allocator_err>                  Unit_Capacity(count_t unit_capacity_including_terminus);
+        maybe_t<allocator_err>                  Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
 
-        count_t                 Unit_Count() const;
-        count_t                 Unit_Count() const volatile;
-        count_t                 Unit_Length() const;
-        count_t                 Unit_Length() const volatile;
+        count_t                                 Unit_Count() const;
+        count_t                                 Unit_Count() const volatile;
+        count_t                                 Unit_Length() const;
+        count_t                                 Unit_Length() const volatile;
 
-        count_t                 Point_Count() const;
-        count_t                 Point_Count() const volatile;
-        count_t                 Point_Length() const;
-        count_t                 Point_Length() const volatile;
+        count_t                                 Point_Count() const;
+        count_t                                 Point_Count() const volatile;
+        count_t                                 Point_Length() const;
+        count_t                                 Point_Length() const volatile;
 
-        some_t<const unit_t*>   C_String() const;
-        some_t<const unit_t*>   C_String() const volatile;
+        some_t<const unit_t*>                   C_String() const;
+        some_t<const unit_t*>                   C_String() const volatile;
 
-        iterator_t              At(index_t point_index) const;
-        iterator_t              At(index_t point_index) const volatile;
-        iterator_t              At_Prefix() const;
-        iterator_t              At_Prefix() const volatile;
-        iterator_t              At_First() const;
-        iterator_t              At_First() const volatile;
-        iterator_t              At_Last() const;
-        iterator_t              At_Last() const volatile;
-        iterator_t              At_Terminus() const;
-        iterator_t              At_Terminus() const volatile;
-        iterator_t              At_Postfix() const;
-        iterator_t              At_Postfix() const volatile;
+        string_itr<const dynamic_t>             At(index_t point_index) const;
+        string_itr<const volatile dynamic_t>    At(index_t point_index) const volatile;
+        string_itr<const dynamic_t>             At_Prefix() const;
+        string_itr<const volatile dynamic_t>    At_Prefix() const volatile;
+        string_itr<const dynamic_t>             At_First() const;
+        string_itr<const volatile dynamic_t>    At_First() const volatile;
+        string_itr<const dynamic_t>             At_Last() const;
+        string_itr<const volatile dynamic_t>    At_Last() const volatile;
+        string_itr<const dynamic_t>             At_Terminus() const;
+        string_itr<const volatile dynamic_t>    At_Terminus() const volatile;
+        string_itr<const dynamic_t>             At_Postfix() const;
+        string_itr<const volatile dynamic_t>    At_Postfix() const volatile;
 
-        maybe_t<allocator_err>  Push(point_t point);
-        maybe_t<allocator_err>  Push(point_t point) volatile;
-        maybe_t<allocator_err>  Push(const charcoder_t& charcoder);
-        maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length);
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length) volatile;
-        maybe_t<allocator_err>  Push(const any_string_tr auto& string);
-        maybe_t<allocator_err>  Push(const any_string_tr auto& string) volatile;
-        maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
-        maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string) volatile;
+        maybe_t<allocator_err>                  Push(point_t point);
+        maybe_t<allocator_err>                  Push(point_t point) volatile;
+        maybe_t<allocator_err>                  Push(const charcoder_t& charcoder);
+        maybe_t<allocator_err>                  Push(const charcoder_t& charcoder) volatile;
+        maybe_t<allocator_err>                  Push(const is_any_tr<unit_t> auto* c_string);
+        maybe_t<allocator_err>                  Push(const is_any_tr<unit_t> auto* c_string) volatile;
+        maybe_t<allocator_err>                  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length);
+        maybe_t<allocator_err>                  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length) volatile;
+        maybe_t<allocator_err>                  Push(const any_string_tr auto& string);
+        maybe_t<allocator_err>                  Push(const any_string_tr auto& string) volatile;
+        maybe_t<allocator_err>                  Push(any_non_const_string_tr auto&& string);
+        maybe_t<allocator_err>                  Push(any_non_const_string_tr auto&& string) volatile;
 
-        unit_t&                 Unit(index_t unit_index);
-        const unit_t&           Unit(index_t unit_index) const;
-        volatile unit_t&        Unit(index_t unit_index) volatile;
-        const volatile unit_t&  Unit(index_t unit_index) const volatile;
+        unit_t&                                 Unit(index_t unit_index);
+        const unit_t&                           Unit(index_t unit_index) const;
+        volatile unit_t&                        Unit(index_t unit_index) volatile;
+        const volatile unit_t&                  Unit(index_t unit_index) const volatile;
 
-        // Split and Join should return new strings without altering this one.
+        // Split and Join should return new strings without altering this one. Push alters this one
     };
     static_assert(string_i<dynamic_t<charcoder::utf_8_t>>);
     static_assert(string_i<const dynamic_t<charcoder::utf_8_t>>);

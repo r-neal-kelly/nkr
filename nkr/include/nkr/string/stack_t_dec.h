@@ -49,16 +49,15 @@ namespace nkr { namespace string {
         static_assert(unit_capacity_p >= 1, "string::stack_t must have at least a unit_capacity of 1 to fit the terminus.");
 
     public:
-        using charcoder_t   = charcoder_p;
+        using charcoder_t   = std::remove_cv_t<charcoder_p>;
         using unit_t        = charcoder_p::unit_t;
         using array_t       = array::stack_t<unit_t, unit_capacity_p>;
-        using iterator_t    = string_itr<stack_t>;
 
     public:
         static constexpr count_t    Unit_Capacity();
 
     public:
-        static const unit_t*    Default_C_String();
+        static const unit_t*    Empty_C_String();
 
     private:
         static auto&                    Copy_Assign(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<stack_t> auto& other);

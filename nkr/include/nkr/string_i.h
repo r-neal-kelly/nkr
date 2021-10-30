@@ -29,15 +29,15 @@ namespace nkr { namespace $string_i {
     template <typename string_p>
     concept aliases_i = requires()
     {
-        typename string_p::unit_t;
         typename string_p::charcoder_t;
-        typename string_p::iterator_t;
+        typename string_p::unit_t;
+        typename string_p::array_t;
     };
 
     template <typename string_p>
     concept static_functions_i = requires()
     {
-        { string_p::Default_C_String() }    -> is_tr<const typename string_p::unit_t*>;
+        { string_p::Empty_C_String() }  -> is_tr<const typename string_p::unit_t*>;
     };
 
     template <typename string_p>
