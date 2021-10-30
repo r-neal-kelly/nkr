@@ -155,7 +155,10 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("Unit_Capacity()")
             {
-
+                TEST_CASE_TEMPLATE("should always be above 1 to allow for the terminus", string_p, nkr_ALL)
+                {
+                    static_assert(string_p::Unit_Capacity() >= 1);
+                }
             }
         }
 
@@ -163,7 +166,20 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("Empty_C_String()")
             {
+                TEST_CASE_TEMPLATE("should return a raw const unit_t pointer", string_p, nkr_ALL)
+                {
+                    using unit_t = string_p::unit_t;
 
+                    static_assert(is_tr<decltype(string_p::Empty_C_String()), const unit_t*>);
+                }
+
+                TEST_CASE_TEMPLATE("should only contain the terminus", string_p, nkr_ALL)
+                {
+                    using unit_t = string_p::unit_t;
+
+                    const unit_t* c_string = string_p::Empty_C_String();
+                    CHECK(*c_string == 0);
+                }
             }
         }
 
@@ -171,12 +187,30 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("point_count")
             {
-
+                TEST_CASE_TEMPLATE("should have a point_count that is a count_t", string_p, nkr_ALL)
+                {
+                    class derived_t :
+                        public string_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(string_p::point_count), count_t>);
+                    };
+                }
             }
 
             TEST_SUITE("array")
             {
+                TEST_CASE_TEMPLATE("should have an array that is a array_t", string_p, nkr_ALL)
+                {
+                    using array_t = string_p::array_t;
 
+                    class derived_t :
+                        public string_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(string_p::array), array_t>);
+                    };
+                }
             }
         }
 
@@ -184,7 +218,23 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("default_ctor()")
             {
+                TEST_CASE_TEMPLATE("should make an empty string", string_p, nkr_ALL)
+                {
+                    string_p string;
+                    CHECK(string.Unit_Length() == 0);
+                }
 
+                TEST_CASE_TEMPLATE("should have a unit count of 1", string_p, nkr_ALL)
+                {
+                    string_p string;
+                    CHECK(string.Unit_Count() == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should have the terminus", string_p, nkr_ALL)
+                {
+                    string_p string;
+                    CHECK(string.Unit(0) == 0);
+                }
             }
 
             TEST_SUITE("charcoder_ctor()")
@@ -262,27 +312,42 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Unit_Capacity()")
             {
+                TEST_CASE_TEMPLATE("should return the same unit capacity as the static constexpr function", string_p, nkr_ALL)
+                {
 
+                }
             }
 
             TEST_SUITE("Unit_Count()")
             {
+                TEST_CASE_TEMPLATE("should always be below the unit capacity", string_p, nkr_ALL)
+                {
 
+                }
             }
 
             TEST_SUITE("Unit_Length()")
             {
+                TEST_CASE_TEMPLATE("should always be below the unit capacity", string_p, nkr_ALL)
+                {
 
+                }
             }
 
             TEST_SUITE("Point_Count()")
             {
+                TEST_CASE_TEMPLATE("should always be below the unit capacity", string_p, nkr_ALL)
+                {
 
+                }
             }
 
             TEST_SUITE("Point_Length()")
             {
+                TEST_CASE_TEMPLATE("should always be below the unit capacity", string_p, nkr_ALL)
+                {
 
+                }
             }
 
             TEST_SUITE("C_String()")
