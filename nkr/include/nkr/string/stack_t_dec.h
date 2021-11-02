@@ -54,6 +54,10 @@ namespace nkr { namespace string {
         using array_t       = array::stack_t<unit_t, unit_capacity_p>;
 
     public:
+        template <charcoder_i charcoder_pp, count_t unit_capacity_pp>
+        friend class stack_t;
+
+    public:
         static constexpr count_t    Unit_Capacity();
 
     public:
@@ -75,6 +79,13 @@ namespace nkr { namespace string {
         static count_t                  Point_Length(const is_any_tr<stack_t> auto& self);
 
         static some_t<const unit_t*>    C_String(const is_any_tr<stack_t> auto& self);
+
+        static auto                     At(const is_any_tr<stack_t> auto& self, index_t point_index);
+        static auto                     At_Prefix(const is_any_tr<stack_t> auto& self);
+        static auto                     At_First(const is_any_tr<stack_t> auto& self);
+        static auto                     At_Last(const is_any_tr<stack_t> auto& self);
+        static auto                     At_Terminus(const is_any_tr<stack_t> auto& self);
+        static auto                     At_Postfix(const is_any_tr<stack_t> auto& self);
 
         static void_t                   Push_Terminus(is_any_non_const_tr<stack_t> auto& self);
         static void_t                   Pop_Terminus(is_any_non_const_tr<stack_t> auto& self);
@@ -119,42 +130,55 @@ namespace nkr { namespace string {
         ~stack_t();
 
     public:
-        bool_t                  Has_Terminus() const;
-        bool_t                  Has_Terminus() const volatile;
+        bool_t                              Has_Terminus() const;
+        bool_t                              Has_Terminus() const volatile;
 
-        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus);
-        maybe_t<allocator_err>  Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
+        maybe_t<allocator_err>              Unit_Capacity(count_t unit_capacity_including_terminus);
+        maybe_t<allocator_err>              Unit_Capacity(count_t unit_capacity_including_terminus) volatile;
 
-        count_t                 Unit_Count() const;
-        count_t                 Unit_Count() const volatile;
-        count_t                 Unit_Length() const;
-        count_t                 Unit_Length() const volatile;
+        count_t                             Unit_Count() const;
+        count_t                             Unit_Count() const volatile;
+        count_t                             Unit_Length() const;
+        count_t                             Unit_Length() const volatile;
 
-        count_t                 Point_Count() const;
-        count_t                 Point_Count() const volatile;
-        count_t                 Point_Length() const;
-        count_t                 Point_Length() const volatile;
+        count_t                             Point_Count() const;
+        count_t                             Point_Count() const volatile;
+        count_t                             Point_Length() const;
+        count_t                             Point_Length() const volatile;
 
-        some_t<const unit_t*>   C_String() const;
-        some_t<const unit_t*>   C_String() const volatile;
+        some_t<const unit_t*>               C_String() const;
+        some_t<const unit_t*>               C_String() const volatile;
 
-        maybe_t<allocator_err>  Push(point_t point);
-        maybe_t<allocator_err>  Push(point_t point) volatile;
-        maybe_t<allocator_err>  Push(const charcoder_t& charcoder);
-        maybe_t<allocator_err>  Push(const charcoder_t& charcoder) volatile;
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string);
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string) volatile;
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length);
-        maybe_t<allocator_err>  Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length) volatile;
-        maybe_t<allocator_err>  Push(const any_string_tr auto& string);
-        maybe_t<allocator_err>  Push(const any_string_tr auto& string) volatile;
-        maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string);
-        maybe_t<allocator_err>  Push(any_non_const_string_tr auto&& string) volatile;
+        string_itr<const stack_t>           At(index_t point_index) const;
+        string_itr<const volatile stack_t>  At(index_t point_index) const volatile;
+        string_itr<const stack_t>           At_Prefix() const;
+        string_itr<const volatile stack_t>  At_Prefix() const volatile;
+        string_itr<const stack_t>           At_First() const;
+        string_itr<const volatile stack_t>  At_First() const volatile;
+        string_itr<const stack_t>           At_Last() const;
+        string_itr<const volatile stack_t>  At_Last() const volatile;
+        string_itr<const stack_t>           At_Terminus() const;
+        string_itr<const volatile stack_t>  At_Terminus() const volatile;
+        string_itr<const stack_t>           At_Postfix() const;
+        string_itr<const volatile stack_t>  At_Postfix() const volatile;
 
-        unit_t&                 Unit(index_t unit_index);
-        const unit_t&           Unit(index_t unit_index) const;
-        volatile unit_t&        Unit(index_t unit_index) volatile;
-        const volatile unit_t&  Unit(index_t unit_index) const volatile;
+        maybe_t<allocator_err>              Push(point_t point);
+        maybe_t<allocator_err>              Push(point_t point) volatile;
+        maybe_t<allocator_err>              Push(const charcoder_t& charcoder);
+        maybe_t<allocator_err>              Push(const charcoder_t& charcoder) volatile;
+        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string);
+        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string) volatile;
+        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length);
+        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length) volatile;
+        maybe_t<allocator_err>              Push(const any_string_tr auto& string);
+        maybe_t<allocator_err>              Push(const any_string_tr auto& string) volatile;
+        maybe_t<allocator_err>              Push(any_non_const_string_tr auto&& string);
+        maybe_t<allocator_err>              Push(any_non_const_string_tr auto&& string) volatile;
+
+        unit_t&                             Unit(index_t unit_index);
+        const unit_t&                       Unit(index_t unit_index) const;
+        volatile unit_t&                    Unit(index_t unit_index) volatile;
+        const volatile unit_t&              Unit(index_t unit_index) const volatile;
     };
     static_assert(string_i<stack_t<charcoder::utf_8_t>>);
     static_assert(string_i<const stack_t<charcoder::utf_8_t>>);

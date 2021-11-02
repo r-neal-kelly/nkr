@@ -124,6 +124,61 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto
+        stack_t<charcoder_p, unit_capacity_p>::At(const is_any_tr<stack_t> auto& self, index_t point_index)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+        nkr_ASSERT_THAT(point_index < Point_Count(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, point_index);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto
+        stack_t<charcoder_p, unit_capacity_p>::At_Prefix(const is_any_tr<stack_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::prefix_tg());
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto
+        stack_t<charcoder_p, unit_capacity_p>::At_First(const is_any_tr<stack_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::first_tg());
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto
+        stack_t<charcoder_p, unit_capacity_p>::At_Last(const is_any_tr<stack_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::last_tg());
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto
+        stack_t<charcoder_p, unit_capacity_p>::At_Terminus(const is_any_tr<stack_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::terminus_tg());
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto
+        stack_t<charcoder_p, unit_capacity_p>::At_Postfix(const is_any_tr<stack_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::postfix_tg());
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline void_t
         stack_t<charcoder_p, unit_capacity_p>::Push_Terminus(is_any_non_const_tr<stack_t> auto& self)
     {
@@ -149,6 +204,7 @@ namespace nkr { namespace string {
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, point_t point)
     {
         nkr_ASSERT_THAT(point > 0);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         charcoder_t charcoder;
         charcoder.Encode(point);
@@ -161,6 +217,7 @@ namespace nkr { namespace string {
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder)
     {
         nkr_ASSERT_THAT(charcoder.Decode() > 0);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         count_t unit_count = Unit_Count(self);
         count_t charcoder_length = charcoder.Unit_Count();
@@ -191,6 +248,7 @@ namespace nkr { namespace string {
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<unit_t> auto* c_string)
     {
         nkr_ASSERT_THAT(c_string);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         return nkr::Move(Push(self, c_string, C_String_Unit_Length(c_string)));
     }
@@ -235,12 +293,11 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other)
     {
+        nkr_ASSERT_THAT(Has_Terminus(self));
         nkr_ASSERT_THAT(other.Has_Terminus());
 
         if constexpr (is_tr<charcoder_t, typename std::remove_reference_t<decltype(other)>::charcoder_t>) {
-            if (Has_Terminus(self)) {
-                Pop_Terminus(self);
-            }
+            Pop_Terminus(self);
 
             maybe_t<allocator_err> err = self.array.Copy_From(other.array);
             if (err) {
@@ -261,9 +318,7 @@ namespace nkr { namespace string {
                 const count_t original_capacity = Unit_Capacity(self);
                 const count_t original_unit_length = Unit_Length(self);
 
-                if (Has_Terminus(self)) {
-                    Pop_Terminus(self);
-                }
+                Pop_Terminus(self);
 
                 charcoder_t charcoder;
                 maybe_t<allocator_err> err = allocator_err::NONE;
@@ -293,12 +348,11 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other)
     {
+        nkr_ASSERT_THAT(Has_Terminus(self));
         nkr_ASSERT_THAT(other.Has_Terminus());
 
         if constexpr (is_tr<charcoder_t, typename std::remove_reference_t<decltype(other)>::charcoder_t>) {
-            if (Has_Terminus(self)) {
-                Pop_Terminus(self);
-            }
+            Pop_Terminus(self);
 
             maybe_t<allocator_err> err = self.array.Move_From(other.array);
             if (err) {
@@ -566,6 +620,102 @@ namespace nkr { namespace string {
         const volatile
     {
         return C_String(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At(index_t point_index)
+        const
+    {
+        return At(*this, point_index);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const volatile stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At(index_t point_index)
+        const volatile
+    {
+        return At(*this, point_index);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Prefix()
+        const
+    {
+        return At_Prefix(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const volatile stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Prefix()
+        const volatile
+    {
+        return At_Prefix(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_First()
+        const
+    {
+        return At_First(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const volatile stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_First()
+        const volatile
+    {
+        return At_First(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Last()
+        const
+    {
+        return At_Last(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const volatile stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Last()
+        const volatile
+    {
+        return At_Last(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Terminus()
+        const
+    {
+        return At_Terminus(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const volatile stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Terminus()
+        const volatile
+    {
+        return At_Terminus(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Postfix()
+        const
+    {
+        return At_Postfix(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline string_itr<const volatile stack_t<charcoder_p, unit_capacity_p>>
+        stack_t<charcoder_p, unit_capacity_p>::At_Postfix()
+        const volatile
+    {
+        return At_Postfix(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>

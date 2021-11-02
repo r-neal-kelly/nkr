@@ -239,7 +239,19 @@ namespace nkr { namespace string {
 
             TEST_SUITE("charcoder_ctor()")
             {
+                TEST_CASE_TEMPLATE("should make a string with the charcoder's point", string_p, nkr_ALL)
+                {
+                    using charcoder_t = string_p::charcoder_t;
 
+                    string_p random_string = Random<string_p, 2, 2>();
+                    point_t point = random_string.At(0).Point();
+                    charcoder_t charcoder;
+                    charcoder.Encode(point);
+
+                    string_p string(charcoder);
+                    CHECK(string.At(0).Point() == point);
+                    CHECK(string.Point_Length() == 1);
+                }
             }
 
             TEST_SUITE("c_string_ctor()")

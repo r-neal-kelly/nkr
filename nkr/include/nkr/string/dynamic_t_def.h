@@ -139,7 +139,7 @@ namespace nkr { namespace string {
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::At(const is_any_tr<dynamic_t> auto& self, index_t point_index)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
-        nkr_ASSERT_THAT(point_index < self.point_count);
+        nkr_ASSERT_THAT(point_index < Point_Count(self));
 
         return string_itr<std::remove_reference_t<decltype(self)>>(self, point_index);
     }
@@ -216,6 +216,7 @@ namespace nkr { namespace string {
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, point_t point)
     {
         nkr_ASSERT_THAT(point > 0);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         charcoder_t charcoder;
         charcoder.Encode(point);
@@ -227,6 +228,7 @@ namespace nkr { namespace string {
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, const charcoder_t& charcoder)
     {
         nkr_ASSERT_THAT(charcoder.Decode() > 0);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         count_t unit_count = Unit_Count(self);
         count_t charcoder_length = charcoder.Unit_Count();
@@ -261,6 +263,7 @@ namespace nkr { namespace string {
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::Push(is_any_tr<dynamic_t> auto& self, const is_any_tr<unit_t> auto* c_string)
     {
         nkr_ASSERT_THAT(c_string);
+        nkr_ASSERT_THAT(Has_Terminus(self));
 
         return nkr::Move(Push(self, c_string, C_String_Unit_Length(c_string)));
     }
