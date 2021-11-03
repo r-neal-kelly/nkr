@@ -34,7 +34,7 @@ namespace nkr {
     #define nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(TRAIT_p, PARAM_1_p, PARAM_2_p)
 
     #define nkr_DEFINE_TYPE_TRAITS(TYPE_NAME_p)
-    #define nkr_DEFINE_POINTER_TRAITS(POINTER_NAME_p)
+    #define nkr_DEFINE_C_POINTER_TRAITS(C_POINTER_NAME_p)
     #define nkr_DEFINE_CONTAINER_TRAITS(CONTAINER_NAME_p, CONTAINEE_ALIAS_p)
     /// @}
 

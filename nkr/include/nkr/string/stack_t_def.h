@@ -403,14 +403,14 @@ namespace nkr { namespace string {
         Push(*this, c_string).Ignore_Error();
     }
 
-    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    /*template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline stack_t<charcoder_p, unit_capacity_p>::stack_t(const any_some_of_any_pointer_of_any_tr<unit_t> auto some_c_string) :
         stack_t()
     {
         nkr_ASSERT_THAT(some_c_string);
 
         Push(*this, some_c_string()).Ignore_Error();
-    }
+    }*/
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline stack_t<charcoder_p, unit_capacity_p>::stack_t(const any_string_tr auto& string) :

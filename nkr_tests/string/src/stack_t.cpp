@@ -295,7 +295,7 @@ namespace nkr { namespace string {
                     using charcoder_t = string_p::charcoder_t;
 
                     string_p other = Random<string_p>();
-                    string_p string(other.C_String());
+                    string_p string(other.C_String()());
                     CHECK(string.Point_Count() == other.Point_Count());
 
                     auto string_itr = string.At_First();

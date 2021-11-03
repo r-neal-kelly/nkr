@@ -461,7 +461,7 @@ namespace nkr {
     concept any_c_pointer_tr =
         pointer_tr<pointer_p>;
 
-    nkr_DEFINE_POINTER_TRAITS(c_pointer);
+    nkr_DEFINE_C_POINTER_TRAITS(c_pointer);
     /// @}
 
 }

@@ -108,7 +108,7 @@ namespace nkr { namespace string {
 
         stack_t(const charcoder_t& charcoder);
         stack_t(const any_c_pointer_of_any_tr<unit_t> auto c_string);
-        stack_t(const any_some_of_any_pointer_of_any_tr<unit_t> auto some_c_string);
+        //stack_t(const any_some_of_any_pointer_of_any_tr<unit_t> auto some_c_string);
 
         stack_t(const any_string_tr auto& string);
         stack_t(any_non_const_string_tr auto&& string);
