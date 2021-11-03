@@ -56,7 +56,7 @@ namespace nkr { namespace $charcoder_i {
     template <typename type_p>
     concept objects_i = requires()
     {
-        { std::remove_cv_t<type_p>(typename charcoder::point_t()) } -> is_tr<std::remove_cv_t<type_p>>;
+        { std::remove_cv_t<type_p>(charcoder::point_t()) } -> is_tr<std::remove_cv_t<type_p>>;
     };
 
     template <typename type_p>

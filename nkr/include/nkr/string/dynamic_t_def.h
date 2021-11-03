@@ -126,7 +126,7 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline some_t<const typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t*>
+    inline auto
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::C_String(const is_any_tr<dynamic_t> auto& self)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
@@ -597,7 +597,7 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline some_t<const typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t*>
+    inline some_t<const volatile typename dynamic_t<charcoder_p, allocator_p, grow_rate_p>::unit_t*>
         dynamic_t<charcoder_p, allocator_p, grow_rate_p>::C_String()
         const volatile
     {

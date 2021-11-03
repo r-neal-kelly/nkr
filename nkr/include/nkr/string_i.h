@@ -82,8 +82,8 @@ namespace nkr { namespace $string_i {
 
         { string.C_String() }                                               -> is_tr<some_t<const typename string_p::unit_t*>>;
         { const_string.C_String() }                                         -> is_tr<some_t<const typename string_p::unit_t*>>;
-        { volatile_string.C_String() }                                      -> is_tr<some_t<const typename string_p::unit_t*>>;
-        { const_volatile_string.C_String() }                                -> is_tr<some_t<const typename string_p::unit_t*>>;
+        { volatile_string.C_String() }                                      -> is_tr<some_t<const volatile typename string_p::unit_t*>>;
+        { const_volatile_string.C_String() }                                -> is_tr<some_t<const volatile typename string_p::unit_t*>>;
 
         { string.Unit(unit_index) }                                         -> is_tr<typename string_p::unit_t&>;
         { const_string.Unit(unit_index) }                                   -> is_tr<const typename string_p::unit_t&>;

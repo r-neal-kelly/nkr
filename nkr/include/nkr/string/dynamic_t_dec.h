@@ -85,7 +85,7 @@ namespace nkr { namespace string {
         static count_t                  Point_Count(const is_any_tr<dynamic_t> auto& self);
         static count_t                  Point_Length(const is_any_tr<dynamic_t> auto& self);
 
-        static some_t<const unit_t*>    C_String(const is_any_tr<dynamic_t> auto& self);
+        static auto                     C_String(const is_any_tr<dynamic_t> auto& self);
 
         static auto                     At(const is_any_tr<dynamic_t> auto& self, index_t point_index);
         static auto                     At_Prefix(const is_any_tr<dynamic_t> auto& self);
@@ -160,7 +160,7 @@ namespace nkr { namespace string {
         count_t                                 Point_Length() const volatile;
 
         some_t<const unit_t*>                   C_String() const;
-        some_t<const unit_t*>                   C_String() const volatile;
+        some_t<const volatile unit_t*>          C_String() const volatile;
 
         string_itr<const dynamic_t>             At(index_t point_index) const;
         string_itr<const volatile dynamic_t>    At(index_t point_index) const volatile;

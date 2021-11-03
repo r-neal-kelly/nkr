@@ -25,6 +25,9 @@ namespace nkr {
 
     #undef nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM
     #undef nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS
+
+    #undef nkr_DEFINE_TYPE_TRAITS
+    #undef nkr_DEFINE_POINTER_TRAITS
     #undef nkr_DEFINE_CONTAINER_TRAITS
 
     #define nkr_M   \
@@ -221,234 +224,570 @@ namespace nkr {
         concept not_##TRAIT_p =                                                 \
             !TRAIT_p<PARAM_1_p, PARAM_2_p>
 
-    #define nkr_DEFINE_CONTAINER_OF_TRAITS(CONTAINER_TRAIT_NAME_p, CONTAINEE_ALIAS_p)                                       \
-        template <typename container_p, typename unit_p>                                                                    \
-        concept CONTAINER_TRAIT_NAME_p##_of_any_tr =                                                                        \
-            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
-            is_any_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                     \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_any_qualified_tr =                                                          \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_any_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_any_non_qualified_tr =                                                      \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_any_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                   \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_any_const_tr =                                                              \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_any_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                           \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_any_non_const_tr =                                                          \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_any_non_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_any_volatile_tr =                                                           \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_any_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                        \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_any_non_volatile_tr =                                                       \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_any_non_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                    \
-                                                                                                                            \
-        template <typename container_p, typename unit_p>                                                                    \
-        concept CONTAINER_TRAIT_NAME_p##_of_not_any_tr =                                                                    \
-            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
-            not_is_any_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                 \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_any_qualified_tr =                                                      \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_any_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                   \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_any_non_qualified_tr =                                                  \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_any_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                               \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_any_const_tr =                                                          \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_any_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_any_non_const_tr =                                                      \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_any_non_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                   \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_any_volatile_tr =                                                       \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_any_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                    \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_any_non_volatile_tr =                                                   \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_any_non_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                \
-                                                                                                                            \
-        template <typename container_p, typename unit_p>                                                                    \
-        concept CONTAINER_TRAIT_NAME_p##_of_just_tr =                                                                       \
-            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
-            is_just_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                    \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_just_non_qualified_tr =                                                     \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_just_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                  \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_just_const_tr =                                                             \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_just_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                          \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_just_volatile_tr =                                                          \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_just_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_just_const_volatile_tr =                                                    \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                is_just_const_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                 \
-                                                                                                                            \
-        template <typename container_p, typename unit_p>                                                                    \
-        concept CONTAINER_TRAIT_NAME_p##_of_not_just_tr =                                                                   \
-            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
-            not_is_just_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_just_non_qualified_tr =                                                 \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_just_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                              \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_just_const_tr =                                                         \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_just_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                      \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_just_volatile_tr =                                                      \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_just_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                   \
-                                                                                                                            \
-            template <typename container_p, typename unit_p>                                                                \
-            concept CONTAINER_TRAIT_NAME_p##_of_not_just_const_volatile_tr =                                                \
-                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                 \
-                not_is_just_const_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                             \
-                                                                                                                            \
-        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_tr, container_p, unit_p);                        \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_qualified_tr, container_p, unit_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_non_qualified_tr, container_p, unit_p);      \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_const_tr, container_p, unit_p);              \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_non_const_tr, container_p, unit_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_volatile_tr, container_p, unit_p);           \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_non_volatile_tr, container_p, unit_p);       \
-        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_tr, container_p, unit_p);                    \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_qualified_tr, container_p, unit_p);      \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_qualified_tr, container_p, unit_p);  \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_const_tr, container_p, unit_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_const_tr, container_p, unit_p);      \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_volatile_tr, container_p, unit_p);       \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_volatile_tr, container_p, unit_p);   \
-        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_tr, container_p, unit_p);                       \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_non_qualified_tr, container_p, unit_p);     \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_const_tr, container_p, unit_p);             \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_volatile_tr, container_p, unit_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_const_volatile_tr, container_p, unit_p);    \
-        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_tr, container_p, unit_p);                   \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_non_qualified_tr, container_p, unit_p); \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_const_tr, container_p, unit_p);         \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_volatile_tr, container_p, unit_p);      \
-            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_const_volatile_tr, container_p, unit_p)
+    #define nkr_DEFINE_TYPE_TRAITS(TYPE_NAME_p)                                                     \
+        /* the any_##TYPE_NAME_p##_tr must be defined outside this macro and before its called. */  \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept any_qualified_##TYPE_NAME_p##_tr =                                              \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                any_qualified_tr<type_p>;                                                           \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept any_non_qualified_##TYPE_NAME_p##_tr =                                          \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                any_non_qualified_tr<type_p>;                                                       \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept any_const_##TYPE_NAME_p##_tr =                                                  \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                any_const_tr<type_p>;                                                               \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept any_non_const_##TYPE_NAME_p##_tr =                                              \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                any_non_const_tr<type_p>;                                                           \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept any_volatile_##TYPE_NAME_p##_tr =                                               \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                any_volatile_tr<type_p>;                                                            \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept any_non_volatile_##TYPE_NAME_p##_tr =                                           \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                any_non_volatile_tr<type_p>;                                                        \
+                                                                                                    \
+        template <typename type_p>                                                                  \
+        concept just_##TYPE_NAME_p##_tr =                                                           \
+            any_##TYPE_NAME_p##_tr<type_p> &&                                                       \
+            just_tr<type_p>;                                                                        \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept just_non_qualified_##TYPE_NAME_p##_tr =                                         \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                just_non_qualified_tr<type_p>;                                                      \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept just_const_##TYPE_NAME_p##_tr =                                                 \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                just_const_tr<type_p>;                                                              \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept just_volatile_##TYPE_NAME_p##_tr =                                              \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                just_volatile_tr<type_p>;                                                           \
+                                                                                                    \
+            template <typename type_p>                                                              \
+            concept just_const_volatile_##TYPE_NAME_p##_tr =                                        \
+                any_##TYPE_NAME_p##_tr<type_p> &&                                                   \
+                just_const_volatile_tr<type_p>;                                                     \
+                                                                                                    \
+        nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_##TYPE_NAME_p##_tr, type_p);                          \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_qualified_##TYPE_NAME_p##_tr, type_p);            \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_qualified_##TYPE_NAME_p##_tr, type_p);        \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_const_##TYPE_NAME_p##_tr, type_p);                \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_const_##TYPE_NAME_p##_tr, type_p);            \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_volatile_##TYPE_NAME_p##_tr, type_p);             \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_volatile_##TYPE_NAME_p##_tr, type_p);         \
+        nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_##TYPE_NAME_p##_tr, type_p);                         \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_non_qualified_##TYPE_NAME_p##_tr, type_p);       \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_const_##TYPE_NAME_p##_tr, type_p);               \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_volatile_##TYPE_NAME_p##_tr, type_p);            \
+            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_const_volatile_##TYPE_NAME_p##_tr, type_p)
 
-    #define nkr_DEFINE_CONTAINER_TRAITS(CONTAINER_NAME_p, CONTAINEE_ALIAS_p)                                \
-        /* the any_##CONTAINER_NAME_p##_tr must be defined outside this macro and before its called. */     \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept any_qualified_##CONTAINER_NAME_p##_tr =                                                 \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                any_qualified_tr<container_p>;                                                              \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept any_non_qualified_##CONTAINER_NAME_p##_tr =                                             \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                any_non_qualified_tr<container_p>;                                                          \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept any_const_##CONTAINER_NAME_p##_tr =                                                     \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                any_const_tr<container_p>;                                                                  \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept any_non_const_##CONTAINER_NAME_p##_tr =                                                 \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                any_non_const_tr<container_p>;                                                              \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept any_volatile_##CONTAINER_NAME_p##_tr =                                                  \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                any_volatile_tr<container_p>;                                                               \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept any_non_volatile_##CONTAINER_NAME_p##_tr =                                              \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                any_non_volatile_tr<container_p>;                                                           \
-                                                                                                            \
-        template <typename container_p>                                                                     \
-        concept just_##CONTAINER_NAME_p##_tr =                                                              \
-            any_##CONTAINER_NAME_p##_tr<container_p> &&                                                     \
-            just_tr<container_p>;                                                                           \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept just_non_qualified_##CONTAINER_NAME_p##_tr =                                            \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                just_non_qualified_tr<container_p>;                                                         \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept just_const_##CONTAINER_NAME_p##_tr =                                                    \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                just_const_tr<container_p>;                                                                 \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept just_volatile_##CONTAINER_NAME_p##_tr =                                                 \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                just_volatile_tr<container_p>;                                                              \
-                                                                                                            \
-            template <typename container_p>                                                                 \
-            concept just_const_volatile_##CONTAINER_NAME_p##_tr =                                           \
-                any_##CONTAINER_NAME_p##_tr<container_p> &&                                                 \
-                just_const_volatile_tr<container_p>;                                                        \
-                                                                                                            \
-        nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_##CONTAINER_NAME_p##_tr, container_p);                        \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_qualified_##CONTAINER_NAME_p##_tr, container_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_qualified_##CONTAINER_NAME_p##_tr, container_p);      \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_const_##CONTAINER_NAME_p##_tr, container_p);              \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_const_##CONTAINER_NAME_p##_tr, container_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_volatile_##CONTAINER_NAME_p##_tr, container_p);           \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_volatile_##CONTAINER_NAME_p##_tr, container_p);       \
-        nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_##CONTAINER_NAME_p##_tr, container_p);                       \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_non_qualified_##CONTAINER_NAME_p##_tr, container_p);     \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_const_##CONTAINER_NAME_p##_tr, container_p);             \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_volatile_##CONTAINER_NAME_p##_tr, container_p);          \
-            nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(just_const_volatile_##CONTAINER_NAME_p##_tr, container_p);    \
-                                                                                                            \
-        nkr_DEFINE_CONTAINER_OF_TRAITS(any_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);                          \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(any_qualified_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);            \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(any_non_qualified_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);        \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(any_const_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);                \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(any_non_const_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);            \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(any_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);             \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(any_non_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);         \
-        nkr_DEFINE_CONTAINER_OF_TRAITS(just_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);                         \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(just_non_qualified_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);       \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(just_const_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);               \
-            nkr_DEFINE_CONTAINER_OF_TRAITS(just_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);            \
+    #define nkr_DEFINE_POINTER_OF_TRAITS(POINTER_TRAIT_NAME_p)                                                          \
+        template <typename pointer_p, typename unit_p>                                                                  \
+        concept POINTER_TRAIT_NAME_p##_of_any_tr =                                                                      \
+            POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                     \
+            is_any_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                                        \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_any_qualified_tr =                                                        \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_any_qualified_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                          \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_any_non_qualified_tr =                                                    \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_any_non_qualified_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                      \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_any_const_tr =                                                            \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_any_const_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                              \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_any_non_const_tr =                                                        \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_any_non_const_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                          \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_any_volatile_tr =                                                         \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_any_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                           \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_any_non_volatile_tr =                                                     \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_any_non_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                       \
+                                                                                                                        \
+        template <typename pointer_p, typename unit_p>                                                                  \
+        concept POINTER_TRAIT_NAME_p##_of_not_any_tr =                                                                  \
+            POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                     \
+            not_is_any_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                                    \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_any_qualified_tr =                                                    \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_any_qualified_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                      \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_any_non_qualified_tr =                                                \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_any_non_qualified_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                  \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_any_const_tr =                                                        \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_any_const_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                          \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_any_non_const_tr =                                                    \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_any_non_const_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                      \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_any_volatile_tr =                                                     \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_any_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                       \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_any_non_volatile_tr =                                                 \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_any_non_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                   \
+                                                                                                                        \
+        template <typename pointer_p, typename unit_p>                                                                  \
+        concept POINTER_TRAIT_NAME_p##_of_just_tr =                                                                     \
+            POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                     \
+            is_just_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                                       \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_just_non_qualified_tr =                                                   \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_just_non_qualified_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                     \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_just_const_tr =                                                           \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_just_const_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                             \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_just_volatile_tr =                                                        \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_just_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                          \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_just_const_volatile_tr =                                                  \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                is_just_const_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                    \
+                                                                                                                        \
+        template <typename pointer_p, typename unit_p>                                                                  \
+        concept POINTER_TRAIT_NAME_p##_of_not_just_tr =                                                                 \
+            POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                     \
+            not_is_just_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                                   \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_just_non_qualified_tr =                                               \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_just_non_qualified_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                 \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_just_const_tr =                                                       \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_just_const_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                         \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_just_volatile_tr =                                                    \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_just_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                      \
+                                                                                                                        \
+            template <typename pointer_p, typename unit_p>                                                              \
+            concept POINTER_TRAIT_NAME_p##_of_not_just_const_volatile_tr =                                              \
+                POINTER_TRAIT_NAME_p##_tr<pointer_p> &&                                                                 \
+                not_is_just_const_volatile_tr<std::remove_pointer_t<pointer_p>, unit_p>;                                \
+                                                                                                                        \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_tr, pointer_p, unit_p);                        \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_qualified_tr, pointer_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_non_qualified_tr, pointer_p, unit_p);      \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_const_tr, pointer_p, unit_p);              \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_non_const_tr, pointer_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_volatile_tr, pointer_p, unit_p);           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_any_non_volatile_tr, pointer_p, unit_p);       \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_tr, pointer_p, unit_p);                    \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_qualified_tr, pointer_p, unit_p);      \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_non_qualified_tr, pointer_p, unit_p);  \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_const_tr, pointer_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_non_const_tr, pointer_p, unit_p);      \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_volatile_tr, pointer_p, unit_p);       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_any_non_volatile_tr, pointer_p, unit_p);   \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_just_tr, pointer_p, unit_p);                       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_just_non_qualified_tr, pointer_p, unit_p);     \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_just_const_tr, pointer_p, unit_p);             \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_just_volatile_tr, pointer_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_just_const_volatile_tr, pointer_p, unit_p);    \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_just_tr, pointer_p, unit_p);                   \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_just_non_qualified_tr, pointer_p, unit_p); \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_just_const_tr, pointer_p, unit_p);         \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_just_volatile_tr, pointer_p, unit_p);      \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(POINTER_TRAIT_NAME_p##_of_not_just_const_volatile_tr, pointer_p, unit_p)
+
+    #define nkr_DEFINE_POINTER_TRAITS(POINTER_NAME_p)                           \
+        nkr_DEFINE_TYPE_TRAITS(POINTER_NAME_p);                                 \
+                                                                                \
+        nkr_DEFINE_POINTER_OF_TRAITS(any_##POINTER_NAME_p);                     \
+            nkr_DEFINE_POINTER_OF_TRAITS(any_qualified_##POINTER_NAME_p);       \
+            nkr_DEFINE_POINTER_OF_TRAITS(any_non_qualified_##POINTER_NAME_p);   \
+            nkr_DEFINE_POINTER_OF_TRAITS(any_const_##POINTER_NAME_p);           \
+            nkr_DEFINE_POINTER_OF_TRAITS(any_non_const_##POINTER_NAME_p);       \
+            nkr_DEFINE_POINTER_OF_TRAITS(any_volatile_##POINTER_NAME_p);        \
+            nkr_DEFINE_POINTER_OF_TRAITS(any_non_volatile_##POINTER_NAME_p);    \
+        nkr_DEFINE_POINTER_OF_TRAITS(just_##POINTER_NAME_p);                    \
+            nkr_DEFINE_POINTER_OF_TRAITS(just_non_qualified_##POINTER_NAME_p);  \
+            nkr_DEFINE_POINTER_OF_TRAITS(just_const_##POINTER_NAME_p);          \
+            nkr_DEFINE_POINTER_OF_TRAITS(just_volatile_##POINTER_NAME_p);       \
+            nkr_DEFINE_POINTER_OF_TRAITS(just_const_volatile_##POINTER_NAME_p)
+
+    #define nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_OF_TRAIT_NAME_p, CONTAINEE_ALIAS_p)                                             \
+        template <typename container_p, typename unit_p>                                                                                        \
+        concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_tr =                                                                                 \
+            CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                     \
+            is_any_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                                  \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_qualified_tr =                                                                   \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_any_qualified_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                    \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_non_qualified_tr =                                                               \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_any_non_qualified_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_const_tr =                                                                       \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_any_const_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                        \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_non_const_tr =                                                                   \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_any_non_const_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                    \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_volatile_tr =                                                                    \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_any_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                     \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_non_volatile_tr =                                                                \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_any_non_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                 \
+                                                                                                                                                \
+        template <typename container_p, typename unit_p>                                                                                        \
+        concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_tr =                                                                             \
+            CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                     \
+            not_is_any_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                              \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_qualified_tr =                                                               \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_any_qualified_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_non_qualified_tr =                                                           \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_any_non_qualified_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                            \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_const_tr =                                                                   \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_any_const_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                    \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_non_const_tr =                                                               \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_any_non_const_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_volatile_tr =                                                                \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_any_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                 \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_non_volatile_tr =                                                            \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_any_non_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                             \
+                                                                                                                                                \
+        template <typename container_p, typename unit_p>                                                                                        \
+        concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_tr =                                                                                \
+            CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                     \
+            is_just_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                                 \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_non_qualified_tr =                                                              \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_just_non_qualified_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                               \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_const_tr =                                                                      \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_just_const_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                       \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_volatile_tr =                                                                   \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_just_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                    \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_const_volatile_tr =                                                             \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                is_just_const_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                              \
+                                                                                                                                                \
+        template <typename container_p, typename unit_p>                                                                                        \
+        concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_tr =                                                                            \
+            CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                     \
+            not_is_just_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                             \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_non_qualified_tr =                                                          \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_just_non_qualified_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                           \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_const_tr =                                                                  \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_just_const_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                   \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_volatile_tr =                                                               \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_just_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                                \
+                                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                                    \
+            concept CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_const_volatile_tr =                                                         \
+                CONTAINER_OF_TRAIT_NAME_p##_tr<container_p, std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>*> &&                 \
+                not_is_just_const_volatile_tr<std::remove_pointer_t<typename container_p::CONTAINEE_ALIAS_p>, unit_p>;                          \
+                                                                                                                                                \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_tr, container_p, pointer_unit_p);                         \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_qualified_tr, container_p, pointer_unit_p);           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_non_qualified_tr, container_p, pointer_unit_p);       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_const_tr, container_p, pointer_unit_p);               \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_non_const_tr, container_p, pointer_unit_p);           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_volatile_tr, container_p, pointer_unit_p);            \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_any_non_volatile_tr, container_p, pointer_unit_p);        \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_tr, container_p, pointer_unit_p);                     \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_qualified_tr, container_p, pointer_unit_p);       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_non_qualified_tr, container_p, pointer_unit_p);   \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_const_tr, container_p, pointer_unit_p);           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_non_const_tr, container_p, pointer_unit_p);       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_volatile_tr, container_p, pointer_unit_p);        \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_any_non_volatile_tr, container_p, pointer_unit_p);    \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_tr, container_p, pointer_unit_p);                        \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_non_qualified_tr, container_p, pointer_unit_p);      \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_const_tr, container_p, pointer_unit_p);              \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_volatile_tr, container_p, pointer_unit_p);           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_just_const_volatile_tr, container_p, pointer_unit_p);     \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_tr, container_p, pointer_unit_p);                    \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_non_qualified_tr, container_p, pointer_unit_p);  \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_const_tr, container_p, pointer_unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_volatile_tr, container_p, pointer_unit_p);       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_OF_TRAIT_NAME_p##_pointer_of_not_just_const_volatile_tr, container_p, pointer_unit_p)
+
+    #define nkr_DEFINE_CONTAINER_OF_TRAITS(CONTAINER_TRAIT_NAME_p, CONTAINEE_ALIAS_p)                                           \
+        template <typename container_p, typename unit_p>                                                                        \
+        concept CONTAINER_TRAIT_NAME_p##_of_any_tr =                                                                            \
+            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                         \
+            is_any_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                         \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_any_qualified_tr =                                                              \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_any_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                           \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_any_non_qualified_tr =                                                          \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_any_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_any_const_tr =                                                                  \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_any_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                               \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_any_non_const_tr =                                                              \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_any_non_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                           \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_any_volatile_tr =                                                               \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_any_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                            \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_any_non_volatile_tr =                                                           \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_any_non_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                        \
+                                                                                                                                \
+        template <typename container_p, typename unit_p>                                                                        \
+        concept CONTAINER_TRAIT_NAME_p##_of_not_any_tr =                                                                        \
+            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                         \
+            not_is_any_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                     \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_any_qualified_tr =                                                          \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_any_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_any_non_qualified_tr =                                                      \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_any_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                   \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_any_const_tr =                                                              \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_any_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                           \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_any_non_const_tr =                                                          \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_any_non_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_any_volatile_tr =                                                           \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_any_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                        \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_any_non_volatile_tr =                                                       \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_any_non_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                    \
+                                                                                                                                \
+        template <typename container_p, typename unit_p>                                                                        \
+        concept CONTAINER_TRAIT_NAME_p##_of_just_tr =                                                                           \
+            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                         \
+            is_just_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                        \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_just_non_qualified_tr =                                                         \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_just_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                      \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_just_const_tr =                                                                 \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_just_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                              \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_just_volatile_tr =                                                              \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_just_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                           \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_just_const_volatile_tr =                                                        \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                is_just_const_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                     \
+                                                                                                                                \
+        template <typename container_p, typename unit_p>                                                                        \
+        concept CONTAINER_TRAIT_NAME_p##_of_not_just_tr =                                                                       \
+            CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                         \
+            not_is_just_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                                    \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_just_non_qualified_tr =                                                     \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_just_non_qualified_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                  \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_just_const_tr =                                                             \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_just_const_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                          \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_just_volatile_tr =                                                          \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_just_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                       \
+                                                                                                                                \
+            template <typename container_p, typename unit_p>                                                                    \
+            concept CONTAINER_TRAIT_NAME_p##_of_not_just_const_volatile_tr =                                                    \
+                CONTAINER_TRAIT_NAME_p##_tr<container_p> &&                                                                     \
+                not_is_just_const_volatile_tr<typename container_p::CONTAINEE_ALIAS_p, unit_p>;                                 \
+                                                                                                                                \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_tr, container_p, unit_p);                            \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_qualified_tr, container_p, unit_p);              \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_non_qualified_tr, container_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_const_tr, container_p, unit_p);                  \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_non_const_tr, container_p, unit_p);              \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_volatile_tr, container_p, unit_p);               \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_any_non_volatile_tr, container_p, unit_p);           \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_tr, container_p, unit_p);                        \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_qualified_tr, container_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_qualified_tr, container_p, unit_p);      \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_const_tr, container_p, unit_p);              \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_const_tr, container_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_volatile_tr, container_p, unit_p);           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_volatile_tr, container_p, unit_p);       \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_tr, container_p, unit_p);                           \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_non_qualified_tr, container_p, unit_p);         \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_const_tr, container_p, unit_p);                 \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_volatile_tr, container_p, unit_p);              \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_just_const_volatile_tr, container_p, unit_p);        \
+        nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_tr, container_p, unit_p);                       \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_non_qualified_tr, container_p, unit_p);     \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_const_tr, container_p, unit_p);             \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_volatile_tr, container_p, unit_p);          \
+            nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(CONTAINER_TRAIT_NAME_p##_of_not_just_const_volatile_tr, container_p, unit_p);    \
+                                                                                                                                \
+        nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any, CONTAINEE_ALIAS_p);                          \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any_qualified, CONTAINEE_ALIAS_p);            \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any_non_qualified, CONTAINEE_ALIAS_p);        \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any_const, CONTAINEE_ALIAS_p);                \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any_non_const, CONTAINEE_ALIAS_p);            \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any_volatile, CONTAINEE_ALIAS_p);             \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_any_non_volatile, CONTAINEE_ALIAS_p);         \
+        nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any, CONTAINEE_ALIAS_p);                      \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any_qualified, CONTAINEE_ALIAS_p);        \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_qualified, CONTAINEE_ALIAS_p);    \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any_const, CONTAINEE_ALIAS_p);            \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_const, CONTAINEE_ALIAS_p);        \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any_volatile, CONTAINEE_ALIAS_p);         \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_any_non_volatile, CONTAINEE_ALIAS_p);     \
+        nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_just, CONTAINEE_ALIAS_p);                         \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_just_non_qualified, CONTAINEE_ALIAS_p);       \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_just_const, CONTAINEE_ALIAS_p);               \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_just_volatile, CONTAINEE_ALIAS_p);            \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_just_const_volatile, CONTAINEE_ALIAS_p);      \
+        nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_just, CONTAINEE_ALIAS_p);                     \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_just_non_qualified, CONTAINEE_ALIAS_p);   \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_just_const, CONTAINEE_ALIAS_p);           \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_just_volatile, CONTAINEE_ALIAS_p);        \
+            nkr_DEFINE_CONTAINER_OF_POINTER_OF_TRAITS(CONTAINER_TRAIT_NAME_p##_of_not_just_const_volatile, CONTAINEE_ALIAS_p)
+
+    #define nkr_DEFINE_CONTAINER_TRAITS(CONTAINER_NAME_p, CONTAINEE_ALIAS_p)                            \
+        nkr_DEFINE_TYPE_TRAITS(CONTAINER_NAME_p);                                                       \
+                                                                                                        \
+        nkr_DEFINE_CONTAINER_OF_TRAITS(any_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);                      \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(any_qualified_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);        \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(any_non_qualified_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);    \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(any_const_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);            \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(any_non_const_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);        \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(any_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);         \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(any_non_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);     \
+        nkr_DEFINE_CONTAINER_OF_TRAITS(just_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);                     \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(just_non_qualified_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);   \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(just_const_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);           \
+            nkr_DEFINE_CONTAINER_OF_TRAITS(just_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p);        \
             nkr_DEFINE_CONTAINER_OF_TRAITS(just_const_volatile_##CONTAINER_NAME_p, CONTAINEE_ALIAS_p)
 
 }

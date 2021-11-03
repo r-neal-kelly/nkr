@@ -416,7 +416,7 @@ namespace nkr {
         integer_tr<type_p> ||
         real_tr<type_p> ||
         pointer_tr<type_p>;
-    /// @}
+    /// @}        
     
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
@@ -454,6 +454,14 @@ namespace nkr {
     concept same_or_derived_from_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value ||
         std::is_convertible<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value;   ///< @copydoc _a08a3aa7_12f3_4e3f_8515_610fa450219b
+    /// @}
+    
+    /// @{
+    template <typename pointer_p>
+    concept any_c_pointer_tr =
+        pointer_tr<pointer_p>;
+
+    nkr_DEFINE_POINTER_TRAITS(c_pointer);
     /// @}
 
 }

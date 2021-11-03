@@ -78,7 +78,7 @@ namespace nkr { namespace string {
         static count_t                  Point_Count(const is_any_tr<stack_t> auto& self);
         static count_t                  Point_Length(const is_any_tr<stack_t> auto& self);
 
-        static some_t<const unit_t*>    C_String(const is_any_tr<stack_t> auto& self);
+        static auto                     C_String(const is_any_tr<stack_t> auto& self);
 
         static auto                     At(const is_any_tr<stack_t> auto& self, index_t point_index);
         static auto                     At_Prefix(const is_any_tr<stack_t> auto& self);
@@ -92,8 +92,8 @@ namespace nkr { namespace string {
 
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder);
-        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<unit_t> auto* c_string);
-        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<unit_t> auto* c_string, count_t unit_length);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_c_pointer_of_any_tr<unit_t> auto c_string);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_c_pointer_of_any_tr<unit_t> auto c_string, count_t unit_length);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other);
 
@@ -107,7 +107,8 @@ namespace nkr { namespace string {
         stack_t();
 
         stack_t(const charcoder_t& charcoder);
-        stack_t(const is_any_tr<unit_t> auto* c_string); // const is_any_some_of_any_tr<unit_t> auto*
+        stack_t(const any_c_pointer_of_any_tr<unit_t> auto c_string);
+        stack_t(const any_some_of_any_pointer_of_any_tr<unit_t> auto some_c_string);
 
         stack_t(const any_string_tr auto& string);
         stack_t(any_non_const_string_tr auto&& string);
@@ -147,7 +148,7 @@ namespace nkr { namespace string {
         count_t                             Point_Length() const volatile;
 
         some_t<const unit_t*>               C_String() const;
-        some_t<const unit_t*>               C_String() const volatile;
+        some_t<const volatile unit_t*>      C_String() const volatile;
 
         string_itr<const stack_t>           At(index_t point_index) const;
         string_itr<const volatile stack_t>  At(index_t point_index) const volatile;

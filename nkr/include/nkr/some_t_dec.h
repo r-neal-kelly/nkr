@@ -11,6 +11,19 @@
 
 namespace nkr {
 
+    template <some_i any_p>
+    class some_t;
+
+    template <typename some_p>
+    concept any_some_tr =
+        is_any_tr<some_p, some_t<typename some_p::value_t>>;
+
+    nkr_DEFINE_CONTAINER_TRAITS(some, value_t);
+
+}
+
+namespace nkr {
+
     /// @nosubgrouping
     /// @copydoc _fe4b1321_2470_4544_b8c0_0e93c38e7275
     template <some_i any_p>

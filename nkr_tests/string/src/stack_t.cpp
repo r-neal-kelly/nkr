@@ -239,24 +239,71 @@ namespace nkr { namespace string {
 
             TEST_SUITE("charcoder_ctor()")
             {
-                TEST_CASE_TEMPLATE("should make a string with the charcoder's point", string_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should make a string with a non-terminus charcoder", string_p, nkr_ALL)
                 {
                     using charcoder_t = string_p::charcoder_t;
 
-                    string_p random_string = Random<string_p, 2, 2>();
-                    point_t point = random_string.At(0).Point();
+                    point_t point = Random<stack_t<charcoder_t>, 2, 2>().At(0).Point();
                     charcoder_t charcoder;
                     charcoder.Encode(point);
-
                     string_p string(charcoder);
                     CHECK(string.At(0).Point() == point);
+                }
+
+                TEST_CASE_TEMPLATE("should make a string with a non-terminus charcoder ending up with a point length of 1", string_p, nkr_ALL)
+                {
+                    using charcoder_t = string_p::charcoder_t;
+
+                    point_t point = Random<stack_t<charcoder_t>, 2, 2>().At(0).Point();
+                    charcoder_t charcoder;
+                    charcoder.Encode(point);
+                    string_p string(charcoder);
                     CHECK(string.Point_Length() == 1);
+                }
+
+                TEST_CASE_TEMPLATE("should make a string with a non-terminus charcoder ending up with a point count of 2", string_p, nkr_ALL)
+                {
+                    using charcoder_t = string_p::charcoder_t;
+
+                    point_t point = Random<stack_t<charcoder_t>, 2, 2>().At(0).Point();
+                    charcoder_t charcoder;
+                    charcoder.Encode(point);
+                    string_p string(charcoder);
+                    CHECK(string.Point_Count() == 2);
+                }
+
+                TEST_CASE_TEMPLATE("should make a string with a terminus charcoder", string_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should make a string with a terminus charcoder ending up with a point length of 0", string_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should make a string with a terminus charcoder ending up with a point count of 1", string_p, nkr_ALL)
+                {
+
                 }
             }
 
             TEST_SUITE("c_string_ctor()")
             {
+                TEST_CASE_TEMPLATE("should make a string by copying some C string using the same charcoder", string_p, nkr_ALL)
+                {
+                    using charcoder_t = string_p::charcoder_t;
 
+                    string_p other = Random<string_p>();
+                    string_p string(other.C_String());
+                    CHECK(string.Point_Count() == other.Point_Count());
+
+                    auto string_itr = string.At_First();
+                    auto other_itr = other.At_First();
+                    for (; !string_itr.Is_At_Postfix(); string_itr += 1, other_itr += 1) {
+                        CHECK(string_itr.Point() == other_itr.Point());
+                    }
+                }
             }
 
             TEST_SUITE("copy_any_string_ctor()")
