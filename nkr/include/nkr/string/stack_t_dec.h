@@ -33,12 +33,18 @@ namespace nkr { namespace testing {
         using resolved_t    = void_t;
 
     public:
+        // this maybe should be a constexpr function returning std_bool_t
         template <typename other_p>
         struct is_any_tmpl :
             public std::false_type
         {
         };
     };
+
+    // it would be nice to use tags for the operators as well, that way we don't have to manually parse
+    // the two lines of code, the template name and the parameters. we would only have to parse the parameters.
+    // trait_tr<any_tg, test_t, of_any_tg, test_t, of_just_unqualified_tg, int>
+    // tr<any, test_t, of_any, test_t, of_just_unqualifed, int> auto test_test_int
 
     template <typename subject_p, typename object_p>
     concept any__tr =
@@ -302,6 +308,9 @@ namespace nkr { namespace testing {
                   test_t, c_pointer_tg, char>);
     static_assert(any__of_any__of_any__tr<const volatile test_t<const volatile char* const volatile>,
                   test_t, c_pointer_tg, char>);
+
+    static_assert(!any__of_any__of_any__tr<const volatile test_t<const volatile char* const volatile>,
+                  test_t, c_pointer_tg, int>);
 
 }}
 
