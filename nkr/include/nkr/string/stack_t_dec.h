@@ -27,10 +27,10 @@ namespace nkr { namespace testing {
     class traits_i
     {
     public:
-        using of_parameter_t    = void_t;
+        using of_t          = void_t;
 
-        template <template <typename ...> typename other_p, typename of_parameter_p>
-        using resolved_other_t  = void_t;
+        template <template <typename ...> typename template_p, typename of_parameter_p>
+        using resolved_t    = void_t;
 
     public:
         template <typename other_p>
@@ -49,22 +49,30 @@ namespace nkr { namespace testing {
         any__tr<subject_p, object_p> &&
         any_const_tr<subject_p>;
 
+    template <typename resolver_p>
+    using of_t          = traits_i<resolver_p>::of_t;
+
+    template <typename resolver_p, template <typename ...> typename resolvee_p, typename of_p>
+    using resolved_t    = traits_i<resolver_p>::template resolved_t<resolvee_p, of_p>;
+
     template <typename subject_p, template <typename ...> typename object_p, typename of_p>
     concept any__of_any__tr =
-        any__tr<subject_p, typename traits_i<subject_p>::template resolved_other_t<object_p, of_p>> &&
-        any__tr<
-            typename traits_i<subject_p>::of_parameter_t,
-            typename traits_i<typename traits_i<subject_p>::template resolved_other_t<object_p, of_p>>::of_parameter_t
-        >;
+        any__tr<subject_p, resolved_t<subject_p, object_p, of_p>> &&
+        any__tr<of_t<subject_p>, of_t<resolved_t<subject_p, object_p, of_p>>>;
+
+    template <typename subject_p, template <typename ...> typename object_p, template <typename ...> typename of_p, typename of_of_p>
+    concept any__of_any__of_any__tr =
+        any__of_any__tr<subject_p, object_p, resolved_t<of_t<subject_p>, of_p, of_of_p>> &&
+        any__tr<of_t<of_t<subject_p>>,of_t<resolved_t<of_t<subject_p>, of_p, of_of_p>>>;
 
     template <integer_tr type_p>
     class traits_i<type_p>
     {
     public:
-        using of_parameter_t    = void_t;
+        using of_t          = void_t;
 
-        template <template <typename ...> typename other_p, typename of_parameter_p>
-        using resolved_other_t  = void_t;
+        template <template <typename ...> typename template_p, typename of_parameter_p>
+        using resolved_t    = void_t;
 
     public:
         template <typename other_p>
@@ -80,16 +88,20 @@ namespace nkr { namespace testing {
         };
     };
 
-    struct c_pointer_tg {};
+    template <typename>
+    class c_pointer_tg
+    {
+    public:
+    };
 
     template <type_pointer_tr type_p>
     class traits_i<type_p>
     {
     public:
-        using of_parameter_t    = std::remove_pointer_t<type_p>;
+        using of_t          = std::remove_pointer_t<type_p>;
 
-        template <template <typename ...> typename other_p, typename of_parameter_p>
-        using resolved_other_t  = of_parameter_p*;
+        template <template <typename ...> typename template_p, typename of_parameter_p>
+        using resolved_t    = of_parameter_p*;
 
     public:
         template <typename other_p>
@@ -120,10 +132,10 @@ namespace nkr { namespace testing {
     class traits_i<type_p>
     {
     public:
-        using of_parameter_t    = type_p::parameter_t;
+        using of_t          = type_p::parameter_t;
 
-        template <template <typename ...> typename other_p, typename of_parameter_p>
-        using resolved_other_t  = other_p<of_parameter_p>;
+        template <template <typename ...> typename template_p, typename of_parameter_p>
+        using resolved_t    = template_p<of_parameter_p>;
 
     public:
         template <typename other_p>
@@ -158,6 +170,11 @@ namespace nkr { namespace testing {
                   test_t, char>);
     static_assert(any__of_any__tr<test_t<volatile test_t<char>>,
                   test_t, test_t<char>>);
+
+    static_assert(any__of_any__of_any__tr<test_t<test_t<char>>,
+                  test_t, test_t, char>);
+    static_assert(any__of_any__of_any__tr<volatile test_t<volatile char* volatile>,
+                  test_t, c_pointer_tg, char>);
 
 }}
 
