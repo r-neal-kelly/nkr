@@ -8,6 +8,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 #include "nkr/maybe_t.h"
+#include "nkr/pointer_t.h"
 #include "nkr/some_t.h"
 #include "nkr/traits.h"
 
@@ -19,6 +20,146 @@
 #include "nkr/charcoder/utf_8_t.h"
 
 #include "nkr/string_i.h"
+
+namespace nkr { namespace testing {
+
+    template <typename type_p>
+    class traits_i
+    {
+    public:
+        using of_parameter_t    = void_t;
+
+        template <template <typename ...> typename other_p, typename of_parameter_p>
+        using resolved_other_t  = void_t;
+
+    public:
+        template <typename other_p>
+        struct is_any_tmpl :
+            public std::false_type
+        {
+        };
+    };
+
+    template <typename subject_p, typename object_p>
+    concept any__tr =
+        traits_i<subject_p>::template is_any_tmpl<object_p>::value;
+
+    template <typename subject_p, typename object_p>
+    concept any_const__tr =
+        any__tr<subject_p, object_p> &&
+        any_const_tr<subject_p>;
+
+    template <typename subject_p, template <typename ...> typename object_p, typename of_p>
+    concept any__of_any__tr =
+        any__tr<subject_p, typename traits_i<subject_p>::template resolved_other_t<object_p, of_p>> &&
+        any__tr<
+            typename traits_i<subject_p>::of_parameter_t,
+            typename traits_i<typename traits_i<subject_p>::template resolved_other_t<object_p, of_p>>::of_parameter_t
+        >;
+
+    template <integer_tr type_p>
+    class traits_i<type_p>
+    {
+    public:
+        using of_parameter_t    = void_t;
+
+        template <template <typename ...> typename other_p, typename of_parameter_p>
+        using resolved_other_t  = void_t;
+
+    public:
+        template <typename other_p>
+        struct is_any_tmpl :
+            public std::false_type
+        {
+        };
+
+        template <is_any_tr<type_p> other_p>
+        struct is_any_tmpl<other_p> :
+            public std::true_type
+        {
+        };
+    };
+
+    struct c_pointer_tg {};
+
+    template <type_pointer_tr type_p>
+    class traits_i<type_p>
+    {
+    public:
+        using of_parameter_t    = std::remove_pointer_t<type_p>;
+
+        template <template <typename ...> typename other_p, typename of_parameter_p>
+        using resolved_other_t  = of_parameter_p*;
+
+    public:
+        template <typename other_p>
+        struct is_any_tmpl :
+            public std::false_type
+        {
+        };
+
+        template <type_pointer_tr other_p>
+        struct is_any_tmpl<other_p> :
+            public std::true_type
+        {
+        };
+    };
+
+    template <typename parameter_p>
+    class test_t;
+
+    namespace $test_t {
+
+        template <typename type_p>
+        concept any_tr =
+            is_any_tr<type_p, test_t<typename type_p::parameter_t>>;
+
+    }
+
+    template <$test_t::any_tr type_p>
+    class traits_i<type_p>
+    {
+    public:
+        using of_parameter_t    = type_p::parameter_t;
+
+        template <template <typename ...> typename other_p, typename of_parameter_p>
+        using resolved_other_t  = other_p<of_parameter_p>;
+
+    public:
+        template <typename other_p>
+        struct is_any_tmpl :
+            public std::false_type
+        {
+        };
+
+        template <$test_t::any_tr other_p>
+        struct is_any_tmpl<other_p> :
+            public std::true_type
+        {
+        };
+    };
+
+    template <typename parameter_p>
+    class test_t
+    {
+    public:
+        using parameter_t   = parameter_p;
+    };
+
+    static_assert(any__tr<test_t<char>,
+                  test_t<char>>);
+    static_assert(any__tr<volatile test_t<const volatile char>,
+                  test_t<char>>);
+
+    static_assert(any_const__tr<const volatile test_t<char>,
+                  test_t<char>>);
+
+    static_assert(any__of_any__tr<volatile test_t<const volatile char>,
+                  test_t, char>);
+    static_assert(any__of_any__tr<test_t<volatile test_t<char>>,
+                  test_t, test_t<char>>);
+
+}}
 
 namespace nkr {
 
@@ -92,8 +233,8 @@ namespace nkr { namespace string {
 
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder);
-        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_c_pointer_of_any_tr<unit_t> auto c_string);
-        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_c_pointer_of_any_tr<unit_t> auto c_string, count_t unit_length);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_c_pointer_of_any_tr<unit_t> auto c_string);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_c_pointer_of_any_tr<unit_t> auto c_string, count_t unit_length);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other);
 
@@ -107,8 +248,10 @@ namespace nkr { namespace string {
         stack_t();
 
         stack_t(const charcoder_t& charcoder);
-        stack_t(const any_c_pointer_of_any_tr<unit_t> auto c_string);
-        //stack_t(const any_some_of_any_pointer_of_any_tr<unit_t> auto some_c_string);
+        stack_t(any_c_pointer_of_any_tr<unit_t> auto c_string);
+        stack_t(any_maybe_of_any_c_pointer_of_any_tr<unit_t> auto maybe_c_string);
+        stack_t(any_some_of_any_c_pointer_of_any_tr<unit_t> auto some_c_string);
+        stack_t(some_t<pointer_t<unit_t>> some_pointer);
 
         stack_t(const any_string_tr auto& string);
         stack_t(any_non_const_string_tr auto&& string);

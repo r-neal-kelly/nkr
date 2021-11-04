@@ -13,6 +13,19 @@
 
 namespace nkr {
 
+    template <typename invalid_p>
+    class maybe_t;
+
+    template <typename maybe_p>
+    concept any_maybe_tr =
+        is_any_tr<maybe_p, maybe_t<typename maybe_p::value_t>>;
+
+    nkr_DEFINE_CONTAINER_TRAITS(maybe, value_t);
+
+}
+
+namespace nkr {
+
     /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
     /// @copydoc _c8a34890_b904_42a7_a88c_ada39529db42
     namespace $maybe_t {
