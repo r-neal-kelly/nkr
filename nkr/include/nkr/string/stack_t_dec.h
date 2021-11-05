@@ -33,27 +33,15 @@ namespace nkr { namespace testing {
         using resolved_t    = void_t;
 
     public:
-        // this maybe should be a constexpr function returning std_bool_t
         template <typename other_p>
-        struct is_any_tmpl :
-            public std::false_type
+        static constexpr std_bool_t Is_Any()
         {
+            return false;
         };
     };
 
-    // it would be nice to use tags for the operators as well, that way we don't have to manually parse
-    // the two lines of code, the template name and the parameters. we would only have to parse the parameters.
-    // trait_tr<any_tg, test_t, of_any_tg, test_t, of_just_unqualified_tg, int>
-    // tr<any, test_t, of_any, test_t, of_just_unqualifed, int> auto test_test_int
-
     template <typename subject_p, typename object_p>
-    concept any__tr =
-        traits_i<subject_p>::template is_any_tmpl<object_p>::value;
-
-    template <typename subject_p, typename object_p>
-    concept any_const__tr =
-        any__tr<subject_p, object_p> &&
-        any_const_tr<subject_p>;
+    constexpr std_bool_t is_any_v   = traits_i<subject_p>::template Is_Any<object_p>();
 
     template <typename resolver_p>
     using of_t          = traits_i<resolver_p>::of_t;
@@ -61,15 +49,90 @@ namespace nkr { namespace testing {
     template <typename resolver_p, template <typename ...> typename resolvee_p, typename of_p>
     using resolved_t    = traits_i<resolver_p>::template resolved_t<resolvee_p, of_p>;
 
-    template <typename subject_p, template <typename ...> typename object_p, typename of_p>
-    concept any__of_any__tr =
-        any__tr<subject_p, resolved_t<subject_p, object_p, of_p>> &&
-        any__tr<of_t<subject_p>, of_t<resolved_t<subject_p, object_p, of_p>>>;
+    struct any_tg           {};
+    struct any_const_tg     {};
+    struct of_any_tg        {};
+    struct of_any_const_tg  {};
 
-    template <typename subject_p, template <typename ...> typename object_p, template <typename ...> typename of_p, typename of_of_p>
-    concept any__of_any__of_any__tr =
-        any__of_any__tr<subject_p, object_p, resolved_t<of_t<subject_p>, of_p, of_of_p>> &&
-        any__tr<of_t<of_t<subject_p>>, of_t<resolved_t<of_t<subject_p>, of_p, of_of_p>>>;
+    template <
+        typename subject_p,
+        typename operator_p, typename operand_p
+    > constexpr std_bool_t TR1()
+    {
+        if constexpr (is_any_v<subject_p, operand_p>) {
+            if constexpr (is_tr<operator_p, any_tg>) {
+                return true;
+            } else if constexpr (is_tr<operator_p, any_const_tg>) {
+                return any_const_tr<subject_p>;
+            } else {
+                static_assert(false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, typename of_operand_p
+    > constexpr std_bool_t TR2()
+    {
+        if constexpr (TR1<subject_p, operator_p, resolved_t<subject_p, operand_p, of_operand_p>>() &&
+                      is_any_v<of_t<subject_p>, of_t<resolved_t<subject_p, operand_p, of_operand_p>>>) {
+            if constexpr (is_tr<of_operator_p, of_any_tg>) {
+                return true;
+            } else if constexpr (is_tr<of_operator_p, of_any_const_tg>) {
+                return any_const_tr<of_t<subject_p>>;
+            } else {
+                static_assert(false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, template <typename ...> typename of_operand_p,
+        typename of_of_operator_p, typename of_of_operand_p
+    > constexpr std_bool_t TR3()
+    {
+        if constexpr (TR2<subject_p, operator_p, operand_p, of_operator_p, resolved_t<of_t<subject_p>, of_operand_p, of_of_operand_p>>() &&
+                      is_any_v<of_t<of_t<subject_p>>, of_t<resolved_t<of_t<subject_p>, of_operand_p, of_of_operand_p>>>) {
+            if constexpr (is_tr<of_of_operator_p, of_any_tg>) {
+                return true;
+            } else if constexpr (is_tr<of_of_operator_p, of_any_const_tg>) {
+                return any_const_tr<of_t<of_t<subject_p>>>;
+            } else {
+                static_assert(false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    template <
+        typename subject_p,
+        typename operator_p, typename operand_p
+    > concept tr1 =
+        TR1<subject_p, operator_p, operand_p>();
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, typename of_operand_p
+    > concept tr2 =
+        TR2<subject_p, operator_p, operand_p, of_operator_p, of_operand_p>();
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, template <typename ...> typename of_operand_p,
+        typename of_of_operator_p, typename of_of_operand_p
+    > concept tr3 =
+        TR3<subject_p, operator_p, operand_p, of_operator_p, of_operand_p, of_of_operator_p, of_of_operand_p>();
 
     template <integer_tr type_p>
     class traits_i<type_p>
@@ -82,23 +145,13 @@ namespace nkr { namespace testing {
 
     public:
         template <typename other_p>
-        struct is_any_tmpl :
-            public std::false_type
+        static constexpr std_bool_t Is_Any()
         {
-        };
-
-        template <is_any_tr<type_p> other_p>
-        struct is_any_tmpl<other_p> :
-            public std::true_type
-        {
+            return is_any_tr<other_p, type_p>;
         };
     };
 
-    template <typename>
-    class c_pointer_tg
-    {
-    public:
-    };
+    template <typename> struct c_pointer_ttg    {};
 
     template <type_pointer_tr type_p>
     class traits_i<type_p>
@@ -111,15 +164,9 @@ namespace nkr { namespace testing {
 
     public:
         template <typename other_p>
-        struct is_any_tmpl :
-            public std::false_type
+        static constexpr std_bool_t Is_Any()
         {
-        };
-
-        template <type_pointer_tr other_p>
-        struct is_any_tmpl<other_p> :
-            public std::true_type
-        {
+            return type_pointer_tr<other_p>;
         };
     };
 
@@ -145,15 +192,9 @@ namespace nkr { namespace testing {
 
     public:
         template <typename other_p>
-        struct is_any_tmpl :
-            public std::false_type
+        static constexpr std_bool_t Is_Any()
         {
-        };
-
-        template <$test_t::any_tr other_p>
-        struct is_any_tmpl<other_p> :
-            public std::true_type
-        {
+            return is_any_tr<other_p, test_t<typename other_p::parameter_t>>;
         };
     };
 
@@ -164,153 +205,234 @@ namespace nkr { namespace testing {
         using parameter_t   = parameter_p;
     };
 
-    static_assert(any__tr<test_t<char>,
-                  test_t<char>>);
-    static_assert(any__tr<volatile test_t<const volatile char>,
-                  test_t<char>>);
+    static_assert(tr1<
+                  test_t<char>,
+                  any_tg, test_t<char>>);
+    static_assert(tr1<
+                  volatile test_t<const volatile char>,
+                  any_tg, test_t<char>>);
 
-    static_assert(any_const__tr<const volatile test_t<char>,
-                  test_t<char>>);
+    static_assert(tr1<
+                  const volatile test_t<char>,
+                  any_const_tg, test_t<char>>);
 
-    static_assert(any__of_any__tr<volatile test_t<const volatile char>,
-                  test_t, char>);
-    static_assert(any__of_any__tr<test_t<volatile test_t<char>>,
-                  test_t, test_t<char>>);
+    static_assert(tr2<
+                  volatile test_t<const volatile char>,
+                  any_tg, test_t, of_any_tg, char>);
+    static_assert(tr2<
+                  const test_t<volatile test_t<char>>,
+                  any_tg, test_t, of_any_tg, test_t<char>>);
 
-    static_assert(any__of_any__of_any__tr<test_t<test_t<char>>,
-                  test_t, test_t, char>);
+    static_assert(tr3<
+                  test_t<test_t<char>>,
+                  any_tg, test_t, of_any_tg, test_t, of_any_tg, char>);
 
-    static_assert(any__of_any__of_any__tr<test_t<char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<test_t<const volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const test_t<const volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<volatile test_t<const volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const volatile char*>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const volatile char* const>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const volatile char* volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
-    static_assert(any__of_any__of_any__tr<const volatile test_t<const volatile char* const volatile>,
-                  test_t, c_pointer_tg, char>);
+    static_assert(tr3<
+                  test_t<char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  test_t<const volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const test_t<const volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  volatile test_t<const volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const volatile char*>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const volatile char* const>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const volatile char* volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+    static_assert(tr3<
+                  const volatile test_t<const volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
 
-    static_assert(!any__of_any__of_any__tr<const volatile test_t<const volatile char* const volatile>,
-                  test_t, c_pointer_tg, int>);
+    static_assert(!tr3<
+                  const volatile test_t<const volatile char* const volatile>,
+                  any_tg, test_t, of_any_tg, c_pointer_ttg, of_any_tg, int>);
+
+    static_assert(tr3<
+                  test_t<const char* const volatile>,
+                  any_tg, test_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
+    static_assert(!tr3<
+                  test_t<char* const volatile>,
+                  any_tg, test_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
+    static_assert(!tr3<
+                  test_t<const char* volatile>,
+                  any_tg, test_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
 
 }}
 
