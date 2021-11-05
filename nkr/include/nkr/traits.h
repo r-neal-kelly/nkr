@@ -23,7 +23,7 @@ namespace nkr {
         public std::true_type
     {
     public:
-        using unit_t = type_p;
+        using unit_t    = type_p;
     };
 
     template <typename type_p, count_t count_p>
@@ -31,7 +31,7 @@ namespace nkr {
         public std::true_type
     {
     public:
-        using unit_t = type_p;
+        using unit_t    = type_p;
 
     public:
         static constexpr count_t Count()
@@ -476,12 +476,6 @@ namespace nkr {
     struct any_volatile_tg                  {};
     struct any_non_volatile_tg              {};
 
-    struct just_tg                          {};
-    struct just_non_qualified_tg            {};
-    struct just_const_tg                    {};
-    struct just_volatile_tg                 {};
-    struct just_const_volatile_tg           {};
-
     struct not_any_tg                       {};
     struct not_any_qualified_tg             {};
     struct not_any_non_qualified_tg         {};
@@ -489,6 +483,12 @@ namespace nkr {
     struct not_any_non_const_tg             {};
     struct not_any_volatile_tg              {};
     struct not_any_non_volatile_tg          {};
+
+    struct just_tg                          {};
+    struct just_non_qualified_tg            {};
+    struct just_const_tg                    {};
+    struct just_volatile_tg                 {};
+    struct just_const_volatile_tg           {};
 
     struct not_just_tg                      {};
     struct not_just_non_qualified_tg        {};
@@ -504,12 +504,6 @@ namespace nkr {
     struct of_any_volatile_tg               {};
     struct of_any_non_volatile_tg           {};
 
-    struct of_just_tg                       {};
-    struct of_just_non_qualified_tg         {};
-    struct of_just_const_tg                 {};
-    struct of_just_volatile_tg              {};
-    struct of_just_const_volatile_tg        {};
-
     struct of_not_any_tg                    {};
     struct of_not_any_qualified_tg          {};
     struct of_not_any_non_qualified_tg      {};
@@ -517,6 +511,12 @@ namespace nkr {
     struct of_not_any_non_const_tg          {};
     struct of_not_any_volatile_tg           {};
     struct of_not_any_non_volatile_tg       {};
+
+    struct of_just_tg                       {};
+    struct of_just_non_qualified_tg         {};
+    struct of_just_const_tg                 {};
+    struct of_just_volatile_tg              {};
+    struct of_just_const_volatile_tg        {};
 
     struct of_not_just_tg                   {};
     struct of_not_just_non_qualified_tg     {};
@@ -678,15 +678,37 @@ namespace nkr { namespace $traits {
     > constexpr std_bool_t TR1()
     {
         if constexpr (is_any_v<subject_p, operand_p>) {
-            if constexpr (is_tr<operator_p, any_tg>) {
-                return true;
-            } else if constexpr (is_tr<operator_p, any_const_tg>) {
-                return any_const_tr<subject_p>;
-            } else {
-                static_assert(false, "undefined operator");
-            }
+            if constexpr (is_tr<operator_p, any_tg>)                            return true;
+            else if constexpr (is_tr<operator_p, any_qualified_tg>)             return any_qualified_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, any_non_qualified_tg>)         return any_non_qualified_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, any_const_tg>)                 return any_const_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, any_non_const_tg>)             return any_non_const_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, any_volatile_tg>)              return any_volatile_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, any_non_volatile_tg>)          return any_non_volatile_tr<subject_p>;
+
+            else if constexpr (is_tr<operator_p, not_any_qualified_tg>)         return not_any_qualified_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_any_non_qualified_tg>)     return not_any_non_qualified_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_any_const_tg>)             return not_any_const_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_any_non_const_tg>)         return not_any_non_const_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_any_volatile_tg>)          return not_any_volatile_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_any_non_volatile_tg>)      return not_any_non_volatile_tr<subject_p>;
+
+            else if constexpr (is_tr<operator_p, just_tg>)                      return true;
+            else if constexpr (is_tr<operator_p, just_non_qualified_tg>)        return just_non_qualified_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, just_const_tg>)                return just_const_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, just_volatile_tg>)             return just_volatile_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, just_const_volatile_tg>)       return just_const_volatile_tr<subject_p>;
+
+            else if constexpr (is_tr<operator_p, not_just_non_qualified_tg>)    return not_just_non_qualified_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_just_const_tg>)            return not_just_const_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_just_volatile_tg>)         return not_just_volatile_tr<subject_p>;
+            else if constexpr (is_tr<operator_p, not_just_const_volatile_tg>)   return not_just_const_volatile_tr<subject_p>;
+
+            else                                                                static_assert(false, "undefined operator");
         } else {
-            return false;
+            if constexpr (is_tr<operator_p, not_any_tg>)        return true;
+            else if constexpr (is_tr<operator_p, not_just_tg>)  return true;
+            else                                                return false;
         }
     }
 
@@ -696,17 +718,42 @@ namespace nkr { namespace $traits {
         typename of_operator_p, typename of_operand_p
     > constexpr std_bool_t TR2()
     {
-        if constexpr (TR1<subject_p, operator_p, resolved_t<subject_p, operand_p, of_operand_p>>() &&
-                      is_any_v<of_t<subject_p>, of_t<resolved_t<subject_p, operand_p, of_operand_p>>>) {
-            if constexpr (is_tr<of_operator_p, of_any_tg>) {
-                return true;
-            } else if constexpr (is_tr<of_operator_p, of_any_const_tg>) {
-                return any_const_tr<of_t<subject_p>>;
-            } else {
-                static_assert(false, "undefined operator");
-            }
+        using of_subject_t = of_t<subject_p>;
+        using operand_t = resolved_t<subject_p, operand_p, of_operand_p>;
+        using of_operand_t = of_t<operand_t>;
+
+        if constexpr (TR1<subject_p, operator_p, operand_t>() && is_any_v<of_subject_t, of_operand_t>) {
+            if constexpr (is_tr<of_operator_p, of_any_tg>)                          return true;
+            else if constexpr (is_tr<of_operator_p, of_any_qualified_tg>)           return any_qualified_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_any_non_qualified_tg>)       return any_non_qualified_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_any_const_tg>)               return any_const_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_any_non_const_tg>)           return any_non_const_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_any_volatile_tg>)            return any_volatile_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_any_non_volatile_tg>)        return any_non_volatile_tr<of_subject_t>;
+
+            else if constexpr (is_tr<of_operator_p, of_not_any_qualified_tg>)       return not_any_qualified_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_any_non_qualified_tg>)   return not_any_non_qualified_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_any_const_tg>)           return not_any_const_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_any_non_const_tg>)       return not_any_non_const_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_any_volatile_tg>)        return not_any_volatile_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_any_non_volatile_tg>)    return not_any_non_volatile_tr<of_subject_t>;
+
+            else if constexpr (is_tr<of_operator_p, of_just_tg>)                    return true;
+            else if constexpr (is_tr<of_operator_p, of_just_non_qualified_tg>)      return just_non_qualified_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_just_const_tg>)              return just_const_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_just_volatile_tg>)           return just_volatile_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_just_const_volatile_tg>)     return just_const_volatile_tr<of_subject_t>;
+
+            else if constexpr (is_tr<of_operator_p, of_not_just_non_qualified_tg>)  return not_just_non_qualified_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_just_const_tg>)          return not_just_const_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_just_volatile_tg>)       return not_just_volatile_tr<of_subject_t>;
+            else if constexpr (is_tr<of_operator_p, of_not_just_const_volatile_tg>) return not_just_const_volatile_tr<of_subject_t>;
+
+            else                                                                    static_assert(false, "undefined operator");
         } else {
-            return false;
+            if constexpr (is_tr<of_operator_p, of_not_any_tg>)          return true;
+            else if constexpr (is_tr<of_operator_p, of_not_just_tg>)    return true;
+            else                                                        return false;
         }
     }
 
@@ -717,17 +764,43 @@ namespace nkr { namespace $traits {
         typename of_of_operator_p, typename of_of_operand_p
     > constexpr std_bool_t TR3()
     {
-        if constexpr (TR2<subject_p, operator_p, operand_p, of_operator_p, resolved_t<of_t<subject_p>, of_operand_p, of_of_operand_p>>() &&
-                      is_any_v<of_t<of_t<subject_p>>, of_t<resolved_t<of_t<subject_p>, of_operand_p, of_of_operand_p>>>) {
-            if constexpr (is_tr<of_of_operator_p, of_any_tg>) {
-                return true;
-            } else if constexpr (is_tr<of_of_operator_p, of_any_const_tg>) {
-                return any_const_tr<of_t<of_t<subject_p>>>;
-            } else {
-                static_assert(false, "undefined operator");
-            }
+        using of_subject_t = of_t<subject_p>;
+        using of_of_subject_t = of_t<of_subject_t>;
+        using of_operand_t = resolved_t<of_subject_t, of_operand_p, of_of_operand_p>;
+        using of_of_operand_t = of_t<of_operand_t>;
+
+        if constexpr (TR2<subject_p, operator_p, operand_p, of_operator_p, of_operand_t>() && is_any_v<of_of_subject_t, of_of_operand_t>) {
+            if constexpr (is_tr<of_of_operator_p, of_any_tg>)                           return true;
+            else if constexpr (is_tr<of_of_operator_p, of_any_qualified_tg>)            return any_qualified_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_any_non_qualified_tg>)        return any_non_qualified_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_any_const_tg>)                return any_const_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_any_non_const_tg>)            return any_non_const_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_any_volatile_tg>)             return any_volatile_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_any_non_volatile_tg>)         return any_non_volatile_tr<of_of_subject_t>;
+
+            else if constexpr (is_tr<of_of_operator_p, of_not_any_qualified_tg>)        return not_any_qualified_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_any_non_qualified_tg>)    return not_any_non_qualified_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_any_const_tg>)            return not_any_const_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_any_non_const_tg>)        return not_any_non_const_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_any_volatile_tg>)         return not_any_volatile_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_any_non_volatile_tg>)     return not_any_non_volatile_tr<of_of_subject_t>;
+
+            else if constexpr (is_tr<of_of_operator_p, of_just_tg>)                     return true;
+            else if constexpr (is_tr<of_of_operator_p, of_just_non_qualified_tg>)       return just_non_qualified_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_just_const_tg>)               return just_const_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_just_volatile_tg>)            return just_volatile_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_just_const_volatile_tg>)      return just_const_volatile_tr<of_of_subject_t>;
+
+            else if constexpr (is_tr<of_of_operator_p, of_not_just_non_qualified_tg>)   return not_just_non_qualified_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_just_const_tg>)           return not_just_const_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_just_volatile_tg>)        return not_just_volatile_tr<of_of_subject_t>;
+            else if constexpr (is_tr<of_of_operator_p, of_not_just_const_volatile_tg>)  return not_just_const_volatile_tr<of_of_subject_t>;
+
+            else                                                                        static_assert(false, "undefined operator");
         } else {
-            return false;
+            if constexpr (is_tr<of_of_operator_p, of_not_any_tg>)       return true;
+            else if constexpr (is_tr<of_of_operator_p, of_not_just_tg>) return true;
+            else                                                        return false;
         }
     }
 

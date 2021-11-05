@@ -44,10 +44,10 @@ namespace nkr {
     class traits_i<subject_p>
     {
     public:
-        using of_t = subject_p::parameter_t;
+        using of_t          = subject_p::parameter_t;
 
         template <template <typename ...> typename template_p, typename of_p>
-        using resolved_t = template_p<of_p>;
+        using resolved_t    = template_p<of_p>;
 
     public:
         template <typename other_p>
