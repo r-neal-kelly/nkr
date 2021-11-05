@@ -23,7 +23,7 @@ namespace nkr {
         public std::true_type
     {
     public:
-        using unit_t    = type_p;
+        using unit_t = type_p;
     };
 
     template <typename type_p, count_t count_p>
@@ -31,7 +31,7 @@ namespace nkr {
         public std::true_type
     {
     public:
-        using unit_t    = type_p;
+        using unit_t = type_p;
 
     public:
         static constexpr count_t Count()
@@ -170,7 +170,7 @@ namespace nkr {
 
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_character_tr, type_p);
     /// @}
-    
+
     /// @{
     template <typename type_a_p, typename type_b_p>
     concept is_any_type_tr =
@@ -185,7 +185,7 @@ namespace nkr {
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_type_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_any_non_type_tr, type_a_p, type_b_p);
     /// @}
-    
+
     /// @{
     template <typename type_a_p, typename type_b_p>
     concept is_any_qualified_tr =
@@ -244,7 +244,7 @@ namespace nkr {
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_volatile_tr, type_a_p, type_b_p);
     nkr_DEFINE_NOT_TRAIT_WITH_2_PARAMS(is_just_const_volatile_tr, type_a_p, type_b_p);
     /// @}
-    
+
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename from_p, typename to_p>
@@ -417,7 +417,7 @@ namespace nkr {
         real_tr<type_p> ||
         pointer_tr<type_p>;
     /// @}        
-    
+
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_a_p, typename type_b_p>
@@ -444,7 +444,7 @@ namespace nkr {
     concept is_or_is_base_lvalue_reference_of_tr =
         is_lvalue_reference_of_tr<type_p, other_p> ||
         is_base_lvalue_reference_of_tr<type_p, other_p>;
-    
+
     template <typename type_p, typename derived_p>
     concept same_or_base_of_tr =
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<derived_p>>::value ||
@@ -455,7 +455,7 @@ namespace nkr {
         std::is_same<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value ||
         std::is_convertible<std::remove_cvref_t<type_p>, std::remove_cvref_t<base_p>>::value;   ///< @copydoc _a08a3aa7_12f3_4e3f_8515_610fa450219b
     /// @}
-    
+
     /// @{
     template <typename pointer_p>
     concept any_c_pointer_tr =
@@ -463,5 +463,297 @@ namespace nkr {
 
     nkr_DEFINE_C_POINTER_TRAITS(c_pointer);
     /// @}
+
+}
+
+namespace nkr {
+
+    struct any_tg                           {};
+    struct any_qualified_tg                 {};
+    struct any_non_qualified_tg             {};
+    struct any_const_tg                     {};
+    struct any_non_const_tg                 {};
+    struct any_volatile_tg                  {};
+    struct any_non_volatile_tg              {};
+
+    struct just_tg                          {};
+    struct just_non_qualified_tg            {};
+    struct just_const_tg                    {};
+    struct just_volatile_tg                 {};
+    struct just_const_volatile_tg           {};
+
+    struct not_any_tg                       {};
+    struct not_any_qualified_tg             {};
+    struct not_any_non_qualified_tg         {};
+    struct not_any_const_tg                 {};
+    struct not_any_non_const_tg             {};
+    struct not_any_volatile_tg              {};
+    struct not_any_non_volatile_tg          {};
+
+    struct not_just_tg                      {};
+    struct not_just_non_qualified_tg        {};
+    struct not_just_const_tg                {};
+    struct not_just_volatile_tg             {};
+    struct not_just_const_volatile_tg       {};
+
+    struct of_any_tg                        {};
+    struct of_any_qualified_tg              {};
+    struct of_any_non_qualified_tg          {};
+    struct of_any_const_tg                  {};
+    struct of_any_non_const_tg              {};
+    struct of_any_volatile_tg               {};
+    struct of_any_non_volatile_tg           {};
+
+    struct of_just_tg                       {};
+    struct of_just_non_qualified_tg         {};
+    struct of_just_const_tg                 {};
+    struct of_just_volatile_tg              {};
+    struct of_just_const_volatile_tg        {};
+
+    struct of_not_any_tg                    {};
+    struct of_not_any_qualified_tg          {};
+    struct of_not_any_non_qualified_tg      {};
+    struct of_not_any_const_tg              {};
+    struct of_not_any_non_const_tg          {};
+    struct of_not_any_volatile_tg           {};
+    struct of_not_any_non_volatile_tg       {};
+
+    struct of_not_just_tg                   {};
+    struct of_not_just_non_qualified_tg     {};
+    struct of_not_just_const_tg             {};
+    struct of_not_just_volatile_tg          {};
+    struct of_not_just_const_volatile_tg    {};
+
+    template <typename> struct  c_pointer_ttg   {};
+    template <typename> struct  c_array_ttg     {};
+
+    template <typename subject_p>
+    class traits_i
+    {
+    public:
+        using of_t          = void_t;
+
+        template <template <typename ...> typename template_p, typename of_p>
+        using resolved_t    = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            static_assert(false, "undefined traits_i");
+        };
+    };
+
+    template <any_non_type_tr subject_p>
+    class traits_i<subject_p>
+    {
+    public:
+        using of_t          = void_t;
+
+        template <template <typename ...> typename template_p, typename of_p>
+        using resovled_t    = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return is_any_tr<other_p, subject_p>;
+        }
+    };
+
+    template <boolean_tr subject_p>
+    class traits_i<subject_p>
+    {
+    public:
+        using of_t          = void_t;
+
+        template <template <typename ...> typename template_p, typename of_p>
+        using resolved_t    = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return is_any_tr<other_p, subject_p>;
+        };
+    };
+
+    template <number_tr subject_p>
+    class traits_i<subject_p>
+    {
+    public:
+        using of_t          = void_t;
+
+        template <template <typename ...> typename template_p, typename of_p>
+        using resolved_t    = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return is_any_tr<other_p, subject_p>;
+        };
+    };
+
+    template <pointer_tr subject_p>
+    class traits_i<subject_p>
+    {
+    public:
+        using of_t          = std::remove_pointer_t<subject_p>;
+
+        template <template <typename ...> typename template_p, typename of_p>
+        class resolved_helper_tmpl
+        {
+        public:
+            using type_t    = void_t;
+        };
+
+        template <template <typename ...> typename template_p, typename of_p>
+        requires is_tr<template_p<void_t>, c_pointer_ttg<void_t>>
+        class resolved_helper_tmpl<template_p, of_p>
+        {
+        public:
+            using type_t    = of_p*;
+        };
+
+        template <template <typename ...> typename template_p, typename of_p>
+        using resolved_t    = resolved_helper_tmpl<template_p, of_p>::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return pointer_tr<other_p>;
+        };
+    };
+
+    template <std_array_tr subject_p>
+    class traits_i<subject_p>
+    {
+    public:
+        using of_t          = std::remove_reference_t<decltype(*new std::remove_cv_t<subject_p>)>;
+
+        template <template <typename ...> typename template_p, typename of_p>
+        class resolved_helper_tmpl
+        {
+        public:
+            using type_t    = void_t;
+        };
+
+        template <template <typename ...> typename template_p, typename of_p>
+        requires is_tr<template_p<void_t>, c_array_ttg<void_t>>
+        class resolved_helper_tmpl<template_p, of_p>
+        {
+        public:
+            using type_t    = of_p[sizeof(subject_p) / sizeof(of_t)];
+        };
+
+        template <template <typename ...> typename template_p, typename of_p>
+        using resolved_t    = resolved_helper_tmpl<template_p, of_p>::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return std_array_tr<other_p>;
+        }
+    };
+
+}
+
+namespace nkr { namespace $traits {
+
+    template <typename resolver_p>
+    using of_t                      = traits_i<resolver_p>::of_t;
+
+    template <typename resolver_p, template <typename ...> typename resolvee_p, typename of_p>
+    using resolved_t                = traits_i<resolver_p>::template resolved_t<resolvee_p, of_p>;
+
+    template <typename subject_p, typename object_p>
+    constexpr std_bool_t is_any_v   = traits_i<subject_p>::template Is_Any<object_p>();
+
+    template <
+        typename subject_p,
+        typename operator_p, typename operand_p
+    > constexpr std_bool_t TR1()
+    {
+        if constexpr (is_any_v<subject_p, operand_p>) {
+            if constexpr (is_tr<operator_p, any_tg>) {
+                return true;
+            } else if constexpr (is_tr<operator_p, any_const_tg>) {
+                return any_const_tr<subject_p>;
+            } else {
+                static_assert(false, "undefined operator");
+            }
+        } else {
+            return false;
+        }
+    }
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, typename of_operand_p
+    > constexpr std_bool_t TR2()
+    {
+        if constexpr (TR1<subject_p, operator_p, resolved_t<subject_p, operand_p, of_operand_p>>() &&
+                      is_any_v<of_t<subject_p>, of_t<resolved_t<subject_p, operand_p, of_operand_p>>>) {
+            if constexpr (is_tr<of_operator_p, of_any_tg>) {
+                return true;
+            } else if constexpr (is_tr<of_operator_p, of_any_const_tg>) {
+                return any_const_tr<of_t<subject_p>>;
+            } else {
+                static_assert(false, "undefined operator");
+            }
+        } else {
+            return false;
+        }
+    }
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, template <typename ...> typename of_operand_p,
+        typename of_of_operator_p, typename of_of_operand_p
+    > constexpr std_bool_t TR3()
+    {
+        if constexpr (TR2<subject_p, operator_p, operand_p, of_operator_p, resolved_t<of_t<subject_p>, of_operand_p, of_of_operand_p>>() &&
+                      is_any_v<of_t<of_t<subject_p>>, of_t<resolved_t<of_t<subject_p>, of_operand_p, of_of_operand_p>>>) {
+            if constexpr (is_tr<of_of_operator_p, of_any_tg>) {
+                return true;
+            } else if constexpr (is_tr<of_of_operator_p, of_any_const_tg>) {
+                return any_const_tr<of_t<of_t<subject_p>>>;
+            } else {
+                static_assert(false, "undefined operator");
+            }
+        } else {
+            return false;
+        }
+    }
+
+}}
+
+namespace nkr {
+
+    template <
+        typename subject_p,
+        typename operator_p, typename operand_p
+    > concept tr1 =
+        $traits::TR1<subject_p, operator_p, operand_p>();
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, typename of_operand_p
+    > concept tr2 =
+        $traits::TR2<subject_p, operator_p, operand_p, of_operator_p, of_operand_p>();
+
+    template <
+        typename subject_p,
+        typename operator_p, template <typename ...> typename operand_p,
+        typename of_operator_p, template <typename ...> typename of_operand_p,
+        typename of_of_operator_p, typename of_of_operand_p
+    > concept tr3 =
+        $traits::TR3<subject_p, operator_p, operand_p, of_operator_p, of_operand_p, of_of_operator_p, of_of_operand_p>();
 
 }
