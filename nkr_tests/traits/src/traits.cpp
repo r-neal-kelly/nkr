@@ -10,6 +10,649 @@
 
 namespace nkr {
 
+    class user_defined_t;
+
+    template <>
+    class type_traits_i<user_defined_t>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return is_any_tr<other_p, user_defined_t>;
+        }
+    };
+
+    class user_defined_t
+    {
+    public:
+    };
+
+    template <typename value_p>
+    class value_template_t;
+
+    namespace $value_template_t {
+
+        template <typename type_p>
+        concept any_tr =
+            is_any_tr<type_p, value_template_t<typename type_p::value_t>>;
+
+    }
+
+    template <$value_template_t::any_tr type_p>
+    class type_traits_i<type_p>
+    {
+    public:
+        using of_t  = type_p::value_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return $value_template_t::any_tr<other_p>;
+        }
+    };
+
+    template <>
+    class template_traits_i<value_template_t>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = value_template_t<of_p>;
+
+    public:
+        static constexpr std_bool_t Is_Implemented()
+        {
+            return true;
+        }
+    };
+
+    template <typename value_p>
+    class value_template_t
+    {
+    public:
+        using value_t   = value_p;
+    };
+
+    template <typename unit_p>
+    class unit_template_t;
+
+    namespace $unit_template_t {
+
+        template <typename type_p>
+        concept any_tr =
+            is_any_tr<type_p, unit_template_t<typename type_p::unit_t>>;
+
+    }
+
+    template <$unit_template_t::any_tr type_p>
+    class type_traits_i<type_p>
+    {
+    public:
+        using of_t  = type_p::unit_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return $unit_template_t::any_tr<other_p>;
+        }
+    };
+
+    template <>
+    class template_traits_i<unit_template_t>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = unit_template_t<of_p>;
+
+    public:
+        static constexpr std_bool_t Is_Implemented()
+        {
+            return true;
+        }
+    };
+
+    template <typename unit_p>
+    class unit_template_t
+    {
+    public:
+        using unit_t    = unit_p;
+    };
+
+}
+
+namespace nkr { namespace traits {
+
+    TEST_SUITE("traits")
+    {
+    #define nkr_NON_QUALIFIED   \
+        void_t,                 \
+        std_bool_t,             \
+        bool_t,                 \
+        unsigned_word_t,        \
+        signed_word_t,          \
+        real_t,                 \
+        void_t*,                \
+        word_t*,                \
+        word_t[1],              \
+        user_defined_t
+
+        TEST_SUITE("tr0")
+        {
+            TEST_SUITE("any_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  any_tg>);
+                    static_assert(tr0<const subject_p,
+                                  any_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  any_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  any_tg>);
+                }
+            }
+
+            TEST_SUITE("any_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any qualified subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const subject_p,
+                                  any_qualified_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  any_qualified_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  any_qualified_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  any_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("any_non_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any non-qualified subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  any_non_qualified_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const subject_p,
+                                  any_non_qualified_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  any_non_qualified_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  any_non_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("any_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any const subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const subject_p,
+                                  any_const_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  any_const_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  any_const_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  any_const_tg>);
+                }
+            }
+
+            TEST_SUITE("any_non_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any non-const subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  any_non_const_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  any_non_const_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const subject_p,
+                                  any_non_const_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  any_non_const_tg>);
+                }
+            }
+
+            TEST_SUITE("any_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<volatile subject_p,
+                                  any_volatile_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  any_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  any_volatile_tg>);
+                    static_assert(!tr0<const subject_p,
+                                  any_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("any_non_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any non-volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  any_non_volatile_tg>);
+                    static_assert(tr0<const subject_p,
+                                  any_non_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<volatile subject_p,
+                                  any_non_volatile_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  any_non_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  not_any_tg>);
+                    static_assert(!tr0<const subject_p,
+                                  not_any_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  not_any_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  not_any_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any qualified subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const subject_p,
+                                  not_any_qualified_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  not_any_qualified_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  not_any_qualified_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  not_any_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_non_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any non-qualified subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  not_any_non_qualified_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const subject_p,
+                                  not_any_non_qualified_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  not_any_non_qualified_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  not_any_non_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any const subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const subject_p,
+                                  not_any_const_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  not_any_const_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  not_any_const_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  not_any_const_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_non_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any non-const subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  not_any_non_const_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  not_any_non_const_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const subject_p,
+                                  not_any_non_const_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  not_any_non_const_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<volatile subject_p,
+                                  not_any_volatile_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  not_any_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  not_any_volatile_tg>);
+                    static_assert(tr0<const subject_p,
+                                  not_any_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("not_any_non_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any non-volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  not_any_non_volatile_tg>);
+                    static_assert(!tr0<const subject_p,
+                                  not_any_non_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<volatile subject_p,
+                                  not_any_non_volatile_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  not_any_non_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("just_tg")
+            {
+                TEST_CASE_TEMPLATE("should just allow a subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  just_tg>);
+                    static_assert(tr0<const subject_p,
+                                  just_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  just_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  just_tg>);
+                }
+            }
+
+            TEST_SUITE("just_non_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should just allow a non-qualified subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  just_non_qualified_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const subject_p,
+                                  just_non_qualified_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  just_non_qualified_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  just_non_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("just_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should just allow a const subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const subject_p,
+                                  just_const_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  just_const_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  just_const_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  just_const_tg>);
+                }
+            }
+
+            TEST_SUITE("just_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should just allow a volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<volatile subject_p,
+                                  just_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  just_volatile_tg>);
+                    static_assert(!tr0<const subject_p,
+                                  just_volatile_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  just_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("just_const_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should just allow a const volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const volatile subject_p,
+                                  just_const_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  just_const_volatile_tg>);
+                    static_assert(!tr0<const subject_p,
+                                  just_const_volatile_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  just_const_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("just_not_tg")
+            {
+                TEST_CASE_TEMPLATE("should just not allow a subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  just_not_tg>);
+                    static_assert(!tr0<const subject_p,
+                                  just_not_tg>);
+                    static_assert(!tr0<volatile subject_p,
+                                  just_not_tg>);
+                    static_assert(!tr0<const volatile subject_p,
+                                  just_not_tg>);
+                }
+            }
+
+            TEST_SUITE("just_not_non_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should just not allow a non-qualified subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<subject_p,
+                                  just_not_non_qualified_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<const subject_p,
+                                  just_not_non_qualified_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  just_not_non_qualified_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  just_not_non_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("just_not_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should just not allow a const subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const subject_p,
+                                  just_not_const_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  just_not_const_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  just_not_const_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  just_not_const_tg>);
+                }
+            }
+
+            TEST_SUITE("just_not_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should just not allow a volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<volatile subject_p,
+                                  just_not_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  just_not_volatile_tg>);
+                    static_assert(tr0<const subject_p,
+                                  just_not_volatile_tg>);
+                    static_assert(tr0<const volatile subject_p,
+                                  just_not_volatile_tg>);
+                }
+            }
+
+            TEST_SUITE("just_not_const_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should just not allow a const volatile subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr0<const volatile subject_p,
+                                  just_not_const_volatile_tg>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any other subject", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr0<subject_p,
+                                  just_not_const_volatile_tg>);
+                    static_assert(tr0<const subject_p,
+                                  just_not_const_volatile_tg>);
+                    static_assert(tr0<volatile subject_p,
+                                  just_not_const_volatile_tg>);
+                }
+            }
+        }
+
+        TEST_SUITE("tr1")
+        {
+            TEST_SUITE("any_tg")
+            {
+                TEST_CASE_TEMPLATE("should...", subject_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<subject_p,
+                                  any_tg, subject_p>);
+                    static_assert(tr1<const subject_p,
+                                  any_tg, subject_p>);
+                    static_assert(tr1<volatile subject_p,
+                                  any_tg, subject_p>);
+                    static_assert(tr1<const volatile subject_p,
+                                  any_tg, subject_p>);
+                }
+            }
+        }
+
+        TEST_SUITE("tr2")
+        {
+            TEST_SUITE("any_tg")
+            {
+
+            }
+        }
+
+        TEST_SUITE("tr3")
+        {
+            TEST_SUITE("any_tg")
+            {
+
+            }
+        }
+
+
+
+
+
+
+
+        TEST_SUITE("of_any_tg")
+        {
+
+        }
+
+        TEST_SUITE("c_pointer_tg")
+        {
+
+        }
+
+        TEST_SUITE("c_pointer_ttg")
+        {
+
+        }
+
+        TEST_SUITE("c_array_tg")
+        {
+
+        }
+
+        TEST_SUITE("c_array_ttg")
+        {
+
+        }
+    }
+
+
+
+
     static_assert(tr1<
                   const char*,
                   any_non_const_tg, c_pointer_tg>);
@@ -75,315 +718,245 @@ namespace nkr {
         CHECK(testing_2_t::Test(array));
     }
 
-    template <typename parameter_p>
-    class subject_t;
-
-    namespace $subject_t {
-
-        template <typename type_p>
-        concept any_tr =
-            is_any_tr<type_p, subject_t<typename type_p::parameter_t>>;
-
-    }
-
-    template <$subject_t::any_tr subject_p>
-    class traits_i<subject_p>
-    {
-    public:
-        using of_t          = subject_p::parameter_t;
-
-        template <template <typename ...> typename template_p, typename of_p>
-        using resolved_t    = template_p<of_p>;
-
-    public:
-        template <typename other_p>
-        static constexpr std_bool_t Is_Any_Subject()
-        {
-            return $subject_t::any_tr<other_p>;
-        };
-    };
-
-    template <typename parameter_p>
-    class subject_t
-    {
-    public:
-        using parameter_t   = parameter_p;
-    };
-
-    template <typename parameter_p>
-    class other_subject_t;
-
-    namespace $other_subject_t {
-
-        template <typename type_p>
-        concept any_tr =
-            is_any_tr<type_p, other_subject_t<typename type_p::parameter_t>>;
-
-    }
-
-    template <$other_subject_t::any_tr subject_p>
-    class traits_i<subject_p>
-    {
-    public:
-        using of_t          = subject_p::parameter_t;
-
-        template <template <typename ...> typename template_p, typename of_p>
-        using resolved_t    = template_p<of_p>;
-
-    public:
-        template <typename other_p>
-        static constexpr std_bool_t Is_Any_Subject()
-        {
-            return $other_subject_t::any_tr<other_p>;
-        };
-    };
-
-    template <typename parameter_p>
-    class other_subject_t
-    {
-    public:
-        using parameter_t   = parameter_p;
-    };
-
     static_assert(!tr2<
-                  volatile subject_t<const volatile word_t*>,
-                  any_tg, other_subject_t, of_any_tg, word_t*>);
+                  volatile value_template_t<const volatile word_t*>,
+                  any_tg, unit_template_t, of_any_tg, word_t*>);
 
     static_assert(tr3<
-                  volatile subject_t<const volatile word_t*>,
-                  just_volatile_tg, subject_t, of_just_non_qualified_tg, c_pointer_ttg, of_any_const_tg, word_t>);
+                  volatile value_template_t<const volatile word_t*>,
+                  just_volatile_tg, value_template_t, of_just_non_qualified_tg, c_pointer_ttg, of_any_const_tg, word_t>);
 
     static_assert(tr3<
-                  subject_t<void_t*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, void_t>);
+                  value_template_t<void_t*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, void_t>);
 
     static_assert(tr1<
-                  subject_t<char>,
-                  any_tg, subject_t<char>>);
+                  value_template_t<char>,
+                  any_tg, value_template_t<char>>);
     static_assert(tr1<
-                  volatile subject_t<const volatile char>,
-                  any_tg, subject_t<char>>);
+                  volatile value_template_t<const volatile char>,
+                  any_tg, value_template_t<char>>);
 
     static_assert(tr1<
-                  const volatile subject_t<char>,
-                  any_const_tg, subject_t<char>>);
+                  const volatile value_template_t<char>,
+                  any_const_tg, value_template_t<char>>);
 
     static_assert(tr2<
-                  volatile subject_t<const volatile char>,
-                  any_tg, subject_t, of_any_tg, char>);
+                  volatile value_template_t<const volatile char>,
+                  any_tg, value_template_t, of_any_tg, char>);
     static_assert(tr2<
-                  const subject_t<volatile subject_t<char>>,
-                  any_tg, subject_t, of_any_tg, subject_t<char>>);
+                  const value_template_t<volatile value_template_t<char>>,
+                  any_tg, value_template_t, of_any_tg, value_template_t<char>>);
 
     static_assert(tr3<
-                  subject_t<subject_t<char>>,
-                  any_tg, subject_t, of_any_tg, subject_t, of_any_tg, char>);
+                  value_template_t<value_template_t<char>>,
+                  any_tg, value_template_t, of_any_tg, value_template_t, of_any_tg, char>);
 
     static_assert(tr3<
-                  subject_t<char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  subject_t<const volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  value_template_t<const volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const subject_t<const volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const value_template_t<const volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  volatile subject_t<const volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  volatile value_template_t<const volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const volatile char*>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const volatile char*>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const volatile char* const>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const volatile char* const>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const volatile char* volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const volatile char* volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
     static_assert(tr3<
-                  const volatile subject_t<const volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
+                  const volatile value_template_t<const volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
 
     static_assert(!tr3<
-                  const volatile subject_t<const volatile char* const volatile>,
-                  any_tg, subject_t, of_any_tg, c_pointer_ttg, of_any_tg, int>);
+                  const volatile value_template_t<const volatile char* const volatile>,
+                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, int>);
 
     static_assert(tr3<
-                  subject_t<const char* const volatile>,
-                  any_tg, subject_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
+                  value_template_t<const char* const volatile>,
+                  any_tg, value_template_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
     static_assert(!tr3<
-                  subject_t<char* const volatile>,
-                  any_tg, subject_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
+                  value_template_t<char* const volatile>,
+                  any_tg, value_template_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
     static_assert(!tr3<
-                  subject_t<const char* volatile>,
-                  any_tg, subject_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
+                  value_template_t<const char* volatile>,
+                  any_tg, value_template_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
 
-}
+}}
