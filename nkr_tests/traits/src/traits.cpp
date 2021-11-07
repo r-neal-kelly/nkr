@@ -31,6 +31,27 @@ namespace nkr {
     public:
     };
 
+    class other_t;
+
+    template <>
+    class type_traits_i<other_t>
+    {
+    public:
+        using of_t = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return is_any_tr<other_p, other_t>;
+        }
+    };
+
+    class other_t
+    {
+    public:
+    };
+
     template <typename value_p>
     class value_template_t;
 
@@ -130,7 +151,7 @@ namespace nkr { namespace traits {
     TEST_SUITE("traits")
     {
     #define nkr_NON_QUALIFIED   \
-        void_t,                 \
+        /*void_t,*/                 \
         std_bool_t,             \
         bool_t,                 \
         unsigned_word_t,        \
@@ -588,16 +609,272 @@ namespace nkr { namespace traits {
         {
             TEST_SUITE("any_tg")
             {
-                TEST_CASE_TEMPLATE("should...", subject_p, nkr_NON_QUALIFIED)
+                TEST_CASE_TEMPLATE("should allow any matching type", type_p, nkr_NON_QUALIFIED)
                 {
-                    static_assert(tr1<subject_p,
-                                  any_tg, subject_p>);
-                    static_assert(tr1<const subject_p,
-                                  any_tg, subject_p>);
-                    static_assert(tr1<volatile subject_p,
-                                  any_tg, subject_p>);
-                    static_assert(tr1<const volatile subject_p,
-                                  any_tg, subject_p>);
+                    static_assert(tr1<type_p,
+                                  any_tg, type_p>);
+                    static_assert(tr1<const type_p,
+                                  any_tg, type_p>);
+                    static_assert(tr1<volatile type_p,
+                                  any_tg, type_p>);
+                    static_assert(tr1<const volatile type_p,
+                                  any_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("any_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any matching qualified type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<const type_p,
+                                  any_qualified_tg, type_p>);
+                    static_assert(tr1<volatile type_p,
+                                  any_qualified_tg, type_p>);
+                    static_assert(tr1<const volatile type_p,
+                                  any_qualified_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any matching non-qualified type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<type_p,
+                                  any_qualified_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_qualified_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_qualified_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_qualified_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_qualified_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("any_non_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any matching non-qualified type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<type_p,
+                                  any_non_qualified_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any matching qualified type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<const type_p,
+                                  any_non_qualified_tg, type_p>);
+                    static_assert(!tr1<volatile type_p,
+                                  any_non_qualified_tg, type_p>);
+                    static_assert(!tr1<const volatile type_p,
+                                  any_non_qualified_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_non_qualified_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_non_qualified_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_non_qualified_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_non_qualified_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("any_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any matching const type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<const type_p,
+                                  any_const_tg, type_p>);
+                    static_assert(tr1<const volatile type_p,
+                                  any_const_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any matching non-const type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<type_p,
+                                  any_const_tg, type_p>);
+                    static_assert(!tr1<volatile type_p,
+                                  any_const_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_const_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_const_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_const_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_const_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("any_non_const_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any matching non-const type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<type_p,
+                                  any_non_const_tg, type_p>);
+                    static_assert(tr1<volatile type_p,
+                                  any_non_const_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any matching const type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<const type_p,
+                                  any_non_const_tg, type_p>);
+                    static_assert(!tr1<const volatile type_p,
+                                  any_non_const_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_non_const_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_non_const_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_non_const_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_non_const_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("any_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any matching volatile type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<volatile type_p,
+                                  any_volatile_tg, type_p>);
+                    static_assert(tr1<const volatile type_p,
+                                  any_volatile_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any matching non-volatile type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<type_p,
+                                  any_volatile_tg, type_p>);
+                    static_assert(!tr1<const type_p,
+                                  any_volatile_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_volatile_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_volatile_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_volatile_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_volatile_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("any_non_volatile_tg")
+            {
+                TEST_CASE_TEMPLATE("should allow any matching non-volatile type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<type_p,
+                                  any_non_volatile_tg, type_p>);
+                    static_assert(tr1<const type_p,
+                                  any_non_volatile_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any matching volatile type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<volatile type_p,
+                                  any_non_volatile_tg, type_p>);
+                    static_assert(!tr1<const volatile type_p,
+                                  any_non_volatile_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<other_t,
+                                  any_non_volatile_tg, type_p>);
+                    static_assert(!tr1<const other_t,
+                                  any_non_volatile_tg, type_p>);
+                    static_assert(!tr1<volatile other_t,
+                                  any_non_volatile_tg, type_p>);
+                    static_assert(!tr1<const volatile other_t,
+                                  any_non_volatile_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("not_any_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<type_p,
+                                  not_any_tg, type_p>);
+                    static_assert(!tr1<const type_p,
+                                  not_any_tg, type_p>);
+                    static_assert(!tr1<volatile type_p,
+                                  not_any_tg, type_p>);
+                    static_assert(!tr1<const volatile type_p,
+                                  not_any_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<other_t,
+                                  not_any_tg, type_p>);
+                    static_assert(tr1<const other_t,
+                                  not_any_tg, type_p>);
+                    static_assert(tr1<volatile other_t,
+                                  not_any_tg, type_p>);
+                    static_assert(tr1<const volatile other_t,
+                                  not_any_tg, type_p>);
+                }
+            }
+
+            TEST_SUITE("not_any_qualified_tg")
+            {
+                TEST_CASE_TEMPLATE("should not allow any matching qualified type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(!tr1<const type_p,
+                                  not_any_qualified_tg, type_p>);
+                    static_assert(!tr1<volatile type_p,
+                                  not_any_qualified_tg, type_p>);
+                    static_assert(!tr1<const volatile type_p,
+                                  not_any_qualified_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any matching non-qualified type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<type_p,
+                                  not_any_qualified_tg, type_p>);
+                }
+
+                TEST_CASE_TEMPLATE("should allow any non-matching type", type_p, nkr_NON_QUALIFIED)
+                {
+                    static_assert(tr1<other_t,
+                                  not_any_qualified_tg, type_p>);
+                    static_assert(tr1<const other_t,
+                                  not_any_qualified_tg, type_p>);
+                    static_assert(tr1<volatile other_t,
+                                  not_any_qualified_tg, type_p>);
+                    static_assert(tr1<const volatile other_t,
+                                  not_any_qualified_tg, type_p>);
                 }
             }
         }

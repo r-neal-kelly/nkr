@@ -700,15 +700,29 @@ namespace nkr {
         typename operator_p, typename operand_p
     > constexpr std_bool_t TR1()
     {
+        static_assert(just_non_qualified_tr<operand_p>);
+
         using subject_t = subject_p;
         using object_t = operand_p;
 
         if constexpr (type_traits_i<std::remove_cv_t<subject_t>>::template Is_Any<object_t>()) {
             return TR0<subject_t, operator_p>();
         } else {
-            if constexpr (is_tr<operator_p, not_any_tg>)        return true;
-            else if constexpr (is_tr<operator_p, just_not_tg>)  return true;
-            else                                                return false;
+            if constexpr (is_tr<operator_p, not_any_tg>)                        return true;
+            else if constexpr (is_tr<operator_p, not_any_qualified_tg>)         return true;
+            else if constexpr (is_tr<operator_p, not_any_non_qualified_tg>)     return true;
+            else if constexpr (is_tr<operator_p, not_any_const_tg>)             return true;
+            else if constexpr (is_tr<operator_p, not_any_non_const_tg>)         return true;
+            else if constexpr (is_tr<operator_p, not_any_volatile_tg>)          return true;
+            else if constexpr (is_tr<operator_p, not_any_non_volatile_tg>)      return true;
+
+            else if constexpr (is_tr<operator_p, just_not_tg>)                  return true;
+            else if constexpr (is_tr<operator_p, just_not_non_qualified_tg>)    return true;
+            else if constexpr (is_tr<operator_p, just_not_const_tg>)            return true;
+            else if constexpr (is_tr<operator_p, just_not_volatile_tg>)         return true;
+            else if constexpr (is_tr<operator_p, just_not_const_volatile_tg>)   return true;
+
+            else                                                                return false;
         }
     }
 
@@ -719,20 +733,16 @@ namespace nkr {
     > constexpr std_bool_t TR2()
     {
         static_assert(template_traits_i<operand_p>::Is_Implemented());
+        static_assert(just_non_qualified_tr<of_operand_p>);
 
         using subject_t = subject_p;
         using of_subject_t = type_traits_i<std::remove_cv_t<subject_t>>::of_t;
         using object_t = template_traits_i<operand_p>::template type_t<of_operand_p>;
         using of_object_t = type_traits_i<std::remove_cv_t<object_t>>::of_t;
 
-        if constexpr (TR1<subject_t, operator_p, object_t>() &&
-                      type_traits_i<std::remove_cv_t<of_subject_t>>::template Is_Any<of_object_t>()) {
-            return TR0<of_subject_t, typename of_operator_p::related_tg>();
-        } else {
-            if constexpr (is_tr<of_operator_p, of_not_any_tg>)          return true;
-            else if constexpr (is_tr<of_operator_p, of_just_not_tg>)    return true;
-            else                                                        return false;
-        }
+        return
+            TR1<subject_t, operator_p, object_t>() &&
+            TR1<of_subject_t, typename of_operator_p::related_tg, of_object_t>();
     }
 
     template <
@@ -743,6 +753,7 @@ namespace nkr {
     > constexpr std_bool_t TR3()
     {
         static_assert(template_traits_i<of_operand_p>::Is_Implemented());
+        static_assert(just_non_qualified_tr<of_of_operand_p>);
 
         using subject_t = subject_p;
         using of_subject_t = type_traits_i<std::remove_cv_t<subject_t>>::of_t;
@@ -750,14 +761,9 @@ namespace nkr {
         using of_object_t = template_traits_i<of_operand_p>::template type_t<of_of_operand_p>;
         using of_of_object_t = type_traits_i<std::remove_cv_t<of_object_t>>::of_t;
 
-        if constexpr (TR2<subject_t, operator_p, operand_p, of_operator_p, of_object_t>() &&
-                      type_traits_i<std::remove_cv_t<of_of_subject_t>>::template Is_Any<of_of_object_t>()) {
-            return TR0<of_of_subject_t, typename of_of_operator_p::related_tg>();
-        } else {
-            if constexpr (is_tr<of_of_operator_p, of_not_any_tg>)       return true;
-            else if constexpr (is_tr<of_of_operator_p, of_just_not_tg>) return true;
-            else                                                        return false;
-        }
+        return
+            TR2<subject_t, operator_p, operand_p, of_operator_p, of_object_t>() &&
+            TR1<of_of_subject_t, typename of_of_operator_p::related_tg, of_of_object_t>();
     }
 
     template <
