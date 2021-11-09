@@ -577,7 +577,7 @@ namespace nkr {
     class type_traits_i<type_p>
     {
     public:
-        using of_t  = std::remove_reference_t<decltype(*new std::remove_cv_t<type_p>)>;
+        using of_t  = std::remove_reference_t<decltype(std::declval<type_p>()[0])>;
 
     public:
         template <typename other_p>
@@ -592,13 +592,27 @@ namespace nkr {
     {
     public:
         template <typename of_p>
-        using type_t    = of_p[];
+        using type_t    = of_p[1];
 
     public:
         static constexpr std_bool_t Is_Implemented()
         {
             return true;
         }
+    };
+
+    template <typename type_p>
+    class c_array_or_type_traits_i :
+        public type_traits_i<std::remove_cv_t<type_p>>
+    {
+    public:
+    };
+
+    template <std_array_tr type_p>
+    class c_array_or_type_traits_i<type_p> :
+        public type_traits_i<type_p>
+    {
+    public:
     };
 
     struct any_tg                           {};
@@ -736,7 +750,7 @@ namespace nkr {
         static_assert(just_non_qualified_tr<of_operand_p>);
 
         using subject_t = subject_p;
-        using of_subject_t = type_traits_i<std::remove_cv_t<subject_t>>::of_t;
+        using of_subject_t = c_array_or_type_traits_i<subject_t>::of_t;
         using object_t = template_traits_i<operand_p>::template type_t<of_operand_p>;
         using of_object_t = type_traits_i<std::remove_cv_t<object_t>>::of_t;
 
@@ -756,8 +770,8 @@ namespace nkr {
         static_assert(just_non_qualified_tr<of_of_operand_p>);
 
         using subject_t = subject_p;
-        using of_subject_t = type_traits_i<std::remove_cv_t<subject_t>>::of_t;
-        using of_of_subject_t = type_traits_i<std::remove_cv_t<of_subject_t>>::of_t;
+        using of_subject_t = c_array_or_type_traits_i<subject_t>::of_t;
+        using of_of_subject_t = c_array_or_type_traits_i<of_subject_t>::of_t;
         using of_object_t = template_traits_i<of_operand_p>::template type_t<of_of_operand_p>;
         using of_of_object_t = type_traits_i<std::remove_cv_t<of_object_t>>::of_t;
 
