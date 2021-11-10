@@ -148,7 +148,7 @@ namespace nkr {
 
 namespace nkr { namespace traits {
 
-    TEST_SUITE("traits")
+    TEST_SUITE("traits tr<>")
     {
     #define nkr_ANY(TYPE_p)     \
         TYPE_p,                 \
