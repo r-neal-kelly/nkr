@@ -1456,6 +1456,211 @@ namespace nkr { namespace traits {
 
         TEST_SUITE("tr2")
         {
+            template <typename tag_p>
+            class assert_t
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    static_assert(false, "missing specialization for this tag");
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(false, "missing specialization for this tag");
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    static_assert(false, "missing specialization for this tag");
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(false, "missing specialization for this tag");
+                }
+            };
+
+            template <>
+            class assert_t<any_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                }
+            };
+
+            template <>
+            class assert_t<any_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+
+            template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+            void_t constexpr Assert_Tagged_Container_Of_Matching_Type()
+            {
+                if constexpr (is_true_p) {
+                    assert_t<tag_p>::template Is<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                } else {
+                    assert_t<tag_p>::template Not_Is<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                }
+            }
+
+            template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+            void_t constexpr Assert_Tagged_Container_Of_Non_Matching_Type()
+            {
+                if constexpr (is_true_p) {
+                    assert_t<tag_p>::template Is<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is<value_template_t<non_match_t>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is<unit_template_t<non_match_t>, unit_template_t, of_tag_p, of_p>();
+                } else {
+                    assert_t<tag_p>::template Not_Is<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is<value_template_t<non_match_t>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is<unit_template_t<non_match_t>, unit_template_t, of_tag_p, of_p>();
+                }
+            }
+
+            template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+            void_t constexpr Assert_Non_Tagged_Container_Of_Matching_Type()
+            {
+                if constexpr (is_true_p) {
+                    assert_t<tag_p>::template Is_Opposite<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                } else {
+                    assert_t<tag_p>::template Not_Is_Opposite<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                }
+            }
+
+            template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+            void_t constexpr Assert_Non_Tagged_Container_Of_Non_Matching_Type()
+            {
+                if constexpr (is_true_p) {
+                    assert_t<tag_p>::template Is_Opposite<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<value_template_t<non_match_t>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<unit_template_t<non_match_t>, unit_template_t, of_tag_p, of_p>();
+                } else {
+                    assert_t<tag_p>::template Not_Is_Opposite<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<value_template_t<non_match_t>, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<unit_template_t<non_match_t>, unit_template_t, of_tag_p, of_p>();
+                }
+            }
+
+            template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+            void_t constexpr Assert_Non_Container()
+            {
+                if constexpr (is_true_p) {
+                    assert_t<tag_p>::template Is<non_match_t, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is<non_match_t, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is<non_match_t, unit_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<non_match_t, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<non_match_t, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Is_Opposite<non_match_t, unit_template_t, of_tag_p, of_p>();
+                } else {
+                    assert_t<tag_p>::template Not_Is<non_match_t, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is<non_match_t, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is<non_match_t, unit_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<non_match_t, c_pointer_ttg, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<non_match_t, value_template_t, of_tag_p, of_p>();
+                    assert_t<tag_p>::template Not_Is_Opposite<non_match_t, unit_template_t, of_tag_p, of_p>();
+                }
+            }
+
             TEST_SUITE("any_tg")
             {
                 template <typename type_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
@@ -1558,17 +1763,17 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching type", type_p, nkr_ANY_TYPES)
                     {
-                        Assert_Of_Matching_Type<true, of_any_tg, type_p>();
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_tg, of_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_Of_Non_Matching_Type<false, of_any_tg, type_p>();
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_tg, of_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_Is_Non_Matching_Type<false, of_any_tg, type_p>();
+                        Assert_Non_Container<false, any_tg, of_any_tg, type_p>();
                     }
                 }
 
@@ -2085,6 +2290,42 @@ namespace nkr { namespace traits {
                         Assert_Is_Non_Matching_Type<false, of_just_not_const_volatile_tg, type_p>();
                     }
                 }
+            }
+
+            TEST_SUITE("any_qualified_tg")
+            {
+                TEST_SUITE("of_any_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_tg, type_p>();
+                    }
+                }
+            }
+
+            TEST_SUITE("any_non_qualified_tg")
+            {
+
             }
         }
 
