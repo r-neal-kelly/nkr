@@ -1494,39 +1494,81 @@ namespace nkr { namespace traits {
                     }
                 }
 
+                template <std_bool_t is_true_p, typename of_tag_p, typename of_p>
+                void_t constexpr Assert_Of_Matching_Type()
+                {
+                    if constexpr (is_true_p) {
+                        Assert_True<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
+                        Assert_True<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
+                        Assert_True<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                        if constexpr (any_type_tr<of_p>) {
+                            Assert_True<of_p[1], c_array_ttg, of_tag_p, of_p>();
+                        }
+                    } else {
+                        Assert_False<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
+                        Assert_False<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
+                        Assert_False<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                        if constexpr (any_type_tr<of_p>) {
+                            Assert_False<of_p[1], c_array_ttg, of_tag_p, of_p>();
+                        }
+                    }
+                }
+
+                template <std_bool_t is_true_p, typename of_tag_p, typename of_p>
+                void_t constexpr Assert_Of_Non_Matching_Type()
+                {
+                    if constexpr (is_true_p) {
+                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_tag_p, of_p>();
+                        Assert_True<value_template_t<non_match_t>, value_template_t, of_tag_p, of_p>();
+                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_tag_p, of_p>();
+                        if constexpr (any_type_tr<of_p>) {
+                            Assert_True<non_match_t[1], c_array_ttg, of_tag_p, of_p>();
+                        }
+                    } else {
+                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_tag_p, of_p>();
+                        Assert_False<value_template_t<non_match_t>, value_template_t, of_tag_p, of_p>();
+                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_tag_p, of_p>();
+                        if constexpr (any_type_tr<of_p>) {
+                            Assert_False<non_match_t[1], c_array_ttg, of_tag_p, of_p>();
+                        }
+                    }
+                }
+
+                template <std_bool_t is_true_p, typename of_tag_p, typename of_p>
+                void_t constexpr Assert_Is_Non_Matching_Type()
+                {
+                    if constexpr (is_true_p) {
+                        Assert_True<non_match_t, c_pointer_ttg, of_tag_p, of_p>();
+                        Assert_True<non_match_t, value_template_t, of_tag_p, of_p>();
+                        Assert_True<non_match_t, unit_template_t, of_tag_p, of_p>();
+                        if constexpr (any_type_tr<of_p>) {
+                            Assert_True<non_match_t, c_array_ttg, of_tag_p, of_p>();
+                        }
+                    } else {
+                        Assert_False<non_match_t, c_pointer_ttg, of_tag_p, of_p>();
+                        Assert_False<non_match_t, value_template_t, of_tag_p, of_p>();
+                        Assert_False<non_match_t, unit_template_t, of_tag_p, of_p>();
+                        if constexpr (any_type_tr<of_p>) {
+                            Assert_False<non_match_t, c_array_ttg, of_tag_p, of_p>();
+                        }
+                    }
+                }
+
                 TEST_SUITE("of_any_tg")
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching type", type_p, nkr_ANY_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_tg, type_p>();
                     }
                 }
 
@@ -1534,46 +1576,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_qualified_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_qualified_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_any_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_any_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_any_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_qualified_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_qualified_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_qualified_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_qualified_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_qualified_tg, type_p>();
                     }
                 }
 
@@ -1581,46 +1599,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_non_qualified_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_non_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_non_qualified_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_any_non_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_any_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_non_qualified_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_non_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_non_qualified_tg, type_p>();
                     }
                 }
 
@@ -1628,46 +1622,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_const_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_const_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_const_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_any_const_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_any_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_any_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_const_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_const_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_const_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_const_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_const_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_const_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_const_tg, type_p>();
                     }
                 }
 
@@ -1675,46 +1645,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_non_const_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_non_const_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_non_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_non_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_non_const_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_any_non_const_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_any_non_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_any_non_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_non_const_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_non_const_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_non_const_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_non_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_non_const_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_non_const_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_non_const_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_non_const_tg, type_p>();
                     }
                 }
 
@@ -1722,46 +1668,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_any_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_any_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_any_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_volatile_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_volatile_tg, type_p>();
                     }
                 }
 
@@ -1769,46 +1691,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should allow any container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_non_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_any_non_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_any_non_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_any_non_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_any_non_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_any_non_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_any_non_volatile_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_any_non_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_any_non_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_any_non_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_any_non_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_any_non_volatile_tg, type_p>();
                     }
                 }
 
@@ -1816,35 +1714,17 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching type", type_p, nkr_ANY_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_tg, type_p>();
                     }
                 }
 
@@ -1852,46 +1732,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_qualified_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_qualified_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_not_any_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_not_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_not_any_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_not_any_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_qualified_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_qualified_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_qualified_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_qualified_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_qualified_tg, type_p>();
                     }
                 }
 
@@ -1899,46 +1755,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_non_qualified_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_non_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_non_qualified_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_not_any_non_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_not_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_not_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_not_any_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_non_qualified_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_non_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_non_qualified_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_non_qualified_tg, type_p>();
                     }
                 }
 
@@ -1946,46 +1778,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_const_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_const_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_const_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_not_any_const_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_not_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_not_any_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_not_any_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_const_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_const_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_const_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_const_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_const_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_const_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_const_tg, type_p>();
                     }
                 }
 
@@ -1993,46 +1801,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_non_const_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_non_const_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_non_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_non_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_non_const_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_not_any_non_const_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_not_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_not_any_non_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_not_any_non_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_non_const_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_non_const_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_non_const_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_non_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_non_const_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_non_const_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_non_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_non_const_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_non_const_tg, type_p>();
                     }
                 }
 
@@ -2040,46 +1824,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_not_any_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_not_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_not_any_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_not_any_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_volatile_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_volatile_tg, type_p>();
                     }
                 }
 
@@ -2087,46 +1847,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_non_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_not_any_non_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_not_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_not_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_not_any_non_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_not_any_non_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_not_any_non_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_not_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_not_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_not_any_non_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_not_any_non_volatile_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_not_any_non_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_not_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_not_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_not_any_non_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_not_any_non_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_not_any_non_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_not_any_non_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_not_any_non_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_not_any_non_volatile_tg, type_p>();
                     }
                 }
 
@@ -2134,35 +1870,17 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just allow any container of a matching type", type_p, nkr_JUST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_just_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_just_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_just_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_just_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_tg, type_p>();
                     }
                 }
 
@@ -2170,46 +1888,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just allow any container of a matching non-qualified type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_non_qualified_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_non_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any other matching type", type_p, nkr_NOT_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_non_qualified_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_non_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_non_qualified_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_just_non_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_just_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_just_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_just_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_non_qualified_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_non_qualified_tg, type_p>();
                     }
                 }
 
@@ -2217,46 +1911,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just allow any container of a matching const type", type_p, nkr_JUST_CONST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_const_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_const_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any other matching type", type_p, nkr_NOT_JUST_CONST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_const_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_const_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_const_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_just_const_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_just_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_just_const_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_just_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_const_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_const_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_const_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_const_tg, type_p>();
                     }
                 }
 
@@ -2264,46 +1934,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just allow any container of a matching volatile type", type_p, nkr_JUST_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any other matching type", type_p, nkr_NOT_JUST_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_volatile_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_just_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_just_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_just_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_just_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_volatile_tg, type_p>();
                     }
                 }
 
@@ -2311,46 +1957,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just allow any container of a matching const volatile type", type_p, nkr_JUST_CONST_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_const_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_const_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_const_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_const_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any other matching type", type_p, nkr_NOT_JUST_CONST_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_const_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_const_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_const_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_const_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_const_volatile_tg, type_p>();
-                        Assert_False<value_template_t<non_match_t>, value_template_t, of_just_const_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<non_match_t>, unit_template_t, of_just_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t[1], c_array_ttg, of_just_const_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<false, of_just_const_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_const_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_const_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_const_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_const_volatile_tg, type_p>();
                     }
                 }
 
@@ -2358,35 +1980,17 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just not allow any container of a matching type", type_p, nkr_JUST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_not_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_not_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_not_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_not_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_not_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_just_not_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_just_not_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_just_not_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_just_not_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_not_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_not_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_not_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_not_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_not_tg, type_p>();
                     }
                 }
 
@@ -2394,46 +1998,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just not allow any container of a matching non-qualified type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_non_qualified_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_not_non_qualified_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_not_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_not_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_not_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any other matching type", type_p, nkr_NOT_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_non_qualified_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_not_non_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_not_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_not_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_not_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_not_non_qualified_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_just_not_non_qualified_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_just_not_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_just_not_non_qualified_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_just_not_non_qualified_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_not_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_not_non_qualified_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_not_non_qualified_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_not_non_qualified_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_not_non_qualified_tg, type_p>();
                     }
                 }
 
@@ -2441,46 +2021,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just not allow any container of a matching const type", type_p, nkr_JUST_CONST_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_const_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_not_const_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_not_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_not_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_not_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any other matching type", type_p, nkr_NOT_JUST_CONST_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_const_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_not_const_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_not_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_not_const_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_not_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_not_const_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_just_not_const_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_just_not_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_just_not_const_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_just_not_const_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_not_const_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_not_const_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_not_const_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_not_const_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_not_const_tg, type_p>();
                     }
                 }
 
@@ -2488,46 +2044,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just not allow any container of a matching volatile type", type_p, nkr_JUST_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_not_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_not_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_not_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_not_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any other matching type", type_p, nkr_NOT_JUST_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_not_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_not_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_not_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_not_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_not_volatile_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_just_not_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_just_not_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_just_not_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_just_not_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_not_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_not_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_not_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_not_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_not_volatile_tg, type_p>();
                     }
                 }
 
@@ -2535,46 +2067,22 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should just not allow any container of a matching const volatile type", type_p, nkr_JUST_CONST_VOLATILE_TYPES)
                     {
-                        Assert_False<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_const_volatile_tg, type_p>();
-                        Assert_False<value_template_t<type_p>, value_template_t, of_just_not_const_volatile_tg, type_p>();
-                        Assert_False<unit_template_t<type_p>, unit_template_t, of_just_not_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<type_p[1], c_array_ttg, of_just_not_const_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<false, of_just_not_const_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any other matching type", type_p, nkr_NOT_JUST_CONST_VOLATILE_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<type_p>, c_pointer_ttg, of_just_not_const_volatile_tg, type_p>();
-                        Assert_True<value_template_t<type_p>, value_template_t, of_just_not_const_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<type_p>, unit_template_t, of_just_not_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<type_p[1], c_array_ttg, of_just_not_const_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Matching_Type<true, of_just_not_const_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_True<std::add_pointer_t<non_match_t>, c_pointer_ttg, of_just_not_const_volatile_tg, type_p>();
-                        Assert_True<value_template_t<non_match_t>, value_template_t, of_just_not_const_volatile_tg, type_p>();
-                        Assert_True<unit_template_t<non_match_t>, unit_template_t, of_just_not_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_True<non_match_t[1], c_array_ttg, of_just_not_const_volatile_tg, type_p>();
-                        }
+                        Assert_Of_Non_Matching_Type<true, of_just_not_const_volatile_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_False<non_match_t, c_pointer_ttg, of_just_not_const_volatile_tg, type_p>();
-                        Assert_False<non_match_t, value_template_t, of_just_not_const_volatile_tg, type_p>();
-                        Assert_False<non_match_t, unit_template_t, of_just_not_const_volatile_tg, type_p>();
-
-                        if constexpr (any_type_tr<type_p>) {
-                            Assert_False<non_match_t, c_array_ttg, of_just_not_const_volatile_tg, type_p>();
-                        }
+                        Assert_Is_Non_Matching_Type<false, of_just_not_const_volatile_tg, type_p>();
                     }
                 }
             }
