@@ -807,4 +807,8 @@ namespace nkr {
     > concept tr3 =
         TR3<subject_p, operator_p, operand_p, of_operator_p, of_operand_p, of_of_operator_p, of_of_operand_p>();
 
+    template <typename ...parameters_p>
+    concept dumb_test_tr =
+        true;
+
 }
