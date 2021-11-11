@@ -483,7 +483,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             static_assert(false, "you need to implement a type_traits_i for this type");
         }
@@ -497,7 +497,7 @@ namespace nkr {
         using type_t    = void_t;
 
     public:
-        static constexpr std_bool_t Is_Implemented()
+        static constexpr c_bool_t Is_Implemented()
         {
             static_assert(false, "you need to implement a template_traits_i for this template");
         }
@@ -511,7 +511,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return is_any_tr<other_p, type_p>;
         }
@@ -525,7 +525,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return is_any_tr<other_p, type_p>;
         }
@@ -539,7 +539,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return is_any_tr<other_p, type_p>;
         }
@@ -553,7 +553,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return pointer_tr<other_p> || is_any_tr<other_p, c_pointer_tg>;
         }
@@ -567,7 +567,7 @@ namespace nkr {
         using type_t    = of_p*;
 
     public:
-        static constexpr std_bool_t Is_Implemented()
+        static constexpr c_bool_t Is_Implemented()
         {
             return true;
         }
@@ -581,7 +581,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return std_array_tr<other_p> || is_any_tr<other_p, c_array_tg>;
         }
@@ -595,7 +595,7 @@ namespace nkr {
         using type_t    = of_p[1];
 
     public:
-        static constexpr std_bool_t Is_Implemented()
+        static constexpr c_bool_t Is_Implemented()
         {
             return true;
         }
@@ -615,33 +615,33 @@ namespace nkr {
     public:
     };
 
-    struct any_tg                           {};
-    struct any_qualified_tg                 {};
-    struct any_non_qualified_tg             {};
-    struct any_const_tg                     {};
-    struct any_non_const_tg                 {};
-    struct any_volatile_tg                  {};
-    struct any_non_volatile_tg              {};
+    struct any_tg                           { static const c_bool_t is_not = false; };
+    struct any_qualified_tg                 { static const c_bool_t is_not = false; };
+    struct any_non_qualified_tg             { static const c_bool_t is_not = false; };
+    struct any_const_tg                     { static const c_bool_t is_not = false; };
+    struct any_non_const_tg                 { static const c_bool_t is_not = false; };
+    struct any_volatile_tg                  { static const c_bool_t is_not = false; };
+    struct any_non_volatile_tg              { static const c_bool_t is_not = false; };
 
-    struct not_any_tg                       {};
-    struct not_any_qualified_tg             {};
-    struct not_any_non_qualified_tg         {};
-    struct not_any_const_tg                 {};
-    struct not_any_non_const_tg             {};
-    struct not_any_volatile_tg              {};
-    struct not_any_non_volatile_tg          {};
+    struct not_any_tg                       { static const c_bool_t is_not = true;  using is_tg = any_tg; };
+    struct not_any_qualified_tg             { static const c_bool_t is_not = true;  using is_tg = any_qualified_tg; };
+    struct not_any_non_qualified_tg         { static const c_bool_t is_not = true;  using is_tg = any_non_qualified_tg; };
+    struct not_any_const_tg                 { static const c_bool_t is_not = true;  using is_tg = any_const_tg; };
+    struct not_any_non_const_tg             { static const c_bool_t is_not = true;  using is_tg = any_non_const_tg; };
+    struct not_any_volatile_tg              { static const c_bool_t is_not = true;  using is_tg = any_volatile_tg; };
+    struct not_any_non_volatile_tg          { static const c_bool_t is_not = true;  using is_tg = any_non_volatile_tg; };
 
-    struct just_tg                          {};
-    struct just_non_qualified_tg            {};
-    struct just_const_tg                    {};
-    struct just_volatile_tg                 {};
-    struct just_const_volatile_tg           {};
+    struct just_tg                          { static const c_bool_t is_not = false; };
+    struct just_non_qualified_tg            { static const c_bool_t is_not = false; };
+    struct just_const_tg                    { static const c_bool_t is_not = false; };
+    struct just_volatile_tg                 { static const c_bool_t is_not = false; };
+    struct just_const_volatile_tg           { static const c_bool_t is_not = false; };
 
-    struct just_not_tg                      {};
-    struct just_not_non_qualified_tg        {};
-    struct just_not_const_tg                {};
-    struct just_not_volatile_tg             {};
-    struct just_not_const_volatile_tg       {};
+    struct just_not_tg                      { static const c_bool_t is_not = true;  using is_tg = just_tg; };
+    struct just_not_non_qualified_tg        { static const c_bool_t is_not = true;  using is_tg = just_non_qualified_tg; };
+    struct just_not_const_tg                { static const c_bool_t is_not = true;  using is_tg = just_const_tg; };
+    struct just_not_volatile_tg             { static const c_bool_t is_not = true;  using is_tg = just_volatile_tg; };
+    struct just_not_const_volatile_tg       { static const c_bool_t is_not = true;  using is_tg = just_const_volatile_tg; };
 
     struct of_any_tg                        { using related_tg = any_tg; };
     struct of_any_qualified_tg              { using related_tg = any_qualified_tg; };
@@ -674,7 +674,7 @@ namespace nkr {
     template <
         typename subject_p,
         typename operator_p
-    > constexpr std_bool_t TR0()
+    > constexpr c_bool_t TR0()
     {
         using subject_t = subject_p;
 
@@ -712,7 +712,7 @@ namespace nkr {
     template <
         typename subject_p,
         typename operator_p, typename operand_p
-    > constexpr std_bool_t TR1()
+    > constexpr c_bool_t TR1()
     {
         static_assert(just_non_qualified_tr<operand_p>);
 
@@ -722,21 +722,7 @@ namespace nkr {
         if constexpr (type_traits_i<std::remove_cv_t<subject_t>>::template Is_Any<object_t>()) {
             return TR0<subject_t, operator_p>();
         } else {
-            if constexpr (is_tr<operator_p, not_any_tg>)                        return true;
-            else if constexpr (is_tr<operator_p, not_any_qualified_tg>)         return true;
-            else if constexpr (is_tr<operator_p, not_any_non_qualified_tg>)     return true;
-            else if constexpr (is_tr<operator_p, not_any_const_tg>)             return true;
-            else if constexpr (is_tr<operator_p, not_any_non_const_tg>)         return true;
-            else if constexpr (is_tr<operator_p, not_any_volatile_tg>)          return true;
-            else if constexpr (is_tr<operator_p, not_any_non_volatile_tg>)      return true;
-
-            else if constexpr (is_tr<operator_p, just_not_tg>)                  return true;
-            else if constexpr (is_tr<operator_p, just_not_non_qualified_tg>)    return true;
-            else if constexpr (is_tr<operator_p, just_not_const_tg>)            return true;
-            else if constexpr (is_tr<operator_p, just_not_volatile_tg>)         return true;
-            else if constexpr (is_tr<operator_p, just_not_const_volatile_tg>)   return true;
-
-            else                                                                return false;
+            return operator_p::is_not;
         }
     }
 
@@ -744,7 +730,7 @@ namespace nkr {
         typename subject_p,
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, typename of_operand_p
-    > constexpr std_bool_t TR2()
+    > constexpr c_bool_t TR2()
     {
         static_assert(template_traits_i<operand_p>::Is_Implemented());
         static_assert(just_non_qualified_tr<of_operand_p>);
@@ -754,9 +740,15 @@ namespace nkr {
         using object_t = template_traits_i<operand_p>::template type_t<of_operand_p>;
         using of_object_t = type_traits_i<std::remove_cv_t<object_t>>::of_t;
 
-        return
-            TR1<subject_t, operator_p, object_t>() &&
-            TR1<of_subject_t, typename of_operator_p::related_tg, of_object_t>();
+        if constexpr (operator_p::is_not) {
+            return
+                !(TR1<subject_t, typename operator_p::is_tg, object_t>() &&
+                  TR1<of_subject_t, typename of_operator_p::related_tg, of_object_t>());
+        } else {
+            return
+                TR1<subject_t, operator_p, object_t>() &&
+                TR1<of_subject_t, typename of_operator_p::related_tg, of_object_t>();
+        }
     }
 
     template <
@@ -764,7 +756,7 @@ namespace nkr {
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, template <typename ...> typename of_operand_p,
         typename of_of_operator_p, typename of_of_operand_p
-    > constexpr std_bool_t TR3()
+    > constexpr c_bool_t TR3()
     {
         static_assert(template_traits_i<of_operand_p>::Is_Implemented());
         static_assert(just_non_qualified_tr<of_of_operand_p>);
@@ -775,9 +767,15 @@ namespace nkr {
         using of_object_t = template_traits_i<of_operand_p>::template type_t<of_of_operand_p>;
         using of_of_object_t = type_traits_i<std::remove_cv_t<of_object_t>>::of_t;
 
-        return
-            TR2<subject_t, operator_p, operand_p, of_operator_p, of_object_t>() &&
-            TR1<of_of_subject_t, typename of_of_operator_p::related_tg, of_of_object_t>();
+        if constexpr (operator_p::is_not) {
+            return
+                !(TR2<subject_t, typename operator_p::is_tg, operand_p, of_operator_p, of_object_t>() &&
+                  TR1<of_of_subject_t, typename of_of_operator_p::related_tg, of_of_object_t>());
+        } else {
+            return
+                TR2<subject_t, operator_p, operand_p, of_operator_p, of_object_t>() &&
+                TR1<of_of_subject_t, typename of_of_operator_p::related_tg, of_of_object_t>();
+        }
     }
 
     template <

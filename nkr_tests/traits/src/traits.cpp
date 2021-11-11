@@ -1492,17 +1492,23 @@ namespace nkr { namespace traits {
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
                 static void_t constexpr Is()
                 {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-                    static_assert(tr2<subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<const subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<volatile subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<const volatile subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
                 }
 
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
@@ -1513,17 +1519,21 @@ namespace nkr { namespace traits {
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
                 static void_t constexpr Not_Is()
                 {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-                    static_assert(!tr2<subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<const subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<volatile subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<const volatile subject_p,
-                                  any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
                 }
 
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
@@ -1539,49 +1549,142 @@ namespace nkr { namespace traits {
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
                 static void_t constexpr Is()
                 {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-                    static_assert(tr2<const subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<volatile subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<const volatile subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
                 }
 
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
                 static void_t constexpr Is_Opposite()
                 {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-                    static_assert(tr2<subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
                 }
 
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
                 static void_t constexpr Not_Is()
                 {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-                    static_assert(!tr2<const subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<volatile subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<const volatile subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
                 }
 
                 template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
                 static void_t constexpr Not_Is_Opposite()
                 {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-                    static_assert(!tr2<subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+            };
+
+            template <>
+            class assert_t<not_any_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
                 }
             };
 
@@ -1592,10 +1695,16 @@ namespace nkr { namespace traits {
                     assert_t<tag_p>::template Is<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
                     assert_t<tag_p>::template Is<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
                     assert_t<tag_p>::template Is<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                    if constexpr (!is_any_tr<of_p, void_t>) {
+                        assert_t<tag_p>::template Is<of_p[1], c_array_ttg, of_tag_p, of_p>();
+                    }
                 } else {
                     assert_t<tag_p>::template Not_Is<std::add_pointer_t<of_p>, c_pointer_ttg, of_tag_p, of_p>();
                     assert_t<tag_p>::template Not_Is<value_template_t<of_p>, value_template_t, of_tag_p, of_p>();
                     assert_t<tag_p>::template Not_Is<unit_template_t<of_p>, unit_template_t, of_tag_p, of_p>();
+                    if constexpr (!is_any_tr<of_p, void_t>) {
+                        assert_t<tag_p>::template Not_Is<of_p[1], c_array_ttg, of_tag_p, of_p>();
+                    }
                 }
             }
 
@@ -1919,17 +2028,17 @@ namespace nkr { namespace traits {
                 {
                     TEST_CASE_TEMPLATE("should not allow any container of any matching type", type_p, nkr_ANY_TYPES)
                     {
-                        Assert_Of_Matching_Type<false, of_not_any_tg, type_p>();
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_tg, of_not_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_Of_Non_Matching_Type<true, of_not_any_tg, type_p>();
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_tg, of_not_any_tg, type_p>();
                     }
 
                     TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
                     {
-                        Assert_Is_Non_Matching_Type<false, of_not_any_tg, type_p>();
+                        Assert_Non_Container<false, any_tg, of_not_any_tg, type_p>();
                     }
                 }
 
@@ -2321,12 +2430,1027 @@ namespace nkr { namespace traits {
                         Assert_Non_Container<false, any_qualified_tg, of_any_tg, type_p>();
                     }
                 }
+
+                TEST_SUITE("of_any_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_non_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_non_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_non_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_non_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_non_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_non_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<false, any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+                }
             }
 
             TEST_SUITE("any_non_qualified_tg")
             {
 
             }
+
+            TEST_SUITE("not_any_qualified_tg")
+            {
+                TEST_SUITE("of_any_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_non_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_non_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_non_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_non_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_volatile_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_any_non_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_any_non_volatile_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_non_qualified_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-qualified type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching qualified type", type_p, nkr_ANY_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_non_qualified_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_non_const_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-const type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching const type", type_p, nkr_ANY_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_CONST_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_non_const_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_volatile_tg, type_p>();
+                    }
+                }
+
+                TEST_SUITE("of_not_any_non_volatile_tg")
+                {
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Tagged_Container_Of_Non_Matching_Type<true, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any qualified container of any matching non-volatile type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<true, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any matching volatile type", type_p, nkr_ANY_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Matching_Type<false, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should not allow any qualified container of any non-matching type", type_p, nkr_ANY_NON_VOLATILE_TYPES)
+                    {
+                        Assert_Non_Tagged_Container_Of_Non_Matching_Type<false, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+
+                    TEST_CASE_TEMPLATE("should allow any non-container", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+                    {
+                        Assert_Non_Container<true, not_any_qualified_tg, of_not_any_non_volatile_tg, type_p>();
+                    }
+                }
+            }
+        }
+
+        TEST_CASE("temp")
+        {
+            static_assert(tr2<const value_template_t<char>,
+                          not_any_qualified_tg, value_template_t, of_any_const_tg, char> == true);
+            static_assert(tr2<const value_template_t<char>,
+                          not_any_qualified_tg, value_template_t, of_not_any_const_tg, char> == false);
+            static_assert(tr2<const unit_template_t<char>,
+                          not_any_qualified_tg, value_template_t, of_any_const_tg, char> == true);
+
+            static_assert(tr2<const value_template_t<volatile char>,
+                          not_any_const_tg, value_template_t, of_any_const_tg, char> == true);
+
+            static_assert(tr3<const value_template_t<const value_template_t<char>>,
+                          not_any_const_tg, value_template_t, of_any_const_tg, value_template_t, of_not_any_volatile_tg, char> == false);
         }
 
         TEST_SUITE("tr3")
