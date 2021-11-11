@@ -33,13 +33,59 @@ namespace nkr { namespace string {
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     class stack_t;
 
-    template <typename string_p>
+}}
+
+namespace nkr { namespace string { namespace $stack_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, stack_t<typename type_p::charcoder_t, type_p::Unit_Capacity()>>;
+
+}}}
+
+namespace nkr {
+
+    template <string::$stack_t::any_tr type_p>
+    class type_traits_i<type_p>
+    {
+    public:
+        using of_t  = type_p::charcoder_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return string::$stack_t::any_tr<other_p>;
+        }
+    };
+
+    template <>
+    class template_traits_i<string::stack_t>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = string::stack_t<of_p>;
+
+    public:
+        static constexpr std_bool_t Is_Implemented()
+        {
+            return true;
+        }
+    };
+
+}
+
+// to be deleted
+namespace nkr { namespace string {
+
+    template <typename type_p>
     concept any_stack_tr =
-        is_any_tr<string_p, stack_t<typename string_p::charcoder_t, string_p::Unit_Capacity()>>;
+        is_any_tr<type_p, stack_t<typename type_p::charcoder_t, type_p::Unit_Capacity()>>;
 
     nkr_DEFINE_CONTAINER_TRAITS(stack, charcoder_t);
 
 }}
+//
 
 namespace nkr { namespace string {
 

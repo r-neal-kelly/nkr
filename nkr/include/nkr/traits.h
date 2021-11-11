@@ -623,13 +623,13 @@ namespace nkr {
     struct any_volatile_tg                  { static const c_bool_t is_not = false; };
     struct any_non_volatile_tg              { static const c_bool_t is_not = false; };
 
-    struct not_any_tg                       { static const c_bool_t is_not = true;  using is_tg = any_tg; };
-    struct not_any_qualified_tg             { static const c_bool_t is_not = true;  using is_tg = any_qualified_tg; };
-    struct not_any_non_qualified_tg         { static const c_bool_t is_not = true;  using is_tg = any_non_qualified_tg; };
-    struct not_any_const_tg                 { static const c_bool_t is_not = true;  using is_tg = any_const_tg; };
-    struct not_any_non_const_tg             { static const c_bool_t is_not = true;  using is_tg = any_non_const_tg; };
-    struct not_any_volatile_tg              { static const c_bool_t is_not = true;  using is_tg = any_volatile_tg; };
-    struct not_any_non_volatile_tg          { static const c_bool_t is_not = true;  using is_tg = any_non_volatile_tg; };
+    struct not_any_tg                       { static const c_bool_t is_not = true; using is_tg = any_tg; };
+    struct not_any_qualified_tg             { static const c_bool_t is_not = true; using is_tg = any_qualified_tg; };
+    struct not_any_non_qualified_tg         { static const c_bool_t is_not = true; using is_tg = any_non_qualified_tg; };
+    struct not_any_const_tg                 { static const c_bool_t is_not = true; using is_tg = any_const_tg; };
+    struct not_any_non_const_tg             { static const c_bool_t is_not = true; using is_tg = any_non_const_tg; };
+    struct not_any_volatile_tg              { static const c_bool_t is_not = true; using is_tg = any_volatile_tg; };
+    struct not_any_non_volatile_tg          { static const c_bool_t is_not = true; using is_tg = any_non_volatile_tg; };
 
     struct just_tg                          { static const c_bool_t is_not = false; };
     struct just_non_qualified_tg            { static const c_bool_t is_not = false; };
@@ -637,11 +637,11 @@ namespace nkr {
     struct just_volatile_tg                 { static const c_bool_t is_not = false; };
     struct just_const_volatile_tg           { static const c_bool_t is_not = false; };
 
-    struct just_not_tg                      { static const c_bool_t is_not = true;  using is_tg = just_tg; };
-    struct just_not_non_qualified_tg        { static const c_bool_t is_not = true;  using is_tg = just_non_qualified_tg; };
-    struct just_not_const_tg                { static const c_bool_t is_not = true;  using is_tg = just_const_tg; };
-    struct just_not_volatile_tg             { static const c_bool_t is_not = true;  using is_tg = just_volatile_tg; };
-    struct just_not_const_volatile_tg       { static const c_bool_t is_not = true;  using is_tg = just_const_volatile_tg; };
+    struct just_not_tg                      { static const c_bool_t is_not = true; using is_tg = just_tg; };
+    struct just_not_non_qualified_tg        { static const c_bool_t is_not = true; using is_tg = just_non_qualified_tg; };
+    struct just_not_const_tg                { static const c_bool_t is_not = true; using is_tg = just_const_tg; };
+    struct just_not_volatile_tg             { static const c_bool_t is_not = true; using is_tg = just_volatile_tg; };
+    struct just_not_const_volatile_tg       { static const c_bool_t is_not = true; using is_tg = just_const_volatile_tg; };
 
     struct of_any_tg                        { using related_tg = any_tg; };
     struct of_any_qualified_tg              { using related_tg = any_qualified_tg; };
