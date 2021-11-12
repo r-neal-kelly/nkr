@@ -56,24 +56,15 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
-        {
-            return string::$stack_t::any_tr<other_p> || is_any_tr<other_p, string::stack_tg>;
-        }
+        static constexpr c_bool_t   Is_Any();
     };
 
     template <string::$stack_t::any_tr type_p>
-    class type_traits_i<type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<string::stack_tg>
     {
     public:
         using of_t  = type_p::charcoder_t;
-
-    public:
-        template <typename other_p>
-        static constexpr std_bool_t Is_Any()
-        {
-            return type_traits_i<string::stack_tg>::Is_Any<other_p>();
-        }
     };
 
     template <>
@@ -84,10 +75,7 @@ namespace nkr {
         using type_t    = string::stack_t<of_p, 1>;
 
     public:
-        static constexpr std_bool_t Is_Implemented()
-        {
-            return true;
-        }
+        static constexpr c_bool_t   Is_Implemented();
     };
 
 }
@@ -172,8 +160,8 @@ namespace nkr { namespace string {
 
         stack_t(const charcoder_t& charcoder);
         stack_t(any_c_pointer_of_any_tr<unit_t> auto c_string);
-        stack_t(any_maybe_of_any_c_pointer_of_any_tr<unit_t> auto maybe_c_string);
-        stack_t(any_some_of_any_c_pointer_of_any_tr<unit_t> auto some_c_string);
+        stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string);
+        stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string);
         stack_t(some_t<pointer_t<unit_t>> some_pointer);
 
         stack_t(const any_string_tr auto& string);

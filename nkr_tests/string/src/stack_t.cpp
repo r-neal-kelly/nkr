@@ -288,14 +288,44 @@ namespace nkr { namespace string {
                 }
             }
 
-            TEST_SUITE("c_string_ctor()")
+            TEST_SUITE("maybe_c_string_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should make a string by copying maybe C string using the same charcoder", string_p, nkr_ALL)
+                {
+                    using charcoder_t = string_p::charcoder_t;
+
+                    string_p other = Random<string_p>();
+                    auto some_other_c_string = other.C_String();
+                    maybe_t<typename decltype(some_other_c_string)::value_t> maybe_other_c_string(some_other_c_string());
+                    string_p string(maybe_other_c_string);
+                    CHECK(string.Point_Count() == other.Point_Count());
+
+                    auto string_itr = string.At_First();
+                    auto other_itr = other.At_First();
+                    for (; !string_itr.Is_At_Postfix(); string_itr += 1, other_itr += 1) {
+                        CHECK(string_itr.Point() == other_itr.Point());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should make an empty string when the given a maybe c_string of none_t", string_p, nkr_ALL)
+                {
+                    using unit_t = string_p::unit_t;
+
+                    maybe_t<unit_t*> maybe_c_string;
+                    string_p string(maybe_c_string);
+                    CHECK(string.Point_Length() == 0);
+                }
+            }
+
+            TEST_SUITE("some_c_string_ctor()")
             {
                 TEST_CASE_TEMPLATE("should make a string by copying some C string using the same charcoder", string_p, nkr_ALL)
                 {
                     using charcoder_t = string_p::charcoder_t;
 
                     string_p other = Random<string_p>();
-                    string_p string(other.C_String()());
+                    auto some_other_c_string = other.C_String();
+                    string_p string(some_other_c_string);
                     CHECK(string.Point_Count() == other.Point_Count());
 
                     auto string_itr = string.At_First();

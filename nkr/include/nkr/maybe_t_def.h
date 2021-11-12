@@ -6,6 +6,23 @@
 
 #include "nkr/maybe_t_dec.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<maybe_tg>::Is_Any()
+    {
+        return $maybe_t::any_tr<other_p> || is_any_tr<other_p, maybe_tg>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<maybe_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     template <typename any_p>

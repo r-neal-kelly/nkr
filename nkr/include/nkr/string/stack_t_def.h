@@ -10,6 +10,23 @@
 #include "nkr/string_itr_def.h"
 #include "nkr/string/stack_t_dec.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<string::stack_tg>::Is_Any()
+    {
+        return string::$stack_t::any_tr<other_p> || is_any_tr<other_p, string::stack_tg>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<string::stack_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
@@ -404,7 +421,7 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(any_maybe_of_any_c_pointer_of_any_tr<unit_t> auto maybe_c_string) :
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string) :
         stack_t()
     {
         if (maybe_c_string) {
@@ -413,7 +430,7 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(any_some_of_any_c_pointer_of_any_tr<unit_t> auto some_c_string) :
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string) :
         stack_t()
     {
         nkr_ASSERT_THAT(some_c_string);

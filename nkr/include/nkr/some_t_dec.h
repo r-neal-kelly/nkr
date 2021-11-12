@@ -11,14 +11,66 @@
 
 namespace nkr {
 
+    namespace $some_t {};
+
+}
+
+namespace nkr {
+
     template <some_i any_p>
     class some_t;
 
-    template <typename some_p>
-    concept any_some_tr =
-        is_any_tr<some_p, some_t<typename some_p::value_t>>;
+    struct                      some_tg     {};
+    template <typename> struct  some_ttg    {};
 
-    nkr_DEFINE_CONTAINER_TRAITS(some, value_t);
+}
+
+namespace nkr { namespace $some_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, some_t<typename type_p::value_t>>;
+
+}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<some_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <$some_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<some_tg>
+    {
+    public:
+        using of_t  = type_p::value_t;
+    };
+
+    template <>
+    class template_traits_i<some_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = some_t<of_p>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+    template <>
+    class template_traits_i<some_t> :
+        public template_traits_i<some_ttg>
+    {
+    public:
+    };
 
 }
 

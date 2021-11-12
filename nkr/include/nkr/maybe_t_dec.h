@@ -13,19 +13,6 @@
 
 namespace nkr {
 
-    template <typename invalid_p>
-    class maybe_t;
-
-    template <typename maybe_p>
-    concept any_maybe_tr =
-        is_any_tr<maybe_p, maybe_t<typename maybe_p::value_t>>;
-
-    nkr_DEFINE_CONTAINER_TRAITS(maybe, value_t);
-
-}
-
-namespace nkr {
-
     /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
     /// @copydoc _c8a34890_b904_42a7_a88c_ada39529db42
     namespace $maybe_t {
@@ -35,6 +22,65 @@ namespace nkr {
         namespace $built_in_sp {};
     
     }
+
+}
+
+namespace nkr {
+
+    template <typename invalid_p>
+    class maybe_t;
+
+    struct                      maybe_tg    {};
+    template <typename> struct  maybe_ttg   {};
+
+}
+
+namespace nkr { namespace $maybe_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, maybe_t<typename type_p::value_t>>;
+
+}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<maybe_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <$maybe_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<maybe_tg>
+    {
+    public:
+        using of_t  = type_p::value_t;
+    };
+
+    template <>
+    class template_traits_i<maybe_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = maybe_t<of_p>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+    template <>
+    class template_traits_i<maybe_t> :
+        public template_traits_i<maybe_ttg>
+    {
+    public:
+    };
 
 }
 

@@ -485,7 +485,7 @@ namespace nkr {
         template <typename other_p>
         static constexpr c_bool_t Is_Any()
         {
-            static_assert(false, "you need to implement a type_traits_i for this type");
+            return false;
         }
     };
 
