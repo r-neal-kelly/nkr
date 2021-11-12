@@ -33,6 +33,9 @@ namespace nkr { namespace string {
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     class stack_t;
 
+    struct                      stack_tg    {};
+    template <typename> struct  stack_ttg   {};
+
 }}
 
 namespace nkr { namespace string { namespace $stack_t {
@@ -45,6 +48,20 @@ namespace nkr { namespace string { namespace $stack_t {
 
 namespace nkr {
 
+    template <>
+    class type_traits_i<string::stack_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr std_bool_t Is_Any()
+        {
+            return string::$stack_t::any_tr<other_p> || is_any_tr<other_p, string::stack_tg>;
+        }
+    };
+
     template <string::$stack_t::any_tr type_p>
     class type_traits_i<type_p>
     {
@@ -55,16 +72,16 @@ namespace nkr {
         template <typename other_p>
         static constexpr std_bool_t Is_Any()
         {
-            return string::$stack_t::any_tr<other_p>;
+            return type_traits_i<string::stack_tg>::Is_Any<other_p>();
         }
     };
 
     template <>
-    class template_traits_i<string::stack_t>
+    class template_traits_i<string::stack_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = string::stack_t<of_p>;
+        using type_t    = string::stack_t<of_p, 1>;
 
     public:
         static constexpr std_bool_t Is_Implemented()
@@ -240,9 +257,9 @@ namespace nkr { namespace string {
 namespace nkr {
 
     template <
-        string::any_stack_tr    string_p,
-        count_t                 min_point_count_p       = 1,
-        count_t                 max_point_count_p       = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
+        tr1<any_tg, string::stack_tg>   string_p,
+        count_t                         min_point_count_p   = 1,
+        count_t                         max_point_count_p   = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
     > auto  Random(bool_t use_errorneous_units = false);
 
 }

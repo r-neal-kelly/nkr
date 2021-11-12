@@ -860,7 +860,7 @@ namespace nkr { namespace string {
 
 namespace nkr {
 
-    template <string::any_stack_tr string_p, count_t min_point_count_p, count_t max_point_count_p>
+    template <tr1<any_tg, string::stack_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
     inline auto Random(bool_t use_errorneous_units)
     {
         using string_t = string_p;
