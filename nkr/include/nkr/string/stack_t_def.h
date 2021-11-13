@@ -262,7 +262,8 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline maybe_t<allocator_err>
-        stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, any_c_pointer_of_any_tr<unit_t> auto c_string)
+        stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
+                                                    tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string)
     {
         nkr_ASSERT_THAT(c_string);
         nkr_ASSERT_THAT(Has_Terminus(self));
@@ -273,7 +274,7 @@ namespace nkr { namespace string {
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
-                                                    any_c_pointer_of_any_tr<unit_t> auto c_string,
+                                                    tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string,
                                                     count_t unit_length)
     {
         nkr_ASSERT_THAT(c_string);
@@ -412,7 +413,7 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(any_c_pointer_of_any_tr<unit_t> auto c_string) :
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string) :
         stack_t()
     {
         nkr_ASSERT_THAT(c_string);
