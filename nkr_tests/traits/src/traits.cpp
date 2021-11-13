@@ -1485,189 +1485,6 @@ namespace nkr { namespace traits {
                 }
             };
 
-            template <>
-            class assert_t<any_tg>
-            {
-            public:
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Is()
-                {
-                    if constexpr (std_array_tr<subject_p>) {
-                        if constexpr (tr0<of_p, any_tg>) {
-                            static_assert(tr2<subject_p,
-                                          any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        }
-                    } else {
-                        static_assert(any_non_qualified_tr<subject_p>);
-
-                        static_assert(tr2<subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(tr2<const subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(tr2<volatile subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(tr2<const volatile subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    }
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Is_Opposite()
-                {
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Not_Is()
-                {
-                    if constexpr (std_array_tr<subject_p>) {
-                        static_assert(!tr2<subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    } else {
-                        static_assert(any_non_qualified_tr<subject_p>);
-
-                        static_assert(!tr2<subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(!tr2<const subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(!tr2<volatile subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(!tr2<const volatile subject_p,
-                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    }
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Not_Is_Opposite()
-                {
-                }
-            };
-
-            template <>
-            class assert_t<any_qualified_tg>
-            {
-            public:
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Is()
-                {
-                    if constexpr (std_array_tr<subject_p>) {
-                        if constexpr (tr0<of_p, any_qualified_tg>) {
-                            static_assert(tr2<subject_p,
-                                          any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        }
-                    } else {
-                        static_assert(any_non_qualified_tr<subject_p>);
-
-                        static_assert(tr2<const subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(tr2<volatile subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(tr2<const volatile subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    }
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Is_Opposite()
-                {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
-
-                    static_assert(tr2<subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Not_Is()
-                {
-                    if constexpr (std_array_tr<subject_p>) {
-                        static_assert(!tr2<subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    } else {
-                        static_assert(any_non_qualified_tr<subject_p>);
-
-                        static_assert(!tr2<const subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(!tr2<volatile subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        static_assert(!tr2<const volatile subject_p,
-                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    }
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Not_Is_Opposite()
-                {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
-
-                    static_assert(!tr2<subject_p,
-                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                }
-            };
-
-            template <>
-            class assert_t<not_any_qualified_tg>
-            {
-            public:
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Is()
-                {
-                    if constexpr (std_array_tr<subject_p>) {
-                        if constexpr (tr0<of_p, not_any_qualified_tg>) {
-                            static_assert(tr2<subject_p,
-                                          not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                        }
-                    } else {
-                        static_assert(any_non_qualified_tr<subject_p>);
-
-                        static_assert(tr2<subject_p,
-                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    }
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Is_Opposite()
-                {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
-
-                    static_assert(tr2<const subject_p,
-                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<volatile subject_p,
-                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(tr2<const volatile subject_p,
-                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Not_Is()
-                {
-                    if constexpr (std_array_tr<subject_p>) {
-                        static_assert(!tr2<subject_p,
-                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    } else {
-                        static_assert(any_non_qualified_tr<subject_p>);
-
-                        static_assert(!tr2<subject_p,
-                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    }
-                }
-
-                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
-                static void_t constexpr Not_Is_Opposite()
-                {
-                    static_assert(any_non_qualified_tr<subject_p>);
-                    static_assert(!std_array_tr<subject_p>);
-
-                    static_assert(!tr2<const subject_p,
-                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<volatile subject_p,
-                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                    static_assert(!tr2<const volatile subject_p,
-                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
-                }
-            };
-
             template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
             void_t constexpr Assert_Tagged_Container_Of_Matching_Type()
             {
@@ -1778,6 +1595,62 @@ namespace nkr { namespace traits {
                 }
             }
 
+            template <>
+            class assert_t<any_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                }
+            };
             TEST_SUITE("any_tg")
             {
                 TEST_SUITE("of_any_tg")
@@ -2313,6 +2186,68 @@ namespace nkr { namespace traits {
                 }
             }
 
+            template <>
+            class assert_t<any_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
             TEST_SUITE("any_qualified_tg")
             {
                 TEST_SUITE("of_any_tg")
@@ -2828,11 +2763,464 @@ namespace nkr { namespace traits {
                 }
             }
 
+            template <>
+            class assert_t<any_non_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_non_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
             TEST_SUITE("any_non_qualified_tg")
             {
 
             }
 
+            template <>
+            class assert_t<any_const_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_const_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const subject_p,
+                                      any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("any_const_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<any_non_const_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_non_const_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("any_non_const_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<any_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<volatile subject_p,
+                                      any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const subject_p,
+                                  any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<volatile subject_p,
+                                      any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const subject_p,
+                                  any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("any_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<any_non_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, any_non_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<volatile subject_p,
+                                  any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<volatile subject_p,
+                                  any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("any_non_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<not_any_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      not_any_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                }
+            };
+            TEST_SUITE("not_any_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<not_any_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  not_any_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
             TEST_SUITE("not_any_qualified_tg")
             {
                 TEST_SUITE("of_any_tg")
@@ -3347,30 +3735,1004 @@ namespace nkr { namespace traits {
                     }
                 }
             }
-        }
 
-        TEST_CASE("temp")
-        {
-            static_assert(tr2<const value_template_t<char>,
-                          not_any_qualified_tg, value_template_t, of_any_const_tg, char> == true);
-            static_assert(tr2<const value_template_t<char>,
-                          not_any_qualified_tg, value_template_t, of_not_any_const_tg, char> == false);
-            static_assert(tr2<const unit_template_t<char>,
-                          not_any_qualified_tg, value_template_t, of_any_const_tg, char> == true);
+            template <>
+            class assert_t<not_any_non_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_non_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
 
-            static_assert(tr2<const value_template_t<volatile char>,
-                          not_any_const_tg, value_template_t, of_any_const_tg, char> == true);
+                        static_assert(tr2<const subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
 
-            static_assert(tr3<const value_template_t<const value_template_t<char>>,
-                          not_any_const_tg, value_template_t, of_any_const_tg, value_template_t, of_not_any_volatile_tg, char> == false);
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  not_any_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("not_any_non_qualified_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<not_any_const_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_const_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  not_any_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("not_any_const_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<not_any_non_const_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_non_const_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const subject_p,
+                                      not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  not_any_non_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("not_any_non_const_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<not_any_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<volatile subject_p,
+                                  not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<volatile subject_p,
+                                  not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  not_any_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("not_any_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<not_any_non_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, not_any_non_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<volatile subject_p,
+                                      not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const subject_p,
+                                  not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<volatile subject_p,
+                                      not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const subject_p,
+                                  not_any_non_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("not_any_non_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                }
+            };
+            TEST_SUITE("just_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_non_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_non_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  just_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_non_qualified_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_const_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_const_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const subject_p,
+                                      just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  just_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_const_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<volatile subject_p,
+                                      just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const subject_p,
+                                  just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const volatile subject_p,
+                                  just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<volatile subject_p,
+                                      just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const subject_p,
+                                  just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const volatile subject_p,
+                                  just_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_const_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_const_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const volatile subject_p,
+                                      just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<const subject_p,
+                                  just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(tr2<volatile subject_p,
+                                  just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const volatile subject_p,
+                                      just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<const subject_p,
+                                  just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    static_assert(!tr2<volatile subject_p,
+                                  just_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_const_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_not_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_not_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      just_not_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                }
+            };
+            TEST_SUITE("just_not_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_not_non_qualified_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_not_non_qualified_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<const subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<subject_p,
+                                  just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<const subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<subject_p,
+                                  just_not_non_qualified_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_not_non_qualified_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_not_const_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_not_const_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const subject_p,
+                                  just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const subject_p,
+                                  just_not_const_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_not_const_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_not_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_not_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const volatile subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<volatile subject_p,
+                                  just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const volatile subject_p,
+                                      just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<volatile subject_p,
+                                  just_not_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_not_volatile_tg")
+            {
+
+            }
+
+            template <>
+            class assert_t<just_not_const_volatile_tg>
+            {
+            public:
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        if constexpr (tr0<of_p, just_not_const_volatile_tg>) {
+                            static_assert(tr2<subject_p,
+                                          just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        }
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(tr2<subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<const subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(tr2<volatile subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(tr2<const volatile subject_p,
+                                  just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is()
+                {
+                    if constexpr (std_array_tr<subject_p>) {
+                        static_assert(!tr2<subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    } else {
+                        static_assert(any_non_qualified_tr<subject_p>);
+
+                        static_assert(!tr2<subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<const subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                        static_assert(!tr2<volatile subject_p,
+                                      just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                    }
+                }
+
+                template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
+                static void_t constexpr Not_Is_Opposite()
+                {
+                    static_assert(any_non_qualified_tr<subject_p>);
+                    static_assert(!std_array_tr<subject_p>);
+
+                    static_assert(!tr2<const volatile subject_p,
+                                  just_not_const_volatile_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
+                }
+            };
+            TEST_SUITE("just_not_const_volatile_tg")
+            {
+
+            }
         }
 
         TEST_SUITE("tr3")
         {
-            TEST_SUITE("any_tg")
-            {
 
-            }
         }
 
         TEST_SUITE("c_pointer_tg")
@@ -3383,311 +4745,5 @@ namespace nkr { namespace traits {
 
         }
     }
-
-
-
-    static_assert(tr1<
-                  const char*,
-                  any_non_const_tg, c_pointer_tg>);
-    static_assert(tr1<
-                  const char* const,
-                  any_const_tg, c_pointer_tg>);
-
-    static_assert(tr2<
-                  char**,
-                  any_tg, c_pointer_ttg, of_any_tg, c_pointer_tg>);
-    static_assert(tr2<
-                  std::add_pointer_t<char[3]>,
-                  any_tg, c_pointer_ttg, of_any_tg, c_array_tg>);
-
-    class testing_t
-    {
-    public:
-        static bool_t Test(tr1<any_non_const_tg, c_pointer_tg> auto& test)
-        {
-            return true;
-        }
-
-        static bool_t Test(tr1<any_const_tg, c_pointer_tg> auto& test)
-        {
-            return false;
-        }
-    };
-
-    class testing_2_t
-    {
-    public:
-        static bool_t Test(tr1<any_tg, c_array_tg> auto& array)
-        {
-            static_assert(std_array_tr<std::remove_reference_t<decltype(array)>>);
-
-            return true;
-        }
-    };
-
-    TEST_CASE("temp")
-    {
-        const char* a = nullptr;
-        CHECK(testing_t::Test(a));
-        const char* volatile b = nullptr;
-        CHECK(testing_t::Test(b));
-        const volatile char* c = nullptr;
-        CHECK(testing_t::Test(c));
-        const volatile char* volatile d = nullptr;
-        CHECK(testing_t::Test(d));
-
-        const char* const e = nullptr;
-        CHECK(!testing_t::Test(e));
-        const char* const volatile f = nullptr;
-        CHECK(!testing_t::Test(f));
-        const volatile char* const g = nullptr;
-        CHECK(!testing_t::Test(g));
-        const volatile char* const volatile h = nullptr;
-        CHECK(!testing_t::Test(h));
-
-        const char array[5] = { 0 };
-        CHECK(testing_2_t::Test(array));
-    }
-
-    static_assert(!tr2<
-                  volatile value_template_t<const volatile word_t*>,
-                  any_tg, unit_template_t, of_any_tg, word_t*>);
-
-    static_assert(tr3<
-                  volatile value_template_t<const volatile word_t*>,
-                  just_volatile_tg, value_template_t, of_just_non_qualified_tg, c_pointer_ttg, of_any_const_tg, word_t>);
-
-    static_assert(tr3<
-                  value_template_t<void_t*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, void_t>);
-
-    static_assert(tr1<
-                  value_template_t<char>,
-                  any_tg, value_template_t<char>>);
-    static_assert(tr1<
-                  volatile value_template_t<const volatile char>,
-                  any_tg, value_template_t<char>>);
-
-    static_assert(tr1<
-                  const volatile value_template_t<char>,
-                  any_const_tg, value_template_t<char>>);
-
-    static_assert(tr2<
-                  volatile value_template_t<const volatile char>,
-                  any_tg, value_template_t, of_any_tg, char>);
-    static_assert(tr2<
-                  const value_template_t<volatile value_template_t<char>>,
-                  any_tg, value_template_t, of_any_tg, value_template_t<char>>);
-
-    static_assert(tr3<
-                  value_template_t<value_template_t<char>>,
-                  any_tg, value_template_t, of_any_tg, value_template_t, of_any_tg, char>);
-
-    static_assert(tr3<
-                  value_template_t<char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  value_template_t<const volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const value_template_t<const volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  volatile value_template_t<const volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const volatile char*>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const volatile char* const>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const volatile char* volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-    static_assert(tr3<
-                  const volatile value_template_t<const volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, char>);
-
-    static_assert(!tr3<
-                  const volatile value_template_t<const volatile char* const volatile>,
-                  any_tg, value_template_t, of_any_tg, c_pointer_ttg, of_any_tg, int>);
-
-    static_assert(tr3<
-                  value_template_t<const char* const volatile>,
-                  any_tg, value_template_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
-    static_assert(!tr3<
-                  value_template_t<char* const volatile>,
-                  any_tg, value_template_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
-    static_assert(!tr3<
-                  value_template_t<const char* volatile>,
-                  any_tg, value_template_t, of_any_const_tg, c_pointer_ttg, of_any_const_tg, char>);
 
 }}
