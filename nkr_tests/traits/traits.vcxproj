@@ -160,7 +160,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\traits.cpp" />
+    <ClCompile Include="src\tr0.cpp" />
+    <ClCompile Include="src\tr1.cpp" />
+    <ClCompile Include="src\tr2_01_any.cpp" />
+    <ClCompile Include="src\tr2_04_any_const.cpp" />
+    <ClCompile Include="src\tr2_05_any_non_const.cpp" />
+    <ClCompile Include="src\tr2_03_any_non_qualified.cpp" />
+    <ClCompile Include="src\tr2_07_any_non_volatile.cpp" />
+    <ClCompile Include="src\tr2_02_any_qualified.cpp" />
+    <ClCompile Include="src\tr2_06_any_volatile.cpp" />
+    <ClCompile Include="src\tr2_15_just.cpp" />
+    <ClCompile Include="src\tr2_17_just_const.cpp" />
+    <ClCompile Include="src\tr2_19_just_const_volatile.cpp" />
+    <ClCompile Include="src\tr2_16_just_non_qualified.cpp" />
+    <ClCompile Include="src\tr2_20_just_not.cpp" />
+    <ClCompile Include="src\tr2_22_just_not_const.cpp" />
+    <ClCompile Include="src\tr2_24_just_not_const_volatile.cpp" />
+    <ClCompile Include="src\tr2_21_just_not_non_qualified.cpp" />
+    <ClCompile Include="src\tr2_23_just_not_volatile.cpp" />
+    <ClCompile Include="src\tr2_18_just_volatile.cpp" />
+    <ClCompile Include="src\tr2_08_not_any.cpp" />
+    <ClCompile Include="src\tr2_11_not_any_const.cpp" />
+    <ClCompile Include="src\tr2_12_not_any_non_const.cpp" />
+    <ClCompile Include="src\tr2_10_not_any_non_qualified.cpp" />
+    <ClCompile Include="src\tr2_14_not_any_non_volatile.cpp" />
+    <ClCompile Include="src\tr2_09_not_any_qualified.cpp" />
+    <ClCompile Include="src\tr2_13_not_any_volatile.cpp" />
+    <ClCompile Include="src\tr3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">
@@ -169,6 +195,10 @@
     <ProjectReference Include="..\..\nkr\nkr.vcxproj">
       <Project>{260dd159-a788-4bbb-9690-628aa81aaa9c}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\tr.h" />
+    <ClInclude Include="include\tr2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
