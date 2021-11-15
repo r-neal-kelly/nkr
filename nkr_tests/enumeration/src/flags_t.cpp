@@ -12,7 +12,7 @@
 
 namespace nkr {
 
-    class test_flags_e :
+    class flags_e :
         public enumeration::flags_t<u8_t>
     {
     public:
@@ -21,18 +21,35 @@ namespace nkr {
     public:
         enum : value_t
         {
-            FLAG_0 = Define<0>(),
-            FLAG_1 = Define<1>(),
-            FLAG_2 = Define<2>(),
-            FLAG_3 = Define<3>(),
-            FLAG_4 = Define<4>(),
-            FLAG_5 = Define<5>(),
-            FLAG_6 = Define<6>(),
-            FLAG_7 = Define<7>(),
+            FLAG_0  = Value(0),
+            FLAG_1  = Value(1),
+            FLAG_2  = Value(2),
+            FLAG_3  = Value(3),
+            FLAG_4  = Value(4),
+            FLAG_5  = Value(5),
+            FLAG_6  = Value(6),
+            FLAG_7  = Value(7),
         };
 
     public:
-        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(test_flags_e, base_t);
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(flags_e, base_t);
     };
+
+    TEST_CASE("temp")
+    {
+        static_assert(flags_e::Index(0x01) == 0);
+        static_assert(flags_e::Index(0x02) == 1);
+        static_assert(flags_e::Index(0x04) == 2);
+        static_assert(flags_e::Index(0x08) == 3);
+        static_assert(flags_e::Index(0x10) == 4);
+        static_assert(flags_e::Index(0x20) == 5);
+        static_assert(flags_e::Index(0x40) == 6);
+        static_assert(flags_e::Index(0x80) == 7);
+
+        constexpr index_t index = flags_e::Index(0x40);
+        static_assert(index == 6);
+
+        printf("%zu", flags_e::Index(0x80));
+    }
 
 }

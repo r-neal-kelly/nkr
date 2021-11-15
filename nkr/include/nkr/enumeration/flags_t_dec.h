@@ -35,10 +35,13 @@ namespace nkr { namespace enumeration { namespace $flags_t {
 
     public:
         static constexpr index_t    Min_Index();
-        static constexpr index_t    Max_Index();
+        static constexpr value_t    Min_Value();
 
-        template <index_t index_p>
-        static constexpr value_t    Define();
+        static constexpr index_t    Max_Index();
+        static constexpr value_t    Max_Value();
+
+        static constexpr index_t    Index(value_t value);
+        static constexpr value_t    Value(index_t index);
 
     public:
         actual_value_t  value;
@@ -68,13 +71,20 @@ namespace nkr { namespace enumeration { namespace $flags_t {
         value_t Flags() const;
         value_t Flags() const volatile;
 
-        bool_t  Is_Flagged(value_t flag) const;
-        bool_t  Is_Flagged(value_t flag) const volatile;
+        bool_t  Is_Index_Flagged(index_t index) const;
+        bool_t  Is_Index_Flagged(index_t index) const volatile;
+        bool_t  Is_Value_Flagged(value_t value) const;
+        bool_t  Is_Value_Flagged(value_t value) const volatile;
 
-        void_t  Flag(value_t flag);
-        void_t  Flag(value_t flag) volatile;
-        void_t  Unflag(value_t flag);
-        void_t  Unflag(value_t flag) volatile;
+        void_t  Flag_Index(index_t index);
+        void_t  Flag_Index(index_t index) volatile;
+        void_t  Flag_Value(value_t value);
+        void_t  Flag_Value(value_t value) volatile;
+
+        void_t  Unflag_Index(index_t index);
+        void_t  Unflag_Index(index_t index) volatile;
+        void_t  Unflag_Value(value_t value);
+        void_t  Unflag_Value(value_t value) volatile;
 
     public:
         /// @name none_t interface

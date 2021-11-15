@@ -35,6 +35,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_math", "nkr_tests\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_traits", "nkr_tests\traits\traits.vcxproj", "{BE53C4EF-0251-4D1A-BAF0-6472BF2E4035}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_regex_t", "nkr_tests\regex_t\regex_t.vcxproj", "{8DFBE336-348E-472E-9CE5-5303B199116F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -171,6 +173,14 @@ Global
 		{BE53C4EF-0251-4D1A-BAF0-6472BF2E4035}.Release|x64.Build.0 = Release|x64
 		{BE53C4EF-0251-4D1A-BAF0-6472BF2E4035}.Release|x86.ActiveCfg = Release|Win32
 		{BE53C4EF-0251-4D1A-BAF0-6472BF2E4035}.Release|x86.Build.0 = Release|Win32
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Debug|x64.ActiveCfg = Debug|x64
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Debug|x64.Build.0 = Debug|x64
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Debug|x86.ActiveCfg = Debug|Win32
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Debug|x86.Build.0 = Debug|Win32
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Release|x64.ActiveCfg = Release|x64
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Release|x64.Build.0 = Release|x64
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Release|x86.ActiveCfg = Release|Win32
+		{8DFBE336-348E-472E-9CE5-5303B199116F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

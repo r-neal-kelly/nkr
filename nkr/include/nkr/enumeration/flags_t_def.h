@@ -20,6 +20,13 @@ namespace nkr { namespace enumeration { namespace $flags_t {
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline constexpr typename any_sp<integer_p, actual_value_p>::value_t
+        any_sp<integer_p, actual_value_p>::Min_Value()
+    {
+        return Value(Min_Index());
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline constexpr index_t
         any_sp<integer_p, actual_value_p>::Max_Index()
     {
@@ -27,14 +34,37 @@ namespace nkr { namespace enumeration { namespace $flags_t {
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
-    template <index_t index_p>
     inline constexpr typename any_sp<integer_p, actual_value_p>::value_t
-        any_sp<integer_p, actual_value_p>::Define()
+        any_sp<integer_p, actual_value_p>::Max_Value()
     {
-        static_assert(index_p >= Min_Index());
-        static_assert(index_p <= Max_Index());
+        return Value(Max_Index());
+    }
 
-        return static_cast<value_t>(1) << index_p;
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline constexpr index_t
+        any_sp<integer_p, actual_value_p>::Index(value_t value)
+    {
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
+
+        for (index_t idx = 0, end = Max_Index() + 1; idx < end; idx += 1, value /= 2) {
+            if (value == 1) {
+                return idx;
+            }
+        }
+
+        return 0;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline constexpr typename any_sp<integer_p, actual_value_p>::value_t
+        any_sp<integer_p, actual_value_p>::Value(index_t index)
+    {
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
+
+        return static_cast<value_t>(1) << index;
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
@@ -185,60 +215,136 @@ namespace nkr { namespace enumeration { namespace $flags_t {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline bool_t
-        any_sp<integer_p, actual_value_p>::Is_Flagged(value_t flag)
+        any_sp<integer_p, actual_value_p>::Is_Index_Flagged(index_t index)
         const
     {
-        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
 
-        return (this->value & flag) != 0;
+        return Is_Value_Flagged(Value(index));
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline bool_t
-        any_sp<integer_p, actual_value_p>::Is_Flagged(value_t flag)
+        any_sp<integer_p, actual_value_p>::Is_Index_Flagged(index_t index)
         const volatile
     {
-        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
 
-        return (this->value & flag) != 0;
+        return Is_Value_Flagged(Value(index));
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
-    inline void_t
-        any_sp<integer_p, actual_value_p>::Flag(value_t flag)
+    inline bool_t
+        any_sp<integer_p, actual_value_p>::Is_Value_Flagged(value_t value)
+        const
     {
-        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
 
-        this->value |= flag;
+        return (this->value & value) != 0;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline bool_t
+        any_sp<integer_p, actual_value_p>::Is_Value_Flagged(value_t value)
+        const volatile
+    {
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
+
+        return (this->value & value) != 0;
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline void_t
-        any_sp<integer_p, actual_value_p>::Flag(value_t flag)
+        any_sp<integer_p, actual_value_p>::Flag_Index(index_t index)
+    {
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
+
+        return Flag_Value(Value(index));
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline void_t
+        any_sp<integer_p, actual_value_p>::Flag_Index(index_t index)
         volatile
     {
-        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
 
-        this->value |= flag;
+        return Flag_Value(Value(index));
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline void_t
-        any_sp<integer_p, actual_value_p>::Unflag(value_t flag)
+        any_sp<integer_p, actual_value_p>::Flag_Value(value_t value)
     {
-        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
 
-        this->value &= ~flag;
+        this->value |= value;
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline void_t
-        any_sp<integer_p, actual_value_p>::Unflag(value_t flag)
+        any_sp<integer_p, actual_value_p>::Flag_Value(value_t value)
         volatile
     {
-        nkr_ASSERT_THAT(math::Is_Power_Of_2(flag));
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
 
-        this->value &= ~flag;
+        this->value |= value;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline void_t
+        any_sp<integer_p, actual_value_p>::Unflag_Index(index_t index)
+    {
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
+
+        return Unflag_Value(Value(index));
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline void_t
+        any_sp<integer_p, actual_value_p>::Unflag_Index(index_t index)
+        volatile
+    {
+        nkr_ASSERT_THAT(index >= Min_Index());
+        nkr_ASSERT_THAT(index <= Max_Index());
+
+        return Unflag_Value(Value(index));
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline void_t
+        any_sp<integer_p, actual_value_p>::Unflag_Value(value_t value)
+    {
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
+
+        this->value &= ~value;
+    }
+
+    template <integer_unsigned_tr integer_p, typename actual_value_p>
+    inline void_t
+        any_sp<integer_p, actual_value_p>::Unflag_Value(value_t value)
+        volatile
+    {
+        nkr_ASSERT_THAT(value >= Min_Value());
+        nkr_ASSERT_THAT(value <= Max_Value());
+        nkr_ASSERT_THAT(math::Is_Power_Of_2(value));
+
+        this->value &= ~value;
     }
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
