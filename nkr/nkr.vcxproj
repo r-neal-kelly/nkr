@@ -171,6 +171,10 @@
     <ClInclude Include="include\nkr\array\instant_t_def.h" />
     <ClInclude Include="include\nkr\array\instant_t_dox.h" />
     <ClInclude Include="include\nkr\array\stack_t_dox.h" />
+    <ClInclude Include="include\nkr\array\static_t.h" />
+    <ClInclude Include="include\nkr\array\static_t_dec.h" />
+    <ClInclude Include="include\nkr\array\static_t_def.h" />
+    <ClInclude Include="include\nkr\array\static_t_dox.h" />
     <ClInclude Include="include\nkr\array_i.h" />
     <ClInclude Include="include\nkr\array\dynamic_t.h" />
     <ClInclude Include="include\nkr\array\dynamic_t_dec.h" />

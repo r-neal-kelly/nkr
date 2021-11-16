@@ -340,6 +340,19 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
+        // it's possible that we can just make the string::static_t iterface give us everything we need to make it compatible.
+
+        //if constexpr (is_any_tr < string_t, string::static_t<charcoder_t>) { // tr1<string_t, is_any_tg, string::static_ttg>
+        //    if (Is_At_Terminus(self)) {
+        //        // because a string::static_t does not literally need a terminus
+        //        return 0;
+        //    } else {
+        //        return self.charcoder.Decode();
+        //    }
+        //} else {
+        //    return self.charcoder.Decode();
+        //}
+
         return self.charcoder.Decode();
     }
 
