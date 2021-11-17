@@ -41,54 +41,67 @@ namespace nkr { namespace $string_i {
     };
 
     template <typename string_p>
-    concept methods_i = requires(std::remove_cv_t<string_p> string,
-                                 const std::remove_cv_t<string_p> const_string,
-                                 volatile std::remove_cv_t<string_p> volatile_string,
-                                 const volatile std::remove_cv_t<string_p> const_volatile_string,
+    concept unaddable_methods_i =
+        requires(std::remove_cv_t<string_p> string,
+                 const std::remove_cv_t<string_p> const_string,
+                 volatile std::remove_cv_t<string_p> volatile_string,
+                 const volatile std::remove_cv_t<string_p> const_volatile_string,
 
-                                 count_t unit_capacity_including_terminus,
-                                 
-                                 index_t unit_index)
+                 count_t unit_capacity_including_terminus,
+
+                 index_t unit_index)
     {
-        { string.Has_Terminus() }                                           -> is_tr<bool_t>;
-        { const_string.Has_Terminus() }                                     -> is_tr<bool_t>;
-        { volatile_string.Has_Terminus() }                                  -> is_tr<bool_t>;
-        { const_volatile_string.Has_Terminus() }                            -> is_tr<bool_t>;
+        { string.Has_Terminus() }                   -> is_tr<bool_t>;
+        { const_string.Has_Terminus() }             -> is_tr<bool_t>;
+        { volatile_string.Has_Terminus() }          -> is_tr<bool_t>;
+        { const_volatile_string.Has_Terminus() }    -> is_tr<bool_t>;
 
+        { string.Unit_Count() }                     -> is_tr<count_t>;
+        { const_string.Unit_Count() }               -> is_tr<count_t>;
+        { volatile_string.Unit_Count() }            -> is_tr<count_t>;
+        { const_volatile_string.Unit_Count() }      -> is_tr<count_t>;
+        { string.Unit_Length() }                    -> is_tr<count_t>;
+        { const_string.Unit_Length() }              -> is_tr<count_t>;
+        { volatile_string.Unit_Length() }           -> is_tr<count_t>;
+        { const_volatile_string.Unit_Length() }     -> is_tr<count_t>;
+
+        { string.Point_Count() }                    -> is_tr<count_t>;
+        { const_string.Point_Count() }              -> is_tr<count_t>;
+        { volatile_string.Point_Count() }           -> is_tr<count_t>;
+        { const_volatile_string.Point_Count() }     -> is_tr<count_t>;
+        { string.Point_Length() }                   -> is_tr<count_t>;
+        { const_string.Point_Length() }             -> is_tr<count_t>;
+        { volatile_string.Point_Length() }          -> is_tr<count_t>;
+        { const_volatile_string.Point_Length() }    -> is_tr<count_t>;
+
+        { string.C_String() }                       -> is_tr<some_t<const typename string_p::unit_t*>>;
+        { const_string.C_String() }                 -> is_tr<some_t<const typename string_p::unit_t*>>;
+        { volatile_string.C_String() }              -> is_tr<some_t<const volatile typename string_p::unit_t*>>;
+        { const_volatile_string.C_String() }        -> is_tr<some_t<const volatile typename string_p::unit_t*>>;
+
+        { string.Unit(unit_index) }                 -> is_tr<typename string_p::unit_t&>;
+        { const_string.Unit(unit_index) }           -> is_tr<const typename string_p::unit_t&>;
+        { volatile_string.Unit(unit_index) }        -> is_tr<volatile typename string_p::unit_t&>;
+        { const_volatile_string.Unit(unit_index) }  -> is_tr<const volatile typename string_p::unit_t&>;
+    };
+
+    template <typename string_p>
+    concept addable_methods_i =
+        requires(std::remove_cv_t<string_p> string,
+                 const std::remove_cv_t<string_p> const_string,
+                 volatile std::remove_cv_t<string_p> volatile_string,
+                 const volatile std::remove_cv_t<string_p> const_volatile_string,
+
+                 count_t unit_capacity_including_terminus,
+
+                 index_t unit_index)
+    {
         { string.Unit_Capacity() }                                          -> is_tr<count_t>;
         { const_string.Unit_Capacity() }                                    -> is_tr<count_t>;
         { volatile_string.Unit_Capacity() }                                 -> is_tr<count_t>;
         { const_volatile_string.Unit_Capacity() }                           -> is_tr<count_t>;
         { string.Unit_Capacity(unit_capacity_including_terminus) }          -> is_tr<maybe_t<allocator_err>>;
         { volatile_string.Unit_Capacity(unit_capacity_including_terminus) } -> is_tr<maybe_t<allocator_err>>;
-
-        { string.Unit_Count() }                                             -> is_tr<count_t>;
-        { const_string.Unit_Count() }                                       -> is_tr<count_t>;
-        { volatile_string.Unit_Count() }                                    -> is_tr<count_t>;
-        { const_volatile_string.Unit_Count() }                              -> is_tr<count_t>;
-        { string.Unit_Length() }                                            -> is_tr<count_t>;
-        { const_string.Unit_Length() }                                      -> is_tr<count_t>;
-        { volatile_string.Unit_Length() }                                   -> is_tr<count_t>;
-        { const_volatile_string.Unit_Length() }                             -> is_tr<count_t>;
-
-        { string.Point_Count() }                                            -> is_tr<count_t>;
-        { const_string.Point_Count() }                                      -> is_tr<count_t>;
-        { volatile_string.Point_Count() }                                   -> is_tr<count_t>;
-        { const_volatile_string.Point_Count() }                             -> is_tr<count_t>;
-        { string.Point_Length() }                                           -> is_tr<count_t>;
-        { const_string.Point_Length() }                                     -> is_tr<count_t>;
-        { volatile_string.Point_Length() }                                  -> is_tr<count_t>;
-        { const_volatile_string.Point_Length() }                            -> is_tr<count_t>;
-
-        { string.C_String() }                                               -> is_tr<some_t<const typename string_p::unit_t*>>;
-        { const_string.C_String() }                                         -> is_tr<some_t<const typename string_p::unit_t*>>;
-        { volatile_string.C_String() }                                      -> is_tr<some_t<const volatile typename string_p::unit_t*>>;
-        { const_volatile_string.C_String() }                                -> is_tr<some_t<const volatile typename string_p::unit_t*>>;
-
-        { string.Unit(unit_index) }                                         -> is_tr<typename string_p::unit_t&>;
-        { const_string.Unit(unit_index) }                                   -> is_tr<const typename string_p::unit_t&>;
-        { volatile_string.Unit(unit_index) }                                -> is_tr<volatile typename string_p::unit_t&>;
-        { const_volatile_string.Unit(unit_index) }                          -> is_tr<const volatile typename string_p::unit_t&>;
     };
 
 }}
@@ -96,10 +109,23 @@ namespace nkr { namespace $string_i {
 namespace nkr {
 
     template <typename string_p>
-    concept string_i =
+    concept unaddable_string_i =
         $string_i::aliases_i<string_p> &&
         $string_i::static_functions_i<string_p> &&
-        $string_i::methods_i<string_p>;
+        $string_i::unaddable_methods_i<string_p> &&
+        !$string_i::addable_methods_i<string_p>;
+
+    template <typename string_p>
+    concept addable_string_i =
+        $string_i::aliases_i<string_p> &&
+        $string_i::static_functions_i<string_p> &&
+        $string_i::unaddable_methods_i<string_p> &&
+        $string_i::addable_methods_i<string_p>;
+
+    template <typename string_p>
+    concept string_i =
+        unaddable_string_i<string_p> ||
+        addable_string_i<string_p>;
 
     template <typename string_p>
     concept any_string_tr =

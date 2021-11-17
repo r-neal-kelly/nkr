@@ -18,18 +18,6 @@
 
 namespace nkr { namespace string {
 
-    // I feel that a string::static_t should not have to have the terminus,
-    // that way it's easier to just make a partition with an already existing string.
-    // our string interfaces will need to be able to handle this type's unique case.
-
-    // the trick to using this with the string_itr is to basically pretend that there is a terminus
-    // even when there may not be. So, if the itr requests a unit_t& reference to the terminus,
-    // we may need to return a static reference to terminus that is far removed from the string.
-    // although dangerous if the itr presumes that it can get the rest of the string from there,
-    // I'm not sure if there's a better way to do it without directly interfering with the quite complex
-    // code of the itr itself, which may end up being the most robust option. but try to do as much here
-    // first.
-
     template <charcoder_i charcoder_p>
     class static_t
     {
@@ -37,6 +25,9 @@ namespace nkr { namespace string {
         using charcoder_t   = charcoder_p;
         using unit_t        = charcoder_p::unit_t;
         using array_t       = array::static_t<unit_t>;
+
+    public:
+        static const unit_t*    Empty_C_String();
 
     protected:
         count_t point_count;
@@ -64,21 +55,30 @@ namespace nkr { namespace string {
         ~static_t();
 
     public:
-        bool_t                              Has_Terminus() const; // always return true, because it abstractly does, even if literally not
-        bool_t                              Has_Terminus() const volatile;
+        bool_t                          Has_Terminus() const;
+        bool_t                          Has_Terminus() const volatile;
 
-        count_t                             Unit_Count() const;
-        count_t                             Unit_Count() const volatile;
-        count_t                             Unit_Length() const;
-        count_t                             Unit_Length() const volatile;
+        count_t                         Unit_Count() const;
+        count_t                         Unit_Count() const volatile;
+        count_t                         Unit_Length() const;
+        count_t                         Unit_Length() const volatile;
 
-        count_t                             Point_Count() const;
-        count_t                             Point_Count() const volatile;
-        count_t                             Point_Length() const;
-        count_t                             Point_Length() const volatile;
+        count_t                         Point_Count() const;
+        count_t                         Point_Count() const volatile;
+        count_t                         Point_Length() const;
+        count_t                         Point_Length() const volatile;
 
-        some_t<const unit_t*>               C_String() const;
-        some_t<const volatile unit_t*>      C_String() const volatile;
+        some_t<const unit_t*>           C_String() const;
+        some_t<const volatile unit_t*>  C_String() const volatile;
+
+        unit_t&                         Unit(index_t unit_index);
+        const unit_t&                   Unit(index_t unit_index) const;
+        volatile unit_t&                Unit(index_t unit_index) volatile;
+        const volatile unit_t&          Unit(index_t unit_index) const volatile;
     };
+    static_assert(string_i<static_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const static_t<charcoder::utf_8_t>>);
+    static_assert(string_i<volatile static_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const volatile static_t<charcoder::utf_8_t>>);
 
 }}
