@@ -5,6 +5,9 @@
 #pragma once
 
 #include "nkr/intrinsics.h"
+#include "nkr/maybe_t.h"
+#include "nkr/some_t.h"
+#include "nkr/traits.h"
 
 #include "nkr/allocator_err.h"
 
@@ -32,6 +35,22 @@ namespace nkr { namespace string {
     public:
         static const unit_t*    Empty_C_String();
 
+    private:
+        static auto&    Copy_Assign(is_any_non_const_tr<static_t> auto& self, const is_any_tr<static_t> auto& other);
+        static auto&    Move_Assign(is_any_non_const_tr<static_t> auto& self, is_any_non_const_tr<static_t> auto& other);
+
+        static bool_t   Has_Terminus(const is_any_tr<static_t> auto& self);
+
+        static count_t  Unit_Count(const is_any_tr<static_t> auto& self);
+        static count_t  Unit_Length(const is_any_tr<static_t> auto& self);
+
+        static count_t  Point_Count(const is_any_tr<static_t> auto& self);
+        static count_t  Point_Length(const is_any_tr<static_t> auto& self);
+
+        static auto     C_String(const is_any_tr<static_t> auto& self);
+
+        static auto&    Unit(is_any_tr<static_t> auto& self, index_t unit_index);
+
     protected:
         count_t point_count;
         array_t array;
@@ -39,7 +58,8 @@ namespace nkr { namespace string {
     public:
         static_t();
 
-        // not yet sure what to pass here yet.
+        static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
+        static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count, count_t point_count);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);
