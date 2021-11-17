@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/string_itr_def.h"
 #include "nkr/string/static_t_dec.h"
 
 namespace nkr {

@@ -19,7 +19,13 @@
 #include "nkr/enumeration/types_t.h"
 
 #include "nkr/string_i.h"
-#include "nkr/string/stack_t_dec.h"
+
+namespace nkr { namespace string {
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    class stack_t;
+
+}}
 
 namespace nkr { namespace string {
 
@@ -59,15 +65,32 @@ namespace nkr { namespace string {
 
 namespace nkr {
 
-    template <typename string_p>
+    template <typename>
     class string_itr
     {
-    private:
-        // annoyingly, we can't use this in the type constraint directly
-        // because we use this type in declarations on the string_p, and
-        // that causes a recursive compiler error.
-        static_assert(string_i<string_p>);
+    public:
+        string_itr()                                                                                        = delete;
 
+        string_itr(const string_itr& other)                                                                 = delete;
+        string_itr(const volatile string_itr& other)                                                        = delete;
+        string_itr(string_itr&& other) noexcept                                                             = delete;
+        string_itr(volatile string_itr&& other) noexcept                                                    = delete;
+
+        string_itr&             operator =(const string_itr& other)                                         = delete;
+        volatile string_itr&    operator =(const string_itr& other) volatile                                = delete;
+        string_itr&             operator =(const volatile string_itr& other)                                = delete;
+        volatile string_itr&    operator =(const volatile string_itr& other) volatile                       = delete;
+        string_itr&             operator =(string_itr&& other) noexcept                                     = delete;
+        volatile string_itr&    operator =(string_itr&& other) volatile noexcept                            = delete;
+        string_itr&             operator =(is_just_volatile_tr<string_itr> auto&& other) noexcept           = delete;
+        volatile string_itr&    operator =(is_just_volatile_tr<string_itr> auto&& other) volatile noexcept  = delete;
+
+        ~string_itr()                                                                                       = delete;
+    };
+
+    template <string_i string_p>
+    class string_itr<string_p>
+    {
     public:
         using string_t      = string_p;
         using charcoder_t   = string_p::charcoder_t;
