@@ -27,6 +27,9 @@ namespace nkr { namespace string {
         using array_t       = array::static_t<unit_t>;
 
     public:
+        static constexpr c_bool_t   Has_Guaranteed_Terminus();
+
+    public:
         static const unit_t*    Empty_C_String();
 
     protected:

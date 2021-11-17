@@ -104,6 +104,8 @@ namespace nkr { namespace string {
         friend class stack_t;
 
     public:
+        static constexpr c_bool_t   Has_Guaranteed_Terminus();
+
         static constexpr count_t    Unit_Capacity();
 
     public:

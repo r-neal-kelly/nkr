@@ -59,6 +59,9 @@ namespace nkr { namespace string {
         using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
 
     public:
+        static constexpr c_bool_t   Has_Guaranteed_Terminus();
+
+    public:
         static const unit_t*    Empty_C_String();
 
     private:

@@ -30,6 +30,13 @@ namespace nkr {
 namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline constexpr c_bool_t
+        stack_t<charcoder_p, unit_capacity_p>::Has_Guaranteed_Terminus()
+    {
+        return true;
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline constexpr count_t
         stack_t<charcoder_p, unit_capacity_p>::Unit_Capacity()
     {

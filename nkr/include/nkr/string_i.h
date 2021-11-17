@@ -27,7 +27,8 @@ namespace nkr { namespace string {
 namespace nkr { namespace $string_i {
 
     template <typename string_p>
-    concept aliases_i = requires()
+    concept aliases_i =
+        requires()
     {
         typename string_p::charcoder_t;
         typename string_p::unit_t;
@@ -35,7 +36,15 @@ namespace nkr { namespace $string_i {
     };
 
     template <typename string_p>
-    concept static_functions_i = requires()
+    concept static_constexpr_functions_i =
+        requires()
+    {
+        { string_p::Has_Guaranteed_Terminus() } -> is_tr<c_bool_t>;
+    };
+
+    template <typename string_p>
+    concept static_functions_i =
+        requires()
     {
         { string_p::Empty_C_String() }  -> is_tr<const typename string_p::unit_t*>;
     };
@@ -111,6 +120,7 @@ namespace nkr {
     template <typename string_p>
     concept unaddable_string_i =
         $string_i::aliases_i<string_p> &&
+        $string_i::static_constexpr_functions_i<string_p> &&
         $string_i::static_functions_i<string_p> &&
         $string_i::unaddable_methods_i<string_p> &&
         !$string_i::addable_methods_i<string_p>;
@@ -118,6 +128,7 @@ namespace nkr {
     template <typename string_p>
     concept addable_string_i =
         $string_i::aliases_i<string_p> &&
+        $string_i::static_constexpr_functions_i<string_p> &&
         $string_i::static_functions_i<string_p> &&
         $string_i::unaddable_methods_i<string_p> &&
         $string_i::addable_methods_i<string_p>;

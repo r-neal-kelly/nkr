@@ -18,7 +18,11 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(self.string);
 
-        return self.string->Has_Terminus();
+        if constexpr (string_t::Has_Guaranteed_Terminus()) {
+            return self.string->Has_Terminus();
+        } else {
+            return true;
+        }
     }
 
     template <string_i string_p>
@@ -45,7 +49,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.unit_index == 0 && self.is_prefix == true;
+        return self.point_index == 0 && self.is_prefix == true;
     }
 
     template <string_i string_p>
@@ -54,7 +58,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.unit_index == 0 && self.is_prefix == false;
+        return self.point_index == 0 && self.is_prefix == false;
     }
 
     template <string_i string_p>
@@ -78,6 +82,7 @@ namespace nkr {
         nkr_ASSERT_THAT(Has_String(self));
 
         return self.unit_index == self.string->Unit_Length() && self.is_prefix == false;
+        //return self.point_index == self.string->Point_Length() && self.is_prefix == false; // causes a state error in Next() with an errorful string?
     }
 
     template <string_i string_p>
@@ -86,7 +91,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.unit_index == self.string->Unit_Count() && self.is_prefix == false;
+        return self.point_index == self.string->Point_Length() + 1 && self.is_prefix == false;
     }
 
     template <string_i string_p>
@@ -136,18 +141,29 @@ namespace nkr {
         string_itr<string_p>::At(is_any_non_const_tr<string_itr> auto& self, index_t point_index)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(point_index <= self.string->Point_Count());
+        nkr_ASSERT_THAT(point_index <= self.string->Point_Length() + 1);
 
         if (self.point_index != point_index) {
-            const count_t point_count = self.string->Point_Count();
+            const count_t point_count = self.string->Point_Length() + 1;
             if (point_index == point_count) {
                 At_Postfix(self);
             } else {
                 if constexpr (charcoder_t::Max_Unit_Count() == 1) {
-                    self.is_prefix = false;
-                    self.unit_index = point_index;
-                    self.point_index = point_index;
-                    self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+                    if constexpr (string_t::Has_Guaranteed_Terminus()) {
+                        self.is_prefix = false;
+                        self.unit_index = point_index;
+                        self.point_index = point_index;
+                        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+                    } else {
+                        if (point_index == point_count - 1) {
+                            At_Terminus(self);
+                        } else {
+                            self.is_prefix = false;
+                            self.unit_index = point_index;
+                            self.point_index = point_index;
+                            self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+                        }
+                    }
                 } else {
                     constexpr const count_t THRESHOLD = 16;
 
@@ -208,10 +224,21 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        self.is_prefix = false;
-        self.unit_index = 0;
-        self.point_index = 0;
-        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+        if constexpr (string_t::Has_Guaranteed_Terminus()) {
+            self.is_prefix = false;
+            self.unit_index = 0;
+            self.point_index = 0;
+            self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+        } else {
+            if (self.string->Point_Length() == 0) {
+                At_Terminus(self);
+            } else {
+                self.is_prefix = false;
+                self.unit_index = 0;
+                self.point_index = 0;
+                self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+            }
+        }
     }
 
     template <string_i string_p>
@@ -231,9 +258,10 @@ namespace nkr {
         nkr_ASSERT_THAT(Has_String(self));
 
         self.is_prefix = false;
-        self.unit_index = self.string->Unit_Count() - 1;
-        self.point_index = self.string->Point_Count() - 1;
-        self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+        self.unit_index = self.string->Unit_Length();
+        self.point_index = self.string->Point_Length();
+        self.read_unit_count = 1;
+        self.charcoder = none_t();
     }
 
     template <string_i string_p>
@@ -243,8 +271,8 @@ namespace nkr {
         nkr_ASSERT_THAT(Has_String(self));
 
         self.is_prefix = false;
-        self.unit_index = self.string->Unit_Count();
-        self.point_index = self.string->Point_Count();
+        self.unit_index = self.string->Unit_Length() + 1;
+        self.point_index = self.string->Point_Length() + 1;
         self.read_unit_count = 0;
         self.charcoder = none_t();
     }
@@ -266,9 +294,20 @@ namespace nkr {
         } else if (Is_At_Postfix(self)) {
             return false;
         } else {
-            self.unit_index += self.read_unit_count;
-            self.point_index += 1;
-            self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+            if constexpr (string_t::Has_Guaranteed_Terminus()) {
+                self.unit_index += self.read_unit_count;
+                self.point_index += 1;
+                self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+            } else {
+                self.unit_index += self.read_unit_count;
+                self.point_index += 1;
+                if (self.point_index == self.string->Point_Length()) {
+                    self.read_unit_count = 1;
+                    self.charcoder = none_t();
+                } else {
+                    self.read_unit_count = self.charcoder.Read_Forward(&self.string->Unit(self.unit_index));
+                }
+            }
 
             return true;
         }
@@ -410,7 +449,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
         nkr_ASSERT_THAT(!math::Will_Overflow_Add(self.point_index, point_count));
-        nkr_ASSERT_THAT(self.point_index + point_count <= self.string->Point_Count());
+        nkr_ASSERT_THAT(self.point_index + point_count <= self.string->Point_Length() + 1);
 
         for (; point_count > 0; point_count -= 1) {
             Next(self);

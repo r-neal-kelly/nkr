@@ -100,7 +100,7 @@ namespace nkr {
     private:
         static bool_t               Has_String(const is_any_tr<string_itr> auto& self);
         static const string_t&      String(const is_any_tr<string_itr> auto& self);
-
+         
         static bool_t               Is_At(const is_any_tr<string_itr> auto& self, index_t point_index);
         static bool_t               Is_At_Prefix(const is_any_tr<string_itr> auto& self);
         static bool_t               Is_At_First(const is_any_tr<string_itr> auto& self);

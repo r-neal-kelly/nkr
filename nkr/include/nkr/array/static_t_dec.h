@@ -7,6 +7,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/maybe_t.h"
 #include "nkr/pointer_t.h"
+#include "nkr/some_t.h"
 #include "nkr/traits.h"
 
 #include "nkr/allocator_err.h"
@@ -15,9 +16,6 @@
 
 namespace nkr { namespace array {
 
-    // needs to assert when missing its pointer. I can't imagine the use of having a nullptr static_t.
-    // may added ctors that take a stack_t and a dynamic_t directly, but for now we just do a pointer.
-
     template <any_type_tr unit_p>
     class static_t
     {
@@ -25,14 +23,24 @@ namespace nkr { namespace array {
         using unit_t    = unit_p;
         using pointer_t = nkr::pointer_t<unit_p>;
 
+    private:
+        static auto&    Copy_Assign(is_any_non_const_tr<static_t> auto& self, const is_any_tr<static_t> auto& other);
+        static auto&    Move_Assign(is_any_non_const_tr<static_t> auto& self, is_any_non_const_tr<static_t> auto& other);
+
+        static count_t  Count(const is_any_tr<static_t> auto& self);
+
+        static unit_t&  At(const is_any_tr<static_t> auto& self, index_t index);
+
     protected:
-        pointer_t   pointer;
+        some_t<pointer_t>   pointer;
 
     public:
-        static_t();
+        static_t()                                                                                      = delete;
 
-        static_t(const pointer_t& pointer);
-        static_t(pointer_t&& pointer);
+        // may want to accept other types of arrays
+
+        static_t(const some_t<pointer_t>& pointer);
+        static_t(some_t<pointer_t>&& pointer);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);
@@ -51,10 +59,10 @@ namespace nkr { namespace array {
         ~static_t();
 
     public:
-        pointer_t               Pointer() const;
-        pointer_t               Pointer() const volatile;
-        void_t                  Pointer(pointer_t new_pointer);
-        void_t                  Pointer(pointer_t new_pointer) volatile;
+        some_t<pointer_t>       Pointer() const;
+        some_t<pointer_t>       Pointer() const volatile;
+        void_t                  Pointer(some_t<pointer_t> new_pointer);
+        void_t                  Pointer(some_t<pointer_t> new_pointer) volatile;
 
         count_t                 Count() const;
         count_t                 Count() const volatile;
