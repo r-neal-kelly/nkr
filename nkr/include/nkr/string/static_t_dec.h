@@ -25,9 +25,10 @@ namespace nkr { namespace string {
     class static_t
     {
     public:
-        using charcoder_t   = charcoder_p;
-        using unit_t        = charcoder_p::unit_t;
-        using array_t       = array::static_t<unit_t>;
+        using charcoder_t           = std::remove_cv_t<charcoder_p>;
+        using qualified_charcoder_t = charcoder_p;
+        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>::type_t;
+        using array_t               = array::static_t<unit_t>;
 
     public:
         static constexpr c_bool_t   Has_Guaranteed_Terminus();
@@ -56,10 +57,10 @@ namespace nkr { namespace string {
         array_t array;
 
     public:
-        static_t();
-
-        static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
-        static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count, count_t point_count);
+        static_t(tr1<any_tg, unit_t*> auto c_string);
+        static_t(tr1<any_tg, unit_t*> auto c_string, count_t unit_count, count_t point_count);
+        static_t(tr2<any_tg, some_t, of_any_tg, unit_t*> auto some_c_string);
+        static_t(tr2<any_tg, some_t, of_any_tg, unit_t*> auto some_c_string, count_t unit_count, count_t point_count);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);

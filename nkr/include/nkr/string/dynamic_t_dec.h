@@ -52,11 +52,12 @@ namespace nkr { namespace string {
         static_assert(is_tr<charcoder_p::unit_t, allocator_p::unit_t>, "charcoder and allocator have different unit types");
 
     public:
-        using charcoder_t   = std::remove_cv_t<charcoder_p>;
-        using unit_t        = charcoder_p::unit_t;
-        using allocator_t   = allocator_p;
-        using grow_rate_t   = grow_rate_p;
-        using array_t       = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
+        using charcoder_t           = std::remove_cv_t<charcoder_p>;
+        using qualified_charcoder_t = charcoder_p;
+        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>::type_t;
+        using allocator_t           = allocator_p;
+        using grow_rate_t           = grow_rate_p;
+        using array_t               = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
 
     public:
         static constexpr c_bool_t   Has_Guaranteed_Terminus();

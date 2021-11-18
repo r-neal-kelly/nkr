@@ -31,9 +31,12 @@ namespace nkr { namespace $string_i {
         requires()
     {
         typename string_p::charcoder_t;
+        typename string_p::qualified_charcoder_t;
         typename string_p::unit_t;
         typename string_p::array_t;
-    };
+    } &&
+        is_tr<typename string_p::charcoder_t, std::remove_cv_t<typename string_p::qualified_charcoder_t>> &&
+        is_tr<typename string_p::unit_t, typename same_qualification_as_t<typename string_p::charcoder_t::unit_t, typename string_p::qualified_charcoder_t>::type_t>;
 
     template <typename string_p>
     concept static_constexpr_functions_i =

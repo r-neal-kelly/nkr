@@ -115,35 +115,42 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p>
-    inline static_t<charcoder_p>::static_t() :
-        point_count(1),
-        array(pointer_t(Empty_C_String(), 1))
+    inline static_t<charcoder_p>::static_t(tr1<any_tg, unit_t*> auto c_string) :
+        static_t(some_t<unit_t*>(c_string))
     {
     }
 
     template <charcoder_i charcoder_p>
-    inline static_t<charcoder_p>::static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string) :
+    inline static_t<charcoder_p>::static_t(tr1<any_tg, unit_t*> auto c_string,
+                                           count_t unit_count,
+                                           count_t point_count) :
+        static_t(some_t<unit_t*>(c_string), unit_count, point_count)
+    {
+    }
+
+    template <charcoder_i charcoder_p>
+    inline static_t<charcoder_p>::static_t(tr2<any_tg, some_t, of_any_tg, unit_t*> auto some_c_string) :
         point_count(0),
         array()
     {
-        nkr_ASSERT_THAT(c_string);
+        nkr_ASSERT_THAT(some_c_string);
 
         charcoder_t charcoder;
         count_t unit_count = 0;
         do {
-            unit_count += charcoder.Read_Forward(c_string + unit_count);
+            unit_count += charcoder.Read_Forward(some_c_string + unit_count);
             this->point_count += 1;
         } while (charcoder);
 
-        this->array = pointer_t(c_string, unit_count);
+        this->array = pointer_t<unit_t>(some_c_string, unit_count);
     }
 
     template <charcoder_i charcoder_p>
-    inline static_t<charcoder_p>::static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string,
+    inline static_t<charcoder_p>::static_t(tr2<any_tg, some_t, of_any_tg, unit_t*> auto some_c_string,
                                            count_t unit_count,
                                            count_t point_count) :
         point_count(point_count),
-        array(pointer_t(c_string, unit_count))
+        array((nkr_ASSERT_THAT(some_c_string), pointer_t<unit_t>(some_c_string, unit_count)))
     {
     }
 

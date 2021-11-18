@@ -95,9 +95,10 @@ namespace nkr { namespace string {
         static_assert(unit_capacity_p >= 1, "string::stack_t must have at least a unit_capacity of 1 to fit the terminus.");
 
     public:
-        using charcoder_t   = std::remove_cv_t<charcoder_p>;
-        using unit_t        = charcoder_p::unit_t;
-        using array_t       = array::stack_t<unit_t, unit_capacity_p>;
+        using charcoder_t           = std::remove_cv_t<charcoder_p>;
+        using qualified_charcoder_t = charcoder_p;
+        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>::type_t;
+        using array_t               = array::stack_t<unit_t, unit_capacity_p>;
 
     public:
         template <charcoder_i charcoder_pp, count_t unit_capacity_pp>

@@ -47,21 +47,17 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline static_t<unit_p>::static_t() :
-        pointer()
-    {
-    }
-
-    template <any_type_tr unit_p>
-    inline static_t<unit_p>::static_t(const maybe_t<pointer_t>& pointer) :
+    inline static_t<unit_p>::static_t(const some_t<pointer_t>& pointer) :
         pointer(pointer)
     {
+        nkr_ASSERT_THAT(this->pointer);
     }
 
     template <any_type_tr unit_p>
-    inline static_t<unit_p>::static_t(maybe_t<pointer_t>&& pointer) :
+    inline static_t<unit_p>::static_t(some_t<pointer_t>&& pointer) :
         pointer(nkr::Move(pointer))
     {
+        nkr_ASSERT_THAT(this->pointer);
     }
 
     template <any_type_tr unit_p>

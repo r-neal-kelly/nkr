@@ -183,21 +183,19 @@ namespace nkr { namespace string {
 
         TEST_SUITE("objects")
         {
-            //TEST_SUITE("string_ctor()")
-            //{
-            //    TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
-            //    {
-            //        using string_t = itr_p::string_t;
-            //        using charcoder_t = itr_p::charcoder_t;
+            TEST_SUITE("string_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
+                {
+                    using string_t = itr_p::string_t;
+                    using qualified_charcoder_t = itr_p::qualified_charcoder_t;
 
-            //        auto stack_string = Random<stack_t<charcoder_t>>();
-            //        //string_t string = stack_string;
-            //        string_t string(maybe_t(stack_string.C_String()), stack_string.Unit_Count(), stack_string.Point_Count());
-            //        static_assert(is_tr<string_t, decltype(string)>);
-            //        itr_p itr(string);
-            //        CHECK(itr.Is_At_First());
-            //    }
-            //}
+                    auto stack_string = Random<stack_t<qualified_charcoder_t>>();
+                    string_t static_string(&stack_string.Unit(0), stack_string.Unit_Count(), stack_string.Point_Count());
+                    itr_p itr(static_string);
+                    CHECK(itr.Is_At_First());
+                }
+            }
         }
     }
 

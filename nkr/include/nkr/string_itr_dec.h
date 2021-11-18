@@ -92,10 +92,11 @@ namespace nkr {
     class string_itr<string_p>
     {
     public:
-        using string_t      = string_p;
-        using charcoder_t   = string_p::charcoder_t;
-        using unit_t        = string_p::unit_t;
-        using substring_t   = string::stack_t<charcoder_t, charcoder_t::Max_Unit_Count() + 1>;
+        using string_t              = string_p;
+        using charcoder_t           = string_p::charcoder_t;
+        using qualified_charcoder_t = string_p::qualified_charcoder_t;
+        using unit_t                = string_p::unit_t;
+        using substring_t           = string::stack_t<charcoder_t, charcoder_t::Max_Unit_Count() + 1>;
 
     private:
         static bool_t               Has_String(const is_any_tr<string_itr> auto& self);

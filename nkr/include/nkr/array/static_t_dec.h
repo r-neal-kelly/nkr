@@ -32,15 +32,13 @@ namespace nkr { namespace array {
         static unit_t&  At(const is_any_tr<static_t> auto& self, index_t index);
 
     protected:
-        maybe_t<pointer_t>  pointer;
+        some_t<pointer_t>   pointer;
 
     public:
-        static_t();
-
         // may want to accept other types of arrays
 
-        static_t(const maybe_t<pointer_t>& pointer);
-        static_t(maybe_t<pointer_t>&& pointer);
+        static_t(const some_t<pointer_t>& pointer);
+        static_t(some_t<pointer_t>&& pointer);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);
@@ -59,10 +57,10 @@ namespace nkr { namespace array {
         ~static_t();
 
     public:
-        maybe_t<pointer_t>      Pointer() const;
-        maybe_t<pointer_t>      Pointer() const volatile;
-        void_t                  Pointer(maybe_t<pointer_t> new_pointer);
-        void_t                  Pointer(maybe_t<pointer_t> new_pointer) volatile;
+        some_t<pointer_t>       Pointer() const;
+        some_t<pointer_t>       Pointer() const volatile;
+        void_t                  Pointer(some_t<pointer_t> new_pointer);
+        void_t                  Pointer(some_t<pointer_t> new_pointer) volatile;
 
         count_t                 Count() const;
         count_t                 Count() const volatile;

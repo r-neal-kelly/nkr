@@ -51,14 +51,14 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("charcoder_p")
             {
-                TEST_CASE_TEMPLATE("should accept any charcoder with no change to the template", string_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should accept any charcoder with applicable changes to the template", string_p, nkr_ALL)
                 {
                     using charcoder_t = string_p::charcoder_t;
 
-                    static_assert(is_tr<charcoder_t, typename stack_t<charcoder_t>::charcoder_t>);
-                    static_assert(is_tr<charcoder_t, typename stack_t<const charcoder_t>::charcoder_t>);
-                    static_assert(is_tr<charcoder_t, typename stack_t<volatile charcoder_t>::charcoder_t>);
-                    static_assert(is_tr<charcoder_t, typename stack_t<const volatile charcoder_t>::charcoder_t>);
+                    static_assert(is_tr<charcoder_t, typename stack_t<charcoder_t>::qualified_charcoder_t>);
+                    static_assert(is_tr<const charcoder_t, typename stack_t<const charcoder_t>::qualified_charcoder_t>);
+                    static_assert(is_tr<volatile charcoder_t, typename stack_t<volatile charcoder_t>::qualified_charcoder_t>);
+                    static_assert(is_tr<const volatile charcoder_t, typename stack_t<const volatile charcoder_t>::qualified_charcoder_t>);
                 }
             }
 
