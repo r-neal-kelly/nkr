@@ -468,6 +468,80 @@ namespace nkr {
 
 namespace nkr {
 
+    template <typename type_p>
+    class other_qualifications_of_t;
+
+    template <just_non_qualified_tr type_p>
+    class other_qualifications_of_t<type_p>
+    {
+    public:
+        using type_a_t  = std::add_const_t<std::remove_cv_t<type_p>>;
+        using type_b_t  = std::add_volatile_t<std::remove_cv_t<type_p>>;
+        using type_c_t  = std::add_const_t<std::add_volatile_t<std::remove_cv_t<type_p>>>;
+    };
+
+    template <just_const_tr type_p>
+    class other_qualifications_of_t<type_p>
+    {
+    public:
+        using type_a_t  = std::remove_cv_t<type_p>;
+        using type_b_t  = std::add_volatile_t<std::remove_cv_t<type_p>>;
+        using type_c_t  = std::add_const_t<std::add_volatile_t<std::remove_cv_t<type_p>>>;
+    };
+
+    template <just_volatile_tr type_p>
+    class other_qualifications_of_t<type_p>
+    {
+    public:
+        using type_a_t  = std::remove_cv_t<type_p>;
+        using type_b_t  = std::add_const_t<std::remove_cv_t<type_p>>;
+        using type_c_t  = std::add_const_t<std::add_volatile_t<std::remove_cv_t<type_p>>>;
+    };
+
+    template <just_const_volatile_tr type_p>
+    class other_qualifications_of_t<type_p>
+    {
+    public:
+        using type_a_t  = std::remove_cv_t<type_p>;
+        using type_b_t  = std::add_const_t<std::remove_cv_t<type_p>>;
+        using type_c_t  = std::add_volatile_t<std::remove_cv_t<type_p>>;
+    };
+
+    template <typename subject_p, typename object_p>
+    class same_qualification_as_t;
+
+    template <typename subject_p, just_non_qualified_tr object_p>
+    class same_qualification_as_t<subject_p, object_p>
+    {
+    public:
+        using type_t    = std::remove_cv_t<subject_p>;
+    };
+
+    template <typename subject_p, just_const_tr object_p>
+    class same_qualification_as_t<subject_p, object_p>
+    {
+    public:
+        using type_t    = std::add_const_t<std::remove_cv_t<subject_p>>;
+    };
+
+    template <typename subject_p, just_volatile_tr object_p>
+    class same_qualification_as_t<subject_p, object_p>
+    {
+    public:
+        using type_t    = std::add_volatile_t<std::remove_cv_t<subject_p>>;
+    };
+
+    template <typename subject_p, just_const_volatile_tr object_p>
+    class same_qualification_as_t<subject_p, object_p>
+    {
+    public:
+        using type_t    = std::add_const_t<std::add_volatile_t<std::remove_cv_t<subject_p>>>;
+    };
+
+}
+
+namespace nkr {
+
     struct                      c_pointer_tg    {};
     template <typename> struct  c_pointer_ttg   {};
     struct                      c_array_tg      {};
@@ -712,13 +786,17 @@ namespace nkr {
         typename operator_p, typename operand_p
     > constexpr c_bool_t TR1()
     {
-        static_assert(just_non_qualified_tr<operand_p>);
-
         using subject_t = subject_p;
         using object_t = operand_p;
 
-        if constexpr (type_traits_i<std::remove_cv_t<subject_t>>::template Is_Any<object_t>()) {
-            return TR0<subject_t, operator_p>();
+        if constexpr (type_traits_i<std::remove_cv_t<subject_t>>::template Is_Any<std::remove_cv_t<object_t>>()) {
+            if constexpr (is_tr<operator_p, just_tg>) {
+                return is_tr<object_t, typename same_qualification_as_t<object_t, subject_p>::type_t>;
+            } else if constexpr (is_tr<operator_p, just_not_tg>) {
+                return !is_tr<object_t, typename same_qualification_as_t<object_t, subject_p>::type_t>;
+            } else {
+                return TR0<subject_t, operator_p>();
+            }
         } else {
             return operator_p::is_not;
         }
@@ -731,12 +809,11 @@ namespace nkr {
     > constexpr c_bool_t TR2()
     {
         static_assert(template_traits_i<operand_p>::Is_Implemented());
-        static_assert(just_non_qualified_tr<of_operand_p>);
 
         using subject_t = subject_p;
         using of_subject_t = c_array_or_type_traits_i<subject_t>::of_t;
         using object_t = template_traits_i<operand_p>::template type_t<of_operand_p>;
-        using of_object_t = type_traits_i<std::remove_cv_t<object_t>>::of_t;
+        using of_object_t = of_operand_p;
 
         if constexpr (operator_p::is_not) {
             return
@@ -757,13 +834,12 @@ namespace nkr {
     > constexpr c_bool_t TR3()
     {
         static_assert(template_traits_i<of_operand_p>::Is_Implemented());
-        static_assert(just_non_qualified_tr<of_of_operand_p>);
 
         using subject_t = subject_p;
         using of_subject_t = c_array_or_type_traits_i<subject_t>::of_t;
         using of_of_subject_t = c_array_or_type_traits_i<of_subject_t>::of_t;
         using of_object_t = template_traits_i<of_operand_p>::template type_t<of_of_operand_p>;
-        using of_of_object_t = type_traits_i<std::remove_cv_t<of_object_t>>::of_t;
+        using of_of_object_t = of_of_operand_p;
 
         if constexpr (operator_p::is_not) {
             return

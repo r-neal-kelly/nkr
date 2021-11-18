@@ -436,16 +436,43 @@ namespace nkr { namespace traits {
 
         TEST_SUITE("just_tg")
         {
-            TEST_CASE_TEMPLATE("should just allow a matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+            TEST_CASE_TEMPLATE("should just allow a matching type with the matching qualification", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
             {
                 static_assert(tr1<type_p,
                               just_tg, type_p>);
+                static_assert(!tr1<const type_p,
+                              just_tg, type_p>);
+                static_assert(!tr1<volatile type_p,
+                              just_tg, type_p>);
+                static_assert(!tr1<const volatile type_p,
+                              just_tg, type_p>);
+
+                static_assert(!tr1<type_p,
+                              just_tg, const type_p>);
                 static_assert(tr1<const type_p,
-                              just_tg, type_p>);
+                              just_tg, const type_p>);
+                static_assert(!tr1<volatile type_p,
+                              just_tg, const type_p>);
+                static_assert(!tr1<const volatile type_p,
+                              just_tg, const type_p>);
+
+                static_assert(!tr1<type_p,
+                              just_tg, volatile type_p>);
+                static_assert(!tr1<const type_p,
+                              just_tg, volatile type_p>);
                 static_assert(tr1<volatile type_p,
-                              just_tg, type_p>);
+                              just_tg, volatile type_p>);
+                static_assert(!tr1<const volatile type_p,
+                              just_tg, volatile type_p>);
+
+                static_assert(!tr1<type_p,
+                              just_tg, const volatile type_p>);
+                static_assert(!tr1<const type_p,
+                              just_tg, const volatile type_p>);
+                static_assert(!tr1<volatile type_p,
+                              just_tg, const volatile type_p>);
                 static_assert(tr1<const volatile type_p,
-                              just_tg, type_p>);
+                              just_tg, const volatile type_p>);
             }
 
             TEST_CASE_TEMPLATE("should not allow any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
@@ -587,16 +614,43 @@ namespace nkr { namespace traits {
 
         TEST_SUITE("just_not_tg")
         {
-            TEST_CASE_TEMPLATE("should just not allow a matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
+            TEST_CASE_TEMPLATE("should just not allow a matching type with the matching qualification", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
             {
                 static_assert(!tr1<type_p,
                               just_not_tg, type_p>);
+                static_assert(tr1<const type_p,
+                              just_not_tg, type_p>);
+                static_assert(tr1<volatile type_p,
+                              just_not_tg, type_p>);
+                static_assert(tr1<const volatile type_p,
+                              just_not_tg, type_p>);
+
+                static_assert(tr1<type_p,
+                              just_not_tg, const type_p>);
                 static_assert(!tr1<const type_p,
-                              just_not_tg, type_p>);
+                              just_not_tg, const type_p>);
+                static_assert(tr1<volatile type_p,
+                              just_not_tg, const type_p>);
+                static_assert(tr1<const volatile type_p,
+                              just_not_tg, const type_p>);
+
+                static_assert(tr1<type_p,
+                              just_not_tg, volatile type_p>);
+                static_assert(tr1<const type_p,
+                              just_not_tg, volatile type_p>);
                 static_assert(!tr1<volatile type_p,
-                              just_not_tg, type_p>);
+                              just_not_tg, volatile type_p>);
+                static_assert(tr1<const volatile type_p,
+                              just_not_tg, volatile type_p>);
+
+                static_assert(tr1<type_p,
+                              just_not_tg, const volatile type_p>);
+                static_assert(tr1<const type_p,
+                              just_not_tg, const volatile type_p>);
+                static_assert(tr1<volatile type_p,
+                              just_not_tg, const volatile type_p>);
                 static_assert(!tr1<const volatile type_p,
-                              just_not_tg, type_p>);
+                              just_not_tg, const volatile type_p>);
             }
 
             TEST_CASE_TEMPLATE("should allow any non-matching type", type_p, nkr_JUST_NON_QUALIFIED_TYPES)
