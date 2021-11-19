@@ -36,7 +36,7 @@ namespace nkr { namespace string { namespace $stack_t {
 
     template <typename type_p>
     concept any_tr =
-        is_any_tr<type_p, stack_t<typename type_p::charcoder_t, type_p::Unit_Capacity()>>;
+        is_any_tr<type_p, stack_t<typename type_p::qualified_charcoder_t, type_p::Unit_Capacity()>>;
 
 }}}
 
@@ -58,7 +58,7 @@ namespace nkr {
         public type_traits_i<string::stack_tg>
     {
     public:
-        using of_t  = type_p::charcoder_t;
+        using of_t  = type_p::qualified_charcoder_t;
     };
 
     template <>
@@ -79,9 +79,9 @@ namespace nkr { namespace string {
 
     template <typename type_p>
     concept any_stack_tr =
-        is_any_tr<type_p, stack_t<typename type_p::charcoder_t, type_p::Unit_Capacity()>>;
+        is_any_tr<type_p, stack_t<typename type_p::qualified_charcoder_t, type_p::Unit_Capacity()>>;
 
-    nkr_DEFINE_CONTAINER_TRAITS(stack, charcoder_t);
+    nkr_DEFINE_CONTAINER_TRAITS(stack, qualified_charcoder_t);
 
 }}
 //
@@ -97,7 +97,7 @@ namespace nkr { namespace string {
     public:
         using charcoder_t           = std::remove_cv_t<charcoder_p>;
         using qualified_charcoder_t = charcoder_p;
-        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>::type_t;
+        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>;
         using array_t               = array::stack_t<unit_t, unit_capacity_p>;
 
     public:
@@ -116,6 +116,7 @@ namespace nkr { namespace string {
         static auto&                    Copy_Assign(is_any_non_const_tr<stack_t> auto& self, const is_any_tr<stack_t> auto& other);
         static auto&                    Move_Assign(is_any_non_const_tr<stack_t> auto& self, is_any_non_const_tr<stack_t> auto& other);
 
+        static bool_t                   Has_Memory(const is_any_tr<stack_t> auto& self);
         static bool_t                   Has_Terminus(const is_any_tr<stack_t> auto& self);
 
         static count_t                  Unit_Capacity(const is_any_tr<stack_t> auto& self);
@@ -182,6 +183,8 @@ namespace nkr { namespace string {
         ~stack_t();
 
     public:
+        bool_t                              Has_Memory() const;
+        bool_t                              Has_Memory() const volatile;
         bool_t                              Has_Terminus() const;
         bool_t                              Has_Terminus() const volatile;
 
@@ -245,6 +248,6 @@ namespace nkr {
         tr1<any_tg, string::stack_tg>   string_p,
         count_t                         min_point_count_p   = 1,
         count_t                         max_point_count_p   = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
-    > auto  Random(bool_t use_errorneous_units = false);
+    > auto  Random(bool_t use_erroneous_units = false);
 
 }

@@ -469,10 +469,10 @@ namespace nkr {
 namespace nkr {
 
     template <typename type_p>
-    class other_qualifications_of_t;
+    class other_qualifications_of_tmpl;
 
     template <just_non_qualified_tr type_p>
-    class other_qualifications_of_t<type_p>
+    class other_qualifications_of_tmpl<type_p>
     {
     public:
         using type_a_t  = std::add_const_t<std::remove_cv_t<type_p>>;
@@ -481,7 +481,7 @@ namespace nkr {
     };
 
     template <just_const_tr type_p>
-    class other_qualifications_of_t<type_p>
+    class other_qualifications_of_tmpl<type_p>
     {
     public:
         using type_a_t  = std::remove_cv_t<type_p>;
@@ -490,7 +490,7 @@ namespace nkr {
     };
 
     template <just_volatile_tr type_p>
-    class other_qualifications_of_t<type_p>
+    class other_qualifications_of_tmpl<type_p>
     {
     public:
         using type_a_t  = std::remove_cv_t<type_p>;
@@ -499,7 +499,7 @@ namespace nkr {
     };
 
     template <just_const_volatile_tr type_p>
-    class other_qualifications_of_t<type_p>
+    class other_qualifications_of_tmpl<type_p>
     {
     public:
         using type_a_t  = std::remove_cv_t<type_p>;
@@ -508,35 +508,38 @@ namespace nkr {
     };
 
     template <typename subject_p, typename object_p>
-    class same_qualification_as_t;
+    class same_qualification_as_tmpl;
 
     template <typename subject_p, just_non_qualified_tr object_p>
-    class same_qualification_as_t<subject_p, object_p>
+    class same_qualification_as_tmpl<subject_p, object_p>
     {
     public:
         using type_t    = std::remove_cv_t<subject_p>;
     };
 
     template <typename subject_p, just_const_tr object_p>
-    class same_qualification_as_t<subject_p, object_p>
+    class same_qualification_as_tmpl<subject_p, object_p>
     {
     public:
         using type_t    = std::add_const_t<std::remove_cv_t<subject_p>>;
     };
 
     template <typename subject_p, just_volatile_tr object_p>
-    class same_qualification_as_t<subject_p, object_p>
+    class same_qualification_as_tmpl<subject_p, object_p>
     {
     public:
         using type_t    = std::add_volatile_t<std::remove_cv_t<subject_p>>;
     };
 
     template <typename subject_p, just_const_volatile_tr object_p>
-    class same_qualification_as_t<subject_p, object_p>
+    class same_qualification_as_tmpl<subject_p, object_p>
     {
     public:
         using type_t    = std::add_const_t<std::add_volatile_t<std::remove_cv_t<subject_p>>>;
     };
+
+    template <typename subject_p, typename object_p>
+    using same_qualification_as_t   = same_qualification_as_tmpl<subject_p, object_p>::type_t;
 
 }
 
@@ -791,9 +794,9 @@ namespace nkr {
 
         if constexpr (type_traits_i<std::remove_cv_t<subject_t>>::template Is_Any<std::remove_cv_t<object_t>>()) {
             if constexpr (is_tr<operator_p, just_tg>) {
-                return is_tr<object_t, typename same_qualification_as_t<object_t, subject_p>::type_t>;
+                return is_tr<object_t, same_qualification_as_t<object_t, subject_p>>;
             } else if constexpr (is_tr<operator_p, just_not_tg>) {
-                return !is_tr<object_t, typename same_qualification_as_t<object_t, subject_p>::type_t>;
+                return !is_tr<object_t, same_qualification_as_t<object_t, subject_p>>;
             } else {
                 return TR0<subject_t, operator_p>();
             }

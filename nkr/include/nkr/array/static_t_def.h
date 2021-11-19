@@ -23,13 +23,20 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p>
     inline auto&
-        static_t<unit_p>::Move_Assign(is_any_non_const_tr<static_t> auto& self, is_any_non_const_tr<static_t> auto& other)
+        static_t<unit_p>::Move_Assign(is_any_non_const_tr<static_t> auto& self, is_any_non_const_tr<static_t> auto&& other)
     {
         if (&self != std::addressof(other)) {
             self.pointer = nkr::Move(other.pointer);
         }
 
         return self;
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        static_t<unit_p>::Has_Memory(const is_any_tr<static_t> auto& self)
+    {
+        return self.pointer;
     }
 
     template <any_type_tr unit_p>
@@ -47,17 +54,21 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline static_t<unit_p>::static_t(const some_t<pointer_t>& pointer) :
-        pointer(pointer)
+    inline static_t<unit_p>::static_t() :
+        pointer()
     {
-        nkr_ASSERT_THAT(this->pointer);
     }
 
     template <any_type_tr unit_p>
-    inline static_t<unit_p>::static_t(some_t<pointer_t>&& pointer) :
+    inline static_t<unit_p>::static_t(const maybe_t<pointer_t>& pointer) :
+        pointer(pointer)
+    {
+    }
+
+    template <any_type_tr unit_p>
+    inline static_t<unit_p>::static_t(maybe_t<pointer_t>&& pointer) :
         pointer(nkr::Move(pointer))
     {
-        nkr_ASSERT_THAT(this->pointer);
     }
 
     template <any_type_tr unit_p>
@@ -119,7 +130,7 @@ namespace nkr { namespace array {
         static_t<unit_p>::operator =(static_t&& other)
         noexcept
     {
-        return Move_Assign(*this, other);
+        return Move_Assign(*this, nkr::Move(other));
     }
 
     template <any_type_tr unit_p>
@@ -127,7 +138,7 @@ namespace nkr { namespace array {
         static_t<unit_p>::operator =(static_t&& other)
         volatile noexcept
     {
-        return Move_Assign(*this, other);
+        return Move_Assign(*this, nkr::Move(other));
     }
 
     template <any_type_tr unit_p>
@@ -135,7 +146,7 @@ namespace nkr { namespace array {
         static_t<unit_p>::operator =(is_just_volatile_tr<static_t> auto&& other)
         noexcept
     {
-        return Move_Assign(*this, other);
+        return Move_Assign(*this, nkr::Move(other));
     }
 
     template <any_type_tr unit_p>
@@ -143,12 +154,28 @@ namespace nkr { namespace array {
         static_t<unit_p>::operator =(is_just_volatile_tr<static_t> auto&& other)
         volatile noexcept
     {
-        return Move_Assign(*this, other);
+        return Move_Assign(*this, nkr::Move(other));
     }
 
     template <any_type_tr unit_p>
     inline static_t<unit_p>::~static_t()
     {
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        static_t<unit_p>::Has_Memory()
+        const
+    {
+        return Has_Memory(*this);
+    }
+
+    template <any_type_tr unit_p>
+    inline bool_t
+        static_t<unit_p>::Has_Memory()
+        const volatile
+    {
+        return Has_Memory(*this);
     }
 
     template <any_type_tr unit_p>

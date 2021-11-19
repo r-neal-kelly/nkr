@@ -394,31 +394,31 @@ namespace nkr { namespace traits {
             TEST_CASE_TEMPLATE("should not allow any container of a matching type with a non-matching qualification", type_p, nkr_JUST_TYPES)
             {
                 static_assert(!tr2<value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
 
                 static_assert(!tr2<value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
 
                 static_assert(!tr2<value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
             }
 
             TEST_CASE_TEMPLATE("should not allow any container of any non-matching type", type_p, nkr_JUST_TYPES)
@@ -433,31 +433,31 @@ namespace nkr { namespace traits {
                               any_tg, value_template_t, of_just_tg, type_p>);
 
                 static_assert(!tr2<value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
 
                 static_assert(!tr2<value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
 
                 static_assert(!tr2<value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
             }
 
             TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_TYPES)
@@ -472,31 +472,31 @@ namespace nkr { namespace traits {
                               any_tg, value_template_t, of_just_tg, type_p>);
 
                 static_assert(!tr2<non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<volatile non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const volatile non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
 
                 static_assert(!tr2<non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<volatile non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const volatile non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
 
                 static_assert(!tr2<non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<volatile non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const volatile non_match_t,
-                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
             }
         }
 
@@ -609,31 +609,31 @@ namespace nkr { namespace traits {
             TEST_CASE_TEMPLATE("should allow any container of a matching type with a non-matching qualification", type_p, nkr_JUST_TYPES)
             {
                 static_assert(tr2<value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(tr2<const value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(tr2<volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(tr2<const volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
 
                 static_assert(tr2<value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(tr2<const value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(tr2<volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(tr2<const volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
 
                 static_assert(tr2<value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(tr2<const value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(tr2<volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(tr2<const volatile value_template_t<type_p>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
             }
 
             TEST_CASE_TEMPLATE("should allow any container of any non-matching type", type_p, nkr_JUST_TYPES)
@@ -648,31 +648,31 @@ namespace nkr { namespace traits {
                               any_tg, value_template_t, of_just_not_tg, type_p>);
 
                 static_assert(tr2<value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(tr2<const value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(tr2<volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(tr2<const volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
 
                 static_assert(tr2<value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(tr2<const value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(tr2<volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(tr2<const volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
 
                 static_assert(tr2<value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(tr2<const value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(tr2<volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(tr2<const volatile value_template_t<non_match_t>,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
             }
 
             TEST_CASE_TEMPLATE("should not allow any non-container", type_p, nkr_JUST_TYPES)
@@ -687,31 +687,31 @@ namespace nkr { namespace traits {
                               any_tg, value_template_t, of_just_not_tg, type_p>);
 
                 static_assert(!tr2<non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<volatile non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
                 static_assert(!tr2<const volatile non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_a_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_a_t>);
 
                 static_assert(!tr2<non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<volatile non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
                 static_assert(!tr2<const volatile non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_b_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_b_t>);
 
                 static_assert(!tr2<non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<volatile non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
                 static_assert(!tr2<const volatile non_match_t,
-                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_t<type_p>::type_c_t>);
+                              any_tg, value_template_t, of_just_not_tg, typename other_qualifications_of_tmpl<type_p>::type_c_t>);
             }
         }
 

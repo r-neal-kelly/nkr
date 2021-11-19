@@ -28,10 +28,15 @@ namespace nkr { namespace $array_i {
                  volatile std::remove_cv_t<array_p> volatile_array,
                  const volatile std::remove_cv_t<array_p> const_volatile_array)
     {
-        { array.Count() }                   -> is_tr<count_t>;
-        { const_array.Count() }             -> is_tr<count_t>;
-        { volatile_array.Count() }          -> is_tr<count_t>;
-        { const_volatile_array.Count() }    -> is_tr<count_t>;
+        { array.Has_Memory() }                  -> is_tr<bool_t>;
+        { const_array.Has_Memory() }            -> is_tr<bool_t>;
+        { volatile_array.Has_Memory() }         -> is_tr<bool_t>;
+        { const_volatile_array.Has_Memory() }   -> is_tr<bool_t>;
+
+        { array.Count() }                       -> is_tr<count_t>;
+        { const_array.Count() }                 -> is_tr<count_t>;
+        { volatile_array.Count() }              -> is_tr<count_t>;
+        { const_volatile_array.Count() }        -> is_tr<count_t>;
     };
 
     template <typename array_p>

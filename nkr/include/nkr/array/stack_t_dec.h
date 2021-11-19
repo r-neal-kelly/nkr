@@ -67,6 +67,8 @@ namespace nkr { namespace array {
         static auto&                    Move_Assign(is_any_non_const_tr<stack_t> auto& self,
                                                     is_any_non_const_tr<stack_t> auto& other);
 
+        static bool_t                   Has_Memory(const is_any_tr<stack_t> auto& self);
+
         static auto&                    Array(is_any_tr<stack_t> auto& self);
         static auto&                    Writable_Array(is_any_non_const_tr<stack_t> auto& self);
 
@@ -139,6 +141,9 @@ namespace nkr { namespace array {
         /// @name methods
         /// @copydoc 
         /// @{
+        bool_t                  Has_Memory() const;
+        bool_t                  Has_Memory() const volatile;
+        
         array_t&                Array();
         const array_t&          Array() const;
         volatile array_t&       Array() volatile;

@@ -31,9 +31,9 @@ namespace nkr { namespace string {
 
     template <typename string_p>
     concept any_dynamic_tr =
-        is_any_tr<string_p, dynamic_t<typename string_p::charcoder_t, typename string_p::allocator_t, typename string_p::grow_rate_t>>;
+        is_any_tr<string_p, dynamic_t<typename string_p::qualified_charcoder_t, typename string_p::allocator_t, typename string_p::grow_rate_t>>;
 
-    nkr_DEFINE_CONTAINER_TRAITS(dynamic, charcoder_t);
+    nkr_DEFINE_CONTAINER_TRAITS(dynamic, qualified_charcoder_t);
 
 }}
 
@@ -54,7 +54,7 @@ namespace nkr { namespace string {
     public:
         using charcoder_t           = std::remove_cv_t<charcoder_p>;
         using qualified_charcoder_t = charcoder_p;
-        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>::type_t;
+        using unit_t                = same_qualification_as_t<typename charcoder_t::unit_t, qualified_charcoder_t>;
         using allocator_t           = allocator_p;
         using grow_rate_t           = grow_rate_p;
         using array_t               = array::dynamic_t<unit_t, allocator_p, grow_rate_p>;
@@ -204,8 +204,8 @@ namespace nkr {
 
     template <
         string::any_dynamic_tr  string_p,
-        count_t                 min_point_count_p       = 1,
-        count_t                 max_point_count_p       = 128
-    > auto  Random(bool_t use_errorneous_units = false);
+        count_t                 min_point_count_p   = 1,
+        count_t                 max_point_count_p   = 128
+    > auto  Random(bool_t use_erroneous_units = false);
 
 }

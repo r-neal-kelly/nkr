@@ -93,6 +93,13 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline bool_t
+        stack_t<unit_p, capacity_p>::Has_Memory(const is_any_tr<stack_t> auto& self)
+    {
+        return true;
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline auto&
         stack_t<unit_p, capacity_p>::Array(is_any_tr<stack_t> auto& self)
     {
@@ -469,6 +476,22 @@ namespace nkr { namespace array {
     inline stack_t<unit_p, capacity_p>::~stack_t()
     {
         Clear(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline bool_t
+        stack_t<unit_p, capacity_p>::Has_Memory()
+        const
+    {
+        return Has_Memory(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline bool_t
+        stack_t<unit_p, capacity_p>::Has_Memory()
+        const volatile
+    {
+        return Has_Memory(*this);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/maybe_t.h"
 #include "nkr/pointer_t.h"
@@ -25,20 +26,24 @@ namespace nkr { namespace array {
 
     private:
         static auto&    Copy_Assign(is_any_non_const_tr<static_t> auto& self, const is_any_tr<static_t> auto& other);
-        static auto&    Move_Assign(is_any_non_const_tr<static_t> auto& self, is_any_non_const_tr<static_t> auto& other);
+        static auto&    Move_Assign(is_any_non_const_tr<static_t> auto& self, is_any_non_const_tr<static_t> auto&& other);
+
+        static bool_t   Has_Memory(const is_any_tr<static_t> auto& self);
 
         static count_t  Count(const is_any_tr<static_t> auto& self);
 
         static unit_t&  At(const is_any_tr<static_t> auto& self, index_t index);
 
     protected:
-        some_t<pointer_t>   pointer;
+        maybe_t<pointer_t>  pointer;
 
     public:
+        static_t();
+
         // may want to accept other types of arrays
 
-        static_t(const some_t<pointer_t>& pointer);
-        static_t(some_t<pointer_t>&& pointer);
+        static_t(const maybe_t<pointer_t>& pointer);
+        static_t(maybe_t<pointer_t>&& pointer);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);
@@ -57,10 +62,13 @@ namespace nkr { namespace array {
         ~static_t();
 
     public:
-        some_t<pointer_t>       Pointer() const;
-        some_t<pointer_t>       Pointer() const volatile;
-        void_t                  Pointer(some_t<pointer_t> new_pointer);
-        void_t                  Pointer(some_t<pointer_t> new_pointer) volatile;
+        bool_t                  Has_Memory() const;
+        bool_t                  Has_Memory() const volatile;
+
+        maybe_t<pointer_t>      Pointer() const;
+        maybe_t<pointer_t>      Pointer() const volatile;
+        void_t                  Pointer(maybe_t<pointer_t> new_pointer);
+        void_t                  Pointer(maybe_t<pointer_t> new_pointer) volatile;
 
         count_t                 Count() const;
         count_t                 Count() const volatile;

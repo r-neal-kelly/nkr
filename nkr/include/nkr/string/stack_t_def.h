@@ -78,6 +78,13 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline bool_t
+        stack_t<charcoder_p, unit_capacity_p>::Has_Memory(const is_any_tr<stack_t> auto& self)
+    {
+        return true;
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline bool_t
         stack_t<charcoder_p, unit_capacity_p>::Has_Terminus(const is_any_tr<stack_t> auto& self)
     {
         count_t unit_count = Unit_Count(self);
@@ -558,6 +565,22 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline bool_t
+        stack_t<charcoder_p, unit_capacity_p>::Has_Memory()
+        const
+    {
+        return Has_Memory(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline bool_t
+        stack_t<charcoder_p, unit_capacity_p>::Has_Memory()
+        const volatile
+    {
+        return Has_Memory(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline bool_t
         stack_t<charcoder_p, unit_capacity_p>::Has_Terminus()
         const
     {
@@ -886,7 +909,7 @@ namespace nkr { namespace string {
 namespace nkr {
 
     template <tr1<any_tg, string::stack_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline auto Random(bool_t use_errorneous_units)
+    inline auto Random(bool_t use_erroneous_units)
     {
         using string_t = string_p;
         using charcoder_t = string_t::charcoder_t;
@@ -898,7 +921,7 @@ namespace nkr {
 
         const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
         string::stack_t<charcoder_t, max_point_count_p * charcoder_t::Max_Unit_Count()> string;
-        if (use_errorneous_units) {
+        if (use_erroneous_units) {
             array::stack_t<unit_t, charcoder_t::Max_Unit_Count()> units;
             for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {
                 for (index_t idx = 0, end = Random<count_t>(1, units.Capacity()); idx < end; idx += 1) {

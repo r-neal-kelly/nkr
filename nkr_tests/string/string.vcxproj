@@ -168,7 +168,6 @@
     <ClCompile Include="src\stack_t.cpp" />
     <ClCompile Include="src\static_t.cpp" />
     <ClCompile Include="src\string_itr.cpp" />
-    <ClCompile Include="src\string_itr_static_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">

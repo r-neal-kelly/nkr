@@ -27,9 +27,9 @@ namespace nkr { namespace $charcoder_i {
             - each substring may be of varying width or each substring may be of the same width.
             - a charcoder contains and operates only one substring at a time.
             - a charcoder's contained units must always have the same endianness as their encoding.
-            - a charcoder must at all times be well-formed and thus valid. it should not cache any errorneous units.
-            - a charcoder should replace errorneous units with a substring that decodes into a singular replacement point, defined per encoding.
-            - during the reading process, the charcoder must return the actual number of units read, whether they are errorneous or not.
+            - a charcoder must at all times be well-formed and thus valid. it should not cache any erroneous units.
+            - a charcoder should replace erroneous units with a substring that decodes into a singular replacement point, defined per encoding.
+            - during the reading process, the charcoder must return the actual number of units read, whether they are erroneous or not.
 
             - points are decoded substrings and are completely distinct from every other point defined by the encoding.
             - points must fit within the word of the machine.

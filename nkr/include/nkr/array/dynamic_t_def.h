@@ -97,6 +97,13 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory(const is_any_tr<dynamic_t> auto& self)
+    {
+        return self.writable_units != nullptr;
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer(const is_any_tr<dynamic_t> auto& self)
     {
@@ -135,13 +142,6 @@ namespace nkr { namespace array {
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Count(const is_any_tr<dynamic_t> auto& self)
     {
         return self.unit_count;
-    }
-
-    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline bool_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory(const is_any_tr<dynamic_t> auto& self)
-    {
-        return self.writable_units != nullptr;
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -542,6 +542,22 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory()
+        const
+    {
+        return Has_Memory(*this);
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline bool_t
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory()
+        const volatile
+    {
+        return Has_Memory(*this);
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
     inline typename dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer()
         const
@@ -602,22 +618,6 @@ namespace nkr { namespace array {
         const volatile
     {
         return Count(*this);
-    }
-
-    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline bool_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory()
-        const
-    {
-        return Has_Memory(*this);
-    }
-
-    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline bool_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Has_Memory()
-        const volatile
-    {
-        return Has_Memory(*this);
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

@@ -833,7 +833,7 @@ namespace nkr { namespace string {
 namespace nkr {
 
     template <string::any_dynamic_tr string_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline auto Random(bool_t use_errorneous_units)
+    inline auto Random(bool_t use_erroneous_units)
     {
         using string_t = string_p;
         using charcoder_t = string_t::charcoder_t;
@@ -845,7 +845,7 @@ namespace nkr {
 
         const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
         std::remove_const_t<string_t> string(point_count * charcoder_t::Max_Unit_Count());
-        if (use_errorneous_units) {
+        if (use_erroneous_units) {
             array::stack_t<unit_t, charcoder_t::Max_Unit_Count()> units;
             for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {
                 for (index_t idx = 0, end = Random<count_t>(1, units.Capacity()); idx < end; idx += 1) {

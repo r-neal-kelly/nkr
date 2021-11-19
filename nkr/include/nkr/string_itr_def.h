@@ -21,7 +21,7 @@ namespace nkr {
         if constexpr (string_t::Has_Guaranteed_Terminus()) {
             return self.string->Has_Terminus();
         } else {
-            return true;
+            return self.string->Has_Memory();
         }
     }
 
