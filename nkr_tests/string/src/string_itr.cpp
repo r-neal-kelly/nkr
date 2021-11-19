@@ -60,6 +60,9 @@ namespace nkr { namespace string {
     #define nkr_ERROR_STRING_t(...)                                                     \
         same_qualification_as_t<decltype(Error_String<string_t>()), string_t>
 
+    #define nkr_STRING_itr(STRING_p)                                    \
+        same_qualification_as_t<string_itr<decltype(STRING_p)>, itr_p>
+
         template <typename string_p>
         auto Error_String()
         {
@@ -659,13 +662,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        string_t string;
-                        itr_p itr(string, position_e::prefix_tg());
-                        CHECK_TRUE(itr.Is_At_Last());
-                    }
+                    nkr_RANDOM_STRING_t(1, 1) string = Random<string_t, 1, 1>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
@@ -1256,13 +1255,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        string_t string;
-                        itr_p itr(string, position_e::first_tg());
-                        CHECK(itr.Point() == 0);
-                    }
+                    nkr_RANDOM_STRING_t(1, 1) string = Random<string_t, 1, 1>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Point() == 0);
                 }
 
                 TEST_CASE_TEMPLATE("should not return 0 when at the first point in a string with a length greater than 0", itr_p, nkr_ALL)
@@ -1278,14 +1273,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        string_t string;
-                        itr_p itr(string, position_e::last_tg());
-                        CHECK(itr.Point() == 0);
-                        CHECK(itr.Is_At_Prefix());
-                    }
+                    nkr_RANDOM_STRING_t(1, 1) string = Random<string_t, 1, 1>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Point() == 0);
+                    CHECK(itr.Is_At_Prefix());
                 }
 
                 TEST_CASE_TEMPLATE("should not return 0 when at the last point in a string with a length greater than 0", itr_p, nkr_ALL)
