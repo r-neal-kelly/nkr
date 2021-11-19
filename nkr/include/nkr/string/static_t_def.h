@@ -454,182 +454,295 @@ namespace nkr { namespace string {
 
 }}
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<string::local_static_tg>::Is_Any()
+    {
+        return string::$local_static_t::any_tr<other_p> || is_any_tr<other_p, string::local_static_tg>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<string::local_static_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace string {
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline constexpr count_t
+        local_static_t<charcoder_p, unit_capacity_p>::Unit_Capacity()
+    {
+        return unit_capacity_p;
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline auto&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::Copy_Assign(is_any_non_const_tr<random_static_t> auto& self,
-                                                                                        const is_any_tr<random_static_t> auto& other)
+        local_static_t<charcoder_p, unit_capacity_p>::Copy_Assign(is_any_non_const_tr<local_static_t> auto& self,
+                                                                  const is_any_tr<local_static_t> auto& other)
     {
         if (&self != std::addressof(other)) {
-            self.random = other.random;
-            Refresh(self);
-        }
-
-        return self;
-    }
-
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline auto&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::Move_Assign(is_any_non_const_tr<random_static_t> auto& self,
-                                                                                        is_any_non_const_tr<random_static_t> auto&& other)
-    {
-        if (&self != std::addressof(other)) {
-            self.random = nkr::Move(other.random);
-            Refresh(self);
-        }
-
-        return self;
-    }
-
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline void_t
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::Refresh(is_any_non_const_tr<random_static_t> auto& self)
-    {
-        self.point_count = self.random.Point_Count();
-        self.array = maybe_t<pointer_t<unit_t>>(&self.random.Unit(0), self.random.Unit_Count());
-    }
-
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(bool_t use_erroneous_units) :
-        base_t(),
-        random()
-    {
-        const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
-        if (point_count > 0) {
-            if constexpr (min_point_count_p > 0) {
-                this->random = Random<stack_t, min_point_count_p, max_point_count_p>(use_erroneous_units);
+            self.local_stack = other.local_stack;
+            if (Is_Enabled(other)) {
+                Enable(self);
             } else {
-                this->random = Random<stack_t, 1, max_point_count_p>(use_erroneous_units);
+                Disable(self);
             }
-            Refresh(*this);
+        }
+
+        return self;
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline auto&
+        local_static_t<charcoder_p, unit_capacity_p>::Move_Assign(is_any_non_const_tr<local_static_t> auto& self,
+                                                                  is_any_non_const_tr<local_static_t> auto&& other)
+    {
+        if (&self != std::addressof(other)) {
+            self.local_stack = nkr::Move(other.local_stack);
+            if (Is_Enabled(other)) {
+                Enable(self);
+            } else {
+                Disable(self);
+            }
+        }
+
+        return self;
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline bool_t
+        local_static_t<charcoder_p, unit_capacity_p>::Is_Enabled(const is_any_tr<local_static_t> auto& self)
+    {
+        return self.Has_Memory();
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Enable(is_any_non_const_tr<local_static_t> auto& self)
+    {
+        self.point_count = self.local_stack.Point_Count();
+        self.array = maybe_t<pointer_t<unit_t>>(&self.local_stack.Unit(0), self.local_stack.Unit_Count());
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Disable(is_any_non_const_tr<local_static_t> auto& self)
+    {
+        self.point_count = 0;
+        self.array = maybe_t<pointer_t<unit_t>>(nullptr);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t() :
+        base_t(),
+        local_stack()
+    {
+        Enable(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(nullptr_t) :
+        local_static_t()
+    {
+        Disable(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string) :
+        base_t(),
+        local_stack(c_string)
+    {
+        if (c_string) {
+            Enable(*this);
         } else {
-            this->point_count = 0;
-            this->array = maybe_t<pointer_t<unit_t>>(&this->random.Unit(0), 0);
+            Disable(*this);
         }
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string) :
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string) :
         base_t(),
-        random(c_string)
+        local_stack(maybe_c_string)
     {
-        Refresh(*this);
+        if (maybe_c_string) {
+            Enable(*this);
+        } else {
+            Disable(*this);
+        }
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string) :
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string) :
         base_t(),
-        random(maybe_c_string)
+        local_stack(some_c_string)
     {
-        Refresh(*this);
+        Enable(*this);
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string) :
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(const local_static_t& other) :
         base_t(),
-        random(some_c_string)
+        local_stack(other.local_stack)
     {
-        Refresh(*this);
+        if (Is_Enabled(other)) {
+            Enable(*this);
+        } else {
+            Disable(*this);
+        }
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(const random_static_t& other) :
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(const volatile local_static_t& other) :
         base_t(),
-        random(other.random)
+        local_stack(other.local_stack)
     {
-        Refresh(*this);
+        if (Is_Enabled(other)) {
+            Enable(*this);
+        } else {
+            Disable(*this);
+        }
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(const volatile random_static_t& other) :
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(local_static_t&& other) noexcept :
         base_t(),
-        random(other.random)
+        local_stack(nkr::Move(other.local_stack))
     {
-        Refresh(*this);
+        if (Is_Enabled(other)) {
+            Enable(*this);
+        } else {
+            Disable(*this);
+        }
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(random_static_t&& other) noexcept :
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(volatile local_static_t&& other) noexcept :
         base_t(),
-        random(nkr::Move(other.random))
+        local_stack(nkr::Move(other.local_stack))
     {
-        Refresh(*this);
+        if (Is_Enabled(other)) {
+            Enable(*this);
+        } else {
+            Disable(*this);
+        }
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(volatile random_static_t&& other) noexcept :
-        base_t(),
-        random(nkr::Move(other.random))
-    {
-        Refresh(*this);
-    }
-
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(const random_static_t& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(const local_static_t& other)
     {
         return Copy_Assign(*this, other);
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline volatile random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(const random_static_t& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline volatile local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(const local_static_t& other)
         volatile
     {
         return Copy_Assign(*this, other);
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(const volatile random_static_t& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(const volatile local_static_t& other)
     {
         return Copy_Assign(*this, other);
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline volatile random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(const volatile random_static_t& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline volatile local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(const volatile local_static_t& other)
         volatile
     {
         return Copy_Assign(*this, other);
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(random_static_t&& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(local_static_t&& other)
         noexcept
     {
         return Move_Assign(*this, nkr::Move(other));
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline volatile random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(random_static_t&& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline volatile local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(local_static_t&& other)
         volatile noexcept
     {
         return Move_Assign(*this, nkr::Move(other));
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(is_just_volatile_tr<random_static_t> auto&& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(is_just_volatile_tr<local_static_t> auto&& other)
         noexcept
     {
         return Move_Assign(*this, nkr::Move(other));
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline volatile random_static_t<charcoder_p, min_point_count_p, max_point_count_p>&
-        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::operator =(is_just_volatile_tr<random_static_t> auto&& other)
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline volatile local_static_t<charcoder_p, unit_capacity_p>&
+        local_static_t<charcoder_p, unit_capacity_p>::operator =(is_just_volatile_tr<local_static_t> auto&& other)
         volatile noexcept
     {
         return Move_Assign(*this, nkr::Move(other));
     }
 
-    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::~random_static_t()
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::~local_static_t()
     {
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline bool_t
+        local_static_t<charcoder_p, unit_capacity_p>::Is_Enabled()
+        const
+    {
+        return Is_Enabled(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline bool_t
+        local_static_t<charcoder_p, unit_capacity_p>::Is_Enabled()
+        const volatile
+    {
+        return Is_Enabled(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Enable()
+    {
+        return Enable(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Enable()
+        volatile
+    {
+        return Enable(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Disable()
+    {
+        return Disable(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Disable()
+        volatile
+    {
+        return Disable(*this);
     }
 
 }}
@@ -637,9 +750,35 @@ namespace nkr { namespace string {
 namespace nkr {
 
     template <tr1<any_tg, string::static_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline auto Random(bool_t use_erroneous_units)
+    inline auto
+        Random(bool_t use_erroneous_units)
     {
-        return string::random_static_t<string_p::qualified_charcoder_t, min_point_count_p, max_point_count_p>(use_erroneous_units);
+        return Random<string::local_static_t<string_p::qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units);
+    }
+
+    template <tr1<any_tg, string::local_static_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
+    inline auto
+        Random(bool_t use_erroneous_units)
+    {
+        using string_t = string_p;
+        using charcoder_t = string_t::charcoder_t;
+        using qualified_charcoder_t = string_t::qualified_charcoder_t;
+
+        static_assert(min_point_count_p <= max_point_count_p);
+
+        constexpr count_t unit_capacity = max_point_count_p * charcoder_t::Max_Unit_Count();
+        const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
+        if (point_count > 0) {
+            if constexpr (min_point_count_p > 0) {
+                return string::local_static_t<qualified_charcoder_t, unit_capacity>
+                    (Random<string::stack_t<qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units).C_String());
+            } else {
+                return string::local_static_t<qualified_charcoder_t, unit_capacity>
+                    (Random<string::stack_t<qualified_charcoder_t>, 1, max_point_count_p>(use_erroneous_units).C_String());
+            }
+        } else {
+            return string::local_static_t<qualified_charcoder_t, unit_capacity>(nullptr);
+        }
     }
 
 }

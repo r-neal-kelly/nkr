@@ -833,10 +833,12 @@ namespace nkr { namespace string {
 namespace nkr {
 
     template <string::any_dynamic_tr string_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline auto Random(bool_t use_erroneous_units)
+    inline auto
+        Random(bool_t use_erroneous_units)
     {
         using string_t = string_p;
         using charcoder_t = string_t::charcoder_t;
+        using qualified_charcoder_t = string_t::qualified_charcoder_t;
         using unit_t = string_t::unit_t;
 
         nkr_ASSERT_THAT(min_point_count_p >= 1);

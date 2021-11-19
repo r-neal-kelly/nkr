@@ -179,56 +179,123 @@ namespace nkr { namespace string {
 
 namespace nkr { namespace string {
 
-    // should be local_static_t or static_stack_t, and the random ctor should be moved to Random<>
-    template <
-        charcoder_i charcoder_p,
-        count_t                     min_point_count_p   = 1,
-        count_t                     max_point_count_p   = 128
-    > class random_static_t :
-        public static_t<charcoder_p>
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    class local_static_t;
+
+    struct                      local_static_tg     {};
+    template <typename> struct  local_static_ttg    {};
+
+}}
+
+namespace nkr { namespace string { namespace $local_static_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, local_static_t<typename type_p::qualified_charcoder_t, type_p::Unit_Capacity()>>;
+
+}}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<string::local_static_tg>
     {
     public:
-        static_assert(min_point_count_p <= max_point_count_p);
+        using of_t  = void_t;
 
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <string::$local_static_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<string::local_static_tg>
+    {
+    public:
+        using of_t  = type_p::qualified_charcoder_t;
+    };
+
+    template <>
+    class template_traits_i<string::local_static_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = string::local_static_t<of_p, 1>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+}
+
+namespace nkr { namespace string {
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p = 128>
+    class local_static_t :
+        public static_t<charcoder_p>
+    {
     public:
         using base_t                = static_t<charcoder_p>;
 
         using charcoder_t           = base_t::charcoder_t;
         using qualified_charcoder_t = base_t::qualified_charcoder_t;
         using unit_t                = base_t::unit_t;
-        using stack_t               = stack_t<qualified_charcoder_t, max_point_count_p * charcoder_t::Max_Unit_Count()>;
 
-    private:
-        static auto&    Copy_Assign(is_any_non_const_tr<random_static_t> auto& self, const is_any_tr<random_static_t> auto& other);
-        static auto&    Move_Assign(is_any_non_const_tr<random_static_t> auto& self, is_any_non_const_tr<random_static_t> auto&& other);
-
-        static void_t   Refresh(is_any_non_const_tr<random_static_t> auto& self);
-
-    protected:
-        stack_t random;
+        using static_t              = static_t<qualified_charcoder_t>;
+        using stack_t               = stack_t<qualified_charcoder_t, unit_capacity_p>;
 
     public:
-        random_static_t(bool_t use_erroneous_units = false);
-        random_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
-        random_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string);
-        random_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string);
+        static constexpr count_t    Unit_Capacity();
 
-        random_static_t(const random_static_t& other);
-        random_static_t(const volatile random_static_t& other);
-        random_static_t(random_static_t&& other) noexcept;
-        random_static_t(volatile random_static_t&& other) noexcept;
+    private:
+        static auto&    Copy_Assign(is_any_non_const_tr<local_static_t> auto& self, const is_any_tr<local_static_t> auto& other);
+        static auto&    Move_Assign(is_any_non_const_tr<local_static_t> auto& self, is_any_non_const_tr<local_static_t> auto&& other);
 
-        random_static_t&            operator =(const random_static_t& other);
-        volatile random_static_t&   operator =(const random_static_t& other) volatile;
-        random_static_t&            operator =(const volatile random_static_t& other);
-        volatile random_static_t&   operator =(const volatile random_static_t& other) volatile;
-        random_static_t&            operator =(random_static_t&& other) noexcept;
-        volatile random_static_t&   operator =(random_static_t&& other) volatile noexcept;
-        random_static_t&            operator =(is_just_volatile_tr<random_static_t> auto&& other) noexcept;
-        volatile random_static_t&   operator =(is_just_volatile_tr<random_static_t> auto&& other) volatile noexcept;
+        static bool_t   Is_Enabled(const is_any_tr<local_static_t> auto& self);
 
-        ~random_static_t();
+        static void_t   Enable(is_any_non_const_tr<local_static_t> auto& self);
+        static void_t   Disable(is_any_non_const_tr<local_static_t> auto& self);
+
+    protected:
+        stack_t local_stack;
+
+    public:
+        local_static_t();
+        local_static_t(nullptr_t);
+        local_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
+        local_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string);
+        local_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string);
+
+        local_static_t(const local_static_t& other);
+        local_static_t(const volatile local_static_t& other);
+        local_static_t(local_static_t&& other) noexcept;
+        local_static_t(volatile local_static_t&& other) noexcept;
+
+        local_static_t&             operator =(const local_static_t& other);
+        volatile local_static_t&    operator =(const local_static_t& other) volatile;
+        local_static_t&             operator =(const volatile local_static_t& other);
+        volatile local_static_t&    operator =(const volatile local_static_t& other) volatile;
+        local_static_t&             operator =(local_static_t&& other) noexcept;
+        volatile local_static_t&    operator =(local_static_t&& other) volatile noexcept;
+        local_static_t&             operator =(is_just_volatile_tr<local_static_t> auto&& other) noexcept;
+        volatile local_static_t&    operator =(is_just_volatile_tr<local_static_t> auto&& other) volatile noexcept;
+
+        ~local_static_t();
+
+    public:
+        bool_t  Is_Enabled() const;
+        bool_t  Is_Enabled() const volatile;
+
+        void_t  Enable();
+        void_t  Enable() volatile;
+        void_t  Disable();
+        void_t  Disable() volatile;
     };
+    static_assert(string_i<local_static_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const local_static_t<charcoder::utf_8_t>>);
+    static_assert(string_i<volatile local_static_t<charcoder::utf_8_t>>);
+    static_assert(string_i<const volatile local_static_t<charcoder::utf_8_t>>);
 
 }}
 
@@ -238,6 +305,12 @@ namespace nkr {
         tr1<any_tg, string::static_tg>  string_p,
         count_t                         min_point_count_p   = 1,
         count_t                         max_point_count_p   = 128
+    > auto  Random(bool_t use_erroneous_units = false);
+
+    template <
+        tr1<any_tg, string::local_static_tg>    string_p,
+        count_t                                 min_point_count_p   = 1,
+        count_t                                 max_point_count_p   = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
     > auto  Random(bool_t use_erroneous_units = false);
 
 }

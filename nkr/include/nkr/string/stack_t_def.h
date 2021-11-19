@@ -909,10 +909,12 @@ namespace nkr { namespace string {
 namespace nkr {
 
     template <tr1<any_tg, string::stack_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
-    inline auto Random(bool_t use_erroneous_units)
+    inline auto
+        Random(bool_t use_erroneous_units)
     {
         using string_t = string_p;
         using charcoder_t = string_t::charcoder_t;
+        using qualified_charcoder_t = string_t::qualified_charcoder_t;
         using unit_t = string_t::unit_t;
 
         nkr_ASSERT_THAT(min_point_count_p >= 1);
@@ -920,7 +922,7 @@ namespace nkr {
         nkr_ASSERT_THAT(min_point_count_p <= max_point_count_p);
 
         const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
-        string::stack_t<charcoder_t, max_point_count_p * charcoder_t::Max_Unit_Count()> string;
+        string::stack_t<qualified_charcoder_t, max_point_count_p * charcoder_t::Max_Unit_Count()> string;
         if (use_erroneous_units) {
             array::stack_t<unit_t, charcoder_t::Max_Unit_Count()> units;
             for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {

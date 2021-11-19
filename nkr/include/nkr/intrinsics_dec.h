@@ -96,6 +96,7 @@ namespace nkr {
     using count_t           = word_t;           ///< @copydoc doc_nkr_count_t
     using index_t           = word_t;           ///< @copydoc doc_nkr_index_t
     using address_t         = std::uintptr_t;   ///< @copydoc doc_nkr_address_t
+    using nullptr_t         = std::nullptr_t;
     /// @}
 
 }
