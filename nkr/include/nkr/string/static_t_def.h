@@ -518,6 +518,22 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
+    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string) :
+        base_t(),
+        random(maybe_c_string)
+    {
+        Refresh(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
+    inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string) :
+        base_t(),
+        random(some_c_string)
+    {
+        Refresh(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
     inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(const random_static_t& other) :
         base_t(),
         random(other.random)

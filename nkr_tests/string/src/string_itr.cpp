@@ -57,11 +57,44 @@ namespace nkr { namespace string {
     #define nkr_RANDOM_STRING_t(...)                                                    \
         same_qualification_as_t<decltype(Random<string_t, __VA_ARGS__>()), string_t>
 
-    #define nkr_ERROR_STRING_t(...)                                                     \
+    #define nkr_EMPTY_STRING_t()                                                \
+        same_qualification_as_t<decltype(Empty_String<string_t>()), string_t>
+
+    #define nkr_REPLACEMENT_STRING_t()                                              \
+        same_qualification_as_t<decltype(Replacement_String<string_t>()), string_t>
+
+    #define nkr_ERROR_STRING_t(...)                                             \
         same_qualification_as_t<decltype(Error_String<string_t>()), string_t>
 
-    #define nkr_STRING_itr(STRING_p)                                    \
-        same_qualification_as_t<string_itr<decltype(STRING_p)>, itr_p>
+        template <typename string_p>
+        auto Empty_String()
+        {
+            using qualified_charcoder_t = string_p::qualified_charcoder_t;
+
+            if constexpr (tr1<string_p, any_tg, static_tg>) {
+                string::stack_t<qualified_charcoder_t, 1> string;
+                return random_static_t<qualified_charcoder_t, 1, 1>(string.C_String());
+            } else {
+                return std::remove_cv_t<string_p>();
+            }
+        }
+
+        template <typename string_p>
+        auto Replacement_String()
+        {
+            using charcoder_t = string_p::charcoder_t;
+            using qualified_charcoder_t = string_p::qualified_charcoder_t;
+
+            charcoder_t charcoder;
+            charcoder.Encode(charcoder_t::Replacement_Point());
+
+            if constexpr (tr1<string_p, any_tg, static_tg>) {
+                string::stack_t<qualified_charcoder_t, charcoder_t::Max_Unit_Count() + 1> string(charcoder);
+                return random_static_t<qualified_charcoder_t, 2, 2>(string.C_String());
+            } else {
+                return std::remove_cv_t<string_p>(charcoder);
+            }
+        }
 
         template <typename string_p>
         auto Error_String()
@@ -662,8 +695,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(1, 1) string = Random<string_t, 1, 1>();
-                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -792,16 +825,10 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        charcoder_t charcoder;
-                        charcoder.Encode(charcoder_t::Replacement_Point());
-                        string_t string(charcoder);
-                        itr_p itr(string);
-                        CHECK(itr.Point() == charcoder_t::Replacement_Point());
-                        CHECK_FALSE(itr.Is_At_Error());
-                    }
+                    nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_FALSE(itr.Is_At_Error());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
@@ -862,16 +889,10 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        charcoder_t charcoder;
-                        charcoder.Encode(charcoder_t::Replacement_Point());
-                        string_t string(charcoder);
-                        itr_p itr(string);
-                        CHECK(itr.Point() == charcoder_t::Replacement_Point());
-                        CHECK_TRUE(itr.Is_At_Replacement_Point());
-                    }
+                    nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
@@ -900,16 +921,10 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        charcoder_t charcoder;
-                        charcoder.Encode(charcoder_t::Replacement_Point());
-                        string_t string(charcoder);
-                        itr_p itr(string);
-                        CHECK(itr.Point() == charcoder_t::Replacement_Point());
-                        CHECK_TRUE(itr.Is_At_Replacement_Substring());
-                    }
+                    nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_TRUE(itr.Is_At_Replacement_Substring());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when not at a replacement substring", itr_p, nkr_ALL)
@@ -1255,8 +1270,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(1, 1) string = Random<string_t, 1, 1>();
-                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::first_tg());
                     CHECK(itr.Point() == 0);
                 }
 
@@ -1273,8 +1288,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(1, 1) string = Random<string_t, 1, 1>();
-                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
                     CHECK(itr.Point() == 0);
                     CHECK(itr.Is_At_Prefix());
                 }

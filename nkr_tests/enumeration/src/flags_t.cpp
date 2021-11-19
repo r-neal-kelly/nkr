@@ -48,8 +48,6 @@ namespace nkr {
 
         constexpr index_t index = flags_e::Index(0x40);
         static_assert(index == 6);
-
-        printf("%zu", flags_e::Index(0x80));
     }
 
 }

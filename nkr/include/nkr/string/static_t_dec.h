@@ -179,6 +179,7 @@ namespace nkr { namespace string {
 
 namespace nkr { namespace string {
 
+    // should be local_static_t or static_stack_t, and the random ctor should be moved to Random<>
     template <
         charcoder_i charcoder_p,
         count_t                     min_point_count_p   = 1,
@@ -209,6 +210,8 @@ namespace nkr { namespace string {
     public:
         random_static_t(bool_t use_erroneous_units = false);
         random_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
+        random_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string);
+        random_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string);
 
         random_static_t(const random_static_t& other);
         random_static_t(const volatile random_static_t& other);

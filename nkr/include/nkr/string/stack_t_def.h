@@ -430,9 +430,9 @@ namespace nkr { namespace string {
     inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string) :
         stack_t()
     {
-        nkr_ASSERT_THAT(c_string);
-
-        Push(*this, c_string).Ignore_Error();
+        if (c_string) {
+            Push(*this, c_string).Ignore_Error();
+        }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
