@@ -201,6 +201,8 @@ namespace nkr { namespace string {
         static auto&    Copy_Assign(is_any_non_const_tr<random_static_t> auto& self, const is_any_tr<random_static_t> auto& other);
         static auto&    Move_Assign(is_any_non_const_tr<random_static_t> auto& self, is_any_non_const_tr<random_static_t> auto&& other);
 
+        static void_t   Refresh(is_any_non_const_tr<random_static_t> auto& self);
+
     protected:
         stack_t random;
 

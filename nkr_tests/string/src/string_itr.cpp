@@ -61,7 +61,7 @@ namespace nkr { namespace string {
         same_qualification_as_t<decltype(Error_String<string_t>()), string_t>
 
         template <typename string_p>
-        string_p Error_String()
+        auto Error_String()
         {
             using charcoder_t = string_p::charcoder_t;
             using unit_t = string_p::unit_t;
@@ -774,13 +774,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                        itr_p itr(string);
-                        CHECK_TRUE(itr.Is_At_Error());
-                    }
+                    nkr_ERROR_STRING_t() string = Error_String<string_t>();
+                    itr_p itr(string);
+                    CHECK_TRUE(itr.Is_At_Error());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL)
@@ -848,13 +844,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                        itr_p itr(string);
-                        CHECK_TRUE(itr.Is_At_Replacement_Point());
-                    }
+                    nkr_ERROR_STRING_t() string = Error_String<string_t>();
+                    itr_p itr(string);
+                    CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when not at a replacement point", itr_p, nkr_ALL)
@@ -934,13 +926,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                        itr_p itr(string);
-                        CHECK_FALSE(itr.Is_At_Replacement_Substring());
-                    }
+                    nkr_ERROR_STRING_t() string = Error_String<string_t>();
+                    itr_p itr(string);
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
@@ -1384,17 +1372,13 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                        itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                        CHECK(itr.Is_At_Error());
-                        substring_t substring = itr.Substring();
-                        CHECK(substring.Unit_Length() > 0);
-                        string_itr<substring_t> substring_itr(substring);
-                        CHECK(substring_itr.Is_At_Error());
-                    }
+                    nkr_ERROR_STRING_t() string = Error_String<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    CHECK(itr.Is_At_Error());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    string_itr<substring_t> substring_itr(substring);
+                    CHECK(substring_itr.Is_At_Error());
                 }
 
                 TEST_CASE_TEMPLATE("should return an empty substring_t when at the prefix", itr_p, nkr_ALL)
@@ -1448,15 +1432,11 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
                     using substring_t = itr_p::substring_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                        itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                        charcoder_t charcoder;
-                        substring_t substring = itr.Substring();
-                        CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
-                    }
+                    nkr_ERROR_STRING_t() string = Error_String<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    charcoder_t charcoder;
+                    substring_t substring = itr.Substring();
+                    CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
                 }
 
                 TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
@@ -1504,15 +1484,11 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    if constexpr (tr1<string_t, any_tg, static_tg>) {
-
-                    } else {
-                        nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                        itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                        index_t itr_unit_index = itr.Unit_Index().Value();
-                        index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
-                        CHECK(itr.Substring_Unit(substring_unit_index) == itr.String().Unit(itr_unit_index + substring_unit_index));
-                    }
+                    nkr_ERROR_STRING_t() string = Error_String<string_t>();
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    index_t itr_unit_index = itr.Unit_Index().Value();
+                    index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(substring_unit_index) == itr.String().Unit(itr_unit_index + substring_unit_index));
                 }
             }
         }

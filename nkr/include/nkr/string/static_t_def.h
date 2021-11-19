@@ -462,8 +462,8 @@ namespace nkr { namespace string {
                                                                                         const is_any_tr<random_static_t> auto& other)
     {
         if (&self != std::addressof(other)) {
-            static_cast<same_qualification_as_t<base_t, std::remove_reference_t<decltype(self)>&>>(self) = other;
             self.random = other.random;
+            Refresh(self);
         }
 
         return self;
@@ -475,11 +475,19 @@ namespace nkr { namespace string {
                                                                                         is_any_non_const_tr<random_static_t> auto&& other)
     {
         if (&self != std::addressof(other)) {
-            static_cast<same_qualification_as_t<base_t, std::remove_reference_t<decltype(self)>&>>(self) = nkr::Move(other);
             self.random = nkr::Move(other.random);
+            Refresh(self);
         }
 
         return self;
+    }
+
+    template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
+    inline void_t
+        random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::Refresh(is_any_non_const_tr<random_static_t> auto& self)
+    {
+        self.point_count = self.random.Point_Count();
+        self.array = maybe_t<pointer_t<unit_t>>(&self.random.Unit(0), self.random.Unit_Count());
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
@@ -494,8 +502,7 @@ namespace nkr { namespace string {
             } else {
                 this->random = Random<stack_t, 1, max_point_count_p>(use_erroneous_units);
             }
-            this->point_count = this->random.Point_Count();
-            this->array = maybe_t<pointer_t<unit_t>>(&this->random.Unit(0), this->random.Unit_Count());
+            Refresh(*this);
         } else {
             this->point_count = 0;
             this->array = maybe_t<pointer_t<unit_t>>(&this->random.Unit(0), 0);
@@ -507,36 +514,39 @@ namespace nkr { namespace string {
         base_t(),
         random(c_string)
     {
-        this->point_count = this->random.Point_Count();
-        this->array = maybe_t<pointer_t<unit_t>>(&this->random.Unit(0), this->random.Unit_Count());
+        Refresh(*this);
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
     inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(const random_static_t& other) :
-        base_t(other),
+        base_t(),
         random(other.random)
     {
+        Refresh(*this);
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
     inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(const volatile random_static_t& other) :
-        base_t(other),
+        base_t(),
         random(other.random)
     {
+        Refresh(*this);
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
     inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(random_static_t&& other) noexcept :
-        base_t(nkr::Move(other)),
+        base_t(),
         random(nkr::Move(other.random))
     {
+        Refresh(*this);
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
     inline random_static_t<charcoder_p, min_point_count_p, max_point_count_p>::random_static_t(volatile random_static_t&& other) noexcept :
-        base_t(nkr::Move(other)),
+        base_t(),
         random(nkr::Move(other.random))
     {
+        Refresh(*this);
     }
 
     template <charcoder_i charcoder_p, count_t min_point_count_p, count_t max_point_count_p>
