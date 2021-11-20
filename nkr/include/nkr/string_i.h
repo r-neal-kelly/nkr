@@ -28,15 +28,15 @@ namespace nkr { namespace $string_i {
 
     template <typename string_p>
     concept aliases_i =
+        is_tr<typename string_p::charcoder_t, std::remove_cv_t<typename string_p::qualified_charcoder_t>> &&
+        is_tr<typename string_p::unit_t, same_qualification_as_t<typename string_p::charcoder_t::unit_t, typename string_p::qualified_charcoder_t>> &&
         requires()
     {
         typename string_p::charcoder_t;
         typename string_p::qualified_charcoder_t;
         typename string_p::unit_t;
         typename string_p::array_t;
-    } &&
-        is_tr<typename string_p::charcoder_t, std::remove_cv_t<typename string_p::qualified_charcoder_t>> &&
-        is_tr<typename string_p::unit_t, same_qualification_as_t<typename string_p::charcoder_t::unit_t, typename string_p::qualified_charcoder_t>>;
+    };
 
     template <typename string_p>
     concept static_constexpr_functions_i =
@@ -141,6 +141,39 @@ namespace nkr {
         unaddable_string_i<string_p> ||
         addable_string_i<string_p>;
 
+}
+
+namespace nkr { namespace $string_i {
+
+    template <typename type_p>
+    concept any_tr =
+        string_i<type_p>;
+
+}}
+
+namespace nkr {
+
+    struct  string_tg {};
+
+    template <>
+    class type_traits_i<string_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t Is_Any()
+        {
+            return $string_i::any_tr<other_p>;
+        }
+    };
+
+}
+
+// to be deleted
+namespace nkr {
+
     template <typename string_p>
     concept any_string_tr =
         string_i<string_p>;
@@ -148,3 +181,4 @@ namespace nkr {
     nkr_DEFINE_CONTAINER_TRAITS(string, charcoder_t);
 
 }
+//

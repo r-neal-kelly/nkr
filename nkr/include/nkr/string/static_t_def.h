@@ -16,7 +16,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<string::static_tg>::Is_Any()
     {
-        return string::$static_t::any_tr<other_p> || is_any_tr<other_p, string::static_tg>;
+        return string::$static_t::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t
@@ -209,8 +209,9 @@ namespace nkr { namespace string {
                                            count_t unit_count,
                                            count_t point_count) :
         point_count(point_count),
-        array((nkr_ASSERT_THAT(some_c_string), pointer_t<unit_t>(some_c_string, unit_count)))
+        array(pointer_t<unit_t>(some_c_string, unit_count))
     {
+        nkr_ASSERT_THAT(some_c_string);
     }
 
     template <charcoder_i charcoder_p>
@@ -460,7 +461,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<string::local_static_tg>::Is_Any()
     {
-        return string::$local_static_t::any_tr<other_p> || is_any_tr<other_p, string::local_static_tg>;
+        return string::$local_static_t::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t
@@ -486,11 +487,11 @@ namespace nkr { namespace string {
                                                                   const is_any_tr<local_static_t> auto& other)
     {
         if (&self != std::addressof(other)) {
-            self.local_stack = other.local_stack;
-            if (Is_Enabled(other)) {
-                Enable(self);
+            self.local_string = other.local_string;
+            if (other.Has_Memory()) {
+                Enable_Memory(self);
             } else {
-                Disable(self);
+                Disable_Memory(self);
             }
         }
 
@@ -503,11 +504,11 @@ namespace nkr { namespace string {
                                                                   is_any_non_const_tr<local_static_t> auto&& other)
     {
         if (&self != std::addressof(other)) {
-            self.local_stack = nkr::Move(other.local_stack);
-            if (Is_Enabled(other)) {
-                Enable(self);
+            self.local_string = nkr::Move(other.local_string);
+            if (other.Has_Memory()) {
+                Enable_Memory(self);
             } else {
-                Disable(self);
+                Disable_Memory(self);
             }
         }
 
@@ -515,23 +516,16 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline bool_t
-        local_static_t<charcoder_p, unit_capacity_p>::Is_Enabled(const is_any_tr<local_static_t> auto& self)
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Enable_Memory(is_any_non_const_tr<local_static_t> auto& self)
     {
-        return self.Has_Memory();
+        self.point_count = self.local_string.Point_Count();
+        self.array = maybe_t<pointer_t<unit_t>>(&self.local_string.Unit(0), self.local_string.Unit_Count());
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline void_t
-        local_static_t<charcoder_p, unit_capacity_p>::Enable(is_any_non_const_tr<local_static_t> auto& self)
-    {
-        self.point_count = self.local_stack.Point_Count();
-        self.array = maybe_t<pointer_t<unit_t>>(&self.local_stack.Unit(0), self.local_stack.Unit_Count());
-    }
-
-    template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline void_t
-        local_static_t<charcoder_p, unit_capacity_p>::Disable(is_any_non_const_tr<local_static_t> auto& self)
+        local_static_t<charcoder_p, unit_capacity_p>::Disable_Memory(is_any_non_const_tr<local_static_t> auto& self)
     {
         self.point_count = 0;
         self.array = maybe_t<pointer_t<unit_t>>(nullptr);
@@ -540,95 +534,119 @@ namespace nkr { namespace string {
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t() :
         base_t(),
-        local_stack()
+        local_string()
     {
-        Enable(*this);
+        Enable_Memory(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(nullptr_t) :
         local_static_t()
     {
-        Disable(*this);
+        Disable_Memory(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string) :
         base_t(),
-        local_stack(c_string)
+        local_string(c_string)
     {
         if (c_string) {
-            Enable(*this);
+            Enable_Memory(*this);
         } else {
-            Disable(*this);
+            Disable_Memory(*this);
         }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string) :
         base_t(),
-        local_stack(maybe_c_string)
+        local_string(maybe_c_string)
     {
         if (maybe_c_string) {
-            Enable(*this);
+            Enable_Memory(*this);
         } else {
-            Disable(*this);
+            Disable_Memory(*this);
         }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string) :
         base_t(),
-        local_stack(some_c_string)
+        local_string(some_c_string)
     {
-        Enable(*this);
+        Enable_Memory(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(const tr1<any_tg, string_tg> auto& string) :
+        local_static_t()
+    {
+        if (string.Has_Memory()) {
+            this->local_string = string;
+            Enable_Memory(*this);
+        } else {
+            Disable_Memory(*this);
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr1<any_non_const_tg, string_tg> auto&& string) :
+        local_static_t()
+    {
+        if (string.Has_Memory()) {
+            this->local_string = nkr::Move(string);
+            Enable_Memory(*this);
+        } else {
+            Disable_Memory(*this);
+        }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(const local_static_t& other) :
         base_t(),
-        local_stack(other.local_stack)
+        local_string(other.local_string)
     {
-        if (Is_Enabled(other)) {
-            Enable(*this);
+        if (other.Has_Memory()) {
+            Enable_Memory(*this);
         } else {
-            Disable(*this);
+            Disable_Memory(*this);
         }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(const volatile local_static_t& other) :
         base_t(),
-        local_stack(other.local_stack)
+        local_string(other.local_string)
     {
-        if (Is_Enabled(other)) {
-            Enable(*this);
+        if (other.Has_Memory()) {
+            Enable_Memory(*this);
         } else {
-            Disable(*this);
+            Disable_Memory(*this);
         }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(local_static_t&& other) noexcept :
         base_t(),
-        local_stack(nkr::Move(other.local_stack))
+        local_string(nkr::Move(other.local_string))
     {
-        if (Is_Enabled(other)) {
-            Enable(*this);
+        if (other.Has_Memory()) {
+            Enable_Memory(*this);
         } else {
-            Disable(*this);
+            Disable_Memory(*this);
         }
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(volatile local_static_t&& other) noexcept :
         base_t(),
-        local_stack(nkr::Move(other.local_stack))
+        local_string(nkr::Move(other.local_string))
     {
-        if (Is_Enabled(other)) {
-            Enable(*this);
+        if (other.Has_Memory()) {
+            Enable_Memory(*this);
         } else {
-            Disable(*this);
+            Disable_Memory(*this);
         }
     }
 
@@ -700,49 +718,33 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline bool_t
-        local_static_t<charcoder_p, unit_capacity_p>::Is_Enabled()
-        const
+    inline void_t
+        local_static_t<charcoder_p, unit_capacity_p>::Enable_Memory()
     {
-        return Is_Enabled(*this);
-    }
-
-    template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline bool_t
-        local_static_t<charcoder_p, unit_capacity_p>::Is_Enabled()
-        const volatile
-    {
-        return Is_Enabled(*this);
+        return Enable_Memory(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline void_t
-        local_static_t<charcoder_p, unit_capacity_p>::Enable()
-    {
-        return Enable(*this);
-    }
-
-    template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline void_t
-        local_static_t<charcoder_p, unit_capacity_p>::Enable()
+        local_static_t<charcoder_p, unit_capacity_p>::Enable_Memory()
         volatile
     {
-        return Enable(*this);
+        return Enable_Memory(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline void_t
-        local_static_t<charcoder_p, unit_capacity_p>::Disable()
+        local_static_t<charcoder_p, unit_capacity_p>::Disable_Memory()
     {
-        return Disable(*this);
+        return Disable_Memory(*this);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline void_t
-        local_static_t<charcoder_p, unit_capacity_p>::Disable()
+        local_static_t<charcoder_p, unit_capacity_p>::Disable_Memory()
         volatile
     {
-        return Disable(*this);
+        return Disable_Memory(*this);
     }
 
 }}
@@ -766,18 +768,22 @@ namespace nkr {
 
         static_assert(min_point_count_p <= max_point_count_p);
 
-        constexpr count_t unit_capacity = max_point_count_p * charcoder_t::Max_Unit_Count();
-        const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
-        if (point_count > 0) {
-            if constexpr (min_point_count_p > 0) {
-                return string::local_static_t<qualified_charcoder_t, unit_capacity>
-                    (Random<string::stack_t<qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units).C_String());
+        if constexpr (max_point_count_p > 0) {
+            constexpr count_t unit_capacity = max_point_count_p * charcoder_t::Max_Unit_Count();
+            const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
+            if (point_count > 0) {
+                if constexpr (min_point_count_p > 0) {
+                    return string::local_static_t<qualified_charcoder_t, unit_capacity>
+                        (Random<string::stack_t<qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units));
+                } else {
+                    return string::local_static_t<qualified_charcoder_t, unit_capacity>
+                        (Random<string::stack_t<qualified_charcoder_t>, 1, max_point_count_p>(use_erroneous_units));
+                }
             } else {
-                return string::local_static_t<qualified_charcoder_t, unit_capacity>
-                    (Random<string::stack_t<qualified_charcoder_t>, 1, max_point_count_p>(use_erroneous_units).C_String());
+                return string::local_static_t<qualified_charcoder_t, unit_capacity>(nullptr);
             }
         } else {
-            return string::local_static_t<qualified_charcoder_t, unit_capacity>(nullptr);
+            return string::local_static_t<qualified_charcoder_t, 1>(nullptr);
         }
     }
 

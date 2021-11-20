@@ -73,7 +73,7 @@ namespace nkr { namespace string {
 
             if constexpr (tr1<string_p, any_tg, static_tg>) {
                 string::stack_t<qualified_charcoder_t, 1> string;
-                return local_static_t<qualified_charcoder_t>(string.C_String());
+                return local_static_t<qualified_charcoder_t>(string);
             } else {
                 return std::remove_cv_t<string_p>();
             }
@@ -90,7 +90,7 @@ namespace nkr { namespace string {
 
             if constexpr (tr1<string_p, any_tg, static_tg>) {
                 string::stack_t<qualified_charcoder_t, charcoder_t::Max_Unit_Count() + 1> string(charcoder);
-                return local_static_t<qualified_charcoder_t>(string.C_String());
+                return local_static_t<qualified_charcoder_t>(string);
             } else {
                 return std::remove_cv_t<string_p>(charcoder);
             }

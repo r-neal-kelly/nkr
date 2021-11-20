@@ -630,7 +630,7 @@ namespace nkr {
         template <typename other_p>
         static constexpr c_bool_t Is_Any()
         {
-            return pointer_tr<other_p> || is_any_tr<other_p, c_pointer_tg>;
+            return pointer_tr<other_p>;
         }
     };
 
@@ -658,7 +658,7 @@ namespace nkr {
         template <typename other_p>
         static constexpr c_bool_t Is_Any()
         {
-            return std_array_tr<other_p> || is_any_tr<other_p, c_array_tg>;
+            return std_array_tr<other_p>;
         }
     };
 
@@ -792,7 +792,7 @@ namespace nkr {
         using subject_t = subject_p;
         using object_t = operand_p;
 
-        if constexpr (type_traits_i<std::remove_cv_t<subject_t>>::template Is_Any<std::remove_cv_t<object_t>>()) {
+        if constexpr (type_traits_i<std::remove_cv_t<object_t>>::template Is_Any<std::remove_cv_t<subject_t>>()) {
             if constexpr (is_tr<operator_p, just_tg>) {
                 return is_tr<object_t, same_qualification_as_t<object_t, subject_p>>;
             } else if constexpr (is_tr<operator_p, just_not_tg>) {
