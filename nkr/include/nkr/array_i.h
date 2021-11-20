@@ -22,7 +22,7 @@ namespace nkr { namespace $array_i {
     };
 
     template <typename array_p>
-    concept unaddable_methods_i =
+    concept shared_methods_i =
         requires(std::remove_cv_t<array_p> array,
                  const std::remove_cv_t<array_p> const_array,
                  volatile std::remove_cv_t<array_p> volatile_array,
@@ -40,7 +40,7 @@ namespace nkr { namespace $array_i {
     };
 
     template <typename array_p>
-    concept addable_methods_i =
+    concept aggregate_methods_i =
         requires(std::remove_cv_t<array_p> array,
                  const std::remove_cv_t<array_p> const_array,
                  volatile std::remove_cv_t<array_p> volatile_array,
@@ -72,21 +72,24 @@ namespace nkr { namespace $array_i {
 namespace nkr {
 
     template <typename array_p>
-    concept unaddable_array_i =
-        $array_i::aliases_i<array_p> &&
-        $array_i::unaddable_methods_i<array_p> &&
-        !$array_i::addable_methods_i<array_p>;
-
-    template <typename array_p>
-    concept addable_array_i =
-        $array_i::aliases_i<array_p> &&
-        $array_i::unaddable_methods_i<array_p> &&
-        $array_i::addable_methods_i<array_p>;
-
-    template <typename array_p>
     concept array_i =
-        unaddable_array_i<array_p> ||
-        addable_array_i<array_p>;
+        $array_i::aliases_i<array_p> &&
+        $array_i::shared_methods_i<array_p>;
+
+    template <typename array_p>
+    concept aggregate_array_i =
+        array_i<array_p> &&
+        $array_i::aggregate_methods_i<array_p>;
+
+    template <typename array_p>
+    concept non_aggregate_array_i =
+        array_i<array_p> &&
+        !$array_i::aggregate_methods_i<array_p>;
+
+}
+
+// to be deleted
+namespace nkr {
 
     template <typename array_p>
     concept any_array_tr =
@@ -95,3 +98,4 @@ namespace nkr {
     nkr_DEFINE_CONTAINER_TRAITS(array, unit_t);
 
 }
+//

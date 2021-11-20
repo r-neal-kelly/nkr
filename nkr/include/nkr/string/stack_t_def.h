@@ -326,6 +326,40 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline maybe_t<allocator_err>
+        stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
+                                                    tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string,
+                                                    count_t unit_length,
+                                                    count_t point_length)
+    {
+        nkr_ASSERT_THAT(c_string);
+        nkr_ASSERT_THAT(unit_length > 0 ? c_string[unit_length - 1] != 0 : true);
+        nkr_ASSERT_THAT(Has_Terminus(self));
+
+        const count_t original_unit_count = Unit_Count(self);
+        if (math::Will_Overflow_Add(original_unit_count, unit_length)) {
+            return allocator_err::OUT_OF_MEMORY;
+        } else {
+            maybe_t<allocator_err> err = Unit_Capacity(self, original_unit_count + unit_length);
+            if (err) {
+                return err;
+            } else {
+                Pop_Terminus(self);
+
+                for (index_t idx = 0, end = unit_length; idx < end; idx += 1) {
+                    nkr_ASSERT_THAT(c_string[idx] != 0);
+                    self.array.Push(c_string[idx]).Ignore_Error();
+                }
+                self.point_count += point_length;
+
+                Push_Terminus(self);
+
+                return allocator_err::NONE;
+            }
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other)
     {
         nkr_ASSERT_THAT(Has_Terminus(self));
@@ -388,6 +422,9 @@ namespace nkr { namespace string {
 
         if constexpr (is_tr<charcoder_t, typename std::remove_reference_t<decltype(other)>::charcoder_t>) {
             Pop_Terminus(self);
+
+            // this does need to be abstracted and the actual moving should probably be done through the other type, just like we
+            // do with the array Copy_To, Move_To interface.
 
             maybe_t<allocator_err> err = self.array.Move_From(other.array);
             if (err) {

@@ -544,7 +544,6 @@ namespace nkr {
         read_unit_count(0),
         charcoder(none_t())
     {
-        nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
         At_Prefix(*this);
@@ -559,7 +558,6 @@ namespace nkr {
         read_unit_count(0),
         charcoder(none_t())
     {
-        nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
         At_First(*this);
@@ -574,7 +572,6 @@ namespace nkr {
         read_unit_count(0),
         charcoder(none_t())
     {
-        nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
         At_Last(*this);
@@ -589,7 +586,6 @@ namespace nkr {
         read_unit_count(0),
         charcoder(none_t())
     {
-        nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
         At_Terminus(*this);
@@ -604,7 +600,6 @@ namespace nkr {
         read_unit_count(0),
         charcoder(none_t())
     {
-        nkr_ASSERT_THAT(this->string);
         nkr_ASSERT_THAT(Has_String(*this));
 
         At_Postfix(*this);

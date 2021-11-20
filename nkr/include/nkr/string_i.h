@@ -53,7 +53,7 @@ namespace nkr { namespace $string_i {
     };
 
     template <typename string_p>
-    concept unaddable_methods_i =
+    concept shared_methods_i =
         requires(std::remove_cv_t<string_p> string,
                  const std::remove_cv_t<string_p> const_string,
                  volatile std::remove_cv_t<string_p> volatile_string,
@@ -100,7 +100,7 @@ namespace nkr { namespace $string_i {
     };
 
     template <typename string_p>
-    concept addable_methods_i =
+    concept aggregate_methods_i =
         requires(std::remove_cv_t<string_p> string,
                  const std::remove_cv_t<string_p> const_string,
                  volatile std::remove_cv_t<string_p> volatile_string,
@@ -121,40 +121,27 @@ namespace nkr { namespace $string_i {
 namespace nkr {
 
     template <typename string_p>
-    concept unaddable_string_i =
-        $string_i::aliases_i<string_p> &&
-        $string_i::static_constexpr_functions_i<string_p> &&
-        $string_i::static_functions_i<string_p> &&
-        $string_i::unaddable_methods_i<string_p> &&
-        !$string_i::addable_methods_i<string_p>;
-
-    template <typename string_p>
-    concept addable_string_i =
-        $string_i::aliases_i<string_p> &&
-        $string_i::static_constexpr_functions_i<string_p> &&
-        $string_i::static_functions_i<string_p> &&
-        $string_i::unaddable_methods_i<string_p> &&
-        $string_i::addable_methods_i<string_p>;
-
-    template <typename string_p>
     concept string_i =
-        unaddable_string_i<string_p> ||
-        addable_string_i<string_p>;
+        $string_i::aliases_i<string_p> &&
+        $string_i::static_constexpr_functions_i<string_p> &&
+        $string_i::static_functions_i<string_p> &&
+        $string_i::shared_methods_i<string_p>;
+
+    template <typename string_p>
+    concept aggregate_string_i =
+        string_i<string_p> &&
+        $string_i::aggregate_methods_i<string_p>;
+
+    template <typename string_p>
+    concept non_aggregate_string_i =
+        string_i<string_p> &&
+        !$string_i::aggregate_methods_i<string_p>;
 
 }
 
-namespace nkr { namespace $string_i {
-
-    template <typename type_p>
-    concept any_tr =
-        string_i<type_p>;
-
-}}
-
 namespace nkr {
 
-    struct  string_tg {};
-
+    struct string_tg {};
     template <>
     class type_traits_i<string_tg>
     {
@@ -165,7 +152,37 @@ namespace nkr {
         template <typename other_p>
         static constexpr c_bool_t Is_Any()
         {
-            return $string_i::any_tr<other_p>;
+            return string_i<other_p>;
+        }
+    };
+
+    struct aggregate_string_tg {};
+    template <>
+    class type_traits_i<aggregate_string_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t Is_Any()
+        {
+            return aggregate_string_i<other_p>;
+        }
+    };
+
+    struct non_aggregate_string_tg {};
+    template <>
+    class type_traits_i<non_aggregate_string_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t Is_Any()
+        {
+            return non_aggregate_string_i<other_p>;
         }
     };
 

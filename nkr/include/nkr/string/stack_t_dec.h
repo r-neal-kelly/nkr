@@ -144,6 +144,7 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count_or_length);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_length, count_t point_length);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other);
 

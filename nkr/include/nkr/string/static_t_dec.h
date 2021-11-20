@@ -274,8 +274,13 @@ namespace nkr { namespace string {
         local_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string, count_t unit_count_or_length);
 
         local_static_t(const tr1<any_tg, string_tg> auto& string);
-        local_static_t(tr1<any_non_const_tg, string_tg> auto&& string);
-        local_static_t(tr1<any_const_tg, string_tg> auto&& string) = delete;
+        local_static_t(const tr1<any_tg, string_tg> auto& string, bool_t use_terminus);
+        local_static_t(tr1<any_non_const_tg, aggregate_string_tg> auto&& string);
+        local_static_t(tr1<any_non_const_tg, aggregate_string_tg> auto&& string, bool_t use_terminus);
+        local_static_t(tr1<any_non_const_tg, non_aggregate_string_tg> auto&& string)                        = delete;
+        local_static_t(tr1<any_non_const_tg, non_aggregate_string_tg> auto&& string, bool_t use_terminus)   = delete;
+        local_static_t(tr1<any_const_tg, string_tg> auto&& string)                                          = delete;
+        local_static_t(tr1<any_const_tg, string_tg> auto&& string, bool_t use_terminus)                     = delete;
 
         local_static_t(const local_static_t& other);
         local_static_t(const volatile local_static_t& other);
@@ -306,12 +311,12 @@ namespace nkr {
         tr1<any_tg, string::static_tg>  string_p,
         count_t                         min_point_count_p   = 1,
         count_t                         max_point_count_p   = 128
-    > auto  Random(bool_t use_erroneous_units = false);
+    > auto  Random(bool_t use_erroneous_units = false, bool_t use_terminus = true);
 
     template <
         tr1<any_tg, string::local_static_tg>    string_p,
         count_t                                 min_point_count_p   = 1,
         count_t                                 max_point_count_p   = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
-    > auto  Random(bool_t use_erroneous_units = false);
+    > auto  Random(bool_t use_erroneous_units = false, bool_t use_terminus = true);
 
 }

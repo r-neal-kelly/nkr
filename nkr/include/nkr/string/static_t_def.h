@@ -654,7 +654,21 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr1<any_non_const_tg, string_tg> auto&& string) :
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(const tr1<any_tg, string_tg> auto& string,
+                                                                        bool_t use_terminus) :
+        base_t(),
+        local_string()
+    {
+        if (string.Has_Memory()) {
+            this->local_string = string;
+            Enable_Memory(*this, use_terminus);
+        } else {
+            Disable_Memory(*this);
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr1<any_non_const_tg, aggregate_string_tg> auto&& string) :
         base_t(),
         local_string()
     {
@@ -662,6 +676,20 @@ namespace nkr { namespace string {
             bool_t has_terminus = string.Has_Terminus();
             this->local_string = nkr::Move(string);
             Enable_Memory(*this, has_terminus);
+        } else {
+            Disable_Memory(*this);
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline local_static_t<charcoder_p, unit_capacity_p>::local_static_t(tr1<any_non_const_tg, aggregate_string_tg> auto&& string,
+                                                                        bool_t use_terminus) :
+        base_t(),
+        local_string()
+    {
+        if (string.Has_Memory()) {
+            this->local_string = nkr::Move(string);
+            Enable_Memory(*this, use_terminus);
         } else {
             Disable_Memory(*this);
         }
@@ -792,14 +820,15 @@ namespace nkr {
 
     template <tr1<any_tg, string::static_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
     inline auto
-        Random(bool_t use_erroneous_units)
+        Random(bool_t use_erroneous_units, bool_t use_terminus)
     {
-        return Random<string::local_static_t<string_p::qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units);
+        return Random<string::local_static_t<string_p::qualified_charcoder_t>, min_point_count_p, max_point_count_p>
+            (use_erroneous_units, use_terminus);
     }
 
     template <tr1<any_tg, string::local_static_tg> string_p, count_t min_point_count_p, count_t max_point_count_p>
     inline auto
-        Random(bool_t use_erroneous_units)
+        Random(bool_t use_erroneous_units, bool_t use_terminus)
     {
         using string_t = string_p;
         using charcoder_t = string_t::charcoder_t;
@@ -813,10 +842,10 @@ namespace nkr {
             if (point_count > 0) {
                 if constexpr (min_point_count_p > 0) {
                     return string::local_static_t<qualified_charcoder_t, unit_capacity>
-                        (Random<string::stack_t<qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units));
+                        (Random<string::stack_t<qualified_charcoder_t>, min_point_count_p, max_point_count_p>(use_erroneous_units), use_terminus);
                 } else {
                     return string::local_static_t<qualified_charcoder_t, unit_capacity>
-                        (Random<string::stack_t<qualified_charcoder_t>, 1, max_point_count_p>(use_erroneous_units));
+                        (Random<string::stack_t<qualified_charcoder_t>, 1, max_point_count_p>(use_erroneous_units), use_terminus);
                 }
             } else {
                 return string::local_static_t<qualified_charcoder_t, unit_capacity>(nullptr);

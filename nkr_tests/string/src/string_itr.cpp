@@ -39,6 +39,9 @@ namespace nkr { namespace string {
         nkr_CHARCODERS(QUALIFIER_p, stack_t),   \
         nkr_CHARCODERS(QUALIFIER_p, static_t)
 
+    #define nkr_UNTERMINATED_STRINGS(QUALIFIER_p)   \
+        nkr_CHARCODERS(QUALIFIER_p, static_t)
+
     #define nkr_REGULAR         \
         nkr_STRINGS(nkr_BLANK)
 
@@ -53,6 +56,21 @@ namespace nkr { namespace string {
     #define nkr_ALL     \
         nkr_NON_CONST,  \
         nkr_CONST
+
+    #define nkr_REGULAR_UNTERMINATED        \
+        nkr_UNTERMINATED_STRINGS(nkr_BLANK)
+
+    #define nkr_NON_CONST_UNTERMINATED          \
+        nkr_UNTERMINATED_STRINGS(nkr_BLANK),    \
+        nkr_UNTERMINATED_STRINGS(volatile)
+
+    #define nkr_CONST_UNTERMINATED                  \
+        nkr_UNTERMINATED_STRINGS(const),            \
+        nkr_UNTERMINATED_STRINGS(const volatile)
+
+    #define nkr_ALL_UNTERMINATED    \
+        nkr_NON_CONST_UNTERMINATED, \
+        nkr_CONST_UNTERMINATED
 
     #define nkr_RANDOM_STRING_t(...)                                                    \
         same_qualification_as_t<decltype(Random<string_t, __VA_ARGS__>()), string_t>
@@ -76,6 +94,24 @@ namespace nkr { namespace string {
                 return local_static_t<qualified_charcoder_t>(string);
             } else {
                 return std::remove_cv_t<string_p>();
+            }
+        }
+
+        template <typename string_p>
+        auto Unterminated_Empty_String()
+        {
+            using qualified_charcoder_t = string_p::qualified_charcoder_t;
+
+            static_assert(!string_p::Has_Guaranteed_Terminus());
+
+            if constexpr (tr1<string_p, any_tg, static_tg>) {
+                return local_static_t<qualified_charcoder_t>(Empty_String<stack_t<qualified_charcoder_t>>(), false);
+            } else {
+                if constexpr (tr0<string_p, aggregate_string_tg>) {
+                    return std::remove_cv_t<string_p>(Empty_String<string_p>(), false);
+                } else {
+                    return std::remove_cv_t<string_p>(Empty_String<stack_t<qualified_charcoder_t>>(), false);
+                }
             }
         }
 
@@ -289,6 +325,16 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
                     itr_p itr(string);
                     CHECK(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to a fake terminus with an unterminated empty string", itr_p, nkr_ALL_UNTERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Unterminated_Empty_String<string_t>();
+                    itr_p itr(string);
+                    CHECK(itr.Is_At_First());
+                    CHECK(itr.Is_At_Terminus());
                 }
             }
 
