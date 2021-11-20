@@ -371,7 +371,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should set the iterator to the first point of an unterminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -380,7 +380,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should set the iterator to a pretend terminus of an unterminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should set the iterator to the pretend terminus of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -404,12 +404,50 @@ namespace nkr { namespace string {
                     CHECK(itr_point_index && itr_point_index.Value() == point_index);
                 }
 
+                TEST_CASE_TEMPLATE("should set the iterator to the indexed point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    itr_p itr(string, point_index);
+                    optional_t<index_t> itr_point_index = itr.Point_Index();
+                    CHECK(itr_point_index && itr_point_index.Value() == point_index);
+                }
+
+                TEST_CASE_TEMPLATE("should be able to set the iterator to the terminus of a string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, string.Point_Count() - 1);
+                    CHECK(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should be able to set the iterator to the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                }
+
                 TEST_CASE_TEMPLATE("should be able to set the iterator to the postfix of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
                     itr_p itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should be able to set the iterator to the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, string.Point_Count() + 1);
                     CHECK(itr.Is_At_Postfix());
                 }
             }
