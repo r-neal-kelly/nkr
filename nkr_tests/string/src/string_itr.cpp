@@ -39,38 +39,58 @@ namespace nkr { namespace string {
         nkr_CHARCODERS(QUALIFIER_p, stack_t),   \
         nkr_CHARCODERS(QUALIFIER_p, static_t)
 
-    #define nkr_UNTERMINATED_STRINGS(QUALIFIER_p)   \
+    #define nkr_TERMINATED_STRINGS(QUALIFIER_p) \
+        nkr_CHARCODERS(QUALIFIER_p, dynamic_t), \
+        nkr_CHARCODERS(QUALIFIER_p, stack_t),   \
+        nkr_CHARCODERS(QUALIFIER_p, static_t)
+
+    #define nkr_NON_TERMINATED_STRINGS(QUALIFIER_p) \
         nkr_CHARCODERS(QUALIFIER_p, static_t)
 
     #define nkr_REGULAR         \
         nkr_STRINGS(nkr_BLANK)
 
+    #define nkr_REGULAR_TERMINATED          \
+        nkr_TERMINATED_STRINGS(nkr_BLANK)
+
+    #define nkr_REGULAR_NON_TERMINATED          \
+        nkr_NON_TERMINATED_STRINGS(nkr_BLANK)
+
     #define nkr_NON_CONST       \
         nkr_STRINGS(nkr_BLANK), \
         nkr_STRINGS(volatile)
+
+    #define nkr_NON_CONST_TERMINATED        \
+        nkr_TERMINATED_STRINGS(nkr_BLANK),  \
+        nkr_TERMINATED_STRINGS(volatile)
+
+    #define nkr_NON_CONST_NON_TERMINATED        \
+        nkr_NON_TERMINATED_STRINGS(nkr_BLANK),  \
+        nkr_NON_TERMINATED_STRINGS(volatile)
 
     #define nkr_CONST               \
         nkr_STRINGS(const),         \
         nkr_STRINGS(const volatile)
 
+    #define nkr_CONST_TERMINATED                \
+        nkr_TERMINATED_STRINGS(const),          \
+        nkr_TERMINATED_STRINGS(const volatile)
+
+    #define nkr_CONST_NON_TERMINATED                \
+        nkr_NON_TERMINATED_STRINGS(const),          \
+        nkr_NON_TERMINATED_STRINGS(const volatile)
+
     #define nkr_ALL     \
         nkr_NON_CONST,  \
         nkr_CONST
 
-    #define nkr_REGULAR_UNTERMINATED        \
-        nkr_UNTERMINATED_STRINGS(nkr_BLANK)
+    #define nkr_ALL_TERMINATED      \
+        nkr_NON_CONST_TERMINATED,   \
+        nkr_CONST_TERMINATED
 
-    #define nkr_NON_CONST_UNTERMINATED          \
-        nkr_UNTERMINATED_STRINGS(nkr_BLANK),    \
-        nkr_UNTERMINATED_STRINGS(volatile)
-
-    #define nkr_CONST_UNTERMINATED                  \
-        nkr_UNTERMINATED_STRINGS(const),            \
-        nkr_UNTERMINATED_STRINGS(const volatile)
-
-    #define nkr_ALL_UNTERMINATED    \
-        nkr_NON_CONST_UNTERMINATED, \
-        nkr_CONST_UNTERMINATED
+    #define nkr_ALL_NON_TERMINATED      \
+        nkr_NON_CONST_NON_TERMINATED,   \
+        nkr_CONST_NON_TERMINATED
 
     #define nkr_RANDOM_STRING_t(...)                                                    \
         same_qualification_as_t<decltype(Random<string_t, __VA_ARGS__>()), string_t>
@@ -98,7 +118,7 @@ namespace nkr { namespace string {
         }
 
         template <typename string_p>
-        auto Unterminated_Empty_String()
+        auto Non_Terminated_Empty_String()
         {
             using qualified_charcoder_t = string_p::qualified_charcoder_t;
 
@@ -107,11 +127,7 @@ namespace nkr { namespace string {
             if constexpr (tr1<string_p, any_tg, static_tg>) {
                 return local_static_t<qualified_charcoder_t>(Empty_String<stack_t<qualified_charcoder_t>>(), false);
             } else {
-                if constexpr (tr0<string_p, aggregate_string_tg>) {
-                    return std::remove_cv_t<string_p>(Empty_String<string_p>(), false);
-                } else {
-                    return std::remove_cv_t<string_p>(Empty_String<stack_t<qualified_charcoder_t>>(), false);
-                }
+                return std::remove_cv_t<string_p>(Empty_String<stack_t<qualified_charcoder_t>>(), false);
             }
         }
 
@@ -129,6 +145,20 @@ namespace nkr { namespace string {
                 return local_static_t<qualified_charcoder_t>(string);
             } else {
                 return std::remove_cv_t<string_p>(charcoder);
+            }
+        }
+
+        template <typename string_p>
+        auto Non_Terminated_Replacement_String()
+        {
+            using qualified_charcoder_t = string_p::qualified_charcoder_t;
+
+            static_assert(!string_p::Has_Guaranteed_Terminus());
+
+            if constexpr (tr1<string_p, any_tg, static_tg>) {
+                return local_static_t<qualified_charcoder_t>(Replacement_String<stack_t<qualified_charcoder_t>>(), false);
+            } else {
+                return std::remove_cv_t<string_p>(Replacement_String<stack_t<qualified_charcoder_t>>(), false);
             }
         }
 
@@ -181,6 +211,20 @@ namespace nkr { namespace string {
                 return local_static_t<typename string_p::qualified_charcoder_t>(units.Array());
             } else {
                 return std::remove_cv_t<string_p>(units.Array());
+            }
+        }
+
+        template <typename string_p>
+        auto Non_Terminated_Error_String()
+        {
+            using qualified_charcoder_t = string_p::qualified_charcoder_t;
+
+            static_assert(!string_p::Has_Guaranteed_Terminus());
+
+            if constexpr (tr1<string_p, any_tg, static_tg>) {
+                return local_static_t<qualified_charcoder_t>(Error_String<stack_t<qualified_charcoder_t>>(), false);
+            } else {
+                return std::remove_cv_t<string_p>(Error_String<stack_t<qualified_charcoder_t>>(), false);
             }
         }
 
@@ -318,7 +362,7 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("string_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -327,11 +371,20 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should set the iterator to a fake terminus with an unterminated empty string", itr_p, nkr_ALL_UNTERMINATED)
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of an unterminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_EMPTY_STRING_t() string = Unterminated_Empty_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string);
+                    CHECK(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to a pretend terminus of an unterminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
                     itr_p itr(string);
                     CHECK(itr.Is_At_First());
                     CHECK(itr.Is_At_Terminus());
@@ -340,7 +393,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("at_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the indexed point of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the indexed point of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -351,7 +404,7 @@ namespace nkr { namespace string {
                     CHECK(itr_point_index && itr_point_index.Value() == point_index);
                 }
 
-                TEST_CASE_TEMPLATE("should be able to set the iterator to the postfix of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should be able to set the iterator to the postfix of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -363,7 +416,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("at_prefix_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -375,7 +428,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("at_first_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -387,7 +440,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("at_last_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the last point of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the last point of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -399,7 +452,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("at_terminus_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the terminus of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the terminus of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -411,7 +464,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("at_postfix_ctor()")
             {
-                TEST_CASE_TEMPLATE("should set the iterator to the postfix of a string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set the iterator to the postfix of a string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -423,7 +476,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -441,7 +494,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_volatile_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -459,7 +512,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -476,7 +529,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_volatile_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -493,7 +546,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -512,7 +565,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_volatile_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -531,7 +584,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -549,7 +602,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_volatile_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -567,7 +620,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("dtor()")
             {
-                TEST_CASE_TEMPLATE("should make the iterator assert if used any further", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should make the iterator assert if used any further", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -582,7 +635,7 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("String()")
             {
-                TEST_CASE_TEMPLATE("should return the underlying string", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the underlying string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -594,7 +647,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -604,7 +657,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At(point_index));
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -613,7 +666,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count())));
                 }
 
-                TEST_CASE_TEMPLATE("should return false when moved to the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return false when moved to the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -623,7 +676,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count())));
                 }
 
-                TEST_CASE_TEMPLATE("should return true when at the postfix and given the postfix index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the postfix and given the postfix index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -632,7 +685,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At(string.Point_Count()));
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -650,7 +703,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Prefix()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -659,7 +712,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -668,7 +721,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at any point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at any point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -680,7 +733,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_First()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the first point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the first point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -689,7 +742,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -698,7 +751,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -707,7 +760,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -719,7 +772,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Last()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -728,7 +781,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix of a string with a length greather than zero", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a string with a length greather than zero", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -737,7 +790,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
-                TEST_CASE_TEMPLATE("should return true when at the prefix of a string with a length of zero", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the prefix of a string with a length of zero", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -746,7 +799,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -755,7 +808,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -773,7 +826,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Terminus()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the terminus", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -782,7 +835,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -791,7 +844,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -800,7 +853,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -818,7 +871,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Postfix()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -827,7 +880,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Postfix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -836,7 +889,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -848,7 +901,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Error()")
             {
-                TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -857,7 +910,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -866,7 +919,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at a replacement substring", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -877,7 +930,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -886,7 +939,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -895,7 +948,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should decode to a replacement point when at an error", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at an error", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -912,7 +965,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Replacement_Point()")
             {
-                TEST_CASE_TEMPLATE("should return true when at a replacement point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at a replacement point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -921,7 +974,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at a replacement point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when not at a replacement point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -930,7 +983,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -941,7 +994,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -950,7 +1003,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -962,7 +1015,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Replacement_Substring()")
             {
-                TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -973,7 +1026,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at a replacement substring", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when not at a replacement substring", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -982,7 +1035,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -991,7 +1044,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1000,7 +1053,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1012,7 +1065,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("At()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the indexed point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the indexed point", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1026,7 +1079,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("At_Prefix()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1039,7 +1092,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("At_First()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the first point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the first point", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1052,7 +1105,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("At_Last()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the last point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the last point", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1065,7 +1118,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("At_Terminus()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the terminus", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the terminus", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1078,7 +1131,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("At_Postfix()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator to the postfix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator to the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1091,7 +1144,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Next()")
             {
-                TEST_CASE_TEMPLATE("should move to the next point when not at the postfix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move to the next point when not at the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1102,7 +1155,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index + 1));
                 }
 
-                TEST_CASE_TEMPLATE("should return true when not at the postfix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return true when not at the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1111,7 +1164,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Next());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1123,7 +1176,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Prior()")
             {
-                TEST_CASE_TEMPLATE("should move to the prior point when not at the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move to the prior point when not at the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1138,7 +1191,7 @@ namespace nkr { namespace string {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return true when not at the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return true when not at the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1147,7 +1200,7 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Prior());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1159,7 +1212,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Unit_Index()")
             {
-                TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1169,7 +1222,7 @@ namespace nkr { namespace string {
                     CHECK(!unit_index);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1179,7 +1232,7 @@ namespace nkr { namespace string {
                     CHECK(unit_index && unit_index.Value() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1193,7 +1246,7 @@ namespace nkr { namespace string {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1203,7 +1256,7 @@ namespace nkr { namespace string {
                     CHECK(unit_index && unit_index.Value() == string.Unit_Count() - 1);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1216,7 +1269,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Point_Index()")
             {
-                TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should not return an index if at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1226,7 +1279,7 @@ namespace nkr { namespace string {
                     CHECK(!point_index);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1236,7 +1289,7 @@ namespace nkr { namespace string {
                     CHECK(point_index && point_index.Value() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1250,7 +1303,7 @@ namespace nkr { namespace string {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1260,7 +1313,7 @@ namespace nkr { namespace string {
                     CHECK(point_index && point_index.Value() == string.Point_Count() - 1);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1273,7 +1326,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Charcoder()")
             {
-                TEST_CASE_TEMPLATE("should return a const reference to the charcoder at the current point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder at the current point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1282,7 +1335,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Charcoder().Decode() == itr.Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1291,7 +1344,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Charcoder().Decode() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1303,7 +1356,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Point()")
             {
-                TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1312,7 +1365,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the first point in a string with a length of 0", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the first point in a string with a length of 0", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1321,7 +1374,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should not return 0 when at the first point in a string with a length greater than 0", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should not return 0 when at the first point in a string with a length greater than 0", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1330,7 +1383,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() != 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the last point in a string with a length of 0", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the last point in a string with a length of 0", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1340,7 +1393,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should not return 0 when at the last point in a string with a length greater than 0", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should not return 0 when at the last point in a string with a length greater than 0", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1350,7 +1403,7 @@ namespace nkr { namespace string {
                     CHECK(!itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1359,7 +1412,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1371,7 +1424,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Point_Unit_Count()")
             {
-                TEST_CASE_TEMPLATE("should return the number of units which represent the point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the number of units which represent the point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1386,7 +1439,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Point_Unit()")
             {
-                TEST_CASE_TEMPLATE("should return the indexed unit of the point", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the indexed unit of the point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1403,7 +1456,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Substring()")
             {
-                TEST_CASE_TEMPLATE("should return a substring_t containing non-error units", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a substring_t containing non-error units", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -1419,7 +1472,7 @@ namespace nkr { namespace string {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return a substring_t containing error units", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return a substring_t containing error units", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -1433,7 +1486,7 @@ namespace nkr { namespace string {
                     CHECK(substring_itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty substring_t when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return an empty substring_t when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -1444,7 +1497,7 @@ namespace nkr { namespace string {
                     CHECK(substring.Unit_Length() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty substring_t when at the terminus", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return an empty substring_t when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -1455,7 +1508,7 @@ namespace nkr { namespace string {
                     CHECK(substring.Unit_Length() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty substring_t when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return an empty substring_t when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -1469,7 +1522,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Substring_Unit_Length()")
             {
-                TEST_CASE_TEMPLATE("should return the same number of units in the point when not at an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the same number of units in the point when not at an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1478,7 +1531,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
                 }
 
-                TEST_CASE_TEMPLATE("should return the number of units read by a charcoder, which may vary from the point count", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the number of units read by a charcoder, which may vary from the point count", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1491,7 +1544,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1500,7 +1553,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1509,7 +1562,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1521,7 +1574,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Substring_Unit()")
             {
-                TEST_CASE_TEMPLATE("should return the same unit as Point_Unit when there is no error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the same unit as Point_Unit when there is no error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1532,7 +1585,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit(substring_unit_index) == itr.Point_Unit(substring_unit_index));
                 }
 
-                TEST_CASE_TEMPLATE("should return the same unit as is found in the string when there is an error", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the same unit as is found in the string when there is an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1549,7 +1602,7 @@ namespace nkr { namespace string {
         {
             TEST_SUITE("+=()")
             {
-                TEST_CASE_TEMPLATE("should increment the iterator by the given point count", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should increment the iterator by the given point count", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1561,7 +1614,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index + point_count));
                 }
 
-                TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
@@ -1571,7 +1624,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index));
                 }
 
-                TEST_CASE_TEMPLATE("should be able to move unto the postfix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should be able to move unto the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1585,7 +1638,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("-=()")
             {
-                TEST_CASE_TEMPLATE("should decrement the iterator by the given point count", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should decrement the iterator by the given point count", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1597,7 +1650,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index - point_count));
                 }
 
-                TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
@@ -1607,7 +1660,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index));
                 }
 
-                TEST_CASE_TEMPLATE("should be able to move unto the prefix", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should be able to move unto the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1621,7 +1674,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("++()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1632,7 +1685,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index + 1));
                 }
 
-                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1642,7 +1695,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_Postfix());
                 }
 
-                TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1654,7 +1707,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("++(int)")
             {
-                TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index after the current index", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1665,7 +1718,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index + 1));
                 }
 
-                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the terminus", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1675,7 +1728,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_Postfix());
                 }
 
-                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1688,7 +1741,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("--()")
             {
-                TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1699,7 +1752,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index - 1));
                 }
 
-                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1709,7 +1762,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return itself", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1721,7 +1774,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("--(int)")
             {
-                TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move the iterator one index before the current index", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1732,7 +1785,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index - 1));
                 }
 
-                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1742,7 +1795,7 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
