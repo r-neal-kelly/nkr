@@ -255,7 +255,7 @@ namespace nkr { namespace string {
         static auto&    Copy_Assign(is_any_non_const_tr<local_static_t> auto& self, const is_any_tr<local_static_t> auto& other);
         static auto&    Move_Assign(is_any_non_const_tr<local_static_t> auto& self, is_any_non_const_tr<local_static_t> auto&& other);
 
-        static void_t   Enable_Memory(is_any_non_const_tr<local_static_t> auto& self);
+        static void_t   Enable_Memory(is_any_non_const_tr<local_static_t> auto& self, bool_t has_terminus);
         static void_t   Disable_Memory(is_any_non_const_tr<local_static_t> auto& self);
 
     protected:
@@ -267,8 +267,11 @@ namespace nkr { namespace string {
         local_static_t(nullptr_t);
 
         local_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
+        local_static_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count_or_length);
         local_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string);
+        local_static_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string, count_t unit_count_or_length);
         local_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string);
+        local_static_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string, count_t unit_count_or_length);
 
         local_static_t(const tr1<any_tg, string_tg> auto& string);
         local_static_t(tr1<any_non_const_tg, string_tg> auto&& string);
@@ -289,12 +292,6 @@ namespace nkr { namespace string {
         volatile local_static_t&    operator =(is_just_volatile_tr<local_static_t> auto&& other) volatile noexcept;
 
         ~local_static_t();
-
-    public:
-        void_t  Enable_Memory();
-        void_t  Enable_Memory() volatile;
-        void_t  Disable_Memory();
-        void_t  Disable_Memory() volatile;
     };
     static_assert(string_i<local_static_t<charcoder::utf_8_t>>);
     static_assert(string_i<const local_static_t<charcoder::utf_8_t>>);

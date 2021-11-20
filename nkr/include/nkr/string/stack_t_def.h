@@ -289,23 +289,26 @@ namespace nkr { namespace string {
     inline maybe_t<allocator_err>
         stack_t<charcoder_p, unit_capacity_p>::Push(is_any_non_const_tr<stack_t> auto& self,
                                                     tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string,
-                                                    count_t unit_length)
+                                                    count_t unit_count_or_length)
     {
         nkr_ASSERT_THAT(c_string);
         nkr_ASSERT_THAT(Has_Terminus(self));
 
-        const count_t unit_count = Unit_Count(self);
-        if (math::Will_Overflow_Add(unit_count, unit_length)) {
+        const count_t original_unit_count = Unit_Count(self);
+        const count_t other_unit_length = unit_count_or_length > 0 && c_string[unit_count_or_length - 1] == 0 ?
+            unit_count_or_length - 1 :
+            unit_count_or_length;
+        if (math::Will_Overflow_Add(original_unit_count, other_unit_length)) {
             return allocator_err::OUT_OF_MEMORY;
         } else {
-            maybe_t<allocator_err> err = Unit_Capacity(self, unit_count + unit_length);
+            maybe_t<allocator_err> err = Unit_Capacity(self, original_unit_count + other_unit_length);
             if (err) {
                 return err;
             } else {
                 Pop_Terminus(self);
 
                 charcoder_t charcoder;
-                for (index_t idx = 0, next_point_idx = 0, end = unit_length; idx < end;) {
+                for (index_t idx = 0, next_point_idx = 0, end = other_unit_length; idx < end;) {
                     next_point_idx = idx + charcoder.Read_Forward(c_string + idx);
                     for (; idx < next_point_idx; idx += 1) {
                         nkr_ASSERT_THAT(c_string[idx] != 0);
@@ -436,11 +439,61 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string,
+                                                          count_t unit_count_or_length) :
+        stack_t()
+    {
+        nkr_ASSERT_THAT(unit_count_or_length > 0 ? c_string != nullptr : true);
+
+        if (c_string) {
+            Push(*this, c_string, unit_count_or_length).Ignore_Error();
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string,
+                                                          count_t unit_count_or_length,
+                                                          maybe_t<allocator_err>& result) :
+        stack_t()
+    {
+        nkr_ASSERT_THAT(unit_count_or_length > 0 ? c_string != nullptr : true);
+
+        if (c_string) {
+            result = Push(*this, c_string, unit_count_or_length);
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string) :
         stack_t()
     {
         if (maybe_c_string) {
             Push(*this, maybe_c_string()).Ignore_Error();
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string,
+                                                          count_t unit_count_or_length) :
+        stack_t()
+    {
+        nkr_ASSERT_THAT(unit_count_or_length > 0 ? maybe_c_string != nullptr : true);
+
+        if (maybe_c_string) {
+            Push(*this, maybe_c_string(), unit_count_or_length).Ignore_Error();
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string,
+                                                          count_t unit_count_or_length,
+                                                          maybe_t<allocator_err>& result) :
+        stack_t()
+    {
+        nkr_ASSERT_THAT(unit_count_or_length > 0 ? maybe_c_string != nullptr : true);
+
+        if (maybe_c_string) {
+            result = Push(*this, maybe_c_string(), unit_count_or_length);
         }
     }
 
@@ -451,6 +504,27 @@ namespace nkr { namespace string {
         nkr_ASSERT_THAT(some_c_string);
 
         Push(*this, some_c_string()).Ignore_Error();
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string,
+                                                          count_t unit_count_or_length) :
+        stack_t()
+    {
+        nkr_ASSERT_THAT(some_c_string);
+
+        Push(*this, some_c_string(), unit_count_or_length).Ignore_Error();
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline stack_t<charcoder_p, unit_capacity_p>::stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string,
+                                                          count_t unit_count_or_length,
+                                                          maybe_t<allocator_err>& result) :
+        stack_t()
+    {
+        nkr_ASSERT_THAT(some_c_string);
+
+        result = Push(*this, some_c_string(), unit_count_or_length);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
@@ -833,17 +907,17 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline maybe_t<allocator_err>
-        stack_t<charcoder_p, unit_capacity_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length)
+        stack_t<charcoder_p, unit_capacity_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_count_or_length)
     {
-        return nkr::Move(Push(*this, c_string, unit_length));
+        return nkr::Move(Push(*this, c_string, unit_count_or_length));
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline maybe_t<allocator_err>
-        stack_t<charcoder_p, unit_capacity_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length)
+        stack_t<charcoder_p, unit_capacity_p>::Push(const is_any_tr<unit_t> auto* c_string, count_t unit_count_or_length)
         volatile
     {
-        return nkr::Move(Push(*this, c_string, unit_length));
+        return nkr::Move(Push(*this, c_string, unit_count_or_length));
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>

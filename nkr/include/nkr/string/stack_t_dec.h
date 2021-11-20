@@ -143,7 +143,7 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, point_t point);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const charcoder_t& charcoder);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
-        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_length);
+        static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count_or_length);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, const any_string_tr auto& other);
         static maybe_t<allocator_err>   Push(is_any_non_const_tr<stack_t> auto& self, any_non_const_string_tr auto&& other);
 
@@ -157,9 +157,17 @@ namespace nkr { namespace string {
         stack_t();
 
         stack_t(const charcoder_t& charcoder);
+
         stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string);
+        stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count_or_length);
+        stack_t(tr2<any_tg, c_pointer_ttg, of_any_tg, unit_t> auto c_string, count_t unit_count_or_length, maybe_t<allocator_err>& result);
         stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string);
+        stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string, count_t unit_count_or_length);
+        stack_t(tr3<any_tg, maybe_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto maybe_c_string, count_t unit_count_or_length, maybe_t<allocator_err>& result);
         stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string);
+        stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string, count_t unit_count_or_length);
+        stack_t(tr3<any_tg, some_t, of_any_tg, c_pointer_ttg, of_any_tg, unit_t> auto some_c_string, count_t unit_count_or_length, maybe_t<allocator_err>& result);
+
         stack_t(some_t<pointer_t<unit_t>> some_pointer);
 
         stack_t(const any_string_tr auto& string);
@@ -223,8 +231,8 @@ namespace nkr { namespace string {
         maybe_t<allocator_err>              Push(const charcoder_t& charcoder) volatile;
         maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string);
         maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string) volatile;
-        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length);
-        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string, count_t unit_length) volatile;
+        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string, count_t unit_count_or_length);
+        maybe_t<allocator_err>              Push(const is_any_tr<unit_t> auto* c_string, count_t unit_count_or_length) volatile;
         maybe_t<allocator_err>              Push(const any_string_tr auto& string);
         maybe_t<allocator_err>              Push(const any_string_tr auto& string) volatile;
         maybe_t<allocator_err>              Push(any_non_const_string_tr auto&& string);
