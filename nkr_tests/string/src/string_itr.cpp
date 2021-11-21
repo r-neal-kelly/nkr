@@ -1633,6 +1633,15 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Error());
                 }
 
+                TEST_CASE_TEMPLATE("should return true when at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
+                    itr_p itr(string);
+                    CHECK_TRUE(itr.Is_At_Error());
+                }
+
                 TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -1642,12 +1651,32 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
+                /*TEST_CASE_TEMPLATE("should return false when not at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    CHECK_FALSE(itr.Is_At_Error());
+                }*/
+
                 TEST_CASE_TEMPLATE("should return false when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    itr_p itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at a replacement substring of non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
                     itr_p itr(string);
                     CHECK(itr.Point() == charcoder_t::Replacement_Point());
                     CHECK_FALSE(itr.Is_At_Error());
@@ -1662,6 +1691,15 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
                 TEST_CASE_TEMPLATE("should return false when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -1671,11 +1709,29 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
+                TEST_CASE_TEMPLATE("should return false when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
                     itr_p itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
@@ -1693,6 +1749,20 @@ namespace nkr { namespace string {
                         }
                     }
                 }
+
+                /*TEST_CASE_TEMPLATE("should decode to a replacement point when at an error of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>(true, false);
+                    itr_p itr(string);
+                    for (; !itr.Is_At_Postfix(); itr.Next()) {
+                        if (itr.Is_At_Error()) {
+                            CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                        }
+                    }
+                }*/
             }
 
             TEST_SUITE("Is_At_Replacement_Point()")
@@ -2152,6 +2222,38 @@ namespace nkr { namespace string {
                     itr_p itr(string, position_e::postfix_tg());
                     CHECK(itr.Point() == 0);
                 }
+
+                TEST_CASE_TEMPLATE("should return point for point whether a string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using qualified_charcoder_t = itr_p::qualified_charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    static_t<qualified_charcoder_t> other(string, false);
+                    CHECK(string.Point_Length() == other.Point_Length());
+
+                    itr_p itr(string);
+                    string_itr<decltype(other)> other_itr(other);
+                    for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
+                        CHECK(itr.Point() == other_itr.Point());
+                    }
+                }
+
+                /*TEST_CASE_TEMPLATE("should return point for point whether an error-ridden string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using qualified_charcoder_t = itr_p::qualified_charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(true);
+                    static_t<qualified_charcoder_t> other(string, false);
+                    CHECK(string.Point_Length() == other.Point_Length());
+
+                    itr_p itr(string);
+                    string_itr<decltype(other)> other_itr(other);
+                    for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
+                        CHECK(itr.Point() == other_itr.Point());
+                    }
+                }*/
             }
 
             TEST_SUITE("Point_Unit_Count()")

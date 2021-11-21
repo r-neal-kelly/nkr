@@ -166,6 +166,12 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p>
+    inline static_t<charcoder_p>::static_t(nullptr_t) :
+        static_t()
+    {
+    }
+
+    template <charcoder_i charcoder_p>
     inline static_t<charcoder_p>::static_t(tr1<any_tg, unit_t*> auto c_string) :
         static_t(maybe_t<unit_t*>(c_string))
     {
@@ -212,6 +218,31 @@ namespace nkr { namespace string {
         array(pointer_t<unit_t>(some_c_string, unit_count))
     {
         nkr_ASSERT_THAT(some_c_string);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline static_t<charcoder_p>::static_t(tr1<any_tg, string_tg> auto& string) :
+        static_t()
+    {
+        if (string.Has_Memory()) {
+            this->point_count = string.Point_Count();
+            this->array = maybe_t<pointer_t<unit_t>>(&string.Unit(0), string.Unit_Count());
+        }
+    }
+
+    template <charcoder_i charcoder_p>
+    inline static_t<charcoder_p>::static_t(tr1<any_tg, string_tg> auto& string, bool_t include_terminus) :
+        static_t()
+    {
+        if (string.Has_Memory()) {
+            if (include_terminus || !string.Has_Terminus()) {
+                this->point_count = string.Point_Count();
+                this->array = maybe_t<pointer_t<unit_t>>(&string.Unit(0), string.Unit_Count());
+            } else {
+                this->point_count = string.Point_Count() - 1;
+                this->array = maybe_t<pointer_t<unit_t>>(&string.Unit(0), string.Unit_Count() - 1);
+            }
+        }
     }
 
     template <charcoder_i charcoder_p>

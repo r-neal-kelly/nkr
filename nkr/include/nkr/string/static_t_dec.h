@@ -123,12 +123,19 @@ namespace nkr { namespace string {
     public:
         static_t();
 
+        static_t(nullptr_t);
+
         static_t(tr1<any_tg, unit_t*> auto c_string);
         static_t(tr1<any_tg, unit_t*> auto c_string, count_t unit_count, count_t point_count);
         static_t(tr2<any_tg, maybe_t, of_any_tg, unit_t*> auto maybe_c_string);
         static_t(tr2<any_tg, maybe_t, of_any_tg, unit_t*> auto maybe_c_string, count_t unit_count, count_t point_count);
         static_t(tr2<any_tg, some_t, of_any_tg, unit_t*> auto some_c_string);
         static_t(tr2<any_tg, some_t, of_any_tg, unit_t*> auto some_c_string, count_t unit_count, count_t point_count);
+
+        static_t(tr1<any_tg, string_tg> auto& string);  // this needs to specify a string_ttg, of_just_tg, qualified_charcoder_t
+        static_t(tr1<any_tg, string_tg> auto& string, bool_t include_terminus);
+        static_t(tr1<any_tg, string_tg> auto&& string)                          = delete;
+        static_t(tr1<any_tg, string_tg> auto&& string, bool_t include_terminus) = delete;
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);
