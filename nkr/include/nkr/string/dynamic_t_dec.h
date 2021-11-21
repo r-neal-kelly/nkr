@@ -24,6 +24,7 @@
 #include "nkr/string_i.h"
 #include "nkr/string_itr_dec.h"
 
+// to be deleted
 namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -36,6 +37,66 @@ namespace nkr { namespace string {
     nkr_DEFINE_CONTAINER_TRAITS(dynamic, qualified_charcoder_t);
 
 }}
+//
+
+namespace nkr { namespace string {
+
+    template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    class dynamic_t;
+
+    struct                      dynamic_tg  {};
+    template <typename> struct  dynamic_ttg {};
+
+}}
+
+namespace nkr { namespace string { namespace $dynamic_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, dynamic_t<typename type_p::qualified_charcoder_t, typename type_p::allocator_t, typename type_p::grow_rate_t>>;
+
+}}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<string::dynamic_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <string::$dynamic_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<string::dynamic_tg>
+    {
+    public:
+        using of_t  = type_p::qualified_charcoder_t;
+    };
+
+    template <>
+    class template_traits_i<string::dynamic_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = string::dynamic_t<of_p, allocator::heap_t<typename of_p::unit_t>, math::fraction_t<17, 10>>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+    template <>
+    class template_traits_i<string::dynamic_t> :
+        public template_traits_i<string::dynamic_ttg>
+    {
+    public:
+    };
+
+}
 
 namespace nkr { namespace string {
 

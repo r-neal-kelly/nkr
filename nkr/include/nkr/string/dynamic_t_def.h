@@ -11,6 +11,23 @@
 #include "nkr/string_itr_def.h"
 #include "nkr/string/dynamic_t_dec.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<string::dynamic_tg>::Is_Any()
+    {
+        return string::$dynamic_t::any_tr<other_p>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<string::dynamic_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
