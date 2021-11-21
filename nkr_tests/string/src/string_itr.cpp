@@ -943,6 +943,60 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
 
+                TEST_CASE_TEMPLATE("should return false when at the first point", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point of a non-empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_FALSE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point of a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_FALSE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the last point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_TRUE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the last point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_TRUE(itr.Is_At_Prefix());
+                }
+
                 TEST_CASE_TEMPLATE("should return false when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -979,7 +1033,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at any point index", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at another point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -988,7 +1042,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at any point index of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at another point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1000,6 +1054,24 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_First()")
             {
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_First());
+                }
+
                 TEST_CASE_TEMPLATE("should return true when at the first point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -1018,21 +1090,45 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return true when at the last point of a string with a length of 1", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_TRUE(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the last point of a non-terminated string with a length of 1", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_TRUE(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point of a string without a length of 1", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string;
+                    do {
+                        string = Random<string_t>();
+                    } while (string.Point_Length() == 1);
+                    itr_p itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the last point of a non-terminated string without a length of 1", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string;
+                    do {
+                        string = Random<string_t>(false, false);
+                    } while (string.Point_Length() == 1);
+                    itr_p itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1090,7 +1186,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at another point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1099,7 +1195,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at another point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1111,24 +1207,6 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Last()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL_TERMINATED)
-                {
-                    using string_t = itr_p::string_t;
-
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
-                    CHECK_TRUE(itr.Is_At_Last());
-                }
-
-                TEST_CASE_TEMPLATE("should return true when at the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
-                {
-                    using string_t = itr_p::string_t;
-
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::last_tg());
-                    CHECK_TRUE(itr.Is_At_Last());
-                }
-
                 TEST_CASE_TEMPLATE("should return false when at the prefix of a non-empty string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -1162,6 +1240,66 @@ namespace nkr { namespace string {
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the first point of a string with a length of 1", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the first point of a non-terminated string with a length of 1", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point of a string without a length of 1", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string;
+                    do {
+                        string = Random<string_t>();
+                    } while (string.Point_Length() == 1);
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point of a non-terminated string without a length of 1", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string;
+                    do {
+                        string = Random<string_t>(false, false);
+                    } while (string.Point_Length() == 1);
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the last point", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1201,7 +1339,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at another point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1216,7 +1354,7 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at another point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1234,6 +1372,78 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Terminus()")
             {
+                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point of a non-empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point of a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the first point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_TRUE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the first point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_TRUE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
                 TEST_CASE_TEMPLATE("should return true when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -1243,13 +1453,13 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return true when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
-                    CHECK_FALSE(itr.Is_At_Terminus());
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
@@ -1261,7 +1471,16 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at another point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1275,19 +1494,25 @@ namespace nkr { namespace string {
                     itr_p itr(string, random_point_index);
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
+
+                TEST_CASE_TEMPLATE("should return false when at another point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    const count_t point_count = string.Point_Count();
+                    const index_t terminus_point_index = point_count + 1 - 1;
+                    index_t random_point_index;
+                    do {
+                        random_point_index = Random<index_t>(0, point_count + 1);
+                    } while (random_point_index == terminus_point_index);
+                    itr_p itr(string, random_point_index);
+                    CHECK_FALSE(itr.Is_At_Terminus());
+                }
             }
 
             TEST_SUITE("Is_At_Postfix()")
             {
-                TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL_TERMINATED)
-                {
-                    using string_t = itr_p::string_t;
-
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
-                    CHECK_TRUE(itr.Is_At_Postfix());
-                }
-
                 TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -1297,12 +1522,102 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at another point index", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the first point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the terminus", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the postfix", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_TRUE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK_TRUE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at another point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
                     itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK_FALSE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at another point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
             }
@@ -1344,6 +1659,15 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
                     itr_p itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Error());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the terminus", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
