@@ -358,7 +358,7 @@ namespace nkr {
         if (Is_At_Prefix(self)) {
             return optional_t<index_t>(index_t(0), false);
         } else {
-            return optional_t<index_t>(self.unit_index, true);
+            return optional_t<index_t>(self.unit_index, true); // so we give an invalid index to non-terminated string?
         }
     }
 

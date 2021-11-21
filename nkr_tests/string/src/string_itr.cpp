@@ -462,6 +462,15 @@ namespace nkr { namespace string {
                     itr_p itr(string, position_e::prefix_tg());
                     CHECK(itr.Is_At_Prefix());
                 }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::prefix_tg());
+                    CHECK(itr.Is_At_Prefix());
+                }
             }
 
             TEST_SUITE("at_first_ctor()")
@@ -473,6 +482,25 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
                     itr_p itr(string, position_e::first_tg());
                     CHECK(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the pretend terminus of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    itr_p itr(string, position_e::first_tg());
+                    CHECK(itr.Is_At_First());
+                    CHECK(itr.Is_At_Terminus());
                 }
             }
 
@@ -486,6 +514,35 @@ namespace nkr { namespace string {
                     itr_p itr(string, position_e::last_tg());
                     CHECK(itr.Is_At_Last());
                 }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the prefix of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK(itr.Is_At_Last());
+                    CHECK(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the prefix of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    itr_p itr(string, position_e::last_tg());
+                    CHECK(itr.Is_At_Last());
+                    CHECK(itr.Is_At_Prefix());
+                }
             }
 
             TEST_SUITE("at_terminus_ctor()")
@@ -497,6 +554,35 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random<string_t>();
                     itr_p itr(string, position_e::terminus_tg());
                     CHECK(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK(itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK(itr.Is_At_Terminus());
+                    CHECK(itr.Is_At_First());
+                }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the first point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    itr_p itr(string, position_e::terminus_tg());
+                    CHECK(itr.Is_At_Terminus());
+                    CHECK(itr.Is_At_First());
                 }
             }
 
@@ -510,11 +596,38 @@ namespace nkr { namespace string {
                     itr_p itr(string, position_e::postfix_tg());
                     CHECK(itr.Is_At_Postfix());
                 }
+
+                TEST_CASE_TEMPLATE("should set the iterator to the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should not set the iterator to the terminus of a string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK(!itr.Is_At_Terminus());
+                }
+
+                TEST_CASE_TEMPLATE("should not set the iterator to the terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    itr_p itr(string, position_e::postfix_tg());
+                    CHECK(!itr.Is_At_Terminus());
+                }
             }
 
             TEST_SUITE("copy_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
 
@@ -532,7 +645,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_volatile_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should copy the other without changing it", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
 
@@ -550,7 +663,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
 
@@ -567,7 +680,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_volatile_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
 
@@ -584,7 +697,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST_TERMINATED)
+                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
 
@@ -603,7 +716,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("copy_volatile_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST_TERMINATED)
+                TEST_CASE_TEMPLATE("should copy other without changing it", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
 
@@ -622,7 +735,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST_TERMINATED)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
 
@@ -640,7 +753,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("move_volatile_assignment_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST_TERMINATED)
+                TEST_CASE_TEMPLATE("should move the other, making the other assert when used further", itr_p, nkr_NON_CONST)
                 {
                     using string_t = itr_p::string_t;
 
@@ -658,7 +771,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("dtor()")
             {
-                TEST_CASE_TEMPLATE("should make the iterator assert if used any further", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should make the iterator assert if used any further", itr_p, nkr_ALL)
                 {
                     using string_t = itr_p::string_t;
 
