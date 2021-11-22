@@ -188,6 +188,54 @@ namespace nkr {
 
 }
 
+namespace nkr { namespace string {
+
+    template <string_i string_p>
+    inline count_t
+        Offset_To_New_Mid_Point(const string_p& string,
+                                const is_any_tr<typename string_p::unit_t> auto* c_string,
+                                count_t unit_length)
+    {
+        using string_t = std::remove_reference_t<decltype(string)>;
+        using charcoder_t = string_t::charcoder_t;
+        using unit_t = string_t::unit_t;
+
+        if constexpr (charcoder_t::Max_Unit_Count() > 1) {
+            if (unit_length > 0) {
+                const count_t string_unit_count = string.Unit_Count();
+                if (string_unit_count > 1) {
+                    charcoder_t charcoder;
+                    const count_t last_point_unit_count = charcoder.Read_Reverse(&string.Unit(string_unit_count - 1), &string.Unit(0));
+                    const count_t difference = charcoder_t::Max_Unit_Count() - last_point_unit_count;
+                    nkr_ASSERT_THAT(last_point_unit_count <= charcoder_t::Max_Unit_Count());
+                    if (difference > 0) {
+                        array::stack_t<unit_t, charcoder_t::Max_Unit_Count()> last_point_units;
+                        for (index_t idx = string_unit_count - 1 - last_point_unit_count, end = string_unit_count - 1; idx < end; idx += 1) {
+                            last_point_units.Push(string.Unit(idx)).Ignore_Error();
+                        }
+                        for (index_t idx = 0, end = difference > unit_length ? unit_length : difference; idx < end; idx += 1) {
+                            last_point_units.Push(c_string[idx]).Ignore_Error();
+                            if (charcoder.Read_Forward(&last_point_units[0]) == last_point_unit_count) {
+                                return 0;
+                            }
+                        }
+                        return last_point_units.Count() - last_point_unit_count;
+                    } else {
+                        return 0;
+                    }
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+}}
+
 // to be deleted
 namespace nkr {
 

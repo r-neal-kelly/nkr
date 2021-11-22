@@ -1750,7 +1750,7 @@ namespace nkr { namespace string {
                     }
                 }
 
-                /*TEST_CASE_TEMPLATE("should decode to a replacement point when at an error of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at an error of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -1762,7 +1762,7 @@ namespace nkr { namespace string {
                             CHECK(itr.Point() == charcoder_t::Replacement_Point());
                         }
                     }
-                }*/
+                }
             }
 
             TEST_SUITE("Is_At_Replacement_Point()")
@@ -2335,7 +2335,7 @@ namespace nkr { namespace string {
                     }
                 }
 
-                /*TEST_CASE_TEMPLATE("should return point for point whether an error-ridden string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
+                TEST_CASE_TEMPLATE("should return point for point whether an error-ridden string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using qualified_charcoder_t = itr_p::qualified_charcoder_t;
@@ -2349,7 +2349,7 @@ namespace nkr { namespace string {
                     for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
                         CHECK(itr.Point() == other_itr.Point());
                     }
-                }*/
+                }
             }
 
             TEST_SUITE("Point_Unit_Count()")

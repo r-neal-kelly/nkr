@@ -81,8 +81,7 @@ namespace nkr {
     {
         nkr_ASSERT_THAT(Has_String(self));
 
-        return self.unit_index == self.string->Unit_Length() && self.is_prefix == false;
-        //return self.point_index == self.string->Point_Length() && self.is_prefix == false; // causes a state error in Next() with an errorful string?
+        return self.point_index == self.string->Point_Length() && self.is_prefix == false;
     }
 
     template <string_i string_p>

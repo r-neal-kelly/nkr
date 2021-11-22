@@ -30,6 +30,7 @@ namespace nkr { namespace $charcoder_i {
             - a charcoder must at all times be well-formed and thus valid. it should not cache any erroneous units.
             - a charcoder should replace erroneous units with a substring that decodes into a singular replacement point, defined per encoding.
             - during the reading process, the charcoder must return the actual number of units read, whether they are erroneous or not.
+            - the charcoder must be able to read and decode the same string of points either reading forwards or backwards.
 
             - points are decoded substrings and are completely distinct from every other point defined by the encoding.
             - points must fit within the word of the machine.

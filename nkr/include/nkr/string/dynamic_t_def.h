@@ -310,11 +310,21 @@ namespace nkr { namespace string {
             if (err) {
                 return err;
             } else {
-                Pop_Terminus(self);
+                if constexpr (charcoder_t::Max_Unit_Count() > 1) {
+                    const count_t offset_to_new_mid_point = Offset_To_New_Mid_Point<dynamic_t>(self, c_string, unit_length);
 
-                // we need point_count, so we interpret the string with charcoder which guarantees a point even from erroneous units.
-                // we copy the actual units of c_string as they are though, errors included. this simplifies out of memory recovery,
-                // and can only punish performance on the rare case that there is actually an error in the string.
+                    Pop_Terminus(self);
+
+                    for (index_t idx = 0, end = offset_to_new_mid_point; idx < end; idx += 1) {
+                        self.array.Push(c_string[idx]).Ignore_Error();
+                    }
+
+                    c_string += offset_to_new_mid_point;
+                    unit_length -= offset_to_new_mid_point;
+                } else {
+                    Pop_Terminus(self);
+                }
+
                 charcoder_t charcoder;
                 for (index_t idx = 0, next_point_idx = 0, end = unit_length; idx < end;) {
                     next_point_idx = idx + charcoder.Read_Forward(c_string + idx);
@@ -865,13 +875,18 @@ namespace nkr {
         const count_t point_count = nkr::Random<count_t>(min_point_count_p, max_point_count_p);
         std::remove_const_t<string_t> string(point_count * charcoder_t::Max_Unit_Count());
         if (use_erroneous_units) {
+            charcoder_t charcoder;
             array::stack_t<unit_t, charcoder_t::Max_Unit_Count()> units;
-            for (index_t idx = 0, end = point_count - 1; idx < end; idx += 1) {
-                for (index_t idx = 0, end = Random<count_t>(1, units.Capacity()); idx < end; idx += 1) {
+            for (index_t idx = 0, end = point_count - 1; idx < end;) {
+                for (index_t idx = 0, end = units.Capacity(); idx < end; idx += 1) {
                     units.Push(Random<unit_t>(1)).Ignore_Error();
                 }
-                string.Push(units.Array(), units.Count()).Ignore_Error();
+                const count_t previous_point_count = string.Point_Count();
+                string.Push(units.Array(), charcoder.Read_Forward(&units[0])).Ignore_Error();
                 units.Clear();
+                if (string.Point_Count() > previous_point_count) {
+                    idx += 1;
+                }
             }
         } else {
             charcoder_t charcoder;
