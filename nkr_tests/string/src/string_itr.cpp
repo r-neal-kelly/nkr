@@ -1651,14 +1651,14 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                /*TEST_CASE_TEMPLATE("should return false when not at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when not at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
                     itr_p itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK_FALSE(itr.Is_At_Error());
-                }*/
+                }
 
                 TEST_CASE_TEMPLATE("should return false when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
                 {

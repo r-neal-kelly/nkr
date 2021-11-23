@@ -329,20 +329,9 @@ namespace nkr {
 
             return true;
         } else {
-            if constexpr (string_t::Has_Guaranteed_Terminus()) {
-                self.read_unit_count = self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), &self.string->Unit(0));
-                self.unit_index -= self.read_unit_count;
-                self.point_index -= 1;
-            } else {
-                if (self.point_index < self.string->Point_Count()) {
-                    self.read_unit_count = self.charcoder.Read_Reverse(&self.string->Unit(self.unit_index), &self.string->Unit(0));
-                } else {
-                    self.read_unit_count = 1;
-                    self.charcoder = none_t();
-                }
-                self.unit_index -= self.read_unit_count;
-                self.point_index -= 1;
-            }
+            self.read_unit_count = self.charcoder.Read_Reverse(&self.string->Unit(0) + self.unit_index, &self.string->Unit(0));
+            self.unit_index -= self.read_unit_count;
+            self.point_index -= 1;
 
             return true;
         }
