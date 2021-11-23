@@ -7,6 +7,7 @@
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
+#include "nkr/math.h"
 #include "nkr/maybe_t.h"
 #include "nkr/some_t.h"
 #include "nkr/traits.h"
@@ -189,6 +190,24 @@ namespace nkr {
 }
 
 namespace nkr { namespace string {
+
+    constexpr count_t
+        Default_Point_Count()
+    {
+        return 128;
+    }
+
+    constexpr count_t
+        Default_Min_Point_Count()
+    {
+        return 1;
+    }
+
+    constexpr count_t
+        Default_Max_Point_Count(count_t min_point_count)
+    {
+        return min_point_count < 64 ? Default_Point_Count() : math::Round_To_Power_Of_2(min_point_count * 4);
+    }
 
     template <string_i string_p>
     inline count_t

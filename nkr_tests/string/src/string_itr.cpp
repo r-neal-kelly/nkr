@@ -107,14 +107,20 @@ namespace nkr { namespace string {
     #define nkr_STRING_itr(STRING_p)                                    \
         same_qualification_as_t<string_itr<decltype(STRING_p)>, itr_p>
 
-        template <string_i string_p, count_t min_point_count_p = 1, count_t max_point_count_p = 128>
-        auto Random_String(bool_t use_erroneous_units = false)
+        template <
+            string_i    string_p,
+            count_t     min_point_count_p   = Default_Min_Point_Count(),
+            count_t     max_point_count_p   = Default_Max_Point_Count(min_point_count_p)
+        > auto Random_String(bool_t use_erroneous_units = false)
         {
             return Random<string_p, min_point_count_p, max_point_count_p>(use_erroneous_units);
         }
 
-        template <string_i string_p, count_t min_point_count_p = 1, count_t max_point_count_p = 128>
-        auto Non_Terminated_Random_String(bool_t use_erroneous_units = false)
+        template <
+            string_i    string_p,
+            count_t     min_point_count_p   = Default_Min_Point_Count(),
+            count_t     max_point_count_p   = Default_Max_Point_Count(min_point_count_p)
+        > auto Non_Terminated_Random_String(bool_t use_erroneous_units = false)
         {
             static_assert(!string_p::Has_Guaranteed_Terminus());
 

@@ -265,8 +265,8 @@ namespace nkr {
 
     template <
         string::any_dynamic_tr  string_p,
-        count_t                 min_point_count_p   = 1,
-        count_t                 max_point_count_p   = 128
+        count_t                 min_point_count_p   = string::Default_Min_Point_Count(),
+        count_t                 max_point_count_p   = string::Default_Max_Point_Count(min_point_count_p)
     > auto  Random(bool_t use_erroneous_units = false);
 
 }

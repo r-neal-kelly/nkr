@@ -65,6 +65,47 @@ namespace nkr { namespace math {
         return Is_Power_Of_2(Absolute(signed_integer));
     }
 
+    inline constexpr unsigned_word_t
+        Round_To_Power_Of_2(integer_unsigned_tr auto unsigned_integer)
+    {
+        using integer_t = decltype(unsigned_integer);
+
+        static_assert(sizeof(integer_t) <= sizeof(unsigned_word_t));
+
+        constexpr count_t bit_count = sizeof(decltype(unsigned_integer)) * 8;
+
+        unsigned_word_t result = unsigned_integer;
+        result -= 1;
+        if constexpr (bit_count > 1) {
+            result |= result >> 1;
+        }
+        if constexpr (bit_count > 2) {
+            result |= result >> 2;
+        }
+        if constexpr (bit_count > 4) {
+            result |= result >> 4;
+        }
+        if constexpr (bit_count > 8) {
+            result |= result >> 8;
+        }
+        if constexpr (bit_count > 16) {
+            result |= result >> 16;
+        }
+        if constexpr (bit_count > 32) {
+            result |= result >> 32;
+        }
+        if constexpr (bit_count > 64) {
+            result |= result >> 64;
+        }
+        if constexpr (bit_count > 128) {
+            static_assert(false, "unimplemented type");
+        }
+        result += 1;
+        result += (result == 0);
+
+        return result;
+    }
+
     template <number_tr number_p>
     inline bool_t
         Will_Overflow_Add(number_p lhs, number_p rhs)
