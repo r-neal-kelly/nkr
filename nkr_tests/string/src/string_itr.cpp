@@ -92,8 +92,8 @@ namespace nkr { namespace string {
         nkr_NON_CONST_NON_TERMINATED,   \
         nkr_CONST_NON_TERMINATED
 
-    #define nkr_RANDOM_STRING_t(...)                                                    \
-        same_qualification_as_t<decltype(Random<string_t, __VA_ARGS__>()), string_t>
+    #define nkr_RANDOM_STRING_t(...)                                                        \
+        same_qualification_as_t<decltype(Random_String<string_t, __VA_ARGS__>()), string_t>
 
     #define nkr_EMPTY_STRING_t()                                                \
         same_qualification_as_t<decltype(Empty_String<string_t>()), string_t>
@@ -101,10 +101,27 @@ namespace nkr { namespace string {
     #define nkr_REPLACEMENT_STRING_t()                                              \
         same_qualification_as_t<decltype(Replacement_String<string_t>()), string_t>
 
-    #define nkr_ERROR_STRING_t(...)                                             \
+    #define nkr_ERROR_STRING_t()                                                \
         same_qualification_as_t<decltype(Error_String<string_t>()), string_t>
 
-        template <typename string_p>
+    #define nkr_STRING_itr(STRING_p)                                    \
+        same_qualification_as_t<string_itr<decltype(STRING_p)>, itr_p>
+
+        template <string_i string_p, count_t min_point_count_p = 1, count_t max_point_count_p = 128>
+        auto Random_String(bool_t use_erroneous_units = false)
+        {
+            return Random<string_p, min_point_count_p, max_point_count_p>(use_erroneous_units);
+        }
+
+        template <string_i string_p, count_t min_point_count_p = 1, count_t max_point_count_p = 128>
+        auto Non_Terminated_Random_String(bool_t use_erroneous_units = false)
+        {
+            static_assert(!string_p::Has_Guaranteed_Terminus());
+
+            return Random<string_p, min_point_count_p, max_point_count_p>(use_erroneous_units, false);
+        }
+
+        template <string_i string_p>
         auto Empty_String()
         {
             using qualified_charcoder_t = string_p::qualified_charcoder_t;
@@ -117,7 +134,7 @@ namespace nkr { namespace string {
             }
         }
 
-        template <typename string_p>
+        template <string_i string_p>
         auto Non_Terminated_Empty_String()
         {
             using qualified_charcoder_t = string_p::qualified_charcoder_t;
@@ -131,7 +148,7 @@ namespace nkr { namespace string {
             }
         }
 
-        template <typename string_p>
+        template <string_i string_p>
         auto Replacement_String()
         {
             using charcoder_t = string_p::charcoder_t;
@@ -148,7 +165,7 @@ namespace nkr { namespace string {
             }
         }
 
-        template <typename string_p>
+        template <string_i string_p>
         auto Non_Terminated_Replacement_String()
         {
             using qualified_charcoder_t = string_p::qualified_charcoder_t;
@@ -162,7 +179,7 @@ namespace nkr { namespace string {
             }
         }
 
-        template <typename string_p>
+        template <string_i string_p>
         auto Error_String()
         {
             using charcoder_t = string_p::charcoder_t;
@@ -214,7 +231,7 @@ namespace nkr { namespace string {
             }
         }
 
-        template <typename string_p>
+        template <string_i string_p>
         auto Non_Terminated_Error_String()
         {
             using qualified_charcoder_t = string_p::qualified_charcoder_t;
@@ -366,8 +383,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Is_At_First());
                 }
 
@@ -375,8 +392,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Is_At_First());
                 }
 
@@ -385,7 +402,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Is_At_First());
                     CHECK(itr.Is_At_Terminus());
                 }
@@ -397,9 +414,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     optional_t<index_t> itr_point_index = itr.Point_Index();
                     CHECK(itr_point_index && itr_point_index.Value() == point_index);
                 }
@@ -408,9 +425,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     optional_t<index_t> itr_point_index = itr.Point_Index();
                     CHECK(itr_point_index && itr_point_index.Value() == point_index);
                 }
@@ -419,8 +436,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, string.Point_Count() - 1);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count() - 1);
                     CHECK(itr.Is_At_Terminus());
                 }
 
@@ -428,8 +445,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, string.Point_Count());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
                     CHECK(itr.Is_At_Terminus());
                 }
 
@@ -437,8 +454,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, string.Point_Count());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
                     CHECK(itr.Is_At_Postfix());
                 }
 
@@ -446,8 +463,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, string.Point_Count() + 1);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count() + 1);
                     CHECK(itr.Is_At_Postfix());
                 }
             }
@@ -458,8 +475,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK(itr.Is_At_Prefix());
                 }
 
@@ -467,8 +484,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK(itr.Is_At_Prefix());
                 }
             }
@@ -479,8 +496,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK(itr.Is_At_First());
                 }
 
@@ -488,8 +505,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK(itr.Is_At_First());
                 }
 
@@ -498,7 +515,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK(itr.Is_At_First());
                     CHECK(itr.Is_At_Terminus());
                 }
@@ -510,8 +527,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Is_At_Last());
                 }
 
@@ -519,8 +536,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Is_At_Last());
                 }
 
@@ -529,7 +546,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Is_At_Last());
                     CHECK(itr.Is_At_Prefix());
                 }
@@ -539,7 +556,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Is_At_Last());
                     CHECK(itr.Is_At_Prefix());
                 }
@@ -551,8 +568,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Is_At_Terminus());
                 }
 
@@ -560,8 +577,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Is_At_Terminus());
                 }
 
@@ -570,7 +587,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Is_At_Terminus());
                     CHECK(itr.Is_At_First());
                 }
@@ -580,7 +597,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Is_At_Terminus());
                     CHECK(itr.Is_At_First());
                 }
@@ -592,8 +609,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Is_At_Postfix());
                 }
 
@@ -601,8 +618,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Is_At_Postfix());
                 }
 
@@ -610,8 +627,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(!itr.Is_At_Terminus());
                 }
 
@@ -619,8 +636,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(!itr.Is_At_Terminus());
                 }
             }
@@ -631,10 +648,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    const std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(other);
+                    const std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(other);
                     CHECK(&itr.String() == &other.String());
                     CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() == other.Unit_Index().Value());
@@ -649,10 +666,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    const volatile std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(other);
+                    const volatile std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(other);
                     CHECK(&itr.String() == &other.String());
                     CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() == other.Unit_Index().Value());
@@ -667,10 +684,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(nkr::Move(other));
+                    std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(nkr::Move(other));
                     CHECK(&itr.String() == &string);
                     CHECK(!itr.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() >= point_index);
@@ -684,10 +701,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    volatile std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(nkr::Move(other));
+                    volatile std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(nkr::Move(other));
                     CHECK(&itr.String() == &string);
                     CHECK(!itr.Is_At_Prefix());
                     CHECK(itr.Unit_Index().Value() >= point_index);
@@ -701,10 +718,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    const std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(string);
+                    const std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(string);
                     itr = other;
                     CHECK(&itr.String() == &other.String());
                     CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
@@ -720,10 +737,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    const volatile std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(string);
+                    const volatile std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(string);
                     itr = other;
                     CHECK(&itr.String() == &other.String());
                     CHECK(!itr.Is_At_Prefix() && !other.Is_At_Prefix());
@@ -739,10 +756,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(string);
+                    std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(string);
                     itr = nkr::Move(other);
                     CHECK(&itr.String() == &string);
                     CHECK(!itr.Is_At_Prefix());
@@ -757,10 +774,10 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    volatile std::remove_cv_t<itr_p> other(string, point_index);
-                    itr_p itr(string);
+                    volatile std::remove_cv_t<nkr_STRING_itr(string)> other(string, point_index);
+                    nkr_STRING_itr(string) itr(string);
                     itr = nkr::Move(other);
                     CHECK(&itr.String() == &string);
                     CHECK(!itr.Is_At_Prefix());
@@ -775,9 +792,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string);
-                    itr.~itr_p();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    itr.~nkr_STRING_itr(string)();
                 }
             }
         }
@@ -790,8 +807,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(&itr.String() == &string);
                 }
             }
@@ -802,9 +819,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     const index_t point_index = Random<index_t>(0, string.Point_Count());
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     CHECK_TRUE(itr.Is_At(point_index));
                 }
 
@@ -812,9 +829,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
                     const index_t point_index = Random<index_t>(0, string.Point_Count() + 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     CHECK_TRUE(itr.Is_At(point_index));
                 }
 
@@ -822,8 +839,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count())));
                 }
 
@@ -831,8 +848,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count() + 1)));
                 }
 
@@ -840,8 +857,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     itr.At_Prefix();
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count())));
                 }
@@ -850,8 +867,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() + 1));
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
                     itr.At_Prefix();
                     CHECK_FALSE(itr.Is_At(Random<index_t>(0, string.Point_Count() + 1)));
                 }
@@ -860,8 +877,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_TRUE(itr.Is_At(string.Point_Count() - 1));
                 }
 
@@ -869,8 +886,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_TRUE(itr.Is_At(string.Point_Count()));
                 }
 
@@ -878,8 +895,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_TRUE(itr.Is_At(string.Point_Count()));
                 }
 
@@ -887,8 +904,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_TRUE(itr.Is_At(string.Point_Count() + 1));
                 }
 
@@ -896,14 +913,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     const count_t point_count = string.Point_Count();
                     const index_t point_index = Random<index_t>(0, point_count);
                     index_t other_point_index;
                     do {
                         other_point_index = Random<index_t>(0, point_count);
                     } while (other_point_index == point_index);
-                    itr_p itr(string, other_point_index);
+                    nkr_STRING_itr(string) itr(string, other_point_index);
                     CHECK_FALSE(itr.Is_At(point_index));
                 }
 
@@ -911,14 +928,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
                     const count_t point_count = string.Point_Count();
                     const index_t point_index = Random<index_t>(0, point_count + 1);
                     index_t other_point_index;
                     do {
                         other_point_index = Random<index_t>(0, point_count + 1);
                     } while (other_point_index == point_index);
-                    itr_p itr(string, other_point_index);
+                    nkr_STRING_itr(string) itr(string, other_point_index);
                     CHECK_FALSE(itr.Is_At(point_index));
                 }
             }
@@ -929,8 +946,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
 
@@ -938,8 +955,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
 
@@ -947,8 +964,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -956,8 +973,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -965,8 +982,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -974,8 +991,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -984,7 +1001,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
 
@@ -993,7 +1010,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
 
@@ -1001,8 +1018,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -1010,8 +1027,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -1019,8 +1036,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -1028,8 +1045,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -1037,8 +1054,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
 
@@ -1046,8 +1063,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() + 1));
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
                     CHECK_FALSE(itr.Is_At_Prefix());
                 }
             }
@@ -1058,8 +1075,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1067,8 +1084,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1076,8 +1093,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
@@ -1085,8 +1102,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
@@ -1095,7 +1112,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
@@ -1104,7 +1121,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
@@ -1114,9 +1131,9 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string;
                     do {
-                        string = Random<string_t>();
+                        string = Random_String<string_t>();
                     } while (string.Point_Length() == 1);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1126,9 +1143,9 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string;
                     do {
-                        string = Random<string_t>(false, false);
+                        string = Non_Terminated_Random_String<string_t>();
                     } while (string.Point_Length() == 1);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1136,8 +1153,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1145,8 +1162,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1155,7 +1172,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
@@ -1164,7 +1181,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_TRUE(itr.Is_At_First());
                 }
 
@@ -1172,8 +1189,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1181,8 +1198,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1190,8 +1207,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(1, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(1, string.Point_Count()));
                     CHECK_FALSE(itr.Is_At_First());
                 }
 
@@ -1199,8 +1216,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, Random<index_t>(1, string.Point_Count() + 1));
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(1, string.Point_Count() + 1));
                     CHECK_FALSE(itr.Is_At_First());
                 }
             }
@@ -1211,8 +1228,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1220,8 +1237,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1230,7 +1247,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1239,7 +1256,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1248,7 +1265,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1257,7 +1274,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1267,9 +1284,9 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string;
                     do {
-                        string = Random<string_t>();
+                        string = Random_String<string_t>();
                     } while (string.Point_Length() == 1);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1279,9 +1296,9 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string;
                     do {
-                        string = Random<string_t>(false, false);
+                        string = Non_Terminated_Random_String<string_t>();
                     } while (string.Point_Length() == 1);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1289,8 +1306,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1298,8 +1315,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_TRUE(itr.Is_At_Last());
                 }
 
@@ -1307,8 +1324,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1316,8 +1333,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1325,8 +1342,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1334,8 +1351,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1343,14 +1360,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
                     const count_t point_count = string.Point_Count();
                     const index_t last_point_index = point_count - 2;
                     index_t random_point_index;
                     do {
                         random_point_index = Random<index_t>(0, point_count);
                     } while (random_point_index == last_point_index);
-                    itr_p itr(string, random_point_index);
+                    nkr_STRING_itr(string) itr(string, random_point_index);
                     CHECK_FALSE(itr.Is_At_Last());
                 }
 
@@ -1358,14 +1375,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
                     const count_t point_count = string.Point_Count();
                     const index_t last_point_index = point_count + 1 - 2;
                     index_t random_point_index;
                     do {
                         random_point_index = Random<index_t>(0, point_count + 1);
                     } while (random_point_index == last_point_index);
-                    itr_p itr(string, random_point_index);
+                    nkr_STRING_itr(string) itr(string, random_point_index);
                     CHECK_FALSE(itr.Is_At_Last());
                 }
             }
@@ -1376,8 +1393,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1385,8 +1402,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1394,8 +1411,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1403,8 +1420,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>(false, false);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1413,7 +1430,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
@@ -1422,7 +1439,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
@@ -1430,8 +1447,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1439,8 +1456,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1448,8 +1465,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
@@ -1457,8 +1474,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
 
@@ -1466,8 +1483,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1475,8 +1492,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1484,14 +1501,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     const count_t point_count = string.Point_Count();
                     const index_t terminus_point_index = point_count - 1;
                     index_t random_point_index;
                     do {
                         random_point_index = Random<index_t>(0, point_count);
                     } while (random_point_index == terminus_point_index);
-                    itr_p itr(string, random_point_index);
+                    nkr_STRING_itr(string) itr(string, random_point_index);
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
 
@@ -1499,14 +1516,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
                     const count_t point_count = string.Point_Count();
                     const index_t terminus_point_index = point_count + 1 - 1;
                     index_t random_point_index;
                     do {
                         random_point_index = Random<index_t>(0, point_count + 1);
                     } while (random_point_index == terminus_point_index);
-                    itr_p itr(string, random_point_index);
+                    nkr_STRING_itr(string) itr(string, random_point_index);
                     CHECK_FALSE(itr.Is_At_Terminus());
                 }
             }
@@ -1517,8 +1534,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1526,8 +1543,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1535,8 +1552,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1544,8 +1561,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1553,8 +1570,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1562,8 +1579,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1571,8 +1588,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1580,8 +1597,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1589,8 +1606,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_TRUE(itr.Is_At_Postfix());
                 }
 
@@ -1598,8 +1615,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_TRUE(itr.Is_At_Postfix());
                 }
 
@@ -1607,8 +1624,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
 
@@ -1616,8 +1633,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK_FALSE(itr.Is_At_Postfix());
                 }
             }
@@ -1629,7 +1646,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK_TRUE(itr.Is_At_Error());
                 }
 
@@ -1638,7 +1655,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK_TRUE(itr.Is_At_Error());
                 }
 
@@ -1646,8 +1663,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1655,8 +1672,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1666,7 +1683,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Point() == charcoder_t::Replacement_Point());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
@@ -1677,7 +1694,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Point() == charcoder_t::Replacement_Point());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
@@ -1686,8 +1703,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1695,8 +1712,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1704,8 +1721,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1713,8 +1730,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1722,8 +1739,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1731,8 +1748,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
@@ -1741,8 +1758,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>(true);
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>(true);
+                    nkr_STRING_itr(string) itr(string);
                     for (; !itr.Is_At_Postfix(); itr.Next()) {
                         if (itr.Is_At_Error()) {
                             CHECK(itr.Point() == charcoder_t::Replacement_Point());
@@ -1755,8 +1772,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>(true, false);
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>(true);
+                    nkr_STRING_itr(string) itr(string);
                     for (; !itr.Is_At_Postfix(); itr.Next()) {
                         if (itr.Is_At_Error()) {
                             CHECK(itr.Point() == charcoder_t::Replacement_Point());
@@ -1772,7 +1789,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
@@ -1780,8 +1797,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
                 }
 
@@ -1791,7 +1808,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Point() == charcoder_t::Replacement_Point());
                     CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
@@ -1800,8 +1817,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
                 }
 
@@ -1809,8 +1826,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
                 }
             }
@@ -1823,7 +1840,7 @@ namespace nkr { namespace string {
                     using charcoder_t = itr_p::charcoder_t;
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK(itr.Point() == charcoder_t::Replacement_Point());
                     CHECK_TRUE(itr.Is_At_Replacement_Substring());
                 }
@@ -1832,8 +1849,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
@@ -1842,7 +1859,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
@@ -1850,8 +1867,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
@@ -1859,8 +1876,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
             }
@@ -1871,12 +1888,14 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     index_t point_index = Random<index_t>(0, string.Point_Count());
                     itr.At(point_index);
                     CHECK_TRUE(itr.Is_At(point_index));
                 }
+
+                // we should have a test that goes back and forth several times to make sure that the point index stays as it should.
             }
 
             TEST_SUITE("At_Prefix()")
@@ -1885,8 +1904,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     itr.At_Prefix();
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
@@ -1898,8 +1917,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     itr.At_First();
                     CHECK_TRUE(itr.Is_At_First());
                 }
@@ -1911,8 +1930,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     itr.At_Last();
                     CHECK_TRUE(itr.Is_At_Last());
                 }
@@ -1924,8 +1943,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     itr.At_Terminus();
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
@@ -1937,8 +1956,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     itr.At_Postfix();
                     CHECK_TRUE(itr.Is_At_Postfix());
                 }
@@ -1950,9 +1969,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr.Next();
                     CHECK(itr.Is_At(point_index + 1));
                 }
@@ -1961,8 +1980,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK_TRUE(itr.Next());
                 }
 
@@ -1970,8 +1989,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Next());
                 }
 
@@ -1980,8 +1999,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
                     charcoder_t charcoder;
                     count_t unit_index = 0;
                     count_t point_index = 0;
@@ -2004,8 +2023,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(false, false);
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
                     charcoder_t charcoder;
                     count_t unit_index = 0;
                     count_t point_index = 0;
@@ -2028,8 +2047,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(true);
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
                     charcoder_t charcoder;
                     count_t unit_index = 0;
                     count_t point_index = 0;
@@ -2052,8 +2071,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(true, false);
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
                     charcoder_t charcoder;
                     count_t unit_index = 0;
                     count_t point_index = 0;
@@ -2078,9 +2097,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count());
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr.Prior();
                     if (point_index == 0) {
                         CHECK(itr.Is_At_Prefix());
@@ -2093,8 +2112,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK_TRUE(itr.Prior());
                 }
 
@@ -2102,8 +2121,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Prior());
                 }
             }
@@ -2114,8 +2133,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     optional_t<index_t> unit_index = itr.Unit_Index();
                     CHECK(!unit_index);
                 }
@@ -2124,8 +2143,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     optional_t<index_t> unit_index = itr.Unit_Index();
                     CHECK(unit_index && unit_index.Value() == 0);
                 }
@@ -2134,8 +2153,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     optional_t<index_t> unit_index = itr.Unit_Index();
                     if (string.Unit_Length() > 0) {
                         CHECK(unit_index && unit_index.Value() == string.Unit_Length() - itr.Point_Unit_Count());
@@ -2148,8 +2167,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     optional_t<index_t> unit_index = itr.Unit_Index();
                     CHECK(unit_index && unit_index.Value() == string.Unit_Count() - 1);
                 }
@@ -2158,8 +2177,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     optional_t<index_t> unit_index = itr.Unit_Index();
                     CHECK(unit_index && unit_index.Value() == string.Unit_Count());
                 }
@@ -2171,8 +2190,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     optional_t<index_t> point_index = itr.Point_Index();
                     CHECK(!point_index);
                 }
@@ -2181,8 +2200,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     optional_t<index_t> point_index = itr.Point_Index();
                     CHECK(point_index && point_index.Value() == 0);
                 }
@@ -2191,8 +2210,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     optional_t<index_t> point_index = itr.Point_Index();
                     if (string.Point_Length() > 0) {
                         CHECK(point_index && point_index.Value() == string.Point_Length() - 1);
@@ -2205,8 +2224,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     optional_t<index_t> point_index = itr.Point_Index();
                     CHECK(point_index && point_index.Value() == string.Point_Count() - 1);
                 }
@@ -2215,8 +2234,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     optional_t<index_t> point_index = itr.Point_Index();
                     CHECK(point_index && point_index.Value() == string.Point_Count());
                 }
@@ -2228,8 +2247,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK(itr.Charcoder().Decode() == itr.Point());
                 }
 
@@ -2237,8 +2256,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK(itr.Charcoder().Decode() == 0);
                 }
 
@@ -2246,8 +2265,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Charcoder().Decode() == 0);
                 }
             }
@@ -2258,8 +2277,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK(itr.Point() == 0);
                 }
 
@@ -2268,7 +2287,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK(itr.Point() == 0);
                 }
 
@@ -2276,8 +2295,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     CHECK(itr.Point() != 0);
                 }
 
@@ -2286,7 +2305,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Point() == 0);
                     CHECK(itr.Is_At_Prefix());
                 }
@@ -2295,8 +2314,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, position_e::last_tg());
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Point() != 0);
                     CHECK(!itr.Is_At_Prefix());
                 }
@@ -2305,8 +2324,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Point() == 0);
                 }
 
@@ -2314,8 +2333,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Point() == 0);
                 }
 
@@ -2324,11 +2343,11 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using qualified_charcoder_t = itr_p::qualified_charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     static_t<qualified_charcoder_t> other(string, false);
                     CHECK(string.Point_Length() == other.Point_Length());
 
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     string_itr<decltype(other)> other_itr(other);
                     for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
                         CHECK(itr.Point() == other_itr.Point());
@@ -2340,16 +2359,18 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using qualified_charcoder_t = itr_p::qualified_charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>(true);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     static_t<qualified_charcoder_t> other(string, false);
                     CHECK(string.Point_Length() == other.Point_Length());
 
-                    itr_p itr(string);
+                    nkr_STRING_itr(string) itr(string);
                     string_itr<decltype(other)> other_itr(other);
                     for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
                         CHECK(itr.Point() == other_itr.Point());
                     }
                 }
+
+                // should have a test that caches the points collected from a next and prior run to determine that they are the same
             }
 
             TEST_SUITE("Point_Unit_Count()")
@@ -2359,8 +2380,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count()));
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     charcoder_t charcoder;
                     charcoder.Encode(itr.Point());
                     CHECK(itr.Point_Unit_Count() == charcoder.Unit_Count());
@@ -2374,8 +2395,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t(1) string = Random<string_t, 1>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t(1) string = Random_String<string_t, 1>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     charcoder_t charcoder;
                     charcoder.Encode(itr.Point());
                     for (index_t idx = 0, end = itr.Point_Unit_Count(); idx < end; idx += 1) {
@@ -2391,8 +2412,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
                     CHECK(!itr.Is_At_Error());
                     substring_t substring = itr.Substring();
                     CHECK(substring.Unit_Length() > 0);
@@ -2408,7 +2429,7 @@ namespace nkr { namespace string {
                     using substring_t = itr_p::substring_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
                     CHECK(itr.Is_At_Error());
                     substring_t substring = itr.Substring();
                     CHECK(substring.Unit_Length() > 0);
@@ -2421,8 +2442,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     substring_t substring = itr.Substring();
                     CHECK(substring.Unit_Length() == 0);
                 }
@@ -2432,8 +2453,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     substring_t substring = itr.Substring();
                     CHECK(substring.Unit_Length() == 0);
                 }
@@ -2443,8 +2464,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     substring_t substring = itr.Substring();
                     CHECK(substring.Unit_Length() == 0);
                 }
@@ -2456,8 +2477,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
                     CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
                 }
 
@@ -2468,7 +2489,7 @@ namespace nkr { namespace string {
                     using substring_t = itr_p::substring_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
                     charcoder_t charcoder;
                     substring_t substring = itr.Substring();
                     CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
@@ -2478,8 +2499,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::prefix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
 
@@ -2487,8 +2508,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
 
@@ -2496,8 +2517,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string, position_e::postfix_tg());
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
             }
@@ -2508,8 +2529,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(2) string = Random<string_t, 2>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
                     CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
                     index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
                     CHECK(itr.Substring_Unit(substring_unit_index) == itr.Point_Unit(substring_unit_index));
@@ -2520,7 +2541,7 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
                     index_t itr_unit_index = itr.Unit_Index().Value();
                     index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
                     CHECK(itr.Substring_Unit(substring_unit_index) == itr.String().Unit(itr_unit_index + substring_unit_index));
@@ -2536,9 +2557,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     count_t point_count = Random<count_t>(0, string.Point_Count() - 1 - point_index);
                     itr += point_count;
                     CHECK(itr.Is_At(point_index + point_count));
@@ -2547,9 +2568,9 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr += 0;
                     CHECK(itr.Is_At(point_index));
                 }
@@ -2558,9 +2579,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr += string.Point_Count() - point_index;
                     CHECK(itr.Is_At_Postfix());
                 }
@@ -2572,9 +2593,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     count_t point_count = Random<count_t>(0, point_index);
                     itr -= point_count;
                     CHECK(itr.Is_At(point_index - point_count));
@@ -2583,9 +2604,9 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr -= 0;
                     CHECK(itr.Is_At(point_index));
                 }
@@ -2594,9 +2615,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr -= point_index + 1;
                     CHECK(itr.Is_At_Prefix());
                 }
@@ -2608,9 +2629,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 2);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     ++itr;
                     CHECK(itr.Is_At(point_index + 1));
                 }
@@ -2619,8 +2640,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     ++itr;
                     CHECK(itr.Is_At_Postfix());
                 }
@@ -2629,8 +2650,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
-                    itr_p itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     CHECK(&++itr == &itr);
                 }
 
@@ -2639,8 +2660,8 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random<string_t>();
-                    itr_p itr(string);
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
                     charcoder_t charcoder;
                     count_t unit_index = 0;
                     count_t point_index = 0;
@@ -2665,9 +2686,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 2);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr++;
                     CHECK(itr.Is_At(point_index + 1));
                 }
@@ -2676,8 +2697,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
-                    itr_p itr(string, position_e::terminus_tg());
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     itr++;
                     CHECK(itr.Is_At_Postfix());
                 }
@@ -2686,9 +2707,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     CHECK((itr++).Is_At(point_index));
                 }
             }
@@ -2699,9 +2720,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(1, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     --itr;
                     CHECK(itr.Is_At(point_index - 1));
                 }
@@ -2710,8 +2731,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     --itr;
                     CHECK(itr.Is_At_Prefix());
                 }
@@ -2720,8 +2741,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
-                    itr_p itr(string, Random<index_t>(1, string.Point_Count()));
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(1, string.Point_Count()));
                     CHECK(&--itr == &itr);
                 }
             }
@@ -2732,9 +2753,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(1, string.Point_Count() - 1);
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     itr--;
                     CHECK(itr.Is_At(point_index - 1));
                 }
@@ -2743,8 +2764,8 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
-                    itr_p itr(string, position_e::first_tg());
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     itr--;
                     CHECK(itr.Is_At_Prefix());
                 }
@@ -2753,9 +2774,9 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random<string_t, 16>();
+                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
                     index_t point_index = Random<index_t>(1, string.Point_Count());
-                    itr_p itr(string, point_index);
+                    nkr_STRING_itr(string) itr(string, point_index);
                     CHECK((itr--).Is_At(point_index));
                 }
             }

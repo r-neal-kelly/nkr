@@ -256,7 +256,7 @@ namespace nkr {
     template <
         tr1<any_tg, string::stack_tg>   string_p,
         count_t                         min_point_count_p   = 1,
-        count_t                         max_point_count_p   = string_p::Unit_Capacity() / string_p::charcoder_t::Max_Unit_Count()
+        count_t                         max_point_count_p   = 128
     > auto  Random(bool_t use_erroneous_units = false);
 
 }
