@@ -149,6 +149,61 @@ namespace nkr { namespace string {
     }
 
     template <charcoder_i charcoder_p>
+    inline auto
+        static_t<charcoder_p>::At(const is_any_tr<static_t> auto& self, index_t point_index)
+    {
+        nkr_ASSERT_THAT(Has_Memory(self));
+        nkr_ASSERT_THAT(point_index < Point_Count(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, point_index);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline auto
+        static_t<charcoder_p>::At_Prefix(const is_any_tr<static_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Memory(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::prefix_tg());
+    }
+
+    template <charcoder_i charcoder_p>
+    inline auto
+        static_t<charcoder_p>::At_First(const is_any_tr<static_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Memory(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::first_tg());
+    }
+
+    template <charcoder_i charcoder_p>
+    inline auto
+        static_t<charcoder_p>::At_Last(const is_any_tr<static_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Memory(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::last_tg());
+    }
+
+    template <charcoder_i charcoder_p>
+    inline auto
+        static_t<charcoder_p>::At_Terminus(const is_any_tr<static_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Memory(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::terminus_tg());
+    }
+
+    template <charcoder_i charcoder_p>
+    inline auto
+        static_t<charcoder_p>::At_Postfix(const is_any_tr<static_t> auto& self)
+    {
+        nkr_ASSERT_THAT(Has_Memory(self));
+
+        return string_itr<std::remove_reference_t<decltype(self)>>(self, position_e::postfix_tg());
+    }
+
+    template <charcoder_i charcoder_p>
     inline auto&
         static_t<charcoder_p>::Unit(is_any_tr<static_t> auto& self, index_t unit_index)
     {
@@ -243,6 +298,23 @@ namespace nkr { namespace string {
                 this->array = maybe_t<pointer_t<unit_t>>(&string.Unit(0), string.Unit_Count() - 1);
             }
         }
+    }
+
+    template <charcoder_i charcoder_p>
+    inline static_t<charcoder_p>::static_t(tr1<any_tg, string_tg> auto& string, index_t from_point_index, count_t point_count) :
+        static_t()
+    {
+        nkr_ASSERT_THAT(string.Has_Memory());
+        nkr_ASSERT_THAT(from_point_index < string.Point_Count());
+        nkr_ASSERT_THAT(from_point_index + point_count <= string.Point_Count());
+
+        auto itr = string.At(from_point_index);
+        index_t from_unit_index = itr.Unit_Index().Value();
+        itr.At(from_point_index + point_count);
+        index_t to_unit_index = itr.Unit_Index().Value();
+
+        this->point_count = point_count;
+        this->array = maybe_t<pointer_t<unit_t>>(&string.Unit(from_unit_index), to_unit_index - from_unit_index);
     }
 
     template <charcoder_i charcoder_p>
@@ -451,6 +523,102 @@ namespace nkr { namespace string {
         const volatile
     {
         return C_String(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const static_t<charcoder_p>>
+        static_t<charcoder_p>::At(index_t point_index)
+        const
+    {
+        return At(*this, point_index);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const volatile static_t<charcoder_p>>
+        static_t<charcoder_p>::At(index_t point_index)
+        const volatile
+    {
+        return At(*this, point_index);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Prefix()
+        const
+    {
+        return At_Prefix(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const volatile static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Prefix()
+        const volatile
+    {
+        return At_Prefix(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const static_t<charcoder_p>>
+        static_t<charcoder_p>::At_First()
+        const
+    {
+        return At_First(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const volatile static_t<charcoder_p>>
+        static_t<charcoder_p>::At_First()
+        const volatile
+    {
+        return At_First(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Last()
+        const
+    {
+        return At_Last(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const volatile static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Last()
+        const volatile
+    {
+        return At_Last(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Terminus()
+        const
+    {
+        return At_Terminus(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const volatile static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Terminus()
+        const volatile
+    {
+        return At_Terminus(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Postfix()
+        const
+    {
+        return At_Postfix(*this);
+    }
+
+    template <charcoder_i charcoder_p>
+    inline string_itr<const volatile static_t<charcoder_p>>
+        static_t<charcoder_p>::At_Postfix()
+        const volatile
+    {
+        return At_Postfix(*this);
     }
 
     template <charcoder_i charcoder_p>

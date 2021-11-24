@@ -2584,7 +2584,17 @@ namespace nkr { namespace string {
                     CHECK(!unit_index);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should not return an index if at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(!unit_index);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the first point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2594,7 +2604,17 @@ namespace nkr { namespace string {
                     CHECK(unit_index && unit_index.Value() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the correct index for the first point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(unit_index && unit_index.Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the last point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2608,7 +2628,21 @@ namespace nkr { namespace string {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the correct index for the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    if (string.Unit_Length() > 0) {
+                        CHECK(unit_index && unit_index.Value() == string.Unit_Length() - itr.Point_Unit_Count());
+                    } else {
+                        CHECK(!unit_index);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2618,7 +2652,17 @@ namespace nkr { namespace string {
                     CHECK(unit_index && unit_index.Value() == string.Unit_Count() - 1);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the correct index for the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(unit_index && unit_index.Value() == string.Unit_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2626,6 +2670,16 @@ namespace nkr { namespace string {
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     optional_t<index_t> unit_index = itr.Unit_Index();
                     CHECK(unit_index && unit_index.Value() == string.Unit_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the postfix for a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    optional_t<index_t> unit_index = itr.Unit_Index();
+                    CHECK(unit_index && unit_index.Value() == string.Unit_Count() + 1);
                 }
             }
 
@@ -2641,7 +2695,17 @@ namespace nkr { namespace string {
                     CHECK(!point_index);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for first", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should not return an index if at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    optional_t<index_t> point_index = itr.Point_Index();
+                    CHECK(!point_index);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the first point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2651,7 +2715,17 @@ namespace nkr { namespace string {
                     CHECK(point_index && point_index.Value() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for last", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the correct index for the first point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    optional_t<index_t> point_index = itr.Point_Index();
+                    CHECK(point_index && point_index.Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the last point", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2665,7 +2739,21 @@ namespace nkr { namespace string {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for terminus", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the correct index for the last point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    optional_t<index_t> point_index = itr.Point_Index();
+                    if (string.Point_Length() > 0) {
+                        CHECK(point_index && point_index.Value() == string.Point_Length() - 1);
+                    } else {
+                        CHECK(!point_index);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2675,7 +2763,17 @@ namespace nkr { namespace string {
                     CHECK(point_index && point_index.Value() == string.Point_Count() - 1);
                 }
 
-                TEST_CASE_TEMPLATE("should return the correct index for postfix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the correct index for the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    optional_t<index_t> point_index = itr.Point_Index();
+                    CHECK(point_index && point_index.Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2683,6 +2781,16 @@ namespace nkr { namespace string {
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     optional_t<index_t> point_index = itr.Point_Index();
                     CHECK(point_index && point_index.Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should return the correct index for the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    optional_t<index_t> point_index = itr.Point_Index();
+                    CHECK(point_index && point_index.Value() == string.Point_Count() + 1);
                 }
             }
 
@@ -2697,12 +2805,48 @@ namespace nkr { namespace string {
                     CHECK(itr.Charcoder().Decode() == itr.Point());
                 }
 
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder at the current point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    CHECK(itr.Charcoder().Decode() == itr.Point());
+                }
+
                 TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK(itr.Charcoder().Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK(itr.Charcoder().Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the terminus", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK(itr.Charcoder().Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK(itr.Charcoder().Decode() == 0);
                 }
 
@@ -2713,6 +2857,37 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Charcoder().Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder with a terminus when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    CHECK(itr.Charcoder().Decode() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder without a terminus when at any other point", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Terminus(); ++itr) {
+                        CHECK(itr.Charcoder().Decode() != 0);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return a const reference to the charcoder without a terminus when at any other point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Terminus(); ++itr) {
+                        CHECK(itr.Charcoder().Decode() != 0);
+                    }
                 }
             }
 

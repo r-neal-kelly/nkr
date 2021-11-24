@@ -114,6 +114,13 @@ namespace nkr { namespace string {
 
         static auto     C_String(const is_any_tr<static_t> auto& self);
 
+        static auto     At(const is_any_tr<static_t> auto& self, index_t point_index);
+        static auto     At_Prefix(const is_any_tr<static_t> auto& self);
+        static auto     At_First(const is_any_tr<static_t> auto& self);
+        static auto     At_Last(const is_any_tr<static_t> auto& self);
+        static auto     At_Terminus(const is_any_tr<static_t> auto& self);
+        static auto     At_Postfix(const is_any_tr<static_t> auto& self);
+
         static auto&    Unit(is_any_tr<static_t> auto& self, index_t unit_index);
 
     protected:
@@ -134,6 +141,7 @@ namespace nkr { namespace string {
 
         static_t(tr1<any_tg, string_tg> auto& string);  // this needs to specify a string_ttg, of_just_tg, qualified_charcoder_t
         static_t(tr1<any_tg, string_tg> auto& string, bool_t include_terminus);
+        static_t(tr1<any_tg, string_tg> auto& string, index_t from_point_index, count_t point_count);
         static_t(tr1<any_tg, string_tg> auto&& string)                          = delete;
         static_t(tr1<any_tg, string_tg> auto&& string, bool_t include_terminus) = delete;
 
@@ -154,28 +162,41 @@ namespace nkr { namespace string {
         ~static_t();
 
     public:
-        bool_t                          Has_Memory() const;
-        bool_t                          Has_Memory() const volatile;
-        bool_t                          Has_Terminus() const;
-        bool_t                          Has_Terminus() const volatile;
+        bool_t                              Has_Memory() const;
+        bool_t                              Has_Memory() const volatile;
+        bool_t                              Has_Terminus() const;
+        bool_t                              Has_Terminus() const volatile;
 
-        count_t                         Unit_Count() const;
-        count_t                         Unit_Count() const volatile;
-        count_t                         Unit_Length() const;
-        count_t                         Unit_Length() const volatile;
+        count_t                             Unit_Count() const;
+        count_t                             Unit_Count() const volatile;
+        count_t                             Unit_Length() const;
+        count_t                             Unit_Length() const volatile;
 
-        count_t                         Point_Count() const;
-        count_t                         Point_Count() const volatile;
-        count_t                         Point_Length() const;
-        count_t                         Point_Length() const volatile;
+        count_t                             Point_Count() const;
+        count_t                             Point_Count() const volatile;
+        count_t                             Point_Length() const;
+        count_t                             Point_Length() const volatile;
 
-        some_t<const unit_t*>           C_String() const;
-        some_t<const volatile unit_t*>  C_String() const volatile;
+        some_t<const unit_t*>               C_String() const;
+        some_t<const volatile unit_t*>      C_String() const volatile;
 
-        unit_t&                         Unit(index_t unit_index);
-        const unit_t&                   Unit(index_t unit_index) const;
-        volatile unit_t&                Unit(index_t unit_index) volatile;
-        const volatile unit_t&          Unit(index_t unit_index) const volatile;
+        string_itr<const static_t>          At(index_t point_index) const;
+        string_itr<const volatile static_t> At(index_t point_index) const volatile;
+        string_itr<const static_t>          At_Prefix() const;
+        string_itr<const volatile static_t> At_Prefix() const volatile;
+        string_itr<const static_t>          At_First() const;
+        string_itr<const volatile static_t> At_First() const volatile;
+        string_itr<const static_t>          At_Last() const;
+        string_itr<const volatile static_t> At_Last() const volatile;
+        string_itr<const static_t>          At_Terminus() const;
+        string_itr<const volatile static_t> At_Terminus() const volatile;
+        string_itr<const static_t>          At_Postfix() const;
+        string_itr<const volatile static_t> At_Postfix() const volatile;
+
+        unit_t&                             Unit(index_t unit_index);
+        const unit_t&                       Unit(index_t unit_index) const;
+        volatile unit_t&                    Unit(index_t unit_index) volatile;
+        const volatile unit_t&              Unit(index_t unit_index) const volatile;
     };
     static_assert(string_i<static_t<charcoder::utf_8_t>>);
     static_assert(string_i<const static_t<charcoder::utf_8_t>>);

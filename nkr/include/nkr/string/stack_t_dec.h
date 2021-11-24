@@ -123,6 +123,7 @@ namespace nkr { namespace string {
         static maybe_t<allocator_err>   Unit_Capacity(is_any_non_const_tr<stack_t> auto& self, count_t unit_capacity_including_terminus);
 
         static count_t                  Unit_Count(const is_any_tr<stack_t> auto& self);
+        static count_t                  Unit_Count(const is_any_tr<stack_t> auto& self, index_t from_point_index, count_t point_count);
         static count_t                  Unit_Length(const is_any_tr<stack_t> auto& self);
 
         static count_t                  Point_Count(const is_any_tr<stack_t> auto& self);
@@ -202,6 +203,8 @@ namespace nkr { namespace string {
 
         count_t                             Unit_Count() const;
         count_t                             Unit_Count() const volatile;
+        count_t                             Unit_Count(index_t from_point_index, count_t point_count) const;
+        count_t                             Unit_Count(index_t from_point_index, count_t point_count) const volatile;
         count_t                             Unit_Length() const;
         count_t                             Unit_Length() const volatile;
 

@@ -118,6 +118,25 @@ namespace nkr { namespace string {
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
     inline count_t
+        stack_t<charcoder_p, unit_capacity_p>::Unit_Count(const is_any_tr<stack_t> auto& self, index_t from_point_index, count_t point_count)
+    {
+        nkr_ASSERT_THAT(from_point_index < Point_Count(self));
+        nkr_ASSERT_THAT(from_point_index + point_count <= Point_Count(self));
+
+        if constexpr (charcoder_t::Max_Unit_Count() == 1) {
+            return point_count;
+        } else {
+            auto itr = At(self, from_point_index);
+            index_t from_unit_index = itr.Unit_Index().Value();
+            itr.At(from_point_index + point_count);
+            index_t to_unit_index = itr.Unit_Index().Value();
+
+            return to_unit_index - from_unit_index;
+        }
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline count_t
         stack_t<charcoder_p, unit_capacity_p>::Unit_Length(const is_any_tr<stack_t> auto& self)
     {
         if (Has_Terminus(self)) {
@@ -748,6 +767,22 @@ namespace nkr { namespace string {
         const volatile
     {
         return Unit_Count(*this);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline count_t
+        stack_t<charcoder_p, unit_capacity_p>::Unit_Count(index_t from_point_index, count_t point_count)
+        const
+    {
+        return Unit_Count(*this, from_point_index, point_count);
+    }
+
+    template <charcoder_i charcoder_p, count_t unit_capacity_p>
+    inline count_t
+        stack_t<charcoder_p, unit_capacity_p>::Unit_Count(index_t from_point_index, count_t point_count)
+        const volatile
+    {
+        return Unit_Count(*this, from_point_index, point_count);
     }
 
     template <charcoder_i charcoder_p, count_t unit_capacity_p>
