@@ -2990,7 +2990,85 @@ namespace nkr { namespace string {
                     }
                 }
 
-                // should have a test that caches the points collected from a next and prior run to determine that they are the same
+                TEST_CASE_TEMPLATE("should have the same points going both forwards and backwards", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Random_String<string_t, 1, 128>();
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::terminus_tg());
+
+                    array::stack_t<point_t, 128> forward_points;
+                    array::stack_t<point_t, 128> backward_points;
+                    for (; !forward_itr.Is_At_Postfix(); ++forward_itr, --backward_itr) {
+                        forward_points.Push(forward_itr.Point()).Ignore_Error();
+                        backward_points.Push(backward_itr.Point()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same points going both forwards and backwards on a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Non_Terminated_Random_String<string_t, 1, 128>();
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::last_tg());
+
+                    array::stack_t<point_t, 128> forward_points;
+                    array::stack_t<point_t, 128> backward_points;
+                    for (; !forward_itr.Is_At_Terminus(); ++forward_itr, --backward_itr) {
+                        forward_points.Push(forward_itr.Point()).Ignore_Error();
+                        backward_points.Push(backward_itr.Point()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same points going both forwards and backwards, even with errors", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Random_String<string_t, 1, 128>(true);
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::terminus_tg());
+
+                    array::stack_t<point_t, 128> forward_points;
+                    array::stack_t<point_t, 128> backward_points;
+                    for (; !forward_itr.Is_At_Postfix(); ++forward_itr, --backward_itr) {
+                        forward_points.Push(forward_itr.Point()).Ignore_Error();
+                        backward_points.Push(backward_itr.Point()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same points going both forwards and backwards on a non-terminated string, even with errors", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Non_Terminated_Random_String<string_t, 1, 128>(true);
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::last_tg());
+
+                    array::stack_t<point_t, 128> forward_points;
+                    array::stack_t<point_t, 128> backward_points;
+                    for (; !forward_itr.Is_At_Terminus(); ++forward_itr, --backward_itr) {
+                        forward_points.Push(forward_itr.Point()).Ignore_Error();
+                        backward_points.Push(backward_itr.Point()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_points.Count(); idx < end; idx += 1) {
+                        CHECK(forward_points[idx] == backward_points[end - 1 - idx]);
+                    }
+                }
             }
 
             TEST_SUITE("Point_Unit_Count()")
