@@ -114,29 +114,36 @@ namespace nkr { namespace math {
     {
         TEST_CASE_TEMPLATE("should round to the next power of 2 independent of type", integer_p, u8_t, u16_t, u32_t, u64_t)
         {
-            static_assert(math::Round_To_Power_Of_2(integer_p(0)) == 1);
-            static_assert(math::Round_To_Power_Of_2(integer_p(1)) == 1);
-            static_assert(math::Round_To_Power_Of_2(integer_p(2)) == 2);
-            static_assert(math::Round_To_Power_Of_2(integer_p(3)) == 4);
-            static_assert(math::Round_To_Power_Of_2(integer_p(4)) == 4);
-            static_assert(math::Round_To_Power_Of_2(integer_p(5)) == 8);
-            static_assert(math::Round_To_Power_Of_2(integer_p(6)) == 8);
-            static_assert(math::Round_To_Power_Of_2(integer_p(7)) == 8);
-            static_assert(math::Round_To_Power_Of_2(integer_p(8)) == 8);
-            static_assert(math::Round_To_Power_Of_2(integer_p(12)) == 16);
-            static_assert(math::Round_To_Power_Of_2(integer_p(24)) == 32);
-            static_assert(math::Round_To_Power_Of_2(integer_p(48)) == 64);
-            static_assert(math::Round_To_Power_Of_2(integer_p(96)) == 128);
-            static_assert(math::Round_To_Power_Of_2(integer_p(96)) == 128);
-            static_assert(math::Round_To_Power_Of_2(integer_p(192)) == 256);
-            if constexpr (sizeof(integer_p) >= 2) {
-                static_assert(math::Round_To_Power_Of_2(integer_p(384)) == 512);
-                static_assert(math::Round_To_Power_Of_2(integer_p(768)) == 1024);
-                static_assert(math::Round_To_Power_Of_2(integer_p(1536)) == 2048);
-                static_assert(math::Round_To_Power_Of_2(integer_p(3072)) == 4096);
-                if constexpr (sizeof(integer_p) >= 4) {
-                    if constexpr (sizeof(integer_p) >= 8) {
-                        static_assert(math::Round_To_Power_Of_2((integer_p(1) << 63) + 1) == 1); // overflows
+            if constexpr (sizeof(integer_p) <= sizeof(word_t)) {
+                static_assert(math::Round_To_Power_Of_2(integer_p(0)) == 1);
+                static_assert(math::Round_To_Power_Of_2(integer_p(1)) == 1);
+                static_assert(math::Round_To_Power_Of_2(integer_p(2)) == 2);
+                static_assert(math::Round_To_Power_Of_2(integer_p(3)) == 4);
+                static_assert(math::Round_To_Power_Of_2(integer_p(4)) == 4);
+                static_assert(math::Round_To_Power_Of_2(integer_p(5)) == 8);
+                static_assert(math::Round_To_Power_Of_2(integer_p(6)) == 8);
+                static_assert(math::Round_To_Power_Of_2(integer_p(7)) == 8);
+                static_assert(math::Round_To_Power_Of_2(integer_p(8)) == 8);
+                static_assert(math::Round_To_Power_Of_2(integer_p(12)) == 16);
+                static_assert(math::Round_To_Power_Of_2(integer_p(24)) == 32);
+                static_assert(math::Round_To_Power_Of_2(integer_p(48)) == 64);
+                static_assert(math::Round_To_Power_Of_2(integer_p(96)) == 128);
+                static_assert(math::Round_To_Power_Of_2(integer_p(96)) == 128);
+                static_assert(math::Round_To_Power_Of_2(integer_p(192)) == 256);
+                if constexpr (sizeof(integer_p) >= 2) {
+                    static_assert(math::Round_To_Power_Of_2(integer_p(384)) == 512);
+                    static_assert(math::Round_To_Power_Of_2(integer_p(768)) == 1024);
+                    static_assert(math::Round_To_Power_Of_2(integer_p(1536)) == 2048);
+                    static_assert(math::Round_To_Power_Of_2(integer_p(3072)) == 4096);
+                    if constexpr (sizeof(integer_p) >= 4) {
+                        if constexpr (sizeof(word_t) == 4) {
+                            static_assert(math::Round_To_Power_Of_2((integer_p(1) << 31) + 1) == 1); // overflows
+                        }
+                        if constexpr (sizeof(integer_p) >= 8) {
+                            if constexpr (sizeof(word_t) == 8) {
+                                static_assert(math::Round_To_Power_Of_2((integer_p(1) << 63) + 1) == 1); // overflows
+                            }
+                        }
                     }
                 }
             }
