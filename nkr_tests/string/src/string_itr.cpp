@@ -1665,22 +1665,26 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
-                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
-                    CHECK_FALSE(itr.Is_At_Error());
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        CHECK_FALSE(itr.Is_At_Error());
+                    }
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when not at an error of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
-                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
-                    CHECK_FALSE(itr.Is_At_Error());
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        CHECK_FALSE(itr.Is_At_Error());
+                    }
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
@@ -1705,56 +1709,56 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the prefix, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the terminus", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the terminus, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the pretend terminus of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the postfix, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Error());
                 }
@@ -1766,7 +1770,7 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>(true);
                     nkr_STRING_itr(string) itr(string);
-                    for (; !itr.Is_At_Postfix(); itr.Next()) {
+                    for (; !itr.Is_At_Postfix(); ++itr) {
                         if (itr.Is_At_Error()) {
                             CHECK(itr.Point() == charcoder_t::Replacement_Point());
                         }
@@ -1780,7 +1784,7 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>(true);
                     nkr_STRING_itr(string) itr(string);
-                    for (; !itr.Is_At_Postfix(); itr.Next()) {
+                    for (; !itr.Is_At_Postfix(); ++itr) {
                         if (itr.Is_At_Error()) {
                             CHECK(itr.Point() == charcoder_t::Replacement_Point());
                         }
@@ -1790,7 +1794,7 @@ namespace nkr { namespace string {
 
             TEST_SUITE("Is_At_Replacement_Point()")
             {
-                TEST_CASE_TEMPLATE("should return true when at a replacement point", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return true when at an error", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -1799,13 +1803,35 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at a replacement point", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return true when at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
-                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
-                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                    nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    CHECK_TRUE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at an error", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        CHECK_FALSE(itr.Is_At_Replacement_Point());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at an error of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        CHECK_FALSE(itr.Is_At_Replacement_Point());
+                    }
                 }
 
                 TEST_CASE_TEMPLATE("should return true when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
@@ -1819,22 +1845,97 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return true when at a replacement substring of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                    CHECK_TRUE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the terminus, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the pretend terminus of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at a replacement point", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        if (itr.Is_At_Replacement_Point()) {
+                            CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at a replacement point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        if (itr.Is_At_Replacement_Point()) {
+                            CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                        }
+                    }
                 }
             }
 
@@ -1847,17 +1948,39 @@ namespace nkr { namespace string {
 
                     nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
                     nkr_STRING_itr(string) itr(string);
-                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
                     CHECK_TRUE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when not at a replacement substring", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return true when at a replacement substring of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    CHECK_TRUE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at a replacement substring", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
-                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
-                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return false when not at a replacement substring of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (; !itr.Is_At_Postfix(); ++itr) {
+                        CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                    }
                 }
 
                 TEST_CASE_TEMPLATE("should return false when at an error", itr_p, nkr_ALL_TERMINATED)
@@ -1869,22 +1992,87 @@ namespace nkr { namespace string {
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at an error of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
                 }
 
-                TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the terminus, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the pretend terminus of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix, even of a string with errors", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string, even of a string with errors", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Is_At_Replacement_Substring());
+                }
+
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at a replacement substring", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Replacement_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
+                }
+
+                TEST_CASE_TEMPLATE("should decode to a replacement point when at a replacement substring of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_REPLACEMENT_STRING_t() string = Non_Terminated_Replacement_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    CHECK(itr.Point() == charcoder_t::Replacement_Point());
                 }
             }
 
