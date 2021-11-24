@@ -2083,13 +2083,52 @@ namespace nkr { namespace string {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
-                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
-                    index_t point_index = Random<index_t>(0, string.Point_Count());
-                    itr.At(point_index);
-                    CHECK_TRUE(itr.Is_At(point_index));
+                    nkr_STRING_itr(string) itr(string);
+                    for (index_t idx = 0, end = string.Point_Count(); idx < end; idx += 1) {
+                        index_t point_index = Random<index_t>(0, end);
+                        itr.At(point_index);
+                        CHECK_TRUE(itr.Is_At(point_index));
+                    }
                 }
 
-                // we should have a test that goes back and forth several times to make sure that the point index stays as it should.
+                TEST_CASE_TEMPLATE("should move the iterator to the indexed point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    for (index_t idx = 0, end = string.Point_Count() + 1; idx < end; idx += 1) {
+                        index_t point_index = Random<index_t>(0, end);
+                        itr.At(point_index);
+                        CHECK_TRUE(itr.Is_At(point_index));
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the indexed point of a string with errors", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    for (index_t idx = 0, end = string.Point_Count(); idx < end; idx += 1) {
+                        index_t point_index = Random<index_t>(0, end);
+                        itr.At(point_index);
+                        CHECK_TRUE(itr.Is_At(point_index));
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the indexed point of a non-terminated string with errors", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    for (index_t idx = 0, end = string.Point_Count() + 1; idx < end; idx += 1) {
+                        index_t point_index = Random<index_t>(0, end);
+                        itr.At(point_index);
+                        CHECK_TRUE(itr.Is_At(point_index));
+                    }
+                }
             }
 
             TEST_SUITE("At_Prefix()")
@@ -2100,6 +2139,16 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Prefix();
+                    CHECK_TRUE(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the prefix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
                     itr.At_Prefix();
                     CHECK_TRUE(itr.Is_At_Prefix());
                 }
@@ -2116,6 +2165,16 @@ namespace nkr { namespace string {
                     itr.At_First();
                     CHECK_TRUE(itr.Is_At_First());
                 }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the first point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
+                    itr.At_First();
+                    CHECK_TRUE(itr.Is_At_First());
+                }
             }
 
             TEST_SUITE("At_Last()")
@@ -2126,6 +2185,16 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Last();
+                    CHECK_TRUE(itr.Is_At_Last());
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the last point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
                     itr.At_Last();
                     CHECK_TRUE(itr.Is_At_Last());
                 }
@@ -2142,6 +2211,16 @@ namespace nkr { namespace string {
                     itr.At_Terminus();
                     CHECK_TRUE(itr.Is_At_Terminus());
                 }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the pretend terminus of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
+                    itr.At_Terminus();
+                    CHECK_TRUE(itr.Is_At_Terminus());
+                }
             }
 
             TEST_SUITE("At_Postfix()")
@@ -2152,6 +2231,16 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    itr.At_Postfix();
+                    CHECK_TRUE(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator to the postfix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
                     itr.At_Postfix();
                     CHECK_TRUE(itr.Is_At_Postfix());
                 }
@@ -2170,6 +2259,17 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index + 1));
                 }
 
+                TEST_CASE_TEMPLATE("should move to the next point when not at the postfix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr.Next();
+                    CHECK(itr.Is_At(point_index + 1));
+                }
+
                 TEST_CASE_TEMPLATE("should return true when not at the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -2179,11 +2279,29 @@ namespace nkr { namespace string {
                     CHECK_TRUE(itr.Next());
                 }
 
+                TEST_CASE_TEMPLATE("should return true when not at the postfix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    CHECK_TRUE(itr.Next());
+                }
+
                 TEST_CASE_TEMPLATE("should return false when at the postfix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    CHECK_FALSE(itr.Next());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the postfix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK_FALSE(itr.Next());
                 }
@@ -2302,12 +2420,36 @@ namespace nkr { namespace string {
                     }
                 }
 
+                TEST_CASE_TEMPLATE("should move to the prior point when not at the prefix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() + 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr.Prior();
+                    if (point_index == 0) {
+                        CHECK(itr.Is_At_Prefix());
+                    } else {
+                        CHECK(itr.Is_At(point_index - 1));
+                    }
+                }
+
                 TEST_CASE_TEMPLATE("should return true when not at the prefix", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    CHECK_TRUE(itr.Prior());
+                }
+
+                TEST_CASE_TEMPLATE("should return true when not at the prefix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
                     CHECK_TRUE(itr.Prior());
                 }
 
@@ -2318,6 +2460,115 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     CHECK_FALSE(itr.Prior());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when at the prefix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK_FALSE(itr.Prior());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr.Prior();
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr.Prior();
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr.Prior();
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr.Prior();
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
                 }
             }
 
@@ -2751,7 +3002,7 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
                     nkr_STRING_itr(string) itr(string, point_index);
                     count_t point_count = Random<count_t>(0, string.Point_Count() - 1 - point_index);
@@ -2759,11 +3010,35 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At(point_index + point_count));
                 }
 
+                TEST_CASE_TEMPLATE("should increment the iterator by the given point count of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    count_t point_count = Random<count_t>(0, string.Point_Count() - point_index);
+                    itr += point_count;
+                    CHECK(itr.Is_At(point_index + point_count));
+                }
+
                 TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
+
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr += 0;
+                    CHECK(itr.Is_At(point_index));
+                }
+
+                TEST_CASE_TEMPLATE("should not move when given a point count of zero on a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
                     nkr_STRING_itr(string) itr(string, point_index);
                     itr += 0;
                     CHECK(itr.Is_At(point_index));
@@ -2779,6 +3054,113 @@ namespace nkr { namespace string {
                     itr += string.Point_Count() - point_index;
                     CHECK(itr.Is_At_Postfix());
                 }
+
+                TEST_CASE_TEMPLATE("should be able to move unto the postfix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr += string.Point_Count() + 1 - point_index;
+                    CHECK(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    do {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr += 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    } while (charcoder != none_t());
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    while (unit_index < string.Unit_Count()) {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr += 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    }
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through an error-ridden string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    do {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr += 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    } while (charcoder != none_t());
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated error-ridden string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    while (unit_index < string.Unit_Count()) {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr += 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    }
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
             }
 
             TEST_SUITE("-=()")
@@ -2787,8 +3169,20 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    count_t point_count = Random<count_t>(0, point_index);
+                    itr -= point_count;
+                    CHECK(itr.Is_At(point_index - point_count));
+                }
+
+                TEST_CASE_TEMPLATE("should decrement the iterator by the given point count of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
                     nkr_STRING_itr(string) itr(string, point_index);
                     count_t point_count = Random<count_t>(0, point_index);
                     itr -= point_count;
@@ -2798,8 +3192,20 @@ namespace nkr { namespace string {
                 TEST_CASE_TEMPLATE("should not move when given a point count of zero", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
+
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr -= 0;
+                    CHECK(itr.Is_At(point_index));
+                }
+
+                TEST_CASE_TEMPLATE("should not move when given a point count of zero on a terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
                     nkr_STRING_itr(string) itr(string, point_index);
                     itr -= 0;
                     CHECK(itr.Is_At(point_index));
@@ -2815,6 +3221,117 @@ namespace nkr { namespace string {
                     itr -= point_index + 1;
                     CHECK(itr.Is_At_Prefix());
                 }
+
+                TEST_CASE_TEMPLATE("should be able to move unto the prefix of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr -= point_index + 1;
+                    CHECK(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr -= 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr -= 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr -= 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr -= 1;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
             }
 
             TEST_SUITE("++()")
@@ -2823,8 +3340,19 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
-                    index_t point_index = Random<index_t>(0, string.Point_Count() - 2);
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    ++itr;
+                    CHECK(itr.Is_At(point_index + 1));
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator one index after the current index of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
                     nkr_STRING_itr(string) itr(string, point_index);
                     ++itr;
                     CHECK(itr.Is_At(point_index + 1));
@@ -2834,7 +3362,17 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    ++itr;
+                    CHECK(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the pretend terminus of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
                     nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     ++itr;
                     CHECK(itr.Is_At_Postfix());
@@ -2844,8 +3382,17 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK(&++itr == &itr);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself after working on a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
                     CHECK(&++itr == &itr);
                 }
 
@@ -2872,6 +3419,78 @@ namespace nkr { namespace string {
                     CHECK(itr.Unit_Index().Value() == string.Unit_Count());
                     CHECK(itr.Point_Index().Value() == string.Point_Count());
                 }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    while (unit_index < string.Unit_Count()) {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        ++itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    }
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through an error-ridden string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    do {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        ++itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    } while (charcoder != none_t());
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated error-ridden string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    while (unit_index < string.Unit_Count()) {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        ++itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    }
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
             }
 
             TEST_SUITE("++(int)")
@@ -2880,8 +3499,19 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
-                    index_t point_index = Random<index_t>(0, string.Point_Count() - 2);
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr++;
+                    CHECK(itr.Is_At(point_index + 1));
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator one index after the current index of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
                     nkr_STRING_itr(string) itr(string, point_index);
                     itr++;
                     CHECK(itr.Is_At(point_index + 1));
@@ -2891,7 +3521,17 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    itr++;
+                    CHECK(itr.Is_At_Postfix());
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the postfix when at the pretend terminus of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
                     nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     itr++;
                     CHECK(itr.Is_At_Postfix());
@@ -2901,10 +3541,116 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
                     index_t point_index = Random<index_t>(0, string.Point_Count() - 1);
                     nkr_STRING_itr(string) itr(string, point_index);
                     CHECK((itr++).Is_At(point_index));
+                }
+
+                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(0, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    CHECK((itr++).Is_At(point_index));
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    do {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr++;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    } while (charcoder != none_t());
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    while (unit_index < string.Unit_Count()) {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr++;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    }
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through an error-ridden string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    do {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr++;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    } while (charcoder != none_t());
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated error-ridden string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string);
+                    charcoder_t charcoder;
+                    count_t unit_index = 0;
+                    count_t point_index = 0;
+                    while (unit_index < string.Unit_Count()) {
+                        unit_index += charcoder.Read_Forward(&string.Unit(0) + unit_index);
+                        point_index += 1;
+                        CHECK(itr.Point() == charcoder.Decode());
+                        itr++;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                    }
+                    CHECK(unit_index == string.Unit_Count());
+                    CHECK(point_index == string.Point_Count());
+                    CHECK(itr.Unit_Index().Value() == string.Unit_Count());
+                    CHECK(itr.Point_Index().Value() == string.Point_Count());
                 }
             }
 
@@ -2914,8 +3660,19 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
-                    index_t point_index = Random<index_t>(1, string.Point_Count() - 1);
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    --itr;
+                    CHECK(itr.Is_At(point_index - 1));
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator one index before the current index of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count() + 1);
                     nkr_STRING_itr(string) itr(string, point_index);
                     --itr;
                     CHECK(itr.Is_At(point_index - 1));
@@ -2925,7 +3682,17 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    --itr;
+                    CHECK(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
                     nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     --itr;
                     CHECK(itr.Is_At_Prefix());
@@ -2935,9 +3702,118 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(1, string.Point_Count()));
                     CHECK(&--itr == &itr);
+                }
+
+                TEST_CASE_TEMPLATE("should return itself after working with a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(1, string.Point_Count() + 1));
+                    CHECK(&--itr == &itr);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        --itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        --itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        --itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        --itr;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
                 }
             }
 
@@ -2947,8 +3823,19 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
-                    index_t point_index = Random<index_t>(1, string.Point_Count() - 1);
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count());
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    itr--;
+                    CHECK(itr.Is_At(point_index - 1));
+                }
+
+                TEST_CASE_TEMPLATE("should move the iterator one index before the current index of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count() + 1);
                     nkr_STRING_itr(string) itr(string, point_index);
                     itr--;
                     CHECK(itr.Is_At(point_index - 1));
@@ -2958,7 +3845,17 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    itr--;
+                    CHECK(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should move unto the prefix when at the first point of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
                     nkr_STRING_itr(string) itr(string, position_e::first_tg());
                     itr--;
                     CHECK(itr.Is_At_Prefix());
@@ -2968,10 +3865,120 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t(16) string = Random_String<string_t, 16>();
+                    nkr_RANDOM_STRING_t(64) string = Random_String<string_t, 64>();
                     index_t point_index = Random<index_t>(1, string.Point_Count());
                     nkr_STRING_itr(string) itr(string, point_index);
                     CHECK((itr--).Is_At(point_index));
+                }
+
+                TEST_CASE_TEMPLATE("should return a copy of the iterator as it was before the alteration of a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(64) string = Non_Terminated_Random_String<string_t, 64>();
+                    index_t point_index = Random<index_t>(1, string.Point_Count() + 1);
+                    nkr_STRING_itr(string) itr(string, point_index);
+                    CHECK((itr--).Is_At(point_index));
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr--;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr--;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Postfix());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr--;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should move through a non-terminated string with errors the same as manually using a charcoder", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>(true);
+                    nkr_STRING_itr(string) itr(string, string.Point_Count());
+                    CHECK(itr.Is_At_Terminus());
+                    charcoder_t charcoder;
+                    count_t unit_index = string.Unit_Count();
+                    count_t point_index = string.Point_Count();
+                    while (unit_index > 0) {
+                        unit_index -= charcoder.Read_Reverse(&string.Unit(0) + unit_index, &string.Unit(0));
+                        point_index -= 1;
+                        itr--;
+                        CHECK(itr.Unit_Index().Value() == unit_index);
+                        CHECK(itr.Point_Index().Value() == point_index);
+                        CHECK(itr.Point() == charcoder.Decode());
+                    };
+                    CHECK(unit_index == 0);
+                    CHECK(point_index == 0);
+                    CHECK(itr.Unit_Index().Value() == 0);
+                    CHECK(itr.Point_Index().Value() == 0);
                 }
             }
         }
