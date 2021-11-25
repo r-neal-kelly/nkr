@@ -8,7 +8,7 @@
 #include "nkr/utils.h"
 
 #include "nkr/string_itr_dec.h"
-#include "nkr/string/stack_t_def.h"
+#include "nkr/string/static_t_def.h"
 
 namespace nkr {
 
@@ -405,14 +405,12 @@ namespace nkr {
         string_itr<string_p>::Substring(const is_any_tr<string_itr> auto& self)
     {
         nkr_ASSERT_THAT(Has_String(self));
-        nkr_ASSERT_THAT(Substring_Unit_Length(self) < substring_t::Unit_Capacity());
 
-        substring_t substring;
-        if (!Is_At_Prefix(self) && !Is_At_Terminus(self) && !Is_At_Postfix(self)) {
-            substring.Push(&self.string->Unit(self.unit_index), Substring_Unit_Length(self)).Ignore_Error();
+        if (Is_At_Prefix(self) || Is_At_Terminus(self) || Is_At_Postfix(self)) {
+            return substring_t(substring_t::Empty_C_String());
+        } else {
+            return substring_t(&self.string->Unit(self.unit_index), Substring_Unit_Length(self), 1);
         }
-
-        return substring;
     }
 
     template <string_i string_p>

@@ -22,8 +22,8 @@
 
 namespace nkr { namespace string {
 
-    template <charcoder_i charcoder_p, count_t unit_capacity_p>
-    class stack_t;
+    template <charcoder_i charcoder_p>
+    class static_t;
 
 }}
 
@@ -96,7 +96,7 @@ namespace nkr {
         using charcoder_t           = string_p::charcoder_t;
         using qualified_charcoder_t = string_p::qualified_charcoder_t;
         using unit_t                = string_p::unit_t;
-        using substring_t           = string::stack_t<charcoder_t, charcoder_t::Max_Unit_Count() + 1>;
+        using substring_t           = string::static_t<const qualified_charcoder_t>;
 
     private:
         static bool_t               Has_String(const is_any_tr<string_itr> auto& self);

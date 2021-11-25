@@ -56,9 +56,9 @@ namespace nkr { namespace string {
         do {
             unit_count += charcoder.Read_Forward(some_c_string + unit_count);
             self.point_count += 1;
-        } while (charcoder);
+        } while (charcoder != none_t());
 
-        self.array = pointer_t<unit_t>(some_c_string, unit_count);
+        self.array = maybe_t<pointer_t<unit_t>>(some_c_string, unit_count);
     }
 
     template <charcoder_i charcoder_p>

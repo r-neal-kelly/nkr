@@ -287,11 +287,11 @@ namespace nkr { namespace string {
 
             TEST_SUITE("substring_t")
             {
-                TEST_CASE_TEMPLATE("should have a substring_t that is a string::stack_t", itr_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a substring_t that is a string::static_t", itr_p, nkr_ALL)
                 {
                     using substring_t = itr_p::substring_t;
 
-                    static_assert(string::any_stack_tr<substring_t>);
+                    static_assert(tr1<substring_t, any_tg, string::static_tg>);
                 }
             }
         }
@@ -1135,7 +1135,7 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string;
+                    std::remove_const_t<nkr_RANDOM_STRING_t()> string;
                     do {
                         string = Random_String<string_t>();
                     } while (string.Point_Length() == 1);
@@ -1147,7 +1147,7 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string;
+                    std::remove_const_t<nkr_RANDOM_STRING_t()> string;
                     do {
                         string = Non_Terminated_Random_String<string_t>();
                     } while (string.Point_Length() == 1);
@@ -1288,7 +1288,7 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string;
+                    std::remove_const_t<nkr_RANDOM_STRING_t()> string;
                     do {
                         string = Random_String<string_t>();
                     } while (string.Point_Length() == 1);
@@ -1300,7 +1300,7 @@ namespace nkr { namespace string {
                 {
                     using string_t = itr_p::string_t;
 
-                    nkr_RANDOM_STRING_t() string;
+                    std::remove_const_t<nkr_RANDOM_STRING_t()> string;
                     do {
                         string = Non_Terminated_Random_String<string_t>();
                     } while (string.Point_Length() == 1);
@@ -2902,7 +2902,16 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the first point in a string with a length of 0", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return 0 when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK(itr.Point() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the first point in an empty string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2911,7 +2920,16 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should not return 0 when at the first point in a string with a length greater than 0", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return 0 when at the first point in a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Point() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the first point in a non-empty string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2920,7 +2938,16 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() != 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return 0 when at the last point in a string with a length of 0", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should not return 0 when at the first point in a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Point() != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the last point in an empty string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
@@ -2930,11 +2957,31 @@ namespace nkr { namespace string {
                     CHECK(itr.Is_At_Prefix());
                 }
 
-                TEST_CASE_TEMPLATE("should not return 0 when at the last point in a string with a length greater than 0", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return 0 when at the last point in a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Point() == 0);
+                    CHECK(itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the last point in a non-empty string", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Point() != 0);
+                    CHECK(!itr.Is_At_Prefix());
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the last point in a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
                     nkr_STRING_itr(string) itr(string, position_e::last_tg());
                     CHECK(itr.Point() != 0);
                     CHECK(!itr.Is_At_Prefix());
@@ -2949,6 +2996,15 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
+                TEST_CASE_TEMPLATE("should return 0 when at the pretend terminus of a non-terminaed string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK(itr.Point() == 0);
+                }
+
                 TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -2958,35 +3014,44 @@ namespace nkr { namespace string {
                     CHECK(itr.Point() == 0);
                 }
 
+                TEST_CASE_TEMPLATE("should return 0 when at the postfix of a non-terminaed string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    CHECK(itr.Point() == 0);
+                }
+
                 TEST_CASE_TEMPLATE("should return point for point whether a string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using qualified_charcoder_t = itr_p::qualified_charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>();
-                    static_t<qualified_charcoder_t> other(string, false);
-                    CHECK(string.Point_Length() == other.Point_Length());
+                    nkr_RANDOM_STRING_t() terminated_string = Random_String<string_t>();
+                    static_t<same_qualification_as_t<qualified_charcoder_t, decltype(terminated_string)>>
+                        non_terminated_string(terminated_string, false);
 
-                    nkr_STRING_itr(string) itr(string);
-                    string_itr<decltype(other)> other_itr(other);
-                    for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
-                        CHECK(itr.Point() == other_itr.Point());
+                    nkr_STRING_itr(terminated_string) terminated_itr(terminated_string);
+                    string_itr<decltype(non_terminated_string)> non_terminated_itr(non_terminated_string);
+                    for (; !terminated_itr.Is_At_Postfix(); ++terminated_itr, ++non_terminated_itr) {
+                        CHECK(terminated_itr.Point() == non_terminated_itr.Point());
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return point for point whether an error-ridden string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
+                TEST_CASE_TEMPLATE("should return point for point whether a string is terminated or not, even with errors", itr_p, nkr_NON_CONST_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using qualified_charcoder_t = itr_p::qualified_charcoder_t;
 
-                    nkr_RANDOM_STRING_t() string = Random_String<string_t>(true);
-                    static_t<qualified_charcoder_t> other(string, false);
-                    CHECK(string.Point_Length() == other.Point_Length());
+                    nkr_RANDOM_STRING_t() terminated_string = Random_String<string_t>(true);
+                    static_t<same_qualification_as_t<qualified_charcoder_t, decltype(terminated_string)>>
+                        non_terminated_string(terminated_string, false);
 
-                    nkr_STRING_itr(string) itr(string);
-                    string_itr<decltype(other)> other_itr(other);
-                    for (; !itr.Is_At_Postfix(); itr += 1, other_itr += 1) {
-                        CHECK(itr.Point() == other_itr.Point());
+                    nkr_STRING_itr(terminated_string) terminated_itr(terminated_string);
+                    string_itr<decltype(non_terminated_string)> non_terminated_itr(non_terminated_string);
+                    for (; !terminated_itr.Is_At_Postfix(); ++terminated_itr, ++non_terminated_itr) {
+                        CHECK(terminated_itr.Point() == non_terminated_itr.Point());
                     }
                 }
 
@@ -3084,6 +3149,18 @@ namespace nkr { namespace string {
                     charcoder.Encode(itr.Point());
                     CHECK(itr.Point_Unit_Count() == charcoder.Unit_Count());
                 }
+
+                TEST_CASE_TEMPLATE("should return the number of units which represent the point of a non-termintaed string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() + 1));
+                    charcoder_t charcoder;
+                    charcoder.Encode(itr.Point());
+                    CHECK(itr.Point_Unit_Count() == charcoder.Unit_Count());
+                }
             }
 
             TEST_SUITE("Point_Unit()")
@@ -3101,41 +3178,91 @@ namespace nkr { namespace string {
                         CHECK(itr.Point_Unit(idx) == charcoder.Unit(idx));
                     }
                 }
+
+                TEST_CASE_TEMPLATE("should return the indexed unit of the point of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+
+                    nkr_RANDOM_STRING_t(1) string = Non_Terminated_Random_String<string_t, 1>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count()));
+                    charcoder_t charcoder;
+                    charcoder.Encode(itr.Point());
+                    for (index_t idx = 0, end = itr.Point_Unit_Count(); idx < end; idx += 1) {
+                        CHECK(itr.Point_Unit(idx) == charcoder.Unit(idx));
+                    }
+                }
             }
 
             TEST_SUITE("Substring()")
             {
-                TEST_CASE_TEMPLATE("should return a substring_t containing non-error units", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return a substring containing non-error point units", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
                     nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                    CHECK(!itr.Is_At_Error());
                     substring_t substring = itr.Substring();
-                    CHECK(substring.Unit_Length() > 0);
                     CHECK(substring.Unit_Length() == itr.Point_Unit_Count());
                     for (index_t idx = 0, end = substring.Unit_Length(); idx < end; idx += 1) {
                         CHECK(substring.Unit(idx) == itr.Point_Unit(idx));
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should return a substring_t containing error units", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return a substring containing non-error point units of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() == itr.Point_Unit_Count());
+                    for (index_t idx = 0, end = substring.Unit_Length(); idx < end; idx += 1) {
+                        CHECK(substring.Unit(idx) == itr.Point_Unit(idx));
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return a substring containing actual error non-point units", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                    CHECK(itr.Is_At_Error());
                     substring_t substring = itr.Substring();
-                    CHECK(substring.Unit_Length() > 0);
-                    string_itr<substring_t> substring_itr(substring);
-                    CHECK(substring_itr.Is_At_Error());
+                    bool_t has_non_point_units = substring.Unit_Length() != itr.Point_Unit_Count();
+                    if (!has_non_point_units) {
+                        for (index_t idx = 0, end = substring.Unit_Length(); idx < end; idx += 1) {
+                            if (substring.Unit(idx) != itr.Point_Unit(idx)) {
+                                has_non_point_units = true;
+                            }
+                        }
+                    }
+                    CHECK(has_non_point_units);
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty substring_t when at the prefix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return a substring containing actual error non-point units of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    substring_t substring = itr.Substring();
+                    bool_t has_non_point_units = substring.Unit_Length() != itr.Point_Unit_Count();
+                    if (!has_non_point_units) {
+                        for (index_t idx = 0, end = substring.Unit_Length(); idx < end; idx += 1) {
+                            if (substring.Unit(idx) != itr.Point_Unit(idx)) {
+                                has_non_point_units = true;
+                            }
+                        }
+                    }
+                    CHECK(has_non_point_units);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the prefix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -3143,10 +3270,119 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
                     substring_t substring = itr.Substring();
-                    CHECK(substring.Unit_Length() == 0);
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty substring_t when at the terminus", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return an empty substring when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the first point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the first point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a non-empty substring when at the first point of a non-empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    CHECK(substring.Unit(0) != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a non-empty substring when at the first point of a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    CHECK(substring.Unit(0) != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the last point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the last point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a non-empty substring when at the last point of a non-empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    CHECK(substring.Unit(0) != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a non-empty substring when at the last point of a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Length() > 0);
+                    CHECK(substring.Unit(0) != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -3154,10 +3390,23 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
                     substring_t substring = itr.Substring();
-                    CHECK(substring.Unit_Length() == 0);
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
                 }
 
-                TEST_CASE_TEMPLATE("should return an empty substring_t when at the postfix", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return an empty substring when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using substring_t = itr_p::substring_t;
@@ -3165,7 +3414,166 @@ namespace nkr { namespace string {
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     substring_t substring = itr.Substring();
-                    CHECK(substring.Unit_Length() == 0);
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return an empty substring when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    substring_t substring = itr.Substring();
+                    CHECK(substring.Unit_Count() == 1);
+                    CHECK(substring.Unit(0) == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return substring for substring whether a string is terminated or not", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using qualified_charcoder_t = itr_p::qualified_charcoder_t;
+
+                    nkr_RANDOM_STRING_t() terminated_string = Random_String<string_t>();
+                    static_t<same_qualification_as_t<qualified_charcoder_t, decltype(terminated_string)>>
+                        non_terminated_string(terminated_string, false);
+
+                    nkr_STRING_itr(terminated_string) terminated_itr(terminated_string);
+                    string_itr<decltype(non_terminated_string)> non_terminated_itr(non_terminated_string);
+                    for (; !terminated_itr.Is_At_Postfix(); ++terminated_itr, ++non_terminated_itr) {
+                        auto terminated_substring = terminated_itr.Substring();
+                        auto non_terminated_substring = non_terminated_itr.Substring();
+                        CHECK(terminated_substring.Unit_Length() == non_terminated_substring.Unit_Length());
+                        for (index_t idx = 0, end = terminated_substring.Unit_Length(); idx < end; idx += 1) {
+                            CHECK(terminated_substring.Unit(idx) == non_terminated_substring.Unit(idx));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should return substring for substring whether a string is terminated or not, even with errors", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using qualified_charcoder_t = itr_p::qualified_charcoder_t;
+
+                    nkr_RANDOM_STRING_t() terminated_string = Random_String<string_t>(true);
+                    static_t<same_qualification_as_t<qualified_charcoder_t, decltype(terminated_string)>>
+                        non_terminated_string(terminated_string, false);
+
+                    nkr_STRING_itr(terminated_string) terminated_itr(terminated_string);
+                    string_itr<decltype(non_terminated_string)> non_terminated_itr(non_terminated_string);
+                    for (; !terminated_itr.Is_At_Postfix(); ++terminated_itr, ++non_terminated_itr) {
+                        auto terminated_substring = terminated_itr.Substring();
+                        auto non_terminated_substring = non_terminated_itr.Substring();
+                        CHECK(terminated_substring.Unit_Length() == non_terminated_substring.Unit_Length());
+                        for (index_t idx = 0, end = terminated_substring.Unit_Length(); idx < end; idx += 1) {
+                            CHECK(terminated_substring.Unit(idx) == non_terminated_substring.Unit(idx));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same substrings going both forwards and backwards", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Random_String<string_t, 1, 128>();
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::terminus_tg());
+
+                    array::stack_t<substring_t, 128> forward_substrings;
+                    array::stack_t<substring_t, 128> backward_substrings;
+                    for (; !forward_itr.Is_At_Postfix(); ++forward_itr, --backward_itr) {
+                        forward_substrings.Push(forward_itr.Substring()).Ignore_Error();
+                        backward_substrings.Push(backward_itr.Substring()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_substrings.Count(); idx < end; idx += 1) {
+                        auto& forward_substring = forward_substrings[idx];
+                        auto& backward_substring = backward_substrings[end - 1 - idx];
+                        CHECK(forward_substring.Unit_Length() == backward_substring.Unit_Length());
+                        for (index_t idx = 0, end = forward_substring.Unit_Length(); idx < end; idx += 1) {
+                            CHECK(forward_substring.Unit(idx) == backward_substring.Unit(idx));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same substrings going both forwards and backwards on a non-terminated string", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Non_Terminated_Random_String<string_t, 1, 128>();
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::last_tg());
+
+                    array::stack_t<substring_t, 128> forward_substrings;
+                    array::stack_t<substring_t, 128> backward_substrings;
+                    for (; !forward_itr.Is_At_Terminus(); ++forward_itr, --backward_itr) {
+                        forward_substrings.Push(forward_itr.Substring()).Ignore_Error();
+                        backward_substrings.Push(backward_itr.Substring()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_substrings.Count(); idx < end; idx += 1) {
+                        auto& forward_substring = forward_substrings[idx];
+                        auto& backward_substring = backward_substrings[end - 1 - idx];
+                        CHECK(forward_substring.Unit_Length() == backward_substring.Unit_Length());
+                        for (index_t idx = 0, end = forward_substring.Unit_Length(); idx < end; idx += 1) {
+                            CHECK(forward_substring.Unit(idx) == backward_substring.Unit(idx));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same substrings going both forwards and backwards, even with errors", itr_p, nkr_NON_CONST_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Random_String<string_t, 1, 128>(true);
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::terminus_tg());
+
+                    array::stack_t<substring_t, 128> forward_substrings;
+                    array::stack_t<substring_t, 128> backward_substrings;
+                    for (; !forward_itr.Is_At_Postfix(); ++forward_itr, --backward_itr) {
+                        forward_substrings.Push(forward_itr.Substring()).Ignore_Error();
+                        backward_substrings.Push(backward_itr.Substring()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_substrings.Count(); idx < end; idx += 1) {
+                        auto& forward_substring = forward_substrings[idx];
+                        auto& backward_substring = backward_substrings[end - 1 - idx];
+                        CHECK(forward_substring.Unit_Length() == backward_substring.Unit_Length());
+                        for (index_t idx = 0, end = forward_substring.Unit_Length(); idx < end; idx += 1) {
+                            CHECK(forward_substring.Unit(idx) == backward_substring.Unit(idx));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should have the same substrings going both forwards and backwards on a non-terminated string, even with errors", itr_p, nkr_NON_CONST_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_RANDOM_STRING_t(1, 128) string = Non_Terminated_Random_String<string_t, 1, 128>(true);
+                    nkr_STRING_itr(string) forward_itr(string, position_e::first_tg());
+                    nkr_STRING_itr(string) backward_itr(string, position_e::last_tg());
+
+                    array::stack_t<substring_t, 128> forward_substrings;
+                    array::stack_t<substring_t, 128> backward_substrings;
+                    for (; !forward_itr.Is_At_Terminus(); ++forward_itr, --backward_itr) {
+                        forward_substrings.Push(forward_itr.Substring()).Ignore_Error();
+                        backward_substrings.Push(backward_itr.Substring()).Ignore_Error();
+                    }
+
+                    for (index_t idx = 0, end = forward_substrings.Count(); idx < end; idx += 1) {
+                        auto& forward_substring = forward_substrings[idx];
+                        auto& backward_substring = backward_substrings[end - 1 - idx];
+                        CHECK(forward_substring.Unit_Length() == backward_substring.Unit_Length());
+                        for (index_t idx = 0, end = forward_substring.Unit_Length(); idx < end; idx += 1) {
+                            CHECK(forward_substring.Unit(idx) == backward_substring.Unit(idx));
+                        }
+                    }
                 }
             }
 
@@ -3180,7 +3588,16 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
                 }
 
-                TEST_CASE_TEMPLATE("should return the number of units read by a charcoder, which may vary from the point count", itr_p, nkr_ALL_TERMINATED)
+                TEST_CASE_TEMPLATE("should return the same number of units in the point when not at an error on a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
+                }
+
+                TEST_CASE_TEMPLATE("should return the number of units read by a charcoder", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
                     using charcoder_t = itr_p::charcoder_t;
@@ -3188,6 +3605,19 @@ namespace nkr { namespace string {
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
+                    charcoder_t charcoder;
+                    substring_t substring = itr.Substring();
+                    CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
+                }
+
+                TEST_CASE_TEMPLATE("should return the number of units read by a charcoder on a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+                    using charcoder_t = itr_p::charcoder_t;
+                    using substring_t = itr_p::substring_t;
+
+                    nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
                     charcoder_t charcoder;
                     substring_t substring = itr.Substring();
                     CHECK(itr.Substring_Unit_Length() == charcoder.Read_Forward(substring.C_String()()));
@@ -3202,6 +3632,87 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
 
+                TEST_CASE_TEMPLATE("should return 0 when at the prefix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::prefix_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the first point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the first point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the first point of a non-empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Substring_Unit_Length() != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the first point of a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::first_tg());
+                    CHECK(itr.Substring_Unit_Length() != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the last point of an empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the last point of a non-terminated empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_EMPTY_STRING_t() string = Non_Terminated_Empty_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the last point of a non-empty string", itr_p, nkr_ALL_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Substring_Unit_Length() != 0);
+                }
+
+                TEST_CASE_TEMPLATE("should not return 0 when at the last point of a non-terminated non-empty string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, position_e::last_tg());
+                    CHECK(itr.Substring_Unit_Length() != 0);
+                }
+
                 TEST_CASE_TEMPLATE("should return 0 when at the terminus", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
@@ -3211,11 +3722,29 @@ namespace nkr { namespace string {
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
 
+                TEST_CASE_TEMPLATE("should return 0 when at the pretend terminus of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::terminus_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
                 TEST_CASE_TEMPLATE("should return 0 when at the postfix", itr_p, nkr_ALL_TERMINATED)
                 {
                     using string_t = itr_p::string_t;
 
                     nkr_RANDOM_STRING_t() string = Random_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
+                    CHECK(itr.Substring_Unit_Length() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return 0 when at the postfix of a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t() string = Non_Terminated_Random_String<string_t>();
                     nkr_STRING_itr(string) itr(string, position_e::postfix_tg());
                     CHECK(itr.Substring_Unit_Length() == 0);
                 }
@@ -3229,9 +3758,18 @@ namespace nkr { namespace string {
 
                     nkr_RANDOM_STRING_t(2) string = Random_String<string_t, 2>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                    CHECK(itr.Substring_Unit_Length() == itr.Point_Unit_Count());
-                    index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
-                    CHECK(itr.Substring_Unit(substring_unit_index) == itr.Point_Unit(substring_unit_index));
+                    index_t unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(unit_index) == itr.Point_Unit(unit_index));
+                }
+
+                TEST_CASE_TEMPLATE("should return the same unit as Point_Unit when there is no error on a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_RANDOM_STRING_t(2) string = Non_Terminated_Random_String<string_t, 2>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    index_t unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(unit_index) == itr.Point_Unit(unit_index));
                 }
 
                 TEST_CASE_TEMPLATE("should return the same unit as is found in the string when there is an error", itr_p, nkr_ALL_TERMINATED)
@@ -3240,9 +3778,18 @@ namespace nkr { namespace string {
 
                     nkr_ERROR_STRING_t() string = Error_String<string_t>();
                     nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 2));
-                    index_t itr_unit_index = itr.Unit_Index().Value();
-                    index_t substring_unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
-                    CHECK(itr.Substring_Unit(substring_unit_index) == itr.String().Unit(itr_unit_index + substring_unit_index));
+                    index_t unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(unit_index) == itr.String().Unit(itr.Unit_Index().Value() + unit_index));
+                }
+
+                TEST_CASE_TEMPLATE("should return the same unit as is found in the string when there is an error on a non-terminated string", itr_p, nkr_ALL_NON_TERMINATED)
+                {
+                    using string_t = itr_p::string_t;
+
+                    nkr_ERROR_STRING_t() string = Non_Terminated_Error_String<string_t>();
+                    nkr_STRING_itr(string) itr(string, Random<index_t>(0, string.Point_Count() - 1));
+                    index_t unit_index = Random<index_t>(0, itr.Substring_Unit_Length() - 1);
+                    CHECK(itr.Substring_Unit(unit_index) == itr.String().Unit(itr.Unit_Index().Value() + unit_index));
                 }
             }
         }
