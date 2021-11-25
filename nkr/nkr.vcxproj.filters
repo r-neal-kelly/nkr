@@ -381,6 +381,24 @@
     <ClInclude Include="include\nkr\array\static_t_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\nkr\hasher\fnv_1a.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\hasher\fnv_1a_dec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\hasher\fnv_1a_def.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\hasher\fnv_1a_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\hasher_i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\nkr\hasher_i_dox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\nkr\string\static_t_def.h">

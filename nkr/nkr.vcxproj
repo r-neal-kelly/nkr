@@ -215,6 +215,12 @@
     <ClInclude Include="include\nkr\docs\f6f68334-a834-4809-8bd6-6eac9025135c.h" />
     <ClInclude Include="include\nkr\docs\intrinsic.h" />
     <ClInclude Include="include\nkr\fors_dox.h" />
+    <ClInclude Include="include\nkr\hasher\fnv_1a.h" />
+    <ClInclude Include="include\nkr\hasher\fnv_1a_dec.h" />
+    <ClInclude Include="include\nkr\hasher\fnv_1a_def.h" />
+    <ClInclude Include="include\nkr\hasher\fnv_1a_dox.h" />
+    <ClInclude Include="include\nkr\hasher_i.h" />
+    <ClInclude Include="include\nkr\hasher_i_dox.h" />
     <ClInclude Include="include\nkr\intrinsics.h" />
     <ClInclude Include="include\nkr\intrinsics_dec.h" />
     <ClInclude Include="include\nkr\macros.h" />
