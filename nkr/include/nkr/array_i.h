@@ -88,6 +88,103 @@ namespace nkr {
 
 }
 
+namespace nkr {
+
+    struct                      array_tg    {};
+    template <typename> struct  array_ttg   {};
+
+    template <>
+    class type_traits_i<array_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t Is_Any()
+        {
+            return array_i<other_p>;
+        }
+    };
+
+    template <>
+    class template_traits_i<array_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = array_tg;
+
+    public:
+        static constexpr c_bool_t Is_Implemented()
+        {
+            return true;
+        }
+    };
+
+    struct                      aggregate_array_tg  {};
+    template <typename> struct  aggregate_array_ttg {};
+
+    template <>
+    class type_traits_i<aggregate_array_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t Is_Any()
+        {
+            return aggregate_array_i<other_p>;
+        }
+    };
+
+    template <>
+    class template_traits_i<aggregate_array_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = aggregate_array_tg;
+
+    public:
+        static constexpr c_bool_t Is_Implemented()
+        {
+            return true;
+        }
+    };
+
+    struct                      non_aggregate_array_tg  {};
+    template <typename> struct  non_aggregate_array_ttg {};
+
+    template <>
+    class type_traits_i<non_aggregate_array_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t Is_Any()
+        {
+            return non_aggregate_array_i<other_p>;
+        }
+    };
+
+    template <>
+    class template_traits_i<non_aggregate_array_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = non_aggregate_array_tg;
+
+    public:
+        static constexpr c_bool_t Is_Implemented()
+        {
+            return true;
+        }
+    };
+
+}
+
 // to be deleted
 namespace nkr {
 

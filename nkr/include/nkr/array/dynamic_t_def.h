@@ -11,6 +11,23 @@
 
 #include "nkr/array/dynamic_t_dec.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<array::dynamic_tg>::Is_Any()
+    {
+        return array::$dynamic_t::any_tr<other_p>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<array::dynamic_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace array {
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/hasher/fnv_1a_dec.h"
+#include "nkr/hasher/fnv1a_t_dec.h"
 
 namespace nkr { namespace hasher {
 

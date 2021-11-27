@@ -8,6 +8,23 @@
 
 #include "nkr/array/static_t_dec.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<array::static_tg>::Is_Any()
+    {
+        return array::$static_t::any_tr<other_p>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<array::static_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace array {
 
     template <any_type_tr unit_p>
@@ -68,6 +85,12 @@ namespace nkr { namespace array {
     template <any_type_tr unit_p>
     inline static_t<unit_p>::static_t(maybe_t<pointer_t>&& pointer) :
         pointer(nkr::Move(pointer))
+    {
+    }
+
+    template <any_type_tr unit_p>
+    inline static_t<unit_p>::static_t(tr2<any_tg, array_ttg, of_just_tg, unit_t> auto& array) :
+        pointer(maybe_t<pointer_t>(&array[0], array.Count()))
     {
     }
 

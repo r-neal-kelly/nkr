@@ -18,6 +18,65 @@
 namespace nkr { namespace array {
 
     template <any_type_tr unit_p>
+    class static_t;
+
+    struct                      static_tg   {};
+    template <typename> struct  static_ttg  {};
+
+}}
+
+namespace nkr { namespace array { namespace $static_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, static_t<typename type_p::unit_t>>;
+
+}}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<array::static_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <array::$static_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<array::static_tg>
+    {
+    public:
+        using of_t  = type_p::unit_t;
+    };
+
+    template <>
+    class template_traits_i<array::static_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = array::static_t<of_p>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+    template <>
+    class template_traits_i<array::static_t> :
+        public template_traits_i<array::static_ttg>
+    {
+    public:
+    };
+
+}
+
+namespace nkr { namespace array {
+
+    template <any_type_tr unit_p>
     class static_t
     {
     public:
@@ -40,10 +99,10 @@ namespace nkr { namespace array {
     public:
         static_t();
 
-        // may want to accept other types of arrays
-
         static_t(const maybe_t<pointer_t>& pointer);
         static_t(maybe_t<pointer_t>&& pointer);
+
+        static_t(tr2<any_tg, array_ttg, of_just_tg, unit_t> auto& array);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);

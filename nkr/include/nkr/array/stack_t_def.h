@@ -10,6 +10,23 @@
 
 #include "nkr/array/stack_t_dec.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<array::stack_tg>::Is_Any()
+    {
+        return array::$stack_t::any_tr<other_p>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<array::stack_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace array {
 
     template <any_type_tr unit_p, count_t capacity_p>

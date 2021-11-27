@@ -18,6 +18,56 @@ namespace nkr { namespace array {
     template <any_type_tr unit_p, count_t capacity_p>
     class stack_t;
 
+    struct                      stack_tg    {};
+    template <typename> struct  stack_ttg   {};
+
+}}
+
+namespace nkr { namespace array { namespace $stack_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, stack_t<typename type_p::unit_t, type_p::Capacity()>>;
+
+}}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<array::stack_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <array::$stack_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<array::stack_tg>
+    {
+    public:
+        using of_t  = type_p::unit_t;
+    };
+
+    template <>
+    class template_traits_i<array::stack_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = array::stack_t<of_p, 1>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+}
+
+// to be deleted
+namespace nkr { namespace array {
+
     template <typename array_p>
     concept any_stack_tr =
         is_any_tr<array_p, stack_t<typename array_p::unit_t, array_p::Capacity()>>;
@@ -25,6 +75,7 @@ namespace nkr { namespace array {
     nkr_DEFINE_CONTAINER_TRAITS(stack, unit_t);
 
 }}
+//
 
 namespace nkr { namespace array {
 
