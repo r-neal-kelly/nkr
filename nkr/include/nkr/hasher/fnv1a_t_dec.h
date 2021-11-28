@@ -102,6 +102,48 @@ namespace nkr {
 
     template <integer_unsigned_tr unit_p>
     maybe_t<allocator_err>
+        Add(tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
+            const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b)
+    {
+        using unit_t = unit_p;
+
+        const count_t a_digit_count = number_a.Count();
+        const count_t b_digit_count = number_b.Count();
+        const count_t min_digit_count = std::min(a_digit_count, b_digit_count);
+
+        bool_t do_carry = false;
+
+        for (index_t idx = 0, end = min_digit_count; idx < end; idx += 1) {
+            if (do_carry) {
+                if ((number_a[idx] += 1) != 0) {
+                    number_a[idx] += number_b[idx];
+                    do_carry = number_a[idx] < number_b[idx];
+                }
+            } else {
+                number_a[idx] += number_b[idx];
+                do_carry = number_a[idx] < number_b[idx];
+            }
+        }
+
+        if (a_digit_count > b_digit_count) {
+            for (index_t idx = min_digit_count, end = a_digit_count; idx < end && do_carry; idx += 1) {
+                do_carry = (number_a[idx] += 1) == 0;
+            }
+        }
+
+        if (do_carry) {
+            maybe_t<allocator_err> err = number_a.Push(unit_t(1));
+            if (err) {
+                // we could check to see if there is more capacity than count before operating to preserve the state of the data
+                return err;
+            }
+        }
+
+        return allocator_err::NONE;
+    }
+
+    template <integer_unsigned_tr unit_p>
+    maybe_t<allocator_err>
         Subtract(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
                  tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
                  tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
@@ -185,45 +227,68 @@ namespace nkr {
     }
 
     template <integer_unsigned_tr unit_p>
+    maybe_t<allocator_err>
+        Left_Shift(tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
+                   count_t bit_count)
+    {
+        using unit_t = unit_p;
+
+        constexpr count_t unit_bit_count = sizeof(unit_t) * 8;
+
+        if (bit_count <= unit_bit_count) {
+            unit_t previous_bits = 0;
+            unit_t next_bits = 0;
+            for (index_t idx = 0, end = number_a.Count(); idx < end; idx += 1) {
+                next_bits = number_a[idx] >> (unit_bit_count - bit_count);
+                number_a[idx] = (number_a[idx] << bit_count) | previous_bits;
+                previous_bits = next_bits;
+            }
+
+            maybe_t<allocator_err> err = number_a.Push(next_bits);
+            if (err) {
+                // we could check to see if there is more capacity than count before operating to preserve the state of the data
+                return err;
+            }
+        } else {
+            nkr_ASSERT_THAT(false);
+            // not yet implemented
+        }
+
+        return allocator_err::NONE;
+    }
+
+    template <integer_unsigned_tr unit_p>
     void_t
         Karatsuba_Multiply(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
                            tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
                            tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
         using unit_t = unit_p;
+        using safe_multiply_t = word_t;
 
-        constexpr count_t half_bit_count = sizeof(unit_t) * 4;
-        constexpr unit_t right_bit_mask = std::numeric_limits<unit_t>::max() >> half_bit_count;
-        constexpr unit_t left_bit_mask = std::numeric_limits<unit_t>::max() << half_bit_count;
+        static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
+
+        constexpr safe_multiply_t mask = std::numeric_limits<unit_t>::max();
 
         // we treat the numbers just like any built-in integer
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_a.Count() % 2 == 0 || number_a.Count() == 1);
         nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
+        nkr_ASSERT_THAT(result.Count() == 0);
         nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
 
         const count_t number_count = number_a.Count();
         if (number_count == 1) {
-            const unit_t a = number_a[0];
-            const unit_t a0 = a & right_bit_mask;
-            const unit_t a1 = a >> half_bit_count;
-
-            const unit_t b = number_b[0];
-            const unit_t b0 = b & right_bit_mask;
-            const unit_t b1 = b >> half_bit_count;
-
-            const unit_t c0 = a0 * b0;
-            const unit_t c2 = a1 * b1;
-            const unit_t c1 = (a0 + a1) * (b0 + b1) - c2 - c0;
-
+            const safe_multiply_t a_times_b = number_a[0] * number_b[0];
             result.Push(unit_t(
-                (((c1 & right_bit_mask) << half_bit_count) + (c0 & left_bit_mask)) | (c0 & right_bit_mask)
+                a_times_b & std::numeric_limits<unit_t>::max()
             )).Ignore_Error();
             result.Push(unit_t(
-                (c2 & left_bit_mask) | (((c2 & right_bit_mask) << half_bit_count) + (c1 & left_bit_mask))
+                (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max()
             )).Ignore_Error();
         } else {
             const count_t half_number_count = number_count / 2;
+            const count_t double_number_count = number_count * 2;
 
             array::static_t<unit_t> a0(maybe_t<pointer_t<unit_t>>(&number_a[0], half_number_count));
             array::static_t<unit_t> a1(maybe_t<pointer_t<unit_t>>(&number_a[half_number_count], half_number_count));
@@ -237,7 +302,8 @@ namespace nkr {
             array::dynamic_t<unit_t> c2(number_count); // return on failure.
             Karatsuba_Multiply<unit_t>(a1, b1, c2);
 
-            array::dynamic_t<unit_t> c1(number_count * 2); // return on failure.
+            // we may be able to use the result as the the c1 buffer
+            array::dynamic_t<unit_t> c1(double_number_count); // return on failure.
             {
                 array::dynamic_t<unit_t> a0_plus_a1(number_count); // return on failure.
                 Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
@@ -246,23 +312,69 @@ namespace nkr {
                 Karatsuba_Multiply<unit_t>(array::static_t<unit_t>(a0_plus_a1), array::static_t<unit_t>(b0_plus_b1), c1);
             }
             {
-                array::dynamic_t<unit_t> c1_buffer(number_count * 2); // return on failure.
+                array::dynamic_t<unit_t> c1_buffer(double_number_count); // return on failure.
                 Subtract<unit_t>(array::static_t<unit_t>(c1), array::static_t<unit_t>(c2), c1_buffer).Ignore_Error();
                 Subtract<unit_t>(array::static_t<unit_t>(c1_buffer), array::static_t<unit_t>(c0), c1).Ignore_Error();
-                while (c1.Count() < number_count * 2) {
+                while (c1.Count() < double_number_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
             }
 
+            printf("---------------\n");
             for (index_t idx = 0, end = c0.Count(); idx < end; idx += 1) {
+                printf("c0 idx: %zu, val: 0x%2.2X\n", idx, c0[idx]);
+            }
+            printf("\n");
+            for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
+                printf("c1 idx: %zu, val: 0x%2.2X\n", idx, c1[idx]);
+            }
+            printf("\n");
+            for (index_t idx = 0, end = c2.Count(); idx < end; idx += 1) {
+                printf("c2 idx: %zu, val: 0x%2.2X\n", idx, c2[idx]);
+            }
+
+            for (index_t idx = 0, end = number_count; idx < end; idx += 1) {
                 result.Push(c0[idx]).Ignore_Error();
             }
-            for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
-                result.Push(c1[idx]).Ignore_Error();
+            for (index_t idx = number_count, end = double_number_count; idx < end; idx += 1) {
+                result.Push(unit_t(0)).Ignore_Error();
             }
-            for (index_t idx = 0, end = c2.Count(); idx < end; idx += 1) {
-                result.Push(c2[idx]).Ignore_Error();
+
+            bool_t do_carry = false;
+
+            for (index_t idx = 0, result_idx = half_number_count, end = double_number_count - half_number_count;
+                 idx < end;
+                 idx += 1, result_idx += 1) {
+                if (do_carry) {
+                    if ((result[result_idx] += 1) != 0) {
+                        result[result_idx] += c1[idx];
+                        do_carry = result[result_idx] < c1[idx];
+                    }
+                } else {
+                    result[result_idx] += c1[idx];
+                    do_carry = result[result_idx] < c1[idx];
+                }
             }
+
+            for (index_t idx = 0, result_idx = number_count, end = number_count;
+                 idx < end;
+                 idx += 1, result_idx += 1) {
+                if (do_carry) {
+                    if ((result[result_idx] += 1) != 0) {
+                        result[result_idx] += c2[idx];
+                        do_carry = result[result_idx] < c2[idx];
+                    }
+                } else {
+                    result[result_idx] += c2[idx];
+                    do_carry = result[result_idx] < c2[idx];
+                }
+            }
+
+            printf("\n");
+            for (index_t idx = 0, end = result.Count(); idx < end; idx += 1) {
+                printf("result idx: %zu, val: 0x%2.2X\n", idx, result[idx]);
+            }
+            printf("---------------\n");
         }
     }
 
