@@ -50,6 +50,18 @@ namespace nkr { namespace hasher {
         CHECK(result.Count() == 2);
         CHECK(result[0] == 0x00);
         CHECK(result[1] == 0x01);
+
+        {
+            array::stack_t<u8_t, 1> number_a = { u8_t(0x02) };
+            array::stack_t<u8_t, 1> number_b = { u8_t(0x02) };
+            array::stack_t<u8_t, 2> result;
+            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
+                                     array::static_t<u8_t>(number_b),
+                                     result);
+            CHECK(result.Count() == 2);
+            CHECK(result[0] == 0x04);
+            CHECK(result[1] == 0x00);
+        }
     }
 
 }}

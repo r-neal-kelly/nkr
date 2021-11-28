@@ -185,42 +185,84 @@ namespace nkr {
     }
 
     template <integer_unsigned_tr unit_p>
-    maybe_t<allocator_err>
+    void_t
         Karatsuba_Multiply(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
                            tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
                            tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
-        // W.I.P. I'm still trying to understand how to implement this, although I'm getting closer now that I've realized that
-        // I'll need both an add and subtract for arbitrary point to make this work.
+        using unit_t = unit_p;
 
-        // I feel certain that we can use some array:stack_t's as buffers and only a handful of them to save on memory.
-        // we essentially need to push the first element of our equation into the result buffer, recurse, and then push the last.
-        // doing that pattern should come up with the correct result with only using one buffer.
+        constexpr count_t half_bit_count = sizeof(unit_t) * 4;
+        constexpr unit_t right_bit_mask = std::numeric_limits<unit_t>::max() >> half_bit_count;
+        constexpr unit_t left_bit_mask = std::numeric_limits<unit_t>::max() << half_bit_count;
 
-        // now we also need more buffers, for example to add to bigger numbers. but because we have the full length of the original
-        // numbers up front, we can surely calculate that buffer once and just reuse it seeing how this recursion is of course done
-        // serially.
-
+        // we treat the numbers just like any built-in integer
         nkr_ASSERT_THAT(number_a.Count() > 0);
-        nkr_ASSERT_THAT(number_b.Count() > 0);
-        nkr_ASSERT_THAT(result.Count() == 0); // must be cleared before this code recurses
+        nkr_ASSERT_THAT(number_a.Count() % 2 == 0 || number_a.Count() == 1);
+        nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
+        nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
 
-        nkr_ASSERT_THAT(number_a.Count() == number_b.Count()); // temp until we add the mechanism to pad the lower digit number with zeros.
+        const count_t number_count = number_a.Count();
+        if (number_count == 1) {
+            const unit_t a = number_a[0];
+            const unit_t a0 = a & right_bit_mask;
+            const unit_t a1 = a >> half_bit_count;
 
-        if (number_a.Count() == 1 && number_b.Count() == 1) {
-            // don't forget you can pad zeros
+            const unit_t b = number_b[0];
+            const unit_t b0 = b & right_bit_mask;
+            const unit_t b1 = b >> half_bit_count;
+
+            const unit_t c0 = a0 * b0;
+            const unit_t c2 = a1 * b1;
+            const unit_t c1 = (a0 + a1) * (b0 + b1) - c2 - c0;
+
+            result.Push(unit_t(
+                (((c1 & right_bit_mask) << half_bit_count) + (c0 & left_bit_mask)) | (c0 & right_bit_mask)
+            )).Ignore_Error();
+            result.Push(unit_t(
+                (c2 & left_bit_mask) | (((c2 & right_bit_mask) << half_bit_count) + (c1 & left_bit_mask))
+            )).Ignore_Error();
         } else {
-            array::dynamic_ttg<u8_t> result;
+            const count_t half_number_count = number_count / 2;
 
-            count_t m = std::min(number_a.Count(), number_b.Count()) / 2;
+            array::static_t<unit_t> a0(maybe_t<pointer_t<unit_t>>(&number_a[0], half_number_count));
+            array::static_t<unit_t> a1(maybe_t<pointer_t<unit_t>>(&number_a[half_number_count], half_number_count));
 
-            // so we need two buffers for the results of two additions. each buffer simply needs to have the same size as the original numbers,
-            // because we are halving each number's digits before adding, so that's plenty of room.
+            array::static_t<unit_t> b0(maybe_t<pointer_t<unit_t>>(&number_b[0], half_number_count));
+            array::static_t<unit_t> b1(maybe_t<pointer_t<unit_t>>(&number_b[half_number_count], half_number_count));
 
-            // we need one buffer twice the size of the original number's for the actual multiply. I think we need something other than the result
-            // buffer? I think it can be done with stack_arrays though, and they get progressively smaller by half
+            array::dynamic_t<unit_t> c0(number_count); // return on failure.
+            Karatsuba_Multiply<unit_t>(a0, b0, c0);
 
-            // so I think the subtraction section can use the same buffers that we add the two numbers together.
+            array::dynamic_t<unit_t> c2(number_count); // return on failure.
+            Karatsuba_Multiply<unit_t>(a1, b1, c2);
+
+            array::dynamic_t<unit_t> c1(number_count * 2); // return on failure.
+            {
+                array::dynamic_t<unit_t> a0_plus_a1(number_count); // return on failure.
+                Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
+                array::dynamic_t<unit_t> b0_plus_b1(number_count); // return on failure.
+                Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
+                Karatsuba_Multiply<unit_t>(array::static_t<unit_t>(a0_plus_a1), array::static_t<unit_t>(b0_plus_b1), c1);
+            }
+            {
+                array::dynamic_t<unit_t> c1_buffer(number_count * 2); // return on failure.
+                Subtract<unit_t>(array::static_t<unit_t>(c1), array::static_t<unit_t>(c2), c1_buffer).Ignore_Error();
+                Subtract<unit_t>(array::static_t<unit_t>(c1_buffer), array::static_t<unit_t>(c0), c1).Ignore_Error();
+                while (c1.Count() < number_count * 2) {
+                    c1.Push(unit_t(0)).Ignore_Error();
+                }
+            }
+
+            for (index_t idx = 0, end = c0.Count(); idx < end; idx += 1) {
+                result.Push(c0[idx]).Ignore_Error();
+            }
+            for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
+                result.Push(c1[idx]).Ignore_Error();
+            }
+            for (index_t idx = 0, end = c2.Count(); idx < end; idx += 1) {
+                result.Push(c2[idx]).Ignore_Error();
+            }
         }
     }
 
