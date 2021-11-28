@@ -268,8 +268,6 @@ namespace nkr {
 
         static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
 
-        constexpr safe_multiply_t mask = std::numeric_limits<unit_t>::max();
-
         // we treat the numbers just like any built-in integer
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_a.Count() % 2 == 0 || number_a.Count() == 1);
@@ -302,7 +300,7 @@ namespace nkr {
             array::dynamic_t<unit_t> c2(number_count); // return on failure.
             Karatsuba_Multiply<unit_t>(a1, b1, c2);
 
-            // we may be able to use the result as the the c1 buffer
+            // we should be able to use the result buffer as the the c1 buffer
             array::dynamic_t<unit_t> c1(double_number_count); // return on failure.
             {
                 array::dynamic_t<unit_t> a0_plus_a1(number_count); // return on failure.
@@ -318,19 +316,6 @@ namespace nkr {
                 while (c1.Count() < double_number_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
-            }
-
-            printf("---------------\n");
-            for (index_t idx = 0, end = c0.Count(); idx < end; idx += 1) {
-                printf("c0 idx: %zu, val: 0x%2.2X\n", idx, c0[idx]);
-            }
-            printf("\n");
-            for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
-                printf("c1 idx: %zu, val: 0x%2.2X\n", idx, c1[idx]);
-            }
-            printf("\n");
-            for (index_t idx = 0, end = c2.Count(); idx < end; idx += 1) {
-                printf("c2 idx: %zu, val: 0x%2.2X\n", idx, c2[idx]);
             }
 
             for (index_t idx = 0, end = number_count; idx < end; idx += 1) {
@@ -356,6 +341,8 @@ namespace nkr {
                 }
             }
 
+            do_carry = false;
+
             for (index_t idx = 0, result_idx = number_count, end = number_count;
                  idx < end;
                  idx += 1, result_idx += 1) {
@@ -369,12 +356,6 @@ namespace nkr {
                     do_carry = result[result_idx] < c2[idx];
                 }
             }
-
-            printf("\n");
-            for (index_t idx = 0, end = result.Count(); idx < end; idx += 1) {
-                printf("result idx: %zu, val: 0x%2.2X\n", idx, result[idx]);
-            }
-            printf("---------------\n");
         }
     }
 
