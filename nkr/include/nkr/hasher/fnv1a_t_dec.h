@@ -16,6 +16,9 @@
 
 #include "nkr/hasher_i.h"
 
+#include "nkr/charcoder/ascii_t.h" // for testing
+#include "nkr/string/dynamic_t.h" // for testing
+
 // not sure where to put this yet because if we put it in math, math will need to reference arrays which could lead to some circular includes if we're not careful
 namespace nkr {
 
@@ -261,7 +264,8 @@ namespace nkr {
     void_t
         Karatsuba_Multiply(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
                            tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
-                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result,
+                           string::dynamic_t<charcoder::ascii_t> tabs = "")
     {
         using unit_t = unit_p;
         using safe_multiply_t = word_t;
@@ -275,6 +279,9 @@ namespace nkr {
         nkr_ASSERT_THAT(result.Count() == 0);
         nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
 
+string::dynamic_t<charcoder::ascii_t> tabs_a = tabs;// temp
+tabs_a.Push("    ").Ignore_Error();// temp
+
         const count_t number_count = number_a.Count();
         if (number_count == 1) {
             const safe_multiply_t a_times_b = number_a[0] * number_b[0];
@@ -285,6 +292,17 @@ namespace nkr {
                 (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max()
             )).Ignore_Error();
         } else {
+
+//printf("%sa:\n", tabs.C_String()());
+//for (index_t idx = 0, end = number_a.Count(); idx < end; idx += 1) {
+//    printf("%s    a idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, number_a[idx]);
+//}
+//printf("%sb:\n", tabs.C_String()());
+//for (index_t idx = 0, end = number_b.Count(); idx < end; idx += 1) {
+//    printf("%s    b idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, number_b[idx]);
+//}
+//printf("\n");
+
             const count_t half_number_count = number_count / 2;
             const count_t double_number_count = number_count * 2;
 
@@ -294,20 +312,50 @@ namespace nkr {
             array::static_t<unit_t> b0(maybe_t<pointer_t<unit_t>>(&number_b[0], half_number_count));
             array::static_t<unit_t> b1(maybe_t<pointer_t<unit_t>>(&number_b[half_number_count], half_number_count));
 
+//printf("%sdoing c0 = a0 * b0\n", tabs.C_String()()); //
             array::dynamic_t<unit_t> c0(number_count); // return on failure.
-            Karatsuba_Multiply<unit_t>(a0, b0, c0);
+            Karatsuba_Multiply<unit_t>(a0, b0, c0, tabs_a);
+//printf("%sgot c0:\n", tabs.C_String()());
+//for (index_t idx = 0, end = c0.Count(); idx < end; idx += 1) {
+//    printf("%s    c0 idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, c0[idx]);
+//}
+//printf("\n");
 
+//printf("%sdoing c2 = a1 * b1\n", tabs.C_String()()); //
             array::dynamic_t<unit_t> c2(number_count); // return on failure.
-            Karatsuba_Multiply<unit_t>(a1, b1, c2);
+            Karatsuba_Multiply<unit_t>(a1, b1, c2, tabs_a);
+//printf("%sgot c2:\n", tabs.C_String()());
+//for (index_t idx = 0, end = c2.Count(); idx < end; idx += 1) {
+//    printf("%s    c2 idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, c2[idx]);
+//}
+//printf("\n");
 
+//printf("%sdoing c1 = (a0 + a1) * (b0 + b1) - c2 - c1\n", tabs.C_String()()); //
             // we should be able to use the result buffer as the the c1 buffer
             array::dynamic_t<unit_t> c1(double_number_count); // return on failure.
             {
+printf("%sdoing a0 + a1\n", tabs.C_String()());
                 array::dynamic_t<unit_t> a0_plus_a1(number_count); // return on failure.
                 Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
+printf("%sgot a0 + a1:\n", tabs.C_String()());
+for (index_t idx = 0, end = a0_plus_a1.Count(); idx < end; idx += 1) {
+    printf("%s    idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, a0_plus_a1[idx]);
+}
+
+printf("%sdoing b0 + b1\n", tabs.C_String()());
                 array::dynamic_t<unit_t> b0_plus_b1(number_count); // return on failure.
                 Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
-                Karatsuba_Multiply<unit_t>(array::static_t<unit_t>(a0_plus_a1), array::static_t<unit_t>(b0_plus_b1), c1);
+printf("%sgot b0 + b1:\n", tabs.C_String()());
+for (index_t idx = 0, end = b0_plus_b1.Count(); idx < end; idx += 1) {
+    printf("%s    idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, b0_plus_b1[idx]);
+}
+
+//printf("%sdoing (a0 + a1) * (b0 + b1)\n", tabs.C_String()());
+                Karatsuba_Multiply<unit_t>(array::static_t<unit_t>(a0_plus_a1), array::static_t<unit_t>(b0_plus_b1), c1, tabs_a);
+//printf("%sgot (a0 + a1) * (b0 + b1):\n", tabs.C_String()());
+//for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
+//    printf("%s    idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, c1[idx]);
+//}
             }
             {
                 array::dynamic_t<unit_t> c1_buffer(double_number_count); // return on failure.
@@ -317,6 +365,11 @@ namespace nkr {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
             }
+//printf("%sgot c1:\n", tabs.C_String()());
+//for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
+//    printf("%s    idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, c1[idx]);
+//}
+//printf("\n");
 
             for (index_t idx = 0, end = number_count; idx < end; idx += 1) {
                 result.Push(c0[idx]).Ignore_Error();
@@ -324,6 +377,11 @@ namespace nkr {
             for (index_t idx = number_count, end = double_number_count; idx < end; idx += 1) {
                 result.Push(unit_t(0)).Ignore_Error();
             }
+
+/*printf("before adding:\n");
+for (index_t idx = 0, end = result.Count(); idx < end; idx += 1) {
+    printf("result idx: %zu, val: 0x%2.2X\n", idx, result[idx]);
+}*/
 
             bool_t do_carry = false;
 
@@ -339,6 +397,11 @@ namespace nkr {
                     result[result_idx] += c1[idx];
                     do_carry = result[result_idx] < c1[idx];
                 }
+
+/*printf("after adding c1 %zu:\n", idx);
+for (index_t idx = 0, end = result.Count(); idx < end; idx += 1) {
+    printf("result idx: %zu, val: 0x%2.2X\n", idx, result[idx]);
+}*/
             }
 
             do_carry = false;
@@ -355,7 +418,33 @@ namespace nkr {
                     result[result_idx] += c2[idx];
                     do_carry = result[result_idx] < c2[idx];
                 }
+
+/*printf("after adding c2 %zu:\n", idx);
+for (index_t idx = 0, end = result.Count(); idx < end; idx += 1) {
+    printf("result idx: %zu, val: 0x%2.2X\n", idx, result[idx]);
+}*/
             }
+
+printf("%s---------------\n", tabs.C_String()());
+printf("%sstarts at idx: %zu\n", tabs.C_String()(), word_t(0));
+for (index_t idx = 0, end = c0.Count(); idx < end; idx += 1) {
+    printf("%sc0 idx: %zu, result idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, idx, c0[idx]);
+}
+printf("\n");
+printf("%sstarts at idx: %zu\n", tabs.C_String()(), half_number_count);
+for (index_t idx = 0, end = c1.Count(); idx < end; idx += 1) {
+    printf("%sc1 idx: %zu, result idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, idx + half_number_count, c1[idx]);
+}
+printf("\n");
+printf("%sstarts at idx: %zu\n", tabs.C_String()(), number_count);
+for (index_t idx = 0, end = c2.Count(); idx < end; idx += 1) {
+    printf("%sc2 idx: %zu, result idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, idx + number_count, c2[idx]);
+}
+printf("\n");
+for (index_t idx = 0, end = result.Count(); idx < end; idx += 1) {
+    printf("%sresult idx: %zu, val: 0x%2.2X\n", tabs.C_String()(), idx, result[idx]);
+}
+printf("%s---------------\n", tabs.C_String()());
         }
     }
 
