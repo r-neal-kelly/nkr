@@ -134,7 +134,7 @@ namespace nkr { namespace hasher {
             CHECK(a0_plus_a1[1] == 0x00);
             CHECK(a0_plus_a1[2] == 0x01);
 
-            /*Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
+            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
                                      array::static_t<u8_t>(number_b),
                                      result);
             CHECK(result.Count() == 8);
@@ -145,7 +145,7 @@ namespace nkr { namespace hasher {
             CHECK(result[4] == 0xFF);
             CHECK(result[5] == 0xFF);
             CHECK(result[6] == 0x00);
-            CHECK(result[7] == 0x00);*/
+            CHECK(result[7] == 0x00);
         }
         /*{
             array::stack_t<u8_t, 4> number_a = { u8_t(0xFF), u8_t(0xFF), u8_t(0xFF), u8_t(0xFF) };
