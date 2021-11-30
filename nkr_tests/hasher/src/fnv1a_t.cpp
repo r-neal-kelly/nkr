@@ -103,13 +103,6 @@ namespace nkr { namespace hasher {
             CHECK(result[3] == 0xFF);
         }*/
         {
-            
-
-
-
-
-            constexpr bool test = u64_t(0xFFFFFF) * u64_t(0xFFFFFF) == u64_t(0xFFFFFE000001);
-
             array::stack_t<u8_t, 4> number_a = {
                 u8_t(0xFF),
                 u8_t(0xFF),
@@ -123,17 +116,6 @@ namespace nkr { namespace hasher {
                 u8_t(0x00)
             };
             array::stack_t<u8_t, 8> result;
-
-
-            array::static_t<u8_t> a0(maybe_t<pointer_t<u8_t>>(&number_a[0], 2));
-            array::static_t<u8_t> a1(maybe_t<pointer_t<u8_t>>(&number_a[2], 2));
-            array::dynamic_t<u8_t> a0_plus_a1(4);
-            Add<u8_t>(a0, a1, a0_plus_a1).Ignore_Error();
-            CHECK(a0_plus_a1.Count() == 3);
-            CHECK(a0_plus_a1[0] == 0xFE);
-            CHECK(a0_plus_a1[1] == 0x00);
-            CHECK(a0_plus_a1[2] == 0x01);
-
             Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
                                      array::static_t<u8_t>(number_b),
                                      result);
@@ -146,6 +128,92 @@ namespace nkr { namespace hasher {
             CHECK(result[5] == 0xFF);
             CHECK(result[6] == 0x00);
             CHECK(result[7] == 0x00);
+        }
+        {
+            array::stack_t<u8_t, 8> number_a = {
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF)
+            };
+            array::stack_t<u8_t, 8> number_b = {
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF)
+            };
+            array::stack_t<u8_t, 16> result;
+            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
+                                     array::static_t<u8_t>(number_b),
+                                     result);
+            CHECK(result.Count() == 16);
+            CHECK(result[0] == 0x01);
+            CHECK(result[1] == 0x00);
+            CHECK(result[2] == 0x00);
+            CHECK(result[3] == 0x00);
+            CHECK(result[4] == 0x00);
+            CHECK(result[5] == 0x00);
+            CHECK(result[6] == 0x00);
+            CHECK(result[7] == 0x00);
+            CHECK(result[8] == 0xFE);
+            CHECK(result[9] == 0xFF);
+            CHECK(result[10] == 0xFF);
+            CHECK(result[11] == 0xFF);
+            CHECK(result[12] == 0xFF);
+            CHECK(result[13] == 0xFF);
+            CHECK(result[14] == 0xFF);
+            CHECK(result[15] == 0xFF);
+        }
+        {
+            array::stack_t<u8_t, 8> number_a = {
+                u8_t(0xbe),
+                u8_t(0x40),
+                u8_t(0xc2),
+                u8_t(0xed),
+                u8_t(0x5d),
+                u8_t(0xd9),
+                u8_t(0x7b),
+                u8_t(0xbd)
+            };
+            array::stack_t<u8_t, 8> number_b = {
+                u8_t(0x74),
+                u8_t(0x6b),
+                u8_t(0x8a),
+                u8_t(0xc9),
+                u8_t(0xac),
+                u8_t(0xca),
+                u8_t(0x3b),
+                u8_t(0x24)
+            };
+            array::stack_t<u8_t, 16> result;
+            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
+                                     array::static_t<u8_t>(number_b),
+                                     result);
+            CHECK(result.Count() == 16);
+            CHECK(result[0] == 0x18);
+            CHECK(result[1] == 0xc0);
+            CHECK(result[2] == 0x80);
+            CHECK(result[3] == 0x01);
+            CHECK(result[4] == 0x24);
+            CHECK(result[5] == 0xdc);
+            CHECK(result[6] == 0xab);
+            CHECK(result[7] == 0x35);
+            CHECK(result[8] == 0x8d);
+            CHECK(result[9] == 0xf7);
+            CHECK(result[10] == 0xfb);
+            CHECK(result[11] == 0xeb);
+            CHECK(result[12] == 0x1f);
+            CHECK(result[13] == 0xac);
+            CHECK(result[14] == 0xd1);
+            CHECK(result[15] == 0x1a);
         }
         /*{
             array::stack_t<u8_t, 4> number_a = { u8_t(0xFF), u8_t(0xFF), u8_t(0xFF), u8_t(0xFF) };
