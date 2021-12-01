@@ -117,9 +117,7 @@ namespace nkr { namespace number {
                 u8_t(0x00)
             };
             array::stack_t<u8_t, 8> result;
-            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
-                                     array::static_t<u8_t>(number_b),
-                                     result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
             CHECK(result.Count() == 8);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -152,9 +150,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
-                                     array::static_t<u8_t>(number_b),
-                                     result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -195,9 +191,7 @@ namespace nkr { namespace number {
                 u8_t(0x24)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
-                                     array::static_t<u8_t>(number_b),
-                                     result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x18);
             CHECK(result[1] == 0xc0);

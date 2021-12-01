@@ -420,6 +420,14 @@ namespace nkr {
         pointer_tr<type_p>;
     /// @}        
 
+    template <typename type_p>
+    concept lvalue_reference_tr =
+        std::is_lvalue_reference<type_p>::value;
+
+    template <typename type_p>
+    concept rvalue_reference_tr =
+        std::is_rvalue_reference<type_p>::value;
+
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{
     template <typename type_a_p, typename type_b_p>
