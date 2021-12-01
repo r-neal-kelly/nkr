@@ -241,6 +241,10 @@
     <ClInclude Include="include\nkr\number\signed_negative_t_dox.h" />
     <ClInclude Include="include\nkr\number\signed_positive_t.h" />
     <ClInclude Include="include\nkr\number\signed_positive_t_dox.h" />
+    <ClInclude Include="include\nkr\number\unsigned_arbitrary_t.h" />
+    <ClInclude Include="include\nkr\number\unsigned_arbitrary_t_dec.h" />
+    <ClInclude Include="include\nkr\number\unsigned_arbitrary_t_def.h" />
+    <ClInclude Include="include\nkr\number\unsigned_arbitrary_t_dox.h" />
     <ClInclude Include="include\nkr\optional_t.h" />
     <ClInclude Include="include\nkr\optional_t_dec.h" />
     <ClInclude Include="include\nkr\optional_t_def.h" />

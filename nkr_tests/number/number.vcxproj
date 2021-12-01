@@ -162,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="src\signed_negative_t.cpp" />
     <ClCompile Include="src\signed_positive_t.cpp" />
+    <ClCompile Include="src\unsigned_arbitrary_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">
