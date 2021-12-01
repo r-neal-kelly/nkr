@@ -13,7 +13,7 @@
 namespace nkr { namespace number {
 
     template <integer_unsigned_tr unit_p>
-    maybe_t<allocator_err>
+    inline maybe_t<allocator_err>
         Add(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
             tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
             tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
@@ -92,7 +92,7 @@ namespace nkr { namespace number {
     }
 
     template <integer_unsigned_tr unit_p>
-    void_t
+    inline void_t
         Add_In_Place(tr2<any_non_const_tg, array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
                      const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b)
     {
@@ -118,15 +118,14 @@ namespace nkr { namespace number {
             }
         }
 
-        if (a_digit_count > b_digit_count) {
-            for (index_t idx = min_digit_count, end = a_digit_count; idx < end && do_carry; idx += 1) {
-                do_carry = (number_a[idx] += 1) == 0;
+        if (do_carry && a_digit_count > b_digit_count) {
+            for (index_t idx = min_digit_count, end = a_digit_count; idx < end && (number_a[idx] += 1) == 0; idx += 1) {
             }
         }
     }
 
     template <integer_unsigned_tr unit_p>
-    maybe_t<allocator_err>
+    inline maybe_t<allocator_err>
         Subtract(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
                  tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
                  tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
@@ -211,7 +210,7 @@ namespace nkr { namespace number {
     }
 
     template <integer_unsigned_tr unit_p>
-    void_t
+    inline void_t
         Subtract_In_Place(tr2<any_non_const_tg, array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
                           const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b)
     {
@@ -258,7 +257,7 @@ namespace nkr { namespace number {
     }
 
     //template <integer_unsigned_tr unit_p>
-    //maybe_t<allocator_err>
+    //inline maybe_t<allocator_err>
     //    Left_Shift(tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
     //               count_t bit_count)
     //{
@@ -289,7 +288,7 @@ namespace nkr { namespace number {
     //}
 
     template <integer_unsigned_tr unit_p>
-    void_t
+    inline void_t
         Karatsuba_Multiply(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
                            tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
                            tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
@@ -312,8 +311,8 @@ namespace nkr { namespace number {
         // that just const retrieves the value or returns zero, or whatever the input might be. however,
         // that kind of defeats the purpose, better to assert.
 
-        const count_t number_count = number_a.Count();
-        if (number_count == 1) {
+        const count_t unit_count = number_a.Count();
+        if (unit_count == 1) {
             // this section is why we require that the two operands be of the same number of digits,
             // else we need an arbitrary tradition multiplication function because one of the operands
             // may have a huge number of digits more than the other, and that can't be done as simply as this
@@ -325,14 +324,14 @@ namespace nkr { namespace number {
                 (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max()
             )).Ignore_Error();
         } else {
-            const count_t half_number_count = number_count / 2;
-            const count_t double_number_count = number_count * 2;
+            const count_t half_unit_count = unit_count / 2;
+            const count_t double_unit_count = unit_count * 2;
 
-            array::static_t<unit_t> a0(maybe_t<pointer_t<unit_t>>(&number_a[0], half_number_count));
-            array::static_t<unit_t> a1(maybe_t<pointer_t<unit_t>>(&number_a[half_number_count], half_number_count));
+            array::static_t<unit_t> a0(maybe_t<pointer_t<unit_t>>(&number_a[0], half_unit_count));
+            array::static_t<unit_t> a1(maybe_t<pointer_t<unit_t>>(&number_a[half_unit_count], half_unit_count));
 
-            array::static_t<unit_t> b0(maybe_t<pointer_t<unit_t>>(&number_b[0], half_number_count));
-            array::static_t<unit_t> b1(maybe_t<pointer_t<unit_t>>(&number_b[half_number_count], half_number_count));
+            array::static_t<unit_t> b0(maybe_t<pointer_t<unit_t>>(&number_b[0], half_unit_count));
+            array::static_t<unit_t> b1(maybe_t<pointer_t<unit_t>>(&number_b[half_unit_count], half_unit_count));
 
             // something else we can do is allocate in one block all the allocations in this recursion and use static arrays
             // for the result. This would mean we need to preallocate the result size and fill it with zeros of course.
@@ -346,22 +345,25 @@ namespace nkr { namespace number {
 
             // we still should remove the need for a separate c1 buffer of course, and just use the result buffer.
 
-            array::dynamic_t<unit_t> c0(number_count); // return on failure.
+            // c0 = a0 * b0;
+            array::dynamic_t<unit_t> c0(unit_count); // return on failure.
             Karatsuba_Multiply<unit_t>(a0, b0, c0);
 
-            array::dynamic_t<unit_t> c2(number_count); // return on failure.
+            // c2 = a1 * b1;
+            array::dynamic_t<unit_t> c2(unit_count); // return on failure.
             Karatsuba_Multiply<unit_t>(a1, b1, c2);
 
+            // c1 = (a0 + a1) * (b0 + b1) - c2 - c0;
             auto& c1 = result;
             {
-                array::dynamic_t<unit_t> a0_plus_a1(number_count); // return on failure.
+                array::dynamic_t<unit_t> a0_plus_a1(unit_count); // return on failure.
                 Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
 
-                array::dynamic_t<unit_t> b0_plus_b1(number_count); // return on failure.
+                array::dynamic_t<unit_t> b0_plus_b1(unit_count); // return on failure.
                 Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
 
                 count_t rounded_power_of_2 = math::Round_To_Power_Of_2(std::max(a0_plus_a1.Count(), b0_plus_b1.Count()));
-                nkr_ASSERT_THAT(rounded_power_of_2 <= number_count);
+                nkr_ASSERT_THAT(rounded_power_of_2 <= unit_count);
                 while (a0_plus_a1.Count() < rounded_power_of_2) {
                     a0_plus_a1.Push(unit_t(0)).Ignore_Error();
                 }
@@ -370,53 +372,67 @@ namespace nkr { namespace number {
                 }
 
                 Karatsuba_Multiply<unit_t>(array::static_t<unit_t>(a0_plus_a1), array::static_t<unit_t>(b0_plus_b1), c1);
-                while (c1.Count() < double_number_count) {
+                while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
             }
             Subtract_In_Place<unit_t>(c1, c2);
             Subtract_In_Place<unit_t>(c1, c0);
 
-            bool_t do_carry = false;
+            // b = std::numeric_limits<unit_t>::max() + 1; (a single 'digit' in our array)
+            // m2 = half_unit_count;
+            // result = (c2 x b ^ (m2 x 2)) + (c1 x b ^ m2) + c0;
 
-            for (index_t idx = double_number_count - 1, end = half_number_count; idx >= end; idx -= 1) {
-                c1[idx] = c1[idx - half_number_count];
-            }
-            for (index_t idx = 0, end = half_number_count; idx < end; idx += 1) {
-                c1[idx] = unit_t(0);
+            // result = c1 x b ^ m2;
+            {
+                for (index_t idx = double_unit_count - 1, end = half_unit_count; idx >= end; idx -= 1) {
+                    c1[idx] = c1[idx - half_unit_count];
+                }
+                for (index_t idx = 0, end = half_unit_count; idx < end; idx += 1) {
+                    c1[idx] = unit_t(0);
+                }
             }
 
-            for (index_t idx = 0, end = number_count; idx < end; idx += 1) {
-                if (do_carry) {
-                    if ((c1[idx] += 1) == 0) {
-                        c1[idx] = c0[idx];
+            // result += c0;
+            {
+                bool_t do_carry = false;
+
+                for (index_t idx = 0, end = unit_count; idx < end; idx += 1) {
+                    if (do_carry) {
+                        if ((c1[idx] += 1) == 0) {
+                            c1[idx] = c0[idx];
+                        } else {
+                            c1[idx] += c0[idx];
+                            do_carry = c1[idx] < c0[idx];
+                        }
                     } else {
                         c1[idx] += c0[idx];
                         do_carry = c1[idx] < c0[idx];
                     }
-                } else {
-                    c1[idx] += c0[idx];
-                    do_carry = c1[idx] < c0[idx];
                 }
-            }
-            if (do_carry) {
-                for (index_t idx = number_count, end = double_number_count; idx < end && (c1[idx] += 1) == 0; idx += 1) {
-                }
-            }
 
-            do_carry = false;
-
-            for (index_t c2_idx = 0, c1_idx = number_count, end = number_count; c2_idx < end; c2_idx += 1, c1_idx += 1) {
                 if (do_carry) {
-                    if ((c1[c1_idx] += 1) == 0) {
-                        c1[c1_idx] = c2[c2_idx];
+                    for (index_t idx = unit_count, end = double_unit_count; idx < end && (c1[idx] += 1) == 0; idx += 1) {
+                    }
+                }
+            }
+
+            // result += c2 x b ^ (m2 x 2);
+            {
+                bool_t do_carry = false;
+
+                for (index_t c2_idx = 0, c1_idx = unit_count, end = unit_count; c2_idx < end; c2_idx += 1, c1_idx += 1) {
+                    if (do_carry) {
+                        if ((c1[c1_idx] += 1) == 0) {
+                            c1[c1_idx] = c2[c2_idx];
+                        } else {
+                            c1[c1_idx] += c2[c2_idx];
+                            do_carry = c1[c1_idx] < c2[c2_idx];
+                        }
                     } else {
                         c1[c1_idx] += c2[c2_idx];
                         do_carry = c1[c1_idx] < c2[c2_idx];
                     }
-                } else {
-                    c1[c1_idx] += c2[c2_idx];
-                    do_carry = c1[c1_idx] < c2[c2_idx];
                 }
             }
         }
