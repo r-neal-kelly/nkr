@@ -202,6 +202,7 @@ namespace nkr { namespace number {
         for (index_t idx = 0, end = result.Count(); idx < end && (result[idx] += 1) == 0; idx += 1) {
         }
 
+        // I don't know if I really want this to happen.
         for (count_t count = result.Count(); count > 1 && result[count - 1] == 0; count -= 1) {
             result.Pop();
         }
@@ -305,6 +306,12 @@ namespace nkr { namespace number {
         nkr_ASSERT_THAT(result.Count() == 0);
         nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
 
+        // something I just realized is that we can have an extended static array functionality that
+        // actually allows one to specify that after a certain index, return 0. but, one would not be
+        // able to alter the array at that point, so we can either assert or have a separate function
+        // that just const retrieves the value or returns zero, or whatever the input might be. however,
+        // that kind of defeats the purpose, better to assert.
+
         const count_t number_count = number_a.Count();
         if (number_count == 1) {
             // this section is why we require that the two operands be of the same number of digits,
@@ -327,14 +334,25 @@ namespace nkr { namespace number {
             array::static_t<unit_t> b0(maybe_t<pointer_t<unit_t>>(&number_b[0], half_number_count));
             array::static_t<unit_t> b1(maybe_t<pointer_t<unit_t>>(&number_b[half_number_count], half_number_count));
 
+            // something else we can do is allocate in one block all the allocations in this recursion and use static arrays
+            // for the result. This would mean we need to preallocate the result size and fill it with zeros of course.
+            // this can be extended to a function that calls this function and preallocates all necessary space before hand,
+            // parceling out the static arrays as we go. essentially a special purpose memory pool that can't allocate anything
+            // but the next spot in the array
+
+            // I think it's (total memory per recursion in this if bracket) * (total-digit-count / 2 - 1)
+            // that way we don't have to worry about allocation failures except to assert that it shouldn't happen.
+            // we can return very early if there is a memory pool allocation, before we even call this function
+
+            // we still should remove the need for a separate c1 buffer of course, and just use the result buffer.
+
             array::dynamic_t<unit_t> c0(number_count); // return on failure.
             Karatsuba_Multiply<unit_t>(a0, b0, c0);
 
             array::dynamic_t<unit_t> c2(number_count); // return on failure.
             Karatsuba_Multiply<unit_t>(a1, b1, c2);
 
-            // we should be able to use the result buffer as the the c1 buffer and then left shift by one digit before adding c0 and c2
-            array::dynamic_t<unit_t> c1(double_number_count); // return on failure.
+            auto& c1 = result;
             {
                 array::dynamic_t<unit_t> a0_plus_a1(number_count); // return on failure.
                 Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
@@ -359,46 +377,46 @@ namespace nkr { namespace number {
             Subtract_In_Place<unit_t>(c1, c2);
             Subtract_In_Place<unit_t>(c1, c0);
 
-            for (index_t idx = 0, end = number_count; idx < end; idx += 1) {
-                result.Push(c0[idx]).Ignore_Error();
-            }
-            for (index_t idx = number_count, end = double_number_count; idx < end; idx += 1) {
-                result.Push(unit_t(0)).Ignore_Error();
-            }
-
             bool_t do_carry = false;
 
-            for (index_t idx = 0, result_idx = half_number_count, end = double_number_count - half_number_count;
-                 idx < end;
-                 idx += 1, result_idx += 1) {
+            for (index_t idx = double_number_count - 1, end = half_number_count; idx >= end; idx -= 1) {
+                c1[idx] = c1[idx - half_number_count];
+            }
+            for (index_t idx = 0, end = half_number_count; idx < end; idx += 1) {
+                c1[idx] = unit_t(0);
+            }
+
+            for (index_t idx = 0, end = number_count; idx < end; idx += 1) {
                 if (do_carry) {
-                    if ((result[result_idx] += 1) == 0) {
-                        result[result_idx] = c1[idx];
+                    if ((c1[idx] += 1) == 0) {
+                        c1[idx] = c0[idx];
                     } else {
-                        result[result_idx] += c1[idx];
-                        do_carry = result[result_idx] < c1[idx];
+                        c1[idx] += c0[idx];
+                        do_carry = c1[idx] < c0[idx];
                     }
                 } else {
-                    result[result_idx] += c1[idx];
-                    do_carry = result[result_idx] < c1[idx];
+                    c1[idx] += c0[idx];
+                    do_carry = c1[idx] < c0[idx];
+                }
+            }
+            if (do_carry) {
+                for (index_t idx = number_count, end = double_number_count; idx < end && (c1[idx] += 1) == 0; idx += 1) {
                 }
             }
 
             do_carry = false;
 
-            for (index_t idx = 0, result_idx = number_count, end = number_count;
-                 idx < end;
-                 idx += 1, result_idx += 1) {
+            for (index_t c2_idx = 0, c1_idx = number_count, end = number_count; c2_idx < end; c2_idx += 1, c1_idx += 1) {
                 if (do_carry) {
-                    if ((result[result_idx] += 1) == 0) {
-                        result[result_idx] = c2[idx];
+                    if ((c1[c1_idx] += 1) == 0) {
+                        c1[c1_idx] = c2[c2_idx];
                     } else {
-                        result[result_idx] += c2[idx];
-                        do_carry = result[result_idx] < c2[idx];
+                        c1[c1_idx] += c2[c2_idx];
+                        do_carry = c1[c1_idx] < c2[c2_idx];
                     }
                 } else {
-                    result[result_idx] += c2[idx];
-                    do_carry = result[result_idx] < c2[idx];
+                    c1[c1_idx] += c2[c2_idx];
+                    do_carry = c1[c1_idx] < c2[c2_idx];
                 }
             }
         }

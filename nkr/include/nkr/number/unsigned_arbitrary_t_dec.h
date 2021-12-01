@@ -50,4 +50,9 @@ namespace nkr { namespace number {
         // but interally it will always be in little endian, least significant byte first
     };
 
+    // for the above type when we have say a *= method, it will be allowed to grow its internal array, including for += and -=.
+    // we do have in-place functions above that allow for the integer to overflow, however I'm not sure how to best reveal that
+    // functionality in the type. We'll do the above because it seems unlikely we'll develop and overflow mult method, just too hard.
+    // instead we'll grow the internal array by the necessary amount and return on failure else calc.
+
 }}
