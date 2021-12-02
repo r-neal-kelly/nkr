@@ -104,29 +104,21 @@ namespace nkr { namespace number {
         }*/
 
         {
-            array::stack_t<u8_t, 4> number_a = {
-                u8_t(0xFF),
-                u8_t(0xFF),
-                u8_t(0xFF),
-                u8_t(0x00)
+            array::stack_t<u16_t, 2> number_a = {
+                u16_t(0xFFFF),
+                u16_t(0x00FF)
             };
-            array::stack_t<u8_t, 4> number_b = {
-                u8_t(0xFF),
-                u8_t(0xFF),
-                u8_t(0xFF),
-                u8_t(0x00)
+            array::stack_t<u16_t, 2> number_b = {
+                u16_t(0xFFFF),
+                u16_t(0x00FF)
             };
-            array::stack_t<u8_t, 8> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
-            CHECK(result.Count() == 8);
-            CHECK(result[0] == 0x01);
-            CHECK(result[1] == 0x00);
-            CHECK(result[2] == 0x00);
-            CHECK(result[3] == 0xFE);
-            CHECK(result[4] == 0xFF);
-            CHECK(result[5] == 0xFF);
-            CHECK(result[6] == 0x00);
-            CHECK(result[7] == 0x00);
+            array::stack_t<u16_t, 4> result;
+            Karatsuba_Multiply<u16_t>(number_a, number_b, result);
+            CHECK(result.Count() == 4);
+            CHECK(result[0] == 0x0001);
+            CHECK(result[1] == 0xFE00);
+            CHECK(result[2] == 0xFFFF);
+            CHECK(result[3] == 0x0000);
         }
         {
             array::stack_t<u8_t, 8> number_a = {

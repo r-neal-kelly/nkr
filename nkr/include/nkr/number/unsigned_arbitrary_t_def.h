@@ -293,25 +293,18 @@ namespace nkr { namespace number {
                            const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
                            tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
-        using unit_t                = unit_p;
-        using qualified_a_unit_t    = same_qualification_as_t<unit_t, std::remove_reference_t<decltype(number_a)>>;
-        using qualified_b_unit_t    = same_qualification_as_t<unit_t, std::remove_reference_t<decltype(number_b)>>;
-        using safe_multiply_t       = word_t;
+        using unit_t = unit_p;
+        using qualified_unit_a_t = same_qualification_as_t<unit_t, std::remove_reference_t<decltype(number_a)>>;
+        using qualified_unit_b_t = same_qualification_as_t<unit_t, std::remove_reference_t<decltype(number_b)>>;
+        using safe_multiply_t = word_t;
 
         static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
 
-        // we treat the numbers just like any built-in integer
         nkr_ASSERT_THAT(number_a.Count() > 0);
-        nkr_ASSERT_THAT(number_a.Count() % 2 == 0 || number_a.Count() == 1);
+        //nkr_ASSERT_THAT(number_a.Count() % 2 == 0 || number_a.Count() == 1); // I would like to remove this requirement if possible.
         nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
         nkr_ASSERT_THAT(result.Count() == 0);
         nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
-
-        // something I just realized is that we can have an extended static array functionality that
-        // actually allows one to specify that after a certain index, return 0. but, one would not be
-        // able to alter the array at that point, so we can either assert or have a separate function
-        // that just const retrieves the value or returns zero, or whatever the input might be. however,
-        // that kind of defeats the purpose, better to assert.
 
         const count_t unit_count = number_a.Count();
         if (unit_count == 1) {
@@ -326,14 +319,19 @@ namespace nkr { namespace number {
                 (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max()
             )).Ignore_Error();
         } else {
-            const count_t half_unit_count = unit_count / 2;
+            const count_t low_unit_count = unit_count / 2;
+            const count_t high_unit_count = unit_count - low_unit_count;
             const count_t double_unit_count = unit_count * 2;
 
-            array::static_t<qualified_a_unit_t> a0(maybe_t<pointer_t<qualified_a_unit_t>>(&number_a[0], half_unit_count));
-            array::static_t<qualified_a_unit_t> a1(maybe_t<pointer_t<qualified_a_unit_t>>(&number_a[half_unit_count], half_unit_count));
+            array::static_t<qualified_unit_a_t>
+                a0(maybe_t<pointer_t<qualified_unit_a_t>>(&number_a[0], low_unit_count));
+            array::static_t<qualified_unit_a_t>
+                a1(maybe_t<pointer_t<qualified_unit_a_t>>(&number_a[low_unit_count], high_unit_count));
 
-            array::static_t<qualified_b_unit_t> b0(maybe_t<pointer_t<qualified_b_unit_t>>(&number_b[0], half_unit_count));
-            array::static_t<qualified_b_unit_t> b1(maybe_t<pointer_t<qualified_b_unit_t>>(&number_b[half_unit_count], half_unit_count));
+            array::static_t<qualified_unit_b_t>
+                b0(maybe_t<pointer_t<qualified_unit_b_t>>(&number_b[0], low_unit_count));
+            array::static_t<qualified_unit_b_t>
+                b1(maybe_t<pointer_t<qualified_unit_b_t>>(&number_b[low_unit_count], high_unit_count));
 
             // something else we can do is allocate in one block all the allocations in this recursion and use static arrays
             // for the result. This would mean we need to preallocate the result size and fill it with zeros of course.
@@ -351,11 +349,11 @@ namespace nkr { namespace number {
             // we still should remove the need for a separate c1 buffer of course, and just use the result buffer.
 
             // c0 = a0 * b0;
-            array::dynamic_t<unit_t> c0(unit_count); // return on failure.
+            array::dynamic_t<unit_t> c0(low_unit_count * 2); // return on failure.
             Karatsuba_Multiply<unit_t>(a0, b0, c0);
 
             // c2 = a1 * b1;
-            array::dynamic_t<unit_t> c2(unit_count); // return on failure.
+            array::dynamic_t<unit_t> c2(high_unit_count * 2); // return on failure.
             Karatsuba_Multiply<unit_t>(a1, b1, c2);
 
             // c1 = (a0 + a1) * (b0 + b1) - c2 - c0;
@@ -368,15 +366,38 @@ namespace nkr { namespace number {
                 array::dynamic_t<unit_t> b0_plus_b1(unit_count); // return on failure.
                 Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
 
-                count_t rounded_power_of_2 = math::Round_To_Power_Of_2(std::max(a0_plus_a1.Count(), b0_plus_b1.Count()));
+                /*count_t rounded_power_of_2 = math::Round_To_Power_Of_2(std::max(a0_plus_a1.Count(), b0_plus_b1.Count()));
                 nkr_ASSERT_THAT(rounded_power_of_2 <= unit_count);
                 while (a0_plus_a1.Count() < rounded_power_of_2) {
                     a0_plus_a1.Push(unit_t(0)).Ignore_Error();
                 }
                 while (b0_plus_b1.Count() < rounded_power_of_2) {
                     b0_plus_b1.Push(unit_t(0)).Ignore_Error();
+                }*/
+
+                count_t a0_plus_a1_count = a0_plus_a1.Count();
+                count_t b0_plus_b1_count = b0_plus_b1.Count();
+                if (a0_plus_a1_count < b0_plus_b1_count) {
+                    for (index_t idx = 0, end = b0_plus_b1_count - a0_plus_a1_count; idx < end; idx += 1) {
+                        a0_plus_a1.Push(unit_t(0)).Ignore_Error();
+                    }
+                }
+                if (b0_plus_b1_count < a0_plus_a1_count) {
+                    for (index_t idx = 0, end = a0_plus_a1_count - b0_plus_b1_count; idx < end; idx += 1) {
+                        b0_plus_b1.Push(unit_t(0)).Ignore_Error();
+                    }
                 }
 
+                // because we only need one more digit than half the unit count to get the result here,
+                // it would be nice if we could point to the half unit count index of this double count sized array,
+                // that way we don't actually have to shift later, which will save a lot of time for large arrays.
+                // that would mean we should be passing an result array that already has all the units zeroed out,
+                // which also is slow. better to write the zeros at the beginning of the array after getting result back,
+                // but that would mean we couldn't reuse the buffer later below because it won't be big enough unless we increase
+                // the require count from double_unit_count to double_unit_count + half_unit_count.
+                // hence a trade off between memory and processing. better to save on memory in this case I think, so this is simpler.
+                // wait. the end result here is always half_unit_count + 1. that means it can do the calc in that space, right?
+                // that would mean we just have to make sure we don't go past the end in the next section.
                 Karatsuba_Multiply<unit_t>(a0_plus_a1, b0_plus_b1, c1);
                 while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
@@ -386,48 +407,28 @@ namespace nkr { namespace number {
             Subtract_In_Place<unit_t>(c1, c0);
 
             // b = std::numeric_limits<unit_t>::max() + 1; (a single 'digit' in our array)
-            // m2 = half_unit_count;
+            // m2 = low_unit_count;
             // result = (c2 x b ^ (m2 x 2)) + (c1 x b ^ m2) + c0;
 
             // result = c1 x b ^ m2;
             {
-                for (index_t idx = double_unit_count - 1, end = half_unit_count; idx >= end; idx -= 1) {
-                    c1[idx] = c1[idx - half_unit_count];
+                // I want to avoid doing this by simply pointing to the low_unit_count index to start a write on the multiply.
+                for (index_t idx = double_unit_count - 1, end = low_unit_count; idx >= end; idx -= 1) {
+                    c1[idx] = c1[idx - low_unit_count];
                 }
-                for (index_t idx = 0, end = half_unit_count; idx < end; idx += 1) {
+                for (index_t idx = 0, end = low_unit_count; idx < end; idx += 1) {
                     c1[idx] = unit_t(0);
                 }
             }
 
             // result += c0;
-            {
-                bool_t do_carry = false;
-
-                for (index_t idx = 0, end = unit_count; idx < end; idx += 1) {
-                    if (do_carry) {
-                        if ((c1[idx] += 1) == 0) {
-                            c1[idx] = c0[idx];
-                        } else {
-                            c1[idx] += c0[idx];
-                            do_carry = c1[idx] < c0[idx];
-                        }
-                    } else {
-                        c1[idx] += c0[idx];
-                        do_carry = c1[idx] < c0[idx];
-                    }
-                }
-
-                if (do_carry) {
-                    for (index_t idx = unit_count, end = double_unit_count; idx < end && (c1[idx] += 1) == 0; idx += 1) {
-                    }
-                }
-            }
+            Add_In_Place<unit_t>(c1, c0);
 
             // result += c2 x b ^ (m2 x 2);
             {
                 bool_t do_carry = false;
 
-                for (index_t c2_idx = 0, c1_idx = unit_count, end = unit_count; c2_idx < end; c2_idx += 1, c1_idx += 1) {
+                for (index_t c2_idx = 0, c1_idx = low_unit_count * 2, end = c2.Count(); c2_idx < end; c2_idx += 1, c1_idx += 1) {
                     if (do_carry) {
                         if ((c1[c1_idx] += 1) == 0) {
                             c1[c1_idx] = c2[c2_idx];
