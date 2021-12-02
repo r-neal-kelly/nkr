@@ -301,7 +301,6 @@ namespace nkr { namespace number {
         static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
 
         nkr_ASSERT_THAT(number_a.Count() > 0);
-        //nkr_ASSERT_THAT(number_a.Count() % 2 == 0 || number_a.Count() == 1); // I would like to remove this requirement if possible.
         nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
         nkr_ASSERT_THAT(result.Count() == 0);
         nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
@@ -310,7 +309,9 @@ namespace nkr { namespace number {
         if (unit_count == 1) {
             // this section is why we require that the two operands be of the same number of digits,
             // else we need an arbitrary tradition multiplication function because one of the operands
-            // may have a huge number of digits more than the other, and that can't be done as simply as this
+            // may have a huge number of digits more than the other, and that can't be done as simply as this.
+            // however, if we ever do implement that, we would be able to use word_t as units, however I doubt it
+            // would be any more performant at that point than just using a half word with this quicker algorithm.
             const safe_multiply_t a_times_b = number_a[0] * number_b[0];
             result.Push(unit_t(
                 a_times_b & std::numeric_limits<unit_t>::max()
@@ -345,35 +346,18 @@ namespace nkr { namespace number {
             // (4 * unit_count) * (top_unit_count / 2 - 1) * 2 ---- because of the third recursion
             // that way we don't have to worry about allocation failures except to assert that it shouldn't happen.
             // we can return very early if there is a memory pool allocation, before we even call this function
-
-            // we still should remove the need for a separate c1 buffer of course, and just use the result buffer.
-
-            // c0 = a0 * b0;
-            array::dynamic_t<unit_t> c0(low_unit_count * 2); // return on failure.
-            Karatsuba_Multiply<unit_t>(a0, b0, c0);
-
-            // c2 = a1 * b1;
-            array::dynamic_t<unit_t> c2(high_unit_count * 2); // return on failure.
-            Karatsuba_Multiply<unit_t>(a1, b1, c2);
-
-            // c1 = (a0 + a1) * (b0 + b1) - c2 - c0;
+            
+            // c1 = (a0 + a1) * (b0 + b1);
             auto& c1 = result;
             {
-                // if we do the _plus_'s first, I think we'll need less memory overall.
+                // if we multiply the _plus_'s before calc'ing c0 and c2, we'll need less memory overall
+                // because the plus memory will be released whereas the c0 and c2 must stay till the end.
+                // this is useful even when we start to provide this function its own memory pool also.
                 array::dynamic_t<unit_t> a0_plus_a1(unit_count); // return on failure.
                 Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
 
                 array::dynamic_t<unit_t> b0_plus_b1(unit_count); // return on failure.
                 Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
-
-                /*count_t rounded_power_of_2 = math::Round_To_Power_Of_2(std::max(a0_plus_a1.Count(), b0_plus_b1.Count()));
-                nkr_ASSERT_THAT(rounded_power_of_2 <= unit_count);
-                while (a0_plus_a1.Count() < rounded_power_of_2) {
-                    a0_plus_a1.Push(unit_t(0)).Ignore_Error();
-                }
-                while (b0_plus_b1.Count() < rounded_power_of_2) {
-                    b0_plus_b1.Push(unit_t(0)).Ignore_Error();
-                }*/
 
                 count_t a0_plus_a1_count = a0_plus_a1.Count();
                 count_t b0_plus_b1_count = b0_plus_b1.Count();
@@ -403,6 +387,16 @@ namespace nkr { namespace number {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
             }
+
+            // c0 = a0 * b0;
+            array::dynamic_t<unit_t> c0(low_unit_count * 2); // return on failure.
+            Karatsuba_Multiply<unit_t>(a0, b0, c0);
+
+            // c2 = a1 * b1;
+            array::dynamic_t<unit_t> c2(high_unit_count * 2); // return on failure.
+            Karatsuba_Multiply<unit_t>(a1, b1, c2);
+
+            // c1 = c1 - c2 - c0;
             Subtract_In_Place<unit_t>(c1, c2);
             Subtract_In_Place<unit_t>(c1, c0);
 
@@ -412,7 +406,7 @@ namespace nkr { namespace number {
 
             // result = c1 x b ^ m2;
             {
-                // I want to avoid doing this by simply pointing to the low_unit_count index to start a write on the multiply.
+                // I want to avoid doing this by simply pointing to the low_unit_count index to start a write on the above multiply.
                 for (index_t idx = double_unit_count - 1, end = low_unit_count; idx >= end; idx -= 1) {
                     c1[idx] = c1[idx - low_unit_count];
                 }
