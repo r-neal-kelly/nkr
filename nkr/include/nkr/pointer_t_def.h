@@ -8,6 +8,23 @@
 #include "nkr/pointer_t_dec.h"
 #include "nkr/utils.h"
 
+namespace nkr {
+
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<pointer_tg>::Is_Any()
+    {
+        return $pointer_t::any_tr<other_p>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<pointer_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
 namespace nkr { namespace $pointer_t {
 
     template <any_type_tr unit_p>

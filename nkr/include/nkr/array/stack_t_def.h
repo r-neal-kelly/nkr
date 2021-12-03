@@ -121,16 +121,9 @@ namespace nkr { namespace array {
         stack_t<unit_p, capacity_p>::Array(is_any_tr<stack_t> auto& self)
     {
         using self_t = std::remove_reference_t<decltype(self)>;
+        using qualified_array_t = accessed_qualification_of_t<array_t, self_t>;
 
-        if constexpr (just_const_tr<self_t>) {
-            return reinterpret_cast<const array_t&>(self.byte_array);
-        } else if constexpr (just_volatile_tr<self_t>) {
-            return reinterpret_cast<volatile array_t&>(self.byte_array);
-        } else if constexpr (just_const_volatile_tr<self_t>) {
-            return reinterpret_cast<const volatile array_t&>(self.byte_array);
-        } else {
-            return reinterpret_cast<array_t&>(self.byte_array);
-        }
+        return reinterpret_cast<qualified_array_t&>(self.byte_array);
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -144,6 +137,17 @@ namespace nkr { namespace array {
         } else {
             return reinterpret_cast<writable_array_t&>(self.byte_array);
         }
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline auto
+        stack_t<unit_p, capacity_p>::Pointer(tr1<any_tg, stack_t> auto& self)
+    {
+        using self_t = std::remove_reference_t<decltype(self)>;
+        using qualified_unit_t = accessed_qualification_of_t<unit_t, self_t>;
+
+        return maybe_t<pointer_t<qualified_unit_t>>
+            (reinterpret_cast<qualified_unit_t*>(self.byte_array), Count(self));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -543,6 +547,45 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<pointer_t<typename stack_t<unit_p, capacity_p>::unit_t>>
+        stack_t<unit_p, capacity_p>::Pointer()
+    {
+        static_assert(is_tr<decltype(Pointer(*this)), maybe_t<pointer_t<unit_t>>>);
+
+        return Pointer(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<pointer_t<const typename stack_t<unit_p, capacity_p>::unit_t>>
+        stack_t<unit_p, capacity_p>::Pointer()
+        const
+    {
+        static_assert(is_tr<decltype(Pointer(*this)), maybe_t<pointer_t<const unit_t>>>);
+
+        return Pointer(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<pointer_t<volatile typename stack_t<unit_p, capacity_p>::unit_t>>
+        stack_t<unit_p, capacity_p>::Pointer()
+        volatile
+    {
+        static_assert(is_tr<decltype(Pointer(*this)), maybe_t<pointer_t<volatile unit_t>>>);
+
+        return Pointer(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<pointer_t<const volatile typename stack_t<unit_p, capacity_p>::unit_t>>
+        stack_t<unit_p, capacity_p>::Pointer()
+        const volatile
+    {
+        static_assert(is_tr<decltype(Pointer(*this)), maybe_t<pointer_t<const volatile unit_t>>>);
+
+        return Pointer(*this);
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline maybe_t<allocator_err>
         stack_t<unit_p, capacity_p>::Capacity(count_t new_capacity)
     {
@@ -788,3 +831,28 @@ namespace nkr { namespace array {
     }
 
 }}
+
+namespace nkr {
+
+    template <tr1<any_tg, array::stack_tg> array_p, count_t min_unit_count_p, count_t max_unit_count_p>
+    inline auto
+        Random()
+    {
+        using namespace array;
+
+        using unit_t = array_p::unit_t;
+
+        nkr_ASSERT_THAT(min_unit_count_p >= 1);
+        nkr_ASSERT_THAT(max_unit_count_p >= 1);
+        nkr_ASSERT_THAT(min_unit_count_p <= max_unit_count_p);
+
+        stack_t<unit_t, max_unit_count_p> array;
+
+        for (index_t idx = 0, end = Random<count_t>(min_unit_count_p, max_unit_count_p); idx < end; idx += 1) {
+            array.Push(Random<unit_t>()).Ignore_Error();
+        }
+
+        return array;
+    }
+
+}

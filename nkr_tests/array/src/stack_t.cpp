@@ -24,7 +24,7 @@ namespace nkr { namespace array {
 
     #define nkr_UNITS(QUALIFIER_p)                  \
         nkr_CAPACITIES(QUALIFIER_p, std_bool_t),    \
-        nkr_CAPACITIES(QUALIFIER_p, bool_t),        \
+        /*nkr_CAPACITIES(QUALIFIER_p, bool_t),*/        \
         nkr_CAPACITIES(QUALIFIER_p, void_t*)
 
     #define nkr_UNQUALIFIED     \
@@ -41,6 +41,9 @@ namespace nkr { namespace array {
     #define nkr_ALL     \
         nkr_NON_CONST,  \
         nkr_CONST
+
+    #define nkr_RANDOM_ARRAY_t(...)                                                 \
+        same_qualification_as_t<decltype(Random<array_t, __VA_ARGS__>()), array_t>
 
         TEST_SUITE("aliases")
         {
@@ -631,6 +634,47 @@ namespace nkr { namespace array {
                             stack.Array()[idx] = random;
                             CHECK(stack.Array()[idx] != array[idx]);
                         }
+                    }
+                }
+            }
+
+            TEST_SUITE("Pointer()")
+            {
+                TEST_CASE_TEMPLATE("should always return some pointer because there is always an array", stack_p, nkr_ALL)
+                {
+                    using array_t = stack_p;
+
+                    nkr_RANDOM_ARRAY_t() array = Random<array_t>();
+                    auto pointer = array.Pointer();
+                    CHECK(pointer != nullptr);
+                }
+
+                TEST_CASE_TEMPLATE("should return a pointer with the same unit count as the array", stack_p, nkr_ALL)
+                {
+                    using array_t = stack_p;
+
+                    nkr_RANDOM_ARRAY_t() array = Random<array_t>();
+                    auto pointer = array.Pointer();
+                    CHECK(pointer.Unit_Count() == array.Count());
+                }
+
+                TEST_CASE_TEMPLATE("should be able to return a pointer with a unit count of 0", stack_p, nkr_ALL)
+                {
+                    using array_t = stack_p;
+
+                    array_t array;
+                    auto pointer = array.Pointer();
+                    CHECK(pointer.Unit_Count() == 0);
+                }
+
+                TEST_CASE_TEMPLATE("should return a pointer to the units of the array", stack_p, nkr_ALL)
+                {
+                    using array_t = stack_p;
+
+                    nkr_RANDOM_ARRAY_t() array = Random<array_t>();
+                    auto pointer = array.Pointer();
+                    for (index_t idx = 0, end = pointer.Unit_Count(); idx < end; idx += 1) {
+                        CHECK(pointer[idx] == array[idx]);
                     }
                 }
             }

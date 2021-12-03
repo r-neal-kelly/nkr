@@ -549,6 +549,40 @@ namespace nkr {
     template <typename subject_p, typename object_p>
     using same_qualification_as_t   = same_qualification_as_tmpl<subject_p, object_p>::type_t;
 
+    template <typename child_p, typename parent_p>
+    class accessed_qualification_of_tmpl;
+
+    template <typename child_p, just_non_qualified_tr parent_p>
+    class accessed_qualification_of_tmpl<child_p, parent_p>
+    {
+    public:
+        using type_t    = child_p;
+    };
+
+    template <typename child_p, just_const_tr parent_p>
+    class accessed_qualification_of_tmpl<child_p, parent_p>
+    {
+    public:
+        using type_t    = std::add_const_t<child_p>;
+    };
+
+    template <typename child_p, just_volatile_tr parent_p>
+    class accessed_qualification_of_tmpl<child_p, parent_p>
+    {
+    public:
+        using type_t    = std::add_volatile_t<child_p>;
+    };
+
+    template <typename child_p, just_const_volatile_tr parent_p>
+    class accessed_qualification_of_tmpl<child_p, parent_p>
+    {
+    public:
+        using type_t    = std::add_const_t<std::add_volatile_t<child_p>>;
+    };
+
+    template <typename child_p, typename parent_p>
+    using accessed_qualification_of_t   = accessed_qualification_of_tmpl<child_p, parent_p>::type_t;
+
 }
 
 namespace nkr {
@@ -698,61 +732,106 @@ namespace nkr {
     public:
     };
 
-    struct any_tg                           { static const c_bool_t is_not = false; };
-    struct any_qualified_tg                 { static const c_bool_t is_not = false; };
-    struct any_non_qualified_tg             { static const c_bool_t is_not = false; };
-    struct any_const_tg                     { static const c_bool_t is_not = false; };
-    struct any_non_const_tg                 { static const c_bool_t is_not = false; };
-    struct any_volatile_tg                  { static const c_bool_t is_not = false; };
-    struct any_non_volatile_tg              { static const c_bool_t is_not = false; };
+    template <typename child_p, typename parent_p, c_bool_t do_access>
+    class accessed_or_not_tmpl
+    {
+    public:
+        using type_t    = child_p;
+    };
 
-    struct not_any_tg                       { static const c_bool_t is_not = true; using is_tg = any_tg; };
-    struct not_any_qualified_tg             { static const c_bool_t is_not = true; using is_tg = any_qualified_tg; };
-    struct not_any_non_qualified_tg         { static const c_bool_t is_not = true; using is_tg = any_non_qualified_tg; };
-    struct not_any_const_tg                 { static const c_bool_t is_not = true; using is_tg = any_const_tg; };
-    struct not_any_non_const_tg             { static const c_bool_t is_not = true; using is_tg = any_non_const_tg; };
-    struct not_any_volatile_tg              { static const c_bool_t is_not = true; using is_tg = any_volatile_tg; };
-    struct not_any_non_volatile_tg          { static const c_bool_t is_not = true; using is_tg = any_non_volatile_tg; };
+    template <typename child_p, typename parent_p>
+    class accessed_or_not_tmpl<child_p, parent_p, true>
+    {
+    public:
+        using type_t    = accessed_qualification_of_t<child_p, parent_p>;
+    };
 
-    struct just_tg                          { static const c_bool_t is_not = false; };
-    struct just_non_qualified_tg            { static const c_bool_t is_not = false; };
-    struct just_const_tg                    { static const c_bool_t is_not = false; };
-    struct just_volatile_tg                 { static const c_bool_t is_not = false; };
-    struct just_const_volatile_tg           { static const c_bool_t is_not = false; };
+    template <typename child_p, typename parent_p, c_bool_t do_access>
+    using accessed_or_not_t = accessed_or_not_tmpl<child_p, parent_p, do_access>::type_t;
 
-    struct just_not_tg                      { static const c_bool_t is_not = true; using is_tg = just_tg; };
-    struct just_not_non_qualified_tg        { static const c_bool_t is_not = true; using is_tg = just_non_qualified_tg; };
-    struct just_not_const_tg                { static const c_bool_t is_not = true; using is_tg = just_const_tg; };
-    struct just_not_volatile_tg             { static const c_bool_t is_not = true; using is_tg = just_volatile_tg; };
-    struct just_not_const_volatile_tg       { static const c_bool_t is_not = true; using is_tg = just_const_volatile_tg; };
+    struct any_tg                                   { static const c_bool_t is_not = false; };
+    struct any_qualified_tg                         { static const c_bool_t is_not = false; };
+    struct any_non_qualified_tg                     { static const c_bool_t is_not = false; };
+    struct any_const_tg                             { static const c_bool_t is_not = false; };
+    struct any_non_const_tg                         { static const c_bool_t is_not = false; };
+    struct any_volatile_tg                          { static const c_bool_t is_not = false; };
+    struct any_non_volatile_tg                      { static const c_bool_t is_not = false; };
 
-    struct of_any_tg                        { using related_tg = any_tg; };
-    struct of_any_qualified_tg              { using related_tg = any_qualified_tg; };
-    struct of_any_non_qualified_tg          { using related_tg = any_non_qualified_tg; };
-    struct of_any_const_tg                  { using related_tg = any_const_tg; };
-    struct of_any_non_const_tg              { using related_tg = any_non_const_tg; };
-    struct of_any_volatile_tg               { using related_tg = any_volatile_tg; };
-    struct of_any_non_volatile_tg           { using related_tg = any_non_volatile_tg; };
+    struct not_any_tg                               { static const c_bool_t is_not = true; using is_tg = any_tg; };
+    struct not_any_qualified_tg                     { static const c_bool_t is_not = true; using is_tg = any_qualified_tg; };
+    struct not_any_non_qualified_tg                 { static const c_bool_t is_not = true; using is_tg = any_non_qualified_tg; };
+    struct not_any_const_tg                         { static const c_bool_t is_not = true; using is_tg = any_const_tg; };
+    struct not_any_non_const_tg                     { static const c_bool_t is_not = true; using is_tg = any_non_const_tg; };
+    struct not_any_volatile_tg                      { static const c_bool_t is_not = true; using is_tg = any_volatile_tg; };
+    struct not_any_non_volatile_tg                  { static const c_bool_t is_not = true; using is_tg = any_non_volatile_tg; };
 
-    struct of_not_any_tg                    { using related_tg = not_any_tg; };
-    struct of_not_any_qualified_tg          { using related_tg = not_any_qualified_tg; };
-    struct of_not_any_non_qualified_tg      { using related_tg = not_any_non_qualified_tg; };
-    struct of_not_any_const_tg              { using related_tg = not_any_const_tg; };
-    struct of_not_any_non_const_tg          { using related_tg = not_any_non_const_tg; };
-    struct of_not_any_volatile_tg           { using related_tg = not_any_volatile_tg; };
-    struct of_not_any_non_volatile_tg       { using related_tg = not_any_non_volatile_tg; };
+    struct just_tg                                  { static const c_bool_t is_not = false; };
+    struct just_non_qualified_tg                    { static const c_bool_t is_not = false; };
+    struct just_const_tg                            { static const c_bool_t is_not = false; };
+    struct just_volatile_tg                         { static const c_bool_t is_not = false; };
+    struct just_const_volatile_tg                   { static const c_bool_t is_not = false; };
 
-    struct of_just_tg                       { using related_tg = just_tg; };
-    struct of_just_non_qualified_tg         { using related_tg = just_non_qualified_tg; };
-    struct of_just_const_tg                 { using related_tg = just_const_tg; };
-    struct of_just_volatile_tg              { using related_tg = just_volatile_tg; };
-    struct of_just_const_volatile_tg        { using related_tg = just_const_volatile_tg; };
+    struct just_not_tg                              { static const c_bool_t is_not = true; using is_tg = just_tg; };
+    struct just_not_non_qualified_tg                { static const c_bool_t is_not = true; using is_tg = just_non_qualified_tg; };
+    struct just_not_const_tg                        { static const c_bool_t is_not = true; using is_tg = just_const_tg; };
+    struct just_not_volatile_tg                     { static const c_bool_t is_not = true; using is_tg = just_volatile_tg; };
+    struct just_not_const_volatile_tg               { static const c_bool_t is_not = true; using is_tg = just_const_volatile_tg; };
 
-    struct of_just_not_tg                   { using related_tg = just_not_tg; };
-    struct of_just_not_non_qualified_tg     { using related_tg = just_not_non_qualified_tg; };
-    struct of_just_not_const_tg             { using related_tg = just_not_const_tg; };
-    struct of_just_not_volatile_tg          { using related_tg = just_not_volatile_tg; };
-    struct of_just_not_const_volatile_tg    { using related_tg = just_not_const_volatile_tg; };
+    struct of_any_tg                                { static const c_bool_t is_accessed = false; using related_tg = any_tg; };
+    struct of_any_qualified_tg                      { static const c_bool_t is_accessed = false; using related_tg = any_qualified_tg; };
+    struct of_any_non_qualified_tg                  { static const c_bool_t is_accessed = false; using related_tg = any_non_qualified_tg; };
+    struct of_any_const_tg                          { static const c_bool_t is_accessed = false; using related_tg = any_const_tg; };
+    struct of_any_non_const_tg                      { static const c_bool_t is_accessed = false; using related_tg = any_non_const_tg; };
+    struct of_any_volatile_tg                       { static const c_bool_t is_accessed = false; using related_tg = any_volatile_tg; };
+    struct of_any_non_volatile_tg                   { static const c_bool_t is_accessed = false; using related_tg = any_non_volatile_tg; };
+
+    struct of_not_any_tg                            { static const c_bool_t is_accessed = false; using related_tg = not_any_tg; };
+    struct of_not_any_qualified_tg                  { static const c_bool_t is_accessed = false; using related_tg = not_any_qualified_tg; };
+    struct of_not_any_non_qualified_tg              { static const c_bool_t is_accessed = false; using related_tg = not_any_non_qualified_tg; };
+    struct of_not_any_const_tg                      { static const c_bool_t is_accessed = false; using related_tg = not_any_const_tg; };
+    struct of_not_any_non_const_tg                  { static const c_bool_t is_accessed = false; using related_tg = not_any_non_const_tg; };
+    struct of_not_any_volatile_tg                   { static const c_bool_t is_accessed = false; using related_tg = not_any_volatile_tg; };
+    struct of_not_any_non_volatile_tg               { static const c_bool_t is_accessed = false; using related_tg = not_any_non_volatile_tg; };
+
+    struct of_just_tg                               { static const c_bool_t is_accessed = false; using related_tg = just_tg; };
+    struct of_just_non_qualified_tg                 { static const c_bool_t is_accessed = false; using related_tg = just_non_qualified_tg; };
+    struct of_just_const_tg                         { static const c_bool_t is_accessed = false; using related_tg = just_const_tg; };
+    struct of_just_volatile_tg                      { static const c_bool_t is_accessed = false; using related_tg = just_volatile_tg; };
+    struct of_just_const_volatile_tg                { static const c_bool_t is_accessed = false; using related_tg = just_const_volatile_tg; };
+
+    struct of_just_not_tg                           { static const c_bool_t is_accessed = false; using related_tg = just_not_tg; };
+    struct of_just_not_non_qualified_tg             { static const c_bool_t is_accessed = false; using related_tg = just_not_non_qualified_tg; };
+    struct of_just_not_const_tg                     { static const c_bool_t is_accessed = false; using related_tg = just_not_const_tg; };
+    struct of_just_not_volatile_tg                  { static const c_bool_t is_accessed = false; using related_tg = just_not_volatile_tg; };
+    struct of_just_not_const_volatile_tg            { static const c_bool_t is_accessed = false; using related_tg = just_not_const_volatile_tg; };
+
+    struct of_any_accessed_tg                       { static const c_bool_t is_accessed = true; using related_tg = any_tg; };
+    struct of_any_accessed_qualified_tg             { static const c_bool_t is_accessed = true; using related_tg = any_qualified_tg; };
+    struct of_any_accessed_non_qualified_tg         { static const c_bool_t is_accessed = true; using related_tg = any_non_qualified_tg; };
+    struct of_any_accessed_const_tg                 { static const c_bool_t is_accessed = true; using related_tg = any_const_tg; };
+    struct of_any_accessed_non_const_tg             { static const c_bool_t is_accessed = true; using related_tg = any_non_const_tg; };
+    struct of_any_accessed_volatile_tg              { static const c_bool_t is_accessed = true; using related_tg = any_volatile_tg; };
+    struct of_any_accessed_non_volatile_tg          { static const c_bool_t is_accessed = true; using related_tg = any_non_volatile_tg; };
+
+    struct of_not_any_accessed_tg                   { static const c_bool_t is_accessed = true; using related_tg = not_any_tg; };
+    struct of_not_any_accessed_qualified_tg         { static const c_bool_t is_accessed = true; using related_tg = not_any_qualified_tg; };
+    struct of_not_any_accessed_non_qualified_tg     { static const c_bool_t is_accessed = true; using related_tg = not_any_non_qualified_tg; };
+    struct of_not_any_accessed_const_tg             { static const c_bool_t is_accessed = true; using related_tg = not_any_const_tg; };
+    struct of_not_any_accessed_non_const_tg         { static const c_bool_t is_accessed = true; using related_tg = not_any_non_const_tg; };
+    struct of_not_any_accessed_volatile_tg          { static const c_bool_t is_accessed = true; using related_tg = not_any_volatile_tg; };
+    struct of_not_any_accessed_non_volatile_tg      { static const c_bool_t is_accessed = true; using related_tg = not_any_non_volatile_tg; };
+
+    struct of_just_accessed_tg                      { static const c_bool_t is_accessed = true; using related_tg = just_tg; };
+    struct of_just_accessed_non_qualified_tg        { static const c_bool_t is_accessed = true; using related_tg = just_non_qualified_tg; };
+    struct of_just_accessed_const_tg                { static const c_bool_t is_accessed = true; using related_tg = just_const_tg; };
+    struct of_just_accessed_volatile_tg             { static const c_bool_t is_accessed = true; using related_tg = just_volatile_tg; };
+    struct of_just_accessed_const_volatile_tg       { static const c_bool_t is_accessed = true; using related_tg = just_const_volatile_tg; };
+
+    struct of_just_not_accessed_tg                  { static const c_bool_t is_accessed = true; using related_tg = just_not_tg; };
+    struct of_just_not_accessed_non_qualified_tg    { static const c_bool_t is_accessed = true; using related_tg = just_not_non_qualified_tg; };
+    struct of_just_not_accessed_const_tg            { static const c_bool_t is_accessed = true; using related_tg = just_not_const_tg; };
+    struct of_just_not_accessed_volatile_tg         { static const c_bool_t is_accessed = true; using related_tg = just_not_volatile_tg; };
+    struct of_just_not_accessed_const_volatile_tg   { static const c_bool_t is_accessed = true; using related_tg = just_not_const_volatile_tg; };
 
     template <
         typename subject_p,
@@ -822,7 +901,7 @@ namespace nkr {
         static_assert(template_traits_i<operand_p>::Is_Implemented());
 
         using subject_t = subject_p;
-        using of_subject_t = c_array_or_type_traits_i<subject_t>::of_t;
+        using of_subject_t = accessed_or_not_t<typename c_array_or_type_traits_i<subject_t>::of_t, subject_t, of_operator_p::is_accessed>;
         using object_t = template_traits_i<operand_p>::template type_t<of_operand_p>;
         using of_object_t = of_operand_p;
 
@@ -847,8 +926,8 @@ namespace nkr {
         static_assert(template_traits_i<of_operand_p>::Is_Implemented());
 
         using subject_t = subject_p;
-        using of_subject_t = c_array_or_type_traits_i<subject_t>::of_t;
-        using of_of_subject_t = c_array_or_type_traits_i<of_subject_t>::of_t;
+        using of_subject_t = accessed_or_not_t<typename c_array_or_type_traits_i<subject_t>::of_t, subject_t, of_of_operator_p::is_accessed>;
+        using of_of_subject_t = accessed_or_not_t<typename c_array_or_type_traits_i<of_subject_t>::of_t, of_subject_t, of_of_operator_p::is_accessed>;
         using of_object_t = template_traits_i<of_operand_p>::template type_t<of_of_operand_p>;
         using of_of_object_t = of_of_operand_p;
 

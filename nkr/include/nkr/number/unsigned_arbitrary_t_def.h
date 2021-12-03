@@ -359,6 +359,8 @@ namespace nkr { namespace number {
                 array::dynamic_t<unit_t> b0_plus_b1(unit_count); // return on failure.
                 Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
 
+                // we still have the constraint that each number must have the same number of digits,
+                // but we're going to try and change that with some new array types under development.
                 count_t a0_plus_a1_count = a0_plus_a1.Count();
                 count_t b0_plus_b1_count = b0_plus_b1.Count();
                 if (a0_plus_a1_count < b0_plus_b1_count) {
@@ -382,6 +384,8 @@ namespace nkr { namespace number {
                 // hence a trade off between memory and processing. better to save on memory in this case I think, so this is simpler.
                 // wait. the end result here is always half_unit_count + 1. that means it can do the calc in that space, right?
                 // that would mean we just have to make sure we don't go past the end in the next section.
+
+                // we should be able to utiliize the same pointer with two dynamic array wrappers. need a new ctor for it.
                 Karatsuba_Multiply<unit_t>(a0_plus_a1, b0_plus_b1, c1);
                 while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
@@ -422,6 +426,7 @@ namespace nkr { namespace number {
             {
                 bool_t do_carry = false;
 
+                // might be nice to have an array:right_pad_static
                 for (index_t c2_idx = 0, c1_idx = low_unit_count * 2, end = c2.Count(); c2_idx < end; c2_idx += 1, c1_idx += 1) {
                     if (do_carry) {
                         if ((c1[c1_idx] += 1) == 0) {

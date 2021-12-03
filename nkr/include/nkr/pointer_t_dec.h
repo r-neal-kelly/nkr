@@ -13,6 +13,65 @@
 /// @copydoc _a5a2b1f5_e0b0_474a_949d_8fdcbaf67557
 namespace nkr::$pointer_t {};
 
+namespace nkr {
+
+    template <typename unit_p>
+    class pointer_t;
+
+    struct                      pointer_tg  {};
+    template <typename> struct  pointer_ttg {};
+
+}
+
+namespace nkr { namespace $pointer_t {
+
+    template <typename type_p>
+    concept any_tr =
+        is_any_tr<type_p, pointer_t<typename type_p::unit_t>>;
+
+}}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<pointer_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <$pointer_t::any_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<pointer_tg>
+    {
+    public:
+        using of_t  = type_p::unit_t;
+    };
+
+    template <>
+    class template_traits_i<pointer_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = pointer_t<of_p>;
+
+    public:
+        static constexpr c_bool_t   Is_Implemented();
+    };
+
+    template <>
+    class template_traits_i<pointer_t> :
+        public template_traits_i<pointer_ttg>
+    {
+    public:
+    };
+
+}
+
 namespace nkr { namespace $pointer_t {
 
     /// @nosubgrouping
