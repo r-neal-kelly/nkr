@@ -110,8 +110,6 @@ namespace nkr { namespace array {
         /// @{
         using unit_t                = unit_p;
         using writable_unit_t       = std::remove_const_t<unit_t>;
-        using pointer_t             = nkr::pointer_t<unit_t>;
-        using writable_pointer_t    = nkr::pointer_t<writable_unit_t>;
         using allocator_t           = allocator_p;
         using grow_rate_t           = grow_rate_p;
         /// @}
@@ -135,7 +133,7 @@ namespace nkr { namespace array {
 
         static bool_t                   Has_Memory(const is_any_tr<dynamic_t> auto& self);
 
-        static pointer_t                Pointer(const is_any_tr<dynamic_t> auto& self);
+        static auto                     Pointer(tr1<any_tg, dynamic_t> auto& self);
 
         static count_t                  Capacity(const is_any_tr<dynamic_t> auto& self);
         static maybe_t<allocator_err>   Capacity(is_any_tr<dynamic_t> auto& self, count_t new_capacity);
@@ -169,8 +167,8 @@ namespace nkr { namespace array {
         /// @name object data
         /// @copydoc 
         /// @{
-        writable_pointer_t  writable_units;
-        count_t             unit_count;
+        pointer_t<writable_unit_t>  writable_units;
+        count_t                     unit_count;
         /// @}
 
     public:
@@ -218,53 +216,55 @@ namespace nkr { namespace array {
         /// @name methods
         /// @copydoc 
         /// @{
-        bool_t                      Has_Memory() const;
-        bool_t                      Has_Memory() const volatile;
+        bool_t                                      Has_Memory() const;
+        bool_t                                      Has_Memory() const volatile;
         
-        pointer_t                   Pointer() const;
-        pointer_t                   Pointer() const volatile;
+        maybe_t<pointer_t<unit_t>>                  Pointer();
+        maybe_t<pointer_t<const unit_t>>            Pointer() const;
+        maybe_t<pointer_t<volatile unit_t>>         Pointer() volatile;
+        maybe_t<pointer_t<const volatile unit_t>>   Pointer() const volatile;
 
-        count_t                     Capacity() const;
-        count_t                     Capacity() const volatile;
-        maybe_t<allocator_err>      Capacity(count_t new_capacity);
-        maybe_t<allocator_err>      Capacity(count_t new_capacity) volatile;
+        count_t                                     Capacity() const;
+        count_t                                     Capacity() const volatile;
+        maybe_t<allocator_err>                      Capacity(count_t new_capacity);
+        maybe_t<allocator_err>                      Capacity(count_t new_capacity) volatile;
 
-        count_t                     Count() const;
-        count_t                     Count() const volatile;
+        count_t                                     Count() const;
+        count_t                                     Count() const volatile;
 
-        unit_t&                     At(index_t index) const;
-        unit_t&                     At(index_t index) const volatile;
-        maybe_t<allocator_err>      Push(const unit_t& unit);
-        maybe_t<allocator_err>      Push(const unit_t& unit) volatile;
-        maybe_t<allocator_err>      Push(is_any_non_const_tr<unit_t> auto&& unit);
-        maybe_t<allocator_err>      Push(is_any_non_const_tr<unit_t> auto&& unit) volatile;
-        maybe_t<allocator_err>      Push(is_any_const_tr<unit_t> auto&& unit)                                                   = delete;
-        maybe_t<allocator_err>      Push(is_any_const_tr<unit_t> auto&& unit) volatile                                          = delete;
-        unit_t                      Pop();
-        unit_t                      Pop() volatile;
+        unit_t&                                     At(index_t index) const;
+        unit_t&                                     At(index_t index) const volatile;
+        maybe_t<allocator_err>                      Push(const unit_t& unit);
+        maybe_t<allocator_err>                      Push(const unit_t& unit) volatile;
+        maybe_t<allocator_err>                      Push(is_any_non_const_tr<unit_t> auto&& unit);
+        maybe_t<allocator_err>                      Push(is_any_non_const_tr<unit_t> auto&& unit) volatile;
+        maybe_t<allocator_err>                      Push(is_any_const_tr<unit_t> auto&& unit)                                                   = delete;
+        maybe_t<allocator_err>                      Push(is_any_const_tr<unit_t> auto&& unit) volatile                                          = delete;
+        unit_t                                      Pop();
+        unit_t                                      Pop() volatile;
 
-        maybe_t<allocator_err>      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const;
-        maybe_t<allocator_err>      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
-        maybe_t<allocator_err>      Copy_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
-        maybe_t<allocator_err>      Copy_From(const any_array_of_any_tr<unit_t> auto& other);
-        maybe_t<allocator_err>      Copy_From(const any_array_of_any_tr<unit_t> auto& other) volatile;
-        maybe_t<allocator_err>      Copy_From(const not_any_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
-        maybe_t<allocator_err>      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other);
-        maybe_t<allocator_err>      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other) volatile;
-        maybe_t<allocator_err>      Move_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
-        maybe_t<allocator_err>      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
-        maybe_t<allocator_err>      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
-        maybe_t<allocator_err>      Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
+        maybe_t<allocator_err>                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const;
+        maybe_t<allocator_err>                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
+        maybe_t<allocator_err>                      Copy_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        maybe_t<allocator_err>                      Copy_From(const any_array_of_any_tr<unit_t> auto& other);
+        maybe_t<allocator_err>                      Copy_From(const any_array_of_any_tr<unit_t> auto& other) volatile;
+        maybe_t<allocator_err>                      Copy_From(const not_any_array_of_any_tr<unit_t> auto& other) const volatile                 = delete;
+        maybe_t<allocator_err>                      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other);
+        maybe_t<allocator_err>                      Move_To(any_non_const_array_of_any_tr<unit_t> auto& other) volatile;
+        maybe_t<allocator_err>                      Move_To(not_any_non_const_array_of_any_tr<unit_t> auto& other) const volatile               = delete;
+        maybe_t<allocator_err>                      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other);
+        maybe_t<allocator_err>                      Move_From(any_non_const_array_of_any_non_const_tr<unit_t> auto& other) volatile;
+        maybe_t<allocator_err>                      Move_From(not_any_non_const_array_of_any_non_const_tr<unit_t> auto& other) const volatile   = delete;
 
-        bool_t                      Is_Fit() const;
-        bool_t                      Is_Fit() const volatile;
-        void_t                      Fit();
-        void_t                      Fit() volatile;
+        bool_t                                      Is_Fit() const;
+        bool_t                                      Is_Fit() const volatile;
+        void_t                                      Fit();
+        void_t                                      Fit() volatile;
 
-        bool_t                      Is_Clear() const;
-        bool_t                      Is_Clear() const volatile;
-        void_t                      Clear();
-        void_t                      Clear() volatile;
+        bool_t                                      Is_Clear() const;
+        bool_t                                      Is_Clear() const volatile;
+        void_t                                      Clear();
+        void_t                                      Clear() volatile;
         /// @}
 
     public:
@@ -275,6 +275,7 @@ namespace nkr { namespace array {
         unit_t& operator [](index_t index) const volatile;
         /// @}
     };
+
     static_assert(array_i<dynamic_t<word_t>>);
     static_assert(array_i<dynamic_t<const word_t>>);
     static_assert(array_i<dynamic_t<volatile word_t>>);
@@ -291,5 +292,39 @@ namespace nkr { namespace array {
     static_assert(array_i<const volatile dynamic_t<const word_t>>);
     static_assert(array_i<const volatile dynamic_t<volatile word_t>>);
     static_assert(array_i<const volatile dynamic_t<const volatile word_t>>);
+
+    static_assert(aggregate_array_i<dynamic_t<word_t>>);
+    static_assert(aggregate_array_i<dynamic_t<const word_t>>);
+    static_assert(aggregate_array_i<dynamic_t<volatile word_t>>);
+    static_assert(aggregate_array_i<dynamic_t<const volatile word_t>>);
+    static_assert(aggregate_array_i<const dynamic_t<word_t>>);
+    static_assert(aggregate_array_i<const dynamic_t<const word_t>>);
+    static_assert(aggregate_array_i<const dynamic_t<volatile word_t>>);
+    static_assert(aggregate_array_i<const dynamic_t<const volatile word_t>>);
+    static_assert(aggregate_array_i<volatile dynamic_t<word_t>>);
+    static_assert(aggregate_array_i<volatile dynamic_t<const word_t>>);
+    static_assert(aggregate_array_i<volatile dynamic_t<volatile word_t>>);
+    static_assert(aggregate_array_i<volatile dynamic_t<const volatile word_t>>);
+    static_assert(aggregate_array_i<const volatile dynamic_t<word_t>>);
+    static_assert(aggregate_array_i<const volatile dynamic_t<const word_t>>);
+    static_assert(aggregate_array_i<const volatile dynamic_t<volatile word_t>>);
+    static_assert(aggregate_array_i<const volatile dynamic_t<const volatile word_t>>);
+
+    static_assert(pointer_array_i<dynamic_t<word_t>>);
+    static_assert(pointer_array_i<dynamic_t<const word_t>>);
+    static_assert(pointer_array_i<dynamic_t<volatile word_t>>);
+    static_assert(pointer_array_i<dynamic_t<const volatile word_t>>);
+    static_assert(pointer_array_i<const dynamic_t<word_t>>);
+    static_assert(pointer_array_i<const dynamic_t<const word_t>>);
+    static_assert(pointer_array_i<const dynamic_t<volatile word_t>>);
+    static_assert(pointer_array_i<const dynamic_t<const volatile word_t>>);
+    static_assert(pointer_array_i<volatile dynamic_t<word_t>>);
+    static_assert(pointer_array_i<volatile dynamic_t<const word_t>>);
+    static_assert(pointer_array_i<volatile dynamic_t<volatile word_t>>);
+    static_assert(pointer_array_i<volatile dynamic_t<const volatile word_t>>);
+    static_assert(pointer_array_i<const volatile dynamic_t<word_t>>);
+    static_assert(pointer_array_i<const volatile dynamic_t<const word_t>>);
+    static_assert(pointer_array_i<const volatile dynamic_t<volatile word_t>>);
+    static_assert(pointer_array_i<const volatile dynamic_t<const volatile word_t>>);
 
 }}

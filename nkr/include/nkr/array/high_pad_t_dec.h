@@ -116,11 +116,6 @@ namespace nkr { namespace array {
         high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count, const tr1<any_tg, unit_t> auto& extra_unit);
         high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count, tr1<any_non_const_tg, unit_t> auto&& extra_unit);
 
-        high_pad_t(tr2<any_tg, non_pointer_array_ttg, of_just_tg, unit_t> auto& array)                                                                              = delete;
-        high_pad_t(tr2<any_tg, non_pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count)                                                    = delete;
-        high_pad_t(tr2<any_tg, non_pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count, const tr1<any_tg, unit_t> auto& extra_unit)        = delete;
-        high_pad_t(tr2<any_tg, non_pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count, tr1<any_non_const_tg, unit_t> auto&& extra_unit)   = delete;
-
         high_pad_t(count_t total_unit_count);
         high_pad_t(count_t total_unit_count, const tr1<any_tg, unit_t> auto& extra_unit);
         high_pad_t(count_t total_unit_count, tr1<any_non_const_tg, unit_t> auto&& extra_unit);
@@ -168,6 +163,7 @@ namespace nkr { namespace array {
         unit_t& operator [](index_t index) const;
         unit_t& operator [](index_t index) const volatile;
     };
+
     static_assert(array_i<high_pad_t<word_t>>);
     static_assert(array_i<high_pad_t<const word_t>>);
     static_assert(array_i<high_pad_t<volatile word_t>>);
@@ -184,5 +180,39 @@ namespace nkr { namespace array {
     static_assert(array_i<const volatile high_pad_t<const word_t>>);
     static_assert(array_i<const volatile high_pad_t<volatile word_t>>);
     static_assert(array_i<const volatile high_pad_t<const volatile word_t>>);
+
+    static_assert(non_aggregate_array_i<high_pad_t<word_t>>);
+    static_assert(non_aggregate_array_i<high_pad_t<const word_t>>);
+    static_assert(non_aggregate_array_i<high_pad_t<volatile word_t>>);
+    static_assert(non_aggregate_array_i<high_pad_t<const volatile word_t>>);
+    static_assert(non_aggregate_array_i<const high_pad_t<word_t>>);
+    static_assert(non_aggregate_array_i<const high_pad_t<const word_t>>);
+    static_assert(non_aggregate_array_i<const high_pad_t<volatile word_t>>);
+    static_assert(non_aggregate_array_i<const high_pad_t<const volatile word_t>>);
+    static_assert(non_aggregate_array_i<volatile high_pad_t<word_t>>);
+    static_assert(non_aggregate_array_i<volatile high_pad_t<const word_t>>);
+    static_assert(non_aggregate_array_i<volatile high_pad_t<volatile word_t>>);
+    static_assert(non_aggregate_array_i<volatile high_pad_t<const volatile word_t>>);
+    static_assert(non_aggregate_array_i<const volatile high_pad_t<word_t>>);
+    static_assert(non_aggregate_array_i<const volatile high_pad_t<const word_t>>);
+    static_assert(non_aggregate_array_i<const volatile high_pad_t<volatile word_t>>);
+    static_assert(non_aggregate_array_i<const volatile high_pad_t<const volatile word_t>>);
+
+    static_assert(non_pointer_array_i<high_pad_t<word_t>>);
+    static_assert(non_pointer_array_i<high_pad_t<const word_t>>);
+    static_assert(non_pointer_array_i<high_pad_t<volatile word_t>>);
+    static_assert(non_pointer_array_i<high_pad_t<const volatile word_t>>);
+    static_assert(non_pointer_array_i<const high_pad_t<word_t>>);
+    static_assert(non_pointer_array_i<const high_pad_t<const word_t>>);
+    static_assert(non_pointer_array_i<const high_pad_t<volatile word_t>>);
+    static_assert(non_pointer_array_i<const high_pad_t<const volatile word_t>>);
+    static_assert(non_pointer_array_i<volatile high_pad_t<word_t>>);
+    static_assert(non_pointer_array_i<volatile high_pad_t<const word_t>>);
+    static_assert(non_pointer_array_i<volatile high_pad_t<volatile word_t>>);
+    static_assert(non_pointer_array_i<volatile high_pad_t<const volatile word_t>>);
+    static_assert(non_pointer_array_i<const volatile high_pad_t<word_t>>);
+    static_assert(non_pointer_array_i<const volatile high_pad_t<const word_t>>);
+    static_assert(non_pointer_array_i<const volatile high_pad_t<volatile word_t>>);
+    static_assert(non_pointer_array_i<const volatile high_pad_t<const volatile word_t>>);
 
 }}

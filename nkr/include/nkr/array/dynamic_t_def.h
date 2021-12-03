@@ -50,13 +50,13 @@ namespace nkr { namespace array {
         using self_t = std::remove_reference_t<decltype(self)>;
 
         if constexpr (just_const_tr<self_t>) {
-            return reinterpret_cast<const pointer_t&>(self.writable_units);
+            return reinterpret_cast<const pointer_t<unit_t>&>(self.writable_units);
         } else if constexpr (just_volatile_tr<self_t>) {
-            return reinterpret_cast<volatile pointer_t&>(self.writable_units);
+            return reinterpret_cast<volatile pointer_t<unit_t>&>(self.writable_units);
         } else if constexpr (just_const_volatile_tr<self_t>) {
-            return reinterpret_cast<const volatile pointer_t&>(self.writable_units);
+            return reinterpret_cast<const volatile pointer_t<unit_t>&>(self.writable_units);
         } else {
-            return reinterpret_cast<pointer_t&>(self.writable_units);
+            return reinterpret_cast<pointer_t<unit_t>&>(self.writable_units);
         }
     }
 
@@ -121,10 +121,14 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t
-        dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer(const is_any_tr<dynamic_t> auto& self)
+    inline auto
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer(tr1<any_tg, dynamic_t> auto& self)
     {
-        return self.writable_units;
+        using self_t = std::remove_reference_t<decltype(self)>;
+        using qualified_unit_t = accessed_qualification_of_t<unit_t, self_t>;
+
+        return maybe_t<pointer_t<qualified_unit_t>>
+            (reinterpret_cast<qualified_unit_t*>(self.writable_units.Units()), Count(self));
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
@@ -575,7 +579,14 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t
+    inline maybe_t<pointer_t<typename dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t>>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer()
+    {
+        return Pointer(*this);
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<pointer_t<const typename dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t>>
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer()
         const
     {
@@ -583,7 +594,15 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline typename dynamic_t<unit_p, allocator_p, grow_rate_p>::pointer_t
+    inline maybe_t<pointer_t<volatile typename dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t>>
+        dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer()
+        volatile
+    {
+        return Pointer(*this);
+    }
+
+    template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
+    inline maybe_t<pointer_t<const volatile typename dynamic_t<unit_p, allocator_p, grow_rate_p>::unit_t>>
         dynamic_t<unit_p, allocator_p, grow_rate_p>::Pointer()
         const volatile
     {

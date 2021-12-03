@@ -56,11 +56,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should have a unit_t", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     static_assert(is_tr<unit_t, unit_t>);
                 }
@@ -72,42 +67,8 @@ namespace nkr { namespace array {
                 {
                     using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     static_assert(is_tr<writable_unit_t, std::remove_const_t<unit_t>>);
-                }
-            }
-
-            TEST_SUITE("pointer_t")
-            {
-                TEST_CASE_TEMPLATE("should have a pointer_t with the same unit_t", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    static_assert(is_tr<pointer_t, nkr::pointer_t<unit_t>>);
-                }
-            }
-
-            TEST_SUITE("writable_pointer_t")
-            {
-                TEST_CASE_TEMPLATE("should have a writable_pointer_t that is non-const", dynamic_p, nkr_ALL)
-                {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
-                    static_assert(is_tr<writable_pointer_t, nkr::pointer_t<writable_unit_t>>);
                 }
             }
 
@@ -116,11 +77,7 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should have an allocator_t with the same unit_t", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
                     using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     static_assert(is_tr<allocator_t::unit_t, unit_t>);
                 }
@@ -130,11 +87,6 @@ namespace nkr { namespace array {
             {
                 TEST_CASE_TEMPLATE("should have a grow_rate_t", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     static_assert(is_tr<grow_rate_t, grow_rate_t>);
@@ -148,11 +100,6 @@ namespace nkr { namespace array {
             {
                 TEST_CASE_TEMPLATE("should equate grow_rate_t::To_Decimal()", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
                     using grow_rate_t = dynamic_p::grow_rate_t;
 
                     CHECK(dynamic_p::Grow_Rate() == grow_rate_t::To_Decimal());
@@ -166,15 +113,8 @@ namespace nkr { namespace array {
             {
                 TEST_CASE_TEMPLATE("should have a default pointer and count of 0", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
                     dynamic_p dynamic;
-                    CHECK(dynamic.Pointer() == pointer_t());
+                    CHECK(dynamic.Pointer() == nullptr);
                     CHECK(dynamic.Count() == 0);
                 }
             }
@@ -183,13 +123,6 @@ namespace nkr { namespace array {
             {
                 TEST_CASE_TEMPLATE("should set the capacity and default everything else", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
-
                     count_t capacity = Random<count_t>(1, 16);
                     dynamic_p dynamic(capacity);
                     CHECK(dynamic.Pointer() != nullptr);
@@ -203,11 +136,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should copy the filler count number of times without changing it", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     const unit_t filler = Random<unit_t>();
                     count_t count = Random<count_t>(1, 16);
@@ -222,12 +150,7 @@ namespace nkr { namespace array {
 
                 TEST_CASE_TEMPLATE("should move the filler to the first index and push count - 1 copies of it", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     writable_unit_t filler = Random<writable_unit_t>();
                     writable_unit_t backup_filler = filler;
@@ -248,11 +171,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should explicitly or implicitly copy an array without changing it", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     unit_t array[] = {
                         Random<unit_t>(), Random<unit_t>(), Random<unit_t>(), Random<unit_t>(),
@@ -274,10 +192,6 @@ namespace nkr { namespace array {
                 {
                     using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     writable_unit_t array[] = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -315,10 +229,6 @@ namespace nkr { namespace array {
                 {
                     using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     stack_t<unit_t, 16> stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -342,12 +252,7 @@ namespace nkr { namespace array {
 
                 TEST_CASE_TEMPLATE("should explicitly or implicitly move a stack and default the source", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     stack_t<writable_unit_t, 16> stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -391,12 +296,7 @@ namespace nkr { namespace array {
             {
                 TEST_CASE_TEMPLATE("should explicitly or implicitly copy an instant without changing it", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     instant_t instant = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -420,12 +320,7 @@ namespace nkr { namespace array {
 
                 TEST_CASE_TEMPLATE("should explicitly or implicitly move an instant and default the source", dynamic_p, nkr_ALL)
                 {
-                    using unit_t = dynamic_p::unit_t;
                     using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     instant_t instant = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -458,11 +353,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should explicitly copy each unit and the count of other", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -480,11 +370,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should implicitly copy each unit and the count of other", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -502,11 +387,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should not change the other", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -514,7 +394,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic(other);
                     CHECK(other.Pointer() == pointer);
                     CHECK(other.Count() == count);
@@ -523,11 +403,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should have a different pointer", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -535,7 +410,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic(other);
                     CHECK(dynamic.Pointer() != pointer);
                 }
@@ -546,11 +421,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should explicitly move the pointer and count of other", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -558,7 +428,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic(nkr::Move(other));
                     CHECK(dynamic.Pointer() == pointer);
                     CHECK(dynamic.Count() == count);
@@ -567,11 +437,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should implicitly move the count of other", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -579,7 +444,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic = nkr::Move(other);
                     CHECK(dynamic.Pointer() == pointer);
                     CHECK(dynamic.Count() == count);
@@ -588,11 +453,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should set the other to default values", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -601,7 +461,7 @@ namespace nkr { namespace array {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
                     dynamic_p dynamic(nkr::Move(other));
-                    CHECK(other.Pointer() == pointer_t());
+                    CHECK(other.Pointer() == nullptr);
                     CHECK(other.Count() == 0);
                 }
             }
@@ -611,11 +471,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should copy each unit and the count of other", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -634,11 +489,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should return itself after copying other", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -653,11 +503,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should not change the other", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -665,7 +510,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic;
                     dynamic = other;
                     CHECK(other.Pointer() == pointer);
@@ -675,11 +520,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should have a different pointer", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -687,7 +527,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic;
                     dynamic = other;
                     CHECK(dynamic.Pointer() != pointer);
@@ -699,11 +539,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should move the pointer and count of other", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -711,7 +546,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic;
                     dynamic = nkr::Move(other);
                     CHECK(dynamic.Pointer() == pointer);
@@ -721,11 +556,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should return itself after moving other", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -733,7 +563,7 @@ namespace nkr { namespace array {
                     for (index_t idx = 0, end = count; idx < end; idx += 1) {
                         other.Push(Random<std::remove_const_t<unit_t>>()).Ignore_Error();
                     }
-                    pointer_t pointer = other.Pointer();
+                    auto pointer = other.Pointer();
                     dynamic_p dynamic;
                     CHECK(&(dynamic = nkr::Move(other)) == &dynamic);
                 }
@@ -741,11 +571,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should set the other to default values", dynamic_p, nkr_NON_CONST)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -755,7 +580,7 @@ namespace nkr { namespace array {
                     }
                     dynamic_p dynamic;
                     dynamic = nkr::Move(other);
-                    CHECK(other.Pointer() == pointer_t());
+                    CHECK(other.Pointer() == nullptr);
                     CHECK(other.Count() == 0);
                 }
             }
@@ -765,11 +590,6 @@ namespace nkr { namespace array {
                 TEST_CASE_TEMPLATE("should set its values to defaults", dynamic_p, nkr_ALL)
                 {
                     using unit_t = dynamic_p::unit_t;
-                    using writable_unit_t = dynamic_p::writable_unit_t;
-                    using pointer_t = dynamic_p::pointer_t;
-                    using writable_pointer_t = dynamic_p::writable_pointer_t;
-                    using allocator_t = dynamic_p::allocator_t;
-                    using grow_rate_t = dynamic_p::grow_rate_t;
 
                     count_t count = Random<count_t>(1, 16);
                     std::remove_const_t<dynamic_p> other(count);
@@ -779,7 +599,7 @@ namespace nkr { namespace array {
                     }
                     dynamic_p dynamic(other);
                     dynamic.~dynamic_p();
-                    CHECK(dynamic.Pointer() == pointer_t());
+                    CHECK(dynamic.Pointer() == nullptr);
                     CHECK(dynamic.Count() == 0);
                 }
             }
@@ -795,42 +615,5 @@ namespace nkr { namespace array {
 
         }
     }
-
-    /*TEST_CASE("temp")
-    {
-        r64_t our_time = os::time::Test_In_Microseconds(
-            16,
-            []()
-            {
-                dynamic_t<index_t, allocator::heap_t<index_t>, math::fraction_t<17, 10>> dynamic;
-                for (index_t idx = 0, end = 1024; idx < end; idx += 1) {
-                    dynamic.Push(Random<index_t>());
-                }
-            }
-        );
-        r64_t cpp_time = os::time::Test_In_Microseconds(
-            16,
-            []()
-            {
-                std::vector<index_t> vector;
-                for (index_t idx = 0, end = 1024; idx < end; idx += 1) {
-                    vector.push_back(Random<index_t>());
-                }
-            }
-        );
-        r64_t stack_time = os::time::Test_In_Microseconds(
-            16,
-            []()
-            {
-                stack_t<index_t, 1024> stack;
-                for (index_t idx = 0, end = stack.Capacity(); idx < end; idx += 1) {
-                    stack.Push(Random<index_t>());
-                }
-            }
-        );
-        printf("our_time: %g\n", our_time);
-        printf("cpp_time: %g\n", cpp_time);
-        printf("stack_time: %g\n", stack_time);
-    }*/
 
 }}
