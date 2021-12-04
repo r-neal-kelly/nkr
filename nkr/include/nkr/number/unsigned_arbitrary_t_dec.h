@@ -37,7 +37,7 @@ namespace nkr { namespace number {
                                               const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b);
 
     template <integer_unsigned_tr unit_p>
-    void_t                  Karatsuba_Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
+    maybe_t<allocator_err>  Karatsuba_Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
                                                const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
                                                tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result);
 

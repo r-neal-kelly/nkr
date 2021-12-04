@@ -17,92 +17,6 @@ namespace nkr { namespace number {
 
     TEST_CASE("temp")
     {
-        //static_assert((1 << (sizeof(u8_t) * 8 - 1)) == 0x80);
-        //static_assert((1 << (sizeof(u32_t) * 8 - 1)) == 0x80000000);
-
-        //array::stack_t<u8_t, 2> number_a = { u8_t(0xFF), u8_t(0xFF) };
-        //array::stack_t<u8_t, 1> number_b = { u8_t(0xFF) };
-
-        //maybe_t<allocator_err> err;
-        //array::stack_t<u8_t, number_a.Capacity() + number_b.Capacity()> result; // apparently we can do this for multiplication also!
-
-        //err = Add<u8_t>(array::static_t<u8_t>(number_a),
-        //                array::static_t<u8_t>(number_b),
-        //                result);
-        //CHECK(err == allocator_err::NONE);
-        //CHECK(result.Count() == 3);
-        //CHECK(result[0] == 0xFE);
-        //CHECK(result[1] == 0x00);
-        //CHECK(result[2] == 0x01);
-
-        //err = Subtract<u8_t>(array::static_t<u8_t>(number_a),
-        //                     array::static_t<u8_t>(number_b),
-        //                     result);
-        //CHECK(err == allocator_err::NONE);
-        //CHECK(result.Count() == 2);
-        //CHECK(result[0] == 0x00);
-        //CHECK(result[1] == 0xFF);
-
-        //err = Subtract<u8_t>(array::static_t<u8_t>(number_b),
-        //                     array::static_t<u8_t>(number_a),
-        //                     result);
-        //CHECK(err == allocator_err::NONE);
-        //CHECK(result.Count() == 2);
-        //CHECK(result[0] == 0x00);
-        //CHECK(result[1] == 0x01);
-
-        /*{
-            array::stack_t<u8_t, 2> number_a = {
-                u8_t(0x02),
-                u8_t(0x22)
-            };
-            array::stack_t<u8_t, 2> number_b = {
-                u8_t(0x44),
-                u8_t(0x00)
-            };
-            array::stack_t<u8_t, 4> result;
-            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
-                                     array::static_t<u8_t>(number_b),
-                                     result);
-            CHECK(result.Count() == 4);
-            CHECK(result[0] == 0x88);
-            CHECK(result[1] == 0x08);
-            CHECK(result[2] == 0x09);
-            CHECK(result[3] == 0x00);
-        }
-        {
-            array::stack_t<u8_t, 2> number_a = {
-                u8_t(0xFF),
-                u8_t(0x00)
-            };
-            array::stack_t<u8_t, 2> number_b = {
-                u8_t(0xFF),
-                u8_t(0x00)
-            };
-            array::stack_t<u8_t, 4> result;
-            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
-                                     array::static_t<u8_t>(number_b),
-                                     result);
-            CHECK(result.Count() == 4);
-            CHECK(result[0] == 0x01);
-            CHECK(result[1] == 0xFE);
-            CHECK(result[2] == 0x00);
-            CHECK(result[3] == 0x00);
-        }
-        {
-            array::stack_t<u8_t, 2> number_a = { u8_t(0xFF), u8_t(0xFF) };
-            array::stack_t<u8_t, 2> number_b = { u8_t(0xFF), u8_t(0xFF) };
-            array::stack_t<u8_t, 4> result;
-            Karatsuba_Multiply<u8_t>(array::static_t<u8_t>(number_a),
-                                     array::static_t<u8_t>(number_b),
-                                     result);
-            CHECK(result.Count() == 4);
-            CHECK(result[0] == 0x01);
-            CHECK(result[1] == 0x00);
-            CHECK(result[2] == 0xFE);
-            CHECK(result[3] == 0xFF);
-        }*/
-
         {
             array::stack_t<u16_t, 2> number_a = {
                 u16_t(0xFFFF),
@@ -113,7 +27,7 @@ namespace nkr { namespace number {
                 u16_t(0x00FF)
             };
             array::stack_t<u16_t, 4> result;
-            Karatsuba_Multiply<u16_t>(number_a, number_b, result);
+            Karatsuba_Multiply<u16_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 4);
             CHECK(result[0] == 0x0001);
             CHECK(result[1] == 0xFE00);
@@ -142,7 +56,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -183,7 +97,7 @@ namespace nkr { namespace number {
                 u8_t(0x24)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x18);
             CHECK(result[1] == 0xc0);
@@ -217,7 +131,7 @@ namespace nkr { namespace number {
                 u8_t(0x01)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0xFF);
             CHECK(result[1] == 0xFF);
@@ -251,7 +165,7 @@ namespace nkr { namespace number {
                 u8_t(0x02)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0xFE);
             CHECK(result[1] == 0xFF);

@@ -300,7 +300,7 @@ namespace nkr { namespace number {
 
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
-        nkr_ASSERT_THAT(result.Count() == 0);
+        nkr_ASSERT_THAT(result.Count() == 0); // we want this to be the Capacity count, because we're going to end up using static arrays for the result. We'll set zeros appropiately of course
         nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
 
         const count_t unit_count = number_a.Count();
@@ -344,10 +344,12 @@ namespace nkr { namespace number {
                 // if we multiply the _plus_'s before calc'ing c0 and c2, we'll need less memory overall
                 // because the plus memory will be released whereas the c0 and c2 must stay till the end.
                 // this is useful even when we start to provide this function its own memory pool also.
-                array::dynamic_t<unit_t> a0_plus_a1(unit_count); // assert on failure.
+                array::dynamic_t<unit_t> a0_plus_a1(unit_count);
+                nkr_ASSERT_THAT(a0_plus_a1.Capacity() >= unit_count);
                 Add<unit_t>(a[0], a[1], a0_plus_a1).Ignore_Error();
 
-                array::dynamic_t<unit_t> b0_plus_b1(unit_count); // assert on failure.
+                array::dynamic_t<unit_t> b0_plus_b1(unit_count);
+                nkr_ASSERT_THAT(b0_plus_b1.Capacity() >= unit_count);
                 Add<unit_t>(b[0], b[1], b0_plus_b1).Ignore_Error();
 
                 count_t padded_count = std::max(a0_plus_a1.Count(), b0_plus_b1.Count());
@@ -376,20 +378,24 @@ namespace nkr { namespace number {
             // c0 = a0 * b0;
             array::dynamic_t<unit_t> c0;
             if (a[0].Non_Extra_Unit_Count() > 0 && b[0].Non_Extra_Unit_Count() > 0) {
-                c0.Capacity(low_unit_count * 2); // assert on failure.
+                c0.Capacity(low_unit_count * 2);
+                nkr_ASSERT_THAT(c0.Capacity() >= low_unit_count * 2);
                 Private_Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
             } else {
-                c0.Capacity(1); // assert on failure.
+                c0.Capacity(1);
+                nkr_ASSERT_THAT(c0.Capacity() >= 1);
                 c0.Push(unit_t(0)).Ignore_Error();
             }
 
             // c2 = a1 * b1;
             array::dynamic_t<unit_t> c2;
             if (a[1].Non_Extra_Unit_Count() > 0 && b[1].Non_Extra_Unit_Count() > 0) {
-                c2.Capacity(high_unit_count * 2); // assert on failure.
+                c2.Capacity(high_unit_count * 2);
+                nkr_ASSERT_THAT(c2.Capacity() >= high_unit_count * 2);
                 Private_Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
             } else {
-                c2.Capacity(1); // assert on failure.
+                c2.Capacity(1);
+                nkr_ASSERT_THAT(c2.Capacity() >= 1);
                 c2.Push(unit_t(0)).Ignore_Error();
             }
 
@@ -438,7 +444,7 @@ namespace nkr { namespace number {
     }
 
     template <integer_unsigned_tr unit_p>
-    inline void_t
+    inline maybe_t<allocator_err>
         Karatsuba_Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
                            const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
                            tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
@@ -450,14 +456,24 @@ namespace nkr { namespace number {
 
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_b.Count() > 0);
-        nkr_ASSERT_THAT(result.Count() == 0);
-        nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
 
         count_t padded_count = std::max(number_a.Count(), number_b.Count());
         array::high_pad_t<const unit_t> number_a_pad(number_a, padded_count, unit_t(0));
         array::high_pad_t<const unit_t> number_b_pad(number_b, padded_count, unit_t(0));
 
-        return Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+        maybe_t<allocator_err> err = result.Capacity(number_a_pad.Count() + number_b_pad.Count());
+        if (err) {
+            return err;
+        } else {
+            result.Clear();
+
+            // we need to calc the needed allocated space up front for the recursion allocations and return on failure.
+            // keep in mind that we don't need to allocate the final result because we already have it
+
+            Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+
+            return allocator_err::NONE;
+        }
     }
 
 }}
