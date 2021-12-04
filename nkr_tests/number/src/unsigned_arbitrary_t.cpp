@@ -202,6 +202,74 @@ namespace nkr { namespace number {
             CHECK(result[14] == 0xd1);
             CHECK(result[15] == 0x1a);
         }
+        {
+            array::stack_t<u8_t, 8> number_a = {
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF)
+            };
+            array::stack_t<u8_t, 1> number_b = {
+                u8_t(0x01)
+            };
+            array::stack_t<u8_t, 16> result;
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
+            CHECK(result.Count() == 16);
+            CHECK(result[0] == 0xFF);
+            CHECK(result[1] == 0xFF);
+            CHECK(result[2] == 0xFF);
+            CHECK(result[3] == 0xFF);
+            CHECK(result[4] == 0xFF);
+            CHECK(result[5] == 0xFF);
+            CHECK(result[6] == 0xFF);
+            CHECK(result[7] == 0xFF);
+            CHECK(result[8] == 0x00);
+            CHECK(result[9] == 0x00);
+            CHECK(result[10] == 0x00);
+            CHECK(result[11] == 0x00);
+            CHECK(result[12] == 0x00);
+            CHECK(result[13] == 0x00);
+            CHECK(result[14] == 0x00);
+            CHECK(result[15] == 0x00);
+        }
+        {
+            array::stack_t<u8_t, 8> number_a = {
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF),
+                u8_t(0xFF)
+            };
+            array::stack_t<u8_t, 1> number_b = {
+                u8_t(0x02)
+            };
+            array::stack_t<u8_t, 16> result;
+            Karatsuba_Multiply<u8_t>(number_a, number_b, result);
+            CHECK(result.Count() == 16);
+            CHECK(result[0] == 0xFE);
+            CHECK(result[1] == 0xFF);
+            CHECK(result[2] == 0xFF);
+            CHECK(result[3] == 0xFF);
+            CHECK(result[4] == 0xFF);
+            CHECK(result[5] == 0xFF);
+            CHECK(result[6] == 0xFF);
+            CHECK(result[7] == 0xFF);
+            CHECK(result[8] == 0x01);
+            CHECK(result[9] == 0x00);
+            CHECK(result[10] == 0x00);
+            CHECK(result[11] == 0x00);
+            CHECK(result[12] == 0x00);
+            CHECK(result[13] == 0x00);
+            CHECK(result[14] == 0x00);
+            CHECK(result[15] == 0x00);
+        }
     }
 
 }}

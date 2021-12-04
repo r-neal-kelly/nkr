@@ -344,10 +344,10 @@ namespace nkr { namespace number {
                 // if we multiply the _plus_'s before calc'ing c0 and c2, we'll need less memory overall
                 // because the plus memory will be released whereas the c0 and c2 must stay till the end.
                 // this is useful even when we start to provide this function its own memory pool also.
-                array::dynamic_t<unit_t> a0_plus_a1(unit_count); // return on failure.
+                array::dynamic_t<unit_t> a0_plus_a1(unit_count); // assert on failure.
                 Add<unit_t>(a[0], a[1], a0_plus_a1).Ignore_Error();
 
-                array::dynamic_t<unit_t> b0_plus_b1(unit_count); // return on failure.
+                array::dynamic_t<unit_t> b0_plus_b1(unit_count); // assert on failure.
                 Add<unit_t>(b[0], b[1], b0_plus_b1).Ignore_Error();
 
                 count_t padded_count = std::max(a0_plus_a1.Count(), b0_plus_b1.Count());
@@ -366,6 +366,7 @@ namespace nkr { namespace number {
                 // that would mean we just have to make sure we don't go past the end in the next section.
 
                 // we should be able to utiliize the same pointer with two dynamic array wrappers. need a new ctor for it.
+
                 Private_Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1);
                 while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
@@ -373,12 +374,24 @@ namespace nkr { namespace number {
             }
 
             // c0 = a0 * b0;
-            array::dynamic_t<unit_t> c0(low_unit_count * 2); // return on failure.
-            Private_Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
+            array::dynamic_t<unit_t> c0;
+            if (a[0].Non_Extra_Unit_Count() > 0 && b[0].Non_Extra_Unit_Count() > 0) {
+                c0.Capacity(low_unit_count * 2); // assert on failure.
+                Private_Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
+            } else {
+                c0.Capacity(1); // assert on failure.
+                c0.Push(unit_t(0)).Ignore_Error();
+            }
 
             // c2 = a1 * b1;
-            array::dynamic_t<unit_t> c2(high_unit_count * 2); // return on failure.
-            Private_Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
+            array::dynamic_t<unit_t> c2;
+            if (a[1].Non_Extra_Unit_Count() > 0 && b[1].Non_Extra_Unit_Count() > 0) {
+                c2.Capacity(high_unit_count * 2); // assert on failure.
+                Private_Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
+            } else {
+                c2.Capacity(1); // assert on failure.
+                c2.Push(unit_t(0)).Ignore_Error();
+            }
 
             // c1 = c1 - c2 - c0;
             Subtract_In_Place<unit_t>(c1, c2);
