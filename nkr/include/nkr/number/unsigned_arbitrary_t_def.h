@@ -14,8 +14,8 @@ namespace nkr { namespace number {
 
     template <integer_unsigned_tr unit_p>
     inline maybe_t<allocator_err>
-        Add(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
-            tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
+        Add(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
+            const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
             tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
         using unit_t = unit_p;
@@ -126,8 +126,8 @@ namespace nkr { namespace number {
 
     template <integer_unsigned_tr unit_p>
     inline maybe_t<allocator_err>
-        Subtract(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
-                 tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
+        Subtract(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
+                 const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
                  tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
         using unit_t = unit_p;
@@ -289,13 +289,11 @@ namespace nkr { namespace number {
     
     template <integer_unsigned_tr unit_p>
     inline void_t
-        Karatsuba_Multiply(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
-                           const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
-                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+        Private_Karatsuba_Multiply(const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_a,
+                                   const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_b,
+                                   tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
         using unit_t = unit_p;
-        using qualified_unit_a_t = same_qualification_as_t<unit_t, std::remove_reference_t<decltype(number_a)>>;
-        using qualified_unit_b_t = same_qualification_as_t<unit_t, std::remove_reference_t<decltype(number_b)>>;
         using safe_multiply_t = word_t;
 
         static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
@@ -324,15 +322,8 @@ namespace nkr { namespace number {
             const count_t high_unit_count = unit_count - low_unit_count;
             const count_t double_unit_count = unit_count * 2;
 
-            array::static_t<qualified_unit_a_t>
-                a0(maybe_t<pointer_t<qualified_unit_a_t>>(&number_a[0], low_unit_count));
-            array::static_t<qualified_unit_a_t>
-                a1(maybe_t<pointer_t<qualified_unit_a_t>>(&number_a[low_unit_count], high_unit_count));
-
-            array::static_t<qualified_unit_b_t>
-                b0(maybe_t<pointer_t<qualified_unit_b_t>>(&number_b[0], low_unit_count));
-            array::static_t<qualified_unit_b_t>
-                b1(maybe_t<pointer_t<qualified_unit_b_t>>(&number_b[low_unit_count], high_unit_count));
+            const auto a = number_a.Split(low_unit_count);
+            const auto b = number_b.Split(low_unit_count);
 
             // something else we can do is allocate in one block all the allocations in this recursion and use static arrays
             // for the result. This would mean we need to preallocate the result size and fill it with zeros of course.
@@ -346,7 +337,7 @@ namespace nkr { namespace number {
             // (4 * unit_count) * (top_unit_count / 2 - 1) * 2 ---- because of the third recursion
             // that way we don't have to worry about allocation failures except to assert that it shouldn't happen.
             // we can return very early if there is a memory pool allocation, before we even call this function
-            
+
             // c1 = (a0 + a1) * (b0 + b1);
             auto& c1 = result;
             {
@@ -354,25 +345,14 @@ namespace nkr { namespace number {
                 // because the plus memory will be released whereas the c0 and c2 must stay till the end.
                 // this is useful even when we start to provide this function its own memory pool also.
                 array::dynamic_t<unit_t> a0_plus_a1(unit_count); // return on failure.
-                Add<unit_t>(a0, a1, a0_plus_a1).Ignore_Error();
+                Add<unit_t>(a[0], a[1], a0_plus_a1).Ignore_Error();
 
                 array::dynamic_t<unit_t> b0_plus_b1(unit_count); // return on failure.
-                Add<unit_t>(b0, b1, b0_plus_b1).Ignore_Error();
+                Add<unit_t>(b[0], b[1], b0_plus_b1).Ignore_Error();
 
-                // we still have the constraint that each number must have the same number of digits,
-                // but we're going to try and change that with some new array types under development.
-                count_t a0_plus_a1_count = a0_plus_a1.Count();
-                count_t b0_plus_b1_count = b0_plus_b1.Count();
-                if (a0_plus_a1_count < b0_plus_b1_count) {
-                    for (index_t idx = 0, end = b0_plus_b1_count - a0_plus_a1_count; idx < end; idx += 1) {
-                        a0_plus_a1.Push(unit_t(0)).Ignore_Error();
-                    }
-                }
-                if (b0_plus_b1_count < a0_plus_a1_count) {
-                    for (index_t idx = 0, end = a0_plus_a1_count - b0_plus_b1_count; idx < end; idx += 1) {
-                        b0_plus_b1.Push(unit_t(0)).Ignore_Error();
-                    }
-                }
+                count_t padded_count = std::max(a0_plus_a1.Count(), b0_plus_b1.Count());
+                array::high_pad_t<unit_t> a0_plus_a1_pad(a0_plus_a1, padded_count, unit_t(0));
+                array::high_pad_t<unit_t> b0_plus_b1_pad(b0_plus_b1, padded_count, unit_t(0));
 
                 // because we only need one more digit than half the unit count to get the result here,
                 // it would be nice if we could point to the half unit count index of this double count sized array,
@@ -386,7 +366,7 @@ namespace nkr { namespace number {
                 // that would mean we just have to make sure we don't go past the end in the next section.
 
                 // we should be able to utiliize the same pointer with two dynamic array wrappers. need a new ctor for it.
-                Karatsuba_Multiply<unit_t>(a0_plus_a1, b0_plus_b1, c1);
+                Private_Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1);
                 while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
@@ -394,11 +374,11 @@ namespace nkr { namespace number {
 
             // c0 = a0 * b0;
             array::dynamic_t<unit_t> c0(low_unit_count * 2); // return on failure.
-            Karatsuba_Multiply<unit_t>(a0, b0, c0);
+            Private_Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
 
             // c2 = a1 * b1;
             array::dynamic_t<unit_t> c2(high_unit_count * 2); // return on failure.
-            Karatsuba_Multiply<unit_t>(a1, b1, c2);
+            Private_Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
 
             // c1 = c1 - c2 - c0;
             Subtract_In_Place<unit_t>(c1, c2);
@@ -442,6 +422,29 @@ namespace nkr { namespace number {
                 }
             }
         }
+    }
+
+    template <integer_unsigned_tr unit_p>
+    inline void_t
+        Karatsuba_Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
+                           const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
+                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+    {
+        using unit_t = unit_p;
+        using safe_multiply_t = word_t;
+
+        static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
+
+        nkr_ASSERT_THAT(number_a.Count() > 0);
+        nkr_ASSERT_THAT(number_b.Count() > 0);
+        nkr_ASSERT_THAT(result.Count() == 0);
+        nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
+
+        count_t padded_count = std::max(number_a.Count(), number_b.Count());
+        array::high_pad_t<const unit_t> number_a_pad(number_a, padded_count, unit_t(0));
+        array::high_pad_t<const unit_t> number_b_pad(number_b, padded_count, unit_t(0));
+
+        return Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
     }
 
 }}

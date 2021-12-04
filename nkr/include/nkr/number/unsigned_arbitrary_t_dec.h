@@ -19,16 +19,17 @@ namespace nkr { namespace number {
     // these are temporarily loose
 
     template <integer_unsigned_tr unit_p>
-    maybe_t<allocator_err>  Add(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
-                                tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
+    maybe_t<allocator_err>  Add(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
+                                const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
                                 tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result);
+
     template <integer_unsigned_tr unit_p>
     void_t                  Add_In_Place(tr2<any_non_const_tg, array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
                                          const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b);
 
     template <integer_unsigned_tr unit_p>
-    maybe_t<allocator_err>  Subtract(tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_a,
-                                     tr2<any_tg, array::static_t, of_any_tg, unit_p> auto number_b,
+    maybe_t<allocator_err>  Subtract(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
+                                     const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
                                      tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result);
 
     template <integer_unsigned_tr unit_p>
@@ -36,8 +37,8 @@ namespace nkr { namespace number {
                                               const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b);
 
     template <integer_unsigned_tr unit_p>
-    void_t                  Karatsuba_Multiply(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
-                                               const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
+    void_t                  Karatsuba_Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
+                                               const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
                                                tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result);
 
     template <integer_unsigned_tr unit_p>
