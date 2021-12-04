@@ -93,8 +93,8 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline typename high_pad_t<unit_p>::unit_t&
-        high_pad_t<unit_p>::Unit(const is_any_tr<high_pad_t> auto& self, index_t index)
+    inline auto&
+        high_pad_t<unit_p>::Unit(is_any_tr<high_pad_t> auto& self, index_t index)
     {
         nkr_ASSERT_THAT(Has_Memory(self));
         nkr_ASSERT_THAT(index < Unit_Count(self));
@@ -107,15 +107,15 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline typename high_pad_t<unit_p>::unit_t&
-        high_pad_t<unit_p>::Extra_Unit(const is_any_tr<high_pad_t> auto& self)
+    inline auto&
+        high_pad_t<unit_p>::Extra_Unit(is_any_tr<high_pad_t> auto& self)
     {
         return self.extra_unit;
     }
 
     template <any_type_tr unit_p>
     inline typename high_pad_t<unit_p>::split_t
-        high_pad_t<unit_p>::Split(const is_any_tr<high_pad_t> auto& self, index_t at_index)
+        high_pad_t<unit_p>::Split(is_any_tr<high_pad_t> auto& self, index_t at_index)
     {
         nkr_ASSERT_THAT(Has_Memory(self));
         nkr_ASSERT_THAT(at_index <= Unit_Count(self));
@@ -132,9 +132,10 @@ namespace nkr { namespace array {
             };
         } else {
             count_t extra_unit_index = at_index - non_extra_unit_count;
+            static_t static_array_copy(self.static_array);
 
             return {
-                high_pad_t(self.static_array, self.static_array.Count() + extra_unit_index, Extra_Unit(self)),
+                high_pad_t(static_array_copy, self.static_array.Count() + extra_unit_index, Extra_Unit(self)),
                 high_pad_t(extra_unit_count - extra_unit_index, Extra_Unit(self))
             };
         }
@@ -149,7 +150,7 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array) :
+    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array) :
         static_array(array),
         total_unit_count(this->static_array.Count()),
         extra_unit()
@@ -157,8 +158,8 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array,
-                                                  count_t total_unit_count) :
+    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array,
+                                          count_t total_unit_count) :
         static_array(array),
         total_unit_count(total_unit_count),
         extra_unit()
@@ -166,9 +167,9 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array,
-                                                  count_t total_unit_count,
-                                                  const tr1<any_tg, unit_t> auto& extra_unit) :
+    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array,
+                                          count_t total_unit_count,
+                                          const tr1<any_tg, unit_t> auto& extra_unit) :
         static_array(array),
         total_unit_count(total_unit_count),
         extra_unit(extra_unit)
@@ -176,9 +177,9 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array,
-                                                  count_t total_unit_count,
-                                                  tr1<any_non_const_tg, unit_t> auto&& extra_unit) :
+    inline high_pad_t<unit_p>::high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array,
+                                          count_t total_unit_count,
+                                          tr1<any_non_const_tg, unit_t> auto&& extra_unit) :
         static_array(array),
         total_unit_count(total_unit_count),
         extra_unit(nkr::Move(extra_unit))
@@ -411,13 +412,28 @@ namespace nkr { namespace array {
     template <any_type_tr unit_p>
     inline typename high_pad_t<unit_p>::unit_t&
         high_pad_t<unit_p>::Unit(index_t index)
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline const typename high_pad_t<unit_p>::unit_t&
+        high_pad_t<unit_p>::Unit(index_t index)
         const
     {
         return Unit(*this, index);
     }
 
     template <any_type_tr unit_p>
-    inline typename high_pad_t<unit_p>::unit_t&
+    inline volatile typename high_pad_t<unit_p>::unit_t&
+        high_pad_t<unit_p>::Unit(index_t index)
+        volatile
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline const volatile typename high_pad_t<unit_p>::unit_t&
         high_pad_t<unit_p>::Unit(index_t index)
         const volatile
     {
@@ -427,13 +443,28 @@ namespace nkr { namespace array {
     template <any_type_tr unit_p>
     inline typename high_pad_t<unit_p>::unit_t&
         high_pad_t<unit_p>::Extra_Unit()
+    {
+        return Extra_Unit(*this);
+    }
+
+    template <any_type_tr unit_p>
+    inline const typename high_pad_t<unit_p>::unit_t&
+        high_pad_t<unit_p>::Extra_Unit()
         const
     {
         return Extra_Unit(*this);
     }
 
     template <any_type_tr unit_p>
-    inline typename high_pad_t<unit_p>::unit_t&
+    inline volatile typename high_pad_t<unit_p>::unit_t&
+        high_pad_t<unit_p>::Extra_Unit()
+        volatile
+    {
+        return Extra_Unit(*this);
+    }
+
+    template <any_type_tr unit_p>
+    inline const volatile typename high_pad_t<unit_p>::unit_t&
         high_pad_t<unit_p>::Extra_Unit()
         const volatile
     {
@@ -459,13 +490,28 @@ namespace nkr { namespace array {
     template <any_type_tr unit_p>
     inline typename high_pad_t<unit_p>::unit_t&
         high_pad_t<unit_p>::operator [](index_t index)
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline const typename high_pad_t<unit_p>::unit_t&
+        high_pad_t<unit_p>::operator [](index_t index)
         const
     {
         return Unit(*this, index);
     }
 
     template <any_type_tr unit_p>
-    inline typename high_pad_t<unit_p>::unit_t&
+    inline volatile typename high_pad_t<unit_p>::unit_t&
+        high_pad_t<unit_p>::operator [](index_t index)
+        volatile
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline const volatile typename high_pad_t<unit_p>::unit_t&
         high_pad_t<unit_p>::operator [](index_t index)
         const volatile
     {

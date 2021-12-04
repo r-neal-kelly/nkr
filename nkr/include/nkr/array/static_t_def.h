@@ -83,13 +83,16 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline typename static_t<unit_p>::unit_t&
-        static_t<unit_p>::At(const is_any_tr<static_t> auto& self, index_t index)
+    inline auto&
+        static_t<unit_p>::Unit(is_any_tr<static_t> auto& self, index_t index)
     {
+        using self_t = std::remove_reference_t<decltype(self)>;
+        using qualified_unit_t = accessed_qualification_of_t<unit_t, self_t>;
+
         nkr_ASSERT_THAT(Has_Memory(self));
         nkr_ASSERT_THAT(index < Count(self));
 
-        return self.pointer[index];
+        return static_cast<qualified_unit_t&>(self.pointer[index]);
     }
 
     template <any_type_tr unit_p>
@@ -124,7 +127,7 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
-    inline static_t<unit_p>::static_t(tr2<any_tg, pointer_array_ttg, of_just_accessed_tg, unit_t> auto& array) :
+    inline static_t<unit_p>::static_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array) :
         pointer(array.Pointer())
     {
     }
@@ -300,18 +303,33 @@ namespace nkr { namespace array {
 
     template <any_type_tr unit_p>
     inline typename static_t<unit_p>::unit_t&
-        static_t<unit_p>::At(index_t index)
-        const
+        static_t<unit_p>::Unit(index_t index)
     {
-        return At(*this, index);
+        return Unit(*this, index);
     }
 
     template <any_type_tr unit_p>
-    inline typename static_t<unit_p>::unit_t&
-        static_t<unit_p>::At(index_t index)
+    inline const typename static_t<unit_p>::unit_t&
+        static_t<unit_p>::Unit(index_t index)
+        const
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile typename static_t<unit_p>::unit_t&
+        static_t<unit_p>::Unit(index_t index)
+        volatile
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline const volatile typename static_t<unit_p>::unit_t&
+        static_t<unit_p>::Unit(index_t index)
         const volatile
     {
-        return At(*this, index);
+        return Unit(*this, index);
     }
 
     template <any_type_tr unit_p>
@@ -333,17 +351,32 @@ namespace nkr { namespace array {
     template <any_type_tr unit_p>
     inline typename static_t<unit_p>::unit_t&
         static_t<unit_p>::operator [](index_t index)
-        const
     {
-        return At(*this, index);
+        return Unit(*this, index);
     }
 
     template <any_type_tr unit_p>
-    inline typename static_t<unit_p>::unit_t&
+    inline const typename static_t<unit_p>::unit_t&
+        static_t<unit_p>::operator [](index_t index)
+        const
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline volatile typename static_t<unit_p>::unit_t&
+        static_t<unit_p>::operator [](index_t index)
+        volatile
+    {
+        return Unit(*this, index);
+    }
+
+    template <any_type_tr unit_p>
+    inline const volatile typename static_t<unit_p>::unit_t&
         static_t<unit_p>::operator [](index_t index)
         const volatile
     {
-        return At(*this, index);
+        return Unit(*this, index);
     }
 
 }}

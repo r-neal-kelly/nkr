@@ -70,7 +70,7 @@ namespace nkr { namespace $array_i {
     };
 
     template <typename array_p>
-    concept pointer_methods_i =
+    concept pointable_methods_i =
         requires(std::remove_cv_t<array_p> array,
                  const std::remove_cv_t<array_p> const_array,
                  volatile std::remove_cv_t<array_p> volatile_array,
@@ -102,14 +102,14 @@ namespace nkr {
         !aggregate_array_i<array_p>;
 
     template <typename array_p>
-    concept pointer_array_i =
+    concept pointable_array_i =
         array_i<array_p> &&
-        $array_i::pointer_methods_i<array_p>;
+        $array_i::pointable_methods_i<array_p>;
 
     template <typename array_p>
-    concept non_pointer_array_i =
+    concept non_pointable_array_i =
         array_i<array_p> &&
-        !pointer_array_i<array_p>;
+        !pointable_array_i<array_p>;
 
 }
 
@@ -208,29 +208,29 @@ namespace nkr {
         }
     };
 
-    struct                      pointer_array_tg    {};
-    template <typename> struct  pointer_array_ttg   {};
+    struct                      pointable_array_tg  {};
+    template <typename> struct  pointable_array_ttg {};
 
     template <>
-    class type_traits_i<pointer_array_tg>
+    class type_traits_i<pointable_array_tg>
     {
     public:
-        using of_t = void_t;
+        using of_t  = void_t;
 
     public:
         template <typename other_p>
         static constexpr c_bool_t Is_Any()
         {
-            return pointer_array_i<other_p>;
+            return pointable_array_i<other_p>;
         }
     };
 
     template <>
-    class template_traits_i<pointer_array_ttg>
+    class template_traits_i<pointable_array_ttg>
     {
     public:
         template <typename of_p>
-        using type_t = pointer_array_tg;
+        using type_t    = pointable_array_tg;
 
     public:
         static constexpr c_bool_t Is_Implemented()
@@ -239,29 +239,29 @@ namespace nkr {
         }
     };
 
-    struct                      non_pointer_array_tg    {};
-    template <typename> struct  non_pointer_array_ttg   {};
+    struct                      non_pointable_array_tg  {};
+    template <typename> struct  non_pointable_array_ttg {};
 
     template <>
-    class type_traits_i<non_pointer_array_tg>
+    class type_traits_i<non_pointable_array_tg>
     {
     public:
-        using of_t = void_t;
+        using of_t  = void_t;
 
     public:
         template <typename other_p>
         static constexpr c_bool_t Is_Any()
         {
-            return non_pointer_array_i<other_p>;
+            return non_pointable_array_i<other_p>;
         }
     };
 
     template <>
-    class template_traits_i<non_pointer_array_ttg>
+    class template_traits_i<non_pointable_array_ttg>
     {
     public:
         template <typename of_p>
-        using type_t = non_pointer_array_tg;
+        using type_t    = non_pointable_array_tg;
 
     public:
         static constexpr c_bool_t Is_Implemented()

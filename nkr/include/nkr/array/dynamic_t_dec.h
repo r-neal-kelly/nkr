@@ -310,21 +310,21 @@ namespace nkr { namespace array {
     static_assert(aggregate_array_i<const volatile dynamic_t<volatile word_t>>);
     static_assert(aggregate_array_i<const volatile dynamic_t<const volatile word_t>>);
 
-    static_assert(pointer_array_i<dynamic_t<word_t>>);
-    static_assert(pointer_array_i<dynamic_t<const word_t>>);
-    static_assert(pointer_array_i<dynamic_t<volatile word_t>>);
-    static_assert(pointer_array_i<dynamic_t<const volatile word_t>>);
-    static_assert(pointer_array_i<const dynamic_t<word_t>>);
-    static_assert(pointer_array_i<const dynamic_t<const word_t>>);
-    static_assert(pointer_array_i<const dynamic_t<volatile word_t>>);
-    static_assert(pointer_array_i<const dynamic_t<const volatile word_t>>);
-    static_assert(pointer_array_i<volatile dynamic_t<word_t>>);
-    static_assert(pointer_array_i<volatile dynamic_t<const word_t>>);
-    static_assert(pointer_array_i<volatile dynamic_t<volatile word_t>>);
-    static_assert(pointer_array_i<volatile dynamic_t<const volatile word_t>>);
-    static_assert(pointer_array_i<const volatile dynamic_t<word_t>>);
-    static_assert(pointer_array_i<const volatile dynamic_t<const word_t>>);
-    static_assert(pointer_array_i<const volatile dynamic_t<volatile word_t>>);
-    static_assert(pointer_array_i<const volatile dynamic_t<const volatile word_t>>);
+    static_assert(pointable_array_i<dynamic_t<word_t>>);
+    static_assert(pointable_array_i<dynamic_t<const word_t>>);
+    static_assert(pointable_array_i<dynamic_t<volatile word_t>>);
+    static_assert(pointable_array_i<dynamic_t<const volatile word_t>>);
+    static_assert(pointable_array_i<const dynamic_t<word_t>>);
+    static_assert(pointable_array_i<const dynamic_t<const word_t>>);
+    static_assert(pointable_array_i<const dynamic_t<volatile word_t>>);
+    static_assert(pointable_array_i<const dynamic_t<const volatile word_t>>);
+    static_assert(pointable_array_i<volatile dynamic_t<word_t>>);
+    static_assert(pointable_array_i<volatile dynamic_t<const word_t>>);
+    static_assert(pointable_array_i<volatile dynamic_t<volatile word_t>>);
+    static_assert(pointable_array_i<volatile dynamic_t<const volatile word_t>>);
+    static_assert(pointable_array_i<const volatile dynamic_t<word_t>>);
+    static_assert(pointable_array_i<const volatile dynamic_t<const word_t>>);
+    static_assert(pointable_array_i<const volatile dynamic_t<volatile word_t>>);
+    static_assert(pointable_array_i<const volatile dynamic_t<const volatile word_t>>);
 
 }}

@@ -11,6 +11,7 @@
 #include "nkr/allocator_err.h"
 
 #include "nkr/array_i.h"
+#include "nkr/array/high_pad_t.h"
 #include "nkr/array/static_t.h"
 
 namespace nkr { namespace number {

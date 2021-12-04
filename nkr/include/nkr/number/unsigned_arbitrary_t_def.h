@@ -286,7 +286,7 @@ namespace nkr { namespace number {
 
     //    return allocator_err::NONE;
     //}
-
+    
     template <integer_unsigned_tr unit_p>
     inline void_t
         Karatsuba_Multiply(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,

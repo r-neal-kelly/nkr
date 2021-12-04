@@ -101,7 +101,7 @@ namespace nkr { namespace array {
 
         static count_t  Count(const is_any_tr<static_t> auto& self);
 
-        static unit_t&  At(const is_any_tr<static_t> auto& self, index_t index);
+        static auto&    Unit(is_any_tr<static_t> auto& self, index_t index);
 
         static split_t  Split(const is_any_tr<static_t> auto& self, index_t at_index);
 
@@ -114,7 +114,7 @@ namespace nkr { namespace array {
         static_t(const maybe_t<pointer_t<unit_t>>& pointer);
         static_t(maybe_t<pointer_t<unit_t>>&& pointer);
 
-        static_t(tr2<any_tg, pointer_array_ttg, of_just_accessed_tg, unit_t> auto& array);
+        static_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array);
 
         static_t(const static_t& other);
         static_t(const volatile static_t& other);
@@ -146,8 +146,10 @@ namespace nkr { namespace array {
         count_t                                     Count() const;
         count_t                                     Count() const volatile;
 
-        unit_t&                                     At(index_t index) const;
-        unit_t&                                     At(index_t index) const volatile;
+        unit_t&                                     Unit(index_t index);
+        const unit_t&                               Unit(index_t index) const;
+        volatile unit_t&                            Unit(index_t index) volatile;
+        const volatile unit_t&                      Unit(index_t index) const volatile;
 
         split_t                                     Split(index_t at_index) const;
         split_t                                     Split(index_t at_index) const volatile;
@@ -156,8 +158,10 @@ namespace nkr { namespace array {
         maybe_t<allocator_err>                      Copy_To(any_non_const_array_of_any_tr<unit_t> auto& other) const volatile;
 
     public:
-        unit_t& operator [](index_t index) const;
-        unit_t& operator [](index_t index) const volatile;
+        unit_t&                 operator [](index_t index);
+        const unit_t&           operator [](index_t index) const;
+        volatile unit_t&        operator [](index_t index) volatile;
+        const volatile unit_t&  operator [](index_t index) const volatile;
     };
 
     static_assert(array_i<static_t<word_t>>);
@@ -194,21 +198,21 @@ namespace nkr { namespace array {
     static_assert(non_aggregate_array_i<const volatile static_t<volatile word_t>>);
     static_assert(non_aggregate_array_i<const volatile static_t<const volatile word_t>>);
 
-    static_assert(pointer_array_i<static_t<word_t>>);
-    static_assert(pointer_array_i<static_t<const word_t>>);
-    static_assert(pointer_array_i<static_t<volatile word_t>>);
-    static_assert(pointer_array_i<static_t<const volatile word_t>>);
-    static_assert(pointer_array_i<const static_t<word_t>>);
-    static_assert(pointer_array_i<const static_t<const word_t>>);
-    static_assert(pointer_array_i<const static_t<volatile word_t>>);
-    static_assert(pointer_array_i<const static_t<const volatile word_t>>);
-    static_assert(pointer_array_i<volatile static_t<word_t>>);
-    static_assert(pointer_array_i<volatile static_t<const word_t>>);
-    static_assert(pointer_array_i<volatile static_t<volatile word_t>>);
-    static_assert(pointer_array_i<volatile static_t<const volatile word_t>>);
-    static_assert(pointer_array_i<const volatile static_t<word_t>>);
-    static_assert(pointer_array_i<const volatile static_t<const word_t>>);
-    static_assert(pointer_array_i<const volatile static_t<volatile word_t>>);
-    static_assert(pointer_array_i<const volatile static_t<const volatile word_t>>);
+    static_assert(pointable_array_i<static_t<word_t>>);
+    static_assert(pointable_array_i<static_t<const word_t>>);
+    static_assert(pointable_array_i<static_t<volatile word_t>>);
+    static_assert(pointable_array_i<static_t<const volatile word_t>>);
+    static_assert(pointable_array_i<const static_t<word_t>>);
+    static_assert(pointable_array_i<const static_t<const word_t>>);
+    static_assert(pointable_array_i<const static_t<volatile word_t>>);
+    static_assert(pointable_array_i<const static_t<const volatile word_t>>);
+    static_assert(pointable_array_i<volatile static_t<word_t>>);
+    static_assert(pointable_array_i<volatile static_t<const word_t>>);
+    static_assert(pointable_array_i<volatile static_t<volatile word_t>>);
+    static_assert(pointable_array_i<volatile static_t<const volatile word_t>>);
+    static_assert(pointable_array_i<const volatile static_t<word_t>>);
+    static_assert(pointable_array_i<const volatile static_t<const word_t>>);
+    static_assert(pointable_array_i<const volatile static_t<volatile word_t>>);
+    static_assert(pointable_array_i<const volatile static_t<const volatile word_t>>);
 
 }}

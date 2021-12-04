@@ -98,23 +98,23 @@ namespace nkr { namespace array {
         static count_t  Extra_Unit_Count(const is_any_tr<high_pad_t> auto& self);
         static count_t  Total_Unit_Count(const is_any_tr<high_pad_t> auto& self);
 
-        static unit_t&  Unit(const is_any_tr<high_pad_t> auto& self, index_t index);
-        static unit_t&  Extra_Unit(const is_any_tr<high_pad_t> auto& self);
+        static auto&    Unit(is_any_tr<high_pad_t> auto& self, index_t index);
+        static auto&    Extra_Unit(is_any_tr<high_pad_t> auto& self);
 
-        static split_t  Split(const is_any_tr<high_pad_t> auto& self, index_t at_index); // at_index is the first index of the second
+        static split_t  Split(is_any_tr<high_pad_t> auto& self, index_t at_index); // at_index is the first index of the second
 
     protected:
-        static_t                static_array;
-        count_t                 total_unit_count;
-        mutable writable_unit_t extra_unit;
+        static_t        static_array;
+        count_t         total_unit_count;
+        writable_unit_t extra_unit;
 
     public:
         high_pad_t();
 
-        high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array);
-        high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count);
-        high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count, const tr1<any_tg, unit_t> auto& extra_unit);
-        high_pad_t(tr2<any_tg, pointer_array_ttg, of_just_tg, unit_t> auto& array, count_t total_unit_count, tr1<any_non_const_tg, unit_t> auto&& extra_unit);
+        high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array);
+        high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array, count_t total_unit_count);
+        high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array, count_t total_unit_count, const tr1<any_tg, unit_t> auto& extra_unit);
+        high_pad_t(tr2<any_tg, pointable_array_ttg, of_just_accessed_tg, unit_t> auto& array, count_t total_unit_count, tr1<any_non_const_tg, unit_t> auto&& extra_unit);
 
         high_pad_t(count_t total_unit_count);
         high_pad_t(count_t total_unit_count, const tr1<any_tg, unit_t> auto& extra_unit);
@@ -137,31 +137,37 @@ namespace nkr { namespace array {
         ~high_pad_t();
 
     public:
-        bool_t  Has_Memory() const;
-        bool_t  Has_Memory() const volatile;
+        bool_t                  Has_Memory() const;
+        bool_t                  Has_Memory() const volatile;
 
-        count_t Count() const;
-        count_t Count() const volatile;
-        count_t Unit_Count() const;
-        count_t Unit_Count() const volatile;
-        count_t Non_Extra_Unit_Count() const;
-        count_t Non_Extra_Unit_Count() const volatile;
-        count_t Extra_Unit_Count() const;
-        count_t Extra_Unit_Count() const volatile;
-        count_t Total_Unit_Count() const;
-        count_t Total_Unit_Count() const volatile;
+        count_t                 Count() const;
+        count_t                 Count() const volatile;
+        count_t                 Unit_Count() const;
+        count_t                 Unit_Count() const volatile;
+        count_t                 Non_Extra_Unit_Count() const;
+        count_t                 Non_Extra_Unit_Count() const volatile;
+        count_t                 Extra_Unit_Count() const;
+        count_t                 Extra_Unit_Count() const volatile;
+        count_t                 Total_Unit_Count() const;
+        count_t                 Total_Unit_Count() const volatile;
 
-        unit_t& Unit(index_t index) const;
-        unit_t& Unit(index_t index) const volatile;
-        unit_t& Extra_Unit() const;
-        unit_t& Extra_Unit() const volatile;
+        unit_t&                 Unit(index_t index);
+        const unit_t&           Unit(index_t index) const;
+        volatile unit_t&        Unit(index_t index) volatile;
+        const volatile unit_t&  Unit(index_t index) const volatile;
+        unit_t&                 Extra_Unit();
+        const unit_t&           Extra_Unit() const;
+        volatile unit_t&        Extra_Unit() volatile;
+        const volatile unit_t&  Extra_Unit() const volatile;
 
-        split_t Split(index_t at_index) const;
-        split_t Split(index_t at_index) const volatile;
+        split_t                 Split(index_t at_index) const;
+        split_t                 Split(index_t at_index) const volatile;
 
     public:
-        unit_t& operator [](index_t index) const;
-        unit_t& operator [](index_t index) const volatile;
+        unit_t&                 operator [](index_t index);
+        const unit_t&           operator [](index_t index) const;
+        volatile unit_t&        operator [](index_t index) volatile;
+        const volatile unit_t&  operator [](index_t index) const volatile;
     };
 
     static_assert(array_i<high_pad_t<word_t>>);
@@ -198,21 +204,21 @@ namespace nkr { namespace array {
     static_assert(non_aggregate_array_i<const volatile high_pad_t<volatile word_t>>);
     static_assert(non_aggregate_array_i<const volatile high_pad_t<const volatile word_t>>);
 
-    static_assert(non_pointer_array_i<high_pad_t<word_t>>);
-    static_assert(non_pointer_array_i<high_pad_t<const word_t>>);
-    static_assert(non_pointer_array_i<high_pad_t<volatile word_t>>);
-    static_assert(non_pointer_array_i<high_pad_t<const volatile word_t>>);
-    static_assert(non_pointer_array_i<const high_pad_t<word_t>>);
-    static_assert(non_pointer_array_i<const high_pad_t<const word_t>>);
-    static_assert(non_pointer_array_i<const high_pad_t<volatile word_t>>);
-    static_assert(non_pointer_array_i<const high_pad_t<const volatile word_t>>);
-    static_assert(non_pointer_array_i<volatile high_pad_t<word_t>>);
-    static_assert(non_pointer_array_i<volatile high_pad_t<const word_t>>);
-    static_assert(non_pointer_array_i<volatile high_pad_t<volatile word_t>>);
-    static_assert(non_pointer_array_i<volatile high_pad_t<const volatile word_t>>);
-    static_assert(non_pointer_array_i<const volatile high_pad_t<word_t>>);
-    static_assert(non_pointer_array_i<const volatile high_pad_t<const word_t>>);
-    static_assert(non_pointer_array_i<const volatile high_pad_t<volatile word_t>>);
-    static_assert(non_pointer_array_i<const volatile high_pad_t<const volatile word_t>>);
+    static_assert(non_pointable_array_i<high_pad_t<word_t>>);
+    static_assert(non_pointable_array_i<high_pad_t<const word_t>>);
+    static_assert(non_pointable_array_i<high_pad_t<volatile word_t>>);
+    static_assert(non_pointable_array_i<high_pad_t<const volatile word_t>>);
+    static_assert(non_pointable_array_i<const high_pad_t<word_t>>);
+    static_assert(non_pointable_array_i<const high_pad_t<const word_t>>);
+    static_assert(non_pointable_array_i<const high_pad_t<volatile word_t>>);
+    static_assert(non_pointable_array_i<const high_pad_t<const volatile word_t>>);
+    static_assert(non_pointable_array_i<volatile high_pad_t<word_t>>);
+    static_assert(non_pointable_array_i<volatile high_pad_t<const word_t>>);
+    static_assert(non_pointable_array_i<volatile high_pad_t<volatile word_t>>);
+    static_assert(non_pointable_array_i<volatile high_pad_t<const volatile word_t>>);
+    static_assert(non_pointable_array_i<const volatile high_pad_t<word_t>>);
+    static_assert(non_pointable_array_i<const volatile high_pad_t<const word_t>>);
+    static_assert(non_pointable_array_i<const volatile high_pad_t<volatile word_t>>);
+    static_assert(non_pointable_array_i<const volatile high_pad_t<const volatile word_t>>);
 
 }}
