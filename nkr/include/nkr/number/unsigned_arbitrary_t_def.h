@@ -379,7 +379,6 @@ namespace nkr { namespace number {
 
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
-        nkr_ASSERT_THAT(result.Count() >= number_a.Count() * 2);
 
         const count_t unit_count = number_a.Count();
         if (unit_count == 1) {
@@ -389,8 +388,14 @@ namespace nkr { namespace number {
             // however, if we ever do implement that, we would be able to use word_t as units, but I doubt it
             // would be any more performant than just using a half word with this quicker algorithm.
             const safe_multiply_t a_times_b = number_a[0] * number_b[0];
-            result[0] = a_times_b & std::numeric_limits<unit_t>::max();
-            result[1] = (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max();
+            if (a_times_b > std::numeric_limits<unit_t>::max()) {
+                result.Count(2);
+                result[0] = a_times_b & std::numeric_limits<unit_t>::max();
+                result[1] = (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max();
+            } else {
+                result.Count(1);
+                result[0] = unit_t(a_times_b);
+            }
         } else {
             const count_t low_unit_count = unit_count / 2;
             const count_t high_unit_count = unit_count - low_unit_count;
@@ -398,8 +403,8 @@ namespace nkr { namespace number {
             const auto a = number_a.Split(low_unit_count);
             const auto b = number_b.Split(low_unit_count);
 
-            // c1 = (a0 + a1) * (b0 + b1);
-            auto& c1 = result;
+            // c1 = (a0 + a1) * (b0 + b1)
+            array::static_t<unit_t> c1(maybe_t<pointer_t<unit_t>>(&result[low_unit_count], result.Count() - low_unit_count));
             {
                 // if we do this before getting c0 and c2, we'll need less memory overall
                 // because this will be released whereas the c0 and c2 must stay till the end.
@@ -414,30 +419,18 @@ namespace nkr { namespace number {
                 array::static_t<unit_t> b0_plus_b1(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - unit_count], unit_count));
                 b0_plus_b1.Count(Add<unit_t>(b[0], b[1], b0_plus_b1));
 
-                count_t padded_count = std::max(a0_plus_a1.Count(), b0_plus_b1.Count());
-                array::high_pad_t<unit_t> a0_plus_a1_pad(a0_plus_a1, padded_count, unit_t(0));
-                array::high_pad_t<unit_t> b0_plus_b1_pad(b0_plus_b1, padded_count, unit_t(0));
-
-                // because we only need one more digit than half the unit count to get the result here,
-                // it would be nice if we could point to the half unit count index of this double count sized array,
-                // that way we don't actually have to shift later, which will save a lot of time for large arrays.
-                // that would mean we should be passing an result array that already has all the units zeroed out,
-                // which also is slow. better to write the zeros at the beginning of the array after getting result back,
-                // but that would mean we couldn't reuse the buffer later below because it won't be big enough unless we increase
-                // the require count from double_unit_count to double_unit_count + half_unit_count.
-                // hence a trade off between memory and processing. better to save on memory in this case I think, so this is simpler.
-                // wait. the end result here is always half_unit_count + 1. that means it can do the calc in that space, right?
-                // that would mean we just have to make sure we don't go past the end in the next section.
+                count_t padded_unit_count = std::max(a0_plus_a1.Count(), b0_plus_b1.Count());
+                array::high_pad_t<unit_t> a0_plus_a1_pad(a0_plus_a1, padded_unit_count, unit_t(0));
+                array::high_pad_t<unit_t> b0_plus_b1_pad(b0_plus_b1, padded_unit_count, unit_t(0));
 
                 Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1, buffer);
-                // when we do the static pointer thing, make sure to fill in zeros at the beginning of the array
 
                 buffer.Count(buffer.Count() - unit_count * 2).Ignore_Error();
             }
 
             nkr_ASSERT_THAT(buffer.Count() + unit_count * 2 <= buffer.Capacity());
 
-            // c0 = a0 * b0;
+            // c0 = a0 * b0
             const count_t c0_capacity = low_unit_count * 2;
             buffer.Count(buffer.Count() + c0_capacity).Ignore_Error();
             array::static_t<unit_t> c0(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - c0_capacity], c0_capacity));
@@ -448,7 +441,7 @@ namespace nkr { namespace number {
                 c0[0] = 0;
             }
 
-            // c2 = a1 * b1;
+            // c2 = a1 * b1
             const count_t c2_capacity = high_unit_count * 2;
             buffer.Count(buffer.Count() + c2_capacity).Ignore_Error();
             array::static_t<unit_t> c2(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - c2_capacity], c2_capacity));
@@ -459,48 +452,43 @@ namespace nkr { namespace number {
                 c2[0] = 0;
             }
 
-            // c1 = c1 - c2 - c0;
+            // c1 = c1 - c2 - c0
             Subtract_In_Place<unit_t>(c1, c2);
             Subtract_In_Place<unit_t>(c1, c0);
-            // when we do the static pointer thing, make sure to use low_pads here or a temp static of c1 that ignores the first part of the array
 
-            // b = std::numeric_limits<unit_t>::max() + 1;
-            // m2 = low_unit_count;
-            // result = (c2 x b ^ (m2 x 2)) + (c1 x b ^ m2) + c0;
+            // b = std::numeric_limits<unit_t>::max() + 1
+            // m2 = low_unit_count
+            // result = (c2 x b ^ (m2 x 2)) + (c1 x b ^ m2) + c0
 
-            // result = c1 x b ^ m2;
-            {
-                // I want to avoid doing this by simply pointing to the low_unit_count index to start a write on the above multiply.
-                for (index_t idx = c1.Count() - 1, end = low_unit_count; idx >= end; idx -= 1) {
-                    c1[idx] = c1[idx - low_unit_count];
-                }
-                for (index_t idx = 0, end = low_unit_count; idx < end; idx += 1) {
-                    c1[idx] = unit_t(0);
-                }
+            // result = c1 x b ^ m2
+            for (index_t idx = 0, end = low_unit_count; idx < end; idx += 1) {
+                result[idx] = 0;
             }
 
-            // result += c0;
-            Add_In_Place<unit_t>(c1, c0);
+            // result += c0
+            Add_In_Place<unit_t>(result, c0);
 
-            // result += c2 x b ^ (m2 x 2);
+            // result += c2 x b ^ (m2 x 2)
             {
                 bool_t do_carry = false;
 
                 // might be nice to have an array:right_pad_static here, then we can simply call Add_In_Place
-                for (index_t c2_idx = 0, c1_idx = low_unit_count * 2, end = c2.Count(); c2_idx < end; c2_idx += 1, c1_idx += 1) {
+                for (index_t c2_idx = 0, result_idx = low_unit_count * 2, end = c2.Count(); c2_idx < end; c2_idx += 1, result_idx += 1) {
                     if (do_carry) {
-                        if ((c1[c1_idx] += 1) == 0) {
-                            c1[c1_idx] = c2[c2_idx];
+                        if ((result[result_idx] += 1) == 0) {
+                            result[result_idx] = c2[c2_idx];
                         } else {
-                            c1[c1_idx] += c2[c2_idx];
-                            do_carry = c1[c1_idx] < c2[c2_idx];
+                            result[result_idx] += c2[c2_idx];
+                            do_carry = result[result_idx] < c2[c2_idx];
                         }
                     } else {
-                        c1[c1_idx] += c2[c2_idx];
-                        do_carry = c1[c1_idx] < c2[c2_idx];
+                        result[result_idx] += c2[c2_idx];
+                        do_carry = result[result_idx] < c2[c2_idx];
                     }
                 }
             }
+
+            result.Count(low_unit_count * 2 + c2.Count());
 
             buffer.Count(buffer.Count() - unit_count * 2).Ignore_Error();
         }
