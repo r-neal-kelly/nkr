@@ -53,6 +53,18 @@ namespace nkr { namespace math {
         return signed_integer < 0 ? uint_t(sint_t(-1) - signed_integer) + 1 : uint_t(signed_integer);
     }
 
+    inline constexpr c_bool_t
+        Is_Even(integer_tr auto integer)
+    {
+        return (integer & 1) == 0;
+    }
+
+    inline constexpr c_bool_t
+        Is_Odd(integer_tr auto integer)
+    {
+        return (integer & 1) == 1;
+    }
+
     inline constexpr std_bool_t
         Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer)
     {

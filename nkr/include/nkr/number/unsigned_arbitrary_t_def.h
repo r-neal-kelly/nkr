@@ -457,7 +457,7 @@ namespace nkr { namespace number {
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_b.Count() > 0);
 
-        count_t padded_count = std::max(number_a.Count(), number_b.Count());
+        const count_t padded_count = std::max(number_a.Count(), number_b.Count());
         array::high_pad_t<const unit_t> number_a_pad(number_a, padded_count, unit_t(0));
         array::high_pad_t<const unit_t> number_b_pad(number_b, padded_count, unit_t(0));
 
@@ -467,10 +467,22 @@ namespace nkr { namespace number {
         } else {
             result.Clear();
 
-            // we need to calc the needed allocated space up front for the recursion allocations and return on failure.
-            // keep in mind that we don't need to allocate the final result because we already have it
+            if (padded_count > 1) {
+                count_t capacity = padded_count;
+                count_t counter = padded_count;
+                if (math::Is_Odd(counter)) {
+                    counter += 1;
+                }
+                while (counter > 2) {
+                    counter = counter / 2 + 1;
+                    capacity += counter;
+                }
+                capacity = capacity * 2 + 4;
 
-            Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+                Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+            } else {
+                Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+            }
 
             return allocator_err::NONE;
         }

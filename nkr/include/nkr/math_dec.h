@@ -53,6 +53,9 @@ namespace nkr { namespace math {
     constexpr auto              Absolute(integer_unsigned_tr auto unsigned_integer);
     constexpr auto              Absolute(integer_signed_tr auto signed_integer);
 
+    constexpr c_bool_t          Is_Even(integer_tr auto integer);
+    constexpr c_bool_t          Is_Odd(integer_tr auto integer);
+
     constexpr std_bool_t        Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer);
     constexpr std_bool_t        Is_Power_Of_2(integer_signed_tr auto signed_integer);
 
