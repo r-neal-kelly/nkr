@@ -461,7 +461,11 @@ namespace nkr { namespace number {
             // result = (c2 x b ^ (m2 x 2)) + (c1 x b ^ m2) + c0
 
             // result = c1 x b ^ m2
+            result.Count(low_unit_count * 2 + c2.Count());
             for (index_t idx = 0, end = low_unit_count; idx < end; idx += 1) {
+                result[idx] = 0;
+            }
+            for (index_t idx = low_unit_count + c1.Count(), end = result.Count(); idx < end; idx += 1) {
                 result[idx] = 0;
             }
 
@@ -472,7 +476,7 @@ namespace nkr { namespace number {
             {
                 bool_t do_carry = false;
 
-                // might be nice to have an array:right_pad_static here, then we can simply call Add_In_Place
+                // we could create a static_t of the result at the right position then add in place
                 for (index_t c2_idx = 0, result_idx = low_unit_count * 2, end = c2.Count(); c2_idx < end; c2_idx += 1, result_idx += 1) {
                     if (do_carry) {
                         if ((result[result_idx] += 1) == 0) {
@@ -488,7 +492,15 @@ namespace nkr { namespace number {
                 }
             }
 
-            result.Count(low_unit_count * 2 + c2.Count());
+            // this might only be necessary because we elide the mutliplication of high_pads sometimes, but I'm not sure
+            count_t final_result_count = result.Count();
+            for (index_t end = 0; final_result_count > end;) {
+                final_result_count -= 1;
+                if (result[final_result_count] != 0) {
+                    break;
+                }
+            }
+            result.Count(final_result_count + 1);
 
             buffer.Count(buffer.Count() - unit_count * 2).Ignore_Error();
         }
@@ -545,6 +557,8 @@ namespace nkr { namespace number {
                 array::static_t<unit_t> static_result(maybe_t<pointer_t<unit_t>>(&result[0], result.Count()));
                 buffer.Count(0).Ignore_Error();
                 Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, static_result, buffer);
+                nkr_ASSERT_THAT(static_result.Count() <= result.Count());
+                result.Count(static_result.Count()).Ignore_Error();
 
                 // we could do the same thing here that we do in Subtract, where we discount the high_pad zeros.
 
