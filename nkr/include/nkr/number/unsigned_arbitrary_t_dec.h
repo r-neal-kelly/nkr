@@ -39,7 +39,8 @@ namespace nkr { namespace number {
     template <integer_unsigned_tr unit_p>
     maybe_t<allocator_err>  Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
                                      const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
-                                     tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result);
+                                     tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result,
+                                     tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& buffer);
 
     template <integer_unsigned_tr unit_p>
     class unsigned_arbitrary_t

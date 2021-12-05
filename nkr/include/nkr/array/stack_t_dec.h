@@ -151,6 +151,7 @@ namespace nkr { namespace array {
 
         static count_t                  Capacity(const is_any_tr<stack_t> auto& self);
         static maybe_t<allocator_err>   Capacity(is_any_non_const_tr<stack_t> auto& self, count_t new_capacity);
+        static maybe_t<allocator_err>   Reserve(tr1<any_non_const_tg, stack_tg> auto& self, count_t capacity_to_reserve);
 
         static count_t                  Count(const is_any_tr<stack_t> auto& self);
         static void_t                   Count(is_any_non_const_tr<stack_t> auto& self, count_t count);
@@ -233,6 +234,8 @@ namespace nkr { namespace array {
 
         maybe_t<allocator_err>                      Capacity(count_t new_capacity);
         maybe_t<allocator_err>                      Capacity(count_t new_capacity) volatile;
+        maybe_t<allocator_err>                      Reserve(count_t capacity_to_reserve);
+        maybe_t<allocator_err>                      Reserve(count_t capacity_to_reserve) volatile;
 
         count_t                                     Count() const;
         count_t                                     Count() const volatile;

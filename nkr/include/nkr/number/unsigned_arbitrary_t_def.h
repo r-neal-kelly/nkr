@@ -291,7 +291,8 @@ namespace nkr { namespace number {
     inline void_t
         Karatsuba_Multiply(const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_a,
                            const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_b,
-                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result,
+                           tr2<any_non_const_tg, array_ttg, of_any_non_const_tg, unit_p> auto& buffer)
     {
         using unit_t = unit_p;
         using safe_multiply_t = word_t;
@@ -369,7 +370,7 @@ namespace nkr { namespace number {
 
                 // we should be able to utiliize the same pointer with two dynamic array wrappers. need a new ctor for it.
 
-                Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1);
+                Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1, buffer);
                 while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
@@ -380,7 +381,7 @@ namespace nkr { namespace number {
             if (a[0].Non_Extra_Unit_Count() > 0 && b[0].Non_Extra_Unit_Count() > 0) {
                 c0.Capacity(low_unit_count * 2);
                 nkr_ASSERT_THAT(c0.Capacity() >= low_unit_count * 2);
-                Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
+                Karatsuba_Multiply<unit_t>(a[0], b[0], c0, buffer);
             } else {
                 c0.Capacity(1);
                 nkr_ASSERT_THAT(c0.Capacity() >= 1);
@@ -392,7 +393,7 @@ namespace nkr { namespace number {
             if (a[1].Non_Extra_Unit_Count() > 0 && b[1].Non_Extra_Unit_Count() > 0) {
                 c2.Capacity(high_unit_count * 2);
                 nkr_ASSERT_THAT(c2.Capacity() >= high_unit_count * 2);
-                Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
+                Karatsuba_Multiply<unit_t>(a[1], b[1], c2, buffer);
             } else {
                 c2.Capacity(1);
                 nkr_ASSERT_THAT(c2.Capacity() >= 1);
@@ -443,11 +444,29 @@ namespace nkr { namespace number {
         }
     }
 
+    inline count_t
+        Karatsuba_Multiply_Buffer_Capacity(count_t number_unit_count)
+    {
+        if (number_unit_count > 1) {
+            count_t capacity = number_unit_count;
+
+            for (count_t counter = math::Is_Odd(number_unit_count) ? number_unit_count + 1 : number_unit_count; counter > 2; ) {
+                counter = counter / 2 + 1;
+                capacity += counter;
+            }
+
+            return capacity * 2 + 4;
+        } else {
+            return 0;
+        }
+    }
+
     template <integer_unsigned_tr unit_p>
     inline maybe_t<allocator_err>
         Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
                  const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
-                 tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+                 tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result,
+                 tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& buffer)
     {
         using unit_t = unit_p;
         using safe_multiply_t = word_t;
@@ -461,34 +480,21 @@ namespace nkr { namespace number {
         array::high_pad_t<const unit_t> number_a_pad(number_a, padded_count, unit_t(0));
         array::high_pad_t<const unit_t> number_b_pad(number_b, padded_count, unit_t(0));
 
-        maybe_t<allocator_err> err = result.Capacity(number_a_pad.Count() + number_b_pad.Count());
+        maybe_t<allocator_err> err = result.Reserve(padded_count * 2);
         if (err) {
             return err;
         } else {
             result.Clear();
 
-            if (padded_count > 1) {
-                // this needs to be put into a static public function on the new number type
-                // so that users can preallocate an array for the algorithm to use. we
-                // also need to probably develop a private type that takes the array
-                // and wraps it for use in the algorithm(s).
-                count_t capacity = padded_count;
-                count_t counter = padded_count;
-                if (math::Is_Odd(counter)) {
-                    counter += 1;
-                }
-                while (counter > 2) {
-                    counter = counter / 2 + 1;
-                    capacity += counter;
-                }
-                capacity = capacity * 2 + 4;
-
-                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+            maybe_t<allocator_err> err = buffer.Reserve(Karatsuba_Multiply_Buffer_Capacity(padded_count));
+            if (err) {
+                return err;
             } else {
-                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
-            }
+                buffer.Count(0).Ignore_Error();
+                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result, buffer);
 
-            return allocator_err::NONE;
+                return allocator_err::NONE;
+            }
         }
     }
 

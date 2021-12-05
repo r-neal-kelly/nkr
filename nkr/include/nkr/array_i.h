@@ -59,6 +59,8 @@ namespace nkr { namespace $array_i {
         { const_volatile_array.Capacity() }             -> is_tr<count_t>;
         { array.Capacity(new_capacity) }                -> is_tr<maybe_t<allocator_err>>;
         { volatile_array.Capacity(new_capacity) }       -> is_tr<maybe_t<allocator_err>>;
+        { array.Reserve(new_capacity) }                 -> is_tr<maybe_t<allocator_err>>;
+        { volatile_array.Reserve(new_capacity) }        -> is_tr<maybe_t<allocator_err>>;
 
         { array.Push(lvalue_unit) }                     -> is_tr<maybe_t<allocator_err>>;
         { volatile_array.Push(lvalue_unit) }            -> is_tr<maybe_t<allocator_err>>;

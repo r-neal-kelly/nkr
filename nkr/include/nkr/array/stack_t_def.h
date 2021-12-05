@@ -177,6 +177,17 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Reserve(tr1<any_non_const_tg, stack_tg> auto& self, count_t capacity_to_reserve)
+    {
+        if (capacity_to_reserve > 0 && Capacity(self) < capacity_to_reserve) {
+            return nkr::Move(Capacity(self, capacity_to_reserve));
+        } else {
+            return allocator_err::NONE;
+        }
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
     inline count_t
         stack_t<unit_p, capacity_p>::Count(const is_any_tr<stack_t> auto& self)
     {
@@ -598,6 +609,21 @@ namespace nkr { namespace array {
         volatile
     {
         return nkr::Move(Capacity(*this, new_capacity));
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Reserve(count_t capacity_to_reserve)
+    {
+        return nkr::Move(Reserve(*this, capacity_to_reserve));
+    }
+
+    template <any_type_tr unit_p, count_t capacity_p>
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Reserve(count_t capacity_to_reserve)
+        volatile
+    {
+        return nkr::Move(Reserve(*this, capacity_to_reserve));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

@@ -137,8 +137,10 @@ namespace nkr { namespace array {
 
         static count_t                  Capacity(const is_any_tr<dynamic_t> auto& self);
         static maybe_t<allocator_err>   Capacity(is_any_tr<dynamic_t> auto& self, count_t new_capacity);
+        static maybe_t<allocator_err>   Reserve(tr1<any_non_const_tg, dynamic_tg> auto& self, count_t capacity_to_reserve);
 
         static count_t                  Count(const is_any_tr<dynamic_t> auto& self);
+        static maybe_t<allocator_err>   Count(tr1<any_non_const_tg, dynamic_tg> auto& self, count_t new_unit_count);
 
         static bool_t                   Should_Grow(const is_any_tr<dynamic_t> auto& self);
         static maybe_t<allocator_err>   Grow(is_any_tr<dynamic_t> auto& self);
@@ -228,9 +230,13 @@ namespace nkr { namespace array {
         count_t                                     Capacity() const volatile;
         maybe_t<allocator_err>                      Capacity(count_t new_capacity);
         maybe_t<allocator_err>                      Capacity(count_t new_capacity) volatile;
+        maybe_t<allocator_err>                      Reserve(count_t capacity_to_reserve);
+        maybe_t<allocator_err>                      Reserve(count_t capacity_to_reserve) volatile;
 
         count_t                                     Count() const;
         count_t                                     Count() const volatile;
+        maybe_t<allocator_err>                      Count(count_t new_unit_count);
+        maybe_t<allocator_err>                      Count(count_t new_unit_count) volatile;
 
         unit_t&                                     At(index_t index) const;
         unit_t&                                     At(index_t index) const volatile;
