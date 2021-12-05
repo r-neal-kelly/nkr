@@ -43,6 +43,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 4> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(2)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 4);
             CHECK(result[0] == 0x01);
@@ -62,6 +63,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 6> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(3)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 6);
             CHECK(result[0] == 0x01);
@@ -85,6 +87,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 8> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(4)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 8);
             CHECK(result[0] == 0x01);
@@ -118,6 +121,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 16> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(8)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x01);
@@ -175,6 +179,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 32> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(16)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 32);
             CHECK(result[0] == 0x01);
@@ -280,6 +285,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 64> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(32)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 64);
             CHECK(result[0] == 0x01);
@@ -481,6 +487,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 128> result;
+            array::stack_t<u8_t, Multiply_Buffer_Capacity(64)> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 128);
             CHECK(result[0] == 0x01);
