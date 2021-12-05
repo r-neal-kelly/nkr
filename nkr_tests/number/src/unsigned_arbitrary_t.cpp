@@ -28,7 +28,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 4> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 4);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -47,7 +47,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 6> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 6);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -70,7 +70,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 8> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 8);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -103,7 +103,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -160,7 +160,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 32> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 32);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -265,7 +265,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 64> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 64);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -466,7 +466,7 @@ namespace nkr { namespace number {
                 u8_t(0xFF)
             };
             array::stack_t<u8_t, 128> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 128);
             CHECK(result[0] == 0x01);
             CHECK(result[1] == 0x00);
@@ -607,7 +607,7 @@ namespace nkr { namespace number {
                 u16_t(0x00FF)
             };
             array::stack_t<u16_t, 4> result;
-            Karatsuba_Multiply<u16_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u16_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 4);
             CHECK(result[0] == 0x0001);
             CHECK(result[1] == 0xFE00);
@@ -636,7 +636,7 @@ namespace nkr { namespace number {
                 u8_t(0x24)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0x18);
             CHECK(result[1] == 0xc0);
@@ -670,7 +670,7 @@ namespace nkr { namespace number {
                 u8_t(0x01)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0xFF);
             CHECK(result[1] == 0xFF);
@@ -704,7 +704,7 @@ namespace nkr { namespace number {
                 u8_t(0x02)
             };
             array::stack_t<u8_t, 16> result;
-            Karatsuba_Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
+            Multiply<u8_t>(number_a, number_b, result).Ignore_Error();
             CHECK(result.Count() == 16);
             CHECK(result[0] == 0xFE);
             CHECK(result[1] == 0xFF);

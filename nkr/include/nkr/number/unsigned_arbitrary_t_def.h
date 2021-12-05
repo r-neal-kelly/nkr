@@ -289,9 +289,9 @@ namespace nkr { namespace number {
     
     template <integer_unsigned_tr unit_p>
     inline void_t
-        Private_Karatsuba_Multiply(const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_a,
-                                   const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_b,
-                                   tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+        Karatsuba_Multiply(const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_a,
+                           const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_b,
+                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
         using unit_t = unit_p;
         using safe_multiply_t = word_t;
@@ -369,7 +369,7 @@ namespace nkr { namespace number {
 
                 // we should be able to utiliize the same pointer with two dynamic array wrappers. need a new ctor for it.
 
-                Private_Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1);
+                Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1);
                 while (c1.Count() < double_unit_count) {
                     c1.Push(unit_t(0)).Ignore_Error();
                 }
@@ -380,7 +380,7 @@ namespace nkr { namespace number {
             if (a[0].Non_Extra_Unit_Count() > 0 && b[0].Non_Extra_Unit_Count() > 0) {
                 c0.Capacity(low_unit_count * 2);
                 nkr_ASSERT_THAT(c0.Capacity() >= low_unit_count * 2);
-                Private_Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
+                Karatsuba_Multiply<unit_t>(a[0], b[0], c0);
             } else {
                 c0.Capacity(1);
                 nkr_ASSERT_THAT(c0.Capacity() >= 1);
@@ -392,7 +392,7 @@ namespace nkr { namespace number {
             if (a[1].Non_Extra_Unit_Count() > 0 && b[1].Non_Extra_Unit_Count() > 0) {
                 c2.Capacity(high_unit_count * 2);
                 nkr_ASSERT_THAT(c2.Capacity() >= high_unit_count * 2);
-                Private_Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
+                Karatsuba_Multiply<unit_t>(a[1], b[1], c2);
             } else {
                 c2.Capacity(1);
                 nkr_ASSERT_THAT(c2.Capacity() >= 1);
@@ -445,9 +445,9 @@ namespace nkr { namespace number {
 
     template <integer_unsigned_tr unit_p>
     inline maybe_t<allocator_err>
-        Karatsuba_Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
-                           const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
-                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+        Multiply(const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_a,
+                 const tr2<any_tg, pointable_array_ttg, of_any_tg, unit_p> auto& number_b,
+                 tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result)
     {
         using unit_t = unit_p;
         using safe_multiply_t = word_t;
@@ -468,6 +468,10 @@ namespace nkr { namespace number {
             result.Clear();
 
             if (padded_count > 1) {
+                // this needs to be put into a static public function on the new number type
+                // so that users can preallocate an array for the algorithm to use. we
+                // also need to probably develop a private type that takes the array
+                // and wraps it for use in the algorithm(s).
                 count_t capacity = padded_count;
                 count_t counter = padded_count;
                 if (math::Is_Odd(counter)) {
@@ -479,9 +483,9 @@ namespace nkr { namespace number {
                 }
                 capacity = capacity * 2 + 4;
 
-                Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
             } else {
-                Private_Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
+                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result);
             }
 
             return allocator_err::NONE;
