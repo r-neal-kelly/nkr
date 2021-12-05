@@ -195,12 +195,28 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
-        stack_t<unit_p, capacity_p>::Count(is_any_non_const_tr<stack_t> auto& self, count_t count)
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Count(tr1<any_non_const_tg, stack_tg> auto& self, count_t new_unit_count)
     {
-        nkr_ASSERT_THAT(count <= Capacity(self));
+        count_t old_unit_count = Count(self);
+        if (new_unit_count > old_unit_count) {
+            maybe_t<allocator_err> err = Reserve(self, new_unit_count);
+            if (err) {
+                return err;
+            } else {
+                self.unit_count = new_unit_count;
 
-        self.unit_count = count;
+                return allocator_err::NONE;
+            }
+        } else if (new_unit_count < old_unit_count) {
+            for (count_t pop_count = old_unit_count - new_unit_count; pop_count > 0; pop_count -= 1) {
+                Pop(self);
+            }
+
+            return allocator_err::NONE;
+        } else {
+            return allocator_err::NONE;
+        }
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
@@ -643,18 +659,18 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
-        stack_t<unit_p, capacity_p>::Count(count_t count)
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Count(count_t new_unit_count)
     {
-        return Count(*this, count);
+        return nkr::Move(Count(*this, new_unit_count));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>
-    inline void_t
-        stack_t<unit_p, capacity_p>::Count(count_t count)
+    inline maybe_t<allocator_err>
+        stack_t<unit_p, capacity_p>::Count(count_t new_unit_count)
         volatile
     {
-        return Count(*this, count);
+        return nkr::Move(Count(*this, new_unit_count));
     }
 
     template <any_type_tr unit_p, count_t capacity_p>

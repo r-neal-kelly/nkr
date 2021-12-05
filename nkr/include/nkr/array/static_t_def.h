@@ -83,6 +83,13 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p>
+    inline void_t
+        static_t<unit_p>::Count(tr1<any_non_const_tg, static_t> auto& self, count_t new_unit_count)
+    {
+        self.pointer.Unit_Count() = new_unit_count;
+    }
+
+    template <any_type_tr unit_p>
     inline auto&
         static_t<unit_p>::Unit(is_any_tr<static_t> auto& self, index_t index)
     {
@@ -299,6 +306,21 @@ namespace nkr { namespace array {
         const volatile
     {
         return Count(*this);
+    }
+
+    template <any_type_tr unit_p>
+    inline void_t
+        static_t<unit_p>::Count(count_t new_unit_count)
+    {
+        return Count(*this, new_unit_count);
+    }
+
+    template <any_type_tr unit_p>
+    inline void_t
+        static_t<unit_p>::Count(count_t new_unit_count)
+        volatile
+    {
+        return Count(*this, new_unit_count);
     }
 
     template <any_type_tr unit_p>

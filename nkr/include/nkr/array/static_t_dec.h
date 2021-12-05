@@ -100,6 +100,7 @@ namespace nkr { namespace array {
         static void_t   Pointer(is_any_non_const_tr<static_t> auto& self, maybe_t<pointer_t<unit_t>> new_pointer);
 
         static count_t  Count(const is_any_tr<static_t> auto& self);
+        static void_t   Count(tr1<any_non_const_tg, static_t> auto& self, count_t new_unit_count);
 
         static auto&    Unit(is_any_tr<static_t> auto& self, index_t index);
 
@@ -145,6 +146,8 @@ namespace nkr { namespace array {
 
         count_t                                     Count() const;
         count_t                                     Count() const volatile;
+        void_t                                      Count(count_t new_unit_count);
+        void_t                                      Count(count_t new_unit_count) volatile;
 
         unit_t&                                     Unit(index_t index);
         const unit_t&                               Unit(index_t index) const;

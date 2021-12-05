@@ -24,6 +24,11 @@ namespace nkr { namespace number {
                                 tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result);
 
     template <integer_unsigned_tr unit_p>
+    count_t                 Add(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
+                                const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
+                                tr2<any_tg, non_aggregate_array_ttg, of_any_tg, unit_p> auto& result);
+
+    template <integer_unsigned_tr unit_p>
     void_t                  Add_In_Place(tr2<any_non_const_tg, array_ttg, of_any_non_const_tg, unit_p> auto& number_a,
                                          const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b);
 

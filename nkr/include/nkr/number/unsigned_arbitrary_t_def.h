@@ -57,7 +57,7 @@ namespace nkr { namespace number {
         }
 
         if (number_a_count > number_b_count) {
-            for (index_t idx = min_count, end = number_a_count; idx < end; idx += 1) {
+            for (index_t idx = min_count, end = max_count; idx < end; idx += 1) {
                 const unit_t number_a_unit = number_a[idx];
                 if (do_carry) {
                     const unit_t number_c_unit = number_a_unit + 1;
@@ -68,7 +68,7 @@ namespace nkr { namespace number {
                 }
             }
         } else if (number_b_count > number_a_count) {
-            for (index_t idx = min_count, end = number_b_count; idx < end; idx += 1) {
+            for (index_t idx = min_count, end = max_count; idx < end; idx += 1) {
                 const unit_t number_b_unit = number_b[idx];
                 if (do_carry) {
                     const unit_t number_c_unit = number_b_unit + 1;
@@ -89,6 +89,84 @@ namespace nkr { namespace number {
         }
 
         return allocator_err::NONE;
+    }
+
+    template <integer_unsigned_tr unit_p>
+    count_t
+        Add(const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_a,
+            const tr2<any_tg, array_ttg, of_any_tg, unit_p> auto& number_b,
+            tr2<any_tg, non_aggregate_array_ttg, of_any_tg, unit_p> auto& result)
+    {
+        using unit_t = unit_p;
+
+        nkr_ASSERT_THAT(number_a.Count() > 0);
+        nkr_ASSERT_THAT(number_b.Count() > 0);
+
+        const count_t number_a_count = number_a.Count();
+        const count_t number_b_count = number_b.Count();
+        const count_t min_count = std::min(number_a_count, number_b_count);
+        const count_t max_count = std::max(number_a_count, number_b_count);
+
+        nkr_ASSERT_THAT(result.Count() >= max_count + 1);
+
+        bool_t do_carry = false;
+
+        for (index_t idx = 0, end = min_count; idx < end; idx += 1) {
+            const unit_t number_a_unit = number_a[idx];
+            const unit_t number_b_unit = number_b[idx];
+            if (do_carry) {
+                if (unit_t(number_a_unit + 1) == 0) {
+                    result[idx] = number_b_unit;
+                } else {
+                    const unit_t number_c_unit = number_a_unit + 1 + number_b_unit;
+                    do_carry = number_c_unit < number_b_unit;
+                    result[idx] = number_c_unit;
+                }
+            } else {
+                const unit_t number_c_unit = number_a_unit + number_b_unit;
+                do_carry = number_c_unit < number_b_unit;
+                result[idx] = number_c_unit;
+            }
+        }
+
+        if (number_a_count > number_b_count) {
+            for (index_t idx = min_count, end = max_count; idx < end; idx += 1) {
+                const unit_t number_a_unit = number_a[idx];
+                if (do_carry) {
+                    const unit_t number_c_unit = number_a_unit + 1;
+                    do_carry = number_c_unit == 0;
+                    result[idx] = number_c_unit;
+                } else {
+                    result[idx] = number_a_unit;
+                }
+            }
+        } else if (number_b_count > number_a_count) {
+            for (index_t idx = min_count, end = max_count; idx < end; idx += 1) {
+                const unit_t number_b_unit = number_b[idx];
+                if (do_carry) {
+                    const unit_t number_c_unit = number_b_unit + 1;
+                    do_carry = number_c_unit == 0;
+                    result[idx] = number_c_unit;
+                } else {
+                    result[idx] = number_b_unit;
+                }
+            }
+        }
+
+        if (do_carry) {
+            result[max_count] = 1;
+
+            return max_count + 1;
+        } else {
+            for (index_t idx = max_count, end = 1; idx > end;) {
+                idx -= 1;
+                if (result[idx] != 0) {
+                    return idx + 1;
+                }
+            }
+
+            return 1;
+        }
     }
 
     template <integer_unsigned_tr unit_p>
@@ -291,8 +369,8 @@ namespace nkr { namespace number {
     inline void_t
         Karatsuba_Multiply(const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_a,
                            const tr2<any_tg, array::high_pad_ttg, of_any_tg, unit_p> auto& number_b,
-                           tr2<any_tg, aggregate_array_ttg, of_any_tg, unit_p> auto& result,
-                           tr2<any_non_const_tg, array_ttg, of_any_non_const_tg, unit_p> auto& buffer)
+                           tr2<any_non_const_tg, non_aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& result,
+                           tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& buffer)
     {
         using unit_t = unit_p;
         using safe_multiply_t = word_t;
@@ -301,57 +379,40 @@ namespace nkr { namespace number {
 
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_a.Count() == number_b.Count());
-        nkr_ASSERT_THAT(result.Count() == 0); // we want this to be the Capacity count, because we're going to end up using static arrays for the result. We'll set zeros appropiately of course
-        nkr_ASSERT_THAT(result.Capacity() >= number_a.Count() + number_b.Count());
+        nkr_ASSERT_THAT(result.Count() >= number_a.Count() * 2);
 
         const count_t unit_count = number_a.Count();
         if (unit_count == 1) {
             // this section is why we require that the two operands be of the same number of digits,
             // else we need an arbitrary tradition multiplication function because one of the operands
             // may have a huge number of digits more than the other, and that can't be done as simply as this.
-            // however, if we ever do implement that, we would be able to use word_t as units, however I doubt it
-            // would be any more performant at that point than just using a half word with this quicker algorithm.
+            // however, if we ever do implement that, we would be able to use word_t as units, but I doubt it
+            // would be any more performant than just using a half word with this quicker algorithm.
             const safe_multiply_t a_times_b = number_a[0] * number_b[0];
-            result.Push(unit_t(
-                a_times_b & std::numeric_limits<unit_t>::max()
-            )).Ignore_Error();
-            result.Push(unit_t(
-                (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max()
-            )).Ignore_Error();
+            result[0] = a_times_b & std::numeric_limits<unit_t>::max();
+            result[1] = (a_times_b >> sizeof(unit_t) * 8) & std::numeric_limits<unit_t>::max();
         } else {
             const count_t low_unit_count = unit_count / 2;
             const count_t high_unit_count = unit_count - low_unit_count;
-            const count_t double_unit_count = unit_count * 2;
 
             const auto a = number_a.Split(low_unit_count);
             const auto b = number_b.Split(low_unit_count);
 
-            // something else we can do is allocate in one block all the allocations in this recursion and use static arrays
-            // for the result. This would mean we need to preallocate the result size and fill it with zeros of course.
-            // this can be extended to a function that calls this function and preallocates all necessary space before hand,
-            // parceling out the static arrays as we go. essentially a special purpose memory pool that can't allocate anything
-            // but the next spot in the array
-            // essentially a stack
-
-            // I think it's (total memory per recursion in this if bracket) * (total-digit-count / 2 - 1)
-            // (4 * unit_count) * (top_unit_count / 2 - 1)
-            // (4 * unit_count) * (top_unit_count / 2 - 1) * 2 ---- because of the third recursion
-            // that way we don't have to worry about allocation failures except to assert that it shouldn't happen.
-            // we can return very early if there is a memory pool allocation, before we even call this function
-
             // c1 = (a0 + a1) * (b0 + b1);
             auto& c1 = result;
             {
-                // if we multiply the _plus_'s before calc'ing c0 and c2, we'll need less memory overall
-                // because the plus memory will be released whereas the c0 and c2 must stay till the end.
+                // if we do this before getting c0 and c2, we'll need less memory overall
+                // because this will be released whereas the c0 and c2 must stay till the end.
                 // this is useful even when we start to provide this function its own memory pool also.
-                array::dynamic_t<unit_t> a0_plus_a1(unit_count);
-                nkr_ASSERT_THAT(a0_plus_a1.Capacity() >= unit_count);
-                Add<unit_t>(a[0], a[1], a0_plus_a1).Ignore_Error();
+                nkr_ASSERT_THAT(buffer.Count() + unit_count * 2 <= buffer.Capacity());
 
-                array::dynamic_t<unit_t> b0_plus_b1(unit_count);
-                nkr_ASSERT_THAT(b0_plus_b1.Capacity() >= unit_count);
-                Add<unit_t>(b[0], b[1], b0_plus_b1).Ignore_Error();
+                buffer.Count(buffer.Count() + unit_count).Ignore_Error();
+                array::static_t<unit_t> a0_plus_a1(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - unit_count], unit_count));
+                a0_plus_a1.Count(Add<unit_t>(a[0], a[1], a0_plus_a1));
+
+                buffer.Count(buffer.Count() + unit_count).Ignore_Error();
+                array::static_t<unit_t> b0_plus_b1(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - unit_count], unit_count));
+                b0_plus_b1.Count(Add<unit_t>(b[0], b[1], b0_plus_b1));
 
                 count_t padded_count = std::max(a0_plus_a1.Count(), b0_plus_b1.Count());
                 array::high_pad_t<unit_t> a0_plus_a1_pad(a0_plus_a1, padded_count, unit_t(0));
@@ -368,50 +429,49 @@ namespace nkr { namespace number {
                 // wait. the end result here is always half_unit_count + 1. that means it can do the calc in that space, right?
                 // that would mean we just have to make sure we don't go past the end in the next section.
 
-                // we should be able to utiliize the same pointer with two dynamic array wrappers. need a new ctor for it.
-
                 Karatsuba_Multiply<unit_t>(a0_plus_a1_pad, b0_plus_b1_pad, c1, buffer);
-                while (c1.Count() < double_unit_count) {
-                    c1.Push(unit_t(0)).Ignore_Error();
-                }
+                // when we do the static pointer thing, make sure to fill in zeros at the beginning of the array
+
+                buffer.Count(buffer.Count() - unit_count * 2).Ignore_Error();
             }
 
+            nkr_ASSERT_THAT(buffer.Count() + unit_count * 2 <= buffer.Capacity());
+
             // c0 = a0 * b0;
-            array::dynamic_t<unit_t> c0;
+            const count_t c0_capacity = low_unit_count * 2;
+            buffer.Count(buffer.Count() + c0_capacity).Ignore_Error();
+            array::static_t<unit_t> c0(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - c0_capacity], c0_capacity));
             if (a[0].Non_Extra_Unit_Count() > 0 && b[0].Non_Extra_Unit_Count() > 0) {
-                c0.Capacity(low_unit_count * 2);
-                nkr_ASSERT_THAT(c0.Capacity() >= low_unit_count * 2);
                 Karatsuba_Multiply<unit_t>(a[0], b[0], c0, buffer);
             } else {
-                c0.Capacity(1);
-                nkr_ASSERT_THAT(c0.Capacity() >= 1);
-                c0.Push(unit_t(0)).Ignore_Error();
+                c0.Count(1);
+                c0[0] = 0;
             }
 
             // c2 = a1 * b1;
-            array::dynamic_t<unit_t> c2;
+            const count_t c2_capacity = high_unit_count * 2;
+            buffer.Count(buffer.Count() + c2_capacity).Ignore_Error();
+            array::static_t<unit_t> c2(maybe_t<pointer_t<unit_t>>(&buffer[buffer.Count() - c2_capacity], c2_capacity));
             if (a[1].Non_Extra_Unit_Count() > 0 && b[1].Non_Extra_Unit_Count() > 0) {
-                c2.Capacity(high_unit_count * 2);
-                nkr_ASSERT_THAT(c2.Capacity() >= high_unit_count * 2);
                 Karatsuba_Multiply<unit_t>(a[1], b[1], c2, buffer);
             } else {
-                c2.Capacity(1);
-                nkr_ASSERT_THAT(c2.Capacity() >= 1);
-                c2.Push(unit_t(0)).Ignore_Error();
+                c2.Count(1);
+                c2[0] = 0;
             }
 
             // c1 = c1 - c2 - c0;
             Subtract_In_Place<unit_t>(c1, c2);
             Subtract_In_Place<unit_t>(c1, c0);
+            // when we do the static pointer thing, make sure to use low_pads here or a temp static of c1 that ignores the first part of the array
 
-            // b = std::numeric_limits<unit_t>::max() + 1; (a single 'digit' in our array)
+            // b = std::numeric_limits<unit_t>::max() + 1;
             // m2 = low_unit_count;
             // result = (c2 x b ^ (m2 x 2)) + (c1 x b ^ m2) + c0;
 
             // result = c1 x b ^ m2;
             {
                 // I want to avoid doing this by simply pointing to the low_unit_count index to start a write on the above multiply.
-                for (index_t idx = double_unit_count - 1, end = low_unit_count; idx >= end; idx -= 1) {
+                for (index_t idx = c1.Count() - 1, end = low_unit_count; idx >= end; idx -= 1) {
                     c1[idx] = c1[idx - low_unit_count];
                 }
                 for (index_t idx = 0, end = low_unit_count; idx < end; idx += 1) {
@@ -426,7 +486,7 @@ namespace nkr { namespace number {
             {
                 bool_t do_carry = false;
 
-                // might be nice to have an array:right_pad_static
+                // might be nice to have an array:right_pad_static here, then we can simply call Add_In_Place
                 for (index_t c2_idx = 0, c1_idx = low_unit_count * 2, end = c2.Count(); c2_idx < end; c2_idx += 1, c1_idx += 1) {
                     if (do_carry) {
                         if ((c1[c1_idx] += 1) == 0) {
@@ -441,11 +501,13 @@ namespace nkr { namespace number {
                     }
                 }
             }
+
+            buffer.Count(buffer.Count() - unit_count * 2).Ignore_Error();
         }
     }
 
-    inline count_t
-        Karatsuba_Multiply_Buffer_Capacity(count_t number_unit_count)
+    inline constexpr count_t
+        Multiply_Buffer_Capacity(count_t number_unit_count)
     {
         if (number_unit_count > 1) {
             count_t capacity = number_unit_count;
@@ -469,6 +531,8 @@ namespace nkr { namespace number {
                  tr2<any_non_const_tg, aggregate_array_ttg, of_any_non_const_tg, unit_p> auto& buffer)
     {
         using unit_t = unit_p;
+        using qualified_unit_a_t = std::remove_reference_t<decltype(number_a[0])>;
+        using qualified_unit_b_t = std::remove_reference_t<decltype(number_b[0])>;
         using safe_multiply_t = word_t;
 
         static_assert(sizeof(unit_t) <= sizeof(safe_multiply_t) / 2);
@@ -476,22 +540,25 @@ namespace nkr { namespace number {
         nkr_ASSERT_THAT(number_a.Count() > 0);
         nkr_ASSERT_THAT(number_b.Count() > 0);
 
+        // for these high_pad arrays, we'll need to make sure we get the fully qualified accessed unit_t of the numbers.
+        // we're already covering const, but they may be volatile as well.
         const count_t padded_count = std::max(number_a.Count(), number_b.Count());
-        array::high_pad_t<const unit_t> number_a_pad(number_a, padded_count, unit_t(0));
-        array::high_pad_t<const unit_t> number_b_pad(number_b, padded_count, unit_t(0));
+        array::high_pad_t<qualified_unit_a_t> number_a_pad(number_a, padded_count, qualified_unit_a_t(0));
+        array::high_pad_t<qualified_unit_b_t> number_b_pad(number_b, padded_count, qualified_unit_b_t(0));
 
-        maybe_t<allocator_err> err = result.Reserve(padded_count * 2);
+        maybe_t<allocator_err> err = result.Count(padded_count * 2);
         if (err) {
             return err;
         } else {
-            result.Clear();
-
-            maybe_t<allocator_err> err = buffer.Reserve(Karatsuba_Multiply_Buffer_Capacity(padded_count));
+            maybe_t<allocator_err> err = buffer.Reserve(Multiply_Buffer_Capacity(padded_count));
             if (err) {
                 return err;
             } else {
+                array::static_t<unit_t> static_result(maybe_t<pointer_t<unit_t>>(&result[0], result.Count()));
                 buffer.Count(0).Ignore_Error();
-                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, result, buffer);
+                Karatsuba_Multiply<unit_t>(number_a_pad, number_b_pad, static_result, buffer);
+
+                // we could do the same thing here that we do in Subtract, where we discount the high_pad zeros.
 
                 return allocator_err::NONE;
             }

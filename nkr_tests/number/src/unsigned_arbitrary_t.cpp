@@ -5,6 +5,7 @@
 #include "nkr/intrinsics.h"
 
 #include "nkr/allocator_err.h"
+#include "nkr/allocator/heap_zeros_t.h"
 
 #include "nkr/array/dynamic_t.h"
 #include "nkr/array/stack_t.h"
@@ -18,8 +19,21 @@ namespace nkr { namespace number {
 
     TEST_CASE("temp")
     {
-        array::dynamic_t<u8_t> buffer;
-
+        {
+            array::stack_t<u8_t, 1> number_a = {
+                u8_t(0xFF)
+            };
+            array::stack_t<u8_t, 1> number_b = {
+                u8_t(0xFF)
+            };
+            //array::stack_t<u8_t, 2> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> buffer;
+            Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
+            CHECK(result.Count() == 2);
+            CHECK(result[0] == 0x01);
+            CHECK(result[1] == 0xFE);
+        }
         {
             array::stack_t<u8_t, 2> number_a = {
                 u8_t(0xFF),
@@ -29,7 +43,9 @@ namespace nkr { namespace number {
                 u8_t(0xFF),
                 u8_t(0xFF)
             };
-            array::stack_t<u8_t, 4> result;
+            //array::stack_t<u8_t, 4> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 4);
             CHECK(result[0] == 0x01);
@@ -48,7 +64,9 @@ namespace nkr { namespace number {
                 u8_t(0xFF),
                 u8_t(0xFF)
             };
-            array::stack_t<u8_t, 6> result;
+            //array::stack_t<u8_t, 6> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 6);
             CHECK(result[0] == 0x01);
@@ -71,7 +89,9 @@ namespace nkr { namespace number {
                 u8_t(0xFF),
                 u8_t(0xFF)
             };
-            array::stack_t<u8_t, 8> result;
+            //array::stack_t<u8_t, 8> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> result;
+            array::dynamic_t<u8_t, allocator::heap_zeros_t<u8_t>> buffer;
             Multiply<u8_t>(number_a, number_b, result, buffer).Ignore_Error();
             CHECK(result.Count() == 8);
             CHECK(result[0] == 0x01);
@@ -83,7 +103,7 @@ namespace nkr { namespace number {
             CHECK(result[6] == 0xFF);
             CHECK(result[7] == 0xFF);
         }
-        {
+        /*{
             array::stack_t<u8_t, 8> number_a = {
                 u8_t(0xFF),
                 u8_t(0xFF),
@@ -726,7 +746,7 @@ namespace nkr { namespace number {
             CHECK(result[13] == 0x00);
             CHECK(result[14] == 0x00);
             CHECK(result[15] == 0x00);
-        }
+        }*/
     }
 
 }}
