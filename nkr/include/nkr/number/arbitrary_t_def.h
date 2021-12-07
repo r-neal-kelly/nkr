@@ -8,7 +8,7 @@
 
 #include "nkr/array/dynamic_t.h"
 
-#include "nkr/number/unsigned_arbitrary_t.h"
+#include "nkr/number/arbitrary_t.h"
 
 namespace nkr { namespace number {
 

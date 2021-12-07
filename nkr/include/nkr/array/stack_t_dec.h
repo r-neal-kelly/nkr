@@ -80,7 +80,7 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace array {
 
-    template <typename unit_p, count_t capacity_p = 128>
+    template <typename unit_p, count_t capacity_p = Default_Unit_Count()>
     class stack_t
     {
     public:

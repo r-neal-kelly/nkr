@@ -11,7 +11,7 @@
 #include "nkr/array/stack_t.h"
 #include "nkr/array/static_t.h"
 
-#include "nkr/number/unsigned_arbitrary_t.h"
+#include "nkr/number/arbitrary_t.h"
 
 #include "doctest.h"
 
