@@ -22,6 +22,7 @@ namespace nkr { namespace array {
     #define nkr_CAPACITIES(QUALIFIER_p, UNIT_p) \
         nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p, 16)
 
+        // for bool_t I think we just need to implement a Random<bool_t> function, should be trival
     #define nkr_UNITS(QUALIFIER_p)                  \
         nkr_CAPACITIES(QUALIFIER_p, std_bool_t),    \
         /*nkr_CAPACITIES(QUALIFIER_p, bool_t),*/        \
@@ -555,7 +556,7 @@ namespace nkr { namespace array {
 
             TEST_SUITE("dtor()")
             {
-                TEST_CASE_TEMPLATE("should set its values to default", stack_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should set its values to default, except its units", stack_p, nkr_ALL)
                 {
                     using unit_t = stack_p::unit_t;
                     using writable_unit_t = stack_p::writable_unit_t;
@@ -570,9 +571,6 @@ namespace nkr { namespace array {
                     stack_p stack = other;
                     stack.~stack_p();
                     CHECK(stack.Count() == none_t());
-                    for (index_t idx = 0, end = other.Count(); idx < end; idx += 1) {
-                        CHECK(stack.Array()[idx] == none_t());
-                    }
                 }
             }
         }
@@ -705,6 +703,11 @@ namespace nkr { namespace array {
                         CHECK(stack.Count() == 8);
                     }
                 }
+            }
+
+            TEST_SUITE("Count(unit_count)")
+            {
+
             }
 
             TEST_SUITE("At()")
@@ -1283,12 +1286,9 @@ namespace nkr { namespace array {
 
             TEST_SUITE("Clear()")
             {
-                TEST_CASE_TEMPLATE("should call the destructor of each unit and remove it from the array", stack_p, nkr_NON_CONST)
+                TEST_CASE_TEMPLATE("should remove each unit from the array, destructing user-defined types", stack_p, nkr_NON_CONST)
                 {
-                    using unit_t = stack_p::unit_t;
                     using writable_unit_t = stack_p::writable_unit_t;
-                    using array_t = stack_p::array_t;
-                    using writable_array_t = stack_p::writable_array_t;
 
                     stack_p stack = {
                         Random<writable_unit_t>(), Random<writable_unit_t>(),
@@ -1302,9 +1302,6 @@ namespace nkr { namespace array {
                     };
                     stack.Clear();
                     CHECK(stack.Count() == 0);
-                    for (index_t idx = 0, end = stack.Capacity(); idx < end; idx += 1) {
-                        CHECK(stack.Array()[idx] == none_t());
-                    }
                 }
             }
         }

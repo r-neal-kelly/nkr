@@ -82,7 +82,7 @@ namespace nkr { namespace charcoder {
     inline void_t
         utf_16_t::Encode_Normal(is_any_non_const_tr<utf_16_t> auto& self, point_t point)
     {
-        self.units.Count(0);
+        self.units.Clear();
 
         if (utf_32_t::Is_Scalar(point)) {
             if (point <= 0xFFFF) {
@@ -107,7 +107,7 @@ namespace nkr { namespace charcoder {
     inline void_t
         utf_16_t::Encode_Swapped(is_any_non_const_tr<utf_16_t> auto& self, point_t point)
     {
-        self.units.Count(0);
+        self.units.Clear();
 
         if (utf_32_t::Is_Scalar(point)) {
             if (point <= 0xFFFF) {
@@ -170,16 +170,16 @@ namespace nkr { namespace charcoder {
         if (utf_32_t::Is_Surrogate_High(raw_units[0])) {
             raw_units[1] = *(from + 1);
             if (utf_32_t::Is_Surrogate_Low(raw_units[1])) {
-                self.units.Count(2);
+                self.units.Count(2).Ignore_Error();
             } else {
                 raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER;
-                self.units.Count(1);
+                self.units.Count(1).Ignore_Error();
             }
         } else if (utf_32_t::Is_Surrogate_Low(raw_units[0])) {
             raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER;
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         } else {
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         }
 
         return self.units.Count();
@@ -196,16 +196,16 @@ namespace nkr { namespace charcoder {
         if (utf_32_t::Is_Surrogate_High(os::endian::Swap(raw_units[0]))) {
             raw_units[1] = *(from + 1);
             if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(raw_units[1]))) {
-                self.units.Count(2);
+                self.units.Count(2).Ignore_Error();
             } else {
                 raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER_16_SWAPPED;
-                self.units.Count(1);
+                self.units.Count(1).Ignore_Error();
             }
         } else if (utf_32_t::Is_Surrogate_Low(os::endian::Swap(raw_units[0]))) {
             raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER_16_SWAPPED;
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         } else {
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         }
 
         return self.units.Count();
@@ -227,21 +227,21 @@ namespace nkr { namespace charcoder {
                 if (utf_32_t::Is_Surrogate_High(unit_b)) {
                     raw_units[0] = unit_b;
                     raw_units[1] = unit_a;
-                    self.units.Count(2);
+                    self.units.Count(2).Ignore_Error();
                 } else {
                     raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER;
-                    self.units.Count(1);
+                    self.units.Count(1).Ignore_Error();
                 }
             } else {
                 raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER;
-                self.units.Count(1);
+                self.units.Count(1).Ignore_Error();
             }
         } else if (utf_32_t::Is_Surrogate_High(unit_a)) {
             raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER;
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         } else {
             raw_units[0] = unit_a;
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         }
 
         return self.units.Count();
@@ -263,21 +263,21 @@ namespace nkr { namespace charcoder {
                 if (utf_32_t::Is_Surrogate_High(os::endian::Swap(unit_b))) {
                     raw_units[0] = unit_b;
                     raw_units[1] = unit_a;
-                    self.units.Count(2);
+                    self.units.Count(2).Ignore_Error();
                 } else {
                     raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER_16_SWAPPED;
-                    self.units.Count(1);
+                    self.units.Count(1).Ignore_Error();
                 }
             } else {
                 raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER_16_SWAPPED;
-                self.units.Count(1);
+                self.units.Count(1).Ignore_Error();
             }
         } else if (utf_32_t::Is_Surrogate_High(os::endian::Swap(unit_a))) {
             raw_units[0] = utf_32_t::REPLACEMENT_CHARACTER_16_SWAPPED;
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         } else {
             raw_units[0] = unit_a;
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
         }
 
         return self.units.Count();

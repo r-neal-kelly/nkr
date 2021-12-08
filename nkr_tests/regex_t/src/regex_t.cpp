@@ -12,8 +12,8 @@ namespace nkr {
 
     TEST_CASE("temp")
     {
-        $regex_t::state_e state = $regex_t::state_e::MATCH;
-        CHECK(state == $regex_t::state_e::MATCH);
+        //$regex_t::state_e state = $regex_t::state_e::MATCH;
+        //CHECK(state == $regex_t::state_e::MATCH);
     }
 
 }

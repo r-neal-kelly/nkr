@@ -209,8 +209,12 @@ namespace nkr { namespace array {
                 return allocator_err::NONE;
             }
         } else if (new_unit_count < old_unit_count) {
-            for (count_t pop_count = old_unit_count - new_unit_count; pop_count > 0; pop_count -= 1) {
-                Pop(self);
+            if constexpr (user_defined_tr<unit_t>) {
+                for (count_t pop_count = old_unit_count - new_unit_count; pop_count > 0; pop_count -= 1) {
+                    Pop(self);
+                }
+            } else {
+                self.unit_count = new_unit_count;
             }
 
             return allocator_err::NONE;
@@ -396,13 +400,12 @@ namespace nkr { namespace array {
     inline void_t
         stack_t<unit_p, capacity_p>::Clear(is_any_non_const_tr<stack_t> auto& self)
     {
-        for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
-            if constexpr (built_in_tr<unit_t>) {
-                Writable_Array(self)[idx] = std::remove_cv_t<unit_t>(0);
-            } else {
+        if constexpr (user_defined_tr<unit_t>) {
+            for (index_t idx = 0, end = self.unit_count; idx < end; idx += 1) {
                 Writable_Array(self)[idx].~unit_t();
             }
         }
+
         self.unit_count = 0;
     }
 

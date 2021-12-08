@@ -156,7 +156,7 @@ namespace nkr { namespace charcoder {
     inline void_t
         utf_8_t::Encode(is_any_non_const_tr<utf_8_t> auto& self, point_t point)
     {
-        self.units.Count(0);
+        self.units.Clear();
 
         if (utf_32_t::Is_Scalar(point)) {
             if (point <= 0x7F) {
@@ -230,13 +230,13 @@ namespace nkr { namespace charcoder {
 
         if (*(from + 0) >= 0x00 && *(from + 0) <= 0x7F) {
             raw_units[0] = *(from + 0);
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
             return 1;
         } else if (*(from + 0) >= 0xC2 && *(from + 0) <= 0xDF &&
                    *(from + 1) >= 0x80 && *(from + 1) <= 0xBF) {
             raw_units[0] = *(from + 0);
             raw_units[1] = *(from + 1);
-            self.units.Count(2);
+            self.units.Count(2).Ignore_Error();
             return 2;
         } else if (*(from + 0) == 0xE0 &&
                    *(from + 1) >= 0xA0 && *(from + 1) <= 0xBF &&
@@ -256,7 +256,7 @@ namespace nkr { namespace charcoder {
             raw_units[0] = *(from + 0);
             raw_units[1] = *(from + 1);
             raw_units[2] = *(from + 2);
-            self.units.Count(3);
+            self.units.Count(3).Ignore_Error();
             return 3;
         } else if (*(from + 0) == 0xF0 &&
                    *(from + 1) >= 0x90 && *(from + 1) <= 0xBF &&
@@ -276,7 +276,7 @@ namespace nkr { namespace charcoder {
             raw_units[1] = *(from + 1);
             raw_units[2] = *(from + 2);
             raw_units[3] = *(from + 3);
-            self.units.Count(4);
+            self.units.Count(4).Ignore_Error();
             return 4;
         } else {
             if (*(from + 0) == 0xF0 &&
@@ -293,7 +293,7 @@ namespace nkr { namespace charcoder {
                 raw_units[0] = unit_t(0xEF);
                 raw_units[1] = unit_t(0xBF);
                 raw_units[2] = unit_t(0xBD);
-                self.units.Count(3);
+                self.units.Count(3).Ignore_Error();
                 return 3;
             } else if (*(from + 0) >= 0xE0 &&
                        *(from + 1) >= 0xA0 && *(from + 1) <= 0xBF ||
@@ -318,13 +318,13 @@ namespace nkr { namespace charcoder {
                 raw_units[0] = unit_t(0xEF);
                 raw_units[1] = unit_t(0xBF);
                 raw_units[2] = unit_t(0xBD);
-                self.units.Count(3);
+                self.units.Count(3).Ignore_Error();
                 return 2;
             } else {
                 raw_units[0] = unit_t(0xEF);
                 raw_units[1] = unit_t(0xBF);
                 raw_units[2] = unit_t(0xBD);
-                self.units.Count(3);
+                self.units.Count(3).Ignore_Error();
                 return 1;
             }
         }
@@ -341,7 +341,7 @@ namespace nkr { namespace charcoder {
 
         if (*(from - 1) >= 0x00 && *(from - 1) <= 0x7F) {
             raw_units[0] = *(from - 1);
-            self.units.Count(1);
+            self.units.Count(1).Ignore_Error();
             return 1;
         } else if (from - first >= 2 &&
 
@@ -349,7 +349,7 @@ namespace nkr { namespace charcoder {
                     *(from - 1) >= 0x80 && *(from - 1) <= 0xBF)) {
             raw_units[0] = *(from - 2);
             raw_units[1] = *(from - 1);
-            self.units.Count(2);
+            self.units.Count(2).Ignore_Error();
             return 2;
         } else if (from - first >= 3 &&
 
@@ -371,7 +371,7 @@ namespace nkr { namespace charcoder {
             raw_units[0] = *(from - 3);
             raw_units[1] = *(from - 2);
             raw_units[2] = *(from - 1);
-            self.units.Count(3);
+            self.units.Count(3).Ignore_Error();
             return 3;
         } else if (from - first >= 4 &&
 
@@ -393,7 +393,7 @@ namespace nkr { namespace charcoder {
             raw_units[1] = *(from - 3);
             raw_units[2] = *(from - 2);
             raw_units[3] = *(from - 1);
-            self.units.Count(4);
+            self.units.Count(4).Ignore_Error();
             return 4;
         } else {
             if (from - first >= 3 &&
@@ -412,7 +412,7 @@ namespace nkr { namespace charcoder {
                 raw_units[0] = unit_t(0xEF);
                 raw_units[1] = unit_t(0xBF);
                 raw_units[2] = unit_t(0xBD);
-                self.units.Count(3);
+                self.units.Count(3).Ignore_Error();
                 return 3;
             } else if (from - first >= 2 &&
 
@@ -439,13 +439,13 @@ namespace nkr { namespace charcoder {
                 raw_units[0] = unit_t(0xEF);
                 raw_units[1] = unit_t(0xBF);
                 raw_units[2] = unit_t(0xBD);
-                self.units.Count(3);
+                self.units.Count(3).Ignore_Error();
                 return 2;
             } else {
                 raw_units[0] = unit_t(0xEF);
                 raw_units[1] = unit_t(0xBF);
                 raw_units[2] = unit_t(0xBD);
-                self.units.Count(3);
+                self.units.Count(3).Ignore_Error();
                 return 1;
             }
         }
