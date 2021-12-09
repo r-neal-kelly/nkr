@@ -43,7 +43,8 @@ namespace nkr { namespace tree { namespace stack {
 
     template <node_i node_p, count_t max_node_count_p>
     inline binary_search_t<node_p, max_node_count_p>::binary_search_t() :
-        nodes()
+        nodes(),
+        sentinel(node_t())
     {
         for (index_t idx = 0, end = nodes.Capacity(); idx < end; idx += 1) {
             nodes.Push(node_t()).Ignore_Error();
@@ -52,22 +53,22 @@ namespace nkr { namespace tree { namespace stack {
 
     template <node_i node_p, count_t max_node_count_p>
     inline binary_search_t<node_p, max_node_count_p>::binary_search_t(const node_t& sentinel) :
-        nodes()
+        nodes(),
+        sentinel(sentinel)
     {
         for (index_t idx = 0, end = nodes.Capacity() - 1; idx < end; idx += 1) {
             nodes.Push(node_t()).Ignore_Error();
         }
-        nodes.Push(sentinel).Ignore_Error();
     }
 
     template <node_i node_p, count_t max_node_count_p>
     inline binary_search_t<node_p, max_node_count_p>::binary_search_t(node_t&& sentinel) :
-        nodes()
+        nodes(),
+        sentinel(nkr::Move(sentinel))
     {
         for (index_t idx = 0, end = nodes.Capacity() - 1; idx < end; idx += 1) {
             nodes.Push(node_t()).Ignore_Error();
         }
-        nodes.Push(nkr::Move(sentinel)).Ignore_Error();
     }
 
     template <node_i node_p, count_t max_node_count_p>

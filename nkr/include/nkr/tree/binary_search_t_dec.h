@@ -122,10 +122,12 @@ namespace nkr { namespace tree { namespace stack {
         maybe_t<allocator_err>  Add(tr1<any_non_const_tg, binary_search_t> auto& self, value_t&& unit);
 
     protected:
-        array::stack_t<node_t, max_node_count_p + 1>    nodes;
+        array::stack_t<node_t, max_node_count_p>    nodes;
+        node_t                                      sentinel;
 
     public:
         binary_search_t();
+
         binary_search_t(const node_t& sentinel);
         binary_search_t(node_t&& sentinel);
 
