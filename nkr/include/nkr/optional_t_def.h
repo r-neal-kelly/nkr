@@ -9,6 +9,23 @@
 
 namespace nkr {
 
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<optional_tg>::Is_Any()
+    {
+        return $optional_t::any_tr<other_p>;
+    }
+
+    inline constexpr c_bool_t
+        template_traits_i<optional_ttg>::Is_Implemented()
+    {
+        return true;
+    }
+
+}
+
+namespace nkr {
+
     template <any_type_tr value_p>
     inline optional_t<value_p>::optional_t() :
         has_value(false),

@@ -287,6 +287,10 @@
     <ClInclude Include="include\nkr\string_i_dox.h" />
     <ClInclude Include="include\nkr\traits.h" />
     <ClInclude Include="include\nkr\docs\intrinsic.dox" />
+    <ClInclude Include="include\nkr\tree\binary_search_t.h" />
+    <ClInclude Include="include\nkr\tree\binary_search_t_dec.h" />
+    <ClInclude Include="include\nkr\tree\binary_search_t_def.h" />
+    <ClInclude Include="include\nkr\tree\binary_search_t_dox.h" />
     <ClInclude Include="include\nkr\utils.h" />
     <ClInclude Include="include\nkr\utils_dec.h" />
     <ClInclude Include="include\nkr\utils_def.h" />

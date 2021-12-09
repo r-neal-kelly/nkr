@@ -579,7 +579,7 @@ namespace nkr { namespace array {
         {
             TEST_SUITE("Array()")
             {
-                TEST_CASE_TEMPLATE("should retun the unit_t[Capacity()] array with each unit", stack_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should return the unit_t[Capacity()] array with each unit", stack_p, nkr_ALL)
                 {
                     using unit_t = stack_p::unit_t;
                     using writable_unit_t = stack_p::writable_unit_t;
