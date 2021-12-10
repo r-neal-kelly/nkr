@@ -418,7 +418,14 @@ namespace nkr {
         integer_tr<type_p> ||
         real_tr<type_p> ||
         pointer_tr<type_p>;
-    /// @}        
+    /// @}
+
+    template <typename type_a_p, typename type_b_p>
+    concept can_equal_to_tr =
+        requires(type_a_p type_a, type_b_p type_b)
+    {
+        type_a == type_b;
+    };
 
     template <typename type_p>
     concept lvalue_reference_tr =

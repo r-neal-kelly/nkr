@@ -388,3 +388,59 @@ namespace nkr { namespace $maybe_t {
     }
 
 }}
+
+namespace nkr {
+
+    inline bool_t
+        operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b)
+    {
+        if constexpr (can_equal_to_tr<decltype(a()), decltype(b())>) {
+            return a() == b();
+        } else {
+            static_assert(false, "the values of these two maybe_t objects cannot be compared.");
+        }
+    }
+
+    inline bool_t
+        operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b)
+    {
+        return operator ==(a, b);
+    }
+
+    inline bool_t
+        operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b)
+    {
+        return operator ==(a, b);
+    }
+
+    inline bool_t
+        operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b)
+    {
+        return operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b)
+    {
+        return !operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b)
+    {
+        return !operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b)
+    {
+        return !operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b)
+    {
+        return !operator ==(a, b);
+    }
+
+}

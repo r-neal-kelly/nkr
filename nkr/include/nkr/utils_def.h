@@ -225,7 +225,7 @@ namespace nkr {
     inline pointer_p
         Random()
     {
-        return reinterpret_cast<pointer_p>(Random<address_t>());
+        return reinterpret_cast<std::remove_cv_t<pointer_p>>(Random<address_t>());
     }
 
 }

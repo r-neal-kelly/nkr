@@ -27,7 +27,7 @@ namespace nkr {
 
 namespace nkr {
 
-    template <typename invalid_p>
+    template <typename type_p>
     class maybe_t;
 
     struct                      maybe_tg    {};
@@ -330,7 +330,7 @@ namespace nkr {
 
     /// @nosubgrouping
     /// @copydoc _1f11b26a_7bf8_462e_a657_b37f6313bff3
-    template <typename invalid_p>
+    template <typename type_p>
     class maybe_t
     {
     public:
@@ -393,5 +393,19 @@ namespace nkr {
     };
     static_assert(maybe_i<bool_t>);
     static_assert(maybe_i<maybe_t<bool_t>>);
+
+}
+
+namespace nkr {
+
+    bool_t  operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b);
+    bool_t  operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b);
+    bool_t  operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b);
+    bool_t  operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b);
+
+    bool_t  operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b);
+    bool_t  operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b);
+    bool_t  operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b);
+    bool_t  operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b);
 
 }

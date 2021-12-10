@@ -13,13 +13,48 @@ namespace nkr {
 
     TEST_SUITE("maybe_t<built_in_p>")
     {
+    #define nkr_QUALIFIED_VALUES(QUALIFIER_p)   \
+        QUALIFIER_p u8_t,                       \
+        QUALIFIER_p s8_t,                       \
+        QUALIFIER_p u16_t,                      \
+        QUALIFIER_p s16_t,                      \
+        QUALIFIER_p u32_t,                      \
+        QUALIFIER_p s32_t,                      \
+        QUALIFIER_p u64_t,                      \
+        QUALIFIER_p s64_t,                      \
+        QUALIFIER_p c8_t,                       \
+        QUALIFIER_p c16_t,                      \
+        QUALIFIER_p c32_t,                      \
+        QUALIFIER_p r32_t,                      \
+        QUALIFIER_p r64_t,                      \
+        void_t* QUALIFIER_p,                    \
+        word_t* QUALIFIER_p
+
+    #define nkr_JUST_NON_QUALIFIED_VALUES   \
+        nkr_QUALIFIED_VALUES(nkr_BLANK)
+
+    #define nkr_JUST_CONST_VALUES   \
+        nkr_QUALIFIED_VALUES(const)
+
+    #define nkr_JUST_VOLATILE_VALUES    \
+        nkr_QUALIFIED_VALUES(volatile)
+
+    #define nkr_JUST_CONST_VOLATILE_VALUES      \
+        nkr_QUALIFIED_VALUES(const volatile)
+
+    #define nkr_ALL_VALUES              \
+        nkr_JUST_NON_QUALIFIED_VALUES,  \
+        nkr_JUST_CONST_VALUES,          \
+        nkr_JUST_VOLATILE_VALUES,       \
+        nkr_JUST_CONST_VOLATILE_VALUES
+
     #define nkr_ALL_PARAMS(QUALIFIER_p, UNIT_p)     \
         QUALIFIER_p maybe_t<UNIT_p>,                \
         QUALIFIER_p maybe_t<const UNIT_p>,          \
         QUALIFIER_p maybe_t<volatile UNIT_p>,       \
         QUALIFIER_p maybe_t<const volatile UNIT_p>
 
-    #define nkr_VALUES(QUALIFIER_p)                 \
+    #define nkr_MAYBE_VALUES(QUALIFIER_p)           \
         nkr_ALL_PARAMS(QUALIFIER_p, std_bool_t),    \
         nkr_ALL_PARAMS(QUALIFIER_p, u8_t),          \
         nkr_ALL_PARAMS(QUALIFIER_p, s8_t),          \
@@ -37,16 +72,16 @@ namespace nkr {
         nkr_ALL_PARAMS(QUALIFIER_p, void_t*),       \
         nkr_ALL_PARAMS(QUALIFIER_p, word_t*)
 
-    #define nkr_NON_QUALIFIED   \
-        nkr_VALUES(nkr_BLANK)
+    #define nkr_NON_QUALIFIED       \
+        nkr_MAYBE_VALUES(nkr_BLANK)
 
-    #define nkr_NON_CONST       \
-        nkr_VALUES(nkr_BLANK),  \
-        nkr_VALUES(volatile)
+    #define nkr_NON_CONST               \
+        nkr_MAYBE_VALUES(nkr_BLANK),    \
+        nkr_MAYBE_VALUES(volatile)
 
-    #define nkr_CONST               \
-        nkr_VALUES(const),          \
-        nkr_VALUES(const volatile)
+    #define nkr_CONST                       \
+        nkr_MAYBE_VALUES(const),            \
+        nkr_MAYBE_VALUES(const volatile)
 
     #define nkr_ALL     \
         nkr_NON_CONST,  \
@@ -412,6 +447,817 @@ namespace nkr {
                         CHECK(!maybe);
                     }
                 }
+            }
+        }
+
+        TEST_SUITE("static operators")
+        {
+            TEST_SUITE("==(maybe_t, maybe_t)")
+            {
+                TEST_CASE_TEMPLATE("should return true for two maybes with the same type that have an equal value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    value_t random = Random<value_t>();
+                    maybe_p maybe_a = random;
+                    maybe_p maybe_b = random;
+
+                    CHECK_TRUE(maybe_a == maybe_b);
+                }
+
+                TEST_CASE_TEMPLATE("should return false for two maybes with the same type that do not have an equal value", maybe_p, nkr_ALL)
+                {
+                    using value_t = maybe_p::value_t;
+
+                    value_t random_a = Random<value_t>();
+                    std::remove_const_t<value_t> random_b;
+                    do {
+                        random_b = Random<value_t>();
+                    } while (random_b == random_a);
+                    maybe_p maybe_a = random_a;
+                    maybe_p maybe_b = random_b;
+
+                    CHECK_FALSE(maybe_a == maybe_b);
+                }
+
+                TEST_CASE_TEMPLATE("should return true for two maybes of different reference types with the same type that have an equal value", value_p, nkr_ALL_VALUES)
+                {
+                    value_p random = Random<value_p>();
+                    maybe_t<value_p> maybe_a = random;
+                    maybe_t<value_p> maybe_b = random;
+
+                    CHECK_TRUE(maybe_a == maybe_t<value_p>(random));
+                    CHECK_TRUE(maybe_t<value_p>(random) == maybe_b);
+                }
+
+                TEST_CASE_TEMPLATE("should return false for two maybes of different reference types with the same type that do not have an equal value", value_p, nkr_ALL_VALUES)
+                {
+                    value_p random_a = Random<value_p>();
+                    std::remove_const_t<value_p> random_b;
+                    do {
+                        random_b = Random<value_p>();
+                    } while (random_b == random_a);
+                    maybe_t<value_p> maybe_a = random_a;
+                    maybe_t<value_p> maybe_b = random_b;
+
+                    CHECK_FALSE(maybe_a == maybe_t<value_p>(random_b));
+                    CHECK_FALSE(maybe_t<value_p>(random_a) == maybe_b);
+                }
+
+                TEST_CASE_TEMPLATE("should return true for two maybes with the same but differently qualified types that have an equal value", value_p, nkr_JUST_NON_QUALIFIED_VALUES)
+                {
+                    value_p random = Random<value_p>();
+
+                    CHECK_TRUE(maybe_t<value_p>(random) == maybe_t<const value_p>(random));
+                    CHECK_TRUE(maybe_t<value_p>(random) == maybe_t<volatile value_p>(random));
+                    CHECK_TRUE(maybe_t<value_p>(random) == maybe_t<const volatile value_p>(random));
+
+                    CHECK_TRUE(maybe_t<const value_p>(random) == maybe_t<value_p>(random));
+                    CHECK_TRUE(maybe_t<const value_p>(random) == maybe_t<volatile value_p>(random));
+                    CHECK_TRUE(maybe_t<const value_p>(random) == maybe_t<const volatile value_p>(random));
+
+                    CHECK_TRUE(maybe_t<volatile value_p>(random) == maybe_t<value_p>(random));
+                    CHECK_TRUE(maybe_t<volatile value_p>(random) == maybe_t<const value_p>(random));
+                    CHECK_TRUE(maybe_t<volatile value_p>(random) == maybe_t<const volatile value_p>(random));
+
+                    CHECK_TRUE(maybe_t<const volatile value_p>(random) == maybe_t<value_p>(random));
+                    CHECK_TRUE(maybe_t<const volatile value_p>(random) == maybe_t<const value_p>(random));
+                    CHECK_TRUE(maybe_t<const volatile value_p>(random) == maybe_t<volatile value_p>(random));
+                }
+
+                TEST_CASE_TEMPLATE("should return false for two maybes with the same but differently qualified types that do not have an equal value", value_p, nkr_JUST_NON_QUALIFIED_VALUES)
+                {
+                    value_p random_a = Random<value_p>();
+                    value_p random_b;
+                    do {
+                        random_b = Random<value_p>();
+                    } while (random_b == random_a);
+
+                    CHECK_FALSE(maybe_t<value_p>(random_a) == maybe_t<const value_p>(random_b));
+                    CHECK_FALSE(maybe_t<value_p>(random_a) == maybe_t<volatile value_p>(random_b));
+                    CHECK_FALSE(maybe_t<value_p>(random_a) == maybe_t<const volatile value_p>(random_b));
+
+                    CHECK_FALSE(maybe_t<const value_p>(random_a) == maybe_t<value_p>(random_b));
+                    CHECK_FALSE(maybe_t<const value_p>(random_a) == maybe_t<volatile value_p>(random_b));
+                    CHECK_FALSE(maybe_t<const value_p>(random_a) == maybe_t<const volatile value_p>(random_b));
+
+                    CHECK_FALSE(maybe_t<volatile value_p>(random_a) == maybe_t<value_p>(random_b));
+                    CHECK_FALSE(maybe_t<volatile value_p>(random_a) == maybe_t<const value_p>(random_b));
+                    CHECK_FALSE(maybe_t<volatile value_p>(random_a) == maybe_t<const volatile value_p>(random_b));
+
+                    CHECK_FALSE(maybe_t<const volatile value_p>(random_a) == maybe_t<value_p>(random_b));
+                    CHECK_FALSE(maybe_t<const volatile value_p>(random_a) == maybe_t<const value_p>(random_b));
+                    CHECK_FALSE(maybe_t<const volatile value_p>(random_a) == maybe_t<volatile value_p>(random_b));
+                }
+
+                TEST_CASE_TEMPLATE("should return true for two differently qualified maybes with the same type that have an equal value", value_p, nkr_ALL_VALUES)
+                {
+                    value_p random = Random<value_p>();
+                    maybe_t<value_p> maybe = random;
+                    const maybe_t<value_p> const_maybe = random;
+                    volatile maybe_t<value_p> volatile_maybe = random;
+                    const volatile maybe_t<value_p> const_volatile_maybe = random;
+
+                    CHECK_TRUE(maybe == const_maybe);
+                    CHECK_TRUE(maybe == volatile_maybe);
+                    CHECK_TRUE(maybe == const_volatile_maybe);
+
+                    CHECK_TRUE(const_maybe == maybe);
+                    CHECK_TRUE(const_maybe == volatile_maybe);
+                    CHECK_TRUE(const_maybe == const_volatile_maybe);
+
+                    CHECK_TRUE(volatile_maybe == maybe);
+                    CHECK_TRUE(volatile_maybe == const_maybe);
+                    CHECK_TRUE(volatile_maybe == const_volatile_maybe);
+
+                    CHECK_TRUE(const_volatile_maybe == maybe);
+                    CHECK_TRUE(const_volatile_maybe == const_maybe);
+                    CHECK_TRUE(const_volatile_maybe == volatile_maybe);
+                }
+
+                TEST_CASE_TEMPLATE("should return false for two differently qualified maybes with the same type that do not have an equal value", value_p, nkr_ALL_VALUES)
+                {
+                    value_p random_a = Random<value_p>();
+                    std::remove_const_t<value_p> random_b;
+                    do {
+                        random_b = Random<value_p>();
+                    } while (random_b == random_a);
+                    maybe_t<value_p> maybe_a = random_a;
+                    maybe_t<value_p> maybe_b = random_b;
+                    const maybe_t<value_p> const_maybe_a = random_a;
+                    const maybe_t<value_p> const_maybe_b = random_b;
+                    volatile maybe_t<value_p> volatile_maybe_a = random_a;
+                    volatile maybe_t<value_p> volatile_maybe_b = random_b;
+                    const volatile maybe_t<value_p> const_volatile_maybe_a = random_a;
+                    const volatile maybe_t<value_p> const_volatile_maybe_b = random_b;
+
+                    CHECK_FALSE(maybe_a == const_maybe_b);
+                    CHECK_FALSE(maybe_a == volatile_maybe_b);
+                    CHECK_FALSE(maybe_a == const_volatile_maybe_b);
+
+                    CHECK_FALSE(const_maybe_a == maybe_b);
+                    CHECK_FALSE(const_maybe_a == volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_a == const_volatile_maybe_b);
+
+                    CHECK_FALSE(volatile_maybe_a == maybe_b);
+                    CHECK_FALSE(volatile_maybe_a == const_maybe_b);
+                    CHECK_FALSE(volatile_maybe_a == const_volatile_maybe_b);
+
+                    CHECK_FALSE(const_volatile_maybe_a == maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_a == volatile_maybe_b);
+                }
+
+                TEST_CASE_TEMPLATE("should return true for two differently qualified maybes with the same but differently qualified types that have an equal value", value_p, nkr_JUST_NON_QUALIFIED_VALUES)
+                {
+                    value_p random = Random<value_p>();
+                    maybe_t<value_p> maybe = random;
+                    maybe_t<const value_p> maybe_c = random;
+                    maybe_t<volatile value_p> maybe_v = random;
+                    maybe_t<const volatile value_p> maybe_cv = random;
+                    const maybe_t<value_p> const_maybe = random;
+                    const maybe_t<const value_p> const_maybe_c = random;
+                    const maybe_t<volatile value_p> const_maybe_v = random;
+                    const maybe_t<const volatile value_p> const_maybe_cv = random;
+                    volatile maybe_t<value_p> volatile_maybe = random;
+                    volatile maybe_t<const value_p> volatile_maybe_c = random;
+                    volatile maybe_t<volatile value_p> volatile_maybe_v = random;
+                    volatile maybe_t<const volatile value_p> volatile_maybe_cv = random;
+                    const volatile maybe_t<value_p> const_volatile_maybe = random;
+                    const volatile maybe_t<const value_p> const_volatile_maybe_c = random;
+                    const volatile maybe_t<volatile value_p> const_volatile_maybe_v = random;
+                    const volatile maybe_t<const volatile value_p> const_volatile_maybe_cv = random;
+
+                    CHECK_TRUE(maybe == maybe);
+                    CHECK_TRUE(maybe == maybe_c);
+                    CHECK_TRUE(maybe == maybe_v);
+                    CHECK_TRUE(maybe == maybe_cv);
+                    CHECK_TRUE(maybe == const_maybe);
+                    CHECK_TRUE(maybe == const_maybe_c);
+                    CHECK_TRUE(maybe == const_maybe_v);
+                    CHECK_TRUE(maybe == const_maybe_cv);
+                    CHECK_TRUE(maybe == volatile_maybe);
+                    CHECK_TRUE(maybe == volatile_maybe_c);
+                    CHECK_TRUE(maybe == volatile_maybe_v);
+                    CHECK_TRUE(maybe == volatile_maybe_cv);
+                    CHECK_TRUE(maybe == const_volatile_maybe);
+                    CHECK_TRUE(maybe == const_volatile_maybe_c);
+                    CHECK_TRUE(maybe == const_volatile_maybe_v);
+                    CHECK_TRUE(maybe == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(maybe_c == maybe);
+                    CHECK_TRUE(maybe_c == maybe_c);
+                    CHECK_TRUE(maybe_c == maybe_v);
+                    CHECK_TRUE(maybe_c == maybe_cv);
+                    CHECK_TRUE(maybe_c == const_maybe);
+                    CHECK_TRUE(maybe_c == const_maybe_c);
+                    CHECK_TRUE(maybe_c == const_maybe_v);
+                    CHECK_TRUE(maybe_c == const_maybe_cv);
+                    CHECK_TRUE(maybe_c == volatile_maybe);
+                    CHECK_TRUE(maybe_c == volatile_maybe_c);
+                    CHECK_TRUE(maybe_c == volatile_maybe_v);
+                    CHECK_TRUE(maybe_c == volatile_maybe_cv);
+                    CHECK_TRUE(maybe_c == const_volatile_maybe);
+                    CHECK_TRUE(maybe_c == const_volatile_maybe_c);
+                    CHECK_TRUE(maybe_c == const_volatile_maybe_v);
+                    CHECK_TRUE(maybe_c == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(maybe_v == maybe);
+                    CHECK_TRUE(maybe_v == maybe_c);
+                    CHECK_TRUE(maybe_v == maybe_v);
+                    CHECK_TRUE(maybe_v == maybe_cv);
+                    CHECK_TRUE(maybe_v == const_maybe);
+                    CHECK_TRUE(maybe_v == const_maybe_c);
+                    CHECK_TRUE(maybe_v == const_maybe_v);
+                    CHECK_TRUE(maybe_v == const_maybe_cv);
+                    CHECK_TRUE(maybe_v == volatile_maybe);
+                    CHECK_TRUE(maybe_v == volatile_maybe_c);
+                    CHECK_TRUE(maybe_v == volatile_maybe_v);
+                    CHECK_TRUE(maybe_v == volatile_maybe_cv);
+                    CHECK_TRUE(maybe_v == const_volatile_maybe);
+                    CHECK_TRUE(maybe_v == const_volatile_maybe_c);
+                    CHECK_TRUE(maybe_v == const_volatile_maybe_v);
+                    CHECK_TRUE(maybe_v == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(maybe_cv == maybe);
+                    CHECK_TRUE(maybe_cv == maybe_c);
+                    CHECK_TRUE(maybe_cv == maybe_v);
+                    CHECK_TRUE(maybe_cv == maybe_cv);
+                    CHECK_TRUE(maybe_cv == const_maybe);
+                    CHECK_TRUE(maybe_cv == const_maybe_c);
+                    CHECK_TRUE(maybe_cv == const_maybe_v);
+                    CHECK_TRUE(maybe_cv == const_maybe_cv);
+                    CHECK_TRUE(maybe_cv == volatile_maybe);
+                    CHECK_TRUE(maybe_cv == volatile_maybe_c);
+                    CHECK_TRUE(maybe_cv == volatile_maybe_v);
+                    CHECK_TRUE(maybe_cv == volatile_maybe_cv);
+                    CHECK_TRUE(maybe_cv == const_volatile_maybe);
+                    CHECK_TRUE(maybe_cv == const_volatile_maybe_c);
+                    CHECK_TRUE(maybe_cv == const_volatile_maybe_v);
+                    CHECK_TRUE(maybe_cv == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_maybe == maybe);
+                    CHECK_TRUE(const_maybe == maybe_c);
+                    CHECK_TRUE(const_maybe == maybe_v);
+                    CHECK_TRUE(const_maybe == maybe_cv);
+                    CHECK_TRUE(const_maybe == const_maybe);
+                    CHECK_TRUE(const_maybe == const_maybe_c);
+                    CHECK_TRUE(const_maybe == const_maybe_v);
+                    CHECK_TRUE(const_maybe == const_maybe_cv);
+                    CHECK_TRUE(const_maybe == volatile_maybe);
+                    CHECK_TRUE(const_maybe == volatile_maybe_c);
+                    CHECK_TRUE(const_maybe == volatile_maybe_v);
+                    CHECK_TRUE(const_maybe == volatile_maybe_cv);
+                    CHECK_TRUE(const_maybe == const_volatile_maybe);
+                    CHECK_TRUE(const_maybe == const_volatile_maybe_c);
+                    CHECK_TRUE(const_maybe == const_volatile_maybe_v);
+                    CHECK_TRUE(const_maybe == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_maybe_c == maybe);
+                    CHECK_TRUE(const_maybe_c == maybe_c);
+                    CHECK_TRUE(const_maybe_c == maybe_v);
+                    CHECK_TRUE(const_maybe_c == maybe_cv);
+                    CHECK_TRUE(const_maybe_c == const_maybe);
+                    CHECK_TRUE(const_maybe_c == const_maybe_c);
+                    CHECK_TRUE(const_maybe_c == const_maybe_v);
+                    CHECK_TRUE(const_maybe_c == const_maybe_cv);
+                    CHECK_TRUE(const_maybe_c == volatile_maybe);
+                    CHECK_TRUE(const_maybe_c == volatile_maybe_c);
+                    CHECK_TRUE(const_maybe_c == volatile_maybe_v);
+                    CHECK_TRUE(const_maybe_c == volatile_maybe_cv);
+                    CHECK_TRUE(const_maybe_c == const_volatile_maybe);
+                    CHECK_TRUE(const_maybe_c == const_volatile_maybe_c);
+                    CHECK_TRUE(const_maybe_c == const_volatile_maybe_v);
+                    CHECK_TRUE(const_maybe_c == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_maybe_v == maybe);
+                    CHECK_TRUE(const_maybe_v == maybe_c);
+                    CHECK_TRUE(const_maybe_v == maybe_v);
+                    CHECK_TRUE(const_maybe_v == maybe_cv);
+                    CHECK_TRUE(const_maybe_v == const_maybe);
+                    CHECK_TRUE(const_maybe_v == const_maybe_c);
+                    CHECK_TRUE(const_maybe_v == const_maybe_v);
+                    CHECK_TRUE(const_maybe_v == const_maybe_cv);
+                    CHECK_TRUE(const_maybe_v == volatile_maybe);
+                    CHECK_TRUE(const_maybe_v == volatile_maybe_c);
+                    CHECK_TRUE(const_maybe_v == volatile_maybe_v);
+                    CHECK_TRUE(const_maybe_v == volatile_maybe_cv);
+                    CHECK_TRUE(const_maybe_v == const_volatile_maybe);
+                    CHECK_TRUE(const_maybe_v == const_volatile_maybe_c);
+                    CHECK_TRUE(const_maybe_v == const_volatile_maybe_v);
+                    CHECK_TRUE(const_maybe_v == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_maybe_cv == maybe);
+                    CHECK_TRUE(const_maybe_cv == maybe_c);
+                    CHECK_TRUE(const_maybe_cv == maybe_v);
+                    CHECK_TRUE(const_maybe_cv == maybe_cv);
+                    CHECK_TRUE(const_maybe_cv == const_maybe);
+                    CHECK_TRUE(const_maybe_cv == const_maybe_c);
+                    CHECK_TRUE(const_maybe_cv == const_maybe_v);
+                    CHECK_TRUE(const_maybe_cv == const_maybe_cv);
+                    CHECK_TRUE(const_maybe_cv == volatile_maybe);
+                    CHECK_TRUE(const_maybe_cv == volatile_maybe_c);
+                    CHECK_TRUE(const_maybe_cv == volatile_maybe_v);
+                    CHECK_TRUE(const_maybe_cv == volatile_maybe_cv);
+                    CHECK_TRUE(const_maybe_cv == const_volatile_maybe);
+                    CHECK_TRUE(const_maybe_cv == const_volatile_maybe_c);
+                    CHECK_TRUE(const_maybe_cv == const_volatile_maybe_v);
+                    CHECK_TRUE(const_maybe_cv == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(volatile_maybe == maybe);
+                    CHECK_TRUE(volatile_maybe == maybe_c);
+                    CHECK_TRUE(volatile_maybe == maybe_v);
+                    CHECK_TRUE(volatile_maybe == maybe_cv);
+                    CHECK_TRUE(volatile_maybe == const_maybe);
+                    CHECK_TRUE(volatile_maybe == const_maybe_c);
+                    CHECK_TRUE(volatile_maybe == const_maybe_v);
+                    CHECK_TRUE(volatile_maybe == const_maybe_cv);
+                    CHECK_TRUE(volatile_maybe == volatile_maybe);
+                    CHECK_TRUE(volatile_maybe == volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe == volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe == volatile_maybe_cv);
+                    CHECK_TRUE(volatile_maybe == const_volatile_maybe);
+                    CHECK_TRUE(volatile_maybe == const_volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe == const_volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(volatile_maybe_c == maybe);
+                    CHECK_TRUE(volatile_maybe_c == maybe_c);
+                    CHECK_TRUE(volatile_maybe_c == maybe_v);
+                    CHECK_TRUE(volatile_maybe_c == maybe_cv);
+                    CHECK_TRUE(volatile_maybe_c == const_maybe);
+                    CHECK_TRUE(volatile_maybe_c == const_maybe_c);
+                    CHECK_TRUE(volatile_maybe_c == const_maybe_v);
+                    CHECK_TRUE(volatile_maybe_c == const_maybe_cv);
+                    CHECK_TRUE(volatile_maybe_c == volatile_maybe);
+                    CHECK_TRUE(volatile_maybe_c == volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe_c == volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe_c == volatile_maybe_cv);
+                    CHECK_TRUE(volatile_maybe_c == const_volatile_maybe);
+                    CHECK_TRUE(volatile_maybe_c == const_volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe_c == const_volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe_c == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(volatile_maybe_v == maybe);
+                    CHECK_TRUE(volatile_maybe_v == maybe_c);
+                    CHECK_TRUE(volatile_maybe_v == maybe_v);
+                    CHECK_TRUE(volatile_maybe_v == maybe_cv);
+                    CHECK_TRUE(volatile_maybe_v == const_maybe);
+                    CHECK_TRUE(volatile_maybe_v == const_maybe_c);
+                    CHECK_TRUE(volatile_maybe_v == const_maybe_v);
+                    CHECK_TRUE(volatile_maybe_v == const_maybe_cv);
+                    CHECK_TRUE(volatile_maybe_v == volatile_maybe);
+                    CHECK_TRUE(volatile_maybe_v == volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe_v == volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe_v == volatile_maybe_cv);
+                    CHECK_TRUE(volatile_maybe_v == const_volatile_maybe);
+                    CHECK_TRUE(volatile_maybe_v == const_volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe_v == const_volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe_v == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(volatile_maybe_cv == maybe);
+                    CHECK_TRUE(volatile_maybe_cv == maybe_c);
+                    CHECK_TRUE(volatile_maybe_cv == maybe_v);
+                    CHECK_TRUE(volatile_maybe_cv == maybe_cv);
+                    CHECK_TRUE(volatile_maybe_cv == const_maybe);
+                    CHECK_TRUE(volatile_maybe_cv == const_maybe_c);
+                    CHECK_TRUE(volatile_maybe_cv == const_maybe_v);
+                    CHECK_TRUE(volatile_maybe_cv == const_maybe_cv);
+                    CHECK_TRUE(volatile_maybe_cv == volatile_maybe);
+                    CHECK_TRUE(volatile_maybe_cv == volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe_cv == volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe_cv == volatile_maybe_cv);
+                    CHECK_TRUE(volatile_maybe_cv == const_volatile_maybe);
+                    CHECK_TRUE(volatile_maybe_cv == const_volatile_maybe_c);
+                    CHECK_TRUE(volatile_maybe_cv == const_volatile_maybe_v);
+                    CHECK_TRUE(volatile_maybe_cv == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_volatile_maybe == maybe);
+                    CHECK_TRUE(const_volatile_maybe == maybe_c);
+                    CHECK_TRUE(const_volatile_maybe == maybe_v);
+                    CHECK_TRUE(const_volatile_maybe == maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe == const_maybe);
+                    CHECK_TRUE(const_volatile_maybe == const_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe == const_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe == const_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe == volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe == volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe == volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe == volatile_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe == const_volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe == const_volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe == const_volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_volatile_maybe_c == maybe);
+                    CHECK_TRUE(const_volatile_maybe_c == maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_c == maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_c == maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_c == const_maybe);
+                    CHECK_TRUE(const_volatile_maybe_c == const_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_c == const_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_c == const_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_c == volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe_c == volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_c == volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_c == volatile_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_c == const_volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe_c == const_volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_c == const_volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_c == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_volatile_maybe_v == maybe);
+                    CHECK_TRUE(const_volatile_maybe_v == maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_v == maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_v == maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_v == const_maybe);
+                    CHECK_TRUE(const_volatile_maybe_v == const_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_v == const_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_v == const_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_v == volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe_v == volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_v == volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_v == volatile_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_v == const_volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe_v == const_volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_v == const_volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_v == const_volatile_maybe_cv);
+
+                    CHECK_TRUE(const_volatile_maybe_cv == maybe);
+                    CHECK_TRUE(const_volatile_maybe_cv == maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_cv == maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_cv == maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_maybe);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_cv == volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe_cv == volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_cv == volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_cv == volatile_maybe_cv);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_volatile_maybe);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_volatile_maybe_c);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_volatile_maybe_v);
+                    CHECK_TRUE(const_volatile_maybe_cv == const_volatile_maybe_cv);
+                }
+
+                TEST_CASE_TEMPLATE("should return false for two differently qualified maybes with the same but differently qualified types that do not have an equal value", value_p, nkr_JUST_NON_QUALIFIED_VALUES)
+                {
+                    value_p random_a = Random<value_p>();
+                    std::remove_const_t<value_p> random_b;
+                    do {
+                        random_b = Random<value_p>();
+                    } while (random_b == random_a);
+                    maybe_t<value_p> maybe_a = random_a;
+                    maybe_t<value_p> maybe_b = random_b;
+                    maybe_t<const value_p> maybe_c_a = random_a;
+                    maybe_t<const value_p> maybe_c_b = random_b;
+                    maybe_t<volatile value_p> maybe_v_a = random_a;
+                    maybe_t<volatile value_p> maybe_v_b = random_b;
+                    maybe_t<const volatile value_p> maybe_cv_a = random_a;
+                    maybe_t<const volatile value_p> maybe_cv_b = random_b;
+                    const maybe_t<value_p> const_maybe_a = random_a;
+                    const maybe_t<value_p> const_maybe_b = random_b;
+                    const maybe_t<const value_p> const_maybe_c_a = random_a;
+                    const maybe_t<const value_p> const_maybe_c_b = random_b;
+                    const maybe_t<volatile value_p> const_maybe_v_a = random_a;
+                    const maybe_t<volatile value_p> const_maybe_v_b = random_b;
+                    const maybe_t<const volatile value_p> const_maybe_cv_a = random_a;
+                    const maybe_t<const volatile value_p> const_maybe_cv_b = random_b;
+                    volatile maybe_t<value_p> volatile_maybe_a = random_a;
+                    volatile maybe_t<value_p> volatile_maybe_b = random_b;
+                    volatile maybe_t<const value_p> volatile_maybe_c_a = random_a;
+                    volatile maybe_t<const value_p> volatile_maybe_c_b = random_b;
+                    volatile maybe_t<volatile value_p> volatile_maybe_v_a = random_a;
+                    volatile maybe_t<volatile value_p> volatile_maybe_v_b = random_b;
+                    volatile maybe_t<const volatile value_p> volatile_maybe_cv_a = random_a;
+                    volatile maybe_t<const volatile value_p> volatile_maybe_cv_b = random_b;
+                    const volatile maybe_t<value_p> const_volatile_maybe_a = random_a;
+                    const volatile maybe_t<value_p> const_volatile_maybe_b = random_b;
+                    const volatile maybe_t<const value_p> const_volatile_maybe_c_a = random_a;
+                    const volatile maybe_t<const value_p> const_volatile_maybe_c_b = random_b;
+                    const volatile maybe_t<volatile value_p> const_volatile_maybe_v_a = random_a;
+                    const volatile maybe_t<volatile value_p> const_volatile_maybe_v_b = random_b;
+                    const volatile maybe_t<const volatile value_p> const_volatile_maybe_cv_a = random_a;
+                    const volatile maybe_t<const volatile value_p> const_volatile_maybe_cv_b = random_b;
+
+                    CHECK_FALSE(maybe_a == maybe_b);
+                    CHECK_FALSE(maybe_a == maybe_c_b);
+                    CHECK_FALSE(maybe_a == maybe_v_b);
+                    CHECK_FALSE(maybe_a == maybe_cv_b);
+                    CHECK_FALSE(maybe_a == const_maybe_b);
+                    CHECK_FALSE(maybe_a == const_maybe_c_b);
+                    CHECK_FALSE(maybe_a == const_maybe_v_b);
+                    CHECK_FALSE(maybe_a == const_maybe_cv_b);
+                    CHECK_FALSE(maybe_a == volatile_maybe_b);
+                    CHECK_FALSE(maybe_a == volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_a == volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(maybe_a == const_volatile_maybe_b);
+                    CHECK_FALSE(maybe_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(maybe_c_a == maybe_b);
+                    CHECK_FALSE(maybe_c_a == maybe_c_b);
+                    CHECK_FALSE(maybe_c_a == maybe_v_b);
+                    CHECK_FALSE(maybe_c_a == maybe_cv_b);
+                    CHECK_FALSE(maybe_c_a == const_maybe_b);
+                    CHECK_FALSE(maybe_c_a == const_maybe_c_b);
+                    CHECK_FALSE(maybe_c_a == const_maybe_v_b);
+                    CHECK_FALSE(maybe_c_a == const_maybe_cv_b);
+                    CHECK_FALSE(maybe_c_a == volatile_maybe_b);
+                    CHECK_FALSE(maybe_c_a == volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_c_a == volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_c_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(maybe_c_a == const_volatile_maybe_b);
+                    CHECK_FALSE(maybe_c_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_c_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_c_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(maybe_v_a == maybe_b);
+                    CHECK_FALSE(maybe_v_a == maybe_c_b);
+                    CHECK_FALSE(maybe_v_a == maybe_v_b);
+                    CHECK_FALSE(maybe_v_a == maybe_cv_b);
+                    CHECK_FALSE(maybe_v_a == const_maybe_b);
+                    CHECK_FALSE(maybe_v_a == const_maybe_c_b);
+                    CHECK_FALSE(maybe_v_a == const_maybe_v_b);
+                    CHECK_FALSE(maybe_v_a == const_maybe_cv_b);
+                    CHECK_FALSE(maybe_v_a == volatile_maybe_b);
+                    CHECK_FALSE(maybe_v_a == volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_v_a == volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_v_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(maybe_v_a == const_volatile_maybe_b);
+                    CHECK_FALSE(maybe_v_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_v_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_v_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(maybe_cv_a == maybe_b);
+                    CHECK_FALSE(maybe_cv_a == maybe_c_b);
+                    CHECK_FALSE(maybe_cv_a == maybe_v_b);
+                    CHECK_FALSE(maybe_cv_a == maybe_cv_b);
+                    CHECK_FALSE(maybe_cv_a == const_maybe_b);
+                    CHECK_FALSE(maybe_cv_a == const_maybe_c_b);
+                    CHECK_FALSE(maybe_cv_a == const_maybe_v_b);
+                    CHECK_FALSE(maybe_cv_a == const_maybe_cv_b);
+                    CHECK_FALSE(maybe_cv_a == volatile_maybe_b);
+                    CHECK_FALSE(maybe_cv_a == volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_cv_a == volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_cv_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(maybe_cv_a == const_volatile_maybe_b);
+                    CHECK_FALSE(maybe_cv_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(maybe_cv_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(maybe_cv_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_maybe_a == maybe_b);
+                    CHECK_FALSE(const_maybe_a == maybe_c_b);
+                    CHECK_FALSE(const_maybe_a == maybe_v_b);
+                    CHECK_FALSE(const_maybe_a == maybe_cv_b);
+                    CHECK_FALSE(const_maybe_a == const_maybe_b);
+                    CHECK_FALSE(const_maybe_a == const_maybe_c_b);
+                    CHECK_FALSE(const_maybe_a == const_maybe_v_b);
+                    CHECK_FALSE(const_maybe_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_a == volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_maybe_c_a == maybe_b);
+                    CHECK_FALSE(const_maybe_c_a == maybe_c_b);
+                    CHECK_FALSE(const_maybe_c_a == maybe_v_b);
+                    CHECK_FALSE(const_maybe_c_a == maybe_cv_b);
+                    CHECK_FALSE(const_maybe_c_a == const_maybe_b);
+                    CHECK_FALSE(const_maybe_c_a == const_maybe_c_b);
+                    CHECK_FALSE(const_maybe_c_a == const_maybe_v_b);
+                    CHECK_FALSE(const_maybe_c_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_c_a == volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_c_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_c_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_c_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_c_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_c_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_c_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_c_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_maybe_v_a == maybe_b);
+                    CHECK_FALSE(const_maybe_v_a == maybe_c_b);
+                    CHECK_FALSE(const_maybe_v_a == maybe_v_b);
+                    CHECK_FALSE(const_maybe_v_a == maybe_cv_b);
+                    CHECK_FALSE(const_maybe_v_a == const_maybe_b);
+                    CHECK_FALSE(const_maybe_v_a == const_maybe_c_b);
+                    CHECK_FALSE(const_maybe_v_a == const_maybe_v_b);
+                    CHECK_FALSE(const_maybe_v_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_v_a == volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_v_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_v_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_v_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_v_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_v_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_v_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_v_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_maybe_cv_a == maybe_b);
+                    CHECK_FALSE(const_maybe_cv_a == maybe_c_b);
+                    CHECK_FALSE(const_maybe_cv_a == maybe_v_b);
+                    CHECK_FALSE(const_maybe_cv_a == maybe_cv_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_maybe_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_maybe_c_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_maybe_v_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_cv_a == volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_cv_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_cv_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_cv_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_maybe_cv_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(volatile_maybe_a == maybe_b);
+                    CHECK_FALSE(volatile_maybe_a == maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_a == maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_a == maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_a == const_maybe_b);
+                    CHECK_FALSE(volatile_maybe_a == const_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_a == const_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_a == const_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_a == volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_a == volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_a == volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_a == const_volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(volatile_maybe_c_a == maybe_b);
+                    CHECK_FALSE(volatile_maybe_c_a == maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_c_a == maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_c_a == maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_maybe_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_c_a == volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_c_a == volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_c_a == volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_c_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_c_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(volatile_maybe_v_a == maybe_b);
+                    CHECK_FALSE(volatile_maybe_v_a == maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_v_a == maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_v_a == maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_maybe_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_v_a == volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_v_a == volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_v_a == volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_v_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_v_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(volatile_maybe_cv_a == maybe_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_maybe_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_volatile_maybe_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(volatile_maybe_cv_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_volatile_maybe_a == maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_a == maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_a == maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_a == maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_a == volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_volatile_maybe_c_a == maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_c_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_volatile_maybe_v_a == maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_v_a == const_volatile_maybe_cv_b);
+
+                    CHECK_FALSE(const_volatile_maybe_cv_a == maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == volatile_maybe_cv_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_volatile_maybe_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_volatile_maybe_c_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_volatile_maybe_v_b);
+                    CHECK_FALSE(const_volatile_maybe_cv_a == const_volatile_maybe_cv_b);
+                }
+
+                TEST_CASE("should return true for two maybes with different number types that have an equal value")
+                {
+                    u8_t random = Random<u8_t>(0, std::numeric_limits<s8_t>::max());
+                    maybe_t<u8_t> maybe = random;
+
+                    CHECK_TRUE(maybe == maybe_t<u16_t>(u16_t(random)));
+                    CHECK_TRUE(maybe == maybe_t<u32_t>(u32_t(random)));
+                    CHECK_TRUE(maybe == maybe_t<u64_t>(u64_t(random)));
+
+                    CHECK_TRUE(maybe == maybe_t<s8_t>(s8_t(random)));
+                    CHECK_TRUE(maybe == maybe_t<s16_t>(s16_t(random)));
+                    CHECK_TRUE(maybe == maybe_t<s32_t>(s32_t(random)));
+                    CHECK_TRUE(maybe == maybe_t<s64_t>(s64_t(random)));
+
+                    CHECK_TRUE(maybe == maybe_t<r32_t>(r32_t(random)));
+                    CHECK_TRUE(maybe == maybe_t<r64_t>(r64_t(random)));
+                }
+
+                TEST_CASE("should return false for two maybes with different number types that do not have an equal value")
+                {
+                    u8_t random_a = Random<u8_t>(0, std::numeric_limits<s8_t>::max());
+                    u8_t random_b;
+                    do {
+                        random_b = Random<u8_t>(0, std::numeric_limits<s8_t>::max());
+                    } while (random_b == random_a);
+                    maybe_t<u8_t> maybe_a = random_a;
+
+                    CHECK_FALSE(maybe_a == maybe_t<u16_t>(u16_t(random_b)));
+                    CHECK_FALSE(maybe_a == maybe_t<u32_t>(u32_t(random_b)));
+                    CHECK_FALSE(maybe_a == maybe_t<u64_t>(u64_t(random_b)));
+
+                    CHECK_FALSE(maybe_a == maybe_t<s8_t>(s8_t(random_b)));
+                    CHECK_FALSE(maybe_a == maybe_t<s16_t>(s16_t(random_b)));
+                    CHECK_FALSE(maybe_a == maybe_t<s32_t>(s32_t(random_b)));
+                    CHECK_FALSE(maybe_a == maybe_t<s64_t>(s64_t(random_b)));
+
+                    CHECK_FALSE(maybe_a == maybe_t<r32_t>(r32_t(random_b)));
+                    CHECK_FALSE(maybe_a == maybe_t<r64_t>(r64_t(random_b)));
+                }
+            }
+
+            TEST_SUITE("!=(maybe_t, maybe_t)")
+            {
+
             }
         }
 

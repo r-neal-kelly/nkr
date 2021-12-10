@@ -121,6 +121,10 @@ namespace nkr { namespace tree { namespace stack {
         maybe_t<allocator_err>  Add(tr1<any_non_const_tg, binary_search_t> auto& self, const value_t& unit);
         maybe_t<allocator_err>  Add(tr1<any_non_const_tg, binary_search_t> auto& self, value_t&& unit);
 
+        index_t                 Parent(tr1<any_tg, binary_search_t> auto& self, index_t node_index);
+        index_t                 Low_Child(tr1<any_tg, binary_search_t> auto& self, index_t node_index);
+        index_t                 High_Child(tr1<any_tg, binary_search_t> auto& self, index_t node_index);
+
     protected:
         array::stack_t<node_t, max_node_count_p>    nodes;
         node_t                                      sentinel;
