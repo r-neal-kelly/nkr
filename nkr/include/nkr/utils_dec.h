@@ -13,9 +13,9 @@
 namespace nkr {
 
     constexpr auto      Move(built_in_tr auto& value) noexcept;
-    constexpr auto&&    Move(const built_in_tr auto& value) noexcept;
+    constexpr auto&&    Move(const built_in_tr auto& value) noexcept; // I'm considering setting this to delete because it's kind of confusing that we would let built-ins whereas we don't let user-defineds.
     constexpr auto&&    Move(built_in_tr auto&& value) noexcept;
-    constexpr auto&&    Move(const built_in_tr auto&& value) noexcept;
+    constexpr auto&&    Move(const built_in_tr auto&& value) noexcept; // ""
     constexpr auto&&    Move(user_defined_tr auto& value) noexcept;
     constexpr auto&&    Move(const user_defined_tr auto& value) noexcept                            = delete;
     constexpr auto&&    Move(user_defined_tr auto&& value) noexcept;

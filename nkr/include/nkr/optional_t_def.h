@@ -61,7 +61,7 @@ namespace nkr {
     }
 
     template <any_type_tr value_p>
-    inline optional_t<value_p>::optional_t(tr2<any_non_const_tg, maybe_ttg, of_any_tg, value_t> auto&& maybe_value) :
+    inline optional_t<value_p>::optional_t(tr2<any_tg, maybe_ttg, of_any_accessed_non_const_tg, value_t> auto&& maybe_value) :
         has_value(maybe_value != none_t()),
         value(nkr::Move(maybe_value()))
     {
@@ -76,7 +76,7 @@ namespace nkr {
     }
 
     template <any_type_tr value_p>
-    inline optional_t<value_p>::optional_t(tr2<any_non_const_tg, some_ttg, of_any_tg, value_t> auto&& some_value) :
+    inline optional_t<value_p>::optional_t(tr2<any_tg, some_ttg, of_any_accessed_non_const_tg, value_t> auto&& some_value) :
         has_value(true),
         value(nkr::Move(some_value()))
     {
@@ -275,14 +275,14 @@ namespace nkr {
     }
 
     template <any_type_tr value_p>
-    inline optional_t<value_p>::operator std_bool_t()
+    inline optional_t<value_p>::operator c_bool_t()
         const
     {
         return this->has_value;
     }
 
     template <any_type_tr value_p>
-    inline optional_t<value_p>::operator std_bool_t()
+    inline optional_t<value_p>::operator c_bool_t()
         const volatile
     {
         return this->has_value;

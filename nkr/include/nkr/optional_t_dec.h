@@ -109,12 +109,18 @@ namespace nkr {
         optional_t();
 
         optional_t(none_t);
+
         optional_t(const tr1<any_tg, value_t> auto& value);
         optional_t(tr1<any_non_const_tg, value_t> auto&& value);
+        optional_t(tr1<any_const_tg, value_t> auto&& value)                                             = delete;
+
         optional_t(const tr2<any_tg, maybe_ttg, of_any_tg, value_t> auto& maybe_value);
-        optional_t(tr2<any_non_const_tg, maybe_ttg, of_any_tg, value_t> auto&& maybe_value);
+        optional_t(tr2<any_tg, maybe_ttg, of_any_accessed_non_const_tg, value_t> auto&& maybe_value);
+        optional_t(tr2<any_tg, maybe_ttg, of_any_accessed_const_tg, value_t> auto&& maybe_value)        = delete;
+
         optional_t(const tr2<any_tg, some_ttg, of_any_tg, value_t> auto& some_value);
-        optional_t(tr2<any_non_const_tg, some_ttg, of_any_tg, value_t> auto&& some_value);
+        optional_t(tr2<any_tg, some_ttg, of_any_accessed_non_const_tg, value_t> auto&& some_value);
+        optional_t(tr2<any_tg, some_ttg, of_any_accessed_const_tg, value_t> auto&& some_value)          = delete;
 
         optional_t(const optional_t& other);
         optional_t(const volatile optional_t& other);
@@ -142,8 +148,8 @@ namespace nkr {
         const volatile value_t& Value() const volatile;
 
     public:
-        explicit operator   std_bool_t() const;
-        explicit operator   std_bool_t() const volatile;
+        explicit operator   c_bool_t() const;
+        explicit operator   c_bool_t() const volatile;
     };
 
 }

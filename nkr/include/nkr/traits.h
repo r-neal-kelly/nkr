@@ -40,6 +40,18 @@ namespace nkr {
         }
     };
 
+    template <typename type_p>
+    concept reference_tr =
+        std::is_reference<type_p>::value;
+
+    template <typename type_p>
+    concept lvalue_reference_tr =
+        std::is_lvalue_reference<type_p>::value;
+
+    template <typename type_p>
+    concept rvalue_reference_tr =
+        std::is_rvalue_reference<type_p>::value;
+
     /// @{
     template <typename type_p>
     concept any_tr =
@@ -113,19 +125,27 @@ namespace nkr {
 
     template <typename type_p>
     concept just_non_qualified_tr =
-        std::same_as<type_p, std::remove_cv_t<type_p>>;
+        lvalue_reference_tr<type_p> && std::same_as<type_p, std::remove_cvref_t<type_p>&> ||
+        rvalue_reference_tr<type_p> && std::same_as<type_p, std::remove_cvref_t<type_p>&&> ||
+        !reference_tr<type_p> && std::same_as<type_p, std::remove_cv_t<type_p>>;
 
     template <typename type_p>
     concept just_const_tr =
-        std::same_as<type_p, const std::remove_cv_t<type_p>>;
+        lvalue_reference_tr<type_p> && std::same_as<type_p, const std::remove_cvref_t<type_p>&> ||
+        rvalue_reference_tr<type_p> && std::same_as<type_p, const std::remove_cvref_t<type_p>&&> ||
+        !reference_tr<type_p> && std::same_as<type_p, const std::remove_cv_t<type_p>>;
 
     template <typename type_p>
     concept just_volatile_tr =
-        std::same_as<type_p, volatile std::remove_cv_t<type_p>>;
+        lvalue_reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cvref_t<type_p>&> ||
+        rvalue_reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cvref_t<type_p>&&> ||
+        !reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cv_t<type_p>>;
 
     template <typename type_p>
     concept just_const_volatile_tr =
-        std::same_as<type_p, const volatile std::remove_cv_t<type_p>>;
+        lvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&> ||
+        rvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&&> ||
+        !reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cv_t<type_p>>;
 
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_qualified_tr, type_p);
     nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_non_qualified_tr, type_p);
@@ -426,14 +446,6 @@ namespace nkr {
     {
         type_a == type_b;
     };
-
-    template <typename type_p>
-    concept lvalue_reference_tr =
-        std::is_lvalue_reference<type_p>::value;
-
-    template <typename type_p>
-    concept rvalue_reference_tr =
-        std::is_rvalue_reference<type_p>::value;
 
     /// @addtogroup _a5f738af_46d1_4576_aaf6_adbc60dc07fe
     /// @{

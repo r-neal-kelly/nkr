@@ -379,6 +379,123 @@ namespace nkr {
         nkr_JUST_VOLATILE,      \
         nkr_JUST_CONST_VOLATILE
 
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("default_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should have no value", optional_p, nkr_ALL)
+                {
+                    optional_p optional;
+
+                    CHECK(!optional.Has_Value());
+                }
+            }
+
+            TEST_SUITE("none_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should have no value", optional_p, nkr_ALL)
+                {
+                    optional_p optional = none_t();
+
+                    CHECK(!optional.Has_Value());
+                }
+            }
+
+            TEST_SUITE("copy_value_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should copy a given value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const value_t random = Random<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random);
+                }
+            }
+
+            TEST_SUITE("move_value_ctor()")
+            {
+                TEST_CASE_TEMPLATE("should move a given value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    std::remove_const_t<value_t> random = Random<value_t>();
+                    value_t backup = random;
+                    optional_p optional = nkr::Move(random);
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == backup);
+                }
+            }
+
+            TEST_SUITE("copy_maybe_value_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("move_maybe_value_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_some_value_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("move_some_value_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_volatile_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("move_volatile_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_assignment()")
+            {
+
+            }
+
+            TEST_SUITE("copy_volatile_assignment()")
+            {
+
+            }
+
+            TEST_SUITE("move_assignment()")
+            {
+
+            }
+
+            TEST_SUITE("move_volatile_assignment()")
+            {
+
+            }
+
+            TEST_SUITE("dtor()")
+            {
+
+            }
+        }
+
         TEST_SUITE("static operators")
         {
             TEST_SUITE("==(optional_t, optional_t)")
@@ -409,35 +526,39 @@ namespace nkr {
                     CHECK_FALSE(optional_a == optional_b);
                 }
 
-                /*TEST_CASE_TEMPLATE("should return true for two maybes of different reference types with the same type that have an equal value", value_p, nkr_ALL_VALUES)
+                /*TEST_CASE_TEMPLATE("should return true with two different references of the same type that have an equal value", optional_p, nkr_ALL)
                 {
-                    value_p random = Random<value_p>();
-                    maybe_t<value_p> optional_a = random;
-                    maybe_t<value_p> optional_b = random;
+                    using value_t = optional_p::value_t;
+
+                    value_t random = Random<value_t>();
+                    optional_p optional_a = random;
+                    optional_p optional_b = random;
 
                     CHECK_TRUE(optional_a == optional_b);
-                    CHECK_TRUE(optional_a == maybe_t<value_p>(random));
-                    CHECK_TRUE(maybe_t<value_p>(random) == optional_b);
-                    CHECK_TRUE(maybe_t<value_p>(random) == maybe_t<value_p>(random));
+                    CHECK_TRUE(optional_a == optional_t<value_t>(random));
+                    CHECK_TRUE(optional_t<value_t>(random) == optional_b);
+                    CHECK_TRUE(optional_t<value_t>(random) == optional_t<value_t>(random));
                 }
 
-                TEST_CASE_TEMPLATE("should return false for two maybes of different reference types with the same type that do not have an equal value", value_p, nkr_ALL_VALUES)
+                TEST_CASE_TEMPLATE("should return false with two different references of the same type that do not have an equal value", optional_p, nkr_ALL)
                 {
-                    value_p random_a = Random<value_p>();
-                    std::remove_const_t<value_p> random_b;
+                    using value_t = optional_p::value_t;
+
+                    value_t random_a = Random<value_t>();
+                    std::remove_const_t<value_t> random_b;
                     do {
-                        random_b = Random<value_p>();
+                        random_b = Random<value_t>();
                     } while (random_b == random_a);
-                    maybe_t<value_p> optional_a = random_a;
-                    maybe_t<value_p> optional_b = random_b;
+                    optional_p optional_a = random_a;
+                    optional_p optional_b = random_b;
 
                     CHECK_FALSE(optional_a == optional_b);
-                    CHECK_FALSE(optional_a == maybe_t<value_p>(random_b));
-                    CHECK_FALSE(maybe_t<value_p>(random_a) == optional_b);
-                    CHECK_FALSE(maybe_t<value_p>(random_a) == maybe_t<value_p>(random_b));
-                }
+                    CHECK_FALSE(optional_a == optional_t<value_t>(random_b));
+                    CHECK_FALSE(optional_t<value_t>(random_a) == optional_b);
+                    CHECK_FALSE(optional_t<value_t>(random_a) == optional_t<value_t>(random_b));
+                }*/
 
-                TEST_CASE_TEMPLATE("should return true for two maybes with the same but differently qualified types that have an equal value", value_p, nkr_JUST_NON_QUALIFIED_VALUES)
+                /*TEST_CASE_TEMPLATE("should return true for two maybes with the same but differently qualified types that have an equal value", value_p, nkr_JUST_NON_QUALIFIED_VALUES)
                 {
                     value_p random = Random<value_p>();
 

@@ -187,6 +187,7 @@
     <ClCompile Include="src\tr2_09_not_any_qualified.cpp" />
     <ClCompile Include="src\tr2_13_not_any_volatile.cpp" />
     <ClCompile Include="src\tr3.cpp" />
+    <ClCompile Include="src\traits.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">
