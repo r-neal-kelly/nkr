@@ -217,10 +217,6 @@ namespace nkr {
     inline optional_t<value_p>::~optional_t()
     {
         this->has_value = false;
-
-        if constexpr (built_in_tr<value_t>) {
-            this->value = static_cast<value_t>(0);
-        }
     }
 
     template <any_type_tr value_p>
@@ -300,7 +296,11 @@ namespace nkr {
         operator ==(tr1<any_tg, optional_tg> auto& a, tr1<any_tg, optional_tg> auto& b)
     {
         if constexpr (can_equal_to_tr<decltype(a.Value()), decltype(b.Value())>) {
-            return a.Has_Value() && b.Has_Value() ? a.Value() == b.Value() : !a.Has_Value() && !b.Has_Value();
+            if (a.Has_Value() && b.Has_Value()) {
+                return a.Value() == b.Value();
+            } else {
+                return !a.Has_Value() && !b.Has_Value();
+            }
         } else {
             static_assert(false, "the values of these two optional_t objects cannot be compared.");
         }
