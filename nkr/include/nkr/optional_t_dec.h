@@ -6,6 +6,9 @@
 
 #include "nkr/bool_t.h"
 #include "nkr/intrinsics.h"
+#include "nkr/maybe_t.h"
+#include "nkr/none_t.h"
+#include "nkr/some_t.h"
 #include "nkr/traits.h"
 
 namespace nkr {
@@ -105,8 +108,13 @@ namespace nkr {
     public:
         optional_t();
 
-        optional_t(const is_any_tr<value_t> auto& value, bool_t has_value);
-        optional_t(is_any_non_const_tr<value_t> auto&& value, bool_t has_value) noexcept;
+        optional_t(none_t);
+        optional_t(const tr1<any_tg, value_t> auto& value);
+        optional_t(tr1<any_non_const_tg, value_t> auto&& value);
+        optional_t(const tr2<any_tg, maybe_ttg, of_any_tg, value_t> auto& maybe_value);
+        optional_t(tr2<any_non_const_tg, maybe_ttg, of_any_tg, value_t> auto&& maybe_value);
+        optional_t(const tr2<any_tg, some_ttg, of_any_tg, value_t> auto& some_value);
+        optional_t(tr2<any_non_const_tg, some_ttg, of_any_tg, value_t> auto&& some_value);
 
         optional_t(const optional_t& other);
         optional_t(const volatile optional_t& other);
@@ -137,5 +145,19 @@ namespace nkr {
         explicit operator   std_bool_t() const;
         explicit operator   std_bool_t() const volatile;
     };
+
+}
+
+namespace nkr {
+
+    bool_t  operator ==(tr1<any_tg, optional_tg> auto& a, tr1<any_tg, optional_tg> auto& b);
+    bool_t  operator ==(tr1<any_tg, optional_tg> auto& a, tr1<any_tg, optional_tg> auto&& b);
+    bool_t  operator ==(tr1<any_tg, optional_tg> auto&& a, tr1<any_tg, optional_tg> auto& b);
+    bool_t  operator ==(tr1<any_tg, optional_tg> auto&& a, tr1<any_tg, optional_tg> auto&& b);
+
+    bool_t  operator !=(tr1<any_tg, optional_tg> auto& a, tr1<any_tg, optional_tg> auto& b);
+    bool_t  operator !=(tr1<any_tg, optional_tg> auto& a, tr1<any_tg, optional_tg> auto&& b);
+    bool_t  operator !=(tr1<any_tg, optional_tg> auto&& a, tr1<any_tg, optional_tg> auto& b);
+    bool_t  operator !=(tr1<any_tg, optional_tg> auto&& a, tr1<any_tg, optional_tg> auto&& b);
 
 }

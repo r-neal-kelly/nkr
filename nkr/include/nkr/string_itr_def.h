@@ -344,9 +344,9 @@ namespace nkr {
         nkr_ASSERT_THAT(Has_String(self));
 
         if (Is_At_Prefix(self)) {
-            return optional_t<index_t>(index_t(0), false);
+            return optional_t<index_t>(none_t());
         } else {
-            return optional_t<index_t>(self.unit_index, true);
+            return optional_t<index_t>(self.unit_index);
         }
     }
 
@@ -357,9 +357,9 @@ namespace nkr {
         nkr_ASSERT_THAT(Has_String(self));
 
         if (Is_At_Prefix(self)) {
-            return optional_t<index_t>(index_t(0), false);
+            return optional_t<index_t>(none_t());
         } else {
-            return optional_t<index_t>(self.point_index, true);
+            return optional_t<index_t>(self.point_index);
         }
     }
 
