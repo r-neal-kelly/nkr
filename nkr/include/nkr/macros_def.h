@@ -63,6 +63,26 @@ namespace nkr {
                                                                                         \
         WRAPPER_p() = default;                                                          \
                                                                                         \
+        WRAPPER_p(const std::remove_cv_t<BASE_p>& other) :                              \
+            BASE_p(other)                                                               \
+        {                                                                               \
+        }                                                                               \
+                                                                                        \
+        WRAPPER_p(const volatile std::remove_cv_t<BASE_p>& other) :                     \
+            BASE_p(other)                                                               \
+        {                                                                               \
+        }                                                                               \
+                                                                                        \
+        WRAPPER_p(std::remove_cv_t<BASE_p>&& other) noexcept :                          \
+            BASE_p(nkr::Move(other))                                                    \
+        {                                                                               \
+        }                                                                               \
+                                                                                        \
+        WRAPPER_p(volatile std::remove_cv_t<BASE_p>&& other) noexcept :                 \
+            BASE_p(nkr::Move(other))                                                    \
+        {                                                                               \
+        }                                                                               \
+                                                                                        \
         WRAPPER_p(const WRAPPER_p& other) :                                             \
             BASE_p(static_cast<const BASE_p&>(other))                                   \
         {                                                                               \

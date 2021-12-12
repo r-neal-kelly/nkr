@@ -3,7 +3,7 @@
 */
 
 #include "nkr/intrinsics.h"
-
+#include "nkr/maybe_t.h"
 #include "nkr/optional_t.h"
 
 #include "doctest.h"
@@ -265,6 +265,11 @@ namespace nkr {
         return std::remove_cvref_t<user_defined_p>(Random<word_t>());
     }
 
+    static_assert(maybe_i<user_defined_t>);
+    static_assert(maybe_i<const user_defined_t>);
+    static_assert(maybe_i<volatile user_defined_t>);
+    static_assert(maybe_i<const volatile user_defined_t>);
+
 }
 
 namespace nkr {
@@ -432,7 +437,49 @@ namespace nkr {
 
             TEST_SUITE("copy_maybe_value_ctor()")
             {
+                TEST_CASE_TEMPLATE("should copy a given maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
 
+                    maybe_t<value_t> random = Random<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given const maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const maybe_t<value_t> random = Random<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given volatile maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    volatile maybe_t<value_t> random = Random<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given const volatile maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const volatile maybe_t<value_t> random = Random<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
             }
 
             TEST_SUITE("move_maybe_value_ctor()")
