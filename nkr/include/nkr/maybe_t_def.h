@@ -357,6 +357,47 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 namespace nkr { namespace $maybe_t {
 
     template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::Is_Equal_To(const is_any_tr<user_defined_sp> auto& self, const tr0<any_tg> auto& other)
+    {
+        using other_t = std::remove_reference_t<decltype(other)>;
+
+        if constexpr (is_any_tr<other_t, value_t>) {
+            if constexpr (can_equal_to_tr<decltype(self()), decltype(other)>) {
+                return self() == other;
+            } else {
+                static_assert(false, "these two values can not be equal to each other.");
+            }
+        } else if constexpr (tr1<other_t, any_tg, maybe_tg>) {
+            if constexpr (can_equal_to_tr<decltype(self()), decltype(other())>) {
+                return self() == other();
+            } else {
+                static_assert(false, "these two values can not be equal to each other.");
+            }
+        } else {
+            if constexpr (can_equal_to_tr<decltype(self()), decltype(other)>) {
+                return self() == other;
+            } else {
+                static_assert(false, "these two values can not be equal to each other.");
+            }
+        }
+    }
+
+    template <maybe_i user_defined_p>
+    inline user_defined_sp<user_defined_p>::operator c_bool_t()
+        const
+    {
+        return base_t::operator !=(none_t());
+    }
+
+    template <maybe_i user_defined_p>
+    inline user_defined_sp<user_defined_p>::operator c_bool_t()
+        const volatile
+    {
+        return base_t::operator !=(none_t());
+    }
+
+    template <maybe_i user_defined_p>
     inline typename user_defined_sp<user_defined_p>::value_t&
         user_defined_sp<user_defined_p>::operator ()()
     {
@@ -387,60 +428,68 @@ namespace nkr { namespace $maybe_t {
         return static_cast<const volatile value_t&>(*this);
     }
 
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator ==(const tr0<any_tg> auto& other)
+        const
+    {
+        return Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator ==(const tr0<any_tg> auto& other)
+        const volatile
+    {
+        return Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator ==(const tr0<any_tg> auto&& other)
+        const
+    {
+        return Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator ==(const tr0<any_tg> auto&& other)
+        const volatile
+    {
+        return Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator !=(const tr0<any_tg> auto& other)
+        const
+    {
+        return !Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator !=(const tr0<any_tg> auto& other)
+        const volatile
+    {
+        return !Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator !=(const tr0<any_tg> auto&& other)
+        const
+    {
+        return !Is_Equal_To(*this, other);
+    }
+
+    template <maybe_i user_defined_p>
+    inline bool_t
+        user_defined_sp<user_defined_p>::operator !=(const tr0<any_tg> auto&& other)
+        const volatile
+    {
+        return !Is_Equal_To(*this, other);
+    }
+
 }}
-
-namespace nkr {
-
-    inline bool_t
-        operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b)
-    {
-        if constexpr (can_equal_to_tr<decltype(a()), decltype(b())>) {
-            return a() == b();
-        } else {
-            static_assert(false, "the values of these two maybe_t objects cannot be compared.");
-        }
-    }
-
-    inline bool_t
-        operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b)
-    {
-        return operator ==(a, b);
-    }
-
-    inline bool_t
-        operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b)
-    {
-        return operator ==(a, b);
-    }
-
-    inline bool_t
-        operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b)
-    {
-        return operator ==(a, b);
-    }
-
-    inline bool_t
-        operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b)
-    {
-        return !operator ==(a, b);
-    }
-
-    inline bool_t
-        operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b)
-    {
-        return !operator ==(a, b);
-    }
-
-    inline bool_t
-        operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b)
-    {
-        return !operator ==(a, b);
-    }
-
-    inline bool_t
-        operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b)
-    {
-        return !operator ==(a, b);
-    }
-
-}

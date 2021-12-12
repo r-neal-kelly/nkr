@@ -42,4 +42,7 @@ namespace nkr {
     bool_t  operator ==(built_in_tr auto built_in, is_any_tr<none_t> auto none);    ///< @copydoc 
     bool_t  operator !=(built_in_tr auto built_in, is_any_tr<none_t> auto none);    ///< @copydoc 
 
+    template <typename type_p>
+    auto    None();
+
 }

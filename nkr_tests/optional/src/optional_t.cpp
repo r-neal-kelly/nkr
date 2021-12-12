@@ -384,6 +384,20 @@ namespace nkr {
         nkr_JUST_VOLATILE,      \
         nkr_JUST_CONST_VOLATILE
 
+        template <typename value_p>
+        auto
+            Random_Non_None()
+        {
+            using non_const_value_t = std::remove_const_t<value_p>;
+
+            non_const_value_t random;
+            do {
+                random = Random<non_const_value_t>();
+            } while (random == none_t());
+
+            return random;
+        }
+
         TEST_SUITE("objects")
         {
             TEST_SUITE("default_ctor()")
@@ -396,6 +410,7 @@ namespace nkr {
                 }
             }
 
+            // should be in none interface section of the type declaration
             TEST_SUITE("none_ctor()")
             {
                 TEST_CASE_TEMPLATE("should have no value", optional_p, nkr_ALL)
@@ -408,27 +423,52 @@ namespace nkr {
 
             TEST_SUITE("copy_value_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy a given value", optional_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy a given non-none value", optional_p, nkr_ALL)
                 {
                     using value_t = optional_p::value_t;
 
-                    const value_t random = Random<value_t>();
+                    value_t random = Random_Non_None<value_t>();
                     optional_p optional = random;
 
                     CHECK(optional.Has_Value());
                     CHECK(optional.Value() == random);
                 }
+
+                TEST_CASE_TEMPLATE("should copy a given none value and have it", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    value_t none = None<value_t>();
+                    optional_p optional = none;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == none);
+                }
             }
 
             TEST_SUITE("move_value_ctor()")
             {
-                TEST_CASE_TEMPLATE("should move a given value", optional_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should move a given non-none value", optional_p, nkr_ALL)
                 {
                     using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
 
-                    std::remove_const_t<value_t> random = Random<value_t>();
-                    value_t backup = random;
+                    non_const_value_t random = Random_Non_None<non_const_value_t>();
+                    non_const_value_t backup = random;
                     optional_p optional = nkr::Move(random);
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == backup);
+                }
+
+                TEST_CASE_TEMPLATE("should move a given none value and have it", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
+
+                    non_const_value_t none = None<non_const_value_t>();
+                    non_const_value_t backup = none;
+                    optional_p optional = nkr::Move(none);
 
                     CHECK(optional.Has_Value());
                     CHECK(optional.Value() == backup);
@@ -437,64 +477,216 @@ namespace nkr {
 
             TEST_SUITE("copy_maybe_value_ctor()")
             {
-                TEST_CASE_TEMPLATE("should copy a given maybe value", optional_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should copy a given non-none maybe value", optional_p, nkr_ALL)
                 {
                     using value_t = optional_p::value_t;
 
-                    maybe_t<value_t> random = Random<value_t>();
+                    maybe_t<value_t> random = Random_Non_None<value_t>();
                     optional_p optional = random;
 
                     CHECK(optional.Has_Value());
                     CHECK(optional.Value() == random());
                 }
 
-                TEST_CASE_TEMPLATE("should copy a given const maybe value", optional_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should accept a given none maybe value, but not have it", optional_p, nkr_ALL)
                 {
                     using value_t = optional_p::value_t;
 
-                    const maybe_t<value_t> random = Random<value_t>();
+                    maybe_t<value_t> none = None<value_t>();
+                    optional_p optional = none;
+
+                    CHECK(!optional.Has_Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given const non-none maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const maybe_t<value_t> random = Random_Non_None<value_t>();
                     optional_p optional = random;
 
                     CHECK(optional.Has_Value());
                     CHECK(optional.Value() == random());
                 }
 
-                TEST_CASE_TEMPLATE("should copy a given volatile maybe value", optional_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should accept a given const none maybe value, but not have it", optional_p, nkr_ALL)
                 {
                     using value_t = optional_p::value_t;
 
-                    volatile maybe_t<value_t> random = Random<value_t>();
+                    const maybe_t<value_t> none = None<value_t>();
+                    optional_p optional = none;
+
+                    CHECK(!optional.Has_Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given volatile non-none maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    volatile maybe_t<value_t> random = Random_Non_None<value_t>();
                     optional_p optional = random;
 
                     CHECK(optional.Has_Value());
                     CHECK(optional.Value() == random());
                 }
 
-                TEST_CASE_TEMPLATE("should copy a given const volatile maybe value", optional_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should accept a given volatile none maybe value, but not have it", optional_p, nkr_ALL)
                 {
                     using value_t = optional_p::value_t;
 
-                    const volatile maybe_t<value_t> random = Random<value_t>();
+                    volatile maybe_t<value_t> none = None<value_t>();
+                    optional_p optional = none;
+
+                    CHECK(!optional.Has_Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given const volatile non-none maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const volatile maybe_t<value_t> random = Random_Non_None<value_t>();
                     optional_p optional = random;
 
                     CHECK(optional.Has_Value());
                     CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should accept a given const volatile none maybe value, but not have it", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const volatile maybe_t<value_t> none = None<value_t>();
+                    optional_p optional = none;
+
+                    CHECK(!optional.Has_Value());
                 }
             }
 
             TEST_SUITE("move_maybe_value_ctor()")
             {
+                TEST_CASE_TEMPLATE("should move a given non-none maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
 
+                    maybe_t<non_const_value_t> random = Random_Non_None<non_const_value_t>();
+                    maybe_t<non_const_value_t> backup = random;
+                    optional_p optional = nkr::Move(random);
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == backup());
+                }
+
+                TEST_CASE_TEMPLATE("should accept a given none maybe value, but not have it", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
+
+                    maybe_t<non_const_value_t> none = None<non_const_value_t>();
+                    optional_p optional = nkr::Move(none);
+
+                    CHECK(!optional.Has_Value());
+                }
+
+                TEST_CASE_TEMPLATE("should move a given volatile non-none maybe value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
+
+                    volatile maybe_t<non_const_value_t> random = Random_Non_None<non_const_value_t>();
+                    maybe_t<non_const_value_t> backup = random;
+                    optional_p optional = nkr::Move(random);
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == backup());
+                }
+
+                TEST_CASE_TEMPLATE("should accept a given volatile none maybe value, but not have it", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
+
+                    volatile maybe_t<non_const_value_t> none = None<non_const_value_t>();
+                    optional_p optional = nkr::Move(none);
+
+                    CHECK(!optional.Has_Value());
+                }
             }
 
             TEST_SUITE("copy_some_value_ctor()")
             {
+                TEST_CASE_TEMPLATE("should copy a given non-none some value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
 
+                    some_t<value_t> random = Random_Non_None<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given const non-none some value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const some_t<value_t> random = Random_Non_None<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given volatile non-none some value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    volatile some_t<value_t> random = Random_Non_None<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a given const volatile non-none some value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const volatile some_t<value_t> random = Random_Non_None<value_t>();
+                    optional_p optional = random;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == random());
+                }
             }
 
             TEST_SUITE("move_some_value_ctor()")
             {
+                TEST_CASE_TEMPLATE("should move a given non-none some value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
 
+                    some_t<non_const_value_t> random = Random_Non_None<non_const_value_t>();
+                    some_t<non_const_value_t> backup = random;
+                    optional_p optional = nkr::Move(random);
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == backup());
+                }
+
+                TEST_CASE_TEMPLATE("should move a given volatile non-none some value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+                    using non_const_value_t = std::remove_const_t<value_t>;
+
+                    volatile some_t<non_const_value_t> random = Random_Non_None<non_const_value_t>();
+                    some_t<non_const_value_t> backup = random;
+                    optional_p optional = nkr::Move(random);
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == backup());
+                }
             }
 
             TEST_SUITE("copy_ctor()")

@@ -433,7 +433,7 @@ namespace nkr {
                 }
             }
 
-            TEST_SUITE("std_bool_t")
+            TEST_SUITE("c_bool_t")
             {
                 TEST_CASE_TEMPLATE("should cast to true if its underlying value does not equal none_t()", maybe_p, nkr_ALL)
                 {

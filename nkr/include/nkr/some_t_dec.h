@@ -92,12 +92,26 @@ namespace nkr {
     private:
         using base_t    = maybe_t<any_p>;
 
+    private:
+        static bool_t   Is_Equal_To(const is_any_tr<some_t> auto& self, const tr0<any_tg> auto& other);
+
     public:
         /// @name objects
         /// @copydoc 
         /// @{
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(some_t, base_t);
         /// @}
+
+    public:
+        bool_t  operator ==(const tr0<any_tg> auto& other) const;
+        bool_t  operator ==(const tr0<any_tg> auto& other) const volatile;
+        bool_t  operator ==(const tr0<any_tg> auto&& other) const;
+        bool_t  operator ==(const tr0<any_tg> auto&& other) const volatile;
+
+        bool_t  operator !=(const tr0<any_tg> auto& other) const;
+        bool_t  operator !=(const tr0<any_tg> auto& other) const volatile;
+        bool_t  operator !=(const tr0<any_tg> auto&& other) const;
+        bool_t  operator !=(const tr0<any_tg> auto&& other) const volatile;
 
     public:
         /// @name none_t interface

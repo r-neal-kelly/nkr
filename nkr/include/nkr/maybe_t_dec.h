@@ -306,12 +306,19 @@ namespace nkr { namespace $maybe_t {
     private:
         using base_t    = user_defined_p;
 
+    private:
+        static bool_t   Is_Equal_To(const is_any_tr<user_defined_sp> auto& self, const tr0<any_tg> auto& other);
+
     public:
         /// @name objects
         /// @copydoc _bace7444_fb65_41c3_affb_6fd3c6dee6a1
         /// @{
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(user_defined_sp, base_t);
         /// @}
+
+    public:
+        explicit operator   c_bool_t() const;
+        explicit operator   c_bool_t() const volatile;
 
     public:
         /// @name operators
@@ -321,6 +328,16 @@ namespace nkr { namespace $maybe_t {
         const value_t&          operator ()() const;            ///< @copydoc _110607cd_bdbe_488b_8c8a_15a03e07523b
         volatile value_t&       operator ()() volatile;         ///< @copydoc 
         const volatile value_t& operator ()() const volatile;   ///< @copydoc 
+
+        bool_t                  operator ==(const tr0<any_tg> auto& other) const;
+        bool_t                  operator ==(const tr0<any_tg> auto& other) const volatile;
+        bool_t                  operator ==(const tr0<any_tg> auto&& other) const;
+        bool_t                  operator ==(const tr0<any_tg> auto&& other) const volatile;
+
+        bool_t                  operator !=(const tr0<any_tg> auto& other) const;
+        bool_t                  operator !=(const tr0<any_tg> auto& other) const volatile;
+        bool_t                  operator !=(const tr0<any_tg> auto&& other) const;
+        bool_t                  operator !=(const tr0<any_tg> auto&& other) const volatile;
         /// @}
     };
 
@@ -393,19 +410,5 @@ namespace nkr {
     };
     static_assert(maybe_i<bool_t>);
     static_assert(maybe_i<maybe_t<bool_t>>);
-
-}
-
-namespace nkr {
-
-    bool_t  operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b);
-    bool_t  operator ==(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b);
-    bool_t  operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b);
-    bool_t  operator ==(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b);
-
-    bool_t  operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto& b);
-    bool_t  operator !=(tr1<any_tg, maybe_tg> auto& a, tr1<any_tg, maybe_tg> auto&& b);
-    bool_t  operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto& b);
-    bool_t  operator !=(tr1<any_tg, maybe_tg> auto&& a, tr1<any_tg, maybe_tg> auto&& b);
 
 }

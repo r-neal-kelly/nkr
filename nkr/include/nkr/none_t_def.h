@@ -98,4 +98,15 @@ namespace nkr {
         return !operator ==(built_in, none_t());
     }
 
+    template <typename type_p>
+    inline auto
+        None()
+    {
+        if constexpr (built_in_tr<type_p>) {
+            return std::remove_cvref_t<type_p>(0);
+        } else {
+            return none_t();
+        }
+    }
+
 }
