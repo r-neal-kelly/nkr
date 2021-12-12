@@ -22,12 +22,12 @@ namespace nkr { namespace tree {
 
     TEST_SUITE("temp")
     {
-        stack::binary_search_t<maybe_t<word_t>, 16> tree(maybe_t<word_t>(word_t(0)));
+        stack::binary_search_t<maybe_t<word_t>, 16> tree = maybe_t<word_t>();
     }
 
     TEST_SUITE("temp")
     {
-        stack::binary_search_t<optional_t<word_t>, 16> tree(optional_t<word_t>(word_t(0), false));
+        stack::binary_search_t<optional_t<word_t>, 16> tree = optional_t<word_t>();
     }
 
 }}
