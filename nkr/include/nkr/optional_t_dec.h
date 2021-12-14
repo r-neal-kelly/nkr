@@ -102,6 +102,21 @@ namespace nkr {
         using value_t   = value_p;
 
     private:
+        static auto&    Assign_Copy(tr1<any_non_const_tg, optional_t> auto& self, const tr1<any_tg, optional_t> auto& other);
+        static auto&    Assign_Move(tr1<any_non_const_tg, optional_t> auto& self, tr1<any_non_const_tg, optional_t> auto&& other);
+
+        static bool_t   Has_Value(const tr1<any_tg, optional_t> auto& self);
+
+        static auto&    Value(tr1<any_tg, optional_t> auto& self);
+        static void_t   Value(tr1<any_non_const_tg, optional_t> auto& self, const tr1<any_tg, value_t> auto& value);
+        static void_t   Value(tr1<any_non_const_tg, optional_t> auto& self, tr1<any_non_const_tg, value_t> auto&& value);
+        static void_t   Value(tr1<any_non_const_tg, optional_t> auto& self, const tr2<any_tg, maybe_ttg, of_any_tg, value_t> auto& maybe_value);
+        static void_t   Value(tr1<any_non_const_tg, optional_t> auto& self, tr2<any_tg, maybe_ttg, of_any_accessed_non_const_tg, value_t> auto&& maybe_value);
+        static void_t   Value(tr1<any_non_const_tg, optional_t> auto& self, const tr2<any_tg, some_ttg, of_any_tg, value_t> auto& some_value);
+        static void_t   Value(tr1<any_non_const_tg, optional_t> auto& self, tr2<any_tg, some_ttg, of_any_accessed_non_const_tg, value_t> auto&& some_value);
+
+        static void_t   Clear(const tr1<any_tg, optional_t> auto& self);
+
         static bool_t   Is_Equal_To(const tr1<any_tg, optional_t> auto& self, const tr0<any_tg> auto& other);
 
     protected:
@@ -147,6 +162,21 @@ namespace nkr {
         const value_t&          Value() const;
         volatile value_t&       Value() volatile;
         const volatile value_t& Value() const volatile;
+        void_t                  Value(const tr1<any_tg, value_t> auto& value);
+        void_t                  Value(const tr1<any_tg, value_t> auto& value) volatile;
+        void_t                  Value(tr1<any_non_const_tg, value_t> auto&& value);
+        void_t                  Value(tr1<any_non_const_tg, value_t> auto&& value) volatile;
+        void_t                  Value(const tr2<any_tg, maybe_ttg, of_any_tg, value_t> auto& maybe_value);
+        void_t                  Value(const tr2<any_tg, maybe_ttg, of_any_tg, value_t> auto& maybe_value) volatile;
+        void_t                  Value(tr2<any_tg, maybe_ttg, of_any_accessed_non_const_tg, value_t> auto&& maybe_value);
+        void_t                  Value(tr2<any_tg, maybe_ttg, of_any_accessed_non_const_tg, value_t> auto&& maybe_value) volatile;
+        void_t                  Value(const tr2<any_tg, some_ttg, of_any_tg, value_t> auto& some_value);
+        void_t                  Value(const tr2<any_tg, some_ttg, of_any_tg, value_t> auto& some_value) volatile;
+        void_t                  Value(tr2<any_tg, some_ttg, of_any_accessed_non_const_tg, value_t> auto&& some_value);
+        void_t                  Value(tr2<any_tg, some_ttg, of_any_accessed_non_const_tg, value_t> auto&& some_value) volatile;
+
+        void_t                  Clear();
+        void_t                  Clear() volatile;
 
     public:
         explicit operator   c_bool_t() const;
