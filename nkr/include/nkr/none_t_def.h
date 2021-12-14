@@ -105,7 +105,7 @@ namespace nkr {
         if constexpr (built_in_tr<type_p>) {
             return std::remove_cvref_t<type_p>(0);
         } else {
-            return none_t();
+            return std::remove_cvref_t<type_p>(none_t());
         }
     }
 

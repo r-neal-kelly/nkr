@@ -301,14 +301,14 @@ namespace nkr {
     inline optional_t<value_p>::operator c_bool_t()
         const
     {
-        return this->has_value;
+        return Has_Value();
     }
 
     template <any_type_tr value_p>
     inline optional_t<value_p>::operator c_bool_t()
         const volatile
     {
-        return this->has_value;
+        return Has_Value();
     }
 
     template <any_type_tr value_p>

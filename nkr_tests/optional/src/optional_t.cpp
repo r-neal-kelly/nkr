@@ -757,12 +757,72 @@ namespace nkr {
 
             TEST_SUITE("copy_ctor()")
             {
+                TEST_CASE_TEMPLATE("should copy an other with a non-none value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
 
+                    const optional_p other = Random_Non_None<value_t>();
+                    optional_p optional = other;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == other.Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy an other with a none value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const optional_p other = None<value_t>();
+                    optional_p optional = other;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == other.Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy an other without a value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const optional_p other;
+                    optional_p optional = other;
+
+                    CHECK(!optional.Has_Value());
+                }
             }
 
             TEST_SUITE("copy_volatile_ctor()")
             {
+                TEST_CASE_TEMPLATE("should copy a volatile other with a non-none value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
 
+                    const volatile optional_p other = Random_Non_None<value_t>();
+                    optional_p optional = other;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == other.Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy another with a none value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const volatile optional_p other = None<value_t>();
+                    optional_p optional = other;
+
+                    CHECK(optional.Has_Value());
+                    CHECK(optional.Value() == other.Value());
+                }
+
+                TEST_CASE_TEMPLATE("should copy a volatile other without a value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    const volatile optional_p other;
+                    optional_p optional = other;
+
+                    CHECK(!optional.Has_Value());
+                }
             }
 
             TEST_SUITE("move_ctor()")
