@@ -398,6 +398,83 @@ namespace nkr {
             return random;
         }
 
+        TEST_SUITE("traits interface")
+        {
+            TEST_SUITE("tr0")
+            {
+                TEST_CASE("should work with tr0")
+                {
+                    static_assert(tr0<optional_t<word_t*>, any_tg>);
+                }
+            }
+
+            TEST_SUITE("tr1")
+            {
+                TEST_CASE("should work with tr1")
+                {
+                    static_assert(tr1<optional_t<word_t*>, any_tg, optional_tg>);
+                }
+            }
+
+            TEST_SUITE("tr2")
+            {
+                TEST_CASE("should work with tr2")
+                {
+                    static_assert(tr2<optional_t<word_t*>, any_tg, optional_ttg, of_any_tg, word_t*>);
+                }
+            }
+
+            TEST_SUITE("tr3")
+            {
+                TEST_CASE("should work with tr3")
+                {
+                    static_assert(tr3<optional_t<word_t*>, any_tg, optional_ttg, of_any_tg, c_pointer_ttg, of_any_tg, word_t>);
+                }
+            }
+        }
+
+        TEST_SUITE("aliases")
+        {
+            TEST_SUITE("value_t")
+            {
+                TEST_CASE_TEMPLATE("should have a value_t", optional_p, nkr_ALL)
+                {
+                    static_assert(is_tr<typename optional_p::value_t, typename optional_p::value_t>);
+                }
+            }
+        }
+
+        TEST_SUITE("protected object data")
+        {
+            TEST_SUITE("has_value")
+            {
+                TEST_CASE_TEMPLATE("should have a has_value that's a bool_t", optional_p, nkr_ALL)
+                {
+                    class derived_t :
+                        public optional_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(has_value), bool_t>);
+                    };
+                }
+            }
+
+            TEST_SUITE("value")
+            {
+                TEST_CASE_TEMPLATE("should have a value that's its value_t", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    class derived_t :
+                        public optional_p
+                    {
+                    public:
+                        static_assert(is_tr<decltype(value), value_t>);
+                    };
+                }
+            }
+        }
+
         TEST_SUITE("objects")
         {
             TEST_SUITE("default_ctor()")
@@ -405,17 +482,6 @@ namespace nkr {
                 TEST_CASE_TEMPLATE("should have no value", optional_p, nkr_ALL)
                 {
                     optional_p optional;
-
-                    CHECK(!optional.Has_Value());
-                }
-            }
-
-            // should be in none interface section of the type declaration
-            TEST_SUITE("none_ctor()")
-            {
-                TEST_CASE_TEMPLATE("should have no value", optional_p, nkr_ALL)
-                {
-                    optional_p optional = none_t();
 
                     CHECK(!optional.Has_Value());
                 }
@@ -732,6 +798,19 @@ namespace nkr {
             TEST_SUITE("dtor()")
             {
 
+            }
+        }
+
+        TEST_SUITE("none interface")
+        {
+            TEST_SUITE("ctor()")
+            {
+                TEST_CASE_TEMPLATE("should have no value", optional_p, nkr_ALL)
+                {
+                    optional_p optional = none_t();
+
+                    CHECK(!optional.Has_Value());
+                }
             }
         }
 
