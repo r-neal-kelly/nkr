@@ -204,14 +204,14 @@ namespace nkr { namespace $atomic_t {
     }
 
     template <boolean_tr boolean_p>
-    inline boolean_sp<boolean_p>::operator std_bool_t()
+    inline boolean_sp<boolean_p>::operator c_bool_t()
         const
     {
         return Access();
     }
 
     template <boolean_tr boolean_p>
-    inline boolean_sp<boolean_p>::operator std_bool_t()
+    inline boolean_sp<boolean_p>::operator c_bool_t()
         const volatile
     {
         return Access();

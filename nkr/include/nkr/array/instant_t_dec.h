@@ -38,7 +38,7 @@ namespace nkr { namespace array {
         /// @name static functions
         /// @copydoc 
         /// @{
-        static constexpr std_bool_t Is_Instant_Array();
+        static constexpr c_bool_t   Is_Instant_Array();
         /// @}
 
     public:

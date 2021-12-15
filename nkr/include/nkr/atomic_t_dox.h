@@ -205,7 +205,7 @@
         * @private
         */
 
-            // std_bool_t()
+            // c_bool_t()
             /**
             * @class _18ea22ec_be2e_42c9_a63d_b4af5e137aa5
             * @private

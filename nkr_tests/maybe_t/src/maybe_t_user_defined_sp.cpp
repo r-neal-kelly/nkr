@@ -254,7 +254,7 @@ namespace nkr {
                     using value_t = maybe_p::value_t;
 
                     if constexpr (is_any_tr<value_t, bool_t>) {
-                        std_bool_t random = Random<std_bool_t>();
+                        c_bool_t random = Random<c_bool_t>();
                         maybe_p maybe(random);
                         CHECK(maybe == random);
                     }

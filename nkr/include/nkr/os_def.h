@@ -532,13 +532,13 @@ namespace nkr { namespace os { namespace atomic {
 
 namespace nkr { namespace os { namespace endian {
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         Is_Big()
     {
         return std::endian::native == std::endian::big;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         Is_Little()
     {
         return std::endian::native == std::endian::little;

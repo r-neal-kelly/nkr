@@ -9,7 +9,7 @@
 namespace nkr {
 
     template class pointer_t<void_t>;
-    template class pointer_t<std_bool_t>;
+    template class pointer_t<c_bool_t>;
     template class pointer_t<bool_t>;
     template class pointer_t<u8_t>;
     template class pointer_t<s8_t>;
@@ -23,7 +23,7 @@ namespace nkr {
     template class pointer_t<r64_t>;
 
     template class pointer_t<const void_t>;
-    template class pointer_t<const std_bool_t>;
+    template class pointer_t<const c_bool_t>;
     template class pointer_t<const bool_t>;
     template class pointer_t<const u8_t>;
     template class pointer_t<const s8_t>;
@@ -37,7 +37,7 @@ namespace nkr {
     template class pointer_t<const r64_t>;
 
     template class pointer_t<volatile void_t>;
-    template class pointer_t<volatile std_bool_t>;
+    template class pointer_t<volatile c_bool_t>;
     template class pointer_t<volatile bool_t>;
     template class pointer_t<volatile u8_t>;
     template class pointer_t<volatile s8_t>;
@@ -51,7 +51,7 @@ namespace nkr {
     template class pointer_t<volatile r64_t>;
 
     template class pointer_t<const volatile void_t>;
-    template class pointer_t<const volatile std_bool_t>;
+    template class pointer_t<const volatile c_bool_t>;
     template class pointer_t<const volatile bool_t>;
     template class pointer_t<const volatile u8_t>;
     template class pointer_t<const volatile s8_t>;

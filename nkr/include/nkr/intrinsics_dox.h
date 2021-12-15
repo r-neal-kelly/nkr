@@ -79,7 +79,7 @@
         *   Also, I can't stand my IDE having one color for user-defined types and another for intrinsic built-in types.
         */
 
-        // std_bool_t
+        // c_bool_t
         /**
         * @class _cf3346a3_232d_4218_9a27_facf99329980
         * @private

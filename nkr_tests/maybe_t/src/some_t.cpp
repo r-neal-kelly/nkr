@@ -19,24 +19,24 @@ namespace nkr {
         QUALIFIER_p some_t<volatile UNIT_p>,        \
         QUALIFIER_p some_t<const volatile UNIT_p>
 
-    #define nkr_VALUES(QUALIFIER_p)                 \
-        nkr_ALL_PARAMS(QUALIFIER_p, std_bool_t),    \
-        nkr_ALL_PARAMS(QUALIFIER_p, u8_t),          \
-        nkr_ALL_PARAMS(QUALIFIER_p, s8_t),          \
-        nkr_ALL_PARAMS(QUALIFIER_p, u16_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, s16_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, u32_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, s32_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, u64_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, s64_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, c8_t),          \
-        nkr_ALL_PARAMS(QUALIFIER_p, c16_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, c32_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, r32_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, r64_t),         \
-        nkr_ALL_PARAMS(QUALIFIER_p, void_t*),       \
-        nkr_ALL_PARAMS(QUALIFIER_p, word_t*),       \
-                                                    \
+    #define nkr_VALUES(QUALIFIER_p)             \
+        nkr_ALL_PARAMS(QUALIFIER_p, c_bool_t),  \
+        nkr_ALL_PARAMS(QUALIFIER_p, u8_t),      \
+        nkr_ALL_PARAMS(QUALIFIER_p, s8_t),      \
+        nkr_ALL_PARAMS(QUALIFIER_p, u16_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, s16_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, u32_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, s32_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, u64_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, s64_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, c8_t),      \
+        nkr_ALL_PARAMS(QUALIFIER_p, c16_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, c32_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, r32_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, r64_t),     \
+        nkr_ALL_PARAMS(QUALIFIER_p, void_t*),   \
+        nkr_ALL_PARAMS(QUALIFIER_p, word_t*),   \
+                                                \
         nkr_ALL_PARAMS(QUALIFIER_p, bool_t)
 
     #define nkr_NON_QUALIFIED   \

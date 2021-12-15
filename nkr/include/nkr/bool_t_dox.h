@@ -14,7 +14,7 @@
 *   Operators that shouldn't be usable with a boolean value.
 * 
 * @details
-*   Although there is nothing prohibiting a user from using a nkr::std_bool_t to achieve anything they need to with the regular C++ `bool`, our custom nkr::bool_t and other types which act as a bool disallow any usage of operators which just don't make any sense with a boolean data type.
+*   Although there is nothing prohibiting a user from using a nkr::c_bool_t to achieve anything they need to with the regular C++ `bool`, our custom nkr::bool_t and other types which act as a bool disallow any usage of operators which just don't make any sense with a boolean data type.
 */
 
     // operators
@@ -221,10 +221,10 @@
 * @private
 * 
 * @brief
-*   The default boolean type of this library which replaces nkr::std_bool_t.
+*   The default boolean type of this library which replaces nkr::c_bool_t.
 * 
 * @details
-*   Because nkr::std_bool_t (or `bool`) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making nkr::bool_t a real boolean value as opposed to a pseudo-integer. It behaves like a boolean should and transiently works in expressions like nkr::std_bool_t. It also matches the size of the word of the machine, that is nkr::word_t, whereas nkr::std_bool_t is implementation defined. All library types and functions utilitze nkr::bool_t and use nkr::std_bool_t only for necessary C++ idioms.
+*   Because nkr::c_bool_t (or `bool`) allows for integer operations to be done upon it, we've made a wrapper that completely disallows all such operations, truly making nkr::bool_t a real boolean value as opposed to a pseudo-integer. It behaves like a boolean should and transiently works in expressions like nkr::c_bool_t. It also matches the size of the word of the machine, that is nkr::word_t, whereas nkr::c_bool_t is implementation defined. All library types and functions utilitze nkr::bool_t and use nkr::c_bool_t only for necessary C++ idioms.
 * 
 * @snippet "./src/bool_t.cpp" _29b44101_c393_4fdd_b59d_cb9a75802d5a
 */
@@ -354,7 +354,7 @@
     * @private
     */
 
-        // std_bool_t() const
+        // c_bool_t() const
         /**
         * @class _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
         * @private
@@ -362,7 +362,7 @@
         * @snippet "./src/bool_t.cpp" _c90cbd67_36ee_49a8_809d_380c54085e40
         */
 
-        // std_bool_t() const volatile
+        // c_bool_t() const volatile
         /**
         * @class _676141d7_bb06_45a8_8b65_0f5ae7bee673
         * @private

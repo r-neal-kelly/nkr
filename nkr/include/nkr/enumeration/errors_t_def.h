@@ -181,21 +181,21 @@ namespace nkr { namespace enumeration {
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>
-    inline errors_t<integer_p, none_p>::operator std_bool_t()
+    inline errors_t<integer_p, none_p>::operator c_bool_t()
         const
     {
         this->has_been_checked = true;
 
-        return static_cast<std_bool_t>(this->value);
+        return static_cast<c_bool_t>(this->value);
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>
-    inline errors_t<integer_p, none_p>::operator std_bool_t()
+    inline errors_t<integer_p, none_p>::operator c_bool_t()
         const volatile
     {
         this->has_been_checked = true;
 
-        return static_cast<std_bool_t>(this->value);
+        return static_cast<c_bool_t>(this->value);
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>

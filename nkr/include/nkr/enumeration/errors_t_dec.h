@@ -30,7 +30,7 @@ namespace nkr { namespace enumeration {
         errors_t();
 
         errors_t(value_t value);
-        errors_t(std_bool_t value)                                                                      = delete;
+        errors_t(c_bool_t value)                                                                        = delete;
         errors_t(bool_t value)                                                                          = delete;
 
         errors_t(const errors_t& other);
@@ -56,8 +56,8 @@ namespace nkr { namespace enumeration {
         operator            value_t() const;
         operator            value_t() const volatile;
 
-        explicit operator   std_bool_t() const;
-        explicit operator   std_bool_t() const volatile;
+        explicit operator   c_bool_t() const;
+        explicit operator   c_bool_t() const volatile;
 
     public:
         /// @name none_t interface

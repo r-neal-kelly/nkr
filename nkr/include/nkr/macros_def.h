@@ -193,12 +193,12 @@ namespace nkr {
         }
 
     #define nkr_DEFINE_ENUMERATION_TYPES_BOOL_AND_NOT_AND_NONE(BOOLEAN_EXPRESSION_p)    \
-        explicit operator std_bool_t() const                                            \
+        explicit operator c_bool_t() const                                              \
         {                                                                               \
             return BOOLEAN_EXPRESSION_p;                                                \
         }                                                                               \
                                                                                         \
-        explicit operator std_bool_t() const volatile                                   \
+        explicit operator c_bool_t() const volatile                                     \
         {                                                                               \
             return BOOLEAN_EXPRESSION_p;                                                \
         }                                                                               \

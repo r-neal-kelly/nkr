@@ -32,7 +32,7 @@
     * @private
     * 
     * @brief
-    *   Includes both nkr::std_bool_t and nkr::bool_t.
+    *   Includes both nkr::c_bool_t and nkr::bool_t.
     */
 
     // to_boolean_tr
@@ -165,7 +165,7 @@
     * @private
     *
     * @brief
-    *   Includes nkr::std_bool_t, nkr::integer_tr, nkr::real_tr, and nkr::c_pointer_tr. The opposite of nkr::user_defined_tr.
+    *   Includes nkr::c_bool_t, nkr::integer_tr, nkr::real_tr, and nkr::c_pointer_tr. The opposite of nkr::user_defined_tr.
     */
 
     // user_defined_tr

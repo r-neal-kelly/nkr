@@ -24,8 +24,8 @@ namespace nkr { namespace array {
 
         // for bool_t I think we just need to implement a Random<bool_t> function, should be trival
     #define nkr_UNITS(QUALIFIER_p)                  \
-        nkr_CAPACITIES(QUALIFIER_p, std_bool_t),    \
-        /*nkr_CAPACITIES(QUALIFIER_p, bool_t),*/        \
+        nkr_CAPACITIES(QUALIFIER_p, c_bool_t),      \
+        /*nkr_CAPACITIES(QUALIFIER_p, bool_t),*/    \
         nkr_CAPACITIES(QUALIFIER_p, void_t*)
 
     #define nkr_UNQUALIFIED     \

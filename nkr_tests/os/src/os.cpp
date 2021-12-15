@@ -25,7 +25,7 @@ namespace nkr { namespace os { namespace atomic {
 
     #define atoms   \
         bool_t,     \
-        std_bool_t, \
+        c_bool_t,   \
         u8_t,       \
         s8_t,       \
         u16_t,      \
@@ -41,7 +41,7 @@ namespace nkr { namespace os { namespace atomic {
 
     #define pairs                       \
         std::tuple<bool_t, word_t>,     \
-        std::tuple<std_bool_t, word_t>, \
+        std::tuple<c_bool_t, word_t>,   \
         std::tuple<u8_t, real_t>,       \
         std::tuple<s8_t, real_t>,       \
         std::tuple<u16_t, real_t>,      \
@@ -59,7 +59,7 @@ namespace nkr { namespace os { namespace atomic {
 
     #define atoms   \
         bool_t,     \
-        std_bool_t, \
+        c_bool_t,   \
         u8_t,       \
         s8_t,       \
         u16_t,      \
@@ -72,7 +72,7 @@ namespace nkr { namespace os { namespace atomic {
 
     #define pairs                       \
         std::tuple<bool_t, word_t>,     \
-        std::tuple<std_bool_t, word_t>, \
+        std::tuple<c_bool_t, word_t>,   \
         std::tuple<u8_t, real_t>,       \
         std::tuple<s8_t, real_t>,       \
         std::tuple<u16_t, real_t>,      \

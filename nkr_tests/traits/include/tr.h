@@ -22,7 +22,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return is_any_tr<other_p, non_match_t>;
         }
@@ -43,7 +43,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return is_any_tr<other_p, user_defined_t>;
         }
@@ -73,7 +73,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return $value_template_t::any_tr<other_p>;
         }
@@ -87,7 +87,7 @@ namespace nkr {
         using type_t    = value_template_t<of_p>;
 
     public:
-        static constexpr std_bool_t Is_Implemented()
+        static constexpr c_bool_t Is_Implemented()
         {
             return true;
         }
@@ -119,7 +119,7 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr std_bool_t Is_Any()
+        static constexpr c_bool_t Is_Any()
         {
             return $unit_template_t::any_tr<other_p>;
         }
@@ -133,7 +133,7 @@ namespace nkr {
         using type_t    = unit_template_t<of_p>;
 
     public:
-        static constexpr std_bool_t Is_Implemented()
+        static constexpr c_bool_t Is_Implemented()
         {
             return true;
         }
@@ -220,7 +220,7 @@ namespace nkr { namespace traits {
 
     #define nkr_TYPES(MODIFIER_p)               \
         MODIFIER_p(void_t),                     \
-        MODIFIER_p(std_bool_t),                 \
+        MODIFIER_p(c_bool_t),                   \
         MODIFIER_p(bool_t),                     \
         MODIFIER_p(unsigned_word_t),            \
         MODIFIER_p(signed_word_t),              \

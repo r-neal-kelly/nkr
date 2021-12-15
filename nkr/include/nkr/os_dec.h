@@ -121,8 +121,8 @@ namespace nkr { namespace os { namespace endian {
     /// @name Info
     /// @copydoc _026b191f_2e76_4010_9760_e1215a647d9c
     /// @{
-    constexpr std_bool_t    Is_Big();       ///< @copydoc _9d5ef4e6_ff8f_4d63_9fdc_0c0422259d90
-    constexpr std_bool_t    Is_Little();    ///< @copydoc _884ae9eb_da64_4306_aab9_50aeb3f85298
+    constexpr c_bool_t  Is_Big();       ///< @copydoc _9d5ef4e6_ff8f_4d63_9fdc_0c0422259d90
+    constexpr c_bool_t  Is_Little();    ///< @copydoc _884ae9eb_da64_4306_aab9_50aeb3f85298
     /// @}
 
     /// @name Swap

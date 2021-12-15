@@ -43,7 +43,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
         any_sp();
 
         any_sp(value_t value);
-        any_sp(std_bool_t value)                                                                    = delete;
+        any_sp(c_bool_t value)                                                                      = delete;
         any_sp(bool_t value)                                                                        = delete;
 
         any_sp(const any_sp& other);
@@ -68,9 +68,9 @@ namespace nkr { namespace enumeration { namespace $types_t {
         operator            volatile actual_value_t&() volatile;
         operator            const volatile actual_value_t&() const volatile;
 
-        explicit operator   std_bool_t() const;
-        explicit operator   std_bool_t() const volatile;
-        // probably should define !(), because I can't remember what will happen in that case. it should call std_bool_t, but it might not?
+        explicit operator   c_bool_t() const;
+        explicit operator   c_bool_t() const volatile;
+        // probably should define !(), because I can't remember what will happen in that case. it should call c_bool_t, but it might not?
 
     public:
         /// @name none_t interface

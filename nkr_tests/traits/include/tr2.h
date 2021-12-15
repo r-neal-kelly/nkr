@@ -37,7 +37,7 @@ namespace nkr { namespace traits {
         }
     };
 
-    template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+    template <c_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
     void_t constexpr Assert_Tagged_Container_Of_Matching_Type()
     {
         if constexpr (is_true_p) {
@@ -59,7 +59,7 @@ namespace nkr { namespace traits {
         }
     }
 
-    template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+    template <c_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
     void_t constexpr Assert_Tagged_Container_Of_Non_Matching_Type()
     {
         if constexpr (is_true_p) {
@@ -97,7 +97,7 @@ namespace nkr { namespace traits {
         }
     }
 
-    template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+    template <c_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
     void_t constexpr Assert_Non_Tagged_Container_Of_Matching_Type()
     {
         if constexpr (is_true_p) {
@@ -111,7 +111,7 @@ namespace nkr { namespace traits {
         }
     }
 
-    template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+    template <c_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
     void_t constexpr Assert_Non_Tagged_Container_Of_Non_Matching_Type()
     {
         if constexpr (is_true_p) {
@@ -125,7 +125,7 @@ namespace nkr { namespace traits {
         }
     }
 
-    template <std_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
+    template <c_bool_t is_true_p, typename tag_p, typename of_tag_p, typename of_p>
     void_t constexpr Assert_Non_Container()
     {
         if constexpr (is_true_p) {

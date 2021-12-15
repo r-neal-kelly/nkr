@@ -16,7 +16,7 @@ namespace nkr {
         TEST_CASE("certain operators are unwanted")
         {
             /// [_29b44101_c393_4fdd_b59d_cb9a75802d5a]
-            CHECK(has_bool_deleted_operator_tr<std_bool_t> == true);
+            CHECK(has_bool_deleted_operator_tr<c_bool_t> == true);
             CHECK(has_bool_deleted_operator_tr<bool_t> == false);
             /// [_29b44101_c393_4fdd_b59d_cb9a75802d5a]
         }
@@ -57,20 +57,20 @@ namespace nkr {
                 /// [_a4d6c055_2b65_4b1f_90ca_28a60ebf4eab]
             }
 
-            TEST_CASE("value_ctor() should take an object or expression convertible to std_bool_t and copy its value")
+            TEST_CASE("value_ctor() should take an object or expression convertible to c_bool_t and copy its value")
             {
                 /// [_62211c6c_3f81_4429_ab68_5fb576cd2e2e]
                 CHECK(bool_t(true) == true);
                 CHECK(bool_t(1) == true);
-                CHECK(bool_t(static_cast<std_bool_t>('a')) == true);
+                CHECK(bool_t(static_cast<c_bool_t>('a')) == true);
                 CHECK(bool_t(1.0) == true);
 
                 word_t word = 0;
                 CHECK(bool_t(&word) == true);
                 CHECK(bool_t(static_cast<void_t*>(&word)) == true);
-                CHECK(bool_t(static_cast<std_bool_t>(nullptr)) == false);
+                CHECK(bool_t(static_cast<c_bool_t>(nullptr)) == false);
 
-                CHECK(bool_t(static_cast<std_bool_t>(bool_t(true))) == true);
+                CHECK(bool_t(static_cast<c_bool_t>(bool_t(true))) == true);
 
                 CHECK(bool_t(true && 1 && 1.0) == true);
                 /// [_62211c6c_3f81_4429_ab68_5fb576cd2e2e]
@@ -160,7 +160,7 @@ namespace nkr {
                 /// [_95b07b9c_0cd5_4b6a_9575_3ae7a8d5853e]
             }
 
-            TEST_CASE("value_assignment_ctor() should take an object or expression convertible to std_bool_t and copy its value")
+            TEST_CASE("value_assignment_ctor() should take an object or expression convertible to c_bool_t and copy its value")
             {
                 /// [_2ba5c93f_34cc_41cd_9429_de6b7da6f8f5]
                 bool_t boolean;
@@ -171,7 +171,7 @@ namespace nkr {
                 boolean = 1;
                 CHECK(boolean == true);
 
-                boolean = static_cast<std_bool_t>('a');
+                boolean = static_cast<c_bool_t>('a');
                 CHECK(boolean == true);
 
                 boolean = 1.0;
@@ -183,10 +183,10 @@ namespace nkr {
                 boolean = static_cast<void_t*>(&boolean);
                 CHECK(boolean == true);
 
-                boolean = static_cast<std_bool_t>(nullptr);
+                boolean = static_cast<c_bool_t>(nullptr);
                 CHECK(boolean == false);
 
-                boolean = static_cast<std_bool_t>(bool_t(true));
+                boolean = static_cast<c_bool_t>(bool_t(true));
                 CHECK(boolean == true);
 
                 boolean = true && 1 && 1.0;
@@ -216,7 +216,7 @@ namespace nkr {
                 /// [_89dafc76_93be_49dc_b612_2cd3989b0c3c]
             }
 
-            TEST_CASE("volatile_value_assignment_ctor() should take an object or expression convertible to std_bool_t and copy its value")
+            TEST_CASE("volatile_value_assignment_ctor() should take an object or expression convertible to c_bool_t and copy its value")
             {
                 /// [_4b269631_1d91_45de_af15_ab2e1fd878bb]
                 volatile bool_t boolean;
@@ -227,7 +227,7 @@ namespace nkr {
                 boolean = 1;
                 CHECK(boolean == true);
 
-                boolean = static_cast<std_bool_t>('a');
+                boolean = static_cast<c_bool_t>('a');
                 CHECK(boolean == true);
 
                 boolean = 1.0;
@@ -239,10 +239,10 @@ namespace nkr {
                 boolean = static_cast<volatile void_t*>(&boolean);
                 CHECK(boolean == true);
 
-                boolean = static_cast<std_bool_t>(nullptr);
+                boolean = static_cast<c_bool_t>(nullptr);
                 CHECK(boolean == false);
 
-                boolean = static_cast<std_bool_t>(bool_t(true));
+                boolean = static_cast<c_bool_t>(bool_t(true));
                 CHECK(boolean == true);
 
                 boolean = true && 1 && 1.0;
@@ -296,16 +296,16 @@ namespace nkr {
 
         TEST_SUITE("casts")
         {
-            TEST_CASE("std_bool_t() const should convert value to std_bool_t explicity")
+            TEST_CASE("c_bool_t() const should convert value to c_bool_t explicity")
             {
                 /// [_c90cbd67_36ee_49a8_809d_380c54085e40]
                 bool_t boolean(true);
                 const bool_t const_boolean(true);
-                CHECK(std_bool_t(boolean) == true);
-                CHECK(std_bool_t(const_boolean) == true);
+                CHECK(c_bool_t(boolean) == true);
+                CHECK(c_bool_t(const_boolean) == true);
 
-                std_bool_t std_bool = static_cast<std_bool_t>(boolean);
-                std_bool_t const_std_bool = static_cast<std_bool_t>(const_boolean);
+                c_bool_t std_bool = static_cast<c_bool_t>(boolean);
+                c_bool_t const_std_bool = static_cast<c_bool_t>(const_boolean);
                 CHECK(std_bool);
                 CHECK(const_std_bool);
 
@@ -313,16 +313,16 @@ namespace nkr {
                 /// [_c90cbd67_36ee_49a8_809d_380c54085e40]
             }
 
-            TEST_CASE("std_bool_t() const volatile should convert value to std_bool_t explicity")
+            TEST_CASE("c_bool_t() const volatile should convert value to c_bool_t explicity")
             {
                 /// [_21637196_10ce_4fc2_add4_3d95f5351f34]
                 volatile bool_t boolean(true);
                 const volatile bool_t const_boolean(true);
-                CHECK(std_bool_t(boolean) == true);
-                CHECK(std_bool_t(const_boolean) == true);
+                CHECK(c_bool_t(boolean) == true);
+                CHECK(c_bool_t(const_boolean) == true);
 
-                std_bool_t std_bool = static_cast<std_bool_t>(boolean);
-                std_bool_t const_std_bool = static_cast<std_bool_t>(const_boolean);
+                c_bool_t std_bool = static_cast<c_bool_t>(boolean);
+                c_bool_t const_std_bool = static_cast<c_bool_t>(const_boolean);
                 CHECK(std_bool);
                 CHECK(const_std_bool);
 
@@ -419,7 +419,7 @@ namespace nkr {
 
                 CHECK(boolean == 1);
                 CHECK(boolean == 1.0);
-                CHECK(boolean == static_cast<std_bool_t>(&boolean));
+                CHECK(boolean == static_cast<c_bool_t>(&boolean));
                 /// [_970274ba_914f_4966_be01_1a141e6fab53]
             }
 
@@ -436,7 +436,7 @@ namespace nkr {
 
                 CHECK(boolean != 0);
                 CHECK(boolean != 0.0);
-                CHECK(boolean != static_cast<std_bool_t>(nullptr));
+                CHECK(boolean != static_cast<c_bool_t>(nullptr));
                 /// [_3da4ab6e_f4ec_497c_9315_383d2abc5a35]
             }
         }

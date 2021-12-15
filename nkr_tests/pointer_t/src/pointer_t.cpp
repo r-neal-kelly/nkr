@@ -20,7 +20,7 @@ namespace nkr {
 
     #define nkr_UNITS(QUALIFIER_p)          \
         nkr_UNIT(QUALIFIER_p, void_t),      \
-        nkr_UNIT(QUALIFIER_p, std_bool_t),  \
+        nkr_UNIT(QUALIFIER_p, c_bool_t),    \
         nkr_UNIT(QUALIFIER_p, bool_t),      \
         nkr_UNIT(QUALIFIER_p, word_t),      \
         nkr_UNIT(QUALIFIER_p, real_t),      \

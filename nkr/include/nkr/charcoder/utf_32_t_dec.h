@@ -70,19 +70,19 @@ namespace nkr { namespace charcoder {
 
         static constexpr count_t    Max_Unit_Count();
 
-        static constexpr std_bool_t Is_Point(point_t point);
-        static constexpr std_bool_t Is_Scalar(point_t point);
-        static constexpr std_bool_t Is_Surrogate(point_t point);
-        static constexpr std_bool_t Is_Surrogate_High(point_t point);
-        static constexpr std_bool_t Is_Surrogate_Low(point_t point);
-        static constexpr std_bool_t Is_Replacement_Point(point_t point);
+        static constexpr c_bool_t   Is_Point(point_t point);
+        static constexpr c_bool_t   Is_Scalar(point_t point);
+        static constexpr c_bool_t   Is_Surrogate(point_t point);
+        static constexpr c_bool_t   Is_Surrogate_High(point_t point);
+        static constexpr c_bool_t   Is_Surrogate_Low(point_t point);
+        static constexpr c_bool_t   Is_Replacement_Point(point_t point);
 
-        static constexpr std_bool_t Is_UTF_8_Bracket_1_Point(point_t point);
-        static constexpr std_bool_t Is_UTF_8_Bracket_2_Point(point_t point);
-        static constexpr std_bool_t Is_UTF_8_Bracket_3_Point(point_t point);
-        static constexpr std_bool_t Is_UTF_8_Bracket_4_Point(point_t point);
-        static constexpr std_bool_t Is_UTF_8_Lead_Byte(byte_t byte);
-        static constexpr std_bool_t Is_UTF_8_Trailing_Byte(byte_t byte);
+        static constexpr c_bool_t   Is_UTF_8_Bracket_1_Point(point_t point);
+        static constexpr c_bool_t   Is_UTF_8_Bracket_2_Point(point_t point);
+        static constexpr c_bool_t   Is_UTF_8_Bracket_3_Point(point_t point);
+        static constexpr c_bool_t   Is_UTF_8_Bracket_4_Point(point_t point);
+        static constexpr c_bool_t   Is_UTF_8_Lead_Byte(byte_t byte);
+        static constexpr c_bool_t   Is_UTF_8_Trailing_Byte(byte_t byte);
         /// @}
 
     private:

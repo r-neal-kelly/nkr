@@ -14,7 +14,7 @@ namespace nkr { namespace allocator {
     TEST_SUITE("heap_t<unit_p>")
     {
     #define types   \
-        std_bool_t, \
+        c_bool_t,   \
         bool_t,     \
         u8_t,       \
         s8_t,       \
@@ -27,18 +27,18 @@ namespace nkr { namespace allocator {
         r32_t,      \
         r64_t
 
-    #define volatiles           \
-        volatile std_bool_t,    \
-        volatile bool_t,        \
-        volatile u8_t,          \
-        volatile s8_t,          \
-        volatile u16_t,         \
-        volatile s16_t,         \
-        volatile u32_t,         \
-        volatile s32_t,         \
-        volatile u64_t,         \
-        volatile s64_t,         \
-        volatile r32_t,         \
+    #define volatiles       \
+        volatile c_bool_t,  \
+        volatile bool_t,    \
+        volatile u8_t,      \
+        volatile s8_t,      \
+        volatile u16_t,     \
+        volatile s16_t,     \
+        volatile u32_t,     \
+        volatile s32_t,     \
+        volatile u64_t,     \
+        volatile s64_t,     \
+        volatile r32_t,     \
         volatile r64_t
 
         TEST_SUITE("aliases")

@@ -118,7 +118,7 @@ namespace nkr {
         /// @{
         bool_t();                                                                                   ///< @copydoc _507e6865_70dc_4e5b_97ab_c0d33e53dc67
 
-        bool_t(to_std_bool_tr auto value);                                                          ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
+        bool_t(to_c_bool_tr auto value);                                                            ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
         
         bool_t(const bool_t& other);                                                                ///< @copydoc _c692880f_ea8a_47c2_b8c8_98a00607b79b
         bool_t(const volatile bool_t& other);                                                       ///< @copydoc _c2c40c6d_4153_4079_8231_a8f818fc4999
@@ -141,8 +141,8 @@ namespace nkr {
         /// @name casts
         /// @copydoc _6a6f9172_06fd_4b0f_b1ee_1817e0c013a9
         /// @{
-        operator            std_bool_t() const;                         ///< @copydoc _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
-        operator            std_bool_t() const volatile;                ///< @copydoc _676141d7_bb06_45a8_8b65_0f5ae7bee673
+        operator            c_bool_t() const;                           ///< @copydoc _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
+        operator            c_bool_t() const volatile;                  ///< @copydoc _676141d7_bb06_45a8_8b65_0f5ae7bee673
 
         explicit operator   word_t&();                                  ///< @copydoc _4d0e7d29_353a_459f_89af_e11de2f19eea
         explicit operator   const word_t&() const;                      ///< @copydoc _9f6d257a_fc13_4dda_ad1b_7b268caf6dff

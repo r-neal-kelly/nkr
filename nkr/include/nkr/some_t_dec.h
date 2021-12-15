@@ -123,7 +123,7 @@ namespace nkr {
         volatile some_t&    operator =(none_t) volatile = delete;   ///< @copydoc 
         /// @}
     };
-    static_assert(some_i<std_bool_t>);
+    static_assert(some_i<c_bool_t>);
     static_assert(some_i<word_t>);
     static_assert(some_i<real_t>);
     static_assert(some_i<void_t*>);

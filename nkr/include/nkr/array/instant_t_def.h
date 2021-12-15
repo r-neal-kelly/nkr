@@ -11,7 +11,7 @@
 namespace nkr { namespace array {
 
     template <any_non_const_tr head_p, is_tr<head_p> ...tail_p>
-    constexpr std_bool_t
+    constexpr c_bool_t
         instant_t<head_p, tail_p...>::Is_Instant_Array()
     {
         return true;

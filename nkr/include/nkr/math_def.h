@@ -65,13 +65,13 @@ namespace nkr { namespace math {
         return (integer & 1) == 1;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         Is_Power_Of_2(integer_unsigned_tr auto unsigned_integer)
     {
         return unsigned_integer != 0 && (unsigned_integer & (unsigned_integer - 1)) == 0;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         Is_Power_Of_2(integer_signed_tr auto signed_integer)
     {
         return Is_Power_Of_2(Absolute(signed_integer));

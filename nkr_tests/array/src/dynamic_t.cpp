@@ -29,9 +29,9 @@ namespace nkr { namespace array {
         nkr_GROW_RATES(QUALIFIER_p, UNIT_p, allocator::heap_t),         \
         nkr_GROW_RATES(QUALIFIER_p, UNIT_p, allocator::heap_zeros_t)
 
-    #define nkr_UNITS(QUALIFIER_p)                  \
-        nkr_ALLOCATORS(QUALIFIER_p, std_bool_t),    \
-        nkr_ALLOCATORS(QUALIFIER_p, bool_t),        \
+    #define nkr_UNITS(QUALIFIER_p)              \
+        nkr_ALLOCATORS(QUALIFIER_p, c_bool_t),  \
+        nkr_ALLOCATORS(QUALIFIER_p, bool_t),    \
         nkr_ALLOCATORS(QUALIFIER_p, void_t*)
 
     #define nkr_REGULAR         \

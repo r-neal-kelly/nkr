@@ -14,8 +14,8 @@ namespace nkr {
     {
     }
 
-    inline bool_t::bool_t(to_std_bool_tr auto value) :
-        value(static_cast<word_t>(static_cast<std_bool_t>(value)))
+    inline bool_t::bool_t(to_c_bool_tr auto value) :
+        value(static_cast<word_t>(static_cast<c_bool_t>(value)))
     {
     }
 
@@ -122,16 +122,16 @@ namespace nkr {
         this->value = static_cast<word_t>(false);
     }
 
-    inline bool_t::operator std_bool_t()
+    inline bool_t::operator c_bool_t()
         const
     {
-        return static_cast<std_bool_t>(this->value);
+        return static_cast<c_bool_t>(this->value);
     }
 
-    inline bool_t::operator std_bool_t()
+    inline bool_t::operator c_bool_t()
         const volatile
     {
-        return static_cast<std_bool_t>(this->value);
+        return static_cast<c_bool_t>(this->value);
     }
 
     inline bool_t::operator word_t&()
@@ -181,14 +181,14 @@ namespace nkr {
         bool_t::operator ==(none_t)
         const
     {
-        return !static_cast<std_bool_t>(this->value);
+        return !static_cast<c_bool_t>(this->value);
     }
 
     inline bool_t
         bool_t::operator ==(none_t)
         const volatile
     {
-        return !static_cast<std_bool_t>(this->value);
+        return !static_cast<c_bool_t>(this->value);
     }
 
     inline bool_t

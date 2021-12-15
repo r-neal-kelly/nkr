@@ -30,73 +30,73 @@ namespace nkr { namespace charcoder {
         return 1;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_Point(point_t point)
     {
         return point <= POINT_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_Scalar(point_t point)
     {
         return point <= POINT_LAST && (point < SURROGATE_HIGH_FIRST || point > SURROGATE_LOW_LAST);
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_Surrogate(point_t point)
     {
         return point >= SURROGATE_HIGH_FIRST && point <= SURROGATE_LOW_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_Surrogate_High(point_t point)
     {
         return point >= SURROGATE_HIGH_FIRST && point <= SURROGATE_HIGH_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_Surrogate_Low(point_t point)
     {
         return point >= SURROGATE_LOW_FIRST && point <= SURROGATE_LOW_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_Replacement_Point(point_t point)
     {
         return point == Replacement_Point();
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_UTF_8_Bracket_1_Point(point_t point)
     {
         return point >= UTF_8_BRACKET_1_FIRST && point <= UTF_8_BRACKET_1_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_UTF_8_Bracket_2_Point(point_t point)
     {
         return point >= UTF_8_BRACKET_2_FIRST && point <= UTF_8_BRACKET_2_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_UTF_8_Bracket_3_Point(point_t point)
     {
         return point >= UTF_8_BRACKET_3_FIRST && point <= UTF_8_BRACKET_3_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_UTF_8_Bracket_4_Point(point_t point)
     {
         return point >= UTF_8_BRACKET_4_FIRST && point <= UTF_8_BRACKET_4_LAST;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_UTF_8_Lead_Byte(byte_t byte)
     {
         return (byte >> 6) != 2;
     }
 
-    inline constexpr std_bool_t
+    inline constexpr c_bool_t
         utf_32_t::Is_UTF_8_Trailing_Byte(byte_t byte)
     {
         return (byte >> 6) == 2;

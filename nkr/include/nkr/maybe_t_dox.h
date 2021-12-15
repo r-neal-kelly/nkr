@@ -38,7 +38,7 @@
         *   The default nkr::maybe_t specialization for built-in types.
         * 
         * @details
-        *   This works with nkr::std_bool_t and integers. Real numbers and pointers each have their own specialization of this template.
+        *   This works with nkr::c_bool_t and integers. Real numbers and pointers each have their own specialization of this template.
         */
 
             // aliases

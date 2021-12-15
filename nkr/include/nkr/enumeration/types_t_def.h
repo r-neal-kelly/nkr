@@ -166,14 +166,14 @@ namespace nkr { namespace enumeration { namespace $types_t {
     }
 
     template <integer_tr value_p, any_tr actual_value_p, value_p none_p>
-    inline any_sp<value_p, actual_value_p, none_p>::operator std_bool_t()
+    inline any_sp<value_p, actual_value_p, none_p>::operator c_bool_t()
         const
     {
         return this->value != NONE;
     }
 
     template <integer_tr value_p, any_tr actual_value_p, value_p none_p>
-    inline any_sp<value_p, actual_value_p, none_p>::operator std_bool_t()
+    inline any_sp<value_p, actual_value_p, none_p>::operator c_bool_t()
         const volatile
     {
         return this->value != NONE;

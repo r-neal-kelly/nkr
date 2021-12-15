@@ -13,7 +13,7 @@ namespace nkr {
     TEST_SUITE("atomic_t<boolean_tr boolean_p>")
     {
     #define _               \
-        bool_t, std_bool_t
+        bool_t, c_bool_t
 
         TEST_SUITE("bases")
         {
@@ -465,7 +465,7 @@ namespace nkr {
 
         TEST_SUITE("casts")
         {
-            TEST_SUITE("std_bool_t()")
+            TEST_SUITE("c_bool_t()")
             {
                 /// [_b9e6feaf_cbb9_49a8_b569_0719512a3f88]
                 TEST_CASE_TEMPLATE("should explicitly return a copy of its value", boolean_p, _)

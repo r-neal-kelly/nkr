@@ -292,16 +292,16 @@ namespace nkr {
     template <typename type_p>
     concept boolean_tr =
         is_any_tr<type_p, bool_t> ||
-        is_any_tr<type_p, std_bool_t>; /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
+        is_any_tr<type_p, c_bool_t>;            /// @copydoc _3e4ef7df_7326_49f0_83e0_378911e03952
 
     template <typename type_p>
     concept to_boolean_tr =
         std::convertible_to<type_p, bool_t> ||
-        std::convertible_to<type_p, std_bool_t>;    ///< @copydoc _2c84f547_56c5_48a6_b6eb_3c0244998edc
+        std::convertible_to<type_p, c_bool_t>;  ///< @copydoc _2c84f547_56c5_48a6_b6eb_3c0244998edc
 
     template <typename type_p>
-    concept to_std_bool_tr =
-        std::convertible_to<type_p, std_bool_t>;
+    concept to_c_bool_tr =
+        std::convertible_to<type_p, c_bool_t>;
     /// @}
 
     /// @addtogroup _222d304c_42db_4988_8611_c8aedc33c6cc
@@ -309,7 +309,7 @@ namespace nkr {
     template <typename type_p>
     concept integer_tr =
         std::is_integral<type_p>::value &&
-        !is_any_tr<type_p, std_bool_t>;    ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
+        !is_any_tr<type_p, c_bool_t>;           ///< @copydoc _ead4c138_69b3_4da6_905d_61c157fd5451
 
     template <typename type_p>
     concept integer_unsigned_tr =
@@ -429,7 +429,7 @@ namespace nkr {
 
     template <typename type_p>
     concept built_in_tr =
-        is_any_tr<type_p, std_bool_t> ||
+        is_any_tr<type_p, c_bool_t> ||
         integer_tr<type_p> ||
         real_tr<type_p> ||
         c_pointer_tr<type_p>;                   ///< @copydoc _13b4b6b8_807a_4ed1_beae_dfd94e04e0f0
@@ -622,7 +622,7 @@ namespace nkr {
         template <typename other_p>
         static constexpr c_bool_t   Is_Any()
         {
-            return false;
+            static_assert(false, "you need to implement a type_traits_i for this type");
         }
     };
 
