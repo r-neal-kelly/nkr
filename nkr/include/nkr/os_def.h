@@ -139,14 +139,14 @@ namespace nkr { namespace os { namespace atomic {
             return reinterpret_cast<atom_p&>(result);
         } else if constexpr (integer_32_tr<atom_p> ||
                              real_32_tr<atom_p> ||
-                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t)) ||
+                             (c_pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t)) ||
                              (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t))) {
             long result = ::_InterlockedExchange(reinterpret_cast<volatile long*>(&atom),
                                                  reinterpret_cast<long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         } else if constexpr (integer_64_tr<atom_p> ||
                              real_64_tr<atom_p> ||
-                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t)) ||
+                             (c_pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t)) ||
                              (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t))) {
         #if defined(nkr_IS_64_BIT)
             long long result = ::_InterlockedExchange64(reinterpret_cast<volatile long long*>(&atom),
@@ -496,7 +496,7 @@ namespace nkr { namespace os { namespace atomic {
             atom_result = reinterpret_cast<atom_p&>(result);
         } else if constexpr (integer_32_tr<atom_p> ||
                              real_32_tr<atom_p> ||
-                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t)) ||
+                             (c_pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t)) ||
                              (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u32_t))) {
             long result = ::_InterlockedCompareExchange(reinterpret_cast<volatile long*>(&atom),
                                                         reinterpret_cast<long&>(atom_value),
@@ -504,7 +504,7 @@ namespace nkr { namespace os { namespace atomic {
             atom_result = reinterpret_cast<atom_p&>(result);
         } else if constexpr (integer_64_tr<atom_p> ||
                              real_64_tr<atom_p> ||
-                             (pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t)) ||
+                             (c_pointer_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t)) ||
                              (boolean_tr<atom_p> && sizeof(atom_p) == sizeof(u64_t))) {
         #if defined(nkr_IS_64_BIT)
             long long result = ::_InterlockedCompareExchange64(reinterpret_cast<volatile long long*>(&atom),

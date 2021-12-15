@@ -141,7 +141,7 @@
         * @private
         */
 
-    // pointer_tr
+    // c_pointer_tr
     /**
     * @class _42df3700_b206_4dec_a280_cc34bfd783ea
     * @private
@@ -165,7 +165,7 @@
     * @private
     *
     * @brief
-    *   Includes nkr::std_bool_t, nkr::integer_tr, nkr::real_tr, and nkr::pointer_tr. The opposite of nkr::user_defined_tr.
+    *   Includes nkr::std_bool_t, nkr::integer_tr, nkr::real_tr, and nkr::c_pointer_tr. The opposite of nkr::user_defined_tr.
     */
 
     // user_defined_tr

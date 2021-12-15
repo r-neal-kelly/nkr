@@ -13,7 +13,7 @@ namespace nkr { namespace traits {
         template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
         static void_t constexpr Is()
         {
-            if constexpr (std_array_tr<subject_p>) {
+            if constexpr (c_array_tr<subject_p>) {
                 if constexpr (tr0<of_p, just_tg>) {
                     static_assert(tr2<subject_p,
                                   just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
@@ -40,7 +40,7 @@ namespace nkr { namespace traits {
         template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
         static void_t constexpr Not_Is()
         {
-            if constexpr (std_array_tr<subject_p>) {
+            if constexpr (c_array_tr<subject_p>) {
                 static_assert(!tr2<subject_p,
                               just_tg, template_p, of_tag_p, std::remove_cv_t<of_p>>);
             } else {

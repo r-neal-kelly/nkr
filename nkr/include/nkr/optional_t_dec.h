@@ -16,6 +16,21 @@ namespace nkr {
     template <typename value_p>
     class optional_t;
 
+    namespace $optional_t {
+
+        namespace $non_const_sp {};
+
+        namespace $const_sp     {};
+
+    }
+
+}
+
+namespace nkr {
+
+    template <typename value_p>
+    class optional_t;
+
     struct                      optional_tg     {};
     template <typename> struct  optional_ttg    {};
 

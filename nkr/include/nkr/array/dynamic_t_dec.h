@@ -185,9 +185,9 @@ namespace nkr { namespace array {
         dynamic_t(writable_unit_t&& filler, count_t count);
         dynamic_t(const volatile unit_t&& filler, count_t count)                            = delete;
 
-        dynamic_t(const std_array_of_tr<writable_unit_t> auto& array);
-        dynamic_t(std_array_of_tr<writable_unit_t> auto&& array);
-        dynamic_t(const volatile std_array_of_tr<writable_unit_t> auto&& array)             = delete;
+        dynamic_t(const c_array_of_tr<writable_unit_t> auto& array);
+        dynamic_t(c_array_of_tr<writable_unit_t> auto&& array);
+        dynamic_t(const volatile c_array_of_tr<writable_unit_t> auto&& array)               = delete;
 
         dynamic_t(const any_stack_of_any_tr<unit_t> auto& stack_array);
         dynamic_t(any_non_const_stack_of_any_non_const_tr<unit_t> auto&& stack_array);

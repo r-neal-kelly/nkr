@@ -221,11 +221,11 @@ namespace nkr {
         return Random<real_p>(static_cast<real_p>(from_inclusive), static_cast<real_p>(to_inclusive));
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_p
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_p
         Random()
     {
-        return reinterpret_cast<std::remove_cv_t<pointer_p>>(Random<address_t>());
+        return reinterpret_cast<std::remove_cv_t<c_pointer_p>>(Random<address_t>());
     }
 
 }

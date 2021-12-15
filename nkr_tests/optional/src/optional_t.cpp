@@ -156,56 +156,56 @@ namespace nkr {
 
     public:
         bool_t
-            operator ==(tr1<any_tg, user_defined_t> auto& other)
+            operator ==(const volatile user_defined_t& other)
             const
         {
             return this->value == other.value;
         }
 
         bool_t
-            operator ==(tr1<any_tg, user_defined_t> auto& other)
+            operator ==(const volatile user_defined_t& other)
             const volatile
         {
             return this->value == other.value;
         }
 
         bool_t
-            operator ==(tr1<any_tg, user_defined_t> auto&& other)
+            operator ==(volatile user_defined_t&& other)
             const
         {
             return operator ==(other);
         }
 
         bool_t
-            operator ==(tr1<any_tg, user_defined_t> auto&& other)
+            operator ==(volatile user_defined_t&& other)
             const volatile
         {
             return operator ==(other);
         }
 
         bool_t
-            operator !=(tr1<any_tg, user_defined_t> auto& other)
+            operator !=(const volatile user_defined_t& other)
             const
         {
             return !operator ==(other);
         }
 
         bool_t
-            operator !=(tr1<any_tg, user_defined_t> auto& other)
+            operator !=(const volatile user_defined_t& other)
             const volatile
         {
             return !operator ==(other);
         }
 
         bool_t
-            operator !=(tr1<any_tg, user_defined_t> auto&& other)
+            operator !=(volatile user_defined_t&& other)
             const
         {
             return !operator ==(other);
         }
 
         bool_t
-            operator !=(tr1<any_tg, user_defined_t> auto&& other)
+            operator !=(volatile user_defined_t&& other)
             const volatile
         {
             return !operator ==(other);
@@ -1269,7 +1269,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should safely work with itself without changing", optional_p, nkr_ANY_NON_CONST)
+                TEST_CASE_TEMPLATE("should, when given itself, not change anything", optional_p, nkr_ANY_NON_CONST)
                 {
                     using value_t = optional_p::value_t;
 
@@ -1280,6 +1280,282 @@ namespace nkr {
 
                         CHECK(optional.Has_Value());
                         CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a non-none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const non-none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const value_t value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a volatile non-none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile value_t value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const volatile non-none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const volatile value_t value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const value_t value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a volatile none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile value_t value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const volatile none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const volatile value_t value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a non-none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        maybe_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const non-none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const maybe_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a volatile non-none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile maybe_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const volatile non-none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const volatile maybe_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        maybe_t<value_t> value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(!optional.Has_Value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const maybe_t<value_t> value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(!optional.Has_Value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a volatile none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile maybe_t<value_t> value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(!optional.Has_Value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const volatile none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const volatile maybe_t<value_t> value = None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(!optional.Has_Value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a some_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        some_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const some_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const some_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a volatile some_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile some_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should copy a const volatile some_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        const volatile some_t<value_t> value = Random_Non_None<value_t>();
+                        optional_p optional;
+                        optional = value;
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == value());
                     }
                 }
             }
@@ -1400,7 +1676,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_CASE_TEMPLATE("should safely work with itself without changing", optional_p, nkr_ANY_NON_CONST)
+                TEST_CASE_TEMPLATE("should, when given itself, not change anything", optional_p, nkr_ANY_NON_CONST)
                 {
                     using value_t = optional_p::value_t;
 
@@ -1411,6 +1687,164 @@ namespace nkr {
 
                         CHECK(optional.Has_Value());
                         CHECK(optional.Value() == value);
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a non-none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t value = Random_Non_None<value_t>();
+                        value_t backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup);
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a volatile non-none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile value_t value = Random_Non_None<value_t>();
+                        value_t backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup);
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        value_t value = None<value_t>();
+                        value_t backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup);
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a volatile none value_t", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile value_t value = None<value_t>();
+                        value_t backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup);
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a non-none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        maybe_t<value_t> value = Random_Non_None<value_t>();
+                        maybe_t<value_t> backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup());
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a volatile non-none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile maybe_t<value_t> value = Random_Non_None<value_t>();
+                        maybe_t<value_t> backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup());
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        maybe_t<value_t> value = None<value_t>();
+                        maybe_t<value_t> backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(!optional.Has_Value());
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a volatile none maybe_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile maybe_t<value_t> value = None<value_t>();
+                        maybe_t<value_t> backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(!optional.Has_Value());
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a some_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        some_t<value_t> value = Random_Non_None<value_t>();
+                        some_t<value_t> backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup());
+                        CHECK(value == None<value_t>());
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("should move a volatile some_t<value_t>", optional_p, nkr_ANY_NON_CONST)
+                {
+                    using value_t = optional_p::value_t;
+
+                    if constexpr (any_non_const_tr<value_t>) {
+                        volatile some_t<value_t> value = Random_Non_None<value_t>();
+                        some_t<value_t> backup = value;
+                        optional_p optional;
+                        optional = nkr::Move(value);
+
+                        CHECK(optional.Has_Value());
+                        CHECK(optional.Value() == backup());
+                        CHECK(value == None<value_t>());
                     }
                 }
             }
@@ -1449,6 +1883,83 @@ namespace nkr {
             }
         }
 
+        TEST_SUITE("methods")
+        {
+            TEST_SUITE("Has_Value()")
+            {
+                TEST_CASE_TEMPLATE("should return true if it has a non-none value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    optional_p optional = Random_Non_None<value_t>();
+
+                    CHECK(optional.Has_Value());
+                }
+
+                TEST_CASE_TEMPLATE("should return true if it has a none value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    optional_p optional = None<value_t>();
+
+                    CHECK(optional.Has_Value());
+                }
+
+                TEST_CASE_TEMPLATE("should return false when it has no value", optional_p, nkr_ALL)
+                {
+                    using value_t = optional_p::value_t;
+
+                    optional_p optional;
+
+                    CHECK(!optional.Has_Value());
+                }
+            }
+
+            TEST_SUITE("Value()")
+            {
+                TEST_CASE_TEMPLATE("should return a non-none value when it has one", optional_p, nkr_ALL)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("should return a none value when it has one", optional_p, nkr_ALL)
+                {
+
+                }
+            }
+
+            TEST_SUITE("Value(value)")
+            {
+
+            }
+
+            TEST_SUITE("Clear()")
+            {
+
+            }
+        }
+
+        TEST_SUITE("casts")
+        {
+            TEST_SUITE("c_bool_t()")
+            {
+
+            }
+        }
+
+        TEST_SUITE("operators")
+        {
+            TEST_SUITE("==()")
+            {
+
+            }
+
+            TEST_SUITE("!=()")
+            {
+
+            }
+        }
+
         TEST_SUITE("none interface")
         {
             TEST_SUITE("ctor()")
@@ -1459,6 +1970,21 @@ namespace nkr {
 
                     CHECK(!optional.Has_Value());
                 }
+            }
+
+            TEST_SUITE("=()")
+            {
+
+            }
+
+            TEST_SUITE("==()")
+            {
+
+            }
+
+            TEST_SUITE("!=()")
+            {
+
             }
         }
 

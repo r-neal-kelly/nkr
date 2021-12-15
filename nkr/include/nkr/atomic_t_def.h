@@ -1594,49 +1594,49 @@ namespace nkr { namespace $atomic_t {
         return !operator ==(none_t());
     }
 
-    template <pointer_tr pointer_p>
-    inline typename const pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::DEFAULT_VALUE    = value_t();
+    template <c_pointer_tr c_pointer_p>
+    inline typename const c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::DEFAULT_VALUE    = value_t();
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp() :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp() :
         value(DEFAULT_VALUE)
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(convertible_tr<value_t> auto value) :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp(convertible_tr<value_t> auto value) :
         value(static_cast<value_t>(value))
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(const pointer_sp& other) :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp(const c_pointer_sp& other) :
         value(other.Access())
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(const volatile pointer_sp& other) :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp(const volatile c_pointer_sp& other) :
         value(other.Access())
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(pointer_sp&& other) noexcept :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp(c_pointer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(volatile pointer_sp&& other) noexcept :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp(volatile c_pointer_sp&& other) noexcept :
         value(other.Exchange(DEFAULT_VALUE))
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(const pointer_sp& other)
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(const c_pointer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -1644,9 +1644,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(const pointer_sp& other)
+    template <c_pointer_tr c_pointer_p>
+    inline volatile c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(const c_pointer_sp& other)
         volatile
     {
         if (this != std::addressof(other)) {
@@ -1655,9 +1655,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(const volatile pointer_sp& other)
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(const volatile c_pointer_sp& other)
     {
         if (this != std::addressof(other)) {
             Assign(other.Access());
@@ -1665,9 +1665,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(const volatile pointer_sp& other)
+    template <c_pointer_tr c_pointer_p>
+    inline volatile c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(const volatile c_pointer_sp& other)
         volatile
     {
         if (this != std::addressof(other)) {
@@ -1676,9 +1676,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(pointer_sp&& other)
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(c_pointer_sp&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1687,9 +1687,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(pointer_sp&& other)
+    template <c_pointer_tr c_pointer_p>
+    inline volatile c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(c_pointer_sp&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {
@@ -1698,9 +1698,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(is_just_volatile_tr<pointer_sp> auto&& other)
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(is_just_volatile_tr<c_pointer_sp> auto&& other)
         noexcept
     {
         if (this != std::addressof(other)) {
@@ -1709,9 +1709,9 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(is_just_volatile_tr<pointer_sp> auto&& other)
+    template <c_pointer_tr c_pointer_p>
+    inline volatile c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(is_just_volatile_tr<c_pointer_sp> auto&& other)
         volatile noexcept
     {
         if (this != std::addressof(other)) {
@@ -1720,351 +1720,351 @@ namespace nkr { namespace $atomic_t {
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::~pointer_sp()
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::~c_pointer_sp()
     {
         Assign(DEFAULT_VALUE);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Access()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Access()
         const
     {
         return os::atomic::Access(this->value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Access()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Access()
         const volatile
     {
         return os::atomic::Access(this->value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Assign(convertible_tr<value_t> auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Assign(convertible_tr<value_t> auto value)
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Assign(convertible_tr<value_t> auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Assign(convertible_tr<value_t> auto value)
         volatile
     {
         return os::atomic::Assign(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Assign_Add(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Assign_Add(integer_tr auto value)
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Assign_Add(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Assign_Add(integer_tr auto value)
         volatile
     {
         return os::atomic::Assign_Add(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Assign_Subtract(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Assign_Subtract(integer_tr auto value)
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Assign_Subtract(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Assign_Subtract(integer_tr auto value)
         volatile
     {
         return os::atomic::Assign_Subtract(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Exchange(convertible_tr<value_t> auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Exchange(convertible_tr<value_t> auto value)
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Exchange(convertible_tr<value_t> auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Exchange(convertible_tr<value_t> auto value)
         volatile
     {
         return os::atomic::Exchange(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Exchange_Add(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Exchange_Add(integer_tr auto value)
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Exchange_Add(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Exchange_Add(integer_tr auto value)
         volatile
     {
         return os::atomic::Exchange_Add(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Exchange_Subtract(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Exchange_Subtract(integer_tr auto value)
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::Exchange_Subtract(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::Exchange_Subtract(integer_tr auto value)
         volatile
     {
         return os::atomic::Exchange_Subtract(this->value, value);
     }
 
-    template <pointer_tr pointer_p>
+    template <c_pointer_tr c_pointer_p>
     inline bool_t
-        pointer_sp<pointer_p>::Exchange_If_Equals(value_t& snapshot, convertible_tr<value_t> auto value)
+        c_pointer_sp<c_pointer_p>::Exchange_If_Equals(value_t& snapshot, convertible_tr<value_t> auto value)
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
-    template <pointer_tr pointer_p>
+    template <c_pointer_tr c_pointer_p>
     inline bool_t
-        pointer_sp<pointer_p>::Exchange_If_Equals(value_t& snapshot, convertible_tr<value_t> auto value)
+        c_pointer_sp<c_pointer_p>::Exchange_If_Equals(value_t& snapshot, convertible_tr<value_t> auto value)
         volatile
     {
         return os::atomic::Exchange_If_Equals(this->value, snapshot, value);
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::operator value_t()
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::operator value_t()
         const
     {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::operator value_t()
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::operator value_t()
         const volatile
     {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ()()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ()()
         const
     {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ()()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ()()
         const volatile
     {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator +=(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator +=(integer_tr auto value)
     {
         return Assign_Add(value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator +=(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator +=(integer_tr auto value)
         volatile
     {
         return Assign_Add(value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator -=(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator -=(integer_tr auto value)
     {
         return Assign_Subtract(value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator -=(integer_tr auto value)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator -=(integer_tr auto value)
         volatile
     {
         return Assign_Subtract(value);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ++()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ++()
     {
         return Assign_Add(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ++()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ++()
         volatile
     {
         return Assign_Add(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ++(int)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ++(int)
     {
         return Exchange_Add(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ++(int)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ++(int)
         volatile
     {
         return Exchange_Add(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator --()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator --()
     {
         return Assign_Subtract(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator --()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator --()
         volatile
     {
         return Assign_Subtract(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator --(int)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator --(int)
     {
         return Exchange_Subtract(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator --(int)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator --(int)
         volatile
     {
         return Exchange_Subtract(1);
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ->()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ->()
         const
     {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::value_t
-        pointer_sp<pointer_p>::operator ->()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::value_t
+        c_pointer_sp<c_pointer_p>::operator ->()
         const volatile
     {
         return Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::unit_t&
-        pointer_sp<pointer_p>::operator *()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::unit_t&
+        c_pointer_sp<c_pointer_p>::operator *()
         const
     {
         return *Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::unit_t&
-        pointer_sp<pointer_p>::operator *()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::unit_t&
+        c_pointer_sp<c_pointer_p>::operator *()
         const volatile
     {
         return *Access();
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::unit_t&
-        pointer_sp<pointer_p>::operator [](integer_tr auto index)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::unit_t&
+        c_pointer_sp<c_pointer_p>::operator [](integer_tr auto index)
         const
     {
         return Access()[static_cast<index_t>(index)];
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::unit_t&
-        pointer_sp<pointer_p>::operator [](integer_tr auto index)
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::unit_t&
+        c_pointer_sp<c_pointer_p>::operator [](integer_tr auto index)
         const volatile
     {
         return Access()[static_cast<index_t>(index)];
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>::pointer_sp(none_t) :
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>::c_pointer_sp(none_t) :
         value(DEFAULT_VALUE)
     {
     }
 
-    template <pointer_tr pointer_p>
-    inline pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(none_t)
+    template <c_pointer_tr c_pointer_p>
+    inline c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(none_t)
     {
         Assign(DEFAULT_VALUE);
         return *this;
     }
 
-    template <pointer_tr pointer_p>
-    inline volatile pointer_sp<pointer_p>&
-        pointer_sp<pointer_p>::operator =(none_t)
+    template <c_pointer_tr c_pointer_p>
+    inline volatile c_pointer_sp<c_pointer_p>&
+        c_pointer_sp<c_pointer_p>::operator =(none_t)
         volatile
     {
         Assign(DEFAULT_VALUE);
         return *this;
     }
 
-    template <pointer_tr pointer_p>
+    template <c_pointer_tr c_pointer_p>
     inline bool_t
-        pointer_sp<pointer_p>::operator ==(none_t)
+        c_pointer_sp<c_pointer_p>::operator ==(none_t)
         const
     {
         return static_cast<bool_t>(Access()) == false;
     }
 
-    template <pointer_tr pointer_p>
+    template <c_pointer_tr c_pointer_p>
     inline bool_t
-        pointer_sp<pointer_p>::operator ==(none_t)
+        c_pointer_sp<c_pointer_p>::operator ==(none_t)
         const volatile
     {
         return static_cast<bool_t>(Access()) == false;
     }
 
-    template <pointer_tr pointer_p>
+    template <c_pointer_tr c_pointer_p>
     inline bool_t
-        pointer_sp<pointer_p>::operator !=(none_t)
+        c_pointer_sp<c_pointer_p>::operator !=(none_t)
         const
     {
         return !operator ==(none_t());
     }
 
-    template <pointer_tr pointer_p>
+    template <c_pointer_tr c_pointer_p>
     inline bool_t
-        pointer_sp<pointer_p>::operator !=(none_t)
+        c_pointer_sp<c_pointer_p>::operator !=(none_t)
         const volatile
     {
         return !operator ==(none_t());

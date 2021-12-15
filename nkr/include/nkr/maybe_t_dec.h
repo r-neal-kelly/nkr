@@ -205,25 +205,25 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
     /// @nosubgrouping
     /// @copydoc _853d9bea_a9d0_40eb_81c1_aa874fcbdfb1
-    template <pointer_tr pointer_p>
-    class pointer_sp :
-        public any_sp<pointer_p>
+    template <c_pointer_tr c_pointer_p>
+    class c_pointer_sp :
+        public any_sp<c_pointer_p>
     {
     public:
         /// @name aliases
         /// @copydoc _9f86f607_6972_4326_b817_4a06a53d154d
         /// @{
-        using value_t   = pointer_p;    ///< @copydoc _febf525c_e1d2_43d7_93f2_8cc96a495097
+        using value_t   = c_pointer_p;  ///< @copydoc _febf525c_e1d2_43d7_93f2_8cc96a495097
         /// @}
 
     private:
-        using base_t    = any_sp<pointer_p>;
+        using base_t    = any_sp<c_pointer_p>;
 
     public:
         /// @name objects
         /// @copydoc 
         /// @{
-        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(pointer_sp, base_t);
+        nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(c_pointer_sp, base_t);
         /// @}
 
     public:
@@ -275,12 +275,12 @@ namespace nkr { namespace $maybe_t {
 
     /// @nosubgrouping
     /// @copydoc _eb401275_a224_48ec_ab23_6d0c82b83d8a
-    template <pointer_tr pointer_p>
-    class built_in_sp<pointer_p> :
-        public $built_in_sp::pointer_sp<pointer_p>
+    template <c_pointer_tr c_pointer_p>
+    class built_in_sp<c_pointer_p> :
+        public $built_in_sp::c_pointer_sp<c_pointer_p>
     {
     private:
-        using base_t    = $built_in_sp::pointer_sp<pointer_p>;
+        using base_t    = $built_in_sp::c_pointer_sp<c_pointer_p>;
 
     public:
         /// @name objects

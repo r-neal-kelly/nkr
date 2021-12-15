@@ -307,7 +307,7 @@ namespace nkr {
                 {
                     using value_t = maybe_p::value_t;
 
-                    if constexpr (boolean_tr<value_t> || integer_tr<value_t> || real_tr<value_t> || pointer_tr<value_t>) {
+                    if constexpr (boolean_tr<value_t> || integer_tr<value_t> || real_tr<value_t> || c_pointer_tr<value_t>) {
                         std::remove_const_t<value_t> random;
                         do {
                             random = Random<std::remove_const_t<value_t>>();
@@ -331,7 +331,7 @@ namespace nkr {
                         maybe_p maybe(random);
                         CHECK(maybe == random);
                         CHECK_FALSE(maybe != random);
-                    } else if constexpr (integer_tr<value_t> || real_tr<value_t> || pointer_tr<value_t>) {
+                    } else if constexpr (integer_tr<value_t> || real_tr<value_t> || c_pointer_tr<value_t>) {
                         value_t random = Random<value_t>();
                         maybe_p maybe(random);
                         CHECK(maybe == random);

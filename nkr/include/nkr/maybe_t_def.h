@@ -336,17 +336,17 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
         return value;
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::pointer_sp::value_t
-        pointer_sp<pointer_p>::operator ->()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::c_pointer_sp::value_t
+        c_pointer_sp<c_pointer_p>::operator ->()
         const
     {
         return this->value;
     }
 
-    template <pointer_tr pointer_p>
-    inline typename pointer_sp<pointer_p>::pointer_sp::value_t
-        pointer_sp<pointer_p>::operator ->()
+    template <c_pointer_tr c_pointer_p>
+    inline typename c_pointer_sp<c_pointer_p>::c_pointer_sp::value_t
+        c_pointer_sp<c_pointer_p>::operator ->()
         const volatile
     {
         return this->value;

@@ -247,7 +247,7 @@
                 * @private
                 */
 
-        // pointer_sp
+        // c_pointer_sp
         /**
         * @class _853d9bea_a9d0_40eb_81c1_aa874fcbdfb1
         * @private
@@ -313,7 +313,7 @@
         * @private
         */
 
-    // built_in_sp<pointer_p>
+    // built_in_sp<c_pointer_p>
     /**
     * @class _eb401275_a224_48ec_ab23_6d0c82b83d8a
     * @private

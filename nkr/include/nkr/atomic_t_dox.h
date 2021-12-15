@@ -1324,7 +1324,7 @@
             * @snippet "./src/atomic_t_real_p.cpp" _bf986b93_2c19_47cb_b49b_1bc1152d2074
             */
 
-    // pointer_sp
+    // c_pointer_sp
     /**
     * @class _3a98b216_8b25_4340_96d3_01a5f49f336b
     * @private
@@ -1758,7 +1758,7 @@
     *   A specialization for nkr::void_t* to be used atomically.
     * 
     * @details
-    *   This exists in conjunction with nkr::$atomic_t::pointer_sp because nkr::void_t* cannot compile with some of the operators that a regular pointer can.
+    *   This exists in conjunction with nkr::$atomic_t::c_pointer_sp because nkr::void_t* cannot compile with some of the operators that a regular pointer can.
     */
 
         // aliases
@@ -2049,7 +2049,7 @@
 *   - nkr::atomic_t<boolean_p>
 *   - nkr::atomic_t<integer_p>
 *   - nkr::atomic_t<real_p>
-*   - nkr::atomic_t<pointer_p>
+*   - nkr::atomic_t<c_pointer_p>
 *   - nkr::atomic_t<void_t*>
 */
 
@@ -2134,13 +2134,13 @@
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
-// atomic_t<pointer_tr pointer_p>
+// atomic_t<c_pointer_tr c_pointer_p>
 /**
 * @class _f8ce2e6d_230a_4ef2_801f_aecbc3571487
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::pointer_sp.
+*   A wrapper for nkr::$atomic_t::c_pointer_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff

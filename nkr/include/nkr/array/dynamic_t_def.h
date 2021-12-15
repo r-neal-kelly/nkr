@@ -444,7 +444,7 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_t<unit_p, allocator_p, grow_rate_p>::dynamic_t(const std_array_of_tr<writable_unit_t> auto& array) :
+    inline dynamic_t<unit_p, allocator_p, grow_rate_p>::dynamic_t(const c_array_of_tr<writable_unit_t> auto& array) :
         dynamic_t(sizeof(array) / sizeof(unit_t))
     {
         if (Has_Memory(*this)) {
@@ -455,7 +455,7 @@ namespace nkr { namespace array {
     }
 
     template <any_type_tr unit_p, allocator_i allocator_p, math::fraction_i grow_rate_p>
-    inline dynamic_t<unit_p, allocator_p, grow_rate_p>::dynamic_t(std_array_of_tr<writable_unit_t> auto&& array) :
+    inline dynamic_t<unit_p, allocator_p, grow_rate_p>::dynamic_t(c_array_of_tr<writable_unit_t> auto&& array) :
         dynamic_t(sizeof(array) / sizeof(unit_t))
     {
         if (Has_Memory(*this)) {
