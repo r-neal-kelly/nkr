@@ -88,24 +88,6 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b);
-
-    public:
-        /// @name friends
-        /// @copydoc _8d154684_4749_447a_99de_1e3fecae9281
-        /// @{
-        friend bool_t operator ==(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b)
-        {
-            return Is_Equal_To(a, b);
-        }                                                                                       ///< @copydoc _aadbea73_0406_4e90_829a_f850517b4dc2
-
-        friend bool_t operator !=(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b)
-        {
-            return !Is_Equal_To(a, b);
-        }                                                                                       ///< @copydoc _e7a60b6d_ac7a_4d55_8b75_63b39803f4ab
-        /// @}
-
-    private:
         /// @name object data
         /// @copydoc _6ca35d80_e800_4856_a4b3_c43655537937
         /// @{
@@ -239,24 +221,6 @@ namespace nkr { namespace $pointer_t {
         /// @}
 
     private:
-        static bool_t   Is_Equal_To(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b);
-
-    public:
-        /// @name friends
-        /// @copydoc _6dd501ab_6a15_4b44_a625_f9da07eb054c
-        /// @{
-        friend bool_t operator ==(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b)
-        {
-            return Is_Equal_To(a, b);
-        }                                                                                               ///< @copydoc _9504b545_f66f_4e06_8fc8_1970817dea52
-
-        friend bool_t operator !=(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b)
-        {
-            return !Is_Equal_To(a, b);
-        }                                                                                               ///< @copydoc _a3bcf436_3581_4778_b51e_7985b10e9160
-        /// @}
-
-    private:
         /// @name object data
         /// @copydoc _e9a447d1_530b_44a4_ad80_d9700c7b718d
         /// @{
@@ -359,14 +323,6 @@ namespace nkr {
     class pointer_t
     {
     public:
-        /// @name friends
-        /// @copydoc 
-        /// @{
-        friend bool_t   operator ==(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)   = delete;
-        friend bool_t   operator !=(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)   = delete;
-        /// @}
-
-    public:
         /// @name objects
         /// @copydoc 
         /// @{
@@ -404,21 +360,6 @@ namespace nkr {
         /// @}
 
     public:
-        /// @name friends
-        /// @copydoc 
-        /// @{
-        friend bool_t operator ==(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)
-        {
-            return operator ==(a.Base(), b.Base());
-        }
-
-        friend bool_t operator !=(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)
-        {
-            return operator !=(a.Base(), b.Base());
-        }
-        /// @}
-
-    public:
         /// @name objects
         /// @copydoc 
         /// @{
@@ -443,21 +384,6 @@ namespace nkr {
         /// @}
 
     public:
-        /// @name friends
-        /// @copydoc 
-        /// @{
-        friend bool_t operator ==(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)
-        {
-            return operator ==(a.Base(), b.Base());
-        }
-
-        friend bool_t operator !=(is_any_tr<pointer_t> auto a, is_any_tr<pointer_t> auto b)
-        {
-            return operator !=(a.Base(), b.Base());
-        }
-        /// @}
-
-    public:
         /// @name objects
         /// @copydoc 
         /// @{
@@ -467,5 +393,19 @@ namespace nkr {
     private:
         nkr_DEFINE_INHERITANCE_WRAPPER_BASE_ACCESSORS(Base, base_t);
     };
+
+}
+
+namespace nkr {
+
+    bool_t  operator ==(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto& b);
+    bool_t  operator ==(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto&& b);
+    bool_t  operator ==(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto& b);
+    bool_t  operator ==(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto&& b);
+
+    bool_t  operator !=(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto& b);
+    bool_t  operator !=(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto&& b);
+    bool_t  operator !=(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto& b);
+    bool_t  operator !=(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto&& b);
 
 }

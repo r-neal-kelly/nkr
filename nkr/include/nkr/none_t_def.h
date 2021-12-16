@@ -8,6 +8,17 @@
 
 namespace nkr {
 
+    template <typename other_p>
+    inline constexpr c_bool_t
+        type_traits_i<none_tg>::Is_Any()
+    {
+        return none_tr<other_p>;
+    }
+
+}
+
+namespace nkr {
+
     inline none_t::none_t()
     {
     }

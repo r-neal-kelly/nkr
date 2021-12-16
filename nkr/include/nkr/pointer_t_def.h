@@ -28,13 +28,6 @@ namespace nkr {
 namespace nkr { namespace $pointer_t {
 
     template <any_type_tr unit_p>
-    inline bool_t
-        any_type_sp<unit_p>::Is_Equal_To(is_any_tr<any_type_sp> auto a, is_any_tr<any_type_sp> auto b)
-    {
-        return a.units == b.units && a.unit_count == b.unit_count;
-    }
-
-    template <any_type_tr unit_p>
     inline any_type_sp<unit_p>::any_type_sp() :
         units(nullptr),
         unit_count(0)
@@ -668,13 +661,6 @@ namespace nkr { namespace $pointer_t {
     }
 
     template <any_non_type_tr unit_p>
-    inline bool_t
-        any_non_type_sp<unit_p>::Is_Equal_To(is_any_tr<any_non_type_sp> auto a, is_any_tr<any_non_type_sp> auto b)
-    {
-        return a.units == b.units && a.unit_count == b.unit_count;
-    }
-
-    template <any_non_type_tr unit_p>
     inline any_non_type_sp<unit_p>::any_non_type_sp() :
         units(nullptr),
         unit_count(0)
@@ -1064,6 +1050,81 @@ namespace nkr { namespace $pointer_t {
     }
 
 }}
+
+namespace nkr {
+
+    inline bool_t
+        operator ==(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto& b)
+    {
+        using a_t = std::remove_reference_t<decltype(a)>;
+        using b_t = std::remove_reference_t<decltype(b)>;
+
+        if constexpr (is_any_tr<b_t, none_t>) {
+            return a.operator ==(b);
+        } else if constexpr (is_any_tr<b_t, typename a_t::units_t>) {
+            if constexpr (can_equal_to_tr<decltype(a.Units()), decltype(b)>) {
+                return a.Units() == b;
+            } else {
+                static_assert(false, "these two values can not be equal to each other.");
+            }
+        } else if constexpr (tr1<b_t, any_tg, pointer_tg>) {
+            if constexpr (can_equal_to_tr<decltype(a.Units()), decltype(b.Units())>) {
+                return a.Units() == b.Units() && a.Unit_Count() == b.Unit_Count();
+            } else {
+                static_assert(false, "these two values can not be equal to each other.");
+            }
+        } else {
+            if constexpr (can_equal_to_tr<decltype(a.Units()), decltype(b)>) {
+                return a.Units() == b;
+            } else {
+                static_assert(false, "these two values can not be equal to each other.");
+            }
+        }
+    }
+
+    inline bool_t
+        operator ==(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto&& b)
+    {
+        return operator ==(a, b);
+    }
+
+    inline bool_t
+        operator ==(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto& b)
+    {
+        return operator ==(a, b);
+    }
+
+    inline bool_t
+        operator ==(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto&& b)
+    {
+        return operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto& b)
+    {
+        return !operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(const tr1<any_tg, pointer_tg> auto& a, const tr0<any_tg> auto&& b)
+    {
+        return !operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto& b)
+    {
+        return !operator ==(a, b);
+    }
+
+    inline bool_t
+        operator !=(const tr1<any_tg, pointer_tg> auto&& a, const tr0<any_tg> auto&& b)
+    {
+        return !operator ==(a, b);
+    }
+
+}
 
 #if defined(nkr_DO_EXTERN_TEMPLATES)
 

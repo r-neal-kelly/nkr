@@ -288,28 +288,6 @@
             * @copydoc _2f9a1113_dd23_4073_9637_5d0accc99f52
             */
 
-        // friends
-        /**
-        * @class _8d154684_4749_447a_99de_1e3fecae9281
-        * @private
-        */
-
-            // operator ==()
-            /**
-            * @class _aadbea73_0406_4e90_829a_f850517b4dc2
-            * @private
-            * 
-            * @copydoc _1d33c46b_90b6_4519_aca0_c045fef8e3ec
-            */
-
-            // operator !=()
-            /**
-            * @class _e7a60b6d_ac7a_4d55_8b75_63b39803f4ab
-            * @private
-            * 
-            * @copydoc _1d33c46b_90b6_4519_aca0_c045fef8e3ec
-            */
-
         // object data
         /**
         * @class _6ca35d80_e800_4856_a4b3_c43655537937
@@ -860,28 +838,6 @@
             * @private
             * 
             * @copydoc _2f9a1113_dd23_4073_9637_5d0accc99f52
-            */
-
-        // friends
-        /**
-        * @class _6dd501ab_6a15_4b44_a625_f9da07eb054c
-        * @private
-        */
-
-            // operator ==()
-            /**
-            * @class _9504b545_f66f_4e06_8fc8_1970817dea52
-            * @private
-            * 
-            * @copydoc _1d33c46b_90b6_4519_aca0_c045fef8e3ec
-            */
-
-            // operator !=()
-            /**
-            * @class _a3bcf436_3581_4778_b51e_7985b10e9160
-            * @private
-            * 
-            * @copydoc _1d33c46b_90b6_4519_aca0_c045fef8e3ec
             */
 
         // object data

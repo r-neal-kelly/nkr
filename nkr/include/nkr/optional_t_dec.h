@@ -132,8 +132,6 @@ namespace nkr {
 
         static void_t   Clear(const tr1<any_tg, optional_t> auto& self);
 
-        static bool_t   Is_Equal_To(const tr1<any_tg, optional_t> auto& self, const tr0<any_tg> auto& other);
-
     protected:
         bool_t  has_value;
         value_t value;
@@ -198,17 +196,6 @@ namespace nkr {
         explicit operator   c_bool_t() const volatile;
 
     public:
-        bool_t  operator ==(const tr0<any_tg> auto& other) const;
-        bool_t  operator ==(const tr0<any_tg> auto& other) const volatile;
-        bool_t  operator ==(const tr0<any_tg> auto&& other) const;
-        bool_t  operator ==(const tr0<any_tg> auto&& other) const volatile;
-
-        bool_t  operator !=(const tr0<any_tg> auto& other) const;
-        bool_t  operator !=(const tr0<any_tg> auto& other) const volatile;
-        bool_t  operator !=(const tr0<any_tg> auto&& other) const;
-        bool_t  operator !=(const tr0<any_tg> auto&& other) const volatile;
-
-    public:
         optional_t(none_t);
 
         optional_t&             operator =(none_t);
@@ -219,5 +206,19 @@ namespace nkr {
         bool_t                  operator !=(none_t) const;
         bool_t                  operator !=(none_t) const volatile;
     };
+
+}
+
+namespace nkr {
+
+    bool_t  operator ==(const tr1<any_tg, optional_tg> auto& a, const tr0<any_tg> auto& b);
+    bool_t  operator ==(const tr1<any_tg, optional_tg> auto& a, const tr0<any_tg> auto&& b);
+    bool_t  operator ==(const tr1<any_tg, optional_tg> auto&& a, const tr0<any_tg> auto& b);
+    bool_t  operator ==(const tr1<any_tg, optional_tg> auto&& a, const tr0<any_tg> auto&& b);
+
+    bool_t  operator !=(const tr1<any_tg, optional_tg> auto& a, const tr0<any_tg> auto& b);
+    bool_t  operator !=(const tr1<any_tg, optional_tg> auto& a, const tr0<any_tg> auto&& b);
+    bool_t  operator !=(const tr1<any_tg, optional_tg> auto&& a, const tr0<any_tg> auto& b);
+    bool_t  operator !=(const tr1<any_tg, optional_tg> auto&& a, const tr0<any_tg> auto&& b);
 
 }

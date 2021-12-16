@@ -9,6 +9,40 @@
 
 namespace nkr {
 
+    class none_t;
+
+    template <typename type_p>
+    concept none_tr =
+        is_any_tr<type_p, none_t>;
+
+    struct  none_tg {};
+
+}
+
+namespace nkr {
+
+    template <>
+    class type_traits_i<none_tg>
+    {
+    public:
+        using of_t  = void_t;
+
+    public:
+        template <typename other_p>
+        static constexpr c_bool_t   Is_Any();
+    };
+
+    template <none_tr type_p>
+    class type_traits_i<type_p> :
+        public type_traits_i<none_tg>
+    {
+    public:
+    };
+
+}
+
+namespace nkr {
+
     class bool_t;
 
     /// @nosubgrouping
