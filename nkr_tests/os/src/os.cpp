@@ -337,7 +337,7 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_37851c52_0ed4_4b15_a024_657fa6449913]
             }
 
-            /*TEST_SUITE("Assign_Divide()")
+            TEST_SUITE("Assign_Divide()")
             {
                 /// [_88dfcc83_1a76_4d84_8196_b4a5582ac05a]
                 TEST_CASE_TEMPLATE("should set the value to value / passed value", atom_p, atoms)
@@ -371,7 +371,7 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_8880d6ac_53f3_4f80_9f8e_2141566a5dfb]
 
                 /// [_16308dc7_620e_43b4_8682_95947cce466b]
-                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                /*TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
                 {
                     using atom_p = std::tuple_element_t<0, pair_p>;
                     using convertible_p = std::tuple_element_t<1, pair_p>;
@@ -387,9 +387,9 @@ namespace nkr { namespace os { namespace atomic {
                         Assign_Divide(value, random_b);
                         CHECK(value == (random_a /= static_cast<atom_p>(random_b)));
                     }
-                }
+                }*/
                 /// [_16308dc7_620e_43b4_8682_95947cce466b]
-            }*/
+            }
 
             TEST_SUITE("Assign_Modulus()")
             {
@@ -794,7 +794,7 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_91df7f02_eabd_40c6_8255_cd4c64e92e82]
             }
 
-            /*TEST_SUITE("Exchange_Divide()")
+            TEST_SUITE("Exchange_Divide()")
             {
                 /// [_fae67eda_9402_4e49_9607_e3184dbd2b38]
                 TEST_CASE_TEMPLATE("should set the value to value / passed value", atom_p, atoms)
@@ -828,7 +828,7 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_c3947eeb_8969_4edb_8130_49d6ff2ac2fd]
 
                 /// [_1cc9dcb3_26b4_4499_8cd5_8db780bdca8c]
-                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                /*TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
                 {
                     using atom_p = std::tuple_element_t<0, pair_p>;
                     using convertible_p = std::tuple_element_t<1, pair_p>;
@@ -844,9 +844,9 @@ namespace nkr { namespace os { namespace atomic {
                         Exchange_Divide(value, random_b);
                         CHECK(value == (random_a /= static_cast<atom_p>(random_b)));
                     }
-                }
+                }*/
                 /// [_1cc9dcb3_26b4_4499_8cd5_8db780bdca8c]
-            }*/
+            }
 
             TEST_SUITE("Exchange_Modulus()")
             {
