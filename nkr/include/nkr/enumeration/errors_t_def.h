@@ -61,6 +61,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = false;
             this->value = other.value;
         }
+
         return *this;
     }
 
@@ -73,6 +74,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = false;
             this->value = other.value;
         }
+
         return *this;
     }
 
@@ -84,6 +86,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = false;
             this->value = other.value;
         }
+
         return *this;
     }
 
@@ -96,6 +99,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = false;
             this->value = other.value;
         }
+
         return *this;
     }
 
@@ -108,6 +112,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = nkr::Exchange(other.has_been_checked, true);
             this->value = nkr::Move(other.value);
         }
+
         return *this;
     }
 
@@ -120,6 +125,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = nkr::Exchange(other.has_been_checked, true);
             this->value = nkr::Move(other.value);
         }
+
         return *this;
     }
 
@@ -132,6 +138,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = nkr::Exchange(other.has_been_checked, true);
             this->value = nkr::Move(other.value);
         }
+
         return *this;
     }
 
@@ -144,6 +151,7 @@ namespace nkr { namespace enumeration {
             this->has_been_checked = nkr::Exchange(other.has_been_checked, true);
             this->value = nkr::Move(other.value);
         }
+
         return *this;
     }
 
@@ -209,7 +217,9 @@ namespace nkr { namespace enumeration {
     inline errors_t<integer_p, none_p>&
         errors_t<integer_p, none_p>::operator =(none_t)
     {
+        this->has_been_checked = false;
         this->value = NONE;
+
         return *this;
     }
 
@@ -218,7 +228,9 @@ namespace nkr { namespace enumeration {
         errors_t<integer_p, none_p>::operator =(none_t)
         volatile
     {
+        this->has_been_checked = false;
         this->value = NONE;
+
         return *this;
     }
 
@@ -227,6 +239,8 @@ namespace nkr { namespace enumeration {
         errors_t<integer_p, none_p>::operator ==(none_t)
         const
     {
+        this->has_been_checked = true;
+
         return this->value == NONE;
     }
 
@@ -235,6 +249,8 @@ namespace nkr { namespace enumeration {
         errors_t<integer_p, none_p>::operator ==(none_t)
         const volatile
     {
+        this->has_been_checked = true;
+
         return this->value == NONE;
     }
 
@@ -243,7 +259,7 @@ namespace nkr { namespace enumeration {
         errors_t<integer_p, none_p>::operator !=(none_t)
         const
     {
-        return !operator =(none_t());
+        return !operator ==(none_t());
     }
 
     template <integer_signed_tr integer_p, integer_p none_p>
@@ -251,7 +267,7 @@ namespace nkr { namespace enumeration {
         errors_t<integer_p, none_p>::operator !=(none_t)
         const volatile
     {
-        return !operator =(none_t());
+        return !operator ==(none_t());
     }
 
 }}
