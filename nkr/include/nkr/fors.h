@@ -7,6 +7,8 @@
 #include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
+// I've never really liked this file, but we should add this kind of functionality into the cpp namespace
+
 namespace nkr {
 
     template <typename type_p>
