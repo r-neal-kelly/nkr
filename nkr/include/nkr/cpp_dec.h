@@ -85,14 +85,6 @@ namespace nkr { namespace cpp {
 namespace nkr { namespace cpp {
 
     template <typename type_p>
-    concept type_tr =
-        sizeof(type_p) > 0;
-
-    template <typename type_p>
-    concept non_type_tr =
-        !type_tr<type_p>;
-
-    template <typename type_p>
     concept pointer_tr =
         std::is_pointer<type_p>::value ||
         std::is_null_pointer<type_p>::value;

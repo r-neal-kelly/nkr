@@ -80,30 +80,6 @@ namespace nkr {
         return old;
     }
 
-    inline constexpr auto
-        Is_LValue(any_tr auto& value)
-    {
-        return std::true_type();
-    }
-
-    inline constexpr auto
-        Is_LValue(any_tr auto&& value)
-    {
-        return std::false_type();
-    }
-
-    inline constexpr auto
-        Is_RValue(any_tr auto& value)
-    {
-        return std::false_type();
-    }
-
-    inline constexpr auto
-        Is_RValue(any_tr auto&& value)
-    {
-        return std::true_type();
-    }
-
     inline count_t
         C_String_Unit_Count(const any_character_tr auto* c_string)
     {
