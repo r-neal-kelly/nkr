@@ -4,4 +4,4 @@ This is my new C++20 library. I'm excited to use concepts finally! This is aimin
 [Go to documentation](https://r-neal-kelly.github.io/nkr_docs)
 
 ### Building
-- After loading the solution in Visual Studio, as of the latest version of their C++20 compiler there are still disagreements between the compiler and the intellisense. So you will see quite a few intellisense errors where there are none during compilation. Almost all of these with very exceptions are contained in the library's definition files and don't leak into user-end code.
+This library currently has no other code requirements, and is thus extremely strait-forward to build for Windows, currently the only supported platform. However, you will need a Visual Studio 2022 instance to build unless you are willing to go through the trouble of backporting all of the project files.
