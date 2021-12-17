@@ -79,7 +79,7 @@ namespace nkr { namespace os { namespace atomic {
         std::tuple<s16_t, real_t>,      \
         std::tuple<u32_t, real_t>,      \
         std::tuple<s32_t, real_t>,      \
-        std::tuple<r32_t, word_t>,      \
+        std::tuple<r32_t, u64_t>,       \
         std::tuple<void_t*, word_t*>,   \
         std::tuple<base_t*, derived_t*>
 
@@ -371,7 +371,7 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_8880d6ac_53f3_4f80_9f8e_2141566a5dfb]
 
                 /// [_16308dc7_620e_43b4_8682_95947cce466b]
-                /*TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
                 {
                     using atom_p = std::tuple_element_t<0, pair_p>;
                     using convertible_p = std::tuple_element_t<1, pair_p>;
@@ -387,7 +387,7 @@ namespace nkr { namespace os { namespace atomic {
                         Assign_Divide(value, random_b);
                         CHECK(value == (random_a /= static_cast<atom_p>(random_b)));
                     }
-                }*/
+                }
                 /// [_16308dc7_620e_43b4_8682_95947cce466b]
             }
 
@@ -828,7 +828,7 @@ namespace nkr { namespace os { namespace atomic {
                 /// [_c3947eeb_8969_4edb_8130_49d6ff2ac2fd]
 
                 /// [_1cc9dcb3_26b4_4499_8cd5_8db780bdca8c]
-                /*TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
+                TEST_CASE_TEMPLATE("should work with types convertible to the value", pair_p, pairs)
                 {
                     using atom_p = std::tuple_element_t<0, pair_p>;
                     using convertible_p = std::tuple_element_t<1, pair_p>;
@@ -844,7 +844,7 @@ namespace nkr { namespace os { namespace atomic {
                         Exchange_Divide(value, random_b);
                         CHECK(value == (random_a /= static_cast<atom_p>(random_b)));
                     }
-                }*/
+                }
                 /// [_1cc9dcb3_26b4_4499_8cd5_8db780bdca8c]
             }
 
