@@ -200,6 +200,10 @@
     <ClInclude Include="include\nkr\charcoder\utf_8_t.h" />
     <ClInclude Include="include\nkr\charcoder\utf_8_t_dox.h" />
     <ClInclude Include="include\nkr\charcoder_i_dox.h" />
+    <ClInclude Include="include\nkr\cpp.h" />
+    <ClInclude Include="include\nkr\cpp_dec.h" />
+    <ClInclude Include="include\nkr\cpp_def.h" />
+    <ClInclude Include="include\nkr\cpp_dox.h" />
     <ClInclude Include="include\nkr\enumeration\flags_t.h" />
     <ClInclude Include="include\nkr\enumeration\flags_t_dec.h" />
     <ClInclude Include="include\nkr\enumeration\flags_t_def.h" />
@@ -225,6 +229,14 @@
     <ClInclude Include="include\nkr\hasher\fnv1a_t_dox.h" />
     <ClInclude Include="include\nkr\hasher_i.h" />
     <ClInclude Include="include\nkr\hasher_i_dox.h" />
+    <ClInclude Include="include\nkr\interface\template_traits_i.h" />
+    <ClInclude Include="include\nkr\interface\template_traits_i_dec.h" />
+    <ClInclude Include="include\nkr\interface\template_traits_i_def.h" />
+    <ClInclude Include="include\nkr\interface\template_traits_i_dox.h" />
+    <ClInclude Include="include\nkr\interface\type_traits_i.h" />
+    <ClInclude Include="include\nkr\interface\type_traits_i_dec.h" />
+    <ClInclude Include="include\nkr\interface\type_traits_i_def.h" />
+    <ClInclude Include="include\nkr\interface\type_traits_i_dox.h" />
     <ClInclude Include="include\nkr\intrinsics.h" />
     <ClInclude Include="include\nkr\intrinsics_dec.h" />
     <ClInclude Include="include\nkr\macros.h" />
