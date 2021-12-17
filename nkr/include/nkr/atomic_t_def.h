@@ -4,9 +4,12 @@
 
 #pragma once
 
+#include "nkr/os_def.h"
+#include "nkr/utils_def.h"
+
+#include "nkr/boolean/deleted_operators_t_def.h"
+
 #include "nkr/atomic_t_dec.h"
-#include "nkr/os.h"
-#include "nkr/utils.h"
 
 namespace nkr { namespace $atomic_t {
 

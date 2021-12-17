@@ -11,6 +11,8 @@
 #include "nkr/traits.h"
 #include "nkr/utils.h"
 
+#include "nkr/boolean/deleted_operators_t_dec.h"
+
 namespace nkr {
 
     /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
@@ -53,7 +55,7 @@ namespace nkr { namespace $atomic_t {
     /// @copydoc _ec77c539_2ae5_4aa5_a156_d961c5ac098d
     template <boolean_tr boolean_p>
     class boolean_sp :
-        public bool_deleted_operators_t
+        public boolean::deleted_operators_t
     {
     public:
         /// @name aliases

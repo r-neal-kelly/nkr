@@ -17,7 +17,7 @@ namespace nkr {
 
         TEST_SUITE("bases")
         {
-            TEST_SUITE("bool_deleted_operators_t")
+            TEST_SUITE("boolean::deleted_operators_t")
             {
                 /// [_2d1971b2_b6b3_469d_9dab_8654706a233a]
                 TEST_CASE_TEMPLATE("should have no unwanted operators", boolean_p, _)
