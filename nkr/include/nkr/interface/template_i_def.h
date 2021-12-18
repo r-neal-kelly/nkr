@@ -7,15 +7,15 @@
 #include "nkr/cpp_def.h"
 #include "nkr/intrinsics_def.h"
 
-#include "nkr/interface/template_traits_i_dec.h"
+#include "nkr/interface/template_i_dec.h"
 
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
     inline constexpr cpp::bool_t
-        template_traits_i<template_p>::Is_Implemented()
+        template_i<template_p>::Is_Implemented()
     {
-        static_assert(false, "you need to implement a template_traits_i for this template");
+        static_assert(false, "you need to implement or include a template_i for this template");
     }
 
 }}

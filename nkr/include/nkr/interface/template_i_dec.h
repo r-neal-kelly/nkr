@@ -10,7 +10,7 @@
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-    class template_traits_i
+    class template_i
     {
     public:
         template <typename of_p>

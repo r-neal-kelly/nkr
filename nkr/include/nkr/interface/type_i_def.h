@@ -7,24 +7,16 @@
 #include "nkr/cpp_def.h"
 #include "nkr/intrinsics_def.h"
 
-#include "nkr/interface/template_traits_i_def.h"
-#include "nkr/interface/type_traits_i_def.h"
-
 #include "nkr/interface/type_i_dec.h"
 
 namespace nkr { namespace interface {
 
+    template <typename type_p>
     template <typename other_p>
     inline constexpr cpp::bool_t
-        type_traits_i<type_tg>::Is_Any()
+        type_i<type_p>::Is_Any()
     {
-        return type_i<other_p>;
-    }
-
-    inline constexpr cpp::bool_t
-        template_traits_i<type_ttg>::Is_Implemented()
-    {
-        return true;
+        static_assert(false, "you need to implement or include a type_i for this type");
     }
 
 }}

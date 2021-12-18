@@ -6,13 +6,16 @@
 
 #include "nkr/cpp_def.h"
 #include "nkr/intrinsics_def.h"
-#include "nkr/traits_new_def.h"
+#include "nkr/tr_def.h"
 
 #include "nkr/boolean/deleted_operators_t_def.h"
 
-#include "nkr/interface/boolean_i_def.h"
-#include "nkr/interface/template_traits_i_def.h"
-#include "nkr/interface/type_traits_i_def.h"
+#include "nkr/interface/template_i_def.h"
+#include "nkr/interface/type_i_def.h"
+
+#include "nkr/trait/boolean_tr_def.h"
+#include "nkr/trait/boolean/any_tr_def.h"
+#include "nkr/trait/boolean/pure_tr_def.h"
 
 #include "nkr/boolean/fast_t_dec.h"
 
@@ -20,7 +23,7 @@ namespace nkr { namespace interface {
 
     template <typename other_p>
     inline constexpr cpp::bool_t
-        type_traits_i<boolean::fast_tg>::Is_Any()
+        type_i<boolean::fast_tg>::Is_Any()
     {
         return boolean::fast_tr<other_p>;
     }
@@ -239,14 +242,19 @@ namespace nkr { namespace boolean {
 
     static_assert(sizeof(fast_t) == sizeof(fast_t::value_t));
 
-    static_assert(interface::boolean_i<fast_t>);
-    static_assert(interface::boolean_i<const fast_t>);
-    static_assert(interface::boolean_i<volatile fast_t>);
-    static_assert(interface::boolean_i<const volatile fast_t>);
+    static_assert(trait::boolean_tr<fast_t>);
+    static_assert(trait::boolean_tr<const fast_t>);
+    static_assert(trait::boolean_tr<volatile fast_t>);
+    static_assert(trait::boolean_tr<const volatile fast_t>);
 
-    static_assert(interface::pure_boolean_i<fast_t>);
-    static_assert(interface::pure_boolean_i<const fast_t>);
-    static_assert(interface::pure_boolean_i<volatile fast_t>);
-    static_assert(interface::pure_boolean_i<const volatile fast_t>);
+    static_assert(trait::boolean::any_tr<fast_t>);
+    static_assert(trait::boolean::any_tr<const fast_t>);
+    static_assert(trait::boolean::any_tr<volatile fast_t>);
+    static_assert(trait::boolean::any_tr<const volatile fast_t>);
+
+    static_assert(trait::boolean::pure_tr<fast_t>);
+    static_assert(trait::boolean::pure_tr<const fast_t>);
+    static_assert(trait::boolean::pure_tr<volatile fast_t>);
+    static_assert(trait::boolean::pure_tr<const volatile fast_t>);
 
 }}

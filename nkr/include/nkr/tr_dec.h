@@ -7,8 +7,8 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/intrinsics_dec.h"
 
-#include "nkr/interface/template_traits_i_dec.h"
-#include "nkr/interface/type_traits_i_dec.h"
+#include "nkr/interface/template_i_dec.h"
+#include "nkr/interface/type_i_dec.h"
 
 namespace nkr {
 
@@ -101,22 +101,22 @@ namespace nkr {
 namespace nkr { namespace $tr {
 
     template <typename type_p>
-    class type_traits_i :
-        public interface::type_traits_i<cpp::just_non_qualified_t<type_p>>
+    class type_i :
+        public interface::type_i<cpp::just_non_qualified_t<type_p>>
     {
     public:
     };
 
     template <cpp::array_tr type_p>
-    class type_traits_i<type_p> :
-        public interface::type_traits_i<type_p>
+    class type_i<type_p> :
+        public interface::type_i<type_p>
     {
     public:
     };
 
     template <template <typename ...> typename template_p>
-    class template_traits_i :
-        public interface::template_traits_i<template_p>
+    class template_i :
+        public interface::template_i<template_p>
     {
     public:
     };
@@ -186,7 +186,7 @@ namespace nkr { namespace $tr {
         using subject_t = subject_p;
         using object_t = operand_p;
 
-        if constexpr (type_traits_i<object_t>::template Is_Any<cpp::just_non_qualified_t<subject_t>>()) {
+        if constexpr (type_i<object_t>::template Is_Any<cpp::just_non_qualified_t<subject_t>>()) {
             if constexpr (cpp::is_tr<operator_p, just_tg>) {
                 return cpp::is_tr<object_t, cpp::same_qualification_as_t<object_t, subject_p>>;
             } else if constexpr (cpp::is_tr<operator_p, just_not_tg>) {
@@ -206,11 +206,11 @@ namespace nkr { namespace $tr {
     > constexpr cpp::bool_t
         TR2()
     {
-        static_assert(template_traits_i<operand_p>::Is_Implemented());
+        static_assert(template_i<operand_p>::Is_Implemented());
 
         using subject_t = subject_p;
-        using of_subject_t = accessed_or_not_t<typename type_traits_i<subject_t>::of_t, subject_t, of_operator_p::is_accessed>;
-        using object_t = template_traits_i<operand_p>::template type_t<of_operand_p>;
+        using of_subject_t = accessed_or_not_t<typename type_i<subject_t>::of_t, subject_t, of_operator_p::is_accessed>;
+        using object_t = template_i<operand_p>::template type_t<of_operand_p>;
         using of_object_t = of_operand_p;
 
         if constexpr (operator_p::is_not) {
@@ -232,12 +232,12 @@ namespace nkr { namespace $tr {
     > constexpr cpp::bool_t
         TR3()
     {
-        static_assert(template_traits_i<of_operand_p>::Is_Implemented());
+        static_assert(template_i<of_operand_p>::Is_Implemented());
 
         using subject_t = subject_p;
-        using of_subject_t = accessed_or_not_t<typename type_traits_i<subject_t>::of_t, subject_t, of_of_operator_p::is_accessed>;
-        using of_of_subject_t = accessed_or_not_t<typename type_traits_i<of_subject_t>::of_t, of_subject_t, of_of_operator_p::is_accessed>;
-        using of_object_t = template_traits_i<of_operand_p>::template type_t<of_of_operand_p>;
+        using of_subject_t = accessed_or_not_t<typename type_i<subject_t>::of_t, subject_t, of_of_operator_p::is_accessed>;
+        using of_of_subject_t = accessed_or_not_t<typename type_i<of_subject_t>::of_t, of_subject_t, of_of_operator_p::is_accessed>;
+        using of_object_t = template_i<of_operand_p>::template type_t<of_of_operand_p>;
         using of_of_object_t = of_of_operand_p;
 
         if constexpr (operator_p::is_not) {

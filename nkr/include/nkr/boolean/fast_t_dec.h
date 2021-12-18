@@ -6,17 +6,20 @@
 
 #include "nkr/cpp_dec.h"
 #include "nkr/intrinsics_dec.h"
-#include "nkr/traits_new_dec.h"
+#include "nkr/tr_dec.h"
 
 #include "nkr/boolean/deleted_operators_t_dec.h"
 
-#include "nkr/interface/boolean_i_dec.h"
-#include "nkr/interface/template_traits_i_dec.h"
-#include "nkr/interface/type_traits_i_dec.h"
+#include "nkr/interface/template_i_dec.h"
+#include "nkr/interface/type_i_dec.h"
+
+#include "nkr/trait/boolean_tr_dec.h"
+#include "nkr/trait/boolean/any_tr_dec.h"
+#include "nkr/trait/boolean/pure_tr_dec.h"
 
 namespace nkr { namespace boolean {
 
-    class fast_t;
+    class   fast_t;
 
     struct  fast_tg {};
 
@@ -29,7 +32,7 @@ namespace nkr { namespace boolean {
 namespace nkr { namespace interface {
 
     template <>
-    class type_traits_i<boolean::fast_tg>
+    class type_i<boolean::fast_tg>
     {
     public:
         using of_t  = cpp::void_t;
@@ -40,8 +43,8 @@ namespace nkr { namespace interface {
     };
 
     template <boolean::fast_tr type_p>
-    class type_traits_i<type_p> :
-        public type_traits_i<boolean::fast_tg>
+    class type_i<type_p> :
+        public type_i<boolean::fast_tg>
     {
     public:
     };

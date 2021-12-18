@@ -7,25 +7,27 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/intrinsics_dec.h"
 
-#include "nkr/interface/template_traits_i_dec.h"
+#include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
-#include "nkr/interface/type_traits_i_dec.h"
 
-namespace nkr { namespace interface {
+#include "nkr/trait/boolean/impure_tr_dec.h"
+
+namespace nkr { namespace trait { namespace boolean {
+
+    struct                      pure_tg     {};
+    template <typename> struct  pure_ttg    {};
 
     template <typename type_p>
-    concept non_type_i =
-        !type_i<type_p>;
+    concept pure_tr =
+        any_tr<type_p> &&
+        !impure_tr<type_p>;
 
-}}
+}}}
 
 namespace nkr { namespace interface {
 
-    struct                      non_type_tg     {};
-    template <typename> struct  non_type_ttg    {};
-
     template <>
-    class type_traits_i<non_type_tg>
+    class type_i<trait::boolean::pure_tg>
     {
     public:
         using of_t  = cpp::void_t;
@@ -36,11 +38,11 @@ namespace nkr { namespace interface {
     };
 
     template <>
-    class template_traits_i<non_type_ttg>
+    class template_i<trait::boolean::pure_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = non_type_tg;
+        using type_t    = trait::boolean::pure_tg;
 
     public:
         static constexpr cpp::bool_t    Is_Implemented();
