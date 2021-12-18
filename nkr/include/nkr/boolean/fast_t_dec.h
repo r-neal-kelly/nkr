@@ -8,9 +8,9 @@
 #include "nkr/intrinsics_dec.h"
 #include "nkr/tr_dec.h"
 
+#include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
 
-#include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
 #include "nkr/trait/boolean_tr_dec.h"
@@ -53,6 +53,8 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace boolean {
 
+    // we should take this opportunity to make the type completely constexpr so that we can use it for the many constexpr funcs we have.
+
     /// @nosubgrouping
     /// @copydoc _2add9928_e370_4943_ba5b_2950d9e1da99
     class fast_t :
@@ -62,7 +64,7 @@ namespace nkr { namespace boolean {
         using value_t   = cpp::word_t;
 
     public:
-        static constexpr cpp::bool_t    Is_Boolean_Type();
+        static constexpr boolean::cpp_t Is_Boolean_Type();
 
     protected:
         /// @name object data
@@ -77,10 +79,7 @@ namespace nkr { namespace boolean {
         /// @{
         fast_t();                                                                                       ///< @copydoc _507e6865_70dc_4e5b_97ab_c0d33e53dc67
 
-        // this is obviously temporary until we update our traits syntax to be able to test for conversion.
-        template <typename type_p>
-            requires std::convertible_to<type_p, value_t>
-        fast_t(type_p value);                                                                           ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
+        fast_t(const tr1<any_to_tg, boolean::cpp_t> auto& value);                                       ///< @copydoc _2381ceb1_96d5_433e_a68e_898e08e5ef7f
 
         fast_t(const fast_t& other);                                                                    ///< @copydoc _c692880f_ea8a_47c2_b8c8_98a00607b79b
         fast_t(const volatile fast_t& other);                                                           ///< @copydoc _c2c40c6d_4153_4079_8231_a8f818fc4999
@@ -103,8 +102,8 @@ namespace nkr { namespace boolean {
         /// @name casts
         /// @copydoc _6a6f9172_06fd_4b0f_b1ee_1817e0c013a9
         /// @{
-        explicit operator   cpp::bool_t() const;                        ///< @copydoc _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
-        explicit operator   cpp::bool_t() const volatile;               ///< @copydoc _676141d7_bb06_45a8_8b65_0f5ae7bee673
+        explicit operator   boolean::cpp_t() const;                     ///< @copydoc _27d5dbc6_c0b3_47f7_94c9_fda617dd82c8
+        explicit operator   boolean::cpp_t() const volatile;            ///< @copydoc _676141d7_bb06_45a8_8b65_0f5ae7bee673
 
         explicit operator   value_t&();                                 ///< @copydoc _4d0e7d29_353a_459f_89af_e11de2f19eea
         explicit operator   const value_t&() const;                     ///< @copydoc _9f6d257a_fc13_4dda_ad1b_7b268caf6dff

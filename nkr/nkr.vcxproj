@@ -185,6 +185,10 @@
     <ClInclude Include="include\nkr\array_i_dox.h" />
     <ClInclude Include="include\nkr\atomic_t.h" />
     <ClInclude Include="include\nkr\atomic_t_dec.h" />
+    <ClInclude Include="include\nkr\boolean\cpp_t.h" />
+    <ClInclude Include="include\nkr\boolean\cpp_t_dec.h" />
+    <ClInclude Include="include\nkr\boolean\cpp_t_def.h" />
+    <ClInclude Include="include\nkr\boolean\cpp_t_dox.h" />
     <ClInclude Include="include\nkr\boolean\deleted_operators_t.h" />
     <ClInclude Include="include\nkr\boolean\deleted_operators_t_dec.h" />
     <ClInclude Include="include\nkr\boolean\deleted_operators_t_def.h" />

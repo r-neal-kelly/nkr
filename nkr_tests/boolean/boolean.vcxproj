@@ -24,7 +24,7 @@
     <ProjectGuid>{b3ae8afa-5f9d-48de-aab9-71c39ff77fc6}</ProjectGuid>
     <RootNamespace>bool_t</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>nkr_test_bool_t</ProjectName>
+    <ProjectName>nkr_test_boolean</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\bool_t.cpp" />
+    <ClCompile Include="src\cpp_t.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">

@@ -8,9 +8,9 @@
 #include "nkr/intrinsics_def.h"
 #include "nkr/tr_def.h"
 
+#include "nkr/boolean/cpp_t_def.h"
 #include "nkr/boolean/deleted_operators_t_def.h"
 
-#include "nkr/interface/template_i_def.h"
 #include "nkr/interface/type_i_def.h"
 
 #include "nkr/trait/boolean_tr_def.h"
@@ -32,7 +32,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace boolean {
 
-    inline constexpr cpp::bool_t
+    inline constexpr boolean::cpp_t
         fast_t::Is_Boolean_Type()
     {
         return true;
@@ -43,10 +43,8 @@ namespace nkr { namespace boolean {
     {
     }
 
-    template <typename type_p>
-        requires std::convertible_to<type_p, fast_t::value_t>
-    inline fast_t::fast_t(type_p value) :
-        value(static_cast<value_t>(static_cast<c_bool_t>(value)))
+    inline fast_t::fast_t(const tr1<any_to_tg, boolean::cpp_t> auto& value) :
+        value(static_cast<value_t>(static_cast<boolean::cpp_t>(value)))
     {
     }
 
@@ -153,16 +151,16 @@ namespace nkr { namespace boolean {
         this->value = static_cast<value_t>(false);
     }
 
-    inline fast_t::operator cpp::bool_t()
+    inline fast_t::operator boolean::cpp_t()
         const
     {
-        return static_cast<cpp::bool_t>(this->value);
+        return static_cast<boolean::cpp_t>(this->value);
     }
 
-    inline fast_t::operator cpp::bool_t()
+    inline fast_t::operator boolean::cpp_t()
         const volatile
     {
-        return static_cast<cpp::bool_t>(this->value);
+        return static_cast<boolean::cpp_t>(this->value);
     }
 
     inline fast_t::operator value_t&()

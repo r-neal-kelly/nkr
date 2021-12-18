@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr", "nkr\nkr.vcxproj", "{260DD159-A788-4BBB-9690-628AA81AAA9C}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_allocator", "nkr_tests\allocator\allocator.vcxproj", "{3F9C5C4A-F435-474A-86E0-E4ED124643C1}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_atomic_t", "nkr_tests\atomic_t\atomic_t.vcxproj", "{75BE08F0-0FE6-46D1-B906-817D43D2EA69}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_bool_t", "nkr_tests\bool_t\bool_t.vcxproj", "{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_os", "nkr_tests\os\os.vcxproj", "{0307C110-E23D-4778-B682-785687144AC0}"
 EndProject
@@ -42,6 +40,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_tree", "nkr_tests\tree\tree.vcxproj", "{FF9FB635-086A-4A2B-ABE8-784E92868919}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_optional", "nkr_tests\optional\optional.vcxproj", "{CC663AF1-0B5B-4303-9590-60E84BBDC74B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_boolean", "nkr_tests\boolean\boolean.vcxproj", "{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,14 +83,6 @@ Global
 		{75BE08F0-0FE6-46D1-B906-817D43D2EA69}.Release|x64.Build.0 = Release|x64
 		{75BE08F0-0FE6-46D1-B906-817D43D2EA69}.Release|x86.ActiveCfg = Release|Win32
 		{75BE08F0-0FE6-46D1-B906-817D43D2EA69}.Release|x86.Build.0 = Release|Win32
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x64.ActiveCfg = Debug|x64
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x64.Build.0 = Debug|x64
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x86.ActiveCfg = Debug|Win32
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x86.Build.0 = Debug|Win32
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x64.ActiveCfg = Release|x64
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x64.Build.0 = Release|x64
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x86.ActiveCfg = Release|Win32
-		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x86.Build.0 = Release|Win32
 		{0307C110-E23D-4778-B682-785687144AC0}.Debug|x64.ActiveCfg = Debug|x64
 		{0307C110-E23D-4778-B682-785687144AC0}.Debug|x64.Build.0 = Debug|x64
 		{0307C110-E23D-4778-B682-785687144AC0}.Debug|x86.ActiveCfg = Debug|Win32
@@ -211,6 +203,14 @@ Global
 		{CC663AF1-0B5B-4303-9590-60E84BBDC74B}.Release|x64.Build.0 = Release|x64
 		{CC663AF1-0B5B-4303-9590-60E84BBDC74B}.Release|x86.ActiveCfg = Release|Win32
 		{CC663AF1-0B5B-4303-9590-60E84BBDC74B}.Release|x86.Build.0 = Release|Win32
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x64.ActiveCfg = Debug|x64
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x64.Build.0 = Debug|x64
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x86.ActiveCfg = Debug|Win32
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Debug|x86.Build.0 = Debug|Win32
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x64.ActiveCfg = Release|x64
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x64.Build.0 = Release|x64
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x86.ActiveCfg = Release|Win32
+		{B3AE8AFA-5F9D-48DE-AAB9-71C39FF77FC6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

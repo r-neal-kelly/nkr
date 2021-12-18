@@ -10,10 +10,6 @@
 // ideas:
 // we should basically make types for each c_type, and group everything into folders.
 // instead of $type_t::any_tr, just use type_tr instead, e.g. $optional_t::any_tr becomes optional_tr.
-// so for our c_bool_t, we would have c_bool_tr and trait::type_i<c_bool_tg>, etc. c_bool_t and bool_t go into the boolean folder,
-// which satisfies the boolean_i which for such a simple type is the same as boolean_tr, but compare that to our array_i, which...
-// actually, boolean_i and boolean_tr are essentially the same thing at that point. but optional_t and optional_tr are simply not,
-// and optional_tr is certainly not an interface. so we should ditch the _tr for interfaces in many of these abstract non-concrete types.
 
 namespace nkr {
 

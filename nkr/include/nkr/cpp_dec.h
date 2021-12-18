@@ -303,38 +303,38 @@ namespace nkr { namespace cpp {
 namespace nkr { namespace cpp {
 
     template <typename child_p, typename parent_p>
-    class accessed_qualification_of_tmpl;
+    class access_qualification_of_tmpl;
 
     template <typename child_p, just_non_qualified_tr parent_p>
-    class accessed_qualification_of_tmpl<child_p, parent_p>
+    class access_qualification_of_tmpl<child_p, parent_p>
     {
     public:
         using type_t    = child_p;
     };
 
     template <typename child_p, just_const_tr parent_p>
-    class accessed_qualification_of_tmpl<child_p, parent_p>
+    class access_qualification_of_tmpl<child_p, parent_p>
     {
     public:
         using type_t    = any_const_t<child_p>;
     };
 
     template <typename child_p, just_volatile_tr parent_p>
-    class accessed_qualification_of_tmpl<child_p, parent_p>
+    class access_qualification_of_tmpl<child_p, parent_p>
     {
     public:
         using type_t    = any_volatile_t<child_p>;
     };
 
     template <typename child_p, just_const_volatile_tr parent_p>
-    class accessed_qualification_of_tmpl<child_p, parent_p>
+    class access_qualification_of_tmpl<child_p, parent_p>
     {
     public:
         using type_t    = any_const_volatile_t<child_p>;
     };
 
     template <typename child_p, typename parent_p>
-    using accessed_qualification_of_t   = accessed_qualification_of_tmpl<child_p, parent_p>::type_t;
+    using access_qualification_of_t = access_qualification_of_tmpl<child_p, parent_p>::type_t;
 
 }}
 

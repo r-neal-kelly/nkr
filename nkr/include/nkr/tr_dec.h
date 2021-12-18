@@ -10,91 +10,107 @@
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
+namespace nkr { namespace $tr {
+
+    enum : cpp::word_t
+    {
+        NONE        = 0,
+        TO          = 1,
+        ACCESS      = 2,
+        ACCESS_TO   = 3,
+    };
+
+}}
+
 namespace nkr {
 
-    struct any_tg                                   { static const cpp::bool_t is_not = false; };
-    struct any_qualified_tg                         { static const cpp::bool_t is_not = false; };
-    struct any_non_qualified_tg                     { static const cpp::bool_t is_not = false; };
-    struct any_const_tg                             { static const cpp::bool_t is_not = false; };
-    struct any_non_const_tg                         { static const cpp::bool_t is_not = false; };
-    struct any_volatile_tg                          { static const cpp::bool_t is_not = false; };
-    struct any_non_volatile_tg                      { static const cpp::bool_t is_not = false; };
+    struct any_tg                               { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct any_qualified_tg                     { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct any_non_qualified_tg                 { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct any_const_tg                         { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct any_non_const_tg                     { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct any_volatile_tg                      { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct any_non_volatile_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
 
-    struct not_any_tg                               { static const cpp::bool_t is_not = true; using is_tg = any_tg; };
-    struct not_any_qualified_tg                     { static const cpp::bool_t is_not = true; using is_tg = any_qualified_tg; };
-    struct not_any_non_qualified_tg                 { static const cpp::bool_t is_not = true; using is_tg = any_non_qualified_tg; };
-    struct not_any_const_tg                         { static const cpp::bool_t is_not = true; using is_tg = any_const_tg; };
-    struct not_any_non_const_tg                     { static const cpp::bool_t is_not = true; using is_tg = any_non_const_tg; };
-    struct not_any_volatile_tg                      { static const cpp::bool_t is_not = true; using is_tg = any_volatile_tg; };
-    struct not_any_non_volatile_tg                  { static const cpp::bool_t is_not = true; using is_tg = any_non_volatile_tg; };
+    struct not_any_tg                           { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_tg; };
+    struct not_any_qualified_tg                 { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_qualified_tg; };
+    struct not_any_non_qualified_tg             { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_non_qualified_tg; };
+    struct not_any_const_tg                     { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_const_tg; };
+    struct not_any_non_const_tg                 { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_non_const_tg; };
+    struct not_any_volatile_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_volatile_tg; };
+    struct not_any_non_volatile_tg              { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = any_non_volatile_tg; };
 
-    struct just_tg                                  { static const cpp::bool_t is_not = false; };
-    struct just_non_qualified_tg                    { static const cpp::bool_t is_not = false; };
-    struct just_const_tg                            { static const cpp::bool_t is_not = false; };
-    struct just_volatile_tg                         { static const cpp::bool_t is_not = false; };
-    struct just_const_volatile_tg                   { static const cpp::bool_t is_not = false; };
+    struct just_tg                              { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct just_non_qualified_tg                { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct just_const_tg                        { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct just_volatile_tg                     { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
+    struct just_const_volatile_tg               { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = false; };
 
-    struct just_not_tg                              { static const cpp::bool_t is_not = true; using is_tg = just_tg; };
-    struct just_not_non_qualified_tg                { static const cpp::bool_t is_not = true; using is_tg = just_non_qualified_tg; };
-    struct just_not_const_tg                        { static const cpp::bool_t is_not = true; using is_tg = just_const_tg; };
-    struct just_not_volatile_tg                     { static const cpp::bool_t is_not = true; using is_tg = just_volatile_tg; };
-    struct just_not_const_volatile_tg               { static const cpp::bool_t is_not = true; using is_tg = just_const_volatile_tg; };
+    struct just_not_tg                          { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = just_tg; };
+    struct just_not_non_qualified_tg            { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = just_non_qualified_tg; };
+    struct just_not_const_tg                    { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = just_const_tg; };
+    struct just_not_volatile_tg                 { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = just_volatile_tg; };
+    struct just_not_const_volatile_tg           { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = just_const_volatile_tg; };
 
-    struct of_any_tg                                { static const cpp::bool_t is_accessed = false; using related_tg = any_tg; };
-    struct of_any_qualified_tg                      { static const cpp::bool_t is_accessed = false; using related_tg = any_qualified_tg; };
-    struct of_any_non_qualified_tg                  { static const cpp::bool_t is_accessed = false; using related_tg = any_non_qualified_tg; };
-    struct of_any_const_tg                          { static const cpp::bool_t is_accessed = false; using related_tg = any_const_tg; };
-    struct of_any_non_const_tg                      { static const cpp::bool_t is_accessed = false; using related_tg = any_non_const_tg; };
-    struct of_any_volatile_tg                       { static const cpp::bool_t is_accessed = false; using related_tg = any_volatile_tg; };
-    struct of_any_non_volatile_tg                   { static const cpp::bool_t is_accessed = false; using related_tg = any_non_volatile_tg; };
+    struct any_to_tg                            { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_tg; };
 
-    struct of_not_any_tg                            { static const cpp::bool_t is_accessed = false; using related_tg = not_any_tg; };
-    struct of_not_any_qualified_tg                  { static const cpp::bool_t is_accessed = false; using related_tg = not_any_qualified_tg; };
-    struct of_not_any_non_qualified_tg              { static const cpp::bool_t is_accessed = false; using related_tg = not_any_non_qualified_tg; };
-    struct of_not_any_const_tg                      { static const cpp::bool_t is_accessed = false; using related_tg = not_any_const_tg; };
-    struct of_not_any_non_const_tg                  { static const cpp::bool_t is_accessed = false; using related_tg = not_any_non_const_tg; };
-    struct of_not_any_volatile_tg                   { static const cpp::bool_t is_accessed = false; using related_tg = not_any_volatile_tg; };
-    struct of_not_any_non_volatile_tg               { static const cpp::bool_t is_accessed = false; using related_tg = not_any_non_volatile_tg; };
+    struct not_any_to_tg                        { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_tg; };
 
-    struct of_just_tg                               { static const cpp::bool_t is_accessed = false; using related_tg = just_tg; };
-    struct of_just_non_qualified_tg                 { static const cpp::bool_t is_accessed = false; using related_tg = just_non_qualified_tg; };
-    struct of_just_const_tg                         { static const cpp::bool_t is_accessed = false; using related_tg = just_const_tg; };
-    struct of_just_volatile_tg                      { static const cpp::bool_t is_accessed = false; using related_tg = just_volatile_tg; };
-    struct of_just_const_volatile_tg                { static const cpp::bool_t is_accessed = false; using related_tg = just_const_volatile_tg; };
+    struct of_any_tg                            { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_tg; };
+    struct of_any_qualified_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_qualified_tg; };
+    struct of_any_non_qualified_tg              { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_non_qualified_tg; };
+    struct of_any_const_tg                      { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_const_tg; };
+    struct of_any_non_const_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_non_const_tg; };
+    struct of_any_volatile_tg                   { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_volatile_tg; };
+    struct of_any_non_volatile_tg               { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_non_volatile_tg; };
 
-    struct of_just_not_tg                           { static const cpp::bool_t is_accessed = false; using related_tg = just_not_tg; };
-    struct of_just_not_non_qualified_tg             { static const cpp::bool_t is_accessed = false; using related_tg = just_not_non_qualified_tg; };
-    struct of_just_not_const_tg                     { static const cpp::bool_t is_accessed = false; using related_tg = just_not_const_tg; };
-    struct of_just_not_volatile_tg                  { static const cpp::bool_t is_accessed = false; using related_tg = just_not_volatile_tg; };
-    struct of_just_not_const_volatile_tg            { static const cpp::bool_t is_accessed = false; using related_tg = just_not_const_volatile_tg; };
+    struct of_not_any_tg                        { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_tg; };
+    struct of_not_any_qualified_tg              { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_qualified_tg; };
+    struct of_not_any_non_qualified_tg          { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_non_qualified_tg; };
+    struct of_not_any_const_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_const_tg; };
+    struct of_not_any_non_const_tg              { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_non_const_tg; };
+    struct of_not_any_volatile_tg               { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_volatile_tg; };
+    struct of_not_any_non_volatile_tg           { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = not_any_non_volatile_tg; };
 
-    struct of_any_accessed_tg                       { static const cpp::bool_t is_accessed = true; using related_tg = any_tg; };
-    struct of_any_accessed_qualified_tg             { static const cpp::bool_t is_accessed = true; using related_tg = any_qualified_tg; };
-    struct of_any_accessed_non_qualified_tg         { static const cpp::bool_t is_accessed = true; using related_tg = any_non_qualified_tg; };
-    struct of_any_accessed_const_tg                 { static const cpp::bool_t is_accessed = true; using related_tg = any_const_tg; };
-    struct of_any_accessed_non_const_tg             { static const cpp::bool_t is_accessed = true; using related_tg = any_non_const_tg; };
-    struct of_any_accessed_volatile_tg              { static const cpp::bool_t is_accessed = true; using related_tg = any_volatile_tg; };
-    struct of_any_accessed_non_volatile_tg          { static const cpp::bool_t is_accessed = true; using related_tg = any_non_volatile_tg; };
+    struct of_just_tg                           { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_tg; };
+    struct of_just_non_qualified_tg             { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_non_qualified_tg; };
+    struct of_just_const_tg                     { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_const_tg; };
+    struct of_just_volatile_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_volatile_tg; };
+    struct of_just_const_volatile_tg            { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_const_volatile_tg; };
 
-    struct of_not_any_accessed_tg                   { static const cpp::bool_t is_accessed = true; using related_tg = not_any_tg; };
-    struct of_not_any_accessed_qualified_tg         { static const cpp::bool_t is_accessed = true; using related_tg = not_any_qualified_tg; };
-    struct of_not_any_accessed_non_qualified_tg     { static const cpp::bool_t is_accessed = true; using related_tg = not_any_non_qualified_tg; };
-    struct of_not_any_accessed_const_tg             { static const cpp::bool_t is_accessed = true; using related_tg = not_any_const_tg; };
-    struct of_not_any_accessed_non_const_tg         { static const cpp::bool_t is_accessed = true; using related_tg = not_any_non_const_tg; };
-    struct of_not_any_accessed_volatile_tg          { static const cpp::bool_t is_accessed = true; using related_tg = not_any_volatile_tg; };
-    struct of_not_any_accessed_non_volatile_tg      { static const cpp::bool_t is_accessed = true; using related_tg = not_any_non_volatile_tg; };
+    struct of_just_not_tg                       { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_not_tg; };
+    struct of_just_not_non_qualified_tg         { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_not_non_qualified_tg; };
+    struct of_just_not_const_tg                 { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_not_const_tg; };
+    struct of_just_not_volatile_tg              { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_not_volatile_tg; };
+    struct of_just_not_const_volatile_tg        { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = just_not_const_volatile_tg; };
 
-    struct of_just_accessed_tg                      { static const cpp::bool_t is_accessed = true; using related_tg = just_tg; };
-    struct of_just_accessed_non_qualified_tg        { static const cpp::bool_t is_accessed = true; using related_tg = just_non_qualified_tg; };
-    struct of_just_accessed_const_tg                { static const cpp::bool_t is_accessed = true; using related_tg = just_const_tg; };
-    struct of_just_accessed_volatile_tg             { static const cpp::bool_t is_accessed = true; using related_tg = just_volatile_tg; };
-    struct of_just_accessed_const_volatile_tg       { static const cpp::bool_t is_accessed = true; using related_tg = just_const_volatile_tg; };
+    struct of_any_access_tg                     { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_tg; };
+    struct of_any_access_qualified_tg           { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_qualified_tg; };
+    struct of_any_access_non_qualified_tg       { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_non_qualified_tg; };
+    struct of_any_access_const_tg               { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_const_tg; };
+    struct of_any_access_non_const_tg           { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_non_const_tg; };
+    struct of_any_access_volatile_tg            { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_volatile_tg; };
+    struct of_any_access_non_volatile_tg        { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = any_non_volatile_tg; };
 
-    struct of_just_not_accessed_tg                  { static const cpp::bool_t is_accessed = true; using related_tg = just_not_tg; };
-    struct of_just_not_accessed_non_qualified_tg    { static const cpp::bool_t is_accessed = true; using related_tg = just_not_non_qualified_tg; };
-    struct of_just_not_accessed_const_tg            { static const cpp::bool_t is_accessed = true; using related_tg = just_not_const_tg; };
-    struct of_just_not_accessed_volatile_tg         { static const cpp::bool_t is_accessed = true; using related_tg = just_not_volatile_tg; };
-    struct of_just_not_accessed_const_volatile_tg   { static const cpp::bool_t is_accessed = true; using related_tg = just_not_const_volatile_tg; };
+    struct of_not_any_access_tg                 { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_tg; };
+    struct of_not_any_access_qualified_tg       { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_qualified_tg; };
+    struct of_not_any_access_non_qualified_tg   { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_non_qualified_tg; };
+    struct of_not_any_access_const_tg           { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_const_tg; };
+    struct of_not_any_access_non_const_tg       { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_non_const_tg; };
+    struct of_not_any_access_volatile_tg        { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_volatile_tg; };
+    struct of_not_any_access_non_volatile_tg    { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = not_any_non_volatile_tg; };
+
+    struct of_just_access_tg                    { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_tg; };
+    struct of_just_access_non_qualified_tg      { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_non_qualified_tg; };
+    struct of_just_access_const_tg              { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_const_tg; };
+    struct of_just_access_volatile_tg           { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_volatile_tg; };
+    struct of_just_access_const_volatile_tg     { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_const_volatile_tg; };
+
+    struct of_just_not_access_tg                { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_not_tg; };
+    struct of_just_not_access_non_qualified_tg  { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_not_non_qualified_tg; };
+    struct of_just_not_access_const_tg          { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_not_const_tg; };
+    struct of_just_not_access_volatile_tg       { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_not_volatile_tg; };
+    struct of_just_not_access_const_volatile_tg { static constexpr cpp::word_t TYPE = $tr::ACCESS; using related_tg = just_not_const_volatile_tg; };
 
 }
 
@@ -122,21 +138,21 @@ namespace nkr { namespace $tr {
     };
 
     template <typename child_p, typename parent_p, cpp::bool_t do_access_p>
-    class accessed_or_not_tmpl
+    class access_or_not_tmpl
     {
     public:
         using type_t    = child_p;
     };
 
     template <typename child_p, typename parent_p>
-    class accessed_or_not_tmpl<child_p, parent_p, true>
+    class access_or_not_tmpl<child_p, parent_p, true>
     {
     public:
-        using type_t    = cpp::accessed_qualification_of_t<child_p, parent_p>;
+        using type_t    = cpp::access_qualification_of_t<child_p, parent_p>;
     };
 
     template <typename child_p, typename parent_p, cpp::bool_t do_access_p>
-    using accessed_or_not_t = accessed_or_not_tmpl<child_p, parent_p, do_access_p>::type_t;
+    using access_or_not_t   = access_or_not_tmpl<child_p, parent_p, do_access_p>::type_t;
 
     template <
         typename subject_p,
@@ -174,7 +190,7 @@ namespace nkr { namespace $tr {
         else if constexpr (cpp::is_tr<operator_p, just_not_volatile_tg>)        return !cpp::just_volatile_tr<subject_t>;
         else if constexpr (cpp::is_tr<operator_p, just_not_const_volatile_tg>)  return !cpp::just_const_volatile_tr<subject_t>;
 
-        else                                                                    static_assert(false, "undefined operator");
+        else                                                                    static_assert(false, "undefined or invalid operator");
     }
 
     template <
@@ -186,16 +202,24 @@ namespace nkr { namespace $tr {
         using subject_t = subject_p;
         using object_t = operand_p;
 
-        if constexpr (type_i<object_t>::template Is_Any<cpp::just_non_qualified_t<subject_t>>()) {
-            if constexpr (cpp::is_tr<operator_p, just_tg>) {
-                return cpp::is_tr<object_t, cpp::same_qualification_as_t<object_t, subject_p>>;
-            } else if constexpr (cpp::is_tr<operator_p, just_not_tg>) {
-                return !cpp::is_tr<object_t, cpp::same_qualification_as_t<object_t, subject_p>>;
+        if constexpr (operator_p::TYPE == TO) {
+            if constexpr (operator_p::normal_tg::IS_NOT) {
+                return !TR0<subject_t, typename operator_p::normal_tg>() && !std::is_convertible_v<subject_t, object_t>;
             } else {
-                return TR0<subject_t, operator_p>();
+                return TR0<subject_t, typename operator_p::normal_tg>() && std::is_convertible_v<subject_t, object_t>;
             }
         } else {
-            return operator_p::is_not;
+            if constexpr (type_i<object_t>::template Is_Any<cpp::just_non_qualified_t<subject_t>>()) {
+                if constexpr (cpp::is_tr<operator_p, just_tg>) {
+                    return cpp::is_tr<object_t, cpp::same_qualification_as_t<object_t, subject_p>>;
+                } else if constexpr (cpp::is_tr<operator_p, just_not_tg>) {
+                    return !cpp::is_tr<object_t, cpp::same_qualification_as_t<object_t, subject_p>>;
+                } else {
+                    return TR0<subject_t, operator_p>();
+                }
+            } else {
+                return operator_p::IS_NOT;
+            }
         }
     }
 
@@ -209,11 +233,11 @@ namespace nkr { namespace $tr {
         static_assert(template_i<operand_p>::Is_Implemented());
 
         using subject_t = subject_p;
-        using of_subject_t = accessed_or_not_t<typename type_i<subject_t>::of_t, subject_t, of_operator_p::is_accessed>;
+        using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, of_operator_p::TYPE == ACCESS>;
         using object_t = template_i<operand_p>::template type_t<of_operand_p>;
         using of_object_t = of_operand_p;
 
-        if constexpr (operator_p::is_not) {
+        if constexpr (operator_p::IS_NOT) {
             return
                 !(TR1<subject_t, typename operator_p::is_tg, object_t>() &&
                   TR1<of_subject_t, typename of_operator_p::related_tg, of_object_t>());
@@ -235,12 +259,12 @@ namespace nkr { namespace $tr {
         static_assert(template_i<of_operand_p>::Is_Implemented());
 
         using subject_t = subject_p;
-        using of_subject_t = accessed_or_not_t<typename type_i<subject_t>::of_t, subject_t, of_of_operator_p::is_accessed>;
-        using of_of_subject_t = accessed_or_not_t<typename type_i<of_subject_t>::of_t, of_subject_t, of_of_operator_p::is_accessed>;
+        using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, of_of_operator_p::TYPE == ACCESS>;
+        using of_of_subject_t = access_or_not_t<typename type_i<of_subject_t>::of_t, of_subject_t, of_of_operator_p::TYPE == ACCESS>;
         using of_object_t = template_i<of_operand_p>::template type_t<of_of_operand_p>;
         using of_of_object_t = of_of_operand_p;
 
-        if constexpr (operator_p::is_not) {
+        if constexpr (operator_p::IS_NOT) {
             return
                 !(TR2<subject_t, typename operator_p::is_tg, operand_p, of_operator_p, of_object_t>() &&
                   TR1<of_of_subject_t, typename of_of_operator_p::related_tg, of_of_object_t>());
