@@ -241,6 +241,14 @@
     <ClInclude Include="include\nkr\hasher\fnv1a_t_dox.h" />
     <ClInclude Include="include\nkr\hasher_i.h" />
     <ClInclude Include="include\nkr\hasher_i_dox.h" />
+    <ClInclude Include="include\nkr\number\signed\cpp_t.h" />
+    <ClInclude Include="include\nkr\number\signed\cpp_t_dec.h" />
+    <ClInclude Include="include\nkr\number\signed\cpp_t_def.h" />
+    <ClInclude Include="include\nkr\number\signed\cpp_t_dox.h" />
+    <ClInclude Include="include\nkr\number\unsigned\cpp_t.h" />
+    <ClInclude Include="include\nkr\number\unsigned\cpp_t_dec.h" />
+    <ClInclude Include="include\nkr\number\unsigned\cpp_t_def.h" />
+    <ClInclude Include="include\nkr\number\unsigned\cpp_t_dox.h" />
     <ClInclude Include="include\nkr\trait\boolean\any_tr.h" />
     <ClInclude Include="include\nkr\trait\boolean\any_tr_dec.h" />
     <ClInclude Include="include\nkr\trait\boolean\any_tr_def.h" />

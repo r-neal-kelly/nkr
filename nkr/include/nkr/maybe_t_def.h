@@ -169,14 +169,14 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
     }
 
     template <typename any_p>
-    inline any_sp<any_p>::operator volatile value_t& ()
+    inline any_sp<any_p>::operator volatile value_t&()
         volatile
     {
         return this->value;
     }
 
     template <typename any_p>
-    inline any_sp<any_p>::operator const volatile value_t& ()
+    inline any_sp<any_p>::operator const volatile value_t&()
         const volatile
     {
         return this->value;

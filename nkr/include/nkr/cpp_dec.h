@@ -388,9 +388,21 @@ namespace nkr { namespace cpp {
 
 namespace nkr { namespace cpp {
 
-    constexpr bool_t    Is_Big_Endian();
-    constexpr bool_t    Is_Little_Endian();
+    constexpr bool_t    Is_Big_Endian() noexcept;
+    constexpr bool_t    Is_Little_Endian() noexcept;
 
-    constexpr count_t   Byte_Bit_Count();
+    constexpr count_t   Byte_Bit_Count() noexcept;
+
+    constexpr auto*     Address(const auto& of) noexcept;
+
+    constexpr auto&&    Move(auto& value) noexcept;
+    constexpr auto&&    Move(const auto& value) noexcept                        = delete;
+    constexpr auto&&    Move(auto&& value) noexcept;
+    constexpr auto&&    Move(const auto&& value) noexcept                       = delete;
+
+    constexpr auto      Exchange(auto& value, const auto& with) noexcept;
+    constexpr auto      Exchange(const auto& value, const auto& with) noexcept  = delete;
+    constexpr auto      Exchange(auto& value, auto&& with) noexcept;
+    constexpr auto      Exchange(const auto& value, auto&& with) noexcept       = delete;
 
 }}

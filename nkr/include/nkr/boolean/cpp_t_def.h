@@ -6,8 +6,12 @@
 
 #include "nkr/cpp_def.h"
 #include "nkr/intrinsics_def.h"
+#include "nkr/tr_def.h"
 
 #include "nkr/interface/type_i_def.h"
+
+#include "nkr/trait/boolean_tr_def.h"
+#include "nkr/trait/boolean/impure_tr_def.h"
 
 #include "nkr/boolean/cpp_t_dec.h"
 
@@ -19,5 +23,201 @@ namespace nkr { namespace interface {
     {
         return boolean::cpp_tr<other_p>;
     }
+
+}}
+
+namespace nkr { namespace boolean {
+
+    inline constexpr cpp_t
+        cpp_t::Is_Boolean_Type()
+    {
+        return true;
+    }
+
+    inline constexpr auto&
+        cpp_t::Assign_Copy(tr1<any_non_const_tg, cpp_t> auto& self, const tr1<any_tg, cpp_t> auto& other)
+    {
+        if (cpp::Address(self) != cpp::Address(other)) {
+            self.value = other.value;
+        }
+
+        return self;
+    }
+
+    inline constexpr auto&
+        cpp_t::Assign_Move(tr1<any_non_const_tg, cpp_t> auto& self, tr1<any_non_const_tg, cpp_t> auto&& other)
+    {
+        if (cpp::Address(self) != cpp::Address(other)) {
+            self.value = cpp::Exchange(other.value, false);
+        }
+
+        return self;
+    }
+
+    inline constexpr auto&
+        cpp_t::Value(tr1<any_tg, cpp_t> auto& self)
+    {
+        return self.value;
+    }
+
+    inline constexpr cpp_t::cpp_t() :
+        value(false)
+    {
+    }
+
+    inline constexpr cpp_t::cpp_t(value_t value) :
+        value(value)
+    {
+    }
+
+    inline constexpr cpp_t::cpp_t(const cpp_t& other) :
+        value(other.value)
+    {
+    }
+
+    inline constexpr cpp_t::cpp_t(const volatile cpp_t& other) :
+        value(other.value)
+    {
+    }
+
+    inline constexpr cpp_t::cpp_t(cpp_t&& other) noexcept :
+        value(cpp::Exchange(other.value, false))
+    {
+    }
+
+    inline constexpr cpp_t::cpp_t(volatile cpp_t&& other) noexcept :
+        value(cpp::Exchange(other.value, false))
+    {
+    }
+
+    inline constexpr cpp_t&
+        cpp_t::operator =(const cpp_t& other)
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline constexpr volatile cpp_t&
+        cpp_t::operator =(const cpp_t& other)
+        volatile
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline constexpr cpp_t&
+        cpp_t::operator =(const volatile cpp_t& other)
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline constexpr volatile cpp_t&
+        cpp_t::operator =(const volatile cpp_t& other)
+        volatile
+    {
+        return Assign_Copy(*this, other);
+    }
+
+    inline constexpr cpp_t&
+        cpp_t::operator =(cpp_t&& other)
+        noexcept
+    {
+        return Assign_Move(*this, cpp::Move(other));
+    }
+
+    inline constexpr volatile cpp_t&
+        cpp_t::operator =(cpp_t&& other)
+        volatile noexcept
+    {
+        return Assign_Move(*this, cpp::Move(other));
+    }
+
+    inline constexpr cpp_t&
+        cpp_t::operator =(tr1<just_volatile_tg, cpp_t> auto&& other)
+        noexcept
+    {
+        return Assign_Move(*this, cpp::Move(other));
+    }
+
+    inline constexpr volatile cpp_t&
+        cpp_t::operator =(tr1<just_volatile_tg, cpp_t> auto&& other)
+        volatile noexcept
+    {
+        return Assign_Move(*this, cpp::Move(other));
+    }
+
+    inline constexpr cpp_t::~cpp_t()
+    {
+        this->value = false;
+    }
+
+    inline constexpr cpp_t::operator cpp_t::value_t&()
+    {
+        return Value(*this);
+    }
+
+    inline constexpr cpp_t::operator const cpp_t::value_t&()
+        const
+    {
+        return Value(*this);
+    }
+
+    inline constexpr cpp_t::operator volatile cpp_t::value_t&()
+        volatile
+    {
+        return Value(*this);
+    }
+
+    inline constexpr cpp_t::operator const volatile cpp_t::value_t&()
+        const volatile
+    {
+        return Value(*this);
+    }
+
+    inline constexpr cpp_t::value_t&
+        cpp_t::operator ()()
+    {
+        return Value(*this);
+    }
+
+    inline constexpr const cpp_t::value_t&
+        cpp_t::operator ()()
+        const
+    {
+        return Value(*this);
+    }
+
+    inline constexpr volatile cpp_t::value_t&
+        cpp_t::operator ()()
+        volatile
+    {
+        return Value(*this);
+    }
+
+    inline constexpr const volatile cpp_t::value_t&
+        cpp_t::operator ()()
+        const volatile
+    {
+        return Value(*this);
+    }
+
+}}
+
+namespace nkr { namespace boolean {
+
+    static_assert(sizeof(cpp_t) == sizeof(cpp_t::value_t));
+
+    static_assert(trait::boolean_tr<cpp_t>);
+    static_assert(trait::boolean_tr<const cpp_t>);
+    static_assert(trait::boolean_tr<volatile cpp_t>);
+    static_assert(trait::boolean_tr<const volatile cpp_t>);
+
+    static_assert(trait::boolean::any_tr<cpp_t>);
+    static_assert(trait::boolean::any_tr<const cpp_t>);
+    static_assert(trait::boolean::any_tr<volatile cpp_t>);
+    static_assert(trait::boolean::any_tr<const volatile cpp_t>);
+
+    static_assert(trait::boolean::impure_tr<cpp_t>);
+    static_assert(trait::boolean::impure_tr<const cpp_t>);
+    static_assert(trait::boolean::impure_tr<volatile cpp_t>);
+    static_assert(trait::boolean::impure_tr<const volatile cpp_t>);
 
 }}
