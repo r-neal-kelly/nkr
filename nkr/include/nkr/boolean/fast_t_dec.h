@@ -113,14 +113,14 @@ namespace nkr { namespace boolean {
 
 namespace nkr {
 
-    /*constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const auto& b) noexcept;
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const auto&& b) noexcept;
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const auto& b) noexcept;
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const auto&& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto&& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto&& b) noexcept;
 
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const auto& b) noexcept;
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const auto&& b) noexcept;
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const auto& b) noexcept;
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const auto&& b) noexcept;*/
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto& b) noexcept;
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto&& b) noexcept;
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto& b) noexcept;
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto&& b) noexcept;
 
 }

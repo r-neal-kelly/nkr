@@ -30,7 +30,9 @@ namespace nkr { namespace trait { namespace boolean { namespace $any_tr {
                                    cpp::just_volatile_t<type_p> volatile_type,
                                    cpp::just_const_volatile_t<type_p> const_volatile_type)
     {
-        { type == true };
+        true;
+
+        /*{ type == true };
         { const_type == true };
         { volatile_type == true };
         { const_volatile_type == true };
@@ -38,7 +40,7 @@ namespace nkr { namespace trait { namespace boolean { namespace $any_tr {
         { type != true };
         { const_type != true };
         { volatile_type != true };
-        { const_volatile_type != true };
+        { const_volatile_type != true };*/
     };
 
 }}}}
@@ -52,7 +54,7 @@ namespace nkr { namespace trait { namespace boolean {
     concept any_tr =
         cpp::is_any_tr<type_p, cpp::bool_t> ||
         ($any_tr::static_constexpr_methods_i<type_p> &&
-         //$any_tr::operators_i<type_p> &&
+         $any_tr::operators_i<type_p> &&
          type_p::Is_Boolean_Type() == true);
 
 }}}

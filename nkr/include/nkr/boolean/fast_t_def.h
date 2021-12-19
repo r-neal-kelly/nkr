@@ -167,6 +167,73 @@ namespace nkr { namespace boolean {
 
 }}
 
+namespace nkr {
+
+    constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        using a_t = cpp::reference_value_t<decltype(a)>;
+        using b_t = cpp::reference_value_t<decltype(b)>;
+
+        if constexpr (cpp::can_be_equal_to_tr<boolean::cpp_t::value_t, b_t>) {
+            return boolean::cpp_t::value_t(a) == b;
+        } else {
+            static_assert(false, "these two values can not be equal to each other.");
+        }
+    }
+
+    constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+}
+
 namespace nkr { namespace boolean {
 
     static_assert(sizeof(fast_t) == sizeof(fast_t::value_t));

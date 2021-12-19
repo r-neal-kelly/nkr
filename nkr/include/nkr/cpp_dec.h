@@ -112,6 +112,9 @@ namespace nkr { namespace cpp {
     template <array_tr type_p>
     using array_unit_t      = array_tmpl<type_p>::unit_t;
 
+    template <reference_tr type_p>
+    using reference_value_t = std::remove_reference_t<type_p>;
+
 }}
 
 namespace nkr { namespace cpp {
@@ -123,6 +126,19 @@ namespace nkr { namespace cpp {
     template <typename from_p, typename to_p>
     concept to_tr =
         std::is_convertible<from_p, to_p>::value;
+
+}}
+
+namespace nkr { namespace cpp {
+
+    template <typename type_a_p, typename type_b_p>
+    concept can_be_equal_to_tr =
+        requires(type_a_p type_a, type_b_p type_b)
+    {
+        type_a == type_b;
+    };
+
+    // etc.
 
 }}
 

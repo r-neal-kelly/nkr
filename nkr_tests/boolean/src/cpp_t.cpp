@@ -60,10 +60,19 @@ namespace nkr { namespace boolean {
 
     static_assert(trait::boolean_tr<cpp_t>);
 
+    static_assert(trait::boolean::$any_tr::operators_i<boolean::fast_t>);
+
     TEST_CASE("temp")
     {
         CHECK(boolean::cpp_t(true) == true);
+        //CHECK(boolean::cpp_t(boolean::fast_t(true)) == true);
         CHECK(boolean::fast_t(true));
+
+        //CHECK(boolean::fast_t(true) == true);
+        if (boolean::fast_t(true) == true) {
+            CHECK(true);
+        }
+
         //CHECK(boolean::fast_t(true) == true);
         //CHECK(boolean::cpp_t(true) == boolean::fast_t(true));
     }
