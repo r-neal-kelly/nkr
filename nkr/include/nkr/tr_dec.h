@@ -53,8 +53,32 @@ namespace nkr {
     struct just_not_const_volatile_tg           { static constexpr cpp::word_t TYPE = $tr::NONE; static constexpr cpp::bool_t IS_NOT = true; using is_tg = just_const_volatile_tg; };
 
     struct any_to_tg                            { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_tg; };
+    struct any_qualified_to_tg                  { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_qualified_tg; };
+    struct any_non_qualified_to_tg              { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_non_qualified_tg; };
+    struct any_const_to_tg                      { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_const_tg; };
+    struct any_non_const_to_tg                  { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_non_const_tg; };
+    struct any_volatile_to_tg                   { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_volatile_tg; };
+    struct any_non_volatile_to_tg               { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = any_non_volatile_tg; };
 
     struct not_any_to_tg                        { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_tg; };
+    struct not_any_qualified_to_tg              { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_qualified_tg; };
+    struct not_any_non_qualified_to_tg          { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_non_qualified_tg; };
+    struct not_any_const_to_tg                  { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_const_tg; };
+    struct not_any_non_const_to_tg              { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_non_const_tg; };
+    struct not_any_volatile_to_tg               { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_volatile_tg; };
+    struct not_any_non_volatile_to_tg           { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = not_any_non_volatile_tg; };
+
+    struct just_to_tg                           { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_tg; };
+    struct just_non_qualified_to_tg             { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_non_qualified_tg; };
+    struct just_const_to_tg                     { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_const_tg; };
+    struct just_volatile_to_tg                  { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_volatile_tg; };
+    struct just_const_volatile_to_tg            { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_const_volatile_tg; };
+
+    struct just_not_to_tg                       { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_not_tg; };
+    struct just_not_non_qualified_to_tg         { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_not_non_qualified_tg; };
+    struct just_not_const_to_tg                 { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_not_const_tg; };
+    struct just_not_volatile_to_tg              { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_not_volatile_tg; };
+    struct just_not_const_volatile_to_tg        { static constexpr cpp::word_t TYPE = $tr::TO; using normal_tg = just_not_const_volatile_tg; };
 
     struct of_any_tg                            { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_tg; };
     struct of_any_qualified_tg                  { static constexpr cpp::word_t TYPE = $tr::NONE; using related_tg = any_qualified_tg; };
@@ -204,7 +228,7 @@ namespace nkr { namespace $tr {
 
         if constexpr (operator_p::TYPE == TO) {
             if constexpr (operator_p::normal_tg::IS_NOT) {
-                return !TR0<subject_t, typename operator_p::normal_tg>() && !std::is_convertible_v<subject_t, object_t>;
+                return !(TR0<subject_t, typename operator_p::normal_tg::is_tg>() && std::is_convertible_v<subject_t, object_t>);
             } else {
                 return TR0<subject_t, typename operator_p::normal_tg>() && std::is_convertible_v<subject_t, object_t>;
             }
