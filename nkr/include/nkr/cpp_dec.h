@@ -119,6 +119,18 @@ namespace nkr { namespace cpp {
 
 namespace nkr { namespace cpp {
 
+    template <typename type_a_p, typename type_b_p>
+    concept is_tr =
+        std::same_as<type_a_p, type_b_p>;
+
+    template <typename from_p, typename to_p>
+    concept to_tr =
+        std::is_convertible<from_p, to_p>::value;
+
+}}
+
+namespace nkr { namespace cpp {
+
     template <typename type_p>
     concept any_tr =
         true;
@@ -176,10 +188,6 @@ namespace nkr { namespace cpp {
         !reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cv_t<type_p>> ||
         lvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&> ||
         rvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&&>;
-
-    template <typename type_a_p, typename type_b_p>
-    concept is_tr =
-        std::same_as<type_a_p, type_b_p>;
 
     template <typename type_a_p, typename type_b_p>
     concept is_any_tr =

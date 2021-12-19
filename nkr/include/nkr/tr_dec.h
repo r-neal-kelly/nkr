@@ -228,9 +228,9 @@ namespace nkr { namespace $tr {
 
         if constexpr (operator_p::TYPE == TO) {
             if constexpr (operator_p::normal_tg::IS_NOT) {
-                return !(TR0<subject_t, typename operator_p::normal_tg::is_tg>() && std::is_convertible_v<subject_t, object_t>);
+                return !(TR0<subject_t, typename operator_p::normal_tg::is_tg>() && cpp::to_tr<subject_t, object_t>);
             } else {
-                return TR0<subject_t, typename operator_p::normal_tg>() && std::is_convertible_v<subject_t, object_t>;
+                return TR0<subject_t, typename operator_p::normal_tg>() && cpp::to_tr<subject_t, object_t>;
             }
         } else {
             if constexpr (type_i<object_t>::template Is_Any<cpp::just_non_qualified_t<subject_t>>()) {

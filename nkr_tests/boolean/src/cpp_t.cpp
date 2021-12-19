@@ -43,13 +43,13 @@ namespace nkr { namespace boolean {
             return b;
         }
     };
-    static_assert(std::is_convertible_v<test_1_t, boolean::cpp_t>);
+    static_assert(cpp::to_tr<test_1_t, boolean::cpp_t>);
 
     struct test_2_t
     {
         boolean::cpp_t b = true;
     };
-    static_assert(!std::is_convertible_v<test_2_t, boolean::cpp_t>);
+    static_assert(!cpp::to_tr<test_2_t, boolean::cpp_t>);
 
     TEST_CASE("temp")
     {
