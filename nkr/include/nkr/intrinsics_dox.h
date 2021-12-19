@@ -143,32 +143,6 @@
         */
 
     /**
-    * @defgroup _17e74a8d_e977_4d08_a090_f4bb1bcf7673 characters
-    * @ingroup intrinsics
-    *
-    * @brief
-    *   Convenient character types, which are essentially integers.
-    */
-
-        // c8_t
-        /**
-        * @class _a878a755_773f_49d9_93c2_6567797188f1
-        * @private
-        */
-
-        // c16_t
-        /**
-        * @class _22b18aae_67b8_49e5_855c_eb4117780773
-        * @private
-        */
-
-        // c32_t
-        /**
-        * @class _70d1ce0d_2bb5_4a6e_ba42_c6c5fdfa5cb7
-        * @private
-        */
-
-    /**
     * @defgroup _d3bf5147_2b5f_4bd4_bf99_76cf5b9932af reals
     * @ingroup intrinsics
     *

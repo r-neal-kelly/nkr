@@ -22,7 +22,7 @@ namespace nkr { namespace charcoder {
         /// @name aliases
         /// @copydoc 
         /// @{
-        using unit_t    = c8_t;
+        using unit_t    = u8_t;
         using units_t   = array::stack_t<unit_t, 4>;
         /// @}
 

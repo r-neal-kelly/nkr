@@ -97,12 +97,12 @@ namespace nkr { namespace charcoder {
         {
             TEST_SUITE("unit_t")
             {
-                TEST_CASE_TEMPLATE("should have a unit type of c16_t", utf_p, nkr_ALL)
+                TEST_CASE_TEMPLATE("should have a unit type of u16_t", utf_p, nkr_ALL)
                 {
                     using unit_t = utf_p::unit_t;
                     using units_t = utf_p::units_t;
 
-                    static_assert(is_tr<unit_t, c16_t>);
+                    static_assert(is_tr<unit_t, u16_t>);
                 }
             }
 

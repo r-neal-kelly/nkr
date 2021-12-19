@@ -22,9 +22,6 @@ namespace nkr {
         QUALIFIER_p s32_t,                      \
         QUALIFIER_p u64_t,                      \
         QUALIFIER_p s64_t,                      \
-        QUALIFIER_p c8_t,                       \
-        QUALIFIER_p c16_t,                      \
-        QUALIFIER_p c32_t,                      \
         QUALIFIER_p r32_t,                      \
         QUALIFIER_p r64_t,                      \
         void_t* QUALIFIER_p,                    \
@@ -64,9 +61,6 @@ namespace nkr {
         nkr_ALL_PARAMS(QUALIFIER_p, s32_t),     \
         nkr_ALL_PARAMS(QUALIFIER_p, u64_t),     \
         nkr_ALL_PARAMS(QUALIFIER_p, s64_t),     \
-        nkr_ALL_PARAMS(QUALIFIER_p, c8_t),      \
-        nkr_ALL_PARAMS(QUALIFIER_p, c16_t),     \
-        nkr_ALL_PARAMS(QUALIFIER_p, c32_t),     \
         nkr_ALL_PARAMS(QUALIFIER_p, r32_t),     \
         nkr_ALL_PARAMS(QUALIFIER_p, r64_t),     \
         nkr_ALL_PARAMS(QUALIFIER_p, void_t*),   \

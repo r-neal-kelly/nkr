@@ -24,8 +24,8 @@ namespace nkr {
     constexpr auto      Exchange(any_type_tr auto& value, any_type_tr auto& with) noexcept;
     constexpr auto      Exchange(any_type_tr auto& value, any_non_const_tr auto&& with) noexcept;
 
-    count_t C_String_Unit_Count(const any_character_tr auto* c_string);
-    count_t C_String_Unit_Length(const any_character_tr auto* c_string);
+    count_t C_String_Unit_Count(const any_integer_tr auto* c_string);
+    count_t C_String_Unit_Length(const any_integer_tr auto* c_string);
 
     extern std::random_device   random_device;
     extern std::mt19937_64      random_generator;

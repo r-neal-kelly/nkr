@@ -14,17 +14,13 @@ namespace nkr {
     {
     #if defined(nkr_IS_64_BIT)
 
-    #define _                                                   \
-        u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, u64_t, s64_t,   \
-        c8_t, c16_t, c32_t,                                     \
-        word_t
+    #define _                                                           \
+        u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, u64_t, s64_t, word_t
 
     #elif defined(nkr_IS_32_BIT)
 
-    #define _                                   \
-        u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, \
-        c8_t, c16_t, c32_t,                     \
-        word_t
+    #define _                                           \
+        u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, word_t
 
     #endif
 

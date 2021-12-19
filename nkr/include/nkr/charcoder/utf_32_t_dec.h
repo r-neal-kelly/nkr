@@ -24,7 +24,7 @@ namespace nkr { namespace charcoder {
         /// @name aliases
         /// @copydoc 
         /// @{
-        using unit_t    = c32_t;
+        using unit_t    = u32_t;
         /// @}
 
     public:

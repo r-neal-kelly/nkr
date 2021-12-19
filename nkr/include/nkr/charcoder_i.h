@@ -42,8 +42,7 @@ namespace nkr { namespace $charcoder_i {
 
     template <typename type_p>
     concept unit_i =
-        any_integer_tr<typename type_p::unit_t> ||
-        any_character_tr<typename type_p::unit_t>;
+        any_integer_tr<typename type_p::unit_t>;
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires()

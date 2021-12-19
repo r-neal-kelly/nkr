@@ -16,10 +16,8 @@ namespace nkr {
 
         TEST_SUITE("Random<integer_p>")
         {
-        #define _                                                   \
-            u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, u64_t, s64_t,   \
-            c8_t, c16_t, c32_t,                                     \
-            word_t
+        #define _                                                           \
+            u8_t, s8_t, u16_t, s16_t, u32_t, s32_t, u64_t, s64_t, word_t
 
             TEST_CASE_TEMPLATE("should return different numbers", integer_p, _)
             {

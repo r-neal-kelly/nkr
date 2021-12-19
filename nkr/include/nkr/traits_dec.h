@@ -173,6 +173,7 @@ namespace nkr {
 
     template <typename type_p>
     concept any_signed_integer_tr =
+        is_any_tr<type_p, char> ||
         is_any_tr<type_p, s8_t> ||
         is_any_tr<type_p, s16_t> ||
         is_any_tr<type_p, s32_t> ||
@@ -182,17 +183,6 @@ namespace nkr {
     concept any_integer_tr =
         any_unsigned_integer_tr<type_p> ||
         any_signed_integer_tr<type_p>;
-    /// @}
-
-    /// @{
-    template <typename type_p>
-    concept any_character_tr =
-        is_any_tr<type_p, char> ||
-        is_any_tr<type_p, c8_t> ||
-        is_any_tr<type_p, c16_t> ||
-        is_any_tr<type_p, c32_t>;
-
-    nkr_DEFINE_NOT_TRAIT_WITH_1_PARAM(any_character_tr, type_p);
     /// @}
 
     /// @{

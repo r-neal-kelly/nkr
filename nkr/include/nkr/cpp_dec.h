@@ -8,6 +8,7 @@
 #include <cassert>
 #include <cerrno>
 #include <climits>
+#include <cmath>
 #include <concepts>
 #include <cstdint>
 #include <limits>
@@ -31,10 +32,6 @@ namespace nkr { namespace cpp {
     using s16_t             = std::int16_t;
     using s32_t             = std::int32_t;
     using s64_t             = std::int64_t;
-
-    using c8_t              = char8_t;
-    using c16_t             = char16_t;
-    using c32_t             = char32_t;
 
     using r32_t             = float;
     using r64_t             = double;

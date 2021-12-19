@@ -81,7 +81,7 @@ namespace nkr {
     }
 
     inline count_t
-        C_String_Unit_Count(const any_character_tr auto* c_string)
+        C_String_Unit_Count(const any_integer_tr auto* c_string)
     {
         nkr_ASSERT_THAT(c_string != nullptr);
 
@@ -95,7 +95,7 @@ namespace nkr {
     }
 
     inline count_t
-        C_String_Unit_Length(const any_character_tr auto* c_string)
+        C_String_Unit_Length(const any_integer_tr auto* c_string)
     {
         nkr_ASSERT_THAT(c_string != nullptr);
 
