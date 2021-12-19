@@ -30,12 +30,14 @@ namespace nkr { namespace boolean {
 
     inline constexpr cpp_t
         cpp_t::Is_Boolean_Type()
+        noexcept
     {
         return true;
     }
 
     inline constexpr auto&
         cpp_t::Assign_Copy(tr1<any_non_const_tg, cpp_t> auto& self, const tr1<any_tg, cpp_t> auto& other)
+        noexcept
     {
         if (cpp::Address(self) != cpp::Address(other)) {
             self.value = other.value;
@@ -46,6 +48,7 @@ namespace nkr { namespace boolean {
 
     inline constexpr auto&
         cpp_t::Assign_Move(tr1<any_non_const_tg, cpp_t> auto& self, tr1<any_non_const_tg, cpp_t> auto&& other)
+        noexcept
     {
         if (cpp::Address(self) != cpp::Address(other)) {
             self.value = cpp::Exchange(other.value, false);
@@ -56,26 +59,27 @@ namespace nkr { namespace boolean {
 
     inline constexpr auto&
         cpp_t::Value(tr1<any_tg, cpp_t> auto& self)
+        noexcept
     {
         return self.value;
     }
 
-    inline constexpr cpp_t::cpp_t() :
+    inline constexpr cpp_t::cpp_t() noexcept :
         value(false)
     {
     }
 
-    inline constexpr cpp_t::cpp_t(value_t value) :
+    inline constexpr cpp_t::cpp_t(value_t value) noexcept :
         value(value)
     {
     }
 
-    inline constexpr cpp_t::cpp_t(const cpp_t& other) :
+    inline constexpr cpp_t::cpp_t(const cpp_t& other) noexcept :
         value(other.value)
     {
     }
 
-    inline constexpr cpp_t::cpp_t(const volatile cpp_t& other) :
+    inline constexpr cpp_t::cpp_t(const volatile cpp_t& other) noexcept :
         value(other.value)
     {
     }
@@ -92,26 +96,28 @@ namespace nkr { namespace boolean {
 
     inline constexpr cpp_t&
         cpp_t::operator =(const cpp_t& other)
+        noexcept
     {
         return Assign_Copy(*this, other);
     }
 
     inline constexpr volatile cpp_t&
         cpp_t::operator =(const cpp_t& other)
-        volatile
+        volatile noexcept
     {
         return Assign_Copy(*this, other);
     }
 
     inline constexpr cpp_t&
         cpp_t::operator =(const volatile cpp_t& other)
+        noexcept
     {
         return Assign_Copy(*this, other);
     }
 
     inline constexpr volatile cpp_t&
         cpp_t::operator =(const volatile cpp_t& other)
-        volatile
+        volatile noexcept
     {
         return Assign_Copy(*this, other);
     }
@@ -144,57 +150,59 @@ namespace nkr { namespace boolean {
         return Assign_Move(*this, cpp::Move(other));
     }
 
-    inline constexpr cpp_t::~cpp_t()
+    inline constexpr cpp_t::~cpp_t() noexcept
     {
         this->value = false;
     }
 
     inline constexpr cpp_t::operator cpp_t::value_t&()
+        noexcept
     {
         return Value(*this);
     }
 
     inline constexpr cpp_t::operator const cpp_t::value_t&()
-        const
+        const noexcept
     {
         return Value(*this);
     }
 
     inline constexpr cpp_t::operator volatile cpp_t::value_t&()
-        volatile
+        volatile noexcept
     {
         return Value(*this);
     }
 
     inline constexpr cpp_t::operator const volatile cpp_t::value_t&()
-        const volatile
+        const volatile noexcept
     {
         return Value(*this);
     }
 
     inline constexpr cpp_t::value_t&
         cpp_t::operator ()()
+        noexcept
     {
         return Value(*this);
     }
 
     inline constexpr const cpp_t::value_t&
         cpp_t::operator ()()
-        const
+        const noexcept
     {
         return Value(*this);
     }
 
     inline constexpr volatile cpp_t::value_t&
         cpp_t::operator ()()
-        volatile
+        volatile noexcept
     {
         return Value(*this);
     }
 
     inline constexpr const volatile cpp_t::value_t&
         cpp_t::operator ()()
-        const volatile
+        const volatile noexcept
     {
         return Value(*this);
     }
