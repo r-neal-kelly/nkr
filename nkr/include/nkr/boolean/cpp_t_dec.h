@@ -11,6 +11,7 @@
 #include "nkr/interface/type_i_dec.h"
 
 #include "nkr/trait/boolean_tr_dec.h"
+#include "nkr/trait/boolean/any_tr_dec.h"
 #include "nkr/trait/boolean/impure_tr_dec.h"
 
 namespace nkr { namespace boolean {
@@ -35,7 +36,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename other_p>
-        static constexpr cpp::bool_t    Is_Any();
+        static constexpr cpp::bool_t    Is_Any() noexcept;
     };
 
     template <boolean::cpp_tr type_p>
@@ -101,3 +102,23 @@ namespace nkr { namespace boolean {
     };
 
 }}
+
+namespace nkr { namespace boolean {
+
+    class   fast_t;
+
+}}
+
+namespace nkr {
+
+    /*constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto& a, const auto& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto& a, const auto&& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto&& a, const auto& b) noexcept;
+    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto&& a, const auto&& b) noexcept;
+
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto& a, const auto& b) noexcept;
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto& a, const auto&& b) noexcept;
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto&& a, const auto& b) noexcept;
+    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto&& a, const auto&& b) noexcept;*/
+
+}

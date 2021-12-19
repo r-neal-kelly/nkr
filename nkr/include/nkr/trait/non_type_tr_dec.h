@@ -33,7 +33,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename other_p>
-        static constexpr cpp::bool_t    Is_Any();
+        static constexpr cpp::bool_t    Is_Any() noexcept;
     };
 
     template <>
@@ -44,7 +44,7 @@ namespace nkr { namespace interface {
         using type_t    = trait::non_type_tg;
 
     public:
-        static constexpr cpp::bool_t    Is_Implemented();
+        static constexpr cpp::bool_t    Is_Implemented() noexcept;
     };
 
 }}

@@ -5,6 +5,7 @@
 #include "nkr/tr.h"
 
 #include "nkr/boolean/cpp_t.h"
+#include "nkr/boolean/fast_t.h"
 
 #include "nkr/trait/boolean_tr.h"
 #include "nkr/trait/boolean/impure_tr.h"
@@ -55,6 +56,16 @@ namespace nkr { namespace boolean {
     {
         CHECK(Test_2(test_1_t()));
         CHECK(Test_3(test_2_t()));
+    }
+
+    static_assert(trait::boolean_tr<cpp_t>);
+
+    TEST_CASE("temp")
+    {
+        CHECK(boolean::cpp_t(true) == true);
+        CHECK(boolean::fast_t(true));
+        //CHECK(boolean::fast_t(true) == true);
+        //CHECK(boolean::cpp_t(true) == boolean::fast_t(true));
     }
 
 }}

@@ -17,7 +17,7 @@ namespace nkr { namespace interface {
         using type_t    = cpp::void_t;
 
     public:
-        static constexpr cpp::bool_t    Is_Implemented();
+        static constexpr cpp::bool_t    Is_Implemented() noexcept;
     };
 
 }}

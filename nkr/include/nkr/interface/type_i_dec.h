@@ -17,7 +17,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename other_p>
-        static constexpr cpp::bool_t    Is_Any();
+        static constexpr cpp::bool_t    Is_Any() noexcept;
     };
 
 }}

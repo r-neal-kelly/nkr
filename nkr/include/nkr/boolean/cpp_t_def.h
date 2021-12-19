@@ -11,6 +11,7 @@
 #include "nkr/interface/type_i_def.h"
 
 #include "nkr/trait/boolean_tr_def.h"
+#include "nkr/trait/boolean/any_tr_def.h"
 #include "nkr/trait/boolean/impure_tr_def.h"
 
 #include "nkr/boolean/cpp_t_dec.h"
@@ -20,6 +21,7 @@ namespace nkr { namespace interface {
     template <typename other_p>
     inline constexpr cpp::bool_t
         type_i<boolean::cpp_tg>::Is_Any()
+        noexcept
     {
         return boolean::cpp_tr<other_p>;
     }

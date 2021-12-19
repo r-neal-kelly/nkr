@@ -15,6 +15,7 @@ namespace nkr { namespace interface {
     template <typename other_p>
     inline constexpr cpp::bool_t
         type_i<type_p>::Is_Any()
+        noexcept
     {
         static_assert(false, "you need to implement or include a type_i for this type");
     }

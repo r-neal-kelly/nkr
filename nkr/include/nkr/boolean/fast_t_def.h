@@ -24,6 +24,7 @@ namespace nkr { namespace interface {
     template <typename other_p>
     inline constexpr cpp::bool_t
         type_i<boolean::fast_tg>::Is_Any()
+        noexcept
     {
         return boolean::fast_tr<other_p>;
     }
@@ -34,204 +35,134 @@ namespace nkr { namespace boolean {
 
     inline constexpr boolean::cpp_t
         fast_t::Is_Boolean_Type()
+        noexcept
     {
         return true;
     }
 
-    inline fast_t::fast_t() :
-        value(static_cast<value_t>(false))
+    inline constexpr auto&
+        fast_t::Assign_Copy(tr1<any_non_const_tg, fast_t> auto& self, const tr1<any_tg, fast_t> auto& other)
+        noexcept
+    {
+        if (cpp::Address(self) != cpp::Address(other)) {
+            self.value = other.value;
+        }
+
+        return self;
+    }
+
+    inline constexpr auto&
+        fast_t::Assign_Move(tr1<any_non_const_tg, fast_t> auto& self, tr1<any_non_const_tg, fast_t> auto&& other)
+        noexcept
+    {
+        if (cpp::Address(self) != cpp::Address(other)) {
+            self.value = cpp::Move(other.value);
+        }
+
+        return self;
+    }
+
+    inline constexpr fast_t::fast_t() noexcept :
+        value(value_t(false))
     {
     }
 
-    inline fast_t::fast_t(const tr1<any_to_tg, boolean::cpp_t> auto& value) :
-        value(static_cast<value_t>(static_cast<boolean::cpp_t>(value)))
+    inline constexpr fast_t::fast_t(const tr1<any_to_tg, boolean::cpp_t> auto& value) noexcept :
+        value(value_t(boolean::cpp_t(value)))
     {
     }
 
-    inline fast_t::fast_t(const fast_t& other) :
+    inline constexpr fast_t::fast_t(const fast_t& other) noexcept :
         value(other.value)
     {
     }
 
-    inline fast_t::fast_t(const volatile fast_t& other) :
+    inline constexpr fast_t::fast_t(const volatile fast_t& other) noexcept :
         value(other.value)
     {
     }
 
-    inline fast_t::fast_t(fast_t&& other) noexcept :
-        value(nkr::Move(other.value))
+    inline constexpr fast_t::fast_t(fast_t&& other) noexcept :
+        value(cpp::Move(other.value))
     {
     }
 
-    inline fast_t::fast_t(volatile fast_t&& other) noexcept :
-        value(nkr::Move(other.value))
+    inline constexpr fast_t::fast_t(volatile fast_t&& other) noexcept :
+        value(cpp::Move(other.value))
     {
     }
 
-    inline fast_t&
+    inline constexpr fast_t&
         fast_t::operator =(const fast_t& other)
+        noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = other.value;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
-    inline volatile fast_t&
+    inline constexpr volatile fast_t&
         fast_t::operator =(const fast_t& other)
-        volatile
+        volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = other.value;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
-    inline fast_t&
+    inline constexpr fast_t&
         fast_t::operator =(const volatile fast_t& other)
+        noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = other.value;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
-    inline volatile fast_t&
+    inline constexpr volatile fast_t&
         fast_t::operator =(const volatile fast_t& other)
-        volatile
+        volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = other.value;
-        }
-        return *this;
+        return Assign_Copy(*this, other);
     }
 
-    inline fast_t&
+    inline constexpr fast_t&
         fast_t::operator =(fast_t&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = nkr::Move(other.value);
-        }
-        return *this;
+        return Assign_Move(*this, cpp::Move(other));
     }
 
-    inline volatile fast_t&
+    inline constexpr volatile fast_t&
         fast_t::operator =(fast_t&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = nkr::Move(other.value);
-        }
-        return *this;
+        return Assign_Move(*this, cpp::Move(other));
     }
 
-    inline fast_t&
+    inline constexpr fast_t&
         fast_t::operator =(tr1<just_volatile_tg, fast_t> auto&& other)
         noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = nkr::Move(other.value);
-        }
-        return *this;
+        return Assign_Move(*this, cpp::Move(other));
     }
 
-    inline volatile fast_t&
+    inline constexpr volatile fast_t&
         fast_t::operator =(tr1<just_volatile_tg, fast_t> auto&& other)
         volatile noexcept
     {
-        if (this != std::addressof(other)) {
-            this->value = nkr::Move(other.value);
-        }
-        return *this;
+        return Assign_Move(*this, cpp::Move(other));
     }
 
-    inline fast_t::~fast_t()
+    inline constexpr fast_t::~fast_t() noexcept
     {
-        this->value = static_cast<value_t>(false);
+        this->value = value_t(false);
     }
 
-    inline fast_t::operator boolean::cpp_t()
-        const
+    inline constexpr fast_t::operator boolean::cpp_t::value_t()
+        const noexcept
     {
-        return static_cast<boolean::cpp_t>(this->value);
+        return boolean::cpp_t(this->value);
     }
 
-    inline fast_t::operator boolean::cpp_t()
-        const volatile
+    inline constexpr fast_t::operator boolean::cpp_t::value_t()
+        const volatile noexcept
     {
-        return static_cast<boolean::cpp_t>(this->value);
-    }
-
-    inline fast_t::operator value_t&()
-    {
-        return this->value;
-    }
-
-    inline fast_t::operator const value_t&()
-        const
-    {
-        return this->value;
-    }
-
-    inline fast_t::operator volatile value_t&()
-        volatile
-    {
-        return this->value;
-    }
-
-    inline fast_t::operator const volatile value_t&()
-        const volatile
-    {
-        return this->value;
-    }
-
-    inline fast_t::fast_t(none_t) :
-        value(static_cast<value_t>(false))
-    {
-    }
-
-    inline fast_t&
-        fast_t::operator =(none_t)
-    {
-        this->value = static_cast<value_t>(false);
-        return *this;
-    }
-
-    inline volatile fast_t&
-        fast_t::operator =(none_t)
-        volatile
-    {
-        this->value = static_cast<value_t>(false);
-        return *this;
-    }
-
-    inline fast_t
-        fast_t::operator ==(none_t)
-        const
-    {
-        return !static_cast<boolean::cpp_t>(this->value);
-    }
-
-    inline fast_t
-        fast_t::operator ==(none_t)
-        const volatile
-    {
-        return !static_cast<boolean::cpp_t>(this->value);
-    }
-
-    inline fast_t
-        fast_t::operator !=(none_t)
-        const
-    {
-        return !operator ==(none_t());
-    }
-
-    inline fast_t
-        fast_t::operator !=(none_t)
-        const volatile
-    {
-        return !operator ==(none_t());
+        return boolean::cpp_t(this->value);
     }
 
 }}
