@@ -71,8 +71,13 @@ namespace nkr { namespace boolean {
     {
     }
 
-    inline constexpr cpp_t::cpp_t(value_t value) noexcept :
-        value(value)
+    inline constexpr cpp_t::cpp_t(const cpp::to_tr<value_t> auto& value) noexcept :
+        value(value_t(value))
+    {
+    }
+
+    inline constexpr cpp_t::cpp_t(const cpp::to_tr<value_t> auto&& value) noexcept :
+        value(value_t(value))
     {
     }
 
@@ -210,6 +215,77 @@ namespace nkr { namespace boolean {
     }
 
 }}
+
+#include "nkr/boolean/fast_t_def.h"
+
+namespace nkr {
+
+    inline constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        using a_t = cpp::reference_value_t<decltype(a)>;
+        using b_t = cpp::reference_value_t<decltype(b)>;
+
+        if constexpr (cpp::can_be_equal_to_tr<boolean::cpp_t::value_t, b_t>) {
+            return boolean::cpp_t::value_t(a) == b;
+        } else if constexpr (cpp::to_tr<b_t, boolean::cpp_t>) {
+            return boolean::cpp_t::value_t(a) == boolean::cpp_t::value_t(boolean::cpp_t(b));
+        } else {
+            static_assert(false, "these two values can not be equal to each other.");
+        }
+    }
+
+    inline constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr boolean::fast_t
+        operator ==(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr boolean::fast_t
+        operator !=(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+}
 
 namespace nkr { namespace boolean {
 

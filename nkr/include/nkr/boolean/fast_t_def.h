@@ -169,7 +169,7 @@ namespace nkr { namespace boolean {
 
 namespace nkr {
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto& b)
         noexcept
     {
@@ -178,54 +178,56 @@ namespace nkr {
 
         if constexpr (cpp::can_be_equal_to_tr<boolean::cpp_t::value_t, b_t>) {
             return boolean::cpp_t::value_t(a) == b;
+        } else if constexpr (cpp::to_tr<b_t, boolean::fast_t>) {
+            return boolean::cpp_t::value_t(a) == boolean::cpp_t::value_t(boolean::fast_t(b));
         } else {
             static_assert(false, "these two values can not be equal to each other.");
         }
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator ==(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto&& b)
         noexcept
     {
         return operator ==(a, b);
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto& b)
         noexcept
     {
         return operator ==(a, b);
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator ==(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto&& b)
         noexcept
     {
         return operator ==(a, b);
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto& b)
         noexcept
     {
         return !operator ==(a, b);
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator !=(const tr1<any_tg, boolean::fast_t> auto& a, const tr0<any_tg> auto&& b)
         noexcept
     {
         return !operator ==(a, b);
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto& b)
         noexcept
     {
         return !operator ==(a, b);
     }
 
-    constexpr boolean::fast_t
+    inline constexpr boolean::fast_t
         operator !=(const tr1<any_tg, boolean::fast_t> auto&& a, const tr0<any_tg> auto&& b)
         noexcept
     {

@@ -15,66 +15,27 @@
 
 namespace nkr { namespace boolean {
 
-    boolean::cpp_t Test(tr1<any_tg, trait::boolean::impure_tg> auto b)
-    {
-        return b;
-    }
-
     TEST_CASE("temp")
     {
-        CHECK(Test(true) == true);
-    }
-
-    boolean::cpp_t Test_2(tr1<any_to_tg, boolean::cpp_t> auto b)
-    {
-        return b;
-    }
-
-    boolean::cpp_t Test_3(tr1<not_any_to_tg, boolean::cpp_t> auto b)
-    {
-        return true;
-    }
-
-    struct test_1_t
-    {
-        boolean::cpp_t b = true;
-
-        operator boolean::cpp_t()
-        {
-            return b;
-        }
-    };
-    static_assert(cpp::to_tr<test_1_t, boolean::cpp_t>);
-
-    struct test_2_t
-    {
-        boolean::cpp_t b = true;
-    };
-    static_assert(!cpp::to_tr<test_2_t, boolean::cpp_t>);
-
-    TEST_CASE("temp")
-    {
-        CHECK(Test_2(test_1_t()));
-        CHECK(Test_3(test_2_t()));
-    }
-
-    static_assert(trait::boolean_tr<cpp_t>);
-
-    static_assert(trait::boolean::$any_tr::operators_i<boolean::fast_t>);
-
-    TEST_CASE("temp")
-    {
+        CHECK(boolean::cpp_t(true));
         CHECK(boolean::cpp_t(true) == true);
-        //CHECK(boolean::cpp_t(boolean::fast_t(true)) == true);
+        CHECK(!boolean::cpp_t(false));
+        CHECK(boolean::cpp_t(false) != true);
+
         CHECK(boolean::fast_t(true));
+        CHECK((boolean::fast_t(true) == true));
+        CHECK(!boolean::fast_t(false));
+        CHECK((boolean::fast_t(false) != true));
 
-        //CHECK(boolean::fast_t(true) == true);
-        if (boolean::fast_t(true) == true) {
-            CHECK(true);
-        }
+        CHECK(boolean::cpp_t(boolean::fast_t(true)));
+        CHECK(!boolean::cpp_t(boolean::fast_t(false)));
+        CHECK(boolean::fast_t(boolean::cpp_t(true)));
+        CHECK(!boolean::fast_t(boolean::cpp_t(false)));
 
-        //CHECK(boolean::fast_t(true) == true);
-        //CHECK(boolean::cpp_t(true) == boolean::fast_t(true));
+        CHECK((boolean::cpp_t(true) == boolean::fast_t(true)));
+        CHECK((boolean::fast_t(true) == boolean::cpp_t(true)));
+        CHECK((boolean::cpp_t(true) != boolean::fast_t(false)));
+        CHECK((boolean::fast_t(true) != boolean::cpp_t(false)));
     }
 
 }}

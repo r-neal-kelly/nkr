@@ -55,7 +55,7 @@ namespace nkr { namespace trait { namespace boolean {
         cpp::is_any_tr<type_p, cpp::bool_t> ||
         ($any_tr::static_constexpr_methods_i<type_p> &&
          $any_tr::operators_i<type_p> &&
-         type_p::Is_Boolean_Type() == true);
+         type_p::Is_Boolean_Type()() == true);
 
 }}}
 
