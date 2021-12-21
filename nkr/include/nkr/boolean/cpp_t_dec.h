@@ -16,7 +16,7 @@
 
 namespace nkr { namespace boolean {
 
-    class   cpp_t;
+    using   cpp_t   = cpp::bool_t;
 
     struct  cpp_tg  {};
 
@@ -47,81 +47,3 @@ namespace nkr { namespace interface {
     };
 
 }}
-
-namespace nkr { namespace boolean {
-
-    class cpp_t
-    {
-    public:
-        using value_t   = cpp::bool_t;
-
-    public:
-        static constexpr cpp_t  Is_Boolean_Type() noexcept;
-
-    private:
-        static constexpr auto&  Assign_Copy(tr1<any_non_const_tg, cpp_t> auto& self, const tr1<any_tg, cpp_t> auto& other) noexcept;
-        static constexpr auto&  Assign_Move(tr1<any_non_const_tg, cpp_t> auto& self, tr1<any_non_const_tg, cpp_t> auto&& other) noexcept;
-
-        static constexpr auto&  Value(tr1<any_tg, cpp_t> auto& self) noexcept;
-
-    protected:
-        value_t value;
-
-    public:
-        constexpr cpp_t() noexcept;
-
-        constexpr cpp_t(const cpp::to_tr<value_t> auto& value) noexcept;
-        constexpr cpp_t(const cpp::to_tr<value_t> auto&& value) noexcept;
-
-        constexpr cpp_t(const cpp_t& other) noexcept;
-        constexpr cpp_t(const volatile cpp_t& other) noexcept;
-        constexpr cpp_t(cpp_t&& other) noexcept;
-        constexpr cpp_t(volatile cpp_t&& other) noexcept;
-
-        constexpr cpp_t&            operator =(const cpp_t& other) noexcept;
-        constexpr volatile cpp_t&   operator =(const cpp_t& other) volatile noexcept;
-        constexpr cpp_t&            operator =(const volatile cpp_t& other) noexcept;
-        constexpr volatile cpp_t&   operator =(const volatile cpp_t& other) volatile noexcept;
-        constexpr cpp_t&            operator =(cpp_t&& other) noexcept;
-        constexpr volatile cpp_t&   operator =(cpp_t&& other) volatile noexcept;
-        constexpr cpp_t&            operator =(tr1<just_volatile_tg, cpp_t> auto&& other) noexcept;
-        constexpr volatile cpp_t&   operator =(tr1<just_volatile_tg, cpp_t> auto&& other) volatile noexcept;
-
-#if defined(nkr_IS_DEBUG)
-        constexpr ~cpp_t() noexcept;
-#endif
-
-    public:
-        constexpr operator  value_t&() noexcept;
-        constexpr operator  const value_t&() const noexcept;
-        constexpr operator  volatile value_t&() volatile noexcept;
-        constexpr operator  const volatile value_t&() const volatile noexcept;
-
-    public:
-        constexpr value_t&                  operator ()() noexcept;
-        constexpr const value_t&            operator ()() const noexcept;
-        constexpr volatile value_t&         operator ()() volatile noexcept;
-        constexpr const volatile value_t&   operator ()() const volatile noexcept;
-    };
-
-}}
-
-namespace nkr { namespace boolean {
-
-    class   fast_t;
-
-}}
-
-namespace nkr {
-
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto&& b) noexcept;
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::fast_t   operator ==(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto&& b) noexcept;
-
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto& a, const tr0<any_tg> auto&& b) noexcept;
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::fast_t   operator !=(const tr1<any_tg, boolean::cpp_t> auto&& a, const tr0<any_tg> auto&& b) noexcept;
-
-}

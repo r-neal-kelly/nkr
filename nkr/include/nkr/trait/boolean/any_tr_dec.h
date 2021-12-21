@@ -6,22 +6,17 @@
 
 #include "nkr/cpp_dec.h"
 #include "nkr/intrinsics_dec.h"
+#include "nkr/tr_dec.h"
 
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
-
-namespace nkr { namespace boolean {
-
-    class cpp_t;
-
-}}
 
 namespace nkr { namespace trait { namespace boolean { namespace $any_tr {
 
     template <typename type_p>
     concept static_constexpr_methods_i = requires
     {
-        { type_p::Is_Boolean_Type() }   -> tr1<any_tg, nkr::boolean::cpp_t>;
+        { type_p::Is_Boolean_Type() }   -> tr1<any_tg, cpp::bool_t>;
     };
 
     template <typename type_p>
@@ -55,7 +50,7 @@ namespace nkr { namespace trait { namespace boolean {
         cpp::is_any_tr<type_p, cpp::bool_t> ||
         ($any_tr::static_constexpr_methods_i<type_p> &&
          $any_tr::operators_i<type_p> &&
-         type_p::Is_Boolean_Type()() == true);
+         type_p::Is_Boolean_Type());
 
 }}}
 

@@ -193,10 +193,10 @@
     <ClInclude Include="include\nkr\boolean\deleted_operators_t_dec.h" />
     <ClInclude Include="include\nkr\boolean\deleted_operators_t_def.h" />
     <ClInclude Include="include\nkr\boolean\deleted_operators_t_dox.h" />
-    <ClInclude Include="include\nkr\boolean\fast_t.h" />
-    <ClInclude Include="include\nkr\boolean\fast_t_dec.h" />
-    <ClInclude Include="include\nkr\boolean\fast_t_def.h" />
-    <ClInclude Include="include\nkr\boolean\fast_t_dox.h" />
+    <ClInclude Include="include\nkr\boolean\safe_t.h" />
+    <ClInclude Include="include\nkr\boolean\safe_t_dec.h" />
+    <ClInclude Include="include\nkr\boolean\safe_t_def.h" />
+    <ClInclude Include="include\nkr\boolean\safe_t_dox.h" />
     <ClInclude Include="include\nkr\bool_t.h" />
     <ClInclude Include="include\nkr\bool_t_dec.h" />
     <ClInclude Include="include\nkr\charcoder\ascii_t.h" />

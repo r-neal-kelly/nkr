@@ -412,6 +412,7 @@ namespace nkr { namespace cpp {
 
     constexpr auto*     Address(const auto& of) noexcept;
 
+    // here we can also use the nkr_IS_DEBUG to switch between the variant that actually exchanges fundamentals with 0.
     constexpr auto&&    Move(auto& value) noexcept;
     constexpr auto&&    Move(const auto& value) noexcept                        = delete;
     constexpr auto&&    Move(auto&& value) noexcept;
