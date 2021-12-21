@@ -14,7 +14,7 @@ namespace nkr { namespace trait {
 
     template <typename type_p>
     concept type_tr =
-        sizeof(type_p) > 0;
+        cpp::type_tr<type_p>;
 
 }}
 
@@ -24,7 +24,7 @@ namespace nkr { namespace interface {
     class type_i<trait::type_tg>
     {
     public:
-        using of_t  = cpp::void_t;
+        using of_t  = none::type_t;
 
     public:
         template <typename other_p>

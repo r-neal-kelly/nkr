@@ -6,7 +6,6 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
 #include "nkr/trait/boolean_tr_dec.h"
@@ -29,7 +28,7 @@ namespace nkr { namespace interface {
     class type_i<boolean::cpp_tg>
     {
     public:
-        using of_t  = cpp::void_t;
+        using of_t  = none::type_t;
 
     public:
         template <typename other_p>

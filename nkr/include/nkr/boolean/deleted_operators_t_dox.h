@@ -14,7 +14,7 @@
 *   Operators that shouldn't be usable with a boolean value.
 *
 * @details
-*   Although there is nothing prohibiting a user from using a cpp::bool_t to achieve anything they need to, this easy to inherit base disallows other booleans from acting as integers.
+*   Although there is nothing prohibiting a user from using a boolean::cpp_t to achieve anything they need to, this easy to inherit base disallows other booleans from acting as integers.
 */
 
     // operators

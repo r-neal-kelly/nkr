@@ -9,7 +9,6 @@
 #include "nkr/boolean/cpp_t_def.h"
 #include "nkr/boolean/deleted_operators_t_def.h"
 
-#include "nkr/interface/template_i_def.h"
 #include "nkr/interface/type_i_def.h"
 
 #include "nkr/trait/boolean_tr_def.h"

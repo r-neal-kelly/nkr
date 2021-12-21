@@ -13,7 +13,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = cpp::void_t;
+        using type_t    = none::type_t;
 
     public:
         static constexpr boolean::cpp_t Is_Implemented() noexcept;

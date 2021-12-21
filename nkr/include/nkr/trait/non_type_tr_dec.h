@@ -26,7 +26,7 @@ namespace nkr { namespace interface {
     class type_i<trait::non_type_tg>
     {
     public:
-        using of_t  = cpp::void_t;
+        using of_t  = none::type_t;
 
     public:
         template <typename other_p>
