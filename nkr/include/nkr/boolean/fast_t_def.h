@@ -148,6 +148,13 @@ namespace nkr { namespace boolean {
         return Assign_Move(*this, cpp::Move(other));
     }
 
+#if defined(nkr_IS_DEBUG)
+    inline constexpr fast_t::~fast_t() noexcept
+    {
+        this->value = value_t(false);
+    }
+#endif
+
     inline constexpr fast_t::operator boolean::cpp_t::value_t()
         const noexcept
     {

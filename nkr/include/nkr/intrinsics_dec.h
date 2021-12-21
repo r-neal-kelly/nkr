@@ -22,12 +22,19 @@ namespace nkr {
     /// @{
 #if _WIN64 || _WIN32
     #define nkr_IS_WINDOWS      ///< @copydoc doc_nkr_nkr_IS_WINDOWS
+
     #if _WIN64
         #define nkr_IS_64_BIT   ///< @copydoc doc_nkr_nkr_IS_64_BIT
     #elif _WIN32
         #define nkr_IS_32_BIT   ///< @copydoc doc_nkr_nkr_IS_32_BIT
     #else
         #error "Cannot compile with this version of windows."
+    #endif
+
+    #if _DEBUG
+        #define nkr_IS_DEBUG
+    #else
+        #define nkr_IS_RELEASE
     #endif
 #elif 0
     #define nkr_IS_LINUX        ///< @copydoc doc_nkr_nkr_IS_LINUX
