@@ -28,6 +28,7 @@ namespace nkr { namespace cpp {
     using u16_t             = std::uint16_t;
     using u32_t             = std::uint32_t;
     using u64_t             = std::uint64_t;
+
     using s8_t              = std::int8_t;
     using s16_t             = std::int16_t;
     using s32_t             = std::int32_t;
@@ -35,23 +36,20 @@ namespace nkr { namespace cpp {
 
     using r32_t             = float;
     using r64_t             = double;
-#if defined(nkr_IS_64_BIT)
-    using real_t            = r64_t;
-#elif defined(nkr_IS_32_BIT)
-    using real_t            = r32_t;
-#endif
 
+    using byte_t = u8_t;
 #if defined(nkr_IS_64_BIT)
     using word_t            = u64_t;
     using unsigned_word_t   = u64_t;
     using signed_word_t     = s64_t;
+    using real_word_t       = r64_t;
 #elif defined(nkr_IS_32_BIT)
     using word_t            = u32_t;
     using unsigned_word_t   = u32_t;
     using signed_word_t     = s32_t;
+    using real_word_t       = r32_t;
 #endif
 
-    using byte_t            = u8_t;
     using size_t            = word_t;
     using count_t           = word_t;
     using index_t           = word_t;
@@ -86,8 +84,33 @@ namespace nkr { namespace cpp {
         sizeof(type_p) > 0;
 
     template <typename type_p>
+    concept none_type_tr =
+        !type_tr<type_p>;
+
+    template <typename type_p>
+    concept integer_tr =
+        std::is_integral<type_p>::value;
+
+    template <typename type_p>
+    concept unsigned_integer_tr =
+        integer_tr<type_p> &&
+        std::is_unsigned<type_p>::value;
+
+    template <typename type_p>
+    concept signed_integer_tr =
+        integer_tr<type_p> &&
+        std::is_signed<type_p>::value;
+
+    template <typename type_p>
+    concept real_tr =
+        std::is_floating_point<type_p>::value;
+
+    template <typename type_p>
     concept pointer_tr =
-        std::is_pointer<type_p>::value ||
+        std::is_pointer<type_p>::value;
+
+    template <typename type_p>
+    concept none_pointer_tr =
         std::is_null_pointer<type_p>::value;
 
     template <typename type_p>
