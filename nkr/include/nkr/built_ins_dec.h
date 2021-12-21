@@ -8,8 +8,8 @@
 
 namespace nkr { namespace none {
 
-    using   type_t      = cpp::void_t;
-    using   pointer_t   = cpp::nullptr_t;
+    using   type_t      = cpp::none::type_t;
+    using   pointer_t   = cpp::none::pointer_t;
 
 }}
 
@@ -19,48 +19,45 @@ namespace nkr { namespace boolean {
 
 }}
 
-namespace nkr { namespace integer { namespace positive {
+namespace nkr { namespace positive {
 
-    using   cpp_8_t     = cpp::u8_t;
-    using   cpp_16_t    = cpp::u16_t;
-    using   cpp_32_t    = cpp::u32_t;
-    using   cpp_64_t    = cpp::u64_t;
+    using   integer_8_t     = cpp::positive::integer_8_t;
+    using   integer_16_t    = cpp::positive::integer_16_t;
+    using   integer_32_t    = cpp::positive::integer_32_t;
+    using   integer_64_t    = cpp::positive::integer_64_t;
+    using   integer_t       = cpp::positive::integer_t;
 
-    using   byte_t      = cpp::u8_t;
-    using   word_t      = cpp::unsigned_word_t;
+    using   byte_t          = cpp::positive::byte_t;
+    using   word_t          = cpp::positive::word_t;
+    using   address_t       = cpp::positive::address_t;
 
-    using   size_t      = cpp::unsigned_word_t;
-    using   count_t     = cpp::unsigned_word_t;
-    using   index_t     = cpp::unsigned_word_t;
-    using   address_t   = cpp::unsigned_word_t;
+    using   size_t          = cpp::positive::size_t;
+    using   count_t         = cpp::positive::count_t;
+    using   index_t         = cpp::positive::index_t;
 
-}}}
+}}
 
-namespace nkr { namespace integer { namespace negatable {
+namespace nkr { namespace negatable {
 
-    using   cpp_8_t     = cpp::s8_t;
-    using   cpp_16_t    = cpp::s16_t;
-    using   cpp_32_t    = cpp::s32_t;
-    using   cpp_64_t    = cpp::s64_t;
+    using   integer_8_t     = cpp::negatable::integer_8_t;
+    using   integer_16_t    = cpp::negatable::integer_16_t;
+    using   integer_32_t    = cpp::negatable::integer_32_t;
+    using   integer_64_t    = cpp::negatable::integer_64_t;
+    using   integer_t       = cpp::negatable::integer_t;
 
-    using   byte_t      = cpp::s8_t;
-    using   word_t      = cpp::signed_word_t;
+    using   real_32_t       = cpp::negatable::real_32_t;
+    using   real_64_t       = cpp::negatable::real_64_t;
+    using   real_t          = cpp::negatable::real_t;
 
-    using   size_t      = cpp::signed_word_t;
-    using   count_t     = cpp::signed_word_t;
-    using   index_t     = cpp::signed_word_t;
-    using   address_t   = cpp::signed_word_t;
+    using   byte_t          = cpp::negatable::byte_t;
+    using   word_t          = cpp::negatable::word_t;
+    using   address_t       = cpp::negatable::address_t;
 
-}}}
+    using   size_t          = cpp::negatable::size_t;
+    using   count_t         = cpp::negatable::count_t;
+    using   index_t         = cpp::negatable::index_t;
 
-namespace nkr { namespace real { namespace negatable {
-
-    using   cpp_32_t    = cpp::r32_t;
-    using   cpp_64_t    = cpp::r64_t;
-
-    using   word_t      = cpp::real_word_t;
-
-}}}
+}}
 
 namespace nkr { namespace pointer {
 
@@ -71,7 +68,7 @@ namespace nkr { namespace pointer {
 
 namespace nkr { namespace array {
 
-    template <cpp::type_tr type_p, cpp::count_t capacity_p>
+    template <cpp::type_tr type_p, cpp::positive::count_t capacity_p >
     using   cpp_t   = type_p[capacity_p];
 
 }}

@@ -36,8 +36,6 @@ namespace nkr { namespace boolean {
         CHECK((boolean::safe_t(true) == boolean::cpp_t(true)));
         CHECK((boolean::cpp_t(true) != boolean::safe_t(false)));
         CHECK((boolean::safe_t(true) != boolean::cpp_t(false)));
-
-        static_assert(cpp::is_tr<std::remove_pointer_t<cpp::nullptr_t>, cpp::nullptr_t>);
     }
 
 }}

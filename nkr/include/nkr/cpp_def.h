@@ -24,7 +24,7 @@ namespace nkr { namespace cpp {
         return std::endian::native == std::endian::little;
     }
 
-    inline constexpr count_t
+    inline constexpr positive::count_t
         Byte_Bit_Count()
         noexcept
     {

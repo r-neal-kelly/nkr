@@ -21,42 +21,68 @@
 
 namespace nkr { namespace cpp {
 
-    using void_t            = void;
-    using bool_t            = bool;
-
-    using u8_t              = std::uint8_t;
-    using u16_t             = std::uint16_t;
-    using u32_t             = std::uint32_t;
-    using u64_t             = std::uint64_t;
-
-    using s8_t              = std::int8_t;
-    using s16_t             = std::int16_t;
-    using s32_t             = std::int32_t;
-    using s64_t             = std::int64_t;
-
-    using r32_t             = float;
-    using r64_t             = double;
-
-    using byte_t = u8_t;
-#if defined(nkr_IS_64_BIT)
-    using word_t            = u64_t;
-    using unsigned_word_t   = u64_t;
-    using signed_word_t     = s64_t;
-    using real_word_t       = r64_t;
-#elif defined(nkr_IS_32_BIT)
-    using word_t            = u32_t;
-    using unsigned_word_t   = u32_t;
-    using signed_word_t     = s32_t;
-    using real_word_t       = r32_t;
-#endif
-
-    using size_t            = word_t;
-    using count_t           = word_t;
-    using index_t           = word_t;
-    using address_t         = std::uintptr_t;
-    using nullptr_t         = std::nullptr_t;
+    using   bool_t  = bool;
 
 }}
+
+namespace nkr { namespace cpp { namespace none {
+
+    using   type_t      = void;
+    using   pointer_t   = std::nullptr_t;
+
+}}}
+
+namespace nkr { namespace cpp { namespace positive {
+
+    using   integer_8_t     = std::uint8_t;
+    using   integer_16_t    = std::uint16_t;
+    using   integer_32_t    = std::uint32_t;
+    using   integer_64_t    = std::uint64_t;
+#if defined(nkr_IS_64_BIT)
+    using   integer_t       = integer_64_t;
+#elif defined(nkr_IS_32_BIT)
+    using   integer_t       = integer_32_t;
+#endif
+
+    using   byte_t          = integer_8_t;
+    using   word_t          = integer_t;
+    using   address_t       = std::uintptr_t;
+
+    using   size_t          = integer_t;
+    using   count_t         = integer_t;
+    using   index_t         = integer_t;
+
+}}}
+
+namespace nkr { namespace cpp { namespace negatable {
+
+    using   integer_8_t     = std::int8_t;
+    using   integer_16_t    = std::int16_t;
+    using   integer_32_t    = std::int32_t;
+    using   integer_64_t    = std::int64_t;
+#if defined(nkr_IS_64_BIT)
+    using   integer_t       = integer_64_t;
+#elif defined(nkr_IS_32_BIT)
+    using   integer_t       = integer_32_t;
+#endif
+
+    using   real_32_t       = float;
+    using   real_64_t       = double;
+#if defined(nkr_IS_64_BIT)
+    using   real_t          = integer_64_t;
+#elif defined(nkr_IS_32_BIT)
+    using   real_t          = integer_32_t;
+#endif
+
+    using   byte_t          = integer_8_t;
+    using   word_t          = integer_t;
+    using   address_t       = std::intptr_t;
+
+    using   size_t          = integer_t;
+    using   count_t         = integer_t;
+    using   index_t         = integer_t;
+
+}}}
 
 namespace nkr { namespace cpp {
 
@@ -432,22 +458,22 @@ namespace nkr { namespace cpp {
 
 namespace nkr { namespace cpp {
 
-    constexpr bool_t    Is_Big_Endian() noexcept;
-    constexpr bool_t    Is_Little_Endian() noexcept;
+    constexpr bool_t            Is_Big_Endian() noexcept;
+    constexpr bool_t            Is_Little_Endian() noexcept;
 
-    constexpr count_t   Byte_Bit_Count() noexcept;
+    constexpr positive::count_t Byte_Bit_Count() noexcept;
 
-    constexpr auto*     Address(const auto& of) noexcept;
+    constexpr auto*             Address(const auto& of) noexcept;
 
     // here we can also use the nkr_IS_DEBUG to switch between the variant that actually exchanges fundamentals with 0.
-    constexpr auto&&    Move(auto& value) noexcept;
-    constexpr auto&&    Move(const auto& value) noexcept                        = delete;
-    constexpr auto&&    Move(auto&& value) noexcept;
-    constexpr auto&&    Move(const auto&& value) noexcept                       = delete;
+    constexpr auto&&            Move(auto& value) noexcept;
+    constexpr auto&&            Move(const auto& value) noexcept                        = delete;
+    constexpr auto&&            Move(auto&& value) noexcept;
+    constexpr auto&&            Move(const auto&& value) noexcept                       = delete;
 
-    constexpr auto      Exchange(auto& value, const auto& with) noexcept;
-    constexpr auto      Exchange(const auto& value, const auto& with) noexcept  = delete;
-    constexpr auto      Exchange(auto& value, auto&& with) noexcept;
-    constexpr auto      Exchange(const auto& value, auto&& with) noexcept       = delete;
+    constexpr auto              Exchange(auto& value, const auto& with) noexcept;
+    constexpr auto              Exchange(const auto& value, const auto& with) noexcept  = delete;
+    constexpr auto              Exchange(auto& value, auto&& with) noexcept;
+    constexpr auto              Exchange(const auto& value, auto&& with) noexcept       = delete;
 
 }}
