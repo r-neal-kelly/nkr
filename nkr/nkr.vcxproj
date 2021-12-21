@@ -199,6 +199,10 @@
     <ClInclude Include="include\nkr\boolean\safe_t_dox.h" />
     <ClInclude Include="include\nkr\bool_t.h" />
     <ClInclude Include="include\nkr\bool_t_dec.h" />
+    <ClInclude Include="include\nkr\built_ins.h" />
+    <ClInclude Include="include\nkr\built_ins_dec.h" />
+    <ClInclude Include="include\nkr\built_ins_def.h" />
+    <ClInclude Include="include\nkr\built_ins_dox.h" />
     <ClInclude Include="include\nkr\charcoder\ascii_t.h" />
     <ClInclude Include="include\nkr\charcoder\ascii_t_dec.h" />
     <ClInclude Include="include\nkr\charcoder\ascii_t_dox.h" />

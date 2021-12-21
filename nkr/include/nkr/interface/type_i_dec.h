@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include "nkr/cpp_dec.h"
-#include "nkr/intrinsics_dec.h"
+#include "nkr/built_ins_dec.h"
 
 namespace nkr { namespace interface {
 
@@ -17,7 +16,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename other_p>
-        static constexpr cpp::bool_t    Is_Any() noexcept;
+        static constexpr boolean::cpp_t Is_Any() noexcept;
     };
 
 }}

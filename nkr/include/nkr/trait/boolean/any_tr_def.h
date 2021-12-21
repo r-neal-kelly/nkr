@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "nkr/cpp_def.h"
-#include "nkr/intrinsics_def.h"
 #include "nkr/tr_def.h"
 
 #include "nkr/interface/template_i_def.h"
@@ -16,14 +14,14 @@
 namespace nkr { namespace interface {
 
     template <typename other_p>
-    inline constexpr cpp::bool_t
+    inline constexpr boolean::cpp_t
         type_i<trait::boolean::any_tg>::Is_Any()
         noexcept
     {
         return trait::boolean::any_tr<other_p>;
     }
 
-    inline constexpr cpp::bool_t
+    inline constexpr boolean::cpp_t
         template_i<trait::boolean::any_ttg>::Is_Implemented()
         noexcept
     {

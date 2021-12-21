@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include "nkr/cpp_def.h"
-#include "nkr/intrinsics_def.h"
+#include "nkr/built_ins_def.h"
 
 #include "nkr/interface/type_i_dec.h"
 
@@ -13,7 +12,7 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     template <typename other_p>
-    inline constexpr cpp::bool_t
+    inline constexpr boolean::cpp_t
         type_i<type_p>::Is_Any()
         noexcept
     {

@@ -4,9 +4,6 @@
 
 #pragma once
 
-#include "nkr/cpp_dec.h"
-#include "nkr/intrinsics_dec.h"
-
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
@@ -185,7 +182,7 @@ namespace nkr { namespace $tr {
         typename type_p::access_t;
     };
 
-    template <typename child_p, typename parent_p, cpp::bool_t do_access_p>
+    template <typename child_p, typename parent_p, boolean::cpp_t do_access_p>
     class access_or_not_tmpl
     {
     public:
@@ -199,13 +196,13 @@ namespace nkr { namespace $tr {
         using type_t    = cpp::access_qualification_of_t<child_p, parent_p>;
     };
 
-    template <typename child_p, typename parent_p, cpp::bool_t do_access_p>
+    template <typename child_p, typename parent_p, boolean::cpp_t do_access_p>
     using access_or_not_t   = access_or_not_tmpl<child_p, parent_p, do_access_p>::type_t;
 
     template <
         typename subject_p,
         typename operator_p
-    > constexpr cpp::bool_t
+    > constexpr boolean::cpp_t
         TR0()
         noexcept
     {
@@ -245,7 +242,7 @@ namespace nkr { namespace $tr {
     template <
         typename subject_p,
         typename operator_p, typename operand_p
-    > constexpr cpp::bool_t
+    > constexpr boolean::cpp_t
         TR1()
         noexcept
     {
@@ -277,7 +274,7 @@ namespace nkr { namespace $tr {
         typename subject_p,
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, typename of_operand_p
-    > constexpr cpp::bool_t
+    > constexpr boolean::cpp_t
         TR2()
         noexcept
     {
@@ -304,7 +301,7 @@ namespace nkr { namespace $tr {
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, template <typename ...> typename of_operand_p,
         typename of_of_operator_p, typename of_of_operand_p
-    > constexpr cpp::bool_t
+    > constexpr boolean::cpp_t
         TR3()
         noexcept
     {

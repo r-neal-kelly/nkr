@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "nkr/cpp_dec.h"
-#include "nkr/intrinsics_dec.h"
 #include "nkr/tr_dec.h"
 
 #include "nkr/interface/template_i_dec.h"
@@ -16,7 +14,7 @@ namespace nkr { namespace trait { namespace boolean { namespace $any_tr {
     template <typename type_p>
     concept static_constexpr_methods_i = requires
     {
-        { type_p::Is_Boolean_Type() }   -> tr1<any_tg, cpp::bool_t>;
+        { type_p::Is_Boolean_Type() }   -> tr1<any_tg, nkr::boolean::cpp_t>;
     };
 
     template <typename type_p>
@@ -47,7 +45,7 @@ namespace nkr { namespace trait { namespace boolean {
 
     template <typename type_p>
     concept any_tr =
-        cpp::is_any_tr<type_p, cpp::bool_t> ||
+        cpp::is_any_tr<type_p, nkr::boolean::cpp_t> ||
         ($any_tr::static_constexpr_methods_i<type_p> &&
          $any_tr::operators_i<type_p> &&
          type_p::Is_Boolean_Type());
@@ -64,7 +62,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename other_p>
-        static constexpr cpp::bool_t    Is_Any() noexcept;
+        static constexpr boolean::cpp_t Is_Any() noexcept;
     };
 
     template <>
@@ -75,7 +73,7 @@ namespace nkr { namespace interface {
         using type_t    = trait::boolean::any_tg;
 
     public:
-        static constexpr cpp::bool_t    Is_Implemented() noexcept;
+        static constexpr boolean::cpp_t Is_Implemented() noexcept;
     };
 
 }}

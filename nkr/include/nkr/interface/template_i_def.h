@@ -4,15 +4,14 @@
 
 #pragma once
 
-#include "nkr/cpp_def.h"
-#include "nkr/intrinsics_def.h"
+#include "nkr/built_ins_def.h"
 
 #include "nkr/interface/template_i_dec.h"
 
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-    inline constexpr cpp::bool_t
+    inline constexpr boolean::cpp_t
         template_i<template_p>::Is_Implemented()
         noexcept
     {
