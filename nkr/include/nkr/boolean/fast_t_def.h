@@ -148,11 +148,6 @@ namespace nkr { namespace boolean {
         return Assign_Move(*this, cpp::Move(other));
     }
 
-    inline constexpr fast_t::~fast_t() noexcept
-    {
-        this->value = value_t(false);
-    }
-
     inline constexpr fast_t::operator boolean::cpp_t::value_t()
         const noexcept
     {
@@ -176,10 +171,10 @@ namespace nkr {
         using a_t = cpp::reference_value_t<decltype(a)>;
         using b_t = cpp::reference_value_t<decltype(b)>;
 
-        if constexpr (cpp::can_be_equal_to_tr<boolean::cpp_t::value_t, b_t>) {
-            return boolean::cpp_t::value_t(a) == b;
+        if constexpr (cpp::can_be_equal_to_tr<b_t, boolean::cpp_t::value_t>) {
+            return b == boolean::cpp_t::value_t(a);
         } else if constexpr (cpp::to_tr<b_t, boolean::fast_t>) {
-            return boolean::cpp_t::value_t(a) == boolean::cpp_t::value_t(boolean::fast_t(b));
+            return boolean::cpp_t::value_t(boolean::fast_t(b)) == boolean::cpp_t::value_t(a);
         } else {
             static_assert(false, "these two values can not be equal to each other.");
         }

@@ -87,8 +87,6 @@ namespace nkr { namespace boolean {
         constexpr cpp_t&            operator =(tr1<just_volatile_tg, cpp_t> auto&& other) noexcept;
         constexpr volatile cpp_t&   operator =(tr1<just_volatile_tg, cpp_t> auto&& other) volatile noexcept;
 
-        constexpr ~cpp_t() noexcept;
-
     public:
         constexpr operator  value_t&() noexcept;
         constexpr operator  const value_t&() const noexcept;

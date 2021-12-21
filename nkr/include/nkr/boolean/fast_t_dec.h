@@ -96,8 +96,6 @@ namespace nkr { namespace boolean {
         constexpr volatile fast_t&  operator =(fast_t&& other) volatile noexcept;                               ///< @copydoc 
         constexpr fast_t&           operator =(tr1<just_volatile_tg, fast_t> auto&& other) noexcept;            ///< @copydoc 
         constexpr volatile fast_t&  operator =(tr1<just_volatile_tg, fast_t> auto&& other) volatile noexcept;   ///< @copydoc _b047b3ab_68ee_46f3_b210_6f27f6f34ef1
-
-        constexpr ~fast_t() noexcept;                                                                           ///< @copydoc _4c312eec_919f_4b48_98e5_a3539442c7d2
         /// @}
 
     public:

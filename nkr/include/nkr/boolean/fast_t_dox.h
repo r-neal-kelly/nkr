@@ -130,14 +130,6 @@
         * @snippet "./src/bool_t.cpp" _e57cfa69_54fa_4e91_8509_2cd75aedcb1a
         */
 
-        // dtor()
-        /**
-        * @class _4c312eec_919f_4b48_98e5_a3539442c7d2
-        * @private
-        * 
-        * @snippet "./src/bool_t.cpp" _6fd7e147_ba41_4d98_adfe_e140a227e79a
-        */
-
     // casts
     /**
     * @class _6a6f9172_06fd_4b0f_b1ee_1817e0c013a9
