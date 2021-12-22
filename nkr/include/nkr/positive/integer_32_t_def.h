@@ -6,6 +6,10 @@
 
 #include "nkr/interface/type_i_def.h"
 
+#include "nkr/trait/positive_tr_def.h"
+#include "nkr/trait/positive/any_tr_def.h"
+#include "nkr/trait/positive/integer_tr_def.h"
+
 #include "nkr/positive/integer_32_t_dec.h"
 
 namespace nkr { namespace interface {
@@ -22,6 +26,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace positive {
 
+    static_assert(trait::positive_tr<integer_32_t>);
+    static_assert(trait::positive_tr<const integer_32_t>);
+    static_assert(trait::positive_tr<volatile integer_32_t>);
+    static_assert(trait::positive_tr<const volatile integer_32_t>);
 
+    static_assert(trait::positive::any_tr<integer_32_t>);
+    static_assert(trait::positive::any_tr<const integer_32_t>);
+    static_assert(trait::positive::any_tr<volatile integer_32_t>);
+    static_assert(trait::positive::any_tr<const volatile integer_32_t>);
+
+    static_assert(trait::positive::integer_tr<integer_32_t>);
+    static_assert(trait::positive::integer_tr<const integer_32_t>);
+    static_assert(trait::positive::integer_tr<volatile integer_32_t>);
+    static_assert(trait::positive::integer_tr<const volatile integer_32_t>);
 
 }}

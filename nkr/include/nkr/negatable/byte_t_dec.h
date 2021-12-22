@@ -8,6 +8,10 @@
 
 #include "nkr/negatable/integer_t_dec.h"
 
+#include "nkr/trait/negatable_tr_dec.h"
+#include "nkr/trait/negatable/any_tr_dec.h"
+#include "nkr/trait/negatable/integer_tr_dec.h"
+
 namespace nkr { namespace negatable {
 
     struct  byte_tg {};

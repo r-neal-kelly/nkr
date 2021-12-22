@@ -68,9 +68,9 @@ namespace nkr { namespace cpp { namespace negatable {
     using   real_32_t       = float;
     using   real_64_t       = double;
 #if defined(nkr_IS_64_BIT)
-    using   real_t          = integer_64_t;
+    using   real_t          = real_64_t;
 #elif defined(nkr_IS_32_BIT)
-    using   real_t          = integer_32_t;
+    using   real_t          = real_32_t;
 #endif
 
     using   byte_t          = integer_8_t;

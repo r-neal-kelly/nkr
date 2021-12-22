@@ -9,6 +9,10 @@
 #include "nkr/negatable/real_32_t_dec.h"
 #include "nkr/negatable/real_64_t_dec.h"
 
+#include "nkr/trait/negatable_tr_dec.h"
+#include "nkr/trait/negatable/any_tr_dec.h"
+#include "nkr/trait/negatable/real_tr_dec.h"
+
 namespace nkr { namespace negatable {
 
     struct  real_tg {};

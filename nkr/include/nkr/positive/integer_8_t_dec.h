@@ -6,6 +6,10 @@
 
 #include "nkr/interface/type_i_dec.h"
 
+#include "nkr/trait/positive_tr_dec.h"
+#include "nkr/trait/positive/any_tr_dec.h"
+#include "nkr/trait/positive/integer_tr_dec.h"
+
 namespace nkr { namespace positive {
 
     struct  integer_8_tg    {};

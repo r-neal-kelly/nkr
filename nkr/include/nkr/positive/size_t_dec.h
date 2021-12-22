@@ -8,6 +8,10 @@
 
 #include "nkr/positive/integer_t_dec.h"
 
+#include "nkr/trait/positive_tr_dec.h"
+#include "nkr/trait/positive/any_tr_dec.h"
+#include "nkr/trait/positive/integer_tr_dec.h"
+
 namespace nkr { namespace positive {
 
     struct  size_tg {};

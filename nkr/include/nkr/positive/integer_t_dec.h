@@ -11,6 +11,10 @@
 #include "nkr/positive/integer_32_t_dec.h"
 #include "nkr/positive/integer_64_t_dec.h"
 
+#include "nkr/trait/positive_tr_dec.h"
+#include "nkr/trait/positive/any_tr_dec.h"
+#include "nkr/trait/positive/integer_tr_dec.h"
+
 namespace nkr { namespace positive {
 
     struct  integer_tg  {};
