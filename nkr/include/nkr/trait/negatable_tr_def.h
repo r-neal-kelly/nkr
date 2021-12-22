@@ -7,6 +7,6 @@
 #include "nkr/interface/template_i_def.h"
 #include "nkr/interface/type_i_def.h"
 
-#include "nkr/trait/boolean/any_tr_def.h"
+#include "nkr/trait/negatable/any_tr_def.h"
 
-#include "nkr/trait/boolean_tr_dec.h"
+#include "nkr/trait/negatable_tr_dec.h"

@@ -4,9 +4,6 @@
 
 #pragma once
 
-#include "nkr/cpp_dec.h"
-#include "nkr/intrinsics_dec.h"
-
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
