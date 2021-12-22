@@ -10,14 +10,14 @@
 
 namespace nkr { namespace cpp {
 
-    inline constexpr bool_t
+    inline constexpr boolean_t
         Is_Big_Endian()
         noexcept
     {
         return std::endian::native == std::endian::big;
     }
 
-    inline constexpr bool_t
+    inline constexpr boolean_t
         Is_Little_Endian()
         noexcept
     {

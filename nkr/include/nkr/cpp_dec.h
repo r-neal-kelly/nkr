@@ -21,7 +21,7 @@
 
 namespace nkr { namespace cpp {
 
-    using   bool_t  = bool;
+    using   boolean_t   = bool;
 
 }}
 
@@ -46,7 +46,6 @@ namespace nkr { namespace cpp { namespace positive {
 
     using   byte_t          = integer_8_t;
     using   word_t          = integer_t;
-    using   address_t       = std::uintptr_t;
 
     using   size_t          = integer_t;
     using   count_t         = integer_t;
@@ -76,7 +75,6 @@ namespace nkr { namespace cpp { namespace negatable {
 
     using   byte_t          = integer_8_t;
     using   word_t          = integer_t;
-    using   address_t       = std::intptr_t;
 
     using   size_t          = integer_t;
     using   count_t         = integer_t;
@@ -118,18 +116,28 @@ namespace nkr { namespace cpp {
         std::is_integral<type_p>::value;
 
     template <typename type_p>
-    concept unsigned_integer_tr =
+    concept positive_integer_tr =
         integer_tr<type_p> &&
         std::is_unsigned<type_p>::value;
 
     template <typename type_p>
-    concept signed_integer_tr =
+    concept negatable_integer_tr =
         integer_tr<type_p> &&
         std::is_signed<type_p>::value;
 
     template <typename type_p>
     concept real_tr =
         std::is_floating_point<type_p>::value;
+
+    template <typename type_p>
+    concept positive_real_tr =
+        real_tr<type_p> &&
+        std::is_unsigned<type_p>::value;
+
+    template <typename type_p>
+    concept negatable_real_tr =
+        real_tr<type_p> &&
+        std::is_signed<type_p>::value;
 
     template <typename type_p>
     concept pointer_tr =
@@ -458,8 +466,8 @@ namespace nkr { namespace cpp {
 
 namespace nkr { namespace cpp {
 
-    constexpr bool_t            Is_Big_Endian() noexcept;
-    constexpr bool_t            Is_Little_Endian() noexcept;
+    constexpr boolean_t         Is_Big_Endian() noexcept;
+    constexpr boolean_t         Is_Little_Endian() noexcept;
 
     constexpr positive::count_t Byte_Bit_Count() noexcept;
 

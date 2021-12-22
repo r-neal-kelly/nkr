@@ -5,3 +5,5 @@
 #pragma once
 
 #include "nkr/cpp_def.h"
+
+#include "nkr/built_ins_dec.h"

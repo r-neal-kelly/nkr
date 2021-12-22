@@ -15,7 +15,7 @@ namespace nkr { namespace none {
 
 namespace nkr { namespace boolean {
 
-    using   cpp_t   = cpp::bool_t;
+    using   cpp_t   = cpp::boolean_t;
 
 }}
 
@@ -29,7 +29,6 @@ namespace nkr { namespace positive {
 
     using   byte_t          = cpp::positive::byte_t;
     using   word_t          = cpp::positive::word_t;
-    using   address_t       = cpp::positive::address_t;
 
     using   size_t          = cpp::positive::size_t;
     using   count_t         = cpp::positive::count_t;
@@ -51,7 +50,6 @@ namespace nkr { namespace negatable {
 
     using   byte_t          = cpp::negatable::byte_t;
     using   word_t          = cpp::negatable::word_t;
-    using   address_t       = cpp::negatable::address_t;
 
     using   size_t          = cpp::negatable::size_t;
     using   count_t         = cpp::negatable::count_t;
@@ -68,7 +66,7 @@ namespace nkr { namespace pointer {
 
 namespace nkr { namespace array {
 
-    template <cpp::type_tr type_p, cpp::positive::count_t capacity_p >
+    template <cpp::type_tr type_p, cpp::positive::count_t capacity_p>
     using   cpp_t   = type_p[capacity_p];
 
 }}
