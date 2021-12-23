@@ -91,8 +91,8 @@ namespace nkr { namespace cpp {
     public:
     };
 
-    template <typename type_p>
-    class array_tmpl<type_p[]> :
+    template <typename type_p, positive::count_t capacity_p>
+    class array_tmpl<type_p[capacity_p]> :
         public std::true_type
     {
     public:

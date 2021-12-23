@@ -22,14 +22,6 @@ namespace nkr {
     public:
     };
 
-    template <typename type_p>
-    class is_array_tmpl<type_p[]> :
-        public std::true_type
-    {
-    public:
-        using unit_t    = type_p;
-    };
-
     template <typename type_p, count_t count_p>
     class is_array_tmpl<type_p[count_p]> :
         public std::true_type
