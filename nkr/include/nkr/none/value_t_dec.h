@@ -6,8 +6,6 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/boolean/cpp_t_dec.h"
-
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
@@ -107,15 +105,15 @@ namespace nkr { namespace none {
 #endif
 
     public:
-        constexpr operator  type_t() const noexcept;
-        constexpr operator  type_t() const volatile noexcept;
+        constexpr operator  value_t::type_t() const noexcept;
+        constexpr operator  value_t::type_t() const volatile noexcept;
     };
 
 }}
 
 namespace nkr {
 
-    constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto& b) noexcept;
+    /*constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto& b) noexcept;
     constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto&& b) noexcept;
     constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto& b) noexcept;
     constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto&& b) noexcept;
@@ -123,6 +121,6 @@ namespace nkr {
     constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto& b) noexcept;
     constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto&& b) noexcept;
     constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto&& b) noexcept;
+    constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto&& b) noexcept;*/
 
 }

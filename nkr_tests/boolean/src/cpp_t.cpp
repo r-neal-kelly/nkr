@@ -7,10 +7,6 @@
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/safe_t.h"
 
-#include "nkr/trait/boolean_tr.h"
-#include "nkr/trait/boolean/impure_tr.h"
-#include "nkr/trait/boolean/pure_tr.h"
-
 #include "doctest.h"
 
 namespace nkr { namespace boolean {

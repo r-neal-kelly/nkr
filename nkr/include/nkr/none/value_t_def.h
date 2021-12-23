@@ -6,8 +6,6 @@
 
 #include "nkr/tr_def.h"
 
-#include "nkr/boolean/cpp_t_def.h"
-
 #include "nkr/interface/template_i_def.h"
 #include "nkr/interface/type_i_def.h"
 
@@ -135,14 +133,14 @@ namespace nkr { namespace none {
 #endif
 
     template <trait::defaultable_tr type_p>
-    inline constexpr value_t<type_p>::operator type_t()
+    inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
         const noexcept
     {
         return cpp::just_non_qualified_t<type_t>();
     }
 
     template <trait::defaultable_tr type_p>
-    inline constexpr value_t<type_p>::operator type_t()
+    inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
         const volatile noexcept
     {
         return cpp::just_non_qualified_t<type_t>();
@@ -152,7 +150,7 @@ namespace nkr { namespace none {
 
 namespace nkr { namespace none {
 
-    static_assert(trait::none_tr<value_t<positive::integer_t>>);
+    /*static_assert(trait::none_tr<value_t<positive::integer_t>>);
     static_assert(trait::none_tr<const value_t<positive::integer_t>>);
     static_assert(trait::none_tr<volatile value_t<positive::integer_t>>);
     static_assert(trait::none_tr<const volatile value_t<positive::integer_t>>);
@@ -160,6 +158,6 @@ namespace nkr { namespace none {
     static_assert(trait::none::any_tr<value_t<positive::integer_t>>);
     static_assert(trait::none::any_tr<const value_t<positive::integer_t>>);
     static_assert(trait::none::any_tr<volatile value_t<positive::integer_t>>);
-    static_assert(trait::none::any_tr<const volatile value_t<positive::integer_t>>);
+    static_assert(trait::none::any_tr<const volatile value_t<positive::integer_t>>);*/
 
 }}
