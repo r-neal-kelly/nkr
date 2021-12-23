@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
+// will get mixed with the old traits until we remove them
+//#include "nkr/tr_dec.h"
 
 namespace nkr { namespace boolean {
 

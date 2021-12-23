@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
+// will get mixed with the old traits until we remove them
+//#include "nkr/tr_def.h"
 
 #include "nkr/boolean/deleted_operators_t_dec.h"
 
