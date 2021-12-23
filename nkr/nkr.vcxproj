@@ -305,6 +305,10 @@
     <ClInclude Include="include\nkr\none\pointer_t_dec.h" />
     <ClInclude Include="include\nkr\none\pointer_t_def.h" />
     <ClInclude Include="include\nkr\none\pointer_t_dox.h" />
+    <ClInclude Include="include\nkr\none\value_t.h" />
+    <ClInclude Include="include\nkr\none\value_t_dec.h" />
+    <ClInclude Include="include\nkr\none\value_t_def.h" />
+    <ClInclude Include="include\nkr\none\value_t_dox.h" />
     <ClInclude Include="include\nkr\none\type_t.h" />
     <ClInclude Include="include\nkr\none\type_t_dec.h" />
     <ClInclude Include="include\nkr\none\type_t_def.h" />
