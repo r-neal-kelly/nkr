@@ -11,13 +11,13 @@
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
+#include "nkr/trait/defaultable_tr_dec.h"
 #include "nkr/trait/none_tr_dec.h"
 #include "nkr/trait/none/any_tr_dec.h"
-#include "nkr/trait/type_tr_dec.h"
 
 namespace nkr { namespace none {
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     class   value_t;
 
     struct  value_tg    {};
@@ -79,7 +79,7 @@ namespace nkr { namespace none {
     // There may be a conflict between it and the default copy constructor however, so I'll need to do some testing to see if that
     // can be made to work correctly. Most types don't need to worry about though and this should make it far easier to use this.
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     class value_t
     {
     public:

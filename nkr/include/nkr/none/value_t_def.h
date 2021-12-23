@@ -11,9 +11,9 @@
 #include "nkr/interface/template_i_def.h"
 #include "nkr/interface/type_i_def.h"
 
+#include "nkr/trait/defaultable_tr_def.h"
 #include "nkr/trait/none_tr_def.h"
 #include "nkr/trait/none/any_tr_def.h"
-#include "nkr/trait/type_tr_def.h"
 
 #include "nkr/none/value_t_dec.h"
 
@@ -38,32 +38,32 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::value_t() noexcept
     {
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::value_t(const value_t& other) noexcept
     {
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::value_t(const volatile value_t& other) noexcept
     {
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::value_t(value_t&& other) noexcept
     {
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::value_t(volatile value_t&& other) noexcept
     {
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(const value_t& other)
         noexcept
@@ -71,7 +71,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(const value_t& other)
         volatile noexcept
@@ -79,7 +79,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(const volatile value_t& other)
         noexcept
@@ -87,7 +87,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(const volatile value_t& other)
         volatile noexcept
@@ -95,7 +95,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(value_t&& other)
         noexcept
@@ -103,7 +103,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(value_t&& other)
         volatile noexcept
@@ -111,7 +111,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(tr1<just_volatile_tg, value_t> auto&& other)
         noexcept
@@ -119,7 +119,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(tr1<just_volatile_tg, value_t> auto&& other)
         volatile noexcept
@@ -128,20 +128,20 @@ namespace nkr { namespace none {
     }
 
 #if defined(nkr_IS_DEBUG)
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::~value_t() noexcept
     {
     }
 #endif
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::operator type_t()
         const noexcept
     {
         return cpp::just_non_qualified_t<type_t>();
     }
 
-    template <trait::type_tr type_p>
+    template <trait::defaultable_tr type_p>
     inline constexpr value_t<type_p>::operator type_t()
         const volatile noexcept
     {
