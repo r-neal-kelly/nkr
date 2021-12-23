@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/tr.h"
-
 #include "nkr/positive/integer_t.h"
 
 #include "doctest.h"

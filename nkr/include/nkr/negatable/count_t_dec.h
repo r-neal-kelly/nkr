@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/interface/type_i_dec.h"
+#include "nkr/tr_dec.h"
 
 #include "nkr/negatable/integer_t_dec.h"
 

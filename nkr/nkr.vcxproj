@@ -556,9 +556,6 @@
     <None Include="include\nkr\traits_dox.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\allocator_heap_t.cpp" />
-    <ClCompile Include="src\allocator_heap_zeros_t.cpp" />
-    <ClCompile Include="src\pointer_t.cpp" />
     <ClCompile Include="src\utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

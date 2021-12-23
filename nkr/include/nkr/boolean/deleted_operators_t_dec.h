@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/tr_dec.h"
 
 namespace nkr { namespace boolean {
 

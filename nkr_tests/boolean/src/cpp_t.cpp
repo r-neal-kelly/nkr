@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/tr.h"
-
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/safe_t.h"
 

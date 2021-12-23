@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/interface/type_i_dec.h"
+#include "nkr/tr_dec.h"
 
 #include "nkr/trait/boolean_tr_dec.h"
 #include "nkr/trait/boolean/any_tr_dec.h"

@@ -6,9 +6,6 @@
 
 #include "nkr/tr_def.h"
 
-#include "nkr/interface/template_i_def.h"
-#include "nkr/interface/type_i_def.h"
-
 #include "nkr/trait/defaultable_tr_def.h"
 #include "nkr/trait/none_tr_def.h"
 #include "nkr/trait/none/any_tr_def.h"

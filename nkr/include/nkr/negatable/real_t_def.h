@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/interface/type_i_def.h"
+#include "nkr/tr_def.h"
 
 #include "nkr/negatable/real_32_t_def.h"
 #include "nkr/negatable/real_64_t_def.h"

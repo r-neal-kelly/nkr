@@ -1182,15 +1182,6 @@
     <None Include="include\nkr\pointer_t_dox.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\pointer_t.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\allocator_heap_t.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\allocator_heap_zeros_t.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

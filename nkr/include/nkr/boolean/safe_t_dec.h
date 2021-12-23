@@ -9,8 +9,6 @@
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
 
-#include "nkr/interface/type_i_dec.h"
-
 #include "nkr/trait/boolean_tr_dec.h"
 #include "nkr/trait/boolean/any_tr_dec.h"
 #include "nkr/trait/boolean/pure_tr_dec.h"
