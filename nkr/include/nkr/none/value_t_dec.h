@@ -6,6 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
+#include "nkr/interface/none/value_i_dec.h"
+
 #include "nkr/trait/constructor/default_tr_dec.h"
 #include "nkr/trait/none_tr_dec.h"
 #include "nkr/trait/none/any_tr_dec.h"
@@ -29,38 +31,38 @@ namespace nkr { namespace none {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<none::value_tg>
+    class type_i<nkr::none::value_tg>
     {
     public:
-        using of_t  = none::type_t;
+        using of_t  = nkr::none::type_t;
 
     public:
         template <typename other_p>
         static constexpr boolean::cpp_t Is_Any() noexcept;
     };
 
-    template <none::value_tr type_p>
+    template <nkr::none::value_tr type_p>
     class type_i<type_p> :
-        public type_i<none::value_tg>
+        public type_i<nkr::none::value_tg>
     {
     public:
         using of_t  = type_p::type_t;
     };
 
     template <>
-    class template_i<none::value_ttg>
+    class template_i<nkr::none::value_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = none::value_t<of_p>;
+        using type_t    = nkr::none::value_t<of_p>;
 
     public:
         static constexpr boolean::cpp_t Is_Implemented() noexcept;
     };
 
     template <>
-    class template_i<none::value_t> :
-        public template_i<none::value_ttg>
+    class template_i<nkr::none::value_t> :
+        public template_i<nkr::none::value_ttg>
     {
     public:
     };

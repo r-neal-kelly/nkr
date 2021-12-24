@@ -55,7 +55,7 @@ namespace nkr {
         class type_i<non_none_default_t>
         {
         public:
-            using of_t  = none::type_t;
+            using of_t  = nkr::none::type_t;
 
         public:
             template <typename other_p>
@@ -77,12 +77,12 @@ namespace nkr {
         positive::integer_t value;
 
     public:
-        non_none_default_t() :
+        constexpr non_none_default_t() :
             value(0)
         {
         }
 
-        non_none_default_t(positive::integer_t value) :
+        constexpr non_none_default_t(positive::integer_t value) :
             value(value)
         {
         }
@@ -100,11 +100,30 @@ namespace nkr {
         }
     };
 
+    namespace interface
+    {
+        namespace none {
+
+            template <>
+            class value_i<non_none_default_t>
+            {
+            public:
+                static constexpr non_none_default_t
+                    Value()
+                    noexcept
+                {
+                    return 1;
+                }
+            };
+
+        }
+    }
+
     TEST_CASE("should work as a tag for types that don't use none as a default value")
     {
         non_none_default_t non_none_default = none::value_t<non_none_default_t>();
 
-        //CHECK(non_none_default.Value() == non_none_default_t::NONE);
+        CHECK(non_none_default.Value() == non_none_default_t::NONE);
     }
 
 }

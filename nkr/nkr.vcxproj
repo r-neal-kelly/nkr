@@ -255,6 +255,11 @@
     <ClInclude Include="include\nkr\hasher\fnv1a_t_dox.h" />
     <ClInclude Include="include\nkr\hasher_i.h" />
     <ClInclude Include="include\nkr\hasher_i_dox.h" />
+    <ClInclude Include="include\nkr\interface\none\value_i.h" />
+    <ClInclude Include="include\nkr\interface\none\value_i_dec.h" />
+    <ClInclude Include="include\nkr\interface\none\value_i_dec_def.h" />
+    <ClInclude Include="include\nkr\interface\none\value_i_def.h" />
+    <ClInclude Include="include\nkr\interface\none\value_i_dox.h" />
     <ClInclude Include="include\nkr\interface\template_i_dec_def.h" />
     <ClInclude Include="include\nkr\interface\type_i_dec_def.h" />
     <ClInclude Include="include\nkr\negatable\byte_t.h" />
