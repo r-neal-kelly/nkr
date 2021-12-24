@@ -24,6 +24,10 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
         { type_p::Value() } -> cpp::is_just_non_qualified_tr<typename type_p::type_t>;
     };
 
+    template <typename type_p>
+    concept objects_i =
+        !trait::constructor::defaultable_tr<type_p>;
+
 }}}}
 
 namespace nkr { namespace interface { namespace none {
@@ -40,7 +44,8 @@ namespace nkr { namespace interface { namespace none {
     concept value_tr =
         cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
         $value_i::aliases_i<type_p> &&
-        $value_i::static_constexpr_functions_i<type_p>;
+        $value_i::static_constexpr_functions_i<type_p> &&
+        $value_i::objects_i<type_p>;
 
 }}}
 
@@ -87,29 +92,6 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <typename type_p>
-    class value_i
-    {
-    public:
-        constexpr value_i() noexcept                                                                                = delete;
-
-        constexpr value_i(const value_i& other) noexcept                                                            = delete;
-        constexpr value_i(const volatile value_i& other) noexcept                                                   = delete;
-        constexpr value_i(value_i&& other) noexcept                                                                 = delete;
-        constexpr value_i(volatile value_i&& other) noexcept                                                        = delete;
-
-        constexpr value_i&          operator =(const value_i& other) noexcept                                       = delete;
-        constexpr volatile value_i& operator =(const value_i& other) volatile noexcept                              = delete;
-        constexpr value_i&          operator =(const volatile value_i& other) noexcept                              = delete;
-        constexpr volatile value_i& operator =(const volatile value_i& other) volatile noexcept                     = delete;
-        constexpr value_i&          operator =(value_i&& other) noexcept                                            = delete;
-        constexpr volatile value_i& operator =(value_i&& other) volatile noexcept                                   = delete;
-        constexpr value_i&          operator =(cpp::is_just_volatile_tr<value_i> auto&& other) noexcept             = delete;
-        constexpr volatile value_i& operator =(cpp::is_just_volatile_tr<value_i> auto&& other) volatile noexcept    = delete;
-
-        constexpr ~value_i() noexcept                                                                               = delete;
-    };
-
     template <tr1<just_non_qualified_tg, trait::constructor::defaultable_tg> type_p>
     class value_i<type_p>
     {
@@ -120,23 +102,8 @@ namespace nkr { namespace interface { namespace none {
         static constexpr type_t Value() noexcept;
 
     public:
-        constexpr value_i() noexcept                                                                                = delete;
-
-        constexpr value_i(const value_i& other) noexcept                                                            = delete;
-        constexpr value_i(const volatile value_i& other) noexcept                                                   = delete;
-        constexpr value_i(value_i&& other) noexcept                                                                 = delete;
-        constexpr value_i(volatile value_i&& other) noexcept                                                        = delete;
-
-        constexpr value_i&          operator =(const value_i& other) noexcept                                       = delete;
-        constexpr volatile value_i& operator =(const value_i& other) volatile noexcept                              = delete;
-        constexpr value_i&          operator =(const volatile value_i& other) noexcept                              = delete;
-        constexpr volatile value_i& operator =(const volatile value_i& other) volatile noexcept                     = delete;
-        constexpr value_i&          operator =(value_i&& other) noexcept                                            = delete;
-        constexpr volatile value_i& operator =(value_i&& other) volatile noexcept                                   = delete;
-        constexpr value_i&          operator =(cpp::is_just_volatile_tr<value_i> auto&& other) noexcept             = delete;
-        constexpr volatile value_i& operator =(cpp::is_just_volatile_tr<value_i> auto&& other) volatile noexcept    = delete;
-
-        constexpr ~value_i() noexcept                                                                               = delete;
+        template <typename ...>
+        constexpr value_i(...) noexcept = delete;
     };
 
 }}}

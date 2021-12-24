@@ -119,6 +119,10 @@ namespace nkr {
                 {
                     return 1;
                 }
+
+            public:
+                template <typename ...>
+                constexpr value_i(...) noexcept = delete;
             };
 
         }
