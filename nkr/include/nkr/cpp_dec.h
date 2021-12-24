@@ -485,3 +485,5 @@ namespace nkr { namespace cpp {
     constexpr auto              Exchange(const auto& value, auto&& with) noexcept       = delete;
 
 }}
+
+#include "nkr/cpp_dec_def.h"

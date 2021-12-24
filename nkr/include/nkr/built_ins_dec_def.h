@@ -4,9 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsics_def.h"
-
-#include "nkr/cpp_dec.h"
+#include "nkr/built_ins_dec.h"
 
 namespace nkr {
 

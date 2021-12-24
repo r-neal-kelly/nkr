@@ -9,8 +9,8 @@
 
 #include "nkr/boolean/deleted_operators_t_dec.h"
 
-namespace nkr { namespace boolean {
+namespace nkr {
 
 
 
-}}
+}

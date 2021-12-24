@@ -70,3 +70,5 @@ namespace nkr { namespace array {
     using   cpp_t   = type_p[capacity_p];
 
 }}
+
+#include "nkr/built_ins_dec_def.h"

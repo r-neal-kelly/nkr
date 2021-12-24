@@ -59,3 +59,5 @@ namespace nkr { namespace boolean {
     };
 
 }}
+
+#include "nkr/boolean/deleted_operators_t_dec_def.h"

@@ -49,8 +49,6 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace boolean {
 
-    /// @nosubgrouping
-    /// @copydoc _2add9928_e370_4943_ba5b_2950d9e1da99
     class safe_t :
         public deleted_operators_t
     {
@@ -62,46 +60,34 @@ namespace nkr { namespace boolean {
         static constexpr auto&  Assign_Move(tr1<any_non_const_tg, safe_t> auto& self, tr1<any_non_const_tg, safe_t> auto&& other) noexcept;
 
     protected:
-        /// @name object data
-        /// @copydoc 
-        /// @{
-        boolean::cpp_t  value;  ///< @copydoc 
-        /// @}
+        boolean::cpp_t  value;
 
     public:
-        /// @name objects
-        /// @copydoc 
-        /// @{
-        constexpr safe_t() noexcept;                                                                            ///< @copydoc 
+        constexpr safe_t() noexcept;
 
-        constexpr safe_t(const tr1<any_to_tg, boolean::cpp_t> auto& value) noexcept;                            ///< @copydoc 
+        constexpr safe_t(const tr1<any_to_tg, boolean::cpp_t> auto& value) noexcept;
 
-        constexpr safe_t(const safe_t& other) noexcept;                                                         ///< @copydoc 
-        constexpr safe_t(const volatile safe_t& other) noexcept;                                                ///< @copydoc 
-        constexpr safe_t(safe_t&& other) noexcept;                                                              ///< @copydoc 
-        constexpr safe_t(volatile safe_t&& other) noexcept;                                                     ///< @copydoc 
+        constexpr safe_t(const safe_t& other) noexcept;
+        constexpr safe_t(const volatile safe_t& other) noexcept;
+        constexpr safe_t(safe_t&& other) noexcept;
+        constexpr safe_t(volatile safe_t&& other) noexcept;
 
-        constexpr safe_t&           operator =(const safe_t& other) noexcept;                                   ///< @copydoc 
-        constexpr volatile safe_t&  operator =(const safe_t& other) volatile noexcept;                          ///< @copydoc 
-        constexpr safe_t&           operator =(const volatile safe_t& other) noexcept;                          ///< @copydoc 
-        constexpr volatile safe_t&  operator =(const volatile safe_t& other) volatile noexcept;                 ///< @copydoc 
-        constexpr safe_t&           operator =(safe_t&& other) noexcept;                                        ///< @copydoc 
-        constexpr volatile safe_t&  operator =(safe_t&& other) volatile noexcept;                               ///< @copydoc 
-        constexpr safe_t&           operator =(tr1<just_volatile_tg, safe_t> auto&& other) noexcept;            ///< @copydoc 
-        constexpr volatile safe_t&  operator =(tr1<just_volatile_tg, safe_t> auto&& other) volatile noexcept;   ///< @copydoc 
+        constexpr safe_t&           operator =(const safe_t& other) noexcept;
+        constexpr volatile safe_t&  operator =(const safe_t& other) volatile noexcept;
+        constexpr safe_t&           operator =(const volatile safe_t& other) noexcept;
+        constexpr volatile safe_t&  operator =(const volatile safe_t& other) volatile noexcept;
+        constexpr safe_t&           operator =(safe_t&& other) noexcept;
+        constexpr volatile safe_t&  operator =(safe_t&& other) volatile noexcept;
+        constexpr safe_t&           operator =(tr1<just_volatile_tg, safe_t> auto&& other) noexcept;
+        constexpr volatile safe_t&  operator =(tr1<just_volatile_tg, safe_t> auto&& other) volatile noexcept;
 
 #if defined(nkr_IS_DEBUG)
-        constexpr ~safe_t() noexcept;                                                                           ///< @copydoc 
+        constexpr ~safe_t() noexcept;
 #endif
-        /// @}
 
     public:
-        /// @name casts
-        /// @copydoc 
-        /// @{
-        explicit constexpr operator boolean::cpp_t() const noexcept;            ///< @copydoc 
-        explicit constexpr operator boolean::cpp_t() const volatile noexcept;   ///< @copydoc 
-        /// @}
+        explicit constexpr operator boolean::cpp_t() const noexcept;
+        explicit constexpr operator boolean::cpp_t() const volatile noexcept;
     };
 
 }}
@@ -119,3 +105,26 @@ namespace nkr {
     constexpr boolean::cpp_t    operator !=(const tr1<any_tg, boolean::safe_t> auto&& a, const tr0<any_tg> auto&& b) noexcept;
 
 }
+
+#include "nkr/boolean/safe_t_dec_def.h"
+
+namespace nkr { namespace boolean {
+
+    static_assert(sizeof(safe_t) == sizeof(cpp_t));
+
+    static_assert(trait::boolean_tr<safe_t>);
+    static_assert(trait::boolean_tr<const safe_t>);
+    static_assert(trait::boolean_tr<volatile safe_t>);
+    static_assert(trait::boolean_tr<const volatile safe_t>);
+
+    static_assert(trait::boolean::any_tr<safe_t>);
+    static_assert(trait::boolean::any_tr<const safe_t>);
+    static_assert(trait::boolean::any_tr<volatile safe_t>);
+    static_assert(trait::boolean::any_tr<const volatile safe_t>);
+
+    static_assert(trait::boolean::pure_tr<safe_t>);
+    static_assert(trait::boolean::pure_tr<const safe_t>);
+    static_assert(trait::boolean::pure_tr<volatile safe_t>);
+    static_assert(trait::boolean::pure_tr<const volatile safe_t>);
+
+}}

@@ -46,7 +46,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = array::cpp_t<of_p>;
+        using type_t    = array::cpp_t<of_p, 1>;
 
     public:
         static constexpr boolean::cpp_t Is_Implemented() noexcept;
@@ -58,5 +58,21 @@ namespace nkr { namespace interface {
     {
     public:
     };
+
+}}
+
+#include "nkr/array/cpp_t_dec_def.h"
+
+namespace nkr { namespace array {
+
+    static_assert(trait::array_tr<cpp_t<positive::integer_t, 1>>);
+    static_assert(trait::array_tr<const cpp_t<positive::integer_t, 1>>);
+    static_assert(trait::array_tr<volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(trait::array_tr<const volatile cpp_t<positive::integer_t, 1>>);
+
+    static_assert(trait::array::any_tr<cpp_t<positive::integer_t, 1>>);
+    static_assert(trait::array::any_tr<const cpp_t<positive::integer_t, 1>>);
+    static_assert(trait::array::any_tr<volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(trait::array::any_tr<const volatile cpp_t<positive::integer_t, 1>>);
 
 }}

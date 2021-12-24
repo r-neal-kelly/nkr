@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\cpp_t.cpp" />
     <ClCompile Include="src\dynamic_t.cpp" />
     <ClCompile Include="src\high_pad_t.cpp" />
     <ClCompile Include="src\instant_t.cpp" />

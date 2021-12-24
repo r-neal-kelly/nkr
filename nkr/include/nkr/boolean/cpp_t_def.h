@@ -12,33 +12,8 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 
-namespace nkr { namespace interface {
+namespace nkr {
 
-    template <typename other_p>
-    inline constexpr boolean::cpp_t
-        type_i<boolean::cpp_tg>::Is_Any()
-        noexcept
-    {
-        return boolean::cpp_tr<other_p>;
-    }
 
-}}
 
-namespace nkr { namespace boolean {
-
-    static_assert(trait::boolean_tr<cpp_t>);
-    static_assert(trait::boolean_tr<const cpp_t>);
-    static_assert(trait::boolean_tr<volatile cpp_t>);
-    static_assert(trait::boolean_tr<const volatile cpp_t>);
-
-    static_assert(trait::boolean::any_tr<cpp_t>);
-    static_assert(trait::boolean::any_tr<const cpp_t>);
-    static_assert(trait::boolean::any_tr<volatile cpp_t>);
-    static_assert(trait::boolean::any_tr<const volatile cpp_t>);
-
-    static_assert(trait::boolean::impure_tr<cpp_t>);
-    static_assert(trait::boolean::impure_tr<const cpp_t>);
-    static_assert(trait::boolean::impure_tr<volatile cpp_t>);
-    static_assert(trait::boolean::impure_tr<const volatile cpp_t>);
-
-}}
+}

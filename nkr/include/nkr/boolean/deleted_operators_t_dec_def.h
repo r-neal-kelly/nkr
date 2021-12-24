@@ -4,9 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsics_def.h"
-
-#include "nkr/cpp_dec.h"
+#include "nkr/boolean/deleted_operators_t_dec.h"
 
 namespace nkr {
 
