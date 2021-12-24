@@ -120,3 +120,19 @@ namespace nkr {
     constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto&& b) noexcept;*/
 
 }
+
+#include "nkr/none/value_t_dec_def.h"
+
+namespace nkr { namespace none {
+
+    /*static_assert(trait::none_tr<value_t<positive::integer_t>>);
+    static_assert(trait::none_tr<const value_t<positive::integer_t>>);
+    static_assert(trait::none_tr<volatile value_t<positive::integer_t>>);
+    static_assert(trait::none_tr<const volatile value_t<positive::integer_t>>);
+
+    static_assert(trait::none::any_tr<value_t<positive::integer_t>>);
+    static_assert(trait::none::any_tr<const value_t<positive::integer_t>>);
+    static_assert(trait::none::any_tr<volatile value_t<positive::integer_t>>);
+    static_assert(trait::none::any_tr<const volatile value_t<positive::integer_t>>);*/
+
+}}

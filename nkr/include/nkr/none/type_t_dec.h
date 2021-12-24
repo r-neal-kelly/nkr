@@ -40,3 +40,19 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/none/type_t_dec_def.h"
+
+namespace nkr { namespace none {
+
+    static_assert(trait::none_tr<type_t>);
+    static_assert(trait::none_tr<const type_t>);
+    static_assert(trait::none_tr<volatile type_t>);
+    static_assert(trait::none_tr<const volatile type_t>);
+
+    static_assert(trait::none::any_tr<type_t>);
+    static_assert(trait::none::any_tr<const type_t>);
+    static_assert(trait::none::any_tr<volatile type_t>);
+    static_assert(trait::none::any_tr<const volatile type_t>);
+
+}}

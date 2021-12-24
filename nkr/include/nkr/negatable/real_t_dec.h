@@ -34,3 +34,24 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/negatable/real_t_dec_def.h"
+
+namespace nkr { namespace negatable {
+
+    static_assert(trait::negatable_tr<real_t>);
+    static_assert(trait::negatable_tr<const real_t>);
+    static_assert(trait::negatable_tr<volatile real_t>);
+    static_assert(trait::negatable_tr<const volatile real_t>);
+
+    static_assert(trait::negatable::any_tr<real_t>);
+    static_assert(trait::negatable::any_tr<const real_t>);
+    static_assert(trait::negatable::any_tr<volatile real_t>);
+    static_assert(trait::negatable::any_tr<const volatile real_t>);
+
+    static_assert(trait::negatable::real_tr<real_t>);
+    static_assert(trait::negatable::real_tr<const real_t>);
+    static_assert(trait::negatable::real_tr<volatile real_t>);
+    static_assert(trait::negatable::real_tr<const volatile real_t>);
+
+}}

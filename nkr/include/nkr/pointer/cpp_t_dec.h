@@ -60,3 +60,19 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/pointer/cpp_t_dec_def.h"
+
+namespace nkr { namespace pointer {
+
+    static_assert(trait::pointer_tr<cpp_t<positive::integer_t>>);
+    static_assert(trait::pointer_tr<const cpp_t<positive::integer_t>>);
+    static_assert(trait::pointer_tr<volatile cpp_t<positive::integer_t>>);
+    static_assert(trait::pointer_tr<const volatile cpp_t<positive::integer_t>>);
+
+    static_assert(trait::pointer::any_tr<cpp_t<positive::integer_t>>);
+    static_assert(trait::pointer::any_tr<const cpp_t<positive::integer_t>>);
+    static_assert(trait::pointer::any_tr<volatile cpp_t<positive::integer_t>>);
+    static_assert(trait::pointer::any_tr<const volatile cpp_t<positive::integer_t>>);
+
+}}

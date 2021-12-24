@@ -33,3 +33,24 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/negatable/size_t_dec_def.h"
+
+namespace nkr { namespace negatable {
+
+    static_assert(trait::negatable_tr<size_t>);
+    static_assert(trait::negatable_tr<const size_t>);
+    static_assert(trait::negatable_tr<volatile size_t>);
+    static_assert(trait::negatable_tr<const volatile size_t>);
+
+    static_assert(trait::negatable::any_tr<size_t>);
+    static_assert(trait::negatable::any_tr<const size_t>);
+    static_assert(trait::negatable::any_tr<volatile size_t>);
+    static_assert(trait::negatable::any_tr<const volatile size_t>);
+
+    static_assert(trait::negatable::integer_tr<size_t>);
+    static_assert(trait::negatable::integer_tr<const size_t>);
+    static_assert(trait::negatable::integer_tr<volatile size_t>);
+    static_assert(trait::negatable::integer_tr<const volatile size_t>);
+
+}}

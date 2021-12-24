@@ -17,21 +17,8 @@
 
 #include "nkr/positive/integer_t_dec.h"
 
-namespace nkr { namespace positive {
+namespace nkr {
 
-    static_assert(trait::positive_tr<integer_t>);
-    static_assert(trait::positive_tr<const integer_t>);
-    static_assert(trait::positive_tr<volatile integer_t>);
-    static_assert(trait::positive_tr<const volatile integer_t>);
 
-    static_assert(trait::positive::any_tr<integer_t>);
-    static_assert(trait::positive::any_tr<const integer_t>);
-    static_assert(trait::positive::any_tr<volatile integer_t>);
-    static_assert(trait::positive::any_tr<const volatile integer_t>);
 
-    static_assert(trait::positive::integer_tr<integer_t>);
-    static_assert(trait::positive::integer_tr<const integer_t>);
-    static_assert(trait::positive::integer_tr<volatile integer_t>);
-    static_assert(trait::positive::integer_tr<const volatile integer_t>);
-
-}}
+}

@@ -14,21 +14,8 @@
 
 #include "nkr/negatable/word_t_dec.h"
 
-namespace nkr { namespace negatable {
+namespace nkr {
 
-    static_assert(trait::negatable_tr<word_t>);
-    static_assert(trait::negatable_tr<const word_t>);
-    static_assert(trait::negatable_tr<volatile word_t>);
-    static_assert(trait::negatable_tr<const volatile word_t>);
 
-    static_assert(trait::negatable::any_tr<word_t>);
-    static_assert(trait::negatable::any_tr<const word_t>);
-    static_assert(trait::negatable::any_tr<volatile word_t>);
-    static_assert(trait::negatable::any_tr<const volatile word_t>);
 
-    static_assert(trait::negatable::integer_tr<word_t>);
-    static_assert(trait::negatable::integer_tr<const word_t>);
-    static_assert(trait::negatable::integer_tr<volatile word_t>);
-    static_assert(trait::negatable::integer_tr<const volatile word_t>);
-
-}}
+}

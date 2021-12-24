@@ -14,21 +14,8 @@
 
 #include "nkr/positive/size_t_dec.h"
 
-namespace nkr { namespace positive {
+namespace nkr {
 
-    static_assert(trait::positive_tr<size_t>);
-    static_assert(trait::positive_tr<const size_t>);
-    static_assert(trait::positive_tr<volatile size_t>);
-    static_assert(trait::positive_tr<const volatile size_t>);
 
-    static_assert(trait::positive::any_tr<size_t>);
-    static_assert(trait::positive::any_tr<const size_t>);
-    static_assert(trait::positive::any_tr<volatile size_t>);
-    static_assert(trait::positive::any_tr<const volatile size_t>);
 
-    static_assert(trait::positive::integer_tr<size_t>);
-    static_assert(trait::positive::integer_tr<const size_t>);
-    static_assert(trait::positive::integer_tr<volatile size_t>);
-    static_assert(trait::positive::integer_tr<const volatile size_t>);
-
-}}
+}

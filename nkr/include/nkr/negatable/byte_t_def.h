@@ -14,21 +14,8 @@
 
 #include "nkr/negatable/byte_t_dec.h"
 
-namespace nkr { namespace negatable {
+namespace nkr {
 
-    static_assert(trait::negatable_tr<byte_t>);
-    static_assert(trait::negatable_tr<const byte_t>);
-    static_assert(trait::negatable_tr<volatile byte_t>);
-    static_assert(trait::negatable_tr<const volatile byte_t>);
 
-    static_assert(trait::negatable::any_tr<byte_t>);
-    static_assert(trait::negatable::any_tr<const byte_t>);
-    static_assert(trait::negatable::any_tr<volatile byte_t>);
-    static_assert(trait::negatable::any_tr<const volatile byte_t>);
 
-    static_assert(trait::negatable::integer_tr<byte_t>);
-    static_assert(trait::negatable::integer_tr<const byte_t>);
-    static_assert(trait::negatable::integer_tr<volatile byte_t>);
-    static_assert(trait::negatable::integer_tr<const volatile byte_t>);
-
-}}
+}
