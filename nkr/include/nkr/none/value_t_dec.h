@@ -13,10 +13,12 @@
 namespace nkr { namespace none {
 
     template <trait::constructor::default_tr type_p>
-    class value_t;
+    class   value_t;
 
-    struct                      value_tg    {};
-    template <typename> struct  value_ttg   {};
+    struct  value_tg    {};
+
+    template <typename>
+    struct  value_ttg   {};
 
     template <typename type_p>
     concept value_tr =

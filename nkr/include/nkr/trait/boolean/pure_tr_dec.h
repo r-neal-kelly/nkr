@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait { namespace boolean {
 
-    struct                      pure_tg     {};
-    template <typename> struct  pure_ttg    {};
+    struct  pure_tg     {};
+
+    template <typename>
+    struct  pure_ttg    {};
 
     template <typename type_p>
     concept pure_tr =

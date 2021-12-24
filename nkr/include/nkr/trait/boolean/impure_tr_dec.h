@@ -56,8 +56,10 @@ namespace nkr { namespace trait { namespace boolean { namespace $impure_tr {
 
 namespace nkr { namespace trait { namespace boolean {
 
-    struct                      impure_tg   {};
-    template <typename> struct  impure_ttg  {};
+    struct  impure_tg   {};
+
+    template <typename>
+    struct  impure_ttg  {};
 
     template <typename type_p>
     concept impure_tr =

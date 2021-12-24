@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait { namespace positive {
 
-    struct                      integer_tg  {};
-    template <typename> struct  integer_ttg {};
+    struct  integer_tg  {};
+
+    template <typename>
+    struct  integer_ttg {};
 
     template <typename type_p>
     concept integer_tr =

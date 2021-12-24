@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait { namespace negatable {
 
-    struct                      real_tg     {};
-    template <typename> struct  real_ttg    {};
+    struct  real_tg     {};
+
+    template <typename>
+    struct  real_ttg    {};
 
     template <typename type_p>
     concept real_tr =

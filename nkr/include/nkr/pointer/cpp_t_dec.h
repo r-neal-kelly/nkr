@@ -11,8 +11,10 @@
 
 namespace nkr { namespace pointer {
 
-    struct                      cpp_tg  {};
-    template <typename> struct  cpp_ttg {};
+    struct  cpp_tg  {};
+
+    template <typename>
+    struct  cpp_ttg {};
 
     template <typename type_p>
     concept cpp_tr =

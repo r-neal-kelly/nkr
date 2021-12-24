@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait {
 
-    struct                      array_tg    {};
-    template <typename> struct  array_ttg   {};
+    struct  array_tg    {};
+
+    template <typename>
+    struct  array_ttg   {};
 
     template <typename type_p>
     concept array_tr =

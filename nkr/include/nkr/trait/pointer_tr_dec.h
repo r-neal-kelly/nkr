@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait {
 
-    struct                      pointer_tg  {};
-    template <typename> struct  pointer_ttg {};
+    struct  pointer_tg  {};
+
+    template <typename>
+    struct  pointer_ttg {};
 
     template <typename type_p>
     concept pointer_tr =

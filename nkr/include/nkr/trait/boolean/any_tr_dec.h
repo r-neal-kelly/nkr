@@ -40,8 +40,10 @@ namespace nkr { namespace trait { namespace boolean { namespace $any_tr {
 
 namespace nkr { namespace trait { namespace boolean {
 
-    struct                      any_tg  {};
-    template <typename> struct  any_ttg {};
+    struct  any_tg  {};
+
+    template <typename>
+    struct  any_ttg {};
 
     template <typename type_p>
     concept any_tr =

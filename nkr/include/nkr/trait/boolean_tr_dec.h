@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait {
 
-    struct                      boolean_tg  {};
-    template <typename> struct  boolean_ttg {};
+    struct  boolean_tg  {};
+
+    template <typename>
+    struct  boolean_ttg {};
 
     template <typename type_p>
     concept boolean_tr =

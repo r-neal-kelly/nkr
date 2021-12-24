@@ -168,13 +168,13 @@ namespace nkr { namespace cpp {
 namespace nkr { namespace cpp {
 
     template <pointer_tr type_p>
-    using pointer_unit_t    = std::remove_pointer_t<type_p>;
+    using   pointer_unit_t      = std::remove_pointer_t<type_p>;
 
     template <array_tr type_p>
-    using array_unit_t      = array_tmpl<type_p>::unit_t;
+    using   array_unit_t        = array_tmpl<type_p>::unit_t;
 
     template <reference_tr type_p>
-    using reference_value_t = std::remove_reference_t<type_p>;
+    using   reference_value_t   = std::remove_reference_t<type_p>;
 
 }}
 
@@ -323,25 +323,25 @@ namespace nkr { namespace cpp {
 namespace nkr { namespace cpp {
 
     template <any_tr type_p>
-    using any_const_t           = std::add_const_t<type_p>;
+    using   any_const_t             = std::add_const_t<type_p>;
 
     template <any_tr type_p>
-    using any_volatile_t        = std::add_volatile_t<type_p>;
+    using   any_volatile_t          = std::add_volatile_t<type_p>;
 
     template <any_tr type_p>
-    using any_const_volatile_t  = std::add_const_t<std::add_volatile_t<type_p>>;
+    using   any_const_volatile_t    = std::add_const_t<std::add_volatile_t<type_p>>;
 
     template <any_tr type_p>
-    using just_non_qualified_t  = std::remove_cv_t<type_p>;
+    using   just_non_qualified_t    = std::remove_cv_t<type_p>;
 
     template <any_tr type_p>
-    using just_const_t          = std::add_const_t<std::remove_cv_t<type_p>>;
+    using   just_const_t            = std::add_const_t<std::remove_cv_t<type_p>>;
 
     template <any_tr type_p>
-    using just_volatile_t       = std::add_volatile_t<std::remove_cv_t<type_p>>;
+    using   just_volatile_t         = std::add_volatile_t<std::remove_cv_t<type_p>>;
 
     template <any_tr type_p>
-    using just_const_volatile_t = std::add_const_t<std::add_volatile_t<std::remove_cv_t<type_p>>>;
+    using   just_const_volatile_t   = std::add_const_t<std::add_volatile_t<std::remove_cv_t<type_p>>>;
 
 }}
 

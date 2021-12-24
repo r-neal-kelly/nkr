@@ -19,8 +19,10 @@ namespace nkr { namespace trait { namespace constructor { namespace $default_tr 
 
 namespace nkr { namespace trait { namespace constructor {
 
-    struct                      default_tg  {};
-    template <typename> struct  default_ttg {};
+    struct  default_tg  {};
+
+    template <typename>
+    struct  default_ttg {};
 
     template <typename type_p>
     concept default_tr =

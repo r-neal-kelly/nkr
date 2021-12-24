@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait {
 
-    struct                      negatable_tg    {};
-    template <typename> struct  negatable_ttg   {};
+    struct  negatable_tg    {};
+
+    template <typename>
+    struct  negatable_ttg   {};
 
     template <typename type_p>
     concept negatable_tr =

@@ -11,8 +11,10 @@
 
 namespace nkr { namespace trait {
 
-    struct                      none_tg     {};
-    template <typename> struct  none_ttg    {};
+    struct  none_tg     {};
+
+    template <typename>
+    struct  none_ttg    {};
 
     template <typename type_p>
     concept none_tr =
