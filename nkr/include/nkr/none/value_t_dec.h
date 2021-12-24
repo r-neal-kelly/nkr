@@ -8,13 +8,13 @@
 
 #include "nkr/interface/none/value_i_dec.h"
 
-#include "nkr/trait/constructor/default_tr_dec.h"
 #include "nkr/trait/none_tr_dec.h"
 #include "nkr/trait/none/any_tr_dec.h"
+#include "nkr/trait/type_tr_dec.h"
 
 namespace nkr { namespace none {
 
-    template <trait::constructor::default_tr type_p>
+    template <trait::type_tr type_p>
     class   value_t;
 
     struct  value_tg    {};
@@ -71,13 +71,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
-    // the idea is that most type's 'none' value is the default constructed object, or zero in the case of built-ins.
-    // however, one could simply add a single constructor for the value_t in their type that does not have the default
-    // equal to none and do whatever they want, because the implicit cast should be skipped when there is a non-template constructor.
-    // There may be a conflict between it and the default copy constructor however, so I'll need to do some testing to see if that
-    // can be made to work correctly. Most types don't need to worry about though and this should make it far easier to use this.
-
-    template <trait::constructor::default_tr type_p>
+    template <trait::type_tr type_p>
     class value_t
     {
     public:

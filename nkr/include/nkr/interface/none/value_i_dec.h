@@ -6,6 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
+#include "nkr/trait/constructor/default_tr_dec.h"
+
 namespace nkr { namespace interface { namespace none {
 
     using namespace nkr::none;
@@ -19,6 +21,9 @@ namespace nkr { namespace interface { namespace none {
     {
     public:
         using type_t    = type_p;
+
+    public:
+        static_assert(trait::constructor::default_tr<type_t>);
 
     public:
         static constexpr type_t Value() noexcept;
