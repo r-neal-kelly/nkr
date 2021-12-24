@@ -91,3 +91,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/boolean/impure_tr_dec_def.h"

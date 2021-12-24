@@ -10,3 +10,9 @@
 #include "nkr/trait/none/any_tr_def.h"
 
 #include "nkr/trait/none_tr_dec.h"
+
+namespace nkr {
+
+
+
+}

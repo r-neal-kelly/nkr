@@ -44,3 +44,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/positive/any_tr_dec_def.h"

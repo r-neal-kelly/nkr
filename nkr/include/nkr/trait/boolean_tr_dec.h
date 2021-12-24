@@ -37,3 +37,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/boolean_tr_dec_def.h"

@@ -77,3 +77,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/boolean/any_tr_dec_def.h"

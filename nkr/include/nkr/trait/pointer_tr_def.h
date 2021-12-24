@@ -10,3 +10,9 @@
 #include "nkr/trait/pointer/any_tr_def.h"
 
 #include "nkr/trait/pointer_tr_dec.h"
+
+namespace nkr {
+
+
+
+}

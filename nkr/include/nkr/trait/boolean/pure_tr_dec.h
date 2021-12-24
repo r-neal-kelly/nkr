@@ -46,3 +46,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/boolean/pure_tr_dec_def.h"

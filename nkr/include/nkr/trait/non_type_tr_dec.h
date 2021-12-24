@@ -45,3 +45,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/non_type_tr_dec_def.h"

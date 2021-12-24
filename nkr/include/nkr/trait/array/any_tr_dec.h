@@ -43,3 +43,5 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+#include "nkr/trait/array/any_tr_dec_def.h"
