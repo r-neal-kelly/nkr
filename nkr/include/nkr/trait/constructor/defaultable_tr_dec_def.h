@@ -4,20 +4,20 @@
 
 #pragma once
 
-#include "nkr/trait/constructor/default_tr_dec.h"
+#include "nkr/trait/constructor/defaultable_tr_dec.h"
 
 namespace nkr { namespace interface {
 
     template <typename other_p>
     inline constexpr boolean::cpp_t
-        type_i<trait::constructor::default_tg>::Is_Any()
+        type_i<trait::constructor::defaultable_tg>::Is_Any()
         noexcept
     {
-        return trait::constructor::default_tr<other_p>;
+        return trait::constructor::defaultable_tr<other_p>;
     }
 
     inline constexpr boolean::cpp_t
-        template_i<trait::constructor::default_ttg>::Is_Implemented()
+        template_i<trait::constructor::defaultable_ttg>::Is_Implemented()
         noexcept
     {
         return true;

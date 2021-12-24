@@ -7,7 +7,7 @@
 #include "nkr/interface/template_i_dec.h"
 #include "nkr/interface/type_i_dec.h"
 
-namespace nkr { namespace trait { namespace constructor { namespace $default_tr {
+namespace nkr { namespace trait { namespace constructor { namespace $defaultable_tr {
 
     template <typename type_p>
     concept constructors_i = requires
@@ -19,21 +19,21 @@ namespace nkr { namespace trait { namespace constructor { namespace $default_tr 
 
 namespace nkr { namespace trait { namespace constructor {
 
-    struct  default_tg  {};
+    struct  defaultable_tg  {};
 
     template <typename>
-    struct  default_ttg {};
+    struct  defaultable_ttg {};
 
     template <typename type_p>
-    concept default_tr =
-        $default_tr::constructors_i<type_p>;
+    concept defaultable_tr =
+        $defaultable_tr::constructors_i<type_p>;
 
 }}}
 
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<trait::constructor::default_tg>
+    class type_i<trait::constructor::defaultable_tg>
     {
     public:
         using of_t  = none::type_t;
@@ -44,11 +44,11 @@ namespace nkr { namespace interface {
     };
 
     template <>
-    class template_i<trait::constructor::default_ttg>
+    class template_i<trait::constructor::defaultable_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = trait::constructor::default_tg;
+        using type_t    = trait::constructor::defaultable_tg;
 
     public:
         static constexpr boolean::cpp_t Is_Implemented() noexcept;
@@ -56,4 +56,4 @@ namespace nkr { namespace interface {
 
 }}
 
-#include "nkr/trait/constructor/default_tr_dec_def.h"
+#include "nkr/trait/constructor/defaultable_tr_dec_def.h"

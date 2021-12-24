@@ -427,11 +427,11 @@
     <ClInclude Include="include\nkr\trait\boolean_tr_dec_def.h" />
     <ClInclude Include="include\nkr\trait\boolean_tr_def.h" />
     <ClInclude Include="include\nkr\trait\boolean_tr_dox.h" />
-    <ClInclude Include="include\nkr\trait\constructor\default_tr.h" />
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_dec.h" />
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_dec_def.h" />
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_def.h" />
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_dox.h" />
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr.h" />
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_dec.h" />
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_def.h" />
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_dox.h" />
     <ClInclude Include="include\nkr\trait\negatable\any_tr.h" />
     <ClInclude Include="include\nkr\trait\negatable\any_tr_dec.h" />
     <ClInclude Include="include\nkr\trait\negatable\any_tr_dec_def.h" />

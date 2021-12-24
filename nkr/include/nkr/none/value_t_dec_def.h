@@ -13,7 +13,7 @@ namespace nkr { namespace interface {
         type_i<nkr::none::value_tg>::Is_Any()
         noexcept
     {
-        return none::value_tr<other_p>;
+        return nkr::none::value_tr<other_p>;
     }
 
     inline constexpr boolean::cpp_t
@@ -127,14 +127,14 @@ namespace nkr { namespace none {
     inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
         const noexcept
     {
-        return interface::none::value_i<cpp::just_non_qualified_t<type_t>>::Value();
+        return interface_t::Value();
     }
 
     template <trait::type_tr type_p>
     inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
         const volatile noexcept
     {
-        return interface::none::value_i<cpp::just_non_qualified_t<type_t>>::Value();
+        return interface_t::Value();
     }
 
 }}

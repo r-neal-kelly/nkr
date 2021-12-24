@@ -45,6 +45,8 @@ namespace nkr {
         integer_t integer = none_t();
 
         CHECK(integer == 0);
+        CHECK(integer == integer_t());
+        CHECK(integer == none_t());
     }
 
     class non_none_default_t;
@@ -77,10 +79,10 @@ namespace nkr {
         positive::integer_t value;
 
     public:
-        constexpr non_none_default_t() :
+        /*constexpr non_none_default_t() :
             value(0)
         {
-        }
+        }*/
 
         constexpr non_none_default_t(positive::integer_t value) :
             value(value)
@@ -107,6 +109,9 @@ namespace nkr {
             template <>
             class value_i<non_none_default_t>
             {
+            public:
+                using type_t    = non_none_default_t;
+
             public:
                 static constexpr non_none_default_t
                     Value()

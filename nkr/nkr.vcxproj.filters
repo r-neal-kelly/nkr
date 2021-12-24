@@ -1101,16 +1101,16 @@
     <ClInclude Include="include\nkr\none\value_t_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\trait\constructor\default_tr.h">
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_dec.h">
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_def.h">
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_dox.h">
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\tr_dec_def.h">
@@ -1161,7 +1161,7 @@
     <ClInclude Include="include\nkr\trait\boolean_tr_dec_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\trait\constructor\default_tr_dec_def.h">
+    <ClInclude Include="include\nkr\trait\constructor\defaultable_tr_dec_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\nkr\trait\negatable_tr_dec_def.h">

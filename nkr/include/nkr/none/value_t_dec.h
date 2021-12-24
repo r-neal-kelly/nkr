@@ -75,7 +75,12 @@ namespace nkr { namespace none {
     class value_t
     {
     public:
-        using type_t    = type_p;
+        using type_t        = type_p;
+        using interface_t   = interface::none::value_i<cpp::just_non_qualified_t<type_t>>;
+
+    public:
+        static_assert(interface::none::value_tr<interface_t>,
+                      "this type must have a valid implementation of interface::none::value_i");
 
     public:
         constexpr value_t() noexcept;
