@@ -6,9 +6,7 @@
 
 #include "nkr/built_ins_def.h"
 
-#include "nkr/trait/implementing/constructor/default_tr_def.h"
-
-#include "nkr/interface/type_i_dec.h"
+#include "nkr/trait/implementing/constructor/default_tr_dec.h"
 
 namespace nkr {
 

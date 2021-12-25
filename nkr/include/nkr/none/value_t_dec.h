@@ -6,15 +6,14 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/interface/none/value_i_dec.h"
-
+#include "nkr/trait/interfaced_with/none/value_tr_dec.h"
 #include "nkr/trait/none_tr_dec.h"
 #include "nkr/trait/none/any_tr_dec.h"
 #include "nkr/trait/type_tr_dec.h"
 
 namespace nkr { namespace none {
 
-    template <trait::type_tr type_p>
+    template <trait::interfaced_with::none::value_tr type_p>
     class   value_t;
 
     struct  value_tg    {};
@@ -74,16 +73,12 @@ namespace nkr { namespace none {
     // type_t alias really should be value_t. We need to make that work syntactically here,
     // but we should do that to be consistent with other types that produce a value.
 
-    template <trait::type_tr type_p>
+    template <trait::interfaced_with::none::value_tr type_p>
     class value_t
     {
     public:
         using type_t        = type_p;
-        using interface_t   = interface::none::value_i<cpp::just_non_qualified_t<type_t>>;
-
-    public:
-        static_assert(interface::none::value_tr<interface_t>,
-                      "this type must have a valid implementation of interface::none::value_i");
+        using interface_t   = interface::none::value_i<type_t>;
 
     public:
         constexpr value_t() noexcept;
