@@ -6,8 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/trait/implementing/constructor/default_tr_dec.h"
-#include "nkr/trait/type_tr_dec.h"
+#include "nkr/general/implementing/constructor/default_tr_dec.h"
+#include "nkr/general/type_tr_dec.h"
 
 namespace nkr { namespace interface { namespace none { namespace $value_i {
 
@@ -15,7 +15,7 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
     concept aliases_i = requires
     {
         typename type_p::type_t;
-        tr1<typename type_p::type_t, just_non_qualified_tg, trait::type_tg>;
+        tr1<typename type_p::type_t, just_non_qualified_tg, general::type_tg>;
     };
 
     template <typename type_p>
@@ -26,7 +26,7 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
     template <typename type_p>
     concept objects_i =
-        !trait::implementing::constructor::default_tr<type_p>;
+        !general::implementing::constructor::default_tr<type_p>;
 
 }}}}
 
@@ -92,7 +92,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <tr1<just_non_qualified_tg, trait::implementing::constructor::default_tg> type_p>
+    template <tr1<just_non_qualified_tg, general::implementing::constructor::default_tg> type_p>
     class value_i<type_p>
     {
     public:

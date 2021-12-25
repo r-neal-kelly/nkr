@@ -6,8 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/trait/none_tr_dec.h"
-#include "nkr/trait/none/any_tr_dec.h"
+#include "nkr/general/none_tr_dec.h"
+#include "nkr/general/none/any_tr_dec.h"
 
 namespace nkr { namespace none {
 
@@ -45,14 +45,14 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
-    static_assert(trait::none_tr<type_t>);
-    static_assert(trait::none_tr<const type_t>);
-    static_assert(trait::none_tr<volatile type_t>);
-    static_assert(trait::none_tr<const volatile type_t>);
+    static_assert(general::none_tr<type_t>);
+    static_assert(general::none_tr<const type_t>);
+    static_assert(general::none_tr<volatile type_t>);
+    static_assert(general::none_tr<const volatile type_t>);
 
-    static_assert(trait::none::any_tr<type_t>);
-    static_assert(trait::none::any_tr<const type_t>);
-    static_assert(trait::none::any_tr<volatile type_t>);
-    static_assert(trait::none::any_tr<const volatile type_t>);
+    static_assert(general::none::any_tr<type_t>);
+    static_assert(general::none::any_tr<const type_t>);
+    static_assert(general::none::any_tr<volatile type_t>);
+    static_assert(general::none::any_tr<const volatile type_t>);
 
 }}

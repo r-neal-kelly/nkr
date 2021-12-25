@@ -6,7 +6,7 @@
 
 #include "nkr/built_ins_dec.h"
 
-#include "nkr/trait/implementing/constructor/default_tr_dec.h"
+#include "nkr/general/implementing/constructor/default_tr_dec.h"
 
 namespace nkr { namespace interface { namespace $type_i {
 
@@ -25,7 +25,7 @@ namespace nkr { namespace interface { namespace $type_i {
 
     template <typename type_p>
     concept objects_i =
-        !trait::implementing::constructor::default_tr<type_p>;
+        !general::implementing::constructor::default_tr<type_p>;
 
 }}}
 

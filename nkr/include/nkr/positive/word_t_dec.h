@@ -8,9 +8,9 @@
 
 #include "nkr/positive/integer_t_dec.h"
 
-#include "nkr/trait/positive_tr_dec.h"
-#include "nkr/trait/positive/any_tr_dec.h"
-#include "nkr/trait/positive/integer_tr_dec.h"
+#include "nkr/general/positive_tr_dec.h"
+#include "nkr/general/positive/any_tr_dec.h"
+#include "nkr/general/positive/integer_tr_dec.h"
 
 namespace nkr { namespace positive {
 
@@ -38,19 +38,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace positive {
 
-    static_assert(trait::positive_tr<word_t>);
-    static_assert(trait::positive_tr<const word_t>);
-    static_assert(trait::positive_tr<volatile word_t>);
-    static_assert(trait::positive_tr<const volatile word_t>);
+    static_assert(general::positive_tr<word_t>);
+    static_assert(general::positive_tr<const word_t>);
+    static_assert(general::positive_tr<volatile word_t>);
+    static_assert(general::positive_tr<const volatile word_t>);
 
-    static_assert(trait::positive::any_tr<word_t>);
-    static_assert(trait::positive::any_tr<const word_t>);
-    static_assert(trait::positive::any_tr<volatile word_t>);
-    static_assert(trait::positive::any_tr<const volatile word_t>);
+    static_assert(general::positive::any_tr<word_t>);
+    static_assert(general::positive::any_tr<const word_t>);
+    static_assert(general::positive::any_tr<volatile word_t>);
+    static_assert(general::positive::any_tr<const volatile word_t>);
 
-    static_assert(trait::positive::integer_tr<word_t>);
-    static_assert(trait::positive::integer_tr<const word_t>);
-    static_assert(trait::positive::integer_tr<volatile word_t>);
-    static_assert(trait::positive::integer_tr<const volatile word_t>);
+    static_assert(general::positive::integer_tr<word_t>);
+    static_assert(general::positive::integer_tr<const word_t>);
+    static_assert(general::positive::integer_tr<volatile word_t>);
+    static_assert(general::positive::integer_tr<const volatile word_t>);
 
 }}

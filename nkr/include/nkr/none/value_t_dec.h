@@ -6,14 +6,14 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/trait/interfaced_with/none/value_tr_dec.h"
-#include "nkr/trait/none_tr_dec.h"
-#include "nkr/trait/none/any_tr_dec.h"
-#include "nkr/trait/type_tr_dec.h"
+#include "nkr/general/interfaced_with/none/value_tr_dec.h"
+#include "nkr/general/none_tr_dec.h"
+#include "nkr/general/none/any_tr_dec.h"
+#include "nkr/general/type_tr_dec.h"
 
 namespace nkr { namespace none {
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     class   value_t;
 
     struct  value_tg    {};
@@ -73,7 +73,7 @@ namespace nkr { namespace none {
     // type_t alias really should be value_t. We need to make that work syntactically here,
     // but we should do that to be consistent with other types that produce a value.
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     class value_t
     {
     public:
@@ -126,14 +126,14 @@ namespace nkr {
 
 namespace nkr { namespace none {
 
-    /*static_assert(trait::none_tr<value_t<positive::integer_t>>);
-    static_assert(trait::none_tr<const value_t<positive::integer_t>>);
-    static_assert(trait::none_tr<volatile value_t<positive::integer_t>>);
-    static_assert(trait::none_tr<const volatile value_t<positive::integer_t>>);
+    /*static_assert(general::none_tr<value_t<positive::integer_t>>);
+    static_assert(general::none_tr<const value_t<positive::integer_t>>);
+    static_assert(general::none_tr<volatile value_t<positive::integer_t>>);
+    static_assert(general::none_tr<const volatile value_t<positive::integer_t>>);
 
-    static_assert(trait::none::any_tr<value_t<positive::integer_t>>);
-    static_assert(trait::none::any_tr<const value_t<positive::integer_t>>);
-    static_assert(trait::none::any_tr<volatile value_t<positive::integer_t>>);
-    static_assert(trait::none::any_tr<const volatile value_t<positive::integer_t>>);*/
+    static_assert(general::none::any_tr<value_t<positive::integer_t>>);
+    static_assert(general::none::any_tr<const value_t<positive::integer_t>>);
+    static_assert(general::none::any_tr<volatile value_t<positive::integer_t>>);
+    static_assert(general::none::any_tr<const volatile value_t<positive::integer_t>>);*/
 
 }}

@@ -8,9 +8,9 @@
 
 #include "nkr/negatable/integer_t_dec.h"
 
-#include "nkr/trait/negatable_tr_dec.h"
-#include "nkr/trait/negatable/any_tr_dec.h"
-#include "nkr/trait/negatable/integer_tr_dec.h"
+#include "nkr/general/negatable_tr_dec.h"
+#include "nkr/general/negatable/any_tr_dec.h"
+#include "nkr/general/negatable/integer_tr_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -38,19 +38,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace negatable {
 
-    static_assert(trait::negatable_tr<index_t>);
-    static_assert(trait::negatable_tr<const index_t>);
-    static_assert(trait::negatable_tr<volatile index_t>);
-    static_assert(trait::negatable_tr<const volatile index_t>);
+    static_assert(general::negatable_tr<index_t>);
+    static_assert(general::negatable_tr<const index_t>);
+    static_assert(general::negatable_tr<volatile index_t>);
+    static_assert(general::negatable_tr<const volatile index_t>);
 
-    static_assert(trait::negatable::any_tr<index_t>);
-    static_assert(trait::negatable::any_tr<const index_t>);
-    static_assert(trait::negatable::any_tr<volatile index_t>);
-    static_assert(trait::negatable::any_tr<const volatile index_t>);
+    static_assert(general::negatable::any_tr<index_t>);
+    static_assert(general::negatable::any_tr<const index_t>);
+    static_assert(general::negatable::any_tr<volatile index_t>);
+    static_assert(general::negatable::any_tr<const volatile index_t>);
 
-    static_assert(trait::negatable::integer_tr<index_t>);
-    static_assert(trait::negatable::integer_tr<const index_t>);
-    static_assert(trait::negatable::integer_tr<volatile index_t>);
-    static_assert(trait::negatable::integer_tr<const volatile index_t>);
+    static_assert(general::negatable::integer_tr<index_t>);
+    static_assert(general::negatable::integer_tr<const index_t>);
+    static_assert(general::negatable::integer_tr<volatile index_t>);
+    static_assert(general::negatable::integer_tr<const volatile index_t>);
 
 }}

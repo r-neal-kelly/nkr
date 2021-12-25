@@ -27,32 +27,32 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::value_t() noexcept
     {
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::value_t(const value_t& other) noexcept
     {
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::value_t(const volatile value_t& other) noexcept
     {
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::value_t(value_t&& other) noexcept
     {
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::value_t(volatile value_t&& other) noexcept
     {
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(const value_t& other)
         noexcept
@@ -60,7 +60,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(const value_t& other)
         volatile noexcept
@@ -68,7 +68,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(const volatile value_t& other)
         noexcept
@@ -76,7 +76,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(const volatile value_t& other)
         volatile noexcept
@@ -84,7 +84,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(value_t&& other)
         noexcept
@@ -92,7 +92,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(value_t&& other)
         volatile noexcept
@@ -100,7 +100,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>&
         value_t<type_p>::operator =(tr1<just_volatile_tg, value_t> auto&& other)
         noexcept
@@ -108,7 +108,7 @@ namespace nkr { namespace none {
         return *this;
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr volatile value_t<type_p>&
         value_t<type_p>::operator =(tr1<just_volatile_tg, value_t> auto&& other)
         volatile noexcept
@@ -117,20 +117,20 @@ namespace nkr { namespace none {
     }
 
 #if defined(nkr_IS_DEBUG)
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::~value_t() noexcept
     {
     }
 #endif
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
         const noexcept
     {
         return interface_t::Value();
     }
 
-    template <trait::interfaced_with::none::value_tr type_p>
+    template <general::interfaced_with::none::value_tr type_p>
     inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
         const volatile noexcept
     {

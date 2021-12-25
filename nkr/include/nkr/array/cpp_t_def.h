@@ -6,8 +6,8 @@
 
 #include "nkr/tr_def.h"
 
-#include "nkr/trait/array_tr_def.h"
-#include "nkr/trait/array/any_tr_def.h"
+#include "nkr/general/array_tr_def.h"
+#include "nkr/general/array/any_tr_def.h"
 
 #include "nkr/array/cpp_t_dec.h"
 

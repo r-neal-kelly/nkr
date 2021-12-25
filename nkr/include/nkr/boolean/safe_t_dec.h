@@ -9,9 +9,9 @@
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
 
-#include "nkr/trait/boolean_tr_dec.h"
-#include "nkr/trait/boolean/any_tr_dec.h"
-#include "nkr/trait/boolean/pure_tr_dec.h"
+#include "nkr/general/boolean_tr_dec.h"
+#include "nkr/general/boolean/any_tr_dec.h"
+#include "nkr/general/boolean/pure_tr_dec.h"
 
 namespace nkr { namespace boolean {
 
@@ -112,19 +112,19 @@ namespace nkr { namespace boolean {
 
     static_assert(sizeof(safe_t) == sizeof(cpp_t));
 
-    static_assert(trait::boolean_tr<safe_t>);
-    static_assert(trait::boolean_tr<const safe_t>);
-    static_assert(trait::boolean_tr<volatile safe_t>);
-    static_assert(trait::boolean_tr<const volatile safe_t>);
+    static_assert(general::boolean_tr<safe_t>);
+    static_assert(general::boolean_tr<const safe_t>);
+    static_assert(general::boolean_tr<volatile safe_t>);
+    static_assert(general::boolean_tr<const volatile safe_t>);
 
-    static_assert(trait::boolean::any_tr<safe_t>);
-    static_assert(trait::boolean::any_tr<const safe_t>);
-    static_assert(trait::boolean::any_tr<volatile safe_t>);
-    static_assert(trait::boolean::any_tr<const volatile safe_t>);
+    static_assert(general::boolean::any_tr<safe_t>);
+    static_assert(general::boolean::any_tr<const safe_t>);
+    static_assert(general::boolean::any_tr<volatile safe_t>);
+    static_assert(general::boolean::any_tr<const volatile safe_t>);
 
-    static_assert(trait::boolean::pure_tr<safe_t>);
-    static_assert(trait::boolean::pure_tr<const safe_t>);
-    static_assert(trait::boolean::pure_tr<volatile safe_t>);
-    static_assert(trait::boolean::pure_tr<const volatile safe_t>);
+    static_assert(general::boolean::pure_tr<safe_t>);
+    static_assert(general::boolean::pure_tr<const safe_t>);
+    static_assert(general::boolean::pure_tr<volatile safe_t>);
+    static_assert(general::boolean::pure_tr<const volatile safe_t>);
 
 }}

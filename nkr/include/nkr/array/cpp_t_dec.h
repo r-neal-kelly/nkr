@@ -6,8 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/trait/array_tr_dec.h"
-#include "nkr/trait/array/any_tr_dec.h"
+#include "nkr/general/array_tr_dec.h"
+#include "nkr/general/array/any_tr_dec.h"
 
 namespace nkr { namespace array {
 
@@ -67,14 +67,14 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace array {
 
-    static_assert(trait::array_tr<cpp_t<positive::integer_t, 1>>);
-    static_assert(trait::array_tr<const cpp_t<positive::integer_t, 1>>);
-    static_assert(trait::array_tr<volatile cpp_t<positive::integer_t, 1>>);
-    static_assert(trait::array_tr<const volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array_tr<cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array_tr<const cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array_tr<volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array_tr<const volatile cpp_t<positive::integer_t, 1>>);
 
-    static_assert(trait::array::any_tr<cpp_t<positive::integer_t, 1>>);
-    static_assert(trait::array::any_tr<const cpp_t<positive::integer_t, 1>>);
-    static_assert(trait::array::any_tr<volatile cpp_t<positive::integer_t, 1>>);
-    static_assert(trait::array::any_tr<const volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array::any_tr<cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array::any_tr<const cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array::any_tr<volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(general::array::any_tr<const volatile cpp_t<positive::integer_t, 1>>);
 
 }}

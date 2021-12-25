@@ -6,9 +6,9 @@
 
 #include "nkr/tr_def.h"
 
-#include "nkr/trait/boolean_tr_def.h"
-#include "nkr/trait/boolean/any_tr_def.h"
-#include "nkr/trait/boolean/impure_tr_def.h"
+#include "nkr/general/boolean_tr_def.h"
+#include "nkr/general/boolean/any_tr_def.h"
+#include "nkr/general/boolean/impure_tr_def.h"
 
 #include "nkr/boolean/cpp_t_dec.h"
 
