@@ -71,4 +71,14 @@ namespace nkr { namespace array {
 
 }}
 
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
 #include "nkr/built_ins_dec_def.h"

@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include "nkr/interface/template_i_def.h"
-#include "nkr/interface/type_i_def.h"
+#include "nkr/built_ins_def.h"
 
 #include "nkr/trait/array/any_tr_dec.h"
 

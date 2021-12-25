@@ -4,8 +4,7 @@
 
 #pragma once
 
-#include "nkr/interface/template_i_dec.h"
-#include "nkr/interface/type_i_dec.h"
+#include "nkr/built_ins_dec.h"
 
 namespace nkr { namespace trait { namespace none {
 

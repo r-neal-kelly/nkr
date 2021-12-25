@@ -4,17 +4,14 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/interface/template_i_dec.h"
-#include "nkr/interface/type_i_dec.h"
+#include "nkr/built_ins_dec.h"
 
 namespace nkr { namespace trait { namespace boolean { namespace $any_tr {
 
     template <typename type_p>
     concept static_constexpr_methods_i = requires
     {
-        { type_p::Is_Boolean_Type() }   -> tr1<any_tg, nkr::boolean::cpp_t>;
+        { type_p::Is_Boolean_Type() }   -> cpp::is_any_tr<nkr::boolean::cpp_t>;
     };
 
     template <typename type_p>
