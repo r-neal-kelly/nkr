@@ -20,7 +20,7 @@ namespace nkr { namespace interface { namespace $type_i {
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::template Is_Any<nkr::none::type_t>() }    -> cpp::is_tr<boolean::cpp_t>;
+        { type_p::template Is_Any<typename type_p::type_t>() }  -> cpp::is_tr<boolean::cpp_t>;
     };
 
     template <typename type_p>
@@ -50,31 +50,38 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
-    template <typename type_p>
-    class type_i
+    template <>
+    class type_i<nkr::interface::type_tg>
     {
     public:
-        using type_t    = type_p;
+        using type_t    = nkr::interface::type_tg;
         using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr boolean::cpp_t Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>
         constexpr type_i(...) noexcept  = delete;
     };
 
-}}
+    template <nkr::interface::type_tr type_p>
+    class type_i<type_p> :
+        public type_i<nkr::interface::type_tg>
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = type_t::type_t;
+    };
 
-#include "nkr/interface/type_i_dec_def.h"
+}}
 
 namespace nkr { namespace interface {
 
-    static_assert(type_tr<type_i<positive::integer_t>>);
-    static_assert(type_tr<type_i<const positive::integer_t>>);
-    static_assert(type_tr<type_i<volatile positive::integer_t>>);
-    static_assert(type_tr<type_i<const volatile positive::integer_t>>);
+    // implement the template_i for this interface
+    // pretty sure we will no longer need the Is_Implemented func!
 
 }}
+
+#include "nkr/interface/type_i_dec_def.h"

@@ -71,6 +71,9 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
+    // type_t alias really should be value_t. We need to make that work syntactically here,
+    // but we should do that to be consistent with other types that produce a value.
+
     template <trait::type_tr type_p>
     class value_t
     {
