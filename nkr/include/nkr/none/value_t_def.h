@@ -6,7 +6,7 @@
 
 #include "nkr/tr_def.h"
 
-#include "nkr/general/interfacing/none/value_tr_def.h"
+#include "nkr/general/implementing/interface/none/value_tr_def.h"
 #include "nkr/general/none_tr_def.h"
 #include "nkr/general/none/any_tr_def.h"
 #include "nkr/general/type_tr_def.h"

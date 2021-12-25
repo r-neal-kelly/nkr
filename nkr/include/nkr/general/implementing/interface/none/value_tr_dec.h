@@ -8,7 +8,7 @@
 
 #include "nkr/interface/none/value_i_dec.h"
 
-namespace nkr { namespace general { namespace interfacing { namespace none {
+namespace nkr { namespace general { namespace implementing { namespace interface { namespace none {
 
     struct  value_tg    {};
 
@@ -19,12 +19,12 @@ namespace nkr { namespace general { namespace interfacing { namespace none {
     concept value_tr =
         nkr::interface::none::value_tr<nkr::interface::none::value_i<type_p>>;
 
-}}}}
+}}}}}
 
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<nkr::general::interfacing::none::value_tg>
+    class type_i<nkr::general::implementing::interface::none::value_tg>
     {
     public:
         using of_t  = nkr::none::type_t;
@@ -35,11 +35,11 @@ namespace nkr { namespace interface {
     };
 
     template <>
-    class template_i<nkr::general::interfacing::none::value_ttg>
+    class template_i<nkr::general::implementing::interface::none::value_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = nkr::general::interfacing::none::value_tg;
+        using type_t    = nkr::general::implementing::interface::none::value_tg;
 
     public:
         static constexpr nkr::boolean::cpp_t    Is_Implemented() noexcept;
@@ -47,4 +47,4 @@ namespace nkr { namespace interface {
 
 }}
 
-#include "nkr/general/interfacing/none/value_tr_dec_def.h"
+#include "nkr/general/implementing/interface/none/value_tr_dec_def.h"

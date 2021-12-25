@@ -8,7 +8,7 @@
 
 #include "nkr/interface/none/value_i_def.h"
 
-#include "nkr/general/interfacing/none/value_tr_dec.h"
+#include "nkr/general/implementing/interface/none/value_tr_dec.h"
 
 namespace nkr {
 

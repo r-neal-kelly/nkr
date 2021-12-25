@@ -1296,19 +1296,19 @@
     <ClInclude Include="include\nkr\interface\none\value_i_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\general\interfacing\none\value_tr.h">
+    <ClInclude Include="include\nkr\general\implementing\interface\none\value_tr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\general\interfacing\none\value_tr_dec.h">
+    <ClInclude Include="include\nkr\general\implementing\interface\none\value_tr_dec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\general\interfacing\none\value_tr_dec_def.h">
+    <ClInclude Include="include\nkr\general\implementing\interface\none\value_tr_dec_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\general\interfacing\none\value_tr_def.h">
+    <ClInclude Include="include\nkr\general\implementing\interface\none\value_tr_def.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\nkr\general\interfacing\none\value_tr_dox.h">
+    <ClInclude Include="include\nkr\general\implementing\interface\none\value_tr_dox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -6,14 +6,14 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/general/interfacing/none/value_tr_dec.h"
+#include "nkr/general/implementing/interface/none/value_tr_dec.h"
 #include "nkr/general/none_tr_dec.h"
 #include "nkr/general/none/any_tr_dec.h"
 #include "nkr/general/type_tr_dec.h"
 
 namespace nkr { namespace none {
 
-    template <general::interfacing::none::value_tr type_p>
+    template <general::implementing::interface::none::value_tr type_p>
     class   value_t;
 
     struct  value_tg    {};
@@ -73,7 +73,7 @@ namespace nkr { namespace none {
     // type_t alias really should be value_t. We need to make that work syntactically here,
     // but we should do that to be consistent with other types that produce a value.
 
-    template <general::interfacing::none::value_tr type_p>
+    template <general::implementing::interface::none::value_tr type_p>
     class value_t
     {
     public:
