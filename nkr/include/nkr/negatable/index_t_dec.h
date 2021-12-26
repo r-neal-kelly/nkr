@@ -26,10 +26,11 @@ namespace nkr { namespace negatable {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<negatable::index_tg> :
-        public type_i<negatable::index_t>
+    class type_i<nkr::negatable::index_tg> :
+        public type_i<nkr::negatable::index_t>
     {
     public:
+        using type_t    = nkr::negatable::index_tg;
     };
 
 }}

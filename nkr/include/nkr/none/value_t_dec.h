@@ -33,11 +33,16 @@ namespace nkr { namespace interface {
     class type_i<nkr::none::value_tg>
     {
     public:
-        using of_t  = nkr::none::type_t;
+        using type_t    = nkr::none::value_tg;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr boolean::cpp_t Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
     };
 
     template <nkr::none::value_tr type_p>
@@ -45,8 +50,13 @@ namespace nkr { namespace interface {
         public type_i<nkr::none::value_tg>
     {
     public:
-        using of_t  = type_p::type_t;
+        using type_t    = type_p;
+        using of_t      = type_t::type_t;
     };
+
+}}
+
+namespace nkr { namespace interface {
 
     template <>
     class template_i<nkr::none::value_ttg>
@@ -56,7 +66,8 @@ namespace nkr { namespace interface {
         using type_t    = nkr::none::value_t<of_p>;
 
     public:
-        static constexpr boolean::cpp_t Is_Implemented() noexcept;
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
     };
 
     template <>

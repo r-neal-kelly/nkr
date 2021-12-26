@@ -27,10 +27,11 @@ namespace nkr { namespace negatable {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<negatable::real_tg> :
-        public type_i<negatable::real_t>
+    class type_i<nkr::negatable::real_tg> :
+        public type_i<nkr::negatable::real_t>
     {
     public:
+        using type_t    = nkr::negatable::real_tg;
     };
 
 }}

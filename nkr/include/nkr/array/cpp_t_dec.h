@@ -25,38 +25,49 @@ namespace nkr { namespace array {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<array::cpp_tg>
+    class type_i<nkr::array::cpp_tg>
     {
     public:
-        using of_t  = none::type_t;
+        using type_t    = nkr::array::cpp_tg;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr boolean::cpp_t Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
     };
 
-    template <array::cpp_tr type_p>
+    template <nkr::array::cpp_tr type_p>
     class type_i<type_p> :
-        public type_i<array::cpp_tg>
+        public type_i<nkr::array::cpp_tg>
     {
     public:
-        using of_t  = cpp::array_unit_t<type_p>;
+        using type_t    = type_p;
+        using of_t      = nkr::cpp::array_unit_t<type_t>;
     };
 
+}}
+
+namespace nkr { namespace interface {
+
     template <>
-    class template_i<array::cpp_ttg>
+    class template_i<nkr::array::cpp_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = array::cpp_t<of_p, 1>;
+        using type_t    = nkr::array::cpp_t<of_p, 1>;
 
     public:
-        static constexpr boolean::cpp_t Is_Implemented() noexcept;
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
     };
 
     template <>
-    class template_i<array::cpp_t> :
-        public template_i<array::cpp_ttg>
+    class template_i<nkr::array::cpp_t> :
+        public template_i<nkr::array::cpp_ttg>
     {
     public:
     };

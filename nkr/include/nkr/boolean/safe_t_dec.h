@@ -28,21 +28,27 @@ namespace nkr { namespace boolean {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<boolean::safe_tg>
+    class type_i<nkr::boolean::safe_tg>
     {
     public:
-        using of_t  = none::type_t;
+        using type_t    = nkr::boolean::safe_tg;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr boolean::cpp_t Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
     };
 
-    template <boolean::safe_tr type_p>
+    template <nkr::boolean::safe_tr type_p>
     class type_i<type_p> :
-        public type_i<boolean::safe_tg>
+        public type_i<nkr::boolean::safe_tg>
     {
     public:
+        using type_t    = type_p;
     };
 
 }}

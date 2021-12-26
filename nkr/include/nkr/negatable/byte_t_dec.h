@@ -26,10 +26,11 @@ namespace nkr { namespace negatable {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<negatable::byte_tg> :
-        public type_i<negatable::byte_t>
+    class type_i<nkr::negatable::byte_tg> :
+        public type_i<nkr::negatable::byte_t>
     {
     public:
+        using type_t    = nkr::negatable::byte_tg;
     };
 
 }}

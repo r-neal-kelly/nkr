@@ -9,18 +9,11 @@
 namespace nkr { namespace interface {
 
     template <typename other_p>
-    inline constexpr boolean::cpp_t
+    inline constexpr nkr::boolean::cpp_t
         type_i<nkr::none::value_tg>::Is_Any()
         noexcept
     {
         return nkr::none::value_tr<other_p>;
-    }
-
-    inline constexpr boolean::cpp_t
-        template_i<nkr::none::value_ttg>::Is_Implemented()
-        noexcept
-    {
-        return true;
     }
 
 }}

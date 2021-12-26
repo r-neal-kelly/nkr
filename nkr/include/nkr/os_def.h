@@ -4,19 +4,21 @@
 
 #pragma once
 
+#if defined(nkr_IS_WINDOWS)
+    #define NOMINMAX
+
+    #include <intrin.h>
+    #include <windows.h>
+
+    #undef interface
+#endif
+
 #include <bit>
 #include <mutex>
 
 #include "nkr/fors.h"
 #include "nkr/macros_def.h"
 #include "nkr/os_dec.h"
-
-#if defined(nkr_IS_WINDOWS)
-    #define NOMINMAX
-
-    #include <intrin.h>
-    #include <windows.h>
-#endif
 
 namespace nkr { namespace os { namespace atomic {
 

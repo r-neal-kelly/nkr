@@ -26,10 +26,11 @@ namespace nkr { namespace positive {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<positive::word_tg> :
-        public type_i<positive::word_t>
+    class type_i<nkr::positive::word_tg> :
+        public type_i<nkr::positive::word_t>
     {
     public:
+        using type_t    = nkr::positive::word_tg;
     };
 
 }}

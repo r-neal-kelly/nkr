@@ -117,4 +117,6 @@ namespace nkr {
         CHECK(non_none_default.Value() == non_none_default_t::NONE);
     }
 
+    static_assert(nkr::interface::template_i<nkr::generic::implementing::interface::template_ttg>::Is_Any<nkr::none::value_t>());
+
 }

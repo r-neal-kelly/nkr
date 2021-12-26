@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "nkr/interface/template_i_dec.h"
-#include "nkr/interface/type_i_dec.h"
+#include "nkr/generic/implementing/interface/template_tr_dec.h"
+#include "nkr/generic/implementing/interface/type_tr_dec.h"
 
 namespace nkr {
 
@@ -237,6 +237,9 @@ namespace nkr { namespace $tr {
 }}
 
 namespace nkr {
+
+    // I'm thinking these should be called 'type_tr' and we can have another set for 'template_tr'
+    // which targets templates instead of types!
 
     template <
         typename subject_p,

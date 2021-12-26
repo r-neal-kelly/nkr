@@ -9,11 +9,11 @@
 namespace nkr { namespace interface {
 
     template <typename other_p>
-    inline constexpr boolean::cpp_t
-        type_i<positive::integer_8_tg>::Is_Any()
+    inline constexpr nkr::boolean::cpp_t
+        type_i<nkr::positive::integer_8_tg>::Is_Any()
         noexcept
     {
-        return positive::integer_8_tr<other_p>;
+        return nkr::positive::integer_8_tr<other_p>;
     }
 
 }}
