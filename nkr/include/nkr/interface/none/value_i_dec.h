@@ -52,38 +52,49 @@ namespace nkr { namespace interface { namespace none {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<interface::none::value_tg>
+    class type_i<nkr::interface::none::value_tg>
     {
     public:
-        using of_t  = nkr::none::type_t;
+        using type_t    = nkr::interface::none::value_tg;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr boolean::cpp_t Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
     };
 
-    template <interface::none::value_tr type_p>
+    template <nkr::interface::none::value_tr type_p>
     class type_i<type_p> :
-        public type_i<interface::none::value_tg>
+        public type_i<nkr::interface::none::value_tg>
     {
     public:
-        using of_t  = type_p::type_t;
+        using type_t    = type_p;
+        using of_t      = type_p::type_t;
     };
 
+}}
+
+namespace nkr { namespace interface {
+
     template <>
-    class template_i<interface::none::value_ttg>
+    class template_i<nkr::interface::none::value_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = interface::none::value_i<of_p>;
+        using type_t    = nkr::interface::none::value_i<of_p>;
 
     public:
-        static constexpr boolean::cpp_t Is_Implemented() noexcept;
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
     };
 
     template <>
-    class template_i<interface::none::value_i> :
-        public template_i<interface::none::value_ttg>
+    class template_i<nkr::interface::none::value_i> :
+        public template_i<nkr::interface::none::value_ttg>
     {
     public:
     };
@@ -92,7 +103,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <tr1<just_non_qualified_tg, generic::implementing::constructor::default_tg> type_p>
+    template <tr1<just_non_qualified_tg, nkr::generic::implementing::constructor::default_tg> type_p>
     class value_i<type_p>
     {
     public:

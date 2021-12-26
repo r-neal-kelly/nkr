@@ -27,10 +27,7 @@ namespace nkr { namespace interface {
     template <template <typename ...> typename template_p>
     class   template_i;
 
-    struct  template_tg     {};
-
-    template <typename type_p>
-    struct  template_ttg    {};
+    struct  template_tg {};
 
     template <typename type_p>
     concept template_tr =
@@ -69,26 +66,4 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
-
-    template <>
-    class template_i<nkr::interface::template_ttg>
-    {
-    public:
-        template <typename of_p>
-        using type_t    = nkr::interface::template_ttg<of_p>;
-
-    public:
-        template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
-    };
-
-}}
-
 #include "nkr/interface/template_i_dec_def.h"
-
-namespace nkr { namespace interface {
-
-    static_assert(template_tr<template_i<template_ttg>>);
-
-}}

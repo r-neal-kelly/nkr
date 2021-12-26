@@ -9,25 +9,18 @@
 namespace nkr { namespace interface {
 
     template <typename other_p>
-    inline constexpr boolean::cpp_t
-        type_i<interface::none::value_tg>::Is_Any()
+    inline constexpr nkr::boolean::cpp_t
+        type_i<nkr::interface::none::value_tg>::Is_Any()
         noexcept
     {
-        return interface::none::value_tr<other_p>;
-    }
-
-    inline constexpr boolean::cpp_t
-        template_i<interface::none::value_ttg>::Is_Implemented()
-        noexcept
-    {
-        return true;
+        return nkr::interface::none::value_tr<other_p>;
     }
 
 }}
 
 namespace nkr { namespace interface { namespace none {
 
-    template <tr1<just_non_qualified_tg, generic::implementing::constructor::default_tg> type_p>
+    template <tr1<just_non_qualified_tg, nkr::generic::implementing::constructor::default_tg> type_p>
     inline constexpr value_i<type_p>::type_t
         value_i<type_p>::Value()
         noexcept
