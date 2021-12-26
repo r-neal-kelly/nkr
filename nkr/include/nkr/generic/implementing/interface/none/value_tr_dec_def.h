@@ -16,11 +16,4 @@ namespace nkr { namespace interface {
         return nkr::generic::implementing::interface::none::value_tr<other_p>;
     }
 
-    inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::generic::implementing::interface::none::value_ttg>::Is_Implemented()
-        noexcept
-    {
-        return true;
-    }
-
 }}

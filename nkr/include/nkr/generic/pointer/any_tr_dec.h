@@ -22,25 +22,35 @@ namespace nkr { namespace generic { namespace pointer {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<generic::pointer::any_tg>
+    class type_i<nkr::generic::pointer::any_tg>
     {
     public:
-        using of_t  = none::type_t;
+        using type_t    = nkr::generic::pointer::any_tg;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr boolean::cpp_t Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
     };
 
+}}
+
+namespace nkr { namespace interface {
+
     template <>
-    class template_i<generic::pointer::any_ttg>
+    class template_i<nkr::generic::pointer::any_ttg>
     {
     public:
         template <typename of_p>
-        using type_t    = generic::pointer::any_tg;
+        using type_t    = nkr::generic::pointer::any_tg;
 
     public:
-        static constexpr boolean::cpp_t Is_Implemented() noexcept;
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
     };
 
 }}

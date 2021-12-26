@@ -24,15 +24,19 @@ namespace nkr { namespace generic {
 namespace nkr { namespace interface {
 
     template <>
-    class type_i<generic::boolean_tg> :
-        public type_i<generic::boolean::any_tg>
+    class type_i<nkr::generic::boolean_tg> :
+        public type_i<nkr::generic::boolean::any_tg>
     {
     public:
     };
 
+}}
+
+namespace nkr { namespace interface {
+
     template <>
-    class template_i<generic::boolean_ttg> :
-        public template_i<generic::boolean::any_ttg>
+    class template_i<nkr::generic::boolean_ttg> :
+        public template_i<nkr::generic::boolean::any_ttg>
     {
     public:
     };

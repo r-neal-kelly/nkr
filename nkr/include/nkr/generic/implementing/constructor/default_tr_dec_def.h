@@ -16,11 +16,4 @@ namespace nkr { namespace interface {
         return nkr::generic::implementing::constructor::default_tr<other_p>;
     }
 
-    inline constexpr nkr::boolean::cpp_t
-        template_i<generic::implementing::constructor::default_ttg>::Is_Implemented()
-        noexcept
-    {
-        return true;
-    }
-
 }}

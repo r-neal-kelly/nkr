@@ -35,12 +35,21 @@ namespace nkr { namespace interface {
     class type_i<nkr::generic::implementing::constructor::default_tg>
     {
     public:
-        using of_t  = nkr::none::type_t;
+        using type_t    = nkr::generic::implementing::constructor::default_tg;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
     };
+
+}}
+
+namespace nkr { namespace interface {
 
     template <>
     class template_i<nkr::generic::implementing::constructor::default_ttg>
@@ -50,7 +59,8 @@ namespace nkr { namespace interface {
         using type_t    = nkr::generic::implementing::constructor::default_tg;
 
     public:
-        static constexpr nkr::boolean::cpp_t    Is_Implemented() noexcept;
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
     };
 
 }}
