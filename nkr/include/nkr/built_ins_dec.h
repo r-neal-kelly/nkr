@@ -73,11 +73,37 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace interface {
 
-    template <typename type_p>
-    class   type_i;
+    template <cpp::just_non_qualified_tr type_p>
+    class type_i
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
+    };
+
+}}
+
+namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-    class   template_i;
+    class template_i
+    {
+    public:
+        template <typename of_p>
+        using type_t    = template_p<of_p>;
+
+    public:
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
+    };
 
 }}
 

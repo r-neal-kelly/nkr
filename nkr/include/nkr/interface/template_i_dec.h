@@ -42,18 +42,6 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
-    template <template <typename ...> typename template_p>
-    class template_i
-    {
-    public:
-        template <typename of_p>
-        using type_t    = template_p<of_p>;
-
-    public:
-        template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
-    };
-
     template <>
     class template_i<nkr::interface::template_ttg>
     {

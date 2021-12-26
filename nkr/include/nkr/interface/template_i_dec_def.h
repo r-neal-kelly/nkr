@@ -6,8 +6,8 @@
 
 #include "nkr/interface/template_i_dec.h"
 
-namespace nkr { namespace interface {
+namespace nkr {
 
 
 
-}}
+}

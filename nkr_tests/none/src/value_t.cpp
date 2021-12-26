@@ -49,27 +49,6 @@ namespace nkr {
         CHECK(integer == none_t());
     }
 
-    class non_none_default_t;
-
-    namespace interface
-    {
-        template <>
-        class type_i<non_none_default_t>
-        {
-        public:
-            using of_t  = nkr::none::type_t;
-
-        public:
-            template <typename other_p>
-            static constexpr boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return cpp::is_any_tr<other_p, non_none_default_t>;
-            }
-        };
-    };
-
     class non_none_default_t
     {
     public:
@@ -101,6 +80,8 @@ namespace nkr {
             return this->value;
         }
     };
+
+    static_assert(tr1<non_none_default_t, any_tg, non_none_default_t>);
 
     namespace interface
     {
