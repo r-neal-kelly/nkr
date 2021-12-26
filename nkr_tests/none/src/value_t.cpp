@@ -81,8 +81,6 @@ namespace nkr {
         }
     };
 
-    static_assert(tr1<non_none_default_t, any_tg, non_none_default_t>);
-
     namespace interface
     {
         namespace none {
@@ -108,6 +106,9 @@ namespace nkr {
 
         }
     }
+
+    static_assert(tr1<non_none_default_t, any_tg, non_none_default_t>);
+    static_assert(tr2<none::value_t<non_none_default_t>, any_tg, none::value_ttg, of_any_tg, non_none_default_t>);
 
     TEST_CASE("should work as a tag for types that don't use none as a default value")
     {
