@@ -6,7 +6,7 @@
 
 #include "nkr/built_ins_dec.h"
 
-#include "nkr/general/implementing/constructor/default_tr_dec.h"
+#include "nkr/generic/implementing/constructor/default_tr_dec.h"
 
 namespace nkr { namespace interface { namespace $type_i {
 
@@ -25,7 +25,7 @@ namespace nkr { namespace interface { namespace $type_i {
 
     template <typename type_p>
     concept objects_i =
-        !general::implementing::constructor::default_tr<type_p>;
+        !generic::implementing::constructor::default_tr<type_p>;
 
 }}}
 
@@ -79,8 +79,24 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
-    // implement the template_i for this interface
-    // pretty sure we will no longer need the Is_Implemented func!
+    template <>
+    class template_i<nkr::interface::type_ttg>
+    {
+    public:
+        template <typename of_p>
+        using type_t    = nkr::interface::type_i<of_p>;
+
+    public:
+        template <typename ...>
+        constexpr template_i(...) noexcept  = delete;
+    };
+
+    template <>
+    class template_i<nkr::interface::type_i> :
+        public template_i<nkr::interface::type_ttg>
+    {
+    public:
+    };
 
 }}
 

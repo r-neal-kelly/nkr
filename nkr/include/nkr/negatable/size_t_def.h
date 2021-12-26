@@ -8,9 +8,9 @@
 
 #include "nkr/negatable/integer_t_def.h"
 
-#include "nkr/general/negatable_tr_def.h"
-#include "nkr/general/negatable/any_tr_def.h"
-#include "nkr/general/negatable/integer_tr_def.h"
+#include "nkr/generic/negatable_tr_def.h"
+#include "nkr/generic/negatable/any_tr_def.h"
+#include "nkr/generic/negatable/integer_tr_def.h"
 
 #include "nkr/negatable/size_t_dec.h"
 

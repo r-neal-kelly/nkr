@@ -36,6 +36,14 @@ namespace nkr {
     #else
         #define nkr_IS_RELEASE
     #endif
+
+    #define array_ms        array
+    #define generic_ms      generic
+    #define interface_ms    interface
+
+    #define array           array_
+    #define generic         generic_
+    #define interface       interface_
 #elif 0
     #define nkr_IS_LINUX        ///< @copydoc doc_nkr_nkr_IS_LINUX
 #else

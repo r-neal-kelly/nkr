@@ -6,9 +6,9 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/general/boolean_tr_dec.h"
-#include "nkr/general/boolean/any_tr_dec.h"
-#include "nkr/general/boolean/impure_tr_dec.h"
+#include "nkr/generic/boolean_tr_dec.h"
+#include "nkr/generic/boolean/any_tr_dec.h"
+#include "nkr/generic/boolean/impure_tr_dec.h"
 
 namespace nkr { namespace boolean {
 
@@ -46,19 +46,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace boolean {
 
-    static_assert(general::boolean_tr<cpp_t>);
-    static_assert(general::boolean_tr<const cpp_t>);
-    static_assert(general::boolean_tr<volatile cpp_t>);
-    static_assert(general::boolean_tr<const volatile cpp_t>);
+    static_assert(generic::boolean_tr<cpp_t>);
+    static_assert(generic::boolean_tr<const cpp_t>);
+    static_assert(generic::boolean_tr<volatile cpp_t>);
+    static_assert(generic::boolean_tr<const volatile cpp_t>);
 
-    static_assert(general::boolean::any_tr<cpp_t>);
-    static_assert(general::boolean::any_tr<const cpp_t>);
-    static_assert(general::boolean::any_tr<volatile cpp_t>);
-    static_assert(general::boolean::any_tr<const volatile cpp_t>);
+    static_assert(generic::boolean::any_tr<cpp_t>);
+    static_assert(generic::boolean::any_tr<const cpp_t>);
+    static_assert(generic::boolean::any_tr<volatile cpp_t>);
+    static_assert(generic::boolean::any_tr<const volatile cpp_t>);
 
-    static_assert(general::boolean::impure_tr<cpp_t>);
-    static_assert(general::boolean::impure_tr<const cpp_t>);
-    static_assert(general::boolean::impure_tr<volatile cpp_t>);
-    static_assert(general::boolean::impure_tr<const volatile cpp_t>);
+    static_assert(generic::boolean::impure_tr<cpp_t>);
+    static_assert(generic::boolean::impure_tr<const cpp_t>);
+    static_assert(generic::boolean::impure_tr<volatile cpp_t>);
+    static_assert(generic::boolean::impure_tr<const volatile cpp_t>);
 
 }}

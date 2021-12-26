@@ -6,9 +6,9 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/general/negatable_tr_dec.h"
-#include "nkr/general/negatable/any_tr_dec.h"
-#include "nkr/general/negatable/real_tr_dec.h"
+#include "nkr/generic/negatable_tr_dec.h"
+#include "nkr/generic/negatable/any_tr_dec.h"
+#include "nkr/generic/negatable/real_tr_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -47,19 +47,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace negatable {
 
-    static_assert(general::negatable_tr<real_32_t>);
-    static_assert(general::negatable_tr<const real_32_t>);
-    static_assert(general::negatable_tr<volatile real_32_t>);
-    static_assert(general::negatable_tr<const volatile real_32_t>);
+    static_assert(generic::negatable_tr<real_32_t>);
+    static_assert(generic::negatable_tr<const real_32_t>);
+    static_assert(generic::negatable_tr<volatile real_32_t>);
+    static_assert(generic::negatable_tr<const volatile real_32_t>);
 
-    static_assert(general::negatable::any_tr<real_32_t>);
-    static_assert(general::negatable::any_tr<const real_32_t>);
-    static_assert(general::negatable::any_tr<volatile real_32_t>);
-    static_assert(general::negatable::any_tr<const volatile real_32_t>);
+    static_assert(generic::negatable::any_tr<real_32_t>);
+    static_assert(generic::negatable::any_tr<const real_32_t>);
+    static_assert(generic::negatable::any_tr<volatile real_32_t>);
+    static_assert(generic::negatable::any_tr<const volatile real_32_t>);
 
-    static_assert(general::negatable::real_tr<real_32_t>);
-    static_assert(general::negatable::real_tr<const real_32_t>);
-    static_assert(general::negatable::real_tr<volatile real_32_t>);
-    static_assert(general::negatable::real_tr<const volatile real_32_t>);
+    static_assert(generic::negatable::real_tr<real_32_t>);
+    static_assert(generic::negatable::real_tr<const real_32_t>);
+    static_assert(generic::negatable::real_tr<volatile real_32_t>);
+    static_assert(generic::negatable::real_tr<const volatile real_32_t>);
 
 }}

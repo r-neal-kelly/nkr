@@ -6,10 +6,10 @@
 
 #include "nkr/tr_def.h"
 
-#include "nkr/general/implementing/interface/none/value_tr_def.h"
-#include "nkr/general/none_tr_def.h"
-#include "nkr/general/none/any_tr_def.h"
-#include "nkr/general/type_tr_def.h"
+#include "nkr/generic/implementing/interface/none/value_tr_def.h"
+#include "nkr/generic/none_tr_def.h"
+#include "nkr/generic/none/any_tr_def.h"
+#include "nkr/generic/type_tr_def.h"
 
 #include "nkr/none/value_t_dec.h"
 

@@ -6,8 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/general/none_tr_dec.h"
-#include "nkr/general/none/any_tr_dec.h"
+#include "nkr/generic/none_tr_dec.h"
+#include "nkr/generic/none/any_tr_dec.h"
 
 namespace nkr { namespace none {
 
@@ -45,14 +45,14 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
-    static_assert(general::none_tr<pointer_t>);
-    static_assert(general::none_tr<const pointer_t>);
-    static_assert(general::none_tr<volatile pointer_t>);
-    static_assert(general::none_tr<const volatile pointer_t>);
+    static_assert(generic::none_tr<pointer_t>);
+    static_assert(generic::none_tr<const pointer_t>);
+    static_assert(generic::none_tr<volatile pointer_t>);
+    static_assert(generic::none_tr<const volatile pointer_t>);
 
-    static_assert(general::none::any_tr<pointer_t>);
-    static_assert(general::none::any_tr<const pointer_t>);
-    static_assert(general::none::any_tr<volatile pointer_t>);
-    static_assert(general::none::any_tr<const volatile pointer_t>);
+    static_assert(generic::none::any_tr<pointer_t>);
+    static_assert(generic::none::any_tr<const pointer_t>);
+    static_assert(generic::none::any_tr<volatile pointer_t>);
+    static_assert(generic::none::any_tr<const volatile pointer_t>);
 
 }}

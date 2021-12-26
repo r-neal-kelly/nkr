@@ -223,7 +223,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(26812) // Prefer 'enum class' over 'enum'
 // == FEATURE DETECTION ============================================================================
 // =================================================================================================
 
-// general compiler feature support table: https://en.cppreference.com/w/cpp/compiler_support
+// generic compiler feature support table: https://en.cppreference.com/w/cpp/compiler_support
 // MSVC C++11 feature support table: https://msdn.microsoft.com/en-us/library/hh567368.aspx
 // GCC C++11 feature support table: https://gcc.gnu.org/projects/cxx-status.html
 // MSVC version table:

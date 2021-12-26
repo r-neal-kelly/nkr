@@ -8,9 +8,9 @@
 
 #include "nkr/negatable/integer_t_dec.h"
 
-#include "nkr/general/negatable_tr_dec.h"
-#include "nkr/general/negatable/any_tr_dec.h"
-#include "nkr/general/negatable/integer_tr_dec.h"
+#include "nkr/generic/negatable_tr_dec.h"
+#include "nkr/generic/negatable/any_tr_dec.h"
+#include "nkr/generic/negatable/integer_tr_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -38,19 +38,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace negatable {
 
-    static_assert(general::negatable_tr<size_t>);
-    static_assert(general::negatable_tr<const size_t>);
-    static_assert(general::negatable_tr<volatile size_t>);
-    static_assert(general::negatable_tr<const volatile size_t>);
+    static_assert(generic::negatable_tr<size_t>);
+    static_assert(generic::negatable_tr<const size_t>);
+    static_assert(generic::negatable_tr<volatile size_t>);
+    static_assert(generic::negatable_tr<const volatile size_t>);
 
-    static_assert(general::negatable::any_tr<size_t>);
-    static_assert(general::negatable::any_tr<const size_t>);
-    static_assert(general::negatable::any_tr<volatile size_t>);
-    static_assert(general::negatable::any_tr<const volatile size_t>);
+    static_assert(generic::negatable::any_tr<size_t>);
+    static_assert(generic::negatable::any_tr<const size_t>);
+    static_assert(generic::negatable::any_tr<volatile size_t>);
+    static_assert(generic::negatable::any_tr<const volatile size_t>);
 
-    static_assert(general::negatable::integer_tr<size_t>);
-    static_assert(general::negatable::integer_tr<const size_t>);
-    static_assert(general::negatable::integer_tr<volatile size_t>);
-    static_assert(general::negatable::integer_tr<const volatile size_t>);
+    static_assert(generic::negatable::integer_tr<size_t>);
+    static_assert(generic::negatable::integer_tr<const size_t>);
+    static_assert(generic::negatable::integer_tr<volatile size_t>);
+    static_assert(generic::negatable::integer_tr<const volatile size_t>);
 
 }}

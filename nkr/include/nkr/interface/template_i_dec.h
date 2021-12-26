@@ -6,7 +6,7 @@
 
 #include "nkr/built_ins_dec.h"
 
-#include "nkr/general/implementing/constructor/default_tr_dec.h"
+#include "nkr/generic/implementing/constructor/default_tr_dec.h"
 
 namespace nkr { namespace interface { namespace $template_i {
 
@@ -18,7 +18,7 @@ namespace nkr { namespace interface { namespace $template_i {
 
     template <typename type_p>
     concept objects_i =
-        !general::implementing::constructor::default_tr<type_p>;
+        !generic::implementing::constructor::default_tr<type_p>;
 
 }}}
 
@@ -37,6 +37,35 @@ namespace nkr { namespace interface {
         cpp::is_tr<typename type_p::template type_t<nkr::none::type_t>, typename template_i<type_p::template type_t>::template type_t<nkr::none::type_t>> &&
         $template_i::aliases_i<type_p> &&
         $template_i::objects_i<type_p>;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <>
+    class type_i<nkr::interface::template_tg>
+    {
+    public:
+        using type_t    = nkr::interface::template_tg;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
+    };
+
+    template <nkr::interface::template_tr type_p>
+    class type_i<type_p> :
+        public type_i<nkr::interface::template_tg>
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+    };
 
 }}
 

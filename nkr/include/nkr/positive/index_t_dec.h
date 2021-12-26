@@ -8,9 +8,9 @@
 
 #include "nkr/positive/integer_t_dec.h"
 
-#include "nkr/general/positive_tr_dec.h"
-#include "nkr/general/positive/any_tr_dec.h"
-#include "nkr/general/positive/integer_tr_dec.h"
+#include "nkr/generic/positive_tr_dec.h"
+#include "nkr/generic/positive/any_tr_dec.h"
+#include "nkr/generic/positive/integer_tr_dec.h"
 
 namespace nkr { namespace positive {
 
@@ -38,19 +38,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace positive {
 
-    static_assert(general::positive_tr<index_t>);
-    static_assert(general::positive_tr<const index_t>);
-    static_assert(general::positive_tr<volatile index_t>);
-    static_assert(general::positive_tr<const volatile index_t>);
+    static_assert(generic::positive_tr<index_t>);
+    static_assert(generic::positive_tr<const index_t>);
+    static_assert(generic::positive_tr<volatile index_t>);
+    static_assert(generic::positive_tr<const volatile index_t>);
 
-    static_assert(general::positive::any_tr<index_t>);
-    static_assert(general::positive::any_tr<const index_t>);
-    static_assert(general::positive::any_tr<volatile index_t>);
-    static_assert(general::positive::any_tr<const volatile index_t>);
+    static_assert(generic::positive::any_tr<index_t>);
+    static_assert(generic::positive::any_tr<const index_t>);
+    static_assert(generic::positive::any_tr<volatile index_t>);
+    static_assert(generic::positive::any_tr<const volatile index_t>);
 
-    static_assert(general::positive::integer_tr<index_t>);
-    static_assert(general::positive::integer_tr<const index_t>);
-    static_assert(general::positive::integer_tr<volatile index_t>);
-    static_assert(general::positive::integer_tr<const volatile index_t>);
+    static_assert(generic::positive::integer_tr<index_t>);
+    static_assert(generic::positive::integer_tr<const index_t>);
+    static_assert(generic::positive::integer_tr<volatile index_t>);
+    static_assert(generic::positive::integer_tr<const volatile index_t>);
 
 }}

@@ -6,8 +6,8 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/general/pointer_tr_dec.h"
-#include "nkr/general/pointer/any_tr_dec.h"
+#include "nkr/generic/pointer_tr_dec.h"
+#include "nkr/generic/pointer/any_tr_dec.h"
 
 namespace nkr { namespace pointer {
 
@@ -67,14 +67,14 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace pointer {
 
-    static_assert(general::pointer_tr<cpp_t<positive::integer_t>>);
-    static_assert(general::pointer_tr<const cpp_t<positive::integer_t>>);
-    static_assert(general::pointer_tr<volatile cpp_t<positive::integer_t>>);
-    static_assert(general::pointer_tr<const volatile cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer_tr<cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer_tr<const cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer_tr<volatile cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer_tr<const volatile cpp_t<positive::integer_t>>);
 
-    static_assert(general::pointer::any_tr<cpp_t<positive::integer_t>>);
-    static_assert(general::pointer::any_tr<const cpp_t<positive::integer_t>>);
-    static_assert(general::pointer::any_tr<volatile cpp_t<positive::integer_t>>);
-    static_assert(general::pointer::any_tr<const volatile cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer::any_tr<cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer::any_tr<const cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer::any_tr<volatile cpp_t<positive::integer_t>>);
+    static_assert(generic::pointer::any_tr<const volatile cpp_t<positive::integer_t>>);
 
 }}

@@ -6,9 +6,9 @@
 
 #include "nkr/tr_dec.h"
 
-#include "nkr/general/negatable_tr_dec.h"
-#include "nkr/general/negatable/any_tr_dec.h"
-#include "nkr/general/negatable/integer_tr_dec.h"
+#include "nkr/generic/negatable_tr_dec.h"
+#include "nkr/generic/negatable/any_tr_dec.h"
+#include "nkr/generic/negatable/integer_tr_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -47,19 +47,19 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace negatable {
 
-    static_assert(general::negatable_tr<integer_8_t>);
-    static_assert(general::negatable_tr<const integer_8_t>);
-    static_assert(general::negatable_tr<volatile integer_8_t>);
-    static_assert(general::negatable_tr<const volatile integer_8_t>);
+    static_assert(generic::negatable_tr<integer_8_t>);
+    static_assert(generic::negatable_tr<const integer_8_t>);
+    static_assert(generic::negatable_tr<volatile integer_8_t>);
+    static_assert(generic::negatable_tr<const volatile integer_8_t>);
 
-    static_assert(general::negatable::any_tr<integer_8_t>);
-    static_assert(general::negatable::any_tr<const integer_8_t>);
-    static_assert(general::negatable::any_tr<volatile integer_8_t>);
-    static_assert(general::negatable::any_tr<const volatile integer_8_t>);
+    static_assert(generic::negatable::any_tr<integer_8_t>);
+    static_assert(generic::negatable::any_tr<const integer_8_t>);
+    static_assert(generic::negatable::any_tr<volatile integer_8_t>);
+    static_assert(generic::negatable::any_tr<const volatile integer_8_t>);
 
-    static_assert(general::negatable::integer_tr<integer_8_t>);
-    static_assert(general::negatable::integer_tr<const integer_8_t>);
-    static_assert(general::negatable::integer_tr<volatile integer_8_t>);
-    static_assert(general::negatable::integer_tr<const volatile integer_8_t>);
+    static_assert(generic::negatable::integer_tr<integer_8_t>);
+    static_assert(generic::negatable::integer_tr<const integer_8_t>);
+    static_assert(generic::negatable::integer_tr<volatile integer_8_t>);
+    static_assert(generic::negatable::integer_tr<const volatile integer_8_t>);
 
 }}

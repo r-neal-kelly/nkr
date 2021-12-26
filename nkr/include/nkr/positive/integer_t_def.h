@@ -11,9 +11,9 @@
 #include "nkr/positive/integer_32_t_def.h"
 #include "nkr/positive/integer_64_t_def.h"
 
-#include "nkr/general/positive_tr_def.h"
-#include "nkr/general/positive/any_tr_def.h"
-#include "nkr/general/positive/integer_tr_def.h"
+#include "nkr/generic/positive_tr_def.h"
+#include "nkr/generic/positive/any_tr_def.h"
+#include "nkr/generic/positive/integer_tr_def.h"
 
 #include "nkr/positive/integer_t_dec.h"
 
