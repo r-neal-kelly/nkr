@@ -28,6 +28,7 @@ namespace nkr { namespace interface {
         public type_i<nkr::generic::negatable::any_tg>
     {
     public:
+        using type_t    = nkr::generic::negatable_tg;
     };
 
 }}

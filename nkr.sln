@@ -47,6 +47,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_none", "nkr_tests\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_positive", "nkr_tests\positive\positive.vcxproj", "{DAA5C87D-B3C9-4B40-ACD9-1774389A51FB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_generic", "nkr_tests\generic\generic.vcxproj", "{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -231,6 +233,14 @@ Global
 		{DAA5C87D-B3C9-4B40-ACD9-1774389A51FB}.Release|x64.Build.0 = Release|x64
 		{DAA5C87D-B3C9-4B40-ACD9-1774389A51FB}.Release|x86.ActiveCfg = Release|Win32
 		{DAA5C87D-B3C9-4B40-ACD9-1774389A51FB}.Release|x86.Build.0 = Release|Win32
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Debug|x64.ActiveCfg = Debug|x64
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Debug|x64.Build.0 = Debug|x64
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Debug|x86.ActiveCfg = Debug|Win32
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Debug|x86.Build.0 = Debug|Win32
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Release|x64.ActiveCfg = Release|x64
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Release|x64.Build.0 = Release|x64
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Release|x86.ActiveCfg = Release|Win32
+		{CF0E8D70-D79B-411C-9551-8BA5E9D91D43}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,6 +28,7 @@ namespace nkr { namespace interface {
         public type_i<nkr::generic::boolean::any_tg>
     {
     public:
+        using type_t    = nkr::generic::boolean_tg;
     };
 
 }}
