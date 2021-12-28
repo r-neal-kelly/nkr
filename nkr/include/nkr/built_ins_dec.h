@@ -78,7 +78,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = nkr::none::type_t;
+        using of_t      = nkr::none::type_t; // if we run this through a meta func that can decompose a template, we may be able to assume the first parameter type as the of_t.
 
     public:
         template <typename other_p>

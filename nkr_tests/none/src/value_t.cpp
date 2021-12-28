@@ -121,6 +121,7 @@ namespace nkr {
 
 }
 
+// temp
 #include "nkr/generic_template/implementing/type_parameter_list/default_tr.h"
 
 namespace nkr {
@@ -140,4 +141,35 @@ namespace nkr {
     static_assert(nkr::generic_template::implementing::type_parameter_list::default_tr<template_a_t>);
     static_assert(!nkr::generic_template::implementing::type_parameter_list::default_tr<template_b_t>);
 
+    template <typename type_p>
+    concept is_any_integral_constant_tr =
+        cpp::is_any_tr<type_p, std::integral_constant<typename type_p::value_type, type_p::value>>;
+
+    template <is_any_integral_constant_tr type_p>
+    class hard_to_instantiate_t
+    {
+    public:
+    };
+
+    hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>> hard_to_instantiate;
+    static_assert(nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>());
+    static_assert(!nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 2>>>());
+    static_assert(!nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_16_t, 1>>>());
+    static_assert(nkr::tr1<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, any_tg, hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>);
+    static_assert(nkr::tr2<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, any_tg, hard_to_instantiate_t, of_any_tg, nkr::none::type_t>);
+    // of course it would help when we use the of syntax to just get a particular type or generic, but still this is pretty long and annoying.
+
+    template <positive::integer_8_t value_p = 0>
+    class easy_to_instantiate_t
+    {
+    public:
+    };
+
+    easy_to_instantiate_t<1> easy_to_instantiate;
+    static_assert(nkr::interface::type_i<easy_to_instantiate_t<1>>::Is_Any<easy_to_instantiate_t<1>>());
+    static_assert(!nkr::interface::type_i<easy_to_instantiate_t<1>>::Is_Any<easy_to_instantiate_t<2>>());
+    static_assert(nkr::tr1<easy_to_instantiate_t<1>, any_tg, easy_to_instantiate_t<1>>);
+    //static_assert(nkr::tr2<easy_to_instantiate_t<1>, any_tg, easy_to_instantiate_t, of_any_tg, nkr::none::type_t>); // can't compile because the template has a value_parameter
+
 }
+//

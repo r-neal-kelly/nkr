@@ -41,9 +41,9 @@ namespace nkr {
     #define generic_ms      generic
     #define interface_ms    interface
 
-    #define array           array_ns
-    #define generic         generic_ns
-    #define interface       interface_ns
+    #define array           array_
+    #define generic         generic_
+    #define interface       interface_
 #elif 0
     #define nkr_IS_LINUX        ///< @copydoc doc_nkr_nkr_IS_LINUX
 #else
