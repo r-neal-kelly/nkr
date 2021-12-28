@@ -71,6 +71,100 @@ namespace nkr { namespace array {
 
 }}
 
+namespace nkr { namespace interface { namespace $type_i {
+
+    template <typename type_p>
+    concept of_tr = requires
+    {
+        typename type_p::of_t;
+    };
+
+    template <typename type_p>
+    concept of_type_tr = requires
+    {
+        typename type_p::type_t;
+    };
+
+    template <typename type_p>
+    concept of_value_tr = requires
+    {
+        typename type_p::value_t;
+    };
+
+    template <typename type_p>
+    concept of_unit_tr = requires
+    {
+        typename type_p::unit_t;
+    };
+
+    template <typename type_p>
+    concept just_of_tr =
+        of_tr<type_p> &&
+        !of_type_tr<type_p> &&
+        !of_value_tr<type_p> &&
+        !of_unit_tr<type_p>;
+
+    template <typename type_p>
+    concept just_of_type_tr =
+        !of_tr<type_p> &&
+        of_type_tr<type_p> &&
+        !of_value_tr<type_p> &&
+        !of_unit_tr<type_p>;
+
+    template <typename type_p>
+    concept just_of_value_tr =
+        !of_tr<type_p> &&
+        !of_type_tr<type_p> &&
+        of_value_tr<type_p> &&
+        !of_unit_tr<type_p>;
+
+    template <typename type_p>
+    concept just_of_unit_tr =
+        !of_tr<type_p> &&
+        !of_type_tr<type_p> &&
+        !of_value_tr<type_p> &&
+        of_unit_tr<type_p>;
+
+    template <typename type_p>
+    class default_of_tmpl
+    {
+    public:
+        using type_t    = nkr::none::type_t;
+    };
+
+    template <just_of_tr type_p>
+    class default_of_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::of_t;
+    };
+
+    template <just_of_type_tr type_p>
+    class default_of_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::type_t;
+    };
+
+    template <just_of_value_tr type_p>
+    class default_of_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::value_t;
+    };
+
+    template <just_of_unit_tr type_p>
+    class default_of_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::unit_t;
+    };
+
+    template <typename type_p>
+    using default_of_t  = default_of_tmpl<type_p>::type_t;
+
+}}}
+
 namespace nkr { namespace interface {
 
     template <nkr::cpp::just_non_qualified_tr type_p>
@@ -78,7 +172,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = nkr::none::type_t; // if we run this through a meta func that can decompose a template, we may be able to assume the first parameter type as the of_t.
+        using of_t      = $type_i::default_of_t<type_t>;
 
     public:
         template <typename other_p>
