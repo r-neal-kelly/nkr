@@ -7,10 +7,12 @@
 #if defined(nkr_IS_WINDOWS)
     #define NOMINMAX
 
+    #undef interface
     #include <intrin.h>
     #include <windows.h>
 
     #undef interface
+    #include "nkr/intrinsics_def.h"
 #endif
 
 #include <bit>
