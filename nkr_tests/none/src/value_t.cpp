@@ -120,3 +120,24 @@ namespace nkr {
     static_assert(nkr::interface::template_i<nkr::generic::implementing::interface::template_ttg>::Is_Any<nkr::none::value_t>());
 
 }
+
+#include "nkr/generic_template/implementing/type_parameter_list/default_tr.h"
+
+namespace nkr {
+
+    template <typename type_p = positive::integer_t>
+    class template_a_t
+    {
+    public:
+    };
+
+    template <typename type_p>
+    class template_b_t
+    {
+    public:
+    };
+
+    static_assert(nkr::generic_template::implementing::type_parameter_list::default_tr<template_a_t>);
+    static_assert(!nkr::generic_template::implementing::type_parameter_list::default_tr<template_b_t>);
+
+}
