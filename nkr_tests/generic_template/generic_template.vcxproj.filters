@@ -18,5 +18,8 @@
     <ClCompile Include="src\implementing\type_parameter_list\default_tr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\implementing\template_parameter_list\default_tr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -27,7 +27,10 @@ namespace nkr { namespace interface {
     template <template <typename ...> typename template_p>
     class   template_i;
 
-    struct  template_tg {};
+    struct  template_tg     {};
+
+    template <template <typename ...> typename template_p>
+    struct  template_ttg    {};
 
     template <typename type_p>
     concept template_tr =

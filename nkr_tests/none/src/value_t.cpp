@@ -122,6 +122,7 @@ namespace nkr {
 }
 
 // temp
+#include "nkr/generic_template/implementing/template_parameter_list/default_tr.h"
 #include "nkr/generic_template/implementing/type_parameter_list/default_tr.h"
 
 namespace nkr {
@@ -191,6 +192,23 @@ namespace nkr {
     };
 
     static_assert(cpp::is_tr<test_t<positive::integer_t>, test_t<positive::integer_t>::template_t<positive::integer_t>>);
+
+
+    /////
+
+    template <typename type_p>
+    class type_t
+    {
+    public:
+    };
+
+    template <template <typename> typename template_p = type_t>
+    class template_t
+    {
+    public:
+    };
+
+    static_assert(nkr::generic_template::implementing::template_parameter_list::default_tr<template_t>);
 
 }
 //

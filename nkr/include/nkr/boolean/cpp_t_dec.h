@@ -26,7 +26,7 @@ namespace nkr { namespace interface {
     class type_i<nkr::boolean::cpp_tg>
     {
     public:
-        using type_t    = nkr::interface::type_tg;
+        using type_t    = nkr::boolean::cpp_tg;
         using of_t      = nkr::none::type_t;
 
     public:

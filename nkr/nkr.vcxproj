@@ -173,6 +173,11 @@
     <ClInclude Include="include\nkr\generic\implementing\interface\type_tr_dec_def.h" />
     <ClInclude Include="include\nkr\generic\implementing\interface\type_tr_def.h" />
     <ClInclude Include="include\nkr\generic\implementing\interface\type_tr_dox.h" />
+    <ClInclude Include="include\nkr\generic_template\implementing\template_parameter_list\default_tr.h" />
+    <ClInclude Include="include\nkr\generic_template\implementing\template_parameter_list\default_tr_dec.h" />
+    <ClInclude Include="include\nkr\generic_template\implementing\template_parameter_list\default_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\generic_template\implementing\template_parameter_list\default_tr_def.h" />
+    <ClInclude Include="include\nkr\generic_template\implementing\template_parameter_list\default_tr_dox.h" />
     <ClInclude Include="include\nkr\generic_template\implementing\type_parameter_list\default_tr.h" />
     <ClInclude Include="include\nkr\generic_template\implementing\type_parameter_list\default_tr_dec.h" />
     <ClInclude Include="include\nkr\generic_template\implementing\type_parameter_list\default_tr_dec_def.h" />
@@ -498,9 +503,6 @@
     <ClCompile Include="src\allocator_heap_zeros_t.cpp" />
     <ClCompile Include="src\pointer_t.cpp" />
     <ClCompile Include="src\utils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
