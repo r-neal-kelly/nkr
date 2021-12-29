@@ -56,7 +56,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = nkr::generic::implementing::constructor::default_tg;
+        using of_t  = nkr::generic::implementing::constructor::default_tg;
 
     public:
         template <typename ...>

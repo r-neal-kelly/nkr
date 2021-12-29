@@ -62,8 +62,10 @@ namespace nkr { namespace interface {
     class template_i<nkr::none::value_ttg>
     {
     public:
+        //template <typename ...types_p>
+        //using template_t    = nkr::none::value_t<types_p...>;
         template <typename of_p>
-        using type_t    = nkr::none::value_t<of_p>;
+        using of_t  = nkr::none::value_t<of_p>;
 
     public:
         template <typename ...>

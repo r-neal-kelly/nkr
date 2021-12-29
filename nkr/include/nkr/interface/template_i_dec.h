@@ -13,7 +13,7 @@ namespace nkr { namespace interface { namespace $template_i {
     template <typename type_p>
     concept aliases_i = requires
     {
-        typename type_p::template type_t<nkr::none::type_t>;
+        typename type_p::template of_t<nkr::none::type_t>;
     };
 
     template <typename type_p>
@@ -34,7 +34,7 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     concept template_tr =
-        cpp::is_tr<typename type_p::template type_t<nkr::none::type_t>, typename template_i<type_p::template type_t>::template type_t<nkr::none::type_t>> &&
+        cpp::is_tr<typename type_p::template of_t<nkr::none::type_t>, typename template_i<type_p::template of_t>::template of_t<nkr::none::type_t>> &&
         $template_i::aliases_i<type_p> &&
         $template_i::objects_i<type_p>;
 

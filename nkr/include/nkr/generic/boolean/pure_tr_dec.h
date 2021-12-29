@@ -49,7 +49,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = nkr::generic::boolean::pure_tg;
+        using of_t  = nkr::generic::boolean::pure_tg;
 
     public:
         template <typename ...>

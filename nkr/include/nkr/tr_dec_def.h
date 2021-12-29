@@ -94,7 +94,7 @@ namespace nkr { namespace $tr {
 
         using subject_t = subject_p;
         using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_operator_p>>;
-        using object_t = template_i<operand_p>::template type_t<of_operand_p>;
+        using object_t = template_i<operand_p>::template of_t<of_operand_p>;
         using of_object_t = of_operand_p;
 
         if constexpr (not_operator_tr<operator_p>) {
@@ -124,7 +124,7 @@ namespace nkr { namespace $tr {
         using subject_t = subject_p;
         using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_of_operator_p>>;
         using of_of_subject_t = access_or_not_t<typename type_i<of_subject_t>::of_t, of_subject_t, access_operator_tr<of_of_operator_p>>;
-        using of_object_t = template_i<of_operand_p>::template type_t<of_of_operand_p>;
+        using of_object_t = template_i<of_operand_p>::template of_t<of_of_operand_p>;
         using of_of_object_t = of_of_operand_p;
 
         if constexpr (not_operator_tr<operator_p>) {

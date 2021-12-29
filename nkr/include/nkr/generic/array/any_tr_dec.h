@@ -46,7 +46,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = nkr::generic::array::any_tg;
+        using of_t  = nkr::generic::array::any_tg;
 
     public:
         template <typename ...>

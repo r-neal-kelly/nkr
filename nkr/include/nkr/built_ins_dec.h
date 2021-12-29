@@ -191,8 +191,10 @@ namespace nkr { namespace interface {
     class template_i
     {
     public:
+        //template <typename ...types_p>
+        //using template_t    = template_p<types_p...>;
         template <typename of_p>
-        using type_t    = template_p<of_p>;
+        using of_t  = template_p<of_p>;
 
     public:
         template <typename ...>

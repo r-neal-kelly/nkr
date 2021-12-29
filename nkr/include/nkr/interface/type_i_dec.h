@@ -84,7 +84,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = nkr::interface::type_i<of_p>;
+        using of_t  = nkr::interface::type_i<of_p>;
 
     public:
         template <typename ...>

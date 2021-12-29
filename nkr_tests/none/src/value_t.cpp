@@ -185,8 +185,8 @@ namespace nkr {
     class test_t
     {
     public:
-        template <typename type_p>
-        using template_t    = test_t<type_p>;
+        template <typename ...types_p>
+        using template_t    = test_t<types_p...>;
         using self_t        = test_t;
         using of_t          = type_p;
     };
@@ -202,7 +202,7 @@ namespace nkr {
     public:
     };
 
-    template <template <typename> typename template_p = type_t>
+    template <template <typename ...> typename template_p = type_t>
     class template_t
     {
     public:

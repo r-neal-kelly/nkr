@@ -26,7 +26,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using type_t    = nkr::none::type_t;
+        using of_t  = nkr::none::type_t;
 
     public:
         template <template <typename ...> typename other_p>
