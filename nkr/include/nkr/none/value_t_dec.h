@@ -25,6 +25,10 @@ namespace nkr { namespace none {
     concept value_tr =
         cpp::is_any_tr<type_p, value_t<typename type_p::type_t>>;
 
+    template <template <typename ...> typename template_p>
+    concept value_ttr =
+        cpp::is_any_tr<template_p<none::type_t>, value_t<none::type_t>>;
+
 }}
 
 namespace nkr { namespace interface {
@@ -62,18 +66,23 @@ namespace nkr { namespace interface {
     class template_i<nkr::none::value_ttg>
     {
     public:
-        //template <typename ...types_p>
-        //using template_t    = nkr::none::value_t<types_p...>;
+        template <typename ...types_p>
+        using template_t    = nkr::none::value_t<types_p...>;
         template <typename of_p>
-        using of_t  = nkr::none::value_t<of_p>;
+        using of_t          = nkr::none::value_t<of_p>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is() noexcept;
 
     public:
         template <typename ...>
         constexpr template_i(...) noexcept  = delete;
     };
 
-    template <>
-    class template_i<nkr::none::value_t> :
+    template <template <typename ...> typename template_p>
+        requires nkr::none::value_ttr<template_p>
+    class template_i<template_p> :
         public template_i<nkr::none::value_ttg>
     {
     public:

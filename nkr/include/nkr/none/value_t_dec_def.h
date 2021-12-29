@@ -18,6 +18,18 @@ namespace nkr { namespace interface {
 
 }}
 
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i<nkr::none::value_ttg>::Is()
+        noexcept
+    {
+        return nkr::none::value_ttr<other_p>;
+    }
+
+}}
+
 namespace nkr { namespace none {
 
     template <generic::implementing::interface::none::value_tr type_p>

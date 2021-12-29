@@ -155,7 +155,7 @@ namespace nkr {
     };
     static_assert(cpp::is_tr<nkr::interface::type_i<hard_to_instantiate_t<int>>::of_t, int>);
     static_assert(nkr::generic::implementing::interface::template_tr<hard_to_instantiate_t>);
-    static_assert(cpp::is_tr<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, nkr::interface::template_i<hard_to_instantiate_t>::type_t<std::integral_constant<positive::integer_8_t, 1>>>);
+    static_assert(cpp::is_tr<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, nkr::interface::template_i<hard_to_instantiate_t>::of_t<std::integral_constant<positive::integer_8_t, 1>>>);
     static_assert(cpp::is_any_tr<nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::of_t, std::integral_constant<positive::integer_8_t, 1>>);
 
     hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>> hard_to_instantiate;
@@ -209,6 +209,17 @@ namespace nkr {
     };
 
     static_assert(nkr::generic_template::implementing::template_parameter_list::default_tr<template_t>);
+
+
+    ///
+
+    using none_value_template_a_t = interface::template_i<none::value_t>;
+    using none_value_template_b_t = interface::template_i<interface::template_i<none::value_t>::template_t>;
+    static_assert(cpp::is_tr<none_value_template_a_t::template_t<none::type_t>, none_value_template_b_t::template_t<none::type_t>>);
+
+    static_assert(cpp::is_tr<none::value_t<positive::integer_t>, interface::template_i<none::value_t>::template_t<positive::integer_t>>);
+    static_assert(!cpp::is_tr<interface::template_i<none::value_t>, interface::template_i<interface::template_i<none::value_t>::template_t>>);
+    static_assert(generic::implementing::interface::template_tr<interface::template_i<none::value_t>::template_t>);
 
 }
 //
