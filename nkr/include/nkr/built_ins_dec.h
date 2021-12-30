@@ -71,99 +71,106 @@ namespace nkr { namespace array {
 
 }}
 
-namespace nkr { namespace interface { namespace $type_i {
+namespace nkr { namespace interface { namespace $child_of_i {
 
     template <typename type_p>
-    concept of_tr = requires
-    {
-        typename type_p::of_t;
-    };
-
-    template <typename type_p>
-    concept of_type_tr = requires
+    concept type_tr = requires
     {
         typename type_p::type_t;
     };
 
     template <typename type_p>
-    concept of_value_tr = requires
+    concept value_tr = requires
     {
         typename type_p::value_t;
     };
 
     template <typename type_p>
-    concept of_unit_tr = requires
+    concept unit_tr = requires
     {
         typename type_p::unit_t;
     };
 
     template <typename type_p>
-    concept just_of_tr =
-        of_tr<type_p> &&
-        !of_type_tr<type_p> &&
-        !of_value_tr<type_p> &&
-        !of_unit_tr<type_p>;
+    concept just_type_tr =
+        type_tr<type_p> &&
+        !value_tr<type_p> &&
+        !unit_tr<type_p>;
 
     template <typename type_p>
-    concept just_of_type_tr =
-        !of_tr<type_p> &&
-        of_type_tr<type_p> &&
-        !of_value_tr<type_p> &&
-        !of_unit_tr<type_p>;
+    concept just_value_tr =
+        !type_tr<type_p> &&
+        value_tr<type_p> &&
+        !unit_tr<type_p>;
 
     template <typename type_p>
-    concept just_of_value_tr =
-        !of_tr<type_p> &&
-        !of_type_tr<type_p> &&
-        of_value_tr<type_p> &&
-        !of_unit_tr<type_p>;
+    concept just_unit_tr =
+        !type_tr<type_p> &&
+        !value_tr<type_p> &&
+        unit_tr<type_p>;
 
     template <typename type_p>
-    concept just_of_unit_tr =
-        !of_tr<type_p> &&
-        !of_type_tr<type_p> &&
-        !of_value_tr<type_p> &&
-        of_unit_tr<type_p>;
-
-    template <typename type_p>
-    class default_of_tmpl
+    class default_child_of_tmpl
     {
     public:
         using type_t    = nkr::none::type_t;
     };
 
-    template <just_of_tr type_p>
-    class default_of_tmpl<type_p>
-    {
-    public:
-        using type_t    = type_p::of_t;
-    };
-
-    template <just_of_type_tr type_p>
-    class default_of_tmpl<type_p>
+    template <just_type_tr type_p>
+    class default_child_of_tmpl<type_p>
     {
     public:
         using type_t    = type_p::type_t;
     };
 
-    template <just_of_value_tr type_p>
-    class default_of_tmpl<type_p>
+    template <just_value_tr type_p>
+    class default_child_of_tmpl<type_p>
     {
     public:
         using type_t    = type_p::value_t;
     };
 
-    template <just_of_unit_tr type_p>
-    class default_of_tmpl<type_p>
+    template <just_unit_tr type_p>
+    class default_child_of_tmpl<type_p>
     {
     public:
         using type_t    = type_p::unit_t;
     };
 
     template <typename type_p>
-    using default_of_t  = default_of_tmpl<type_p>::type_t;
+    using default_child_of_t    = default_child_of_tmpl<type_p>::type_t;
 
 }}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::cpp::just_non_qualified_tr parent_p>
+    class child_of_i
+    {
+    public:
+        using child_t   = nkr::interface::$child_of_i::default_child_of_t<parent_p>;
+
+    public:
+        template <typename ...>
+        constexpr child_of_i(...) noexcept  = delete;
+    };
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename parent_p>
+    class default_child_of_i
+    {
+    public:
+        using child_t   = nkr::none::type_t;
+
+    public:
+        template <typename ...>
+        constexpr default_child_of_i(...) noexcept  = delete;
+    };
+
+}}
 
 namespace nkr { namespace interface {
 
@@ -172,7 +179,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = $type_i::default_of_t<type_t>;
+        using of_t      = nkr::interface::child_of_i<type_t>::child_t;
 
     public:
         template <typename other_p>
@@ -191,10 +198,14 @@ namespace nkr { namespace interface {
     class template_i
     {
     public:
-        //template <typename ...types_p>
-        //using template_t    = template_p<types_p...>;
+        template <typename ...types_p>
+        using template_t    = template_p<types_p...>;
         template <typename of_p>
-        using of_t  = template_p<of_p>;
+        using of_t          = template_p<of_p>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is() noexcept;
 
     public:
         template <typename ...>

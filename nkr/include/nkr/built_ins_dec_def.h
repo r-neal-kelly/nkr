@@ -18,3 +18,16 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i<template_p>::Is()
+        noexcept
+    {
+        return nkr::cpp::is_any_ttr<template_t, other_p, typename nkr::interface::default_child_of_i<template_t>::child_t>;
+    }
+
+}}

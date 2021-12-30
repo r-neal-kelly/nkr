@@ -2,6 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/array/cpp_t.h"
+
 #include "nkr/pointer/cpp_t.h"
 
 #include "nkr/positive/integer_t.h"
@@ -151,7 +153,7 @@ namespace nkr {
     class hard_to_instantiate_t
     {
     public:
-        using of_t  = type_p;
+        using value_t   = type_p;
     };
     static_assert(cpp::is_tr<nkr::interface::type_i<hard_to_instantiate_t<int>>::of_t, int>);
     static_assert(nkr::generic::implementing::interface::template_tr<hard_to_instantiate_t>);
@@ -190,9 +192,17 @@ namespace nkr {
         using self_t        = test_t;
         using of_t          = type_p;
     };
-
+    static_assert(cpp::is_ttr<test_t, test_t>);
+    static_assert(!cpp::is_ttr<test_t, test_t<none::type_t>::template template_t>);
+    static_assert(cpp::is_any_ttr<test_t, test_t<none::type_t>::template template_t, none::type_t>);
     static_assert(cpp::is_tr<test_t<positive::integer_t>, test_t<positive::integer_t>::template_t<positive::integer_t>>);
 
+    template <template <typename ...> typename template_p>
+    concept test_ttr =
+        cpp::is_any_ttr<template_p, test_t, interface::default_child_of_i<test_t>::child_t>;
+
+    static_assert(test_ttr<test_t>);
+    static_assert(test_ttr<test_t<none::type_t>::template template_t>);
 
     /////
 
@@ -223,3 +233,55 @@ namespace nkr {
 
 }
 //
+
+//// temp
+namespace nkr {
+
+    namespace $testing_thing_t {
+
+        using default_child_t   = positive::integer_t;
+
+    }
+
+    template <typename value_p>
+    class testing_thing_t;
+
+    template <template <typename ...> typename template_p>
+    concept testing_thing_ttr =
+        cpp::is_any_ttr<template_p, testing_thing_t, $testing_thing_t::default_child_t>;
+
+    template <cpp::type_tr value_p>
+    class testing_thing_t<value_p>
+    {
+    public:
+        template <typename ...types_p>
+        using template_t    = testing_thing_t<types_p...>;
+        using self_t        = testing_thing_t;
+        using value_t       = value_p;
+    };
+
+    namespace interface {
+
+        template <template <typename ...> typename template_p>
+            requires testing_thing_ttr<template_p>
+        class default_child_of_i<template_p>
+        {
+        public:
+            using child_t   = $testing_thing_t::default_child_t;
+
+        public:
+            template <typename ...>
+            constexpr default_child_of_i(...) noexcept  = delete;
+        };
+
+    };
+
+    static_assert(testing_thing_ttr<testing_thing_t>);
+    static_assert(testing_thing_ttr<testing_thing_t<positive::integer_t>::template template_t>);
+
+
+    //////
+
+    static_assert(array::cpp_ttr<array::cpp_t>);
+}
+////

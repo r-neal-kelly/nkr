@@ -13,7 +13,14 @@ namespace nkr { namespace interface { namespace $template_i {
     template <typename type_p>
     concept aliases_i = requires
     {
-        typename type_p::template of_t<nkr::none::type_t>;
+        cpp::is_ttr<type_p::template template_t, type_p::template template_t>;
+        typename type_p::template of_t<typename nkr::interface::default_child_of_i<type_p::template template_t>::child_t>;
+    };
+
+    template <typename type_p>
+    concept static_constexpr_functions_i = requires
+    {
+        { type_p::template Is<type_p::template template_t>() }  -> cpp::is_tr<boolean::cpp_t>;
     };
 
     template <typename type_p>
@@ -34,8 +41,9 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     concept template_tr =
-        cpp::is_tr<typename type_p::template of_t<nkr::none::type_t>, typename template_i<type_p::template of_t>::template of_t<nkr::none::type_t>> &&
+        type_p::template Is<type_p::template template_t>() &&
         $template_i::aliases_i<type_p> &&
+        $template_i::static_constexpr_functions_i<type_p> &&
         $template_i::objects_i<type_p>;
 
 }}

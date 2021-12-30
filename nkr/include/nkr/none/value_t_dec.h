@@ -27,7 +27,7 @@ namespace nkr { namespace none {
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
-        cpp::is_any_tr<template_p<none::type_t>, value_t<none::type_t>>;
+        cpp::is_any_ttr<template_p, value_t, interface::default_child_of_i<value_t>::child_t>;
 
 }}
 

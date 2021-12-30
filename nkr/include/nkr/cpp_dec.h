@@ -99,6 +99,20 @@ namespace nkr { namespace cpp {
         using unit_t    = type_p;
     };
 
+    template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
+    class is_same_template_tmpl :
+        public std::false_type
+    {
+    public:
+    };
+
+    template <template <typename ...> typename template_p>
+    class is_same_template_tmpl<template_p, template_p> :
+        public std::true_type
+    {
+    public:
+    };
+
 }}
 
 namespace nkr { namespace cpp {
@@ -188,6 +202,14 @@ namespace nkr { namespace cpp {
     concept to_tr =
         std::is_convertible<from_p, to_p>::value ||
         requires(from_p from) { static_cast<to_p>(from_p()); };
+
+    template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
+    concept is_ttr =
+        is_same_template_tmpl<template_a_p, template_b_p>::value;
+
+    template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p, typename ...types_p>
+    concept is_any_ttr =
+        is_tr<template_a_p<types_p...>, template_b_p<types_p...>>;
 
 }}
 

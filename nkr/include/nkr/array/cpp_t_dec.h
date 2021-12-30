@@ -9,6 +9,12 @@
 #include "nkr/generic/array_tr_dec.h"
 #include "nkr/generic/array/any_tr_dec.h"
 
+namespace nkr { namespace array { namespace $cpp_t {
+
+    using default_child_t   = positive::integer_t;
+
+}}}
+
 namespace nkr { namespace array {
 
     struct  cpp_tg  {};
@@ -19,6 +25,10 @@ namespace nkr { namespace array {
     template <typename type_p>
     concept cpp_tr =
         cpp::array_tr<type_p>;
+
+    template <template <typename ...> typename template_p>
+    concept cpp_ttr =
+        cpp::is_any_ttr<template_p, cpp_t, $cpp_t::default_child_t>;
 
 }}
 
