@@ -287,10 +287,12 @@ namespace nkr {
     static_assert(true_t::Value());
     static_assert(!false_t::Value());
 
-    using real_tt = negatable::real_c<64.5>;
-    static_assert(real_tt::Value() == 64.5);
+    using real_tt = negatable::real_c<-64.5>;
+    static_assert(real_tt::Value() == -64.5);
 
     static_assert(array::cpp_ttr<array::cpp_t>);
+    static_assert(array::cpp_ttr<interface::template_i<array::cpp_ttg>::template template_t>);
+    static_assert(generic::implementing::interface::template_tr<array::cpp_ttg>);
 
 }
 ////

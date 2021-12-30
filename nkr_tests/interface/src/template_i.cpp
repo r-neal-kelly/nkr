@@ -85,7 +85,7 @@ namespace nkr {
 
     TEST_SUITE("the following tags should implement this interface")
     {
-        //static_assert(generic::implementing::interface::template_tr<array::cpp_ttg>); // failing because we're passing none::type_t during comparison, and it can't accept none::type_t.
+        static_assert(generic::implementing::interface::template_tr<array::cpp_ttg>);
 
         static_assert(generic::implementing::interface::template_tr<generic::array_ttg>);
         static_assert(generic::implementing::interface::template_tr<generic::array::any_ttg>);
@@ -128,7 +128,7 @@ namespace nkr {
 
     TEST_SUITE("the following templates should implement this interface")
     {
-        //static_assert(generic::implementing::interface::template_tr<array::cpp_t>); // failing because we're passing none::type_t during comparison, and it can't accept none::type_t.
+        static_assert(generic::implementing::interface::template_tr<array::cpp_t>);
 
         static_assert(generic::implementing::interface::template_tr<interface::none::value_i>);
         static_assert(generic::implementing::interface::template_tr<interface::type_i>);

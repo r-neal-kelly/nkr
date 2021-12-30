@@ -28,7 +28,38 @@ namespace nkr { namespace array {
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        cpp::is_any_ttr<template_p, cpp_t, $cpp_t::default_child_t, positive::count_c<2>>;
+        cpp::is_any_ttr<template_p, cpp_t, $cpp_t::default_child_t, positive::count_c<1>>;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::array::cpp_tr parent_p>
+    class child_of_i<parent_p>
+    {
+    public:
+        using child_t   = nkr::cpp::array_unit_t<parent_p>;
+
+    public:
+        template <typename ...>
+        constexpr child_of_i(...) noexcept  = delete;
+    };
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename parent_p>
+        requires nkr::array::cpp_ttr<parent_p>
+    class default_child_of_i<parent_p>
+    {
+    public:
+        using child_t   = nkr::array::$cpp_t::default_child_t;
+
+    public:
+        template <typename ...>
+        constexpr default_child_of_i(...) noexcept  = delete;
+    };
 
 }}
 
@@ -39,7 +70,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = nkr::array::cpp_tg;
-        using of_t      = nkr::none::type_t;
+        using of_t      = nkr::interface::child_of_i<type_t>::child_t;
 
     public:
         template <typename other_p>
@@ -56,7 +87,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = nkr::cpp::array_unit_t<type_t>;
+        using of_t      = nkr::interface::child_of_i<type_t>::child_t;
     };
 
 }}
@@ -67,8 +98,14 @@ namespace nkr { namespace interface {
     class template_i<nkr::array::cpp_ttg>
     {
     public:
+        template <typename type_p, typename capacity_p>
+        using template_t    = nkr::array::cpp_t<type_p, capacity_p>;
         template <typename of_p>
-        using of_t  = nkr::array::cpp_t<of_p, positive::count_c<1>>;
+        using of_t          = template_t<of_p, positive::count_c<1>>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is() noexcept;
 
     public:
         template <typename ...>
