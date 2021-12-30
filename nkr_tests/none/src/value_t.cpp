@@ -282,6 +282,15 @@ namespace nkr {
 
     //////
 
+    using true_t = boolean::cpp_c<true>;
+    using false_t = boolean::cpp_c<false>;
+    static_assert(true_t::Value());
+    static_assert(!false_t::Value());
+
+    using real_tt = negatable::real_c<64.5>;
+    static_assert(real_tt::Value() == 64.5);
+
     static_assert(array::cpp_ttr<array::cpp_t>);
+
 }
 ////

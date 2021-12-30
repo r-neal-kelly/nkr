@@ -19,6 +19,12 @@ namespace nkr { namespace boolean {
 
 }}
 
+namespace nkr { namespace boolean {
+
+    template <cpp_t value_p>    using   cpp_c   = cpp::constant_t<cpp_t, value_p>;
+
+}}
+
 namespace nkr { namespace positive {
 
     using   integer_8_t     = cpp::positive::integer_8_t;
@@ -33,6 +39,23 @@ namespace nkr { namespace positive {
     using   size_t          = cpp::positive::size_t;
     using   count_t         = cpp::positive::count_t;
     using   index_t         = cpp::positive::index_t;
+
+}}
+
+namespace nkr { namespace positive {
+
+    template <integer_8_t value_p>  using   integer_8_c     = cpp::constant_t<integer_8_t, value_p>;
+    template <integer_16_t value_p> using   integer_16_c    = cpp::constant_t<integer_16_t, value_p>;
+    template <integer_32_t value_p> using   integer_32_c    = cpp::constant_t<integer_32_t, value_p>;
+    template <integer_64_t value_p> using   integer_64_c    = cpp::constant_t<integer_64_t, value_p>;
+    template <integer_t value_p>    using   integer_c       = cpp::constant_t<integer_t, value_p>;
+
+    template <byte_t value_p>       using   byte_c          = cpp::constant_t<byte_t, value_p>;
+    template <word_t value_p>       using   word_c          = cpp::constant_t<word_t, value_p>;
+
+    template <size_t value_p>       using   size_c          = cpp::constant_t<size_t, value_p>;
+    template <count_t value_p>      using   count_c         = cpp::constant_t<count_t, value_p>;
+    template <index_t value_p>      using   index_c         = cpp::constant_t<index_t, value_p>;
 
 }}
 
@@ -57,17 +80,52 @@ namespace nkr { namespace negatable {
 
 }}
 
+namespace nkr { namespace negatable {
+
+    template <integer_8_t value_p>  using   integer_8_c     = cpp::constant_t<integer_8_t, value_p>;
+    template <integer_16_t value_p> using   integer_16_c    = cpp::constant_t<integer_16_t, value_p>;
+    template <integer_32_t value_p> using   integer_32_c    = cpp::constant_t<integer_32_t, value_p>;
+    template <integer_64_t value_p> using   integer_64_c    = cpp::constant_t<integer_64_t, value_p>;
+    template <integer_t value_p>    using   integer_c       = cpp::constant_t<integer_t, value_p>;
+
+    template <real_32_t value_p>    using   real_32_c       = cpp::constant_t<real_32_t, value_p>;
+    template <real_64_t value_p>    using   real_64_c       = cpp::constant_t<real_64_t, value_p>;
+    template <real_t value_p>       using   real_c          = cpp::constant_t<real_t, value_p>;
+
+    template <byte_t value_p>       using   byte_c          = cpp::constant_t<byte_t, value_p>;
+    template <word_t value_p>       using   word_c          = cpp::constant_t<word_t, value_p>;
+
+    template <size_t value_p>       using   size_c          = cpp::constant_t<size_t, value_p>;
+    template <count_t value_p>      using   count_c         = cpp::constant_t<count_t, value_p>;
+    template <index_t value_p>      using   index_c         = cpp::constant_t<index_t, value_p>;
+
+}}
+
 namespace nkr { namespace pointer {
 
-    template <typename any_p>
-    using   cpp_t   = any_p*;
+    template <typename type_p>
+    using   cpp_t   = type_p*;
+
+}}
+
+namespace nkr { namespace pointer {
+
+    template <typename type_p, type_p* value_p>
+    using   cpp_c   = cpp::constant_t<type_p*, value_p>;
 
 }}
 
 namespace nkr { namespace array {
 
-    template <cpp::type_tr type_p, cpp::positive::count_t capacity_p>
-    using   cpp_t   = type_p[capacity_p];
+    template <cpp::type_tr type_p, cpp::constant_of_tr<positive::count_t> capacity_p>
+    using   cpp_t   = type_p[capacity_p::Value()];
+
+}}
+
+namespace nkr { namespace array {
+
+    template <cpp::type_tr type_p, positive::count_t capacity_p, type_p value_p[capacity_p]>
+    using   cpp_c   = cpp::constant_t<type_p[capacity_p], value_p>;
 
 }}
 
@@ -109,36 +167,36 @@ namespace nkr { namespace interface { namespace $child_of_i {
         !value_tr<type_p> &&
         unit_tr<type_p>;
 
-    template <typename type_p>
+    template <typename parent_p>
     class default_child_of_tmpl
     {
     public:
         using type_t    = nkr::none::type_t;
     };
 
-    template <just_type_tr type_p>
-    class default_child_of_tmpl<type_p>
+    template <just_type_tr parent_p>
+    class default_child_of_tmpl<parent_p>
     {
     public:
-        using type_t    = type_p::type_t;
+        using type_t    = parent_p::type_t;
     };
 
-    template <just_value_tr type_p>
-    class default_child_of_tmpl<type_p>
+    template <just_value_tr parent_p>
+    class default_child_of_tmpl<parent_p>
     {
     public:
-        using type_t    = type_p::value_t;
+        using type_t    = parent_p::value_t;
     };
 
-    template <just_unit_tr type_p>
-    class default_child_of_tmpl<type_p>
+    template <just_unit_tr parent_p>
+    class default_child_of_tmpl<parent_p>
     {
     public:
-        using type_t    = type_p::unit_t;
+        using type_t    = parent_p::unit_t;
     };
 
-    template <typename type_p>
-    using default_child_of_t    = default_child_of_tmpl<type_p>::type_t;
+    template <typename parent_p>
+    using default_child_of_t    = default_child_of_tmpl<parent_p>::type_t;
 
 }}}
 

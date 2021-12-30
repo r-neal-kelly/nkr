@@ -28,7 +28,7 @@ namespace nkr { namespace array {
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        cpp::is_any_ttr<template_p, cpp_t, $cpp_t::default_child_t>;
+        cpp::is_any_ttr<template_p, cpp_t, $cpp_t::default_child_t, positive::count_c<2>>;
 
 }}
 
@@ -68,7 +68,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename of_p>
-        using of_t  = nkr::array::cpp_t<of_p, 1>;
+        using of_t  = nkr::array::cpp_t<of_p, positive::count_c<1>>;
 
     public:
         template <typename ...>
@@ -88,14 +88,14 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace array {
 
-    static_assert(generic::array_tr<cpp_t<positive::integer_t, 1>>);
-    static_assert(generic::array_tr<const cpp_t<positive::integer_t, 1>>);
-    static_assert(generic::array_tr<volatile cpp_t<positive::integer_t, 1>>);
-    static_assert(generic::array_tr<const volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(generic::array_tr<cpp_t<positive::integer_t, positive::count_c<2>>>);
+    static_assert(generic::array_tr<const cpp_t<positive::integer_t, positive::count_c<2>>>);
+    static_assert(generic::array_tr<volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
+    static_assert(generic::array_tr<const volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
 
-    static_assert(generic::array::any_tr<cpp_t<positive::integer_t, 1>>);
-    static_assert(generic::array::any_tr<const cpp_t<positive::integer_t, 1>>);
-    static_assert(generic::array::any_tr<volatile cpp_t<positive::integer_t, 1>>);
-    static_assert(generic::array::any_tr<const volatile cpp_t<positive::integer_t, 1>>);
+    static_assert(generic::array::any_tr<cpp_t<positive::integer_t, positive::count_c<2>>>);
+    static_assert(generic::array::any_tr<const cpp_t<positive::integer_t, positive::count_c<2>>>);
+    static_assert(generic::array::any_tr<volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
+    static_assert(generic::array::any_tr<const volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
 
 }}

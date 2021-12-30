@@ -77,3 +77,77 @@ namespace nkr { namespace cpp {
     }
 
 }}
+
+namespace nkr { namespace cpp {
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::value_t
+        constant_t<type_p, value_p>::Value()
+        noexcept
+    {
+        return value_p;
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::constant_t() noexcept
+    {
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::constant_t(const constant_t& other) noexcept
+    {
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::constant_t(const volatile constant_t& other) noexcept
+    {
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::constant_t(constant_t&& other) noexcept
+    {
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::constant_t(volatile constant_t&& other) noexcept
+    {
+    }
+
+#if defined(nkr_IS_DEBUG)
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::~constant_t() noexcept
+    {
+    }
+#endif
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::operator constant_t<type_p, value_p>::value_t()
+        const noexcept
+    {
+        return Value();
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::operator constant_t<type_p, value_p>::value_t()
+        const volatile noexcept
+    {
+        return Value();
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::value_t
+        constant_t<type_p, value_p>::operator ()()
+        const noexcept
+    {
+        return Value();
+    }
+
+    template <type_tr type_p, type_p value_p>
+    inline constexpr constant_t<type_p, value_p>::value_t
+        constant_t<type_p, value_p>::operator ()()
+        const volatile noexcept
+    {
+        return Value();
+    }
+
+}}
