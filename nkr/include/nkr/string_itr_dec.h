@@ -16,7 +16,7 @@
 
 #include "nkr/charcoder_i.h"
 
-#include "nkr/enumeration/types_t.h"
+#include "nkr/z_enumeration/types_t.h"
 
 #include "nkr/string_i.h"
 

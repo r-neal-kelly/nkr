@@ -5,7 +5,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 
-#include "nkr/enumeration/types_t.h"
+#include "nkr/z_enumeration/types_t.h"
 
 #include "doctest.h"
 

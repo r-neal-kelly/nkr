@@ -8,7 +8,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/traits.h"
 
-#include "nkr/enumeration/types_t.h"
+#include "nkr/z_enumeration/types_t.h"
 
 namespace nkr { namespace enumeration {
 

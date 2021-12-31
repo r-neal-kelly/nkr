@@ -6,7 +6,7 @@
 #include "nkr/macros.h"
 #include "nkr/maybe_t.h"
 
-#include "nkr/enumeration/errors_t.h"
+#include "nkr/z_enumeration/errors_t.h"
 
 #include "doctest.h"
 

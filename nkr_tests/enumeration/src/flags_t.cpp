@@ -6,7 +6,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 
-#include "nkr/enumeration/flags_t.h"
+#include "nkr/z_enumeration/flags_t.h"
 
 #include "doctest.h"
 

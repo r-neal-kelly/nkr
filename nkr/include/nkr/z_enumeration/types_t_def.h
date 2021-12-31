@@ -6,7 +6,7 @@
 
 #include "nkr/utils.h"
 
-#include "nkr/enumeration/types_t_dec.h"
+#include "nkr/z_enumeration/types_t_dec.h"
 
 namespace nkr { namespace enumeration { namespace $types_t {
 

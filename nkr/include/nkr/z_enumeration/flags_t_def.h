@@ -8,7 +8,7 @@
 #include "nkr/math.h"
 #include "nkr/utils.h"
 
-#include "nkr/enumeration/flags_t_dec.h"
+#include "nkr/z_enumeration/flags_t_dec.h"
 
 namespace nkr { namespace enumeration { namespace $flags_t {
 

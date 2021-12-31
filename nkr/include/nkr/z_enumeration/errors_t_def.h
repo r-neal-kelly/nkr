@@ -7,7 +7,7 @@
 #include "nkr/macros_def.h"
 #include "nkr/utils.h"
 
-#include "nkr/enumeration/errors_t_dec.h"
+#include "nkr/z_enumeration/errors_t_dec.h"
 
 namespace nkr { namespace enumeration {
 

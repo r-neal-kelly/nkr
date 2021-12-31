@@ -7,7 +7,7 @@
 #include "nkr/intrinsics.h"
 #include "nkr/macros.h"
 
-#include "nkr/enumeration/errors_t.h"
+#include "nkr/z_enumeration/errors_t.h"
 
 namespace nkr {
 
