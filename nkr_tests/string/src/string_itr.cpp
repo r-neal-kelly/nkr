@@ -2,17 +2,17 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/z_intrinsics.h"
 
-#include "nkr/charcoder/ascii_t.h"
-#include "nkr/charcoder/utf_8_t.h"
-#include "nkr/charcoder/utf_16_t.h"
-#include "nkr/charcoder/utf_32_t.h"
+#include "nkr/z_charcoder/ascii_t.h"
+#include "nkr/z_charcoder/utf_8_t.h"
+#include "nkr/z_charcoder/utf_16_t.h"
+#include "nkr/z_charcoder/utf_32_t.h"
 
-#include "nkr/string_itr.h"
-#include "nkr/string/dynamic_t.h"
-#include "nkr/string/stack_t.h"
-#include "nkr/string/static_t.h"
+#include "nkr/z_string_itr.h"
+#include "nkr/z_string/dynamic_t.h"
+#include "nkr/z_string/stack_t.h"
+#include "nkr/z_string/static_t.h"
 
 #include "doctest.h"
 

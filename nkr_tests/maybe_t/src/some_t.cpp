@@ -2,10 +2,10 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/bool_t.h"
-#include "nkr/intrinsics.h"
-#include "nkr/some_t.h"
-#include "nkr/utils.h"
+#include "nkr/z_bool_t.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_some_t.h"
+#include "nkr/z_utils.h"
 
 #include "doctest.h"
 

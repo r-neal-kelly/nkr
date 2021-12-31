@@ -2,9 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/z_intrinsics.h"
 
-#include "nkr/tree/binary_search_t.h"
+#include "nkr/z_tree/binary_search_t.h"
 
 #include "doctest.h"
 

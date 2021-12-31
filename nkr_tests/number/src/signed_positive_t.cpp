@@ -2,10 +2,10 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-#include "nkr/utils.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_utils.h"
 
-#include "nkr/number/signed_positive_t.h"
+#include "nkr/z_number/signed_positive_t.h"
 
 #include "doctest.h"
 

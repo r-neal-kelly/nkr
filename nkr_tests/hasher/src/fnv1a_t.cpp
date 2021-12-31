@@ -2,14 +2,14 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/z_intrinsics.h"
 
-#include "nkr/allocator_err.h"
+#include "nkr/z_allocator_err.h"
 
-#include "nkr/array/stack_t.h"
-#include "nkr/array/static_t.h"
+#include "nkr/z_array/stack_t.h"
+#include "nkr/z_array/static_t.h"
 
-#include "nkr/hasher/fnv1a_t.h"
+#include "nkr/z_hasher/fnv1a_t.h"
 
 #include "doctest.h"
 

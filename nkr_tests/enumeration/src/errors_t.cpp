@@ -2,9 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-#include "nkr/macros.h"
-#include "nkr/maybe_t.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_macros.h"
+#include "nkr/z_maybe_t.h"
 
 #include "nkr/z_enumeration/errors_t.h"
 

@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "nkr/bool_t.h"
-#include "nkr/intrinsics.h"
-#include "nkr/traits.h"
+#include "nkr/z_bool_t.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_traits.h"
 
 #include "nkr/z_enumeration/types_t.h"
 

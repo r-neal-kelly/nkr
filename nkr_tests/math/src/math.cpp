@@ -2,8 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-#include "nkr/math.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_math.h"
 
 #include "doctest.h"
 

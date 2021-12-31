@@ -17,7 +17,7 @@
 #include <random>
 #include <utility>
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/macros_dec.h"
 
 namespace nkr { namespace cpp {
 
@@ -583,3 +583,15 @@ namespace nkr { namespace cpp {
 }}
 
 #include "nkr/cpp_dec_def.h"
+
+namespace nkr { namespace cpp {
+
+    static_assert(Is_Big_Endian() || Is_Little_Endian(), "This library requires either a big or little endian machine.");
+    static_assert(Byte_Bit_Count() == 8, "This library requires that there be 8 bits in a byte.");
+
+    static_assert(sizeof(negatable::real_32_t) == sizeof(negatable::integer_32_t), "Mismatching size for 32 bit real and integer types!");
+    static_assert(sizeof(negatable::real_64_t) == sizeof(negatable::integer_64_t), "Mismatching size for 64 bit real and integer types!");
+    static_assert(sizeof(none::pointer_t) == sizeof(positive::word_t), "Mismatching size for pointer and word types!");
+    static_assert(sizeof(none::type_t*) == sizeof(positive::word_t), "Mismatching size for pointer and word types!");
+
+}}

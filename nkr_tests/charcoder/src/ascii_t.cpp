@@ -2,12 +2,12 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/z_intrinsics.h"
 
-#include "nkr/array/dynamic_t.h"
-#include "nkr/array/stack_t.h"
+#include "nkr/z_array/dynamic_t.h"
+#include "nkr/z_array/stack_t.h"
 
-#include "nkr/charcoder/ascii_t.h"
+#include "nkr/z_charcoder/ascii_t.h"
 
 #include "doctest.h"
 

@@ -2,13 +2,13 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-#include "nkr/utils.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_utils.h"
 
-#include "nkr/allocator/heap_t.h"
-#include "nkr/allocator/heap_zeros_t.h"
+#include "nkr/z_allocator/heap_t.h"
+#include "nkr/z_allocator/heap_zeros_t.h"
 
-#include "nkr/array/dynamic_t.h"
+#include "nkr/z_array/dynamic_t.h"
 
 #include "doctest.h"
 

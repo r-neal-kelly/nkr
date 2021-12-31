@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "nkr/macros_def.h"
-#include "nkr/math.h"
-#include "nkr/utils.h"
+#include "nkr/z_macros_def.h"
+#include "nkr/z_math.h"
+#include "nkr/z_utils.h"
 
 #include "nkr/z_enumeration/flags_t_dec.h"
 

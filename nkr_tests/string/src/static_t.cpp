@@ -2,10 +2,10 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/z_intrinsics.h"
 
-#include "nkr/string/stack_t.h"
-#include "nkr/string/static_t.h"
+#include "nkr/z_string/stack_t.h"
+#include "nkr/z_string/static_t.h"
 
 #include "doctest.h"
 

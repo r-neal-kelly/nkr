@@ -2,9 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/atomic_t.h"
-#include "nkr/intrinsics.h"
-#include "nkr/utils.h"
+#include "nkr/z_atomic_t.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_utils.h"
 
 #include "doctest.h"
 

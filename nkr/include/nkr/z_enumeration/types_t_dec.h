@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "nkr/atomic_t_dec.h"
-#include "nkr/bool_t.h"
-#include "nkr/intrinsics.h"
-#include "nkr/macros.h"
-#include "nkr/none_t.h"
-#include "nkr/traits.h"
+#include "nkr/z_atomic_t_dec.h"
+#include "nkr/z_bool_t.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_macros.h"
+#include "nkr/z_none_t.h"
+#include "nkr/z_traits.h"
 
 namespace nkr { namespace enumeration {
 

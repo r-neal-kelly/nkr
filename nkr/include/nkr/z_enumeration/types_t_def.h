@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/utils.h"
+#include "nkr/z_utils.h"
 
 #include "nkr/z_enumeration/types_t_dec.h"
 

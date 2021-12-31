@@ -4,18 +4,18 @@
 
 #pragma once
 
-#include "nkr/intrinsics.h"
-#include "nkr/os.h"
-#include "nkr/utils.h"
+#include "nkr/z_intrinsics.h"
+#include "nkr/z_os.h"
+#include "nkr/z_utils.h"
 
-#include "nkr/array/dynamic_t.h"
-#include "nkr/array/stack_t.h"
+#include "nkr/z_array/dynamic_t.h"
+#include "nkr/z_array/stack_t.h"
 
-#include "nkr/charcoder_i.h"
-#include "nkr/charcoder/ascii_t.h"
-#include "nkr/charcoder/utf_8_t.h"
-#include "nkr/charcoder/utf_16_t.h"
-#include "nkr/charcoder/utf_32_t.h"
+#include "nkr/z_charcoder_i.h"
+#include "nkr/z_charcoder/ascii_t.h"
+#include "nkr/z_charcoder/utf_8_t.h"
+#include "nkr/z_charcoder/utf_16_t.h"
+#include "nkr/z_charcoder/utf_32_t.h"
 
 namespace nkr { namespace charcoder {
 
