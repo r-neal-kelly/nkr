@@ -12,7 +12,7 @@ namespace nkr { namespace boolean {
 
     TEST_CASE("temp")
     {
-        array::cpp_t<positive::integer_t, 1> array;
+        array::cpp_t<positive::integer_t, positive::count_c<1>> array;
 
         CHECK(sizeof(array) == sizeof(positive::integer_t) * 1);
     }

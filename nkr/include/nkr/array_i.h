@@ -303,7 +303,9 @@ namespace nkr {
     concept any_array_tr =
         array_i<array_p>;
 
+    #undef array
     nkr_DEFINE_CONTAINER_TRAITS(array, unit_t);
+    #define array array_
 
 }
 //

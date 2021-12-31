@@ -186,6 +186,9 @@ namespace nkr { namespace $regex_t { namespace $syntax_tree_t {
         point_t     point;
         any_point_t any_point;
         string_t<charcoder::utf_8_t>    string;
+
+        node_u() {};
+        ~node_u() {};
     };
 
 }}}
