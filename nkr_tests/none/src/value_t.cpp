@@ -13,6 +13,10 @@
 
 #include "doctest.h"
 
+// this is really a scrap book at the moment, but I'm prototyping and building some serious
+// additions to the entire library. will clean up after it stabilizes enough, and a lot of these
+// tests will go into their respective suites.
+
 namespace nkr {
 
     TEST_CASE("temp")
@@ -294,5 +298,27 @@ namespace nkr {
     static_assert(array::cpp_ttr<interface::template_i<array::cpp_ttg>::template template_t>);
     static_assert(generic::implementing::interface::template_tr<array::cpp_ttg>);
 
+    using test_1_t = interface::template_i<array::cpp_ttg>::template template_t<positive::integer_t, positive::count_c<1>>;
+    using test_2_t = array::cpp_t<positive::integer_t, positive::count_c<1>>;
+    static_assert(cpp::is_tr<test_1_t, test_2_t>);
+    constexpr test_1_t test_1 = { 1 };
+    constexpr test_2_t test_2 = { 2 };
+    static_assert(test_1[0] != test_2[0]);
+
 }
 ////
+
+#include "nkr/tuple/types_t.h"
+
+namespace nkr {
+
+    using tuple_t = tuple::types_t<positive::integer_t, negatable::integer_t, negatable::real_t>;
+
+    static_assert(tuple::types_tr<tuple_t>);
+    static_assert(!tuple::types_tr<positive::integer_t>);
+
+    static_assert(cpp::is_tr<tuple_t::at_t<0>, positive::integer_t>);
+    static_assert(cpp::is_tr<tuple_t::at_t<1>, negatable::integer_t>);
+    static_assert(cpp::is_tr<tuple_t::at_t<2>, negatable::real_t>);
+
+}

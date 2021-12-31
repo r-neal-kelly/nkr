@@ -493,6 +493,11 @@
     <ClInclude Include="include\nkr\tr_dec_def.h" />
     <ClInclude Include="include\nkr\tr_def.h" />
     <ClInclude Include="include\nkr\tr_dox.h" />
+    <ClInclude Include="include\nkr\tuple\types_t.h" />
+    <ClInclude Include="include\nkr\tuple\types_t_dec.h" />
+    <ClInclude Include="include\nkr\tuple\types_t_dec_def.h" />
+    <ClInclude Include="include\nkr\tuple\types_t_def.h" />
+    <ClInclude Include="include\nkr\tuple\types_t_dox.h" />
     <ClInclude Include="include\nkr\utils.h" />
     <ClInclude Include="include\nkr\utils_dec.h" />
     <ClInclude Include="include\nkr\utils_def.h" />
