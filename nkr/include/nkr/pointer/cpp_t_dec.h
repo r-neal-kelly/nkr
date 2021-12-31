@@ -20,6 +20,10 @@ namespace nkr { namespace pointer {
     concept cpp_tr =
         cpp::pointer_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept cpp_ttr =
+        cpp::is_any_ttr<template_p, cpp_t, none::type_t>;
+
 }}
 
 namespace nkr { namespace interface {
@@ -58,15 +62,21 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename inner_p>
-        using of_t  = nkr::pointer::cpp_t<inner_p>;
+        using of_t      = nkr::pointer::cpp_t<inner_p>;
+        using example_t = of_t<nkr::none::type_t>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>
         constexpr template_i(...) noexcept  = delete;
     };
 
-    template <>
-    class template_i<nkr::pointer::cpp_t> :
+    template <template <typename ...> typename template_p>
+        requires nkr::pointer::cpp_ttr<template_p>
+    class template_i<template_p> :
         public template_i<nkr::pointer::cpp_ttg>
     {
     public:

@@ -31,8 +31,8 @@
 #include "nkr/generic/positive/integer_tr.h"
 #include "nkr/generic/type_tr.h"
 
-#include "nkr/generic_template/implementing/template_parameter_list/default_tr.h"
-#include "nkr/generic_template/implementing/type_parameter_list/default_tr.h"
+#include "nkr/generic_template/implementing/parameter_list/default_tr.h"
+#include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
 
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/template_i.h"
@@ -111,8 +111,8 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic::positive::integer_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::type_ttg>);
 
-        static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::template_parameter_list::default_ttg>);
-        static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::type_parameter_list::default_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::parameter_list::default_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic_template_template::implementing::parameter_list::default_ttg>);
 
         static_assert(generic::implementing::interface::template_ttr<interface::none::value_ttg>);
         static_assert(generic::implementing::interface::template_ttr<interface::type_ttg>);

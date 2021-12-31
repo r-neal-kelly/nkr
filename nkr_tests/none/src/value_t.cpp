@@ -87,31 +87,28 @@ namespace nkr {
         }
     };
 
-    namespace interface
-    {
-        namespace none {
+    namespace interface { namespace none {
 
-            template <>
-            class value_i<non_none_default_t>
+        template <>
+        class value_i<non_none_default_t>
+        {
+        public:
+            using type_t    = non_none_default_t;
+
+        public:
+            static constexpr non_none_default_t
+                Value()
+                noexcept
             {
-            public:
-                using type_t    = non_none_default_t;
+                return 1;
+            }
 
-            public:
-                static constexpr non_none_default_t
-                    Value()
-                    noexcept
-                {
-                    return 1;
-                }
+        public:
+            template <typename ...>
+            constexpr value_i(...) noexcept = delete;
+        };
 
-            public:
-                template <typename ...>
-                constexpr value_i(...) noexcept = delete;
-            };
-
-        }
-    }
+    }}
 
     static_assert(generic::implementing::interface::template_ttr<none::value_ttg>);
     static_assert(tr1<non_none_default_t, any_tg, non_none_default_t>);
@@ -129,8 +126,72 @@ namespace nkr {
 }
 
 // temp
-#include "nkr/generic_template/implementing/template_parameter_list/default_tr.h"
-#include "nkr/generic_template/implementing/type_parameter_list/default_tr.h"
+#include "nkr/generic_template/implementing/parameter_list/default_tr.h"
+#include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
+
+namespace nkr {
+
+    template <typename type_p>
+    concept is_any_integral_constant_tr =
+        cpp::is_any_tr<type_p, std::integral_constant<typename type_p::value_type, type_p::value>>;
+
+    template <is_any_integral_constant_tr type_p>
+    class hard_to_instantiate_t
+    {
+    public:
+        using value_t   = type_p;
+    };
+
+    namespace interface {
+
+        template <>
+        class template_i<nkr::hard_to_instantiate_t>
+        {
+        public:
+            template <typename inner_p>
+            using of_t      = nkr::hard_to_instantiate_t<inner_p>;
+            using example_t = of_t<std::integral_constant<nkr::positive::integer_8_t, 1>>;
+
+        public:
+            template <template <typename ...> typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return cpp::is_any_ttr<other_p, hard_to_instantiate_t, std::integral_constant<nkr::positive::integer_8_t, 1>>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr template_i(...) noexcept  = delete;
+        };
+
+    }
+
+    static_assert(cpp::is_tr<nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::of_t, std::integral_constant<positive::integer_8_t, 1>>);
+    static_assert(nkr::generic::implementing::interface::template_ttr<hard_to_instantiate_t>);
+    static_assert(cpp::is_tr<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, nkr::interface::template_i<hard_to_instantiate_t>::of_t<std::integral_constant<positive::integer_8_t, 1>>>);
+    static_assert(cpp::is_any_tr<nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::of_t, std::integral_constant<positive::integer_8_t, 1>>);
+
+    hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>> hard_to_instantiate;
+    static_assert(nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>());
+    static_assert(!nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 2>>>());
+    static_assert(!nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_16_t, 1>>>());
+    static_assert(nkr::tr1<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, any_tg, hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>);
+    static_assert(nkr::tr2<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, any_tg, hard_to_instantiate_t, of_any_tg, std::integral_constant<positive::integer_8_t, 1>>);
+
+    template <positive::integer_8_t value_p = 0>
+    class easy_to_instantiate_t
+    {
+    public:
+    };
+
+    easy_to_instantiate_t<1> easy_to_instantiate;
+    static_assert(nkr::interface::type_i<easy_to_instantiate_t<1>>::Is_Any<easy_to_instantiate_t<1>>());
+    static_assert(!nkr::interface::type_i<easy_to_instantiate_t<1>>::Is_Any<easy_to_instantiate_t<2>>());
+    static_assert(nkr::tr1<easy_to_instantiate_t<1>, any_tg, easy_to_instantiate_t<1>>);
+    //static_assert(nkr::tr2<easy_to_instantiate_t<1>, any_tg, easy_to_instantiate_t, of_any_tg, nkr::none::type_t>); // can't compile because the template has a value_parameter
+}
 
 namespace nkr {
 
@@ -146,47 +207,10 @@ namespace nkr {
     public:
     };
 
-    static_assert(nkr::generic_template::implementing::type_parameter_list::default_tr<template_a_t>);
-    static_assert(!nkr::generic_template::implementing::type_parameter_list::default_tr<template_b_t>);
+    static_assert(nkr::generic_template::implementing::parameter_list::default_ttr<template_a_t>);
+    static_assert(!nkr::generic_template::implementing::parameter_list::default_ttr<template_b_t>);
 
-    template <typename type_p>
-    concept is_any_integral_constant_tr =
-        cpp::is_any_tr<type_p, std::integral_constant<typename type_p::value_type, type_p::value>>;
-
-    //template <is_any_integral_constant_tr type_p> /// the trait that tests equality uses nkr::none::type_t, which doesn't satisfy the constraint. we need a default_t for the template_i I think.
-    template <typename type_p>
-    class hard_to_instantiate_t
-    {
-    public:
-        using value_t   = type_p;
-    };
-    static_assert(cpp::is_tr<nkr::interface::type_i<hard_to_instantiate_t<int>>::of_t, int>);
-    static_assert(nkr::generic::implementing::interface::template_ttr<hard_to_instantiate_t>);
-    static_assert(cpp::is_tr<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, nkr::interface::template_i<hard_to_instantiate_t>::of_t<std::integral_constant<positive::integer_8_t, 1>>>);
-    static_assert(cpp::is_any_tr<nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::of_t, std::integral_constant<positive::integer_8_t, 1>>);
-
-    hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>> hard_to_instantiate;
-    static_assert(nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>());
-    static_assert(!nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 2>>>());
-    static_assert(!nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::Is_Any<hard_to_instantiate_t<std::integral_constant<positive::integer_16_t, 1>>>());
-    static_assert(nkr::tr1<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>,
-                  any_tg, hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>);
-    /*static_assert(nkr::tr2<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>,
-                  any_tg, hard_to_instantiate_t, of_any_tg, std::integral_constant<positive::integer_8_t, 1>>);*/ // just results in false because we haven't properly defined a template_i for this template
-
-    template <positive::integer_8_t value_p = 0>
-    class easy_to_instantiate_t
-    {
-    public:
-    };
-
-    easy_to_instantiate_t<1> easy_to_instantiate;
-    static_assert(nkr::interface::type_i<easy_to_instantiate_t<1>>::Is_Any<easy_to_instantiate_t<1>>());
-    static_assert(!nkr::interface::type_i<easy_to_instantiate_t<1>>::Is_Any<easy_to_instantiate_t<2>>());
-    static_assert(nkr::tr1<easy_to_instantiate_t<1>,
-                  any_tg, easy_to_instantiate_t<1>>);
-    /*static_assert(nkr::tr2<easy_to_instantiate_t<1>,
-                  any_tg, easy_to_instantiate_t, of_any_tg, nkr::none::type_t>);*/ // can't compile because the template has a value_parameter
+    /////
 
     template <typename type_p>
     class test_t
@@ -223,7 +247,7 @@ namespace nkr {
     public:
     };
 
-    static_assert(nkr::generic_template::implementing::template_parameter_list::default_tr<template_t>);
+    static_assert(nkr::generic_template_template::implementing::parameter_list::default_ttr<template_t>);
 
 
     ///

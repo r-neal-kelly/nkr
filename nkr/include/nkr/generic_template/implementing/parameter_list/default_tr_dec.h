@@ -6,23 +6,21 @@
 
 #include "nkr/built_ins_dec.h"
 
-#include "nkr/interface/template_i_dec.h"
-
-namespace nkr { namespace generic { namespace implementing { namespace interface {
+namespace nkr { namespace generic_template { namespace implementing { namespace parameter_list {
 
     template <typename>
-    struct  template_ttg    {};
+    struct  default_ttg {};
 
     template <template <typename ...> typename template_p>
-    concept template_ttr =
-        nkr::interface::template_tr<nkr::interface::template_i<template_p>>;
+    concept default_ttr =
+        cpp::is_tr<template_p<>, template_p<>>;
 
 }}}}
 
 namespace nkr { namespace interface {
 
     template <>
-    class template_i<nkr::generic::implementing::interface::template_ttg>
+    class template_i<nkr::generic_template::implementing::parameter_list::default_ttg>
     {
     public:
         template <typename inner_p>
@@ -40,4 +38,4 @@ namespace nkr { namespace interface {
 
 }}
 
-#include "nkr/generic/implementing/interface/template_tr_dec_def.h"
+#include "nkr/generic_template/implementing/parameter_list/default_tr_dec_def.h"

@@ -28,27 +28,12 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace interface {
 
-    template <nkr::array::cpp_tr parent_p>
-    class child_of_i<parent_p>
-    {
-    public:
-        using child_t   = nkr::cpp::array_unit_t<parent_p>;
-
-    public:
-        template <typename ...>
-        constexpr child_of_i(...) noexcept  = delete;
-    };
-
-}}
-
-namespace nkr { namespace interface {
-
     template <>
     class type_i<nkr::array::cpp_tg>
     {
     public:
         using type_t    = nkr::array::cpp_tg;
-        using of_t      = nkr::interface::child_of_i<type_t>::child_t;
+        using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
@@ -65,7 +50,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = nkr::interface::child_of_i<type_t>::child_t;
+        using of_t      = nkr::cpp::array_unit_t<type_t>;
     };
 
 }}
@@ -89,8 +74,9 @@ namespace nkr { namespace interface {
         constexpr template_i(...) noexcept  = delete;
     };
 
-    template <>
-    class template_i<nkr::array::cpp_t> :
+    template <template <typename ...> typename template_p>
+        requires nkr::array::cpp_ttr<template_p>
+    class template_i<template_p> :
         public template_i<nkr::array::cpp_ttg>
     {
     public:

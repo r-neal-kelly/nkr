@@ -19,6 +19,10 @@ namespace nkr { namespace generic {
     concept none_tr =
         none::any_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept none_ttr =
+        none::any_ttr<template_p>;
+
 }}
 
 namespace nkr { namespace interface {

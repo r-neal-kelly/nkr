@@ -6,7 +6,7 @@
 
 #include "nkr/built_ins_def.h"
 
-#include "nkr/generic_template/implementing/template_parameter_list/default_tr_dec.h"
+#include "nkr/generic_template/implementing/parameter_list/default_tr_dec.h"
 
 namespace nkr {
 

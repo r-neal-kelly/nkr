@@ -17,3 +17,15 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i<nkr::generic::positive::any_ttg>::Is_Any()
+        noexcept
+    {
+        return nkr::generic::positive::any_ttr<other_p>;
+    }
+
+}}

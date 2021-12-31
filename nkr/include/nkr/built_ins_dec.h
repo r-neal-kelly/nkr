@@ -129,91 +129,76 @@ namespace nkr { namespace array {
 
 }}
 
-namespace nkr { namespace interface { namespace $child_of_i {
+namespace nkr { namespace interface { namespace $type_i {
 
     template <typename type_p>
-    concept type_tr = requires
+    concept inner_type_tr = requires
     {
         typename type_p::type_t;
     };
 
     template <typename type_p>
-    concept value_tr = requires
+    concept inner_value_tr = requires
     {
         typename type_p::value_t;
     };
 
     template <typename type_p>
-    concept unit_tr = requires
+    concept inner_unit_tr = requires
     {
         typename type_p::unit_t;
     };
 
     template <typename type_p>
-    concept just_type_tr =
-        type_tr<type_p> &&
-        !value_tr<type_p> &&
-        !unit_tr<type_p>;
+    concept just_inner_type_tr =
+        inner_type_tr<type_p> &&
+        !inner_value_tr<type_p> &&
+        !inner_unit_tr<type_p>;
 
     template <typename type_p>
-    concept just_value_tr =
-        !type_tr<type_p> &&
-        value_tr<type_p> &&
-        !unit_tr<type_p>;
+    concept just_inner_value_tr =
+        !inner_type_tr<type_p> &&
+        inner_value_tr<type_p> &&
+        !inner_unit_tr<type_p>;
 
     template <typename type_p>
-    concept just_unit_tr =
-        !type_tr<type_p> &&
-        !value_tr<type_p> &&
-        unit_tr<type_p>;
+    concept just_inner_unit_tr =
+        !inner_type_tr<type_p> &&
+        !inner_value_tr<type_p> &&
+        inner_unit_tr<type_p>;
 
-    template <typename parent_p>
-    class default_child_of_tmpl
+    template <typename type_p>
+    class default_inner_tmpl
     {
     public:
         using type_t    = nkr::none::type_t;
     };
 
-    template <just_type_tr parent_p>
-    class default_child_of_tmpl<parent_p>
+    template <just_inner_type_tr type_p>
+    class default_inner_tmpl<type_p>
     {
     public:
-        using type_t    = parent_p::type_t;
+        using type_t    = type_p::type_t;
     };
 
-    template <just_value_tr parent_p>
-    class default_child_of_tmpl<parent_p>
+    template <just_inner_value_tr type_p>
+    class default_inner_tmpl<type_p>
     {
     public:
-        using type_t    = parent_p::value_t;
+        using type_t    = type_p::value_t;
     };
 
-    template <just_unit_tr parent_p>
-    class default_child_of_tmpl<parent_p>
+    template <just_inner_unit_tr type_p>
+    class default_inner_tmpl<type_p>
     {
     public:
-        using type_t    = parent_p::unit_t;
+        using type_t    = type_p::unit_t;
     };
 
-    template <typename parent_p>
-    using default_child_of_t    = default_child_of_tmpl<parent_p>::type_t;
+    template <typename type_p>
+    using default_inner_t   = default_inner_tmpl<type_p>::type_t;
 
 }}}
-
-namespace nkr { namespace interface {
-
-    template <nkr::cpp::just_non_qualified_tr parent_p>
-    class child_of_i
-    {
-    public:
-        using child_t   = nkr::interface::$child_of_i::default_child_of_t<parent_p>;
-
-    public:
-        template <typename ...>
-        constexpr child_of_i(...) noexcept  = delete;
-    };
-
-}}
 
 namespace nkr { namespace interface {
 
@@ -222,7 +207,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = nkr::interface::child_of_i<type_t>::child_t;
+        using of_t      = nkr::interface::$type_i::default_inner_t<type_t>;
 
     public:
         template <typename other_p>

@@ -21,10 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b65409b6-2fed-4788-a7e8-87153ba537ad}</ProjectGuid>
-    <RootNamespace>generic_template</RootNamespace>
+    <ProjectGuid>{969ba48f-87a1-449d-a971-e5511dbf3893}</ProjectGuid>
+    <RootNamespace>generic_template_template</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>nkr_test_generic_template</ProjectName>
+    <ProjectName>nkr_test_generic_template_template</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -160,17 +160,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\implementing\parameter_list\default_tr.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(RelativeDir)</ObjectFileName>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\doctest\doctest.vcxproj">
       <Project>{8c1ddcad-1148-45e7-b63e-d1225ad747ad}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\nkr\nkr.vcxproj">
       <Project>{260dd159-a788-4bbb-9690-628aa81aaa9c}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\implementing\parameter_list\default_tr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

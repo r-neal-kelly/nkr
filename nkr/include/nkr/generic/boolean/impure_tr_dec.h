@@ -65,6 +65,10 @@ namespace nkr { namespace generic { namespace boolean {
         any_tr<type_p> &&
         $impure_tr::any_impure_operator_i<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept impure_ttr =
+        impure_tr<typename interface::template_i<template_p>::example_t>;
+
 }}}
 
 namespace nkr { namespace interface {
@@ -94,7 +98,12 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename inner_p>
-        using of_t  = nkr::generic::boolean::impure_tg;
+        using of_t      = nkr::generic::boolean::impure_tg;
+        using example_t = nkr::generic::boolean::impure_tg;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>

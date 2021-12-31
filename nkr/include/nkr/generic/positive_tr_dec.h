@@ -19,6 +19,10 @@ namespace nkr { namespace generic {
     concept positive_tr =
         positive::any_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept positive_ttr =
+        positive::any_ttr<template_p>;
+
 }}
 
 namespace nkr { namespace interface {

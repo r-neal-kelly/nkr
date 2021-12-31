@@ -19,6 +19,10 @@ namespace nkr { namespace generic {
     concept pointer_tr =
         pointer::any_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept pointer_ttr =
+        pointer::any_ttr<template_p>;
+
 }}
 
 namespace nkr { namespace interface {

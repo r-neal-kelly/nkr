@@ -19,6 +19,10 @@ namespace nkr { namespace generic {
     concept boolean_tr =
         boolean::any_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept boolean_ttr =
+        boolean::any_ttr<template_p>;
+
 }}
 
 namespace nkr { namespace interface {

@@ -19,6 +19,10 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
     concept type_tr =
         nkr::interface::type_tr<nkr::interface::type_i<type_p>>;
 
+    template <template <typename ...> typename template_p>
+    concept type_ttr =
+        type_tr<typename nkr::interface::template_i<template_p>::example_t>;
+
 }}}}
 
 namespace nkr { namespace interface {
@@ -48,7 +52,12 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename inner_p>
-        using of_t  = nkr::generic::implementing::interface::type_tg;
+        using of_t      = nkr::generic::implementing::interface::type_tg;
+        using example_t = nkr::generic::implementing::interface::type_tg;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>

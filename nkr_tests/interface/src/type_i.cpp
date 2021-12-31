@@ -31,8 +31,8 @@
 #include "nkr/generic/positive/integer_tr.h"
 #include "nkr/generic/type_tr.h"
 
-#include "nkr/generic_template/implementing/template_parameter_list/default_tr.h"
-#include "nkr/generic_template/implementing/type_parameter_list/default_tr.h"
+#include "nkr/generic_template/implementing/parameter_list/default_tr.h"
+#include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
 
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/template_i.h"
@@ -158,13 +158,13 @@ namespace nkr {
 
     TEST_SUITE("the following types should implement this interface")
     {
-        static_assert(generic::implementing::interface::type_tr<array::cpp_t<positive::integer_t, 1>>);
+        static_assert(generic::implementing::interface::type_tr<array::cpp_t<positive::integer_t, positive::count_c<1>>>);
 
         static_assert(generic::implementing::interface::type_tr<boolean::cpp_t>);
         static_assert(generic::implementing::interface::type_tr<boolean::safe_t>);
 
         static_assert(generic::implementing::interface::type_tr<interface::none::value_i<positive::integer_t>>);
-        static_assert(generic::implementing::interface::type_tr<interface::template_i<array::cpp_t>>); // how the hell are we pulling this off? how can array::cpp_t match the type_parameter_list?
+        static_assert(generic::implementing::interface::type_tr<interface::template_i<array::cpp_t>>);
         static_assert(generic::implementing::interface::type_tr<interface::type_i<positive::integer_t>>);
 
         static_assert(generic::implementing::interface::type_tr<negatable::byte_t>);

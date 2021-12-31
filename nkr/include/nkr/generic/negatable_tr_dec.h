@@ -19,6 +19,10 @@ namespace nkr { namespace generic {
     concept negatable_tr =
         negatable::any_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept negatable_ttr =
+        negatable::any_ttr<template_p>;
+
 }}
 
 namespace nkr { namespace interface {
