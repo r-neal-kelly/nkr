@@ -19,11 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\nkr\allocator\placeholder.h" />
+    <ClInclude Include="include\nkr\charcoder\placeholder.h" />
+    <ClInclude Include="include\nkr\enumeration\placeholder.h" />
+    <ClInclude Include="include\nkr\error\placeholder.h" />
+    <ClInclude Include="include\nkr\hasher\placeholder.h" />
     <ClInclude Include="include\nkr\macros.h" />
     <ClInclude Include="include\nkr\macros_dec.h" />
     <ClInclude Include="include\nkr\macros_dec_def.h" />
     <ClInclude Include="include\nkr\macros_def.h" />
     <ClInclude Include="include\nkr\macros_dox.h" />
+    <ClInclude Include="include\nkr\string\placeholder.h" />
+    <ClInclude Include="include\nkr\tree\placeholder.h" />
     <ClInclude Include="include\nkr\z_allocator\heap_t.h" />
     <ClInclude Include="include\nkr\z_allocator\heap_t_dec.h" />
     <ClInclude Include="include\nkr\z_allocator\heap_t_def.h" />
