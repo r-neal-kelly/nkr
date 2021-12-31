@@ -11,16 +11,36 @@
 namespace nkr { namespace interface { namespace $template_i {
 
     template <typename type_p>
+    class is_tmpl :
+        public boolean::cpp_c<false>
+    {
+    public:
+    };
+
+    template <template <typename ...> typename template_p>
+    class is_tmpl<template_i<template_p>> :
+        public boolean::cpp_c<true>
+    {
+    public:
+    };
+
+    template <typename ...>
+    class dummy_template_t
+    {
+    public:
+    };
+
+    template <typename type_p>
     concept aliases_i = requires
     {
-        cpp::is_ttr<type_p::template template_t, type_p::template template_t>;
-        typename type_p::template of_t<typename nkr::interface::default_child_of_i<type_p::template template_t>::child_t>;
+        cpp::is_ttr<type_p::template of_t, type_p::template of_t>;
+        typename type_p::example_t;
     };
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::template Is<type_p::template template_t>() }  -> cpp::is_tr<boolean::cpp_t>;
+        { type_p::template Is_Any<dummy_template_t>() } -> cpp::is_tr<boolean::cpp_t>;
     };
 
     template <typename type_p>
@@ -41,7 +61,7 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     concept template_tr =
-        type_p::template Is<type_p::template template_t>() &&
+        $template_i::is_tmpl<type_p>::Value() &&
         $template_i::aliases_i<type_p> &&
         $template_i::static_constexpr_functions_i<type_p> &&
         $template_i::objects_i<type_p>;

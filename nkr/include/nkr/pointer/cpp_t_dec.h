@@ -57,8 +57,8 @@ namespace nkr { namespace interface {
     class template_i<nkr::pointer::cpp_ttg>
     {
     public:
-        template <typename of_p>
-        using of_t  = nkr::pointer::cpp_t<of_p>;
+        template <typename inner_p>
+        using of_t  = nkr::pointer::cpp_t<inner_p>;
 
     public:
         template <typename ...>

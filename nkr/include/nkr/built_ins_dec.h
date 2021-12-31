@@ -217,21 +217,6 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
-    template <template <typename ...> typename parent_p>
-    class default_child_of_i
-    {
-    public:
-        using child_t   = nkr::none::type_t;
-
-    public:
-        template <typename ...>
-        constexpr default_child_of_i(...) noexcept  = delete;
-    };
-
-}}
-
-namespace nkr { namespace interface {
-
     template <nkr::cpp::just_non_qualified_tr type_p>
     class type_i
     {
@@ -256,14 +241,13 @@ namespace nkr { namespace interface {
     class template_i
     {
     public:
-        template <typename ...types_p>
-        using template_t    = template_p<types_p...>;
-        template <typename of_p>
-        using of_t          = template_t<of_p>;
+        template <typename inner_p>
+        using of_t      = template_p<inner_p>;
+        using example_t = of_t<nkr::none::type_t>;
 
     public:
         template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>

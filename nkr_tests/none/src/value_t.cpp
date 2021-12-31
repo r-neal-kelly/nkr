@@ -113,6 +113,7 @@ namespace nkr {
         }
     }
 
+    static_assert(generic::implementing::interface::template_ttr<none::value_ttg>);
     static_assert(tr1<non_none_default_t, any_tg, non_none_default_t>);
     static_assert(tr2<none::value_t<non_none_default_t>, any_tg, none::value_ttg, of_any_tg, non_none_default_t>);
 
@@ -160,7 +161,7 @@ namespace nkr {
         using value_t   = type_p;
     };
     static_assert(cpp::is_tr<nkr::interface::type_i<hard_to_instantiate_t<int>>::of_t, int>);
-    static_assert(nkr::generic::implementing::interface::template_tr<hard_to_instantiate_t>);
+    static_assert(nkr::generic::implementing::interface::template_ttr<hard_to_instantiate_t>);
     static_assert(cpp::is_tr<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>, nkr::interface::template_i<hard_to_instantiate_t>::of_t<std::integral_constant<positive::integer_8_t, 1>>>);
     static_assert(cpp::is_any_tr<nkr::interface::type_i<hard_to_instantiate_t<std::integral_constant<positive::integer_8_t, 1>>>::of_t, std::integral_constant<positive::integer_8_t, 1>>);
 
@@ -203,7 +204,7 @@ namespace nkr {
 
     template <template <typename ...> typename template_p>
     concept test_ttr =
-        cpp::is_any_ttr<template_p, test_t, interface::default_child_of_i<test_t>::child_t>;
+        cpp::is_any_ttr<template_p, test_t, none::type_t>;
 
     static_assert(test_ttr<test_t>);
     static_assert(test_ttr<test_t<none::type_t>::template template_t>);
@@ -226,14 +227,6 @@ namespace nkr {
 
 
     ///
-
-    using none_value_template_a_t = interface::template_i<none::value_t>;
-    using none_value_template_b_t = interface::template_i<interface::template_i<none::value_t>::template_t>;
-    static_assert(cpp::is_tr<none_value_template_a_t::template_t<none::type_t>, none_value_template_b_t::template_t<none::type_t>>);
-
-    static_assert(cpp::is_tr<none::value_t<positive::integer_t>, interface::template_i<none::value_t>::template_t<positive::integer_t>>);
-    static_assert(!cpp::is_tr<interface::template_i<none::value_t>, interface::template_i<interface::template_i<none::value_t>::template_t>>);
-    static_assert(generic::implementing::interface::template_tr<interface::template_i<none::value_t>::template_t>);
 
 }
 //
@@ -264,22 +257,6 @@ namespace nkr {
         using value_t       = value_p;
     };
 
-    namespace interface {
-
-        template <template <typename ...> typename template_p>
-            requires testing_thing_ttr<template_p>
-        class default_child_of_i<template_p>
-        {
-        public:
-            using child_t   = $testing_thing_t::default_child_t;
-
-        public:
-            template <typename ...>
-            constexpr default_child_of_i(...) noexcept  = delete;
-        };
-
-    };
-
     static_assert(testing_thing_ttr<testing_thing_t>);
     static_assert(testing_thing_ttr<testing_thing_t<positive::integer_t>::template template_t>);
 
@@ -295,15 +272,9 @@ namespace nkr {
     static_assert(real_tt::Value() == -64.5);
 
     static_assert(array::cpp_ttr<array::cpp_t>);
-    static_assert(array::cpp_ttr<interface::template_i<array::cpp_ttg>::template template_t>);
-    static_assert(generic::implementing::interface::template_tr<array::cpp_ttg>);
-
-    using test_1_t = interface::template_i<array::cpp_ttg>::template template_t<positive::integer_t, positive::count_c<1>>;
-    using test_2_t = array::cpp_t<positive::integer_t, positive::count_c<1>>;
-    static_assert(cpp::is_tr<test_1_t, test_2_t>);
-    constexpr test_1_t test_1 = { 1 };
-    constexpr test_2_t test_2 = { 2 };
-    static_assert(test_1[0] != test_2[0]);
+    static_assert(generic::implementing::interface::template_ttr<array::cpp_ttg>);
+    static_assert(interface::template_tr<interface::template_i<array::cpp_t>>);
+    static_assert(interface::$template_i::aliases_i<interface::template_i<array::cpp_t>>);
 
 }
 ////

@@ -24,10 +24,10 @@ namespace nkr { namespace interface {
     template <template <typename ...> typename template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<template_p>::Is()
+        template_i<template_p>::Is_Any()
         noexcept
     {
-        return nkr::cpp::is_any_ttr<template_t, other_p, typename nkr::interface::default_child_of_i<template_t>::child_t>;
+        return nkr::cpp::is_any_ttr<template_p, other_p, nkr::none::type_t>;
     }
 
 }}

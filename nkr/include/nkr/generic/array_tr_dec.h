@@ -19,6 +19,10 @@ namespace nkr { namespace generic {
     concept array_tr =
         array::any_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept array_ttr =
+        array::any_ttr<template_p>;
+
 }}
 
 namespace nkr { namespace interface {

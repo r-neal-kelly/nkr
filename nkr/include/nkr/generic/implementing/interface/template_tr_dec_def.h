@@ -13,7 +13,7 @@ namespace nkr { namespace interface {
         template_i<nkr::generic::implementing::interface::template_ttg>::Is_Any()
         noexcept
     {
-        return nkr::generic::implementing::interface::template_tr<other_p>;
+        return nkr::generic::implementing::interface::template_ttr<other_p>;
     }
 
 }}

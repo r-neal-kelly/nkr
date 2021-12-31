@@ -9,12 +9,6 @@
 #include "nkr/generic/array_tr_dec.h"
 #include "nkr/generic/array/any_tr_dec.h"
 
-namespace nkr { namespace array { namespace $cpp_t {
-
-    using default_child_t   = positive::integer_t;
-
-}}}
-
 namespace nkr { namespace array {
 
     struct  cpp_tg  {};
@@ -28,7 +22,7 @@ namespace nkr { namespace array {
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        cpp::is_any_ttr<template_p, cpp_t, $cpp_t::default_child_t, positive::count_c<1>>;
+        cpp::is_any_ttr<template_p, cpp_t, positive::word_t, positive::count_c<1>>;
 
 }}
 
@@ -43,22 +37,6 @@ namespace nkr { namespace interface {
     public:
         template <typename ...>
         constexpr child_of_i(...) noexcept  = delete;
-    };
-
-}}
-
-namespace nkr { namespace interface {
-
-    template <template <typename ...> typename parent_p>
-        requires nkr::array::cpp_ttr<parent_p>
-    class default_child_of_i<parent_p>
-    {
-    public:
-        using child_t   = nkr::array::$cpp_t::default_child_t;
-
-    public:
-        template <typename ...>
-        constexpr default_child_of_i(...) noexcept  = delete;
     };
 
 }}
@@ -98,14 +76,13 @@ namespace nkr { namespace interface {
     class template_i<nkr::array::cpp_ttg>
     {
     public:
-        template <typename type_p, typename capacity_p>
-        using template_t    = nkr::array::cpp_t<type_p, capacity_p>;
-        template <typename of_p>
-        using of_t          = template_t<of_p, positive::count_c<1>>;
+        template <typename inner_p>
+        using of_t      = nkr::array::cpp_t<inner_p, positive::count_c<1>>;
+        using example_t = of_t<nkr::positive::word_t>;
 
     public:
         template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>

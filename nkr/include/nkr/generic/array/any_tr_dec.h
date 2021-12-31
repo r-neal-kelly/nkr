@@ -17,6 +17,10 @@ namespace nkr { namespace generic { namespace array {
     concept any_tr =
         cpp::array_tr<type_p>;
 
+    template <template <typename ...> typename template_p>
+    concept any_ttr =
+        any_tr<typename interface::template_i<template_p>::example_t>;
+
 }}}
 
 namespace nkr { namespace interface {
@@ -45,8 +49,13 @@ namespace nkr { namespace interface {
     class template_i<nkr::generic::array::any_ttg>
     {
     public:
-        template <typename of_p>
-        using of_t  = nkr::generic::array::any_tg;
+        template <typename inner_p>
+        using of_t      = nkr::generic::array::any_tg;
+        using example_t = nkr::generic::array::any_tg;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
 
     public:
         template <typename ...>

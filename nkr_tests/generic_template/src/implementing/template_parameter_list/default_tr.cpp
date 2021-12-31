@@ -10,6 +10,6 @@
 
 namespace nkr {
 
-    static_assert(generic::implementing::interface::template_tr<generic_template::implementing::template_parameter_list::default_ttg>);
+    static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::template_parameter_list::default_ttg>);
 
 }

@@ -85,41 +85,41 @@ namespace nkr {
 
     TEST_SUITE("the following tags should implement this interface")
     {
-        static_assert(generic::implementing::interface::template_tr<array::cpp_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<array::cpp_ttg>);
 
-        static_assert(generic::implementing::interface::template_tr<generic::array_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::array::any_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::boolean_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::boolean::any_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::boolean::impure_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::boolean::pure_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::implementing::constructor::default_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::implementing::interface::none::value_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::implementing::interface::template_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::implementing::interface::type_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::negatable_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::negatable::any_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::negatable::integer_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::negatable::real_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::non_type_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::none_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::none::any_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::pointer_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::pointer::any_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::positive_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::positive::any_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::positive::integer_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic::type_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::array_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::array::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::boolean_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::boolean::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::boolean::impure_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::boolean::pure_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::implementing::constructor::default_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::none::value_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::template_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::type_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::negatable_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::negatable::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::negatable::integer_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::negatable::real_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::non_type_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::none_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::none::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::pointer_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::pointer::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::positive_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::positive::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::positive::integer_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::type_ttg>);
 
-        static_assert(generic::implementing::interface::template_tr<generic_template::implementing::template_parameter_list::default_ttg>);
-        static_assert(generic::implementing::interface::template_tr<generic_template::implementing::type_parameter_list::default_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::template_parameter_list::default_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::type_parameter_list::default_ttg>);
 
-        static_assert(generic::implementing::interface::template_tr<interface::none::value_ttg>);
-        static_assert(generic::implementing::interface::template_tr<interface::type_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<interface::none::value_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<interface::type_ttg>);
 
-        static_assert(generic::implementing::interface::template_tr<none::value_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<none::value_ttg>);
 
-        static_assert(generic::implementing::interface::template_tr<pointer::cpp_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<pointer::cpp_ttg>);
     }
 
 }
@@ -128,14 +128,14 @@ namespace nkr {
 
     TEST_SUITE("the following templates should implement this interface")
     {
-        static_assert(generic::implementing::interface::template_tr<array::cpp_t>);
+        static_assert(generic::implementing::interface::template_ttr<array::cpp_t>);
 
-        static_assert(generic::implementing::interface::template_tr<interface::none::value_i>);
-        static_assert(generic::implementing::interface::template_tr<interface::type_i>);
+        static_assert(generic::implementing::interface::template_ttr<interface::none::value_i>);
+        static_assert(generic::implementing::interface::template_ttr<interface::type_i>);
 
-        static_assert(generic::implementing::interface::template_tr<none::value_t>);
+        static_assert(generic::implementing::interface::template_ttr<none::value_t>);
 
-        static_assert(generic::implementing::interface::template_tr<pointer::cpp_t>);
+        static_assert(generic::implementing::interface::template_ttr<pointer::cpp_t>);
     }
 
 }

@@ -22,7 +22,7 @@ namespace nkr { namespace interface {
 
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::array::cpp_ttg>::Is()
+        template_i<nkr::array::cpp_ttg>::Is_Any()
         noexcept
     {
         return nkr::array::cpp_ttr<other_p>;

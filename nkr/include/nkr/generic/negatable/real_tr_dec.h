@@ -48,7 +48,7 @@ namespace nkr { namespace interface {
     class template_i<nkr::generic::negatable::real_ttg>
     {
     public:
-        template <typename of_p>
+        template <typename inner_p>
         using of_t  = nkr::generic::negatable::real_tg;
 
     public:

@@ -47,7 +47,7 @@ namespace nkr { namespace interface {
     class template_i<nkr::generic::non_type_ttg>
     {
     public:
-        template <typename of_p>
+        template <typename inner_p>
         using of_t  = nkr::generic::non_type_tg;
 
     public:

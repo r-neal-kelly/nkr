@@ -89,7 +89,7 @@ namespace nkr { namespace $tr {
         TR2()
         noexcept
     {
-        static_assert(generic::implementing::interface::template_tr<operand_p>);
+        static_assert(generic::implementing::interface::template_ttr<operand_p>);
         static_assert(generic::implementing::interface::type_tr<of_operand_p>);
 
         using subject_t = subject_p;
@@ -117,8 +117,8 @@ namespace nkr { namespace $tr {
         TR3()
         noexcept
     {
-        static_assert(generic::implementing::interface::template_tr<operand_p>);
-        static_assert(generic::implementing::interface::template_tr<of_operand_p>);
+        static_assert(generic::implementing::interface::template_ttr<operand_p>);
+        static_assert(generic::implementing::interface::template_ttr<of_operand_p>);
         static_assert(generic::implementing::interface::type_tr<of_of_operand_p>);
 
         using subject_t = subject_p;

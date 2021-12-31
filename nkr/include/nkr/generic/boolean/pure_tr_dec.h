@@ -48,7 +48,7 @@ namespace nkr { namespace interface {
     class template_i<nkr::generic::boolean::pure_ttg>
     {
     public:
-        template <typename of_p>
+        template <typename inner_p>
         using of_t  = nkr::generic::boolean::pure_tg;
 
     public:

@@ -10,6 +10,6 @@
 namespace nkr {
 
     static_assert(generic::implementing::interface::type_tr<generic::implementing::interface::type_tg>);
-    static_assert(generic::implementing::interface::template_tr<generic::implementing::interface::type_ttg>);
+    static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::type_ttg>);
 
 }

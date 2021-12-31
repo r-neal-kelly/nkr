@@ -14,7 +14,7 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
     struct  template_ttg    {};
 
     template <template <typename ...> typename template_p>
-    concept template_tr =
+    concept template_ttr =
         nkr::interface::template_tr<nkr::interface::template_i<template_p>>;
 
 }}}}
@@ -25,7 +25,7 @@ namespace nkr { namespace interface {
     class template_i<nkr::generic::implementing::interface::template_ttg>
     {
     public:
-        template <typename of_p>
+        template <typename inner_p>
         using of_t  = nkr::none::type_t;
 
     public:

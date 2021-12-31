@@ -78,8 +78,8 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<interface::type_tg>);
         static_assert(generic::implementing::interface::type_tr<interface::type_i<positive::integer_t>>);
 
-        static_assert(generic::implementing::interface::template_tr<interface::type_ttg>);
-        static_assert(generic::implementing::interface::template_tr<interface::type_i>);
+        static_assert(generic::implementing::interface::template_ttr<interface::type_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<interface::type_i>);
     }
 
 }
