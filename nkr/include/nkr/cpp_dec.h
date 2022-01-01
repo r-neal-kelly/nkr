@@ -178,6 +178,10 @@ namespace nkr { namespace cpp {
         std::is_rvalue_reference<type_p>::value;
 
     template <typename type_p>
+    concept enumeration_tr =
+        std::is_enum<type_p>::value;
+
+    template <typename type_p>
     concept built_in_tr =
         none_type_tr<type_p> ||
         integer_tr<type_p> ||
@@ -185,7 +189,8 @@ namespace nkr { namespace cpp {
         pointer_tr<type_p> ||
         none_pointer_tr<type_p> ||
         array_tr<type_p> ||
-        reference_tr<type_p>;
+        reference_tr<type_p> ||
+        enumeration_tr<type_p>;
 
     template <typename type_p>
     concept user_defined_tr =
