@@ -24,6 +24,7 @@
 #include "nkr/generic/non_type_tr.h"
 #include "nkr/generic/none_tr.h"
 #include "nkr/generic/none/any_tr.h"
+#include "nkr/generic/number_tr.h"
 #include "nkr/generic/pointer_tr.h"
 #include "nkr/generic/pointer/any_tr.h"
 #include "nkr/generic/positive_tr.h"
@@ -104,6 +105,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic::non_type_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::none_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::none::any_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::number_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::pointer_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::pointer::any_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::positive_ttg>);
