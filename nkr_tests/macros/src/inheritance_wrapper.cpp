@@ -145,22 +145,22 @@ namespace nkr {
                 }
 
             public:
-                constexpr boolean::cpp_t Integer() const noexcept
+                constexpr positive::integer_t Integer() const noexcept
                 {
                     return this->integer;
                 }
 
-                constexpr boolean::cpp_t Integer() const volatile noexcept
+                constexpr positive::integer_t Integer() const volatile noexcept
                 {
                     return this->integer;
                 }
 
-                constexpr boolean::cpp_t Real() const noexcept
+                constexpr negatable::real_t Real() const noexcept
                 {
                     return this->real;
                 }
 
-                constexpr boolean::cpp_t Real() const volatile noexcept
+                constexpr negatable::real_t Real() const volatile noexcept
                 {
                     return this->real;
                 }
