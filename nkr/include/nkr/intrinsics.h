@@ -4,12 +4,5 @@
 
 #pragma once
 
+#include "nkr/intrinsics_dec.h"
 #include "nkr/intrinsics_def.h"
-
-#include "nkr/generic/array/any_tr_dec.h"
-
-namespace nkr {
-
-
-
-}

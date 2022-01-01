@@ -241,4 +241,4 @@ namespace nkr { namespace interface {
 
 }}
 
-#include "nkr/built_ins_dec_def.h"
+#include "nkr/intrinsics_dec_def.h"

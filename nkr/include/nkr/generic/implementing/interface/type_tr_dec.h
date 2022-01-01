@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/built_ins_dec.h"
+#include "nkr/intrinsics_dec.h"
 
 #include "nkr/interface/type_i_dec.h"
 

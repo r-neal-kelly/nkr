@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/built_ins_dec.h"
+#include "nkr/intrinsics_dec.h"
 
 namespace nkr { namespace generic { namespace array {
 

@@ -6,7 +6,7 @@
 
 #include "nkr/cpp_def.h"
 
-#include "nkr/built_ins_dec.h"
+#include "nkr/intrinsics_dec.h"
 
 namespace nkr {
 

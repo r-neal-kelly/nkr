@@ -93,11 +93,11 @@
     <ClInclude Include="include\nkr\z_bool_t_dec.h" />
     <ClInclude Include="include\nkr\z_bool_t_def.h" />
     <ClInclude Include="include\nkr\z_bool_t_dox.h" />
-    <ClInclude Include="include\nkr\built_ins.h" />
-    <ClInclude Include="include\nkr\built_ins_dec.h" />
-    <ClInclude Include="include\nkr\built_ins_dec_def.h" />
-    <ClInclude Include="include\nkr\built_ins_def.h" />
-    <ClInclude Include="include\nkr\built_ins_dox.h" />
+    <ClInclude Include="include\nkr\intrinsics.h" />
+    <ClInclude Include="include\nkr\intrinsics_dec.h" />
+    <ClInclude Include="include\nkr\intrinsics_dec_def.h" />
+    <ClInclude Include="include\nkr\intrinsics_def.h" />
+    <ClInclude Include="include\nkr\intrinsics_dox.h" />
     <ClInclude Include="include\nkr\z_charcoder\ascii_t.h" />
     <ClInclude Include="include\nkr\z_charcoder\ascii_t_dec.h" />
     <ClInclude Include="include\nkr\z_charcoder\ascii_t_def.h" />

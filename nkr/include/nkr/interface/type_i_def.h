@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/built_ins_def.h"
+#include "nkr/intrinsics_def.h"
 
 #include "nkr/generic/implementing/constructor/default_tr_def.h"
 
