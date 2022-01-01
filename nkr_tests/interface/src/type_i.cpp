@@ -25,11 +25,15 @@
 #include "nkr/generic/none_tr.h"
 #include "nkr/generic/none/any_tr.h"
 #include "nkr/generic/number_tr.h"
+#include "nkr/generic/number/any_tr.h"
+#include "nkr/generic/number/integer_tr.h"
+#include "nkr/generic/number/real_tr.h"
 #include "nkr/generic/pointer_tr.h"
 #include "nkr/generic/pointer/any_tr.h"
 #include "nkr/generic/positive_tr.h"
 #include "nkr/generic/positive/any_tr.h"
 #include "nkr/generic/positive/integer_tr.h"
+#include "nkr/generic/positive/real_tr.h"
 #include "nkr/generic/type_tr.h"
 
 #include "nkr/generic_template/implementing/parameter_list/default_tr.h"
@@ -111,11 +115,15 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<generic::none_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::none::any_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::number_tg>);
+        static_assert(generic::implementing::interface::type_tr<generic::number::any_tg>);
+        static_assert(generic::implementing::interface::type_tr<generic::number::integer_tg>);
+        static_assert(generic::implementing::interface::type_tr<generic::number::real_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::pointer_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::pointer::any_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::positive_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::positive::any_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::positive::integer_tg>);
+        static_assert(generic::implementing::interface::type_tr<generic::positive::real_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::type_tg>);
 
         static_assert(generic::implementing::interface::type_tr<interface::none::value_tg>);

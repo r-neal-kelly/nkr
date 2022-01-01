@@ -8,7 +8,7 @@
 
 #include "nkr/generic/number/any_tr_def.h"
 
-#include "nkr/generic/number_tr_dec.h"
+#include "nkr/generic/number/real_tr_dec.h"
 
 namespace nkr {
 
