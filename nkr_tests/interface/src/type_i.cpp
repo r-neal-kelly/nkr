@@ -13,6 +13,7 @@
 #include "nkr/generic/boolean/any_tr.h"
 #include "nkr/generic/boolean/impure_tr.h"
 #include "nkr/generic/boolean/pure_tr.h"
+#include "nkr/generic/built_in_tr.h"
 #include "nkr/generic/implementing/constructor/default_tr.h"
 #include "nkr/generic/implementing/interface/none/value_tr.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
@@ -35,6 +36,7 @@
 #include "nkr/generic/positive/integer_tr.h"
 #include "nkr/generic/positive/real_tr.h"
 #include "nkr/generic/type_tr.h"
+#include "nkr/generic/user_defined_tr.h"
 
 #include "nkr/generic_template/implementing/parameter_list/default_tr.h"
 #include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
@@ -104,6 +106,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<generic::boolean::any_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::boolean::impure_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::boolean::pure_tg>);
+        static_assert(generic::implementing::interface::type_tr<generic::built_in_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::implementing::constructor::default_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::implementing::interface::none::value_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::implementing::interface::type_tg>);
@@ -125,6 +128,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<generic::positive::integer_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::positive::real_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::type_tg>);
+        static_assert(generic::implementing::interface::type_tr<generic::user_defined_tg>);
 
         static_assert(generic::implementing::interface::type_tr<interface::none::value_tg>);
         static_assert(generic::implementing::interface::type_tr<interface::template_tg>);

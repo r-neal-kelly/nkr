@@ -317,3 +317,27 @@ namespace nkr {
     static_assert(cpp::is_tr<tuple_t::at_t<2>, negatable::real_t>);
 
 }
+
+#include "nkr/boolean/cpp_t.h"
+#include "nkr/boolean/safe_t.h"
+#include "nkr/generic/boolean_tr.h"
+#include "nkr/generic/built_in_tr.h"
+#include "nkr/generic/user_defined_tr.h"
+
+namespace nkr {
+
+    static_assert(generic::built_in_tr<boolean::cpp_t>);
+    static_assert(generic::boolean_tr<boolean::cpp_t>);
+    //static_assert(tr<boolean::cpp_t, any_tg, generic::built_in_tg, and_tg, generic::boolean_tg>);         // should be true
+    //static_assert(tr<boolean::cpp_t, any_tg, generic::user_defined_tg, and_tg, generic::boolean_tg>);     // should be false
+
+    static_assert(generic::user_defined_tr<boolean::safe_t>);
+    static_assert(generic::boolean_tr<boolean::cpp_t>);
+    //static_assert(tr<boolean::safe_t, any_tg, generic::built_in_tg, and_tg, generic::boolean_tg>);        // should be false
+    //static_assert(tr<boolean::safe_t, any_tg, generic::user_defined_tg, and_tg, generic::boolean_tg>);    // should be true
+
+    // tr can take just type template parameters, so is can be variadic and compiled, whereas the tr0, tr1, tr2, tr3 indicate type depth
+    // and cannot be variadic due to the mixture of type and template template parameters. I don't think it will be too hard.
+    // the only thing is that the requires clause kind of handles such expressions, so I'm not sure I should spend the time on it.
+
+}

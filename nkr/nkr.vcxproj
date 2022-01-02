@@ -37,6 +37,11 @@
     <ClInclude Include="include\nkr\enumeration\types_t_def.h" />
     <ClInclude Include="include\nkr\enumeration\types_t_dox.h" />
     <ClInclude Include="include\nkr\error\placeholder.h" />
+    <ClInclude Include="include\nkr\generic\built_in_tr.h" />
+    <ClInclude Include="include\nkr\generic\built_in_tr_dec.h" />
+    <ClInclude Include="include\nkr\generic\built_in_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\generic\built_in_tr_def.h" />
+    <ClInclude Include="include\nkr\generic\built_in_tr_dox.h" />
     <ClInclude Include="include\nkr\generic\number\any_tr.h" />
     <ClInclude Include="include\nkr\generic\number\any_tr_dec.h" />
     <ClInclude Include="include\nkr\generic\number\any_tr_dec_def.h" />
@@ -62,6 +67,11 @@
     <ClInclude Include="include\nkr\generic\positive\real_tr_dec_def.h" />
     <ClInclude Include="include\nkr\generic\positive\real_tr_def.h" />
     <ClInclude Include="include\nkr\generic\positive\real_tr_dox.h" />
+    <ClInclude Include="include\nkr\generic\user_defined_tr.h" />
+    <ClInclude Include="include\nkr\generic\user_defined_tr_dec.h" />
+    <ClInclude Include="include\nkr\generic\user_defined_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\generic\user_defined_tr_def.h" />
+    <ClInclude Include="include\nkr\generic\user_defined_tr_dox.h" />
     <ClInclude Include="include\nkr\hasher\placeholder.h" />
     <ClInclude Include="include\nkr\macros.h" />
     <ClInclude Include="include\nkr\macros_dec.h" />

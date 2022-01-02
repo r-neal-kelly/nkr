@@ -241,4 +241,7 @@ namespace nkr { namespace interface {
 
 }}
 
+// pretty sure we'll want interface::random_i in here as well.
+// and we can have a type, like we do none::value_t to more easily access it.
+
 #include "nkr/intrinsics_dec_def.h"

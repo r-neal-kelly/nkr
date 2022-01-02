@@ -13,6 +13,7 @@
 #include "nkr/generic/boolean/any_tr.h"
 #include "nkr/generic/boolean/impure_tr.h"
 #include "nkr/generic/boolean/pure_tr.h"
+#include "nkr/generic/built_in_tr.h"
 #include "nkr/generic/implementing/constructor/default_tr.h"
 #include "nkr/generic/implementing/interface/none/value_tr.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
@@ -35,6 +36,7 @@
 #include "nkr/generic/positive/integer_tr.h"
 #include "nkr/generic/positive/real_tr.h"
 #include "nkr/generic/type_tr.h"
+#include "nkr/generic/user_defined_tr.h"
 
 #include "nkr/generic_template/implementing/parameter_list/default_tr.h"
 #include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
@@ -98,6 +100,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic::boolean::any_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::boolean::impure_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::boolean::pure_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::built_in_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::constructor::default_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::none::value_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::template_ttg>);
@@ -120,6 +123,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic::positive::integer_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::positive::real_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::type_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::user_defined_ttg>);
 
         static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::parameter_list::default_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic_template_template::implementing::parameter_list::default_ttg>);
