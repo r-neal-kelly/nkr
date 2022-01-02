@@ -49,7 +49,7 @@ namespace nkr { namespace interface { namespace none {
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
-        cpp::is_any_ttr<template_p, value_i, nkr::none::type_t>;
+        cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
 
 }}}
 
@@ -90,7 +90,7 @@ namespace nkr { namespace interface {
     public:
         template <typename inner_p>
         using of_t      = nkr::interface::none::value_i<inner_p>;
-        using example_t = of_t<nkr::none::type_t>;
+        using example_t = of_t<nkr::positive::integer_t>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -134,8 +134,5 @@ namespace nkr { namespace interface { namespace none {
 namespace nkr { namespace interface { namespace none {
 
     static_assert(value_tr<value_i<positive::integer_t>>);
-    static_assert(!value_tr<value_i<const positive::integer_t>>);
-    static_assert(!value_tr<value_i<volatile positive::integer_t>>);
-    static_assert(!value_tr<value_i<const volatile positive::integer_t>>);
 
 }}}

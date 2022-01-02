@@ -7,6 +7,7 @@
 #include "nkr/intrinsics_def.h"
 
 #include "nkr/generic/implementing/constructor/default_tr_def.h"
+#include "nkr/generic/type_tr_def.h"
 
 #include "nkr/interface/type_i_dec.h"
 

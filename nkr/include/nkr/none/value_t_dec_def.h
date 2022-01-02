@@ -33,6 +33,13 @@ namespace nkr { namespace interface {
 namespace nkr { namespace none {
 
     template <generic::implementing::interface::none::value_tr type_p>
+    inline constexpr value_t<type_p>::type_t value_t<type_p>::Value()
+        noexcept
+    {
+        return interface_t::Value();
+    }
+
+    template <generic::implementing::interface::none::value_tr type_p>
     inline constexpr value_t<type_p>::value_t() noexcept
     {
     }
@@ -137,6 +144,20 @@ namespace nkr { namespace none {
 
     template <generic::implementing::interface::none::value_tr type_p>
     inline constexpr value_t<type_p>::operator value_t<type_p>::type_t()
+        const volatile noexcept
+    {
+        return interface_t::Value();
+    }
+
+    template <generic::implementing::interface::none::value_tr type_p>
+    inline constexpr value_t<type_p>::type_t value_t<type_p>::operator ()()
+        const noexcept
+    {
+        return interface_t::Value();
+    }
+
+    template <generic::implementing::interface::none::value_tr type_p>
+    inline constexpr value_t<type_p>::type_t value_t<type_p>::operator ()()
         const volatile noexcept
     {
         return interface_t::Value();

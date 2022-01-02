@@ -126,7 +126,12 @@ namespace nkr { namespace cpp {
         !type_tr<type_p>;
 
     template <typename type_p>
+    concept boolean_tr =
+        std::is_same<std::remove_cv_t<type_p>, boolean_t>::value;
+
+    template <typename type_p>
     concept integer_tr =
+        !boolean_tr<type_p> &&
         std::is_integral<type_p>::value;
 
     template <typename type_p>
@@ -184,6 +189,7 @@ namespace nkr { namespace cpp {
     template <typename type_p>
     concept built_in_tr =
         none_type_tr<type_p> ||
+        boolean_tr<type_p> ||
         integer_tr<type_p> ||
         real_tr<type_p> ||
         pointer_tr<type_p> ||

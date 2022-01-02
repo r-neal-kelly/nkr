@@ -6,6 +6,8 @@
 
 #include "nkr/intrinsics_dec.h"
 
+#include "nkr/generic/type_tr_dec.h"
+
 namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace $default_tr {
 
     template <typename type_p>
@@ -25,11 +27,12 @@ namespace nkr { namespace generic { namespace implementing { namespace construct
 
     template <typename type_p>
     concept default_tr =
+        nkr::generic::type_tr<type_p> &&
         $default_tr::constructors_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept default_ttr =
-        default_tr<typename interface::template_i<template_p>::example_t>;
+        default_tr<typename nkr::interface::template_i<template_p>::example_t>;
 
 }}}}
 

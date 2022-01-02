@@ -7,6 +7,8 @@
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/safe_t.h"
 
+#include "nkr/enumeration/types_t.h"
+
 #include "nkr/generic/array_tr.h"
 #include "nkr/generic/array/any_tr.h"
 #include "nkr/generic/boolean_tr.h"
@@ -15,6 +17,7 @@
 #include "nkr/generic/boolean/pure_tr.h"
 #include "nkr/generic/built_in_tr.h"
 #include "nkr/generic/implementing/constructor/default_tr.h"
+#include "nkr/generic/implementing/interface/enumeration/types_tr.h"
 #include "nkr/generic/implementing/interface/none/value_tr.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
@@ -41,6 +44,7 @@
 #include "nkr/generic_template/implementing/parameter_list/default_tr.h"
 #include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
 
+#include "nkr/interface/enumeration/types_i.h"
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/template_i.h"
 #include "nkr/interface/type_i.h"
@@ -94,6 +98,8 @@ namespace nkr {
     {
         static_assert(generic::implementing::interface::template_ttr<array::cpp_ttg>);
 
+        static_assert(generic::implementing::interface::template_ttr<enumeration::types_ttg>);
+
         static_assert(generic::implementing::interface::template_ttr<generic::array_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::array::any_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::boolean_ttg>);
@@ -102,6 +108,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic::boolean::pure_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::built_in_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::constructor::default_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::enumeration::types_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::none::value_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::template_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::implementing::interface::type_ttg>);
@@ -128,6 +135,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic_template::implementing::parameter_list::default_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic_template_template::implementing::parameter_list::default_ttg>);
 
+        static_assert(generic::implementing::interface::template_ttr<interface::enumeration::types_ttg>);
         static_assert(generic::implementing::interface::template_ttr<interface::none::value_ttg>);
         static_assert(generic::implementing::interface::template_ttr<interface::type_ttg>);
 
@@ -144,6 +152,9 @@ namespace nkr {
     {
         static_assert(generic::implementing::interface::template_ttr<array::cpp_t>);
 
+        static_assert(generic::implementing::interface::template_ttr<enumeration::types_t>);
+
+        static_assert(generic::implementing::interface::template_ttr<interface::enumeration::types_i>);
         static_assert(generic::implementing::interface::template_ttr<interface::none::value_i>);
         static_assert(generic::implementing::interface::template_ttr<interface::type_i>);
 

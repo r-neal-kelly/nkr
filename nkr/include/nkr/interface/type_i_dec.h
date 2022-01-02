@@ -7,6 +7,7 @@
 #include "nkr/intrinsics_dec.h"
 
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
+#include "nkr/generic/type_tr_dec.h"
 
 namespace nkr { namespace interface { namespace $type_i {
 
@@ -15,6 +16,8 @@ namespace nkr { namespace interface { namespace $type_i {
     {
         typename type_p::type_t;
         typename type_p::of_t;
+        cpp::just_non_qualified_tr<typename type_p::type_t>;
+        nkr::generic::type_tr<typename type_p::type_t>;
     };
 
     template <typename type_p>

@@ -13,7 +13,7 @@
 
 namespace nkr { namespace none {
 
-    template <generic::implementing::interface::none::value_tr type_p>
+    template <typename type_p>
     class   value_t;
 
     struct  value_tg    {};
@@ -68,7 +68,7 @@ namespace nkr { namespace interface {
     public:
         template <typename inner_p>
         using of_t      = nkr::none::value_t<inner_p>;
-        using example_t = of_t<nkr::none::type_t>;
+        using example_t = of_t<nkr::positive::integer_t>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -95,11 +95,14 @@ namespace nkr { namespace none {
     // but we should do that to be consistent with other types that produce a value.
 
     template <generic::implementing::interface::none::value_tr type_p>
-    class value_t
+    class value_t<type_p>
     {
     public:
         using type_t        = type_p;
         using interface_t   = interface::none::value_i<type_t>;
+
+    public:
+        static constexpr value_t::type_t    Value() noexcept;
 
     public:
         constexpr value_t() noexcept;
@@ -125,6 +128,10 @@ namespace nkr { namespace none {
     public:
         constexpr operator  value_t::type_t() const noexcept;
         constexpr operator  value_t::type_t() const volatile noexcept;
+
+    public:
+        constexpr value_t::type_t   operator ()() const noexcept;
+        constexpr value_t::type_t   operator ()() const volatile noexcept;
     };
 
 }}
