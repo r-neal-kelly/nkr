@@ -15,7 +15,13 @@
 namespace nkr { namespace enumeration { namespace $types_t {
 
     template <generic::implementing::interface::enumeration::types_tr value_p>
-    using integer_of_t  = interface::enumeration::types_i<value_p>::integer_t;
+    using interface_of_t    = interface::enumeration::types_i<value_p>;
+
+    template <generic::implementing::interface::enumeration::types_tr value_p>
+    using integer_of_t      = interface_of_t<value_p>::integer_t;
+
+    template <generic::implementing::interface::enumeration::types_tr value_p>
+    using default_none_of_t = cpp::constant_t<integer_of_t<value_p>, interface_of_t<value_p>::Default_None_Value()>;
 
 }}}
 
@@ -23,7 +29,7 @@ namespace nkr { namespace enumeration {
 
     template <
         generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p         = cpp::constant_t<$types_t::integer_of_t<value_p>, 0>
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p         = $types_t::default_none_of_t<value_p>
     > class types_t;
 
     struct  types_tg    {};
@@ -123,6 +129,6 @@ namespace nkr { namespace enumeration {
     static_assert(types_tr<types_t<positive::integer_t, positive::integer_c<0>>>);
 
     static_assert(types_tr<types_t<negatable::integer_t>>);
-    static_assert(types_tr<types_t<negatable::integer_t, negatable::integer_c<-1>>>);
+    static_assert(types_tr<types_t<negatable::integer_t, negatable::integer_c<0>>>);
 
 }}

@@ -9,7 +9,9 @@
 #include "nkr/generic/built_in_tr_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/implementing/interface/none/value_tr_dec.h"
+#include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/number/integer_tr_dec.h"
+#include "nkr/generic/positive_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 
 namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
@@ -41,6 +43,8 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
                                                     typename type_p::integer_t integer)
     {
+        { type_p::Default_None_Value() }            -> cpp::is_tr<typename type_p::integer_t>;
+
         { type_p::Value(const_type) }               -> cpp::is_tr<typename type_p::integer_t>;
         { type_p::Value(const_volatile_type) }      -> cpp::is_tr<typename type_p::integer_t>;
 
@@ -145,6 +149,8 @@ namespace nkr { namespace interface { namespace enumeration {
         using integer_t = type_p;
 
     public:
+        static constexpr integer_t          Default_None_Value() noexcept;
+
         static constexpr integer_t          Value(const tr1<any_tg, type_t> auto& type) noexcept;
         static constexpr nkr::none::type_t  Value(tr1<any_non_const_tg, type_t> auto& type, integer_t integer) noexcept;
 

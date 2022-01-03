@@ -34,6 +34,20 @@ namespace nkr { namespace interface { namespace enumeration {
 
     template <$types_i::default_tr type_p>
     inline constexpr types_i<type_p>::integer_t
+        types_i<type_p>::Default_None_Value()
+        noexcept
+    {
+        if constexpr (nkr::generic::positive_tr<integer_t>) {
+            return ~integer_t(0);
+        } else if constexpr (nkr::generic::negatable_tr<integer_t>) {
+            return integer_t(-1);
+        } else {
+            static_assert(false);
+        }
+    }
+
+    template <$types_i::default_tr type_p>
+    inline constexpr types_i<type_p>::integer_t
         types_i<type_p>::Value(const tr1<any_tg, type_t> auto& type)
         noexcept
     {
