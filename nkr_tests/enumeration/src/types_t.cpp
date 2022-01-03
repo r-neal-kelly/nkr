@@ -137,6 +137,19 @@ namespace nkr {
             return *this;
         }
 #endif
+
+    public:
+        constexpr operator value_t()
+            const noexcept
+        {
+            return this->value;
+        }
+
+        constexpr operator value_t()
+            const volatile noexcept
+        {
+            return this->value;
+        }
     };
 
     namespace interface { namespace enumeration {
@@ -176,6 +189,14 @@ namespace nkr {
         };
 
     }}
+
+    #define nkr_TYPES                                                           \
+        enumeration::types_t<positive::integer_t>,                              \
+        enumeration::types_t<positive::integer_t, positive::integer_c<0>>,      \
+        enumeration::types_t<negatable::integer_t>,                             \
+        enumeration::types_t<negatable::integer_t, negatable::integer_c<0>>,    \
+        enumeration::types_t<user_defined_t>,                                   \
+        enumeration::types_t<user_defined_t, positive::integer_c<1>>
 
     TEST_SUITE("enumeration::types_t")
     {
@@ -226,24 +247,58 @@ namespace nkr {
 
         TEST_SUITE("objects")
         {
+            TEST_SUITE("construct")
+            {
+                TEST_CASE_TEMPLATE("shouldn't have trouble resolving between the three main overloads", types_p, nkr_TYPES)
+                {
+                    using value_t = types_p::value_t;
 
+                    types_p a(1);
+                    types_p b(value_t(1));
+                    types_p c(a);
+
+                    CHECK(a == 1);
+                    CHECK(b == 1);
+                    CHECK(c == 1);
+                }
+            }
+
+            TEST_SUITE("assign")
+            {
+                TEST_CASE_TEMPLATE("shouldn't have trouble resolving between the three main overloads", types_p, nkr_TYPES)
+                {
+                    using value_t = types_p::value_t;
+
+                    types_p a;
+                    types_p b;
+                    types_p c;
+
+                    a = 1;
+                    b = value_t(1);
+                    c = a;
+
+                    CHECK(a == 1);
+                    CHECK(b == 1);
+                    CHECK(c == 1);
+                }
+            }
         }
 
         TEST_SUITE("casts")
         {
             TEST_SUITE("integer_t()")
             {
-                TEST_CASE_TEMPLATE("should return the selected integer", types_p, enumeration::types_t<positive::integer_t>)
+                TEST_CASE_TEMPLATE("should return the selected integer", types_p, nkr_TYPES)
                 {
                     types_p types;
 
-                    CHECK(types + 1 == 0);
+                    CHECK(types + 1 == types_p::none_t::Value() + 1);
                 }
             }
 
             TEST_SUITE("boolean::cpp_t()")
             {
-                TEST_CASE_TEMPLATE("should return false by default", types_p, enumeration::types_t<positive::integer_t>)
+                TEST_CASE_TEMPLATE("should return false by default", types_p, nkr_TYPES)
                 {
                     types_p types;
 

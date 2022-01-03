@@ -59,21 +59,21 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
         { typename type_p::type_t(integer) };
 
-        { type = type };
-        { type = const_type };
-        { type = volatile_type };
-        { type = const_volatile_type };
+        { type = type }                                         -> cpp::is_tr<typename type_p::type_t&>;
+        { type = const_type }                                   -> cpp::is_tr<typename type_p::type_t&>;
+        { type = volatile_type }                                -> cpp::is_tr<typename type_p::type_t&>;
+        { type = const_volatile_type }                          -> cpp::is_tr<typename type_p::type_t&>;
 
-        { type = cpp::Move(type) };
-        { type = cpp::Move(volatile_type) };
+        { type = cpp::Move(type) }                              -> cpp::is_tr<typename type_p::type_t&>;
+        { type = cpp::Move(volatile_type) }                     -> cpp::is_tr<typename type_p::type_t&>;
 
-        { volatile_type = type };
-        { volatile_type = const_type };
-        { volatile_type = volatile_type };
-        { volatile_type = const_volatile_type };
+        { volatile_type = type }                                -> cpp::is_tr<volatile typename type_p::type_t&>;
+        { volatile_type = const_type }                          -> cpp::is_tr<volatile typename type_p::type_t&>;
+        { volatile_type = volatile_type }                       -> cpp::is_tr<volatile typename type_p::type_t&>;
+        { volatile_type = const_volatile_type }                 -> cpp::is_tr<volatile typename type_p::type_t&>;
 
-        { volatile_type = cpp::Move(type) };
-        { volatile_type = cpp::Move(volatile_type) };
+        { volatile_type = cpp::Move(type) }                     -> cpp::is_tr<volatile typename type_p::type_t&>;
+        { volatile_type = cpp::Move(volatile_type) }            -> cpp::is_tr<volatile typename type_p::type_t&>;
     };
 
     template <typename type_p>

@@ -142,6 +142,14 @@ namespace nkr { namespace enumeration {
         static constexpr auto&  Assign_Move(tr1<any_non_const_tg, types_t> auto& self,
                                             tr1<any_non_const_tg, types_t> auto&& other) noexcept;
 
+        static constexpr auto&  Assign_Copy_Value(tr1<any_non_const_tg, types_t> auto& self,
+                                                  const tr1<any_tg, value_t> auto& other) noexcept;
+        static constexpr auto&  Assign_Move_Value(tr1<any_non_const_tg, types_t> auto& self,
+                                                  tr1<any_non_const_tg, value_t> auto&& other) noexcept;
+
+        static constexpr auto&  Assign_Copy_To_Integer(tr1<any_non_const_tg, types_t> auto& self,
+                                                       const tr1<any_to_tg, integer_t> auto& to_integer) noexcept;
+
     protected:
         value_t value;
 
@@ -153,12 +161,24 @@ namespace nkr { namespace enumeration {
         constexpr types_t(value_t&& value) noexcept;
         constexpr types_t(volatile value_t&& value) noexcept;
 
-        constexpr types_t(const tr1<any_to_tg, integer_t> auto& value) noexcept;
+        constexpr types_t(const tr1<any_to_tg, integer_t> auto& to_integer) noexcept;
 
         constexpr types_t(const types_t& other) noexcept;
         constexpr types_t(const volatile types_t& other) noexcept;
         constexpr types_t(types_t&& other) noexcept;
         constexpr types_t(volatile types_t&& other) noexcept;
+
+        constexpr types_t&          operator =(const value_t& value) noexcept;
+        constexpr volatile types_t& operator =(const value_t& value) volatile noexcept;
+        constexpr types_t&          operator =(const volatile value_t& value) noexcept;
+        constexpr volatile types_t& operator =(const volatile value_t& value) volatile noexcept;
+        constexpr types_t&          operator =(value_t&& value) noexcept;
+        constexpr volatile types_t& operator =(value_t&& value) volatile noexcept;
+        constexpr types_t&          operator =(volatile value_t&& value) noexcept;
+        constexpr volatile types_t& operator =(volatile value_t&& value) volatile noexcept;
+
+        constexpr types_t&          operator =(const tr1<any_to_tg, integer_t> auto& to_integer) noexcept;
+        constexpr volatile types_t& operator =(const tr1<any_to_tg, integer_t> auto& to_integer) volatile noexcept;
 
         constexpr types_t&          operator =(const types_t& other) noexcept;
         constexpr volatile types_t& operator =(const types_t& other) volatile noexcept;
@@ -181,18 +201,8 @@ namespace nkr { namespace enumeration {
         explicit constexpr operator boolean::cpp_t() const volatile noexcept;
 
     public:
-        // all of these are for optimization with a potentially complex value_t interfacing with us.
-        constexpr types_t&          operator =(const value_t& value) noexcept;
-        constexpr volatile types_t& operator =(const value_t& value) volatile noexcept;
-        constexpr types_t&          operator =(const volatile value_t& value) noexcept;
-        constexpr volatile types_t& operator =(const volatile value_t& value) volatile noexcept;
-        constexpr types_t&          operator =(value_t&& value) noexcept;
-        constexpr volatile types_t& operator =(value_t&& value) volatile noexcept;
-        constexpr types_t&          operator =(volatile value_t&& value) noexcept;
-        constexpr volatile types_t& operator =(volatile value_t&& value) volatile noexcept;
-
-        constexpr types_t&          operator =(const tr1<any_to_tg, integer_t> auto& value) noexcept;
-        constexpr volatile types_t& operator =(const tr1<any_to_tg, integer_t> auto& value) volatile noexcept;
+        constexpr integer_t operator ()() const noexcept;
+        constexpr integer_t operator ()() const volatile noexcept;
     };
 
 }}
