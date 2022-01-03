@@ -14,13 +14,13 @@
 
 namespace nkr { namespace enumeration { namespace $types_t {
 
-    template <generic::implementing::interface::enumeration::types_tr value_p>
+    template <typename value_p>
     using interface_of_t    = interface::enumeration::types_i<value_p>;
 
-    template <generic::implementing::interface::enumeration::types_tr value_p>
+    template <typename value_p>
     using integer_of_t      = interface_of_t<value_p>::integer_t;
 
-    template <generic::implementing::interface::enumeration::types_tr value_p>
+    template <typename value_p>
     using default_none_of_t = cpp::constant_t<integer_of_t<value_p>, interface_of_t<value_p>::Default_None_Value()>;
 
 }}}
@@ -117,6 +117,66 @@ namespace nkr { namespace enumeration {
         using none_t        = none_p;
         using interface_t   = interface::enumeration::types_i<value_t>;
         using integer_t     = interface_t::integer_t;
+
+    private:
+        static constexpr auto&  Assign_Copy(tr1<any_non_const_tg, types_t> auto& self,
+                                            const tr1<any_tg, types_t> auto& other) noexcept;
+        static constexpr auto&  Assign_Move(tr1<any_non_const_tg, types_t> auto& self,
+                                            tr1<any_non_const_tg, types_t> auto&& other) noexcept;
+
+    protected:
+        value_t value;
+
+    public:
+        constexpr types_t() noexcept;
+
+        constexpr types_t(const value_t& value) noexcept;
+        constexpr types_t(const volatile value_t& value) noexcept;
+        constexpr types_t(value_t&& value) noexcept;
+        constexpr types_t(volatile value_t&& value) noexcept;
+
+        constexpr types_t(const tr1<any_to_tg, integer_t> auto& value) noexcept;
+
+        constexpr types_t(const types_t& other) noexcept;
+        constexpr types_t(const volatile types_t& other) noexcept;
+        constexpr types_t(types_t&& other) noexcept;
+        constexpr types_t(volatile types_t&& other) noexcept;
+
+        constexpr types_t&          operator =(const types_t& other) noexcept;
+        constexpr volatile types_t& operator =(const types_t& other) volatile noexcept;
+        constexpr types_t&          operator =(const volatile types_t& other) noexcept;
+        constexpr volatile types_t& operator =(const volatile types_t& other) volatile noexcept;
+        constexpr types_t&          operator =(types_t&& other) noexcept;
+        constexpr volatile types_t& operator =(types_t&& other) volatile noexcept;
+        constexpr types_t&          operator =(volatile types_t&& other) noexcept;
+        constexpr volatile types_t& operator =(volatile types_t&& other) volatile noexcept;
+
+#if defined(nkr_IS_DEBUG)
+        constexpr ~types_t() noexcept;
+#endif
+
+    public:
+        constexpr operator          integer_t() const noexcept;
+        constexpr operator          integer_t() const volatile noexcept;
+
+        // can't remember if the explicit bool will conflict with the integer_t above when we test for true/false.
+        // we need both, because none_t::Value() can be and often is something other than zero.
+        explicit constexpr operator boolean::cpp_t() const noexcept;
+        explicit constexpr operator boolean::cpp_t() const volatile noexcept;
+
+    public:
+        // all of these are for optimization with a potentially complex value_t interfacing with us.
+        constexpr types_t&          operator =(const value_t& value) noexcept;
+        constexpr volatile types_t& operator =(const value_t& value) volatile noexcept;
+        constexpr types_t&          operator =(const volatile value_t& value) noexcept;
+        constexpr volatile types_t& operator =(const volatile value_t& value) volatile noexcept;
+        constexpr types_t&          operator =(value_t&& value) noexcept;
+        constexpr volatile types_t& operator =(value_t&& value) volatile noexcept;
+        constexpr types_t&          operator =(volatile value_t&& value) noexcept;
+        constexpr volatile types_t& operator =(volatile value_t&& value) volatile noexcept;
+
+        constexpr types_t&          operator =(const tr1<any_to_tg, integer_t> auto& value) noexcept;
+        constexpr volatile types_t& operator =(const tr1<any_to_tg, integer_t> auto& value) volatile noexcept;
     };
 
 }}

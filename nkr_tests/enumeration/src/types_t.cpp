@@ -20,10 +20,122 @@ namespace nkr {
         value_t value;
 
     public:
-        user_defined_t(value_t value) :
+#if 1
+        // should help to satisfy the interface, else should give a good error message
+
+        constexpr user_defined_t(value_t value) noexcept :
             value(value)
         {
         }
+
+        constexpr user_defined_t(const user_defined_t& other) noexcept :
+            value(other.value)
+        {
+        }
+
+        constexpr user_defined_t(const volatile user_defined_t& other) noexcept :
+            value(other.value)
+        {
+        }
+
+        constexpr user_defined_t(user_defined_t&& other) noexcept :
+            value(cpp::Exchange(other.value, none::value_t<value_t>()))
+        {
+        }
+
+        constexpr user_defined_t(volatile user_defined_t&& other) noexcept :
+            value(cpp::Exchange(other.value, none::value_t<value_t>()))
+        {
+        }
+
+        constexpr user_defined_t&
+            operator =(const user_defined_t& other)
+            noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = other.value;
+            }
+
+            return *this;
+        }
+
+        constexpr volatile user_defined_t&
+            operator =(const user_defined_t& other)
+            volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = other.value;
+            }
+
+            return *this;
+        }
+
+        constexpr user_defined_t&
+            operator =(const volatile user_defined_t& other)
+            noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = other.value;
+            }
+
+            return *this;
+        }
+
+        constexpr volatile user_defined_t&
+            operator =(const volatile user_defined_t& other)
+            volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = other.value;
+            }
+
+            return *this;
+        }
+
+        constexpr user_defined_t&
+            operator =(user_defined_t&& other)
+            noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            }
+
+            return *this;
+        }
+
+        constexpr volatile user_defined_t&
+            operator =(user_defined_t&& other)
+            volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            }
+
+            return *this;
+        }
+
+        constexpr user_defined_t&
+            operator =(volatile user_defined_t&& other)
+            noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            }
+
+            return *this;
+        }
+
+        constexpr volatile user_defined_t&
+            operator =(volatile user_defined_t&& other)
+            volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            }
+
+            return *this;
+        }
+#endif
     };
 
     namespace interface { namespace enumeration {

@@ -33,7 +33,48 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
         nkr::generic::type_tr<typename type_p::integer_t> &&
         nkr::generic::built_in_tr<typename type_p::integer_t> &&
         nkr::generic::number::integer_tr<typename type_p::integer_t> &&
-        nkr::generic::implementing::interface::none::value_tr<typename type_p::integer_t>;
+        nkr::generic::implementing::interface::none::value_tr<typename type_p::integer_t>
+
+        && requires(typename type_p::type_t type,
+                    const typename type_p::type_t const_type,
+                    volatile typename type_p::type_t volatile_type,
+                    const volatile typename type_p::type_t const_volatile_type,
+
+                    typename type_p::integer_t integer)
+    {
+        // it's possible to replace some of these with the interface Value() getter and setter,
+        // but if type_p::type_t is complicated enough, wouldn't they want direct move semantics, etc?
+        // And also, the Value() getter and setter allow for cheap ops rather than what could be expensive copies.
+
+        // we should wrap this into a general trait, except the integer ctor. it's essentially feature complete
+        // ctors and assigners which every type in the library should be implementing.
+
+        { typename type_p::type_t(type) };
+        { typename type_p::type_t(volatile_type) };
+        { typename type_p::type_t(const_type) };
+        { typename type_p::type_t(const_volatile_type) };
+
+        { typename type_p::type_t(cpp::Move(type)) };
+        { typename type_p::type_t(cpp::Move(volatile_type)) };
+
+        { typename type_p::type_t(integer) };
+
+        { type = type };
+        { type = const_type };
+        { type = volatile_type };
+        { type = const_volatile_type };
+
+        { type = cpp::Move(type) };
+        { type = cpp::Move(volatile_type) };
+
+        { volatile_type = type };
+        { volatile_type = const_type };
+        { volatile_type = volatile_type };
+        { volatile_type = const_volatile_type };
+
+        { volatile_type = cpp::Move(type) };
+        { volatile_type = cpp::Move(volatile_type) };
+    };
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires(typename type_p::type_t type,
