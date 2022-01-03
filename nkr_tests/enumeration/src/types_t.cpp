@@ -6,6 +6,7 @@
 
 #include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
+#include "nkr/generic/implementing/interface/none/value_tr.h"
 
 #include "doctest.h"
 
@@ -21,7 +22,7 @@ namespace nkr {
 
     public:
 #if 1
-        // should help to satisfy the interface, else should give a good error message
+        // should contribute to satisfying the interface, else should give a good error message
 
         constexpr user_defined_t(value_t value) noexcept :
             value(value)
@@ -196,6 +197,9 @@ namespace nkr {
 
                 static_assert(generic::implementing::interface::template_ttr<enumeration::types_ttg>);
                 static_assert(generic::implementing::interface::template_ttr<enumeration::types_t>);
+
+                static_assert(generic::implementing::interface::none::value_tr<enumeration::types_t<positive::integer_t>>);
+                static_assert(generic::implementing::interface::none::value_tr<enumeration::types_t<positive::integer_t, positive::integer_c<0>>>);
             }
 
             TEST_CASE("should instantiate with built-in types that correctly interface")
@@ -218,6 +222,39 @@ namespace nkr {
                 static_assert(cpp::is_tr<user_defined_types_e::value_t, user_defined_t>);
                 static_assert(user_defined_types_e::none_t::Value() == 0);
             }
+        }
+
+        TEST_SUITE("objects")
+        {
+
+        }
+
+        TEST_SUITE("casts")
+        {
+            TEST_SUITE("integer_t()")
+            {
+                TEST_CASE_TEMPLATE("should return the selected integer", types_p, enumeration::types_t<positive::integer_t>)
+                {
+                    types_p types;
+
+                    CHECK(types + 1 == 0);
+                }
+            }
+
+            TEST_SUITE("boolean::cpp_t()")
+            {
+                TEST_CASE_TEMPLATE("should return false by default", types_p, enumeration::types_t<positive::integer_t>)
+                {
+                    types_p types;
+
+                    CHECK(!types);
+                }
+            }
+        }
+
+        TEST_SUITE("operators")
+        {
+
         }
     }
 }

@@ -83,7 +83,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename inner_p>
-        using of_t      = nkr::enumeration::types_t<inner_p, cpp::constant_t<inner_p, 0>>;
+        using of_t      = nkr::enumeration::types_t<inner_p>;
         using example_t = of_t<nkr::positive::integer_t>;
 
     public:
@@ -104,6 +104,24 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::enumeration::types_tr type_p>
+    class value_i<type_p>
+    {
+    public:
+        using type_t    = type_p;
+
+    public:
+        static constexpr type_t Value() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr value_i(...) noexcept = delete;
+    };
+
+}}}
 
 namespace nkr { namespace enumeration {
 
@@ -159,8 +177,6 @@ namespace nkr { namespace enumeration {
         constexpr operator          integer_t() const noexcept;
         constexpr operator          integer_t() const volatile noexcept;
 
-        // can't remember if the explicit bool will conflict with the integer_t above when we test for true/false.
-        // we need both, because none_t::Value() can be and often is something other than zero.
         explicit constexpr operator boolean::cpp_t() const noexcept;
         explicit constexpr operator boolean::cpp_t() const volatile noexcept;
 

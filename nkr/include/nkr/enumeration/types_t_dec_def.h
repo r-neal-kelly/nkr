@@ -30,6 +30,18 @@ namespace nkr { namespace interface {
 
 }}
 
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::enumeration::types_tr type_p>
+    inline constexpr value_i<type_p>::type_t
+        value_i<type_p>::Value()
+        noexcept
+    {
+        return type_t();
+    }
+
+}}}
+
 namespace nkr { namespace enumeration {
 
     template <
@@ -233,10 +245,28 @@ namespace nkr { namespace enumeration {
     template <
         generic::implementing::interface::enumeration::types_tr value_p,
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>::operator integer_t()
+        const noexcept
+    {
+        return interface_t::Value(this->value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>::operator integer_t()
+        const volatile noexcept
+    {
+        return interface_t::Value(this->value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::operator boolean::cpp_t()
         const noexcept
     {
-        return interface_t::Value(this->value) == none_t::Value();
+        return interface_t::Value(this->value) != none_t::Value();
     }
 
     template <
@@ -245,7 +275,7 @@ namespace nkr { namespace enumeration {
     > inline constexpr types_t<value_p, none_p>::operator boolean::cpp_t()
         const volatile noexcept
     {
-        return interface_t::Value(this->value) == none_t::Value();
+        return interface_t::Value(this->value) != none_t::Value();
     }
 
 }}

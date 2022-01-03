@@ -113,9 +113,13 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <tr1<just_non_qualified_tg, nkr::generic::implementing::constructor::default_tg> type_p>
-    class value_i<type_p>
+    template <typename type_p>
+    class value_i
     {
+    public:
+        static_assert(tr1<type_p, just_non_qualified_tg, nkr::generic::implementing::constructor::default_tg>,
+                      "Either define a default ctor setting this type to none, or implement this interface.");
+
     public:
         using type_t    = type_p;
 

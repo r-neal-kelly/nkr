@@ -32,7 +32,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <tr1<just_non_qualified_tg, nkr::generic::implementing::constructor::default_tg> type_p>
+    template <typename type_p>
     inline constexpr value_i<type_p>::type_t
         value_i<type_p>::Value()
         noexcept
