@@ -201,6 +201,7 @@ namespace nkr { namespace enumeration {
         explicit constexpr operator boolean::cpp_t() const volatile noexcept;
 
     public:
+        // move these to the methods section and make two sets, one for Value by reference and one for Integer by value.
         constexpr integer_t operator ()() const noexcept;
         constexpr integer_t operator ()() const volatile noexcept;
     };

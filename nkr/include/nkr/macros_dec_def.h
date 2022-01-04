@@ -15,22 +15,22 @@
     using BASE_p::operator =;                                                                   \
                                                                                                 \
     constexpr WRAPPER_p(const BASE_p& base) noexcept :                                          \
-        BASE_p::BASE_p(base)                                                                    \
+        BASE_p(base)                                                                            \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(const volatile BASE_p& base) noexcept :                                 \
-        BASE_p::BASE_p(base)                                                                    \
+        BASE_p(base)                                                                            \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(BASE_p&& base) noexcept :                                               \
-        BASE_p::BASE_p(cpp::Move(base))                                                         \
+        BASE_p(cpp::Move(base))                                                                 \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(volatile BASE_p&& base) noexcept :                                      \
-        BASE_p::BASE_p(cpp::Move(base))                                                         \
+        BASE_p(cpp::Move(base))                                                                 \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
@@ -91,22 +91,22 @@
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(const WRAPPER_p& other) noexcept :                                      \
-        BASE_p::BASE_p(static_cast<const BASE_p&>(other))                                       \
+        BASE_p(static_cast<const BASE_p&>(other))                                               \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(const volatile WRAPPER_p& other) noexcept :                             \
-        BASE_p::BASE_p(static_cast<const volatile BASE_p&>(other))                              \
+        BASE_p(static_cast<const volatile BASE_p&>(other))                                      \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(WRAPPER_p&& other) noexcept :                                           \
-        BASE_p::BASE_p(static_cast<BASE_p&&>(other))                                            \
+        BASE_p(static_cast<BASE_p&&>(other))                                                    \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \
     constexpr WRAPPER_p(volatile WRAPPER_p&& other) noexcept :                                  \
-        BASE_p::BASE_p(static_cast<volatile BASE_p&&>(other))                                   \
+        BASE_p(static_cast<volatile BASE_p&&>(other))                                           \
     {                                                                                           \
     }                                                                                           \
                                                                                                 \

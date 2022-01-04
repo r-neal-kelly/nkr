@@ -18,7 +18,8 @@ namespace nkr {
         using value_t   = positive::integer_t;
 
     public:
-        value_t value;
+        value_t                                     value;
+        array::cpp_t<value_t, positive::count_c<8>> unused_but_exemplary_values = { 0 };
 
     public:
 #if 1
@@ -190,6 +191,29 @@ namespace nkr {
 
     }}
 
+    template <typename ...base_parameters_p>
+    class example_e :
+        public enumeration::types_t<base_parameters_p...>
+    {
+    public:
+        using base_t    = enumeration::types_t<base_parameters_p...>;
+
+    public:
+        enum : typename base_t::integer_t
+        {
+            NONE_tg = base_t::none_t::Value(),
+
+            A,
+            B,
+            C,
+
+            END_tg,
+        };
+
+    public:
+        nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(example_e, base_t);
+    };
+
     #define nkr_TYPES                                                           \
         enumeration::types_t<positive::integer_t>,                              \
         enumeration::types_t<positive::integer_t, positive::integer_c<0>>,      \
@@ -197,6 +221,18 @@ namespace nkr {
         enumeration::types_t<negatable::integer_t, negatable::integer_c<0>>,    \
         enumeration::types_t<user_defined_t>,                                   \
         enumeration::types_t<user_defined_t, positive::integer_c<1>>
+
+    #define nkr_EXAMPLES                                            \
+        example_e<positive::integer_t>,                             \
+        example_e<positive::integer_t, positive::integer_c<0>>,     \
+        example_e<negatable::integer_t>,                            \
+        example_e<negatable::integer_t, negatable::integer_c<0>>,   \
+        example_e<user_defined_t>,                                  \
+        example_e<user_defined_t, positive::integer_c<1>>
+
+    #define nkr_BOTH    \
+        nkr_TYPES,      \
+        nkr_EXAMPLES
 
     TEST_SUITE("enumeration::types_t")
     {
@@ -249,7 +285,7 @@ namespace nkr {
         {
             TEST_SUITE("construct")
             {
-                TEST_CASE_TEMPLATE("shouldn't have trouble resolving between the three main overloads", types_p, nkr_TYPES)
+                TEST_CASE_TEMPLATE("shouldn't have trouble resolving between the three main overloads", types_p, nkr_BOTH)
                 {
                     using value_t = types_p::value_t;
 
@@ -261,11 +297,20 @@ namespace nkr {
                     CHECK(b == 1);
                     CHECK(c == 1);
                 }
+
+                TEST_CASE_TEMPLATE("should accept an enum", types_p, nkr_EXAMPLES)
+                {
+                    // we really need to get the random_i working so that we can test any of the available enum values
+
+                    types_p types(types_p::A);
+
+                    CHECK(types == types_p::A);
+                }
             }
 
             TEST_SUITE("assign")
             {
-                TEST_CASE_TEMPLATE("shouldn't have trouble resolving between the three main overloads", types_p, nkr_TYPES)
+                TEST_CASE_TEMPLATE("shouldn't have trouble resolving between the three main overloads", types_p, nkr_BOTH)
                 {
                     using value_t = types_p::value_t;
 
@@ -288,7 +333,7 @@ namespace nkr {
         {
             TEST_SUITE("integer_t()")
             {
-                TEST_CASE_TEMPLATE("should return the selected integer", types_p, nkr_TYPES)
+                TEST_CASE_TEMPLATE("should return the selected integer", types_p, nkr_BOTH)
                 {
                     types_p types;
 
@@ -298,7 +343,7 @@ namespace nkr {
 
             TEST_SUITE("boolean::cpp_t()")
             {
-                TEST_CASE_TEMPLATE("should return false by default", types_p, nkr_TYPES)
+                TEST_CASE_TEMPLATE("should return false by default", types_p, nkr_BOTH)
                 {
                     types_p types;
 
