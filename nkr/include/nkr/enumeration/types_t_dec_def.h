@@ -48,8 +48,47 @@ namespace nkr { namespace enumeration {
         generic::implementing::interface::enumeration::types_tr value_p,
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Copy(tr1<any_non_const_tg, types_t> auto& self,
-                                              const tr1<any_tg, types_t> auto& other)
+        types_t<value_p, none_p>::Assign_Integer(tr1<any_non_const_tg, types_t> auto& self,
+                                                 const tr1<any_to_tg, integer_t> auto& to_integer)
+        noexcept
+    {
+        interface_t::Value(self.value, static_cast<integer_t>(to_integer));
+
+        return self;
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr auto&
+        types_t<value_p, none_p>::Assign_Value(tr1<any_non_const_tg, types_t> auto& self,
+                                               const tr1<any_tg, value_t> auto& other)
+        noexcept
+    {
+        self.value = other;
+
+        return self;
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr auto&
+        types_t<value_p, none_p>::Assign_Value(tr1<any_non_const_tg, types_t> auto& self,
+                                               tr1<any_non_const_tg, value_t> auto&& other)
+        noexcept
+    {
+        self.value = cpp::Move(other);
+
+        return self;
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr auto&
+        types_t<value_p, none_p>::Assign_Types(tr1<any_non_const_tg, types_t> auto& self,
+                                               const tr1<any_tg, types_t> auto& other)
         noexcept
     {
         if (&self != cpp::Address(other)) {
@@ -63,8 +102,8 @@ namespace nkr { namespace enumeration {
         generic::implementing::interface::enumeration::types_tr value_p,
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Move(tr1<any_non_const_tg, types_t> auto& self,
-                                              tr1<any_non_const_tg, types_t> auto&& other)
+        types_t<value_p, none_p>::Assign_Types(tr1<any_non_const_tg, types_t> auto& self,
+                                               tr1<any_non_const_tg, types_t> auto&& other)
         noexcept
     {
         if (&self != cpp::Address(other)) {
@@ -77,47 +116,16 @@ namespace nkr { namespace enumeration {
     template <
         generic::implementing::interface::enumeration::types_tr value_p,
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Copy_Value(tr1<any_non_const_tg, types_t> auto& self,
-                                                    const tr1<any_tg, value_t> auto& other)
-        noexcept
-    {
-        self.value = other;
-
-        return self;
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Move_Value(tr1<any_non_const_tg, types_t> auto& self,
-                                                    tr1<any_non_const_tg, value_t> auto&& other)
-        noexcept
-    {
-        self.value = cpp::Move(other);
-
-        return self;
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Copy_To_Integer(tr1<any_non_const_tg, types_t> auto& self,
-                                                         const tr1<any_to_tg, integer_t> auto& to_integer)
-        noexcept
-    {
-        interface_t::Value(self.value, static_cast<integer_t>(to_integer));
-
-        return self;
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t() noexcept :
         value(none_t::Value())
+    {
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>::types_t(const tr1<any_to_tg, integer_t> auto& to_integer) noexcept :
+        value(static_cast<integer_t>(to_integer))
     {
     }
 
@@ -150,14 +158,6 @@ namespace nkr { namespace enumeration {
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(volatile value_t&& value) noexcept :
         value(cpp::Move(value))
-    {
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>::types_t(const tr1<any_to_tg, integer_t> auto& to_integer) noexcept :
-        value(static_cast<integer_t>(to_integer))
     {
     }
 
@@ -197,90 +197,10 @@ namespace nkr { namespace enumeration {
         generic::implementing::interface::enumeration::types_tr value_p,
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const value_t& value)
-        noexcept
-    {
-        return Assign_Copy_Value(*this, value);
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const value_t& value)
-        volatile noexcept
-    {
-        return Assign_Copy_Value(*this, value);
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const volatile value_t& value)
-        noexcept
-    {
-        return Assign_Copy_Value(*this, value);
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const volatile value_t& value)
-        volatile noexcept
-    {
-        return Assign_Copy_Value(*this, value);
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(value_t&& value)
-        noexcept
-    {
-        return Assign_Move_Value(*this, cpp::Move(value));
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(value_t&& value)
-        volatile noexcept
-    {
-        return Assign_Move_Value(*this, cpp::Move(value));
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(volatile value_t&& value)
-        noexcept
-    {
-        return Assign_Move_Value(*this, cpp::Move(value));
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(volatile value_t&& value)
-        volatile noexcept
-    {
-        return Assign_Move_Value(*this, cpp::Move(value));
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const tr1<any_to_tg, integer_t> auto& to_integer)
         noexcept
     {
-        return Assign_Copy_To_Integer(*this, to_integer);
+        return Assign_Integer(*this, to_integer);
     }
 
     template <
@@ -290,7 +210,87 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(const tr1<any_to_tg, integer_t> auto& to_integer)
         volatile noexcept
     {
-        return Assign_Copy_To_Integer(*this, to_integer);
+        return Assign_Integer(*this, to_integer);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(const value_t& value)
+        noexcept
+    {
+        return Assign_Value(*this, value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(const value_t& value)
+        volatile noexcept
+    {
+        return Assign_Value(*this, value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(const volatile value_t& value)
+        noexcept
+    {
+        return Assign_Value(*this, value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(const volatile value_t& value)
+        volatile noexcept
+    {
+        return Assign_Value(*this, value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(value_t&& value)
+        noexcept
+    {
+        return Assign_Value(*this, cpp::Move(value));
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(value_t&& value)
+        volatile noexcept
+    {
+        return Assign_Value(*this, cpp::Move(value));
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(volatile value_t&& value)
+        noexcept
+    {
+        return Assign_Value(*this, cpp::Move(value));
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::operator =(volatile value_t&& value)
+        volatile noexcept
+    {
+        return Assign_Value(*this, cpp::Move(value));
     }
 
     template <
@@ -300,7 +300,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(const types_t& other)
         noexcept
     {
-        return Assign_Copy(*this, other);
+        return Assign_Types(*this, other);
     }
 
     template <
@@ -310,7 +310,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(const types_t& other)
         volatile noexcept
     {
-        return Assign_Copy(*this, other);
+        return Assign_Types(*this, other);
     }
 
     template <
@@ -320,7 +320,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(const volatile types_t& other)
         noexcept
     {
-        return Assign_Copy(*this, other);
+        return Assign_Types(*this, other);
     }
 
     template <
@@ -330,7 +330,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(const volatile types_t& other)
         volatile noexcept
     {
-        return Assign_Copy(*this, other);
+        return Assign_Types(*this, other);
     }
 
     template <
@@ -340,7 +340,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(types_t&& other)
         noexcept
     {
-        return Assign_Move(*this, cpp::Move(other));
+        return Assign_Types(*this, cpp::Move(other));
     }
 
     template <
@@ -350,7 +350,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(types_t&& other)
         volatile noexcept
     {
-        return Assign_Move(*this, cpp::Move(other));
+        return Assign_Types(*this, cpp::Move(other));
     }
 
     template <
@@ -360,7 +360,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(volatile types_t&& other)
         noexcept
     {
-        return Assign_Move(*this, cpp::Move(other));
+        return Assign_Types(*this, cpp::Move(other));
     }
 
     template <
@@ -370,7 +370,7 @@ namespace nkr { namespace enumeration {
         types_t<value_p, none_p>::operator =(volatile types_t&& other)
         volatile noexcept
     {
-        return Assign_Move(*this, cpp::Move(other));
+        return Assign_Types(*this, cpp::Move(other));
     }
 
 #if defined(nkr_IS_DEBUG)
@@ -386,6 +386,106 @@ namespace nkr { namespace enumeration {
     template <
         generic::implementing::interface::enumeration::types_tr value_p,
         cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>::integer_t
+        types_t<value_p, none_p>::Integer()
+        const noexcept
+    {
+        return interface_t::Integer(this->value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>::integer_t
+        types_t<value_p, none_p>::Integer()
+        const volatile noexcept
+    {
+        return interface_t::Integer(this->value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::Integer(const tr1<any_to_tg, integer_t> auto& to_integer)
+        noexcept
+    {
+        return Assign_Integer(*this, to_integer);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::Integer(const tr1<any_to_tg, integer_t> auto& to_integer)
+        volatile noexcept
+    {
+        return Assign_Integer(*this, to_integer);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr const types_t<value_p, none_p>::value_t&
+        types_t<value_p, none_p>::Value()
+        const noexcept
+    {
+        return this->value;
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr const volatile types_t<value_p, none_p>::value_t&
+        types_t<value_p, none_p>::Value()
+        const volatile noexcept
+    {
+        return this->value;
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::Value(const tr1<any_tg, value_t> auto& value)
+        noexcept
+    {
+        return Assign_Value(*this, value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::Value(const tr1<any_tg, value_t> auto& value)
+        volatile noexcept
+    {
+        return Assign_Value(*this, value);
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>&
+        types_t<value_p, none_p>::Value(tr1<any_non_const_tg, value_t> auto&& value)
+        noexcept
+    {
+        return Assign_Value(*this, cpp::Move(value));
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+    > inline constexpr volatile types_t<value_p, none_p>&
+        types_t<value_p, none_p>::Value(tr1<any_non_const_tg, value_t> auto&& value)
+        volatile noexcept
+    {
+        return Assign_Value(*this, cpp::Move(value));
+    }
+
+    template <
+        generic::implementing::interface::enumeration::types_tr value_p,
+        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::operator integer_t()
         const noexcept
     {
@@ -417,26 +517,6 @@ namespace nkr { namespace enumeration {
         const volatile noexcept
     {
         return interface_t::Value(this->value) != none_t::Value();
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>::integer_t
-        types_t<value_p, none_p>::operator ()()
-        const noexcept
-    {
-        return interface_t::Value(this->value);
-    }
-
-    template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>::integer_t
-        types_t<value_p, none_p>::operator ()()
-        const volatile noexcept
-    {
-        return interface_t::Value(this->value);
     }
 
 }}

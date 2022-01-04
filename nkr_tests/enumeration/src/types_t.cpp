@@ -329,6 +329,11 @@ namespace nkr {
             }
         }
 
+        TEST_SUITE("methods")
+        {
+
+        }
+
         TEST_SUITE("casts")
         {
             TEST_SUITE("integer_t()")
@@ -350,11 +355,6 @@ namespace nkr {
                     CHECK(!types);
                 }
             }
-        }
-
-        TEST_SUITE("operators")
-        {
-
         }
     }
 }
