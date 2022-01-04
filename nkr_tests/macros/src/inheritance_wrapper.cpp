@@ -54,13 +54,13 @@ namespace nkr {
 
                 constexpr original_t(original_t&& other) noexcept :
                     integer(cpp::Exchange(other.integer, 0)),
-                    real(cpp::Exchange(other.real, 0.0))
+                    real(cpp::Exchange(other.real, negatable::real_t(0.0)))
                 {
                 }
 
                 constexpr original_t(volatile original_t&& other) noexcept :
                     integer(cpp::Exchange(other.integer, 0)),
-                    real(cpp::Exchange(other.real, 0.0))
+                    real(cpp::Exchange(other.real, negatable::real_t(0.0)))
                 {
                 }
 
@@ -108,7 +108,7 @@ namespace nkr {
                 {
                     if (this != cpp::Address(other)) {
                         this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, 0.0);
+                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
                     }
 
                     return *this;
@@ -118,7 +118,7 @@ namespace nkr {
                 {
                     if (this != cpp::Address(other)) {
                         this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, 0.0);
+                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
                     }
 
                     return *this;
@@ -128,7 +128,7 @@ namespace nkr {
                 {
                     if (this != cpp::Address(other)) {
                         this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, 0.0);
+                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
                     }
 
                     return *this;
@@ -138,7 +138,7 @@ namespace nkr {
                 {
                     if (this != cpp::Address(other)) {
                         this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, 0.0);
+                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
                     }
 
                     return *this;
@@ -204,7 +204,7 @@ namespace nkr {
                         this->real = 1.0;
                     } else {
                         this->integer = 0;
-                        this->real = 0.0;
+                        this->real = negatable::real_t(0.0);
                     }
 
                     return *this;
@@ -217,7 +217,7 @@ namespace nkr {
                         this->real = 1.0;
                     } else {
                         this->integer = 0;
-                        this->real = 0.0;
+                        this->real = negatable::real_t(0.0);
                     }
 
                     return *this;

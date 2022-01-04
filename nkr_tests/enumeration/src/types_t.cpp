@@ -203,7 +203,7 @@ namespace nkr {
         {
             NONE_tg = base_t::none_t::Value(),
 
-            A,
+            A       = NONE_tg + 1, // avoid potential unsigned int overflow warning
             B,
             C,
 
