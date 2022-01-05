@@ -85,48 +85,6 @@ namespace nkr { namespace cpp { namespace negatable {
 
 namespace nkr { namespace cpp {
 
-    using lock_t    = std::mutex;
-
-}}
-
-namespace nkr { namespace cpp { namespace lock {
-
-    using timed_t   = std::timed_mutex;
-    using deep_t    = std::recursive_mutex;
-    using wide_t    = std::shared_mutex;
-
-}}}
-
-namespace nkr { namespace cpp { namespace lock { namespace deep {
-
-    using timed_t   = std::recursive_timed_mutex;
-
-}}}}
-
-namespace nkr { namespace cpp { namespace lock { namespace wide {
-
-    using timed_t   = std::shared_timed_mutex;
-
-}}}}
-
-namespace nkr { namespace cpp {
-
-    template <typename ...locks_p>
-    using locker_t  = std::scoped_lock<locks_p...>;
-
-}}
-
-namespace nkr { namespace cpp { namespace locker {
-
-    template <typename lock_p>
-    using exclusive_t   = std::unique_lock<lock_p>;
-    template <typename lock_p>
-    using inclusive_t   = std::shared_lock<lock_p>;
-
-}}}
-
-namespace nkr { namespace cpp {
-
     template <typename type_p>
     class array_tmpl :
         public std::false_type
@@ -558,6 +516,112 @@ namespace nkr { namespace cpp {
     };
 
 }}
+
+namespace nkr { namespace cpp { namespace lock {
+
+    using unary_t   = std::mutex;
+    using deep_t    = std::recursive_mutex;
+    using wide_t    = std::shared_mutex;
+
+}}}
+
+namespace nkr { namespace cpp { namespace lock { namespace timed {
+
+    using unary_t   = std::timed_mutex;
+    using deep_t    = std::recursive_timed_mutex;
+    using wide_t    = std::shared_timed_mutex;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace generic { namespace lock {
+
+    template <typename type_p>
+    concept unary_tr =
+        is_any_tr<type_p, cpp::lock::unary_t> ||
+        is_any_tr<type_p, cpp::lock::timed::unary_t>;
+
+    template <typename type_p>
+    concept deep_tr =
+        is_any_tr<type_p, cpp::lock::deep_t> ||
+        is_any_tr<type_p, cpp::lock::timed::deep_t>;
+
+    template <typename type_p>
+    concept wide_tr =
+        is_any_tr<type_p, cpp::lock::wide_t> ||
+        is_any_tr<type_p, cpp::lock::timed::wide_t>;
+
+    template <typename type_p>
+    concept perpetual_tr =
+        is_any_tr<type_p, cpp::lock::unary_t> ||
+        is_any_tr<type_p, cpp::lock::deep_t> ||
+        is_any_tr<type_p, cpp::lock::wide_t>;
+
+    template <typename type_p>
+    concept timed_tr =
+        is_any_tr<type_p, cpp::lock::timed::unary_t> ||
+        is_any_tr<type_p, cpp::lock::timed::deep_t> ||
+        is_any_tr<type_p, cpp::lock::timed::wide_t>;
+
+    template <typename type_p>
+    concept exclusive_tr =
+        unary_tr<type_p> ||
+        deep_tr<type_p> ||
+        wide_tr<type_p>;
+
+    template <typename type_p>
+    concept inclusive_tr =
+        wide_tr<type_p>;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace generic {
+
+    template <typename type_p>
+    concept lock_tr =
+        lock::unary_tr<type_p> ||
+        lock::deep_tr<type_p> ||
+        lock::wide_tr<type_p>;
+
+}}}
+
+namespace nkr { namespace cpp { namespace locker {
+
+    template <generic::lock_tr ...locks_p>
+    using scoped_t      = std::scoped_lock<locks_p...>;
+    template <generic::lock::exclusive_tr lock_p>
+    using exclusive_t   = std::unique_lock<lock_p>;
+    template <generic::lock::inclusive_tr lock_p>
+    using inclusive_t   = std::shared_lock<lock_p>;
+
+}}}
+
+namespace nkr { namespace cpp { namespace locker { namespace $scoped_t {
+
+    template <typename type_p>
+    class is_tmpl :
+        public std::false_type
+    {
+    public:
+    };
+
+    template <generic::lock_tr ...locks_p>
+    class is_tmpl<scoped_t<locks_p...>> :
+        public std::true_type
+    {
+    public:
+    };
+
+}}}}
+
+namespace nkr { namespace cpp { namespace generic {
+
+    template <typename type_p>
+    concept locker_tr =
+        locker::$scoped_t::is_tmpl<just_non_qualified_t<type_p>>::value ||
+        is_any_tr<type_p, locker::exclusive_t<typename type_p::mutex_type>> ||
+        is_any_tr<type_p, locker::inclusive_t<typename type_p::mutex_type>>;
+
+}}}
 
 namespace nkr { namespace cpp {
 
