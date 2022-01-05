@@ -15,6 +15,7 @@
 #include <memory>
 #include <mutex>
 #include <random>
+#include <shared_mutex>
 #include <utility>
 
 #include "nkr/macros_dec.h"
@@ -79,6 +80,48 @@ namespace nkr { namespace cpp { namespace negatable {
     using   size_t          = integer_t;
     using   count_t         = integer_t;
     using   index_t         = integer_t;
+
+}}}
+
+namespace nkr { namespace cpp {
+
+    using lock_t    = std::mutex;
+
+}}
+
+namespace nkr { namespace cpp { namespace lock {
+
+    using timed_t   = std::timed_mutex;
+    using deep_t    = std::recursive_mutex;
+    using wide_t    = std::shared_mutex;
+
+}}}
+
+namespace nkr { namespace cpp { namespace lock { namespace deep {
+
+    using timed_t   = std::recursive_timed_mutex;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace lock { namespace wide {
+
+    using timed_t   = std::shared_timed_mutex;
+
+}}}}
+
+namespace nkr { namespace cpp {
+
+    template <typename ...locks_p>
+    using locker_t  = std::scoped_lock<locks_p...>;
+
+}}
+
+namespace nkr { namespace cpp { namespace locker {
+
+    template <typename lock_p>
+    using exclusive_t   = std::unique_lock<lock_p>;
+    template <typename lock_p>
+    using inclusive_t   = std::shared_lock<lock_p>;
 
 }}}
 
