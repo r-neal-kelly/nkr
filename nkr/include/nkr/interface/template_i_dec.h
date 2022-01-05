@@ -53,7 +53,7 @@ namespace nkr { namespace interface {
 
     struct  template_tg     {};
 
-    template <template <typename ...> typename template_p>
+    template <template <typename ...> typename>
     struct  template_ttg    {};
 
     template <typename type_p>

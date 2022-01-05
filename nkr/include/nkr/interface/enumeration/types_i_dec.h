@@ -106,7 +106,7 @@ namespace nkr { namespace interface { namespace enumeration {
 
     struct  types_tg    {};
 
-    template <typename type_p>
+    template <typename>
     struct  types_ttg   {};
 
     template <typename type_p>

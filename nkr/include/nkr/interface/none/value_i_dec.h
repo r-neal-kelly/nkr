@@ -37,7 +37,7 @@ namespace nkr { namespace interface { namespace none {
 
     struct  value_tg    {};
 
-    template <typename type_p>
+    template <typename>
     struct  value_ttg   {};
 
     template <typename type_p>
