@@ -519,17 +519,17 @@ namespace nkr { namespace cpp {
 
 namespace nkr { namespace cpp { namespace lock {
 
-    using unary_t   = std::mutex;
-    using deep_t    = std::recursive_mutex;
-    using wide_t    = std::shared_mutex;
+    using   unary_t = std::mutex;
+    using   deep_t  = std::recursive_mutex;
+    using   wide_t  = std::shared_mutex;
 
 }}}
 
 namespace nkr { namespace cpp { namespace lock { namespace timed {
 
-    using unary_t   = std::timed_mutex;
-    using deep_t    = std::recursive_timed_mutex;
-    using wide_t    = std::shared_timed_mutex;
+    using   unary_t = std::timed_mutex;
+    using   deep_t  = std::recursive_timed_mutex;
+    using   wide_t  = std::shared_timed_mutex;
 
 }}}}
 
@@ -587,11 +587,11 @@ namespace nkr { namespace cpp { namespace generic {
 namespace nkr { namespace cpp { namespace locker {
 
     template <generic::lock_tr ...locks_p>
-    using scoped_t      = std::scoped_lock<locks_p...>;
+    using   scoped_t    = std::scoped_lock<locks_p...>;
     template <generic::lock::exclusive_tr lock_p>
-    using exclusive_t   = std::unique_lock<lock_p>;
+    using   exclusive_t = std::unique_lock<lock_p>;
     template <generic::lock::inclusive_tr lock_p>
-    using inclusive_t   = std::shared_lock<lock_p>;
+    using   inclusive_t = std::shared_lock<lock_p>;
 
 }}}
 
