@@ -6,6 +6,8 @@
 
 #include "nkr/intrinsics_dec.h"
 
+#include "nkr/generic/random/generator/cpp_tr_dec.h"
+
 namespace nkr { namespace generic { namespace random {
 
     struct  generator_tg    {};
@@ -15,7 +17,7 @@ namespace nkr { namespace generic { namespace random {
 
     template <typename type_p>
     concept generator_tr =
-        true;
+        nkr::generic::random::generator::cpp_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept generator_ttr =

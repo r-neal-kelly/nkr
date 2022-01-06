@@ -114,6 +114,21 @@ namespace nkr { namespace cpp {
     public:
     };
 
+    // doesn't work with template aliases
+    template <typename type_p, template <typename ...> typename template_p>
+    class is_of_template_tmpl :
+        public std::false_type
+    {
+    public:
+    };
+
+    template <template <typename ...> typename template_p, typename ...types_p>
+    class is_of_template_tmpl<template_p<types_p...>, template_p> :
+        public std::true_type
+    {
+    public:
+    };
+
 }}
 
 namespace nkr { namespace cpp {
@@ -232,6 +247,10 @@ namespace nkr { namespace cpp {
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
     concept is_ttr =
         is_same_template_tmpl<template_a_p, template_b_p>::value;
+
+    template <typename type_p, template <typename ...> typename template_p>
+    concept of_ttr =
+        is_of_template_tmpl<type_p, template_p>::value;
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p, typename ...types_p>
     concept is_any_ttr =
@@ -517,6 +536,7 @@ namespace nkr { namespace cpp {
 
 }}
 
+// nkr::cpp::lock
 namespace nkr { namespace cpp { namespace lock {
 
     using   unary_t = std::mutex;
@@ -584,6 +604,7 @@ namespace nkr { namespace cpp { namespace generic {
 
 }}}
 
+// nkr::cpp::locker
 namespace nkr { namespace cpp { namespace locker {
 
     template <generic::lock_tr ...locks_p>
@@ -623,6 +644,117 @@ namespace nkr { namespace cpp { namespace generic {
 
 }}}
 
+// nkr::cpp::random::distributor
+namespace nkr { namespace cpp { namespace random { namespace distributor {
+
+    using   bernoulli_t = std::bernoulli_distribution;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace random { namespace distributor { namespace uniform {
+
+    template <typename integer_p>
+    using   integer_t   = std::uniform_int_distribution<integer_p>;
+    template <typename real_p>
+    using   real_t      = std::uniform_real_distribution<real_p>;
+
+}}}}}
+
+namespace nkr { namespace cpp { namespace random { namespace distributor {
+
+    template <typename type_p>
+    concept bernoulli_tr =
+        is_any_tr<type_p, bernoulli_t>;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace random { namespace distributor { namespace uniform {
+
+    template <typename type_p>
+    concept integer_tr =
+        is_any_tr<type_p, integer_t<typename type_p::result_type>>;
+
+    template <typename type_p>
+    concept real_tr =
+        is_any_tr<type_p, real_t<typename type_p::result_type>>;
+
+}}}}}
+
+namespace nkr { namespace cpp { namespace generic { namespace random {
+
+    template <typename type_p>
+    concept distributor_tr =
+        nkr::cpp::random::distributor::bernoulli_tr<type_p> ||
+        nkr::cpp::random::distributor::uniform::integer_tr<type_p> ||
+        nkr::cpp::random::distributor::uniform::real_tr<type_p>;
+
+}}}}
+
+// nkr::cpp::random::generator
+namespace nkr { namespace cpp { namespace random { namespace generator {
+
+    using   hardware_t                  = std::random_device;
+
+    template <
+        typename result_p,
+        size_t w_p, size_t n_p, size_t m_p, size_t r_p,
+        result_p a_p, size_t u_p, result_p d_p, size_t s_p, result_p b_p, size_t t_p, result_p c_p, size_t l_p,
+        result_p f_p
+    > using mersenne_twister_t          = std::mersenne_twister_engine<
+        result_p,
+        w_p, n_p, m_p, r_p,
+        a_p, u_p, d_p, s_p, b_p, t_p, c_p, l_p,
+        f_p
+    >;
+    using   mersenne_twister_19937_32_t = std::mt19937;
+    using   mersenne_twister_19937_64_t = std::mt19937_64;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace random { namespace generator { namespace $mersenne_twister_t {
+
+    template <typename type_p>
+    class is_tmpl :
+        public std::false_type
+    {
+    public:
+    };
+
+    template <
+        typename result_p,
+        size_t w_p, size_t n_p, size_t m_p, size_t r_p,
+        result_p a_p, size_t u_p, result_p d_p, size_t s_p, result_p b_p, size_t t_p, result_p c_p, size_t l_p,
+        result_p f_p
+    > class is_tmpl<mersenne_twister_t<result_p, w_p, n_p, m_p, r_p, a_p, u_p, d_p, s_p, b_p, t_p, c_p, l_p, f_p>> :
+        public std::true_type
+    {
+    public:
+    };
+
+}}}}}
+
+namespace nkr { namespace cpp { namespace random { namespace generator {
+
+    template <typename type_p>
+    concept hardware_tr =
+        is_any_tr<type_p, hardware_t>;
+
+    template <typename type_p>
+    concept mersenne_twister_tr =
+        $mersenne_twister_t::is_tmpl<just_non_qualified_t<type_p>>::value;
+
+}}}}
+
+namespace nkr { namespace cpp { namespace generic { namespace random {
+
+    template <typename type_p>
+    concept generator_tr =
+        nkr::cpp::random::generator::hardware_tr<type_p> ||
+        nkr::cpp::random::generator::mersenne_twister_tr<type_p>;
+
+}}}}
+
+// nkr::cpp functions
 namespace nkr { namespace cpp {
 
     constexpr boolean_t         Is_Big_Endian() noexcept;
@@ -645,6 +777,7 @@ namespace nkr { namespace cpp {
 
 }}
 
+// nkr::cpp::constant_t
 namespace nkr { namespace cpp {
 
     template <type_tr type_p, type_p value_p>
@@ -702,6 +835,7 @@ namespace nkr { namespace cpp {
 
 #include "nkr/cpp_dec_def.h"
 
+// requirements
 namespace nkr { namespace cpp {
 
     static_assert(Is_Big_Endian() || Is_Little_Endian(), "This library requires either a big or little endian machine.");
@@ -709,6 +843,7 @@ namespace nkr { namespace cpp {
 
     static_assert(sizeof(negatable::real_32_t) == sizeof(negatable::integer_32_t), "Mismatching size for 32 bit real and integer types!");
     static_assert(sizeof(negatable::real_64_t) == sizeof(negatable::integer_64_t), "Mismatching size for 64 bit real and integer types!");
+    
     static_assert(sizeof(none::pointer_t) == sizeof(positive::word_t), "Mismatching size for pointer and word types!");
     static_assert(sizeof(none::type_t*) == sizeof(positive::word_t), "Mismatching size for pointer and word types!");
 

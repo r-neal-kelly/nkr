@@ -38,6 +38,10 @@
 #include "nkr/generic/positive/any_tr.h"
 #include "nkr/generic/positive/integer_tr.h"
 #include "nkr/generic/positive/real_tr.h"
+#include "nkr/generic/random/distributor_tr.h"
+#include "nkr/generic/random/distributor/cpp_tr.h"
+#include "nkr/generic/random/generator_tr.h"
+#include "nkr/generic/random/generator/cpp_tr.h"
 #include "nkr/generic/type_tr.h"
 #include "nkr/generic/user_defined_tr.h"
 
@@ -79,6 +83,14 @@
 #include "nkr/positive/integer_t.h"
 #include "nkr/positive/size_t.h"
 #include "nkr/positive/word_t.h"
+
+#include "nkr/random/distributor/cpp/bernoulli_t.h"
+#include "nkr/random/distributor/cpp/uniform/integer_t.h"
+#include "nkr/random/distributor/cpp/uniform/real_t.h"
+#include "nkr/random/generator/hardware/cpp_t.h"
+#include "nkr/random/generator/software/cpp/mersenne_twister_t.h"
+#include "nkr/random/generator/software/cpp/mersenne_twister_19937_32_t.h"
+#include "nkr/random/generator/software/cpp/mersenne_twister_19937_64_t.h"
 
 #include "doctest.h"
 
@@ -129,6 +141,10 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<generic::positive::any_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::positive::integer_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::positive::real_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::random::distributor_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::random::distributor::cpp_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::random::generator_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<generic::random::generator::cpp_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::type_ttg>);
         static_assert(generic::implementing::interface::template_ttr<generic::user_defined_ttg>);
 
@@ -142,6 +158,10 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<none::value_ttg>);
 
         static_assert(generic::implementing::interface::template_ttr<pointer::cpp_ttg>);
+
+        static_assert(generic::implementing::interface::template_ttr<random::distributor::cpp::uniform::integer_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<random::distributor::cpp::uniform::real_ttg>);
+        static_assert(generic::implementing::interface::template_ttr<random::generator::software::cpp::mersenne_twister_ttg>);
     }
 
 }
@@ -161,6 +181,10 @@ namespace nkr {
         static_assert(generic::implementing::interface::template_ttr<none::value_t>);
 
         static_assert(generic::implementing::interface::template_ttr<pointer::cpp_t>);
+
+        static_assert(generic::implementing::interface::template_ttr<random::distributor::cpp::uniform::integer_t>);
+        static_assert(generic::implementing::interface::template_ttr<random::distributor::cpp::uniform::real_t>);
+        static_assert(generic::implementing::interface::template_ttr<random::generator::software::cpp::mersenne_twister_t>);
     }
 
 }

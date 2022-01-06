@@ -6,6 +6,8 @@
 
 #include "nkr/intrinsics_dec.h"
 
+#include "nkr/generic/random/distributor/cpp_tr_dec.h"
+
 namespace nkr { namespace generic { namespace random {
 
     struct  distributor_tg  {};
@@ -15,7 +17,7 @@ namespace nkr { namespace generic { namespace random {
 
     template <typename type_p>
     concept distributor_tr =
-        true;
+        nkr::generic::random::distributor::cpp_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept distributor_ttr =
