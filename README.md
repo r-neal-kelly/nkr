@@ -1,5 +1,5 @@
 # nkr
-A 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
+A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
 
 ### Rationale
 After wrapping up development on mods and libraries for [Skyrim](https://www.nexusmods.com/skyrimspecialedition/users/myaccount?tab=files), I began looking for a project to improve my skills, learn something new, and amplify my portfolio. After following up on a couple of suggestions online and in conjunction with my previous experience working on the Skyrim game engine, I eventually settled on developing a modern C++20 library with some very deliberate goals:
@@ -18,7 +18,7 @@ Overall, it's intended to be a great learning experience and a library that I ca
 [Go to documentation](https://r-neal-kelly.github.io/nkr_docs)
 
 ### Building
-This library currently has no other code requirements, and is thus extremely straightforward to build for Windows, currently the only supported platform. However, you will need a Visual Studio 2022 instance to build unless you are willing to go through the trouble of backporting all of the project files. After batch building the test suites through the solution file, one may use the simple PowerShell script in the tools folder to automatically execute them all of them.
+This library currently has no other code requirements, and is thus extremely straightforward to build on Windows, currently the only supported platform. However, you will need a Visual Studio 2022 instance to build unless you are willing to go through the trouble of backporting all of the library's project files. To build the tests, you may batch build all of the solution's projects, and use the simple PowerShell script in the tools folder to automatically execute all of the test suites, or simply build individual projects. Please keep in mind that until the library stabilizes, there may be breaking changes to consumer's code because it is still in the pre-alpha phase and has not yet had an official release. The first official release will probably occur once we have the regex engine designed, implemented, tested, and documented.
 
 ### Status
 I'm currently moving all the existent types to a new traits system and I'm taking this opportunity to update each type to address issues the original design may have had. For example, the enumeration types now accept more than just signed integers and have reasonable defaults set up for each kind of integer. All of the old files have the prefix 'z_' to indicate that they are the old implementation. Doing this kind of major overhaul allows us to sync everything to a new and improved traits system, that means removal of any of the very old-style macro trait definitions which turned out to lead to slow compilation times and hence the need for the second iteration of the traits system. We are now on our third and so far, it's looking like a real keeper!
