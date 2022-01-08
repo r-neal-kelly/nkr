@@ -39,6 +39,8 @@
 
 #define nkr_DO_EXTERN_TEMPLATES
 
+#define nkr_ASSERT_THAT(EXPRESSION_p)
+
 #define nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(WRAPPER_p, BASE_p)
 
 #include "nkr/macros_dec_def.h"

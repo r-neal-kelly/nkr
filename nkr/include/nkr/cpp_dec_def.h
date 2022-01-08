@@ -76,6 +76,40 @@ namespace nkr { namespace cpp {
         return old;
     }
 
+    template <typename value_p>
+        requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
+    inline constexpr value_p
+        Min_Value()
+        noexcept
+    {
+        if constexpr (boolean_tr<value_p>) {
+            return false;
+        } else if constexpr (integer_tr<value_p>) {
+            return std::numeric_limits<value_p>::min();
+        } else if constexpr (real_tr<value_p>) {
+            return std::numeric_limits<value_p>::lowest();
+        } else if constexpr (pointer_tr<value_p>) {
+            return nullptr;
+        }
+    }
+
+    template <typename value_p>
+        requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
+    inline constexpr value_p
+        Max_Value()
+        noexcept
+    {
+        if constexpr (boolean_tr<value_p>) {
+            return true;
+        } else if constexpr (integer_tr<value_p>) {
+            return std::numeric_limits<value_p>::max();
+        } else if constexpr (real_tr<value_p>) {
+            return std::numeric_limits<value_p>::max();
+        } else if constexpr (pointer_tr<value_p>) {
+            return reinterpret_cast<value_p>(std::numeric_limits<positive::word_t>::max());
+        }
+    }
+
 }}
 
 namespace nkr { namespace cpp {

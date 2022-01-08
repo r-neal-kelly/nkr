@@ -775,6 +775,13 @@ namespace nkr { namespace cpp {
     constexpr auto              Exchange(auto& value, auto&& with) noexcept;
     constexpr auto              Exchange(const auto& value, auto&& with) noexcept       = delete;
 
+    template <typename value_p>
+        requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
+    constexpr value_p           Min_Value() noexcept;
+    template <typename value_p>
+        requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
+    constexpr value_p           Max_Value() noexcept;
+
 }}
 
 // nkr::cpp::constant_t

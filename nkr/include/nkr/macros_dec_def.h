@@ -6,6 +6,10 @@
 
 #include "nkr/macros_dec.h"
 
+#undef  nkr_ASSERT_THAT
+#define nkr_ASSERT_THAT(EXPRESSION_p)   \
+        assert(EXPRESSION_p)            \
+
 #undef  nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS
 #define nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(WRAPPER_p, BASE_p)                       \
     static_assert(cpp::just_non_qualified_tr<WRAPPER_p>);                                       \
@@ -164,4 +168,4 @@
         BASE_p::operator =(static_cast<volatile BASE_p&&>(cpp::Move(other)));                   \
                                                                                                 \
         return *this;                                                                           \
-    }
+    }                                                                                           \
