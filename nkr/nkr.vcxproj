@@ -20,6 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\nkr\allocator\placeholder.h" />
+    <ClInclude Include="include\nkr\array\local\dynamic_t.h" />
+    <ClInclude Include="include\nkr\array\local\static_t.h" />
+    <ClInclude Include="include\nkr\array\remote\dynamic_t.h" />
+    <ClInclude Include="include\nkr\array\remote\pad\high_t.h" />
+    <ClInclude Include="include\nkr\array\remote\pad\low_t.h" />
+    <ClInclude Include="include\nkr\array\remote\static_t.h" />
     <ClInclude Include="include\nkr\charcoder\placeholder.h" />
     <ClInclude Include="include\nkr\enumeration\errors_t.h" />
     <ClInclude Include="include\nkr\enumeration\errors_t_dec.h" />
