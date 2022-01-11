@@ -53,6 +53,11 @@
     <ClInclude Include="include\nkr\generic\built_in\number\any_tr_dec_def.h" />
     <ClInclude Include="include\nkr\generic\built_in\number\any_tr_def.h" />
     <ClInclude Include="include\nkr\generic\built_in\number\any_tr_dox.h" />
+    <ClInclude Include="include\nkr\generic\built_in\number\enumeration_tr.h" />
+    <ClInclude Include="include\nkr\generic\built_in\number\enumeration_tr_dec.h" />
+    <ClInclude Include="include\nkr\generic\built_in\number\enumeration_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\generic\built_in\number\enumeration_tr_def.h" />
+    <ClInclude Include="include\nkr\generic\built_in\number\enumeration_tr_dox.h" />
     <ClInclude Include="include\nkr\generic\built_in\number\integer_tr.h" />
     <ClInclude Include="include\nkr\generic\built_in\number\integer_tr_dec.h" />
     <ClInclude Include="include\nkr\generic\built_in\number\integer_tr_dec_def.h" />

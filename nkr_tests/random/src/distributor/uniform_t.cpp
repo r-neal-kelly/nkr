@@ -20,8 +20,8 @@ namespace nkr {
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<positive::integer_64_t>,               \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::integer_32_t>,              \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::integer_64_t>,              \
-        /*TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_32_t>,                 \
-        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_64_t>,*/                 \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_32_t>,                 \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_64_t>,                 \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<none::type_t>>,         \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<positive::integer_t>>   \
 

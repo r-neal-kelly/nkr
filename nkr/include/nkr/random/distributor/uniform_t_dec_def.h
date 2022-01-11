@@ -137,42 +137,62 @@ namespace nkr { namespace random { namespace distributor {
     {
         using number_t = interface_t::number_t;
 
-        number_t min = interface_t::To_Number(Min(self));
-        number_t max = interface_t::To_Number(Max(self));
+        const number_t min = interface_t::To_Number(Min(self));
+        const number_t max = interface_t::To_Number(Max(self));
 
         nkr_ASSERT_THAT(min <= max);
 
-        if constexpr (nkr::generic::built_in::number::real_tr<number_t>) {
-            // looks like we'll have to do it the hard way. This doesn't work all the time because the real min and max
-            // interpreted as an int don't directly relate the real min and max. good thing we've already got the
-            // algorithm figured out in z_utils, just need to move it over here.
+        if constexpr (generic::built_in::number::real_tr<number_t>) {
+            // something we need to check is if -min or -max can cause undefined behavior, or if does something unexpected.
+            // not sure if -real can hold as many discrete values as real.
+            if (min < 0.0) {
+                if (max > 0.0) {
+                    // we want a proportional chance of getting a negative number. if min is -10 and max is 10
+                    // then it should return either a negative or positive 50% of the time. if min is -10 and max is 20,
+                    // then negative should be returned 25% of the time and positive 75% of the time.
+                    const number_t absolute_min = -min;
+                    const number_t absolute_max = max;
+                    const boolean::cpp_t do_negative = absolute_min > absolute_max ?
+                        !random::distributor::cpp::bernoulli_t(nkr::negatable::real_t(absolute_max / absolute_min / 2))(generator) :
+                        random::distributor::cpp::bernoulli_t(nkr::negatable::real_t(absolute_min / absolute_max / 2))(generator);
 
-            if constexpr (sizeof(number_t) == sizeof(negatable::real_64_t)) {
-                negatable::integer_64_t integer = nkr::random::distributor::cpp::uniform::integer_t<negatable::integer_64_t>(
-                    *reinterpret_cast<negatable::integer_64_t*>(&min),
-                    *reinterpret_cast<negatable::integer_64_t*>(&max))(generator);
-
-                return interface_t::From_Number(*reinterpret_cast<number_t*>(&integer));
-            } else if constexpr (sizeof(number_t) == sizeof(negatable::real_32_t)) {
-                negatable::integer_32_t integer = nkr::random::distributor::cpp::uniform::integer_t<negatable::integer_32_t>(
-                    *reinterpret_cast<negatable::integer_32_t*>(&min),
-                    *reinterpret_cast<negatable::integer_32_t*>(&max))(generator);
-
-                return interface_t::From_Number(*reinterpret_cast<number_t*>(&integer));
-            } else {
-                static_assert(false);
-            }
-        } else {
-            if constexpr (sizeof(number_t) < sizeof(positive::word_t)) {
-                if constexpr (nkr::generic::positive_tr<number_t>) {
-                    return interface_t::From_Number(
-                        static_cast<number_t>(nkr::random::distributor::cpp::uniform::integer_t<positive::word_t>(min, max)(generator)));
+                    if (do_negative) {
+                        return interface_t::From_Number(
+                            -random::distributor::cpp::uniform::real_t<number_t>(number_t(0.0), absolute_min)(generator)
+                        );
+                    } else {
+                        return interface_t::From_Number(
+                            random::distributor::cpp::uniform::real_t<number_t>(number_t(0.0), absolute_max)(generator)
+                        );
+                    }
                 } else {
                     return interface_t::From_Number(
-                        static_cast<number_t>(nkr::random::distributor::cpp::uniform::integer_t<negatable::word_t>(min, max)(generator)));
+                        -random::distributor::cpp::uniform::real_t<number_t>(-max, -min)(generator)
+                    );
                 }
             } else {
-                return interface_t::From_Number(nkr::random::distributor::cpp::uniform::integer_t<number_t>(min, max)(generator));
+                return interface_t::From_Number(
+                    random::distributor::cpp::uniform::real_t<number_t>(min, max)(generator)
+                );
+            }
+        } else {
+            // I don't think enumerations are being handled correctly yet, because we need to cast to an integer first
+            static_assert(generic::built_in::number::enumeration_tr<number_t> || generic::built_in::number::integer_tr<number_t>);
+
+            if constexpr (sizeof(number_t) < sizeof(positive::word_t)) {
+                if constexpr (generic::positive_tr<number_t>) {
+                    return interface_t::From_Number(
+                        static_cast<number_t>(random::distributor::cpp::uniform::integer_t<positive::word_t>(min, max)(generator))
+                    );
+                } else {
+                    return interface_t::From_Number(
+                        static_cast<number_t>(random::distributor::cpp::uniform::integer_t<negatable::word_t>(min, max)(generator))
+                    );
+                }
+            } else {
+                return interface_t::From_Number(
+                    random::distributor::cpp::uniform::integer_t<number_t>(min, max)(generator)
+                );
             }
         }
     }
