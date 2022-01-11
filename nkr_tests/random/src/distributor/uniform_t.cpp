@@ -16,9 +16,12 @@ namespace nkr {
     {
     #define nkr_TYPES(TYPE_QUALIFIER_p)                                                             \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<boolean::cpp_t>,                       \
-        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<positive::integer_t>,                  \
-        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::integer_t>,                 \
-        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_t>,                    \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<positive::integer_32_t>,               \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<positive::integer_64_t>,               \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::integer_32_t>,              \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::integer_64_t>,              \
+        /*TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_32_t>,                 \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_64_t>,*/                 \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<none::type_t>>,         \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<positive::integer_t>>   \
 
@@ -83,7 +86,27 @@ namespace nkr {
             }
         }
 
-        TEST_CASE("temp")
+        TEST_SUITE("temp")
+        {
+            nkr::random::generator::hardware::cpp_t hardware_generator;
+            nkr::random::generator::software::cpp::mersenne_twister_19937_64_t generator(hardware_generator());
+
+            TEST_CASE_TEMPLATE("temp", uniform_p, nkr_ALL)
+            {
+                uniform_p distributor;
+
+                for (positive::index_t idx = 0, end = 64; idx < end; idx += 1) {
+                    auto value = distributor.Value(generator);
+
+                    CHECK(value >= uniform_p::Default_Min());
+                    CHECK(value <= uniform_p::Default_Max());
+                    CHECK(value >= distributor.Min());
+                    CHECK(value <= distributor.Max());
+                }
+            }
+        }
+
+        /*TEST_CASE("temp")
         {
             nkr::random::generator::hardware::cpp_t hardware_generator;
             nkr::random::generator::software::cpp::mersenne_twister_19937_64_t generator(hardware_generator());
@@ -112,7 +135,7 @@ namespace nkr {
                 printf("value: %i\n", distributor.Value(generator));
             }
             printf("\n");
-        }
+        }*/
     }
 
 }

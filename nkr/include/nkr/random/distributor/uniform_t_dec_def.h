@@ -30,27 +30,27 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace random { namespace distributor { namespace $uniform_t {
+namespace nkr { namespace random { namespace distributor {
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Default_Min()
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::value_t
+        uniform_t<value_p>::Default_Min()
         noexcept
     {
-        return nkr::cpp::Min_Value<value_t>();
+        return interface_t::Default_Min();
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Default_Max()
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::value_t
+        uniform_t<value_p>::Default_Max()
         noexcept
     {
-        return nkr::cpp::Max_Value<value_t>();
+        return interface_t::Default_Max();
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
     inline constexpr auto&
-        boolean_sp<value_p>::Assign(tr1<any_non_const_tg, boolean_sp> auto& self, const tr1<any_tg, boolean_sp> auto& other)
+        uniform_t<value_p>::Assign(tr1<any_non_const_tg, uniform_t> auto& self, const tr1<any_tg, uniform_t> auto& other)
         noexcept
     {
         if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
@@ -61,9 +61,9 @@ namespace nkr { namespace random { namespace distributor { namespace $uniform_t 
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
     inline constexpr auto&
-        boolean_sp<value_p>::Assign(tr1<any_non_const_tg, boolean_sp> auto& self, tr1<any_non_const_tg, boolean_sp> auto&& other)
+        uniform_t<value_p>::Assign(tr1<any_non_const_tg, uniform_t> auto& self, tr1<any_non_const_tg, uniform_t> auto&& other)
         noexcept
     {
         if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
@@ -74,17 +74,17 @@ namespace nkr { namespace random { namespace distributor { namespace $uniform_t 
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Min(tr1<any_tg, boolean_sp> auto& self)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr const auto&
+        uniform_t<value_p>::Min(tr1<any_tg, uniform_t> auto& self)
         noexcept
     {
         return self.min;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
     inline constexpr auto&
-        boolean_sp<value_p>::Min(tr1<any_non_const_tg, boolean_sp> auto& self, const value_t& value)
+        uniform_t<value_p>::Min(tr1<any_non_const_tg, uniform_t> auto& self, const value_t& value)
         noexcept
     {
         self.min = value;
@@ -92,9 +92,9 @@ namespace nkr { namespace random { namespace distributor { namespace $uniform_t 
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
     inline constexpr auto&
-        boolean_sp<value_p>::Min(tr1<any_non_const_tg, boolean_sp> auto& self, value_t&& value)
+        uniform_t<value_p>::Min(tr1<any_non_const_tg, uniform_t> auto& self, value_t&& value)
         noexcept
     {
         self.min = nkr::cpp::Move(value);
@@ -102,17 +102,17 @@ namespace nkr { namespace random { namespace distributor { namespace $uniform_t 
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Max(tr1<any_tg, boolean_sp> auto& self)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr const auto&
+        uniform_t<value_p>::Max(tr1<any_tg, uniform_t> auto& self)
         noexcept
     {
         return self.max;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
     inline constexpr auto&
-        boolean_sp<value_p>::Max(tr1<any_non_const_tg, boolean_sp> auto& self, const value_t& value)
+        uniform_t<value_p>::Max(tr1<any_non_const_tg, uniform_t> auto& self, const value_t& value)
         noexcept
     {
         self.max = value;
@@ -120,9 +120,9 @@ namespace nkr { namespace random { namespace distributor { namespace $uniform_t 
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
     inline constexpr auto&
-        boolean_sp<value_p>::Max(tr1<any_non_const_tg, boolean_sp> auto& self, value_t&& value)
+        uniform_t<value_p>::Max(tr1<any_non_const_tg, uniform_t> auto& self, value_t&& value)
         noexcept
     {
         self.max = nkr::cpp::Move(value);
@@ -130,304 +130,285 @@ namespace nkr { namespace random { namespace distributor { namespace $uniform_t 
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr1<any_tg, boolean_sp> auto& self, tr1<any_non_const_tg, generic::random::generator_tg> auto& generator)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::value_t
+        uniform_t<value_p>::Value(tr1<any_tg, uniform_t> auto& self, tr1<any_non_const_tg, generic::random::generator_tg> auto& generator)
         noexcept
     {
-        nkr_ASSERT_THAT(static_cast<positive::integer_t>(static_cast<boolean::cpp_t>(self.min)) <=
-                        static_cast<positive::integer_t>(static_cast<boolean::cpp_t>(self.max)));
+        using number_t = interface_t::number_t;
 
-        return value_t(nkr::random::distributor::cpp::uniform::integer_t<positive::integer_t>
-                       (static_cast<positive::integer_t>(static_cast<boolean::cpp_t>(self.min)),
-                        static_cast<positive::integer_t>(static_cast<boolean::cpp_t>(self.max)))(generator));
+        number_t min = interface_t::To_Number(Min(self));
+        number_t max = interface_t::To_Number(Max(self));
+
+        nkr_ASSERT_THAT(min <= max);
+
+        if constexpr (nkr::generic::built_in::number::real_tr<number_t>) {
+            // looks like we'll have to do it the hard way. This doesn't work all the time because the real min and max
+            // interpreted as an int don't directly relate the real min and max. good thing we've already got the
+            // algorithm figured out in z_utils, just need to move it over here.
+
+            if constexpr (sizeof(number_t) == sizeof(negatable::real_64_t)) {
+                negatable::integer_64_t integer = nkr::random::distributor::cpp::uniform::integer_t<negatable::integer_64_t>(
+                    *reinterpret_cast<negatable::integer_64_t*>(&min),
+                    *reinterpret_cast<negatable::integer_64_t*>(&max))(generator);
+
+                return interface_t::From_Number(*reinterpret_cast<number_t*>(&integer));
+            } else if constexpr (sizeof(number_t) == sizeof(negatable::real_32_t)) {
+                negatable::integer_32_t integer = nkr::random::distributor::cpp::uniform::integer_t<negatable::integer_32_t>(
+                    *reinterpret_cast<negatable::integer_32_t*>(&min),
+                    *reinterpret_cast<negatable::integer_32_t*>(&max))(generator);
+
+                return interface_t::From_Number(*reinterpret_cast<number_t*>(&integer));
+            } else {
+                static_assert(false);
+            }
+        } else {
+            if constexpr (sizeof(number_t) < sizeof(positive::word_t)) {
+                if constexpr (nkr::generic::positive_tr<number_t>) {
+                    return interface_t::From_Number(
+                        static_cast<number_t>(nkr::random::distributor::cpp::uniform::integer_t<positive::word_t>(min, max)(generator)));
+                } else {
+                    return interface_t::From_Number(
+                        static_cast<number_t>(nkr::random::distributor::cpp::uniform::integer_t<negatable::word_t>(min, max)(generator)));
+                }
+            } else {
+                return interface_t::From_Number(nkr::random::distributor::cpp::uniform::integer_t<number_t>(min, max)(generator));
+            }
+        }
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::boolean_sp() noexcept :
-        min(Min()),
-        max(Max())
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t() noexcept :
+        min(Default_Min()),
+        max(Default_Max())
     {
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::boolean_sp(value_t min, value_t max) noexcept :
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t(const value_t& min, const value_t& max) noexcept :
         min(min),
         max(max)
     {
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::boolean_sp(const boolean_sp& other) noexcept :
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t(value_t&& min, value_t&& max) noexcept :
+        min(nkr::cpp::Move(min)),
+        max(nkr::cpp::Move(max))
+    {
+    }
+
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t(const uniform_t& other) noexcept :
         min(other.min),
         max(other.max)
     {
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::boolean_sp(const volatile boolean_sp& other) noexcept :
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t(const volatile uniform_t& other) noexcept :
         min(other.min),
         max(other.max)
     {
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::boolean_sp(boolean_sp&& other) noexcept :
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t(uniform_t&& other) noexcept :
         min(nkr::cpp::Move(other.min)),
         max(nkr::cpp::Move(other.max))
     {
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::boolean_sp(volatile boolean_sp&& other) noexcept :
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::uniform_t(volatile uniform_t&& other) noexcept :
         min(nkr::cpp::Move(other.min)),
         max(nkr::cpp::Move(other.max))
     {
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(const boolean_sp& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::operator =(const uniform_t& other)
         noexcept
     {
         return Assign(*this, other);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(const boolean_sp& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::operator =(const uniform_t& other)
         volatile noexcept
     {
         return Assign(*this, other);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(const volatile boolean_sp& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::operator =(const volatile uniform_t& other)
         noexcept
     {
         return Assign(*this, other);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(const volatile boolean_sp& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::operator =(const volatile uniform_t& other)
         volatile noexcept
     {
         return Assign(*this, other);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(boolean_sp&& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::operator =(uniform_t&& other)
         noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(boolean_sp&& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::operator =(uniform_t&& other)
         volatile noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(volatile boolean_sp&& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::operator =(volatile uniform_t&& other)
         noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::operator =(volatile boolean_sp&& other)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::operator =(volatile uniform_t&& other)
         volatile noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
 #if defined(nkr_IS_DEBUG)
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::~boolean_sp() noexcept
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::~uniform_t() noexcept
     {
-        this->min = none::value_t<value_t>();
-        this->max = none::value_t<value_t>();
+        this->min = Default_Min();
+        this->max = Default_Min();
     }
 #endif
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Min()
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr const uniform_t<value_p>::value_t&
+        uniform_t<value_p>::Min()
         const noexcept
     {
         return Min(*this);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Min()
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr const volatile uniform_t<value_p>::value_t&
+        uniform_t<value_p>::Min()
         const volatile noexcept
     {
         return Min(*this);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::Min(const value_t& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::Min(const value_t& value)
         noexcept
     {
         return Min(*this, value);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::Min(const value_t& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::Min(const value_t& value)
         volatile noexcept
     {
         return Min(*this, value);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::Min(value_t&& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::Min(value_t&& value)
         noexcept
     {
         return Min(*this, nkr::cpp::Move(value));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::Min(value_t&& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::Min(value_t&& value)
         volatile noexcept
     {
         return Min(*this, nkr::cpp::Move(value));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Max()
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr const uniform_t<value_p>::value_t&
+        uniform_t<value_p>::Max()
         const noexcept
     {
         return Max(*this);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Max()
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr const volatile uniform_t<value_p>::value_t&
+        uniform_t<value_p>::Max()
         const volatile noexcept
     {
         return Max(*this);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::Max(const value_t& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::Max(const value_t& value)
         noexcept
     {
         return Max(*this, value);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::Max(const value_t& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::Max(const value_t& value)
         volatile noexcept
     {
         return Max(*this, value);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>&
-        boolean_sp<value_p>::Max(value_t&& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>&
+        uniform_t<value_p>::Max(value_t&& value)
         noexcept
     {
         return Max(*this, nkr::cpp::Move(value));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr volatile boolean_sp<value_p>&
-        boolean_sp<value_p>::Max(value_t&& value)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr volatile uniform_t<value_p>&
+        uniform_t<value_p>::Max(value_t&& value)
         volatile noexcept
     {
         return Max(*this, nkr::cpp::Move(value));
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr1<any_non_const_tg, generic::random::generator_tg> auto& generator)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::value_t
+        uniform_t<value_p>::Value(tr1<any_non_const_tg, generic::random::generator_tg> auto& generator)
         const noexcept
     {
         return Value(*this, generator);
     }
 
-    template <tr1<just_non_qualified_tg, generic::boolean_tg> value_p>
-    inline constexpr boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr1<any_non_const_tg, generic::random::generator_tg> auto& generator)
+    template <nkr::generic::implementing::interface::random::distributor::uniform_tr value_p>
+    inline constexpr uniform_t<value_p>::value_t
+        uniform_t<value_p>::Value(tr1<any_non_const_tg, generic::random::generator_tg> auto& generator)
         const volatile noexcept
     {
         return Value(*this, generator);
     }
 
-}}}}
-
-namespace nkr { namespace random { namespace distributor { namespace $uniform_t {
-
-    template <tr1<just_non_qualified_tg, generic::number::integer_tg> value_p>
-    inline constexpr integer_sp<value_p>::value_t
-        integer_sp<value_p>::Default_Min()
-        noexcept
-    {
-        return nkr::cpp::Min_Value<value_t>();
-    }
-
-    template <tr1<just_non_qualified_tg, generic::number::integer_tg> value_p>
-    inline constexpr integer_sp<value_p>::value_t
-        integer_sp<value_p>::Default_Max()
-        noexcept
-    {
-        return nkr::cpp::Max_Value<value_t>();
-    }
-
-}}}}
-
-namespace nkr { namespace random { namespace distributor { namespace $uniform_t {
-
-    template <tr1<just_non_qualified_tg, generic::number::real_tg> value_p>
-    inline constexpr real_sp<value_p>::value_t
-        real_sp<value_p>::Default_Min()
-        noexcept
-    {
-        return nkr::cpp::Min_Value<value_t>();
-    }
-
-    template <tr1<just_non_qualified_tg, generic::number::real_tg> value_p>
-    inline constexpr real_sp<value_p>::value_t
-        real_sp<value_p>::Default_Max()
-        noexcept
-    {
-        return nkr::cpp::Max_Value<value_t>();
-    }
-
-}}}}
-
-namespace nkr { namespace random { namespace distributor { namespace $uniform_t {
-
-    template <tr1<just_non_qualified_tg, generic::pointer_tg> value_p>
-    inline constexpr pointer_sp<value_p>::value_t
-        pointer_sp<value_p>::Default_Min()
-        noexcept
-    {
-        return nkr::cpp::Min_Value<value_t>();
-    }
-
-    template <tr1<just_non_qualified_tg, generic::pointer_tg> value_p>
-    inline constexpr pointer_sp<value_p>::value_t
-        pointer_sp<value_p>::Default_Max()
-        noexcept
-    {
-        return nkr::cpp::Max_Value<value_t>();
-    }
-
-}}}}
+}}}

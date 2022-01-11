@@ -9,6 +9,7 @@
 #include "nkr/generic/built_in_tr_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/implementing/interface/none/value_tr_dec.h"
+#include "nkr/generic/implementing/self_tr_dec.h"
 #include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/number/integer_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
@@ -28,53 +29,14 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
     concept aliases_i =
         cpp::just_non_qualified_tr<typename type_p::type_t> &&
         nkr::generic::type_tr<typename type_p::type_t> &&
+        nkr::generic::implementing::self_tr<typename type_p::type_t> &&
+        (requires(typename type_p::integer_t integer) { { typename type_p::type_t(integer) }; }) &&
 
-        cpp::just_non_qualified_tr<typename type_p::integer_t> &&
-        nkr::generic::type_tr<typename type_p::integer_t> &&
-        nkr::generic::built_in_tr<typename type_p::integer_t> &&
-        nkr::generic::number::integer_tr<typename type_p::integer_t> &&
-        nkr::generic::implementing::interface::none::value_tr<typename type_p::integer_t>
-
-        && requires(typename type_p::type_t type,
-                    const typename type_p::type_t const_type,
-                    volatile typename type_p::type_t volatile_type,
-                    const volatile typename type_p::type_t const_volatile_type,
-
-                    typename type_p::integer_t integer)
-    {
-        // it's possible to replace some of these with the interface Value() getter and setter,
-        // but if type_p::type_t is complicated enough, wouldn't they want direct move semantics, etc?
-        // And also, the Value() getter and setter allow for cheap ops rather than what could be expensive copies.
-
-        // we should wrap this into a general trait, except the integer ctor. it's essentially feature complete
-        // ctors and assigners which every type in the library should be implementing.
-
-        { typename type_p::type_t(type) };
-        { typename type_p::type_t(volatile_type) };
-        { typename type_p::type_t(const_type) };
-        { typename type_p::type_t(const_volatile_type) };
-
-        { typename type_p::type_t(cpp::Move(type)) };
-        { typename type_p::type_t(cpp::Move(volatile_type)) };
-
-        { typename type_p::type_t(integer) };
-
-        { type = type }                                         -> cpp::is_tr<typename type_p::type_t&>;
-        { type = const_type }                                   -> cpp::is_tr<typename type_p::type_t&>;
-        { type = volatile_type }                                -> cpp::is_tr<typename type_p::type_t&>;
-        { type = const_volatile_type }                          -> cpp::is_tr<typename type_p::type_t&>;
-
-        { type = cpp::Move(type) }                              -> cpp::is_tr<typename type_p::type_t&>;
-        { type = cpp::Move(volatile_type) }                     -> cpp::is_tr<typename type_p::type_t&>;
-
-        { volatile_type = type }                                -> cpp::is_tr<volatile typename type_p::type_t&>;
-        { volatile_type = const_type }                          -> cpp::is_tr<volatile typename type_p::type_t&>;
-        { volatile_type = volatile_type }                       -> cpp::is_tr<volatile typename type_p::type_t&>;
-        { volatile_type = const_volatile_type }                 -> cpp::is_tr<volatile typename type_p::type_t&>;
-
-        { volatile_type = cpp::Move(type) }                     -> cpp::is_tr<volatile typename type_p::type_t&>;
-        { volatile_type = cpp::Move(volatile_type) }            -> cpp::is_tr<volatile typename type_p::type_t&>;
-    };
+        cpp::just_non_qualified_tr<typename type_p::integer_t>&&
+        nkr::generic::type_tr<typename type_p::integer_t>&&
+        nkr::generic::built_in_tr<typename type_p::integer_t>&&
+        nkr::generic::number::integer_tr<typename type_p::integer_t>&&
+        nkr::generic::implementing::interface::none::value_tr<typename type_p::integer_t>;
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires(typename type_p::type_t type,

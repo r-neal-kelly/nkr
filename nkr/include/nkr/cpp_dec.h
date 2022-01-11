@@ -203,6 +203,12 @@ namespace nkr { namespace cpp {
         std::is_enum<type_p>::value;
 
     template <typename type_p>
+    concept number_tr =
+        integer_tr<type_p> ||
+        real_tr<type_p> ||
+        enumeration_tr<type_p>;
+
+    template <typename type_p>
     concept built_in_tr =
         none_type_tr<type_p> ||
         boolean_tr<type_p> ||
