@@ -31,6 +31,8 @@ namespace nkr { namespace positive {
     using   integer_16_t    = cpp::positive::integer_16_t;
     using   integer_32_t    = cpp::positive::integer_32_t;
     using   integer_64_t    = cpp::positive::integer_64_t;
+    using   integer_min_t   = cpp::positive::integer_min_t;
+    using   integer_max_t   = cpp::positive::integer_max_t;
     using   integer_t       = cpp::positive::integer_t;
 
     using   byte_t          = cpp::positive::byte_t;
@@ -44,18 +46,20 @@ namespace nkr { namespace positive {
 
 namespace nkr { namespace positive {
 
-    template <integer_8_t value_p>  using   integer_8_c     = cpp::constant_t<integer_8_t, value_p>;
-    template <integer_16_t value_p> using   integer_16_c    = cpp::constant_t<integer_16_t, value_p>;
-    template <integer_32_t value_p> using   integer_32_c    = cpp::constant_t<integer_32_t, value_p>;
-    template <integer_64_t value_p> using   integer_64_c    = cpp::constant_t<integer_64_t, value_p>;
-    template <integer_t value_p>    using   integer_c       = cpp::constant_t<integer_t, value_p>;
+    template <integer_8_t value_p>      using   integer_8_c     = cpp::constant_t<integer_8_t, value_p>;
+    template <integer_16_t value_p>     using   integer_16_c    = cpp::constant_t<integer_16_t, value_p>;
+    template <integer_32_t value_p>     using   integer_32_c    = cpp::constant_t<integer_32_t, value_p>;
+    template <integer_64_t value_p>     using   integer_64_c    = cpp::constant_t<integer_64_t, value_p>;
+    template <integer_min_t value_p>    using   integer_min_c   = cpp::constant_t<integer_min_t, value_p>;
+    template <integer_max_t value_p>    using   integer_max_c   = cpp::constant_t<integer_max_t, value_p>;
+    template <integer_t value_p>        using   integer_c       = cpp::constant_t<integer_t, value_p>;
 
-    template <byte_t value_p>       using   byte_c          = cpp::constant_t<byte_t, value_p>;
-    template <word_t value_p>       using   word_c          = cpp::constant_t<word_t, value_p>;
+    template <byte_t value_p>           using   byte_c          = cpp::constant_t<byte_t, value_p>;
+    template <word_t value_p>           using   word_c          = cpp::constant_t<word_t, value_p>;
 
-    template <size_t value_p>       using   size_c          = cpp::constant_t<size_t, value_p>;
-    template <count_t value_p>      using   count_c         = cpp::constant_t<count_t, value_p>;
-    template <index_t value_p>      using   index_c         = cpp::constant_t<index_t, value_p>;
+    template <size_t value_p>           using   size_c          = cpp::constant_t<size_t, value_p>;
+    template <count_t value_p>          using   count_c         = cpp::constant_t<count_t, value_p>;
+    template <index_t value_p>          using   index_c         = cpp::constant_t<index_t, value_p>;
 
 }}
 
@@ -65,10 +69,14 @@ namespace nkr { namespace negatable {
     using   integer_16_t    = cpp::negatable::integer_16_t;
     using   integer_32_t    = cpp::negatable::integer_32_t;
     using   integer_64_t    = cpp::negatable::integer_64_t;
+    using   integer_min_t   = cpp::negatable::integer_min_t;
+    using   integer_max_t   = cpp::negatable::integer_max_t;
     using   integer_t       = cpp::negatable::integer_t;
 
     using   real_32_t       = cpp::negatable::real_32_t;
     using   real_64_t       = cpp::negatable::real_64_t;
+    using   real_min_t      = cpp::negatable::real_min_t;
+    using   real_max_t      = cpp::negatable::real_max_t;
     using   real_t          = cpp::negatable::real_t;
 
     using   byte_t          = cpp::negatable::byte_t;
@@ -82,22 +90,26 @@ namespace nkr { namespace negatable {
 
 namespace nkr { namespace negatable {
 
-    template <integer_8_t value_p>  using   integer_8_c     = cpp::constant_t<integer_8_t, value_p>;
-    template <integer_16_t value_p> using   integer_16_c    = cpp::constant_t<integer_16_t, value_p>;
-    template <integer_32_t value_p> using   integer_32_c    = cpp::constant_t<integer_32_t, value_p>;
-    template <integer_64_t value_p> using   integer_64_c    = cpp::constant_t<integer_64_t, value_p>;
-    template <integer_t value_p>    using   integer_c       = cpp::constant_t<integer_t, value_p>;
+    template <integer_8_t value_p>      using   integer_8_c     = cpp::constant_t<integer_8_t, value_p>;
+    template <integer_16_t value_p>     using   integer_16_c    = cpp::constant_t<integer_16_t, value_p>;
+    template <integer_32_t value_p>     using   integer_32_c    = cpp::constant_t<integer_32_t, value_p>;
+    template <integer_64_t value_p>     using   integer_64_c    = cpp::constant_t<integer_64_t, value_p>;
+    template <integer_min_t value_p>    using   integer_min_c   = cpp::constant_t<integer_min_t, value_p>;
+    template <integer_max_t value_p>    using   integer_max_c   = cpp::constant_t<integer_max_t, value_p>;
+    template <integer_t value_p>        using   integer_c       = cpp::constant_t<integer_t, value_p>;
 
-    template <real_32_t value_p>    using   real_32_c       = cpp::constant_t<real_32_t, value_p>;
-    template <real_64_t value_p>    using   real_64_c       = cpp::constant_t<real_64_t, value_p>;
-    template <real_t value_p>       using   real_c          = cpp::constant_t<real_t, value_p>;
+    template <real_32_t value_p>        using   real_32_c       = cpp::constant_t<real_32_t, value_p>;
+    template <real_64_t value_p>        using   real_64_c       = cpp::constant_t<real_64_t, value_p>;
+    template <real_min_t value_p>       using   real_min_c      = cpp::constant_t<real_min_t, value_p>;
+    template <real_max_t value_p>       using   real_max_c      = cpp::constant_t<real_max_t, value_p>;
+    template <real_t value_p>           using   real_c          = cpp::constant_t<real_t, value_p>;
 
-    template <byte_t value_p>       using   byte_c          = cpp::constant_t<byte_t, value_p>;
-    template <word_t value_p>       using   word_c          = cpp::constant_t<word_t, value_p>;
+    template <byte_t value_p>           using   byte_c          = cpp::constant_t<byte_t, value_p>;
+    template <word_t value_p>           using   word_c          = cpp::constant_t<word_t, value_p>;
 
-    template <size_t value_p>       using   size_c          = cpp::constant_t<size_t, value_p>;
-    template <count_t value_p>      using   count_c         = cpp::constant_t<count_t, value_p>;
-    template <index_t value_p>      using   index_c         = cpp::constant_t<index_t, value_p>;
+    template <size_t value_p>           using   size_c          = cpp::constant_t<size_t, value_p>;
+    template <count_t value_p>          using   count_c         = cpp::constant_t<count_t, value_p>;
+    template <index_t value_p>          using   index_c         = cpp::constant_t<index_t, value_p>;
 
 }}
 

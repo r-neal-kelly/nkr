@@ -68,33 +68,105 @@ namespace nkr { namespace interface { namespace random { namespace distributor {
 
 namespace nkr { namespace interface { namespace random { namespace distributor { namespace $uniform_i {
 
-    template <nkr::generic::built_in::number_tr type_p>
-    inline constexpr number_sp<type_p>::type_t
-        number_sp<type_p>::Default_Min()
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    inline constexpr enumeration_limited_sp<type_p>::type_t
+        enumeration_limited_sp<type_p>::Default_Min()
+        noexcept
+    {
+        return type_t::MIN_tg;
+    }
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    inline constexpr enumeration_limited_sp<type_p>::type_t
+        enumeration_limited_sp<type_p>::Default_Max()
+        noexcept
+    {
+        return type_t::MAX_tg;
+    }
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    inline constexpr enumeration_limited_sp<type_p>::number_t
+        enumeration_limited_sp<type_p>::To_Number(type_t object)
+        noexcept
+    {
+        return static_cast<number_t>(object);
+    }
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    inline constexpr enumeration_limited_sp<type_p>::type_t
+        enumeration_limited_sp<type_p>::From_Number(number_t number)
+        noexcept
+    {
+        return static_cast<type_t>(number);
+    }
+
+}}}}}
+
+namespace nkr { namespace interface { namespace random { namespace distributor { namespace $uniform_i {
+
+    template <nkr::generic::built_in::number::integer_tr type_p>
+    inline constexpr integer_sp<type_p>::type_t
+        integer_sp<type_p>::Default_Min()
         noexcept
     {
         return nkr::cpp::Min_Value<type_t>();
     }
 
-    template <nkr::generic::built_in::number_tr type_p>
-    inline constexpr number_sp<type_p>::type_t
-        number_sp<type_p>::Default_Max()
+    template <nkr::generic::built_in::number::integer_tr type_p>
+    inline constexpr integer_sp<type_p>::type_t
+        integer_sp<type_p>::Default_Max()
         noexcept
     {
         return nkr::cpp::Max_Value<type_t>();
     }
 
-    template <nkr::generic::built_in::number_tr type_p>
-    inline constexpr number_sp<type_p>::number_t
-        number_sp<type_p>::To_Number(type_t object)
+    template <nkr::generic::built_in::number::integer_tr type_p>
+    inline constexpr integer_sp<type_p>::number_t
+        integer_sp<type_p>::To_Number(type_t object)
         noexcept
     {
         return object;
     }
 
-    template <nkr::generic::built_in::number_tr type_p>
-    inline constexpr number_sp<type_p>::type_t
-        number_sp<type_p>::From_Number(number_t number)
+    template <nkr::generic::built_in::number::integer_tr type_p>
+    inline constexpr integer_sp<type_p>::type_t
+        integer_sp<type_p>::From_Number(number_t number)
+        noexcept
+    {
+        return number;
+    }
+
+}}}}}
+
+namespace nkr { namespace interface { namespace random { namespace distributor { namespace $uniform_i {
+
+    template <nkr::generic::built_in::number::real_tr type_p>
+    inline constexpr real_sp<type_p>::type_t
+        real_sp<type_p>::Default_Min()
+        noexcept
+    {
+        return nkr::cpp::Min_Value<type_t>();
+    }
+
+    template <nkr::generic::built_in::number::real_tr type_p>
+    inline constexpr real_sp<type_p>::type_t
+        real_sp<type_p>::Default_Max()
+        noexcept
+    {
+        return nkr::cpp::Max_Value<type_t>();
+    }
+
+    template <nkr::generic::built_in::number::real_tr type_p>
+    inline constexpr real_sp<type_p>::number_t
+        real_sp<type_p>::To_Number(type_t object)
+        noexcept
+    {
+        return object;
+    }
+
+    template <nkr::generic::built_in::number::real_tr type_p>
+    inline constexpr real_sp<type_p>::type_t
+        real_sp<type_p>::From_Number(number_t number)
         noexcept
     {
         return number;

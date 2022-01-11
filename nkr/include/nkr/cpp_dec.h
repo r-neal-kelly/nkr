@@ -39,6 +39,8 @@ namespace nkr { namespace cpp { namespace positive {
     using   integer_16_t    = std::uint16_t;
     using   integer_32_t    = std::uint32_t;
     using   integer_64_t    = std::uint64_t;
+    using   integer_min_t   = integer_8_t;
+    using   integer_max_t   = integer_64_t;
 #if defined(nkr_IS_64_BIT)
     using   integer_t       = integer_64_t;
 #elif defined(nkr_IS_32_BIT)
@@ -60,6 +62,8 @@ namespace nkr { namespace cpp { namespace negatable {
     using   integer_16_t    = std::int16_t;
     using   integer_32_t    = std::int32_t;
     using   integer_64_t    = std::int64_t;
+    using   integer_min_t   = integer_8_t;
+    using   integer_max_t   = integer_64_t;
 #if defined(nkr_IS_64_BIT)
     using   integer_t       = integer_64_t;
 #elif defined(nkr_IS_32_BIT)
@@ -68,6 +72,8 @@ namespace nkr { namespace cpp { namespace negatable {
 
     using   real_32_t       = float;
     using   real_64_t       = double;
+    using   real_min_t      = real_32_t;
+    using   real_max_t      = real_64_t;
 #if defined(nkr_IS_64_BIT)
     using   real_t          = real_64_t;
 #elif defined(nkr_IS_32_BIT)

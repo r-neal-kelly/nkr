@@ -175,10 +175,7 @@ namespace nkr { namespace random { namespace distributor {
                     random::distributor::cpp::uniform::real_t<number_t>(min, max)(generator)
                 );
             }
-        } else {
-            // I don't think enumerations are being handled correctly yet, because we need to cast to an integer first
-            static_assert(generic::built_in::number::enumeration_tr<number_t> || generic::built_in::number::integer_tr<number_t>);
-
+        } else if constexpr (generic::built_in::number::integer_tr<number_t>) {
             if constexpr (sizeof(number_t) < sizeof(positive::word_t)) {
                 if constexpr (generic::positive_tr<number_t>) {
                     return interface_t::From_Number(
@@ -194,6 +191,8 @@ namespace nkr { namespace random { namespace distributor {
                     random::distributor::cpp::uniform::integer_t<number_t>(min, max)(generator)
                 );
             }
+        } else {
+            static_assert(false);
         }
     }
 

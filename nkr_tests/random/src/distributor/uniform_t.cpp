@@ -22,7 +22,7 @@ namespace nkr {
         MAX_tg  = C,
     };
 
-    namespace interface { namespace random { namespace distributor {
+    /*namespace interface { namespace random { namespace distributor {
 
         template <>
         class uniform_i_sp<enumeration_e>
@@ -32,7 +32,7 @@ namespace nkr {
             {
             public:
                 using type_t    = enumeration_e;
-                using number_t  = type_t;
+                using number_t  = positive::integer_t;
 
             public:
                 static constexpr type_t
@@ -53,14 +53,14 @@ namespace nkr {
                     To_Number(type_t object)
                     noexcept
                 {
-                    return object;
+                    return static_cast<number_t>(object);
                 }
 
                 static constexpr type_t
                     From_Number(number_t number)
                     noexcept
                 {
-                    return number;
+                    return static_cast<type_t>(number);
                 }
 
             public:
@@ -74,7 +74,7 @@ namespace nkr {
 
         static_assert(uniform_tr<uniform_i<enumeration_e>>);
 
-    }}}
+    }}}*/
 
     TEST_SUITE("nkr::random::distributor::uniform_t")
     {
