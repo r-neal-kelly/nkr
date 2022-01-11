@@ -12,6 +12,70 @@
 
 namespace nkr {
 
+    enum enumeration_e
+    {
+        A,
+        B,
+        C,
+
+        MIN_tg  = A,
+        MAX_tg  = C,
+    };
+
+    namespace interface { namespace random { namespace distributor {
+
+        template <>
+        class uniform_i_sp<enumeration_e>
+        {
+        private:
+            class implementation_t
+            {
+            public:
+                using type_t    = enumeration_e;
+                using number_t  = type_t;
+
+            public:
+                static constexpr type_t
+                    Default_Min()
+                    noexcept
+                {
+                    return type_t::MIN_tg;
+                }
+
+                static constexpr type_t
+                    Default_Max()
+                    noexcept
+                {
+                    return type_t::MAX_tg;
+                }
+
+                static constexpr number_t
+                    To_Number(type_t object)
+                    noexcept
+                {
+                    return object;
+                }
+
+                static constexpr type_t
+                    From_Number(number_t number)
+                    noexcept
+                {
+                    return number;
+                }
+
+            public:
+                template <typename ...>
+                constexpr implementation_t(...) noexcept    = delete;
+            };
+
+        public:
+            using type_t    = implementation_t;
+        };
+
+        static_assert(uniform_tr<uniform_i<enumeration_e>>);
+
+    }}}
+
     TEST_SUITE("nkr::random::distributor::uniform_t")
     {
     #define nkr_TYPES(TYPE_QUALIFIER_p)                                                             \
@@ -23,7 +87,8 @@ namespace nkr {
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_32_t>,                 \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<negatable::real_64_t>,                 \
         TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<none::type_t>>,         \
-        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<positive::integer_t>>   \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<pointer::cpp_t<positive::integer_t>>,  \
+        TYPE_QUALIFIER_p nkr::random::distributor::uniform_t<enumeration_e>                         \
 
     #define nkr_JUST_NON_QUALIFIED  \
         nkr_TYPES(nkr_BLANK)        \
