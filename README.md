@@ -1,16 +1,15 @@
 # nkr
 A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
 
-### Why Use nkr and not the standard C++ library?
+### Why use nkr types in place of the standard C++ library?
 Hindsight is always 20/20. The stalwart standard library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design:
 - **by providing well-rounded and easy to use types**
   - atomics have all expected operators natively defined and ready to use
   - strings natively handle Unicode and are easily extended
   - arrays can store their elements locally on the stack or in the read section, all using an API consistent with their heap-centric counterparts
   - enums are full classes and you can define and add functionality to them like any other class
-  - uniform distributions can return negative real numbers and can work with other types such as pointers, booleans, and your user-defined types
   - we supply "none", "maybe", and "some" in addition to "optional" abstractions to prevent misuse of null, now giving you the flexibility to manage your memory footprint how you want to, and in an explicit way
-  - and more!
+  - and more! Even specific things such as uniform distributions which can return negative real numbers and work with pointers, booleans, and your user-defined types
 - **by constexpr, constexpr, and more constexpr**
   - We have the opportunity to define almost all library types as constexpr, making them easily usable during compile-time.
   - You have the option to move library types between compile-time and run-time contexts with ease.
