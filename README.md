@@ -2,10 +2,11 @@
 A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
 
 ### Features (both finished and planned)
-- **a long-lasting system of general-use types that are built upon each other, e.g.**
-  - dynamic and static arrays that can store their elements locally or remotely
-  - strings that extend the arrays and natively support Unicode as well as ASCII. They can be extended by user-defined character encodings
-  - a regex engine that matches the versatility of the strings and provides look-behinds that are just as fast as look-aheads.
+- **a long-lasting system of general-use types that are built upon each other**
+  - such as dynamic and static arrays that can store their elements locally or remotely
+  - and strings that extend the arrays and natively support Unicode as well as ASCII. They can be extended by user-defined character encodings.
+  - Even a regex engine that matches the versatility of the strings and provides look-behinds that are just as fast as look-aheads.
+  - and much more!
 - **extensive use of C++20 concepts.** 
   - a rich hierarchy of concepts abstracted into well-defined and delineated 'traits' and 'interfaces' that abstractly simplify and beautify constraints
   - traits act as nouns by providing abstraction over types and their templates
