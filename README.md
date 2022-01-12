@@ -1,49 +1,51 @@
 # nkr
 A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
 
+### Why Use nkr and not the standard C++ library?
+Hindsight is always 20/20. The stalwart standard library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design:
+- **by providing well-rounded and easy to use types**
+  - atomics have all expected operators natively defined and ready to use
+  - strings natively handle Unicode and are easily extended
+  - arrays can store their elements locally on the stack or in the read section, all using an API consistent with their heap-centric counterparts
+  - enums are full classes and you can define and add functionality to them like any other class
+  - uniform distributions can return negative real numbers and can work with other types such as pointers, booleans, and your user-defined types
+  - we supply "none", "maybe", and "some" in addition to "optional" abstractions to prevent misuse of null, now giving you the flexibility to manage your memory footprint how you want to, and in an explicit way
+  - and more!
+- **by constexpr, constexpr, and more constexpr**
+  - We have the opportunity to define almost all library types as constexpr, making them easily usable during compile-time.
+  - You have the option to move library types between compile-time and run-time contexts with ease.
+  - They are ready for composition in your own types, even types that are designed for dynamic and volatile use when desired.
+  - Relying on constexpr brings the benefit of standards-required undefined behavior checks during compile-time, even when they are only used dynamically.
+- **by providing data-oriented facilities**
+  - The footprint of almost every type is 'protected', allowing you to easily inherit the type and become actively involved with its internals.
+  - Yet by default, you are still prevented from making accidental changes to its internal state.
+  - You can squeeze out extra performance for a particular feature and yet still selectively interact with the rest of the library at large using the inherited type.
+- **by fully supporting volatile**
+  - When you need it, you need it, and every type where possible in the library is fully supported.
+  - That means volatile constructors, assigners, methods, casts, operators, and more.
+  - Larger types can be confidently made by composing smaller types and you will still be able to use them in a volatile manner.
+  - (Not to be confused with atomic operations, which are provided by the library through other means.)
+
+- **by lack of exceptions and by making asserts your friend**
+  - The stance of this library is that exceptions run counter-intuitive to the performance and flow of your program and lend themselves to overuse.
+  - Most types in the library cannot even produce an error because they are constexpr.
+  - But those than can, produce only those errors which should not be asserted during debug-time, such as resource allocation.
+  - Only a sparse number of error enums are used to indicate dynamic failures, making them easier to not ignore.
+  - The generic error enum type provided by the library both communicates and enforces the handling of errors in debug builds, by asserting during runtime if an error is left unchecked or when it is not moved to another context. This puts a spotlight on code that has not handled the error in some way.
+  - Where a type that can have an error during construction exists, validity checks are provided for post-construction use. The program will assert when you try to use an invalid instance other than its validity method.
+
 ### Features (both finished and planned)
 - **a long-lasting system of general-use types that are built upon each other**
-  - such as dynamic and static arrays that can store their elements locally or remotely
-  - and strings that extend the arrays and natively support Unicode as well as ASCII. They can be extended by user-defined character encodings.
-  - Even a regex engine that matches the versatility of the strings and provides look-behinds that are just as fast as look-aheads.
-  - and much more!
+  - for example, we provide dynamic and static arrays that can store their elements locally or remotely, facilitating data-oriented design choices and changes.
+  - those same arrays are used to make strings that natively support Unicode as well as ASCII. They can even be extended by user-defined character encodings.
+  - These strings will be used to operate a regex engine which matches their versatility and will provide look-behinds that are just as fast as look-aheads.
+  - and much more already implemented or planned!
 - **extensive use of C++20 concepts.** 
   - a rich hierarchy of concepts abstracted into well-defined and delineated 'traits' and 'interfaces' that abstractly simplify and beautify constraints
   - traits act as nouns by providing abstraction over types and their templates
   - interfaces act as verbs in generic operations and drastically cut down on the need for users to specialize types either too difficult or too redundant to reimplement.
   - all of the above come together in an expressive, dynamic, and compile-time filtering language which cuts down on the need for one-time-use concepts. It covers frequently used operations, such as identification by trait, functionality by interface, comparison of the primary inner type of a template, and whether a type can be cast into another.
   - the operators used in the filter are grammatically close to English and can express any qualification or combination thereof, helping to consistently cut down on the need for frequent overload definitions in the most versatile of types. Its shorthand reusability makes for a cleaner and easier to read API.
-
-### Why? (alternatively, Why Not Use the Standard Library)?
-Hindsight is always 20/20 and we have the opportunity to reflect and improve on the decades old standard C++ library:
-- **by making types more useful and well-rounded**
-  - atomics have all operators natively defined and ready to use
-  - strings natively handle Unicode and are easily extended
-  - arrays can be made locally on the stack or in the read section and handle like their heap-dynamic counterparts
-  - enums are now full classes and you can define and add functionality to them like any other class
-  - uniform distributions actually return negative real numbers and work with pointers
-  - and a lot more!
-- **by providing data-oriented types**
-  - The footprint of almost every type is 'protected', thus preventing the accidental change of internal state.
-  - Yet you can still inherit the type to become actively involved with its internals.
-  - If you do this to squeeze out extra performance, you can still implicitly interact with the rest of the library at large with your inherited type.
-- **by fully supporting volatile**
-  - When you need it, you need it. almost every type in the library is fully supported.
-  - volatile constructors, assigners, methods, casts, operators, etc.
-  - Larger types can be confidently used and combined into other types when desired.
-  - (Not to be confused with atomic operations, which are provided by the library through a specific template.)
-- **by constexpr, constexpr, constexpr**
-  - We have the opportunity to define almost all library types as constexpr, making them easily useable during compile-time.
-  - You now have the option to move library types between compile-time and run-time contexts with ease.
-  - They are ready for composition!
-- **by lack of exceptions (or alternatively, by making asserts your friend)**
-  - The stance of this library is that exceptions run counter-intuitive to the performance and flow of your program and lend themselves to overuse.
-  - Most types in the library cannot even produce an error because they are constexpr.
-  - But those than can, produce only those errors which cannot be asserted during debug-time.
-  - We intentionally use a sparse error-code to indicate failures, usually revolving around a shared resource such as the heap or a file-handle.
-  - The generic error type provided by the library is essentially an enum and is the singular strategy to both communicate and enforce the handling of errors.
-  - A debug build will assert during runtime if an error is left unchecked and thus puts a spotlight on code that has not handled the error.
-  - (For construction of objects, it is expected that the programmer will detect that the type is valid before using it, else the program will assert when you try to use it.)
 
 ### Goals
 - **a smart and thorough set of test suites**
