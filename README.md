@@ -1,8 +1,8 @@
 # nkr
 A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
 
-### Why use nkr types in place of the standard C++ library?
-Hindsight is always 20/20. The stalwart standard library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design:
+### Why use nkr?
+Hindsight is always 20/20. The stalwart standard C++ library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design:
 - **by providing well-rounded and easy to use types**
   - atomics have all expected operators natively defined and ready to use
   - strings natively handle Unicode and are easily extended
@@ -35,7 +35,7 @@ Hindsight is always 20/20. The stalwart standard library is an impressive feat t
   - for example, we provide dynamic and static template arrays that can store their elements locally or remotely, facilitating data-oriented design choices and changes.
   - each of those arrays are used to make the provided strings that natively support Unicode as well as ASCII, and which can be easily extended to handle user-defined encodings.
   - these same strings are used to operate the regex engine. This gives the engine all the versatility of the underlying arrays and strings, thus breaking down encoding and performance barriers.
-- **by extensively using C++20 concepts.** 
+- **by extensively using C++20 concepts** 
   - a rich hierarchy of concepts abstracted into well-defined and delineated 'traits' and 'interfaces' that abstractly simplify and beautify constraints
   - traits act as nouns by providing abstraction over types and their templates
   - interfaces act as verbs in generic operations and drastically cut down on the need for users to specialize types either too difficult or too redundant to reimplement.
