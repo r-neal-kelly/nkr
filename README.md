@@ -9,7 +9,7 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
   - enums are full classes and you can define and add functionality to them like any other class
   - atomics have all expected operators natively defined and ready to use
   - we supply "none", "maybe", and "some" types in addition to an "optional" in order to prevent misuse of null. These give you the flexibility to manage your memory footprint how you want to, and in an explicit way
-  - and more! Even specific things such as uniform distributions which can return negative real numbers and work with pointers, booleans, and your user-defined types
+  - and more! Even specific things such as uniform distributions which can return negative real numbers and that work with pointers, booleans, and your user-defined types
 - **constexpr, constexpr, and more constexpr**
   - We have the opportunity to define almost all library types as constexpr, making them easily usable during compile-time.
   - You have the option to refactor library types between compile-time and run-time contexts with ease.
