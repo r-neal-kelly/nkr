@@ -17,15 +17,33 @@ A static 64 and 32 bit C++20 library providing powerfully generic types, versati
 ### Why? (alternatively, Why Not Use the Standard Library)?
 Hindsight is always 20/20 and we have the opportunity to reflect and improve on the decades old standard C++ library:
 - **by making types more useful and well-rounded**
-  - atomics have all operators natively defined and ready to use, strings natively handle Unicode and are easily extended, arrays can be made locally on the stack or in the read section and handle very much like their heap-dynamic counterparts, enums are now full classes and you can define and add functionality to them like any other class, uniform distributions actually return negative real numbers and work with pointers, etc.
+  - atomics have all operators natively defined and ready to use
+  - strings natively handle Unicode and are easily extended
+  - arrays can be made locally on the stack or in the read section and handle like their heap-dynamic counterparts
+  - enums are now full classes and you can define and add functionality to them like any other class
+  - uniform distributions actually return negative real numbers and work with pointers
+  - and a lot more!
 - **by providing data-oriented types**
-  - the footprint of almost every type is 'protected'. This prevents accidentally changing internal state, yet allows the relatively easy option to inherit the type to become actively involved with its internals. If you need to squeeze out some extra performance, you can do that and still implicitly be able to interact with the rest of the library at large.
+  - The footprint of almost every type is 'protected', thus preventing the accidental change of internal state.
+  - Yet you can still inherit the type to become actively involved with its internals.
+  - If you do this to squeeze out extra performance, you can still implicitly interact with the rest of the library at large with your inherited type.
 - **by fully supporting volatile**
-  - when you need it, you need it. almost every type in the library fully supports volatile constructors, assigners, and methods. Even the larger types can be confidently used and combined when and where desired. (This is not to be confused with atomic operations, which are also provided by the library.)
+  - When you need it, you need it. almost every type in the library is fully supported.
+  - volatile constructors, assigners, methods, casts, operators, etc.
+  - Larger types can be confidently used and combined into other types when desired.
+  - (Not to be confused with atomic operations, which are provided by the library through a specific template.)
 - **by constexpr, constexpr, constexpr**
-  - we have the opportunity to define almost all library types as constexpr, making them easily useable during compile-time and run-time. You now have to option of when you want your provided functionality executed, and they are ready for composition!
+  - We have the opportunity to define almost all library types as constexpr, making them easily useable during compile-time.
+  - You now have the option to move library types between compile-time and run-time contexts with ease.
+  - They are ready for composition!
 - **by lack of exceptions (or alternatively, by making asserts your friend)**
-  - The stance of this library is that exceptions run counter-intuitive to the performance and flow of your program and lend themselves to overuse. Most types in the library cannot even produce an error because they are constexpr. But those than can, produce only those errors which cannot be handled during debug-time. So we intentionally use the sparse error-code to indicate such failures usually revolving around a shared resource such as the heap or a file-handle. The generic error type provided by the library is essentially an enum and is the singular strategy to both communicate and enforce the handling of errors. A debug build will assert during runtime if an error is left unchecked and thus puts a spotlight on code that has not handled the error. (For construction of objects, it is expected that the programmer will detect that the type is valid before using it, else the program will assert if you try to use it.)
+  - The stance of this library is that exceptions run counter-intuitive to the performance and flow of your program and lend themselves to overuse.
+  - Most types in the library cannot even produce an error because they are constexpr.
+  - But those than can, produce only those errors which cannot be asserted during debug-time.
+  - We intentionally use a sparse error-code to indicate failures, usually revolving around a shared resource such as the heap or a file-handle.
+  - The generic error type provided by the library is essentially an enum and is the singular strategy to both communicate and enforce the handling of errors.
+  - A debug build will assert during runtime if an error is left unchecked and thus puts a spotlight on code that has not handled the error.
+  - (For construction of objects, it is expected that the programmer will detect that the type is valid before using it, else the program will assert when you try to use it.)
 
 ### Goals
 - **a smart and thorough set of test suites**
