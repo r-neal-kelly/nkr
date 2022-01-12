@@ -29,7 +29,11 @@ Hindsight is always 20/20 and we have the opportunity to reflect and improve on 
 
 ### Goals
 - **a smart and thorough set of test suites**
+  - 100% coverage is the goal
+  - this library better a.) compile and b.) pass all tests in 10 years, or I will consider it a failure on this point.
 - **great end-user documentation**
+  - Coverage of the general 'feel' for the library and how the traits and interfaces work together with all the types.
+  - With the help of Doxygen, 100% coverage by use of test cases in the test suites for every entity intended to be used by the consumer.
 
 [Go to the (still in the works) documentation](https://r-neal-kelly.github.io/nkr_docs)
 
