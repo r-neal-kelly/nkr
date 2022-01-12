@@ -25,7 +25,7 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
   - That means volatile constructors, assigners, methods, casts, operators, and more.
   - Larger types can be confidently made by composing smaller types and you will still be able to use them in a volatile manner.
   - (Not to be confused with atomic operations, which are provided by the library through other means.)
-- **lack of exceptions and helpful asserts**
+- **helpful asserts replacing exceptions**
   - Exceptions are often counter-intuitive to the performance and flow of your program and very much lend themselves to overuse.
   - So most types in the library are designed so that they cannot even produce an error, because they are constexpr.
   - But those than can, produce only those errors which should not be asserted during debug-time, like resource allocation.
