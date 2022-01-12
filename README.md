@@ -27,7 +27,7 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
   - (Not to be confused with atomic operations, which are provided by the library through other means.)
 - **lack of exceptions and helpful asserts**
   - Exceptions are often counter-intuitive to the performance and flow of your program and very much lend themselves to overuse.
-  - Most types in the library cannot even produce an error because they are constexpr.
+  - So most types in the library are designed so that they cannot even produce an error, because they are constexpr.
   - But those than can, produce only those errors which should not be asserted during debug-time, like resource allocation.
   - Only a sparse number of error enums are used to indicate dynamic failures, making them easier to remember and to work with.
   - The generic error enum provided by the library both communicates and enforces the handling of errors in debug builds, by asserting during runtime if an error is left unchecked or when it is not moved to another context.
