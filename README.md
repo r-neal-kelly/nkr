@@ -31,14 +31,11 @@ Hindsight is always 20/20. The stalwart standard library is an impressive feat t
   - Only a sparse number of error enums are used to indicate dynamic failures, making them easier to pay attention to.
   - The generic error enum type provided by the library both communicates and enforces the handling of errors in debug builds, by asserting during runtime if an error is left unchecked or when it is not moved to another context. This puts a spotlight on code that has not handled the error in some way.
   - Where a type that can have an error during construction exists, validity checks are provided for post-construction use. The program will assert when you try to use an invalid instance other than its validity method.
-
-### Features (both finished and planned)
-- **a long-lasting system of general-use types that are built upon each other**
-  - for example, we provide dynamic and static arrays that can store their elements locally or remotely, facilitating data-oriented design choices and changes.
-  - those same arrays are used to make strings that natively support Unicode as well as ASCII. They can even be extended by user-defined character encodings.
-  - These strings will be used to operate a regex engine which matches their versatility and will provide look-behinds that are just as fast as look-aheads.
-  - and much more already implemented or planned!
-- **extensive use of C++20 concepts.** 
+- **by intuitively composing types together**
+  - for example, we provide dynamic and static template arrays that can store their elements locally or remotely, facilitating data-oriented design choices and changes.
+  - each of those arrays are used to make the provided strings that natively support Unicode as well as ASCII, and which can be easily extended to handle user-defined encodings.
+  - these same strings are used to operate the regex engine. This gives the engine all the versatility of the underlying arrays and strings, thus breaking down encoding and performance barriers.
+- **by extensive using C++20 concepts.** 
   - a rich hierarchy of concepts abstracted into well-defined and delineated 'traits' and 'interfaces' that abstractly simplify and beautify constraints
   - traits act as nouns by providing abstraction over types and their templates
   - interfaces act as verbs in generic operations and drastically cut down on the need for users to specialize types either too difficult or too redundant to reimplement.
