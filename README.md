@@ -18,18 +18,17 @@ Hindsight is always 20/20. The stalwart standard library is an impressive feat t
 - **by providing data-oriented facilities**
   - The footprint of almost every type is 'protected', allowing you to easily inherit the type and become actively involved with its internals.
   - Yet by default, you are still prevented from making accidental changes to its internal state.
-  - You can squeeze out extra performance for a particular feature and yet still selectively interact with the rest of the library at large using the inherited type.
+  - You can squeeze out extra performance for a particular feature and still selectively interact with the rest of the library at large using the inherited type.
 - **by fully supporting volatile**
   - When you need it, you need it, and every type where possible in the library is fully supported.
   - That means volatile constructors, assigners, methods, casts, operators, and more.
   - Larger types can be confidently made by composing smaller types and you will still be able to use them in a volatile manner.
   - (Not to be confused with atomic operations, which are provided by the library through other means.)
-
 - **by lack of exceptions and by making asserts your friend**
   - The stance of this library is that exceptions run counter-intuitive to the performance and flow of your program and lend themselves to overuse.
   - Most types in the library cannot even produce an error because they are constexpr.
   - But those than can, produce only those errors which should not be asserted during debug-time, such as resource allocation.
-  - Only a sparse number of error enums are used to indicate dynamic failures, making them easier to not ignore.
+  - Only a sparse number of error enums are used to indicate dynamic failures, making them easier to pay attention to.
   - The generic error enum type provided by the library both communicates and enforces the handling of errors in debug builds, by asserting during runtime if an error is left unchecked or when it is not moved to another context. This puts a spotlight on code that has not handled the error in some way.
   - Where a type that can have an error during construction exists, validity checks are provided for post-construction use. The program will assert when you try to use an invalid instance other than its validity method.
 
