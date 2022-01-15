@@ -20,8 +20,8 @@ namespace nkr { namespace interface { namespace $random_i {
     concept static_functions_i = requires
     {
         { type_p::Value() } -> cpp::is_tr<typename type_p::type_t>;
-        // should also accept a generic::random::generator_tr, but above it needs to be defaulted by the implementor
-        // it can also have any number of overloads to facilitate use per type, not constrained here of course. it should accept a last param defaulted to generic::random::generator_tr though.
+        // should also accept a generic::randomness::generator_tr, but above it needs to be defaulted by the implementor
+        // it can also have any number of overloads to facilitate use per type, not constrained here of course. it should accept a last param defaulted to generic::randomness::generator_tr though.
     };
 
     template <typename type_p>

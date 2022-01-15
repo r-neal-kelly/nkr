@@ -1,0 +1,8 @@
+/*
+    Copyright 2021 r-neal-kelly
+*/
+
+#pragma once
+
+#include "nkr/cpp/randomness/generator/hardware_t_dec.h"
+#include "nkr/cpp/randomness/generator/hardware_t_def.h"

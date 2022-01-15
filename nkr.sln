@@ -59,7 +59,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_macros", "nkr_test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_cpp", "nkr_tests\cpp\cpp.vcxproj", "{B56C6006-2D84-4E55-BFC7-93EF7D93C24D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_random", "nkr_tests\random\random.vcxproj", "{879662DE-729C-478A-B1AF-78E05FDA795A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_randomness", "nkr_tests\randomness\randomness.vcxproj", "{879662DE-729C-478A-B1AF-78E05FDA795A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
