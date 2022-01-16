@@ -20,7 +20,7 @@ namespace nkr { namespace generic { namespace randomness { namespace $distributo
         nkr::generic::type_tr<typename type_p::value_t>;
 
     template <typename type_p>
-    concept static_functions_i =
+    concept methods_i =
         (requires(type_p object,
                   const type_p const_object,
                   volatile type_p volatile_object,
@@ -56,7 +56,7 @@ namespace nkr { namespace generic { namespace randomness {
     template <typename type_p>
     concept distributor_tr =
         $distributor_tr::aliases_i<type_p> &&
-        $distributor_tr::static_functions_i<type_p> &&
+        $distributor_tr::methods_i<type_p> &&
         $distributor_tr::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>

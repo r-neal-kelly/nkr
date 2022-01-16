@@ -6,7 +6,7 @@
 
 #include "nkr/intrinsics_def.h"
 
-#include "nkr/generic_template/implementing/parameter_list/default_tr_dec.h"
+#include "nkr/generic/implementing/parameter_list/default_tr_dec.h"
 
 namespace nkr {
 

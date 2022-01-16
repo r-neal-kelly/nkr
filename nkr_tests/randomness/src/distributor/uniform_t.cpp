@@ -7,6 +7,8 @@
 #include "nkr/cpp/randomness/generator/hardware_t.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_19937_64_t.h"
 
+#include "nkr/generic/implementing/interface/template_tr.h"
+#include "nkr/generic/implementing/interface/type_tr.h"
 #include "nkr/generic/randomness/distributor_tr.h"
 
 #include "nkr/randomness/distributor/uniform_t.h"
@@ -135,9 +137,40 @@ namespace nkr {
         nkr_JUST_VOLATILE,      \
         nkr_JUST_CONST_VOLATILE \
 
-        TEST_SUITE("")
+        TEST_SUITE("traits")
         {
-            static_assert(nkr::generic::randomness::distributor_tr<nkr::randomness::distributor::uniform_t<enumeration_e>>);
+            template <typename ...types_p>
+            using alias_t =
+                nkr::randomness::distributor::uniform_t<types_p...>;
+
+            TEST_CASE_TEMPLATE("should satisfy its identity", uniform_p, nkr_ALL)
+            {
+                static_assert(nkr::randomness::distributor::uniform_tr<uniform_p>);
+            }
+
+            TEST_SUITE("should satisfy its template identity")
+            {
+                static_assert(nkr::randomness::distributor::uniform_ttr<nkr::randomness::distributor::uniform_t>);
+
+                static_assert(nkr::randomness::distributor::uniform_ttr<alias_t>);
+            }
+
+            TEST_CASE_TEMPLATE("should satisfy all of the following generics", uniform_p, nkr_ALL)
+            {
+                static_assert(nkr::generic::randomness::distributor_tr<uniform_p>);
+            }
+
+            TEST_CASE_TEMPLATE("should satisfy all of the following interfaces", uniform_p, nkr_JUST_NON_QUALIFIED)
+            {
+                static_assert(nkr::generic::implementing::interface::type_tr<uniform_p>);
+            }
+
+            TEST_SUITE("should satisfy all of the following template interfaces")
+            {
+                static_assert(nkr::generic::implementing::interface::template_ttr<nkr::randomness::distributor::uniform_t>);
+
+                static_assert(nkr::generic::implementing::interface::template_ttr<alias_t>);
+            }
         }
 
         TEST_SUITE("static functions")

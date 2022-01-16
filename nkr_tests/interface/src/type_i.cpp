@@ -38,15 +38,8 @@
 #include "nkr/generic/positive/any_tr.h"
 #include "nkr/generic/positive/integer_tr.h"
 #include "nkr/generic/positive/real_tr.h"
-#include "nkr/generic/random/distributor_tr.h"
-#include "nkr/generic/random/distributor/cpp_tr.h"
-#include "nkr/generic/random/generator_tr.h"
-#include "nkr/generic/random/generator/cpp_tr.h"
 #include "nkr/generic/type_tr.h"
 #include "nkr/generic/user_defined_tr.h"
-
-#include "nkr/generic_template/implementing/parameter_list/default_tr.h"
-#include "nkr/generic_template_template/implementing/parameter_list/default_tr.h"
 
 #include "nkr/interface/enumeration/types_i.h"
 #include "nkr/interface/none/value_i.h"
@@ -83,14 +76,6 @@
 #include "nkr/positive/integer_64_t.h"
 #include "nkr/positive/size_t.h"
 #include "nkr/positive/word_t.h"
-
-#include "nkr/random/distributor/cpp/bernoulli_t.h"
-#include "nkr/random/distributor/cpp/uniform/integer_t.h"
-#include "nkr/random/distributor/cpp/uniform/real_t.h"
-#include "nkr/random/generator/hardware/cpp_t.h"
-#include "nkr/random/generator/software/cpp/mersenne_twister_t.h"
-#include "nkr/random/generator/software/cpp/mersenne_twister_19937_32_t.h"
-#include "nkr/random/generator/software/cpp/mersenne_twister_19937_64_t.h"
 
 #include "doctest.h"
 
@@ -146,10 +131,6 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<generic::positive::any_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::positive::integer_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::positive::real_tg>);
-        static_assert(generic::implementing::interface::type_tr<generic::random::distributor_tg>);
-        static_assert(generic::implementing::interface::type_tr<generic::random::distributor::cpp_tg>);
-        static_assert(generic::implementing::interface::type_tr<generic::random::generator_tg>);
-        static_assert(generic::implementing::interface::type_tr<generic::random::generator::cpp_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::type_tg>);
         static_assert(generic::implementing::interface::type_tr<generic::user_defined_tg>);
 
@@ -188,14 +169,6 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<positive::integer_64_tg>);
         static_assert(generic::implementing::interface::type_tr<positive::size_tg>);
         static_assert(generic::implementing::interface::type_tr<positive::word_tg>);
-
-        static_assert(generic::implementing::interface::type_tr<random::distributor::cpp::bernoulli_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::distributor::cpp::uniform::integer_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::distributor::cpp::uniform::real_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::hardware::cpp_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::software::cpp::mersenne_twister_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::software::cpp::mersenne_twister_19937_32_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::software::cpp::mersenne_twister_19937_64_tg>);
     }
 
 }
@@ -246,14 +219,6 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<positive::integer_64_t>);
         static_assert(generic::implementing::interface::type_tr<positive::size_t>);
         static_assert(generic::implementing::interface::type_tr<positive::word_t>);
-
-        static_assert(generic::implementing::interface::type_tr<random::distributor::cpp::bernoulli_t>);
-        static_assert(generic::implementing::interface::type_tr<random::distributor::cpp::uniform::integer_t<positive::integer_t>>);
-        static_assert(generic::implementing::interface::type_tr<random::distributor::cpp::uniform::real_t<negatable::real_t>>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::hardware::cpp_tg>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::software::cpp::mersenne_twister_t<positive::integer_t>>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::software::cpp::mersenne_twister_19937_32_t>);
-        static_assert(generic::implementing::interface::type_tr<random::generator::software::cpp::mersenne_twister_19937_64_t>);
     }
 
 }
