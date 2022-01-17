@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\distributor\uniform_t.cpp">
+    <ClCompile Include="src\native.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

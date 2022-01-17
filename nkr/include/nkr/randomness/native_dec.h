@@ -5,14 +5,8 @@
 #pragma once
 
 #include "nkr/intrinsics_dec.h"
-
 #include "nkr/generic/implementing/interface/randomness_tr_dec.h"
-
-namespace nkr { namespace $randomness {
-
-
-
-}}
+#include "nkr/interface/randomness_i_dec.h"
 
 namespace nkr { namespace randomness {
 

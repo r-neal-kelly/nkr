@@ -194,6 +194,12 @@ namespace nkr { namespace interface { namespace $randomness_i {
         static value_t  Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
                               nkr::negatable::real_t probability_for_true = 0.5) noexcept;
 
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(value_t min, value_t max) noexcept;
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+                              value_t min, value_t max) noexcept;
+
     public:
         template <typename ...>
         constexpr boolean_sp(...) noexcept  = delete;

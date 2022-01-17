@@ -91,7 +91,7 @@ namespace nkr {
         nkr::positive::integer_t integers[16] = { 0 };
 
         for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
-            //printf("%zu: %i\n", idx, interface_t::Value<>(0, 16));
+            //printf("%zu: %i\n", idx, interface_t::Value<>(&integers[0], &integers[15]));
             printf("%zu: %p\n", idx, nkr::randomness::Value<nkr::pointer::cpp_t<nkr::positive::integer_t>>(&integers[0], &integers[15]));
         }
     }
