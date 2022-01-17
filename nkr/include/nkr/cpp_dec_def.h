@@ -79,7 +79,7 @@ namespace nkr { namespace cpp {
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
     inline constexpr value_p
-        Min_Value()
+        Default_Min()
         noexcept
     {
         if constexpr (boolean_tr<value_p>) {
@@ -96,7 +96,7 @@ namespace nkr { namespace cpp {
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
     inline constexpr value_p
-        Max_Value()
+        Default_Max()
         noexcept
     {
         if constexpr (boolean_tr<value_p>) {

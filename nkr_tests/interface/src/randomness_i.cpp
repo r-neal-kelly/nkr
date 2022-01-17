@@ -70,7 +70,29 @@ namespace nkr {
 
         for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
             //printf("%zu: %i\n", idx, interface_t::Value<>(0, 16));
-            //printf("%zu: %i\n", idx, nkr::randomness::Value<nkr::positive::integer_t>(0, 16));
+            printf("%zu: %zu\n", idx, nkr::randomness::Value<nkr::positive::integer_t>(0, 16));
+        }
+    }
+
+    TEST_CASE("built_in real")
+    {
+        using interface_t = nkr::interface::randomness_i<nkr::negatable::real_t>;
+
+        for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
+            //printf("%zu: %i\n", idx, interface_t::Value<>(nkr::negatable::real_t(0.0), nkr::negatable::real_t(16.0)));
+            printf("%zu: %g\n", idx, nkr::randomness::Value<nkr::negatable::real_t>(nkr::negatable::real_t(-16.0), nkr::negatable::real_t(16.0)));
+        }
+    }
+
+    TEST_CASE("built_in pointer")
+    {
+        using interface_t = nkr::interface::randomness_i<nkr::pointer::cpp_t<nkr::positive::integer_t>>;
+
+        nkr::positive::integer_t integers[16] = { 0 };
+
+        for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
+            //printf("%zu: %i\n", idx, interface_t::Value<>(0, 16));
+            printf("%zu: %p\n", idx, nkr::randomness::Value<nkr::pointer::cpp_t<nkr::positive::integer_t>>(&integers[0], &integers[15]));
         }
     }
 

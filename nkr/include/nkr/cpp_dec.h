@@ -571,10 +571,10 @@ namespace nkr { namespace cpp {
 
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
-    constexpr value_p           Min_Value() noexcept;
+    constexpr value_p           Default_Min() noexcept;
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
-    constexpr value_p           Max_Value() noexcept;
+    constexpr value_p           Default_Max() noexcept;
 
 }}
 

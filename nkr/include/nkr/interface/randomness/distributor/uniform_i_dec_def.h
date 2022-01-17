@@ -37,7 +37,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         boolean_sp<type_p>::Default_Min()
         noexcept
     {
-        return nkr::cpp::Min_Value<type_t>();
+        return nkr::cpp::Default_Min<type_t>();
     }
 
     template <nkr::generic::built_in::boolean_tr type_p>
@@ -45,7 +45,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         boolean_sp<type_p>::Default_Max()
         noexcept
     {
-        return nkr::cpp::Max_Value<type_t>();
+        return nkr::cpp::Default_Max<type_t>();
     }
 
     template <nkr::generic::built_in::boolean_tr type_p>
@@ -109,7 +109,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         integer_sp<type_p>::Default_Min()
         noexcept
     {
-        return nkr::cpp::Min_Value<type_t>();
+        return nkr::cpp::Default_Min<type_t>();
     }
 
     template <nkr::generic::built_in::number::integer_tr type_p>
@@ -117,7 +117,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         integer_sp<type_p>::Default_Max()
         noexcept
     {
-        return nkr::cpp::Max_Value<type_t>();
+        return nkr::cpp::Default_Max<type_t>();
     }
 
     template <nkr::generic::built_in::number::integer_tr type_p>
@@ -145,7 +145,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         real_sp<type_p>::Default_Min()
         noexcept
     {
-        return nkr::cpp::Min_Value<type_t>();
+        return nkr::cpp::Default_Min<type_t>();
     }
 
     template <nkr::generic::built_in::number::real_tr type_p>
@@ -153,7 +153,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         real_sp<type_p>::Default_Max()
         noexcept
     {
-        return nkr::cpp::Max_Value<type_t>();
+        return nkr::cpp::Default_Max<type_t>();
     }
 
     template <nkr::generic::built_in::number::real_tr type_p>
@@ -181,7 +181,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         pointer_sp<type_p>::Default_Min()
         noexcept
     {
-        return nkr::cpp::Min_Value<type_t>();
+        return nkr::cpp::Default_Min<type_t>();
     }
 
     template <nkr::generic::built_in::pointer_tr type_p>
@@ -189,7 +189,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         pointer_sp<type_p>::Default_Max()
         noexcept
     {
-        return nkr::cpp::Max_Value<type_t>();
+        return nkr::cpp::Default_Max<type_t>();
     }
 
     template <nkr::generic::built_in::pointer_tr type_p>
