@@ -13,10 +13,11 @@
 
 /*
     lockee_t:
-        Essentially a locker that accepts both a lock and a resource.
-        Handles the thread-exclusive scoped locking of a supplied reference and associated lock.
+        - Handles the thread-exclusive scoped locking of a supplied reference and associated deep lock.
+        - Makes it easy for functions to return a private static variable as a sharable resource.
+        - We use a deep lock to avoid the same thread causing a deadlock when getting the resource more than once.
 
-        Makes it easy for functions to return a private static variable as a sharable resource.
+        - We may add a specialization for an inclusive locker.
 */
 
 namespace nkr { namespace concurrency {

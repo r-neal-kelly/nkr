@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/randomness/generator/hardware/default_dec.h"
+#include "nkr/randomness/generator/hardware/default_t_dec.h"
 
 namespace nkr {
 

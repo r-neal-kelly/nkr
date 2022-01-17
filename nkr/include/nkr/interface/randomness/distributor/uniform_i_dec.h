@@ -223,7 +223,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     class enumeration_limited_integer_tmpl;
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_8_t) && enumeration_p::MIN_tg >= 0)
+        requires (sizeof(enumeration_p) == sizeof(positive::integer_8_t) && positive::integer_8_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -231,7 +231,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_16_t) && enumeration_p::MIN_tg >= 0)
+        requires (sizeof(enumeration_p) == sizeof(positive::integer_16_t) && positive::integer_16_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -239,7 +239,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_32_t) && enumeration_p::MIN_tg >= 0)
+        requires (sizeof(enumeration_p) == sizeof(positive::integer_32_t) && positive::integer_32_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -247,7 +247,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_64_t) && enumeration_p::MIN_tg >= 0)
+        requires (sizeof(enumeration_p) == sizeof(positive::integer_64_t) && positive::integer_64_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -255,7 +255,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_8_t) && enumeration_p::MIN_tg < 0)
+        requires (sizeof(enumeration_p) == sizeof(negatable::integer_8_t) && negatable::integer_8_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -263,7 +263,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_16_t) && enumeration_p::MIN_tg < 0)
+        requires (sizeof(enumeration_p) == sizeof(negatable::integer_16_t) && negatable::integer_16_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -271,7 +271,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_32_t) && enumeration_p::MIN_tg < 0)
+        requires (sizeof(enumeration_p) == sizeof(negatable::integer_32_t) && negatable::integer_32_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
@@ -279,7 +279,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_64_t) && enumeration_p::MIN_tg < 0)
+        requires (sizeof(enumeration_p) == sizeof(negatable::integer_64_t) && negatable::integer_64_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:

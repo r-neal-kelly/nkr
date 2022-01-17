@@ -27,5 +27,8 @@
     <ClCompile Include="src\enumeration\types_i.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\randomness_i.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

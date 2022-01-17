@@ -5,7 +5,7 @@
 #include "nkr/intrinsics.h"
 
 #include "nkr/concurrency/lockee_t.h"
-#include "nkr/randomness/generator/software/default.h"
+#include "nkr/randomness/generator/software/default_t.h"
 
 #include "doctest.h"
 
@@ -37,8 +37,6 @@ namespace nkr {
             auto moved = nkr::cpp::Move(shared_positive_integer);
 
             CHECK(moved == 2);
-
-            printf("%zu\n", nkr::randomness::generator::software::Default().Value()());
         }
     }
 

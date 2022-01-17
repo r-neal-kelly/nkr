@@ -1,0 +1,77 @@
+/*
+    Copyright 2021 r-neal-kelly
+*/
+
+#include "nkr/interface/randomness_i.h"
+
+#include "nkr/randomness/native.h" // temp
+
+#include "doctest.h"
+
+namespace nkr {
+
+    TEST_CASE("built_in boolean")
+    {
+        using interface_t = nkr::interface::randomness_i<nkr::boolean::cpp_t>;
+
+        for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
+            //printf("%zu: %i\n", idx, interface_t::Value<>(0.1));
+            printf("%zu: %i\n", idx, nkr::randomness::Value<nkr::boolean::cpp_t>(0.1));
+        }
+    }
+
+    TEST_CASE("built_in enum")
+    {
+        enum test_e :
+            nkr::positive::integer_8_t
+        {
+            A = 1,
+            B,
+            C,
+            D,
+
+            MIN_tg = A,
+            MAX_tg = D,
+        };
+
+        using interface_t = nkr::interface::randomness_i<test_e>;
+
+        for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
+            //printf("%zu: %i\n", idx, interface_t::Value<>(B, C);
+            printf("%zu: %i\n", idx, nkr::randomness::Value<test_e>(B, C));
+        }
+    }
+
+    TEST_CASE("built_in enum class")
+    {
+        enum class test_e :
+            nkr::positive::integer_8_t
+        {
+            A = 1,
+            B,
+            C,
+            D,
+
+            MIN_tg = A,
+            MAX_tg = D,
+        };
+
+        using interface_t = nkr::interface::randomness_i<test_e>;
+
+        for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
+            //printf("%zu: %i\n", idx, interface_t::Value<>(test_e::C, test_e::D));
+            printf("%zu: %i\n", idx, nkr::randomness::Value<test_e>(test_e::C, test_e::D));
+        }
+    }
+
+    TEST_CASE("built_in integer")
+    {
+        using interface_t = nkr::interface::randomness_i<nkr::positive::integer_t>;
+
+        for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
+            //printf("%zu: %i\n", idx, interface_t::Value<>(0, 16));
+            //printf("%zu: %i\n", idx, nkr::randomness::Value<nkr::positive::integer_t>(0, 16));
+        }
+    }
+
+}
