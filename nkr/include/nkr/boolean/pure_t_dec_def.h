@@ -54,8 +54,13 @@ namespace nkr { namespace boolean {
     {
     }
 
-    inline constexpr pure_t::pure_t(const tr1<any_to_tg, value_t> auto& value) noexcept :
-        value(value_t(value))
+    inline constexpr pure_t::pure_t(const tr1<any_to_tg, value_t> auto& to_value) noexcept :
+        value(value_t(to_value))
+    {
+    }
+
+    inline constexpr pure_t::pure_t(tr1<any_non_const_to_tg, value_t> auto&& to_value) noexcept :
+        value(value_t(to_value))
     {
     }
 
@@ -122,14 +127,14 @@ namespace nkr { namespace boolean {
     }
 
     inline constexpr pure_t&
-        pure_t::operator =(volatile pure_t&& other)
+        pure_t::operator =(tr1<just_volatile_tg, pure_t> auto&& other)
         noexcept
     {
         return Assign(*this, cpp::Move(other));
     }
 
     inline constexpr volatile pure_t&
-        pure_t::operator =(volatile pure_t&& other)
+        pure_t::operator =(tr1<just_volatile_tg, pure_t> auto&& other)
         volatile noexcept
     {
         return Assign(*this, cpp::Move(other));

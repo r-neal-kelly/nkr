@@ -11,14 +11,22 @@ namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
 
     template <typename type_p>
     concept constructors_i =
-        (requires
+        (requires(nkr::boolean::cpp_t boolean,
+                  const nkr::boolean::cpp_t const_boolean,
+                  volatile nkr::boolean::cpp_t volatile_boolean,
+                  const volatile nkr::boolean::cpp_t const_volatile_boolean)
     {
         { type_p() };
+
         { type_p(nkr::boolean::cpp_t()) };
-        { type_p(nkr::positive::integer_t()) };
-        { type_p(nkr::negatable::integer_t()) };
-        { type_p(nkr::negatable::real_t()) };
-        { type_p(nkr::pointer::cpp_t<nkr::positive::integer_t>()) };
+
+        { type_p(boolean) };
+        { type_p(const_boolean) };
+        { type_p(volatile_boolean) };
+        { type_p(const_volatile_boolean) };
+
+        { type_p(nkr::cpp::Move(boolean)) };
+        { type_p(nkr::cpp::Move(volatile_boolean)) };
     });
 
     template <typename type_p>
@@ -66,6 +74,8 @@ namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
                   volatile nkr::boolean::cpp_t volatile_boolean,
                   const volatile nkr::boolean::cpp_t const_volatile_boolean)
     {
+        { object = nkr::boolean::cpp_t() };
+
         { object == boolean }                                           -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
         { object == const_boolean }                                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
         { object == volatile_boolean }                                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;

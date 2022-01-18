@@ -51,8 +51,10 @@ namespace nkr {
         {
             TEST_CASE("temp")
             {
-                volatile nkr::boolean::pure_t boolean;
+                nkr::boolean::pure_t boolean;
                 volatile nkr::boolean::cpp_t test = false;
+                boolean = nkr::boolean::cpp_t();
+                boolean = nkr::cpp::Move(test);
 
                 CHECK((boolean == nkr::cpp::Move(test)));
             }
