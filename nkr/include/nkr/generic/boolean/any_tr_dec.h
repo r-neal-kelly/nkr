@@ -5,33 +5,119 @@
 #pragma once
 
 #include "nkr/intrinsics_dec.h"
+#include "nkr/generic/implementing/self_tr_dec.h"
 
 namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
 
     template <typename type_p>
-    concept static_constexpr_methods_i = requires
+    concept constructors_i =
+        (requires
     {
-        { type_p::Is_Boolean_Type() }   -> cpp::is_any_tr<nkr::boolean::cpp_t>;
-    };
+        { type_p() };
+        { type_p(nkr::boolean::cpp_t()) };
+        { type_p(nkr::positive::integer_t()) };
+        { type_p(nkr::negatable::integer_t()) };
+        { type_p(nkr::negatable::real_t()) };
+        { type_p(nkr::pointer::cpp_t<nkr::positive::integer_t>()) };
+    });
 
     template <typename type_p>
-    concept operators_i = requires(cpp::just_non_qualified_t<type_p> type,
-                                   cpp::just_const_t<type_p> const_type,
-                                   cpp::just_volatile_t<type_p> volatile_type,
-                                   cpp::just_const_volatile_t<type_p> const_volatile_type)
+    concept casts_i =
+        (requires(nkr::cpp::just_non_qualified_t<type_p> object,
+                  nkr::cpp::just_const_t<type_p> const_object,
+                  nkr::cpp::just_volatile_t<type_p> volatile_object,
+                  nkr::cpp::just_const_volatile_t<type_p> const_volatile_object)
     {
-        true;
+        { static_cast<nkr::boolean::cpp_t>(object) };
+        { static_cast<nkr::boolean::cpp_t>(const_object) };
+        { static_cast<nkr::boolean::cpp_t>(volatile_object) };
+        { static_cast<nkr::boolean::cpp_t>(const_volatile_object) };
 
-        /*{ type == true };
-        { const_type == true };
-        { volatile_type == true };
-        { const_volatile_type == true };
+        { (object) ? true : false };
+        { (const_object) ? true : false };
+        { (volatile_object) ? true : false };
+        { (const_volatile_object) ? true : false };
 
-        { type != true };
-        { const_type != true };
-        { volatile_type != true };
-        { const_volatile_type != true };*/
-    };
+        { (!object) ? true : false };
+        { (!const_object) ? true : false };
+        { (!volatile_object) ? true : false };
+        { (!const_volatile_object) ? true : false };
+
+        { (object && object) ? true : false };
+        { (const_object && const_object) ? true : false };
+        { (volatile_object && volatile_object) ? true : false };
+        { (const_volatile_object && const_volatile_object) ? true : false };
+
+        { (object || object) ? true : false };
+        { (const_object || const_object) ? true : false };
+        { (volatile_object || volatile_object) ? true : false };
+        { (const_volatile_object || const_volatile_object) ? true : false };
+    });
+
+    template <typename type_p>
+    concept operators_i =
+        (requires(nkr::cpp::just_non_qualified_t<type_p> object,
+                  nkr::cpp::just_const_t<type_p> const_object,
+                  nkr::cpp::just_volatile_t<type_p> volatile_object,
+                  nkr::cpp::just_const_volatile_t<type_p> const_volatile_object,
+                  
+                  nkr::boolean::cpp_t boolean,
+                  const nkr::boolean::cpp_t const_boolean,
+                  volatile nkr::boolean::cpp_t volatile_boolean,
+                  const volatile nkr::boolean::cpp_t const_volatile_boolean)
+    {
+        { object == boolean }                                           -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object == const_boolean }                                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object == volatile_boolean }                                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object == const_volatile_boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object == boolean }                                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object == const_boolean }                               -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object == volatile_boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object == const_volatile_boolean }                      -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object == boolean }                                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object == const_boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object == volatile_boolean }                         -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object == const_volatile_boolean }                   -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object == boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object == const_boolean }                      -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object == volatile_boolean }                   -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object == const_volatile_boolean }             -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+
+        { object == nkr::cpp::Move(boolean) }                           -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object == nkr::cpp::Move(volatile_boolean) }                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object == nkr::cpp::Move(boolean) }                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object == nkr::cpp::Move(volatile_boolean) }            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object == nkr::cpp::Move(boolean) }                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object == nkr::cpp::Move(volatile_boolean) }         -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object == nkr::cpp::Move(boolean) }            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object == nkr::cpp::Move(volatile_boolean) }   -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+
+        { object != boolean }                                           -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object != const_boolean }                                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object != volatile_boolean }                                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object != const_volatile_boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object != boolean }                                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object != const_boolean }                               -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object != volatile_boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object != const_volatile_boolean }                      -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object != boolean }                                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object != const_boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object != volatile_boolean }                         -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object != const_volatile_boolean }                   -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object != boolean }                            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object != const_boolean }                      -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object != volatile_boolean }                   -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object != const_volatile_boolean }             -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+
+        { object != nkr::cpp::Move(boolean) }                           -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { object != nkr::cpp::Move(volatile_boolean) }                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object != nkr::cpp::Move(boolean) }                     -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_object != nkr::cpp::Move(volatile_boolean) }            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object != nkr::cpp::Move(boolean) }                  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { volatile_object != nkr::cpp::Move(volatile_boolean) }         -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object != nkr::cpp::Move(boolean) }            -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { const_volatile_object != nkr::cpp::Move(volatile_boolean) }   -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+    });
 
 }}}}
 
@@ -44,10 +130,10 @@ namespace nkr { namespace generic { namespace boolean {
 
     template <typename type_p>
     concept any_tr =
-        cpp::is_any_tr<type_p, nkr::boolean::cpp_t> ||
-        ($any_tr::static_constexpr_methods_i<type_p> &&
-         $any_tr::operators_i<type_p> &&
-         type_p::Is_Boolean_Type());
+        nkr::generic::implementing::self_tr<type_p> &&
+        $any_tr::constructors_i<type_p> &&
+        $any_tr::casts_i<type_p> &&
+        $any_tr::operators_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept any_ttr =

@@ -9,11 +9,7 @@
 #include "nkr/boolean/cpp_t_def.h"
 #include "nkr/boolean/deleted_operators_t_def.h"
 
-#include "nkr/generic/boolean_tr_def.h"
-#include "nkr/generic/boolean/any_tr_def.h"
-#include "nkr/generic/boolean/pure_tr_def.h"
-
-#include "nkr/boolean/safe_t_dec.h"
+#include "nkr/boolean/pure_t_dec.h"
 
 namespace nkr {
 

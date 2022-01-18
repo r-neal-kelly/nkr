@@ -5,7 +5,7 @@
 #include "nkr/array/cpp_t.h"
 
 #include "nkr/boolean/cpp_t.h"
-#include "nkr/boolean/safe_t.h"
+#include "nkr/boolean/pure_t.h"
 
 #include "nkr/enumeration/types_t.h"
 
@@ -99,7 +99,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<array::cpp_tg>);
 
         static_assert(generic::implementing::interface::type_tr<boolean::cpp_tg>);
-        static_assert(generic::implementing::interface::type_tr<boolean::safe_tg>);
+        static_assert(generic::implementing::interface::type_tr<boolean::pure_tg>);
 
         static_assert(generic::implementing::interface::type_tr<enumeration::types_tg>);
 
@@ -180,7 +180,7 @@ namespace nkr {
         static_assert(generic::implementing::interface::type_tr<array::cpp_t<positive::integer_t, positive::count_c<1>>>);
 
         static_assert(generic::implementing::interface::type_tr<boolean::cpp_t>);
-        static_assert(generic::implementing::interface::type_tr<boolean::safe_t>);
+        static_assert(generic::implementing::interface::type_tr<boolean::pure_t>);
 
         static_assert(generic::implementing::interface::type_tr<enumeration::types_t<positive::integer_t, positive::integer_c<0>>>);
 

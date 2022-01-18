@@ -5,7 +5,7 @@
 #include "nkr/array/cpp_t.h"
 
 #include "nkr/boolean/cpp_t.h"
-#include "nkr/boolean/safe_t.h"
+#include "nkr/boolean/pure_t.h"
 
 #include "nkr/enumeration/types_t.h"
 

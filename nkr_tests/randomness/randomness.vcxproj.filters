@@ -18,5 +18,8 @@
     <ClCompile Include="src\native.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\distributor\uniform_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
