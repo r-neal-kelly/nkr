@@ -214,7 +214,7 @@ namespace nkr { namespace interface { namespace $type_i {
 
 namespace nkr { namespace interface {
 
-    template <nkr::cpp::just_non_qualified_tr type_p>
+    template <typename type_p>
     class type_i
     {
     public:

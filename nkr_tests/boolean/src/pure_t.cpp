@@ -6,6 +6,8 @@
 #include "nkr/generic/boolean_tr.h"
 #include "nkr/generic/boolean/any_tr.h"
 #include "nkr/generic/boolean/pure_tr.h"
+#include "nkr/generic/implementing/interface/type_tr.h"
+#include "nkr/generic/type_tr.h"
 
 #include "doctest.h"
 
@@ -27,10 +29,8 @@ namespace nkr {
 
         TEST_SUITE("generics")
         {
-            static_assert(nkr::generic::boolean::$any_tr::constructors_i<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::$any_tr::casts_i<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::$any_tr::operators_i<nkr::boolean::pure_t>); // not sure why intellisense thinks this is false
-
+            // not sure why intellisense thinks some of these are false. they do properly compile.
+            // it's something to do with having an == check in the concept requires section?
             static_assert(nkr::generic::boolean_tr<nkr::boolean::pure_t>);
             static_assert(nkr::generic::boolean_tr<const nkr::boolean::pure_t>);
             static_assert(nkr::generic::boolean_tr<volatile nkr::boolean::pure_t>);
@@ -45,6 +45,14 @@ namespace nkr {
             static_assert(nkr::generic::boolean::pure_tr<const nkr::boolean::pure_t>);
             static_assert(nkr::generic::boolean::pure_tr<volatile nkr::boolean::pure_t>);
             static_assert(nkr::generic::boolean::pure_tr<const volatile nkr::boolean::pure_t>);
+
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::boolean::pure_t>);
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::boolean::pure_tg>);
+
+            static_assert(nkr::generic::type_tr<nkr::boolean::pure_t>);
+            static_assert(nkr::generic::type_tr<const nkr::boolean::pure_t>);
+            static_assert(nkr::generic::type_tr<volatile nkr::boolean::pure_t>);
+            static_assert(nkr::generic::type_tr<const volatile nkr::boolean::pure_t>);
         }
 
         TEST_SUITE("operators")
