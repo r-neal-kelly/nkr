@@ -164,3 +164,72 @@ namespace nkr { namespace none {
     }
 
 }}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto& b)
+    noexcept
+{
+    using a_t = nkr::cpp::reference_value_t<decltype(a)>;
+    using b_t = nkr::cpp::reference_value_t<decltype(b)>;
+
+    if constexpr (nkr::cpp::is_any_tr<b_t, a_t>) {
+        return a() == b();
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::type_t>>) {
+        return a() == static_cast<nkr::cpp::just_non_qualified_t<typename a_t::type_t>>(b);
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
+        return a == static_cast<nkr::cpp::just_non_qualified_t<a_t>>(b);
+    } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
+        return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
+    } else {
+        static_assert(false, "these two values can not be equal to each other.");
+    }
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto&& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto&& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto&& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto&& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}

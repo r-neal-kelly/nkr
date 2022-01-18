@@ -100,6 +100,10 @@ namespace nkr { namespace boolean {
     public:
         explicit constexpr operator pure_t::value_t() const noexcept;
         explicit constexpr operator pure_t::value_t() const volatile noexcept;
+
+    public:
+        constexpr value_t   operator ()() const noexcept;
+        constexpr value_t   operator ()() const volatile noexcept;
     };
 
 }}

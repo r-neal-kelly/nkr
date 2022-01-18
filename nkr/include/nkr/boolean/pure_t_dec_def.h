@@ -159,6 +159,20 @@ namespace nkr { namespace boolean {
         return Value(*this);
     }
 
+    inline constexpr pure_t::value_t
+        pure_t::operator ()()
+        const noexcept
+    {
+        return Value(*this);
+    }
+
+    inline constexpr pure_t::value_t
+        pure_t::operator ()()
+        const volatile noexcept
+    {
+        return Value(*this);
+    }
+
 }}
 
 inline constexpr nkr::boolean::cpp_t
@@ -168,10 +182,14 @@ inline constexpr nkr::boolean::cpp_t
     using a_t = nkr::cpp::reference_value_t<decltype(a)>;
     using b_t = nkr::cpp::reference_value_t<decltype(b)>;
 
-    if constexpr (nkr::cpp::can_be_equal_to_tr<nkr::boolean::cpp_t, b_t>) {
-        return nkr::boolean::cpp_t(a) == b;
-    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::boolean::cpp_t>) {
-        return nkr::boolean::cpp_t(a) == nkr::boolean::cpp_t(b);
+    if constexpr (nkr::cpp::is_any_tr<b_t, a_t>) {
+        return a() == b();
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::value_t>>) {
+        return a() == static_cast<nkr::cpp::just_non_qualified_t<typename a_t::value_t>>(b);
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
+        return a == static_cast<nkr::cpp::just_non_qualified_t<a_t>>(b);
+    } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
+        return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
     } else {
         static_assert(false, "these two values can not be equal to each other.");
     }

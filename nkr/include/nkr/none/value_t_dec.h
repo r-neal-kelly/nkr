@@ -136,32 +136,14 @@ namespace nkr { namespace none {
 
 }}
 
-namespace nkr {
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto&& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto&& b) noexcept;
 
-    /*constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto&& b) noexcept;
-    constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::cpp_t    operator ==(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto&& b) noexcept;
-
-    constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto& a, const tr0<any_tg> auto&& b) noexcept;
-    constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto& b) noexcept;
-    constexpr boolean::cpp_t    operator !=(const tr1<any_tg, none::value_tg> auto&& a, const tr0<any_tg> auto&& b) noexcept;*/
-
-}
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto&& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto&& b) noexcept;
 
 #include "nkr/none/value_t_dec_def.h"
-
-namespace nkr { namespace none {
-
-    /*static_assert(generic::none_tr<value_t<positive::integer_t>>);
-    static_assert(generic::none_tr<const value_t<positive::integer_t>>);
-    static_assert(generic::none_tr<volatile value_t<positive::integer_t>>);
-    static_assert(generic::none_tr<const volatile value_t<positive::integer_t>>);
-
-    static_assert(generic::none::any_tr<value_t<positive::integer_t>>);
-    static_assert(generic::none::any_tr<const value_t<positive::integer_t>>);
-    static_assert(generic::none::any_tr<volatile value_t<positive::integer_t>>);
-    static_assert(generic::none::any_tr<const volatile value_t<positive::integer_t>>);*/
-
-}}
