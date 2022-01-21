@@ -123,66 +123,198 @@ namespace nkr {
         {
             TEST_SUITE("tr1")
             {
+                // the if constexpr blocks are used to assist the compiler in avoiding instantiating a type when unnecessary.
                 template <typename ...subjects_p>
-                class tr1_subjects_t;
+                class tr1_tmpl;
 
                 template <typename last_subject_p>
-                class tr1_subjects_t<last_subject_p>
+                class tr1_tmpl<last_subject_p>
                 {
                 public:
-                    template <typename tag_p, typename object_p>
-                    static constexpr nkr::boolean::cpp_t
-                        AND()
-                        noexcept
-                    {
-                        return tr1<last_subject_p, tag_p, object_p>;
-                    }
-
-                    template <typename tag_p, typename object_p>
+                    template <typename operator_p, typename operand_p>
                     static constexpr nkr::boolean::cpp_t
                         OR()
                         noexcept
                     {
-                        return tr1<last_subject_p, tag_p, object_p>;
+                        return tr1<last_subject_p, operator_p, operand_p>;
                     }
-                };
 
-                template <typename first_subject_p, typename ...more_subjects_p>
-                class tr1_subjects_t<first_subject_p, more_subjects_p...>
-                {
-                public:
-                    template <typename tag_p, typename object_p>
+                    template <typename operator_p, typename operand_p>
                     static constexpr nkr::boolean::cpp_t
                         AND()
                         noexcept
                     {
-                        // try to avoid instantiating the next type unless necessary.
-                        if constexpr (tr1<first_subject_p, tag_p, object_p>) {
-                            return tr1_subjects_t<more_subjects_p...>::template AND<tag_p, object_p>();
+                        return tr1<last_subject_p, operator_p, operand_p>;
+                    }
+
+                    template <typename operator_p, typename operand_p, nkr::boolean::cpp_t state_p>
+                    static constexpr nkr::boolean::cpp_t
+                        XOR()
+                        noexcept
+                    {
+                        if constexpr (state_p) {
+                            return !tr1<last_subject_p, operator_p, operand_p>;
+                        } else {
+                            return tr1<last_subject_p, operator_p, operand_p>;
+                        }
+                    }
+                };
+
+                template <typename first_subject_p, typename ...more_subjects_p>
+                class tr1_tmpl<first_subject_p, more_subjects_p...>
+                {
+                public:
+                    template <typename operator_p, typename operand_p>
+                    static constexpr nkr::boolean::cpp_t
+                        OR()
+                        noexcept
+                    {
+                        if constexpr (tr1<first_subject_p, operator_p, operand_p>) {
+                            return true;
+                        } else {
+                            return tr1_tmpl<more_subjects_p...>::template OR<operator_p, operand_p>();
+                        }
+                    }
+
+                    template <typename operator_p, typename operand_p>
+                    static constexpr nkr::boolean::cpp_t
+                        AND()
+                        noexcept
+                    {
+                        if constexpr (tr1<first_subject_p, operator_p, operand_p>) {
+                            return tr1_tmpl<more_subjects_p...>::template AND<operator_p, operand_p>();
                         } else {
                             return false;
                         }
                     }
 
-                    template <typename tag_p, typename object_p>
+                    template <typename operator_p, typename operand_p, nkr::boolean::cpp_t state_p>
                     static constexpr nkr::boolean::cpp_t
-                        OR()
+                        XOR()
                         noexcept
                     {
-                        // try to avoid instantiating the next type unless necessary.
-                        if constexpr (tr1<first_subject_p, tag_p, object_p>) {
-                            return true;
+                        if constexpr (state_p) {
+                            if constexpr (tr1<first_subject_p, operator_p, operand_p>) {
+                                return false;
+                            } else {
+                                return tr1_tmpl<more_subjects_p...>::template XOR<operator_p, operand_p, true>();
+                            }
                         } else {
-                            return tr1_subjects_t<more_subjects_p...>::template OR<tag_p, object_p>();
+                            if constexpr (tr1<first_subject_p, operator_p, operand_p>) {
+                                return tr1_tmpl<more_subjects_p...>::template XOR<operator_p, operand_p, true>();
+                            } else {
+                                return tr1_tmpl<more_subjects_p...>::template XOR<operator_p, operand_p, false>();
+                            }
                         }
                     }
                 };
 
-                static_assert(tr1_subjects_t<nkr_ANY>::AND<any_tg, nkr::boolean::pure_t>());
-                static_assert(!tr1_subjects_t<nkr::boolean::pure_t, nkr::boolean::cpp_t>::AND<any_tg, nkr::boolean::pure_t>());
+                template <typename operator_p, typename operand_p>
+                class tr1_t
+                {
+                public:
+                    // passes if any subjects satisfy
+                    template <typename ...subjects_p>
+                    static constexpr nkr::boolean::cpp_t
+                        OR()
+                        noexcept
+                    {
+                        return tr1_tmpl<subjects_p...>::template OR<operator_p, operand_p>();
+                    }
 
-                static_assert(tr1_subjects_t<nkr::boolean::pure_t, nkr::boolean::cpp_t>::OR<any_tg, nkr::boolean::pure_t>());
-                static_assert(!tr1_subjects_t<nkr::positive::integer_t, nkr::negatable::integer_t>::OR<any_tg, nkr::boolean::pure_t>());
+                    // passes if all subjects satisfy
+                    template <typename ...subjects_p>
+                    static constexpr nkr::boolean::cpp_t
+                        AND()
+                        noexcept
+                    {
+                        return tr1_tmpl<subjects_p...>::template AND<operator_p, operand_p>();
+                    }
+
+                    // passes if just one subject satisfies
+                    template <typename ...subjects_p>
+                    static constexpr nkr::boolean::cpp_t
+                        XOR()
+                        noexcept
+                    {
+                        return tr1_tmpl<subjects_p...>::template XOR<operator_p, operand_p, false>();
+                    }
+
+                    // passes if not any subjects satisfy
+                    template <typename ...subjects_p>
+                    static constexpr nkr::boolean::cpp_t
+                        NOR()
+                        noexcept
+                    {
+                        return !OR<subjects_p...>();
+                    }
+
+                    // passes if not all subjects satisfy
+                    template <typename ...subjects_p>
+                    static constexpr nkr::boolean::cpp_t
+                        NAND()
+                        noexcept
+                    {
+                        return !AND<subjects_p...>();
+                    }
+
+                    // passes if not just one subject satisfies
+                    template <typename ...subjects_p>
+                    static constexpr nkr::boolean::cpp_t
+                        XNOR()
+                        noexcept
+                    {
+                        return !XOR<subjects_p...>();
+                    }
+                };
+
+                using true_t = nkr::boolean::pure_t;
+                using false_t = nkr::positive::integer_t;
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::OR<false_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::OR<false_t, true_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::OR<true_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::OR<true_t, true_t>() == true);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<false_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<false_t, true_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<true_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<true_t, true_t>() == true);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XOR<false_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XOR<false_t, true_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XOR<true_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XOR<true_t, true_t>() == false);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<false_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<false_t, true_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<true_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<true_t, true_t>() == false);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NAND<false_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NAND<false_t, true_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NAND<true_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NAND<true_t, true_t>() == false);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<false_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<false_t, true_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<true_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<true_t, true_t>() == true);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<false_t, false_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<true_t, false_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<false_t, true_t, false_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<false_t, false_t, true_t>() == false);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<true_t, true_t, false_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<false_t, true_t, true_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<true_t, false_t, true_t>() == true);
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::XNOR<true_t, true_t, true_t>() == true);
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<nkr_ANY>());
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NAND<nkr::boolean::pure_t, nkr::boolean::cpp_t>());
+
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::OR<nkr::boolean::pure_t, nkr::boolean::cpp_t>());
+                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<nkr::positive::integer_t, nkr::negatable::integer_t, nkr::boolean::cpp_t>());
             }
 
             TEST_SUITE("tr1 any_tg")
