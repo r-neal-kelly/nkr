@@ -20,6 +20,7 @@ namespace nkr { namespace randomness {
         Value(function_parameters_p... function_arguments)
         noexcept
     {
+        // might want to forward the arguments to maintain references properly
         return nkr::interface::randomness_i<value_p>::template Value<template_parameters_p...>(function_arguments...);
     }
 

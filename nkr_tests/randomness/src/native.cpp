@@ -86,7 +86,8 @@ namespace nkr {
                                boolean_p, nkr_BUILT_IN_BOOLEANS)
             {
                 for (nkr::positive::index_t idx = 0, end = Iteration_Count(); idx < end; idx += 1) {
-                    boolean_p probability_for_true = nkr::randomness::Value<nkr::negatable::real_t>(0.01, 0.99);
+                    boolean_p probability_for_true = nkr::randomness::Value<nkr::negatable::real_t>
+                        (nkr::negatable::real_t(0.01), nkr::negatable::real_t(0.99));
                     boolean_p value = nkr::randomness::Value<boolean_p>(probability_for_true);
 
                     CHECK((value || !value));

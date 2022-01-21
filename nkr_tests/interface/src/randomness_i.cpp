@@ -16,7 +16,7 @@ namespace nkr {
 
         for (nkr::positive::index_t idx = 0, end = 24; idx < end; idx += 1) {
             //printf("%zu: %i\n", idx, interface_t::Value<>(0.1));
-            printf("%zu: %i\n", idx, nkr::randomness::Value<nkr::boolean::cpp_t>(0.1));
+            printf("%zu: %i\n", idx, nkr::randomness::Value<nkr::boolean::cpp_t>(nkr::negatable::real_t(0.1)));
         }
     }
 
