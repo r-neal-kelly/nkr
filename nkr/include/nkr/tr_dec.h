@@ -270,4 +270,104 @@ namespace nkr {
 
 }
 
+namespace nkr { namespace $tr1_t {
+
+    template <typename ...subjects_p>
+    class tr1_tmpl;
+
+    template <typename last_subject_p>
+    class tr1_tmpl<last_subject_p>
+    {
+    public:
+        template <typename operator_p, typename operand_p>
+        static constexpr nkr::boolean::cpp_t    OR() noexcept;
+        template <typename operator_p, typename operand_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
+        template <typename operator_p, typename operand_p, nkr::boolean::cpp_t state_p>
+        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
+    };
+
+    template <typename first_subject_p, typename ...more_subjects_p>
+    class tr1_tmpl<first_subject_p, more_subjects_p...>
+    {
+    public:
+        template <typename operator_p, typename operand_p>
+        static constexpr nkr::boolean::cpp_t    OR() noexcept;
+        template <typename operator_p, typename operand_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
+        template <typename operator_p, typename operand_p, nkr::boolean::cpp_t state_p>
+        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
+    };
+
+}}
+
+namespace nkr {
+
+    template <typename operator_p, typename operand_p>
+    class tr1_t
+    {
+    public:
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    OR() noexcept;      // passes if any subjects satisfy
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;     // passes if all subjects satisfy
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    XOR() noexcept;     // passes if just one subject satisfies
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    NOR() noexcept;     // passes if not any subjects satisfy
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    NAND() noexcept;    // passes if not all subjects satisfy
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;    // passes if not just one subject satisfies
+    };
+
+}
+
 #include "nkr/tr_dec_def.h"
+
+namespace nkr {
+
+    // this needs to be moved to the test suite.
+    using true_t = nkr::positive::integer_t;
+    using false_t = nkr::negatable::integer_t;
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<false_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<false_t, true_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<true_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<true_t, true_t>() == true);
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<false_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<false_t, true_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<true_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<true_t, true_t>() == true);
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<false_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<false_t, true_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<true_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<true_t, true_t>() == false);
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<false_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<false_t, true_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<true_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<true_t, true_t>() == false);
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<false_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<false_t, true_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<true_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<true_t, true_t>() == false);
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t>() == true);
+
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, false_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t, false_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, false_t, true_t>() == false);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t, false_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t, true_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t, true_t>() == true);
+    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t, true_t>() == true);
+
+}
