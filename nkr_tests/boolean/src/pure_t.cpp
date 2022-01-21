@@ -127,118 +127,60 @@ namespace nkr {
                 nkr::positive::integer_t,   \
                 nkr::negatable::integer_t   \
 
-                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<nkr_ANY>());
-                static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+                TEST_CASE("any_tg")
+                {
+                    static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<nkr_ANY>());
+                    static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
 
-                static_assert(tr1_t<any_tg, nkr::boolean::pure_tg>::AND<nkr_ANY>());
-                static_assert(tr1_t<any_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
+                    static_assert(tr1_t<any_tg, nkr::boolean::pure_tg>::AND<nkr_ANY>());
+                    static_assert(tr1_t<any_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
+                }
+
+                TEST_CASE("any_qualified_tg")
+                {
+                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_t>::AND<nkr_ANY_QUALIFIED>());
+                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_NON_QUALIFIED>());
+                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+
+                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_QUALIFIED>());
+                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_NON_QUALIFIED>());
+                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
+                }
+
+                TEST_CASE("any_non_qualified_tg")
+                {
+                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_t>::AND<nkr_ANY_NON_QUALIFIED>());
+                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_QUALIFIED>());
+                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+
+                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_NON_QUALIFIED>());
+                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_QUALIFIED>());
+                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
+                }
+
+                TEST_CASE("any_const_tg")
+                {
+                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_t>::AND<nkr_ANY_CONST>());
+                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_NON_CONST>());
+                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+
+                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_CONST>());
+                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_NON_CONST>());
+                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
+                }
+
+                TEST_CASE("any_non_const_tg")
+                {
+                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_t>::AND<nkr_ANY_NON_CONST>());
+                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_CONST>());
+                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+
+                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_NON_CONST>());
+                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_CONST>());
+                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
+                }
 
             #undef nkr_OTHER_TYPES
-            }
-
-            TEST_SUITE("tr1 any_tg")
-            {
-                TEST_CASE_TEMPLATE("should be true for any compared to nkr::boolean::pure_t", pure_p, nkr_ANY)
-                {
-                    static_assert(tr1<pure_p, any_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be true for any compared to nkr::boolean::pure_tg", pure_p, nkr_ANY)
-                {
-                    static_assert(tr1<pure_p, any_tg, nkr::boolean::pure_tg>);
-                }
-            }
-
-            TEST_SUITE("tr1 any_qualified_tg")
-            {
-                TEST_CASE_TEMPLATE("should be true for any qualified compared to nkr::boolean::pure_t", pure_p, nkr_ANY_QUALIFIED)
-                {
-                    static_assert(tr1<pure_p, any_qualified_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be true for any qualified compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_QUALIFIED)
-                {
-                    static_assert(tr1<pure_p, any_qualified_tg, nkr::boolean::pure_tg>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any non-qualified compared to nkr::boolean::pure_t", pure_p, nkr_ANY_NON_QUALIFIED)
-                {
-                    static_assert(!tr1<pure_p, any_qualified_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any non-qualified compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_NON_QUALIFIED)
-                {
-                    static_assert(!tr1<pure_p, any_qualified_tg, nkr::boolean::pure_tg>);
-                }
-            }
-
-            TEST_SUITE("tr1 any_non_qualified_tg")
-            {
-                TEST_CASE_TEMPLATE("should be true for any non-qualified compared to nkr::boolean::pure_t", pure_p, nkr_ANY_NON_QUALIFIED)
-                {
-                    static_assert(tr1<pure_p, any_non_qualified_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be true for any non-qualified compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_NON_QUALIFIED)
-                {
-                    static_assert(tr1<pure_p, any_non_qualified_tg, nkr::boolean::pure_tg>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any qualified compared to nkr::boolean::pure_t", pure_p, nkr_ANY_QUALIFIED)
-                {
-                    static_assert(!tr1<pure_p, any_non_qualified_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any qualified compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_QUALIFIED)
-                {
-                    static_assert(!tr1<pure_p, any_non_qualified_tg, nkr::boolean::pure_tg>);
-                }
-            }
-
-            TEST_SUITE("tr1 any_const_tg")
-            {
-                TEST_CASE_TEMPLATE("should be true for any const compared to nkr::boolean::pure_t", pure_p, nkr_ANY_CONST)
-                {
-                    static_assert(tr1<pure_p, any_const_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be true for any const compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_CONST)
-                {
-                    static_assert(tr1<pure_p, any_const_tg, nkr::boolean::pure_tg>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any non-const compared to nkr::boolean::pure_t", pure_p, nkr_ANY_NON_CONST)
-                {
-                    static_assert(!tr1<pure_p, any_const_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any non-const compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_NON_CONST)
-                {
-                    static_assert(!tr1<pure_p, any_const_tg, nkr::boolean::pure_tg>);
-                }
-            }
-
-            TEST_SUITE("tr1 any_non_const_tg")
-            {
-                TEST_CASE_TEMPLATE("should be true for any non-const compared to nkr::boolean::pure_t", pure_p, nkr_ANY_NON_CONST)
-                {
-                    static_assert(tr1<pure_p, any_non_const_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be true for any non-const compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_NON_CONST)
-                {
-                    static_assert(tr1<pure_p, any_non_const_tg, nkr::boolean::pure_tg>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any const compared to nkr::boolean::pure_t", pure_p, nkr_ANY_CONST)
-                {
-                    static_assert(!tr1<pure_p, any_non_const_tg, nkr::boolean::pure_t>);
-                }
-
-                TEST_CASE_TEMPLATE("should be false for any const compared to nkr::boolean::pure_tg", pure_p, nkr_ANY_CONST)
-                {
-                    static_assert(!tr1<pure_p, any_non_const_tg, nkr::boolean::pure_tg>);
-                }
             }
         }
 
