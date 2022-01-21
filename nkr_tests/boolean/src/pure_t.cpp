@@ -123,110 +123,66 @@ namespace nkr {
         {
             TEST_SUITE("tr1")
             {
-                template <nkr::boolean::cpp_t _, typename subject_p, typename tag_p, typename ...objects_p>
-                class tr1_tag_objects_tmpl;
-
-                template <typename subject_p, typename tag_p, typename ...objects_p>
-                class tr1_tag_objects_tmpl<false, subject_p, tag_p, objects_p...>
-                {
-                public:
-                    static constexpr nkr::boolean::cpp_t
-                        Is_True()
-                        noexcept
-                    {
-                        return false;
-                    }
-                };
-
-                template <typename subject_p, typename tag_p, typename last_object_p>
-                class tr1_tag_objects_tmpl<true, subject_p, tag_p, last_object_p>
-                {
-                public:
-                    static constexpr nkr::boolean::cpp_t
-                        Is_True()
-                        noexcept
-                    {
-                        return tr1<subject_p, tag_p, last_object_p>;
-                    }
-                };
-
-                template <typename subject_p, typename tag_p, typename first_object_p, typename ...more_objects_p>
-                class tr1_tag_objects_tmpl<true, subject_p, tag_p, first_object_p, more_objects_p...>
-                {
-                public:
-                    static constexpr nkr::boolean::cpp_t
-                        Is_True()
-                        noexcept
-                    {
-                        return tr1_tag_objects_tmpl<
-                            tr1<subject_p, tag_p, first_object_p>,
-                            subject_p,
-                            tag_p,
-                            more_objects_p...
-                        >::Is_True();
-                    }
-                };
-
-                template <nkr::boolean::cpp_t _, typename ...subjects_p>
-                class tr1_subjects_tmpl;
-
                 template <typename ...subjects_p>
-                class tr1_subjects_tmpl<false, subjects_p...>
-                {
-                public:
-                    template <typename tag_p, typename ...objects_p>
-                    static constexpr nkr::boolean::cpp_t
-                        Satisfy()
-                        noexcept
-                    {
-                        return false;
-                    }
-                };
+                class tr1_subjects_t;
 
                 template <typename last_subject_p>
-                class tr1_subjects_tmpl<true, last_subject_p>
+                class tr1_subjects_t<last_subject_p>
                 {
                 public:
-                    template <typename tag_p, typename ...objects_p>
+                    template <typename tag_p, typename object_p>
                     static constexpr nkr::boolean::cpp_t
-                        Satisfy()
+                        AND()
                         noexcept
                     {
-                        return tr1_tag_objects_tmpl<true, last_subject_p, tag_p, objects_p...>::Is_True();
+                        return tr1<last_subject_p, tag_p, object_p>;
+                    }
+
+                    template <typename tag_p, typename object_p>
+                    static constexpr nkr::boolean::cpp_t
+                        OR()
+                        noexcept
+                    {
+                        return tr1<last_subject_p, tag_p, object_p>;
                     }
                 };
 
                 template <typename first_subject_p, typename ...more_subjects_p>
-                class tr1_subjects_tmpl<true, first_subject_p, more_subjects_p...>
+                class tr1_subjects_t<first_subject_p, more_subjects_p...>
                 {
                 public:
-                    template <typename tag_p, typename ...objects_p>
+                    template <typename tag_p, typename object_p>
                     static constexpr nkr::boolean::cpp_t
-                        Satisfy()
+                        AND()
                         noexcept
                     {
-                        return tr1_subjects_tmpl<
-                            tr1_tag_objects_tmpl<true, first_subject_p, tag_p, objects_p...>::Is_True(),
-                            more_subjects_p...
-                        >::template Satisfy<tag_p, objects_p...>();
+                        // try to avoid instantiating the next type unless necessary.
+                        if constexpr (tr1<first_subject_p, tag_p, object_p>) {
+                            return tr1_subjects_t<more_subjects_p...>::template AND<tag_p, object_p>();
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    template <typename tag_p, typename object_p>
+                    static constexpr nkr::boolean::cpp_t
+                        OR()
+                        noexcept
+                    {
+                        // try to avoid instantiating the next type unless necessary.
+                        if constexpr (tr1<first_subject_p, tag_p, object_p>) {
+                            return true;
+                        } else {
+                            return tr1_subjects_t<more_subjects_p...>::template OR<tag_p, object_p>();
+                        }
                     }
                 };
 
-                template <typename ...subjects_p>
-                class tr1_subjects_t
-                {
-                public:
-                    template <typename tag_p, typename ...objects_p>
-                    static constexpr nkr::boolean::cpp_t
-                        Satisfy()
-                        noexcept
-                    {
-                        return tr1_subjects_tmpl<true, subjects_p...>::template Satisfy<tag_p, objects_p...>();
-                    }
-                };
+                static_assert(tr1_subjects_t<nkr_ANY>::AND<any_tg, nkr::boolean::pure_t>());
+                static_assert(!tr1_subjects_t<nkr::boolean::pure_t, nkr::boolean::cpp_t>::AND<any_tg, nkr::boolean::pure_t>());
 
-                static_assert(tr1_subjects_t<nkr_ANY>::Satisfy<any_tg, nkr::boolean::pure_t, nkr::boolean::pure_tg>());
-                static_assert(!tr1_subjects_t<nkr_ANY>::Satisfy<any_tg, nkr::boolean::cpp_t, nkr::boolean::cpp_tg>());
+                static_assert(tr1_subjects_t<nkr::boolean::pure_t, nkr::boolean::cpp_t>::OR<any_tg, nkr::boolean::pure_t>());
+                static_assert(!tr1_subjects_t<nkr::positive::integer_t, nkr::negatable::integer_t>::OR<any_tg, nkr::boolean::pure_t>());
             }
 
             TEST_SUITE("tr1 any_tg")
