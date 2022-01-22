@@ -21,7 +21,13 @@ namespace nkr { namespace boolean {
 
 namespace nkr { namespace boolean {
 
-    template <cpp_t value_p>    using   cpp_c   = cpp::constant_t<cpp_t, value_p>;
+    template <cpp_t value_p>
+    using   cpp_c =
+        nkr::cpp::constant_t<cpp_t, value_p>;
+
+    template <typename type_p>
+    concept cpp_ctr =
+        nkr::cpp::constant_of_tr<type_p, nkr::boolean::cpp_t>;
 
 }}
 

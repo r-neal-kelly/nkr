@@ -320,7 +320,7 @@ namespace nkr { namespace $tr1_t {
         static constexpr nkr::boolean::cpp_t    None() noexcept;
 
     private:
-        template <nkr::cpp::constant_of_tr<nkr::boolean::cpp_t> state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
+        template <nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
         static constexpr nkr::boolean::cpp_t    XOR() noexcept;
     };
 
@@ -331,6 +331,10 @@ namespace nkr { namespace $tr1_t {
     template <typename operator_p, tr1<any_tg, nkr::tuple::types_tg> operands_p>
     class operands_t
     {
+    public:
+        using operands_head_t   = nkr::cpp::access_qualification_of_t<typename operands_p::head_t, operands_p>;
+        using operands_tail_t   = nkr::cpp::access_qualification_of_t<typename operands_p::tail_t, operands_p>;
+
     public:
         template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
         static constexpr nkr::boolean::cpp_t    OR() noexcept;

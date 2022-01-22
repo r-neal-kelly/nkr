@@ -339,7 +339,7 @@ namespace nkr { namespace $tr1_t {
     }
 
     template <typename operator_p, tr1<not_any_tg, nkr::tuple::types_tg> operand_p>
-    template <nkr::cpp::constant_of_tr<nkr::boolean::cpp_t> state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
+    template <nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
     inline constexpr nkr::boolean::cpp_t
         operand_t<operator_p, operand_p>::XOR()
         noexcept
@@ -378,12 +378,12 @@ namespace nkr { namespace $tr1_t {
         noexcept
     {
         if constexpr (operands_p::Count() == 1) {
-            return operand_t<operator_p, typename operands_p::head_t>::template OR<subjects_p>();
+            return operand_t<operator_p, operands_head_t>::template OR<subjects_p>();
         } else {
-            if constexpr (!operand_t<operator_p, typename operands_p::head_t>::template OR<subjects_p>()) {
+            if constexpr (!operand_t<operator_p, operands_head_t>::template OR<subjects_p>()) {
                 return false;
             } else {
-                return operands_t<operator_p, typename operands_p::tail_t>::template OR<subjects_p>();
+                return operands_t<operator_p, operands_tail_t>::template OR<subjects_p>();
             }
         }
     }
@@ -404,12 +404,12 @@ namespace nkr { namespace $tr1_t {
         noexcept
     {
         if constexpr (operands_p::Count() == 1) {
-            return operand_t<operator_p, typename operands_p::head_t>::template AND<subjects_p>();
+            return operand_t<operator_p, operands_head_t>::template AND<subjects_p>();
         } else {
-            if constexpr (!operand_t<operator_p, typename operands_p::head_t>::template AND<subjects_p>()) {
+            if constexpr (!operand_t<operator_p, operands_head_t>::template AND<subjects_p>()) {
                 return false;
             } else {
-                return operands_t<operator_p, typename operands_p::tail_t>::template AND<subjects_p>();
+                return operands_t<operator_p, operands_tail_t>::template AND<subjects_p>();
             }
         }
     }
@@ -430,12 +430,12 @@ namespace nkr { namespace $tr1_t {
         noexcept
     {
         if constexpr (operands_p::Count() == 1) {
-            return operand_t<operator_p, typename operands_p::head_t>::template XOR<subjects_p>();
+            return operand_t<operator_p, operands_head_t>::template XOR<subjects_p>();
         } else {
-            if constexpr (!operand_t<operator_p, typename operands_p::head_t>::template XOR<subjects_p>()) {
+            if constexpr (!operand_t<operator_p, operands_head_t>::template XOR<subjects_p>()) {
                 return false;
             } else {
-                return operands_t<operator_p, typename operands_p::tail_t>::template XOR<subjects_p>();
+                return operands_t<operator_p, operands_tail_t>::template XOR<subjects_p>();
             }
         }
     }
@@ -456,12 +456,12 @@ namespace nkr { namespace $tr1_t {
         noexcept
     {
         if constexpr (operands_p::Count() == 1) {
-            return operand_t<operator_p, typename operands_p::head_t>::template NOR<subjects_p>();
+            return operand_t<operator_p, operands_head_t>::template NOR<subjects_p>();
         } else {
-            if constexpr (!operand_t<operator_p, typename operands_p::head_t>::template NOR<subjects_p>()) {
+            if constexpr (!operand_t<operator_p, operands_head_t>::template NOR<subjects_p>()) {
                 return false;
             } else {
-                return operands_t<operator_p, typename operands_p::tail_t>::template NOR<subjects_p>();
+                return operands_t<operator_p, operands_tail_t>::template NOR<subjects_p>();
             }
         }
     }
@@ -482,12 +482,12 @@ namespace nkr { namespace $tr1_t {
         noexcept
     {
         if constexpr (operands_p::Count() == 1) {
-            return operand_t<operator_p, typename operands_p::head_t>::template NAND<subjects_p>();
+            return operand_t<operator_p, operands_head_t>::template NAND<subjects_p>();
         } else {
-            if constexpr (!operand_t<operator_p, typename operands_p::head_t>::template NAND<subjects_p>()) {
+            if constexpr (!operand_t<operator_p, operands_head_t>::template NAND<subjects_p>()) {
                 return false;
             } else {
-                return operands_t<operator_p, typename operands_p::tail_t>::template NAND<subjects_p>();
+                return operands_t<operator_p, operands_tail_t>::template NAND<subjects_p>();
             }
         }
     }
@@ -508,12 +508,12 @@ namespace nkr { namespace $tr1_t {
         noexcept
     {
         if constexpr (operands_p::Count() == 1) {
-            return operand_t<operator_p, typename operands_p::head_t>::template XNOR<subjects_p>();
+            return operand_t<operator_p, operands_head_t>::template XNOR<subjects_p>();
         } else {
-            if constexpr (!operand_t<operator_p, typename operands_p::head_t>::template XNOR<subjects_p>()) {
+            if constexpr (!operand_t<operator_p, operands_head_t>::template XNOR<subjects_p>()) {
                 return false;
             } else {
-                return operands_t<operator_p, typename operands_p::tail_t>::template XNOR<subjects_p>();
+                return operands_t<operator_p, operands_tail_t>::template XNOR<subjects_p>();
             }
         }
     }
