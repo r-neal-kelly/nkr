@@ -6,6 +6,7 @@
 
 #include "nkr/generic/implementing/interface/template_tr_dec.h"
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr {
 
@@ -273,10 +274,10 @@ namespace nkr {
 namespace nkr { namespace $tr1_t {
 
     template <typename ...subjects_p>
-    class tr1_tmpl;
+    class base_tmpl;
 
     template <typename last_subject_p>
-    class tr1_tmpl<last_subject_p>
+    class base_tmpl<last_subject_p>
     {
     public:
         template <typename operator_p, typename operand_p>
@@ -288,7 +289,7 @@ namespace nkr { namespace $tr1_t {
     };
 
     template <typename first_subject_p, typename ...more_subjects_p>
-    class tr1_tmpl<first_subject_p, more_subjects_p...>
+    class base_tmpl<first_subject_p, more_subjects_p...>
     {
     public:
         template <typename operator_p, typename operand_p>
@@ -301,25 +302,91 @@ namespace nkr { namespace $tr1_t {
 
 }}
 
-namespace nkr {
+namespace nkr { namespace $tr1_t {
 
     template <typename operator_p, typename operand_p>
-    class tr1_t
+    class base_t
     {
     public:
         template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;      // passes if any subjects satisfy
+        static constexpr nkr::boolean::cpp_t    OR() noexcept;
         template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;     // passes if all subjects satisfy
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
         template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;     // passes if just one subject satisfies
+        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
         template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;     // passes if not any subjects satisfy
+        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
         template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;    // passes if not all subjects satisfy
+        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
         template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;    // passes if not just one subject satisfies
+        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
     };
+
+}}
+
+namespace nkr { namespace $tr1_t {
+
+    template <typename operator_p, nkr::tuple::types_tr operands_p>
+    class tuple_tmpl
+    {
+    public:
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    OR() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
+    };
+
+    template <typename operator_p, nkr::tuple::types_tr operands_p>
+    class tuple_t
+    {
+    public:
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    OR() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
+    };
+
+}}
+
+namespace nkr {
+
+    template <typename operator_p, typename operand_p>
+    class tr1_t_sp
+    {
+    public:
+        using type_t    = $tr1_t::base_t<operator_p, operand_p>;
+    };
+
+    template <typename operator_p, nkr::tuple::types_tr operands_p>
+    class tr1_t_sp<operator_p, operands_p>
+    {
+    public:
+        using type_t    = $tr1_t::tuple_t<operator_p, operands_p>;
+    };
+
+}
+
+namespace nkr {
+
+    template <typename operator_p, typename operand_p>
+    using   tr1_t =
+        tr1_t_sp<operator_p, operand_p>::type_t;
 
 }
 

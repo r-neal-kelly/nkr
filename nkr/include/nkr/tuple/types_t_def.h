@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
+#include "nkr/intrinsics_def.h"
 
 #include "nkr/tuple/types_t_dec.h"
 

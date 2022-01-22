@@ -123,6 +123,23 @@ namespace nkr {
         {
             TEST_SUITE("tr1")
             {
+                using targets_t = nkr::tuple::types_t<
+                    nkr::boolean::pure_t,
+                    nkr::boolean::pure_tg,
+
+                    nkr::generic::boolean_tg,
+                    nkr::generic::boolean::any_tg,
+                    nkr::generic::boolean::pure_tg,
+
+                    nkr::generic::type_tg,
+
+                    nkr::generic::implementing::interface::type_tg,
+                    nkr::generic::implementing::interface::none::value_tg
+                >;
+
+                // again, intellisense thinks this is false when it actually compiles
+                static_assert(tr1_t<any_tg, targets_t>::AND<nkr_ANY>());
+
             #define nkr_OTHER_TYPES         \
                 nkr::positive::integer_t,   \
                 nkr::negatable::integer_t   \
