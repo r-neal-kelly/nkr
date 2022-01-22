@@ -320,29 +320,18 @@ namespace nkr { namespace $tr1_t {
         static constexpr nkr::boolean::cpp_t    NAND() noexcept;
         template <typename ...subjects_p>
         static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
+
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    Any() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    Every() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    None() noexcept;
     };
 
 }}
 
 namespace nkr { namespace $tr1_t {
-
-    template <typename operator_p, nkr::tuple::types_tr operands_p>
-    class tuple_tmpl
-    {
-    public:
-        template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <typename ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-    };
 
     template <typename operator_p, nkr::tuple::types_tr operands_p>
     class tuple_t
@@ -360,6 +349,13 @@ namespace nkr { namespace $tr1_t {
         static constexpr nkr::boolean::cpp_t    NAND() noexcept;
         template <typename ...subjects_p>
         static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
+
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    Any() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    Every() noexcept;
+        template <typename ...subjects_p>
+        static constexpr nkr::boolean::cpp_t    None() noexcept;
     };
 
 }}

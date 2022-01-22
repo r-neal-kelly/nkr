@@ -123,79 +123,56 @@ namespace nkr {
         {
             TEST_SUITE("tr1")
             {
-                using targets_t = nkr::tuple::types_t<
+                class other_type_t
+                {
+                public:
+                };
+
+            #define nkr_OTHER_TYPES         \
+                other_type_t,               \
+                const other_type_t,         \
+                volatile other_type_t,      \
+                const volatile other_type_t \
+
+                using targets_for_this_type_t = nkr::tuple::types_t<
                     nkr::boolean::pure_t,
                     nkr::boolean::pure_tg,
 
                     nkr::generic::boolean_tg,
                     nkr::generic::boolean::any_tg,
                     nkr::generic::boolean::pure_tg,
-
-                    nkr::generic::type_tg,
-
                     nkr::generic::implementing::interface::type_tg,
-                    nkr::generic::implementing::interface::none::value_tg
+                    nkr::generic::implementing::interface::none::value_tg,
+                    nkr::generic::type_tg
                 >;
 
-                // again, intellisense thinks this is false when it actually compiles
-                static_assert(tr1_t<any_tg, targets_t>::AND<nkr_ANY>());
+                using targets_for_other_types = nkr::tuple::types_t<
+                    nkr::boolean::pure_t,
+                    nkr::boolean::pure_tg,
 
-            #define nkr_OTHER_TYPES         \
-                nkr::positive::integer_t,   \
-                nkr::negatable::integer_t   \
+                    nkr::generic::boolean_tg,
+                    nkr::generic::boolean::any_tg,
+                    nkr::generic::boolean::pure_tg
+                >;
 
-                TEST_CASE("any_tg")
-                {
-                    static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::AND<nkr_ANY>());
-                    static_assert(tr1_t<any_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+                static_assert(tr1_t<any_tg, targets_for_this_type_t>::Every<nkr_ANY>());
+                static_assert(tr1_t<any_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
 
-                    static_assert(tr1_t<any_tg, nkr::boolean::pure_tg>::AND<nkr_ANY>());
-                    static_assert(tr1_t<any_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
-                }
+                static_assert(tr1_t<any_qualified_tg, targets_for_this_type_t>::Every<nkr_ANY_QUALIFIED>());
+                static_assert(tr1_t<any_qualified_tg, targets_for_this_type_t>::None<nkr_ANY_NON_QUALIFIED>());
+                static_assert(tr1_t<any_qualified_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
 
-                TEST_CASE("any_qualified_tg")
-                {
-                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_t>::AND<nkr_ANY_QUALIFIED>());
-                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_NON_QUALIFIED>());
-                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
+                static_assert(tr1_t<any_non_qualified_tg, targets_for_this_type_t>::Every<nkr_ANY_NON_QUALIFIED>());
+                static_assert(tr1_t<any_non_qualified_tg, targets_for_this_type_t>::None<nkr_ANY_QUALIFIED>());
+                static_assert(tr1_t<any_non_qualified_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
 
-                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_QUALIFIED>());
-                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_NON_QUALIFIED>());
-                    static_assert(tr1_t<any_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
-                }
+                static_assert(tr1_t<any_const_tg, targets_for_this_type_t>::Every<nkr_ANY_CONST>());
+                static_assert(tr1_t<any_const_tg, targets_for_this_type_t>::None<nkr_ANY_NON_CONST>());
+                static_assert(tr1_t<any_const_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
 
-                TEST_CASE("any_non_qualified_tg")
-                {
-                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_t>::AND<nkr_ANY_NON_QUALIFIED>());
-                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_QUALIFIED>());
-                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
-
-                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_NON_QUALIFIED>());
-                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_QUALIFIED>());
-                    static_assert(tr1_t<any_non_qualified_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
-                }
-
-                TEST_CASE("any_const_tg")
-                {
-                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_t>::AND<nkr_ANY_CONST>());
-                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_NON_CONST>());
-                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
-
-                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_CONST>());
-                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_NON_CONST>());
-                    static_assert(tr1_t<any_const_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
-                }
-
-                TEST_CASE("any_non_const_tg")
-                {
-                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_t>::AND<nkr_ANY_NON_CONST>());
-                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_t>::NOR<nkr_ANY_CONST>());
-                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_t>::NOR<nkr_OTHER_TYPES>());
-
-                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_tg>::AND<nkr_ANY_NON_CONST>());
-                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_tg>::NOR<nkr_ANY_CONST>());
-                    static_assert(tr1_t<any_non_const_tg, nkr::boolean::pure_tg>::NOR<nkr_OTHER_TYPES>());
-                }
+                static_assert(tr1_t<any_non_const_tg, targets_for_this_type_t>::Every<nkr_ANY_NON_CONST>());
+                static_assert(tr1_t<any_non_const_tg, targets_for_this_type_t>::None<nkr_ANY_CONST>());
+                static_assert(tr1_t<any_non_const_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
 
             #undef nkr_OTHER_TYPES
             }
