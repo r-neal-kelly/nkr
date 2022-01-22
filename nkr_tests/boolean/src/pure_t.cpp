@@ -35,6 +35,12 @@ namespace nkr {
     #define nkr_JUST_CONST_VOLATILE \
         nkr_TYPES(const volatile)   \
 
+    #define nkr_ANY             \
+        nkr_JUST_NON_QUALIFIED, \
+        nkr_JUST_CONST,         \
+        nkr_JUST_VOLATILE,      \
+        nkr_JUST_CONST_VOLATILE \
+
     #define nkr_ANY_QUALIFIED   \
         nkr_JUST_CONST,         \
         nkr_JUST_VOLATILE,      \
@@ -59,48 +65,175 @@ namespace nkr {
         nkr_JUST_NON_QUALIFIED,     \
         nkr_JUST_CONST              \
 
-    #define nkr_ANY             \
-        nkr_JUST_NON_QUALIFIED, \
-        nkr_JUST_CONST,         \
-        nkr_JUST_VOLATILE,      \
-        nkr_JUST_CONST_VOLATILE \
+    #define nkr_ANY_NOT_JUST_NON_QUALIFIED  \
+        nkr_JUST_CONST,                     \
+        nkr_JUST_VOLATILE,                  \
+        nkr_JUST_CONST_VOLATILE             \
 
-        TEST_SUITE("identity")
+    #define nkr_ANY_NOT_JUST_CONST  \
+        nkr_JUST_NON_QUALIFIED,     \
+        nkr_JUST_VOLATILE,          \
+        nkr_JUST_CONST_VOLATILE     \
+
+    #define nkr_ANY_NOT_JUST_VOLATILE   \
+        nkr_JUST_NON_QUALIFIED,         \
+        nkr_JUST_CONST,                 \
+        nkr_JUST_CONST_VOLATILE         \
+
+    #define nkr_ANY_NOT_JUST_CONST_VOLATILE \
+        nkr_JUST_NON_QUALIFIED,             \
+        nkr_JUST_CONST,                     \
+        nkr_JUST_VOLATILE                   \
+
+        using just_non_qualified_ts             = nkr::tuple::types_t<nkr_JUST_NON_QUALIFIED>;
+        using just_const_ts                     = nkr::tuple::types_t<nkr_JUST_CONST>;
+        using just_volatile_ts                  = nkr::tuple::types_t<nkr_JUST_VOLATILE>;
+        using just_const_volatile_ts            = nkr::tuple::types_t<nkr_JUST_CONST_VOLATILE>;
+
+        using any_ts                            = nkr::tuple::types_t<nkr_ANY>;
+        using any_qualified_ts                  = nkr::tuple::types_t<nkr_ANY_QUALIFIED>;
+        using any_non_qualified_ts              = nkr::tuple::types_t<nkr_ANY_NON_QUALIFIED>;
+        using any_const_ts                      = nkr::tuple::types_t<nkr_ANY_CONST>;
+        using any_non_const_ts                  = nkr::tuple::types_t<nkr_ANY_NON_CONST>;
+        using any_volatile_ts                   = nkr::tuple::types_t<nkr_ANY_VOLATILE>;
+        using any_non_volatile_ts               = nkr::tuple::types_t<nkr_ANY_NON_VOLATILE>;
+
+        using any_not_just_non_qualified_ts     = nkr::tuple::types_t<nkr_ANY_NOT_JUST_NON_QUALIFIED>;
+        using any_not_just_const_ts             = nkr::tuple::types_t<nkr_ANY_NOT_JUST_CONST>;
+        using any_not_just_volatile_ts          = nkr::tuple::types_t<nkr_ANY_NOT_JUST_VOLATILE>;
+        using any_not_just_const_volatile_ts    = nkr::tuple::types_t<nkr_ANY_NOT_JUST_CONST_VOLATILE>;
+
+        TEST_SUITE("tr")
         {
-            TEST_CASE_TEMPLATE("should satisfy the identity trait", pure_p, nkr_ANY)
+            TEST_SUITE("tr1")
             {
-                static_assert(nkr::boolean::pure_tr<pure_p>);
+                class other_t
+                {
+                public:
+                };
+
+                using other_ts = nkr::tuple::types_t<
+                    other_t,
+                    const other_t,
+                    volatile other_t,
+                    const volatile other_t
+                >;
+
+                using target_ts = nkr::tuple::types_t<
+                    nkr::boolean::pure_t,
+                    nkr::boolean::pure_tg,
+
+                    nkr::generic::boolean_tg,
+                    nkr::generic::boolean::any_tg,
+                    nkr::generic::boolean::pure_tg,
+                    nkr::generic::implementing::interface::type_tg,
+                    nkr::generic::implementing::interface::none::value_tg,
+                    nkr::generic::type_tg
+                >;
+
+                using other_target_ts = nkr::tuple::types_t<
+                    nkr::boolean::pure_t,
+                    nkr::boolean::pure_tg,
+
+                    nkr::generic::boolean_tg,
+                    nkr::generic::boolean::any_tg,
+                    nkr::generic::boolean::pure_tg
+                >;
+
+                static_assert(tr1_t<any_tg, target_ts>::Every<any_ts>());
+                static_assert(tr1_t<any_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<any_qualified_tg, target_ts>::Every<any_qualified_ts>());
+                static_assert(tr1_t<any_qualified_tg, target_ts>::None<any_non_qualified_ts>());
+                static_assert(tr1_t<any_qualified_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<any_non_qualified_tg, target_ts>::Every<any_non_qualified_ts>());
+                static_assert(tr1_t<any_non_qualified_tg, target_ts>::None<any_qualified_ts>());
+                static_assert(tr1_t<any_non_qualified_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<any_const_tg, target_ts>::Every<any_const_ts>());
+                static_assert(tr1_t<any_const_tg, target_ts>::None<any_non_const_ts>());
+                static_assert(tr1_t<any_const_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<any_non_const_tg, target_ts>::Every<any_non_const_ts>());
+                static_assert(tr1_t<any_non_const_tg, target_ts>::None<any_const_ts>());
+                static_assert(tr1_t<any_non_const_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<any_volatile_tg, target_ts>::Every<any_volatile_ts>());
+                static_assert(tr1_t<any_volatile_tg, target_ts>::None<any_non_volatile_ts>());
+                static_assert(tr1_t<any_volatile_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<any_non_volatile_tg, target_ts>::Every<any_non_volatile_ts>());
+                static_assert(tr1_t<any_non_volatile_tg, target_ts>::None<any_volatile_ts>());
+                static_assert(tr1_t<any_non_volatile_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<just_tg, target_ts>::Every<any_non_qualified_ts>());
+                static_assert(tr1_t<just_tg, target_ts>::None<any_qualified_ts>());
+                static_assert(tr1_t<just_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<just_non_qualified_tg, target_ts>::Every<just_non_qualified_ts>());
+                static_assert(tr1_t<just_non_qualified_tg, target_ts>::None<any_not_just_non_qualified_ts>());
+                static_assert(tr1_t<just_non_qualified_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<just_const_tg, target_ts>::Every<just_const_ts>());
+                static_assert(tr1_t<just_const_tg, target_ts>::None<any_not_just_const_ts>());
+                static_assert(tr1_t<just_const_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<just_volatile_tg, target_ts>::Every<just_volatile_ts>());
+                static_assert(tr1_t<just_volatile_tg, target_ts>::None<any_not_just_volatile_ts>());
+                static_assert(tr1_t<just_volatile_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<just_const_volatile_tg, target_ts>::Every<just_const_volatile_ts>());
+                static_assert(tr1_t<just_const_volatile_tg, target_ts>::None<any_not_just_const_volatile_ts>());
+                static_assert(tr1_t<just_const_volatile_tg, other_target_ts>::None<other_ts>());
+
+                static_assert(tr1_t<not_any_tg, target_ts>::None<any_ts>());
+                static_assert(tr1_t<not_any_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<not_any_qualified_tg, target_ts>::None<any_qualified_ts>());
+                static_assert(tr1_t<not_any_qualified_tg, target_ts>::Every<any_non_qualified_ts>());
+                static_assert(tr1_t<not_any_qualified_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<not_any_non_qualified_tg, target_ts>::None<any_non_qualified_ts>());
+                static_assert(tr1_t<not_any_non_qualified_tg, target_ts>::Every<any_qualified_ts>());
+                static_assert(tr1_t<not_any_non_qualified_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<not_any_const_tg, target_ts>::None<any_const_ts>());
+                static_assert(tr1_t<not_any_const_tg, target_ts>::Every<any_non_const_ts>());
+                static_assert(tr1_t<not_any_const_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<not_any_non_const_tg, target_ts>::None<any_non_const_ts>());
+                static_assert(tr1_t<not_any_non_const_tg, target_ts>::Every<any_const_ts>());
+                static_assert(tr1_t<not_any_non_const_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<not_any_volatile_tg, target_ts>::None<any_volatile_ts>());
+                static_assert(tr1_t<not_any_volatile_tg, target_ts>::Every<any_non_volatile_ts>());
+                static_assert(tr1_t<not_any_volatile_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<not_any_non_volatile_tg, target_ts>::None<any_non_volatile_ts>());
+                static_assert(tr1_t<not_any_non_volatile_tg, target_ts>::Every<any_volatile_ts>());
+                static_assert(tr1_t<not_any_non_volatile_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<just_not_tg, target_ts>::None<any_non_qualified_ts>());
+                static_assert(tr1_t<just_not_tg, target_ts>::Every<any_qualified_ts>());
+                static_assert(tr1_t<just_not_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<just_not_non_qualified_tg, target_ts>::None<just_non_qualified_ts>());
+                static_assert(tr1_t<just_not_non_qualified_tg, target_ts>::Every<any_not_just_non_qualified_ts>());
+                static_assert(tr1_t<just_not_non_qualified_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<just_not_const_tg, target_ts>::None<just_const_ts>());
+                static_assert(tr1_t<just_not_const_tg, target_ts>::Every<any_not_just_const_ts>());
+                static_assert(tr1_t<just_not_const_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<just_not_volatile_tg, target_ts>::None<just_volatile_ts>());
+                static_assert(tr1_t<just_not_volatile_tg, target_ts>::Every<any_not_just_volatile_ts>());
+                static_assert(tr1_t<just_not_volatile_tg, other_target_ts>::Every<other_ts>());
+
+                static_assert(tr1_t<just_not_const_volatile_tg, target_ts>::None<just_const_volatile_ts>());
+                static_assert(tr1_t<just_not_const_volatile_tg, target_ts>::Every<any_not_just_const_volatile_ts>());
+                static_assert(tr1_t<just_not_const_volatile_tg, other_target_ts>::Every<other_ts>());
             }
-        }
-
-        TEST_SUITE("generic")
-        {
-            // not sure why intellisense thinks some of these are false. they do properly compile.
-            // it's something to do with having an == check in the concept requires section?
-            static_assert(nkr::generic::boolean_tr<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean_tr<const nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean_tr<volatile nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean_tr<const volatile nkr::boolean::pure_t>);
-
-            static_assert(nkr::generic::boolean::any_tr<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::any_tr<const nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::any_tr<volatile nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::any_tr<const volatile nkr::boolean::pure_t>);
-
-            static_assert(nkr::generic::boolean::pure_tr<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::pure_tr<const nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::pure_tr<volatile nkr::boolean::pure_t>);
-            static_assert(nkr::generic::boolean::pure_tr<const volatile nkr::boolean::pure_t>);
-
-            static_assert(nkr::generic::implementing::interface::none::value_tr<nkr::boolean::pure_t>);
-
-            static_assert(nkr::generic::implementing::interface::type_tr<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::implementing::interface::type_tr<nkr::boolean::pure_tg>);
-
-            static_assert(nkr::generic::type_tr<nkr::boolean::pure_t>);
-            static_assert(nkr::generic::type_tr<const nkr::boolean::pure_t>);
-            static_assert(nkr::generic::type_tr<volatile nkr::boolean::pure_t>);
-            static_assert(nkr::generic::type_tr<const volatile nkr::boolean::pure_t>);
         }
 
         TEST_SUITE("interface")
@@ -116,65 +249,6 @@ namespace nkr {
                 static_assert(false == nkr::none::value_t<nkr::boolean::pure_t>());
                 static_assert(nkr::boolean::pure_t(false) == nkr::none::value_t<nkr::boolean::pure_t>());
                 static_assert(nkr::none::value_t<nkr::boolean::pure_t>() == nkr::none::value_t<nkr::boolean::pure_t>());
-            }
-        }
-
-        TEST_SUITE("tr")
-        {
-            TEST_SUITE("tr1")
-            {
-                class other_type_t
-                {
-                public:
-                };
-
-            #define nkr_OTHER_TYPES         \
-                other_type_t,               \
-                const other_type_t,         \
-                volatile other_type_t,      \
-                const volatile other_type_t \
-
-                using targets_for_this_type_t = nkr::tuple::types_t<
-                    nkr::boolean::pure_t,
-                    nkr::boolean::pure_tg,
-
-                    nkr::generic::boolean_tg,
-                    nkr::generic::boolean::any_tg,
-                    nkr::generic::boolean::pure_tg,
-                    nkr::generic::implementing::interface::type_tg,
-                    nkr::generic::implementing::interface::none::value_tg,
-                    nkr::generic::type_tg
-                >;
-
-                using targets_for_other_types = nkr::tuple::types_t<
-                    nkr::boolean::pure_t,
-                    nkr::boolean::pure_tg,
-
-                    nkr::generic::boolean_tg,
-                    nkr::generic::boolean::any_tg,
-                    nkr::generic::boolean::pure_tg
-                >;
-
-                static_assert(tr1_t<any_tg, targets_for_this_type_t>::Every<nkr_ANY>());
-                static_assert(tr1_t<any_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
-
-                static_assert(tr1_t<any_qualified_tg, targets_for_this_type_t>::Every<nkr_ANY_QUALIFIED>());
-                static_assert(tr1_t<any_qualified_tg, targets_for_this_type_t>::None<nkr_ANY_NON_QUALIFIED>());
-                static_assert(tr1_t<any_qualified_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
-
-                static_assert(tr1_t<any_non_qualified_tg, targets_for_this_type_t>::Every<nkr_ANY_NON_QUALIFIED>());
-                static_assert(tr1_t<any_non_qualified_tg, targets_for_this_type_t>::None<nkr_ANY_QUALIFIED>());
-                static_assert(tr1_t<any_non_qualified_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
-
-                static_assert(tr1_t<any_const_tg, targets_for_this_type_t>::Every<nkr_ANY_CONST>());
-                static_assert(tr1_t<any_const_tg, targets_for_this_type_t>::None<nkr_ANY_NON_CONST>());
-                static_assert(tr1_t<any_const_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
-
-                static_assert(tr1_t<any_non_const_tg, targets_for_this_type_t>::Every<nkr_ANY_NON_CONST>());
-                static_assert(tr1_t<any_non_const_tg, targets_for_this_type_t>::None<nkr_ANY_CONST>());
-                static_assert(tr1_t<any_non_const_tg, targets_for_other_types>::None<nkr_OTHER_TYPES>());
-
-            #undef nkr_OTHER_TYPES
             }
         }
 
