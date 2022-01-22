@@ -105,7 +105,7 @@ namespace nkr {
 
         TEST_SUITE("tr")
         {
-            TEST_SUITE("tr1")
+            TEST_CASE("should satisfy all of the following tr1 expressions")
             {
                 class other_t
                 {
@@ -238,7 +238,7 @@ namespace nkr {
 
         TEST_SUITE("interface")
         {
-            TEST_SUITE("nkr::interface::none::value_i")
+            TEST_CASE("should satisfy nkr::interface::none::value_i")
             {
                 static_assert(nkr::interface::none::value_i<nkr::boolean::pure_t>::Value() == false);
 
