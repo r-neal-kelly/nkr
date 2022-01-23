@@ -120,6 +120,23 @@ namespace nkr { namespace cpp {
     public:
     };
 
+    template <
+        template <template <typename ...> typename ...> typename template_template_a_p,
+        template <template <typename ...> typename ...> typename template_template_b_p
+    > class is_same_template_template_tmpl :
+        public std::false_type
+    {
+    public:
+    };
+
+    template <
+        template <template <typename ...> typename ...> typename template_template_p
+    > class is_same_template_template_tmpl<template_template_p, template_template_p> :
+        public std::true_type
+    {
+    public:
+    };
+
     // doesn't work with template aliases
     template <typename type_p, template <typename ...> typename template_p>
     class is_of_template_tmpl :
@@ -272,6 +289,27 @@ namespace nkr { namespace cpp {
     concept is_alias_ttr =
         !is_ttr<template_a_p, template_b_p> &&
         is_any_ttr<template_a_p, template_b_p, types_p...>;
+
+    template <
+        template <template <typename ...> typename ...> typename template_template_a_p,
+        template <template <typename ...> typename ...> typename template_template_b_p
+    > concept   is_tttr =
+        is_same_template_template_tmpl<template_template_a_p, template_template_b_p>::value;
+
+    template <
+        template <template <typename ...> typename ...> typename template_template_a_p,
+        template <template <typename ...> typename ...> typename template_template_b_p,
+        template <typename ...> typename ...templates_p
+    > concept   is_any_tttr =
+        is_tr<template_template_a_p<templates_p...>, template_template_b_p<templates_p...>>;
+
+    template <
+        template <template <typename ...> typename ...> typename template_template_a_p,
+        template <template <typename ...> typename ...> typename template_template_b_p,
+        template <typename ...> typename ...templates_p
+    > concept   is_alias_tttr =
+        !is_tttr<template_template_a_p, template_template_b_p> &&
+        is_any_tttr<template_template_a_p, template_template_b_p, templates_p...>;
 
 }}
 

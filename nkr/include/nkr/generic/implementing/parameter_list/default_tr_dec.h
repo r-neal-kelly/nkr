@@ -16,11 +16,11 @@ namespace nkr { namespace generic { namespace implementing { namespace parameter
 
     template <template <typename ...> typename template_p>
     concept default_ttr =
-        cpp::is_tr<template_p<>, template_p<>>;
+        nkr::cpp::is_tr<template_p<>, template_p<>>;
 
     template <template <template <typename ...> typename ...> typename template_template_p>
     concept default_tttr =
-        cpp::is_tr<template_template_p<>, template_template_p<>>;
+        nkr::cpp::is_tr<template_template_p<>, template_template_p<>>;
 
 }}}}
 

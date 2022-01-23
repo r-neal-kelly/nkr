@@ -12,14 +12,14 @@ namespace nkr { namespace interface { namespace $template_i {
 
     template <typename type_p>
     class is_tmpl :
-        public boolean::cpp_c<false>
+        public nkr::boolean::cpp_c<false>
     {
     public:
     };
 
     template <template <typename ...> typename template_p>
     class is_tmpl<template_i<template_p>> :
-        public boolean::cpp_c<true>
+        public nkr::boolean::cpp_c<true>
     {
     public:
     };
@@ -33,19 +33,19 @@ namespace nkr { namespace interface { namespace $template_i {
     template <typename type_p>
     concept aliases_i = requires
     {
-        cpp::is_ttr<type_p::template of_t, type_p::template of_t>;
+        nkr::cpp::is_ttr<type_p::template of_t, type_p::template of_t>;
         typename type_p::example_t;
     };
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::template Is_Any<dummy_template_t>() } -> cpp::is_tr<boolean::cpp_t>;
+        { type_p::template Is_Any<dummy_template_t>() } -> nkr::cpp::is_tr<boolean::cpp_t>;
     };
 
     template <typename type_p>
     concept objects_i =
-        !generic::implementing::constructor::default_tr<type_p>;
+        !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}
 
@@ -54,7 +54,7 @@ namespace nkr { namespace interface {
     struct  template_tg     {};
 
     template <template <typename ...> typename>
-    struct  template_ttg    {};
+    struct  template_tttg   {};
 
     template <typename type_p>
     concept template_tr =

@@ -62,8 +62,17 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename inner_p>
-        using of_t      = nkr::array::cpp_t<inner_p, positive::count_c<1>>;
-        using example_t = of_t<nkr::positive::word_t>;
+        using of_t          = nkr::array::cpp_t<inner_p, nkr::positive::count_c<1>>;
+        using example_t     = of_t<nkr::positive::word_t>;
+
+        template <nkr::tuple::types_tr parameters_p>
+            requires (parameters_p::Count() == 2)
+        using from_tuple_t  = nkr::array::cpp_t<
+            typename parameters_p::template at_t<nkr::positive::index_c<0>>,
+            typename parameters_p::template at_t<nkr::positive::index_c<1>>
+        >;
+        template <typename ...parameters_p>
+        using from_pack_t   = from_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
     public:
         template <template <typename ...> typename other_p>
