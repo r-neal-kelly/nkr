@@ -3,7 +3,9 @@
 */
 
 #include "nkr/array/cpp_t.h"
-
+#include "nkr/generic/negatable_tr.h"
+#include "nkr/generic/positive_tr.h"
+#include "nkr/negatable/integer_t.h"
 #include "nkr/positive/integer_t.h"
 
 #include "doctest.h"
@@ -33,9 +35,33 @@ namespace nkr { namespace boolean {
 
         static_assert(tr2<nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
                       any_tg, nkr::tuple::templates_t<nkr::array::cpp_t>::head_t, of_any_tg, nkr::positive::integer_t>);
-        static_assert(tr2s_t<any_tg, nkr::tuple::templates_t<nkr::array::cpp_t>, of_any_tg, nkr::positive::integer_t>::OR<
-                      nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
-                      nkr::array::cpp_t<nkr::negatable::integer_t, nkr::positive::count_c<2>>
+
+        // wow, our new bulk traits tester are extremely powerful! we just need to update all template_i's to have the new aliases defined
+        static_assert(tr2s_t<
+                      any_tg, nkr::tuple::templates_t<nkr::array::cpp_t, nkr::array::cpp_ttg>,
+                      of_any_access_const_tg, nkr::tuple::types_t<nkr::positive::integer_t, nkr::positive::integer_tg, nkr::generic::positive_tg>
+        >::Every<
+                      const nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
+                      nkr::array::cpp_t<const nkr::positive::integer_t, nkr::positive::count_c<2>>
+        >());
+
+        static_assert(tr2s_t<
+                      any_tg, nkr::tuple::templates_t<nkr::array::cpp_t, nkr::array::cpp_ttg>,
+                      of_any_access_const_tg, nkr::tuple::types_t<nkr::negatable::integer_t, nkr::negatable::integer_tg, nkr::generic::negatable_tg>
+        >::Every<
+                      const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::positive::count_c<3>>,
+                      nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::positive::count_c<4>>
+        >());
+
+        static_assert(tr2s_t<
+                      any_tg, nkr::tuple::templates_t<nkr::array::cpp_t, nkr::array::cpp_ttg>,
+                      of_any_access_const_tg, nkr::tuple::types_t<nkr::positive::integer_t, nkr::negatable::integer_t>
+        >::Any<
+                      const nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
+                      nkr::array::cpp_t<const nkr::positive::integer_t, nkr::positive::count_c<2>>,
+
+                      const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::positive::count_c<3>>,
+                      nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::positive::count_c<4>>
         >());
     }
 
