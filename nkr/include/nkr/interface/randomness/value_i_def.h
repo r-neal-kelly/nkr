@@ -14,6 +14,7 @@
 #include "nkr/generic/implementing/constructor/default_tr_def.h"
 #include "nkr/generic/type_tr_def.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
+#include "nkr/tr_def.h"
 
 #include "nkr/interface/randomness/value_i_dec.h"
 

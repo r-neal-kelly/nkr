@@ -14,6 +14,7 @@
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/randomness/generator/software/default_t_dec.h"
+#include "nkr/tr_dec.h"
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
