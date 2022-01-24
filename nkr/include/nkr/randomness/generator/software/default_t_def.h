@@ -15,8 +15,6 @@
 
 namespace nkr { namespace randomness { namespace generator { namespace software {
 
-#if defined(nkr_IS_64_BIT)
-
     inline nkr::concurrency::lockee_t<default_t>
         Default()
         noexcept
@@ -26,19 +24,5 @@ namespace nkr { namespace randomness { namespace generator { namespace software 
 
         return nkr::concurrency::lockee_t<default_t>(generator, lock);
     }
-
-#elif defined(nkr_IS_32_BIT)
-
-    inline nkr::concurrency::lockee_t<default_t>
-        Default()
-        noexcept
-    {
-        static default_t generator(nkr::randomness::generator::hardware::Default().Value()());
-        static nkr::cpp::concurrency::lock::perpetual::deep_t lock;
-
-        return nkr::concurrency::lockee_t<default_t>(generator, lock);
-    }
-
-#endif
 
 }}}}
