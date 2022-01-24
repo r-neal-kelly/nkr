@@ -58,17 +58,18 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace boolean { namespace $pure_t {
 
-    class randomness_value_i_sp;
+    template <nkr::boolean::pure_tr value_p>
+    class   randomness_value_i_sp;
 
 }}}
 
 namespace nkr { namespace interface { namespace randomness {
 
-    template <nkr::boolean::pure_tr type_p>
-    class value_i_sp<type_p>
+    template <nkr::boolean::pure_tr value_p>
+    class value_i_sp<value_p>
     {
     public:
-        using type_t    = nkr::boolean::$pure_t::randomness_value_i_sp;
+        using type_t    = nkr::boolean::$pure_t::randomness_value_i_sp<nkr::cpp::just_non_qualified_t<value_p>>;
     };
 
 }}}
@@ -128,10 +129,11 @@ namespace nkr { namespace boolean {
 
 namespace nkr { namespace boolean { namespace $pure_t {
 
+    template <nkr::boolean::pure_tr value_p>
     class randomness_value_i_sp
     {
     public:
-        using value_t   = nkr::boolean::pure_t;
+        using value_t   = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>
