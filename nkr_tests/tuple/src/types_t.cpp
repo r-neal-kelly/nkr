@@ -97,6 +97,8 @@ namespace nkr {
         using any_not_just_volatile_ts = nkr::tuple::types_t<nkr_ANY_NOT_JUST_VOLATILE>;
         using any_not_just_const_volatile_ts = nkr::tuple::types_t<nkr_ANY_NOT_JUST_CONST_VOLATILE>;
 
+        // If I switch the order of tuple_p and index_p intellisense starts to work again.
+        // but it makes for a worse api.
         template <
             template <typename ...> typename functor_p,
             nkr::tuple::types_tr tuple_p,
