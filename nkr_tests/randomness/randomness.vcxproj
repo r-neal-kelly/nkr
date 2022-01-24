@@ -161,7 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\distributor\uniform_t.cpp" />
-    <ClCompile Include="src\native.cpp">
+    <ClCompile Include="src\value.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(RelativeDir)</ObjectFileName>

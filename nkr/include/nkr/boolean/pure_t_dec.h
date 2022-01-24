@@ -8,6 +8,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
+#include "nkr/interface/randomness/value_i_dec.h"
 
 /*
     pure_t:
@@ -54,6 +55,23 @@ namespace nkr { namespace interface {
     };
 
 }}
+
+namespace nkr { namespace boolean { namespace $pure_t {
+
+    class randomness_value_i_sp;
+
+}}}
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <nkr::boolean::pure_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::boolean::$pure_t::randomness_value_i_sp;
+    };
+
+}}}
 
 namespace nkr { namespace boolean {
 
@@ -107,6 +125,33 @@ namespace nkr { namespace boolean {
     };
 
 }}
+
+namespace nkr { namespace boolean { namespace $pure_t {
+
+    class randomness_value_i_sp
+    {
+    public:
+        using value_t   = nkr::boolean::pure_t;
+
+    public:
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(nkr::negatable::real_t probability_for_true = 0.5) noexcept;
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+                              nkr::negatable::real_t probability_for_true = 0.5) noexcept;
+
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(value_t min, value_t max) noexcept;
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+                              value_t min, value_t max) noexcept;
+
+    public:
+        template <typename ...>
+        constexpr randomness_value_i_sp(...) noexcept   = delete;
+    };
+
+}}}
 
 constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto& a, const auto& b) noexcept;
 constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto& a, const auto&& b) noexcept;

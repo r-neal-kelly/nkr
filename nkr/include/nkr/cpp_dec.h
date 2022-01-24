@@ -598,14 +598,20 @@ namespace nkr { namespace cpp {
 
     // here we can also use the nkr_IS_DEBUG to switch between the variant that actually exchanges fundamentals with 0.
     constexpr auto&&            Move(auto& value) noexcept;
-    constexpr auto&&            Move(const auto& value) noexcept                        = delete;
+    constexpr auto&&            Move(const auto& value) noexcept                                = delete;
     constexpr auto&&            Move(auto&& value) noexcept;
-    constexpr auto&&            Move(const auto&& value) noexcept                       = delete;
+    constexpr auto&&            Move(const auto&& value) noexcept                               = delete;
 
     constexpr auto              Exchange(auto& value, const auto& with) noexcept;
-    constexpr auto              Exchange(const auto& value, const auto& with) noexcept  = delete;
+    constexpr auto              Exchange(const auto& value, const auto& with) noexcept          = delete;
     constexpr auto              Exchange(auto& value, auto&& with) noexcept;
-    constexpr auto              Exchange(const auto& value, auto&& with) noexcept       = delete;
+    constexpr auto              Exchange(const auto& value, auto&& with) noexcept               = delete;
+
+    template <typename parameter_p>
+    constexpr parameter_p&&     Forward(std::remove_reference_t<parameter_p>& argument) noexcept;
+    template <typename parameter_p>
+        requires (!lvalue_reference_tr<parameter_p>)
+    constexpr parameter_p&&     Forward(std::remove_reference_t<parameter_p>&& argument) noexcept;
 
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>

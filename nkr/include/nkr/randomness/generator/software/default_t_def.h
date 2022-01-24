@@ -17,7 +17,7 @@ namespace nkr { namespace randomness { namespace generator { namespace software 
 
 #if defined(nkr_IS_64_BIT)
 
-    nkr::concurrency::lockee_t<default_t>
+    inline nkr::concurrency::lockee_t<default_t>
         Default()
         noexcept
     {
@@ -29,7 +29,7 @@ namespace nkr { namespace randomness { namespace generator { namespace software 
 
 #elif defined(nkr_IS_32_BIT)
 
-    nkr::concurrency::lockee_t<default_t>
+    inline nkr::concurrency::lockee_t<default_t>
         Default()
         noexcept
     {

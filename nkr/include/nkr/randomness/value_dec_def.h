@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/randomness/native_dec.h"
+#include "nkr/randomness/value_dec.h"
 
 namespace nkr {
 

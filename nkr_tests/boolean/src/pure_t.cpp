@@ -7,18 +7,19 @@
 #include "nkr/generic/boolean/any_tr.h"
 #include "nkr/generic/boolean/pure_tr.h"
 #include "nkr/generic/implementing/interface/none/value_tr.h"
+#include "nkr/generic/implementing/interface/randomness/value_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
+#include "nkr/generic/number/integer_tr.h"
 #include "nkr/generic/type_tr.h"
 #include "nkr/none/value_t.h"
+#include "nkr/randomness/value.h"
 
 #include "doctest.h"
 
 namespace nkr {
 
-    // potential problem.
+    // potential problem. we still need to finish up the boolean generics.
     static_assert(nkr::generic::boolean_tr<nkr::positive::integer_t>);
-
-    // despite all the errors reported by intellisense, this file compiles and passes static asserts correctly.
 
     TEST_SUITE("nkr::boolean::pure_t")
     {
@@ -128,9 +129,14 @@ namespace nkr {
                     nkr::generic::boolean_tg,
                     nkr::generic::boolean::any_tg,
                     nkr::generic::boolean::pure_tg,
-                    nkr::generic::implementing::interface::type_tg,
                     nkr::generic::implementing::interface::none::value_tg,
+                    nkr::generic::implementing::interface::randomness::value_tg,
+                    nkr::generic::implementing::interface::type_tg,
                     nkr::generic::type_tg
+                >;
+
+                using non_target_ts = nkr::tuple::types_t<
+                    nkr::generic::number::integer_tg
                 >;
 
                 using other_target_ts = nkr::tuple::types_t<
@@ -143,30 +149,37 @@ namespace nkr {
                 >;
 
                 static_assert(tr1s_t<any_tg, target_ts>::Every<any_ts>());
+                static_assert(tr1s_t<any_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<any_qualified_tg, target_ts>::Every<any_qualified_ts>());
                 static_assert(tr1s_t<any_qualified_tg, target_ts>::None<any_non_qualified_ts>());
+                static_assert(tr1s_t<any_qualified_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_qualified_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<any_non_qualified_tg, target_ts>::Every<any_non_qualified_ts>());
                 static_assert(tr1s_t<any_non_qualified_tg, target_ts>::None<any_qualified_ts>());
+                static_assert(tr1s_t<any_non_qualified_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_non_qualified_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<any_const_tg, target_ts>::Every<any_const_ts>());
                 static_assert(tr1s_t<any_const_tg, target_ts>::None<any_non_const_ts>());
+                static_assert(tr1s_t<any_const_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_const_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<any_non_const_tg, target_ts>::Every<any_non_const_ts>());
                 static_assert(tr1s_t<any_non_const_tg, target_ts>::None<any_const_ts>());
+                static_assert(tr1s_t<any_non_const_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_non_const_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<any_volatile_tg, target_ts>::Every<any_volatile_ts>());
                 static_assert(tr1s_t<any_volatile_tg, target_ts>::None<any_non_volatile_ts>());
+                static_assert(tr1s_t<any_volatile_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_volatile_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<any_non_volatile_tg, target_ts>::Every<any_non_volatile_ts>());
                 static_assert(tr1s_t<any_non_volatile_tg, target_ts>::None<any_volatile_ts>());
+                static_assert(tr1s_t<any_non_volatile_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_non_volatile_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<just_tg, target_ts>::Every<just_non_qualified_ts>());
@@ -177,6 +190,10 @@ namespace nkr {
                 static_assert(tr1s_t<just_tg, const target_ts>::None<any_not_just_const_ts>());
                 static_assert(tr1s_t<just_tg, volatile target_ts>::None<any_not_just_volatile_ts>());
                 static_assert(tr1s_t<just_tg, const volatile target_ts>::None<any_not_just_const_volatile_ts>());
+                static_assert(tr1s_t<just_tg, non_target_ts>::None<any_ts>());
+                static_assert(tr1s_t<just_tg, const non_target_ts>::None<any_ts>());
+                static_assert(tr1s_t<just_tg, volatile non_target_ts>::None<any_ts>());
+                static_assert(tr1s_t<just_tg, const volatile non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<just_tg, other_target_ts>::None<other_ts>());
                 static_assert(tr1s_t<just_tg, const other_target_ts>::None<other_ts>());
                 static_assert(tr1s_t<just_tg, volatile other_target_ts>::None<other_ts>());
@@ -184,45 +201,56 @@ namespace nkr {
 
                 static_assert(tr1s_t<just_non_qualified_tg, target_ts>::Every<just_non_qualified_ts>());
                 static_assert(tr1s_t<just_non_qualified_tg, target_ts>::None<any_not_just_non_qualified_ts>());
+                static_assert(tr1s_t<just_non_qualified_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<just_non_qualified_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<just_const_tg, target_ts>::Every<just_const_ts>());
                 static_assert(tr1s_t<just_const_tg, target_ts>::None<any_not_just_const_ts>());
+                static_assert(tr1s_t<just_const_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<just_const_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<just_volatile_tg, target_ts>::Every<just_volatile_ts>());
                 static_assert(tr1s_t<just_volatile_tg, target_ts>::None<any_not_just_volatile_ts>());
+                static_assert(tr1s_t<just_volatile_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<just_volatile_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<just_const_volatile_tg, target_ts>::Every<just_const_volatile_ts>());
                 static_assert(tr1s_t<just_const_volatile_tg, target_ts>::None<any_not_just_const_volatile_ts>());
+                static_assert(tr1s_t<just_const_volatile_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<just_const_volatile_tg, other_target_ts>::None<other_ts>());
 
                 static_assert(tr1s_t<not_any_tg, target_ts>::None<any_ts>());
+                static_assert(tr1s_t<not_any_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<not_any_qualified_tg, target_ts>::None<any_qualified_ts>());
                 static_assert(tr1s_t<not_any_qualified_tg, target_ts>::Every<any_non_qualified_ts>());
+                static_assert(tr1s_t<not_any_qualified_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_qualified_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<not_any_non_qualified_tg, target_ts>::None<any_non_qualified_ts>());
                 static_assert(tr1s_t<not_any_non_qualified_tg, target_ts>::Every<any_qualified_ts>());
+                static_assert(tr1s_t<not_any_non_qualified_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_non_qualified_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<not_any_const_tg, target_ts>::None<any_const_ts>());
                 static_assert(tr1s_t<not_any_const_tg, target_ts>::Every<any_non_const_ts>());
+                static_assert(tr1s_t<not_any_const_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_const_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<not_any_non_const_tg, target_ts>::None<any_non_const_ts>());
                 static_assert(tr1s_t<not_any_non_const_tg, target_ts>::Every<any_const_ts>());
+                static_assert(tr1s_t<not_any_non_const_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_non_const_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<not_any_volatile_tg, target_ts>::None<any_volatile_ts>());
                 static_assert(tr1s_t<not_any_volatile_tg, target_ts>::Every<any_non_volatile_ts>());
+                static_assert(tr1s_t<not_any_volatile_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_volatile_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<not_any_non_volatile_tg, target_ts>::None<any_non_volatile_ts>());
                 static_assert(tr1s_t<not_any_non_volatile_tg, target_ts>::Every<any_volatile_ts>());
+                static_assert(tr1s_t<not_any_non_volatile_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<not_any_non_volatile_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<just_not_tg, target_ts>::None<just_non_qualified_ts>());
@@ -233,6 +261,10 @@ namespace nkr {
                 static_assert(tr1s_t<just_not_tg, const target_ts>::Every<any_not_just_const_ts>());
                 static_assert(tr1s_t<just_not_tg, volatile target_ts>::Every<any_not_just_volatile_ts>());
                 static_assert(tr1s_t<just_not_tg, const volatile target_ts>::Every<any_not_just_const_volatile_ts>());
+                static_assert(tr1s_t<just_not_tg, non_target_ts>::Every<any_ts>());
+                static_assert(tr1s_t<just_not_tg, const non_target_ts>::Every<any_ts>());
+                static_assert(tr1s_t<just_not_tg, volatile non_target_ts>::Every<any_ts>());
+                static_assert(tr1s_t<just_not_tg, const volatile non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<just_not_tg, other_target_ts>::Every<other_ts>());
                 static_assert(tr1s_t<just_not_tg, const other_target_ts>::Every<other_ts>());
                 static_assert(tr1s_t<just_not_tg, volatile other_target_ts>::Every<other_ts>());
@@ -240,18 +272,22 @@ namespace nkr {
 
                 static_assert(tr1s_t<just_not_non_qualified_tg, target_ts>::None<just_non_qualified_ts>());
                 static_assert(tr1s_t<just_not_non_qualified_tg, target_ts>::Every<any_not_just_non_qualified_ts>());
+                static_assert(tr1s_t<just_not_non_qualified_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<just_not_non_qualified_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<just_not_const_tg, target_ts>::None<just_const_ts>());
                 static_assert(tr1s_t<just_not_const_tg, target_ts>::Every<any_not_just_const_ts>());
+                static_assert(tr1s_t<just_not_const_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<just_not_const_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<just_not_volatile_tg, target_ts>::None<just_volatile_ts>());
                 static_assert(tr1s_t<just_not_volatile_tg, target_ts>::Every<any_not_just_volatile_ts>());
+                static_assert(tr1s_t<just_not_volatile_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<just_not_volatile_tg, other_target_ts>::Every<other_ts>());
 
                 static_assert(tr1s_t<just_not_const_volatile_tg, target_ts>::None<just_const_volatile_ts>());
                 static_assert(tr1s_t<just_not_const_volatile_tg, target_ts>::Every<any_not_just_const_volatile_ts>());
+                static_assert(tr1s_t<just_not_const_volatile_tg, non_target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<just_not_const_volatile_tg, other_target_ts>::Every<other_ts>());
             }
         }
@@ -282,6 +318,12 @@ namespace nkr {
                 boolean = nkr::cpp::Move(test);
 
                 CHECK((boolean == nkr::cpp::Move(test)));
+
+                for (nkr::positive::index_t idx = 0, end = 16; idx < end; idx += 1) {
+                    auto generator = nkr::randomness::generator::software::Default();
+                    nkr::boolean::pure_t random = nkr::randomness::Value<nkr::boolean::pure_t>(generator.Value(), false, true);
+                    printf("random: %i\n", random());
+                }
             }
         }
     }

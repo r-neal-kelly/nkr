@@ -2,7 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/randomness/native.h"
+#include "nkr/randomness/value.h"
 
 #include "doctest.h"
 

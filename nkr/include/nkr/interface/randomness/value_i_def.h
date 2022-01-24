@@ -15,12 +15,12 @@
 #include "nkr/generic/type_tr_def.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 
-#include "nkr/interface/randomness_i_dec.h"
+#include "nkr/interface/randomness/value_i_dec.h"
 
 #include "nkr/cpp/randomness/distributor/bernoulli_t_def.h"
 #include "nkr/randomness/distributor/uniform_t_def.h"
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::boolean_tr value_p>
     template <typename unused_p>
@@ -69,9 +69,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
     }
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
     template <typename unused_p>
@@ -98,9 +98,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
     }
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::number::integer_tr value_p>
     template <typename unused_p>
@@ -127,9 +127,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
     }
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::number::real_tr value_p>
     template <typename unused_p>
@@ -156,9 +156,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
     }
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::pointer_tr value_p>
     template <typename unused_p>
@@ -185,4 +185,4 @@ namespace nkr { namespace interface { namespace $randomness_i {
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
     }
 
-}}}
+}}}}

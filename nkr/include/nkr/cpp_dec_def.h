@@ -76,6 +76,23 @@ namespace nkr { namespace cpp {
         return old;
     }
 
+    template <typename parameter_p>
+    inline constexpr parameter_p&&
+        Forward(std::remove_reference_t<parameter_p>& argument)
+        noexcept
+    {
+        return static_cast<parameter_p&&>(argument);
+    }
+
+    template <typename parameter_p>
+        requires (!lvalue_reference_tr<parameter_p>)
+    inline constexpr parameter_p&&
+        Forward(std::remove_reference_t<parameter_p>&& argument)
+        noexcept
+    {
+        return static_cast<parameter_p&&>(argument);
+    }
+
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
     inline constexpr value_p

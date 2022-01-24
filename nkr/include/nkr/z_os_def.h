@@ -736,7 +736,7 @@ namespace nkr { namespace os { namespace time {
 
     template <typename functor_p, typename ...args_p>
     inline r64_t
-        Test_In_Microseconds(count_t trial_count, functor_p functor, args_p... args)
+        Test_In_Microseconds(count_t trial_count, functor_p functor, args_p&&... args)
     {
         r64_t total_time = 0.0;
         for (index_t idx = 0, end = trial_count; idx < end; idx += 1) {
@@ -750,7 +750,7 @@ namespace nkr { namespace os { namespace time {
 
     template <typename functor_p, typename ...args_p>
     inline r64_t
-        Test_In_Milliseconds(count_t trial_count, functor_p functor, args_p... args)
+        Test_In_Milliseconds(count_t trial_count, functor_p functor, args_p&&... args)
     {
         r64_t total_time = 0.0;
         for (index_t idx = 0, end = trial_count; idx < end; idx += 1) {

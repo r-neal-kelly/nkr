@@ -13,7 +13,7 @@
 
 namespace nkr { namespace randomness { namespace generator { namespace hardware {
 
-    nkr::concurrency::lockee_t<default_t>
+    inline nkr::concurrency::lockee_t<default_t>
         Default()
         noexcept
     {

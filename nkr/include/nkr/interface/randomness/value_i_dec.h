@@ -15,7 +15,7 @@
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/randomness/generator/software/default_t_dec.h"
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <typename type_p>
     concept aliases_i =
@@ -34,9 +34,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
     concept objects_i =
         !generic::implementing::constructor::default_tr<type_p>;
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::boolean_tr value_p>
     class   boolean_sp;
@@ -53,81 +53,81 @@ namespace nkr { namespace interface { namespace $randomness_i {
     template <nkr::generic::built_in::pointer_tr value_p>
     class   pointer_sp;
 
+}}}}
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <typename value_p>
+    class value_i_sp;
+
+    template <nkr::generic::built_in::boolean_tr value_p>
+    class value_i_sp<value_p>
+    {
+    public:
+        using type_t    = $value_i::boolean_sp<value_p>;
+    };
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
+    class value_i_sp<value_p>
+    {
+    public:
+        using type_t    = $value_i::enumeration_limited_sp<value_p>;
+    };
+
+    template <nkr::generic::built_in::number::integer_tr value_p>
+    class value_i_sp<value_p>
+    {
+    public:
+        using type_t    = $value_i::integer_sp<value_p>;
+    };
+
+    template <nkr::generic::built_in::number::real_tr value_p>
+    class value_i_sp<value_p>
+    {
+    public:
+        using type_t    = $value_i::real_sp<value_p>;
+    };
+
+    template <nkr::generic::built_in::pointer_tr value_p>
+    class value_i_sp<value_p>
+    {
+    public:
+        using type_t    = $value_i::pointer_sp<value_p>;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <typename value_p>
+    using   value_i =
+        value_i_sp<value_p>::type_t;
+
+    struct  value_tg    {};
+
+    template <typename>
+    struct  value_ttg   {};
+
+    template <typename type_p>
+    concept value_tr =
+        cpp::is_any_tr<type_p, value_i<typename type_p::value_t>> &&
+        $value_i::aliases_i<type_p> &&
+        $value_i::static_functions_i<type_p> &&
+        $value_i::objects_i<type_p>;
+
+    template <template <typename ...> typename template_p>
+    concept value_ttr =
+        cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
+
 }}}
 
 namespace nkr { namespace interface {
 
-    template <typename value_p>
-    class randomness_i_sp;
-
-    template <nkr::generic::built_in::boolean_tr value_p>
-    class randomness_i_sp<value_p>
-    {
-    public:
-        using type_t    = $randomness_i::boolean_sp<value_p>;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
-    class randomness_i_sp<value_p>
-    {
-    public:
-        using type_t    = $randomness_i::enumeration_limited_sp<value_p>;
-    };
-
-    template <nkr::generic::built_in::number::integer_tr value_p>
-    class randomness_i_sp<value_p>
-    {
-    public:
-        using type_t    = $randomness_i::integer_sp<value_p>;
-    };
-
-    template <nkr::generic::built_in::number::real_tr value_p>
-    class randomness_i_sp<value_p>
-    {
-    public:
-        using type_t    = $randomness_i::real_sp<value_p>;
-    };
-
-    template <nkr::generic::built_in::pointer_tr value_p>
-    class randomness_i_sp<value_p>
-    {
-    public:
-        using type_t    = $randomness_i::pointer_sp<value_p>;
-    };
-
-}}
-
-namespace nkr { namespace interface {
-
-    template <typename value_p>
-    using   randomness_i =
-        randomness_i_sp<value_p>::type_t;
-
-    struct  randomness_tg   {};
-
-    template <typename>
-    struct  randomness_ttg  {};
-
-    template <typename type_p>
-    concept randomness_tr =
-        cpp::is_any_tr<type_p, randomness_i<typename type_p::value_t>> &&
-        $randomness_i::aliases_i<type_p> &&
-        $randomness_i::static_functions_i<type_p> &&
-        $randomness_i::objects_i<type_p>;
-
-    template <template <typename ...> typename template_p>
-    concept randomness_ttr =
-        cpp::is_any_ttr<template_p, randomness_i, nkr::positive::integer_t>;
-
-}}
-
-namespace nkr { namespace interface {
-
     template <>
-    class type_i<nkr::interface::randomness_tg>
+    class type_i<nkr::interface::randomness::value_tg>
     {
     public:
-        using type_t    = nkr::interface::randomness_tg;
+        using type_t    = nkr::interface::randomness::value_tg;
         using of_t      = nkr::none::type_t;
 
     public:
@@ -139,9 +139,9 @@ namespace nkr { namespace interface {
         constexpr type_i(...) noexcept  = delete;
     };
 
-    template <nkr::interface::randomness_tr type_p>
+    template <nkr::interface::randomness::value_tr type_p>
     class type_i<type_p> :
-        public type_i<nkr::interface::randomness_tg>
+        public type_i<nkr::interface::randomness::value_tg>
     {
     public:
         using type_t    = type_p;
@@ -153,11 +153,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace interface {
 
     template <>
-    class template_i<nkr::interface::randomness_ttg>
+    class template_i<nkr::interface::randomness::value_ttg>
     {
     public:
         template <typename inner_p>
-        using of_t      = nkr::interface::randomness_i<inner_p>;
+        using of_t      = nkr::interface::randomness::value_i<inner_p>;
         using example_t = of_t<nkr::positive::integer_t>;
 
     public:
@@ -170,16 +170,16 @@ namespace nkr { namespace interface {
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::interface::randomness_ttr<template_p>
+        requires nkr::interface::randomness::value_ttr<template_p>
     class template_i<template_p> :
-        public template_i<nkr::interface::randomness_ttg>
+        public template_i<nkr::interface::randomness::value_ttg>
     {
     public:
     };
 
 }}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::boolean_tr value_p>
     class boolean_sp
@@ -205,9 +205,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         constexpr boolean_sp(...) noexcept  = delete;
     };
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
     class enumeration_limited_sp
@@ -227,9 +227,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         constexpr enumeration_limited_sp(...) noexcept  = delete;
     };
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::number::integer_tr value_p>
     class integer_sp
@@ -249,9 +249,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         constexpr integer_sp(...) noexcept  = delete;
     };
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::number::real_tr value_p>
     class real_sp
@@ -271,9 +271,9 @@ namespace nkr { namespace interface { namespace $randomness_i {
         constexpr real_sp(...) noexcept = delete;
     };
 
-}}}
+}}}}
 
-namespace nkr { namespace interface { namespace $randomness_i {
+namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <nkr::generic::built_in::pointer_tr value_p>
     class pointer_sp
@@ -293,6 +293,6 @@ namespace nkr { namespace interface { namespace $randomness_i {
         constexpr pointer_sp(...) noexcept  = delete;
     };
 
-}}}
+}}}}
 
-#include "nkr/interface/randomness_i_dec_def.h"
+#include "nkr/interface/randomness/value_i_dec_def.h"
