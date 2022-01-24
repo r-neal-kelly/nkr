@@ -91,7 +91,7 @@ namespace nkr { namespace tuple { namespace $templates_t {
     {
     public:
         template <typename ...types_p>
-        using template_t    = nkr::interface::template_i<head_p>::template from_tuple_t<nkr::tuple::types_t<types_p...>>;
+        using template_t    = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
     };
 
     template <template <typename ...> typename head_p, template <typename ...> typename ...tail_p, nkr::positive::index_t index_p>
@@ -110,7 +110,7 @@ namespace nkr { namespace tuple {
     {
     public:
         template <typename ...types_p>
-        using head_t    = nkr::interface::template_i<head_p>::template from_tuple_t<nkr::tuple::types_t<types_p...>>;
+        using head_t    = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
         using tail_t    = templates_t<tail_p...>;
         template <nkr::cpp::constant_of_tr<nkr::positive::index_t> index_p, typename ...types_p>
         using at_t      = $templates_t::unit_t<templates_t, index_p::Value()>::template template_t<types_p...>;

@@ -67,6 +67,10 @@ namespace nkr { namespace positive {
     template <count_t value_p>          using   count_c         = cpp::constant_t<count_t, value_p>;
     template <index_t value_p>          using   index_c         = cpp::constant_t<index_t, value_p>;
 
+    template <typename type_p>
+    concept index_ctr =
+        nkr::cpp::constant_of_tr<type_p, index_t>;
+
 }}
 
 namespace nkr { namespace negatable {
