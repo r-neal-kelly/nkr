@@ -271,7 +271,7 @@ namespace nkr { namespace cpp {
     template <typename from_p, typename to_p>
     concept to_tr =
         std::is_convertible<from_p, to_p>::value ||
-        requires(from_p from) { static_cast<to_p>(from_p()); };
+        requires(from_p from) { static_cast<to_p>(from); };
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
     concept is_ttr =
