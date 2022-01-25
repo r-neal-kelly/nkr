@@ -57,7 +57,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_p::template at_t<nkr::positive::index_c<0>>;
+        using of_t      = type_p::head_t;
     };
 
 }}
@@ -100,6 +100,13 @@ namespace nkr { namespace tuple { namespace $types_t {
     public:
     };
 
+    template <typename ...types_p>
+    class is_tmpl<types_t<types_p...>> :
+        public nkr::boolean::cpp_c<true>
+    {
+    public:
+    };
+
     template <typename head_p, typename ...tail_p>
     class is_tmpl<types_t<head_p, tail_p...>> :
         public nkr::boolean::cpp_c<true>
@@ -132,13 +139,34 @@ namespace nkr { namespace tuple { namespace $types_t {
 
 namespace nkr { namespace tuple {
 
+    template <typename ...types_p>
+    class types_t
+    {
+    public:
+        using head_t    = nkr::none::type_t;
+        using tail_t    = types_t<>;
+
+    public:
+        static constexpr nkr::positive::count_t Count() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr types_t(...) noexcept = delete;
+    };
+
+}}
+
+namespace nkr { namespace tuple {
+
     template <typename head_p, typename ...tail_p>
     class types_t<head_p, tail_p...>
     {
     public:
         using head_t    = head_p;
         using tail_t    = types_t<tail_p...>;
-        template <nkr::cpp::constant_of_tr<nkr::positive::index_t> index_p>
+
+        template <nkr::positive::index_ctr index_p>
+            requires (index_p::Value() < 1 + sizeof...(tail_p))
         using at_t      = $types_t::unit_t<types_t, index_p::Value()>::type_t;
 
     public:

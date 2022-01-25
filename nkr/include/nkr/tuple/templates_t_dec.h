@@ -72,6 +72,13 @@ namespace nkr { namespace tuple { namespace $templates_t {
     public:
     };
 
+    template <template <typename ...> typename ...templates_p>
+    class is_tmpl<templates_t<templates_p...>> :
+        public nkr::boolean::cpp_c<true>
+    {
+    public:
+    };
+
     template <template <typename ...> typename head_p, template <typename ...> typename ...tail_p>
     class is_tmpl<templates_t<head_p, tail_p...>> :
         public nkr::boolean::cpp_c<true>
@@ -105,6 +112,26 @@ namespace nkr { namespace tuple { namespace $templates_t {
 
 namespace nkr { namespace tuple {
 
+    template <template <typename ...> typename ...templates_p>
+    class templates_t
+    {
+    public:
+        template <typename ...types_p>
+        using head_t    = nkr::none::type_t;
+        using tail_t    = templates_t<>;
+
+    public:
+        static constexpr nkr::positive::count_t Count() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr templates_t(...) noexcept = delete;
+    };
+
+}}
+
+namespace nkr { namespace tuple {
+
     template <template <typename ...> typename head_p, template <typename ...> typename ...tail_p>
     class templates_t<head_p, tail_p...>
     {
@@ -112,7 +139,9 @@ namespace nkr { namespace tuple {
         template <typename ...types_p>
         using head_t    = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
         using tail_t    = templates_t<tail_p...>;
-        template <nkr::cpp::constant_of_tr<nkr::positive::index_t> index_p, typename ...types_p>
+
+        template <nkr::positive::index_ctr index_p, typename ...types_p>
+            requires (index_p::Value() < 1 + sizeof...(tail_p))
         using at_t      = $templates_t::unit_t<templates_t, index_p::Value()>::template template_t<types_p...>;
 
     public:

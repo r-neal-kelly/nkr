@@ -12,9 +12,9 @@ namespace nkr {
     TEST_SUITE("nkr::tuple::types_t")
     {
     #define nkr_TYPES(TYPE_QUALIFIER_p)                                                                                                                         \
-        /*TYPE_QUALIFIER_p nkr::tuple::types_t<nkr::positive::integer_t>,                                                                                         \
+        TYPE_QUALIFIER_p nkr::tuple::types_t<nkr::positive::integer_t>,                                                                                         \
         TYPE_QUALIFIER_p nkr::tuple::types_t<nkr::negatable::integer_t>,                                                                                        \
-        TYPE_QUALIFIER_p nkr::tuple::types_t<nkr::positive::integer_t, nkr::negatable::integer_t>,                                                              */\
+        TYPE_QUALIFIER_p nkr::tuple::types_t<nkr::positive::integer_t, nkr::negatable::integer_t>,                                                              \
         TYPE_QUALIFIER_p nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_16_t, nkr::positive::integer_32_t, nkr::positive::integer_64_t> \
 
     #define nkr_JUST_NON_QUALIFIED  \
@@ -102,14 +102,16 @@ namespace nkr {
         template <
             template <typename ...> typename functor_p,
             nkr::tuple::types_tr tuple_p,
-            nkr::positive::index_ctr index_p = nkr::positive::index_c<0>
-        > void
-            Iterate_Forward()
+            typename index_p = nkr::positive::index_c<0>,
+            typename ...parameters_p
+        > inline constexpr void
+            Iterate_Forward(parameters_p&&... arguments)
             noexcept
         {
             static_assert(index_p::Value() < tuple_p::Count());
 
-            functor_p<typename tuple_p::template at_t<index_p>>::Call();
+            functor_p<typename tuple_p::template at_t<index_p>>::Call(nkr::cpp::Forward<parameters_p>(arguments)...);
+
             if constexpr (index_p::Value() < tuple_p::Count() - 1) {
                 Iterate_Forward<functor_p, tuple_p, nkr::positive::index_c<index_p::Value() + 1>>();
             }
@@ -118,14 +120,16 @@ namespace nkr {
         template <
             template <typename ...> typename functor_p,
             nkr::tuple::types_tr tuple_p,
-            nkr::positive::index_ctr index_p = nkr::positive::index_c<tuple_p::Count() - 1>
-        > void
-            Iterate_Backward()
+            typename index_p = nkr::positive::index_c<tuple_p::Count() - 1>,
+            typename ...parameters_p
+        > inline constexpr void
+            Iterate_Backward(parameters_p&&... arguments)
             noexcept
         {
             static_assert(index_p::Value() < tuple_p::Count());
 
-            functor_p<typename tuple_p::template at_t<index_p>>::Call();
+            functor_p<typename tuple_p::template at_t<index_p>>::Call(nkr::cpp::Forward<parameters_p>(arguments)...);
+
             if constexpr (index_p::Value() > 0) {
                 Iterate_Backward<functor_p, tuple_p, nkr::positive::index_c<index_p::Value() - 1>>();
             }
@@ -153,6 +157,19 @@ namespace nkr {
             printf("backward\n");
             Iterate_Backward<print_size_tmpl, tuple_p>();
             printf("\n");
+        }
+
+        TEST_CASE("temp")
+        {
+            using tuple_t = nkr::tuple::types_t<nkr::positive::integer_t, nkr::positive::integer_t>;
+
+            static_assert(tuple_t::Count() == 2);
+            using a_t = tuple_t::template at_t<nkr::positive::index_c<0>>;
+            using b_t = tuple_t::template at_t<nkr::positive::index_c<1>>;
+
+            using type_i = nkr::interface::type_i<nkr::tuple::types_t<>>;
+            using of_t = type_i::of_t;
+            static_assert(nkr::tuple::types_tr<nkr::tuple::types_t<>>);
         }
     }
 

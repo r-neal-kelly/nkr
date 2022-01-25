@@ -32,6 +32,18 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace tuple {
 
+    template <typename ...types_p>
+    inline constexpr nkr::positive::count_t
+        types_t<types_p...>::Count()
+        noexcept
+    {
+        return 0;
+    }
+
+}}
+
+namespace nkr { namespace tuple {
+
     template <typename head_p, typename ...tail_p>
     inline constexpr nkr::positive::count_t
         types_t<head_p, tail_p...>::Count()
