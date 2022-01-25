@@ -9,6 +9,7 @@
 #include "nkr/generic/implementing/interface/none/value_tr.h"
 #include "nkr/generic/implementing/interface/randomness/value_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
+#include "nkr/generic/implementing/self_tr.h"
 #include "nkr/generic/number/integer_tr.h"
 #include "nkr/generic/type_tr.h"
 #include "nkr/none/value_t.h"
@@ -117,18 +118,6 @@ namespace nkr {
         {
             TEST_CASE("should satisfy all of the following tr1 expressions")
             {
-                class other_t
-                {
-                public:
-                };
-
-                using other_ts = nkr::tuple::types_t<
-                    other_t,
-                    const other_t,
-                    volatile other_t,
-                    const volatile other_t
-                >;
-
                 using target_ts = nkr::tuple::types_t<
                     nkr::boolean::pure_t,
                     nkr::boolean::pure_tg,
@@ -139,11 +128,24 @@ namespace nkr {
                     nkr::generic::implementing::interface::none::value_tg,
                     nkr::generic::implementing::interface::randomness::value_tg,
                     nkr::generic::implementing::interface::type_tg,
+                    nkr::generic::implementing::self_tg,
                     nkr::generic::type_tg
                 >;
 
                 using non_target_ts = nkr::tuple::types_t<
                     nkr::generic::number::integer_tg
+                >;
+
+                class other_t
+                {
+                public:
+                };
+
+                using other_ts = nkr::tuple::types_t<
+                    other_t,
+                    const other_t,
+                    volatile other_t,
+                    const volatile other_t
                 >;
 
                 using other_target_ts = nkr::tuple::types_t<
@@ -338,9 +340,9 @@ namespace nkr {
                         {
                             nkr::positive::count_t true_count = 0;
                             nkr::positive::count_t false_count = 0;
-                            auto generator = nkr::randomness::generator::software::Default();
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
-                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator.Value()) ?
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator_lockee.Value()) ?
                                     true_count += 1 :
                                     false_count += 1;
                             }
@@ -398,9 +400,9 @@ namespace nkr {
                         {
                             nkr::positive::count_t true_count = 0;
                             nkr::positive::count_t false_count = 0;
-                            auto generator = nkr::randomness::generator::software::Default();
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
-                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator.Value(), nkr::negatable::real_t(0.5)) ?
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator_lockee.Value(), nkr::negatable::real_t(0.5)) ?
                                     true_count += 1 :
                                     false_count += 1;
                             }
@@ -458,9 +460,9 @@ namespace nkr {
                         {
                             nkr::positive::count_t true_count = 0;
                             nkr::positive::count_t false_count = 0;
-                            auto generator = nkr::randomness::generator::software::Default();
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
-                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator.Value(), false, true) ?
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator_lockee.Value(), false, true) ?
                                     true_count += 1 :
                                     false_count += 1;
                             }
@@ -493,9 +495,9 @@ namespace nkr {
                         {
                             nkr::positive::count_t true_count = 0;
                             nkr::positive::count_t false_count = 0;
-                            auto generator = nkr::randomness::generator::software::Default();
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
-                                nkr::randomness::Value<pure_p>(generator.Value()) ?
+                                nkr::randomness::Value<pure_p>(generator_lockee.Value()) ?
                                     true_count += 1 :
                                     false_count += 1;
                             }
@@ -553,9 +555,9 @@ namespace nkr {
                         {
                             nkr::positive::count_t true_count = 0;
                             nkr::positive::count_t false_count = 0;
-                            auto generator = nkr::randomness::generator::software::Default();
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
-                                nkr::randomness::Value<pure_p>(generator.Value(), nkr::negatable::real_t(0.5)) ?
+                                nkr::randomness::Value<pure_p>(generator_lockee.Value(), nkr::negatable::real_t(0.5)) ?
                                     true_count += 1 :
                                     false_count += 1;
                             }
@@ -613,9 +615,9 @@ namespace nkr {
                         {
                             nkr::positive::count_t true_count = 0;
                             nkr::positive::count_t false_count = 0;
-                            auto generator = nkr::randomness::generator::software::Default();
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
-                                nkr::randomness::Value<pure_p>(generator.Value(), false, true) ?
+                                nkr::randomness::Value<pure_p>(generator_lockee.Value(), false, true) ?
                                     true_count += 1 :
                                     false_count += 1;
                             }
@@ -628,8 +630,114 @@ namespace nkr {
             }
         }
 
+        TEST_SUITE("aliases")
+        {
+            TEST_SUITE("value_t")
+            {
+
+            }
+        }
+
+        TEST_SUITE("protected data")
+        {
+            TEST_SUITE("value")
+            {
+
+            }
+        }
+
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("default_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("lvalue_to_value_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("rvalue_to_value_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_volatile_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("move_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("move_volatile_ctor()")
+            {
+
+            }
+
+            TEST_SUITE("copy_assigner()")
+            {
+
+            }
+
+            TEST_SUITE("copy_volatile_assigner()")
+            {
+
+            }
+
+            TEST_SUITE("move_assigner()")
+            {
+
+            }
+
+            TEST_SUITE("move_volatile_assigner()")
+            {
+
+            }
+
+        #if defined(nkr_IS_DEBUG)
+            TEST_SUITE("dtor()")
+            {
+
+            }
+        #endif
+        }
+
+        TEST_SUITE("casts")
+        {
+            TEST_SUITE("value_t")
+            {
+
+            }
+        }
+
         TEST_SUITE("operators")
         {
+            TEST_SUITE("operator ()()")
+            {
+
+            }
+        }
+
+        TEST_SUITE("global operators")
+        {
+            TEST_SUITE("operator ==()")
+            {
+
+            }
+
+            TEST_SUITE("operator !=()")
+            {
+
+            }
         }
     }
 
