@@ -106,6 +106,13 @@ namespace nkr {
         using any_not_just_volatile_ts          = nkr::tuple::types_t<nkr_ANY_NOT_JUST_VOLATILE>;
         using any_not_just_const_volatile_ts    = nkr::tuple::types_t<nkr_ANY_NOT_JUST_CONST_VOLATILE>;
 
+        inline constexpr nkr::positive::count_t
+            Default_Iteration_Count()
+            noexcept
+        {
+            return 128;
+        }
+
         TEST_SUITE("tr")
         {
             TEST_CASE("should satisfy all of the following tr1 expressions")
@@ -306,25 +313,323 @@ namespace nkr {
                 static_assert(nkr::boolean::pure_t(false) == nkr::none::value_t<nkr::boolean::pure_t>());
                 static_assert(nkr::none::value_t<nkr::boolean::pure_t>() == nkr::none::value_t<nkr::boolean::pure_t>());
             }
+
+            TEST_SUITE("should satisfy nkr::interface::randomness::value_i")
+            {
+                TEST_SUITE("directly")
+                {
+                    TEST_SUITE("with default parameters")
+                    {
+                        TEST_CASE_TEMPLATE("should return either false or true", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>() ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with a given generator", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            auto generator = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator.Value()) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+                    }
+
+                    TEST_SUITE("with probability_for_true")
+                    {
+                        TEST_CASE_TEMPLATE("should always return false with 0.0", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(nkr::negatable::real_t(0.0)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count == 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should always return true with 1.0", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(nkr::negatable::real_t(1.0)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count == 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with any other value", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(nkr::negatable::real_t(0.5)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with a given generator", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            auto generator = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator.Value(), nkr::negatable::real_t(0.5)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+                    }
+
+                    TEST_SUITE("with min and max")
+                    {
+                        TEST_CASE_TEMPLATE("should always return false when given false, false", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(false, false) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count == 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should always return true when given true, true", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(true, true) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count == 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true when given false, true", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(false, true) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with a given generator", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            auto generator = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::interface::randomness::value_i<pure_p>::template Value<>(generator.Value(), false, true) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+                    }
+                }
+
+                TEST_SUITE("through nkr::randomness::Value<>()")
+                {
+                    TEST_SUITE("with default parameters")
+                    {
+                        TEST_CASE_TEMPLATE("should return either false or true", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>() ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with a given generator", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            auto generator = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(generator.Value()) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+                    }
+
+                    TEST_SUITE("with probability_for_true")
+                    {
+                        TEST_CASE_TEMPLATE("should always return false with 0.0", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(nkr::negatable::real_t(0.0)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count == 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should always return true with 1.0", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(nkr::negatable::real_t(1.0)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count == 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with any other value", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(nkr::negatable::real_t(0.5)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with a given generator", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            auto generator = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(generator.Value(), nkr::negatable::real_t(0.5)) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+                    }
+
+                    TEST_SUITE("with min and max")
+                    {
+                        TEST_CASE_TEMPLATE("should always return false when given false, false", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(false, false) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count == 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should always return true when given true, true", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(true, true) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count == 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true when given false, true", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(false, true) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+
+                        TEST_CASE_TEMPLATE("should return either false or true with a given generator", pure_p, nkr_ANY)
+                        {
+                            nkr::positive::count_t true_count = 0;
+                            nkr::positive::count_t false_count = 0;
+                            auto generator = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::randomness::Value<pure_p>(generator.Value(), false, true) ?
+                                    true_count += 1 :
+                                    false_count += 1;
+                            }
+
+                            CHECK(true_count > 0);
+                            CHECK(false_count > 0);
+                        }
+                    }
+                }
+            }
         }
 
         TEST_SUITE("operators")
         {
-            TEST_CASE("temp")
-            {
-                nkr::boolean::pure_t boolean;
-                volatile nkr::boolean::cpp_t test = false;
-                boolean = nkr::boolean::cpp_t();
-                boolean = nkr::cpp::Move(test);
-
-                CHECK((boolean == nkr::cpp::Move(test)));
-
-                for (nkr::positive::index_t idx = 0, end = 16; idx < end; idx += 1) {
-                    auto generator = nkr::randomness::generator::software::Default();
-                    nkr::boolean::pure_t random = nkr::randomness::Value<nkr::boolean::pure_t>(generator.Value(), false, true);
-                    printf("random: %i\n", random());
-                }
-            }
         }
     }
 
