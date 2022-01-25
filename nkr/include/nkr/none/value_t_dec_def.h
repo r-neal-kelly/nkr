@@ -181,7 +181,7 @@ inline constexpr nkr::boolean::cpp_t
     } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
         return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
     } else {
-        static_assert(false, "these two values can not be equal to each other.");
+        static_assert(false, "these two values can not be compared.");
     }
 }
 
