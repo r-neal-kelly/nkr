@@ -24,7 +24,7 @@ namespace nkr { namespace boolean {
         pure_t::Assign(tr1<any_non_const_tg, pure_t> auto& self, const tr1<any_tg, pure_t> auto& other)
         noexcept
     {
-        if (cpp::Address(self) != cpp::Address(other)) {
+        if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
             self.value = other.value;
         }
 
@@ -35,8 +35,12 @@ namespace nkr { namespace boolean {
         pure_t::Assign(tr1<any_non_const_tg, pure_t> auto& self, tr1<any_non_const_tg, pure_t> auto&& other)
         noexcept
     {
-        if (cpp::Address(self) != cpp::Address(other)) {
-            self.value = cpp::Move(other.value);
+        if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
+        #if defined(nkr_IS_DEBUG)
+            self.value = nkr::cpp::Exchange(other.value, false);
+        #else
+            self.value = nkr::cpp::Move(other.value);
+        #endif
         }
 
         return self;
@@ -75,12 +79,20 @@ namespace nkr { namespace boolean {
     }
 
     inline constexpr pure_t::pure_t(pure_t&& other) noexcept :
-        value(cpp::Move(other.value))
+    #if defined(nkr_IS_DEBUG)
+        value(nkr::cpp::Exchange(other.value, false))
+    #else
+        value(nkr::cpp::Move(other.value))
+    #endif
     {
     }
 
     inline constexpr pure_t::pure_t(volatile pure_t&& other) noexcept :
-        value(cpp::Move(other.value))
+    #if defined(nkr_IS_DEBUG)
+        value(nkr::cpp::Exchange(other.value, false))
+    #else
+        value(nkr::cpp::Move(other.value))
+    #endif
     {
     }
 
@@ -116,28 +128,28 @@ namespace nkr { namespace boolean {
         pure_t::operator =(pure_t&& other)
         noexcept
     {
-        return Assign(*this, cpp::Move(other));
+        return Assign(*this, nkr::cpp::Move(other));
     }
 
     inline constexpr volatile pure_t&
         pure_t::operator =(pure_t&& other)
         volatile noexcept
     {
-        return Assign(*this, cpp::Move(other));
+        return Assign(*this, nkr::cpp::Move(other));
     }
 
     inline constexpr pure_t&
         pure_t::operator =(tr1<just_volatile_tg, pure_t> auto&& other)
         noexcept
     {
-        return Assign(*this, cpp::Move(other));
+        return Assign(*this, nkr::cpp::Move(other));
     }
 
     inline constexpr volatile pure_t&
         pure_t::operator =(tr1<just_volatile_tg, pure_t> auto&& other)
         volatile noexcept
     {
-        return Assign(*this, cpp::Move(other));
+        return Assign(*this, nkr::cpp::Move(other));
     }
 
 #if defined(nkr_IS_DEBUG)

@@ -832,42 +832,283 @@ namespace nkr {
 
             TEST_SUITE("copy_ctor()")
             {
+                TEST_SUITE("should copy other without changing it")
+                {
+                    TEST_CASE_TEMPLATE("non-qualified", pure_p, nkr_ANY)
+                    {
+                        nkr::cpp::just_non_qualified_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                        pure_p pure = other;
 
-            }
+                        CHECK((pure == other));
+                    }
 
-            TEST_SUITE("copy_volatile_ctor()")
-            {
+                    TEST_CASE_TEMPLATE("const", pure_p, nkr_ANY)
+                    {
+                        nkr::cpp::just_const_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                        pure_p pure = other;
 
+                        CHECK((pure == other));
+                    }
+
+                    TEST_CASE_TEMPLATE("volatile", pure_p, nkr_ANY)
+                    {
+                        nkr::cpp::just_volatile_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                        pure_p pure = other;
+
+                        CHECK((pure == other));
+                    }
+
+                    TEST_CASE_TEMPLATE("const volatile", pure_p, nkr_ANY)
+                    {
+                        nkr::cpp::just_const_volatile_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                        pure_p pure = other;
+
+                        CHECK((pure == other));
+                    }
+                }
             }
 
             TEST_SUITE("move_ctor()")
             {
+                TEST_SUITE("should move other and set its value to false in debug mode, else leave it alone")
+                {
+                    TEST_CASE_TEMPLATE("non-qualified", pure_p, nkr_ANY)
+                    {
+                        nkr::cpp::just_non_qualified_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                        nkr::cpp::just_non_qualified_t<pure_p> backup = other;
+                        pure_p pure = nkr::cpp::Move(other);
 
-            }
+                        CHECK((pure == backup));
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK((other == false));
+                    #else
+                        CHECK((other == backup));
+                    #endif
+                    }
 
-            TEST_SUITE("move_volatile_ctor()")
-            {
+                    TEST_CASE_TEMPLATE("volatile", pure_p, nkr_ANY)
+                    {
+                        nkr::cpp::just_volatile_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                        nkr::cpp::just_volatile_t<pure_p> backup = other;
+                        pure_p pure = nkr::cpp::Move(other);
 
+                        CHECK((pure == backup));
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK((other == false));
+                    #else
+                        CHECK((other == backup));
+                    #endif
+                    }
+                }
             }
 
             TEST_SUITE("copy_assigner()")
             {
-                // make sure to test to_values
-            }
+                TEST_SUITE("self")
+                {
+                    TEST_SUITE("should copy lvalue without changing it")
+                    {
+                        TEST_CASE_TEMPLATE("non-qualified", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_non_qualified_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            pure_p pure;
+                            pure = other;
 
-            TEST_SUITE("copy_volatile_assigner()")
-            {
-                // make sure to test to_values
+                            CHECK((pure == other));
+                        }
+
+                        TEST_CASE_TEMPLATE("const", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_const_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            pure_p pure;
+                            pure = other;
+
+                            CHECK((pure == other));
+                        }
+
+                        TEST_CASE_TEMPLATE("volatile", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_volatile_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            pure_p pure;
+                            pure = other;
+
+                            CHECK((pure == other));
+                        }
+
+                        TEST_CASE_TEMPLATE("const volatile", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_const_volatile_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            pure_p pure;
+                            pure = other;
+
+                            CHECK((pure == other));
+                        }
+                    }
+                }
+
+                TEST_SUITE("implicitly convertible")
+                {
+                    TEST_SUITE("should copy lvalue without changing it")
+                    {
+                        TEST_SUITE("non-qualified")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_non_qualified_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = other;
+
+                                CHECK((pure == other));
+                            }
+                        }
+
+                        TEST_SUITE("const")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_const_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = other;
+
+                                CHECK((pure == other));
+                            }
+                        }
+
+                        TEST_SUITE("volatile")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_volatile_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = other;
+
+                                CHECK((pure == other));
+                            }
+                        }
+
+                        TEST_SUITE("const volatile")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_const_volatile_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = other;
+
+                                CHECK((pure == other));
+                            }
+                        }
+                    }
+                }
             }
 
             TEST_SUITE("move_assigner()")
             {
-                // make sure to test to_values
-            }
+                TEST_SUITE("self")
+                {
+                    TEST_SUITE("should move lvalue and set its value to false in debug mode, else leave it alone")
+                    {
+                        TEST_CASE_TEMPLATE("non-qualified", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_non_qualified_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            nkr::cpp::just_non_qualified_t<pure_p> backup = other;
+                            pure_p pure;
+                            pure = nkr::cpp::Move(other);
 
-            TEST_SUITE("move_volatile_assigner()")
-            {
-                // make sure to test to_values
+                            CHECK((pure == backup));
+                        #if defined(nkr_IS_DEBUG)
+                            CHECK((other == false));
+                        #else
+                            CHECK((other == backup));
+                        #endif
+                        }
+
+                        TEST_CASE_TEMPLATE("volatile", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_volatile_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            nkr::cpp::just_volatile_t<pure_p> backup = other;
+                            pure_p pure;
+                            pure = nkr::cpp::Move(other);
+
+                            CHECK((pure == backup));
+                        #if defined(nkr_IS_DEBUG)
+                            CHECK((other == false));
+                        #else
+                            CHECK((other == backup));
+                        #endif
+                        }
+                    }
+
+                    TEST_SUITE("should move temporary")
+                    {
+                        TEST_CASE_TEMPLATE("non-qualified", pure_p, nkr_ANY_NON_CONST)
+                        {
+                            nkr::cpp::just_non_qualified_t<pure_p> other = nkr::randomness::Value<pure_p>();
+                            pure_p pure;
+                            pure = nkr::cpp::just_non_qualified_t<pure_p>(other);
+
+                            CHECK((pure == other));
+                        }
+                    }
+                }
+
+                TEST_SUITE("implicitly convertible")
+                {
+                    TEST_SUITE("should move lvalue and always leave its state alone")
+                    {
+                        TEST_SUITE("non-qualified")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_non_qualified_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = nkr::cpp::Move(other);
+
+                                CHECK((pure == other));
+                            }
+                        }
+
+                        TEST_SUITE("volatile")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_volatile_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = nkr::cpp::Move(other);
+
+                                CHECK((pure == other));
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("should move temporary")
+                    {
+                        TEST_SUITE("non-qualified")
+                        {
+                            TEST_CASE_TEMPLATE("nkr::boolean::cpp_t", pure_p, nkr_ANY_NON_CONST)
+                            {
+                                using other_t = nkr::boolean::cpp_t;
+
+                                nkr::cpp::just_non_qualified_t<other_t> other = nkr::randomness::Value<other_t>();
+                                pure_p pure;
+                                pure = nkr::cpp::just_non_qualified_t<other_t>(other);
+
+                                CHECK((pure == other));
+                            }
+                        }
+                    }
+                }
             }
 
         #if defined(nkr_IS_DEBUG)
