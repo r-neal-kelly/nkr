@@ -11,6 +11,10 @@
 
 namespace nkr { namespace pointer {
 
+    template <typename type_p>
+    using   cpp_t =
+        type_p*;
+
     struct  cpp_tg  {};
 
     template <typename>
@@ -18,11 +22,15 @@ namespace nkr { namespace pointer {
 
     template <typename type_p>
     concept cpp_tr =
-        cpp::pointer_tr<type_p>;
+        nkr::cpp::pointer_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        cpp::is_any_ttr<template_p, cpp_t, none::type_t>;
+        nkr::cpp::is_any_ttr<template_p, cpp_t, none::type_t>;
+
+    template <typename type_p, type_p* value_p>
+    using   cpp_c =
+        nkr::cpp::constant_t<type_p*, value_p>;
 
 }}
 

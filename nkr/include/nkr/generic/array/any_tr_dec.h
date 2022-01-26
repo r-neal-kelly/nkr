@@ -15,7 +15,7 @@ namespace nkr { namespace generic { namespace array {
 
     template <typename type_p>
     concept any_tr =
-        cpp::array_tr<type_p>;
+        nkr::cpp::array_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept any_ttr =

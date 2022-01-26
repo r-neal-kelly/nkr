@@ -14,12 +14,19 @@
 
 namespace nkr { namespace negatable {
 
+    using   word_t =
+        nkr::cpp::negatable::word_t;
+
     struct  word_tg {};
 
     template <typename type_p>
     concept word_tr =
-        cpp::is_any_tr<type_p, word_t> ||
-        (cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(word_t));
+        nkr::cpp::is_any_tr<type_p, word_t> ||
+        (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(word_t));
+
+    template <word_t value_p>
+    using   word_c =
+        nkr::cpp::constant_t<word_t, value_p>;
 
 }}
 

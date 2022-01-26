@@ -11,11 +11,14 @@
 
 namespace nkr { namespace none {
 
+    using   pointer_t =
+        nkr::cpp::none::pointer_t;
+
     struct  pointer_tg  {};
 
     template <typename type_p>
     concept pointer_tr =
-        cpp::is_any_tr<type_p, pointer_t>;
+        nkr::cpp::is_any_tr<type_p, pointer_t>;
 
 }}
 

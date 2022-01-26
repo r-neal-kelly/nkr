@@ -34,6 +34,9 @@ namespace nkr { namespace interface { namespace $type_i {
 
 namespace nkr { namespace interface {
 
+    template <typename type_p>
+    class   type_i;
+
     struct  type_tg     {};
 
     template <typename>
@@ -49,6 +52,97 @@ namespace nkr { namespace interface {
     template <template <typename ...> typename template_p>
     concept type_ttr =
         cpp::is_any_ttr<template_p, type_i, nkr::none::type_t>;
+
+}}
+
+namespace nkr { namespace interface { namespace $type_i {
+
+    template <typename type_p>
+    concept inner_type_tr = requires
+    {
+        typename type_p::type_t;
+    };
+
+    template <typename type_p>
+    concept inner_value_tr = requires
+    {
+        typename type_p::value_t;
+    };
+
+    template <typename type_p>
+    concept inner_unit_tr = requires
+    {
+        typename type_p::unit_t;
+    };
+
+    template <typename type_p>
+    concept just_inner_type_tr =
+        inner_type_tr<type_p> &&
+        !inner_value_tr<type_p> &&
+        !inner_unit_tr<type_p>;
+
+    template <typename type_p>
+    concept just_inner_value_tr =
+        !inner_type_tr<type_p> &&
+        inner_value_tr<type_p> &&
+        !inner_unit_tr<type_p>;
+
+    template <typename type_p>
+    concept just_inner_unit_tr =
+        !inner_type_tr<type_p> &&
+        !inner_value_tr<type_p> &&
+        inner_unit_tr<type_p>;
+
+    template <typename type_p>
+    class default_inner_tmpl
+    {
+    public:
+        using type_t    = nkr::none::type_t;
+    };
+
+    template <just_inner_type_tr type_p>
+    class default_inner_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::type_t;
+    };
+
+    template <just_inner_value_tr type_p>
+    class default_inner_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::value_t;
+    };
+
+    template <just_inner_unit_tr type_p>
+    class default_inner_tmpl<type_p>
+    {
+    public:
+        using type_t    = type_p::unit_t;
+    };
+
+    template <typename type_p>
+    using default_inner_t   = default_inner_tmpl<type_p>::type_t;
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::interface::$type_i::default_inner_t<type_t>;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
+    };
 
 }}
 

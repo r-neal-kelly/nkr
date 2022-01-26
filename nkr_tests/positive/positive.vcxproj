@@ -97,6 +97,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,6 +116,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,6 +135,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,6 +154,7 @@
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;$(SolutionDir)\nkr\include;$(SolutionDir)\doctest\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

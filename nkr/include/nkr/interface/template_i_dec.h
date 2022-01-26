@@ -5,7 +5,6 @@
 #pragma once
 
 #include "nkr/intrinsics_dec.h"
-
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 
 namespace nkr { namespace interface { namespace $template_i {
@@ -50,6 +49,9 @@ namespace nkr { namespace interface { namespace $template_i {
 }}}
 
 namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
 
     struct  template_tg     {};
 

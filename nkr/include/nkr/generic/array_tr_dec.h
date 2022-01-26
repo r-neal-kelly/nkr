@@ -17,11 +17,11 @@ namespace nkr { namespace generic {
 
     template <typename type_p>
     concept array_tr =
-        array::any_tr<type_p>;
+        nkr::generic::array::any_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept array_ttr =
-        array::any_ttr<template_p>;
+        nkr::generic::array::any_ttr<template_p>;
 
 }}
 

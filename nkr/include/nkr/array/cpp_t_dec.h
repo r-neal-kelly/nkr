@@ -11,6 +11,10 @@
 
 namespace nkr { namespace array {
 
+    template <nkr::cpp::type_tr type_p, nkr::cpp::constant_of_tr<positive::count_t> capacity_p>
+    using   cpp_t =
+        type_p[capacity_p::Value()];
+
     struct  cpp_tg  {};
 
     template <typename>
@@ -18,11 +22,15 @@ namespace nkr { namespace array {
 
     template <typename type_p>
     concept cpp_tr =
-        cpp::array_tr<type_p>;
+        nkr::cpp::array_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        cpp::is_any_ttr<template_p, cpp_t, positive::word_t, positive::count_c<1>>;
+        nkr::cpp::is_any_ttr<template_p, cpp_t, positive::word_t, positive::count_c<1>>;
+
+    template <nkr::cpp::type_tr type_p, positive::count_t capacity_p, type_p value_p[capacity_p]>
+    using   cpp_c =
+        nkr::cpp::constant_t<type_p[capacity_p], value_p>;
 
 }}
 

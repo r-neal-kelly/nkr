@@ -12,12 +12,19 @@
 
 namespace nkr { namespace negatable {
 
+    using   integer_64_t =
+        nkr::cpp::negatable::integer_64_t;
+
     struct  integer_64_tg   {};
 
     template <typename type_p>
     concept integer_64_tr =
-        cpp::is_any_tr<type_p, integer_64_t> ||
-        (cpp::negatable_integer_tr<type_p> && sizeof(type_p) * 8 == 64);
+        nkr::cpp::is_any_tr<type_p, integer_64_t> ||
+        (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) * 8 == 64);
+
+    template <integer_64_t value_p>
+    using   integer_64_c =
+        nkr::cpp::constant_t<integer_64_t, value_p>;
 
 }}
 

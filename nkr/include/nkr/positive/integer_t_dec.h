@@ -17,12 +17,19 @@
 
 namespace nkr { namespace positive {
 
+    /*using   integer_t =
+        nkr::cpp::positive::integer_t;*/
+
     struct  integer_tg  {};
 
     template <typename type_p>
     concept integer_tr =
-        cpp::is_any_tr<type_p, integer_t> ||
-        (cpp::positive_integer_tr<type_p> && sizeof(type_p) == sizeof(integer_t));
+        nkr::cpp::is_any_tr<type_p, integer_t> ||
+        (nkr::cpp::positive_integer_tr<type_p> && sizeof(type_p) == sizeof(integer_t));
+
+    template <integer_t value_p>
+    using   integer_c =
+        nkr::cpp::constant_t<integer_t, value_p>;
 
 }}
 

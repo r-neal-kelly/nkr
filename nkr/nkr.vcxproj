@@ -1075,6 +1075,8 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\include;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1092,6 +1094,8 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\include;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1109,6 +1113,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -1126,6 +1132,8 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>/volatile:iso /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableModules>true</EnableModules>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

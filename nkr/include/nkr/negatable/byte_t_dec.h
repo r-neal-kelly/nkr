@@ -14,12 +14,19 @@
 
 namespace nkr { namespace negatable {
 
+    using   byte_t =
+        nkr::cpp::negatable::byte_t;
+
     struct  byte_tg {};
 
     template <typename type_p>
     concept byte_tr =
-        cpp::is_any_tr<type_p, byte_t> ||
-        (cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(byte_t));
+        nkr::cpp::is_any_tr<type_p, byte_t> ||
+        (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(byte_t));
+
+    template <byte_t value_p>
+    using   byte_c =
+        nkr::cpp::constant_t<byte_t, value_p>;
 
 }}
 

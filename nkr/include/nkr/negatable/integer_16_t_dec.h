@@ -12,12 +12,19 @@
 
 namespace nkr { namespace negatable {
 
+    using   integer_16_t =
+        nkr::cpp::negatable::integer_16_t;
+
     struct  integer_16_tg   {};
 
     template <typename type_p>
     concept integer_16_tr =
-        cpp::is_any_tr<type_p, integer_16_t> ||
-        (cpp::negatable_integer_tr<type_p> && sizeof(type_p) * 8 == 16);
+        nkr::cpp::is_any_tr<type_p, integer_16_t> ||
+        (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) * 8 == 16);
+
+    template <integer_16_t value_p>
+    using   integer_16_c =
+        nkr::cpp::constant_t<integer_16_t, value_p>;
 
 }}
 

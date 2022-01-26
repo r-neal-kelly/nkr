@@ -14,12 +14,19 @@
 
 namespace nkr { namespace negatable {
 
+    using   index_t =
+        nkr::cpp::negatable::index_t;
+
     struct  index_tg    {};
 
     template <typename type_p>
     concept index_tr =
-        cpp::is_any_tr<type_p, index_t> ||
-        (cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(index_t));
+        nkr::cpp::is_any_tr<type_p, index_t> ||
+        (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(index_t));
+
+    template <index_t value_p>
+    using   index_c =
+        nkr::cpp::constant_t<index_t, value_p>;
 
 }}
 

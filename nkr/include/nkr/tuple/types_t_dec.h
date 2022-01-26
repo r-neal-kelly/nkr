@@ -11,6 +11,8 @@ namespace nkr { namespace tuple { namespace $types_t {
     template <typename type_p>
     class   is_tmpl;
 
+    class   dummy_t;
+
 }}}
 
 namespace nkr { namespace tuple {
@@ -29,7 +31,7 @@ namespace nkr { namespace tuple {
 
     template <template <typename ...> typename template_p>
     concept types_ttr =
-        nkr::cpp::is_any_ttr<template_p, types_t, nkr::positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, types_t, $types_t::dummy_t>;
 
 }}
 

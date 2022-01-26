@@ -15,12 +15,19 @@
 
 namespace nkr { namespace negatable {
 
+    using   real_t =
+        nkr::cpp::negatable::real_t;
+
     struct  real_tg {};
 
     template <typename type_p>
     concept real_tr =
-        cpp::is_any_tr<type_p, real_t> ||
-        (cpp::negatable_real_tr<type_p> && sizeof(type_p) == sizeof(real_t));
+        nkr::cpp::is_any_tr<type_p, real_t> ||
+        (nkr::cpp::negatable_real_tr<type_p> && sizeof(type_p) == sizeof(real_t));
+
+    template <real_t value_p>
+    using   real_c =
+        nkr::cpp::constant_t<real_t, value_p>;
 
 }}
 

@@ -14,12 +14,19 @@
 
 namespace nkr { namespace positive {
 
+    /*using   count_t =
+        nkr::cpp::positive::count_t;*/
+
     struct  count_tg    {};
 
     template <typename type_p>
     concept count_tr =
-        cpp::is_any_tr<type_p, count_t> ||
-        (cpp::positive_integer_tr<type_p> && sizeof(type_p) == sizeof(count_t));
+        nkr::cpp::is_any_tr<type_p, count_t> ||
+        (nkr::cpp::positive_integer_tr<type_p> && sizeof(type_p) == sizeof(count_t));
+
+    template <count_t value_p>
+    using   count_c =
+        nkr::cpp::constant_t<count_t, value_p>;
 
 }}
 
