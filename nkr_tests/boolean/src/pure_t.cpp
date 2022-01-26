@@ -680,153 +680,243 @@ namespace nkr {
 
             TEST_SUITE("to_value_ctor()")
             {
-                class user_defined_t
+                TEST_SUITE("built-in")
                 {
-                public:
-                    using value_t   = nkr::boolean::pure_t::value_t;
+                #define nkr_TUPLES                                                                                          \
+                    nkr::tuple::types_t<nkr::boolean::pure_t, nkr::boolean::cpp_t>,                                         \
+                    nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::boolean::cpp_t>,                                   \
+                    nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::boolean::cpp_t>,                                \
+                    nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::boolean::cpp_t>,                          \
+                                                                                                                            \
+                    nkr::tuple::types_t<nkr::boolean::pure_t, nkr::positive::integer_t>,                                    \
+                    nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::positive::integer_t>,                              \
+                    nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::positive::integer_t>,                           \
+                    nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::positive::integer_t>,                     \
+                                                                                                                            \
+                    nkr::tuple::types_t<nkr::boolean::pure_t, nkr::negatable::integer_t>,                                   \
+                    nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::negatable::integer_t>,                             \
+                    nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::negatable::integer_t>,                          \
+                    nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::negatable::integer_t>,                    \
+                                                                                                                            \
+                    nkr::tuple::types_t<nkr::boolean::pure_t, nkr::negatable::real_t>,                                      \
+                    nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::negatable::real_t>,                                \
+                    nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::negatable::real_t>,                             \
+                    nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::negatable::real_t>,                       \
+                                                                                                                            \
+                    nkr::tuple::types_t<nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,               \
+                    nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,         \
+                    nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,      \
+                    nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>> \
 
-                protected:
-                    value_t value;
-
-                public:
-                    constexpr user_defined_t(value_t value) noexcept :
-                        value(value)
+                    TEST_SUITE("non-qualified")
                     {
+                        TEST_CASE_TEMPLATE("value", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
+
+                            nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
+                            pure_t pure = from_t(from);
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+
+                        TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
+
+                            nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
+                            pure_t pure = from;
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
+
+                            nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
+                            nkr::cpp::just_non_qualified_t<from_t> backup = from;
+                            pure_t pure = nkr::cpp::Move(from);
+
+                            CHECK(pure() == static_cast<value_t>(backup));
+                        }
                     }
 
-                public:
-                    constexpr operator user_defined_t::value_t()
-                        const volatile noexcept
+                    TEST_SUITE("const")
                     {
-                        return this->value;
-                    }
-                };
+                        TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
 
-            #define nkr_TUPLES                                                                                              \
-                nkr::tuple::types_t<nkr::boolean::pure_t, nkr::boolean::cpp_t>,                                             \
-                nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::boolean::cpp_t>,                                       \
-                nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::boolean::cpp_t>,                                    \
-                nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::boolean::cpp_t>,                              \
-                nkr::tuple::types_t<nkr::boolean::pure_t, nkr::positive::integer_t>,                                        \
-                nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::positive::integer_t>,                                  \
-                nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::positive::integer_t>,                               \
-                nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::positive::integer_t>,                         \
-                nkr::tuple::types_t<nkr::boolean::pure_t, nkr::negatable::integer_t>,                                       \
-                nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::negatable::integer_t>,                                 \
-                nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::negatable::integer_t>,                              \
-                nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::negatable::integer_t>,                        \
-                nkr::tuple::types_t<nkr::boolean::pure_t, nkr::negatable::real_t>,                                          \
-                nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::negatable::real_t>,                                    \
-                nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::negatable::real_t>,                                 \
-                nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::negatable::real_t>,                           \
-                nkr::tuple::types_t<nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,                   \
-                nkr::tuple::types_t<const nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,             \
-                nkr::tuple::types_t<volatile nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,          \
-                nkr::tuple::types_t<const volatile nkr::boolean::pure_t, nkr::pointer::cpp_t<nkr::positive::integer_t>>,    \
-                nkr::tuple::types_t<nkr::boolean::pure_t, user_defined_t>,                                                  \
-                nkr::tuple::types_t<const nkr::boolean::pure_t, user_defined_t>,                                            \
-                nkr::tuple::types_t<volatile nkr::boolean::pure_t, user_defined_t>,                                         \
-                nkr::tuple::types_t<const volatile nkr::boolean::pure_t, user_defined_t>                                    \
+                            nkr::cpp::just_const_t<from_t> from = nkr::randomness::Value<from_t>();
+                            pure_t pure = from;
 
-                template <typename type_p>
-                inline auto
-                    Randomness_Value()
-                    noexcept
-                {
-                    if constexpr (nkr::cpp::is_any_tr<type_p, user_defined_t>) {
-                        return user_defined_t(nkr::randomness::Value<user_defined_t::value_t>());
-                    } else {
-                        return nkr::randomness::Value<type_p>();
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
                     }
+
+                    TEST_SUITE("volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
+
+                            nkr::cpp::just_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
+                            pure_t pure = from;
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
+
+                            nkr::cpp::just_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
+                            nkr::cpp::just_volatile_t<from_t> backup = from;
+                            pure_t pure = nkr::cpp::Move(from);
+
+                            CHECK(pure() == static_cast<value_t>(backup));
+                        }
+                    }
+
+                    TEST_SUITE("const volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
+                        {
+                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
+                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
+                            using value_t = pure_t::value_t;
+
+                            nkr::cpp::just_const_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
+                            pure_t pure = from;
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+                    }
+
+                #undef nkr_TUPLES
                 }
 
-                TEST_SUITE("non-qualified from")
+                TEST_SUITE("user-defined")
                 {
-                    TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
+                    class user_defined_t
                     {
-                        using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
-                        using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
-                        using value_t = pure_t::value_t;
+                    public:
+                        using value_t   = nkr::boolean::cpp_t;
 
-                        nkr::cpp::just_non_qualified_t<from_t> from = Randomness_Value<from_t>();
-                        pure_t pure = from;
+                    protected:
+                        value_t value;
 
-                        CHECK(pure() == static_cast<value_t>(from));
+                    public:
+                        constexpr user_defined_t(value_t value) noexcept :
+                            value(value)
+                        {
+                        }
+
+                    public:
+                        constexpr operator user_defined_t::value_t()
+                            const volatile noexcept
+                        {
+                            return this->value;
+                        }
+                    };
+
+                    TEST_SUITE("non-qualified")
+                    {
+                        TEST_CASE_TEMPLATE("value", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
+
+                            nkr::cpp::just_non_qualified_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            pure_p pure = user_defined_t(from);
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+
+                        TEST_CASE_TEMPLATE("lvalue", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
+
+                            nkr::cpp::just_non_qualified_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            pure_p pure = from;
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
+
+                            nkr::cpp::just_non_qualified_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            nkr::cpp::just_non_qualified_t<user_defined_t> backup = from;
+                            pure_p pure = nkr::cpp::Move(from);
+
+                            CHECK(pure() == static_cast<value_t>(backup));
+                        }
                     }
 
-                    TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_TUPLES)
+                    TEST_SUITE("const")
                     {
-                        using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
-                        using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
-                        using value_t = pure_t::value_t;
+                        TEST_CASE_TEMPLATE("lvalue", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
 
-                        nkr::cpp::just_non_qualified_t<from_t> from = Randomness_Value<from_t>();
-                        nkr::cpp::just_non_qualified_t<from_t> backup = from;
-                        pure_t pure = nkr::cpp::Move(from);
+                            nkr::cpp::just_const_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            pure_p pure = from;
 
-                        CHECK(pure() == static_cast<value_t>(backup));
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+                    }
+
+                    TEST_SUITE("volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
+
+                            nkr::cpp::just_volatile_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            pure_p pure = from;
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
+
+                            nkr::cpp::just_volatile_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            nkr::cpp::just_volatile_t<user_defined_t> backup = from;
+                            pure_p pure = nkr::cpp::Move(from);
+
+                            CHECK(pure() == static_cast<value_t>(backup));
+                        }
+                    }
+
+                    TEST_SUITE("const volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", pure_p, nkr_ANY)
+                        {
+                            using value_t = pure_p::value_t;
+
+                            nkr::cpp::just_const_volatile_t<user_defined_t> from = nkr::randomness::Value<nkr::boolean::cpp_t>();
+                            pure_p pure = from;
+
+                            CHECK(pure() == static_cast<value_t>(from));
+                        }
                     }
                 }
-
-                TEST_SUITE("const from")
-                {
-                    TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
-                    {
-                        using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
-                        using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
-                        using value_t = pure_t::value_t;
-
-                        nkr::cpp::just_const_t<from_t> from = Randomness_Value<from_t>();
-                        pure_t pure = from;
-
-                        CHECK(pure() == static_cast<value_t>(from));
-                    }
-                }
-
-                TEST_SUITE("volatile from")
-                {
-                    TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
-                    {
-                        using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
-                        using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
-                        using value_t = pure_t::value_t;
-
-                        nkr::cpp::just_volatile_t<from_t> from = Randomness_Value<from_t>();
-                        pure_t pure = from;
-
-                        CHECK(pure() == static_cast<value_t>(from));
-                    }
-
-                    TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_TUPLES)
-                    {
-                        using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
-                        using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
-                        using value_t = pure_t::value_t;
-
-                        nkr::cpp::just_volatile_t<from_t> from = Randomness_Value<from_t>();
-                        nkr::cpp::just_volatile_t<from_t> backup = from;
-                        pure_t pure = nkr::cpp::Move(from);
-
-                        CHECK(pure() == static_cast<value_t>(backup));
-                    }
-                }
-
-                TEST_SUITE("const volatile from")
-                {
-                    TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_TUPLES)
-                    {
-                        using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>;
-                        using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>;
-                        using value_t = pure_t::value_t;
-
-                        nkr::cpp::just_const_volatile_t<from_t> from = Randomness_Value<from_t>();
-                        pure_t pure = from;
-
-                        CHECK(pure() == static_cast<value_t>(from));
-                    }
-                }
-
-            #undef nkr_TUPLES
             }
 
             TEST_SUITE("copy_ctor()")
