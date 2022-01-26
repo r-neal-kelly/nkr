@@ -307,23 +307,22 @@ namespace nkr {
             {
                 TEST_SUITE("directly")
                 {
-
+                    TEST_CASE_TEMPLATE("should return false", pure_p, nkr_ANY_NON_QUALIFIED)
+                    {
+                        CHECK((nkr::interface::none::value_i<pure_p>::Value() == false));
+                        CHECK((nkr::interface::none::value_i<pure_p>::Value() == pure_p(false)));
+                    }
                 }
 
                 TEST_SUITE("through nkr::none::value_t")
                 {
-
+                    TEST_CASE_TEMPLATE("should return false", pure_p, nkr_ANY_NON_QUALIFIED)
+                    {
+                        CHECK((nkr::none::value_t<pure_p>() == false));
+                        CHECK((nkr::none::value_t<pure_p>() == pure_p(false)));
+                        CHECK((nkr::none::value_t<pure_p>() == nkr::none::value_t<pure_p>()));
+                    }
                 }
-
-                static_assert(nkr::interface::none::value_i<nkr::boolean::pure_t>::Value() == false);
-
-                static_assert(nkr::none::value_t<nkr::boolean::pure_t>() == false);
-                static_assert(nkr::none::value_t<nkr::boolean::pure_t>() == nkr::boolean::pure_t(false));
-                static_assert(nkr::none::value_t<nkr::boolean::pure_t>() == nkr::none::value_t<nkr::boolean::pure_t>());
-
-                static_assert(false == nkr::none::value_t<nkr::boolean::pure_t>());
-                static_assert(nkr::boolean::pure_t(false) == nkr::none::value_t<nkr::boolean::pure_t>());
-                static_assert(nkr::none::value_t<nkr::boolean::pure_t>() == nkr::none::value_t<nkr::boolean::pure_t>());
             }
 
             TEST_SUITE("should satisfy nkr::interface::randomness::value_i")
@@ -946,7 +945,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("implicitly convertible")
+                TEST_SUITE("implicitly convertible to self")
                 {
                     TEST_SUITE("should copy lvalue without changing it")
                     {
@@ -1059,7 +1058,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("implicitly convertible")
+                TEST_SUITE("implicitly convertible to self")
                 {
                     TEST_SUITE("should move lvalue and always leave its state alone")
                     {
@@ -1236,7 +1235,7 @@ namespace nkr {
 
             TEST_SUITE("operator ==()")
             {
-                TEST_SUITE("with its own type")
+                TEST_SUITE("self")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1311,7 +1310,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("with a type that converts to its value_t")
+                TEST_SUITE("other implicitly convertible to non-qualified value_t")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1398,7 +1397,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("with a type that converts to its non-qualified type")
+                TEST_SUITE("other implicitly convertible to non-qualified self")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1485,7 +1484,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("with a type that it can convert to")
+                TEST_SUITE("self implicitly convertible to non-qualified other")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1575,7 +1574,7 @@ namespace nkr {
 
             TEST_SUITE("operator !=()")
             {
-                TEST_SUITE("with its own type")
+                TEST_SUITE("self")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1650,7 +1649,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("with a type that converts to its value_t")
+                TEST_SUITE("other implicitly convertible to non-qualified value_t")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1737,7 +1736,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("with a type that converts to its non-qualified type")
+                TEST_SUITE("other implicitly convertible to non-qualified self")
                 {
                     TEST_SUITE("non-qualified")
                     {
@@ -1824,7 +1823,7 @@ namespace nkr {
                     }
                 }
 
-                TEST_SUITE("with a type that it can convert to")
+                TEST_SUITE("self implicitly convertible to non-qualified other")
                 {
                     TEST_SUITE("non-qualified")
                     {
