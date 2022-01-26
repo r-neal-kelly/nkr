@@ -58,13 +58,13 @@ namespace nkr { namespace boolean {
     {
     }
 
-    inline constexpr pure_t::pure_t(const tr1<any_to_tg, value_t> auto& to_value) noexcept :
-        value(value_t(to_value))
+    inline constexpr pure_t::pure_t(const tr1<any_to_tg, value_t> auto& from) noexcept :
+        value(value_t(from))
     {
     }
 
-    inline constexpr pure_t::pure_t(tr1<any_non_const_to_tg, value_t> auto&& to_value) noexcept :
-        value(value_t(to_value))
+    inline constexpr pure_t::pure_t(tr1<any_non_const_to_tg, value_t> auto&& from) noexcept :
+        value(value_t(from))
     {
     }
 
