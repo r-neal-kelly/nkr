@@ -12,6 +12,7 @@
 #include "nkr/generic/implementing/self_tr_def.h"
 #include "nkr/generic/number/integer_tr_def.h"
 #include "nkr/generic/type_tr_def.h"
+#include "nkr/interface/forward_def.h"
 #include "nkr/none/type_t_def.h"
 #include "nkr/positive/integer_t_def.h"
 #include "nkr/tr_def.h"

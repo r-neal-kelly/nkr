@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/cpp_def.h"
+#include "nkr/interface/forward_def.h"
 
 #include "nkr/boolean/cpp_t_dec.h"
 

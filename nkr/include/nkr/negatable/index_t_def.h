@@ -4,7 +4,9 @@
 
 #pragma once
 
+#include "nkr/interface/forward_def.h"
 #include "nkr/negatable/integer_t_def.h"
+#include "nkr/none/type_t_def.h"
 
 #include "nkr/negatable/index_t_dec.h"
 

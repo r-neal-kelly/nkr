@@ -157,8 +157,7 @@ namespace nkr {
         }
     };
 
-    namespace interface
-    {
+    namespace interface {
 
         template <nkr::cpp::is_any_tr<user_defined_t> type_p>
         class type_i<type_p>

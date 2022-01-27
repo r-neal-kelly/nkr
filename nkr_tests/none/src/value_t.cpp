@@ -58,10 +58,13 @@ namespace nkr {
     class non_none_default_t
     {
     public:
-        static constexpr const positive::integer_t  NONE = 1;
+        using value_t   = nkr::positive::integer_t;
+
+    public:
+        static constexpr const value_t  NONE    = 1;
 
     private:
-        positive::integer_t value;
+        value_t value;
 
     public:
         /*constexpr non_none_default_t() :
@@ -69,7 +72,7 @@ namespace nkr {
         {
         }*/
 
-        constexpr non_none_default_t(positive::integer_t value) :
+        constexpr non_none_default_t(value_t value) :
             value(value)
         {
         }
@@ -81,11 +84,36 @@ namespace nkr {
         non_none_default_t& operator =(non_none_default_t&& other) noexcept = delete;
 
     public:
-        positive::integer_t Value() const
+        value_t Value() const
         {
             return this->value;
         }
     };
+
+    namespace interface {
+
+        template <nkr::cpp::is_any_tr<non_none_default_t> type_p>
+        class type_i<type_p>
+        {
+        public:
+            using type_t    = type_p;
+            using of_t      = type_t::value_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return nkr::cpp::is_any_tr<other_p, non_none_default_t>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+    }
 
     namespace interface { namespace none {
 

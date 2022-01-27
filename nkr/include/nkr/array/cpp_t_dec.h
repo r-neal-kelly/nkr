@@ -6,6 +6,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/count_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
@@ -42,9 +43,6 @@ namespace nkr { namespace array {
 
 namespace nkr { namespace interface {
 
-    template <typename type_p>
-    class type_i;
-
     template <>
     class type_i<nkr::array::cpp_tg>
     {
@@ -73,9 +71,6 @@ namespace nkr { namespace interface {
 }}
 
 namespace nkr { namespace interface {
-
-    template <template <typename ...> typename template_p>
-    class template_i;
 
     template <>
     class template_i<nkr::array::cpp_ttg>

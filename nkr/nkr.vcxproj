@@ -421,6 +421,11 @@
     <ClInclude Include="include\nkr\interface\enumeration\types_i_dec_def.h" />
     <ClInclude Include="include\nkr\interface\enumeration\types_i_def.h" />
     <ClInclude Include="include\nkr\interface\enumeration\types_i_dox.h" />
+    <ClInclude Include="include\nkr\interface\forward.h" />
+    <ClInclude Include="include\nkr\interface\forward_dec.h" />
+    <ClInclude Include="include\nkr\interface\forward_dec_def.h" />
+    <ClInclude Include="include\nkr\interface\forward_def.h" />
+    <ClInclude Include="include\nkr\interface\forward_dox.h" />
     <ClInclude Include="include\nkr\interface\randomness\distributor\uniform_i.h" />
     <ClInclude Include="include\nkr\interface\randomness\distributor\uniform_i_dec.h" />
     <ClInclude Include="include\nkr\interface\randomness\distributor\uniform_i_dec_def.h" />

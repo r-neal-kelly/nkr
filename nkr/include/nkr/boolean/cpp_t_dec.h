@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/cpp_dec.h"
+#include "nkr/interface/forward_dec.h"
 
 namespace nkr { namespace boolean {
 
@@ -28,9 +29,6 @@ namespace nkr { namespace boolean {
 }}
 
 namespace nkr { namespace interface {
-
-    template <typename type_p>
-    class type_i;
 
     template <>
     class type_i<nkr::boolean::cpp_tg>

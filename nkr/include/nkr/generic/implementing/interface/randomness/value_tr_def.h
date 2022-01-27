@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/boolean/cpp_t_def.h"
+#include "nkr/interface/forward_def.h"
 #include "nkr/interface/randomness/value_i_def.h"
 #include "nkr/none/type_t_def.h"
 

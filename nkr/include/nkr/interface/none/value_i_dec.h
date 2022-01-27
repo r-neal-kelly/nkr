@@ -8,30 +8,10 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
-
-namespace nkr { namespace interface { namespace none {
-
-    template <typename type_p>
-    class   value_i;
-
-}}}
-
-namespace nkr { namespace interface {
-
-    template <template <typename ...> typename template_p>
-    class   template_i;
-
-}}
-
-namespace nkr { namespace interface {
-
-    template <typename type_p>
-    class   type_i;
-
-}}
 
 namespace nkr { namespace interface { namespace none { namespace $value_i {
 

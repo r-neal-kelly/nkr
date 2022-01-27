@@ -14,6 +14,7 @@
 #include "nkr/generic/implementing/constructor/default_tr_def.h"
 #include "nkr/generic/implementing/self_tr_def.h"
 #include "nkr/generic/type_tr_def.h"
+#include "nkr/interface/forward_def.h"
 #include "nkr/negatable/integer_t_def.h"
 #include "nkr/negatable/integer_8_t_def.h"
 #include "nkr/negatable/integer_16_t_def.h"

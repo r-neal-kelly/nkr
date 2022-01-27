@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "nkr/interface/forward_dec.h"
+#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_8_t_dec.h"
 #include "nkr/positive/integer_16_t_dec.h"
 #include "nkr/positive/integer_32_t_dec.h"

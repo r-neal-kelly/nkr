@@ -4,8 +4,6 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
 #include "nkr/concurrency/lockee_t_dec.h"
 #include "nkr/cpp/randomness/generator/hardware_t_dec.h"
 

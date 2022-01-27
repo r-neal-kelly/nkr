@@ -4,8 +4,10 @@
 
 #pragma once
 
+#include "nkr/interface/forward_def.h"
 #include "nkr/negatable/real_32_t_def.h"
 #include "nkr/negatable/real_64_t_def.h"
+#include "nkr/none/type_t_def.h"
 
 #include "nkr/negatable/real_max_t_dec.h"
 

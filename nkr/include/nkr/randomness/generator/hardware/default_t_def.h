@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
-
 #include "nkr/concurrency/lockee_t_def.h"
 #include "nkr/cpp/randomness/generator/hardware_t_def.h"
 
 #include "nkr/randomness/generator/hardware/default_t_dec.h"
+
+#include "nkr/cpp/concurrency/lock/perpetual/deep_t_def.h"
 
 namespace nkr { namespace randomness { namespace generator { namespace hardware {
 

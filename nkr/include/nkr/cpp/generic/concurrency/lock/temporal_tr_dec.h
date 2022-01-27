@@ -8,21 +8,8 @@
 #include "nkr/cpp/concurrency/lock/temporal/deep_t_dec.h"
 #include "nkr/cpp/concurrency/lock/temporal/unary_t_dec.h"
 #include "nkr/cpp/concurrency/lock/temporal/wide_t_dec.h"
+#include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
-
-namespace nkr { namespace interface {
-
-    template <template <typename ...> typename template_p>
-    class   template_i;
-
-}}
-
-namespace nkr { namespace interface {
-
-    template <typename type_p>
-    class   type_i;
-
-}}
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 

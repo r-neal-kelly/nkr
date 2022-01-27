@@ -9,6 +9,7 @@
 #include "nkr/randomness/value_dec.h"
 
 #include "nkr/cpp_def.h"
+#include "nkr/interface/forward_def.h"
 #include "nkr/interface/randomness/value_i_def.h"
 
 namespace nkr { namespace randomness {

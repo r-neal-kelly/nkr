@@ -8,6 +8,7 @@
 #include "nkr/cpp_def.h"
 #include "nkr/cpp/concurrency/lock/perpetual/unary_t_def.h"
 #include "nkr/cpp/generic/concurrency/lock/exclusive_tr_def.h"
+#include "nkr/interface/forward_def.h"
 #include "nkr/none/type_t_def.h"
 
 #include "nkr/cpp/concurrency/locker/exclusive_t_dec.h"

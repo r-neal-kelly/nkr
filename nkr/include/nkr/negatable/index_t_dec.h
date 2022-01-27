@@ -4,7 +4,9 @@
 
 #pragma once
 
+#include "nkr/interface/forward_dec.h"
 #include "nkr/negatable/integer_t_dec.h"
+#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace negatable {
 

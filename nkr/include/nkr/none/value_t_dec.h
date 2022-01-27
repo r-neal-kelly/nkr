@@ -4,12 +4,14 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/interface/none/value_tr_dec.h"
-#include "nkr/generic/none_tr_dec.h"
-#include "nkr/generic/none/any_tr_dec.h"
-#include "nkr/generic/type_tr_dec.h"
+#include "nkr/interface/forward_dec.h"
+#include "nkr/interface/none/value_i_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/tr_dec.h"
 
 namespace nkr { namespace none {
 
@@ -23,11 +25,11 @@ namespace nkr { namespace none {
 
     template <typename type_p>
     concept value_tr =
-        cpp::is_any_tr<type_p, value_t<typename type_p::type_t>>;
+        nkr::cpp::is_any_tr<type_p, value_t<typename type_p::type_t>>;
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
-        cpp::is_any_ttr<template_p, value_t, none::type_t>;
+        nkr::cpp::is_any_ttr<template_p, value_t, nkr::positive::integer_t>;
 
 }}
 
@@ -91,15 +93,12 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace none {
 
-    // type_t alias really should be value_t. We need to make that work syntactically here,
-    // but we should do that to be consistent with other types that produce a value.
-
-    template <generic::implementing::interface::none::value_tr type_p>
+    template <nkr::generic::implementing::interface::none::value_tr type_p>
     class value_t<type_p>
     {
     public:
         using type_t        = type_p;
-        using interface_t   = interface::none::value_i<type_t>;
+        using interface_t   = nkr::interface::none::value_i<type_t>;
 
     public:
         static constexpr value_t::type_t    Value() noexcept;

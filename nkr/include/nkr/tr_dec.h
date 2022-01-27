@@ -7,6 +7,7 @@
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/generic/implementing/interface/template_tr_dec.h"
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
+#include "nkr/interface/forward_dec.h"
 #include "nkr/tuple/templates_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 

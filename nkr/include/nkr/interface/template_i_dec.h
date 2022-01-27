@@ -7,14 +7,8 @@
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
+#include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
-
-namespace nkr { namespace interface {
-
-    template <typename type_p>
-    class   type_i;
-
-}}
 
 namespace nkr { namespace interface { namespace $template_i {
 

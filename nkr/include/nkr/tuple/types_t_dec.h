@@ -6,6 +6,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/count_t_dec.h"
 #include "nkr/positive/index_t_dec.h"
@@ -41,9 +42,6 @@ namespace nkr { namespace tuple {
 
 namespace nkr { namespace interface {
 
-    template <typename type_p>
-    class type_i;
-
     template <>
     class type_i<nkr::tuple::types_tg>
     {
@@ -72,9 +70,6 @@ namespace nkr { namespace interface {
 }}
 
 namespace nkr { namespace interface {
-
-    template <template <typename ...> typename template_p>
-    class template_i;
 
     template <>
     class template_i<nkr::tuple::types_ttg>
