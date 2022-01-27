@@ -4,9 +4,12 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
+#include "nkr/cpp_dec.h"
 
 namespace nkr { namespace boolean {
+
+    using   cpp_t =
+        nkr::cpp::boolean_t;
 
     struct  cpp_tg  {};
 
@@ -14,24 +17,27 @@ namespace nkr { namespace boolean {
     concept cpp_tr =
         nkr::cpp::is_any_tr<type_p, cpp_t>;
 
-    /*template <cpp_t value_p>
+    template <cpp_t value_p>
     using   cpp_c =
         nkr::cpp::constant_t<cpp_t, value_p>;
 
     template <typename type_p>
     concept cpp_ctr =
-        nkr::cpp::constant_of_tr<type_p, nkr::boolean::cpp_t>;*/
+        nkr::cpp::constant_of_tr<type_p, nkr::boolean::cpp_t>;
 
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::boolean::cpp_tg>
     {
     public:
         using type_t    = nkr::boolean::cpp_tg;
-        using of_t      = nkr::none::type_t;
+        using of_t      = nkr::cpp::none::type_t;
 
     public:
         template <typename other_p>
@@ -48,6 +54,7 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
+        using of_t      = nkr::cpp::none::type_t;
     };
 
 }}

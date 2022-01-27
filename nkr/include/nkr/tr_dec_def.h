@@ -11,7 +11,7 @@ namespace nkr { namespace $tr {
     template <
         typename subject_p,
         typename operator_p
-    > inline constexpr boolean::cpp_t
+    > inline constexpr nkr::boolean::cpp_t
         TR0()
         noexcept
     {
@@ -51,11 +51,15 @@ namespace nkr { namespace $tr {
     template <
         typename subject_p,
         typename operator_p, typename operand_p
-    > inline constexpr boolean::cpp_t
+    > inline constexpr nkr::boolean::cpp_t
         TR1()
         noexcept
     {
-        static_assert(generic::implementing::interface::type_tr<operand_p>);
+        if constexpr (nkr::cpp::array_tr<operand_p>) {
+            static_assert(nkr::generic::implementing::interface::type_tr<operand_p>);
+        } else {
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::cpp::just_non_qualified_t<operand_p>>);
+        }
 
         using subject_t = subject_p;
         using object_t = operand_p;
@@ -85,12 +89,16 @@ namespace nkr { namespace $tr {
         typename subject_p,
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, typename of_operand_p
-    > inline constexpr boolean::cpp_t
+    > inline constexpr nkr::boolean::cpp_t
         TR2()
         noexcept
     {
-        static_assert(generic::implementing::interface::template_ttr<operand_p>);
-        static_assert(generic::implementing::interface::type_tr<of_operand_p>);
+        static_assert(nkr::generic::implementing::interface::template_ttr<operand_p>);
+        if constexpr (nkr::cpp::array_tr<of_operand_p>) {
+            static_assert(nkr::generic::implementing::interface::type_tr<of_operand_p>);
+        } else {
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::cpp::just_non_qualified_t<of_operand_p>>);
+        }
 
         using subject_t = subject_p;
         using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_operator_p>>;
@@ -113,13 +121,17 @@ namespace nkr { namespace $tr {
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, template <typename ...> typename of_operand_p,
         typename of_of_operator_p, typename of_of_operand_p
-    > inline constexpr boolean::cpp_t
+    > inline constexpr nkr::boolean::cpp_t
         TR3()
         noexcept
     {
-        static_assert(generic::implementing::interface::template_ttr<operand_p>);
-        static_assert(generic::implementing::interface::template_ttr<of_operand_p>);
-        static_assert(generic::implementing::interface::type_tr<of_of_operand_p>);
+        static_assert(nkr::generic::implementing::interface::template_ttr<operand_p>);
+        static_assert(nkr::generic::implementing::interface::template_ttr<of_operand_p>);
+        if constexpr (nkr::cpp::array_tr<of_of_operand_p>) {
+            static_assert(nkr::generic::implementing::interface::type_tr<of_of_operand_p>);
+        } else {
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::cpp::just_non_qualified_t<of_of_operand_p>>);
+        }
 
         using subject_t = subject_p;
         using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_of_operator_p>>;

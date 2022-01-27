@@ -4,14 +4,16 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/array_tr_dec.h"
-#include "nkr/generic/array/any_tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/count_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace array {
 
-    template <nkr::cpp::type_tr type_p, nkr::cpp::constant_of_tr<positive::count_t> capacity_p>
+    template <nkr::cpp::type_tr type_p, nkr::positive::count_ctr capacity_p>
     using   cpp_t =
         type_p[capacity_p::Value()];
 
@@ -26,15 +28,22 @@ namespace nkr { namespace array {
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        nkr::cpp::is_any_ttr<template_p, cpp_t, positive::word_t, positive::count_c<1>>;
+        nkr::cpp::is_any_ttr<template_p, cpp_t, nkr::positive::integer_t, nkr::positive::count_c<1>>;
 
-    template <nkr::cpp::type_tr type_p, positive::count_t capacity_p, type_p value_p[capacity_p]>
+    template <nkr::cpp::type_tr type_p, nkr::positive::count_t capacity_p, type_p value_p[capacity_p]>
     using   cpp_c =
         nkr::cpp::constant_t<type_p[capacity_p], value_p>;
+
+    template <typename type_p>
+    concept cpp_ctr =
+        nkr::cpp::constant_of_tr<type_p, nkr::cpp::array_unit_t<type_p>[nkr::cpp::Array_Capacity<type_p>()]>;
 
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::array::cpp_tg>
@@ -65,22 +74,27 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
+    template <template <typename ...> typename template_p>
+    class template_i;
+
     template <>
     class template_i<nkr::array::cpp_ttg>
     {
     public:
         template <typename inner_p>
         using of_t          = nkr::array::cpp_t<inner_p, nkr::positive::count_c<1>>;
+
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() == 2)
         using of_tuple_t    = nkr::array::cpp_t<
             typename parameters_p::template at_t<nkr::positive::index_c<0>>,
             typename parameters_p::template at_t<nkr::positive::index_c<1>>
         >;
+
         template <typename ...parameters_p>
         using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t     = of_t<nkr::positive::word_t>;
+        using example_t     = of_t<nkr::positive::integer_t>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -102,17 +116,3 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/array/cpp_t_dec_def.h"
-
-namespace nkr { namespace array {
-
-    static_assert(generic::array_tr<cpp_t<positive::integer_t, positive::count_c<2>>>);
-    static_assert(generic::array_tr<const cpp_t<positive::integer_t, positive::count_c<2>>>);
-    static_assert(generic::array_tr<volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
-    static_assert(generic::array_tr<const volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
-
-    static_assert(generic::array::any_tr<cpp_t<positive::integer_t, positive::count_c<2>>>);
-    static_assert(generic::array::any_tr<const cpp_t<positive::integer_t, positive::count_c<2>>>);
-    static_assert(generic::array::any_tr<volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
-    static_assert(generic::array::any_tr<const volatile cpp_t<positive::integer_t, positive::count_c<2>>>);
-
-}}

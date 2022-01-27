@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/boolean/cpp_t_def.h"
 #include "nkr/generic/implementing/interface/template_tr_def.h"
 #include "nkr/generic/implementing/interface/type_tr_def.h"
 #include "nkr/tuple/templates_t_def.h"

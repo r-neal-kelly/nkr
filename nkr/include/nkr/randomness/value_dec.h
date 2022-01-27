@@ -4,9 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
 #include "nkr/generic/implementing/interface/randomness/value_tr_dec.h"
-#include "nkr/interface/randomness/value_i_dec.h"
 
 namespace nkr { namespace randomness {
 

@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "nkr/intrinsics_def.h"
-
+#include "nkr/boolean/cpp_t_def.h"
 #include "nkr/interface/type_i_def.h"
+#include "nkr/none/type_t_def.h"
 
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
 

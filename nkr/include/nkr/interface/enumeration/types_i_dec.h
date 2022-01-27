@@ -4,22 +4,44 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/built_in_tr_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/implementing/interface/none/value_tr_dec.h"
 #include "nkr/generic/implementing/self_tr_dec.h"
-#include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/number/integer_tr_dec.h"
-#include "nkr/generic/positive_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/tr_dec.h"
+
+namespace nkr { namespace interface { namespace enumeration {
+
+    template <typename type_p>
+    class   types_i;
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
 
     template <typename type_p>
     concept default_tr =
-        cpp::just_non_qualified_tr<type_p> &&
+        nkr::cpp::just_non_qualified_tr<type_p> &&
         nkr::generic::type_tr<type_p> &&
         nkr::generic::built_in_tr<type_p> &&
         nkr::generic::number::integer_tr<type_p> &&
@@ -27,12 +49,12 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
     template <typename type_p>
     concept aliases_i =
-        cpp::just_non_qualified_tr<typename type_p::type_t> &&
+        nkr::cpp::just_non_qualified_tr<typename type_p::type_t> &&
         nkr::generic::type_tr<typename type_p::type_t> &&
         nkr::generic::implementing::self_tr<typename type_p::type_t> &&
         (requires(typename type_p::integer_t integer) { { typename type_p::type_t(integer) }; }) &&
 
-        cpp::just_non_qualified_tr<typename type_p::integer_t>&&
+        nkr::cpp::just_non_qualified_tr<typename type_p::integer_t>&&
         nkr::generic::type_tr<typename type_p::integer_t>&&
         nkr::generic::built_in_tr<typename type_p::integer_t>&&
         nkr::generic::number::integer_tr<typename type_p::integer_t>&&
@@ -46,18 +68,18 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
                                                     typename type_p::integer_t integer)
     {
-        { type_p::Default_None_Value() }            -> cpp::is_tr<typename type_p::integer_t>;
+        { type_p::Default_None_Value() }            -> nkr::cpp::is_tr<typename type_p::integer_t>;
 
-        { type_p::Value(const_type) }               -> cpp::is_tr<typename type_p::integer_t>;
-        { type_p::Value(const_volatile_type) }      -> cpp::is_tr<typename type_p::integer_t>;
+        { type_p::Value(const_type) }               -> nkr::cpp::is_tr<typename type_p::integer_t>;
+        { type_p::Value(const_volatile_type) }      -> nkr::cpp::is_tr<typename type_p::integer_t>;
 
-        { type_p::Value(type, integer) }            -> cpp::is_tr<nkr::none::type_t>;
-        { type_p::Value(volatile_type, integer) }   -> cpp::is_tr<nkr::none::type_t>;
+        { type_p::Value(type, integer) }            -> nkr::cpp::is_tr<nkr::none::type_t>;
+        { type_p::Value(volatile_type, integer) }   -> nkr::cpp::is_tr<nkr::none::type_t>;
     };
 
     template <typename type_p>
     concept objects_i =
-        !generic::implementing::constructor::default_tr<type_p>;
+        !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}}
 
@@ -73,14 +95,14 @@ namespace nkr { namespace interface { namespace enumeration {
 
     template <typename type_p>
     concept types_tr =
-        cpp::is_any_tr<type_p, types_i<typename type_p::type_t>> &&
+        nkr::cpp::is_any_tr<type_p, types_i<typename type_p::type_t>> &&
         $types_i::aliases_i<type_p> &&
         $types_i::static_constexpr_functions_i<type_p > &&
         $types_i::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept types_ttr =
-        cpp::is_any_ttr<template_p, types_i, nkr::positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, types_i, nkr::positive::integer_t>;
 
 }}}
 
@@ -165,9 +187,3 @@ namespace nkr { namespace interface { namespace enumeration {
 }}}
 
 #include "nkr/interface/enumeration/types_i_dec_def.h"
-
-namespace nkr { namespace interface { namespace enumeration {
-
-    static_assert(types_tr<types_i<positive::integer_t>>);
-
-}}}

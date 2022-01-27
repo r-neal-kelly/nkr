@@ -4,7 +4,11 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/count_t_dec.h"
+#include "nkr/positive/index_t_dec.h"
 
 namespace nkr { namespace tuple { namespace $types_t {
 
@@ -37,6 +41,9 @@ namespace nkr { namespace tuple {
 
 namespace nkr { namespace interface {
 
+    template <typename type_p>
+    class type_i;
+
     template <>
     class type_i<nkr::tuple::types_tg>
     {
@@ -66,13 +73,16 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
+    template <template <typename ...> typename template_p>
+    class template_i;
+
     template <>
     class template_i<nkr::tuple::types_ttg>
     {
     public:
         template <typename inner_p>
         using of_t      = nkr::tuple::types_t<inner_p>;
-        using example_t = of_t<nkr::positive::integer_t>;
+        using example_t = of_t<nkr::tuple::$types_t::dummy_t>;
 
     public:
         template <template <typename ...> typename other_p>

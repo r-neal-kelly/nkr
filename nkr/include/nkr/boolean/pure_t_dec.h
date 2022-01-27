@@ -4,11 +4,13 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/interface/randomness/value_i_dec.h"
+#include "nkr/negatable/real_t_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/tr_dec.h"
 
 /*
     pure_t:
@@ -28,6 +30,9 @@ namespace nkr { namespace boolean {
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::boolean::pure_tg>
@@ -64,6 +69,9 @@ namespace nkr { namespace boolean { namespace $pure_t {
 }}}
 
 namespace nkr { namespace interface { namespace randomness {
+
+    template <typename value_p>
+    class value_i_sp;
 
     template <nkr::boolean::pure_tr value_p>
     class value_i_sp<value_p>

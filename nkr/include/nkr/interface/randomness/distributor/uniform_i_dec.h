@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/built_in/boolean_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 #include "nkr/generic/built_in/number/integer_tr_dec.h"
@@ -14,6 +14,38 @@
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/implementing/self_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/negatable/integer_t_dec.h"
+#include "nkr/negatable/integer_8_t_dec.h"
+#include "nkr/negatable/integer_16_t_dec.h"
+#include "nkr/negatable/integer_32_t_dec.h"
+#include "nkr/negatable/integer_64_t_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/positive/integer_8_t_dec.h"
+#include "nkr/positive/integer_16_t_dec.h"
+#include "nkr/positive/integer_32_t_dec.h"
+#include "nkr/positive/integer_64_t_dec.h"
+
+namespace nkr { namespace interface { namespace randomness { namespace distributor {
+
+    template <typename type_p>
+    class   uniform_i_sp;
+
+}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
 
@@ -47,7 +79,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
     template <typename type_p>
     concept objects_i =
-        !generic::implementing::constructor::default_tr<type_p>;
+        !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}}}
 
@@ -201,7 +233,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     {
     public:
         using type_t    = type_p;
-        using number_t  = positive::integer_t;
+        using number_t  = nkr::positive::integer_t;
 
     public:
         static constexpr type_t     Default_Min() noexcept;
@@ -223,67 +255,67 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     class enumeration_limited_integer_tmpl;
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_8_t) && positive::integer_8_t(enumeration_p::MIN_tg) >= 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_8_t) && nkr::positive::integer_8_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = positive::integer_8_t;
+        using type_t    = nkr::positive::integer_8_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_16_t) && positive::integer_16_t(enumeration_p::MIN_tg) >= 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_16_t) && nkr::positive::integer_16_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = positive::integer_16_t;
+        using type_t    = nkr::positive::integer_16_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_32_t) && positive::integer_32_t(enumeration_p::MIN_tg) >= 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_32_t) && nkr::positive::integer_32_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = positive::integer_32_t;
+        using type_t    = nkr::positive::integer_32_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(positive::integer_64_t) && positive::integer_64_t(enumeration_p::MIN_tg) >= 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_64_t) && nkr::positive::integer_64_t(enumeration_p::MIN_tg) >= 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = positive::integer_64_t;
+        using type_t    = nkr::positive::integer_64_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_8_t) && negatable::integer_8_t(enumeration_p::MIN_tg) < 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_8_t) && nkr::negatable::integer_8_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = negatable::integer_8_t;
+        using type_t    = nkr::negatable::integer_8_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_16_t) && negatable::integer_16_t(enumeration_p::MIN_tg) < 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_16_t) && nkr::negatable::integer_16_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = negatable::integer_16_t;
+        using type_t    = nkr::negatable::integer_16_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_32_t) && negatable::integer_32_t(enumeration_p::MIN_tg) < 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_32_t) && nkr::negatable::integer_32_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = negatable::integer_32_t;
+        using type_t    = nkr::negatable::integer_32_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(negatable::integer_64_t) && negatable::integer_64_t(enumeration_p::MIN_tg) < 0)
+        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_64_t) && nkr::negatable::integer_64_t(enumeration_p::MIN_tg) < 0)
     class enumeration_limited_integer_tmpl<enumeration_p>
     {
     public:
-        using type_t    = negatable::integer_64_t;
+        using type_t    = nkr::negatable::integer_64_t;
     };
 
     template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
@@ -363,7 +395,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     {
     public:
         using type_t    = type_p;
-        using number_t  = positive::integer_t;
+        using number_t  = nkr::positive::integer_t;
 
     public:
         static constexpr type_t     Default_Min() noexcept;

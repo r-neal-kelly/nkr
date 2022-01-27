@@ -4,13 +4,7 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
-
 #include "nkr/negatable/integer_t_def.h"
-
-#include "nkr/generic/negatable_tr_def.h"
-#include "nkr/generic/negatable/any_tr_def.h"
-#include "nkr/generic/negatable/integer_tr_def.h"
 
 #include "nkr/negatable/index_t_dec.h"
 

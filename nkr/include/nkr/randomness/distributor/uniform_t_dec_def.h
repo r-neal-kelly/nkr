@@ -142,7 +142,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
         nkr_ASSERT_THAT(min <= max);
 
-        if constexpr (generic::built_in::number::real_tr<number_t>) {
+        if constexpr (nkr::generic::built_in::number::real_tr<number_t>) {
             // something we need to check is if -min or -max can cause undefined behavior, or if does something unexpected.
             // not sure if -real can hold as many discrete values as real.
             if (min < 0.0) {
@@ -152,7 +152,7 @@ namespace nkr { namespace randomness { namespace distributor {
                     // then negative should be returned 25% of the time and positive 75% of the time.
                     const number_t absolute_min = -min;
                     const number_t absolute_max = max;
-                    const boolean::cpp_t do_negative = absolute_min > absolute_max ?
+                    const nkr::boolean::cpp_t do_negative = absolute_min > absolute_max ?
                         !nkr::cpp::randomness::distributor::bernoulli_t(nkr::negatable::real_t(absolute_max / absolute_min / 2))(generator) :
                         nkr::cpp::randomness::distributor::bernoulli_t(nkr::negatable::real_t(absolute_min / absolute_max / 2))(generator);
 
@@ -175,15 +175,15 @@ namespace nkr { namespace randomness { namespace distributor {
                     nkr::cpp::randomness::distributor::uniform::real_t<number_t>(min, max)(generator)
                 );
             }
-        } else if constexpr (generic::built_in::number::integer_tr<number_t>) {
-            if constexpr (sizeof(number_t) < sizeof(positive::word_t)) {
-                if constexpr (generic::positive_tr<number_t>) {
+        } else if constexpr (nkr::generic::built_in::number::integer_tr<number_t>) {
+            if constexpr (sizeof(number_t) < sizeof(nkr::positive::word_t)) {
+                if constexpr (nkr::generic::positive_tr<number_t>) {
                     return interface_t::From_Number(
-                        static_cast<number_t>(nkr::cpp::randomness::distributor::uniform::integer_t<positive::word_t>(min, max)(generator))
+                        static_cast<number_t>(nkr::cpp::randomness::distributor::uniform::integer_t<nkr::positive::word_t>(min, max)(generator))
                     );
                 } else {
                     return interface_t::From_Number(
-                        static_cast<number_t>(nkr::cpp::randomness::distributor::uniform::integer_t<negatable::word_t>(min, max)(generator))
+                        static_cast<number_t>(nkr::cpp::randomness::distributor::uniform::integer_t<nkr::negatable::word_t>(min, max)(generator))
                     );
                 }
             } else {

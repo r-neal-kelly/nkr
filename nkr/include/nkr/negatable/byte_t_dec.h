@@ -4,13 +4,7 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
 #include "nkr/negatable/integer_t_dec.h"
-
-#include "nkr/generic/negatable_tr_dec.h"
-#include "nkr/generic/negatable/any_tr_dec.h"
-#include "nkr/generic/negatable/integer_tr_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -28,6 +22,10 @@ namespace nkr { namespace negatable {
     using   byte_c =
         nkr::cpp::constant_t<byte_t, value_p>;
 
+    template <typename type_p>
+    concept byte_ctr =
+        nkr::cpp::constant_of_tr<type_p, byte_t>;
+
 }}
 
 namespace nkr { namespace interface {
@@ -38,27 +36,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = nkr::negatable::byte_tg;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/negatable/byte_t_dec_def.h"
-
-namespace nkr { namespace negatable {
-
-    static_assert(generic::negatable_tr<byte_t>);
-    static_assert(generic::negatable_tr<const byte_t>);
-    static_assert(generic::negatable_tr<volatile byte_t>);
-    static_assert(generic::negatable_tr<const volatile byte_t>);
-
-    static_assert(generic::negatable::any_tr<byte_t>);
-    static_assert(generic::negatable::any_tr<const byte_t>);
-    static_assert(generic::negatable::any_tr<volatile byte_t>);
-    static_assert(generic::negatable::any_tr<const volatile byte_t>);
-
-    static_assert(generic::negatable::integer_tr<byte_t>);
-    static_assert(generic::negatable::integer_tr<const byte_t>);
-    static_assert(generic::negatable::integer_tr<volatile byte_t>);
-    static_assert(generic::negatable::integer_tr<const volatile byte_t>);
-
-}}

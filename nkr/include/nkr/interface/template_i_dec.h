@@ -4,8 +4,17 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace interface { namespace $template_i {
 
@@ -39,7 +48,7 @@ namespace nkr { namespace interface { namespace $template_i {
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::template Is_Any<dummy_template_t>() } -> nkr::cpp::is_tr<boolean::cpp_t>;
+        { type_p::template Is_Any<dummy_template_t>() } -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
     };
 
     template <typename type_p>
@@ -68,6 +77,9 @@ namespace nkr { namespace interface {
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::interface::template_tg>

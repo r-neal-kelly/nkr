@@ -4,7 +4,23 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace generic { namespace none {
 
@@ -15,8 +31,8 @@ namespace nkr { namespace generic { namespace none {
 
     template <typename type_p>
     concept any_tr =
-        cpp::none_type_tr<type_p> ||
-        cpp::none_pointer_tr<type_p>;
+        nkr::cpp::none_type_tr<type_p> ||
+        nkr::cpp::none_pointer_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept any_ttr =

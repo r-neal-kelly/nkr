@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/generic/built_in/boolean_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
@@ -13,27 +14,51 @@
 #include "nkr/generic/built_in/pointer_tr_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/negatable/real_t_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
 #include "nkr/randomness/generator/software/default_t_dec.h"
 #include "nkr/tr_dec.h"
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <typename value_p>
+    class   value_i_sp;
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
     template <typename type_p>
     concept aliases_i =
-        cpp::just_non_qualified_tr<typename type_p::value_t> &&
+        nkr::cpp::just_non_qualified_tr<typename type_p::value_t> &&
         nkr::generic::type_tr<typename type_p::value_t>;
 
     template <typename type_p>
     concept static_functions_i =
         (requires(nkr::randomness::generator::software::default_t generator)
     {
-        { type_p::template Value<>() }          -> cpp::is_tr<typename type_p::value_t>;
-        { type_p::template Value<>(generator) } -> cpp::is_tr<typename type_p::value_t>;
+        { type_p::template Value<>() }          -> nkr::cpp::is_tr<typename type_p::value_t>;
+        { type_p::template Value<>(generator) } -> nkr::cpp::is_tr<typename type_p::value_t>;
     });
 
     template <typename type_p>
     concept objects_i =
-        !generic::implementing::constructor::default_tr<type_p>;
+        !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}}
 
@@ -111,14 +136,14 @@ namespace nkr { namespace interface { namespace randomness {
 
     template <typename type_p>
     concept value_tr =
-        cpp::is_any_tr<type_p, value_i<typename type_p::value_t>> &&
+        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::value_t>> &&
         $value_i::aliases_i<type_p> &&
         $value_i::static_functions_i<type_p> &&
         $value_i::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
-        cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
 
 }}}
 

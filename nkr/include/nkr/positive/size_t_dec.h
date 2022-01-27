@@ -4,13 +4,7 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
 #include "nkr/positive/integer_t_dec.h"
-
-#include "nkr/generic/positive_tr_dec.h"
-#include "nkr/generic/positive/any_tr_dec.h"
-#include "nkr/generic/positive/integer_tr_dec.h"
 
 namespace nkr { namespace positive {
 
@@ -28,6 +22,10 @@ namespace nkr { namespace positive {
     using   size_c =
         nkr::cpp::constant_t<size_t, value_p>;
 
+    template <typename type_p>
+    concept size_ctr =
+        nkr::cpp::constant_of_tr<type_p, size_t>;
+
 }}
 
 namespace nkr { namespace interface {
@@ -38,27 +36,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = nkr::positive::size_tg;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/positive/size_t_dec_def.h"
-
-namespace nkr { namespace positive {
-
-    static_assert(generic::positive_tr<size_t>);
-    static_assert(generic::positive_tr<const size_t>);
-    static_assert(generic::positive_tr<volatile size_t>);
-    static_assert(generic::positive_tr<const volatile size_t>);
-
-    static_assert(generic::positive::any_tr<size_t>);
-    static_assert(generic::positive::any_tr<const size_t>);
-    static_assert(generic::positive::any_tr<volatile size_t>);
-    static_assert(generic::positive::any_tr<const volatile size_t>);
-
-    static_assert(generic::positive::integer_tr<size_t>);
-    static_assert(generic::positive::integer_tr<const size_t>);
-    static_assert(generic::positive::integer_tr<volatile size_t>);
-    static_assert(generic::positive::integer_tr<const volatile size_t>);
-
-}}

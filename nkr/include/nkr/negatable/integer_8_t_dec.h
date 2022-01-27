@@ -4,11 +4,9 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/negatable_tr_dec.h"
-#include "nkr/generic/negatable/any_tr_dec.h"
-#include "nkr/generic/negatable/integer_tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -26,9 +24,16 @@ namespace nkr { namespace negatable {
     using   integer_8_c =
         nkr::cpp::constant_t<integer_8_t, value_p>;
 
+    template <typename type_p>
+    concept integer_8_ctr =
+        nkr::cpp::constant_of_tr<type_p, integer_8_t>;
+
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::negatable::integer_8_tg>
@@ -52,27 +57,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/negatable/integer_8_t_dec_def.h"
-
-namespace nkr { namespace negatable {
-
-    static_assert(generic::negatable_tr<integer_8_t>);
-    static_assert(generic::negatable_tr<const integer_8_t>);
-    static_assert(generic::negatable_tr<volatile integer_8_t>);
-    static_assert(generic::negatable_tr<const volatile integer_8_t>);
-
-    static_assert(generic::negatable::any_tr<integer_8_t>);
-    static_assert(generic::negatable::any_tr<const integer_8_t>);
-    static_assert(generic::negatable::any_tr<volatile integer_8_t>);
-    static_assert(generic::negatable::any_tr<const volatile integer_8_t>);
-
-    static_assert(generic::negatable::integer_tr<integer_8_t>);
-    static_assert(generic::negatable::integer_tr<const integer_8_t>);
-    static_assert(generic::negatable::integer_tr<volatile integer_8_t>);
-    static_assert(generic::negatable::integer_tr<const volatile integer_8_t>);
-
-}}

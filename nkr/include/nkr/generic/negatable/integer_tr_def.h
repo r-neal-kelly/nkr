@@ -4,9 +4,10 @@
 
 #pragma once
 
-#include "nkr/intrinsics_def.h"
-
+#include "nkr/boolean/cpp_t_def.h"
+#include "nkr/cpp_def.h"
 #include "nkr/generic/negatable/any_tr_def.h"
+#include "nkr/none/type_t_def.h"
 
 #include "nkr/generic/negatable/integer_tr_dec.h"
 

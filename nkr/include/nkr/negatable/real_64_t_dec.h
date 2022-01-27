@@ -4,11 +4,9 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/negatable_tr_dec.h"
-#include "nkr/generic/negatable/any_tr_dec.h"
-#include "nkr/generic/negatable/real_tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -26,9 +24,16 @@ namespace nkr { namespace negatable {
     using   real_64_c =
         nkr::cpp::constant_t<real_64_t, value_p>;
 
+    template <typename type_p>
+    concept real_64_ctr =
+        nkr::cpp::constant_of_tr<type_p, real_64_t>;
+
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::negatable::real_64_tg>
@@ -52,27 +57,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/negatable/real_64_t_dec_def.h"
-
-namespace nkr { namespace negatable {
-
-    static_assert(generic::negatable_tr<real_64_t>);
-    static_assert(generic::negatable_tr<const real_64_t>);
-    static_assert(generic::negatable_tr<volatile real_64_t>);
-    static_assert(generic::negatable_tr<const volatile real_64_t>);
-
-    static_assert(generic::negatable::any_tr<real_64_t>);
-    static_assert(generic::negatable::any_tr<const real_64_t>);
-    static_assert(generic::negatable::any_tr<volatile real_64_t>);
-    static_assert(generic::negatable::any_tr<const volatile real_64_t>);
-
-    static_assert(generic::negatable::real_tr<real_64_t>);
-    static_assert(generic::negatable::real_tr<const real_64_t>);
-    static_assert(generic::negatable::real_tr<volatile real_64_t>);
-    static_assert(generic::negatable::real_tr<const volatile real_64_t>);
-
-}}

@@ -104,6 +104,9 @@ namespace nkr { namespace cpp {
     {
     public:
         using unit_t    = type_p;
+
+    public:
+        static constexpr positive::count_t  Capacity() noexcept;
     };
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
@@ -618,6 +621,9 @@ namespace nkr { namespace cpp {
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
     constexpr value_p           Default_Max() noexcept;
+
+    template <array_tr array_p>
+    constexpr positive::count_t Array_Capacity() noexcept;
 
 }}
 

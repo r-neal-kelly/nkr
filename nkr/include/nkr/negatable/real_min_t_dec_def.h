@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
+#include "nkr/negatable/real_min_t_dec.h"
 
 namespace nkr {
 

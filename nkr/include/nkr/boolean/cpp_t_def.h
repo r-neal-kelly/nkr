@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
+#include "nkr/cpp_def.h"
 
 #include "nkr/boolean/cpp_t_dec.h"
 

@@ -4,19 +4,37 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/cpp/randomness/distributor/bernoulli_t_dec.h"
 #include "nkr/cpp/randomness/distributor/uniform/integer_t_dec.h"
 #include "nkr/cpp/randomness/distributor/uniform/real_t_dec.h"
-
-#include "nkr/cpp/generic/randomness/generator_tr_dec.h"
-
-#include "nkr/generic/built_in/number/enumeration_tr_dec.h"
 #include "nkr/generic/built_in/number/integer_tr_dec.h"
 #include "nkr/generic/built_in/number/real_tr_dec.h"
 #include "nkr/generic/implementing/interface/randomness/distributor/uniform_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
+#include "nkr/interface/randomness/distributor/uniform_i_dec.h"
+#include "nkr/negatable/real_t_dec.h"
+#include "nkr/negatable/word_t_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/positive/word_t_dec.h"
+#include "nkr/tr_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace randomness { namespace distributor {
 
@@ -34,7 +52,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <template <typename ...> typename template_p>
     concept uniform_ttr =
-        nkr::cpp::is_any_ttr<template_p, uniform_t, positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, uniform_t, nkr::positive::integer_t>;
 
 }}}
 

@@ -2,6 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
 #include "nkr/generic/boolean_tr.h"
 #include "nkr/generic/boolean/any_tr.h"
@@ -12,7 +13,11 @@
 #include "nkr/generic/implementing/self_tr.h"
 #include "nkr/generic/number/integer_tr.h"
 #include "nkr/generic/type_tr.h"
+#include "nkr/negatable/integer_t.h"
+#include "nkr/negatable/real_t.h"
 #include "nkr/none/value_t.h"
+#include "nkr/pointer/cpp_t.h"
+#include "nkr/positive/integer_t.h"
 #include "nkr/randomness/value.h"
 
 #include "doctest.h"

@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/pointer_tr_dec.h"
-#include "nkr/generic/pointer/any_tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace pointer {
 
@@ -26,15 +26,22 @@ namespace nkr { namespace pointer {
 
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
-        nkr::cpp::is_any_ttr<template_p, cpp_t, none::type_t>;
+        nkr::cpp::is_any_ttr<template_p, cpp_t, nkr::none::type_t>;
 
     template <typename type_p, type_p* value_p>
     using   cpp_c =
         nkr::cpp::constant_t<type_p*, value_p>;
 
+    template <typename type_p>
+    concept cpp_ctr =
+        nkr::cpp::constant_of_tr<type_p, nkr::cpp::pointer_unit_t<type_p>*>;
+
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::pointer::cpp_tg>
@@ -65,13 +72,26 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace interface {
 
+    template <template <typename ...> typename template_p>
+    class template_i;
+
     template <>
     class template_i<nkr::pointer::cpp_ttg>
     {
     public:
         template <typename inner_p>
-        using of_t      = nkr::pointer::cpp_t<inner_p>;
-        using example_t = of_t<nkr::none::type_t>;
+        using of_t          = nkr::pointer::cpp_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+            requires (parameters_p::Count() == 1)
+        using of_tuple_t    = nkr::pointer::cpp_t<
+            typename parameters_p::template at_t<nkr::positive::index_c<0>>
+        >;
+
+        template <typename ...parameters_p>
+        using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+
+        using example_t     = of_t<nkr::none::type_t>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -93,17 +113,3 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/pointer/cpp_t_dec_def.h"
-
-namespace nkr { namespace pointer {
-
-    static_assert(generic::pointer_tr<cpp_t<positive::integer_t>>);
-    static_assert(generic::pointer_tr<const cpp_t<positive::integer_t>>);
-    static_assert(generic::pointer_tr<volatile cpp_t<positive::integer_t>>);
-    static_assert(generic::pointer_tr<const volatile cpp_t<positive::integer_t>>);
-
-    static_assert(generic::pointer::any_tr<cpp_t<positive::integer_t>>);
-    static_assert(generic::pointer::any_tr<const cpp_t<positive::integer_t>>);
-    static_assert(generic::pointer::any_tr<volatile cpp_t<positive::integer_t>>);
-    static_assert(generic::pointer::any_tr<const volatile cpp_t<positive::integer_t>>);
-
-}}

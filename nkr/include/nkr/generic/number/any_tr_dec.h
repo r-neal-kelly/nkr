@@ -4,10 +4,24 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace generic { namespace number {
 
@@ -18,8 +32,8 @@ namespace nkr { namespace generic { namespace number {
 
     template <typename type_p>
     concept any_tr =
-        negatable_tr<type_p> ||
-        positive_tr<type_p>;
+        nkr::generic::negatable_tr<type_p> ||
+        nkr::generic::positive_tr<type_p>;
 
     template <template <typename ...> typename template_p>
     concept any_ttr =

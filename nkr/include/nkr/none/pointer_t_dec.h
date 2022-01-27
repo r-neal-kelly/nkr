@@ -4,10 +4,9 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/none_tr_dec.h"
-#include "nkr/generic/none/any_tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace none {
 
@@ -23,6 +22,9 @@ namespace nkr { namespace none {
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::none::pointer_tg>
@@ -46,22 +48,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/none/pointer_t_dec_def.h"
-
-namespace nkr { namespace none {
-
-    static_assert(generic::none_tr<pointer_t>);
-    static_assert(generic::none_tr<const pointer_t>);
-    static_assert(generic::none_tr<volatile pointer_t>);
-    static_assert(generic::none_tr<const volatile pointer_t>);
-
-    static_assert(generic::none::any_tr<pointer_t>);
-    static_assert(generic::none::any_tr<const pointer_t>);
-    static_assert(generic::none::any_tr<volatile pointer_t>);
-    static_assert(generic::none::any_tr<const volatile pointer_t>);
-
-}}

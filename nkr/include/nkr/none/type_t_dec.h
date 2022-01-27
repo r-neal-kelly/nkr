@@ -4,22 +4,25 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/none_tr_dec.h"
-#include "nkr/generic/none/any_tr_dec.h"
+#include "nkr/cpp_dec.h"
 
 namespace nkr { namespace none {
+
+    using   type_t =
+        nkr::cpp::none::type_t;
 
     struct  type_tg {};
 
     template <typename type_p>
     concept type_tr =
-        cpp::is_any_tr<type_p, type_t>;
+        nkr::cpp::is_any_tr<type_p, type_t>;
 
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::none::type_tg>
@@ -30,7 +33,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+        static constexpr nkr::cpp::boolean_t    Is_Any() noexcept;
 
     public:
         template <typename ...>
@@ -43,22 +46,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/none/type_t_dec_def.h"
-
-namespace nkr { namespace none {
-
-    static_assert(generic::none_tr<type_t>);
-    static_assert(generic::none_tr<const type_t>);
-    static_assert(generic::none_tr<volatile type_t>);
-    static_assert(generic::none_tr<const volatile type_t>);
-
-    static_assert(generic::none::any_tr<type_t>);
-    static_assert(generic::none::any_tr<const type_t>);
-    static_assert(generic::none::any_tr<volatile type_t>);
-    static_assert(generic::none::any_tr<const volatile type_t>);
-
-}}

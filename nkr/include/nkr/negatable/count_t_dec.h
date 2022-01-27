@@ -4,13 +4,7 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
 #include "nkr/negatable/integer_t_dec.h"
-
-#include "nkr/generic/negatable_tr_dec.h"
-#include "nkr/generic/negatable/any_tr_dec.h"
-#include "nkr/generic/negatable/integer_tr_dec.h"
 
 namespace nkr { namespace negatable {
 
@@ -28,6 +22,10 @@ namespace nkr { namespace negatable {
     using   count_c =
         nkr::cpp::constant_t<count_t, value_p>;
 
+    template <typename type_p>
+    concept count_ctr =
+        nkr::cpp::constant_of_tr<type_p, count_t>;
+
 }}
 
 namespace nkr { namespace interface {
@@ -38,27 +36,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = nkr::negatable::count_tg;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/negatable/count_t_dec_def.h"
-
-namespace nkr { namespace negatable {
-
-    static_assert(generic::negatable_tr<count_t>);
-    static_assert(generic::negatable_tr<const count_t>);
-    static_assert(generic::negatable_tr<volatile count_t>);
-    static_assert(generic::negatable_tr<const volatile count_t>);
-
-    static_assert(generic::negatable::any_tr<count_t>);
-    static_assert(generic::negatable::any_tr<const count_t>);
-    static_assert(generic::negatable::any_tr<volatile count_t>);
-    static_assert(generic::negatable::any_tr<const volatile count_t>);
-
-    static_assert(generic::negatable::integer_tr<count_t>);
-    static_assert(generic::negatable::integer_tr<const count_t>);
-    static_assert(generic::negatable::integer_tr<volatile count_t>);
-    static_assert(generic::negatable::integer_tr<const volatile count_t>);
-
-}}

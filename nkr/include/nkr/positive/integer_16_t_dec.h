@@ -4,11 +4,9 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
-#include "nkr/generic/positive_tr_dec.h"
-#include "nkr/generic/positive/any_tr_dec.h"
-#include "nkr/generic/positive/integer_tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace positive {
 
@@ -26,9 +24,16 @@ namespace nkr { namespace positive {
     using   integer_16_c =
         nkr::cpp::constant_t<integer_16_t, value_p>;
 
+    template <typename type_p>
+    concept integer_16_ctr =
+        nkr::cpp::constant_of_tr<type_p, integer_16_t>;
+
 }}
 
 namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class type_i;
 
     template <>
     class type_i<nkr::positive::integer_16_tg>
@@ -52,27 +57,9 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
     };
 
 }}
 
 #include "nkr/positive/integer_16_t_dec_def.h"
-
-namespace nkr { namespace positive {
-
-    static_assert(generic::positive_tr<integer_16_t>);
-    static_assert(generic::positive_tr<const integer_16_t>);
-    static_assert(generic::positive_tr<volatile integer_16_t>);
-    static_assert(generic::positive_tr<const volatile integer_16_t>);
-
-    static_assert(generic::positive::any_tr<integer_16_t>);
-    static_assert(generic::positive::any_tr<const integer_16_t>);
-    static_assert(generic::positive::any_tr<volatile integer_16_t>);
-    static_assert(generic::positive::any_tr<const volatile integer_16_t>);
-
-    static_assert(generic::positive::integer_tr<integer_16_t>);
-    static_assert(generic::positive::integer_tr<const integer_16_t>);
-    static_assert(generic::positive::integer_tr<volatile integer_16_t>);
-    static_assert(generic::positive::integer_tr<const volatile integer_16_t>);
-
-}}

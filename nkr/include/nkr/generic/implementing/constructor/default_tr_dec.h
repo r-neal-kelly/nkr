@@ -4,16 +4,31 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace $default_tr {
 
     template <typename type_p>
     concept constructors_i = requires
     {
-        { cpp::just_non_qualified_t<type_p>() };
+        { nkr::cpp::just_non_qualified_t<type_p>() };
     };
 
 }}}}}

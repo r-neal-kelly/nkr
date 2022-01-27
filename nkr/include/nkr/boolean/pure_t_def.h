@@ -4,13 +4,15 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
-
 #include "nkr/boolean/cpp_t_def.h"
 #include "nkr/boolean/deleted_operators_t_def.h"
+#include "nkr/cpp_def.h"
 #include "nkr/interface/randomness/value_i_def.h"
+#include "nkr/negatable/real_t_def.h"
+#include "nkr/none/type_t_def.h"
+#include "nkr/tr_def.h"
 
-#include "nkr/boolean/pure_t_dec.h"
+#include "nkr/boolean/pure_t_def.h"
 
 namespace nkr { namespace boolean { namespace $pure_t {
 

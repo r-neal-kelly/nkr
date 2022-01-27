@@ -4,10 +4,34 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/tr_dec.h"
+
+namespace nkr { namespace interface { namespace none {
+
+    template <typename type_p>
+    class   value_i;
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace interface { namespace none { namespace $value_i {
 
@@ -15,18 +39,18 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
     concept aliases_i = requires
     {
         typename type_p::type_t;
-        tr1<typename type_p::type_t, just_non_qualified_tg, generic::type_tg>;
+        tr1<typename type_p::type_t, just_non_qualified_tg, nkr::generic::type_tg>;
     };
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::Value() } -> cpp::is_just_non_qualified_tr<typename type_p::type_t>;
+        { type_p::Value() } -> nkr::cpp::is_just_non_qualified_tr<typename type_p::type_t>;
     };
 
     template <typename type_p>
     concept objects_i =
-        !generic::implementing::constructor::default_tr<type_p>;
+        !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}}
 
@@ -42,14 +66,14 @@ namespace nkr { namespace interface { namespace none {
 
     template <typename type_p>
     concept value_tr =
-        cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
+        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
         $value_i::aliases_i<type_p> &&
         $value_i::static_constexpr_functions_i<type_p> &&
         $value_i::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
-        cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
 
 }}}
 
@@ -134,9 +158,3 @@ namespace nkr { namespace interface { namespace none {
 }}}
 
 #include "nkr/interface/none/value_i_dec_def.h"
-
-namespace nkr { namespace interface { namespace none {
-
-    static_assert(value_tr<value_i<positive::integer_t>>);
-
-}}}

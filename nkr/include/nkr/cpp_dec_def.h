@@ -8,6 +8,18 @@
 
 namespace nkr { namespace cpp {
 
+    template <typename type_p, positive::count_t capacity_p>
+    inline constexpr positive::count_t
+        array_tmpl<type_p[capacity_p]>::Capacity()
+        noexcept
+    {
+        return capacity_p;
+    }
+
+}}
+
+namespace nkr { namespace cpp {
+
     inline constexpr boolean_t
         Is_Big_Endian()
         noexcept
@@ -125,6 +137,14 @@ namespace nkr { namespace cpp {
         } else if constexpr (pointer_tr<value_p>) {
             return reinterpret_cast<value_p>(std::numeric_limits<positive::word_t>::max());
         }
+    }
+
+    template <array_tr array_p>
+    inline constexpr positive::count_t
+        Array_Capacity()
+        noexcept
+    {
+        return array_tmpl<array_p>::Capacity();
     }
 
 }}

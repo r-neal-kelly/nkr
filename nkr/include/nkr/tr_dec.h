@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/generic/implementing/interface/template_tr_dec.h"
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
 #include "nkr/tuple/templates_t_dec.h"
@@ -129,21 +130,21 @@ namespace nkr { namespace $tr {
 
     template <typename type_p>
     class type_i :
-        public interface::type_i<cpp::just_non_qualified_t<type_p>>
+        public nkr::interface::type_i<nkr::cpp::just_non_qualified_t<type_p>>
     {
     public:
     };
 
-    template <cpp::array_tr type_p>
+    template <nkr::cpp::array_tr type_p>
     class type_i<type_p> :
-        public interface::type_i<type_p>
+        public nkr::interface::type_i<type_p>
     {
     public:
     };
 
     template <template <typename ...> typename template_p>
     class template_i :
-        public interface::template_i<template_p>
+        public nkr::interface::template_i<template_p>
     {
     public:
     };
@@ -192,7 +193,7 @@ namespace nkr { namespace $tr {
 
 namespace nkr { namespace $tr {
 
-    template <typename child_p, typename parent_p, boolean::cpp_t do_access_p>
+    template <typename child_p, typename parent_p, nkr::boolean::cpp_t do_access_p>
     class access_or_not_tmpl
     {
     public:
@@ -203,10 +204,10 @@ namespace nkr { namespace $tr {
     class access_or_not_tmpl<child_p, parent_p, true>
     {
     public:
-        using type_t    = cpp::access_qualification_of_t<child_p, parent_p>;
+        using type_t    = nkr::cpp::access_qualification_of_t<child_p, parent_p>;
     };
 
-    template <typename child_p, typename parent_p, boolean::cpp_t do_access_p>
+    template <typename child_p, typename parent_p, nkr::boolean::cpp_t do_access_p>
     using access_or_not_t   = access_or_not_tmpl<child_p, parent_p, do_access_p>::type_t;
 
 }}
@@ -216,25 +217,25 @@ namespace nkr { namespace $tr {
     template <
         typename subject_p,
         typename operator_p
-    > constexpr boolean::cpp_t  TR0() noexcept;
+    > constexpr nkr::boolean::cpp_t TR0() noexcept;
 
     template <
         typename subject_p,
         typename operator_p, typename operand_p
-    > constexpr boolean::cpp_t  TR1() noexcept;
+    > constexpr nkr::boolean::cpp_t TR1() noexcept;
 
     template <
         typename subject_p,
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, typename of_operand_p
-    > constexpr boolean::cpp_t  TR2() noexcept;
+    > constexpr nkr::boolean::cpp_t TR2() noexcept;
 
     template <
         typename subject_p,
         typename operator_p, template <typename ...> typename operand_p,
         typename of_operator_p, template <typename ...> typename of_operand_p,
         typename of_of_operator_p, typename of_of_operand_p
-    > constexpr boolean::cpp_t  TR3() noexcept;
+    > constexpr nkr::boolean::cpp_t TR3() noexcept;
 
 }}
 
@@ -623,50 +624,3 @@ namespace nkr {
 }
 
 #include "nkr/tr_dec_def.h"
-
-namespace nkr {
-
-    // this needs to be moved to the test suite.
-    using true_t = nkr::positive::integer_t;
-    using false_t = nkr::negatable::integer_t;
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<false_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<false_t, true_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<true_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::OR<true_t, true_t>() == true);
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<false_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<false_t, true_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<true_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::AND<true_t, true_t>() == true);
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<false_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<false_t, true_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<true_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XOR<true_t, true_t>() == false);
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<false_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<false_t, true_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<true_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NOR<true_t, true_t>() == false);
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<false_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<false_t, true_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<true_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::NAND<true_t, true_t>() == false);
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t>() == true);
-
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, false_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t, false_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, false_t, true_t>() == false);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t, false_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t, true_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t, true_t>() == true);
-    static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t, true_t>() == true);
-
-}

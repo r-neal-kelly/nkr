@@ -4,10 +4,25 @@
 
 #pragma once
 
-#include "nkr/intrinsics_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace interface { namespace $type_i {
 
@@ -16,19 +31,19 @@ namespace nkr { namespace interface { namespace $type_i {
     {
         typename type_p::type_t;
         typename type_p::of_t;
-        cpp::just_non_qualified_tr<typename type_p::type_t>;
+        nkr::cpp::just_non_qualified_tr<typename type_p::type_t>;
         nkr::generic::type_tr<typename type_p::type_t>;
     };
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::template Is_Any<typename type_p::type_t>() }  -> cpp::is_tr<boolean::cpp_t>;
+        { type_p::template Is_Any<typename type_p::type_t>() }  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
     };
 
     template <typename type_p>
     concept objects_i =
-        !generic::implementing::constructor::default_tr<type_p>;
+        !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}
 
@@ -44,14 +59,14 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     concept type_tr =
-        cpp::is_any_tr<type_p, type_i<typename type_p::type_t>> &&
+        nkr::cpp::is_any_tr<type_p, type_i<typename type_p::type_t>> &&
         $type_i::aliases_i<type_p> &&
         $type_i::static_constexpr_functions_i<type_p> &&
         $type_i::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept type_ttr =
-        cpp::is_any_ttr<template_p, type_i, nkr::none::type_t>;
+        nkr::cpp::is_any_ttr<template_p, type_i, nkr::none::type_t>;
 
 }}
 
@@ -125,26 +140,6 @@ namespace nkr { namespace interface { namespace $type_i {
     using default_inner_t   = default_inner_tmpl<type_p>::type_t;
 
 }}}
-
-namespace nkr { namespace interface {
-
-    template <typename type_p>
-    class type_i
-    {
-    public:
-        using type_t    = type_p;
-        using of_t      = nkr::interface::$type_i::default_inner_t<type_t>;
-
-    public:
-        template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr type_i(...) noexcept  = delete;
-    };
-
-}}
 
 namespace nkr { namespace interface {
 

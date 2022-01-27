@@ -8,19 +8,6 @@
 
 namespace nkr { namespace interface {
 
-    template <typename type_p>
-    template <typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        type_i<type_p>::Is_Any()
-        noexcept
-    {
-        return nkr::cpp::is_any_tr<other_p, type_t>;
-    }
-
-}}
-
-namespace nkr { namespace interface {
-
     template <typename other_p>
     inline constexpr nkr::boolean::cpp_t
         type_i<nkr::interface::type_tg>::Is_Any()
