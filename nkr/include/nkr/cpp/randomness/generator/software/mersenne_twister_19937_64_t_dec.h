@@ -4,9 +4,17 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_t_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software {
 

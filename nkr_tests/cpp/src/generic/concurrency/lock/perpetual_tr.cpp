@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-
 #include "nkr/cpp/concurrency/lock/perpetual/deep_t.h"
 #include "nkr/cpp/concurrency/lock/perpetual/unary_t.h"
 #include "nkr/cpp/concurrency/lock/perpetual/wide_t.h"

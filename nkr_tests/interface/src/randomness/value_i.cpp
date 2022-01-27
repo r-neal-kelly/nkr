@@ -3,7 +3,7 @@
 */
 
 #include "nkr/interface/randomness/value_i.h"
-
+#include "nkr/pointer/cpp_t.h"
 #include "nkr/randomness/value.h" // temp
 
 #include "doctest.h"

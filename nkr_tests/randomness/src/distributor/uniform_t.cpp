@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-
 #include "nkr/cpp/randomness/generator/hardware_t.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_19937_64_t.h"
 

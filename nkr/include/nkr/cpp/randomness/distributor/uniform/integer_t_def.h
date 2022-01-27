@@ -4,7 +4,10 @@
 
 #pragma once
 
-#include "nkr/tr_def.h"
+#include "nkr/boolean/cpp_t_def.h"
+#include "nkr/cpp_def.h"
+#include "nkr/none/type_t_def.h"
+#include "nkr/positive/integer_t_def.h"
 
 #include "nkr/cpp/randomness/distributor/uniform/integer_t_dec.h"
 

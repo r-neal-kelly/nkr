@@ -2,11 +2,15 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/array/cpp_t.h"
 #include "nkr/enumeration/types_t.h"
-
 #include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
 #include "nkr/generic/implementing/interface/none/value_tr.h"
+#include "nkr/negatable/integer_t.h"
+#include "nkr/none/value_t.h"
+#include "nkr/positive/count_t.h"
+#include "nkr/positive/integer_t.h"
 
 #include "doctest.h"
 
@@ -15,11 +19,11 @@ namespace nkr {
     class user_defined_t
     {
     public:
-        using value_t   = positive::integer_t;
+        using value_t   = nkr::positive::integer_t;
 
     public:
-        value_t                                     value;
-        array::cpp_t<value_t, positive::count_c<8>> unused_but_exemplary_values = { 0 };
+        value_t                                                 value;
+        nkr::array::cpp_t<value_t, nkr::positive::count_c<8>>   unused_but_exemplary_values = { 0 };
 
     public:
 #if 1
@@ -41,12 +45,12 @@ namespace nkr {
         }
 
         constexpr user_defined_t(user_defined_t&& other) noexcept :
-            value(cpp::Exchange(other.value, none::value_t<value_t>()))
+            value(cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
         {
         }
 
         constexpr user_defined_t(volatile user_defined_t&& other) noexcept :
-            value(cpp::Exchange(other.value, none::value_t<value_t>()))
+            value(cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
         {
         }
 
@@ -153,6 +157,32 @@ namespace nkr {
         }
     };
 
+    namespace interface
+    {
+
+        template <nkr::cpp::is_any_tr<user_defined_t> type_p>
+        class type_i<type_p>
+        {
+        public:
+            using type_t    = type_p;
+            using of_t      = type_t::value_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return nkr::cpp::is_any_tr<other_p, user_defined_t>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+    }
+
     namespace interface { namespace enumeration {
 
         template <>
@@ -193,10 +223,10 @@ namespace nkr {
 
     template <typename ...base_parameters_p>
     class example_e :
-        public enumeration::types_t<base_parameters_p...>
+        public nkr::enumeration::types_t<base_parameters_p...>
     {
     public:
-        using base_t    = enumeration::types_t<base_parameters_p...>;
+        using base_t    = nkr::enumeration::types_t<base_parameters_p...>;
 
     public:
         enum : typename base_t::integer_t

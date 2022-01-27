@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-
 #include "nkr/concurrency/lockee_t.h"
 #include "nkr/randomness/generator/software/default_t.h"
 

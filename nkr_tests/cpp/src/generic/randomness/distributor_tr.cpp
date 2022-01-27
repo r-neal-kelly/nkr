@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-
 #include "nkr/cpp/randomness/distributor/bernoulli_t.h"
 #include "nkr/cpp/randomness/distributor/uniform/integer_t.h"
 #include "nkr/cpp/randomness/distributor/uniform/real_t.h"

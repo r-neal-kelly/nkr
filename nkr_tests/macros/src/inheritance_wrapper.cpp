@@ -2,7 +2,10 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/cpp.h"
+#include "nkr/macros.h"
+#include "nkr/negatable/real_t.h"
+#include "nkr/positive/integer_t.h"
 
 #include "doctest.h"
 

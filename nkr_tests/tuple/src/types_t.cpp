@@ -2,7 +2,12 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/negatable/integer_t.h"
+#include "nkr/positive/integer_t.h"
+#include "nkr/positive/integer_8_t.h"
+#include "nkr/positive/integer_16_t.h"
+#include "nkr/positive/integer_32_t.h"
+#include "nkr/positive/integer_64_t.h"
 #include "nkr/tuple/types_t.h"
 
 #include "doctest.h"

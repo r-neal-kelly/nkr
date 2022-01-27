@@ -2,15 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#pragma once
-
-#include "nkr/tr_dec.h"
-
-#include "nkr/cpp/concurrency/lock/perpetual/unary_t_dec.h"
-#include "nkr/cpp/concurrency/locker/exclusive_t_dec.h"
-
-#include "nkr/generic/type_tr_dec.h"
-
 /*
     lockee_t:
         - Handles the thread-exclusive scoped locking of a supplied reference and associated deep lock.
@@ -19,6 +10,31 @@
 
         - We may add a specialization for an inclusive locker.
 */
+
+#pragma once
+
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/cpp/concurrency/lock/perpetual/unary_t_dec.h"
+#include "nkr/cpp/concurrency/locker/exclusive_t_dec.h"
+#include "nkr/generic/type_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+#include "nkr/tr_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace concurrency {
 
@@ -36,7 +52,7 @@ namespace nkr { namespace concurrency {
 
     template <template <typename ...> typename template_p>
     concept lockee_ttr =
-        nkr::cpp::is_any_ttr<template_p, lockee_t, positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, lockee_t, nkr::positive::integer_t>;
 
 }}
 

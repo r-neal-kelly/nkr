@@ -2,7 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
+#include "nkr/cpp.h"
+#include "nkr/positive/integer_t.h"
 
 #include "doctest.h"
 
@@ -24,10 +25,10 @@ namespace nkr {
             public:
             };
 
-            static_assert(cpp::is_of_template_tmpl<a_t<positive::integer_t>, a_t>::value);
-            static_assert(!cpp::is_of_template_tmpl<a_t<positive::integer_t>, b_t>::value);
-            static_assert(!cpp::is_of_template_tmpl<b_t<positive::integer_t>, a_t>::value);
-            static_assert(cpp::is_of_template_tmpl<b_t<positive::integer_t>, b_t>::value);
+            static_assert(nkr::cpp::is_of_template_tmpl<a_t<nkr::positive::integer_t>, a_t>::value);
+            static_assert(!nkr::cpp::is_of_template_tmpl<a_t<nkr::positive::integer_t>, b_t>::value);
+            static_assert(!nkr::cpp::is_of_template_tmpl<b_t<nkr::positive::integer_t>, a_t>::value);
+            static_assert(nkr::cpp::is_of_template_tmpl<b_t<nkr::positive::integer_t>, b_t>::value);
         }
     }
 

@@ -4,32 +4,53 @@
 
 #pragma once
 
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
+#include "nkr/interface/enumeration/types_i_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
 
-#include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
+namespace nkr { namespace interface { namespace none {
 
-#include "nkr/interface/enumeration/types_i_dec.h"
+    template <typename type_p>
+    class   value_i;
 
-#include "nkr/none/value_t_dec.h"
+}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace enumeration { namespace $types_t {
 
     template <typename value_p>
-    using interface_of_t    = interface::enumeration::types_i<value_p>;
+    using interface_of_t    = nkr::interface::enumeration::types_i<value_p>;
 
     template <typename value_p>
     using integer_of_t      = interface_of_t<value_p>::integer_t;
 
     template <typename value_p>
-    using default_none_of_t = cpp::constant_t<integer_of_t<value_p>, interface_of_t<value_p>::Default_None_Value()>;
+    using default_none_of_t = nkr::cpp::constant_t<integer_of_t<value_p>, interface_of_t<value_p>::Default_None_Value()>;
 
 }}}
 
 namespace nkr { namespace enumeration {
 
     template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p         = $types_t::default_none_of_t<value_p>
+        nkr::generic::implementing::interface::enumeration::types_tr value_p,
+        nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p        = $types_t::default_none_of_t<value_p>
     > class types_t;
 
     struct  types_tg    {};
@@ -39,11 +60,11 @@ namespace nkr { namespace enumeration {
 
     template <typename type_p>
     concept types_tr =
-        cpp::is_any_tr<type_p, types_t<typename type_p::value_t, typename type_p::none_t>>;
+        nkr::cpp::is_any_tr<type_p, types_t<typename type_p::value_t, typename type_p::none_t>>;
 
     template <template <typename ...> typename template_p>
     concept types_ttr =
-        cpp::is_any_ttr<template_p, types_t, positive::integer_t, positive::integer_c<0>>;
+        nkr::cpp::is_any_ttr<template_p, types_t, nkr::positive::integer_t, nkr::positive::integer_c<0>>;
 
 }}
 
@@ -126,14 +147,14 @@ namespace nkr { namespace interface { namespace none {
 namespace nkr { namespace enumeration {
 
     template <
-        generic::implementing::interface::enumeration::types_tr value_p,
-        cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+        nkr::generic::implementing::interface::enumeration::types_tr value_p,
+        nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > class types_t
     {
     public:
         using value_t       = value_p;
         using none_t        = none_p;
-        using interface_t   = interface::enumeration::types_i<value_t>;
+        using interface_t   = nkr::interface::enumeration::types_i<value_t>;
         using integer_t     = interface_t::integer_t;
 
     private:
@@ -207,23 +228,13 @@ namespace nkr { namespace enumeration {
         constexpr volatile types_t&         Value(tr1<any_non_const_tg, value_t> auto&& value) volatile noexcept;
 
     public:
-        constexpr operator          integer_t() const noexcept;
-        constexpr operator          integer_t() const volatile noexcept;
+        constexpr operator          types_t::integer_t() const noexcept;
+        constexpr operator          types_t::integer_t() const volatile noexcept;
 
-        explicit constexpr operator boolean::cpp_t() const noexcept;
-        explicit constexpr operator boolean::cpp_t() const volatile noexcept;
+        explicit constexpr operator nkr::boolean::cpp_t() const noexcept;
+        explicit constexpr operator nkr::boolean::cpp_t() const volatile noexcept;
     };
 
 }}
 
 #include "nkr/enumeration/types_t_dec_def.h"
-
-namespace nkr { namespace enumeration {
-
-    static_assert(types_tr<types_t<positive::integer_t>>);
-    static_assert(types_tr<types_t<positive::integer_t, positive::integer_c<0>>>);
-
-    static_assert(types_tr<types_t<negatable::integer_t>>);
-    static_assert(types_tr<types_t<negatable::integer_t, negatable::integer_c<0>>>);
-
-}}

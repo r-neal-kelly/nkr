@@ -7,6 +7,9 @@
 #include "nkr/generic/positive_tr.h"
 #include "nkr/negatable/integer_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/tr.h"
+#include "nkr/tuple/templates_t.h"
+#include "nkr/tuple/types_t.h"
 
 #include "doctest.h"
 

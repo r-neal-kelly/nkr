@@ -4,7 +4,24 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
 
@@ -31,7 +48,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software {
 
     template <
-        typename result_p                               = positive::integer_t,
+        typename result_p                               = nkr::positive::integer_t,
 
         nkr::cpp::constant_of_tr<positive::size_t> w_p  = nkr::cpp::constant_t<positive::size_t, 3>,
         nkr::cpp::constant_of_tr<positive::size_t> n_p  = nkr::cpp::constant_t<positive::size_t, 1>,

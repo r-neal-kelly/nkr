@@ -4,11 +4,25 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
-
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/cpp/concurrency/lock/perpetual/unary_t_dec.h"
-
 #include "nkr/cpp/generic/concurrency/lock_tr_dec.h"
+#include "nkr/none/type_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $scoped_t {
 
@@ -58,7 +72,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker {
 
     template <typename type_p>
     concept scoped_tr =
-        $scoped_t::is_tmpl<just_non_qualified_t<type_p>>::value;
+        $scoped_t::is_tmpl<nkr::cpp::just_non_qualified_t<type_p>>::value;
 
     template <template <typename ...> typename template_p>
     concept scoped_ttr =

@@ -4,7 +4,24 @@
 
 #pragma once
 
-#include "nkr/tr_dec.h"
+#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/cpp_dec.h"
+#include "nkr/none/type_t_dec.h"
+#include "nkr/positive/integer_t_dec.h"
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+    class   template_i;
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <typename type_p>
+    class   type_i;
+
+}}
 
 namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace uniform {
 
@@ -23,7 +40,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
 
     template <template <typename ...> typename template_p>
     concept integer_ttr =
-        nkr::cpp::is_any_ttr<template_p, integer_t, positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, integer_t, nkr::positive::integer_t>;
 
 }}}}}
 

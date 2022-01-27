@@ -2,8 +2,6 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/intrinsics.h"
-
 #include "nkr/cpp/concurrency/locker/exclusive_t.h"
 #include "nkr/cpp/concurrency/locker/inclusive_t.h"
 #include "nkr/cpp/concurrency/locker/scoped_t.h"
