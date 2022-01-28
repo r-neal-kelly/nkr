@@ -54,5 +54,8 @@
     <ClCompile Include="src\generic\concurrency\lock\deep_tr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\concurrency\locker\scoped_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

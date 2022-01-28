@@ -127,6 +127,9 @@ namespace nkr { namespace tuple {
         using head_t    = nkr::none::type_t;
         using tail_t    = templates_t<>;
 
+        template <template <template <typename ...> typename ...> typename template_template_p>
+        using into_t    = template_template_p<>;
+
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
 
@@ -150,6 +153,9 @@ namespace nkr { namespace tuple {
         template <nkr::positive::index_ctr index_p, typename ...types_p>
             requires (index_p::Value() < 1 + sizeof...(tail_p))
         using at_t      = $templates_t::unit_t<templates_t, index_p::Value()>::template template_t<types_p...>;
+
+        template <template <template <typename ...> typename ...> typename template_template_p>
+        using into_t    = template_template_p<head_p, tail_p...>;
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;

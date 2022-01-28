@@ -9,6 +9,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/count_t_dec.h"
+#include "nkr/positive/index_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
@@ -76,12 +77,15 @@ namespace nkr { namespace interface {
     class template_i<nkr::array::cpp_ttg>
     {
     public:
+        template <nkr::cpp::type_tr type_p, nkr::positive::count_ctr capacity_p>
+        using template_t    = nkr::array::cpp_t<type_p, capacity_p>;
+
         template <typename inner_p>
-        using of_t          = nkr::array::cpp_t<inner_p, nkr::positive::count_c<1>>;
+        using of_t          = template_t<inner_p, nkr::positive::count_c<1>>;
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() == 2)
-        using of_tuple_t    = nkr::array::cpp_t<
+        using of_tuple_t    = template_t<
             typename parameters_p::template at_t<nkr::positive::index_c<0>>,
             typename parameters_p::template at_t<nkr::positive::index_c<1>>
         >;

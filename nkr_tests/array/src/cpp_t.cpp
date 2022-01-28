@@ -17,7 +17,32 @@ namespace nkr { namespace boolean {
 
     TEST_CASE("temp")
     {
-        array::cpp_t<positive::integer_t, positive::count_c<1>> array;
+        using template_i = nkr::interface::template_i<nkr::array::cpp_t>;
+
+        static_assert(nkr::cpp::is_tr<
+                      nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
+                      template_i::template template_t<nkr::positive::integer_t, nkr::positive::count_c<1>>
+        >);
+
+        static_assert(!nkr::cpp::is_ttr<
+                      nkr::array::cpp_t,
+                      template_i::template template_t
+        >);
+
+        static_assert(nkr::cpp::is_any_ttr<
+                      nkr::array::cpp_t,
+                      template_i::template template_t,
+                      nkr::positive::integer_t, nkr::positive::count_c<1>
+        >);
+
+        static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template template_t>);
+
+        static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template of_pack_t>);
+    }
+
+    TEST_CASE("temp")
+    {
+        nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>> array;
 
         CHECK(sizeof(array) == sizeof(positive::integer_t) * 1);
 

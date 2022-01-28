@@ -10,6 +10,8 @@
 #include "nkr/cpp/generic/concurrency/lock/inclusive_tr_def.h"
 #include "nkr/interface/forward_def.h"
 #include "nkr/none/type_t_def.h"
+#include "nkr/positive/index_t_def.h"
+#include "nkr/tuple/types_t_def.h"
 
 #include "nkr/cpp/concurrency/locker/inclusive_t_dec.h"
 
