@@ -10,7 +10,6 @@
 #include "nkr/cpp/generic/concurrency/lock/exclusive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
-#include "nkr/positive/index_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace concurrency { namespace locker {
@@ -77,9 +76,7 @@ namespace nkr { namespace interface {
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() == 1)
-        using of_tuple_t    = template_t<
-            typename parameters_p::template at_t<nkr::positive::index_c<0>>
-        >;
+        using of_tuple_t    = parameters_p::template into_t<template_t>;
 
         template <typename ...parameters_p>
         using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;

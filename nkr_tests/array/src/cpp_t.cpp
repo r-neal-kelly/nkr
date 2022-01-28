@@ -35,8 +35,15 @@ namespace nkr { namespace boolean {
                       nkr::positive::integer_t, nkr::positive::count_c<1>
         >);
 
-        static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template template_t>);
+        static_assert(nkr::array::cpp_tr<
+                      template_i::template of_tuple_t<nkr::tuple::types_t<nkr::positive::integer_t, nkr::positive::count_c<1>>>
+        >);
 
+        static_assert(nkr::array::cpp_tr<
+                      template_i::template of_pack_t<nkr::positive::integer_t, nkr::positive::count_c<1>>
+        >);
+
+        static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template template_t>);
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template of_pack_t>);
     }
 

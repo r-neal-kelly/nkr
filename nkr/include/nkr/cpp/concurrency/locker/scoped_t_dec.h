@@ -10,7 +10,6 @@
 #include "nkr/cpp/generic/concurrency/lock_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
-#include "nkr/positive/index_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $scoped_t {
