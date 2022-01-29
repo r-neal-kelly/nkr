@@ -9,6 +9,7 @@
 #include "nkr/cpp/concurrency/lock/temporal/wide_t_def.h"
 #include "nkr/interface/forward_def.h"
 #include "nkr/none/type_t_def.h"
+#include "nkr/tuple/types_t_def.h"
 
 #include "nkr/cpp/generic/concurrency/lock/wide_tr_dec.h"
 
