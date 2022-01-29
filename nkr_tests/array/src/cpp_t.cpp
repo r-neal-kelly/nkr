@@ -3,6 +3,7 @@
 */
 
 #include "nkr/array/cpp_t.h"
+#include "nkr/generic/array_tr.h"
 #include "nkr/generic/negatable_tr.h"
 #include "nkr/generic/positive_tr.h"
 #include "nkr/negatable/integer_t.h"
@@ -45,6 +46,10 @@ namespace nkr { namespace boolean {
 
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template template_t>);
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template of_pack_t>);
+
+        // hmm, just noticed that maybe nkr::generic::array_ttg should map to nkr::generic::array_tg and not nkr::generic::array::any_tg.
+        // In the traits syntax it probably doesn't matter, but we can't guarantee that for every algorithm.
+        static_assert(nkr::cpp::is_tr<nkr::interface::template_i<nkr::generic::array_ttg>::template of_pack_t<>, nkr::generic::array::any_tg>);
     }
 
     TEST_CASE("temp")

@@ -7,8 +7,8 @@
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/cpp/generic/concurrency/lock/wide_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/interface/template_i_generic_aliases_t_dec.h"
 #include "nkr/none/type_t_dec.h"
-#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 
@@ -50,23 +50,9 @@ namespace nkr { namespace interface {
 namespace nkr { namespace interface {
 
     template <>
-    class template_i<nkr::cpp::generic::concurrency::lock::inclusive_ttg>
+    class template_i<nkr::cpp::generic::concurrency::lock::inclusive_ttg> :
+        public nkr::interface::template_i_generic_aliases_t<nkr::cpp::generic::concurrency::lock::inclusive_tg>
     {
-    public:
-        template <typename ...>
-        using template_t    = nkr::cpp::generic::concurrency::lock::inclusive_tg;
-
-        template <typename inner_p>
-        using of_t          = nkr::cpp::generic::concurrency::lock::inclusive_tg;
-
-        template <nkr::tuple::types_tr parameters_p>
-        using of_tuple_t    = nkr::cpp::generic::concurrency::lock::inclusive_tg;
-
-        template <typename ...parameters_p>
-        using of_pack_t     = nkr::cpp::generic::concurrency::lock::inclusive_tg;
-
-        using example_t     = nkr::cpp::generic::concurrency::lock::inclusive_tg;
-
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
