@@ -6,6 +6,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/interface/template_i_generic_aliases_t_dec.h"
 #include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data {
@@ -48,13 +49,9 @@ namespace nkr { namespace interface {
 namespace nkr { namespace interface {
 
     template <>
-    class template_i<nkr::generic::implementing::tag::data::max_ttg>
+    class template_i<nkr::generic::implementing::tag::data::max_ttg> :
+        public nkr::interface::template_i_generic_aliases_t<nkr::generic::implementing::tag::data::max_tg>
     {
-    public:
-        template <typename inner_p>
-        using of_t      = nkr::generic::implementing::tag::data::max_tg;
-        using example_t = nkr::generic::implementing::tag::data::max_tg;
-
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;

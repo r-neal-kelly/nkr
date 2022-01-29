@@ -6,6 +6,7 @@
 
 #include "nkr/generic/positive/any_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/interface/template_i_generic_aliases_t_dec.h"
 #include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace generic {
