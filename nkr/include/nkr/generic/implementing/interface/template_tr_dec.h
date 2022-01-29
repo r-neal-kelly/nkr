@@ -7,6 +7,7 @@
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_dec.h"
+#include "nkr/interface/template_i_generic_aliases_t_dec.h"
 #include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace interface {
@@ -23,13 +24,9 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
 namespace nkr { namespace interface {
 
     template <>
-    class template_i<nkr::generic::implementing::interface::template_ttg>
+    class template_i<nkr::generic::implementing::interface::template_ttg> :
+        public nkr::interface::template_i_generic_aliases_t<nkr::none::type_t>
     {
-    public:
-        template <typename inner_p>
-        using of_t      = nkr::none::type_t;
-        using example_t = nkr::none::type_t;
-
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;

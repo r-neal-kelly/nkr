@@ -6,6 +6,7 @@
 
 #include "nkr/boolean/cpp_t_def.h"
 #include "nkr/interface/forward_def.h"
+#include "nkr/interface/template_i_generic_aliases_t_def.h"
 #include "nkr/interface/type_i_def.h"
 #include "nkr/none/type_t_def.h"
 
