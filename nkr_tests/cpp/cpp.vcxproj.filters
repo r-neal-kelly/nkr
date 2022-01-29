@@ -57,5 +57,8 @@
     <ClCompile Include="src\concurrency\locker\scoped_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\randomness\generator\software\mersenne_twister_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

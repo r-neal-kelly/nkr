@@ -75,14 +75,15 @@ namespace nkr { namespace interface {
     class template_i<nkr::pointer::cpp_ttg>
     {
     public:
+        template <typename type_p>
+        using template_t    = nkr::pointer::cpp_t<type_p>;
+
         template <typename inner_p>
-        using of_t          = nkr::pointer::cpp_t<inner_p>;
+        using of_t          = template_t<inner_p>;
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() == 1)
-        using of_tuple_t    = nkr::pointer::cpp_t<
-            typename parameters_p::template at_t<nkr::positive::index_c<0>>
-        >;
+        using of_tuple_t    = parameters_p::template into_t<template_t>;
 
         template <typename ...parameters_p>
         using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;

@@ -9,6 +9,8 @@
 #include "nkr/interface/forward_def.h"
 #include "nkr/none/type_t_def.h"
 #include "nkr/positive/integer_t_def.h"
+#include "nkr/positive/size_t_def.h"
+#include "nkr/tuple/types_t_def.h"
 
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_t_dec.h"
 

@@ -20,6 +20,7 @@
 #include "nkr/positive/integer_t_def.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 #include "nkr/tr_def.h"
+#include "nkr/tuple/types_t_def.h"
 
 #include "nkr/interface/randomness/value_i_dec.h"
 

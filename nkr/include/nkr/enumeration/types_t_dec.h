@@ -12,6 +12,7 @@
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace enumeration { namespace $types_t {
 
@@ -29,8 +30,8 @@ namespace nkr { namespace enumeration { namespace $types_t {
 namespace nkr { namespace enumeration {
 
     template <
-        nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p        = $types_t::default_none_of_t<value_p>
+        nkr::generic::implementing::interface::enumeration::types_tr    value_p,
+        nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>>       none_p      = $types_t::default_none_of_t<value_p>
     > class types_t;
 
     struct  types_tg    {};
@@ -83,9 +84,22 @@ namespace nkr { namespace interface {
     class template_i<nkr::enumeration::types_ttg>
     {
     public:
+        template <
+            nkr::generic::implementing::interface::enumeration::types_tr                value_p,
+            nkr::cpp::constant_of_tr<nkr::enumeration::$types_t::integer_of_t<value_p>> none_p      = nkr::enumeration::$types_t::default_none_of_t<value_p>
+        > using template_t  = nkr::enumeration::types_t<value_p, none_p>;
+
         template <typename inner_p>
-        using of_t      = nkr::enumeration::types_t<inner_p>;
-        using example_t = of_t<nkr::positive::integer_t>;
+        using   of_t        = template_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+            requires (parameters_p::Count() >= 1 && parameters_p::Count() <= 2)
+        using   of_tuple_t  = parameters_p::template into_t<template_t>;
+
+        template <typename ...parameters_p>
+        using   of_pack_t   = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+
+        using   example_t   = of_t<nkr::positive::integer_t>;
 
     public:
         template <template <typename ...> typename other_p>

@@ -26,6 +26,7 @@
 #include "nkr/positive/integer_16_t_def.h"
 #include "nkr/positive/integer_32_t_def.h"
 #include "nkr/positive/integer_64_t_def.h"
+#include "nkr/tuple/types_t_def.h"
 
 #include "nkr/interface/randomness/distributor/uniform_i_dec.h"
 

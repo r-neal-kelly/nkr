@@ -26,6 +26,7 @@
 #include "nkr/positive/integer_16_t_dec.h"
 #include "nkr/positive/integer_32_t_dec.h"
 #include "nkr/positive/integer_64_t_dec.h"
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
 
@@ -183,9 +184,20 @@ namespace nkr { namespace interface {
     class template_i<nkr::interface::randomness::distributor::uniform_ttg>
     {
     public:
+        template <typename type_p>
+        using template_t    = nkr::interface::randomness::distributor::uniform_i<type_p>;
+
         template <typename inner_p>
-        using of_t      = nkr::interface::randomness::distributor::uniform_i<inner_p>;
-        using example_t = of_t<nkr::positive::integer_t>;
+        using of_t          = template_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+            requires (parameters_p::Count() == 1)
+        using of_tuple_t    = parameters_p::template into_t<template_t>;
+
+        template <typename ...parameters_p>
+        using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+
+        using example_t     = of_t<nkr::positive::integer_t>;
 
     public:
         template <template <typename ...> typename other_p>

@@ -9,6 +9,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace uniform {
 
@@ -66,9 +67,20 @@ namespace nkr { namespace interface {
     class template_i<nkr::cpp::randomness::distributor::uniform::integer_ttg>
     {
     public:
+        template <typename integer_p>
+        using template_t    = nkr::cpp::randomness::distributor::uniform::integer_t<integer_p>;
+
         template <typename inner_p>
-        using of_t      = nkr::cpp::randomness::distributor::uniform::integer_t<inner_p>;
-        using example_t = of_t<nkr::positive::integer_t>;
+        using of_t          = template_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+            requires (parameters_p::Count() == 1)
+        using of_tuple_t    = parameters_p::template into_t<template_t>;
+
+        template <typename ...parameters_p>
+        using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+
+        using example_t     = of_t<nkr::positive::integer_t>;
 
     public:
         template <template <typename ...> typename other_p>

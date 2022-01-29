@@ -22,6 +22,7 @@
 #include "nkr/positive/integer_t_def.h"
 #include "nkr/positive/word_t_def.h"
 #include "nkr/tr_def.h"
+#include "nkr/tuple/types_t_def.h"
 
 #include "nkr/randomness/distributor/uniform_t_dec.h"
 
