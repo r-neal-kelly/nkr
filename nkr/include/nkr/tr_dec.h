@@ -405,10 +405,6 @@ namespace nkr { namespace $tr {
     concept tts_tr =
         nkr::cpp::is_any_tr<type_p, typename nkr::$tts::sp<typename type_p::operator_t, typename type_p::templates_t>::type_t>;
 
-    template <typename type_p>
-    concept non_tts_tr =
-        !tts_tr<type_p>;
-
 }}
 
 namespace nkr { namespace $tr1_t {
@@ -533,7 +529,7 @@ namespace nkr { namespace $tr2_t {
 
     template <
         typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, tr1<not_any_tg, nkr::tuple::types_tg> of_operand_p
+        typename of_operator_p, nkr::$tr::non_ts_tr of_operand_p
     > class operand_of_operand_sp
     {
     public:
@@ -590,7 +586,7 @@ namespace nkr { namespace $tr2_t {
 
     template <
         typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, tr1<any_tg, nkr::tuple::types_tg> of_operands_p
+        typename of_operator_p, nkr::$tr::ts_tr of_operands_p
     > class operand_of_operands_sp
     {
     public:
@@ -642,8 +638,8 @@ namespace nkr { namespace $tr2_t {
 namespace nkr { namespace $tr2_t {
 
     template <
-        typename operator_p, tr1<any_tg, nkr::tuple::templates_tg> operands_p,
-        typename of_operator_p, tr1<not_any_tg, nkr::tuple::types_tg> of_operand_p
+        typename operator_p, nkr::$tr::tts_tr operands_p,
+        typename of_operator_p, nkr::$tr::non_ts_tr of_operand_p
     > class operands_of_operand_sp
     {
     public:
@@ -695,8 +691,8 @@ namespace nkr { namespace $tr2_t {
 namespace nkr { namespace $tr2_t {
 
     template <
-        typename operator_p, tr1<any_tg, nkr::tuple::templates_tg> operands_p,
-        typename of_operator_p, tr1<any_tg, nkr::tuple::types_tg> of_operands_p
+        typename operator_p, nkr::$tr::tts_tr operands_p,
+        typename of_operator_p, nkr::$tr::ts_tr of_operands_p
     > class operands_of_operands_sp
     {
     public:
@@ -749,13 +745,13 @@ namespace nkr {
 
     template <
         typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, tr1<not_any_tg, nkr::tuple::types_tg> of_operand_p
+        typename of_operator_p, nkr::$tr::non_ts_tr of_operand_p
     > using tr2_t =
         $tr2_t::operand_of_operand_sp<operator_p, operand_p, of_operator_p, of_operand_p>;
 
     template <
-        typename operator_p, tr1<any_tg, nkr::tuple::templates_tg> operands_p,
-        typename of_operator_p, tr1<any_tg, nkr::tuple::types_tg> of_operands_p
+        typename operator_p, nkr::$tr::tts_tr operands_p,
+        typename of_operator_p, nkr::$tr::ts_tr of_operands_p
     > using tr2s_t =
         $tr2_t::operands_of_operands_sp<operator_p, operands_p, of_operator_p, of_operands_p>;
 
