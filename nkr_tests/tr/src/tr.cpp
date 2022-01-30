@@ -10,6 +10,14 @@
 
 namespace nkr {
 
+    TEST_SUITE("tr")
+    {
+        static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);
+        static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);
+        static_assert(tr<nkr::positive::integer_t, any_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>>);
+        static_assert(tr<nkr::negatable::integer_t, any_non_const_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>>);
+    }
+
     TEST_SUITE("nkr::tr1_t")
     {
         using true_t = nkr::positive::integer_t;

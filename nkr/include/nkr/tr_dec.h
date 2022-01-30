@@ -8,8 +8,12 @@
 #include "nkr/generic/implementing/interface/template_tr_dec.h"
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/positive/index_t_dec.h"
 #include "nkr/tuple/templates_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
+
+// We should have another like type called 'ttr' which can take templates of types.
+// Likewise we might even have a 'tttr' for templates of templates of types.
 
 namespace nkr {
 
@@ -130,31 +134,6 @@ namespace nkr {
 namespace nkr { namespace $tr {
 
     template <typename type_p>
-    class type_i :
-        public nkr::interface::type_i<nkr::cpp::just_non_qualified_t<type_p>>
-    {
-    public:
-    };
-
-    template <nkr::cpp::array_tr type_p>
-    class type_i<type_p> :
-        public nkr::interface::type_i<type_p>
-    {
-    public:
-    };
-
-    template <template <typename ...> typename template_p>
-    class template_i :
-        public nkr::interface::template_i<template_p>
-    {
-    public:
-    };
-
-}}
-
-namespace nkr { namespace $tr {
-
-    template <typename type_p>
     concept any_operator_tr = requires
     {
         typename type_p::any_t;
@@ -188,6 +167,31 @@ namespace nkr { namespace $tr {
     concept access_operator_tr = requires
     {
         typename type_p::access_t;
+    };
+
+}}
+
+namespace nkr { namespace $tr {
+
+    template <typename type_p>
+    class type_i :
+        public nkr::interface::type_i<nkr::cpp::just_non_qualified_t<type_p>>
+    {
+    public:
+    };
+
+    template <nkr::cpp::array_tr type_p>
+    class type_i<type_p> :
+        public nkr::interface::type_i<type_p>
+    {
+    public:
+    };
+
+    template <template <typename ...> typename template_p>
+    class template_i :
+        public nkr::interface::template_i<template_p>
+    {
+    public:
     };
 
 }}
@@ -242,9 +246,6 @@ namespace nkr { namespace $tr {
 
 namespace nkr {
 
-    // We should have a version called 'ttr' which can take templates of types.
-    // Likewise we might even have a 'tttr' for templates of templates of types.
-
     template <
         typename subject_p,
         typename operator_p
@@ -274,9 +275,145 @@ namespace nkr {
 
 }
 
+namespace nkr {
+
+    struct  OR_tg   {};
+    struct  AND_tg  {};
+
+}
+
+namespace nkr { namespace $ts {
+
+    template <typename types_p>
+    class OR_sp :
+        public types_p
+    {
+    public:
+        using operator_t    = OR_tg;
+        using types_t       = types_p;
+        using tail_t        = OR_sp<typename types_t::tail_t>;
+        
+    };
+
+    template <typename types_p>
+    class AND_sp :
+        public types_p
+    {
+    public:
+        using operator_t    = AND_tg;
+        using types_t       = types_p;
+        using tail_t        = AND_sp<typename types_t::tail_t>;
+    };
+
+    template <typename tag_p, nkr::tuple::types_tr types_p>
+    class sp;
+
+    template <nkr::tuple::types_tr types_p>
+    class sp<OR_tg, types_p>
+    {
+    public:
+        using type_t    = OR_sp<types_p>;
+    };
+
+    template <nkr::tuple::types_tr types_p>
+    class sp<AND_tg, types_p>
+    {
+    public:
+        using type_t    = AND_sp<types_p>;
+    };
+
+}}
+
+namespace nkr { namespace $tts {
+
+    template <nkr::tuple::templates_tr templates_p>
+    class OR_sp :
+        public templates_p
+    {
+    public:
+        using operator_t    = OR_tg;
+        using templates_t   = templates_p;
+        using tail_t        = OR_sp<typename templates_t::tail_t>;
+    };
+
+    template <nkr::tuple::templates_tr templates_p>
+    class AND_sp :
+        public templates_p
+    {
+    public:
+        using operator_t    = AND_tg;
+        using templates_t   = templates_p;
+        using tail_t        = AND_sp<typename templates_t::tail_t>;
+    };
+
+    template <typename tag_p, nkr::tuple::templates_tr templates_p>
+    class sp;
+
+    template <nkr::tuple::templates_tr templates_p>
+    class sp<OR_tg, templates_p>
+    {
+    public:
+        using type_t    = OR_sp<templates_p>;
+    };
+
+    template <nkr::tuple::templates_tr templates_p>
+    class sp<AND_tg, templates_p>
+    {
+    public:
+        using type_t    = AND_sp<templates_p>;
+    };
+
+}}
+
+namespace nkr {
+
+    template <typename type_p>
+    using   t   = nkr::$ts::sp<AND_tg, nkr::tuple::types_t<type_p>>::type_t;
+
+    template <typename operator_p, typename ...types_p>
+        requires (nkr::cpp::is_any_tr<operator_p, OR_tg> || nkr::cpp::is_any_tr<operator_p, AND_tg>)
+    using   ts  = nkr::$ts::sp<operator_p, nkr::tuple::types_t<types_p...>>::type_t;
+
+    template <template <typename ...> typename template_p>
+    using   tt  = nkr::$tts::sp<AND_tg, nkr::tuple::templates_t<template_p>>::type_t;
+
+    template <typename operator_p, template <typename ...> typename ...templates_p>
+        requires (nkr::cpp::is_any_tr<operator_p, OR_tg> || nkr::cpp::is_any_tr<operator_p, AND_tg>)
+    using   tts = nkr::$tts::sp<operator_p, nkr::tuple::templates_t<templates_p...>>::type_t;
+
+}
+
+namespace nkr { namespace $tr {
+
+    template <typename type_p>
+    concept OR_tr =
+        nkr::cpp::is_any_tr<typename type_p::operator_t, OR_tg>;
+
+    template <typename type_p>
+    concept AND_tr =
+        nkr::cpp::is_any_tr<typename type_p::operator_t, AND_tg>;
+
+    template <typename type_p>
+    concept ts_tr =
+        nkr::cpp::is_any_tr<type_p, typename nkr::$ts::sp<typename type_p::operator_t, typename type_p::types_t>::type_t>;
+
+    template <typename type_p>
+    concept non_ts_tr =
+        !ts_tr<type_p>;
+
+    template <typename type_p>
+    concept tts_tr =
+        nkr::cpp::is_any_tr<type_p, typename nkr::$tts::sp<typename type_p::operator_t, typename type_p::templates_t>::type_t>;
+
+    template <typename type_p>
+    concept non_tts_tr =
+        !tts_tr<type_p>;
+
+}}
+
 namespace nkr { namespace $tr1_t {
 
-    template <typename operator_p, tr1<not_any_tg, nkr::tuple::types_tg> operand_p>
+    template <typename operator_p, nkr::$tr::non_ts_tr operand_p>
     class operand_t
     {
     public:
@@ -331,7 +468,7 @@ namespace nkr { namespace $tr1_t {
 
 namespace nkr { namespace $tr1_t {
 
-    template <typename operator_p, tr1<any_tg, nkr::tuple::types_tg> operands_p>
+    template <typename operator_p, nkr::$tr::ts_tr operands_p>
     class operands_t
     {
     public:
@@ -621,6 +758,23 @@ namespace nkr {
         typename of_operator_p, tr1<any_tg, nkr::tuple::types_tg> of_operands_p
     > using tr2s_t =
         $tr2_t::operands_of_operands_sp<operator_p, operands_p, of_operator_p, of_operands_p>;
+
+}
+
+namespace nkr { namespace $tr {
+
+    template <
+        typename subject_p,
+        typename ...expression_parts_p
+    > constexpr nkr::boolean::cpp_t TR() noexcept;
+
+}}
+
+namespace nkr {
+
+    template <typename subject_p, typename ...expression_parts_p>
+    concept tr =
+        nkr::$tr::TR<subject_p, expression_parts_p...>();
 
 }
 

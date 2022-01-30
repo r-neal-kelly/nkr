@@ -123,7 +123,7 @@ namespace nkr {
         {
             TEST_CASE("should satisfy all of the following tr1 expressions")
             {
-                using target_ts = nkr::tuple::types_t<
+                using target_ts = ts<AND_tg,
                     nkr::boolean::pure_t,
                     nkr::boolean::pure_tg,
 
@@ -137,7 +137,7 @@ namespace nkr {
                     nkr::generic::type_tg
                 >;
 
-                using non_target_ts = nkr::tuple::types_t<
+                using non_target_ts = ts<AND_tg,
                     nkr::generic::number::integer_tg
                 >;
 
@@ -153,7 +153,7 @@ namespace nkr {
                     const volatile other_t
                 >;
 
-                using other_target_ts = nkr::tuple::types_t<
+                using other_target_ts = ts<AND_tg,
                     nkr::boolean::pure_t,
                     nkr::boolean::pure_tg,
 
