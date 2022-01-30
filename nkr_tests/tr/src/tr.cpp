@@ -39,6 +39,22 @@ namespace nkr {
         static_assert(tr<const volatile nkr::pointer::cpp_t<nkr::negatable::integer_t>,
                       any_const_tg, tt<nkr::pointer::cpp_t>,
                       of_just_tg, ts<OR_tg, volatile nkr::positive::integer_t, nkr::negatable::integer_t>>);
+
+        // now tr3 is working!
+        static_assert(tr<nkr::pointer::cpp_t<const nkr::pointer::cpp_t<volatile nkr::positive::integer_t>>,
+                      any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
+                      of_any_const_tg, tt<nkr::pointer::cpp_t>,
+                      of_any_volatile_tg, t<nkr::positive::integer_t>>);
+
+        static_assert(tr<volatile nkr::positive::integer_t* const*,
+                      any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
+                      of_any_const_tg, tt<nkr::pointer::cpp_t>,
+                      of_any_volatile_tg, t<nkr::positive::integer_t>>);
+
+        static_assert(tr<volatile int* const*,
+                      any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
+                      of_any_const_tg, tt<nkr::pointer::cpp_t>,
+                      of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>>);
     }
 
     TEST_SUITE("nkr::tr1_t")
