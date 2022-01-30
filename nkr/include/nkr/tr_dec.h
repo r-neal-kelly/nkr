@@ -176,10 +176,12 @@ namespace nkr {
 
     template <typename operator_p, typename ...types_p>
         requires (nkr::cpp::is_any_tr<operator_p, OR_tg> || nkr::cpp::is_any_tr<operator_p, AND_tg>)
-    using   ts  = nkr::$ts::sp<operator_p, nkr::tuple::types_t<types_p...>>::type_t;
+    using   ts =
+        nkr::$ts::sp<operator_p, nkr::tuple::types_t<types_p...>>::type_t;
 
     template <typename type_p>
-    using   t   = ts<AND_tg, type_p>;
+    using   t =
+        ts<AND_tg, type_p>;
 
     template <typename type_p>
     concept ts_tr =
@@ -232,10 +234,12 @@ namespace nkr {
 
     template <typename operator_p, template <typename ...> typename ...templates_p>
         requires (nkr::cpp::is_any_tr<operator_p, OR_tg> || nkr::cpp::is_any_tr<operator_p, AND_tg>)
-    using   tts = nkr::$tts::sp<operator_p, nkr::tuple::templates_t<templates_p...>>::type_t;
+    using   tts =
+        nkr::$tts::sp<operator_p, nkr::tuple::templates_t<templates_p...>>::type_t;
 
     template <template <typename ...> typename template_p>
-    using   tt  = tts<AND_tg, template_p>;
+    using   tt =
+        tts<AND_tg, template_p>;
 
     template <typename type_p>
     concept tts_tr =
@@ -645,8 +649,10 @@ namespace nkr { namespace $tr {
 
 namespace nkr {
 
-    template <typename subject_p, typename ...expression_parts_p>
-    concept tr =
+    template <
+        typename subject_p,
+        typename ...expression_parts_p
+    > concept tr =
         nkr::$tr::TR<subject_p, expression_parts_p...>();
 
 }
