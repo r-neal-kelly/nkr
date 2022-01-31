@@ -281,6 +281,35 @@ namespace nkr { namespace $tr {
         }
     }
 
+    template <typename subject_p, nkr::positive::count_ctr count_p>
+        requires (count_p::Value() > 0)
+    class subjects_tmpl;
+
+    template <typename subject_p>
+    class subjects_tmpl<subject_p, nkr::positive::count_c<1>>
+    {
+    public:
+        using type_t    = nkr::tuple::types_t<subject_p>;
+    };
+
+    template <typename subject_p, typename count_p>
+        requires (count_p::Value() > 0)
+    class subjects_tmpl<subject_p, count_p>
+    {
+    private:
+        // access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_of_operator_p>>
+        using front_t   = subjects_tmpl<subject_p, nkr::positive::count_c<count_p::Value() - 1>>::type_t;
+        using subject_t = front_t::template at_t<nkr::positive::index_c<front_t::Count() - 1>>;
+
+    public:
+        using type_t    = front_t::template push_back_t<
+            access_or_not_t<typename type_i<subject_t>::of_t, subject_t, false> // still need to handle access
+        >;
+    };
+
+    template <typename subject_p, nkr::tuple::types_tr expression_parts_p>
+    using subjects_t    = subjects_tmpl<subject_p, nkr::positive::count_c<expression_parts_p::Count() / 2>>::type_t;
+
     template <nkr::tuple::types_tr expression_parts_p>
         requires (!(expression_parts_p::Count() & 1))
     class operators_tmpl;

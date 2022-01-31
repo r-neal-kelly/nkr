@@ -84,20 +84,30 @@ namespace nkr {
 
         TEST_SUITE("temp")
         {
+            using subjects_t = nkr::$tr::subjects_t<volatile short* volatile*, nkr::tuple::types_t<
+                any_tg, tt<nkr::pointer::cpp_t>,
+                of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
+                of_not_any_volatile_tg, t<int>>>;
+
             using operators_t = nkr::$tr::operators_t<nkr::tuple::types_t<
                 any_tg, tt<nkr::pointer::cpp_t>,
                 of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
                 of_not_any_volatile_tg, t<int>>>;
 
-            static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<
-                          any_tg,
-                          of_not_any_const_tg,
-                          of_not_any_volatile_tg>>);
-
             using objects_t = nkr::$tr::objects_t<nkr::tuple::types_t<
                 any_tg, tt<nkr::pointer::cpp_t>,
                 of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
                 of_not_any_volatile_tg, t<int>>>;
+
+            static_assert(nkr::cpp::is_tr<subjects_t, nkr::tuple::types_t<
+                          nkr::pointer::cpp_t<volatile nkr::pointer::cpp_t<volatile short>>,
+                          volatile nkr::pointer::cpp_t<volatile short>,
+                          volatile short>>);
+
+            static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<
+                          any_tg,
+                          of_not_any_const_tg,
+                          of_not_any_volatile_tg>>);
 
             static_assert(nkr::cpp::is_tr<objects_t, nkr::tuple::types_t<
                           nkr::pointer::cpp_t<nkr::pointer::cpp_t<int>>,
