@@ -281,6 +281,30 @@ namespace nkr { namespace $tr {
         }
     }
 
+    template <typename expression_parts_p>
+        requires (!(expression_parts_p::Count() & 1))
+    class operators_tmpl;
+
+    template <>
+    class operators_tmpl<nkr::tuple::types_t<>>
+    {
+    public:
+        using type_t    = nkr::tuple::types_t<>;
+    };
+
+    template <typename expression_parts_p>
+        requires (expression_parts_p::Count() >= 2)
+    class operators_tmpl<expression_parts_p>
+    {
+    public:
+        using type_t    = operators_tmpl<
+            typename expression_parts_p::tail_t::tail_t
+        >::type_t::template push_front_t<typename expression_parts_p::head_t>;
+    };
+
+    template <nkr::tuple::types_tr expression_parts_p>
+    using operators_t   = operators_tmpl<expression_parts_p>::type_t;
+
     // expression_parts_p should consist of:
     //      operator, nkr::tts_tr,
     //      operator, nkr::tts_tr,

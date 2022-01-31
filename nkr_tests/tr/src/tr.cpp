@@ -81,6 +81,16 @@ namespace nkr {
                           of_any_const_tg, tt<nkr::pointer::cpp_t>,
                           of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>>);
         }
+
+        TEST_SUITE("temp")
+        {
+            using operators_t = nkr::$tr::operators_t<nkr::tuple::types_t<
+                any_tg, tt<nkr::pointer::cpp_t>,
+                of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
+                of_not_any_volatile_tg, t<int>>>;
+
+            static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<any_tg, of_not_any_const_tg, of_not_any_volatile_tg>>);
+        }
     }
 
     TEST_SUITE("nkr::tr1_t")
