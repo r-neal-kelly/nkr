@@ -115,6 +115,29 @@ namespace nkr { namespace tuple { namespace $templates_t {
     public:
     };
 
+    template <typename tuple_p, nkr::positive::count_t count_p>
+    class take_t;
+
+    template <typename tuple_p>
+    class take_t<tuple_p, 0>
+    {
+    public:
+        using type_t    = templates_t<>;
+    };
+
+    template <typename tuple_p, nkr::positive::count_t count_p>
+        requires (count_p > 0)
+    class take_t<tuple_p, count_p>
+    {
+    private:
+        using front_t   = take_t<tuple_p, count_p - 1>::type_t;
+
+    public:
+        using type_t    = front_t::template push_back_t<
+            tuple_p::template at_t<nkr::positive::index_c<count_p - 1>>
+        >;
+    };
+
 }}}
 
 namespace nkr { namespace tuple {
@@ -126,6 +149,10 @@ namespace nkr { namespace tuple {
         template <typename ...types_p>
         using head_t        = nkr::none::type_t;
         using tail_t        = templates_t<>;
+
+        template <nkr::positive::count_ctr count_p>
+            requires (count_p::Value() == 0)
+        using take_t        = templates_t<>;
 
         template <template <template <typename ...> typename ...> typename template_template_p>
         using into_t        = template_template_p<>;
@@ -155,9 +182,15 @@ namespace nkr { namespace tuple {
         using head_t        = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
         using tail_t        = templates_t<tail_p...>;
 
+        // doesn't work because we can't pass types_p at the same time. how to defer?
         template <nkr::positive::index_ctr index_p, typename ...types_p>
             requires (index_p::Value() < 1 + sizeof...(tail_p))
         using at_t          = $templates_t::unit_t<templates_t, index_p::Value()>::template template_t<types_p...>;
+
+        // relies on at_t
+        template <nkr::positive::count_ctr count_p>
+            requires (count_p::Value() <= 1 + sizeof...(tail_p))
+        using take_t        = $templates_t::take_t<templates_t, count_p::Value()>::type_t;
 
         template <template <template <typename ...> typename ...> typename template_template_p>
         using into_t        = template_template_p<head_p, tail_p...>;

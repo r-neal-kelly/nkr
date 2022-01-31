@@ -153,6 +153,29 @@ namespace nkr { namespace tuple { namespace $types_t {
     public:
     };
 
+    template <typename tuple_p, nkr::positive::count_t count_p>
+    class take_t;
+
+    template <typename tuple_p>
+    class take_t<tuple_p, 0>
+    {
+    public:
+        using type_t    = types_t<>;
+    };
+
+    template <typename tuple_p, nkr::positive::count_t count_p>
+        requires (count_p > 0)
+    class take_t<tuple_p, count_p>
+    {
+    private:
+        using front_t   = take_t<tuple_p, count_p - 1>::type_t;
+
+    public:
+        using type_t    = front_t::template push_back_t<
+            typename tuple_p::template at_t<nkr::positive::index_c<count_p - 1>>
+        >;
+    };
+
 }}}
 
 namespace nkr { namespace tuple {
@@ -163,6 +186,10 @@ namespace nkr { namespace tuple {
     public:
         using head_t        = nkr::none::type_t;
         using tail_t        = types_t<>;
+
+        template <nkr::positive::count_ctr count_p>
+            requires (count_p::Value() == 0)
+        using take_t        = types_t<>;
 
         template <template <typename ...> typename template_p>
         using into_t        = template_p<>;
@@ -194,6 +221,10 @@ namespace nkr { namespace tuple {
         template <nkr::positive::index_ctr index_p>
             requires (index_p::Value() < 1 + sizeof...(tail_p))
         using at_t          = $types_t::unit_t<types_t, index_p::Value()>::type_t;
+
+        template <nkr::positive::count_ctr count_p>
+            requires (count_p::Value() <= 1 + sizeof...(tail_p))
+        using take_t        = $types_t::take_t<types_t, count_p::Value()>::type_t;
 
         template <template <typename ...> typename template_p>
         using into_t        = template_p<head_p, tail_p...>;

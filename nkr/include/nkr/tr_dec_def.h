@@ -247,69 +247,6 @@ namespace nkr { namespace $tr {
 
 namespace nkr { namespace $tr {
 
-    template <
-        nkr::tuple::types_tr    subjects_p,
-        nkr::tuple::types_tr    operators_p,
-        nkr::tuple::types_tr    objects_p
-    > inline constexpr nkr::boolean::cpp_t
-        WIP()
-        noexcept
-    {
-        static_assert(subjects_p::Count() == operators_p::Count() == objects_p::Count());
-        static_assert(subjects_p::Count() > 0);
-
-        if constexpr (subjects_p::Count() == 1) {
-            using subject_t = subjects_p::head_t;
-            using operator_t = operators_p::head_t;
-            using object_t = objects_p::head_t;
-
-            return TR1<subject_t, typename operator_t::base_tg, object_t>();
-        } else {
-            using subject_t = subjects_p::head_t;
-            using operator_t = operators_p::head_t;
-            using object_t = objects_p::head_t;
-
-            if constexpr (not_operator_tr<operator_t>) {
-                return
-                    !(TR1<subject_t, typename operator_t::base_tg::is_tg, object_t>() &&
-                      WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
-            } else {
-                return
-                    TR1<subject_t, typename operator_t::base_tg, object_t>() &&
-                    WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
-            }
-        }
-    }
-
-    template <typename subject_p, nkr::positive::count_ctr count_p>
-        requires (count_p::Value() > 0)
-    class subjects_tmpl;
-
-    template <typename subject_p>
-    class subjects_tmpl<subject_p, nkr::positive::count_c<1>>
-    {
-    public:
-        using type_t    = nkr::tuple::types_t<subject_p>;
-    };
-
-    template <typename subject_p, typename count_p>
-        requires (count_p::Value() > 0)
-    class subjects_tmpl<subject_p, count_p>
-    {
-    private:
-        // access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_of_operator_p>>
-        using front_t   = subjects_tmpl<subject_p, nkr::positive::count_c<count_p::Value() - 1>>::type_t;
-        using subject_t = front_t::template at_t<nkr::positive::index_c<front_t::Count() - 1>>;
-
-    public:
-        using type_t    = front_t::template push_back_t<
-            access_or_not_t<typename type_i<subject_t>::of_t, subject_t, false> // still need to handle access
-        >;
-    };
-
-    template <typename subject_p, nkr::tuple::types_tr expression_parts_p>
-    using subjects_t    = subjects_tmpl<subject_p, nkr::positive::count_c<expression_parts_p::Count() / 2>>::type_t;
-
     template <nkr::tuple::types_tr expression_parts_p>
         requires (!(expression_parts_p::Count() & 1))
     class operators_tmpl;
@@ -333,6 +270,47 @@ namespace nkr { namespace $tr {
 
     template <nkr::tuple::types_tr expression_parts_p>
     using operators_t   = operators_tmpl<expression_parts_p>::type_t;
+
+}}
+
+namespace nkr { namespace $tr {
+
+    template <typename subject_p, nkr::tuple::types_tr operators_p>
+        requires (operators_p::Count() > 0)
+    class subjects_tmpl;
+
+    template <typename subject_p, nkr::tuple::types_tr operators_p>
+        requires (operators_p::Count() == 1)
+    class subjects_tmpl<subject_p, operators_p>
+    {
+    public:
+        using type_t    = nkr::tuple::types_t<subject_p>;
+    };
+
+    template <typename subject_p, nkr::tuple::types_tr operators_p>
+        requires (operators_p::Count() > 1)
+    class subjects_tmpl<subject_p, operators_p>
+    {
+    private:
+        using front_t   = subjects_tmpl<subject_p, typename operators_p::template take_t<nkr::positive::count_c<operators_p::Count() - 1>>>::type_t;
+        using subject_t = front_t::template at_t<nkr::positive::index_c<front_t::Count() - 1>>;
+
+    private:
+        static constexpr nkr::boolean::cpp_t    is_access_operator =
+            access_operator_tr<typename operators_p::template at_t<nkr::positive::index_c<operators_p::Count() - 1>>>;
+
+    public:
+        using type_t    = front_t::template push_back_t<
+            access_or_not_t<typename type_i<subject_t>::of_t, subject_t, is_access_operator>
+        >;
+    };
+
+    template <typename subject_p, nkr::tuple::types_tr operators_p>
+    using subjects_t    = subjects_tmpl<subject_p, operators_p>::type_t;
+
+}}
+
+namespace nkr { namespace $tr {
 
     template <nkr::tuple::types_tr expression_parts_p>
         requires (!(expression_parts_p::Count() & 1))
@@ -373,6 +351,45 @@ namespace nkr { namespace $tr {
 
     template <nkr::tuple::types_tr expression_parts_p>
     using objects_t = objects_tmpl<expression_parts_p>::type_t;
+
+}}
+
+namespace nkr { namespace $tr {
+
+    template <
+        nkr::tuple::types_tr    subjects_p,
+        nkr::tuple::types_tr    operators_p,
+        nkr::tuple::types_tr    objects_p
+    > inline constexpr nkr::boolean::cpp_t
+        WIP()
+        noexcept
+    {
+        static_assert(subjects_p::Count() > 0);
+        static_assert(subjects_p::Count() == operators_p::Count());
+        static_assert(subjects_p::Count() == objects_p::Count());
+
+        if constexpr (subjects_p::Count() == 1) {
+            using subject_t = subjects_p::head_t;
+            using operator_t = operators_p::head_t;
+            using object_t = objects_p::head_t;
+
+            return TR1<subject_t, typename operator_t::base_tg, object_t>();
+        } else {
+            using subject_t = subjects_p::head_t;
+            using operator_t = operators_p::head_t;
+            using object_t = objects_p::head_t;
+
+            if constexpr (not_operator_tr<operator_t>) {
+                return
+                    !(TR1<subject_t, typename operator_t::base_tg::is_tg, object_t>() &&
+                      WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
+            } else {
+                return
+                    TR1<subject_t, typename operator_t::base_tg, object_t>() &&
+                    WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
+            }
+        }
+    }
 
     // expression_parts_p should consist of:
     //      operator, nkr::tts_tr,
