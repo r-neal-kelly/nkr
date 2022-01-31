@@ -89,7 +89,20 @@ namespace nkr {
                 of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
                 of_not_any_volatile_tg, t<int>>>;
 
-            static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<any_tg, of_not_any_const_tg, of_not_any_volatile_tg>>);
+            static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<
+                          any_tg,
+                          of_not_any_const_tg,
+                          of_not_any_volatile_tg>>);
+
+            using objects_t = nkr::$tr::objects_t<nkr::tuple::types_t<
+                any_tg, tt<nkr::pointer::cpp_t>,
+                of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
+                of_not_any_volatile_tg, t<int>>>;
+
+            static_assert(nkr::cpp::is_tr<objects_t, nkr::tuple::types_t<
+                          nkr::pointer::cpp_t<nkr::pointer::cpp_t<int>>,
+                          nkr::pointer::cpp_t<int>,
+                          int>>);
         }
     }
 

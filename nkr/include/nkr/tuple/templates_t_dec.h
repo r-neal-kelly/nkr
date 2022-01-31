@@ -130,10 +130,10 @@ namespace nkr { namespace tuple {
         template <template <template <typename ...> typename ...> typename template_template_p>
         using into_t        = template_template_p<>;
 
-        template <template <typename ...> typename template_p>
-        using push_front_t  = templates_t<template_p>;
-        template <template <typename ...> typename template_p>
-        using push_back_t   = templates_t<template_p>;
+        template <template <typename ...> typename ...templates_p>
+        using push_front_t  = templates_t<templates_p...>;
+        template <template <typename ...> typename ...templates_p>
+        using push_back_t   = templates_t<templates_p...>;
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
@@ -162,10 +162,10 @@ namespace nkr { namespace tuple {
         template <template <template <typename ...> typename ...> typename template_template_p>
         using into_t        = template_template_p<head_p, tail_p...>;
 
-        template <template <typename ...> typename template_p>
-        using push_front_t  = templates_t<template_p, head_p, tail_p...>;
-        template <template <typename ...> typename template_p>
-        using push_back_t   = templates_t<head_p, tail_p..., template_p>;
+        template <template <typename ...> typename ...templates_p>
+        using push_front_t  = templates_t<templates_p..., head_p, tail_p...>;
+        template <template <typename ...> typename ...templates_p>
+        using push_back_t   = templates_t<head_p, tail_p..., templates_p...>;
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;

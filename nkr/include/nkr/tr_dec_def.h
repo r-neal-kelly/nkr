@@ -281,7 +281,7 @@ namespace nkr { namespace $tr {
         }
     }
 
-    template <typename expression_parts_p>
+    template <nkr::tuple::types_tr expression_parts_p>
         requires (!(expression_parts_p::Count() & 1))
     class operators_tmpl;
 
@@ -292,7 +292,7 @@ namespace nkr { namespace $tr {
         using type_t    = nkr::tuple::types_t<>;
     };
 
-    template <typename expression_parts_p>
+    template <nkr::tuple::types_tr expression_parts_p>
         requires (expression_parts_p::Count() >= 2)
     class operators_tmpl<expression_parts_p>
     {
@@ -304,6 +304,46 @@ namespace nkr { namespace $tr {
 
     template <nkr::tuple::types_tr expression_parts_p>
     using operators_t   = operators_tmpl<expression_parts_p>::type_t;
+
+    template <nkr::tuple::types_tr expression_parts_p>
+        requires (!(expression_parts_p::Count() & 1))
+    class objects_tmpl;
+
+    template <nkr::tuple::types_tr expression_parts_p>
+        requires (expression_parts_p::Count() == 2)
+    class objects_tmpl<expression_parts_p>
+    {
+    private:
+        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>;
+
+    private:
+        static_assert(nkr::ts_tr<object_t>);
+        static_assert(object_t::Count() == 1);
+
+    public:
+        using type_t    = nkr::tuple::types_t<typename object_t::head_t>;
+    };
+
+    template <nkr::tuple::types_tr expression_parts_p>
+        requires (expression_parts_p::Count() > 2)
+    class objects_tmpl<expression_parts_p>
+    {
+    private:
+        using tail_t    = objects_tmpl<typename expression_parts_p::tail_t::tail_t>::type_t;
+        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>;
+
+    private:
+        static_assert(nkr::tts_tr<object_t>);
+        static_assert(object_t::Count() == 1);
+
+    public:
+        using type_t    = tail_t::template push_front_t<
+            typename template_i<object_t::template head_t>::template of_t<typename tail_t::head_t>
+        >;
+    };
+
+    template <nkr::tuple::types_tr expression_parts_p>
+    using objects_t = objects_tmpl<expression_parts_p>::type_t;
 
     // expression_parts_p should consist of:
     //      operator, nkr::tts_tr,
