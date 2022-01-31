@@ -59,6 +59,20 @@ namespace nkr {
         // now with tr0
         static_assert(tr<volatile nkr::positive::integer_t,
                       any_non_const_tg>);
+
+        TEST_CASE("3 levels")
+        {
+            static_assert(tr<volatile int* const*,
+                          any_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_volatile_tg, t<int>>);
+
+            // I think this is kind of unexpected behavior. shouldn't or become nor because of the not?
+            static_assert(tr<volatile int* const*,
+                          not_any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>>);
+        }
     }
 
     TEST_SUITE("nkr::tr1_t")

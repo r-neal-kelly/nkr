@@ -192,8 +192,9 @@ namespace nkr { namespace $tr {
 
         using subject_t = subject_p;
         using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_operator_p>>;
-        using object_t = template_i<operand_p>::template of_t<of_operand_p>;
+
         using of_object_t = of_operand_p;
+        using object_t = template_i<operand_p>::template of_t<of_object_t>;
 
         if constexpr (not_operator_tr<operator_p>) {
             return
@@ -226,17 +227,46 @@ namespace nkr { namespace $tr {
         using subject_t = subject_p;
         using of_subject_t = access_or_not_t<typename type_i<subject_t>::of_t, subject_t, access_operator_tr<of_of_operator_p>>;
         using of_of_subject_t = access_or_not_t<typename type_i<of_subject_t>::of_t, of_subject_t, access_operator_tr<of_of_operator_p>>;
-        using of_object_t = template_i<of_operand_p>::template of_t<of_of_operand_p>;
+
         using of_of_object_t = of_of_operand_p;
+        using of_object_t = template_i<of_operand_p>::template of_t<of_of_object_t>;
+        using object_t = template_i<operand_p>::template of_t<of_object_t>;
 
         if constexpr (not_operator_tr<operator_p>) {
             return
-                !(TR2<subject_t, typename operator_p::is_tg, operand_p, of_operator_p, of_object_t>() &&
-                  TR1<of_of_subject_t, typename of_of_operator_p::base_tg, of_of_object_t>());
+                !(TR1<subject_t, typename operator_p::is_tg, object_t>() &&
+                  TR2<of_subject_t, typename of_operator_p::base_tg, of_operand_p, of_of_operator_p, of_of_object_t>());
         } else {
             return
-                TR2<subject_t, operator_p, operand_p, of_operator_p, of_object_t>() &&
-                TR1<of_of_subject_t, typename of_of_operator_p::base_tg, of_of_object_t>();
+                TR1<subject_t, operator_p, object_t>() &&
+                TR2<of_subject_t, typename of_operator_p::base_tg, of_operand_p, of_of_operator_p, of_of_object_t>();
+        }
+    }
+
+}}
+
+namespace nkr { namespace $tr {
+
+    // expression_parts_p should consist of: operator, nkr::tts_tr, operator, nkr::tts_tr, ..., operator, nkr::ts_tr
+    template <
+        nkr::ts_tr              subjects_p,
+        nkr::tuple::types_tr    expression_parts_p,
+        typename                index_p             = nkr::positive::index_c<0>
+    > inline constexpr nkr::boolean::cpp_t
+        Work_In_Progress()
+        noexcept
+    {
+        static_assert(index_p::Value() < expression_parts_p::Count());
+
+        // so to get the access operator right, we need to look at the last operator in the expression.
+        // then we just get the current subject through recursion, and apply the access qualification if necessary.
+
+        // ...
+
+        // generally, we're looking for TR1<>() && TR1<>()...
+
+        if constexpr (index_p::Value() < expression_parts_p::Count() - 1) {
+            return Test<subjects_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 1>>();
         }
     }
 
