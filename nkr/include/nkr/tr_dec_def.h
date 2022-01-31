@@ -247,7 +247,45 @@ namespace nkr { namespace $tr {
 
 namespace nkr { namespace $tr {
 
-    // expression_parts_p should consist of: operator, nkr::tts_tr, operator, nkr::tts_tr, ..., operator, nkr::ts_tr
+    template <
+        nkr::tuple::types_tr    subjects_p,
+        nkr::tuple::types_tr    operators_p,
+        nkr::tuple::types_tr    objects_p
+    > inline constexpr nkr::boolean::cpp_t
+        WIP()
+        noexcept
+    {
+        static_assert(subjects_p::Count() == operators_p::Count() == objects_p::Count());
+        static_assert(subjects_p::Count() > 0);
+
+        if constexpr (subjects_p::Count() == 1) {
+            using subject_t = subjects_p::head_t;
+            using operator_t = operators_p::head_t;
+            using object_t = objects_p::head_t;
+
+            return TR1<subject_t, typename operator_t::base_tg, object_t>();
+        } else {
+            using subject_t = subjects_p::head_t;
+            using operator_t = operators_p::head_t;
+            using object_t = objects_p::head_t;
+
+            if constexpr (not_operator_tr<operator_t>) {
+                return
+                    !(TR1<subject_t, typename operator_t::base_tg::is_tg, object_t>() &&
+                      WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
+            } else {
+                return
+                    TR1<subject_t, typename operator_t::base_tg, object_t>() &&
+                    WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
+            }
+        }
+    }
+
+    // expression_parts_p should consist of:
+    //      operator, nkr::tts_tr,
+    //      operator, nkr::tts_tr,
+    //      ...,
+    //      operator, nkr::ts_tr
     template <
         nkr::ts_tr              subjects_p,
         nkr::tuple::types_tr    expression_parts_p,

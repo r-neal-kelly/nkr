@@ -66,8 +66,16 @@ namespace nkr {
                           any_tg, tt<nkr::pointer::cpp_t>,
                           of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
                           of_not_any_volatile_tg, t<int>>);
+            static_assert(!tr<volatile short* const*,
+                          any_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_volatile_tg, t<int>>);
+            static_assert(tr<volatile short* volatile*,
+                          any_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_volatile_tg, t<int>>);
 
-            // I think this is kind of unexpected behavior. shouldn't or become nor because of the not?
+            // I think this is kind of unexpected behavior. shouldn't OR become NOR because of the not?
             static_assert(tr<volatile int* const*,
                           not_any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
                           of_any_const_tg, tt<nkr::pointer::cpp_t>,
