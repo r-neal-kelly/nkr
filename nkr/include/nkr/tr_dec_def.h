@@ -10,35 +10,43 @@ namespace nkr { namespace $tr {
 
     template <typename type_p>
     concept any_operator_tr =
-        requires { typename type_p::any_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::any_t; });
 
     template <typename type_p>
     concept just_operator_tr =
-        requires { typename type_p::just_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::just_t; });
 
     template <typename type_p>
     concept not_operator_tr =
-        requires { typename type_p::not_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::not_t; });
 
     template <typename type_p>
     concept of_operator_tr =
-        requires { typename type_p::of_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::of_t; });
 
     template <typename type_p>
     concept to_operator_tr =
-        requires { typename type_p::to_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::to_t; });
 
     template <typename type_p>
     concept access_operator_tr =
-        requires { typename type_p::access_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::access_t; });
 
     template <typename type_p>
     concept OR_operator_tr =
-        requires { typename type_p::OR_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::OR_t; });
 
     template <typename type_p>
     concept AND_operator_tr =
-        requires { typename type_p::AND_t; };
+        (requires { typename type_p::operator_t; }) &&
+        (requires { typename type_p::AND_t; });
 
 }}
 
@@ -233,6 +241,277 @@ namespace nkr { namespace $tr {
     }
 
 }}
+
+namespace nkr {
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::OR()
+        noexcept
+    {
+        if constexpr (subjects_p::Count() == 1) {
+            return tr0<typename subjects_p::head_t, operator_p>;
+        } else {
+            if constexpr (tr0<typename subjects_p::head_t, operator_p>) {
+                return true;
+            } else {
+                return OR<typename subjects_p::tail_t>();
+            }
+        }
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::OR()
+        noexcept
+    {
+        return OR<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::AND()
+        noexcept
+    {
+        if constexpr (subjects_p::Count() == 1) {
+            return tr0<typename subjects_p::head_t, operator_p>;
+        } else {
+            if constexpr (tr0<typename subjects_p::head_t, operator_p>) {
+                return AND<typename subjects_p::tail_t>();
+            } else {
+                return false;
+            }
+        }
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::AND()
+        noexcept
+    {
+        return AND<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::XOR()
+        noexcept
+    {
+        return XOR<nkr::boolean::cpp_c<false>, subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::XOR()
+        noexcept
+    {
+        return XOR<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::NOR()
+        noexcept
+    {
+        return !OR<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::NOR()
+        noexcept
+    {
+        return NOR<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::NAND()
+        noexcept
+    {
+        return !AND<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::NAND()
+        noexcept
+    {
+        return NAND<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::XNOR()
+        noexcept
+    {
+        return !XOR<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::XNOR()
+        noexcept
+    {
+        return XNOR<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::Any()
+        noexcept
+    {
+        return OR<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::Any()
+        noexcept
+    {
+        return Any<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::Every()
+        noexcept
+    {
+        return AND<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::Every()
+        noexcept
+    {
+        return Every<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::One()
+        noexcept
+    {
+        return XOR<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::One()
+        noexcept
+    {
+        return One<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::None()
+        noexcept
+    {
+        return NOR<subjects_p>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::None()
+        noexcept
+    {
+        return None<nkr::tuple::types_t<subjects_p...>>();
+    }
+
+    template <
+        typename operator_p
+    > template <
+        nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p
+    > inline constexpr nkr::boolean::cpp_t
+        tr0_t<operator_p>::XOR()
+        noexcept
+    {
+        if constexpr (subjects_p::Count() == 1) {
+            if constexpr (state_p::Value()) {
+                return !tr0<typename subjects_p::head_t, operator_p>;
+            } else {
+                return tr0<typename subjects_p::head_t, operator_p>;
+            }
+        } else {
+            if constexpr (state_p::Value()) {
+                if constexpr (tr0<typename subjects_p::head_t, operator_p>) {
+                    return false;
+                } else {
+                    return XOR<nkr::boolean::cpp_c<true>, typename subjects_p::tail_t>();
+                }
+            } else {
+                if constexpr (tr0<typename subjects_p::head_t, operator_p>) {
+                    return XOR<nkr::boolean::cpp_c<true>, typename subjects_p::tail_t>();
+                } else {
+                    return XOR<nkr::boolean::cpp_c<false>, typename subjects_p::tail_t>();
+                }
+            }
+        }
+    }
+
+}
 
 namespace nkr {
 
@@ -3417,7 +3696,9 @@ namespace nkr { namespace $tr {
         using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
 
         if constexpr (expression_parts_t::Count() == 1) {
-            return TR0<subject_p, typename expression_parts_t::head_t>();
+            using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>;
+
+            return tr0_t<operator_t>::template AND<subject_p>();
         } else if constexpr (!(expression_parts_t::Count() & 1)) {
             if constexpr (expression_parts_t::Count() == 2) {
                 using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>;

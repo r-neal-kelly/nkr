@@ -390,6 +390,11 @@
     <ClInclude Include="include\nkr\generic\randomness\distributor_tr_dec_def.h" />
     <ClInclude Include="include\nkr\generic\randomness\distributor_tr_def.h" />
     <ClInclude Include="include\nkr\generic\randomness\distributor_tr_dox.h" />
+    <ClInclude Include="include\nkr\generic\tag\logic_gate_tr.h" />
+    <ClInclude Include="include\nkr\generic\tag\logic_gate_tr_dec.h" />
+    <ClInclude Include="include\nkr\generic\tag\logic_gate_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\generic\tag\logic_gate_tr_def.h" />
+    <ClInclude Include="include\nkr\generic\tag\logic_gate_tr_dox.h" />
     <ClInclude Include="include\nkr\generic\type\self\copyable_moveable_tr_dec.h" />
     <ClInclude Include="include\nkr\generic\type\self\copyable_moveable_tr_dec_def.h" />
     <ClInclude Include="include\nkr\generic\type\self\copyable_moveable_tr_def.h" />

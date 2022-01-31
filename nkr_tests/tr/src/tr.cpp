@@ -55,6 +55,10 @@ namespace nkr {
                       any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
                       of_any_const_tg, tt<nkr::pointer::cpp_t>,
                       of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>>);
+
+        // now with tr0
+        static_assert(tr<volatile nkr::positive::integer_t,
+                      any_non_const_tg>);
     }
 
     TEST_SUITE("nkr::tr1_t")
