@@ -463,11 +463,13 @@ namespace nkr { namespace $tr {
             if constexpr (operand_t::Count() > 1) {
                 using expression_front_t = expression_parts_p::template take_t<nkr::positive::count_c<index_p::Value() + 1>>;
                 using expression_back_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 2>>;
+                using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::positive::count_c<1>>, operand_t>;
+                using operand_tail_t = nkr::cpp::access_qualification_of_t<typename operand_t::tail_t, operand_t>;
                 using expression_with_head_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<typename operand_t::template take_t<nkr::positive::count_c<1>>>::template push_back_t
+                    expression_front_t::template push_back_t<operand_head_t>::template push_back_t
                 >;
                 using expression_with_tail_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<typename operand_t::tail_t>::template push_back_t
+                    expression_front_t::template push_back_t<operand_tail_t>::template push_back_t
                 >;
 
                 if constexpr (nkr::$tr::OR_operator_tr<typename operand_t::operator_t>) {

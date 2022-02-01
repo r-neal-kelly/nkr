@@ -193,6 +193,14 @@ namespace nkr {
             static_assert(tr<int,
                           any_tg, ts<NOR_tg, short, long long int>
             >);
+
+            // even ts and tts can be used with just_tg
+            static_assert(tr<const int* const* volatile* const,
+                          just_tg, const tts<AND_tg, nkr::pointer::cpp_t, nkr::pointer::cpp_ttg>,
+                          of_any_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_tg, const ts<OR_tg, int, short>
+            >);
         }
     }
 
