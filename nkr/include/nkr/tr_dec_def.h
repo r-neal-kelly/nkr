@@ -471,11 +471,11 @@ namespace nkr { namespace $tr {
                 // keep in mind that we'll take_t the previous expression_parts_p which have already been iterated per tt
                 // and push_back_t this tt/t and the rest of the remaining expression_parts_p.
             } else {
-                if constexpr (index_p::Value() < expression_parts_p::Count() - 1) {
+                if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
+                    return Multiple_TR<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                } else {
                     // we should recurse for each t of subjects_p here
                     return Single_TR<subject_p, expression_parts_p>(); // may want to just call Execute Single_TR
-                } else {
-                    return Multiple_TR<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
                 }
             }
         }
