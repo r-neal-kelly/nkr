@@ -144,6 +144,16 @@ namespace nkr {
                           any_tg, tt<nkr::pointer::cpp_t>,
                           of_any_access_const_tg, tt<nkr::pointer::cpp_t>,
                           of_any_access_const_tg, t<int>>());
+
+            static_assert(nkr::$tr::Simple_TR<const volatile int* volatile* const* volatile* const* volatile* const*,
+                          just_non_qualified_tg,        tt<nkr::pointer::cpp_t>,
+                          of_just_const_tg,             tt<nkr::pointer::cpp_t>,
+                          of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
+                          of_just_const_tg,             tt<nkr::pointer::cpp_t>,
+                          of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
+                          of_just_const_tg,             tt<nkr::pointer::cpp_t>,
+                          of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
+                          of_just_const_volatile_tg,    t<int>>());
         }
     }
 
