@@ -422,6 +422,7 @@ namespace nkr { namespace $tr {
     //      operator, nkr::tt_tr,
     //      ...,
     //      operator, nkr::t_tr
+    // this function is essentially equivalent to tr0, tr1, tr2, tr3, tr4, ...
     template <
         typename    subject_p,
         typename    ...expression_parts_p
@@ -450,6 +451,21 @@ namespace nkr { namespace $tr {
         Work_In_Progress()
         noexcept
     {
+        // I think we need to test if the current part of the expression_parts_p has multiple parts.
+        // if true:
+            // for each tt or t, recurse with this function, using the supplied operator as a logic gate.
+            // if we're using XOR or XNOR, maybe we can supply a boolean in the parameter list of the function.
+            // keep in mind that we'll take_t the previous expression_parts_p which have already been iterated per tt
+            // and push_back_t this tt/t and the rest of the remaining expression_parts_p.
+        // if false:
+            // I think we need to test if we are at the end of expression_parts_p
+            // if true:
+                // call Single_TR<> with all the singlular tt and t we now have. (we may recurse for each t of subjects_p here also)
+            // if false:
+                // increment index_p and recurse with the same expression_parts_p
+
+
+
         static_assert(index_p::Value() < expression_parts_p::Count());
 
         // so to get the access operator right, we need to look at the last operator in the expression.
