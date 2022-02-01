@@ -80,14 +80,14 @@
         return *this;                                                                           \
     }                                                                                           \
                                                                                                 \
-    constexpr WRAPPER_p& operator =(volatile BASE_p&& base) noexcept                            \
+    constexpr WRAPPER_p& operator =(tr<just_volatile_tg, t<BASE_p>> auto&& base) noexcept       \
     {                                                                                           \
         BASE_p::operator =(cpp::Move(base));                                                    \
                                                                                                 \
         return *this;                                                                           \
     }                                                                                           \
                                                                                                 \
-    constexpr volatile WRAPPER_p& operator =(volatile BASE_p&& base) volatile noexcept          \
+    constexpr volatile WRAPPER_p& operator =(tr<just_volatile_tg, t<BASE_p>> auto&& base) volatile noexcept \
     {                                                                                           \
         BASE_p::operator =(cpp::Move(base));                                                    \
                                                                                                 \
@@ -156,14 +156,14 @@
         return *this;                                                                           \
     }                                                                                           \
                                                                                                 \
-    constexpr WRAPPER_p& operator =(volatile WRAPPER_p&& other) noexcept                        \
+    constexpr WRAPPER_p& operator =(tr<just_volatile_tg, t<WRAPPER_p>> auto&& other) noexcept                   \
     {                                                                                           \
         BASE_p::operator =(static_cast<volatile BASE_p&&>(cpp::Move(other)));                   \
                                                                                                 \
         return *this;                                                                           \
     }                                                                                           \
                                                                                                 \
-    constexpr volatile WRAPPER_p& operator =(volatile WRAPPER_p&& other) volatile noexcept      \
+    constexpr volatile WRAPPER_p& operator =(tr<just_volatile_tg, t<WRAPPER_p>> auto&& other) volatile noexcept \
     {                                                                                           \
         BASE_p::operator =(static_cast<volatile BASE_p&&>(cpp::Move(other)));                   \
                                                                                                 \

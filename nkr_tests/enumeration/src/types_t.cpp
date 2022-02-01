@@ -121,7 +121,7 @@ namespace nkr {
         }
 
         constexpr user_defined_t&
-            operator =(volatile user_defined_t&& other)
+            operator =(tr<just_volatile_tg, t<user_defined_t>> auto&& other)
             noexcept
         {
             if (this != cpp::Address(other)) {
@@ -132,7 +132,7 @@ namespace nkr {
         }
 
         constexpr volatile user_defined_t&
-            operator =(volatile user_defined_t&& other)
+            operator =(tr<just_volatile_tg, t<user_defined_t>> auto&& other)
             volatile noexcept
         {
             if (this != cpp::Address(other)) {
@@ -200,14 +200,14 @@ namespace nkr {
             }
 
             static constexpr integer_t
-                Value(const tr1<any_tg, type_t> auto& type)
+                Value(const tr<any_tg, t<type_t>> auto& type)
                 noexcept
             {
                 return type.value;
             }
 
             static constexpr nkr::none::type_t
-                Value(tr1<any_non_const_tg, type_t> auto& type, integer_t integer)
+                Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
                 noexcept
             {
                 type.value = integer;

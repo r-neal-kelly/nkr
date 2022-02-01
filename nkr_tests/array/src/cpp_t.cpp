@@ -58,8 +58,8 @@ namespace nkr { namespace boolean {
 
         CHECK(sizeof(array) == sizeof(positive::integer_t) * 1);
 
-        static_assert(tr2<array::cpp_t<const positive::integer_t, positive::count_c<1>>,
-                      any_tg, array::cpp_ttg, of_just_const_tg, positive::integer_t>);
+        static_assert(tr<array::cpp_t<const positive::integer_t, positive::count_c<1>>,
+                      any_tg, tt<array::cpp_ttg>, of_just_const_tg, t<positive::integer_t>>);
     }
 
     TEST_SUITE("temp")
@@ -73,11 +73,11 @@ namespace nkr { namespace boolean {
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t>);
         static_assert(nkr::array::cpp_ttr<nkr::tuple::templates_t<nkr::array::cpp_t>::head_t>);
 
-        static_assert(tr2<nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
-                      any_tg, nkr::tuple::templates_t<nkr::array::cpp_t>::head_t, of_any_tg, nkr::positive::integer_t>);
+        static_assert(tr<nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
+                      any_tg, tt<nkr::array::cpp_t>, of_any_tg, t<nkr::positive::integer_t>>);
 
         // wow, our new bulk traits tester are extremely powerful! we just need to update all template_i's to have the new aliases defined
-        static_assert(tr2s_t<
+        /*static_assert(tr2s_t<
                       any_tg, tts<AND_tg, nkr::array::cpp_t, nkr::array::cpp_ttg>,
                       of_any_access_const_tg, ts<AND_tg, nkr::positive::integer_t, nkr::positive::integer_tg, nkr::generic::positive_tg>
         >::Every<
@@ -102,7 +102,7 @@ namespace nkr { namespace boolean {
 
                       const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::positive::count_c<3>>,
                       nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::positive::count_c<4>>
-        >());
+        >());*/
     }
 
 }}

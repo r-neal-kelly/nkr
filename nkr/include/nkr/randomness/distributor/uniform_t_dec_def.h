@@ -50,7 +50,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr auto&
-        uniform_t<value_p>::Assign(tr1<any_non_const_tg, uniform_t> auto& self, const tr1<any_tg, uniform_t> auto& other)
+        uniform_t<value_p>::Assign(tr<any_non_const_tg, t<uniform_t>> auto& self, const tr<any_tg, t<uniform_t>> auto& other)
         noexcept
     {
         if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
@@ -63,7 +63,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr auto&
-        uniform_t<value_p>::Assign(tr1<any_non_const_tg, uniform_t> auto& self, tr1<any_non_const_tg, uniform_t> auto&& other)
+        uniform_t<value_p>::Assign(tr<any_non_const_tg, t<uniform_t>> auto& self, tr<any_non_const_tg, t<uniform_t>> auto&& other)
         noexcept
     {
         if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
@@ -76,7 +76,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr const auto&
-        uniform_t<value_p>::Min(tr1<any_tg, uniform_t> auto& self)
+        uniform_t<value_p>::Min(tr<any_tg, t<uniform_t>> auto& self)
         noexcept
     {
         return self.min;
@@ -84,7 +84,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr auto&
-        uniform_t<value_p>::Min(tr1<any_non_const_tg, uniform_t> auto& self, const value_t& value)
+        uniform_t<value_p>::Min(tr<any_non_const_tg, t<uniform_t>> auto& self, const value_t& value)
         noexcept
     {
         self.min = value;
@@ -94,7 +94,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr auto&
-        uniform_t<value_p>::Min(tr1<any_non_const_tg, uniform_t> auto& self, value_t&& value)
+        uniform_t<value_p>::Min(tr<any_non_const_tg, t<uniform_t>> auto& self, value_t&& value)
         noexcept
     {
         self.min = nkr::cpp::Move(value);
@@ -104,7 +104,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr const auto&
-        uniform_t<value_p>::Max(tr1<any_tg, uniform_t> auto& self)
+        uniform_t<value_p>::Max(tr<any_tg, t<uniform_t>> auto& self)
         noexcept
     {
         return self.max;
@@ -112,7 +112,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr auto&
-        uniform_t<value_p>::Max(tr1<any_non_const_tg, uniform_t> auto& self, const value_t& value)
+        uniform_t<value_p>::Max(tr<any_non_const_tg, t<uniform_t>> auto& self, const value_t& value)
         noexcept
     {
         self.max = value;
@@ -122,7 +122,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr auto&
-        uniform_t<value_p>::Max(tr1<any_non_const_tg, uniform_t> auto& self, value_t&& value)
+        uniform_t<value_p>::Max(tr<any_non_const_tg, t<uniform_t>> auto& self, value_t&& value)
         noexcept
     {
         self.max = nkr::cpp::Move(value);
@@ -132,7 +132,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr uniform_t<value_p>::value_t
-        uniform_t<value_p>::Value(tr1<any_tg, uniform_t> auto& self, tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator)
+        uniform_t<value_p>::Value(tr<any_tg, t<uniform_t>> auto& self, tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator)
         noexcept
     {
         using number_t = interface_t::number_t;
@@ -295,7 +295,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr uniform_t<value_p>&
-        uniform_t<value_p>::operator =(volatile uniform_t&& other)
+        uniform_t<value_p>::operator =(tr<just_volatile_tg, t<uniform_t>> auto&& other)
         noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
@@ -303,7 +303,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr volatile uniform_t<value_p>&
-        uniform_t<value_p>::operator =(volatile uniform_t&& other)
+        uniform_t<value_p>::operator =(tr<just_volatile_tg, t<uniform_t>> auto&& other)
         volatile noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
@@ -416,7 +416,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr uniform_t<value_p>::value_t
-        uniform_t<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator)
+        uniform_t<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator)
         const noexcept
     {
         return Value(*this, generator);
@@ -424,7 +424,7 @@ namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
     inline constexpr uniform_t<value_p>::value_t
-        uniform_t<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator)
+        uniform_t<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator)
         const volatile noexcept
     {
         return Value(*this, generator);

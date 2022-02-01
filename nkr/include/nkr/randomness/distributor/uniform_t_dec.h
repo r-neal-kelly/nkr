@@ -127,19 +127,19 @@ namespace nkr { namespace randomness { namespace distributor {
         static constexpr value_t    Default_Max() noexcept;
 
     private:
-        static constexpr auto&  Assign(tr1<any_non_const_tg, uniform_t> auto& self, const tr1<any_tg, uniform_t> auto& other) noexcept;
-        static constexpr auto&  Assign(tr1<any_non_const_tg, uniform_t> auto& self, tr1<any_non_const_tg, uniform_t> auto&& other) noexcept;
+        static constexpr auto&  Assign(tr<any_non_const_tg, t<uniform_t>> auto& self, const tr<any_tg, t<uniform_t>> auto& other) noexcept;
+        static constexpr auto&  Assign(tr<any_non_const_tg, t<uniform_t>> auto& self, tr<any_non_const_tg, t<uniform_t>> auto&& other) noexcept;
 
     private:
-        static constexpr const auto&    Min(tr1<any_tg, uniform_t> auto& self) noexcept;
-        static constexpr auto&          Min(tr1<any_non_const_tg, uniform_t> auto& self, const value_t& value) noexcept;
-        static constexpr auto&          Min(tr1<any_non_const_tg, uniform_t> auto& self, value_t&& value) noexcept;
+        static constexpr const auto&    Min(tr<any_tg, t<uniform_t>> auto& self) noexcept;
+        static constexpr auto&          Min(tr<any_non_const_tg, t<uniform_t>> auto& self, const value_t& value) noexcept;
+        static constexpr auto&          Min(tr<any_non_const_tg, t<uniform_t>> auto& self, value_t&& value) noexcept;
 
-        static constexpr const auto&    Max(tr1<any_tg, uniform_t> auto& self) noexcept;
-        static constexpr auto&          Max(tr1<any_non_const_tg, uniform_t> auto& self, const value_t& value) noexcept;
-        static constexpr auto&          Max(tr1<any_non_const_tg, uniform_t> auto& self, value_t&& value) noexcept;
+        static constexpr const auto&    Max(tr<any_tg, t<uniform_t>> auto& self) noexcept;
+        static constexpr auto&          Max(tr<any_non_const_tg, t<uniform_t>> auto& self, const value_t& value) noexcept;
+        static constexpr auto&          Max(tr<any_non_const_tg, t<uniform_t>> auto& self, value_t&& value) noexcept;
 
-        static constexpr value_t        Value(tr1<any_tg, uniform_t> auto& self, tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator) noexcept;
+        static constexpr value_t        Value(tr<any_tg, t<uniform_t>> auto& self, tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator) noexcept;
 
     protected:
         value_t min;
@@ -162,8 +162,8 @@ namespace nkr { namespace randomness { namespace distributor {
         constexpr volatile uniform_t&   operator =(const volatile uniform_t& other) volatile noexcept;
         constexpr uniform_t&            operator =(uniform_t&& other) noexcept;
         constexpr volatile uniform_t&   operator =(uniform_t&& other) volatile noexcept;
-        constexpr uniform_t&            operator =(volatile uniform_t&& other) noexcept;
-        constexpr volatile uniform_t&   operator =(volatile uniform_t&& other) volatile noexcept;
+        constexpr uniform_t&            operator =(tr<just_volatile_tg, t<uniform_t>> auto&& other) noexcept;
+        constexpr volatile uniform_t&   operator =(tr<just_volatile_tg, t<uniform_t>> auto&& other) volatile noexcept;
 
     #if defined(nkr_IS_DEBUG)
         constexpr ~uniform_t() noexcept;
@@ -184,8 +184,8 @@ namespace nkr { namespace randomness { namespace distributor {
         constexpr uniform_t&                Max(value_t&& value) noexcept;
         constexpr volatile uniform_t&       Max(value_t&& value) volatile noexcept;
 
-        constexpr value_t                   Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator) const noexcept;
-        constexpr value_t                   Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator) const volatile noexcept;
+        constexpr value_t                   Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator) const noexcept;
+        constexpr value_t                   Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator) const volatile noexcept;
     };
 
 }}}

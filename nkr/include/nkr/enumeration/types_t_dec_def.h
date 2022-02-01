@@ -48,8 +48,8 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Integer(tr1<any_non_const_tg, types_t> auto& self,
-                                                 const tr1<any_to_tg, integer_t> auto& to_integer)
+        types_t<value_p, none_p>::Assign_Integer(tr<any_non_const_tg, t<types_t>> auto& self,
+                                                 const tr<any_to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
         interface_t::Value(self.value, static_cast<integer_t>(to_integer));
@@ -61,8 +61,8 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Value(tr1<any_non_const_tg, types_t> auto& self,
-                                               const tr1<any_tg, value_t> auto& other)
+        types_t<value_p, none_p>::Assign_Value(tr<any_non_const_tg, t<types_t>> auto& self,
+                                               const tr<any_tg, t<value_t>> auto& other)
         noexcept
     {
         self.value = other;
@@ -74,8 +74,8 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Value(tr1<any_non_const_tg, types_t> auto& self,
-                                               tr1<any_non_const_tg, value_t> auto&& other)
+        types_t<value_p, none_p>::Assign_Value(tr<any_non_const_tg, t<types_t>> auto& self,
+                                               tr<any_non_const_tg, t<value_t>> auto&& other)
         noexcept
     {
         self.value = nkr::cpp::Move(other);
@@ -87,8 +87,8 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Types(tr1<any_non_const_tg, types_t> auto& self,
-                                               const tr1<any_tg, types_t> auto& other)
+        types_t<value_p, none_p>::Assign_Types(tr<any_non_const_tg, t<types_t>> auto& self,
+                                               const tr<any_tg, t<types_t>> auto& other)
         noexcept
     {
         if (&self != nkr::cpp::Address(other)) {
@@ -102,8 +102,8 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr auto&
-        types_t<value_p, none_p>::Assign_Types(tr1<any_non_const_tg, types_t> auto& self,
-                                               tr1<any_non_const_tg, types_t> auto&& other)
+        types_t<value_p, none_p>::Assign_Types(tr<any_non_const_tg, t<types_t>> auto& self,
+                                               tr<any_non_const_tg, t<types_t>> auto&& other)
         noexcept
     {
         if (&self != nkr::cpp::Address(other)) {
@@ -124,7 +124,7 @@ namespace nkr { namespace enumeration {
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>::types_t(const tr1<any_to_tg, integer_t> auto& to_integer) noexcept :
+    > inline constexpr types_t<value_p, none_p>::types_t(const tr<any_to_tg, t<integer_t>> auto& to_integer) noexcept :
         value(static_cast<integer_t>(to_integer))
     {
     }
@@ -197,7 +197,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const tr1<any_to_tg, integer_t> auto& to_integer)
+        types_t<value_p, none_p>::operator =(const tr<any_to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -207,7 +207,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const tr1<any_to_tg, integer_t> auto& to_integer)
+        types_t<value_p, none_p>::operator =(const tr<any_to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -277,7 +277,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(volatile value_t&& value)
+        types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<value_t>> auto&& value)
         noexcept
     {
         return Assign_Value(*this, nkr::cpp::Move(value));
@@ -287,7 +287,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(volatile value_t&& value)
+        types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<value_t>> auto&& value)
         volatile noexcept
     {
         return Assign_Value(*this, nkr::cpp::Move(value));
@@ -357,7 +357,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(volatile types_t&& other)
+        types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<types_t>> auto&& other)
         noexcept
     {
         return Assign_Types(*this, nkr::cpp::Move(other));
@@ -367,7 +367,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(volatile types_t&& other)
+        types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<types_t>> auto&& other)
         volatile noexcept
     {
         return Assign_Types(*this, nkr::cpp::Move(other));
@@ -407,7 +407,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Integer(const tr1<any_to_tg, integer_t> auto& to_integer)
+        types_t<value_p, none_p>::Integer(const tr<any_to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -417,7 +417,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Integer(const tr1<any_to_tg, integer_t> auto& to_integer)
+        types_t<value_p, none_p>::Integer(const tr<any_to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -447,7 +447,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Value(const tr1<any_tg, value_t> auto& value)
+        types_t<value_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         noexcept
     {
         return Assign_Value(*this, value);
@@ -457,7 +457,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Value(const tr1<any_tg, value_t> auto& value)
+        types_t<value_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         volatile noexcept
     {
         return Assign_Value(*this, value);
@@ -467,7 +467,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Value(tr1<any_non_const_tg, value_t> auto&& value)
+        types_t<value_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         noexcept
     {
         return Assign_Value(*this, nkr::cpp::Move(value));
@@ -477,7 +477,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Value(tr1<any_non_const_tg, value_t> auto&& value)
+        types_t<value_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         volatile noexcept
     {
         return Assign_Value(*this, nkr::cpp::Move(value));

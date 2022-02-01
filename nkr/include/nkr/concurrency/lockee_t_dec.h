@@ -25,7 +25,7 @@
 
 namespace nkr { namespace concurrency {
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     class   lockee_t;
 
     struct  lockee_tg   {};
@@ -78,7 +78,7 @@ namespace nkr { namespace interface {
     class template_i<nkr::concurrency::lockee_ttg>
     {
     public:
-        template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+        template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
         using template_t    = nkr::concurrency::lockee_t<value_p>;
 
         template <typename inner_p>
@@ -114,7 +114,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace concurrency {
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     class lockee_t
     {
     public:
@@ -123,15 +123,15 @@ namespace nkr { namespace concurrency {
         using locker_t  = nkr::cpp::concurrency::locker::exclusive_t<lock_t>;
 
     private:
-        static auto     Assert(const tr1<any_tg, lockee_t> auto& self) noexcept;
+        static auto     Assert(const tr<any_tg, t<lockee_t>> auto& self) noexcept;
 
     private:
-        static auto&    Assign(tr1<any_non_const_tg, lockee_t> auto& self, tr1<any_non_const_tg, lockee_t> auto&& other) noexcept;
+        static auto&    Assign(tr<any_non_const_tg, t<lockee_t>> auto& self, tr<any_non_const_tg, t<lockee_t>> auto&& other) noexcept;
 
     private:
-        static auto&    Value(const tr1<any_tg, lockee_t> auto& self) noexcept;
-        static auto&    Value(tr1<any_non_const_tg, lockee_t> auto& self, const tr1<any_tg, value_t> auto& value) noexcept;
-        static auto&    Value(tr1<any_non_const_tg, lockee_t> auto& self, tr1<any_non_const_tg, value_t> auto&& value) noexcept;
+        static auto&    Value(const tr<any_tg, t<lockee_t>> auto& self) noexcept;
+        static auto&    Value(tr<any_non_const_tg, t<lockee_t>> auto& self, const tr<any_tg, t<value_t>> auto& value) noexcept;
+        static auto&    Value(tr<any_non_const_tg, t<lockee_t>> auto& self, tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
 
     protected:
         value_t&    value;
@@ -141,36 +141,37 @@ namespace nkr { namespace concurrency {
     public:
         lockee_t(value_t& value, lock_t& lock) noexcept;
 
-        lockee_t(const lockee_t& other) noexcept                                            = delete;
-        lockee_t(const volatile lockee_t& other) noexcept                                   = delete;
+        lockee_t(const lockee_t& other) noexcept                                                            = delete;
+        lockee_t(const volatile lockee_t& other) noexcept                                                   = delete;
         lockee_t(lockee_t&& other) noexcept;
-        lockee_t(volatile lockee_t&& other) noexcept                                        = delete;
+        lockee_t(volatile lockee_t&& other) noexcept                                                        = delete;
 
-        lockee_t&           operator =(const lockee_t& other) noexcept                      = delete;
-        volatile lockee_t&  operator =(const lockee_t& other) volatile noexcept             = delete;
-        lockee_t&           operator =(const volatile lockee_t& other) noexcept             = delete;
-        volatile lockee_t&  operator =(const volatile lockee_t& other) volatile noexcept    = delete;
+        lockee_t&           operator =(const lockee_t& other) noexcept                                      = delete;
+        volatile lockee_t&  operator =(const lockee_t& other) volatile noexcept                             = delete;
+        lockee_t&           operator =(const volatile lockee_t& other) noexcept                             = delete;
+        volatile lockee_t&  operator =(const volatile lockee_t& other) volatile noexcept                    = delete;
         lockee_t&           operator =(lockee_t&& other) noexcept;
-        volatile lockee_t&  operator =(lockee_t&& other) volatile noexcept                  = delete;
-        lockee_t&           operator =(volatile lockee_t&& other) noexcept                  = delete;
-        volatile lockee_t&  operator =(volatile lockee_t&& other) volatile noexcept         = delete;
+        volatile lockee_t&  operator =(lockee_t&& other) volatile noexcept                                  = delete;
+        lockee_t&           operator =(tr<just_volatile_tg, t<lockee_t>> auto&& other) noexcept             = delete;
+        volatile lockee_t&  operator =(tr<just_volatile_tg, t<lockee_t>> auto&& other) volatile noexcept    = delete;
+        // tr<just_volatile_tg, t<pure_t>> auto
 
         ~lockee_t() noexcept;
 
     public:
         value_t&                    Value() noexcept;
         const value_t&              Value() const noexcept;
-        volatile value_t&           Value() volatile noexcept                                                   = delete;
-        const volatile value_t&     Value() const volatile noexcept                                             = delete;
+        volatile value_t&           Value() volatile noexcept                                                       = delete;
+        const volatile value_t&     Value() const volatile noexcept                                                 = delete;
 
-        lockee_t&                   Value(const tr1<any_tg, value_t> auto& value) noexcept;
-        const lockee_t&             Value(const tr1<any_tg, value_t> auto& value) const noexcept;
-        volatile lockee_t&          Value(const tr1<any_tg, value_t> auto& value) volatile noexcept             = delete;
-        const volatile lockee_t&    Value(const tr1<any_tg, value_t> auto& value) const volatile noexcept       = delete;
-        lockee_t&                   Value(tr1<any_non_const_tg, value_t> auto&& value) noexcept;
-        const lockee_t&             Value(tr1<any_non_const_tg, value_t> auto&& value) const noexcept;
-        volatile lockee_t&          Value(tr1<any_non_const_tg, value_t> auto&& value) volatile noexcept        = delete;
-        const volatile lockee_t&    Value(tr1<any_non_const_tg, value_t> auto&& value) const volatile noexcept  = delete;
+        lockee_t&                   Value(const tr<any_tg, t<value_t>> auto& value) noexcept;
+        const lockee_t&             Value(const tr<any_tg, t<value_t>> auto& value) const noexcept;
+        volatile lockee_t&          Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept               = delete;
+        const volatile lockee_t&    Value(const tr<any_tg, t<value_t>> auto& value) const volatile noexcept         = delete;
+        lockee_t&                   Value(tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
+        const lockee_t&             Value(tr<any_non_const_tg, t<value_t>> auto&& value) const noexcept;
+        volatile lockee_t&          Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept          = delete;
+        const volatile lockee_t&    Value(tr<any_non_const_tg, t<value_t>> auto&& value) const volatile noexcept    = delete;
 
     public:
         operator                lockee_t::value_t&() noexcept;

@@ -43,7 +43,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::boolean_tr value_p>
     template <typename unused_p>
     inline boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        boolean_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                    nkr::negatable::real_t probability_for_true)
         noexcept
     {
@@ -67,7 +67,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::boolean_tr value_p>
     template <typename unused_p>
     inline boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        boolean_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                    value_t min, value_t max)
         noexcept
     {
@@ -94,7 +94,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
     template <typename unused_p>
     inline enumeration_limited_sp<value_p>::value_t
-        enumeration_limited_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        enumeration_limited_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                                value_t min, value_t max)
         noexcept
     {
@@ -123,7 +123,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::number::integer_tr value_p>
     template <typename unused_p>
     inline integer_sp<value_p>::value_t
-        integer_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        integer_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                    value_t min, value_t max)
         noexcept
     {
@@ -152,7 +152,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::number::real_tr value_p>
     template <typename unused_p>
     inline real_sp<value_p>::value_t
-        real_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        real_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                 value_t min, value_t max)
         noexcept
     {
@@ -181,7 +181,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::pointer_tr value_p>
     template <typename unused_p>
     inline pointer_sp<value_p>::value_t
-        pointer_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        pointer_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                    value_t min, value_t max)
         noexcept
     {

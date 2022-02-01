@@ -68,11 +68,11 @@ namespace nkr { namespace boolean {
         using value_t   = nkr::boolean::cpp_t;
 
     private:
-        static constexpr auto&  Assign(tr1<any_non_const_tg, pure_t> auto& self, const tr1<any_tg, pure_t> auto& other) noexcept;
-        static constexpr auto&  Assign(tr1<any_non_const_tg, pure_t> auto& self, tr1<any_non_const_tg, pure_t> auto&& other) noexcept;
+        static constexpr auto&  Assign(tr<any_non_const_tg, t<pure_t>> auto& self, const tr<any_tg, t<pure_t>> auto& other) noexcept;
+        static constexpr auto&  Assign(tr<any_non_const_tg, t<pure_t>> auto& self, tr<any_non_const_tg, t<pure_t>> auto&& other) noexcept;
 
     private:
-        static constexpr value_t    Value(const tr1<any_tg, pure_t> auto& self) noexcept;
+        static constexpr value_t    Value(const tr<any_tg, t<pure_t>> auto& self) noexcept;
 
     protected:
         value_t value;
@@ -80,8 +80,8 @@ namespace nkr { namespace boolean {
     public:
         constexpr pure_t() noexcept;
 
-        constexpr pure_t(const tr1<any_to_tg, value_t> auto& from) noexcept;
-        constexpr pure_t(tr1<any_non_const_to_tg, value_t> auto&& from) noexcept;
+        constexpr pure_t(const tr<any_to_tg, t<value_t>> auto& from) noexcept;
+        constexpr pure_t(tr<any_non_const_to_tg, t<value_t>> auto&& from) noexcept;
 
         constexpr pure_t(const pure_t& other) noexcept;
         constexpr pure_t(const volatile pure_t& other) noexcept;
@@ -94,8 +94,8 @@ namespace nkr { namespace boolean {
         constexpr volatile pure_t&  operator =(const volatile pure_t& other) volatile noexcept;
         constexpr pure_t&           operator =(pure_t&& other) noexcept;
         constexpr volatile pure_t&  operator =(pure_t&& other) volatile noexcept;
-        constexpr pure_t&           operator =(tr1<just_volatile_tg, pure_t> auto&& other) noexcept;
-        constexpr volatile pure_t&  operator =(tr1<just_volatile_tg, pure_t> auto&& other) volatile noexcept;
+        constexpr pure_t&           operator =(tr<just_volatile_tg, t<pure_t>> auto&& other) noexcept;
+        constexpr volatile pure_t&  operator =(tr<just_volatile_tg, t<pure_t>> auto&& other) volatile noexcept;
 
 #if defined(nkr_IS_DEBUG)
         constexpr ~pure_t() noexcept;
@@ -124,13 +124,13 @@ namespace nkr { namespace boolean { namespace $pure_t {
         template <typename unused_p = nkr::none::type_t>
         static value_t  Value(nkr::negatable::real_t probability_for_true = 0.5) noexcept;
         template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                               nkr::negatable::real_t probability_for_true = 0.5) noexcept;
 
         template <typename unused_p = nkr::none::type_t>
         static value_t  Value(value_t min, value_t max) noexcept;
         template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                               value_t min, value_t max) noexcept;
 
     public:
@@ -151,14 +151,14 @@ namespace nkr { namespace interface { namespace randomness {
 
 }}}
 
-constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto& a, const auto& b) noexcept;
-constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto& a, const auto&& b) noexcept;
-constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto&& a, const auto& b) noexcept;
-constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto&& a, const auto&& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto& a, const auto&& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto&& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto&& a, const auto&& b) noexcept;
 
-constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto& a, const auto& b) noexcept;
-constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto& a, const auto&& b) noexcept;
-constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto&& a, const auto& b) noexcept;
-constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr1<nkr::any_tg, nkr::boolean::pure_t> auto&& a, const auto&& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto& a, const auto&& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto&& a, const auto& b) noexcept;
+constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto&& a, const auto&& b) noexcept;
 
 #include "nkr/boolean/pure_t_dec_def.h"

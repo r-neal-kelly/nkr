@@ -3,268 +3,424 @@
 */
 
 #include "nkr/cpp.h"
+#include "nkr/interface/forward.h"
 #include "nkr/macros.h"
 #include "nkr/negatable/real_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/tr.h"
 
 #include "doctest.h"
 
 namespace nkr {
 
+    class original_t;
+
+    namespace interface {
+
+        template <>
+        class type_i<original_t>
+        {
+        public:
+            using type_t    = original_t;
+            using of_t      = nkr::none::type_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return nkr::cpp::is_any_tr<other_p, original_t>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+    }
+
+    class original_t
+    {
+    public:
+        using alias_t   = nkr::none::type_t;
+
+    public:
+        positive::integer_t integer;
+        negatable::real_t   real;
+
+    public:
+        constexpr original_t() noexcept :
+            integer(1),
+            real(1.0)
+        {
+        }
+
+        constexpr original_t(positive::integer_t integer) noexcept :
+            integer(integer),
+            real()
+        {
+        }
+
+        constexpr original_t(negatable::real_t real) noexcept :
+            integer(),
+            real(real)
+        {
+        }
+
+        constexpr original_t(const original_t& other) noexcept :
+            integer(other.integer),
+            real(other.real)
+        {
+        }
+
+        constexpr original_t(const volatile original_t& other) noexcept :
+            integer(other.integer),
+            real(other.real)
+        {
+        }
+
+        constexpr original_t(original_t&& other) noexcept :
+            integer(cpp::Exchange(other.integer, 0)),
+            real(cpp::Exchange(other.real, negatable::real_t(0.0)))
+        {
+        }
+
+        constexpr original_t(volatile original_t&& other) noexcept :
+            integer(cpp::Exchange(other.integer, 0)),
+            real(cpp::Exchange(other.real, negatable::real_t(0.0)))
+        {
+        }
+
+        constexpr original_t& operator =(const original_t& other) noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = other.integer;
+                this->real = other.real;
+            }
+
+            return *this;
+        }
+
+        constexpr volatile original_t& operator =(const original_t& other) volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = other.integer;
+                this->real = other.real;
+            }
+
+            return *this;
+        }
+
+        constexpr original_t& operator =(const volatile original_t& other) noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = other.integer;
+                this->real = other.real;
+            }
+
+            return *this;
+        }
+
+        constexpr volatile original_t& operator =(const volatile original_t& other) volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = other.integer;
+                this->real = other.real;
+            }
+
+            return *this;
+        }
+
+        constexpr original_t& operator =(original_t&& other) noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = cpp::Exchange(other.integer, 0);
+                this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
+            }
+
+            return *this;
+        }
+
+        constexpr volatile original_t& operator =(original_t&& other) volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = cpp::Exchange(other.integer, 0);
+                this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
+            }
+
+            return *this;
+        }
+
+        constexpr original_t& operator =(tr<just_volatile_tg, t<original_t>> auto&& other) noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = cpp::Exchange(other.integer, 0);
+                this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
+            }
+
+            return *this;
+        }
+
+        constexpr volatile original_t& operator =(tr<just_volatile_tg, t<original_t>> auto&& other) volatile noexcept
+        {
+            if (this != cpp::Address(other)) {
+                this->integer = cpp::Exchange(other.integer, 0);
+                this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
+            }
+
+            return *this;
+        }
+
+    public:
+        constexpr positive::integer_t Integer() const noexcept
+        {
+            return this->integer;
+        }
+
+        constexpr positive::integer_t Integer() const volatile noexcept
+        {
+            return this->integer;
+        }
+
+        constexpr negatable::real_t Real() const noexcept
+        {
+            return this->real;
+        }
+
+        constexpr negatable::real_t Real() const volatile noexcept
+        {
+            return this->real;
+        }
+
+    public:
+        constexpr operator positive::integer_t() const noexcept
+        {
+            return this->integer;
+        }
+
+        constexpr operator positive::integer_t() const volatile noexcept
+        {
+            return this->integer;
+        }
+
+        constexpr operator negatable::real_t() const noexcept
+        {
+            return this->real;
+        }
+
+        constexpr operator negatable::real_t() const volatile noexcept
+        {
+            return this->real;
+        }
+
+    public:
+        constexpr positive::integer_t operator +(positive::integer_t integer) const noexcept
+        {
+            return this->integer + integer;
+        }
+
+        constexpr positive::integer_t operator +(positive::integer_t integer) const volatile noexcept
+        {
+            return this->integer + integer;
+        }
+
+        constexpr original_t& operator =(boolean::cpp_t boolean) noexcept
+        {
+            if (boolean) {
+                this->integer = 1;
+                this->real = 1.0;
+            } else {
+                this->integer = 0;
+                this->real = negatable::real_t(0.0);
+            }
+
+            return *this;
+        }
+
+        constexpr volatile original_t& operator =(boolean::cpp_t boolean) volatile noexcept
+        {
+            if (boolean) {
+                this->integer = 1;
+                this->real = 1.0;
+            } else {
+                this->integer = 0;
+                this->real = negatable::real_t(0.0);
+            }
+
+            return *this;
+        }
+    };
+
+    class derived_1_t;
+
+    namespace interface {
+
+        template <>
+        class type_i<derived_1_t>
+        {
+        public:
+            using type_t    = derived_1_t;
+            using of_t      = nkr::none::type_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return nkr::cpp::is_any_tr<other_p, derived_1_t>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+    }
+
+    class derived_1_t :
+        public original_t
+    {
+    public:
+        using base_t    = original_t;
+
+    public:
+        nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_1_t, original_t);
+    };
+
+    class derived_2_t;
+
+    namespace interface {
+
+        template <>
+        class type_i<derived_2_t>
+        {
+        public:
+            using type_t    = derived_2_t;
+            using of_t      = nkr::none::type_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return nkr::cpp::is_any_tr<other_p, derived_2_t>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+    }
+
+    class derived_2_t :
+        public derived_1_t
+    {
+    public:
+        using base_t    = derived_1_t;
+
+    public:
+        nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_2_t, derived_1_t);
+    };
+
+    class derived_3_t;
+
+    namespace interface {
+
+        template <>
+        class type_i<derived_3_t>
+        {
+        public:
+            using type_t    = derived_3_t;
+            using of_t      = nkr::none::type_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return nkr::cpp::is_any_tr<other_p, derived_3_t>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+    }
+
+    class derived_3_t :
+        public derived_2_t
+    {
+    public:
+        using base_t    = derived_2_t;
+
+    public:
+        nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_3_t, derived_2_t);
+    };
+
+    template <typename base_p>
+    class   implicit_t;
+
+    class   implicit_tg {};
+
+    template <typename type_p>
+    concept implicit_tr =
+        nkr::cpp::is_any_tr<type_p, implicit_t<typename type_p::base_t>>;
+
+    namespace interface {
+
+        template <>
+        class type_i<implicit_tg>
+        {
+        public:
+            using type_t    = implicit_tg;
+            using of_t      = nkr::none::type_t;
+
+        public:
+            template <typename other_p>
+            static constexpr nkr::boolean::cpp_t
+                Is_Any()
+                noexcept
+            {
+                return implicit_tr<other_p>;
+            }
+
+        public:
+            template <typename ...>
+            constexpr type_i(...) noexcept  = delete;
+        };
+
+        template <implicit_tr type_p>
+        class type_i<type_p> :
+            public type_i<implicit_tg>
+        {
+        public:
+            using type_t    = type_p;
+            using of_t      = nkr::none::type_t;
+        };
+
+    }
+
+    template <typename base_p>
+    class implicit_t :
+        public base_p
+    {
+    public:
+        using base_t    = base_p;
+
+    public:
+        using base_p::base_p;
+    };
+
     TEST_SUITE("CONSTEXPR_INHERITANCE_WRAPPER")
     {
         TEST_SUITE("DEFINE_CTORS")
         {
-            class original_t
-            {
-            public:
-                using alias_t   = none::type_t;
-
-            public:
-                positive::integer_t integer;
-                negatable::real_t   real;
-
-            public:
-                constexpr original_t() noexcept :
-                    integer(1),
-                    real(1.0)
-                {
-                }
-
-                constexpr original_t(positive::integer_t integer) noexcept :
-                    integer(integer),
-                    real()
-                {
-                }
-
-                constexpr original_t(negatable::real_t real) noexcept :
-                    integer(),
-                    real(real)
-                {
-                }
-
-                constexpr original_t(const original_t& other) noexcept :
-                    integer(other.integer),
-                    real(other.real)
-                {
-                }
-
-                constexpr original_t(const volatile original_t& other) noexcept :
-                    integer(other.integer),
-                    real(other.real)
-                {
-                }
-
-                constexpr original_t(original_t&& other) noexcept :
-                    integer(cpp::Exchange(other.integer, 0)),
-                    real(cpp::Exchange(other.real, negatable::real_t(0.0)))
-                {
-                }
-
-                constexpr original_t(volatile original_t&& other) noexcept :
-                    integer(cpp::Exchange(other.integer, 0)),
-                    real(cpp::Exchange(other.real, negatable::real_t(0.0)))
-                {
-                }
-
-                constexpr original_t& operator =(const original_t& other) noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = other.integer;
-                        this->real = other.real;
-                    }
-
-                    return *this;
-                }
-
-                constexpr volatile original_t& operator =(const original_t& other) volatile noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = other.integer;
-                        this->real = other.real;
-                    }
-
-                    return *this;
-                }
-
-                constexpr original_t& operator =(const volatile original_t& other) noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = other.integer;
-                        this->real = other.real;
-                    }
-
-                    return *this;
-                }
-
-                constexpr volatile original_t& operator =(const volatile original_t& other) volatile noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = other.integer;
-                        this->real = other.real;
-                    }
-
-                    return *this;
-                }
-
-                constexpr original_t& operator =(original_t&& other) noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
-                    }
-
-                    return *this;
-                }
-
-                constexpr volatile original_t& operator =(original_t&& other) volatile noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
-                    }
-
-                    return *this;
-                }
-
-                constexpr original_t& operator =(volatile original_t&& other) noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
-                    }
-
-                    return *this;
-                }
-
-                constexpr volatile original_t& operator =(volatile original_t&& other) volatile noexcept
-                {
-                    if (this != cpp::Address(other)) {
-                        this->integer = cpp::Exchange(other.integer, 0);
-                        this->real = cpp::Exchange(other.real, negatable::real_t(0.0));
-                    }
-
-                    return *this;
-                }
-
-            public:
-                constexpr positive::integer_t Integer() const noexcept
-                {
-                    return this->integer;
-                }
-
-                constexpr positive::integer_t Integer() const volatile noexcept
-                {
-                    return this->integer;
-                }
-
-                constexpr negatable::real_t Real() const noexcept
-                {
-                    return this->real;
-                }
-
-                constexpr negatable::real_t Real() const volatile noexcept
-                {
-                    return this->real;
-                }
-
-            public:
-                constexpr operator positive::integer_t() const noexcept
-                {
-                    return this->integer;
-                }
-
-                constexpr operator positive::integer_t() const volatile noexcept
-                {
-                    return this->integer;
-                }
-
-                constexpr operator negatable::real_t() const noexcept
-                {
-                    return this->real;
-                }
-
-                constexpr operator negatable::real_t() const volatile noexcept
-                {
-                    return this->real;
-                }
-
-            public:
-                constexpr positive::integer_t operator +(positive::integer_t integer) const noexcept
-                {
-                    return this->integer + integer;
-                }
-
-                constexpr positive::integer_t operator +(positive::integer_t integer) const volatile noexcept
-                {
-                    return this->integer + integer;
-                }
-
-                constexpr original_t& operator =(boolean::cpp_t boolean) noexcept
-                {
-                    if (boolean) {
-                        this->integer = 1;
-                        this->real = 1.0;
-                    } else {
-                        this->integer = 0;
-                        this->real = negatable::real_t(0.0);
-                    }
-
-                    return *this;
-                }
-
-                constexpr volatile original_t& operator =(boolean::cpp_t boolean) volatile noexcept
-                {
-                    if (boolean) {
-                        this->integer = 1;
-                        this->real = 1.0;
-                    } else {
-                        this->integer = 0;
-                        this->real = negatable::real_t(0.0);
-                    }
-
-                    return *this;
-                }
-            };
-
-            class derived_1_t :
-                public original_t
-            {
-            public:
-                using base_t    = original_t;
-
-            public:
-                nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_1_t, original_t);
-            };
-
-            class derived_2_t :
-                public derived_1_t
-            {
-            public:
-                using base_t    = derived_1_t;
-
-            public:
-                nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_2_t, derived_1_t);
-            };
-
-            class derived_3_t :
-                public derived_2_t
-            {
-            public:
-                using base_t    = derived_2_t;
-
-            public:
-                nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_3_t, derived_2_t);
-            };
-
-            template <typename base_p>
-            class implicit_t :
-                public base_p
-            {
-            public:
-                using base_p::base_p;
-            };
-
             TEST_SUITE("aliases")
             {
                 TEST_CASE_TEMPLATE("should have base's aliases", derived_p, derived_1_t, derived_2_t, derived_3_t)

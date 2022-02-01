@@ -43,33 +43,33 @@ namespace nkr {
     struct  just_not_volatile_tg                    { class operator_t; class just_t; class not_t; class volatile_t;        using base_tg = just_not_volatile_tg;       using is_tg = just_volatile_tg; };
     struct  just_not_const_volatile_tg              { class operator_t; class just_t; class not_t; class const_volatile_t;  using base_tg = just_not_const_volatile_tg; using is_tg = just_const_volatile_tg; };
 
-    struct  any_to_tg                               { class operator_t; class any_t;                        class to_t; using base_tg = any_tg; };
-    struct  any_qualified_to_tg                     { class operator_t; class any_t; class qualified_t;     class to_t; using base_tg = any_qualified_tg; };
-    struct  any_non_qualified_to_tg                 { class operator_t; class any_t; class non_qualified_t; class to_t; using base_tg = any_non_qualified_tg; };
-    struct  any_const_to_tg                         { class operator_t; class any_t; class const_t;         class to_t; using base_tg = any_const_tg; };
-    struct  any_non_const_to_tg                     { class operator_t; class any_t; class non_const_t;     class to_t; using base_tg = any_non_const_tg; };
-    struct  any_volatile_to_tg                      { class operator_t; class any_t; class volatile_t;      class to_t; using base_tg = any_volatile_tg; };
-    struct  any_non_volatile_to_tg                  { class operator_t; class any_t; class non_volatile_t;  class to_t; using base_tg = any_non_volatile_tg; };
+    struct  any_to_tg                               { class operator_t; class any_t;                        class to_t; using base_tg = any_to_tg; using non_to_tg = any_tg; };
+    struct  any_qualified_to_tg                     { class operator_t; class any_t; class qualified_t;     class to_t; using base_tg = any_qualified_to_tg; using non_to_tg = any_qualified_tg; };
+    struct  any_non_qualified_to_tg                 { class operator_t; class any_t; class non_qualified_t; class to_t; using base_tg = any_non_qualified_to_tg; using non_to_tg = any_non_qualified_tg; };
+    struct  any_const_to_tg                         { class operator_t; class any_t; class const_t;         class to_t; using base_tg = any_const_to_tg; using non_to_tg = any_const_tg; };
+    struct  any_non_const_to_tg                     { class operator_t; class any_t; class non_const_t;     class to_t; using base_tg = any_non_const_to_tg; using non_to_tg = any_non_const_tg; };
+    struct  any_volatile_to_tg                      { class operator_t; class any_t; class volatile_t;      class to_t; using base_tg = any_volatile_to_tg; using non_to_tg = any_volatile_tg; };
+    struct  any_non_volatile_to_tg                  { class operator_t; class any_t; class non_volatile_t;  class to_t; using base_tg = any_non_volatile_to_tg; using non_to_tg = any_non_volatile_tg; };
 
-    struct  just_to_tg                              { class operator_t; class just_t;                           class to_t; using base_tg = just_tg; };
-    struct  just_non_qualified_to_tg                { class operator_t; class just_t; class non_qualified_t;    class to_t; using base_tg = just_non_qualified_tg; };
-    struct  just_const_to_tg                        { class operator_t; class just_t; class const_t;            class to_t; using base_tg = just_const_tg; };
-    struct  just_volatile_to_tg                     { class operator_t; class just_t; class volatile_t;         class to_t; using base_tg = just_volatile_tg; };
-    struct  just_const_volatile_to_tg               { class operator_t; class just_t; class const_volatile_t;   class to_t; using base_tg = just_const_volatile_tg; };
+    struct  just_to_tg                              { class operator_t; class just_t;                           class to_t; using base_tg = just_to_tg; using non_to_tg = just_tg; };
+    struct  just_non_qualified_to_tg                { class operator_t; class just_t; class non_qualified_t;    class to_t; using base_tg = just_non_qualified_to_tg; using non_to_tg = just_non_qualified_tg; };
+    struct  just_const_to_tg                        { class operator_t; class just_t; class const_t;            class to_t; using base_tg = just_const_to_tg; using non_to_tg = just_const_tg; };
+    struct  just_volatile_to_tg                     { class operator_t; class just_t; class volatile_t;         class to_t; using base_tg = just_volatile_to_tg; using non_to_tg = just_volatile_tg; };
+    struct  just_const_volatile_to_tg               { class operator_t; class just_t; class const_volatile_t;   class to_t; using base_tg = just_const_volatile_to_tg; using non_to_tg = just_const_volatile_tg; };
 
-    struct  not_any_to_tg                           { class operator_t; class not_t; class any_t;                           class to_t; using base_tg = not_any_tg; };
-    struct  not_any_qualified_to_tg                 { class operator_t; class not_t; class any_t; class qualified_t;        class to_t; using base_tg = not_any_qualified_tg; };
-    struct  not_any_non_qualified_to_tg             { class operator_t; class not_t; class any_t; class non_qualified_t;    class to_t; using base_tg = not_any_non_qualified_tg; };
-    struct  not_any_const_to_tg                     { class operator_t; class not_t; class any_t; class const_t;            class to_t; using base_tg = not_any_const_tg; };
-    struct  not_any_non_const_to_tg                 { class operator_t; class not_t; class any_t; class non_const_t;        class to_t; using base_tg = not_any_non_const_tg; };
-    struct  not_any_volatile_to_tg                  { class operator_t; class not_t; class any_t; class volatile_t;         class to_t; using base_tg = not_any_volatile_tg; };
-    struct  not_any_non_volatile_to_tg              { class operator_t; class not_t; class any_t; class non_volatile_t;     class to_t; using base_tg = not_any_non_volatile_tg; };
+    struct  not_any_to_tg                           { class operator_t; class not_t; class any_t;                           class to_t; using base_tg = not_any_to_tg; using non_to_tg = not_any_tg; };
+    struct  not_any_qualified_to_tg                 { class operator_t; class not_t; class any_t; class qualified_t;        class to_t; using base_tg = not_any_qualified_to_tg; using non_to_tg = not_any_qualified_tg; };
+    struct  not_any_non_qualified_to_tg             { class operator_t; class not_t; class any_t; class non_qualified_t;    class to_t; using base_tg = not_any_non_qualified_to_tg; using non_to_tg = not_any_non_qualified_tg; };
+    struct  not_any_const_to_tg                     { class operator_t; class not_t; class any_t; class const_t;            class to_t; using base_tg = not_any_const_to_tg; using non_to_tg = not_any_const_tg; };
+    struct  not_any_non_const_to_tg                 { class operator_t; class not_t; class any_t; class non_const_t;        class to_t; using base_tg = not_any_non_const_to_tg; using non_to_tg = not_any_non_const_tg; };
+    struct  not_any_volatile_to_tg                  { class operator_t; class not_t; class any_t; class volatile_t;         class to_t; using base_tg = not_any_volatile_to_tg; using non_to_tg = not_any_volatile_tg; };
+    struct  not_any_non_volatile_to_tg              { class operator_t; class not_t; class any_t; class non_volatile_t;     class to_t; using base_tg = not_any_non_volatile_to_tg; using non_to_tg = not_any_non_volatile_tg; };
 
-    struct  just_not_to_tg                          { class operator_t; class just_t; class not_t;                          class to_t; using base_tg = just_not_tg; };
-    struct  just_not_non_qualified_to_tg            { class operator_t; class just_t; class not_t; class non_qualified_t;   class to_t; using base_tg = just_not_non_qualified_tg; };
-    struct  just_not_const_to_tg                    { class operator_t; class just_t; class not_t; class const_t;           class to_t; using base_tg = just_not_const_tg; };
-    struct  just_not_volatile_to_tg                 { class operator_t; class just_t; class not_t; class volatile_t;        class to_t; using base_tg = just_not_volatile_tg; };
-    struct  just_not_const_volatile_to_tg           { class operator_t; class just_t; class not_t; class const_volatile_t;  class to_t; using base_tg = just_not_const_volatile_tg; };
+    struct  just_not_to_tg                          { class operator_t; class just_t; class not_t;                          class to_t; using base_tg = just_not_to_tg; using non_to_tg = just_not_tg; };
+    struct  just_not_non_qualified_to_tg            { class operator_t; class just_t; class not_t; class non_qualified_t;   class to_t; using base_tg = just_not_non_qualified_to_tg; using non_to_tg = just_not_non_qualified_tg; };
+    struct  just_not_const_to_tg                    { class operator_t; class just_t; class not_t; class const_t;           class to_t; using base_tg = just_not_const_to_tg; using non_to_tg = just_not_const_tg; };
+    struct  just_not_volatile_to_tg                 { class operator_t; class just_t; class not_t; class volatile_t;        class to_t; using base_tg = just_not_volatile_to_tg; using non_to_tg = just_not_volatile_tg; };
+    struct  just_not_const_volatile_to_tg           { class operator_t; class just_t; class not_t; class const_volatile_t;  class to_t; using base_tg = just_not_const_volatile_to_tg; using non_to_tg = just_not_const_volatile_tg; };
 
     struct  of_any_tg                               { class operator_t; class of_t; class any_t;                        using base_tg = any_tg; };
     struct  of_any_qualified_tg                     { class operator_t; class of_t; class any_t; class qualified_t;     using base_tg = any_qualified_tg; };
@@ -198,475 +198,22 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $tr {
-
-    template <
-        nkr::ts_tr              subjects_p,
-        nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p             = nkr::positive::index_c<0>
-    > constexpr nkr::boolean::cpp_t TR() noexcept;
-
-}}
-
 namespace nkr {
 
     template <
-        typename subject_p,
-        typename ...expression_parts_p
+        nkr::ts_tr  subjects_p,
+        typename    ...expression_parts_p
+    > constexpr nkr::boolean::cpp_t TR() noexcept;
+
+    template <
+        typename    subject_p,
+        typename    ...expression_parts_p
     > concept tr =
-        nkr::$tr::TR<t<subject_p>, nkr::tuple::types_t<expression_parts_p...>>();
+        TR<t<subject_p>, expression_parts_p...>();
 
 }
 
 // We should have another like type called 'ttr' which can take templates of types.
 // Likewise we might even have a 'tttr' for templates of templates of types.
-
-// these will probably be deleted.
-
-namespace nkr { namespace $tr {
-
-    template <
-        typename subject_p,
-        typename operator_p
-    > constexpr nkr::boolean::cpp_t TR0() noexcept;
-
-    template <
-        typename subject_p,
-        typename operator_p, typename operand_p
-    > constexpr nkr::boolean::cpp_t TR1() noexcept;
-
-    template <
-        typename subject_p,
-        typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, typename of_operand_p
-    > constexpr nkr::boolean::cpp_t TR2() noexcept;
-
-    template <
-        typename subject_p,
-        typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, template <typename ...> typename of_operand_p,
-        typename of_of_operator_p, typename of_of_operand_p
-    > constexpr nkr::boolean::cpp_t TR3() noexcept;
-
-}}
-
-namespace nkr {
-
-    template <
-        typename subject_p,
-        typename operator_p
-    > concept tr0 =
-        $tr::TR0<subject_p, operator_p>();
-
-    template <
-        typename subject_p,
-        typename operator_p, typename operand_p
-    > concept tr1 =
-        $tr::TR1<subject_p, operator_p, operand_p>();
-
-    template <
-        typename subject_p,
-        typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, typename of_operand_p
-    > concept tr2 =
-        $tr::TR2<subject_p, operator_p, operand_p, of_operator_p, of_operand_p>();
-
-    template <
-        typename subject_p,
-        typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, template <typename ...> typename of_operand_p,
-        typename of_of_operator_p, typename of_of_operand_p
-    > concept tr3 =
-        $tr::TR3<subject_p, operator_p, operand_p, of_operator_p, of_operand_p, of_of_operator_p, of_of_operand_p>();
-
-}
-
-// everything below here will be deleted.
-
-namespace nkr {
-
-    template <
-        typename operator_p
-    > class tr0_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-
-    private:
-        template <nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-    };
-
-}
-
-namespace nkr {
-
-    template <
-        typename operator_p, typename operand_p
-    > class tr1_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-
-    private:
-        template <nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-    };
-
-}
-
-namespace nkr {
-
-    template <
-        typename operator_p, nkr::ts_tr operands_p
-    > class tr1s_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-    };
-
-}
-
-namespace nkr {
-
-    template <
-        typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, typename of_operand_p
-    > class tr2_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-
-    private:
-        template <nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-    };
-
-}
-
-namespace nkr {
-
-    template <
-        typename operator_p, nkr::tts_tr operands_p,
-        typename of_operator_p, nkr::ts_tr of_operands_p
-    > class tr2s_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-    };
-
-}
-
-namespace nkr {
-
-    template <
-        typename operator_p, template <typename ...> typename operand_p,
-        typename of_operator_p, template <typename ...> typename of_operand_p,
-        typename of_of_operator_p, typename of_of_operand_p
-    > class tr3_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-
-    private:
-        template <nkr::boolean::cpp_ctr state_p, tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-    };
-
-}
-
-namespace nkr {
-
-    template <
-        typename operator_p, nkr::tts_tr operands_p,
-        typename of_operator_p, nkr::tts_tr of_operands_p,
-        typename of_of_operator_p, nkr::ts_tr of_of_operands_p
-    > class tr3s_t
-    {
-    public:
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    OR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    AND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NOR() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    NAND() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    XNOR() noexcept;
-
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Any() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    Every() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    One() noexcept;
-        template <tr1<any_tg, nkr::tuple::types_tg> subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-        template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
-        static constexpr nkr::boolean::cpp_t    None() noexcept;
-    };
-
-}
 
 #include "nkr/tr_dec_def.h"

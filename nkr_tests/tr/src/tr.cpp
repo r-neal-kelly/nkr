@@ -11,6 +11,46 @@
 
 namespace nkr {
 
+    constexpr nkr::boolean::cpp_t
+        Test(tr<any_tg, t<nkr::boolean::cpp_t>> auto boolean)
+        noexcept
+    {
+        return boolean;
+    }
+
+    class test_t
+    {
+    public:
+        nkr::boolean::cpp_t boolean;
+
+    public:
+        constexpr test_t(tr<any_to_tg, t<nkr::boolean::cpp_t>> auto from) :
+            boolean(static_cast<nkr::boolean::cpp_t>(from))
+        {
+        }
+
+    public:
+        explicit constexpr operator nkr::boolean::cpp_t()
+            const volatile
+        {
+            return this->boolean;
+        }
+    };
+
+    TEST_CASE("temp")
+    {
+        CHECK_TRUE(Test(true));
+        CHECK_FALSE(Test(false));
+
+        CHECK_TRUE(test_t(true));
+        CHECK_FALSE(test_t(false));
+
+        CHECK_TRUE(test_t(1));
+        CHECK_FALSE(test_t(0));
+
+        static_assert(tr<int, any_to_tg, t<nkr::boolean::cpp_t>>);
+    }
+
     TEST_SUITE("tr")
     {
         static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);
@@ -18,7 +58,6 @@ namespace nkr {
         static_assert(tr<nkr::positive::integer_t, any_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>>);
         static_assert(tr<nkr::negatable::integer_t, any_non_const_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>>);
 
-        // pretty darn powerful. we still need to get tr3 hooked up though!
         static_assert(tr<const volatile nkr::pointer::cpp_t<volatile nkr::positive::integer_t>,
                       any_const_tg, tts<AND_tg, nkr::pointer::cpp_t, nkr::pointer::cpp_ttg>,
                       of_just_volatile_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>>);
@@ -27,10 +66,6 @@ namespace nkr {
         static_assert(tr<const volatile nkr::pointer::cpp_t<volatile nkr::positive::integer_t>,
                       any_const_tg, tt<nkr::pointer::cpp_t>,
                       of_just_volatile_tg, t<nkr::positive::integer_t>>);
-        // as compared to:
-        static_assert(tr2<const volatile nkr::pointer::cpp_t<volatile nkr::positive::integer_t>,
-                      any_const_tg, nkr::pointer::cpp_t,
-                      of_just_volatile_tg, nkr::positive::integer_t>);
 
         // just_tg continues to work!
         static_assert(tr<const volatile nkr::pointer::cpp_t<volatile nkr::positive::integer_t>,
@@ -40,7 +75,6 @@ namespace nkr {
                       any_const_tg, tt<nkr::pointer::cpp_t>,
                       of_just_tg, ts<OR_tg, volatile nkr::positive::integer_t, nkr::negatable::integer_t>>);
 
-        // now tr3 is working!
         static_assert(tr<nkr::pointer::cpp_t<const nkr::pointer::cpp_t<volatile nkr::positive::integer_t>>,
                       any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
                       of_any_const_tg, tt<nkr::pointer::cpp_t>,
@@ -56,7 +90,6 @@ namespace nkr {
                       of_any_const_tg, tt<nkr::pointer::cpp_t>,
                       of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>>);
 
-        // now with tr0
         static_assert(tr<volatile nkr::positive::integer_t,
                       any_non_const_tg>);
 
@@ -135,7 +168,7 @@ namespace nkr {
                           nkr::pointer::cpp_t<int>,
                           int>>);
 
-            static_assert(nkr::$tr::Execute<subjects_t, operators_t, objects_t>());
+            static_assert(nkr::$tr::Execute_Expression<subjects_t, operators_t, objects_t>());
         }
 
         TEST_SUITE("temp")
@@ -204,7 +237,7 @@ namespace nkr {
         }
     }
 
-    TEST_SUITE("nkr::tr1_t")
+    /*TEST_SUITE("nkr::tr1_t")
     {
         using true_t = nkr::positive::integer_t;
         using false_t = nkr::negatable::integer_t;
@@ -247,6 +280,6 @@ namespace nkr {
         static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<false_t, true_t, true_t>() == true);
         static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, false_t, true_t>() == true);
         static_assert(tr1_t<any_tg, nkr::positive::integer_t>::XNOR<true_t, true_t, true_t>() == true);
-    }
+    }*/
 
 }

@@ -168,8 +168,8 @@ namespace nkr { namespace interface { namespace enumeration {
     public:
         static constexpr integer_t          Default_None_Value() noexcept;
 
-        static constexpr integer_t          Value(const tr1<any_tg, type_t> auto& type) noexcept;
-        static constexpr nkr::none::type_t  Value(tr1<any_non_const_tg, type_t> auto& type, integer_t integer) noexcept;
+        static constexpr integer_t          Value(const tr<any_tg, t<type_t>> auto& type) noexcept;
+        static constexpr nkr::none::type_t  Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer) noexcept;
 
     public:
         template <typename ...>

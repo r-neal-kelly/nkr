@@ -32,17 +32,17 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace concurrency {
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline auto
-        lockee_t<value_p>::Assert(const tr1<any_tg, lockee_t> auto& self)
+        lockee_t<value_p>::Assert(const tr<any_tg, t<lockee_t>> auto& self)
         noexcept
     {
         nkr_ASSERT_THAT(self.locker.owns_lock()); // This object has been moved and you should no longer access it.
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline auto&
-        lockee_t<value_p>::Assign(tr1<any_non_const_tg, lockee_t> auto& self, tr1<any_non_const_tg, lockee_t> auto&& other)
+        lockee_t<value_p>::Assign(tr<any_non_const_tg, t<lockee_t>> auto& self, tr<any_non_const_tg, t<lockee_t>> auto&& other)
         noexcept
     {
         Assert(self);
@@ -56,9 +56,9 @@ namespace nkr { namespace concurrency {
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline auto&
-        lockee_t<value_p>::Value(const tr1<any_tg, lockee_t> auto& self)
+        lockee_t<value_p>::Value(const tr<any_tg, t<lockee_t>> auto& self)
         noexcept
     {
         Assert(self);
@@ -66,9 +66,9 @@ namespace nkr { namespace concurrency {
         return self.value;
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline auto&
-        lockee_t<value_p>::Value(tr1<any_non_const_tg, lockee_t> auto& self, const tr1<any_tg, value_t> auto& value)
+        lockee_t<value_p>::Value(tr<any_non_const_tg, t<lockee_t>> auto& self, const tr<any_tg, t<value_t>> auto& value)
         noexcept
     {
         Assert(self);
@@ -78,9 +78,9 @@ namespace nkr { namespace concurrency {
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline auto&
-        lockee_t<value_p>::Value(tr1<any_non_const_tg, lockee_t> auto& self, tr1<any_non_const_tg, value_t> auto&& value)
+        lockee_t<value_p>::Value(tr<any_non_const_tg, t<lockee_t>> auto& self, tr<any_non_const_tg, t<value_t>> auto&& value)
         noexcept
     {
         Assert(self);
@@ -90,7 +90,7 @@ namespace nkr { namespace concurrency {
         return self;
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>::lockee_t(value_t& value, lock_t& lock) noexcept :
         value(value),
         lock(lock),
@@ -99,7 +99,7 @@ namespace nkr { namespace concurrency {
         Assert(*this);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>::lockee_t(lockee_t&& other) noexcept :
         value(other.value),
         lock(other.lock),
@@ -108,7 +108,7 @@ namespace nkr { namespace concurrency {
         Assert(*this);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>&
         lockee_t<value_p>::operator =(lockee_t&& other)
         noexcept
@@ -116,7 +116,7 @@ namespace nkr { namespace concurrency {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>::~lockee_t() noexcept
     {
         if (this->locker.owns_lock()) {
@@ -124,7 +124,7 @@ namespace nkr { namespace concurrency {
         }
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>::value_t&
         lockee_t<value_p>::Value()
         noexcept
@@ -132,7 +132,7 @@ namespace nkr { namespace concurrency {
         return Value(*this);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline const lockee_t<value_p>::value_t&
         lockee_t<value_p>::Value()
         const noexcept
@@ -140,46 +140,46 @@ namespace nkr { namespace concurrency {
         return Value(*this);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>&
-        lockee_t<value_p>::Value(const tr1<any_tg, value_t> auto& value)
+        lockee_t<value_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         noexcept
     {
         return Value(*this, value);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline const lockee_t<value_p>&
-        lockee_t<value_p>::Value(const tr1<any_tg, value_t> auto& value)
+        lockee_t<value_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         const noexcept
     {
         return Value(*this, value);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>&
-        lockee_t<value_p>::Value(tr1<any_non_const_tg, value_t> auto&& value)
+        lockee_t<value_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         noexcept
     {
         return Value(*this, nkr::cpp::Move(value));
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline const lockee_t<value_p>&
-        lockee_t<value_p>::Value(tr1<any_non_const_tg, value_t> auto&& value)
+        lockee_t<value_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         const noexcept
     {
         return Value(*this, nkr::cpp::Move(value));
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>::operator lockee_t<value_p>::value_t&()
         noexcept
     {
         return Value(*this);
     }
 
-    template <tr1<just_non_qualified_tg, nkr::generic::type_tg> value_p>
+    template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     inline lockee_t<value_p>::operator const lockee_t<value_p>::value_t&()
         const noexcept
     {

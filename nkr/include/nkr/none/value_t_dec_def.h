@@ -114,7 +114,7 @@ namespace nkr { namespace none {
 
     template <nkr::generic::implementing::interface::none::value_tr type_p>
     inline constexpr value_t<type_p>&
-        value_t<type_p>::operator =(tr1<just_volatile_tg, value_t> auto&& other)
+        value_t<type_p>::operator =(tr<just_volatile_tg, t<value_t>> auto&& other)
         noexcept
     {
         return *this;
@@ -122,7 +122,7 @@ namespace nkr { namespace none {
 
     template <nkr::generic::implementing::interface::none::value_tr type_p>
     inline constexpr volatile value_t<type_p>&
-        value_t<type_p>::operator =(tr1<just_volatile_tg, value_t> auto&& other)
+        value_t<type_p>::operator =(tr<just_volatile_tg, t<value_t>> auto&& other)
         volatile noexcept
     {
         return *this;
@@ -166,7 +166,7 @@ namespace nkr { namespace none {
 }}
 
 inline constexpr nkr::boolean::cpp_t
-    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto& b)
+    operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto& a, const auto& b)
     noexcept
 {
     using a_t = nkr::cpp::reference_value_t<decltype(a)>;
@@ -186,49 +186,49 @@ inline constexpr nkr::boolean::cpp_t
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto&& b)
+    operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto& a, const auto&& b)
     noexcept
 {
     return operator ==(a, b);
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto& b)
+    operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto&& a, const auto& b)
     noexcept
 {
     return operator ==(a, b);
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator ==(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto&& b)
+    operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto&& a, const auto&& b)
     noexcept
 {
     return operator ==(a, b);
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto& b)
+    operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto& a, const auto& b)
     noexcept
 {
     return !operator ==(a, b);
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto& a, const auto&& b)
+    operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto& a, const auto&& b)
     noexcept
 {
     return !operator ==(a, b);
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto& b)
+    operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto&& a, const auto& b)
     noexcept
 {
     return !operator ==(a, b);
 }
 
 inline constexpr nkr::boolean::cpp_t
-    operator !=(const nkr::tr1<nkr::any_tg, nkr::none::value_tg> auto&& a, const auto&& b)
+    operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto&& a, const auto&& b)
     noexcept
 {
     return !operator ==(a, b);

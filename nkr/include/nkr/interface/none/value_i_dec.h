@@ -20,7 +20,7 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
     concept aliases_i = requires
     {
         typename type_p::type_t;
-        tr1<typename type_p::type_t, just_non_qualified_tg, nkr::generic::type_tg>;
+        tr<typename type_p::type_t, just_non_qualified_tg, t<nkr::generic::type_tg>>;
     };
 
     template <typename type_p>
@@ -133,7 +133,7 @@ namespace nkr { namespace interface { namespace none {
     class value_i
     {
     public:
-        static_assert(tr1<type_p, just_non_qualified_tg, nkr::generic::implementing::constructor::default_tg>,
+        static_assert(tr<type_p, just_non_qualified_tg, t<nkr::generic::implementing::constructor::default_tg>>,
                       "Either define a default ctor setting this type to none, or implement this interface.");
 
     public:

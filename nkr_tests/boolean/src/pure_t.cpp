@@ -121,7 +121,7 @@ namespace nkr {
 
         TEST_SUITE("tr")
         {
-            TEST_CASE("should satisfy all of the following tr1 expressions")
+            TEST_CASE("should satisfy all of the following tr expressions")
             {
                 using target_ts = ts<AND_tg,
                     nkr::boolean::pure_t,
@@ -162,7 +162,7 @@ namespace nkr {
                     nkr::generic::boolean::pure_tg
                 >;
 
-                static_assert(tr1s_t<any_tg, target_ts>::Every<any_ts>());
+                /*static_assert(tr1s_t<any_tg, target_ts>::Every<any_ts>());
                 static_assert(tr1s_t<any_tg, non_target_ts>::None<any_ts>());
                 static_assert(tr1s_t<any_tg, other_target_ts>::None<other_ts>());
 
@@ -302,7 +302,7 @@ namespace nkr {
                 static_assert(tr1s_t<just_not_const_volatile_tg, target_ts>::None<just_const_volatile_ts>());
                 static_assert(tr1s_t<just_not_const_volatile_tg, target_ts>::Every<any_not_just_const_volatile_ts>());
                 static_assert(tr1s_t<just_not_const_volatile_tg, non_target_ts>::Every<any_ts>());
-                static_assert(tr1s_t<just_not_const_volatile_tg, other_target_ts>::Every<other_ts>());
+                static_assert(tr1s_t<just_not_const_volatile_tg, other_target_ts>::Every<other_ts>());*/
             }
         }
 

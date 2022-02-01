@@ -29,7 +29,7 @@ namespace nkr { namespace boolean { namespace $pure_t {
     template <nkr::boolean::pure_tr value_p>
     template <typename unused_p>
     inline randomness_value_i_sp<value_p>::value_t
-        randomness_value_i_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        randomness_value_i_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                               nkr::negatable::real_t probability_for_true)
         noexcept
     {
@@ -48,7 +48,7 @@ namespace nkr { namespace boolean { namespace $pure_t {
     template <nkr::boolean::pure_tr value_p>
     template <typename unused_p>
     inline randomness_value_i_sp<value_p>::value_t
-        randomness_value_i_sp<value_p>::Value(tr1<any_non_const_tg, nkr::cpp::generic::randomness::generator_tg> auto& generator,
+        randomness_value_i_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
                                               value_t min, value_t max)
         noexcept
     {

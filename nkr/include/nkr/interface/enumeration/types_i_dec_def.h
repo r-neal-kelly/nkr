@@ -48,7 +48,7 @@ namespace nkr { namespace interface { namespace enumeration {
 
     template <$types_i::default_tr type_p>
     inline constexpr types_i<type_p>::integer_t
-        types_i<type_p>::Value(const tr1<any_tg, type_t> auto& type)
+        types_i<type_p>::Value(const tr<any_tg, t<type_t>> auto& type)
         noexcept
     {
         return type;
@@ -56,7 +56,7 @@ namespace nkr { namespace interface { namespace enumeration {
 
     template <$types_i::default_tr type_p>
     inline constexpr nkr::none::type_t
-        types_i<type_p>::Value(tr1<any_non_const_tg, type_t> auto& type, integer_t integer)
+        types_i<type_p>::Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
         noexcept
     {
         type = integer;
