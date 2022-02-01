@@ -136,134 +136,92 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $ts {
+namespace nkr { namespace $tr {
 
-    template <nkr::tuple::types_tr types_p>
-    class OR_sp :
+    template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tuple::types_tr types_p>
+    class ts :
         public types_p
     {
     public:
-        using operator_t    = OR_tg;
+        using operator_t    = operator_p;
         using types_t       = types_p;
-        using tail_t        = OR_sp<typename types_t::tail_t>;
+
+        using tail_t        = ts<operator_t, typename types_t::tail_t>;
         template <nkr::positive::count_ctr count_p>
-            requires (count_p::Value() <= types_p::Count())
-        using take_t        = OR_sp<typename types_p::template take_t<count_p>>;
+            requires (count_p::Value() <= types_t::Count())
+        using take_t        = ts<operator_t, typename types_t::template take_t<count_p>>;
     };
 
-    template <nkr::tuple::types_tr types_p>
-    class AND_sp :
-        public types_p
+    template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tuple::templates_tr templates_p>
+    class tts :
+        public templates_p
     {
     public:
-        using operator_t    = AND_tg;
-        using types_t       = types_p;
-        using tail_t        = AND_sp<typename types_t::tail_t>;
+        using operator_t    = operator_p;
+        using templates_t   = templates_p;
+
+        using tail_t        = tts<operator_t, typename templates_t::tail_t>;
         template <nkr::positive::count_ctr count_p>
-            requires (count_p::Value() <= types_p::Count())
-        using take_t        = AND_sp<typename types_p::template take_t<count_p>>;
-    };
-
-    template <nkr::generic::tag::logic_gate_tr tag_p, nkr::tuple::types_tr types_p>
-    class sp;
-
-    template <nkr::tuple::types_tr types_p>
-    class sp<OR_tg, types_p>
-    {
-    public:
-        using type_t    = OR_sp<types_p>;
-    };
-
-    template <nkr::tuple::types_tr types_p>
-    class sp<AND_tg, types_p>
-    {
-    public:
-        using type_t    = AND_sp<types_p>;
+            requires (count_p::Value() <= templates_t::Count())
+        using take_t        = tts<operator_t, typename templates_t::template take_t<count_p>>;
     };
 
 }}
 
 namespace nkr {
-
-    template <nkr::generic::tag::logic_gate_tr operator_p, typename ...types_p>
-    using   ts =
-        nkr::$ts::sp<operator_p, nkr::tuple::types_t<types_p...>>::type_t;
 
     template <typename type_p>
     using   t =
-        ts<AND_tg, type_p>;
+        nkr::$tr::ts<AND_tg, nkr::tuple::types_t<type_p>>;
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, typename ...types_p>
+        requires (nkr::tuple::types_t<types_p...>::Count() > 0)
+    using   ts =
+        nkr::$tr::ts<operator_p, nkr::tuple::types_t<types_p...>>;
 
     template <typename type_p>
     concept ts_tr =
-        nkr::cpp::is_any_tr<type_p, typename nkr::$ts::sp<typename type_p::operator_t, typename type_p::types_t>::type_t>;
+        nkr::cpp::is_any_tr<type_p, typename nkr::$tr::ts<typename type_p::operator_t, typename type_p::types_t>>;
+
+    template <template <typename ...> typename template_p>
+    using   tt =
+        nkr::$tr::tts<AND_tg, nkr::tuple::templates_t<template_p>>;
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, template <typename ...> typename ...templates_p>
+        requires (nkr::tuple::templates_t<templates_p...>::Count() > 0)
+    using   tts =
+        nkr::$tr::tts<operator_p, nkr::tuple::templates_t<templates_p...>>;
+
+    template <typename type_p>
+    concept tts_tr =
+        nkr::cpp::is_any_tr<type_p, typename nkr::$tr::tts<typename type_p::operator_t, typename type_p::templates_t>>;
 
 }
 
-namespace nkr { namespace $tts {
+namespace nkr { namespace $tr {
 
-    template <nkr::tuple::templates_tr templates_p>
-    class OR_sp :
-        public templates_p
-    {
-    public:
-        using operator_t    = OR_tg;
-        using templates_t   = templates_p;
-        using tail_t        = OR_sp<typename templates_t::tail_t>;
-        template <nkr::positive::count_ctr count_p>
-            requires (count_p::Value() <= templates_t::Count())
-        using take_t        = OR_sp<typename templates_t::template take_t<count_p>>;
-    };
-
-    template <nkr::tuple::templates_tr templates_p>
-    class AND_sp :
-        public templates_p
-    {
-    public:
-        using operator_t    = AND_tg;
-        using templates_t   = templates_p;
-        using tail_t        = AND_sp<typename templates_t::tail_t>;
-        template <nkr::positive::count_ctr count_p>
-            requires (count_p::Value() <= templates_t::Count())
-        using take_t        = AND_sp<typename templates_t::template take_t<count_p>>;
-    };
-
-    template <nkr::generic::tag::logic_gate_tr tag_p, nkr::tuple::templates_tr templates_p>
-    class sp;
-
-    template <nkr::tuple::templates_tr templates_p>
-    class sp<OR_tg, templates_p>
-    {
-    public:
-        using type_t    = OR_sp<templates_p>;
-    };
-
-    template <nkr::tuple::templates_tr templates_p>
-    class sp<AND_tg, templates_p>
-    {
-    public:
-        using type_t    = AND_sp<templates_p>;
-    };
+    template <
+        nkr::ts_tr              subjects_p,
+        nkr::tuple::types_tr    expression_parts_p,
+        typename                index_p             = nkr::positive::index_c<0>
+    > constexpr nkr::boolean::cpp_t TR() noexcept;
 
 }}
 
 namespace nkr {
 
-    template <nkr::generic::tag::logic_gate_tr operator_p, template <typename ...> typename ...templates_p>
-    using   tts =
-        nkr::$tts::sp<operator_p, nkr::tuple::templates_t<templates_p...>>::type_t;
-
-    template <template <typename ...> typename template_p>
-    using   tt =
-        tts<AND_tg, template_p>;
-
-    template <typename type_p>
-    concept tts_tr =
-        nkr::cpp::is_any_tr<type_p, typename nkr::$tts::sp<typename type_p::operator_t, typename type_p::templates_t>::type_t>;
+    template <
+        typename subject_p,
+        typename ...expression_parts_p
+    > concept tr =
+        nkr::$tr::TR<t<subject_p>, nkr::tuple::types_t<expression_parts_p...>>();
 
 }
 
 // We should have another like type called 'ttr' which can take templates of types.
 // Likewise we might even have a 'tttr' for templates of templates of types.
+
+// these will probably be deleted.
 
 namespace nkr { namespace $tr {
 
@@ -322,6 +280,8 @@ namespace nkr {
         $tr::TR3<subject_p, operator_p, operand_p, of_operator_p, of_operand_p, of_of_operator_p, of_of_operand_p>();
 
 }
+
+// everything below here will be deleted.
 
 namespace nkr {
 
@@ -706,25 +666,6 @@ namespace nkr {
         template <tr1<not_any_tg, nkr::tuple::types_tg> ...subjects_p>
         static constexpr nkr::boolean::cpp_t    None() noexcept;
     };
-
-}
-
-namespace nkr { namespace $tr {
-
-    template <
-        typename subject_p,
-        typename ...expression_parts_p
-    > constexpr nkr::boolean::cpp_t TR() noexcept;
-
-}}
-
-namespace nkr {
-
-    template <
-        typename subject_p,
-        typename ...expression_parts_p
-    > concept tr =
-        nkr::$tr::TR<subject_p, expression_parts_p...>();
 
 }
 

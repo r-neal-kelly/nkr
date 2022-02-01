@@ -140,55 +140,59 @@ namespace nkr {
 
         TEST_SUITE("temp")
         {
-            static_assert(nkr::$tr::Single_TR<volatile int* volatile* const, nkr::tuple::types_t<
+            static_assert(tr<volatile int* volatile* const,
                           any_tg, tt<nkr::pointer::cpp_t>,
                           of_any_access_const_tg, tt<nkr::pointer::cpp_t>,
                           of_any_access_const_tg, t<int>
-                          >>());
+            >);
 
-            static_assert(nkr::$tr::Single_TR <const volatile int* volatile* const* volatile* const* volatile* const*, nkr::tuple::types_t <
-                          just_non_qualified_tg,        tt<nkr::pointer::cpp_t>,
-                          of_just_const_tg,             tt<nkr::pointer::cpp_t>,
-                          of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
-                          of_just_const_tg,             tt<nkr::pointer::cpp_t>,
-                          of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
-                          of_just_const_tg,             tt<nkr::pointer::cpp_t>,
-                          of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
-                          of_just_tg,                   t<const volatile int>
-                          >>());
+            static_assert(tr<const volatile int* volatile* const* volatile* const* volatile* const*,
+                          just_non_qualified_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_tg, t<const volatile int>
+            >);
 
             // we now support the just_tg with tt operands as well as inner t and now outer t operands too!
-            static_assert(nkr::$tr::Single_TR<const volatile int* const, nkr::tuple::types_t<
-                          just_tg,      const tt<nkr::pointer::cpp_t>,
-                          of_just_tg,   const t<volatile int>
-                          >>());
+            static_assert(tr<const volatile int* const,
+                          just_tg, const tt<nkr::pointer::cpp_t>,
+                          of_just_tg, const t<volatile int>
+            >);
             // remember, these extra qualifiers are ignored without the just_tg
-            static_assert(nkr::$tr::Single_TR<int*, nkr::tuple::types_t<
-                          any_tg,       const tt<nkr::pointer::cpp_t>,
-                          of_any_tg,    const t<volatile int>
-                          >>());
+            static_assert(tr<int*,
+                          any_tg, const tt<nkr::pointer::cpp_t>,
+                          of_any_tg, const t<volatile int>
+            >);
 
-            static_assert(nkr::$tr::Single_TR<const int, nkr::tuple::types_t<
+            static_assert(tr<const int,
                           any_tg
-                          >>());
+            >);
         }
 
         TEST_SUITE("temp")
         {
-            static_assert(nkr::$tr::Multiple_TR<const int, nkr::tuple::types_t<
+            static_assert(tr<const int,
                           any_tg
-                          >>());
+            >);
 
-            static_assert(nkr::$tr::Multiple_TR<const int, nkr::tuple::types_t<
+            static_assert(tr<const int,
                           any_const_tg, t<int>
-                          >>());
+            >);
 
-            static_assert(nkr::$tr::Multiple_TR<const int* const* volatile*, nkr::tuple::types_t<
+            static_assert(tr<const int* const* volatile*,
                           any_non_volatile_tg, tts<AND_tg, nkr::pointer::cpp_t, nkr::pointer::cpp_ttg>,
                           of_any_volatile_tg, tt<nkr::pointer::cpp_t>,
                           of_any_const_tg, tt<nkr::pointer::cpp_t>,
                           of_any_const_tg, ts<OR_tg, int, short>
-                          >>());
+            >);
+
+            static_assert(tr<int,
+                          any_tg, ts<NOR_tg, short, long long int>
+            >);
         }
     }
 
