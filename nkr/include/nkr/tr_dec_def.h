@@ -248,7 +248,7 @@ namespace nkr { namespace $tr {
 namespace nkr { namespace $tr {
 
     template <nkr::tuple::types_tr expression_parts_p>
-        requires (!(expression_parts_p::Count() & 1))
+        requires (expression_parts_p::Count() == 1 || !(expression_parts_p::Count() & 1))
     class operators_tmpl;
 
     template <>
@@ -256,6 +256,14 @@ namespace nkr { namespace $tr {
     {
     public:
         using type_t    = nkr::tuple::types_t<>;
+    };
+
+    template <nkr::tuple::types_tr expression_parts_p>
+        requires (expression_parts_p::Count() == 1)
+    class operators_tmpl<expression_parts_p>
+    {
+    public:
+        using type_t    = nkr::tuple::types_t<typename expression_parts_p::head_t>;
     };
 
     template <nkr::tuple::types_tr expression_parts_p>
@@ -313,8 +321,16 @@ namespace nkr { namespace $tr {
 namespace nkr { namespace $tr {
 
     template <nkr::tuple::types_tr expression_parts_p>
-        requires (!(expression_parts_p::Count() & 1))
+        requires (expression_parts_p::Count() == 1 || !(expression_parts_p::Count() & 1))
     class objects_tmpl;
+
+    template <nkr::tuple::types_tr expression_parts_p>
+        requires (expression_parts_p::Count() == 1)
+    class objects_tmpl<expression_parts_p>
+    {
+    public:
+        using type_t    = nkr::tuple::types_t<>;
+    };
 
     template <nkr::tuple::types_tr expression_parts_p>
         requires (expression_parts_p::Count() == 2)
@@ -364,17 +380,27 @@ namespace nkr { namespace $tr {
         WIP()
         noexcept
     {
-        static_assert(subjects_p::Count() > 0);
-        static_assert(subjects_p::Count() == operators_p::Count());
-        static_assert(subjects_p::Count() == objects_p::Count());
+        if constexpr (subjects_p::Count() == 0) {
+            static_assert(subjects_p::Count() == operators_p::Count());
+            static_assert(objects_p::Count() == 0);
 
-        if constexpr (subjects_p::Count() == 1) {
+            using subject_t = subjects_p::head_t;
+            using operator_t = operators_p::head_t;
+
+            return TR0<subject_t, typename operator_t::base_tg>();
+        } else if constexpr (subjects_p::Count() == 1) {
+            static_assert(subjects_p::Count() == operators_p::Count());
+            static_assert(subjects_p::Count() == objects_p::Count());
+
             using subject_t = subjects_p::head_t;
             using operator_t = operators_p::head_t;
             using object_t = objects_p::head_t;
 
             return TR1<subject_t, typename operator_t::base_tg, object_t>();
         } else {
+            static_assert(subjects_p::Count() == operators_p::Count());
+            static_assert(subjects_p::Count() == objects_p::Count());
+
             using subject_t = subjects_p::head_t;
             using operator_t = operators_p::head_t;
             using object_t = objects_p::head_t;
@@ -389,6 +415,21 @@ namespace nkr { namespace $tr {
                     WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
             }
         }
+    }
+
+    template <
+        typename    subject_p,
+        typename    ...expression_parts_p
+    > inline constexpr nkr::boolean::cpp_t
+        Simple_TR()
+        noexcept
+    {
+        using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
+        using operators_t = nkr::$tr::operators_t<expression_parts_t>;
+        using subjects_t = nkr::$tr::subjects_t<subject_p, operators_t>;
+        using objects_t = nkr::$tr::objects_t<expression_parts_t>;
+
+        return WIP<subjects_t, operators_t, objects_t>();
     }
 
     // expression_parts_p should consist of:

@@ -137,6 +137,14 @@ namespace nkr {
 
             static_assert(nkr::$tr::WIP<subjects_t, operators_t, objects_t>());
         }
+
+        TEST_SUITE("temp")
+        {
+            static_assert(nkr::$tr::Simple_TR<volatile int* volatile* const,
+                          any_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_access_const_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_access_const_tg, t<int>>());
+        }
     }
 
     TEST_SUITE("nkr::tr1_t")
