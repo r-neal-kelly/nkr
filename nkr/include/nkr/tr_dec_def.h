@@ -344,7 +344,7 @@ namespace nkr { namespace $tr {
         static_assert(object_t::Count() == 1);
 
     public:
-        using type_t    = nkr::tuple::types_t<typename object_t::head_t>;
+        using type_t    = nkr::tuple::types_t<nkr::cpp::access_qualification_of_t<typename object_t::head_t, object_t>>;
     };
 
     template <nkr::tuple::types_tr expression_parts_p>
@@ -361,7 +361,7 @@ namespace nkr { namespace $tr {
 
     public:
         using type_t    = tail_t::template push_front_t<
-            typename template_i<object_t::template head_t>::template of_t<typename tail_t::head_t>
+            nkr::cpp::access_qualification_of_t<typename template_i<object_t::template head_t>::template of_t<typename tail_t::head_t>, object_t>
         >;
     };
 
@@ -417,11 +417,16 @@ namespace nkr { namespace $tr {
         }
     }
 
+    // expression_parts_p should consist of:
+    //      operator, nkr::tt_tr,
+    //      operator, nkr::tt_tr,
+    //      ...,
+    //      operator, nkr::t_tr
     template <
         typename    subject_p,
         typename    ...expression_parts_p
     > inline constexpr nkr::boolean::cpp_t
-        Simple_TR()
+        Single_TR()
         noexcept
     {
         using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;

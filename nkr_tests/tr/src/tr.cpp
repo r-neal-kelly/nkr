@@ -140,12 +140,13 @@ namespace nkr {
 
         TEST_SUITE("temp")
         {
-            static_assert(nkr::$tr::Simple_TR<volatile int* volatile* const,
+            static_assert(nkr::$tr::Single_TR<volatile int* volatile* const,
                           any_tg, tt<nkr::pointer::cpp_t>,
                           of_any_access_const_tg, tt<nkr::pointer::cpp_t>,
-                          of_any_access_const_tg, t<int>>());
+                          of_any_access_const_tg, t<int>
+            >());
 
-            static_assert(nkr::$tr::Simple_TR<const volatile int* volatile* const* volatile* const* volatile* const*,
+            static_assert(nkr::$tr::Single_TR<const volatile int* volatile* const* volatile* const* volatile* const*,
                           just_non_qualified_tg,        tt<nkr::pointer::cpp_t>,
                           of_just_const_tg,             tt<nkr::pointer::cpp_t>,
                           of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
@@ -153,7 +154,19 @@ namespace nkr {
                           of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
                           of_just_const_tg,             tt<nkr::pointer::cpp_t>,
                           of_just_volatile_tg,          tt<nkr::pointer::cpp_t>,
-                          of_just_const_volatile_tg,    t<int>>());
+                          of_just_tg,                   t<const volatile int>
+            >());
+
+            // we now support the just_tg with tt operands as well as inner t and now outer t operands too!
+            static_assert(nkr::$tr::Single_TR<const volatile int* const,
+                          just_tg,      const tt<nkr::pointer::cpp_t>,
+                          of_just_tg,   const t<volatile int>
+            >());
+            // remember, these extra qualifiers are ignored without the just_tg
+            static_assert(nkr::$tr::Single_TR<int*,
+                          any_tg,       const tt<nkr::pointer::cpp_t>,
+                          of_any_tg,    const t<volatile int>
+            >());
         }
     }
 
