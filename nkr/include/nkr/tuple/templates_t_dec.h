@@ -151,6 +151,10 @@ namespace nkr { namespace tuple {
 
         template <nkr::positive::count_ctr count_p>
             requires (count_p::Value() == 0)
+        using at_t          = templates_t<>;
+
+        template <nkr::positive::count_ctr count_p>
+            requires (count_p::Value() == 0)
         using take_t        = templates_t<>;
 
         template <template <template <typename ...> typename ...> typename template_template_p>
@@ -182,7 +186,7 @@ namespace nkr { namespace tuple {
         using tail_t        = templates_t<tail_p...>;
 
         template <nkr::positive::index_ctr index_p>
-            requires (index_p::Value() < 1 + sizeof...(tail_p))
+            requires (index_p::Value() <= 1 + sizeof...(tail_p))
         using at_t          = $templates_t::at_tmpl<templates_t, index_p::Value()>::type_t;
 
         template <nkr::positive::count_ctr count_p>

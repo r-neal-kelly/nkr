@@ -466,10 +466,31 @@ namespace nkr { namespace $tr {
             static_assert(operand_t::Count() > 0); // we might want to require this in the type itself, because it's useless with zero
 
             if constexpr (operand_t::Count() > 1) {
-                // for each tt or t, recurse with this function, using the supplied operator as a logic gate.
-                // if we're using XOR or XNOR, maybe we can supply a boolean in the parameter list of the function.
-                // keep in mind that we'll take_t the previous expression_parts_p which have already been iterated per tt
-                // and push_back_t this tt/t and the rest of the remaining expression_parts_p.
+                using expression_front_t = expression_parts_p::template take_t<nkr::positive::count_c<index_p::Value() + 1>>;
+                using expression_back_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 2>>;
+                using expression_with_head_t = expression_back_t::template into_t<
+                    expression_front_t::template push_back_t<typename operand_t::template take_t<nkr::positive::count_c<1>>>::template push_back_t
+                >;
+                using expression_with_tail_t = expression_back_t::template into_t<
+                    expression_front_t::template push_back_t<typename operand_t::tail_t>::template push_back_t
+                >;
+
+                if constexpr (nkr::$tr::OR_operator_tr<typename operand_t::operator_t>) {
+                    if constexpr (Multiple_TR<subject_p, expression_with_head_t, index_p>()) {
+                        return true;
+                    } else {
+                        return Multiple_TR<subject_p, expression_with_tail_t, index_p>();
+                    }
+                } else if constexpr (nkr::$tr::AND_operator_tr<typename operand_t::operator_t>) {
+                    if constexpr (!Multiple_TR<subject_p, expression_with_head_t, index_p>()) {
+                        return false;
+                    } else {
+                        return Multiple_TR<subject_p, expression_with_tail_t, index_p>();
+                    }
+                } else {
+                    // if we're using XOR or XNOR, maybe we can supply a boolean in the parameter list of the function.
+                    static_assert(false);
+                }
             } else {
                 if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
                     return Multiple_TR<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();

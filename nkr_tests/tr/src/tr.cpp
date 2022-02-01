@@ -184,10 +184,10 @@ namespace nkr {
                           >>());
 
             static_assert(nkr::$tr::Multiple_TR<const int* const* volatile*, nkr::tuple::types_t<
-                          any_non_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          any_non_volatile_tg, tts<AND_tg, nkr::pointer::cpp_t, nkr::pointer::cpp_ttg>,
                           of_any_volatile_tg, tt<nkr::pointer::cpp_t>,
                           of_any_const_tg, tt<nkr::pointer::cpp_t>,
-                          of_any_const_tg, t<int>
+                          of_any_const_tg, ts<OR_tg, int, short>
                           >>());
         }
     }
