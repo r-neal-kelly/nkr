@@ -377,26 +377,28 @@ namespace nkr { namespace $tr {
         nkr::tuple::types_tr    operators_p,
         nkr::tuple::types_tr    objects_p
     > inline constexpr nkr::boolean::cpp_t
-        WIP()
+        Execute()
         noexcept
     {
-        if constexpr (subjects_p::Count() == 0) {
+        static_assert(subjects_p::Count() > 0);
+
+        if constexpr (subjects_p::Count() == 1) {
             static_assert(subjects_p::Count() == operators_p::Count());
-            static_assert(objects_p::Count() == 0);
 
-            using subject_t = subjects_p::head_t;
-            using operator_t = operators_p::head_t;
+            if constexpr (objects_p::Count() == 0) {
+                using subject_t = subjects_p::head_t;
+                using operator_t = operators_p::head_t;
 
-            return TR0<subject_t, typename operator_t::base_tg>();
-        } else if constexpr (subjects_p::Count() == 1) {
-            static_assert(subjects_p::Count() == operators_p::Count());
-            static_assert(subjects_p::Count() == objects_p::Count());
+                return TR0<subject_t, typename operator_t::base_tg>();
+            } else {
+                static_assert(subjects_p::Count() == objects_p::Count());
 
-            using subject_t = subjects_p::head_t;
-            using operator_t = operators_p::head_t;
-            using object_t = objects_p::head_t;
+                using subject_t = subjects_p::head_t;
+                using operator_t = operators_p::head_t;
+                using object_t = objects_p::head_t;
 
-            return TR1<subject_t, typename operator_t::base_tg, object_t>();
+                return TR1<subject_t, typename operator_t::base_tg, object_t>();
+            }
         } else {
             static_assert(subjects_p::Count() == operators_p::Count());
             static_assert(subjects_p::Count() == objects_p::Count());
@@ -408,11 +410,11 @@ namespace nkr { namespace $tr {
             if constexpr (not_operator_tr<operator_t>) {
                 return
                     !(TR1<subject_t, typename operator_t::base_tg::is_tg, object_t>() &&
-                      WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
+                      Execute<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
             } else {
                 return
                     TR1<subject_t, typename operator_t::base_tg, object_t>() &&
-                    WIP<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
+                    Execute<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
             }
         }
     }
@@ -424,18 +426,17 @@ namespace nkr { namespace $tr {
     //      operator, nkr::t_tr
     // this function is essentially equivalent to tr0, tr1, tr2, tr3, tr4, ...
     template <
-        typename    subject_p,
-        typename    ...expression_parts_p
+        typename                subject_p,
+        nkr::tuple::types_tr    expression_parts_p
     > inline constexpr nkr::boolean::cpp_t
         Single_TR()
         noexcept
     {
-        using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
-        using operators_t = nkr::$tr::operators_t<expression_parts_t>;
+        using operators_t = nkr::$tr::operators_t<expression_parts_p>;
         using subjects_t = nkr::$tr::subjects_t<subject_p, operators_t>;
-        using objects_t = nkr::$tr::objects_t<expression_parts_t>;
+        using objects_t = nkr::$tr::objects_t<expression_parts_p>;
 
-        return WIP<subjects_t, operators_t, objects_t>();
+        return Execute<subjects_t, operators_t, objects_t>();
     }
 
     // expression_parts_p should consist of:
@@ -444,11 +445,12 @@ namespace nkr { namespace $tr {
     //      ...,
     //      operator, nkr::ts_tr
     template <
-        nkr::ts_tr              subjects_p,
+        //nkr::ts_tr              subjects_p,
+        typename                subject_p, // just to keep things simpler for the moment
         nkr::tuple::types_tr    expression_parts_p,
         typename                index_p             = nkr::positive::index_c<0>
     > inline constexpr nkr::boolean::cpp_t
-        Work_In_Progress()
+        Multiple_TR()
         noexcept
     {
         // I think we need to test if the current part of the expression_parts_p has multiple parts.
@@ -464,20 +466,25 @@ namespace nkr { namespace $tr {
             // if false:
                 // increment index_p and recurse with the same expression_parts_p
 
-
-
         static_assert(index_p::Value() < expression_parts_p::Count());
 
-        // so to get the access operator right, we need to look at the last operator in the expression.
-        // then we just get the current subject through recursion, and apply the access qualification if necessary.
+        if constexpr (expression_parts_p::Count() == 1) {
+            return Single_TR<subject_p, expression_parts_p>();
+        } else {
+            static_assert(!(expression_parts_p::Count() & 1));
 
-        // ...
-
-        // generally, we're looking for TR1<>() && TR1<>()...
-
-        if constexpr (index_p::Value() < expression_parts_p::Count() - 1) {
-            return Test<subjects_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 1>>();
+            using expression_operator_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value()>>;
+            using expression_operand_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 1>>;
         }
+
+
+
+
+
+
+        /*if constexpr (index_p::Value() < expression_parts_p::Count() - 1) {
+            return Test<subjects_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 1>>();
+        }*/
     }
 
 }}
