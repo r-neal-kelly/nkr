@@ -301,11 +301,11 @@ namespace nkr { namespace $tr {
     {
     private:
         using front_t   = subjects_tmpl<subject_p, typename operators_p::template take_t<nkr::positive::count_c<operators_p::Count() - 1>>>::type_t;
-        using subject_t = front_t::template at_t<nkr::positive::index_c<front_t::Count() - 1>>;
+        using subject_t = front_t::template at_t<nkr::positive::index_c<front_t::Count() - 1>>::head_t;
 
     private:
         static constexpr nkr::boolean::cpp_t    is_access_operator =
-            access_operator_tr<typename operators_p::template at_t<nkr::positive::index_c<operators_p::Count() - 1>>>;
+            access_operator_tr<typename operators_p::template at_t<nkr::positive::index_c<operators_p::Count() - 1>>::head_t>;
 
     public:
         using type_t    = front_t::template push_back_t<
@@ -337,7 +337,7 @@ namespace nkr { namespace $tr {
     class objects_tmpl<expression_parts_p>
     {
     private:
-        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>;
+        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>::head_t;
 
     private:
         static_assert(nkr::ts_tr<object_t>);
@@ -353,7 +353,7 @@ namespace nkr { namespace $tr {
     {
     private:
         using tail_t    = objects_tmpl<typename expression_parts_p::tail_t::tail_t>::type_t;
-        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>;
+        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>::head_t;
 
     private:
         static_assert(nkr::tts_tr<object_t>);
@@ -3943,34 +3943,34 @@ namespace nkr { namespace $tr {
         using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
 
         if constexpr (expression_parts_t::Count() == 1) {
-            using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>;
+            using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>::head_t;
 
             return tr0_t<operator_t>::template AND<subject_p>();
         } else if constexpr (!(expression_parts_t::Count() & 1)) {
             if constexpr (expression_parts_t::Count() == 2) {
-                using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>;
-                using operands_t = expression_parts_t::template at_t<nkr::positive::index_c<1>>;
+                using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>::head_t;
+                using operands_t = expression_parts_t::template at_t<nkr::positive::index_c<1>>::head_t;
 
                 static_assert(nkr::ts_tr<operands_t>, "The operands_t must be a valid t<> or ts<> type.");
 
                 return tr1s_t<operator_t, operands_t>::template AND<subject_p>();
             } else if constexpr (expression_parts_t::Count() == 4) {
-                using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>;
-                using operands_t = expression_parts_t::template at_t<nkr::positive::index_c<1>>;
-                using of_operator_t = expression_parts_t::template at_t<nkr::positive::index_c<2>>;
-                using of_operands_t = expression_parts_t::template at_t<nkr::positive::index_c<3>>;
+                using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>::head_t;
+                using operands_t = expression_parts_t::template at_t<nkr::positive::index_c<1>>::head_t;
+                using of_operator_t = expression_parts_t::template at_t<nkr::positive::index_c<2>>::head_t;
+                using of_operands_t = expression_parts_t::template at_t<nkr::positive::index_c<3>>::head_t;
 
                 static_assert(nkr::tts_tr<operands_t>, "The operands_t must be a valid tt<> or tts<> type.");
                 static_assert(nkr::ts_tr<of_operands_t>, "The of_operands_t must be a valid t<> or ts<> type.");
 
                 return tr2s_t<operator_t, operands_t, of_operator_t, of_operands_t>::template AND<subject_p>();
             } else if constexpr (expression_parts_t::Count() == 6) {
-                using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>;
-                using operands_t = expression_parts_t::template at_t<nkr::positive::index_c<1>>;
-                using of_operator_t = expression_parts_t::template at_t<nkr::positive::index_c<2>>;
-                using of_operands_t = expression_parts_t::template at_t<nkr::positive::index_c<3>>;
-                using of_of_operator_t = expression_parts_t::template at_t<nkr::positive::index_c<4>>;
-                using of_of_operands_t = expression_parts_t::template at_t<nkr::positive::index_c<5>>;
+                using operator_t = expression_parts_t::template at_t<nkr::positive::index_c<0>>::head_t;
+                using operands_t = expression_parts_t::template at_t<nkr::positive::index_c<1>>::head_t;
+                using of_operator_t = expression_parts_t::template at_t<nkr::positive::index_c<2>>::head_t;
+                using of_operands_t = expression_parts_t::template at_t<nkr::positive::index_c<3>>::head_t;
+                using of_of_operator_t = expression_parts_t::template at_t<nkr::positive::index_c<4>>::head_t;
+                using of_of_operands_t = expression_parts_t::template at_t<nkr::positive::index_c<5>>::head_t;
 
                 static_assert(nkr::tts_tr<operands_t>, "The operands_t must be a valid tt<> or tts<> type.");
                 static_assert(nkr::tts_tr<of_operands_t>, "The operands_t must be a valid tt<> or tts<> type.");

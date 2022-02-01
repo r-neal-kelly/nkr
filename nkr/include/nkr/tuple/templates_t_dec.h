@@ -98,28 +98,27 @@ namespace nkr { namespace tuple { namespace $templates_t {
 namespace nkr { namespace tuple { namespace $templates_t {
 
     template <typename tuple_p, nkr::positive::index_t index_p>
-    class unit_t;
+    class at_tmpl;
 
-    template <template <typename ...> typename head_p, template <typename ...> typename ...tail_p>
-    class unit_t<templates_t<head_p, tail_p...>, 0>
+    template <typename tuple_p>
+    class at_tmpl<tuple_p, 0>
     {
     public:
-        template <typename ...types_p>
-        using template_t    = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
+        using type_t    = tuple_p;
     };
 
-    template <template <typename ...> typename head_p, template <typename ...> typename ...tail_p, nkr::positive::index_t index_p>
-    class unit_t<templates_t<head_p, tail_p...>, index_p> :
-        public unit_t<templates_t<tail_p...>, index_p - 1>
+    template <typename tuple_p, nkr::positive::index_t index_p>
+    class at_tmpl
     {
     public:
+        using type_t    = at_tmpl<tuple_p, index_p - 1>::type_t::tail_t;
     };
 
     template <typename tuple_p, nkr::positive::count_t count_p>
-    class take_t;
+    class take_tmpl;
 
     template <typename tuple_p>
-    class take_t<tuple_p, 0>
+    class take_tmpl<tuple_p, 0>
     {
     public:
         using type_t    = templates_t<>;
@@ -127,14 +126,14 @@ namespace nkr { namespace tuple { namespace $templates_t {
 
     template <typename tuple_p, nkr::positive::count_t count_p>
         requires (count_p > 0)
-    class take_t<tuple_p, count_p>
+    class take_tmpl<tuple_p, count_p>
     {
     private:
-        using front_t   = take_t<tuple_p, count_p - 1>::type_t;
+        using front_t   = take_tmpl<tuple_p, count_p - 1>::type_t;
 
     public:
         using type_t    = front_t::template push_back_t<
-            tuple_p::template at_t<nkr::positive::index_c<count_p - 1>>
+            tuple_p::template at_t<nkr::positive::index_c<count_p - 1>>::template head_t
         >;
     };
 
@@ -182,15 +181,13 @@ namespace nkr { namespace tuple {
         using head_t        = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
         using tail_t        = templates_t<tail_p...>;
 
-        // doesn't work because we can't pass types_p at the same time. how to defer?
-        template <nkr::positive::index_ctr index_p, typename ...types_p>
+        template <nkr::positive::index_ctr index_p>
             requires (index_p::Value() < 1 + sizeof...(tail_p))
-        using at_t          = $templates_t::unit_t<templates_t, index_p::Value()>::template template_t<types_p...>;
+        using at_t          = $templates_t::at_tmpl<templates_t, index_p::Value()>::type_t;
 
-        // relies on at_t
         template <nkr::positive::count_ctr count_p>
             requires (count_p::Value() <= 1 + sizeof...(tail_p))
-        using take_t        = $templates_t::take_t<templates_t, count_p::Value()>::type_t;
+        using take_t        = $templates_t::take_tmpl<templates_t, count_p::Value()>::type_t;
 
         template <template <template <typename ...> typename ...> typename template_template_p>
         using into_t        = template_template_p<head_p, tail_p...>;

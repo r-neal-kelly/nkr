@@ -18,5 +18,8 @@
     <ClCompile Include="src\types_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\templates_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
