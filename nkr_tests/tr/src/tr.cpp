@@ -13,6 +13,51 @@ namespace nkr {
 
     TEST_SUITE("tr")
     {
+        TEST_SUITE("subject logic gates")
+        {
+            using true_t = nkr::positive::integer_t;
+            using false_t = nkr::negatable::integer_t;
+
+            static_assert(TR<ts<OR_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<OR_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<OR_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<OR_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
+
+            static_assert(TR<ts<AND_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<AND_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<AND_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<AND_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
+
+            static_assert(TR<ts<XOR_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XOR_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XOR_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XOR_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
+
+            static_assert(TR<ts<NOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<NOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<NOR_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<NOR_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
+
+            static_assert(TR<ts<NAND_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<NAND_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<NAND_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<NAND_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
+
+            static_assert(TR<ts<XNOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XNOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XNOR_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XNOR_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
+
+            static_assert(TR<ts<XNOR_tg, false_t, false_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XNOR_tg, true_t, false_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XNOR_tg, false_t, true_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XNOR_tg, false_t, false_t, true_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XNOR_tg, true_t, true_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XNOR_tg, false_t, true_t, true_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XNOR_tg, true_t, false_t, true_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XNOR_tg, true_t, true_t, true_t>, any_tg, t<true_t>>() == true);
+        }
+
         static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);
         static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);
         static_assert(tr<nkr::positive::integer_t, any_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>>);
@@ -216,8 +261,8 @@ namespace nkr {
 
         TEST_SUITE("temp")
         {
-            static_assert(TR<t<int>,
-                          any_tg, ts<XOR_tg, short, int>>());
+            static_assert(TR<t<long>,
+                          any_tg, ts<XOR_tg, short, long>>());
             static_assert(TR<t<long>,
                           any_tg, ts<XOR_tg, short, long, long long>>());
             static_assert(TR<t<long>,
@@ -225,51 +270,6 @@ namespace nkr {
             static_assert(TR<t<long>,
                           any_tg, ts<XNOR_tg, short, long, long>>());
         }
-    }
-
-    TEST_SUITE("nkr::tr1_t")
-    {
-        using true_t = nkr::positive::integer_t;
-        using false_t = nkr::negatable::integer_t;
-
-        static_assert(TR<ts<OR_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<OR_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<OR_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<OR_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
-
-        static_assert(TR<ts<AND_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<AND_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<AND_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<AND_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
-
-        static_assert(TR<ts<XOR_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<XOR_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XOR_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XOR_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
-
-        static_assert(TR<ts<NOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<NOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<NOR_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<NOR_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
-
-        static_assert(TR<ts<NAND_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<NAND_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<NAND_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<NAND_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
-
-        static_assert(TR<ts<XNOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XNOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<XNOR_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<XNOR_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
-
-        static_assert(TR<ts<XNOR_tg, false_t, false_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XNOR_tg, true_t, false_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<XNOR_tg, false_t, true_t, false_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<XNOR_tg, false_t, false_t, true_t>, any_tg, t<true_t>>() == false);
-        static_assert(TR<ts<XNOR_tg, true_t, true_t, false_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XNOR_tg, false_t, true_t, true_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XNOR_tg, true_t, false_t, true_t>, any_tg, t<true_t>>() == true);
-        static_assert(TR<ts<XNOR_tg, true_t, true_t, true_t>, any_tg, t<true_t>>() == true);
     }
 
 }

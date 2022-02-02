@@ -197,6 +197,10 @@ namespace nkr { namespace tuple {
 
         template <template <typename ...> typename template_p>
         using into_t        = template_p<>;
+        template <template <typename ...> typename template_p, typename ...back_types_p>
+        using into_front_t  = template_p<back_types_p...>;
+        template <template <typename ...> typename template_p, typename ...front_types_p>
+        using into_back_t   = template_p<front_types_p...>;
 
         template <typename ...types_p>
         using push_front_t  = types_t<types_p...>;
@@ -232,6 +236,10 @@ namespace nkr { namespace tuple {
 
         template <template <typename ...> typename template_p>
         using into_t        = template_p<head_p, tail_p...>;
+        template <template <typename ...> typename template_p, typename ...back_types_p>
+        using into_front_t  = template_p<head_p, tail_p..., back_types_p...>;
+        template <template <typename ...> typename template_p, typename ...front_types_p>
+        using into_back_t   = template_p<front_types_p..., head_p, tail_p...>;
 
         template <typename ...types_p>
         using push_front_t  = types_t<types_p..., head_p, tail_p...>;

@@ -222,6 +222,10 @@ namespace nkr {
     concept ts_tr =
         nkr::cpp::is_any_tr<type_p, typename nkr::$tr::ts<typename type_p::operator_t, typename type_p::types_t>>;
 
+    template <nkr::generic::tag::logic_gate_tr logic_gate_p, nkr::tuple::types_tr tuple_p>
+    using   to_ts =
+        tuple_p::template into_back_t<ts, logic_gate_p>;
+
     template <template <typename ...> typename template_p>
     using   tt =
         nkr::$tr::tts<AND_tg, nkr::tuple::templates_t<template_p>>;
@@ -234,6 +238,10 @@ namespace nkr {
     template <typename type_p>
     concept tts_tr =
         nkr::cpp::is_any_tr<type_p, typename nkr::$tr::tts<typename type_p::operator_t, typename type_p::templates_t>>;
+
+    template <nkr::generic::tag::logic_gate_tr logic_gate_p, nkr::tuple::templates_tr tuple_p>
+    using   to_tts =
+        tuple_p::template into_back_t<tts, logic_gate_p>;
 
 }
 
