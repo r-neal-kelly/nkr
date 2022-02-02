@@ -11,46 +11,6 @@
 
 namespace nkr {
 
-    constexpr nkr::boolean::cpp_t
-        Test(tr<any_tg, t<nkr::boolean::cpp_t>> auto boolean)
-        noexcept
-    {
-        return boolean;
-    }
-
-    class test_t
-    {
-    public:
-        nkr::boolean::cpp_t boolean;
-
-    public:
-        constexpr test_t(tr<any_to_tg, t<nkr::boolean::cpp_t>> auto from) :
-            boolean(static_cast<nkr::boolean::cpp_t>(from))
-        {
-        }
-
-    public:
-        explicit constexpr operator nkr::boolean::cpp_t()
-            const volatile
-        {
-            return this->boolean;
-        }
-    };
-
-    TEST_CASE("temp")
-    {
-        CHECK_TRUE(Test(true));
-        CHECK_FALSE(Test(false));
-
-        CHECK_TRUE(test_t(true));
-        CHECK_FALSE(test_t(false));
-
-        CHECK_TRUE(test_t(1));
-        CHECK_FALSE(test_t(0));
-
-        static_assert(tr<int, any_to_tg, t<nkr::boolean::cpp_t>>);
-    }
-
     TEST_SUITE("tr")
     {
         static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);

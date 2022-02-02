@@ -73,13 +73,36 @@ namespace nkr { namespace $tr {
 namespace nkr { namespace $tr {
 
     template <typename type_p>
-    class type_i :
+    class type_i
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t
+            Is_Any()
+            noexcept
+        {
+            return nkr::cpp::is_any_tr<other_p, type_t>;
+        }
+
+    public:
+        template <typename ...>
+        constexpr type_i(...) noexcept  = delete;
+    };
+
+    template <typename type_p>
+        requires (!nkr::cpp::array_tr<type_p> && nkr::generic::implementing::interface::type_tr<nkr::cpp::just_non_qualified_t<type_p>>)
+    class type_i<type_p> :
         public nkr::interface::type_i<nkr::cpp::just_non_qualified_t<type_p>>
     {
     public:
     };
 
     template <nkr::cpp::array_tr type_p>
+        requires (nkr::cpp::array_tr<type_p> && nkr::generic::implementing::interface::type_tr<type_p>)
     class type_i<type_p> :
         public nkr::interface::type_i<type_p>
     {
@@ -291,12 +314,6 @@ namespace nkr { namespace $tr {
         Execute_Expression_1()
         noexcept
     {
-        if constexpr (nkr::cpp::array_tr<operand_p>) {
-            static_assert(nkr::generic::implementing::interface::type_tr<operand_p>);
-        } else {
-            static_assert(nkr::generic::implementing::interface::type_tr<nkr::cpp::just_non_qualified_t<operand_p>>);
-        }
-
         using subject_t = subject_p;
         using object_t = operand_p;
 
@@ -338,7 +355,7 @@ namespace nkr { namespace $tr {
                 using subject_t = subjects_p::head_t;
                 using operator_t = operators_p::head_t;
 
-                return Execute_Expression_0<subject_t, typename operator_t::base_tg>();
+                return Execute_Expression_0<subject_t, typename operator_t::non_of_tg>();
             } else {
                 static_assert(subjects_p::Count() == objects_p::Count());
 
@@ -346,7 +363,7 @@ namespace nkr { namespace $tr {
                 using operator_t = operators_p::head_t;
                 using object_t = objects_p::head_t;
 
-                return Execute_Expression_1<subject_t, typename operator_t::base_tg, object_t>();
+                return Execute_Expression_1<subject_t, typename operator_t::non_of_tg, object_t>();
             }
         } else {
             static_assert(subjects_p::Count() == operators_p::Count());
@@ -358,11 +375,11 @@ namespace nkr { namespace $tr {
 
             if constexpr (not_operator_tr<operator_t>) {
                 return
-                    !(Execute_Expression_1<subject_t, typename operator_t::base_tg::is_tg, object_t>() &&
+                    !(Execute_Expression_1<subject_t, typename operator_t::non_of_tg::is_tg, object_t>() &&
                       Execute_Expression<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
             } else {
                 return
-                    Execute_Expression_1<subject_t, typename operator_t::base_tg, object_t>() &&
+                    Execute_Expression_1<subject_t, typename operator_t::non_of_tg, object_t>() &&
                     Execute_Expression<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
             }
         }
@@ -501,7 +518,7 @@ namespace nkr {
     {
         using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
 
-        //static_assert(nkr::$tr::Validate_Expression<expression_parts_t, nkr::positive::index_c<0>>());
+        static_assert(nkr::$tr::Validate_Expression<expression_parts_t, nkr::positive::index_c<0>>());
 
         return nkr::$tr::Evaluate_Expression<subjects_p, expression_parts_t, nkr::positive::index_c<0>>();
     }

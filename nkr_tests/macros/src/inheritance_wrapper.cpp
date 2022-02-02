@@ -13,33 +13,6 @@
 
 namespace nkr {
 
-    class original_t;
-
-    namespace interface {
-
-        template <>
-        class type_i<original_t>
-        {
-        public:
-            using type_t    = original_t;
-            using of_t      = nkr::none::type_t;
-
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return nkr::cpp::is_any_tr<other_p, original_t>;
-            }
-
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
-
-    }
-
     class original_t
     {
     public:
@@ -252,33 +225,6 @@ namespace nkr {
         }
     };
 
-    class derived_1_t;
-
-    namespace interface {
-
-        template <>
-        class type_i<derived_1_t>
-        {
-        public:
-            using type_t    = derived_1_t;
-            using of_t      = nkr::none::type_t;
-
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return nkr::cpp::is_any_tr<other_p, derived_1_t>;
-            }
-
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
-
-    }
-
     class derived_1_t :
         public original_t
     {
@@ -288,33 +234,6 @@ namespace nkr {
     public:
         nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_1_t, original_t);
     };
-
-    class derived_2_t;
-
-    namespace interface {
-
-        template <>
-        class type_i<derived_2_t>
-        {
-        public:
-            using type_t    = derived_2_t;
-            using of_t      = nkr::none::type_t;
-
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return nkr::cpp::is_any_tr<other_p, derived_2_t>;
-            }
-
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
-
-    }
 
     class derived_2_t :
         public derived_1_t
@@ -326,33 +245,6 @@ namespace nkr {
         nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_2_t, derived_1_t);
     };
 
-    class derived_3_t;
-
-    namespace interface {
-
-        template <>
-        class type_i<derived_3_t>
-        {
-        public:
-            using type_t    = derived_3_t;
-            using of_t      = nkr::none::type_t;
-
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return nkr::cpp::is_any_tr<other_p, derived_3_t>;
-            }
-
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
-
-    }
-
     class derived_3_t :
         public derived_2_t
     {
@@ -362,49 +254,6 @@ namespace nkr {
     public:
         nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(derived_3_t, derived_2_t);
     };
-
-    template <typename base_p>
-    class   implicit_t;
-
-    class   implicit_tg {};
-
-    template <typename type_p>
-    concept implicit_tr =
-        nkr::cpp::is_any_tr<type_p, implicit_t<typename type_p::base_t>>;
-
-    namespace interface {
-
-        template <>
-        class type_i<implicit_tg>
-        {
-        public:
-            using type_t    = implicit_tg;
-            using of_t      = nkr::none::type_t;
-
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return implicit_tr<other_p>;
-            }
-
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
-
-        template <implicit_tr type_p>
-        class type_i<type_p> :
-            public type_i<implicit_tg>
-        {
-        public:
-            using type_t    = type_p;
-            using of_t      = nkr::none::type_t;
-        };
-
-    }
 
     template <typename base_p>
     class implicit_t :

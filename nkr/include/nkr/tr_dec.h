@@ -9,130 +9,163 @@
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
 #include "nkr/generic/tag/logic_gate_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/index_t_dec.h"
 #include "nkr/tuple/templates_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr {
 
-    struct  any_tg                                  { class operator_t; class any_t;                        using base_tg = any_tg;                 using is_tg = any_tg; };
-    struct  any_qualified_tg                        { class operator_t; class any_t; class qualified_t;     using base_tg = any_qualified_tg;       using is_tg = any_qualified_tg; };
-    struct  any_non_qualified_tg                    { class operator_t; class any_t; class non_qualified_t; using base_tg = any_non_qualified_tg;   using is_tg = any_non_qualified_tg; };
-    struct  any_const_tg                            { class operator_t; class any_t; class const_t;         using base_tg = any_const_tg;           using is_tg = any_const_tg; };
-    struct  any_non_const_tg                        { class operator_t; class any_t; class non_const_t;     using base_tg = any_non_const_tg;       using is_tg = any_non_const_tg; };
-    struct  any_volatile_tg                         { class operator_t; class any_t; class volatile_t;      using base_tg = any_volatile_tg;        using is_tg = any_volatile_tg; };
-    struct  any_non_volatile_tg                     { class operator_t; class any_t; class non_volatile_t;  using base_tg = any_non_volatile_tg;    using is_tg = any_non_volatile_tg; };
+    struct  any_tg                                  { class operator_t; class any_t;                        using non_of_tg = any_tg;               using is_tg = any_tg; };
+    struct  any_qualified_tg                        { class operator_t; class any_t; class qualified_t;     using non_of_tg = any_qualified_tg;     using is_tg = any_qualified_tg; };
+    struct  any_non_qualified_tg                    { class operator_t; class any_t; class non_qualified_t; using non_of_tg = any_non_qualified_tg; using is_tg = any_non_qualified_tg; };
+    struct  any_const_tg                            { class operator_t; class any_t; class const_t;         using non_of_tg = any_const_tg;         using is_tg = any_const_tg; };
+    struct  any_non_const_tg                        { class operator_t; class any_t; class non_const_t;     using non_of_tg = any_non_const_tg;     using is_tg = any_non_const_tg; };
+    struct  any_volatile_tg                         { class operator_t; class any_t; class volatile_t;      using non_of_tg = any_volatile_tg;      using is_tg = any_volatile_tg; };
+    struct  any_non_volatile_tg                     { class operator_t; class any_t; class non_volatile_t;  using non_of_tg = any_non_volatile_tg;  using is_tg = any_non_volatile_tg; };
 
-    struct  just_tg                                 { class operator_t; class just_t;                           using base_tg = just_tg;                using is_tg = just_tg; };
-    struct  just_non_qualified_tg                   { class operator_t; class just_t; class non_qualified_t;    using base_tg = just_non_qualified_tg;  using is_tg = just_non_qualified_tg; };
-    struct  just_const_tg                           { class operator_t; class just_t; class const_t;            using base_tg = just_const_tg;          using is_tg = just_const_tg; };
-    struct  just_volatile_tg                        { class operator_t; class just_t; class volatile_t;         using base_tg = just_volatile_tg;       using is_tg = just_volatile_tg; };
-    struct  just_const_volatile_tg                  { class operator_t; class just_t; class const_volatile_t;   using base_tg = just_const_volatile_tg; using is_tg = just_const_volatile_tg; };
+    struct  just_tg                                 { class operator_t; class just_t;                           using non_of_tg = just_tg;                  using is_tg = just_tg; };
+    struct  just_non_qualified_tg                   { class operator_t; class just_t; class non_qualified_t;    using non_of_tg = just_non_qualified_tg;    using is_tg = just_non_qualified_tg; };
+    struct  just_const_tg                           { class operator_t; class just_t; class const_t;            using non_of_tg = just_const_tg;            using is_tg = just_const_tg; };
+    struct  just_volatile_tg                        { class operator_t; class just_t; class volatile_t;         using non_of_tg = just_volatile_tg;         using is_tg = just_volatile_tg; };
+    struct  just_const_volatile_tg                  { class operator_t; class just_t; class const_volatile_t;   using non_of_tg = just_const_volatile_tg;   using is_tg = just_const_volatile_tg; };
 
-    struct  not_any_tg                              { class operator_t; class not_t; class any_t;                           using base_tg = not_any_tg;                 using is_tg = any_tg; };
-    struct  not_any_qualified_tg                    { class operator_t; class not_t; class any_t; class qualified_t;        using base_tg = not_any_qualified_tg;       using is_tg = any_qualified_tg; };
-    struct  not_any_non_qualified_tg                { class operator_t; class not_t; class any_t; class non_qualified_t;    using base_tg = not_any_non_qualified_tg;   using is_tg = any_non_qualified_tg; };
-    struct  not_any_const_tg                        { class operator_t; class not_t; class any_t; class const_t;            using base_tg = not_any_const_tg;           using is_tg = any_const_tg; };
-    struct  not_any_non_const_tg                    { class operator_t; class not_t; class any_t; class non_const_t;        using base_tg = not_any_non_const_tg;       using is_tg = any_non_const_tg; };
-    struct  not_any_volatile_tg                     { class operator_t; class not_t; class any_t; class volatile_t;         using base_tg = not_any_volatile_tg;        using is_tg = any_volatile_tg; };
-    struct  not_any_non_volatile_tg                 { class operator_t; class not_t; class any_t; class non_volatile_t;     using base_tg = not_any_non_volatile_tg;    using is_tg = any_non_volatile_tg; };
+    struct  not_any_tg                              { class operator_t; class not_t; class any_t;                           using non_of_tg = not_any_tg;               using is_tg = any_tg; };
+    struct  not_any_qualified_tg                    { class operator_t; class not_t; class any_t; class qualified_t;        using non_of_tg = not_any_qualified_tg;     using is_tg = any_qualified_tg; };
+    struct  not_any_non_qualified_tg                { class operator_t; class not_t; class any_t; class non_qualified_t;    using non_of_tg = not_any_non_qualified_tg; using is_tg = any_non_qualified_tg; };
+    struct  not_any_const_tg                        { class operator_t; class not_t; class any_t; class const_t;            using non_of_tg = not_any_const_tg;         using is_tg = any_const_tg; };
+    struct  not_any_non_const_tg                    { class operator_t; class not_t; class any_t; class non_const_t;        using non_of_tg = not_any_non_const_tg;     using is_tg = any_non_const_tg; };
+    struct  not_any_volatile_tg                     { class operator_t; class not_t; class any_t; class volatile_t;         using non_of_tg = not_any_volatile_tg;      using is_tg = any_volatile_tg; };
+    struct  not_any_non_volatile_tg                 { class operator_t; class not_t; class any_t; class non_volatile_t;     using non_of_tg = not_any_non_volatile_tg;  using is_tg = any_non_volatile_tg; };
 
-    struct  just_not_tg                             { class operator_t; class just_t; class not_t;                          using base_tg = just_not_tg;                using is_tg = just_tg; };
-    struct  just_not_non_qualified_tg               { class operator_t; class just_t; class not_t; class non_qualified_t;   using base_tg = just_not_non_qualified_tg;  using is_tg = just_non_qualified_tg; };
-    struct  just_not_const_tg                       { class operator_t; class just_t; class not_t; class const_t;           using base_tg = just_not_const_tg;          using is_tg = just_const_tg; };
-    struct  just_not_volatile_tg                    { class operator_t; class just_t; class not_t; class volatile_t;        using base_tg = just_not_volatile_tg;       using is_tg = just_volatile_tg; };
-    struct  just_not_const_volatile_tg              { class operator_t; class just_t; class not_t; class const_volatile_t;  using base_tg = just_not_const_volatile_tg; using is_tg = just_const_volatile_tg; };
+    struct  just_not_tg                             { class operator_t; class just_t; class not_t;                          using non_of_tg = just_not_tg;                  using is_tg = just_tg; };
+    struct  just_not_non_qualified_tg               { class operator_t; class just_t; class not_t; class non_qualified_t;   using non_of_tg = just_not_non_qualified_tg;    using is_tg = just_non_qualified_tg; };
+    struct  just_not_const_tg                       { class operator_t; class just_t; class not_t; class const_t;           using non_of_tg = just_not_const_tg;            using is_tg = just_const_tg; };
+    struct  just_not_volatile_tg                    { class operator_t; class just_t; class not_t; class volatile_t;        using non_of_tg = just_not_volatile_tg;         using is_tg = just_volatile_tg; };
+    struct  just_not_const_volatile_tg              { class operator_t; class just_t; class not_t; class const_volatile_t;  using non_of_tg = just_not_const_volatile_tg;   using is_tg = just_const_volatile_tg; };
 
-    struct  any_to_tg                               { class operator_t; class any_t;                        class to_t; using base_tg = any_to_tg; using non_to_tg = any_tg; };
-    struct  any_qualified_to_tg                     { class operator_t; class any_t; class qualified_t;     class to_t; using base_tg = any_qualified_to_tg; using non_to_tg = any_qualified_tg; };
-    struct  any_non_qualified_to_tg                 { class operator_t; class any_t; class non_qualified_t; class to_t; using base_tg = any_non_qualified_to_tg; using non_to_tg = any_non_qualified_tg; };
-    struct  any_const_to_tg                         { class operator_t; class any_t; class const_t;         class to_t; using base_tg = any_const_to_tg; using non_to_tg = any_const_tg; };
-    struct  any_non_const_to_tg                     { class operator_t; class any_t; class non_const_t;     class to_t; using base_tg = any_non_const_to_tg; using non_to_tg = any_non_const_tg; };
-    struct  any_volatile_to_tg                      { class operator_t; class any_t; class volatile_t;      class to_t; using base_tg = any_volatile_to_tg; using non_to_tg = any_volatile_tg; };
-    struct  any_non_volatile_to_tg                  { class operator_t; class any_t; class non_volatile_t;  class to_t; using base_tg = any_non_volatile_to_tg; using non_to_tg = any_non_volatile_tg; };
+    struct  any_to_tg                               { class operator_t; class any_t;                        class to_t; using non_of_tg = any_to_tg;                using non_to_tg = any_tg; };
+    struct  any_qualified_to_tg                     { class operator_t; class any_t; class qualified_t;     class to_t; using non_of_tg = any_qualified_to_tg;      using non_to_tg = any_qualified_tg; };
+    struct  any_non_qualified_to_tg                 { class operator_t; class any_t; class non_qualified_t; class to_t; using non_of_tg = any_non_qualified_to_tg;  using non_to_tg = any_non_qualified_tg; };
+    struct  any_const_to_tg                         { class operator_t; class any_t; class const_t;         class to_t; using non_of_tg = any_const_to_tg;          using non_to_tg = any_const_tg; };
+    struct  any_non_const_to_tg                     { class operator_t; class any_t; class non_const_t;     class to_t; using non_of_tg = any_non_const_to_tg;      using non_to_tg = any_non_const_tg; };
+    struct  any_volatile_to_tg                      { class operator_t; class any_t; class volatile_t;      class to_t; using non_of_tg = any_volatile_to_tg;       using non_to_tg = any_volatile_tg; };
+    struct  any_non_volatile_to_tg                  { class operator_t; class any_t; class non_volatile_t;  class to_t; using non_of_tg = any_non_volatile_to_tg;   using non_to_tg = any_non_volatile_tg; };
 
-    struct  just_to_tg                              { class operator_t; class just_t;                           class to_t; using base_tg = just_to_tg; using non_to_tg = just_tg; };
-    struct  just_non_qualified_to_tg                { class operator_t; class just_t; class non_qualified_t;    class to_t; using base_tg = just_non_qualified_to_tg; using non_to_tg = just_non_qualified_tg; };
-    struct  just_const_to_tg                        { class operator_t; class just_t; class const_t;            class to_t; using base_tg = just_const_to_tg; using non_to_tg = just_const_tg; };
-    struct  just_volatile_to_tg                     { class operator_t; class just_t; class volatile_t;         class to_t; using base_tg = just_volatile_to_tg; using non_to_tg = just_volatile_tg; };
-    struct  just_const_volatile_to_tg               { class operator_t; class just_t; class const_volatile_t;   class to_t; using base_tg = just_const_volatile_to_tg; using non_to_tg = just_const_volatile_tg; };
+    struct  just_to_tg                              { class operator_t; class just_t;                           class to_t; using non_of_tg = just_to_tg;                   using non_to_tg = just_tg; };
+    struct  just_non_qualified_to_tg                { class operator_t; class just_t; class non_qualified_t;    class to_t; using non_of_tg = just_non_qualified_to_tg;     using non_to_tg = just_non_qualified_tg; };
+    struct  just_const_to_tg                        { class operator_t; class just_t; class const_t;            class to_t; using non_of_tg = just_const_to_tg;             using non_to_tg = just_const_tg; };
+    struct  just_volatile_to_tg                     { class operator_t; class just_t; class volatile_t;         class to_t; using non_of_tg = just_volatile_to_tg;          using non_to_tg = just_volatile_tg; };
+    struct  just_const_volatile_to_tg               { class operator_t; class just_t; class const_volatile_t;   class to_t; using non_of_tg = just_const_volatile_to_tg;    using non_to_tg = just_const_volatile_tg; };
 
-    struct  not_any_to_tg                           { class operator_t; class not_t; class any_t;                           class to_t; using base_tg = not_any_to_tg; using non_to_tg = not_any_tg; };
-    struct  not_any_qualified_to_tg                 { class operator_t; class not_t; class any_t; class qualified_t;        class to_t; using base_tg = not_any_qualified_to_tg; using non_to_tg = not_any_qualified_tg; };
-    struct  not_any_non_qualified_to_tg             { class operator_t; class not_t; class any_t; class non_qualified_t;    class to_t; using base_tg = not_any_non_qualified_to_tg; using non_to_tg = not_any_non_qualified_tg; };
-    struct  not_any_const_to_tg                     { class operator_t; class not_t; class any_t; class const_t;            class to_t; using base_tg = not_any_const_to_tg; using non_to_tg = not_any_const_tg; };
-    struct  not_any_non_const_to_tg                 { class operator_t; class not_t; class any_t; class non_const_t;        class to_t; using base_tg = not_any_non_const_to_tg; using non_to_tg = not_any_non_const_tg; };
-    struct  not_any_volatile_to_tg                  { class operator_t; class not_t; class any_t; class volatile_t;         class to_t; using base_tg = not_any_volatile_to_tg; using non_to_tg = not_any_volatile_tg; };
-    struct  not_any_non_volatile_to_tg              { class operator_t; class not_t; class any_t; class non_volatile_t;     class to_t; using base_tg = not_any_non_volatile_to_tg; using non_to_tg = not_any_non_volatile_tg; };
+    struct  not_any_to_tg                           { class operator_t; class not_t; class any_t;                           class to_t; using non_of_tg = not_any_to_tg;                using non_to_tg = not_any_tg; };
+    struct  not_any_qualified_to_tg                 { class operator_t; class not_t; class any_t; class qualified_t;        class to_t; using non_of_tg = not_any_qualified_to_tg;      using non_to_tg = not_any_qualified_tg; };
+    struct  not_any_non_qualified_to_tg             { class operator_t; class not_t; class any_t; class non_qualified_t;    class to_t; using non_of_tg = not_any_non_qualified_to_tg;  using non_to_tg = not_any_non_qualified_tg; };
+    struct  not_any_const_to_tg                     { class operator_t; class not_t; class any_t; class const_t;            class to_t; using non_of_tg = not_any_const_to_tg;          using non_to_tg = not_any_const_tg; };
+    struct  not_any_non_const_to_tg                 { class operator_t; class not_t; class any_t; class non_const_t;        class to_t; using non_of_tg = not_any_non_const_to_tg;      using non_to_tg = not_any_non_const_tg; };
+    struct  not_any_volatile_to_tg                  { class operator_t; class not_t; class any_t; class volatile_t;         class to_t; using non_of_tg = not_any_volatile_to_tg;       using non_to_tg = not_any_volatile_tg; };
+    struct  not_any_non_volatile_to_tg              { class operator_t; class not_t; class any_t; class non_volatile_t;     class to_t; using non_of_tg = not_any_non_volatile_to_tg;   using non_to_tg = not_any_non_volatile_tg; };
 
-    struct  just_not_to_tg                          { class operator_t; class just_t; class not_t;                          class to_t; using base_tg = just_not_to_tg; using non_to_tg = just_not_tg; };
-    struct  just_not_non_qualified_to_tg            { class operator_t; class just_t; class not_t; class non_qualified_t;   class to_t; using base_tg = just_not_non_qualified_to_tg; using non_to_tg = just_not_non_qualified_tg; };
-    struct  just_not_const_to_tg                    { class operator_t; class just_t; class not_t; class const_t;           class to_t; using base_tg = just_not_const_to_tg; using non_to_tg = just_not_const_tg; };
-    struct  just_not_volatile_to_tg                 { class operator_t; class just_t; class not_t; class volatile_t;        class to_t; using base_tg = just_not_volatile_to_tg; using non_to_tg = just_not_volatile_tg; };
-    struct  just_not_const_volatile_to_tg           { class operator_t; class just_t; class not_t; class const_volatile_t;  class to_t; using base_tg = just_not_const_volatile_to_tg; using non_to_tg = just_not_const_volatile_tg; };
+    struct  just_not_to_tg                          { class operator_t; class just_t; class not_t;                          class to_t; using non_of_tg = just_not_to_tg;                   using non_to_tg = just_not_tg; };
+    struct  just_not_non_qualified_to_tg            { class operator_t; class just_t; class not_t; class non_qualified_t;   class to_t; using non_of_tg = just_not_non_qualified_to_tg;     using non_to_tg = just_not_non_qualified_tg; };
+    struct  just_not_const_to_tg                    { class operator_t; class just_t; class not_t; class const_t;           class to_t; using non_of_tg = just_not_const_to_tg;             using non_to_tg = just_not_const_tg; };
+    struct  just_not_volatile_to_tg                 { class operator_t; class just_t; class not_t; class volatile_t;        class to_t; using non_of_tg = just_not_volatile_to_tg;          using non_to_tg = just_not_volatile_tg; };
+    struct  just_not_const_volatile_to_tg           { class operator_t; class just_t; class not_t; class const_volatile_t;  class to_t; using non_of_tg = just_not_const_volatile_to_tg;    using non_to_tg = just_not_const_volatile_tg; };
 
-    struct  of_any_tg                               { class operator_t; class of_t; class any_t;                        using base_tg = any_tg; };
-    struct  of_any_qualified_tg                     { class operator_t; class of_t; class any_t; class qualified_t;     using base_tg = any_qualified_tg; };
-    struct  of_any_non_qualified_tg                 { class operator_t; class of_t; class any_t; class non_qualified_t; using base_tg = any_non_qualified_tg; };
-    struct  of_any_const_tg                         { class operator_t; class of_t; class any_t; class const_t;         using base_tg = any_const_tg; };
-    struct  of_any_non_const_tg                     { class operator_t; class of_t; class any_t; class non_const_t;     using base_tg = any_non_const_tg; };
-    struct  of_any_volatile_tg                      { class operator_t; class of_t; class any_t; class volatile_t;      using base_tg = any_volatile_tg; };
-    struct  of_any_non_volatile_tg                  { class operator_t; class of_t; class any_t; class non_volatile_t;  using base_tg = any_non_volatile_tg; };
+    struct  of_any_tg                               { class operator_t; class of_t; class any_t;                        using non_of_tg = any_tg; };
+    struct  of_any_qualified_tg                     { class operator_t; class of_t; class any_t; class qualified_t;     using non_of_tg = any_qualified_tg; };
+    struct  of_any_non_qualified_tg                 { class operator_t; class of_t; class any_t; class non_qualified_t; using non_of_tg = any_non_qualified_tg; };
+    struct  of_any_const_tg                         { class operator_t; class of_t; class any_t; class const_t;         using non_of_tg = any_const_tg; };
+    struct  of_any_non_const_tg                     { class operator_t; class of_t; class any_t; class non_const_t;     using non_of_tg = any_non_const_tg; };
+    struct  of_any_volatile_tg                      { class operator_t; class of_t; class any_t; class volatile_t;      using non_of_tg = any_volatile_tg; };
+    struct  of_any_non_volatile_tg                  { class operator_t; class of_t; class any_t; class non_volatile_t;  using non_of_tg = any_non_volatile_tg; };
 
-    struct  of_just_tg                              { class operator_t; class of_t; class just_t;                           using base_tg = just_tg; };
-    struct  of_just_non_qualified_tg                { class operator_t; class of_t; class just_t; class non_qualified_t;    using base_tg = just_non_qualified_tg; };
-    struct  of_just_const_tg                        { class operator_t; class of_t; class just_t; class const_t;            using base_tg = just_const_tg; };
-    struct  of_just_volatile_tg                     { class operator_t; class of_t; class just_t; class volatile_t;         using base_tg = just_volatile_tg; };
-    struct  of_just_const_volatile_tg               { class operator_t; class of_t; class just_t; class const_volatile_t;   using base_tg = just_const_volatile_tg; };
+    struct  of_just_tg                              { class operator_t; class of_t; class just_t;                           using non_of_tg = just_tg; };
+    struct  of_just_non_qualified_tg                { class operator_t; class of_t; class just_t; class non_qualified_t;    using non_of_tg = just_non_qualified_tg; };
+    struct  of_just_const_tg                        { class operator_t; class of_t; class just_t; class const_t;            using non_of_tg = just_const_tg; };
+    struct  of_just_volatile_tg                     { class operator_t; class of_t; class just_t; class volatile_t;         using non_of_tg = just_volatile_tg; };
+    struct  of_just_const_volatile_tg               { class operator_t; class of_t; class just_t; class const_volatile_t;   using non_of_tg = just_const_volatile_tg; };
 
-    struct  of_not_any_tg                           { class operator_t; class of_t; class not_t; class any_t;                           using base_tg = not_any_tg; };
-    struct  of_not_any_qualified_tg                 { class operator_t; class of_t; class not_t; class any_t; class qualified_t;        using base_tg = not_any_qualified_tg; };
-    struct  of_not_any_non_qualified_tg             { class operator_t; class of_t; class not_t; class any_t; class non_qualified_t;    using base_tg = not_any_non_qualified_tg; };
-    struct  of_not_any_const_tg                     { class operator_t; class of_t; class not_t; class any_t; class const_t;            using base_tg = not_any_const_tg; };
-    struct  of_not_any_non_const_tg                 { class operator_t; class of_t; class not_t; class any_t; class non_const_t;        using base_tg = not_any_non_const_tg; };
-    struct  of_not_any_volatile_tg                  { class operator_t; class of_t; class not_t; class any_t; class volatile_t;         using base_tg = not_any_volatile_tg; };
-    struct  of_not_any_non_volatile_tg              { class operator_t; class of_t; class not_t; class any_t; class non_volatile_t;     using base_tg = not_any_non_volatile_tg; };
+    struct  of_not_any_tg                           { class operator_t; class of_t; class not_t; class any_t;                           using non_of_tg = not_any_tg; };
+    struct  of_not_any_qualified_tg                 { class operator_t; class of_t; class not_t; class any_t; class qualified_t;        using non_of_tg = not_any_qualified_tg; };
+    struct  of_not_any_non_qualified_tg             { class operator_t; class of_t; class not_t; class any_t; class non_qualified_t;    using non_of_tg = not_any_non_qualified_tg; };
+    struct  of_not_any_const_tg                     { class operator_t; class of_t; class not_t; class any_t; class const_t;            using non_of_tg = not_any_const_tg; };
+    struct  of_not_any_non_const_tg                 { class operator_t; class of_t; class not_t; class any_t; class non_const_t;        using non_of_tg = not_any_non_const_tg; };
+    struct  of_not_any_volatile_tg                  { class operator_t; class of_t; class not_t; class any_t; class volatile_t;         using non_of_tg = not_any_volatile_tg; };
+    struct  of_not_any_non_volatile_tg              { class operator_t; class of_t; class not_t; class any_t; class non_volatile_t;     using non_of_tg = not_any_non_volatile_tg; };
 
-    struct  of_just_not_tg                          { class operator_t; class of_t; class just_t; class not_t;                          using base_tg = just_not_tg; };
-    struct  of_just_not_non_qualified_tg            { class operator_t; class of_t; class just_t; class not_t; class non_qualified_t;   using base_tg = just_not_non_qualified_tg; };
-    struct  of_just_not_const_tg                    { class operator_t; class of_t; class just_t; class not_t; class const_t;           using base_tg = just_not_const_tg; };
-    struct  of_just_not_volatile_tg                 { class operator_t; class of_t; class just_t; class not_t; class volatile_t;        using base_tg = just_not_volatile_tg; };
-    struct  of_just_not_const_volatile_tg           { class operator_t; class of_t; class just_t; class not_t; class const_volatile_t;  using base_tg = just_not_const_volatile_tg; };
+    struct  of_just_not_tg                          { class operator_t; class of_t; class just_t; class not_t;                          using non_of_tg = just_not_tg; };
+    struct  of_just_not_non_qualified_tg            { class operator_t; class of_t; class just_t; class not_t; class non_qualified_t;   using non_of_tg = just_not_non_qualified_tg; };
+    struct  of_just_not_const_tg                    { class operator_t; class of_t; class just_t; class not_t; class const_t;           using non_of_tg = just_not_const_tg; };
+    struct  of_just_not_volatile_tg                 { class operator_t; class of_t; class just_t; class not_t; class volatile_t;        using non_of_tg = just_not_volatile_tg; };
+    struct  of_just_not_const_volatile_tg           { class operator_t; class of_t; class just_t; class not_t; class const_volatile_t;  using non_of_tg = just_not_const_volatile_tg; };
 
-    struct  of_any_access_tg                        { class operator_t; class of_t; class any_t; class access_t;                        using base_tg = any_tg; };
-    struct  of_any_access_qualified_tg              { class operator_t; class of_t; class any_t; class access_t; class qualified_t;     using base_tg = any_qualified_tg; };
-    struct  of_any_access_non_qualified_tg          { class operator_t; class of_t; class any_t; class access_t; class non_qualified_t; using base_tg = any_non_qualified_tg; };
-    struct  of_any_access_const_tg                  { class operator_t; class of_t; class any_t; class access_t; class const_t;         using base_tg = any_const_tg; };
-    struct  of_any_access_non_const_tg              { class operator_t; class of_t; class any_t; class access_t; class non_const_t;     using base_tg = any_non_const_tg; };
-    struct  of_any_access_volatile_tg               { class operator_t; class of_t; class any_t; class access_t; class volatile_t;      using base_tg = any_volatile_tg; };
-    struct  of_any_access_non_volatile_tg           { class operator_t; class of_t; class any_t; class access_t; class non_volatile_t;  using base_tg = any_non_volatile_tg; };
+    struct  of_any_to_tg                            { class operator_t; class of_t; class any_t;                        class to_t; using non_of_tg = any_to_tg; };
+    struct  of_any_qualified_to_tg                  { class operator_t; class of_t; class any_t; class qualified_t;     class to_t; using non_of_tg = any_qualified_to_tg; };
+    struct  of_any_non_qualified_to_tg              { class operator_t; class of_t; class any_t; class non_qualified_t; class to_t; using non_of_tg = any_non_qualified_to_tg; };
+    struct  of_any_const_to_tg                      { class operator_t; class of_t; class any_t; class const_t;         class to_t; using non_of_tg = any_const_to_tg; };
+    struct  of_any_non_const_to_tg                  { class operator_t; class of_t; class any_t; class non_const_t;     class to_t; using non_of_tg = any_non_const_to_tg; };
+    struct  of_any_volatile_to_tg                   { class operator_t; class of_t; class any_t; class volatile_t;      class to_t; using non_of_tg = any_volatile_to_tg; };
+    struct  of_any_non_volatile_to_tg               { class operator_t; class of_t; class any_t; class non_volatile_t;  class to_t; using non_of_tg = any_non_volatile_to_tg; };
 
-    struct  of_just_access_tg                       { class operator_t; class of_t; class just_t; class access_t;                           using base_tg = just_tg; };
-    struct  of_just_access_non_qualified_tg         { class operator_t; class of_t; class just_t; class access_t; class non_qualified_t;    using base_tg = just_non_qualified_tg; };
-    struct  of_just_access_const_tg                 { class operator_t; class of_t; class just_t; class access_t; class const_t;            using base_tg = just_const_tg; };
-    struct  of_just_access_volatile_tg              { class operator_t; class of_t; class just_t; class access_t; class volatile_t;         using base_tg = just_volatile_tg; };
-    struct  of_just_access_const_volatile_tg        { class operator_t; class of_t; class just_t; class access_t; class const_volatile_t;   using base_tg = just_const_volatile_tg; };
+    struct  of_just_to_tg                           { class operator_t; class of_t; class just_t;                           class to_t; using non_of_tg = just_to_tg; };
+    struct  of_just_non_qualified_to_tg             { class operator_t; class of_t; class just_t; class non_qualified_t;    class to_t; using non_of_tg = just_non_qualified_to_tg; };
+    struct  of_just_const_to_tg                     { class operator_t; class of_t; class just_t; class const_t;            class to_t; using non_of_tg = just_const_to_tg; };
+    struct  of_just_volatile_to_tg                  { class operator_t; class of_t; class just_t; class volatile_t;         class to_t; using non_of_tg = just_volatile_to_tg; };
+    struct  of_just_const_volatile_to_tg            { class operator_t; class of_t; class just_t; class const_volatile_t;   class to_t; using non_of_tg = just_const_volatile_to_tg; };
 
-    struct  of_not_any_access_tg                    { class operator_t; class of_t; class not_t; class any_t; class access_t;                           using base_tg = not_any_tg; };
-    struct  of_not_any_access_qualified_tg          { class operator_t; class of_t; class not_t; class any_t; class access_t; class qualified_t;        using base_tg = not_any_qualified_tg; };
-    struct  of_not_any_access_non_qualified_tg      { class operator_t; class of_t; class not_t; class any_t; class access_t; class non_qualified_t;    using base_tg = not_any_non_qualified_tg; };
-    struct  of_not_any_access_const_tg              { class operator_t; class of_t; class not_t; class any_t; class access_t; class const_t;            using base_tg = not_any_const_tg; };
-    struct  of_not_any_access_non_const_tg          { class operator_t; class of_t; class not_t; class any_t; class access_t; class non_const_t;        using base_tg = not_any_non_const_tg; };
-    struct  of_not_any_access_volatile_tg           { class operator_t; class of_t; class not_t; class any_t; class access_t; class volatile_t;         using base_tg = not_any_volatile_tg; };
-    struct  of_not_any_access_non_volatile_tg       { class operator_t; class of_t; class not_t; class any_t; class access_t; class non_volatile_t;     using base_tg = not_any_non_volatile_tg; };
+    struct  of_not_any_to_tg                        { class operator_t; class of_t; class not_t; class any_t;                           class to_t; using non_of_tg = not_any_to_tg; };
+    struct  of_not_any_qualified_to_tg              { class operator_t; class of_t; class not_t; class any_t; class qualified_t;        class to_t; using non_of_tg = not_any_qualified_to_tg; };
+    struct  of_not_any_non_qualified_to_tg          { class operator_t; class of_t; class not_t; class any_t; class non_qualified_t;    class to_t; using non_of_tg = not_any_non_qualified_to_tg; };
+    struct  of_not_any_const_to_tg                  { class operator_t; class of_t; class not_t; class any_t; class const_t;            class to_t; using non_of_tg = not_any_const_to_tg; };
+    struct  of_not_any_non_const_to_tg              { class operator_t; class of_t; class not_t; class any_t; class non_const_t;        class to_t; using non_of_tg = not_any_non_const_to_tg; };
+    struct  of_not_any_volatile_to_tg               { class operator_t; class of_t; class not_t; class any_t; class volatile_t;         class to_t; using non_of_tg = not_any_volatile_to_tg; };
+    struct  of_not_any_non_volatile_to_tg           { class operator_t; class of_t; class not_t; class any_t; class non_volatile_t;     class to_t; using non_of_tg = not_any_non_volatile_to_tg; };
 
-    struct  of_just_not_access_tg                   { class operator_t; class of_t; class just_t; class not_t; class access_t;                          using base_tg = just_not_tg; };
-    struct  of_just_not_access_non_qualified_tg     { class operator_t; class of_t; class just_t; class not_t; class access_t; class non_qualified_t;   using base_tg = just_not_non_qualified_tg; };
-    struct  of_just_not_access_const_tg             { class operator_t; class of_t; class just_t; class not_t; class access_t; class const_t;           using base_tg = just_not_const_tg; };
-    struct  of_just_not_access_volatile_tg          { class operator_t; class of_t; class just_t; class not_t; class access_t; class volatile_t;        using base_tg = just_not_volatile_tg; };
-    struct  of_just_not_access_const_volatile_tg    { class operator_t; class of_t; class just_t; class not_t; class access_t; class const_volatile_t;  using base_tg = just_not_const_volatile_tg; };
+    struct  of_just_not_to_tg                       { class operator_t; class of_t; class just_t; class not_t;                          class to_t; using non_of_tg = just_not_to_tg; };
+    struct  of_just_not_non_qualified_to_tg         { class operator_t; class of_t; class just_t; class not_t; class non_qualified_t;   class to_t; using non_of_tg = just_not_non_qualified_to_tg; };
+    struct  of_just_not_const_to_tg                 { class operator_t; class of_t; class just_t; class not_t; class const_t;           class to_t; using non_of_tg = just_not_const_to_tg; };
+    struct  of_just_not_volatile_to_tg              { class operator_t; class of_t; class just_t; class not_t; class volatile_t;        class to_t; using non_of_tg = just_not_volatile_to_tg; };
+    struct  of_just_not_const_volatile_to_tg        { class operator_t; class of_t; class just_t; class not_t; class const_volatile_t;  class to_t; using non_of_tg = just_not_const_volatile_to_tg; };
 
-    struct  OR_tg                                   { class operator_t; class logic_gate_t; class OR_t; };
-    struct  AND_tg                                  { class operator_t; class logic_gate_t; class AND_t; };
-    struct  XOR_tg                                  { class operator_t; class logic_gate_t; class XOR_t; };
-    struct  NOR_tg                                  { class operator_t; class logic_gate_t; class NOR_t; };
-    struct  NAND_tg                                 { class operator_t; class logic_gate_t; class NAND_t; };
-    struct  XNOR_tg                                 { class operator_t; class logic_gate_t; class XNOR_t; };
+    struct  of_any_access_tg                        { class operator_t; class of_t; class any_t; class access_t;                        using non_of_tg = any_tg; };
+    struct  of_any_access_qualified_tg              { class operator_t; class of_t; class any_t; class access_t; class qualified_t;     using non_of_tg = any_qualified_tg; };
+    struct  of_any_access_non_qualified_tg          { class operator_t; class of_t; class any_t; class access_t; class non_qualified_t; using non_of_tg = any_non_qualified_tg; };
+    struct  of_any_access_const_tg                  { class operator_t; class of_t; class any_t; class access_t; class const_t;         using non_of_tg = any_const_tg; };
+    struct  of_any_access_non_const_tg              { class operator_t; class of_t; class any_t; class access_t; class non_const_t;     using non_of_tg = any_non_const_tg; };
+    struct  of_any_access_volatile_tg               { class operator_t; class of_t; class any_t; class access_t; class volatile_t;      using non_of_tg = any_volatile_tg; };
+    struct  of_any_access_non_volatile_tg           { class operator_t; class of_t; class any_t; class access_t; class non_volatile_t;  using non_of_tg = any_non_volatile_tg; };
+
+    struct  of_just_access_tg                       { class operator_t; class of_t; class just_t; class access_t;                           using non_of_tg = just_tg; };
+    struct  of_just_access_non_qualified_tg         { class operator_t; class of_t; class just_t; class access_t; class non_qualified_t;    using non_of_tg = just_non_qualified_tg; };
+    struct  of_just_access_const_tg                 { class operator_t; class of_t; class just_t; class access_t; class const_t;            using non_of_tg = just_const_tg; };
+    struct  of_just_access_volatile_tg              { class operator_t; class of_t; class just_t; class access_t; class volatile_t;         using non_of_tg = just_volatile_tg; };
+    struct  of_just_access_const_volatile_tg        { class operator_t; class of_t; class just_t; class access_t; class const_volatile_t;   using non_of_tg = just_const_volatile_tg; };
+
+    struct  of_not_any_access_tg                    { class operator_t; class of_t; class not_t; class any_t; class access_t;                           using non_of_tg = not_any_tg; };
+    struct  of_not_any_access_qualified_tg          { class operator_t; class of_t; class not_t; class any_t; class access_t; class qualified_t;        using non_of_tg = not_any_qualified_tg; };
+    struct  of_not_any_access_non_qualified_tg      { class operator_t; class of_t; class not_t; class any_t; class access_t; class non_qualified_t;    using non_of_tg = not_any_non_qualified_tg; };
+    struct  of_not_any_access_const_tg              { class operator_t; class of_t; class not_t; class any_t; class access_t; class const_t;            using non_of_tg = not_any_const_tg; };
+    struct  of_not_any_access_non_const_tg          { class operator_t; class of_t; class not_t; class any_t; class access_t; class non_const_t;        using non_of_tg = not_any_non_const_tg; };
+    struct  of_not_any_access_volatile_tg           { class operator_t; class of_t; class not_t; class any_t; class access_t; class volatile_t;         using non_of_tg = not_any_volatile_tg; };
+    struct  of_not_any_access_non_volatile_tg       { class operator_t; class of_t; class not_t; class any_t; class access_t; class non_volatile_t;     using non_of_tg = not_any_non_volatile_tg; };
+
+    struct  of_just_not_access_tg                   { class operator_t; class of_t; class just_t; class not_t; class access_t;                          using non_of_tg = just_not_tg; };
+    struct  of_just_not_access_non_qualified_tg     { class operator_t; class of_t; class just_t; class not_t; class access_t; class non_qualified_t;   using non_of_tg = just_not_non_qualified_tg; };
+    struct  of_just_not_access_const_tg             { class operator_t; class of_t; class just_t; class not_t; class access_t; class const_t;           using non_of_tg = just_not_const_tg; };
+    struct  of_just_not_access_volatile_tg          { class operator_t; class of_t; class just_t; class not_t; class access_t; class volatile_t;        using non_of_tg = just_not_volatile_tg; };
+    struct  of_just_not_access_const_volatile_tg    { class operator_t; class of_t; class just_t; class not_t; class access_t; class const_volatile_t;  using non_of_tg = just_not_const_volatile_tg; };
+
+}
+
+namespace nkr {
+
+    struct  OR_tg   { class operator_t; class logic_gate_t; class OR_t; };
+    struct  AND_tg  { class operator_t; class logic_gate_t; class AND_t; };
+    struct  XOR_tg  { class operator_t; class logic_gate_t; class XOR_t; };
+    struct  NOR_tg  { class operator_t; class logic_gate_t; class NOR_t; };
+    struct  NAND_tg { class operator_t; class logic_gate_t; class NAND_t; };
+    struct  XNOR_tg { class operator_t; class logic_gate_t; class XNOR_t; };
 
 }
 
