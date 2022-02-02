@@ -222,10 +222,6 @@ namespace nkr {
     concept ts_tr =
         nkr::cpp::is_any_tr<type_p, typename nkr::$tr::ts<typename type_p::operator_t, typename type_p::types_t>>;
 
-    template <nkr::generic::tag::logic_gate_tr logic_gate_p, nkr::tuple::types_tr tuple_p>
-    using   to_ts =
-        tuple_p::template into_back_t<ts, logic_gate_p>;
-
     template <template <typename ...> typename template_p>
     using   tt =
         nkr::$tr::tts<AND_tg, nkr::tuple::templates_t<template_p>>;
@@ -239,9 +235,55 @@ namespace nkr {
     concept tts_tr =
         nkr::cpp::is_any_tr<type_p, typename nkr::$tr::tts<typename type_p::operator_t, typename type_p::templates_t>>;
 
-    template <nkr::generic::tag::logic_gate_tr logic_gate_p, nkr::tuple::templates_tr tuple_p>
+}
+
+namespace nkr { namespace $tr {
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
+    class to_ts_sp;
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tuple::types_tr tuple_p>
+    class to_ts_sp<operator_p, tuple_p>
+    {
+    public:
+        using type_t    = ts<operator_p, tuple_p>;
+    };
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, nkr::ts_tr ts_p>
+    class to_ts_sp<operator_p, ts_p>
+    {
+    public:
+        using type_t    = ts<operator_p, typename ts_p::types_t>;
+    };
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
+    class to_tts_sp;
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tuple::templates_tr tuple_p>
+    class to_tts_sp<operator_p, tuple_p>
+    {
+    public:
+        using type_t    = tts<operator_p, tuple_p>;
+    };
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tts_tr tts_p>
+    class to_tts_sp<operator_p, tts_p>
+    {
+    public:
+        using type_t    = tts<operator_p, typename tts_p::templates_t>;
+    };
+
+}}
+
+namespace nkr {
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
+    using   to_ts =
+        nkr::$tr::to_ts_sp<operator_p, type_p>::type_t;
+
+    template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
     using   to_tts =
-        tuple_p::template into_back_t<tts, logic_gate_p>;
+        nkr::$tr::to_tts_sp<operator_p, type_p>::type_t;
 
 }
 
