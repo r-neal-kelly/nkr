@@ -230,12 +230,10 @@ namespace nkr {
         static_assert(TR<ts<AND_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
         static_assert(TR<ts<AND_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
 
-        /*
         static_assert(TR<ts<XOR_tg, false_t, false_t>, any_tg, t<true_t>>() == false);
         static_assert(TR<ts<XOR_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<XOR_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<XOR_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
-        */
 
         static_assert(TR<ts<NOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<NOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
@@ -247,14 +245,11 @@ namespace nkr {
         static_assert(TR<ts<NAND_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<NAND_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
 
-        /*
         static_assert(TR<ts<XNOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<XNOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
         static_assert(TR<ts<XNOR_tg, true_t, false_t>, any_tg, t<true_t>>() == false);
         static_assert(TR<ts<XNOR_tg, true_t, true_t>, any_tg, t<true_t>>() == true);
-        */
 
-        /*
         static_assert(TR<ts<XNOR_tg, false_t, false_t, false_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<XNOR_tg, true_t, false_t, false_t>, any_tg, t<true_t>>() == false);
         static_assert(TR<ts<XNOR_tg, false_t, true_t, false_t>, any_tg, t<true_t>>() == false);
@@ -263,7 +258,6 @@ namespace nkr {
         static_assert(TR<ts<XNOR_tg, false_t, true_t, true_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<XNOR_tg, true_t, false_t, true_t>, any_tg, t<true_t>>() == true);
         static_assert(TR<ts<XNOR_tg, true_t, true_t, true_t>, any_tg, t<true_t>>() == true);
-        */
     }
 
 }

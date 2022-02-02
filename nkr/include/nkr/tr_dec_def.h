@@ -388,7 +388,7 @@ namespace nkr { namespace $tr {
     template <
         typename                subject_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p
+        typename                index_p             = nkr::positive::index_c<0>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Expression()
         noexcept
@@ -462,40 +462,59 @@ namespace nkr { namespace $tr {
 
     template <
         nkr::ts_tr              subjects_p,
-        nkr::tuple::types_tr    expression_parts_p
+        nkr::tuple::types_tr    expression_parts_p,
+        typename                XOR_state_p         = nkr::boolean::cpp_c<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Subjects()
         noexcept
     {
-        if constexpr (subjects_p::Count() == 1) {
-            return Evaluate_Expression<typename subjects_p::head_t, expression_parts_p, nkr::positive::index_c<0>>();
+        if constexpr (nkr::$tr::NOR_operator_tr<typename subjects_p::operator_t>) {
+            return !Evaluate_Subjects<typename subjects_p::template with_operator_t<OR_tg>, expression_parts_p>();
+        } else if constexpr (nkr::$tr::NAND_operator_tr<typename subjects_p::operator_t>) {
+            return !Evaluate_Subjects<typename subjects_p::template with_operator_t<AND_tg>, expression_parts_p>();
+        } else if constexpr (nkr::$tr::XNOR_operator_tr<typename subjects_p::operator_t>) {
+            return !Evaluate_Subjects<typename subjects_p::template with_operator_t<XOR_tg>, expression_parts_p>();
         } else {
-            if constexpr (nkr::$tr::OR_operator_tr<typename subjects_p::operator_t>) {
-                if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p, nkr::positive::index_c<0>>()) {
-                    return true;
+            if constexpr (subjects_p::Count() == 1) {
+                if constexpr (nkr::$tr::XOR_operator_tr<typename subjects_p::operator_t>) {
+                    if constexpr (XOR_state_p::Value()) {
+                        return !Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>();
+                    } else {
+                        return Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>();
+                    }
                 } else {
-                    return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
-                }
-            } else if constexpr (nkr::$tr::AND_operator_tr<typename subjects_p::operator_t>) {
-                if constexpr (!Evaluate_Expression<typename subjects_p::head_t, expression_parts_p, nkr::positive::index_c<0>>()) {
-                    return false;
-                } else {
-                    return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
-                }
-            } else if constexpr (nkr::$tr::NOR_operator_tr<typename subjects_p::operator_t>) {
-                if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p, nkr::positive::index_c<0>>()) {
-                    return false;
-                } else {
-                    return !Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
-                }
-            } else if constexpr (nkr::$tr::NAND_operator_tr<typename subjects_p::operator_t>) {
-                if constexpr (!Evaluate_Expression<typename subjects_p::head_t, expression_parts_p, nkr::positive::index_c<0>>()) {
-                    return true;
-                } else {
-                    return !Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
+                    return Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>();
                 }
             } else {
-                static_assert(false);
+                if constexpr (nkr::$tr::OR_operator_tr<typename subjects_p::operator_t>) {
+                    if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                        return true;
+                    } else {
+                        return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
+                    }
+                } else if constexpr (nkr::$tr::AND_operator_tr<typename subjects_p::operator_t>) {
+                    if constexpr (!Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                        return false;
+                    } else {
+                        return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
+                    }
+                } else if constexpr (nkr::$tr::XOR_operator_tr<typename subjects_p::operator_t>) {
+                    if constexpr (XOR_state_p::Value()) {
+                        if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                            return false;
+                        } else {
+                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::boolean::cpp_c<true>>();
+                        }
+                    } else {
+                        if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::boolean::cpp_c<true>>();
+                        } else {
+                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::boolean::cpp_c<false>>();
+                        }
+                    }
+                } else {
+                    static_assert(false);
+                }
             }
         }
     }
@@ -503,7 +522,7 @@ namespace nkr { namespace $tr {
     template <
         nkr::ts_tr              subjects_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p
+        typename                index_p             = nkr::positive::index_c<0>
     > inline constexpr nkr::boolean::cpp_t
         Validate()
         noexcept
@@ -554,7 +573,7 @@ namespace nkr {
     {
         using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
 
-        static_assert(nkr::$tr::Validate<subjects_p, expression_parts_t, nkr::positive::index_c<0>>());
+        static_assert(nkr::$tr::Validate<subjects_p, expression_parts_t>());
 
         return nkr::$tr::Evaluate_Subjects<subjects_p, expression_parts_t>();
     }

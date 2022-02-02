@@ -176,13 +176,16 @@ namespace nkr { namespace $tr {
         public types_p
     {
     public:
-        using operator_t    = operator_p;
-        using types_t       = types_p;
+        using operator_t        = operator_p;
+        using types_t           = types_p;
 
-        using tail_t        = ts<operator_t, typename types_t::tail_t>;
+        using tail_t            = ts<operator_t, typename types_t::tail_t>;
         template <nkr::positive::count_ctr count_p>
             requires (count_p::Value() <= types_t::Count())
-        using take_t        = ts<operator_t, typename types_t::template take_t<count_p>>;
+        using take_t            = ts<operator_t, typename types_t::template take_t<count_p>>;
+
+        template <nkr::generic::tag::logic_gate_tr with_operator_p>
+        using with_operator_t   = ts<with_operator_p, types_t>;
     };
 
     template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tuple::templates_tr templates_p>
@@ -190,13 +193,16 @@ namespace nkr { namespace $tr {
         public templates_p
     {
     public:
-        using operator_t    = operator_p;
-        using templates_t   = templates_p;
+        using operator_t        = operator_p;
+        using templates_t       = templates_p;
 
-        using tail_t        = tts<operator_t, typename templates_t::tail_t>;
+        using tail_t            = tts<operator_t, typename templates_t::tail_t>;
         template <nkr::positive::count_ctr count_p>
             requires (count_p::Value() <= templates_t::Count())
-        using take_t        = tts<operator_t, typename templates_t::template take_t<count_p>>;
+        using take_t            = tts<operator_t, typename templates_t::template take_t<count_p>>;
+
+        template <nkr::generic::tag::logic_gate_tr with_operator_p>
+        using with_operator_t   = tts<with_operator_p, templates_t>;
     };
 
 }}
