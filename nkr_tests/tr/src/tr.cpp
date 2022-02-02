@@ -128,7 +128,7 @@ namespace nkr {
                           nkr::pointer::cpp_t<int>,
                           int>>);
 
-            static_assert(nkr::$tr::Execute_Expression<subjects_t, operators_t, objects_t>());
+            static_assert(nkr::$tr::Evaluate<subjects_t, operators_t, objects_t>());
         }
 
         TEST_SUITE("temp")
@@ -194,6 +194,24 @@ namespace nkr {
                           of_any_const_tg, tt<nkr::pointer::cpp_t>,
                           of_just_tg, const ts<OR_tg, int, short>
             >);
+        }
+
+        TEST_SUITE("temp")
+        {
+            static_assert(TR<t<int>,
+                          any_tg, ts<OR_tg, int, short>>());
+
+            static_assert(TR<t<short>,
+                          any_tg, ts<OR_tg, int, short>>());
+
+            static_assert(TR<ts<OR_tg, int, short>,
+                          any_tg, ts<OR_tg, int, short>>());
+
+            static_assert(TR<ts<OR_tg, short, int>,
+                          any_tg, ts<OR_tg, int, short>>());
+
+            static_assert(TR<ts<AND_tg, int, short>,
+                          any_tg, ts<OR_tg, int, short>>());
         }
     }
 
