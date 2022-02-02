@@ -388,7 +388,8 @@ namespace nkr { namespace $tr {
     template <
         typename                subject_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p             = nkr::positive::index_c<0>
+        typename                index_p             = nkr::positive::index_c<0>,
+        typename                XOR_state_p         = nkr::boolean::cpp_c<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Expression()
         noexcept
@@ -402,59 +403,64 @@ namespace nkr { namespace $tr {
 
             return Evaluate<subjects_t, operators_t, objects_t>();
         } else {
-            using operator_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value()>>::head_t;
             using operand_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 1>>::head_t;
+            using expression_front_t = expression_parts_p::template take_t<nkr::positive::count_c<index_p::Value() + 1>>;
+            using expression_back_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 2>>;
 
-            if constexpr (operand_t::Count() > 1) {
-                using expression_front_t = expression_parts_p::template take_t<nkr::positive::count_c<index_p::Value() + 1>>;
-                using expression_back_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 2>>;
-                using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::positive::count_c<1>>, operand_t>;
-                using operand_tail_t = nkr::cpp::access_qualification_of_t<typename operand_t::tail_t, operand_t>;
-                using expression_with_head_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<operand_head_t>::template push_back_t
-                >;
-                using expression_with_tail_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<operand_tail_t>::template push_back_t
+            if constexpr (nkr::$tr::NOR_operator_tr<typename operand_t::operator_t>) {
+                using expression_with_operand_t = expression_back_t::template into_t<
+                    expression_front_t::template push_back_t<typename operand_t::template with_operator_t<OR_tg>>::template push_back_t
                 >;
 
-                if constexpr (nkr::$tr::OR_operator_tr<typename operand_t::operator_t>) {
-                    if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                        return true;
-                    } else {
-                        return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
-                    }
-                } else if constexpr (nkr::$tr::AND_operator_tr<typename operand_t::operator_t>) {
-                    if constexpr (!Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                        return false;
-                    } else {
-                        return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
-                    }
-                } else if constexpr (nkr::$tr::NOR_operator_tr<typename operand_t::operator_t>) {
-                    if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                        return false;
-                    } else {
-                        return !Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
-                    }
-                } else if constexpr (nkr::$tr::NAND_operator_tr<typename operand_t::operator_t>) {
-                    if constexpr (!Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                        return true;
-                    } else {
-                        return !Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
-                    }
-                } else {
-                    // if we're using XOR or XNOR, maybe we can supply a boolean in the parameter list of the function.
-                    // another option would be to try and store it in the type of the operator itself, which does make some sense.
-                    static_assert(false);
-                }
+                return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
+            } else if constexpr (nkr::$tr::NAND_operator_tr<typename operand_t::operator_t>) {
+                using expression_with_operand_t = expression_back_t::template into_t<
+                    expression_front_t::template push_back_t<typename operand_t::template with_operator_t<AND_tg>>::template push_back_t
+                >;
+
+                return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
+            } else if constexpr (nkr::$tr::XNOR_operator_tr<typename operand_t::operator_t>) {
+                using expression_with_operand_t = expression_back_t::template into_t<
+                    expression_front_t::template push_back_t<typename operand_t::template with_operator_t<XOR_tg>>::template push_back_t
+                >;
+
+                return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
             } else {
-                if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
-                    return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
-                } else {
-                    using operators_t = nkr::$tr::operators_t<expression_parts_p>;
-                    using subjects_t = nkr::$tr::subjects_t<subject_p, operators_t>;
-                    using objects_t = nkr::$tr::objects_t<expression_parts_p>;
+                if constexpr (operand_t::Count() == 1) {
+                    if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
+                        return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                    } else {
+                        using operators_t = nkr::$tr::operators_t<expression_parts_p>;
+                        using subjects_t = nkr::$tr::subjects_t<subject_p, operators_t>;
+                        using objects_t = nkr::$tr::objects_t<expression_parts_p>;
 
-                    return Evaluate<subjects_t, operators_t, objects_t>();
+                        return Evaluate<subjects_t, operators_t, objects_t>();
+                    }
+                } else {
+                    using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::positive::count_c<1>>, operand_t>;
+                    using operand_tail_t = nkr::cpp::access_qualification_of_t<typename operand_t::tail_t, operand_t>;
+                    using expression_with_head_t = expression_back_t::template into_t<
+                        expression_front_t::template push_back_t<operand_head_t>::template push_back_t
+                    >;
+                    using expression_with_tail_t = expression_back_t::template into_t<
+                        expression_front_t::template push_back_t<operand_tail_t>::template push_back_t
+                    >;
+
+                    if constexpr (nkr::$tr::OR_operator_tr<typename operand_t::operator_t>) {
+                        if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                            return true;
+                        } else {
+                            return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
+                        }
+                    } else if constexpr (nkr::$tr::AND_operator_tr<typename operand_t::operator_t>) {
+                        if constexpr (!Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                            return false;
+                        } else {
+                            return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
+                        }
+                    } else {
+                        static_assert(false);
+                    }
                 }
             }
         }
