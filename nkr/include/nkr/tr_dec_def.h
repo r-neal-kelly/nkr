@@ -388,8 +388,8 @@ namespace nkr { namespace $tr {
     template <
         typename                subject_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p             = nkr::positive::index_c<0>,
-        typename                XOR_state_p         = nkr::boolean::cpp_c<false>
+        typename                index_p = nkr::positive::index_c<0>,
+        typename                XOR_state_p = nkr::boolean::cpp_c<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Expression()
         noexcept
@@ -428,13 +428,29 @@ namespace nkr { namespace $tr {
             } else {
                 if constexpr (operand_t::Count() == 1) {
                     if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
-                        return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                        if constexpr (nkr::$tr::XOR_operator_tr<typename operand_t::operator_t>) {
+                            if constexpr (XOR_state_p::Value()) {
+                                return !Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                            } else {
+                                return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                            }
+                        } else {
+                            return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                        }
                     } else {
                         using operators_t = nkr::$tr::operators_t<expression_parts_p>;
                         using subjects_t = nkr::$tr::subjects_t<subject_p, operators_t>;
                         using objects_t = nkr::$tr::objects_t<expression_parts_p>;
 
-                        return Evaluate<subjects_t, operators_t, objects_t>();
+                        if constexpr (nkr::$tr::XOR_operator_tr<typename operand_t::operator_t>) {
+                            if constexpr (XOR_state_p::Value()) {
+                                return !Evaluate<subjects_t, operators_t, objects_t>();
+                            } else {
+                                return Evaluate<subjects_t, operators_t, objects_t>();
+                            }
+                        } else {
+                            return Evaluate<subjects_t, operators_t, objects_t>();
+                        }
                     }
                 } else {
                     using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::positive::count_c<1>>, operand_t>;
@@ -457,6 +473,20 @@ namespace nkr { namespace $tr {
                             return false;
                         } else {
                             return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
+                        }
+                    } else if constexpr (nkr::$tr::XOR_operator_tr<typename operand_t::operator_t>) {
+                        if constexpr (XOR_state_p::Value()) {
+                            if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                                return false;
+                            } else {
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::boolean::cpp_c<true>>();
+                            }
+                        } else {
+                            if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::boolean::cpp_c<true>>();
+                            } else {
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::boolean::cpp_c<false>>();
+                            }
                         }
                     } else {
                         static_assert(false);

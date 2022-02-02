@@ -213,6 +213,18 @@ namespace nkr {
             static_assert(TR<ts<AND_tg, int, short>,
                           any_tg, ts<OR_tg, int, short>>());
         }
+
+        TEST_SUITE("temp")
+        {
+            static_assert(TR<t<int>,
+                          any_tg, ts<XOR_tg, short, int>>());
+            static_assert(TR<t<long>,
+                          any_tg, ts<XOR_tg, short, long, long long>>());
+            static_assert(TR<t<long>,
+                          any_tg, ts<XNOR_tg, short, long long, long long>>());
+            static_assert(TR<t<long>,
+                          any_tg, ts<XNOR_tg, short, long, long>>());
+        }
     }
 
     TEST_SUITE("nkr::tr1_t")
