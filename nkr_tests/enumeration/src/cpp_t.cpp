@@ -4,6 +4,7 @@
 
 #include "nkr/enumeration/cpp_t.h"
 #include "nkr/interface/none/value_i.h"
+#include "nkr/none/value_t.h"
 #include "nkr/positive/integer_t.h"
 #include "nkr/tr.h"
 
@@ -13,6 +14,16 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::cpp_t")
     {
+    #define nkr_INTEGERS                \
+        nkr::positive::integer_8_t,     \
+        nkr::positive::integer_16_t,    \
+        nkr::positive::integer_32_t,    \
+        nkr::positive::integer_64_t,    \
+        nkr::negatable::integer_8_t,    \
+        nkr::negatable::integer_16_t,   \
+        nkr::negatable::integer_32_t,   \
+        nkr::negatable::integer_64_t    \
+
         enum c_enum_e :
             nkr::positive::integer_t
         {
@@ -120,20 +131,112 @@ namespace nkr {
 
         TEST_SUITE("interface")
         {
-            TEST_SUITE("should satisfy nkr::interface::none::value_i")
+            TEST_SUITE("nkr::interface::none::value_i")
             {
-                TEST_SUITE("directly")
+                TEST_SUITE("direct")
                 {
-                    TEST_CASE_TEMPLATE("should return 0", enum_p, nkr_ANY)
+                    TEST_SUITE("default"
+                               * doctest::description("should return ~0"))
                     {
-                        //CHECK((nkr::interface::none::value_i<enum_p>::Value() == false));
-                        //CHECK((nkr::interface::none::value_i<enum_p>::Value() == pure_p(false)));
+                        TEST_CASE_TEMPLATE("c_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum enum_e :
+                                integer_p
+                            {
+                            };
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == integer_p(~0));
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e(~0));
+                        }
+
+                        TEST_CASE_TEMPLATE("cpp_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum class enum_e :
+                                integer_p
+                            {
+                            };
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e(~0));
+                        }
+                    }
+
+                    TEST_SUITE("with NONE_tg"
+                               * doctest::description("should return NONE_tg"))
+                    {
+                        TEST_CASE_TEMPLATE("c_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum enum_e :
+                                integer_p
+                            {
+                                NONE_tg = 0,
+                            };
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == integer_p(0));
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e(0));
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e::NONE_tg);
+                        }
+
+                        TEST_CASE_TEMPLATE("cpp_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum class enum_e :
+                                integer_p
+                            {
+                                NONE_tg = 0,
+                            };
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e(0));
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e::NONE_tg);
+                        }
                     }
                 }
 
                 TEST_SUITE("through nkr::none::value_t")
                 {
+                    TEST_SUITE("default"
+                               * doctest::description("should return ~0"))
+                    {
+                        TEST_CASE_TEMPLATE("c_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum enum_e :
+                                integer_p
+                            {
+                            };
+                            static_assert(nkr::none::value_t<enum_e>() == integer_p(~0));
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e(~0));
+                        }
 
+                        TEST_CASE_TEMPLATE("cpp_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum class enum_e :
+                                integer_p
+                            {
+                            };
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e(~0));
+                        }
+                    }
+
+                    TEST_SUITE("with NONE_tg"
+                               * doctest::description("should return NONE_tg"))
+                    {
+                        TEST_CASE_TEMPLATE("c_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum enum_e :
+                                integer_p
+                            {
+                                NONE_tg = 0,
+                            };
+                            static_assert(nkr::none::value_t<enum_e>() == integer_p(0));
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e(0));
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_tg);
+                        }
+
+                        TEST_CASE_TEMPLATE("cpp_enumeration", integer_p, nkr_INTEGERS)
+                        {
+                            enum class enum_e :
+                                integer_p
+                            {
+                                NONE_tg = 0,
+                            };
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e(0));
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_tg);
+                        }
+                    }
                 }
             }
         }
