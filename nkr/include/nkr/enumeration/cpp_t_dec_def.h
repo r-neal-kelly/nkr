@@ -17,3 +17,21 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+namespace nkr { namespace enumeration { namespace $cpp_t {
+
+    template <nkr::enumeration::cpp_tr type_p>
+    inline constexpr none_value_i_sp<type_p>::type_t
+        none_value_i_sp<type_p>::Value()
+        noexcept
+    {
+        if constexpr (nkr::generic::implementing::tag::data::none_tr<type_p>) {
+            return type_p::NONE_tg;
+        } else if constexpr (nkr::generic::positive_tr<type_p>) {
+            return ~nkr::enumeration::cpp_value_t<type_p>(0);
+        } else {
+            return nkr::enumeration::cpp_value_t<type_p>(-1);
+        }
+    }
+
+}}}

@@ -365,6 +365,11 @@
     <ClInclude Include="include\nkr\generic\implementing\tag\data\min_tr_dec_def.h" />
     <ClInclude Include="include\nkr\generic\implementing\tag\data\min_tr_def.h" />
     <ClInclude Include="include\nkr\generic\implementing\tag\data\min_tr_dox.h" />
+    <ClInclude Include="include\nkr\generic\implementing\tag\data\none_tr.h" />
+    <ClInclude Include="include\nkr\generic\implementing\tag\data\none_tr_dec.h" />
+    <ClInclude Include="include\nkr\generic\implementing\tag\data\none_tr_dec_def.h" />
+    <ClInclude Include="include\nkr\generic\implementing\tag\data\none_tr_def.h" />
+    <ClInclude Include="include\nkr\generic\implementing\tag\data\none_tr_dox.h" />
     <ClInclude Include="include\nkr\generic\number\any_tr.h" />
     <ClInclude Include="include\nkr\generic\number\any_tr_dec.h" />
     <ClInclude Include="include\nkr\generic\number\any_tr_dec_def.h" />

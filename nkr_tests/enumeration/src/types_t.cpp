@@ -14,34 +14,6 @@
 
 #include "doctest.h"
 
-namespace nkr { namespace enumeration {
-
-    // temp testing
-    enum enum_e :
-        nkr::positive::integer_t
-    {
-        BLAH,
-    };
-
-    static_assert(nkr::cpp::enumeration_tr<enum_e>);
-
-    template <typename enum_p>
-    class enum_wrap_t
-    {
-    public:
-        using enum_p::enum_p;
-    };
-
-    using test_t = enum_wrap_t<enum_e>;
-
-    TEST_CASE("temp")
-    {
-        auto test = enum_e();
-        CHECK(test == 0);
-    }
-
-}}
-
 namespace nkr {
 
     class user_defined_t

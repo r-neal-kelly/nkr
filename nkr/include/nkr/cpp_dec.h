@@ -229,6 +229,16 @@ namespace nkr { namespace cpp {
         std::is_enum<type_p>::value;
 
     template <typename type_p>
+    concept c_enumeration_tr =
+        enumeration_tr<type_p> &&
+        (requires { type_p(0) == 0; });
+
+    template <typename type_p>
+    concept cpp_enumeration_tr =
+        enumeration_tr<type_p> &&
+        !c_enumeration_tr<type_p>;
+
+    template <typename type_p>
     concept number_tr =
         integer_tr<type_p> ||
         real_tr<type_p> ||
