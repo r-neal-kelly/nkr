@@ -6,6 +6,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/enumeration/cpp_t_dec.h"
 #include "nkr/generic/built_in/boolean_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 #include "nkr/generic/built_in/number/integer_tr_dec.h"
@@ -243,82 +244,12 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-    class enumeration_limited_integer_tmpl;
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_8_t) && nkr::positive::integer_8_t(enumeration_p::MIN_tg) >= 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::positive::integer_8_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_16_t) && nkr::positive::integer_16_t(enumeration_p::MIN_tg) >= 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::positive::integer_16_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_32_t) && nkr::positive::integer_32_t(enumeration_p::MIN_tg) >= 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::positive::integer_32_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::positive::integer_64_t) && nkr::positive::integer_64_t(enumeration_p::MIN_tg) >= 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::positive::integer_64_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_8_t) && nkr::negatable::integer_8_t(enumeration_p::MIN_tg) < 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::negatable::integer_8_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_16_t) && nkr::negatable::integer_16_t(enumeration_p::MIN_tg) < 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::negatable::integer_16_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_32_t) && nkr::negatable::integer_32_t(enumeration_p::MIN_tg) < 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::negatable::integer_32_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-        requires (sizeof(enumeration_p) == sizeof(nkr::negatable::integer_64_t) && nkr::negatable::integer_64_t(enumeration_p::MIN_tg) < 0)
-    class enumeration_limited_integer_tmpl<enumeration_p>
-    {
-    public:
-        using type_t    = nkr::negatable::integer_64_t;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr enumeration_p>
-    using enumeration_limited_integer_t = enumeration_limited_integer_tmpl<enumeration_p>::type_t;
-
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     class enumeration_limited_sp
     {
     public:
         using type_t    = type_p;
-        using number_t  = enumeration_limited_integer_t<type_t>;
+        using number_t  = nkr::enumeration::cpp_value_t<type_t>;
 
     public:
         static constexpr type_t     Default_Min() noexcept;

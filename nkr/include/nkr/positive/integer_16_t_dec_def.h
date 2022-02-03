@@ -17,3 +17,14 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+namespace nkr { namespace positive { namespace $integer_16_t {
+
+    inline constexpr none_value_i_sp::type_t
+        none_value_i_sp::Value()
+        noexcept
+    {
+        return type_t();
+    }
+
+}}}

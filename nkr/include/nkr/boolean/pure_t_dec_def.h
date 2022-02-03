@@ -187,6 +187,17 @@ namespace nkr { namespace boolean {
 
 }}
 
+namespace nkr { namespace boolean { namespace $pure_t {
+
+    inline constexpr none_value_i_sp::type_t
+        none_value_i_sp::Value()
+        noexcept
+    {
+        return type_t();
+    }
+
+}}}
+
 inline constexpr nkr::boolean::cpp_t
     operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto& a, const auto& b)
     noexcept

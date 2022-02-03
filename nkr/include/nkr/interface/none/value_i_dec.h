@@ -17,11 +17,9 @@
 namespace nkr { namespace interface { namespace none { namespace $value_i {
 
     template <typename type_p>
-    concept aliases_i = requires
-    {
-        typename type_p::type_t;
-        tr<typename type_p::type_t, just_non_qualified_tg, t<nkr::generic::type_tg>>;
-    };
+    concept aliases_i =
+        (requires { typename type_p::type_t; }) &&
+        tr<typename type_p::type_t, any_tg, t<nkr::generic::type_tg>>;
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires
@@ -37,8 +35,9 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <typename type_p>
-    class   value_i;
+    template <typename value_p>
+    using   value_i =
+        value_i_sp<value_p>::type_t;
 
     struct  value_tg    {};
 
@@ -126,27 +125,5 @@ namespace nkr { namespace interface {
     };
 
 }}
-
-namespace nkr { namespace interface { namespace none {
-
-    template <typename type_p>
-    class value_i
-    {
-    public:
-        static_assert(tr<type_p, just_non_qualified_tg, t<nkr::generic::implementing::constructor::default_tg>>,
-                      "Either define a default ctor setting this type to none, or implement this interface.");
-
-    public:
-        using type_t    = type_p;
-
-    public:
-        static constexpr type_t Value() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr value_i(...) noexcept = delete;
-    };
-
-}}}
 
 #include "nkr/interface/none/value_i_dec_def.h"

@@ -17,3 +17,14 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+namespace nkr { namespace negatable { namespace $integer_8_t {
+
+    inline constexpr none_value_i_sp::type_t
+        none_value_i_sp::Value()
+        noexcept
+    {
+        return type_t();
+    }
+
+}}}

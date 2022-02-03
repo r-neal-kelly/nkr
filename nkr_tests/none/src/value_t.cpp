@@ -115,25 +115,31 @@ namespace nkr {
 
     }
 
+    class non_none_default_t_none_value_i_sp
+    {
+    public:
+        using type_t    = non_none_default_t;
+
+    public:
+        static constexpr non_none_default_t
+            Value()
+            noexcept
+        {
+            return 1;
+        }
+
+    public:
+        template <typename ...>
+        constexpr non_none_default_t_none_value_i_sp(...) noexcept  = delete;
+    };
+
     namespace interface { namespace none {
 
         template <>
-        class value_i<non_none_default_t>
+        class value_i_sp<non_none_default_t>
         {
         public:
-            using type_t    = non_none_default_t;
-
-        public:
-            static constexpr non_none_default_t
-                Value()
-                noexcept
-            {
-                return 1;
-            }
-
-        public:
-            template <typename ...>
-            constexpr value_i(...) noexcept = delete;
+            using type_t    = non_none_default_t_none_value_i_sp;
         };
 
     }}

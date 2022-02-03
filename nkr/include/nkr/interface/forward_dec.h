@@ -18,7 +18,7 @@ namespace nkr { namespace interface { namespace enumeration {
 namespace nkr { namespace interface { namespace none {
 
     template <typename type_p>
-    class   value_i;
+    class   value_i_sp;
 
 }}}
 

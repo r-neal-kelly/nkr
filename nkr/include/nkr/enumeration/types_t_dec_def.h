@@ -30,18 +30,6 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface { namespace none {
-
-    template <nkr::enumeration::types_tr type_p>
-    inline constexpr value_i<type_p>::type_t
-        value_i<type_p>::Value()
-        noexcept
-    {
-        return type_t();
-    }
-
-}}}
-
 namespace nkr { namespace enumeration {
 
     template <
@@ -520,3 +508,15 @@ namespace nkr { namespace enumeration {
     }
 
 }}
+
+namespace nkr { namespace enumeration { namespace $types_t {
+
+    template <nkr::enumeration::types_tr type_p>
+    inline constexpr none_value_i_sp<type_p>::type_t
+        none_value_i_sp<type_p>::Value()
+        noexcept
+    {
+        return type_t();
+    }
+
+}}}

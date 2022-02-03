@@ -114,6 +114,34 @@ namespace nkr { namespace boolean {
 
 namespace nkr { namespace boolean { namespace $pure_t {
 
+    class none_value_i_sp
+    {
+    public:
+        using type_t    = nkr::boolean::pure_t;
+
+    public:
+        static constexpr type_t Value() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr none_value_i_sp(...) noexcept = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::boolean::pure_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::boolean::$pure_t::none_value_i_sp;
+    };
+
+}}}
+
+namespace nkr { namespace boolean { namespace $pure_t {
+
     template <nkr::boolean::pure_tr value_p>
     class randomness_value_i_sp
     {

@@ -64,9 +64,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness {
 
-    template <typename value_p>
-    class value_i_sp;
-
     template <nkr::generic::built_in::boolean_tr value_p>
     class value_i_sp<value_p>
     {

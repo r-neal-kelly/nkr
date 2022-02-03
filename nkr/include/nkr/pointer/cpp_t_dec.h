@@ -109,4 +109,33 @@ namespace nkr { namespace interface {
 
 }}
 
+namespace nkr { namespace pointer { namespace $cpp_t {
+
+    template <nkr::pointer::cpp_tr type_p>
+    class none_value_i_sp
+    {
+    public:
+        using type_t    = nkr::cpp::just_non_qualified_t<type_p>;
+
+    public:
+        static constexpr type_t Value() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr none_value_i_sp(...) noexcept = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::pointer::cpp_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::pointer::$cpp_t::none_value_i_sp<type_p>;
+    };
+
+}}}
+
 #include "nkr/pointer/cpp_t_dec_def.h"

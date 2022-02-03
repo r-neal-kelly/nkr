@@ -60,4 +60,32 @@ namespace nkr { namespace interface {
 
 }}
 
+namespace nkr { namespace negatable { namespace $integer_64_t {
+
+    class none_value_i_sp
+    {
+    public:
+        using type_t    = nkr::negatable::integer_64_t;
+
+    public:
+        static constexpr type_t Value() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr none_value_i_sp(...) noexcept = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::negatable::integer_64_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::negatable::$integer_64_t::none_value_i_sp;
+    };
+
+}}}
+
 #include "nkr/negatable/integer_64_t_dec_def.h"
