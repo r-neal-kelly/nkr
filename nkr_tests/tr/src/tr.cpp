@@ -5,6 +5,8 @@
 #include "nkr/negatable/integer_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/reference/lvalue_t.h"
+#include "nkr/reference/rvalue_t.h"
 #include "nkr/tr.h"
 
 #include "doctest.h"
@@ -269,6 +271,32 @@ namespace nkr {
                           any_tg, ts<XNOR_tg, short, long long, long long>>());
             static_assert(TR<t<long>,
                           any_tg, ts<XNOR_tg, short, long, long>>());
+        }
+
+        TEST_SUITE("to")
+        {
+            static_assert(TR<t<int>,
+                          any_to_tg, t<int>>());
+            static_assert(TR<t<int*>,
+                          any_to_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_tg, t<int>>());
+            static_assert(TR<t<int**>,
+                          any_to_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_tg, t<int>>());
+            static_assert(TR<t<int&>,
+                          any_to_tg, tt<nkr::reference::lvalue_t>,
+                          of_any_tg, t<int>>());
+            static_assert(TR<t<int&&>,
+                          any_to_tg, tt<nkr::reference::rvalue_t>,
+                          of_any_tg, t<int>>());
+
+            static_assert(TR<t<int>,
+                          any_to_tg, tt<nkr::reference::lvalue_t>,
+                          of_any_tg, t<int>>());
+            static_assert(TR<t<int>,
+                          any_to_tg, tt<nkr::reference::rvalue_t>,
+                          of_any_tg, t<int>>());
         }
     }
 

@@ -9,6 +9,10 @@
 namespace nkr { namespace $tr {
 
     template <typename type_p>
+    concept operator_tr =
+        (requires { typename type_p::operator_t; });
+
+    template <typename type_p>
     concept any_operator_tr =
         (requires { typename type_p::operator_t; }) &&
         (requires { typename type_p::any_t; });
@@ -314,27 +318,22 @@ namespace nkr { namespace $tr {
         Evaluate_1()
         noexcept
     {
+        static_assert(!to_operator_tr<operator_p>);
+        static_assert(!of_operator_tr<operator_p>);
+
         using subject_t = subject_p;
         using object_t = operand_p;
 
-        if constexpr (to_operator_tr<operator_p>) {
-            if constexpr (not_operator_tr<operator_p>) {
-                return !(Evaluate_0<subject_t, typename operator_p::non_to_tg::is_tg>() && nkr::cpp::to_tr<subject_t, object_t>);
+        if constexpr (type_i<object_t>::template Is_Any<nkr::cpp::just_non_qualified_t<subject_t>>()) {
+            if constexpr (nkr::cpp::is_tr<operator_p, just_tg>) {
+                return nkr::cpp::is_tr<object_t, nkr::cpp::same_qualification_as_t<object_t, subject_p>>;
+            } else if constexpr (nkr::cpp::is_tr<operator_p, just_not_tg>) {
+                return !nkr::cpp::is_tr<object_t, nkr::cpp::same_qualification_as_t<object_t, subject_p>>;
             } else {
-                return Evaluate_0<subject_t, typename operator_p::non_to_tg>() && nkr::cpp::to_tr<subject_t, object_t>;
+                return Evaluate_0<subject_t, operator_p>();
             }
         } else {
-            if constexpr (type_i<object_t>::template Is_Any<nkr::cpp::just_non_qualified_t<subject_t>>()) {
-                if constexpr (nkr::cpp::is_tr<operator_p, just_tg>) {
-                    return nkr::cpp::is_tr<object_t, nkr::cpp::same_qualification_as_t<object_t, subject_p>>;
-                } else if constexpr (nkr::cpp::is_tr<operator_p, just_not_tg>) {
-                    return !nkr::cpp::is_tr<object_t, nkr::cpp::same_qualification_as_t<object_t, subject_p>>;
-                } else {
-                    return Evaluate_0<subject_t, operator_p>();
-                }
-            } else {
-                return not_operator_tr<operator_p>;
-            }
+            return not_operator_tr<operator_p>;
         }
     }
 
@@ -348,39 +347,49 @@ namespace nkr { namespace $tr {
     {
         static_assert(subjects_p::Count() > 0);
 
-        if constexpr (subjects_p::Count() == 1) {
-            static_assert(subjects_p::Count() == operators_p::Count());
+        if constexpr (to_operator_tr<typename operators_p::head_t>) {
+            static_assert(objects_p::Count() > 0);
 
-            if constexpr (objects_p::Count() == 0) {
-                using subject_t = subjects_p::head_t;
-                using operator_t = operators_p::head_t;
-
-                return Evaluate_0<subject_t, typename operator_t::non_of_tg>();
+            if constexpr (not_operator_tr<typename operators_p::head_t>) {
+                return !nkr::cpp::to_tr<typename subjects_p::head_t, typename objects_p::head_t>;
             } else {
+                return nkr::cpp::to_tr<typename subjects_p::head_t, typename objects_p::head_t>;
+            }
+        } else {
+            if constexpr (subjects_p::Count() == 1) {
+                static_assert(subjects_p::Count() == operators_p::Count());
+
+                if constexpr (objects_p::Count() == 0) {
+                    using subject_t = subjects_p::head_t;
+                    using operator_t = operators_p::head_t;
+
+                    return Evaluate_0<subject_t, typename operator_t::non_of_tg>();
+                } else {
+                    static_assert(subjects_p::Count() == objects_p::Count());
+
+                    using subject_t = subjects_p::head_t;
+                    using operator_t = operators_p::head_t;
+                    using object_t = objects_p::head_t;
+
+                    return Evaluate_1<subject_t, typename operator_t::non_of_tg, object_t>();
+                }
+            } else {
+                static_assert(subjects_p::Count() == operators_p::Count());
                 static_assert(subjects_p::Count() == objects_p::Count());
 
                 using subject_t = subjects_p::head_t;
                 using operator_t = operators_p::head_t;
                 using object_t = objects_p::head_t;
 
-                return Evaluate_1<subject_t, typename operator_t::non_of_tg, object_t>();
-            }
-        } else {
-            static_assert(subjects_p::Count() == operators_p::Count());
-            static_assert(subjects_p::Count() == objects_p::Count());
-
-            using subject_t = subjects_p::head_t;
-            using operator_t = operators_p::head_t;
-            using object_t = objects_p::head_t;
-
-            if constexpr (not_operator_tr<operator_t>) {
-                return
-                    !(Evaluate_1<subject_t, typename operator_t::non_of_tg::is_tg, object_t>() &&
-                      Evaluate<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
-            } else {
-                return
-                    Evaluate_1<subject_t, typename operator_t::non_of_tg, object_t>() &&
-                    Evaluate<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
+                if constexpr (not_operator_tr<operator_t>) {
+                    return
+                        !(Evaluate_1<subject_t, typename operator_t::non_of_tg::is_tg, object_t>() &&
+                          Evaluate<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>());
+                } else {
+                    return
+                        Evaluate_1<subject_t, typename operator_t::non_of_tg, object_t>() &&
+                        Evaluate<typename subjects_p::tail_t, typename operators_p::tail_t, typename objects_p::tail_t>();
+                }
             }
         }
     }
@@ -388,8 +397,8 @@ namespace nkr { namespace $tr {
     template <
         typename                subject_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p = nkr::positive::index_c<0>,
-        typename                XOR_state_p = nkr::boolean::cpp_c<false>
+        typename                index_p             = nkr::positive::index_c<0>,
+        typename                XOR_state_p         = nkr::boolean::cpp_c<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Expression()
         noexcept
@@ -563,33 +572,58 @@ namespace nkr { namespace $tr {
         Validate()
         noexcept
     {
-        static_assert(expression_parts_p::Count() > 0);
-        static_assert(index_p::Value() < expression_parts_p::Count());
+        static_assert(expression_parts_p::Count() > 0,
+                      "The length of the expression cannot be zero.");
+
+        static_assert(index_p::Value() < expression_parts_p::Count(),
+                      "Internal validation error.");
+
+        using first_operator_t = expression_parts_p::head_t;
 
         if constexpr (expression_parts_p::Count() == 1) {
-            using operator_t = expression_parts_p::head_t;
+            using operator_t = first_operator_t;
 
-            static_assert(!of_operator_tr<operator_t>);
+            static_assert(operator_tr<operator_t>,
+                          "The only expression part is not an operator.");
+            static_assert(!to_operator_tr<operator_t>,
+                          "An expression with a length of 1 cannot use a 'to' operator.");
+            static_assert(!of_operator_tr<operator_t>,
+                          "An expression with a length of 1 cannot use an 'of' operator.");
 
             return true;
         } else {
-            static_assert(!(expression_parts_p::Count() & 1));
+            static_assert(!(expression_parts_p::Count() & 1),
+                          "An expression with a length greater than 1 must have an even number of parts.");
 
             using operator_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value()>>::head_t;
             using operand_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 1>>::head_t;
 
+            static_assert(operator_tr<operator_t> && !nkr::ts_tr<operator_t> && !nkr::tts_tr<operator_t>,
+                          "Every odd-numbered expression part must be an operator.");
+            static_assert(nkr::ts_tr<operand_t> || nkr::tts_tr<operand_t>,
+                          "Every even-numbered expression part must be an operand.");
+
             if constexpr (index_p::Value() == 0) {
-                static_assert(!of_operator_tr<operator_t>);
+                static_assert(!of_operator_tr<operator_t>,
+                              "The first operator in an expression cannot be an 'of' operator.");
             } else {
-                static_assert(of_operator_tr<operator_t>);
+                static_assert(of_operator_tr<operator_t>,
+                              "Every operator after the first in an expression must be an 'of' operator.");
+
+                if constexpr (to_operator_tr<first_operator_t>) {
+                    static_assert(nkr::cpp::is_any_tr<operator_t, of_any_tg>,
+                                  "Every operator after a 'to' operator must be the 'of_any_tg' operator.");
+                }
             }
 
             if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
-                static_assert(tts_tr<operand_t>);
+                static_assert(tts_tr<operand_t>,
+                              "Every operand except the last must either be a tt<> or a tts<> operand.");
 
                 return Validate<subjects_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
             } else {
-                static_assert(ts_tr<operand_t>);
+                static_assert(ts_tr<operand_t>,
+                              "The last operand must either be a t<> or a ts<> operand.");
 
                 return true;
             }

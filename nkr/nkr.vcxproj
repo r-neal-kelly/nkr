@@ -556,6 +556,16 @@
     <ClInclude Include="include\nkr\randomness\value_dec_def.h" />
     <ClInclude Include="include\nkr\randomness\value_def.h" />
     <ClInclude Include="include\nkr\randomness\value_dox.h" />
+    <ClInclude Include="include\nkr\reference\lvalue_t.h" />
+    <ClInclude Include="include\nkr\reference\lvalue_t_dec.h" />
+    <ClInclude Include="include\nkr\reference\lvalue_t_dec_def.h" />
+    <ClInclude Include="include\nkr\reference\lvalue_t_def.h" />
+    <ClInclude Include="include\nkr\reference\lvalue_t_dox.h" />
+    <ClInclude Include="include\nkr\reference\rvalue_t.h" />
+    <ClInclude Include="include\nkr\reference\rvalue_t_dec.h" />
+    <ClInclude Include="include\nkr\reference\rvalue_t_dec_def.h" />
+    <ClInclude Include="include\nkr\reference\rvalue_t_def.h" />
+    <ClInclude Include="include\nkr\reference\rvalue_t_dox.h" />
     <ClInclude Include="include\nkr\string\placeholder.h" />
     <ClInclude Include="include\nkr\tree\placeholder.h" />
     <ClInclude Include="include\nkr\tuple\templates_t.h" />
