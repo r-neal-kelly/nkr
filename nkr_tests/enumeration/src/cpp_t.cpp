@@ -2,6 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
+#pragma warning (disable : 26812)
+
 #include "nkr/enumeration/cpp_t.h"
 #include "nkr/generic/built_in/number/enumeration/any_tr.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr.h"
@@ -10,6 +12,7 @@
 #include "nkr/generic/implementing/interface/randomness/value_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
 #include "nkr/generic/implementing/self_tr.h"
+#include "nkr/generic/negatable_tr.h"
 #include "nkr/generic/number/integer_tr.h"
 #include "nkr/generic/type_tr.h"
 #include "nkr/interface/none/value_i.h"
@@ -1444,7 +1447,7 @@ namespace nkr {
                         CHECK(enumeration == value);
                     }
 
-                    TEST_SUITE("should implicitly allow for logical operators")
+                    TEST_SUITE("should implicitly allow for all logical operators")
                     {
                         TEST_CASE_TEMPLATE("when none", enumeration_p, nkr_ANY_C)
                         {
@@ -1473,6 +1476,125 @@ namespace nkr {
                             CHECK_TRUE(enumeration || enumeration);
                             CHECK_TRUE(enumeration && enumeration);
                             CHECK_TRUE((enumeration ? true : false));
+                        }
+
+                        TEST_CASE_TEMPLATE("with none values that convert to true", integer_p, nkr_INTEGERS(nkr_BLANK))
+                        {
+                            enum enumeration_e :
+                                integer_p
+                            {
+                            };
+
+                            nkr::cpp::just_non_qualified_t<enumeration_e> none = nkr::none::value_t<enumeration_e>();
+                            enumeration_e enumeration = none;
+
+                            CHECK_TRUE(enumeration);
+                            CHECK_FALSE(!enumeration);
+                            CHECK_TRUE(!!enumeration);
+                            CHECK_TRUE(enumeration || enumeration);
+                            CHECK_TRUE(enumeration && enumeration);
+                            CHECK_TRUE((enumeration ? true : false));
+                        }
+                    }
+
+                    TEST_CASE_TEMPLATE("should implicitly allow for all comparison operators", enumeration_p, nkr_ANY_C)
+                    {
+                        using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                        value_t value = nkr::randomness::Value<value_t>();
+                        enumeration_p enumeration = nkr::cpp::just_non_qualified_t<enumeration_p>(value);
+
+                        CHECK_TRUE(enumeration == value);
+                        CHECK_FALSE(enumeration != value);
+                        CHECK_FALSE(enumeration < value);
+                        CHECK_FALSE(enumeration > value);
+                        CHECK_TRUE(enumeration <= value);
+                        CHECK_TRUE(enumeration >= value);
+                        CHECK_TRUE((enumeration <=> value == 0));
+                    }
+
+                    TEST_CASE_TEMPLATE("should implicitly allow for some arithmetic operators", enumeration_p, nkr_ANY_C)
+                    {
+                        using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                        value_t value_a = nkr::randomness::Value<value_t>();
+                        value_t value_b;
+                        do {
+                            value_b = nkr::randomness::Value<value_t>();
+                        } while (value_b == nkr::none::value_t<value_t>());
+                        enumeration_p enumeration = nkr::cpp::just_non_qualified_t<enumeration_p>(value_a);
+
+                        CHECK(+enumeration == +value_a);
+                        if constexpr (nkr::generic::negatable_tr<value_t>) {
+                            CHECK(-enumeration == -value_a);
+                        }
+
+                        CHECK((enumeration + value_b) == (value_a + value_b));
+                        CHECK((enumeration - value_b) == (value_a - value_b));
+                        CHECK((enumeration * value_b) == (value_a * value_b));
+                        CHECK((enumeration / value_b) == (value_a / value_b));
+                        CHECK((enumeration % value_b) == (value_a % value_b));
+                    }
+
+                    TEST_CASE_TEMPLATE("should implicitly allow for some bitwise operators", enumeration_p, nkr_ANY_C)
+                    {
+                        using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                        value_t value_a = nkr::randomness::Value<value_t>();
+                        value_t value_b = nkr::randomness::Value<value_t>();
+                        value_t value_c = nkr::randomness::Value<value_t>(value_t(0), value_t(1));
+                        enumeration_p enumeration = nkr::cpp::just_non_qualified_t<enumeration_p>(value_a);
+
+                        CHECK(~enumeration == ~value_a);
+
+                        CHECK((enumeration | value_b) == (value_a | value_b));
+                        CHECK((enumeration & value_b) == (value_a & value_b));
+                        CHECK((enumeration ^ value_b) == (value_a ^ value_b));
+                        CHECK((enumeration << value_c) == (value_a << value_c));
+                        CHECK((enumeration >> value_c) == (value_a >> value_c));
+                    }
+                }
+
+                TEST_SUITE("cpp_enumeration")
+                {
+                    TEST_SUITE("should implicitly allow for some logical operators")
+                    {
+                        TEST_CASE_TEMPLATE("when none", enumeration_p, nkr_ANY_CPP)
+                        {
+                            nkr::cpp::just_non_qualified_t<enumeration_p> none = nkr::none::value_t<enumeration_p>();
+                            enumeration_p enumeration = none;
+
+                            CHECK_FALSE(enumeration);
+                            CHECK_FALSE(enumeration || enumeration);
+                            CHECK_FALSE(enumeration && enumeration);
+                        }
+
+                        TEST_CASE_TEMPLATE("when not none", enumeration_p, nkr_ANY_CPP)
+                        {
+                            nkr::cpp::just_non_qualified_t<enumeration_p> non_none;
+                            do {
+                                non_none = nkr::randomness::Value<enumeration_p>();
+                            } while (non_none == nkr::none::value_t<enumeration_p>());
+                            enumeration_p enumeration = non_none;
+
+                            CHECK_TRUE(enumeration);
+                            CHECK_TRUE(enumeration || enumeration);
+                            CHECK_TRUE(enumeration && enumeration);
+                        }
+
+                        TEST_CASE_TEMPLATE("with none values that convert to true", integer_p, nkr_INTEGERS(nkr_BLANK))
+                        {
+                            enum class enumeration_e :
+                                integer_p
+                            {
+                            };
+
+                            nkr::cpp::just_non_qualified_t<enumeration_e> none = nkr::none::value_t<enumeration_e>();
+                            enumeration_e enumeration = none;
+
+                            CHECK_TRUE(enumeration);
+                            CHECK_TRUE(enumeration || enumeration);
+                            CHECK_TRUE(enumeration && enumeration);
                         }
                     }
                 }
