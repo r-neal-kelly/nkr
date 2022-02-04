@@ -95,24 +95,6 @@ namespace nkr {
         nkr_JUST_CONST,                     \
         nkr_JUST_VOLATILE                   \
 
-        using just_non_qualified_ts             = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
-        using just_const_ts                     = ts<AND_tg, nkr_JUST_CONST>;
-        using just_volatile_ts                  = ts<AND_tg, nkr_JUST_VOLATILE>;
-        using just_const_volatile_ts            = ts<AND_tg, nkr_JUST_CONST_VOLATILE>;
-
-        using any_ts                            = ts<AND_tg, nkr_ANY>;
-        using any_qualified_ts                  = ts<AND_tg, nkr_ANY_QUALIFIED>;
-        using any_non_qualified_ts              = ts<AND_tg, nkr_ANY_NON_QUALIFIED>;
-        using any_const_ts                      = ts<AND_tg, nkr_ANY_CONST>;
-        using any_non_const_ts                  = ts<AND_tg, nkr_ANY_NON_CONST>;
-        using any_volatile_ts                   = ts<AND_tg, nkr_ANY_VOLATILE>;
-        using any_non_volatile_ts               = ts<AND_tg, nkr_ANY_NON_VOLATILE>;
-
-        using any_not_just_non_qualified_ts     = ts<AND_tg, nkr_ANY_NOT_JUST_NON_QUALIFIED>;
-        using any_not_just_const_ts             = ts<AND_tg, nkr_ANY_NOT_JUST_CONST>;
-        using any_not_just_volatile_ts          = ts<AND_tg, nkr_ANY_NOT_JUST_VOLATILE>;
-        using any_not_just_const_volatile_ts    = ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE>;
-
         inline constexpr nkr::positive::count_t
             Default_Iteration_Count()
             noexcept
@@ -122,6 +104,24 @@ namespace nkr {
 
         TEST_SUITE("tr")
         {
+            using just_non_qualified_ts = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
+            using just_const_ts = ts<AND_tg, nkr_JUST_CONST>;
+            using just_volatile_ts = ts<AND_tg, nkr_JUST_VOLATILE>;
+            using just_const_volatile_ts = ts<AND_tg, nkr_JUST_CONST_VOLATILE>;
+
+            using any_ts = ts<AND_tg, nkr_ANY>;
+            using any_qualified_ts = ts<AND_tg, nkr_ANY_QUALIFIED>;
+            using any_non_qualified_ts = ts<AND_tg, nkr_ANY_NON_QUALIFIED>;
+            using any_const_ts = ts<AND_tg, nkr_ANY_CONST>;
+            using any_non_const_ts = ts<AND_tg, nkr_ANY_NON_CONST>;
+            using any_volatile_ts = ts<AND_tg, nkr_ANY_VOLATILE>;
+            using any_non_volatile_ts = ts<AND_tg, nkr_ANY_NON_VOLATILE>;
+
+            using any_not_just_non_qualified_ts = ts<AND_tg, nkr_ANY_NOT_JUST_NON_QUALIFIED>;
+            using any_not_just_const_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST>;
+            using any_not_just_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_VOLATILE>;
+            using any_not_just_const_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE>;
+
             using target_ts = ts<AND_tg,
                 nkr::boolean::pure_t,
                 nkr::boolean::pure_tg,

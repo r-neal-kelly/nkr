@@ -18,7 +18,9 @@
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/type_i.h"
 #include "nkr/none/value_t.h"
+#include "nkr/positive/index_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/randomness/generator/software/default_t.h"
 #include "nkr/randomness/value.h"
 #include "nkr/tr.h"
 
@@ -28,23 +30,23 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::cpp_t")
     {
-        namespace c_positive_8_e    { enum enum_e   : nkr::positive::integer_8_t    { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_positive_16_e   { enum enum_e   : nkr::positive::integer_16_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_positive_32_e   { enum enum_e   : nkr::positive::integer_32_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_positive_64_e   { enum enum_e   : nkr::positive::integer_64_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_negatable_8_e   { enum enum_e   : nkr::negatable::integer_8_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_negatable_16_e  { enum enum_e   : nkr::negatable::integer_16_t  { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_negatable_32_e  { enum enum_e   : nkr::negatable::integer_32_t  { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
-        namespace c_negatable_64_e  { enum enum_e   : nkr::negatable::integer_64_t  { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, }; }
+        namespace c_positive_8_e    { enum enum_e   : nkr::positive::integer_8_t    { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_positive_16_e   { enum enum_e   : nkr::positive::integer_16_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_positive_32_e   { enum enum_e   : nkr::positive::integer_32_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_positive_64_e   { enum enum_e   : nkr::positive::integer_64_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_negatable_8_e   { enum enum_e   : nkr::negatable::integer_8_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_negatable_16_e  { enum enum_e   : nkr::negatable::integer_16_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_negatable_32_e  { enum enum_e   : nkr::negatable::integer_32_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_negatable_64_e  { enum enum_e   : nkr::negatable::integer_64_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
 
-        enum class cpp_positive_8_e     : nkr::positive::integer_8_t    { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_positive_16_e    : nkr::positive::integer_16_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_positive_32_e    : nkr::positive::integer_32_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_positive_64_e    : nkr::positive::integer_64_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_negatable_8_e    : nkr::negatable::integer_8_t   { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_negatable_16_e   : nkr::negatable::integer_16_t  { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_negatable_32_e   : nkr::negatable::integer_32_t  { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
-        enum class cpp_negatable_64_e   : nkr::negatable::integer_64_t  { A, B, C, MIN_tg = A, MAX_tg = C, NONE_tg = A, };
+        enum class cpp_positive_8_e     : nkr::positive::integer_8_t    { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_positive_16_e    : nkr::positive::integer_16_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_positive_32_e    : nkr::positive::integer_32_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_positive_64_e    : nkr::positive::integer_64_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_negatable_8_e    : nkr::negatable::integer_8_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_negatable_16_e   : nkr::negatable::integer_16_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_negatable_32_e   : nkr::negatable::integer_32_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_negatable_64_e   : nkr::negatable::integer_64_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
 
     #define nkr_INTEGERS(TYPE_QUALIFIER_p)              \
         TYPE_QUALIFIER_p nkr::positive::integer_8_t,    \
@@ -270,26 +272,33 @@ namespace nkr {
         nkr_JUST_CONST,                     \
         nkr_JUST_VOLATILE                   \
 
-        using just_non_qualified_ts = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
-        using just_const_ts = ts<AND_tg, nkr_JUST_CONST>;
-        using just_volatile_ts = ts<AND_tg, nkr_JUST_VOLATILE>;
-        using just_const_volatile_ts = ts<AND_tg, nkr_JUST_CONST_VOLATILE>;
-
-        using any_ts = ts<AND_tg, nkr_ANY>;
-        using any_qualified_ts = ts<AND_tg, nkr_ANY_QUALIFIED>;
-        using any_non_qualified_ts = ts<AND_tg, nkr_ANY_NON_QUALIFIED>;
-        using any_const_ts = ts<AND_tg, nkr_ANY_CONST>;
-        using any_non_const_ts = ts<AND_tg, nkr_ANY_NON_CONST>;
-        using any_volatile_ts = ts<AND_tg, nkr_ANY_VOLATILE>;
-        using any_non_volatile_ts = ts<AND_tg, nkr_ANY_NON_VOLATILE>;
-
-        using any_not_just_non_qualified_ts = ts<AND_tg, nkr_ANY_NOT_JUST_NON_QUALIFIED>;
-        using any_not_just_const_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST>;
-        using any_not_just_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_VOLATILE>;
-        using any_not_just_const_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE>;
+        inline constexpr nkr::positive::count_t
+            Default_Iteration_Count()
+            noexcept
+        {
+            return 128;
+        }
 
         TEST_CASE("tr")
         {
+            using just_non_qualified_ts = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
+            using just_const_ts = ts<AND_tg, nkr_JUST_CONST>;
+            using just_volatile_ts = ts<AND_tg, nkr_JUST_VOLATILE>;
+            using just_const_volatile_ts = ts<AND_tg, nkr_JUST_CONST_VOLATILE>;
+
+            using any_ts = ts<AND_tg, nkr_ANY>;
+            using any_qualified_ts = ts<AND_tg, nkr_ANY_QUALIFIED>;
+            using any_non_qualified_ts = ts<AND_tg, nkr_ANY_NON_QUALIFIED>;
+            using any_const_ts = ts<AND_tg, nkr_ANY_CONST>;
+            using any_non_const_ts = ts<AND_tg, nkr_ANY_NON_CONST>;
+            using any_volatile_ts = ts<AND_tg, nkr_ANY_VOLATILE>;
+            using any_non_volatile_ts = ts<AND_tg, nkr_ANY_NON_VOLATILE>;
+
+            using any_not_just_non_qualified_ts = ts<AND_tg, nkr_ANY_NOT_JUST_NON_QUALIFIED>;
+            using any_not_just_const_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST>;
+            using any_not_just_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_VOLATILE>;
+            using any_not_just_const_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE>;
+
             using target_ts = ts<AND_tg,
                 nkr::enumeration::cpp_tg,
 
@@ -566,6 +575,171 @@ namespace nkr {
 
                             static_assert(nkr::none::value_t<enum_e>() == enum_e(0));
                             static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_tg);
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("nkr::interface::randomness::value_i")
+            {
+                TEST_SUITE("direct")
+                {
+                    TEST_SUITE("with default parameters")
+                    {
+                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg", enumeration_p, nkr_ANY)
+                        {
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p enumeration =
+                                    nkr::interface::randomness::value_i<enumeration_p>::template Value<>();
+
+                                CHECK(enumeration >= enumeration_p::MIN_tg);
+                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg with a given generator", enumeration_p, nkr_ANY)
+                        {
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p enumeration =
+                                    nkr::interface::randomness::value_i<enumeration_p>::template Value<>(generator_lockee.Value());
+
+                                CHECK(enumeration >= enumeration_p::MIN_tg);
+                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("with min and max")
+                    {
+                        TEST_CASE_TEMPLATE("should return any value from the given min to the given max", enumeration_p, nkr_ANY)
+                        {
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_a =
+                                    nkr::interface::randomness::value_i<enumeration_p>::template Value<>();
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_b =
+                                    nkr::interface::randomness::value_i<enumeration_p>::template Value<>();
+
+                                if (constraint_a < constraint_b) {
+                                    enumeration_p enumeration =
+                                        nkr::interface::randomness::value_i<enumeration_p>::template Value<>(constraint_a, constraint_b);
+
+                                    CHECK(enumeration >= constraint_a);
+                                    CHECK(enumeration <= constraint_b);
+                                } else {
+                                    enumeration_p enumeration =
+                                        nkr::interface::randomness::value_i<enumeration_p>::template Value<>(constraint_b, constraint_a);
+
+                                    CHECK(enumeration >= constraint_b);
+                                    CHECK(enumeration <= constraint_a);
+                                }
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("should return any value from the given min to the given max with a given generator", enumeration_p, nkr_ANY)
+                        {
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_a =
+                                    nkr::interface::randomness::value_i<enumeration_p>::template Value<>(generator_lockee.Value());
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_b =
+                                    nkr::interface::randomness::value_i<enumeration_p>::template Value<>(generator_lockee.Value());
+
+                                if (constraint_a < constraint_b) {
+                                    enumeration_p enumeration =
+                                        nkr::interface::randomness::value_i<enumeration_p>::template Value<>(generator_lockee.Value(), constraint_a, constraint_b);
+
+                                    CHECK(enumeration >= constraint_a);
+                                    CHECK(enumeration <= constraint_b);
+                                } else {
+                                    enumeration_p enumeration =
+                                        nkr::interface::randomness::value_i<enumeration_p>::template Value<>(generator_lockee.Value(), constraint_b, constraint_a);
+
+                                    CHECK(enumeration >= constraint_b);
+                                    CHECK(enumeration <= constraint_a);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                TEST_SUITE("through nkr::randomness::Value<>()")
+                {
+                    TEST_SUITE("with default parameters")
+                    {
+                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg", enumeration_p, nkr_ANY)
+                        {
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p enumeration =
+                                    nkr::randomness::Value<enumeration_p>();
+
+                                CHECK(enumeration >= enumeration_p::MIN_tg);
+                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg with a given generator", enumeration_p, nkr_ANY)
+                        {
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p enumeration =
+                                    nkr::randomness::Value<enumeration_p>(generator_lockee.Value());
+
+                                CHECK(enumeration >= enumeration_p::MIN_tg);
+                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("with min and max")
+                    {
+                        TEST_CASE_TEMPLATE("should return any value from the given min to the given max", enumeration_p, nkr_ANY)
+                        {
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_a =
+                                    nkr::randomness::Value<enumeration_p>();
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_b =
+                                    nkr::randomness::Value<enumeration_p>();
+
+                                if (constraint_a < constraint_b) {
+                                    enumeration_p enumeration =
+                                        nkr::randomness::Value<enumeration_p>(constraint_a, constraint_b);
+
+                                    CHECK(enumeration >= constraint_a);
+                                    CHECK(enumeration <= constraint_b);
+                                } else {
+                                    enumeration_p enumeration =
+                                        nkr::randomness::Value<enumeration_p>(constraint_b, constraint_a);
+
+                                    CHECK(enumeration >= constraint_b);
+                                    CHECK(enumeration <= constraint_a);
+                                }
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("should return any value from the given min to the given max with a given generator", enumeration_p, nkr_ANY)
+                        {
+                            auto generator_lockee = nkr::randomness::generator::software::Default();
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_a =
+                                    nkr::randomness::Value<enumeration_p>(generator_lockee.Value());
+                                nkr::cpp::just_non_qualified_t<enumeration_p> constraint_b =
+                                    nkr::randomness::Value<enumeration_p>(generator_lockee.Value());
+
+                                if (constraint_a < constraint_b) {
+                                    enumeration_p enumeration =
+                                        nkr::randomness::Value<enumeration_p>(generator_lockee.Value(), constraint_a, constraint_b);
+
+                                    CHECK(enumeration >= constraint_a);
+                                    CHECK(enumeration <= constraint_b);
+                                } else {
+                                    enumeration_p enumeration =
+                                        nkr::randomness::Value<enumeration_p>(generator_lockee.Value(), constraint_b, constraint_a);
+
+                                    CHECK(enumeration >= constraint_b);
+                                    CHECK(enumeration <= constraint_a);
+                                }
+                            }
                         }
                     }
                 }
@@ -1603,26 +1777,115 @@ namespace nkr {
 
         TEST_SUITE("global operators")
         {
+            // there are other operators we need to handle, such as + and &, etc.
+
             TEST_SUITE("operator ==(), operator !=()")
             {
                 TEST_SUITE("non-qualified")
                 {
+                    TEST_CASE_TEMPLATE("value", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
 
+                        CHECK_TRUE((enumeration == nkr::cpp::just_non_qualified_t<enumeration_p>(enumeration)));
+                        CHECK_TRUE((nkr::cpp::just_non_qualified_t<enumeration_p>(enumeration) == enumeration));
+
+                        CHECK_FALSE((enumeration != nkr::cpp::just_non_qualified_t<enumeration_p>(enumeration)));
+                        CHECK_FALSE((nkr::cpp::just_non_qualified_t<enumeration_p>(enumeration) != enumeration));
+                    }
+
+                    TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_non_qualified_t<enumeration_p> other = enumeration;
+
+                        CHECK_TRUE((enumeration == other));
+                        CHECK_TRUE((other == enumeration));
+
+                        CHECK_FALSE((enumeration != other));
+                        CHECK_FALSE((other != enumeration));
+                    }
+
+                    TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_non_qualified_t<enumeration_p> other = enumeration;
+
+                        CHECK_TRUE((enumeration == nkr::cpp::Move(other)));
+                        CHECK_TRUE((nkr::cpp::Move(other) == enumeration));
+                        if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                            CHECK_TRUE((nkr::cpp::Move(enumeration) == nkr::cpp::Move(other)));
+                        }
+
+                        CHECK_FALSE((enumeration != nkr::cpp::Move(other)));
+                        CHECK_FALSE((nkr::cpp::Move(other) != enumeration));
+                        if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                            CHECK_FALSE((nkr::cpp::Move(enumeration) != nkr::cpp::Move(other)));
+                        }
+                    }
                 }
 
                 TEST_SUITE("const")
                 {
+                    TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_const_t<enumeration_p> other = enumeration;
 
+                        CHECK_TRUE((enumeration == other));
+                        CHECK_TRUE((other == enumeration));
+
+                        CHECK_FALSE((enumeration != other));
+                        CHECK_FALSE((other != enumeration));
+                    }
                 }
 
                 TEST_SUITE("volatile")
                 {
+                    TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_volatile_t<enumeration_p> other = enumeration;
 
+                        CHECK_TRUE((enumeration == other));
+                        CHECK_TRUE((other == enumeration));
+
+                        CHECK_FALSE((enumeration != other));
+                        CHECK_FALSE((other != enumeration));
+                    }
+
+                    TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_volatile_t<enumeration_p> other = enumeration;
+
+                        CHECK_TRUE((enumeration == nkr::cpp::Move(other)));
+                        CHECK_TRUE((nkr::cpp::Move(other) == enumeration));
+                        if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                            CHECK_TRUE((nkr::cpp::Move(enumeration) == nkr::cpp::Move(other)));
+                        }
+
+                        CHECK_FALSE((enumeration != nkr::cpp::Move(other)));
+                        CHECK_FALSE((nkr::cpp::Move(other) != enumeration));
+                        if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                            CHECK_FALSE((nkr::cpp::Move(enumeration) != nkr::cpp::Move(other)));
+                        }
+                    }
                 }
 
                 TEST_SUITE("const volatile")
                 {
+                    TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY)
+                    {
+                        enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_const_volatile_t<enumeration_p> other = enumeration;
 
+                        CHECK_TRUE((enumeration == other));
+                        CHECK_TRUE((other == enumeration));
+
+                        CHECK_FALSE((enumeration != other));
+                        CHECK_FALSE((other != enumeration));
+                    }
                 }
             }
         }
