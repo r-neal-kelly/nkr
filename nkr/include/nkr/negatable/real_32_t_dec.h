@@ -62,13 +62,15 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace negatable { namespace $real_32_t {
 
+    template <nkr::negatable::real_32_tr type_p>
     class none_value_i_sp
     {
     public:
-        using type_t    = nkr::negatable::real_32_t;
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
 
     public:
-        static constexpr type_t Value() noexcept;
+        static constexpr value_t    Value() noexcept;
 
     public:
         template <typename ...>
@@ -83,7 +85,7 @@ namespace nkr { namespace interface { namespace none {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$real_32_t::none_value_i_sp;
+        using type_t    = nkr::negatable::$real_32_t::none_value_i_sp<type_p>;
     };
 
 }}}

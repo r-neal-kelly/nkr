@@ -20,11 +20,12 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace positive { namespace $integer_64_t {
 
-    inline constexpr none_value_i_sp::type_t
-        none_value_i_sp::Value()
+    template <nkr::positive::integer_64_tr type_p>
+    inline constexpr none_value_i_sp<type_p>::value_t
+        none_value_i_sp<type_p>::Value()
         noexcept
     {
-        return type_t();
+        return value_t();
     }
 
 }}}

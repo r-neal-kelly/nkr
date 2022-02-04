@@ -219,10 +219,11 @@ namespace nkr { namespace enumeration { namespace $types_t {
     class none_value_i_sp
     {
     public:
-        using type_t    = nkr::cpp::just_non_qualified_t<type_p>;
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
 
     public:
-        static constexpr type_t Value() noexcept;
+        static constexpr value_t    Value() noexcept;
 
     public:
         template <typename ...>

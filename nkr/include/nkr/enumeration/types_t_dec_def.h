@@ -512,11 +512,11 @@ namespace nkr { namespace enumeration {
 namespace nkr { namespace enumeration { namespace $types_t {
 
     template <nkr::enumeration::types_tr type_p>
-    inline constexpr none_value_i_sp<type_p>::type_t
+    inline constexpr none_value_i_sp<type_p>::value_t
         none_value_i_sp<type_p>::Value()
         noexcept
     {
-        return type_t();
+        return value_t();
     }
 
 }}}

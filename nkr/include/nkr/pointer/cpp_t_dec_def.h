@@ -33,11 +33,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace pointer { namespace $cpp_t {
 
     template <nkr::pointer::cpp_tr type_p>
-    inline constexpr none_value_i_sp<type_p>::type_t
+    inline constexpr none_value_i_sp<type_p>::value_t
         none_value_i_sp<type_p>::Value()
         noexcept
     {
-        return type_t();
+        return value_t();
     }
 
 }}}

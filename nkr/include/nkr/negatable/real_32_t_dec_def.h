@@ -20,11 +20,12 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace negatable { namespace $real_32_t {
 
-    inline constexpr none_value_i_sp::type_t
-        none_value_i_sp::Value()
+    template <nkr::negatable::real_32_tr type_p>
+    inline constexpr none_value_i_sp<type_p>::value_t
+        none_value_i_sp<type_p>::Value()
         noexcept
     {
-        return type_t();
+        return value_t();
     }
 
 }}}

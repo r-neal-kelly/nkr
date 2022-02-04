@@ -29,10 +29,10 @@
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::boolean_tr value_p>
+    template <nkr::generic::built_in::boolean_tr type_p>
     template <typename unused_p>
-    inline boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(nkr::negatable::real_t probability_for_true)
+    inline boolean_sp<type_p>::value_t
+        boolean_sp<type_p>::Value(nkr::negatable::real_t probability_for_true)
         noexcept
     {
         auto generator = nkr::randomness::generator::software::Default();
@@ -40,11 +40,11 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return Value(generator.Value(), probability_for_true);
     }
 
-    template <nkr::generic::built_in::boolean_tr value_p>
+    template <nkr::generic::built_in::boolean_tr type_p>
     template <typename unused_p>
-    inline boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                   nkr::negatable::real_t probability_for_true)
+    inline boolean_sp<type_p>::value_t
+        boolean_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                                  nkr::negatable::real_t probability_for_true)
         noexcept
     {
         nkr_ASSERT_THAT(probability_for_true >= nkr::negatable::real_t(0.0));
@@ -53,10 +53,10 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return nkr::cpp::randomness::distributor::bernoulli_t(probability_for_true)(generator);
     }
 
-    template <nkr::generic::built_in::boolean_tr value_p>
+    template <nkr::generic::built_in::boolean_tr type_p>
     template <typename unused_p>
-    inline boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(value_t min, value_t max)
+    inline boolean_sp<type_p>::value_t
+        boolean_sp<type_p>::Value(value_t min, value_t max)
         noexcept
     {
         auto generator = nkr::randomness::generator::software::Default();
@@ -64,11 +64,11 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return Value(generator.Value(), min, max);
     }
 
-    template <nkr::generic::built_in::boolean_tr value_p>
+    template <nkr::generic::built_in::boolean_tr type_p>
     template <typename unused_p>
-    inline boolean_sp<value_p>::value_t
-        boolean_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                   value_t min, value_t max)
+    inline boolean_sp<type_p>::value_t
+        boolean_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                                  value_t min, value_t max)
         noexcept
     {
         nkr_ASSERT_THAT(min <= max);
@@ -80,10 +80,10 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     template <typename unused_p>
-    inline enumeration_limited_sp<value_p>::value_t
-        enumeration_limited_sp<value_p>::Value(value_t min, value_t max)
+    inline enumeration_limited_sp<type_p>::value_t
+        enumeration_limited_sp<type_p>::Value(value_t min, value_t max)
         noexcept
     {
         auto generator = nkr::randomness::generator::software::Default();
@@ -91,11 +91,11 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return Value(generator.Value(), min, max);
     }
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     template <typename unused_p>
-    inline enumeration_limited_sp<value_p>::value_t
-        enumeration_limited_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                               value_t min, value_t max)
+    inline enumeration_limited_sp<type_p>::value_t
+        enumeration_limited_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                                              value_t min, value_t max)
         noexcept
     {
         nkr_ASSERT_THAT(min >= value_t::MIN_tg);
@@ -109,10 +109,10 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::number::integer_tr value_p>
+    template <nkr::generic::built_in::number::integer_tr type_p>
     template <typename unused_p>
-    inline integer_sp<value_p>::value_t
-        integer_sp<value_p>::Value(value_t min, value_t max)
+    inline integer_sp<type_p>::value_t
+        integer_sp<type_p>::Value(value_t min, value_t max)
         noexcept
     {
         auto generator = nkr::randomness::generator::software::Default();
@@ -120,11 +120,11 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return Value(generator.Value(), min, max);
     }
 
-    template <nkr::generic::built_in::number::integer_tr value_p>
+    template <nkr::generic::built_in::number::integer_tr type_p>
     template <typename unused_p>
-    inline integer_sp<value_p>::value_t
-        integer_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                   value_t min, value_t max)
+    inline integer_sp<type_p>::value_t
+        integer_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                                  value_t min, value_t max)
         noexcept
     {
         nkr_ASSERT_THAT(min >= nkr::cpp::Default_Min<value_t>());
@@ -138,10 +138,10 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::number::real_tr value_p>
+    template <nkr::generic::built_in::number::real_tr type_p>
     template <typename unused_p>
-    inline real_sp<value_p>::value_t
-        real_sp<value_p>::Value(value_t min, value_t max)
+    inline real_sp<type_p>::value_t
+        real_sp<type_p>::Value(value_t min, value_t max)
         noexcept
     {
         auto generator = nkr::randomness::generator::software::Default();
@@ -149,11 +149,11 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return Value(generator.Value(), min, max);
     }
 
-    template <nkr::generic::built_in::number::real_tr value_p>
+    template <nkr::generic::built_in::number::real_tr type_p>
     template <typename unused_p>
-    inline real_sp<value_p>::value_t
-        real_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                value_t min, value_t max)
+    inline real_sp<type_p>::value_t
+        real_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                               value_t min, value_t max)
         noexcept
     {
         nkr_ASSERT_THAT(min >= nkr::cpp::Default_Min<value_t>());
@@ -167,10 +167,10 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::pointer_tr value_p>
+    template <nkr::generic::built_in::pointer_tr type_p>
     template <typename unused_p>
-    inline pointer_sp<value_p>::value_t
-        pointer_sp<value_p>::Value(value_t min, value_t max)
+    inline pointer_sp<type_p>::value_t
+        pointer_sp<type_p>::Value(value_t min, value_t max)
         noexcept
     {
         auto generator = nkr::randomness::generator::software::Default();
@@ -178,11 +178,11 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         return Value(generator.Value(), min, max);
     }
 
-    template <nkr::generic::built_in::pointer_tr value_p>
+    template <nkr::generic::built_in::pointer_tr type_p>
     template <typename unused_p>
-    inline pointer_sp<value_p>::value_t
-        pointer_sp<value_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                   value_t min, value_t max)
+    inline pointer_sp<type_p>::value_t
+        pointer_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                                  value_t min, value_t max)
         noexcept
     {
         nkr_ASSERT_THAT(min >= nkr::cpp::Default_Min<value_t>());

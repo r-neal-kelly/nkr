@@ -11,15 +11,16 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
-#include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface { namespace none { namespace $value_i {
 
     template <typename type_p>
     concept aliases_i =
-        (requires { typename type_p::type_t; }) &&
-        tr<typename type_p::type_t, any_tg, t<nkr::generic::type_tg>>;
+        nkr::generic::type_tr<typename type_p::type_t> &&
+
+        nkr::cpp::just_non_qualified_tr<typename type_p::value_t> &&
+        nkr::generic::type_tr<typename type_p::value_t>;
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires

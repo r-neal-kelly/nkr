@@ -53,7 +53,7 @@ namespace nkr {
         TYPE_QUALIFIER_p nkr::negatable::integer_32_t,  \
         TYPE_QUALIFIER_p nkr::negatable::integer_64_t   \
 
-    #define nkr_TYPES(TYPE_QUALIFIER_p)             \
+    #define nkr_TYPES_C(TYPE_QUALIFIER_p)           \
         TYPE_QUALIFIER_p c_positive_8_e::enum_e,    \
         TYPE_QUALIFIER_p c_positive_16_e::enum_e,   \
         TYPE_QUALIFIER_p c_positive_32_e::enum_e,   \
@@ -61,28 +61,161 @@ namespace nkr {
         TYPE_QUALIFIER_p c_negatable_8_e::enum_e,   \
         TYPE_QUALIFIER_p c_negatable_16_e::enum_e,  \
         TYPE_QUALIFIER_p c_negatable_32_e::enum_e,  \
-        TYPE_QUALIFIER_p c_negatable_64_e::enum_e,  \
-                                                    \
-        TYPE_QUALIFIER_p cpp_positive_8_e,          \
-        TYPE_QUALIFIER_p cpp_positive_16_e,         \
-        TYPE_QUALIFIER_p cpp_positive_32_e,         \
-        TYPE_QUALIFIER_p cpp_positive_64_e,         \
-        TYPE_QUALIFIER_p cpp_negatable_8_e,         \
-        TYPE_QUALIFIER_p cpp_negatable_16_e,        \
-        TYPE_QUALIFIER_p cpp_negatable_32_e,        \
-        TYPE_QUALIFIER_p cpp_negatable_64_e         \
+        TYPE_QUALIFIER_p c_negatable_64_e::enum_e   \
+
+    #define nkr_JUST_NON_QUALIFIED_C    \
+        nkr_TYPES_C(nkr_BLANK)          \
+
+    #define nkr_JUST_CONST_C    \
+        nkr_TYPES_C(const)      \
+
+    #define nkr_JUST_VOLATILE_C \
+        nkr_TYPES_C(volatile)   \
+
+    #define nkr_JUST_CONST_VOLATILE_C   \
+        nkr_TYPES_C(const volatile)     \
+
+    #define nkr_ANY_C               \
+        nkr_JUST_NON_QUALIFIED_C,   \
+        nkr_JUST_CONST_C,           \
+        nkr_JUST_VOLATILE_C,        \
+        nkr_JUST_CONST_VOLATILE_C   \
+
+    #define nkr_ANY_QUALIFIED_C     \
+        nkr_JUST_CONST_C,           \
+        nkr_JUST_VOLATILE_C,        \
+        nkr_JUST_CONST_VOLATILE_C   \
+
+    #define nkr_ANY_NON_QUALIFIED_C \
+        nkr_JUST_NON_QUALIFIED_C    \
+
+    #define nkr_ANY_CONST_C         \
+        nkr_JUST_CONST_C,           \
+        nkr_JUST_CONST_VOLATILE_C   \
+
+    #define nkr_ANY_NON_CONST_C     \
+        nkr_JUST_NON_QUALIFIED_C,   \
+        nkr_JUST_VOLATILE_C         \
+
+    #define nkr_ANY_VOLATILE_C      \
+        nkr_JUST_VOLATILE_C,        \
+        nkr_JUST_CONST_VOLATILE_C   \
+
+    #define nkr_ANY_NON_VOLATILE_C  \
+        nkr_JUST_NON_QUALIFIED_C,   \
+        nkr_JUST_CONST_C            \
+
+    #define nkr_ANY_NOT_JUST_NON_QUALIFIED_C    \
+        nkr_JUST_CONST_C,                       \
+        nkr_JUST_VOLATILE_C,                    \
+        nkr_JUST_CONST_VOLATILE_C               \
+
+    #define nkr_ANY_NOT_JUST_CONST_C    \
+        nkr_JUST_NON_QUALIFIED_C,       \
+        nkr_JUST_VOLATILE_C,            \
+        nkr_JUST_CONST_VOLATILE_C       \
+
+    #define nkr_ANY_NOT_JUST_VOLATILE_C \
+        nkr_JUST_NON_QUALIFIED_C,       \
+        nkr_JUST_CONST_C,               \
+        nkr_JUST_CONST_VOLATILE_C       \
+
+    #define nkr_ANY_NOT_JUST_CONST_VOLATILE_C   \
+        nkr_JUST_NON_QUALIFIED_C,               \
+        nkr_JUST_CONST_C,                       \
+        nkr_JUST_VOLATILE_C                     \
+
+    #define nkr_TYPES_CPP(TYPE_QUALIFIER_p)     \
+        TYPE_QUALIFIER_p cpp_positive_8_e,      \
+        TYPE_QUALIFIER_p cpp_positive_16_e,     \
+        TYPE_QUALIFIER_p cpp_positive_32_e,     \
+        TYPE_QUALIFIER_p cpp_positive_64_e,     \
+        TYPE_QUALIFIER_p cpp_negatable_8_e,     \
+        TYPE_QUALIFIER_p cpp_negatable_16_e,    \
+        TYPE_QUALIFIER_p cpp_negatable_32_e,    \
+        TYPE_QUALIFIER_p cpp_negatable_64_e     \
+
+        #define nkr_JUST_NON_QUALIFIED_CPP  \
+        nkr_TYPES_CPP(nkr_BLANK)            \
+
+    #define nkr_JUST_CONST_CPP  \
+        nkr_TYPES_CPP(const)    \
+
+    #define nkr_JUST_VOLATILE_CPP   \
+        nkr_TYPES_CPP(volatile)     \
+
+    #define nkr_JUST_CONST_VOLATILE_CPP \
+        nkr_TYPES_CPP(const volatile)   \
+
+    #define nkr_ANY_CPP             \
+        nkr_JUST_NON_QUALIFIED_CPP, \
+        nkr_JUST_CONST_CPP,         \
+        nkr_JUST_VOLATILE_CPP,      \
+        nkr_JUST_CONST_VOLATILE_CPP \
+
+    #define nkr_ANY_QUALIFIED_CPP   \
+        nkr_JUST_CONST_CPP,         \
+        nkr_JUST_VOLATILE_CPP,      \
+        nkr_JUST_CONST_VOLATILE_CPP \
+
+    #define nkr_ANY_NON_QUALIFIED_CPP   \
+        nkr_JUST_NON_QUALIFIED_CPP      \
+
+    #define nkr_ANY_CONST_CPP       \
+        nkr_JUST_CONST_CPP,         \
+        nkr_JUST_CONST_VOLATILE_CPP \
+
+    #define nkr_ANY_NON_CONST_CPP   \
+        nkr_JUST_NON_QUALIFIED_CPP, \
+        nkr_JUST_VOLATILE_CPP       \
+
+    #define nkr_ANY_VOLATILE_CPP    \
+        nkr_JUST_VOLATILE_CPP,      \
+        nkr_JUST_CONST_VOLATILE_CPP \
+
+    #define nkr_ANY_NON_VOLATILE_CPP    \
+        nkr_JUST_NON_QUALIFIED_CPP,     \
+        nkr_JUST_CONST_CPP              \
+
+    #define nkr_ANY_NOT_JUST_NON_QUALIFIED_CPP  \
+        nkr_JUST_CONST_CPP,                     \
+        nkr_JUST_VOLATILE_CPP,                  \
+        nkr_JUST_CONST_VOLATILE_CPP             \
+
+    #define nkr_ANY_NOT_JUST_CONST_CPP  \
+        nkr_JUST_NON_QUALIFIED_CPP,     \
+        nkr_JUST_VOLATILE_CPP,          \
+        nkr_JUST_CONST_VOLATILE_CPP     \
+
+    #define nkr_ANY_NOT_JUST_VOLATILE_CPP   \
+        nkr_JUST_NON_QUALIFIED_CPP,         \
+        nkr_JUST_CONST_CPP,                 \
+        nkr_JUST_CONST_VOLATILE_CPP         \
+
+    #define nkr_ANY_NOT_JUST_CONST_VOLATILE_CPP \
+        nkr_JUST_NON_QUALIFIED_CPP,             \
+        nkr_JUST_CONST_CPP,                     \
+        nkr_JUST_VOLATILE_CPP                   \
+
+    #define nkr_TYPES(TYPE_QUALIFIER_p) \
+        nkr_TYPES_C(TYPE_QUALIFIER_p),  \
+        nkr_TYPES_CPP(TYPE_QUALIFIER_p) \
 
     #define nkr_JUST_NON_QUALIFIED  \
-        nkr_TYPES(nkr_BLANK)        \
+        nkr_TYPES_C(nkr_BLANK),     \
+        nkr_TYPES_CPP(nkr_BLANK)    \
 
-    #define nkr_JUST_CONST  \
-        nkr_TYPES(const)    \
+    #define nkr_JUST_CONST      \
+        nkr_TYPES_C(const),     \
+        nkr_TYPES_CPP(const)    \
 
     #define nkr_JUST_VOLATILE   \
-        nkr_TYPES(volatile)     \
+        nkr_TYPES_C(volatile),  \
+        nkr_TYPES_CPP(volatile) \
 
-    #define nkr_JUST_CONST_VOLATILE \
-        nkr_TYPES(const volatile)   \
+    #define nkr_JUST_CONST_VOLATILE     \
+        nkr_TYPES_C(const volatile),    \
+        nkr_TYPES_CPP(const volatile)   \
 
     #define nkr_ANY             \
         nkr_JUST_NON_QUALIFIED, \
@@ -1128,7 +1261,7 @@ namespace nkr {
                 }
             }
 
-            TEST_SUITE("copy_ctor()"
+            TEST_SUITE("copy_constructor()"
                        * doctest::description("should copy other without changing it"))
             {
                 TEST_CASE_TEMPLATE("non-qualified", enumeration_p, nkr_ANY)
@@ -1163,11 +1296,187 @@ namespace nkr {
                     CHECK((enumeration == other));
                 }
             }
+
+            TEST_SUITE("move_constructor()"
+                       * doctest::description("should move other and leave its value alone"))
+            {
+                TEST_CASE_TEMPLATE("non-qualified", enumeration_p, nkr_ANY)
+                {
+                    nkr::cpp::just_non_qualified_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                    nkr::cpp::just_non_qualified_t<enumeration_p> backup = other;
+                    enumeration_p enumeration = nkr::cpp::Move(other);
+
+                    CHECK((enumeration == backup));
+                    CHECK((other == backup));
+                }
+
+                TEST_CASE_TEMPLATE("volatile", enumeration_p, nkr_ANY)
+                {
+                    nkr::cpp::just_volatile_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                    nkr::cpp::just_volatile_t<enumeration_p> backup = other;
+                    enumeration_p enumeration = nkr::cpp::Move(other);
+
+                    CHECK((enumeration == backup));
+                    CHECK((other == backup));
+                }
+            }
+
+            TEST_SUITE("copy_assigner()"
+                       * doctest::description("should always copy other without changing it"))
+            {
+                TEST_CASE_TEMPLATE("non-qualified", enumeration_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_non_qualified_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                    enumeration_p enumeration;
+                    enumeration = other;
+
+                    CHECK((enumeration == other));
+                }
+
+                TEST_CASE_TEMPLATE("const", enumeration_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_const_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                    enumeration_p enumeration;
+                    enumeration = other;
+
+                    CHECK((enumeration == other));
+                }
+
+                TEST_CASE_TEMPLATE("volatile", enumeration_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_volatile_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                    enumeration_p enumeration;
+                    enumeration = other;
+
+                    CHECK((enumeration == other));
+                }
+
+                TEST_CASE_TEMPLATE("const volatile", enumeration_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_const_volatile_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                    enumeration_p enumeration;
+                    enumeration = other;
+
+                    CHECK((enumeration == other));
+                }
+            }
+
+            TEST_SUITE("move_assigner()"
+                       * doctest::description("should move other and leave its value alone"))
+            {
+                TEST_SUITE("non-qualified")
+                {
+                    TEST_CASE_TEMPLATE("value", enumeration_p, nkr_ANY_NON_CONST)
+                    {
+                        nkr::cpp::just_non_qualified_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                        enumeration_p enumeration;
+                        enumeration = nkr::cpp::just_non_qualified_t<enumeration_p>(other);
+
+                        CHECK((enumeration == other));
+                    }
+
+                    TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY_NON_CONST)
+                    {
+                        nkr::cpp::just_non_qualified_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_non_qualified_t<enumeration_p> backup = other;
+                        enumeration_p enumeration;
+                        enumeration = nkr::cpp::Move(other);
+
+                        CHECK((enumeration == backup));
+                        CHECK((other == backup));
+                    }
+                }
+
+                TEST_SUITE("volatile")
+                {
+                    TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY_NON_CONST)
+                    {
+                        nkr::cpp::just_volatile_t<enumeration_p> other = nkr::randomness::Value<enumeration_p>();
+                        nkr::cpp::just_volatile_t<enumeration_p> backup = other;
+                        enumeration_p enumeration;
+                        enumeration = nkr::cpp::Move(other);
+
+                        CHECK((enumeration == backup));
+                        CHECK((other == backup));
+                    }
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_CASE_TEMPLATE("should leave its value alone", enumeration_p, nkr_ANY)
+                {
+                    enumeration_p enumeration = nkr::randomness::Value<enumeration_p>();
+                    enumeration_p backup = enumeration;
+                    enumeration.~enumeration_p();
+
+                    CHECK(enumeration == backup);
+                }
+            }
         }
 
         TEST_SUITE("casts")
         {
+            TEST_SUITE("value_t()")
+            {
+                TEST_SUITE("c_enumeration, cpp_enumeration")
+                {
+                    TEST_CASE_TEMPLATE("should explicitly cast to value_t", enumeration_p, nkr_ANY)
+                    {
+                        using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
 
+                        value_t value = nkr::randomness::Value<value_t>();
+                        enumeration_p enumeration = nkr::cpp::just_non_qualified_t<enumeration_p>(value);
+
+                        CHECK(static_cast<value_t>(enumeration) == value);
+                    }
+                }
+
+                TEST_SUITE("c_enumeration")
+                {
+                    TEST_CASE_TEMPLATE("should implicitly cast to value_t", enumeration_p, nkr_ANY_C)
+                    {
+                        using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                        value_t value = nkr::randomness::Value<value_t>();
+                        enumeration_p enumeration = nkr::cpp::just_non_qualified_t<enumeration_p>(value);
+
+                        CHECK(enumeration == value);
+                    }
+
+                    TEST_SUITE("should implicitly allow for logical operators")
+                    {
+                        TEST_CASE_TEMPLATE("when none", enumeration_p, nkr_ANY_C)
+                        {
+                            nkr::cpp::just_non_qualified_t<enumeration_p> none = nkr::none::value_t<enumeration_p>();
+                            enumeration_p enumeration = none;
+
+                            CHECK_FALSE(enumeration);
+                            CHECK_TRUE(!enumeration);
+                            CHECK_FALSE(!!enumeration);
+                            CHECK_FALSE(enumeration || enumeration);
+                            CHECK_FALSE(enumeration && enumeration);
+                            CHECK_FALSE((enumeration ? true : false));
+                        }
+
+                        TEST_CASE_TEMPLATE("when not none", enumeration_p, nkr_ANY_C)
+                        {
+                            nkr::cpp::just_non_qualified_t<enumeration_p> non_none;
+                            do {
+                                non_none = nkr::randomness::Value<enumeration_p>();
+                            } while (non_none == nkr::none::value_t<enumeration_p>());
+                            enumeration_p enumeration = non_none;
+
+                            CHECK_TRUE(enumeration);
+                            CHECK_FALSE(!enumeration);
+                            CHECK_TRUE(!!enumeration);
+                            CHECK_TRUE(enumeration || enumeration);
+                            CHECK_TRUE(enumeration && enumeration);
+                            CHECK_TRUE((enumeration ? true : false));
+                        }
+                    }
+                }
+            }
         }
 
         TEST_SUITE("global operators")
