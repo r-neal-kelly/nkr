@@ -30,23 +30,23 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::cpp_t")
     {
-        namespace c_positive_8_e    { enum enum_e   : nkr::positive::integer_8_t    { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_positive_16_e   { enum enum_e   : nkr::positive::integer_16_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_positive_32_e   { enum enum_e   : nkr::positive::integer_32_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_positive_64_e   { enum enum_e   : nkr::positive::integer_64_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_negatable_8_e   { enum enum_e   : nkr::negatable::integer_8_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_negatable_16_e  { enum enum_e   : nkr::negatable::integer_16_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_negatable_32_e  { enum enum_e   : nkr::negatable::integer_32_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
-        namespace c_negatable_64_e  { enum enum_e   : nkr::negatable::integer_64_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, }; }
+        namespace c_positive_8_e    { enum enum_e   : nkr::positive::integer_8_t    { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_positive_16_e   { enum enum_e   : nkr::positive::integer_16_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_positive_32_e   { enum enum_e   : nkr::positive::integer_32_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_positive_64_e   { enum enum_e   : nkr::positive::integer_64_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_negatable_8_e   { enum enum_e   : nkr::negatable::integer_8_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_negatable_16_e  { enum enum_e   : nkr::negatable::integer_16_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_negatable_32_e  { enum enum_e   : nkr::negatable::integer_32_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_negatable_64_e  { enum enum_e   : nkr::negatable::integer_64_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
 
-        enum class cpp_positive_8_e     : nkr::positive::integer_8_t    { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_positive_16_e    : nkr::positive::integer_16_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_positive_32_e    : nkr::positive::integer_32_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_positive_64_e    : nkr::positive::integer_64_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_negatable_8_e    : nkr::negatable::integer_8_t   { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_negatable_16_e   : nkr::negatable::integer_16_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_negatable_32_e   : nkr::negatable::integer_32_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
-        enum class cpp_negatable_64_e   : nkr::negatable::integer_64_t  { A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = A, MAX_tg = Z, NONE_tg = A, };
+        enum class cpp_positive_8_e     : nkr::positive::integer_8_t    { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_positive_16_e    : nkr::positive::integer_16_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_positive_32_e    : nkr::positive::integer_32_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_positive_64_e    : nkr::positive::integer_64_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_negatable_8_e    : nkr::negatable::integer_8_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_negatable_16_e   : nkr::negatable::integer_16_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_negatable_32_e   : nkr::negatable::integer_32_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_negatable_64_e   : nkr::negatable::integer_64_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
 
     #define nkr_INTEGERS(TYPE_QUALIFIER_p)              \
         TYPE_QUALIFIER_p nkr::positive::integer_8_t,    \
@@ -1777,8 +1777,6 @@ namespace nkr {
 
         TEST_SUITE("global operators")
         {
-            // there are other operators we need to handle, such as + and &, etc.
-
             TEST_SUITE("comparison operators: ==, !=, <, >, <=, >=, <=>")
             {
                 TEST_SUITE("non-qualified")
@@ -2098,6 +2096,572 @@ namespace nkr {
 
                             CHECK((a <=> b) == (value_t(a) <=> value_t(b)));
                             CHECK((b <=> a) == (value_t(b) <=> value_t(a)));
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("arithmetic operators: +, -, *, /, %")
+            {
+                TEST_SUITE("c_enumeration")
+                {
+                    TEST_SUITE("non-qualified")
+                    {
+                        TEST_CASE_TEMPLATE("value", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + non_qualified_t(b)) == (value_t(a) + value_t(b)));
+                                CHECK((non_qualified_t(b) + a) == (value_t(b) + value_t(a)));
+                                CHECK((non_qualified_t(a) + b) == (value_t(a) + value_t(b)));
+                                CHECK((b + non_qualified_t(a)) == (value_t(b) + value_t(a)));
+                                CHECK((non_qualified_t(a) + non_qualified_t(b)) == (value_t(a) + value_t(b)));
+
+                                CHECK((a - non_qualified_t(b)) == (value_t(a) - value_t(b)));
+                                CHECK((non_qualified_t(b) - a) == (value_t(b) - value_t(a)));
+                                CHECK((non_qualified_t(a) - b) == (value_t(a) - value_t(b)));
+                                CHECK((b - non_qualified_t(a)) == (value_t(b) - value_t(a)));
+                                CHECK((non_qualified_t(a) - non_qualified_t(b)) == (value_t(a) - value_t(b)));
+
+                                CHECK((a * non_qualified_t(b)) == (value_t(a) * value_t(b)));
+                                CHECK((non_qualified_t(b) * a) == (value_t(b) * value_t(a)));
+                                CHECK((non_qualified_t(a) * b) == (value_t(a) * value_t(b)));
+                                CHECK((b * non_qualified_t(a)) == (value_t(b) * value_t(a)));
+                                CHECK((non_qualified_t(a) * non_qualified_t(b)) == (value_t(a) * value_t(b)));
+
+                                CHECK((a / non_qualified_t(b)) == (value_t(a) / value_t(b)));
+                                CHECK((non_qualified_t(b) / a) == (value_t(b) / value_t(a)));
+                                CHECK((non_qualified_t(a) / b) == (value_t(a) / value_t(b)));
+                                CHECK((b / non_qualified_t(a)) == (value_t(b) / value_t(a)));
+                                CHECK((non_qualified_t(a) / non_qualified_t(b)) == (value_t(a) / value_t(b)));
+
+                                CHECK((a % non_qualified_t(b)) == (value_t(a) % value_t(b)));
+                                CHECK((non_qualified_t(b) % a) == (value_t(b) % value_t(a)));
+                                CHECK((non_qualified_t(a) % b) == (value_t(a) % value_t(b)));
+                                CHECK((b % non_qualified_t(a)) == (value_t(b) % value_t(a)));
+                                CHECK((non_qualified_t(a) % non_qualified_t(b)) == (value_t(a) % value_t(b)));
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + b) == (value_t(a) + value_t(b)));
+                                CHECK((b + a) == (value_t(b) + value_t(a)));
+
+                                CHECK((a - b) == (value_t(a) - value_t(b)));
+                                CHECK((b - a) == (value_t(b) - value_t(a)));
+
+                                CHECK((a * b) == (value_t(a) * value_t(b)));
+                                CHECK((b * a) == (value_t(b) * value_t(a)));
+
+                                CHECK((a / b) == (value_t(a) / value_t(b)));
+                                CHECK((b / a) == (value_t(b) / value_t(a)));
+
+                                CHECK((a % b) == (value_t(a) % value_t(b)));
+                                CHECK((b % a) == (value_t(b) % value_t(a)));
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + nkr::cpp::Move(b)) == (value_t(a) + value_t(b)));
+                                CHECK((nkr::cpp::Move(b) + a) == (value_t(b) + value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) + b) == (value_t(a) + value_t(b)));
+                                    CHECK((b + nkr::cpp::Move(a)) == (value_t(b) + value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) + nkr::cpp::Move(b)) == (value_t(a) + value_t(b)));
+                                }
+
+                                CHECK((a - nkr::cpp::Move(b)) == (value_t(a) - value_t(b)));
+                                CHECK((nkr::cpp::Move(b) - a) == (value_t(b) - value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) - b) == (value_t(a) - value_t(b)));
+                                    CHECK((b - nkr::cpp::Move(a)) == (value_t(b) - value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) - nkr::cpp::Move(b)) == (value_t(a) - value_t(b)));
+                                }
+
+                                CHECK((a * nkr::cpp::Move(b)) == (value_t(a) * value_t(b)));
+                                CHECK((nkr::cpp::Move(b) * a) == (value_t(b) * value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) * b) == (value_t(a) * value_t(b)));
+                                    CHECK((b * nkr::cpp::Move(a)) == (value_t(b) * value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) * nkr::cpp::Move(b)) == (value_t(a) * value_t(b)));
+                                }
+
+                                CHECK((a / nkr::cpp::Move(b)) == (value_t(a) / value_t(b)));
+                                CHECK((nkr::cpp::Move(b) / a) == (value_t(b) / value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) / b) == (value_t(a) / value_t(b)));
+                                    CHECK((b / nkr::cpp::Move(a)) == (value_t(b) / value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) / nkr::cpp::Move(b)) == (value_t(a) / value_t(b)));
+                                }
+
+                                CHECK((a % nkr::cpp::Move(b)) == (value_t(a) % value_t(b)));
+                                CHECK((nkr::cpp::Move(b) % a) == (value_t(b) % value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) % b) == (value_t(a) % value_t(b)));
+                                    CHECK((b % nkr::cpp::Move(a)) == (value_t(b) % value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) % nkr::cpp::Move(b)) == (value_t(a) % value_t(b)));
+                                }
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("const")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_const_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + b) == (value_t(a) + value_t(b)));
+                                CHECK((b + a) == (value_t(b) + value_t(a)));
+
+                                CHECK((a - b) == (value_t(a) - value_t(b)));
+                                CHECK((b - a) == (value_t(b) - value_t(a)));
+
+                                CHECK((a * b) == (value_t(a) * value_t(b)));
+                                CHECK((b * a) == (value_t(b) * value_t(a)));
+
+                                CHECK((a / b) == (value_t(a) / value_t(b)));
+                                CHECK((b / a) == (value_t(b) / value_t(a)));
+
+                                CHECK((a % b) == (value_t(a) % value_t(b)));
+                                CHECK((b % a) == (value_t(b) % value_t(a)));
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_volatile_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + b) == (value_t(a) + value_t(b)));
+                                CHECK((b + a) == (value_t(b) + value_t(a)));
+
+                                CHECK((a - b) == (value_t(a) - value_t(b)));
+                                CHECK((b - a) == (value_t(b) - value_t(a)));
+
+                                CHECK((a * b) == (value_t(a) * value_t(b)));
+                                CHECK((b * a) == (value_t(b) * value_t(a)));
+
+                                CHECK((a / b) == (value_t(a) / value_t(b)));
+                                CHECK((b / a) == (value_t(b) / value_t(a)));
+
+                                CHECK((a % b) == (value_t(a) % value_t(b)));
+                                CHECK((b % a) == (value_t(b) % value_t(a)));
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_volatile_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + nkr::cpp::Move(b)) == (value_t(a) + value_t(b)));
+                                CHECK((nkr::cpp::Move(b) + a) == (value_t(b) + value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) + b) == (value_t(a) + value_t(b)));
+                                    CHECK((b + nkr::cpp::Move(a)) == (value_t(b) + value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) + nkr::cpp::Move(b)) == (value_t(a) + value_t(b)));
+                                }
+
+                                CHECK((a - nkr::cpp::Move(b)) == (value_t(a) - value_t(b)));
+                                CHECK((nkr::cpp::Move(b) - a) == (value_t(b) - value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) - b) == (value_t(a) - value_t(b)));
+                                    CHECK((b - nkr::cpp::Move(a)) == (value_t(b) - value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) - nkr::cpp::Move(b)) == (value_t(a) - value_t(b)));
+                                }
+
+                                CHECK((a * nkr::cpp::Move(b)) == (value_t(a) * value_t(b)));
+                                CHECK((nkr::cpp::Move(b) * a) == (value_t(b) * value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) * b) == (value_t(a) * value_t(b)));
+                                    CHECK((b * nkr::cpp::Move(a)) == (value_t(b) * value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) * nkr::cpp::Move(b)) == (value_t(a) * value_t(b)));
+                                }
+
+                                CHECK((a / nkr::cpp::Move(b)) == (value_t(a) / value_t(b)));
+                                CHECK((nkr::cpp::Move(b) / a) == (value_t(b) / value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) / b) == (value_t(a) / value_t(b)));
+                                    CHECK((b / nkr::cpp::Move(a)) == (value_t(b) / value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) / nkr::cpp::Move(b)) == (value_t(a) / value_t(b)));
+                                }
+
+                                CHECK((a % nkr::cpp::Move(b)) == (value_t(a) % value_t(b)));
+                                CHECK((nkr::cpp::Move(b) % a) == (value_t(b) % value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) % b) == (value_t(a) % value_t(b)));
+                                    CHECK((b % nkr::cpp::Move(a)) == (value_t(b) % value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) % nkr::cpp::Move(b)) == (value_t(a) % value_t(b)));
+                                }
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("const volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_const_volatile_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+
+                                CHECK((a + b) == (value_t(a) + value_t(b)));
+                                CHECK((b + a) == (value_t(b) + value_t(a)));
+
+                                CHECK((a - b) == (value_t(a) - value_t(b)));
+                                CHECK((b - a) == (value_t(b) - value_t(a)));
+
+                                CHECK((a * b) == (value_t(a) * value_t(b)));
+                                CHECK((b * a) == (value_t(b) * value_t(a)));
+
+                                CHECK((a / b) == (value_t(a) / value_t(b)));
+                                CHECK((b / a) == (value_t(b) / value_t(a)));
+
+                                CHECK((a % b) == (value_t(a) % value_t(b)));
+                                CHECK((b % a) == (value_t(b) % value_t(a)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("bitwise operators: |, &, ^, <<, >>")
+            {
+                TEST_SUITE("c_enumeration")
+                {
+                    TEST_SUITE("non-qualified")
+                    {
+                        TEST_CASE_TEMPLATE("value", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | non_qualified_t(b)) == (value_t(a) | value_t(b)));
+                                CHECK((non_qualified_t(b) | a) == (value_t(b) | value_t(a)));
+                                CHECK((non_qualified_t(a) | b) == (value_t(a) | value_t(b)));
+                                CHECK((b | non_qualified_t(a)) == (value_t(b) | value_t(a)));
+                                CHECK((non_qualified_t(a) | non_qualified_t(b)) == (value_t(a) | value_t(b)));
+
+                                CHECK((a & non_qualified_t(b)) == (value_t(a) & value_t(b)));
+                                CHECK((non_qualified_t(b) & a) == (value_t(b) & value_t(a)));
+                                CHECK((non_qualified_t(a) & b) == (value_t(a) & value_t(b)));
+                                CHECK((b & non_qualified_t(a)) == (value_t(b) & value_t(a)));
+                                CHECK((non_qualified_t(a) & non_qualified_t(b)) == (value_t(a) & value_t(b)));
+
+                                CHECK((a ^ non_qualified_t(b)) == (value_t(a) ^ value_t(b)));
+                                CHECK((non_qualified_t(b) ^ a) == (value_t(b) ^ value_t(a)));
+                                CHECK((non_qualified_t(a) ^ b) == (value_t(a) ^ value_t(b)));
+                                CHECK((b ^ non_qualified_t(a)) == (value_t(b) ^ value_t(a)));
+                                CHECK((non_qualified_t(a) ^ non_qualified_t(b)) == (value_t(a) ^ value_t(b)));
+
+                                CHECK((a << non_qualified_t(c)) == (value_t(a) << value_t(c)));
+                                CHECK((non_qualified_t(c) << a) == (value_t(c) << value_t(a)));
+                                CHECK((non_qualified_t(a) << c) == (value_t(a) << value_t(c)));
+                                CHECK((c << non_qualified_t(a)) == (value_t(c) << value_t(a)));
+                                CHECK((non_qualified_t(a) << non_qualified_t(c)) == (value_t(a) << value_t(c)));
+
+                                CHECK((a >> non_qualified_t(c)) == (value_t(a) >> value_t(c)));
+                                CHECK((non_qualified_t(c) >> a) == (value_t(c) >> value_t(a)));
+                                CHECK((non_qualified_t(a) >> c) == (value_t(a) >> value_t(c)));
+                                CHECK((c >> non_qualified_t(a)) == (value_t(c) >> value_t(a)));
+                                CHECK((non_qualified_t(a) >> non_qualified_t(c)) == (value_t(a) >> value_t(c)));
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | b) == (value_t(a) | value_t(b)));
+                                CHECK((b | a) == (value_t(b) | value_t(a)));
+
+                                CHECK((a & b) == (value_t(a) & value_t(b)));
+                                CHECK((b & a) == (value_t(b) & value_t(a)));
+
+                                CHECK((a ^ b) == (value_t(a) ^ value_t(b)));
+                                CHECK((b ^ a) == (value_t(b) ^ value_t(a)));
+
+                                CHECK((a << c) == (value_t(a) << value_t(c)));
+                                CHECK((c << a) == (value_t(c) << value_t(a)));
+
+                                CHECK((a >> c) == (value_t(a) >> value_t(c)));
+                                CHECK((c >> a) == (value_t(c) >> value_t(a)));
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_non_qualified_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | nkr::cpp::Move(b)) == (value_t(a) | value_t(b)));
+                                CHECK((nkr::cpp::Move(b) | a) == (value_t(b) | value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) | b) == (value_t(a) | value_t(b)));
+                                    CHECK((b | nkr::cpp::Move(a)) == (value_t(b) | value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) | nkr::cpp::Move(b)) == (value_t(a) | value_t(b)));
+                                }
+
+                                CHECK((a & nkr::cpp::Move(b)) == (value_t(a) & value_t(b)));
+                                CHECK((nkr::cpp::Move(b) & a) == (value_t(b) & value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) & b) == (value_t(a) & value_t(b)));
+                                    CHECK((b & nkr::cpp::Move(a)) == (value_t(b) & value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) & nkr::cpp::Move(b)) == (value_t(a) & value_t(b)));
+                                }
+
+                                CHECK((a ^ nkr::cpp::Move(b)) == (value_t(a) ^ value_t(b)));
+                                CHECK((nkr::cpp::Move(b) ^ a) == (value_t(b) ^ value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) ^ b) == (value_t(a) ^ value_t(b)));
+                                    CHECK((b ^ nkr::cpp::Move(a)) == (value_t(b) ^ value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) ^ nkr::cpp::Move(b)) == (value_t(a) ^ value_t(b)));
+                                }
+
+                                CHECK((a << nkr::cpp::Move(c)) == (value_t(a) << value_t(c)));
+                                CHECK((nkr::cpp::Move(c) << a) == (value_t(c) << value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) << c) == (value_t(a) << value_t(c)));
+                                    CHECK((c << nkr::cpp::Move(a)) == (value_t(c) << value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) << nkr::cpp::Move(c)) == (value_t(a) << value_t(c)));
+                                }
+
+                                CHECK((a >> nkr::cpp::Move(c)) == (value_t(a) >> value_t(c)));
+                                CHECK((nkr::cpp::Move(c) >> a) == (value_t(c) >> value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) >> c) == (value_t(a) >> value_t(c)));
+                                    CHECK((c >> nkr::cpp::Move(a)) == (value_t(c) >> value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) >> nkr::cpp::Move(c)) == (value_t(a) >> value_t(c)));
+                                }
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("const")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_const_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_const_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | b) == (value_t(a) | value_t(b)));
+                                CHECK((b | a) == (value_t(b) | value_t(a)));
+
+                                CHECK((a & b) == (value_t(a) & value_t(b)));
+                                CHECK((b & a) == (value_t(b) & value_t(a)));
+
+                                CHECK((a ^ b) == (value_t(a) ^ value_t(b)));
+                                CHECK((b ^ a) == (value_t(b) ^ value_t(a)));
+
+                                CHECK((a << c) == (value_t(a) << value_t(c)));
+                                CHECK((c << a) == (value_t(c) << value_t(a)));
+
+                                CHECK((a >> c) == (value_t(a) >> value_t(c)));
+                                CHECK((c >> a) == (value_t(c) >> value_t(a)));
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_volatile_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_volatile_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | b) == (value_t(a) | value_t(b)));
+                                CHECK((b | a) == (value_t(b) | value_t(a)));
+
+                                CHECK((a & b) == (value_t(a) & value_t(b)));
+                                CHECK((b & a) == (value_t(b) & value_t(a)));
+
+                                CHECK((a ^ b) == (value_t(a) ^ value_t(b)));
+                                CHECK((b ^ a) == (value_t(b) ^ value_t(a)));
+
+                                CHECK((a << c) == (value_t(a) << value_t(c)));
+                                CHECK((c << a) == (value_t(c) << value_t(a)));
+
+                                CHECK((a >> c) == (value_t(a) >> value_t(c)));
+                                CHECK((c >> a) == (value_t(c) >> value_t(a)));
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("rvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_volatile_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_volatile_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | nkr::cpp::Move(b)) == (value_t(a) | value_t(b)));
+                                CHECK((nkr::cpp::Move(b) | a) == (value_t(b) | value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) | b) == (value_t(a) | value_t(b)));
+                                    CHECK((b | nkr::cpp::Move(a)) == (value_t(b) | value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) | nkr::cpp::Move(b)) == (value_t(a) | value_t(b)));
+                                }
+
+                                CHECK((a & nkr::cpp::Move(b)) == (value_t(a) & value_t(b)));
+                                CHECK((nkr::cpp::Move(b) & a) == (value_t(b) & value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) & b) == (value_t(a) & value_t(b)));
+                                    CHECK((b & nkr::cpp::Move(a)) == (value_t(b) & value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) & nkr::cpp::Move(b)) == (value_t(a) & value_t(b)));
+                                }
+
+                                CHECK((a ^ nkr::cpp::Move(b)) == (value_t(a) ^ value_t(b)));
+                                CHECK((nkr::cpp::Move(b) ^ a) == (value_t(b) ^ value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) ^ b) == (value_t(a) ^ value_t(b)));
+                                    CHECK((b ^ nkr::cpp::Move(a)) == (value_t(b) ^ value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) ^ nkr::cpp::Move(b)) == (value_t(a) ^ value_t(b)));
+                                }
+
+                                CHECK((a << nkr::cpp::Move(c)) == (value_t(a) << value_t(c)));
+                                CHECK((nkr::cpp::Move(c) << a) == (value_t(c) << value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) << c) == (value_t(a) << value_t(c)));
+                                    CHECK((c << nkr::cpp::Move(a)) == (value_t(c) << value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) << nkr::cpp::Move(c)) == (value_t(a) << value_t(c)));
+                                }
+
+                                CHECK((a >> nkr::cpp::Move(c)) == (value_t(a) >> value_t(c)));
+                                CHECK((nkr::cpp::Move(c) >> a) == (value_t(c) >> value_t(a)));
+                                if constexpr (nkr::cpp::any_non_const_tr<enumeration_p>) {
+                                    CHECK((nkr::cpp::Move(a) >> c) == (value_t(a) >> value_t(c)));
+                                    CHECK((c >> nkr::cpp::Move(a)) == (value_t(c) >> value_t(a)));
+                                    CHECK((nkr::cpp::Move(a) >> nkr::cpp::Move(c)) == (value_t(a) >> value_t(c)));
+                                }
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("const volatile")
+                    {
+                        TEST_CASE_TEMPLATE("lvalue", enumeration_p, nkr_ANY_C)
+                        {
+                            using non_qualified_t = nkr::cpp::just_non_qualified_t<enumeration_p>;
+                            using value_t = nkr::enumeration::cpp_value_t<enumeration_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                                enumeration_p a =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_const_volatile_t<enumeration_p> b =
+                                    nkr::randomness::Value<enumeration_p>(enumeration_p::A, enumeration_p::Z);
+                                nkr::cpp::just_const_volatile_t<enumeration_p> c =
+                                    nkr::randomness::Value<enumeration_p>(non_qualified_t(0), non_qualified_t(1));
+
+                                CHECK((a | b) == (value_t(a) | value_t(b)));
+                                CHECK((b | a) == (value_t(b) | value_t(a)));
+
+                                CHECK((a & b) == (value_t(a) & value_t(b)));
+                                CHECK((b & a) == (value_t(b) & value_t(a)));
+
+                                CHECK((a ^ b) == (value_t(a) ^ value_t(b)));
+                                CHECK((b ^ a) == (value_t(b) ^ value_t(a)));
+
+                                CHECK((a << c) == (value_t(a) << value_t(c)));
+                                CHECK((c << a) == (value_t(c) << value_t(a)));
+
+                                CHECK((a >> c) == (value_t(a) >> value_t(c)));
+                                CHECK((c >> a) == (value_t(c) >> value_t(a)));
+                            }
                         }
                     }
                 }
