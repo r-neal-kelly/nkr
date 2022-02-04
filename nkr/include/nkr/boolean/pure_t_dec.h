@@ -146,7 +146,8 @@ namespace nkr { namespace boolean { namespace $pure_t {
     class randomness_value_i_sp
     {
     public:
-        using value_t   = value_p;
+        using value_t           = nkr::cpp::just_non_qualified_t<value_p>;
+        using qualified_value_t = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>

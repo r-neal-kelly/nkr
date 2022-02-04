@@ -27,7 +27,9 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <typename type_p>
     concept aliases_i =
         nkr::cpp::just_non_qualified_tr<typename type_p::value_t> &&
-        nkr::generic::type_tr<typename type_p::value_t>;
+        nkr::generic::type_tr<typename type_p::value_t> &&
+
+        nkr::generic::type_tr<typename type_p::qualified_value_t>;
 
     template <typename type_p>
     concept static_functions_i =
@@ -114,7 +116,7 @@ namespace nkr { namespace interface { namespace randomness {
 
     template <typename type_p>
     concept value_tr =
-        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::value_t>> &&
+        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::qualified_value_t>> &&
         $value_i::aliases_i<type_p> &&
         $value_i::static_functions_i<type_p> &&
         $value_i::objects_i<type_p>;
@@ -200,7 +202,8 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     class boolean_sp
     {
     public:
-        using value_t   = value_p;
+        using value_t           = nkr::cpp::just_non_qualified_t<value_p>;
+        using qualified_value_t = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>
@@ -228,7 +231,8 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     class enumeration_limited_sp
     {
     public:
-        using value_t   = value_p;
+        using value_t           = nkr::cpp::just_non_qualified_t<value_p>;
+        using qualified_value_t = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>
@@ -250,7 +254,8 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     class integer_sp
     {
     public:
-        using value_t   = value_p;
+        using value_t           = nkr::cpp::just_non_qualified_t<value_p>;
+        using qualified_value_t = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>
@@ -272,7 +277,8 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     class real_sp
     {
     public:
-        using value_t   = value_p;
+        using value_t           = nkr::cpp::just_non_qualified_t<value_p>;
+        using qualified_value_t = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>
@@ -294,7 +300,8 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     class pointer_sp
     {
     public:
-        using value_t   = value_p;
+        using value_t           = nkr::cpp::just_non_qualified_t<value_p>;
+        using qualified_value_t = value_p;
 
     public:
         template <typename unused_p = nkr::none::type_t>
