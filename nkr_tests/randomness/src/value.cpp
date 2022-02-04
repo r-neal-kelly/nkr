@@ -3,6 +3,7 @@
 */
 
 #include "nkr/boolean/cpp_t.h"
+#include "nkr/enumeration/cpp_t.h"
 #include "nkr/negatable/integer_t.h"
 #include "nkr/negatable/real_t.h"
 #include "nkr/pointer/cpp_t.h"

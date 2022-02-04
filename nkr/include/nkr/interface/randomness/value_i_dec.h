@@ -8,7 +8,6 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/generic/built_in/boolean_tr_dec.h"
-#include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 #include "nkr/generic/built_in/number/integer_tr_dec.h"
 #include "nkr/generic/built_in/number/real_tr_dec.h"
 #include "nkr/generic/built_in/pointer_tr_dec.h"
@@ -47,67 +46,57 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::boolean_tr value_p>
+    template <nkr::generic::built_in::boolean_tr type_p>
     class   boolean_sp;
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
-    class   enumeration_limited_sp;
-
-    template <nkr::generic::built_in::number::integer_tr value_p>
+    template <nkr::generic::built_in::number::integer_tr type_p>
     class   integer_sp;
 
-    template <nkr::generic::built_in::number::real_tr value_p>
+    template <nkr::generic::built_in::number::real_tr type_p>
     class   real_sp;
 
-    template <nkr::generic::built_in::pointer_tr value_p>
+    template <nkr::generic::built_in::pointer_tr type_p>
     class   pointer_sp;
 
 }}}}
 
 namespace nkr { namespace interface { namespace randomness {
 
-    template <nkr::generic::built_in::boolean_tr value_p>
-    class value_i_sp<value_p>
+    template <nkr::generic::built_in::boolean_tr type_p>
+    class value_i_sp<type_p>
     {
     public:
-        using type_t    = $value_i::boolean_sp<value_p>;
+        using type_t    = $value_i::boolean_sp<type_p>;
     };
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr value_p>
-    class value_i_sp<value_p>
+    template <nkr::generic::built_in::number::integer_tr type_p>
+    class value_i_sp<type_p>
     {
     public:
-        using type_t    = $value_i::enumeration_limited_sp<value_p>;
+        using type_t    = $value_i::integer_sp<type_p>;
     };
 
-    template <nkr::generic::built_in::number::integer_tr value_p>
-    class value_i_sp<value_p>
+    template <nkr::generic::built_in::number::real_tr type_p>
+    class value_i_sp<type_p>
     {
     public:
-        using type_t    = $value_i::integer_sp<value_p>;
+        using type_t    = $value_i::real_sp<type_p>;
     };
 
-    template <nkr::generic::built_in::number::real_tr value_p>
-    class value_i_sp<value_p>
+    template <nkr::generic::built_in::pointer_tr type_p>
+    class value_i_sp<type_p>
     {
     public:
-        using type_t    = $value_i::real_sp<value_p>;
-    };
-
-    template <nkr::generic::built_in::pointer_tr value_p>
-    class value_i_sp<value_p>
-    {
-    public:
-        using type_t    = $value_i::pointer_sp<value_p>;
+        using type_t    = $value_i::pointer_sp<type_p>;
     };
 
 }}}
 
 namespace nkr { namespace interface { namespace randomness {
 
-    template <typename value_p>
+    template <typename type_p>
     using   value_i =
-        value_i_sp<value_p>::type_t;
+        value_i_sp<type_p>::type_t;
 
     struct  value_tg    {};
 
@@ -162,8 +151,8 @@ namespace nkr { namespace interface {
     class template_i<nkr::interface::randomness::value_ttg>
     {
     public:
-        template <typename value_p>
-        using template_t    = nkr::interface::randomness::value_i<value_p>;
+        template <typename type_p>
+        using template_t    = nkr::interface::randomness::value_i<type_p>;
 
         template <typename inner_p>
         using of_t          = template_t<inner_p>;
@@ -221,29 +210,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     public:
         template <typename ...>
         constexpr boolean_sp(...) noexcept  = delete;
-    };
-
-}}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    class enumeration_limited_sp
-    {
-    public:
-        using type_t    = type_p;
-        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
-
-    public:
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(value_t min = value_t::MIN_tg, value_t max = value_t::MAX_tg) noexcept;
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              value_t min = value_t::MIN_tg, value_t max = value_t::MAX_tg) noexcept;
-
-    public:
-        template <typename ...>
-        constexpr enumeration_limited_sp(...) noexcept  = delete;
     };
 
 }}}}

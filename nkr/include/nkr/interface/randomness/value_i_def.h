@@ -80,35 +80,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    template <typename unused_p>
-    inline enumeration_limited_sp<type_p>::value_t
-        enumeration_limited_sp<type_p>::Value(value_t min, value_t max)
-        noexcept
-    {
-        auto generator = nkr::randomness::generator::software::Default();
-
-        return Value(generator.Value(), min, max);
-    }
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    template <typename unused_p>
-    inline enumeration_limited_sp<type_p>::value_t
-        enumeration_limited_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                                              value_t min, value_t max)
-        noexcept
-    {
-        nkr_ASSERT_THAT(min >= value_t::MIN_tg);
-        nkr_ASSERT_THAT(max <= value_t::MAX_tg);
-        nkr_ASSERT_THAT(min <= max);
-
-        return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
-    }
-
-}}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
     template <nkr::generic::built_in::number::integer_tr type_p>
     template <typename unused_p>
     inline integer_sp<type_p>::value_t

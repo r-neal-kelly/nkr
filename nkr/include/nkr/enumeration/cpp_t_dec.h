@@ -6,6 +6,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/any_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/unlimited_tr_dec.h"
@@ -24,6 +25,7 @@
 #include "nkr/positive/integer_16_t_dec.h"
 #include "nkr/positive/integer_32_t_dec.h"
 #include "nkr/positive/integer_64_t_dec.h"
+#include "nkr/tr_dec.h"
 
 namespace nkr { namespace enumeration {
 
@@ -260,6 +262,40 @@ namespace nkr { namespace interface { namespace none {
     {
     public:
         using type_t    = nkr::enumeration::$cpp_t::none_value_i_sp<type_p>;
+    };
+
+}}}
+
+namespace nkr { namespace enumeration { namespace $cpp_t {
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    class randomness_value_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+
+    public:
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(value_t min = value_t::MIN_tg, value_t max = value_t::MAX_tg) noexcept;
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                              value_t min = value_t::MIN_tg, value_t max = value_t::MAX_tg) noexcept;
+
+    public:
+        template <typename ...>
+        constexpr randomness_value_i_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::$cpp_t::randomness_value_i_sp<type_p>;
     };
 
 }}}
