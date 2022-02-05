@@ -55,9 +55,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <nkr::generic::built_in::number::real_tr type_p>
     class   real_sp;
 
-    template <nkr::generic::built_in::pointer_tr type_p>
-    class   pointer_sp;
-
 }}}}
 
 namespace nkr { namespace interface { namespace randomness {
@@ -81,13 +78,6 @@ namespace nkr { namespace interface { namespace randomness {
     {
     public:
         using type_t    = $value_i::real_sp<type_p>;
-    };
-
-    template <nkr::generic::built_in::pointer_tr type_p>
-    class value_i_sp<type_p>
-    {
-    public:
-        using type_t    = $value_i::pointer_sp<type_p>;
     };
 
 }}}
@@ -256,29 +246,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     public:
         template <typename ...>
         constexpr real_sp(...) noexcept = delete;
-    };
-
-}}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
-    template <nkr::generic::built_in::pointer_tr type_p>
-    class pointer_sp
-    {
-    public:
-        using type_t    = type_p;
-        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
-
-    public:
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(value_t min = nkr::cpp::Default_Min<value_t>(), value_t max = nkr::cpp::Default_Max<value_t>()) noexcept;
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              value_t min = nkr::cpp::Default_Min<value_t>(), value_t max = nkr::cpp::Default_Max<value_t>()) noexcept;
-
-    public:
-        template <typename ...>
-        constexpr pointer_sp(...) noexcept  = delete;
     };
 
 }}}}

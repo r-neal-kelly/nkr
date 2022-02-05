@@ -26,6 +26,11 @@
     <ClInclude Include="include\nkr\array\remote\pad\high_t.h" />
     <ClInclude Include="include\nkr\array\remote\pad\low_t.h" />
     <ClInclude Include="include\nkr\array\remote\static_t.h" />
+    <ClInclude Include="include\nkr\built_in\forward.h" />
+    <ClInclude Include="include\nkr\built_in\forward_dec.h" />
+    <ClInclude Include="include\nkr\built_in\forward_dec_def.h" />
+    <ClInclude Include="include\nkr\built_in\forward_def.h" />
+    <ClInclude Include="include\nkr\built_in\forward_dox.h" />
     <ClInclude Include="include\nkr\charcoder\placeholder.h" />
     <ClInclude Include="include\nkr\concurrency\lockee_t.h" />
     <ClInclude Include="include\nkr\concurrency\lockee_t_dec.h" />
