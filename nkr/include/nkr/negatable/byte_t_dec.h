@@ -4,14 +4,12 @@
 
 #pragma once
 
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/negatable/integer_t_dec.h"
-#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace negatable {
-
-    using   byte_t =
-        nkr::cpp::negatable::byte_t;
 
     struct  byte_tg {};
 
@@ -19,14 +17,6 @@ namespace nkr { namespace negatable {
     concept byte_tr =
         nkr::cpp::is_any_tr<type_p, byte_t> ||
         (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) == sizeof(byte_t));
-
-    template <byte_t value_p>
-    using   byte_c =
-        nkr::cpp::constant_t<byte_t, value_p>;
-
-    template <typename type_p>
-    concept byte_ctr =
-        nkr::cpp::constant_of_tr<type_p, byte_t>;
 
 }}
 

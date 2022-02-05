@@ -4,13 +4,13 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/constant_t_dec.h"
+#include "nkr/constant/positive/integer_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
 #include "nkr/interface/enumeration/types_i_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
-#include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
@@ -23,7 +23,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
     using integer_of_t      = interface_of_t<value_p>::integer_t;
 
     template <typename value_p>
-    using default_none_of_t = nkr::cpp::constant_t<integer_of_t<value_p>, interface_of_t<value_p>::Default_None_Value()>;
+    using default_none_of_t = nkr::constant_t<integer_of_t<value_p>, interface_of_t<value_p>::Default_None_Value()>;
 
 }}}
 
@@ -31,7 +31,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr    value_p,
-        nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>>       none_p      = $types_t::default_none_of_t<value_p>
+        nkr::constant_of_tr<$types_t::integer_of_t<value_p>>            none_p      = $types_t::default_none_of_t<value_p>
     > class types_t;
 
     struct  types_tg    {};
@@ -45,7 +45,7 @@ namespace nkr { namespace enumeration {
 
     template <template <typename ...> typename template_p>
     concept types_ttr =
-        nkr::cpp::is_any_ttr<template_p, types_t, nkr::positive::integer_t, nkr::positive::integer_c<0>>;
+        nkr::cpp::is_any_ttr<template_p, types_t, nkr::positive::integer_t, nkr::constant::positive::integer_t<0>>;
 
 }}
 
@@ -85,8 +85,8 @@ namespace nkr { namespace interface {
     {
     public:
         template <
-            nkr::generic::implementing::interface::enumeration::types_tr                value_p,
-            nkr::cpp::constant_of_tr<nkr::enumeration::$types_t::integer_of_t<value_p>> none_p      = nkr::enumeration::$types_t::default_none_of_t<value_p>
+            nkr::generic::implementing::interface::enumeration::types_tr            value_p,
+            nkr::constant_of_tr<nkr::enumeration::$types_t::integer_of_t<value_p>>  none_p      = nkr::enumeration::$types_t::default_none_of_t<value_p>
         > using template_t  = nkr::enumeration::types_t<value_p, none_p>;
 
         template <typename inner_p>
@@ -123,8 +123,8 @@ namespace nkr { namespace interface {
 namespace nkr { namespace enumeration {
 
     template <
-        nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::cpp::constant_of_tr<$types_t::integer_of_t<value_p>> none_p
+        nkr::generic::implementing::interface::enumeration::types_tr    value_p,
+        nkr::constant_of_tr<$types_t::integer_of_t<value_p>>            none_p
     > class types_t
     {
     public:

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/macros_def.h"
+#include "nkr/built_in/forward_def.h"
 
 #include "nkr/cpp_dec.h"
 

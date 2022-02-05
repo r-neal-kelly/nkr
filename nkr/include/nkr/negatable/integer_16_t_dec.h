@@ -4,15 +4,11 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace negatable {
-
-    using   integer_16_t =
-        nkr::cpp::negatable::integer_16_t;
 
     struct  integer_16_tg   {};
 
@@ -20,14 +16,6 @@ namespace nkr { namespace negatable {
     concept integer_16_tr =
         nkr::cpp::is_any_tr<type_p, integer_16_t> ||
         (nkr::cpp::negatable_integer_tr<type_p> && sizeof(type_p) * 8 == 16);
-
-    template <integer_16_t value_p>
-    using   integer_16_c =
-        nkr::cpp::constant_t<integer_16_t, value_p>;
-
-    template <typename type_p>
-    concept integer_16_ctr =
-        nkr::cpp::constant_of_tr<type_p, integer_16_t>;
 
 }}
 

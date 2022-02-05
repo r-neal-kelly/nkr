@@ -4,10 +4,9 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
@@ -29,14 +28,6 @@ namespace nkr { namespace reference {
     template <template <typename ...> typename template_p>
     concept lvalue_ttr =
         nkr::cpp::is_any_ttr<template_p, lvalue_t, nkr::positive::integer_t>;
-
-    template <typename type_p, type_p& value_p>
-    using   lvalue_c =
-        nkr::cpp::constant_t<type_p&, value_p>;
-
-    template <typename type_p>
-    concept lvalue_ctr =
-        nkr::cpp::constant_of_tr<type_p, nkr::cpp::reference_value_t<type_p>&>;
 
 }}
 

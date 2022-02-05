@@ -4,15 +4,11 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace none {
-
-    using   pointer_t =
-        nkr::cpp::none::pointer_t;
 
     struct  pointer_tg  {};
 

@@ -4,11 +4,10 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/index_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 #include "nkr/tr_dec.h"
@@ -31,14 +30,6 @@ namespace nkr { namespace pointer {
     template <template <typename ...> typename template_p>
     concept cpp_ttr =
         nkr::cpp::is_any_ttr<template_p, cpp_t, nkr::none::type_t>;
-
-    template <typename type_p, type_p* value_p>
-    using   cpp_c =
-        nkr::cpp::constant_t<type_p*, value_p>;
-
-    template <typename type_p>
-    concept cpp_ctr =
-        nkr::cpp::constant_of_tr<type_p, nkr::cpp::pointer_unit_t<type_p>*>;
 
 }}
 

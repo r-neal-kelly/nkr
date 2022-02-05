@@ -2,12 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
-#include "nkr/negatable/integer_t.h"
-#include "nkr/positive/integer_t.h"
-#include "nkr/positive/integer_8_t.h"
-#include "nkr/positive/integer_16_t.h"
-#include "nkr/positive/integer_32_t.h"
-#include "nkr/positive/integer_64_t.h"
+#include "nkr/built_in/forward.h"
+#include "nkr/constant/positive/index_t.h"
 #include "nkr/tuple/types_t.h"
 
 #include "doctest.h"
@@ -107,7 +103,7 @@ namespace nkr {
         template <
             template <typename ...> typename functor_p,
             nkr::tuple::types_tr tuple_p,
-            typename index_p = nkr::positive::index_c<0>,
+            typename index_p = nkr::constant::positive::index_t<0>,
             typename ...parameters_p
         > inline constexpr void
             Iterate_Forward(parameters_p&&... arguments)
@@ -118,14 +114,14 @@ namespace nkr {
             functor_p<typename tuple_p::template at_t<index_p>::head_t>::Call(nkr::cpp::Forward<parameters_p>(arguments)...);
 
             if constexpr (index_p::Value() < tuple_p::Count() - 1) {
-                Iterate_Forward<functor_p, tuple_p, nkr::positive::index_c<index_p::Value() + 1>>();
+                Iterate_Forward<functor_p, tuple_p, nkr::constant::positive::index_t<index_p::Value() + 1>>();
             }
         }
 
         template <
             template <typename ...> typename functor_p,
             nkr::tuple::types_tr tuple_p,
-            typename index_p = nkr::positive::index_c<tuple_p::Count() - 1>,
+            typename index_p = nkr::constant::positive::index_t<tuple_p::Count() - 1>,
             typename ...parameters_p
         > inline constexpr void
             Iterate_Backward(parameters_p&&... arguments)
@@ -136,7 +132,7 @@ namespace nkr {
             functor_p<typename tuple_p::template at_t<index_p>::head_t>::Call(nkr::cpp::Forward<parameters_p>(arguments)...);
 
             if constexpr (index_p::Value() > 0) {
-                Iterate_Backward<functor_p, tuple_p, nkr::positive::index_c<index_p::Value() - 1>>();
+                Iterate_Backward<functor_p, tuple_p, nkr::constant::positive::index_t<index_p::Value() - 1>>();
             }
         }
 
@@ -169,8 +165,8 @@ namespace nkr {
             using tuple_t = nkr::tuple::types_t<nkr::positive::integer_t, nkr::negatable::integer_t>;
 
             static_assert(tuple_t::Count() == 2);
-            using a_t = tuple_t::template at_t<nkr::positive::index_c<0>>::head_t;
-            using b_t = tuple_t::template at_t<nkr::positive::index_c<1>>::head_t;
+            using a_t = tuple_t::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+            using b_t = tuple_t::template at_t<nkr::constant::positive::index_t<1>>::head_t;
             static_assert(nkr::cpp::is_tr<a_t, nkr::positive::integer_t>);
             static_assert(nkr::cpp::is_tr<b_t, nkr::negatable::integer_t>);
 

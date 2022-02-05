@@ -3,12 +3,10 @@
 */
 
 #include "nkr/array/cpp_t.h"
+#include "nkr/constant/positive/count_t.h"
+#include "nkr/constant/positive/index_t.h"
 #include "nkr/cpp.h"
-#include "nkr/negatable/integer_t.h"
 #include "nkr/pointer/cpp_t.h"
-#include "nkr/positive/count_t.h"
-#include "nkr/positive/index_t.h"
-#include "nkr/positive/integer_t.h"
 #include "nkr/tuple/templates_t.h"
 
 #include "doctest.h"
@@ -27,8 +25,8 @@ namespace nkr {
 
                     static_assert(templates_t::Count() == 2);
 
-                    static_assert(nkr::pointer::cpp_ttr<templates_t::template at_t<nkr::positive::index_c<0>>::template head_t>);
-                    static_assert(nkr::array::cpp_ttr<templates_t::template at_t<nkr::positive::index_c<1>>::template head_t>);
+                    static_assert(nkr::pointer::cpp_ttr<templates_t::template at_t<nkr::constant::positive::index_t<0>>::template head_t>);
+                    static_assert(nkr::array::cpp_ttr<templates_t::template at_t<nkr::constant::positive::index_t<1>>::template head_t>);
                 }
             }
 
@@ -37,13 +35,13 @@ namespace nkr {
                 TEST_CASE("should take the given count of templates from the front of the tuple")
                 {
                     using templates_t = nkr::tuple::templates_t<nkr::pointer::cpp_t, nkr::array::cpp_t, nkr::pointer::cpp_t, nkr::array::cpp_t>;
-                    using taken_t = templates_t::template take_t<nkr::positive::count_c<2>>;
+                    using taken_t = templates_t::template take_t<nkr::constant::positive::count_t<2>>;
 
                     static_assert(templates_t::Count() == 4);
                     static_assert(taken_t::Count() == 2);
 
-                    static_assert(nkr::pointer::cpp_ttr<taken_t::template at_t<nkr::positive::index_c<0>>::template head_t>);
-                    static_assert(nkr::array::cpp_ttr<taken_t::template at_t<nkr::positive::index_c<1>>::template head_t>);
+                    static_assert(nkr::pointer::cpp_ttr<taken_t::template at_t<nkr::constant::positive::index_t<0>>::template head_t>);
+                    static_assert(nkr::array::cpp_ttr<taken_t::template at_t<nkr::constant::positive::index_t<1>>::template head_t>);
                 }
             }
 
@@ -57,10 +55,10 @@ namespace nkr {
                     static_assert(templates_t::Count() == 2);
                     static_assert(into_t::Count() == 4);
 
-                    static_assert(nkr::pointer::cpp_ttr<into_t::template at_t<nkr::positive::index_c<0>>::template head_t>);
-                    static_assert(nkr::array::cpp_ttr<into_t::template at_t<nkr::positive::index_c<1>>::template head_t>);
-                    static_assert(nkr::pointer::cpp_ttr<into_t::template at_t<nkr::positive::index_c<2>>::template head_t>);
-                    static_assert(nkr::array::cpp_ttr<into_t::template at_t<nkr::positive::index_c<3>>::template head_t>);
+                    static_assert(nkr::pointer::cpp_ttr<into_t::template at_t<nkr::constant::positive::index_t<0>>::template head_t>);
+                    static_assert(nkr::array::cpp_ttr<into_t::template at_t<nkr::constant::positive::index_t<1>>::template head_t>);
+                    static_assert(nkr::pointer::cpp_ttr<into_t::template at_t<nkr::constant::positive::index_t<2>>::template head_t>);
+                    static_assert(nkr::array::cpp_ttr<into_t::template at_t<nkr::constant::positive::index_t<3>>::template head_t>);
                 }
             }
         }

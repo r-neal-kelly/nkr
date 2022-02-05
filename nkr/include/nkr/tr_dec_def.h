@@ -198,12 +198,12 @@ namespace nkr { namespace $tr {
     class subjects_tmpl<subject_p, operators_p>
     {
     private:
-        using front_t   = subjects_tmpl<subject_p, typename operators_p::template take_t<nkr::positive::count_c<operators_p::Count() - 1>>>::type_t;
-        using subject_t = front_t::template at_t<nkr::positive::index_c<front_t::Count() - 1>>::head_t;
+        using front_t   = subjects_tmpl<subject_p, typename operators_p::template take_t<nkr::constant::positive::count_t<operators_p::Count() - 1>>>::type_t;
+        using subject_t = front_t::template at_t<nkr::constant::positive::index_t<front_t::Count() - 1>>::head_t;
 
     private:
         static constexpr nkr::boolean::cpp_t    is_access_operator =
-            access_operator_tr<typename operators_p::template at_t<nkr::positive::index_c<operators_p::Count() - 1>>::head_t>;
+            access_operator_tr<typename operators_p::template at_t<nkr::constant::positive::index_t<operators_p::Count() - 1>>::head_t>;
 
     public:
         using type_t    = front_t::template push_back_t<
@@ -235,7 +235,7 @@ namespace nkr { namespace $tr {
     class objects_tmpl<expression_parts_p>
     {
     private:
-        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>::head_t;
+        using object_t  = expression_parts_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
     private:
         static_assert(nkr::ts_tr<object_t>);
@@ -251,7 +251,7 @@ namespace nkr { namespace $tr {
     {
     private:
         using tail_t    = objects_tmpl<typename expression_parts_p::tail_t::tail_t>::type_t;
-        using object_t  = expression_parts_p::template at_t<nkr::positive::index_c<1>>::head_t;
+        using object_t  = expression_parts_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
     private:
         static_assert(nkr::tts_tr<object_t>);
@@ -397,8 +397,8 @@ namespace nkr { namespace $tr {
     template <
         typename                subject_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p             = nkr::positive::index_c<0>,
-        typename                XOR_state_p         = nkr::boolean::cpp_c<false>
+        typename                index_p             = nkr::constant::positive::index_t<0>,
+        typename                XOR_state_p         = nkr::constant::boolean::cpp_t<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Expression()
         noexcept
@@ -412,9 +412,9 @@ namespace nkr { namespace $tr {
 
             return Evaluate<subjects_t, operators_t, objects_t>();
         } else {
-            using operand_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 1>>::head_t;
-            using expression_front_t = expression_parts_p::template take_t<nkr::positive::count_c<index_p::Value() + 1>>;
-            using expression_back_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 2>>;
+            using operand_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 1>>::head_t;
+            using expression_front_t = expression_parts_p::template take_t<nkr::constant::positive::count_t<index_p::Value() + 1>>;
+            using expression_back_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 2>>;
 
             if constexpr (nkr::$tr::NOR_operator_tr<typename operand_t::operator_t>) {
                 using expression_with_operand_t = expression_back_t::template into_t<
@@ -439,12 +439,12 @@ namespace nkr { namespace $tr {
                     if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
                         if constexpr (nkr::$tr::XOR_operator_tr<typename operand_t::operator_t>) {
                             if constexpr (XOR_state_p::Value()) {
-                                return !Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                                return !Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
                             } else {
-                                return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                                return Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
                             }
                         } else {
-                            return Evaluate_Expression<subject_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                            return Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
                         }
                     } else {
                         using operators_t = nkr::$tr::operators_t<expression_parts_p>;
@@ -462,7 +462,7 @@ namespace nkr { namespace $tr {
                         }
                     }
                 } else {
-                    using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::positive::count_c<1>>, operand_t>;
+                    using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::constant::positive::count_t<1>>, operand_t>;
                     using operand_tail_t = nkr::cpp::access_qualification_of_t<typename operand_t::tail_t, operand_t>;
                     using expression_with_head_t = expression_back_t::template into_t<
                         expression_front_t::template push_back_t<operand_head_t>::template push_back_t
@@ -488,13 +488,13 @@ namespace nkr { namespace $tr {
                             if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
                                 return false;
                             } else {
-                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::boolean::cpp_c<true>>();
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<true>>();
                             }
                         } else {
                             if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::boolean::cpp_c<true>>();
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<true>>();
                             } else {
-                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::boolean::cpp_c<false>>();
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<false>>();
                             }
                         }
                     } else {
@@ -508,7 +508,7 @@ namespace nkr { namespace $tr {
     template <
         nkr::ts_tr              subjects_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                XOR_state_p         = nkr::boolean::cpp_c<false>
+        typename                XOR_state_p         = nkr::constant::boolean::cpp_t<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_Subjects()
         noexcept
@@ -548,13 +548,13 @@ namespace nkr { namespace $tr {
                         if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
                             return false;
                         } else {
-                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::boolean::cpp_c<true>>();
+                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<true>>();
                         }
                     } else {
                         if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
-                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::boolean::cpp_c<true>>();
+                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<true>>();
                         } else {
-                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::boolean::cpp_c<false>>();
+                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<false>>();
                         }
                     }
                 } else {
@@ -567,7 +567,7 @@ namespace nkr { namespace $tr {
     template <
         nkr::ts_tr              subjects_p,
         nkr::tuple::types_tr    expression_parts_p,
-        typename                index_p             = nkr::positive::index_c<0>
+        typename                index_p             = nkr::constant::positive::index_t<0>
     > inline constexpr nkr::boolean::cpp_t
         Validate()
         noexcept
@@ -595,8 +595,8 @@ namespace nkr { namespace $tr {
             static_assert(!(expression_parts_p::Count() & 1),
                           "An expression with a length greater than 1 must have an even number of parts.");
 
-            using operator_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value()>>::head_t;
-            using operand_t = expression_parts_p::template at_t<nkr::positive::index_c<index_p::Value() + 1>>::head_t;
+            using operator_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value()>>::head_t;
+            using operand_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 1>>::head_t;
 
             static_assert(operator_tr<operator_t> && !nkr::ts_tr<operator_t> && !nkr::tts_tr<operator_t>,
                           "Every odd-numbered expression part must be an operator.");
@@ -620,7 +620,7 @@ namespace nkr { namespace $tr {
                 static_assert(tts_tr<operand_t>,
                               "Every operand except the last must either be a tt<> or a tts<> operand.");
 
-                return Validate<subjects_p, expression_parts_p, nkr::positive::index_c<index_p::Value() + 2>>();
+                return Validate<subjects_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
             } else {
                 static_assert(ts_tr<operand_t>,
                               "The last operand must either be a t<> or a ts<> operand.");

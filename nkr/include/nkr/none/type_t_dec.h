@@ -10,9 +10,6 @@
 
 namespace nkr { namespace none {
 
-    using   type_t =
-        nkr::cpp::none::type_t;
-
     struct  type_tg {};
 
     template <typename type_p>

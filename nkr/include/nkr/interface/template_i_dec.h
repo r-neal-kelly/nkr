@@ -4,24 +4,24 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/constant/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace interface { namespace $template_i {
 
     template <typename type_p>
     class is_tmpl :
-        public nkr::boolean::cpp_c<false>
+        public nkr::constant::boolean::cpp_t<false>
     {
     public:
     };
 
     template <template <typename ...> typename template_p>
     class is_tmpl<template_i<template_p>> :
-        public nkr::boolean::cpp_c<true>
+        public nkr::constant::boolean::cpp_t<true>
     {
     public:
     };

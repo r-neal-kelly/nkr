@@ -11,22 +11,11 @@
 
 namespace nkr { namespace boolean {
 
-    using   cpp_t =
-        nkr::cpp::boolean_t;
-
     struct  cpp_tg  {};
 
     template <typename type_p>
     concept cpp_tr =
         nkr::cpp::is_any_tr<type_p, cpp_t>;
-
-    template <cpp_t value_p>
-    using   cpp_c =
-        nkr::cpp::constant_t<cpp_t, value_p>;
-
-    template <typename type_p>
-    concept cpp_ctr =
-        nkr::cpp::constant_of_tr<type_p, nkr::boolean::cpp_t>;
 
 }}
 

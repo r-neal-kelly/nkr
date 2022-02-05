@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/tuple/types_t_dec.h"
+#include "nkr/macros_dec.h"
 
 namespace nkr { namespace interface {
 
@@ -18,7 +18,7 @@ namespace nkr { namespace interface {
         template <typename inner_p>
         using of_t          = tag_p;
 
-        template <nkr::tuple::types_tr parameters_p>
+        template <typename parameters_p>
         using of_tuple_t    = tag_p;
 
         template <typename ...parameters_p>

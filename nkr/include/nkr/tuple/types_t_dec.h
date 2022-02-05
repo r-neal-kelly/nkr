@@ -4,12 +4,12 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/constant/boolean/cpp_t_dec.h"
+#include "nkr/constant/positive/count_t_dec.h"
+#include "nkr/constant/positive/index_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
-#include "nkr/positive/count_t_dec.h"
-#include "nkr/positive/index_t_dec.h"
 
 namespace nkr { namespace tuple { namespace $types_t {
 
@@ -113,21 +113,21 @@ namespace nkr { namespace tuple { namespace $types_t {
 
     template <typename type_p>
     class is_tmpl :
-        public nkr::boolean::cpp_c<false>
+        public nkr::constant::boolean::cpp_t<false>
     {
     public:
     };
 
     template <typename ...types_p>
     class is_tmpl<types_t<types_p...>> :
-        public nkr::boolean::cpp_c<true>
+        public nkr::constant::boolean::cpp_t<true>
     {
     public:
     };
 
     template <typename head_p, typename ...tail_p>
     class is_tmpl<types_t<head_p, tail_p...>> :
-        public nkr::boolean::cpp_c<true>
+        public nkr::constant::boolean::cpp_t<true>
     {
     public:
     };
@@ -172,7 +172,7 @@ namespace nkr { namespace tuple { namespace $types_t {
 
     public:
         using type_t    = front_t::template push_back_t<
-            typename tuple_p::template at_t<nkr::positive::index_c<count_p - 1>>::head_t
+            typename tuple_p::template at_t<nkr::constant::positive::index_t<count_p - 1>>::head_t
         >;
     };
 
@@ -187,11 +187,11 @@ namespace nkr { namespace tuple {
         using head_t        = nkr::none::type_t;
         using tail_t        = types_t<>;
 
-        template <nkr::positive::count_ctr count_p>
+        template <nkr::constant::positive::index_tr count_p>
             requires (count_p::Value() == 0)
         using at_t          = types_t<>;
 
-        template <nkr::positive::count_ctr count_p>
+        template <nkr::constant::positive::count_tr count_p>
             requires (count_p::Value() == 0)
         using take_t        = types_t<>;
 
@@ -226,11 +226,11 @@ namespace nkr { namespace tuple {
         using head_t        = head_p;
         using tail_t        = types_t<tail_p...>;
 
-        template <nkr::positive::index_ctr index_p>
+        template <nkr::constant::positive::index_tr index_p>
             requires (index_p::Value() <= 1 + sizeof...(tail_p))
         using at_t          = $types_t::at_tmpl<types_t, index_p::Value()>::type_t;
 
-        template <nkr::positive::count_ctr count_p>
+        template <nkr::constant::positive::count_tr count_p>
             requires (count_p::Value() <= 1 + sizeof...(tail_p))
         using take_t        = $types_t::take_tmpl<types_t, count_p::Value()>::type_t;
 

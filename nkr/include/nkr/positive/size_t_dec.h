@@ -4,14 +4,12 @@
 
 #pragma once
 
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 
 namespace nkr { namespace positive {
-
-    using   size_t =
-        nkr::cpp::positive::size_t;
 
     struct  size_tg {};
 
@@ -19,14 +17,6 @@ namespace nkr { namespace positive {
     concept size_tr =
         nkr::cpp::is_any_tr<type_p, size_t> ||
         (nkr::cpp::positive_integer_tr<type_p> && sizeof(type_p) == sizeof(size_t));
-
-    template <size_t value_p>
-    using   size_c =
-        nkr::cpp::constant_t<size_t, value_p>;
-
-    template <typename type_p>
-    concept size_ctr =
-        nkr::cpp::constant_of_tr<type_p, size_t>;
 
 }}
 

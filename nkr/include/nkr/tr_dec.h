@@ -4,13 +4,14 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/constant/boolean/cpp_t_dec.h"
+#include "nkr/constant/positive/count_t_dec.h"
+#include "nkr/constant/positive/index_t_dec.h"
 #include "nkr/generic/implementing/interface/template_tr_dec.h"
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
 #include "nkr/generic/tag/logic_gate_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
-#include "nkr/positive/index_t_dec.h"
 #include "nkr/tuple/templates_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
@@ -152,7 +153,7 @@ namespace nkr { namespace $tr {
         using types_t           = types_p;
 
         using tail_t            = ts<operator_t, typename types_t::tail_t>;
-        template <nkr::positive::count_ctr count_p>
+        template <nkr::constant::positive::count_tr count_p>
             requires (count_p::Value() <= types_t::Count())
         using take_t            = ts<operator_t, typename types_t::template take_t<count_p>>;
 
@@ -169,7 +170,7 @@ namespace nkr { namespace $tr {
         using templates_t       = templates_p;
 
         using tail_t            = tts<operator_t, typename templates_t::tail_t>;
-        template <nkr::positive::count_ctr count_p>
+        template <nkr::constant::positive::count_tr count_p>
             requires (count_p::Value() <= templates_t::Count())
         using take_t            = tts<operator_t, typename templates_t::template take_t<count_p>>;
 

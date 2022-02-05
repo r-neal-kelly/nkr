@@ -4,8 +4,9 @@
 
 #pragma once
 
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_8_t_dec.h"
 #include "nkr/positive/integer_16_t_dec.h"
 #include "nkr/positive/integer_32_t_dec.h"
@@ -13,23 +14,12 @@
 
 namespace nkr { namespace positive {
 
-    using   integer_max_t =
-        nkr::cpp::positive::integer_max_t;
-
     struct  integer_max_tg  {};
 
     template <typename type_p>
     concept integer_max_tr =
         nkr::cpp::is_any_tr<type_p, integer_max_t> ||
         (nkr::cpp::positive_integer_tr<type_p> && sizeof(type_p) == sizeof(integer_max_t));
-
-    template <integer_max_t value_p>
-    using   integer_max_c =
-        nkr::cpp::constant_t<integer_max_t, value_p>;
-
-    template <typename type_p>
-    concept integer_max_ctr =
-        nkr::cpp::constant_of_tr<type_p, integer_max_t>;
 
 }}
 

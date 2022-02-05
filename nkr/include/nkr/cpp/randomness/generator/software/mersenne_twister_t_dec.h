@@ -4,12 +4,13 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
+#include "nkr/constant_t_dec.h"
+#include "nkr/constant/boolean/cpp_t_dec.h"
+#include "nkr/constant/positive/integer_t_dec.h"
+#include "nkr/constant/positive/size_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
-#include "nkr/positive/integer_t_dec.h"
-#include "nkr/positive/size_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
@@ -22,23 +23,23 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software {
 
     template <
-        typename                                    result_p,
+        typename                            result_p,
 
-        nkr::cpp::constant_of_tr<positive::size_t>  w_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  n_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  m_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  r_p,
+        nkr::constant::positive::size_tr    w_p,
+        nkr::constant::positive::size_tr    n_p,
+        nkr::constant::positive::size_tr    m_p,
+        nkr::constant::positive::size_tr    r_p,
 
-        nkr::cpp::constant_of_tr<result_p>          a_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  u_p,
-        nkr::cpp::constant_of_tr<result_p>          d_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  s_p,
-        nkr::cpp::constant_of_tr<result_p>          b_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  t_p,
-        nkr::cpp::constant_of_tr<result_p>          c_p,
-        nkr::cpp::constant_of_tr<positive::size_t>  l_p,
+        nkr::constant_of_tr<result_p>       a_p,
+        nkr::constant::positive::size_tr    u_p,
+        nkr::constant_of_tr<result_p>       d_p,
+        nkr::constant::positive::size_tr    s_p,
+        nkr::constant_of_tr<result_p>       b_p,
+        nkr::constant::positive::size_tr    t_p,
+        nkr::constant_of_tr<result_p>       c_p,
+        nkr::constant::positive::size_tr    l_p,
 
-        nkr::cpp::constant_of_tr<result_p>          f_p
+        nkr::constant_of_tr<result_p>       f_p
     > using mersenne_twister_t = std::mersenne_twister_engine<
         result_p,
 
@@ -72,21 +73,21 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
     concept mersenne_twister_ttr = nkr::cpp::is_any_ttr<template_p, mersenne_twister_t,
         nkr::positive::integer_t,
 
-        nkr::positive::size_c<3>,
-        nkr::positive::size_c<1>,
-        nkr::positive::size_c<1>,
-        nkr::positive::size_c<3>,
+        nkr::constant::positive::size_t<3>,
+        nkr::constant::positive::size_t<1>,
+        nkr::constant::positive::size_t<1>,
+        nkr::constant::positive::size_t<3>,
 
-        nkr::positive::integer_c<0>,
-        nkr::positive::size_c<3>,
-        nkr::positive::integer_c<0>,
-        nkr::positive::size_c<3>,
-        nkr::positive::integer_c<0>,
-        nkr::positive::size_c<3>,
-        nkr::positive::integer_c<0>,
-        nkr::positive::size_c<3>,
+        nkr::constant::positive::integer_t<0>,
+        nkr::constant::positive::size_t<3>,
+        nkr::constant::positive::integer_t<0>,
+        nkr::constant::positive::size_t<3>,
+        nkr::constant::positive::integer_t<0>,
+        nkr::constant::positive::size_t<3>,
+        nkr::constant::positive::integer_t<0>,
+        nkr::constant::positive::size_t<3>,
 
-        nkr::positive::integer_c<0>
+        nkr::constant::positive::integer_t<0>
     >;
 
 }}}}}
@@ -95,7 +96,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
     template <typename type_p>
     class is_tmpl :
-        public nkr::boolean::cpp_c<false>
+        public nkr::constant::boolean::cpp_t<false>
     {
     public:
     };
@@ -136,7 +137,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         l_p,
 
         f_p>
-    > : public nkr::boolean::cpp_c<true>
+    > : public nkr::constant::boolean::cpp_t<true>
     {
     public:
     };
@@ -179,23 +180,23 @@ namespace nkr { namespace interface {
     {
     public:
         template <
-            typename                                    result_p,
+            typename                            result_p,
 
-            nkr::cpp::constant_of_tr<positive::size_t>  w_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  n_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  m_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  r_p,
+            nkr::constant::positive::size_tr    w_p,
+            nkr::constant::positive::size_tr    n_p,
+            nkr::constant::positive::size_tr    m_p,
+            nkr::constant::positive::size_tr    r_p,
 
-            nkr::cpp::constant_of_tr<result_p>          a_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  u_p,
-            nkr::cpp::constant_of_tr<result_p>          d_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  s_p,
-            nkr::cpp::constant_of_tr<result_p>          b_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  t_p,
-            nkr::cpp::constant_of_tr<result_p>          c_p,
-            nkr::cpp::constant_of_tr<positive::size_t>  l_p,
+            nkr::constant_of_tr<result_p>       a_p,
+            nkr::constant::positive::size_tr    u_p,
+            nkr::constant_of_tr<result_p>       d_p,
+            nkr::constant::positive::size_tr    s_p,
+            nkr::constant_of_tr<result_p>       b_p,
+            nkr::constant::positive::size_tr    t_p,
+            nkr::constant_of_tr<result_p>       c_p,
+            nkr::constant::positive::size_tr    l_p,
 
-            nkr::cpp::constant_of_tr<result_p>          f_p
+            nkr::constant_of_tr<result_p>       f_p
         > using template_t  = nkr::cpp::randomness::generator::software::mersenne_twister_t<
             result_p,
 
@@ -220,21 +221,21 @@ namespace nkr { namespace interface {
         using   of_t        = template_t<
             inner_p,
 
-            nkr::cpp::constant_t<positive::size_t, 3>,
-            nkr::cpp::constant_t<positive::size_t, 1>,
-            nkr::cpp::constant_t<positive::size_t, 1>,
-            nkr::cpp::constant_t<positive::size_t, 3>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<3>,
 
-            nkr::cpp::constant_t<inner_p, 0>,
-            nkr::cpp::constant_t<positive::size_t, 3>,
-            nkr::cpp::constant_t<inner_p, 0>,
-            nkr::cpp::constant_t<positive::size_t, 3>,
-            nkr::cpp::constant_t<inner_p, 0>,
-            nkr::cpp::constant_t<positive::size_t, 3>,
-            nkr::cpp::constant_t<inner_p, 0>,
-            nkr::cpp::constant_t<positive::size_t, 3>,
+            nkr::constant_t<inner_p, 0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant_t<inner_p, 0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant_t<inner_p, 0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant_t<inner_p, 0>,
+            nkr::constant::positive::size_t<3>,
 
-            nkr::cpp::constant_t<inner_p, 0>
+            nkr::constant_t<inner_p, 0>
         >;
 
         template <nkr::tuple::types_tr parameters_p>

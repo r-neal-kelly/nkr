@@ -10,7 +10,6 @@
 #include <climits>
 #include <cmath>
 #include <concepts>
-#include <cstdint>
 #include <limits>
 #include <memory>
 #include <mutex>
@@ -18,76 +17,7 @@
 #include <shared_mutex>
 #include <utility>
 
-#include "nkr/macros_dec.h"
-
-namespace nkr { namespace cpp {
-
-    using   boolean_t   = bool;
-
-}}
-
-namespace nkr { namespace cpp { namespace none {
-
-    using   type_t      = void;
-    using   pointer_t   = std::nullptr_t;
-
-}}}
-
-namespace nkr { namespace cpp { namespace positive {
-
-    using   integer_8_t     = std::uint8_t;
-    using   integer_16_t    = std::uint16_t;
-    using   integer_32_t    = std::uint32_t;
-    using   integer_64_t    = std::uint64_t;
-    using   integer_min_t   = integer_8_t;
-    using   integer_max_t   = integer_64_t;
-#if defined(nkr_IS_64_BIT)
-    using   integer_t       = integer_64_t;
-#elif defined(nkr_IS_32_BIT)
-    using   integer_t       = integer_32_t;
-#endif
-
-    using   byte_t          = integer_8_t;
-    using   word_t          = integer_t;
-
-    using   size_t          = integer_t;
-    using   count_t         = integer_t;
-    using   index_t         = integer_t;
-
-}}}
-
-namespace nkr { namespace cpp { namespace negatable {
-
-    using   integer_8_t     = std::int8_t;
-    using   integer_16_t    = std::int16_t;
-    using   integer_32_t    = std::int32_t;
-    using   integer_64_t    = std::int64_t;
-    using   integer_min_t   = integer_8_t;
-    using   integer_max_t   = integer_64_t;
-#if defined(nkr_IS_64_BIT)
-    using   integer_t       = integer_64_t;
-#elif defined(nkr_IS_32_BIT)
-    using   integer_t       = integer_32_t;
-#endif
-
-    using   real_32_t       = float;
-    using   real_64_t       = double;
-    using   real_min_t      = real_32_t;
-    using   real_max_t      = real_64_t;
-#if defined(nkr_IS_64_BIT)
-    using   real_t          = real_64_t;
-#elif defined(nkr_IS_32_BIT)
-    using   real_t          = real_32_t;
-#endif
-
-    using   byte_t          = integer_8_t;
-    using   word_t          = integer_t;
-
-    using   size_t          = integer_t;
-    using   count_t         = integer_t;
-    using   index_t         = integer_t;
-
-}}}
+#include "nkr/built_in/forward_dec.h"
 
 namespace nkr { namespace cpp {
 
@@ -98,7 +28,7 @@ namespace nkr { namespace cpp {
     public:
     };
 
-    template <typename type_p, positive::count_t capacity_p>
+    template <typename type_p, nkr::positive::count_t capacity_p>
     class array_tmpl<type_p[capacity_p]> :
         public std::true_type
     {
@@ -106,7 +36,7 @@ namespace nkr { namespace cpp {
         using unit_t    = type_p;
 
     public:
-        static constexpr positive::count_t  Capacity() noexcept;
+        static constexpr nkr::positive::count_t Capacity() noexcept;
     };
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
@@ -169,7 +99,7 @@ namespace nkr { namespace cpp {
 
     template <typename type_p>
     concept boolean_tr =
-        std::is_same<std::remove_cv_t<type_p>, boolean_t>::value;
+        std::is_same<std::remove_cv_t<type_p>, nkr::boolean::cpp_t>::value;
 
     template <typename type_p>
     concept integer_tr =
@@ -602,94 +532,38 @@ namespace nkr { namespace cpp {
 // nkr::cpp functions
 namespace nkr { namespace cpp {
 
-    constexpr boolean_t         Is_Big_Endian() noexcept;
-    constexpr boolean_t         Is_Little_Endian() noexcept;
+    constexpr nkr::boolean::cpp_t       Is_Big_Endian() noexcept;
+    constexpr nkr::boolean::cpp_t       Is_Little_Endian() noexcept;
 
-    constexpr positive::count_t Byte_Bit_Count() noexcept;
+    constexpr nkr::positive::count_t    Byte_Bit_Count() noexcept;
 
-    constexpr auto*             Address(const auto& of) noexcept;
+    constexpr auto*                     Address(const auto& of) noexcept;
 
-    constexpr auto&&            Move(auto& value) noexcept;
-    constexpr auto&&            Move(const auto& value) noexcept                                = delete;
-    constexpr auto&&            Move(auto&& value) noexcept;
-    constexpr auto&&            Move(const auto&& value) noexcept                               = delete;
+    constexpr auto&&                    Move(auto& value) noexcept;
+    constexpr auto&&                    Move(const auto& value) noexcept                        = delete;
+    constexpr auto&&                    Move(auto&& value) noexcept;
+    constexpr auto&&                    Move(const auto&& value) noexcept                       = delete;
 
-    constexpr auto              Exchange(auto& value, const auto& with) noexcept;
-    constexpr auto              Exchange(const auto& value, const auto& with) noexcept          = delete;
-    constexpr auto              Exchange(auto& value, auto&& with) noexcept;
-    constexpr auto              Exchange(const auto& value, auto&& with) noexcept               = delete;
+    constexpr auto                      Exchange(auto& value, const auto& with) noexcept;
+    constexpr auto                      Exchange(const auto& value, const auto& with) noexcept  = delete;
+    constexpr auto                      Exchange(auto& value, auto&& with) noexcept;
+    constexpr auto                      Exchange(const auto& value, auto&& with) noexcept       = delete;
 
     template <typename parameter_p>
-    constexpr parameter_p&&     Forward(std::remove_reference_t<parameter_p>& argument) noexcept;
+    constexpr parameter_p&&             Forward(std::remove_reference_t<parameter_p>& argument) noexcept;
     template <typename parameter_p>
         requires (!lvalue_reference_tr<parameter_p>)
-    constexpr parameter_p&&     Forward(std::remove_reference_t<parameter_p>&& argument) noexcept;
+    constexpr parameter_p&&             Forward(std::remove_reference_t<parameter_p>&& argument) noexcept;
 
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
-    constexpr value_p           Default_Min() noexcept;
+    constexpr value_p                   Default_Min() noexcept;
     template <typename value_p>
         requires boolean_tr<value_p> || integer_tr<value_p> || real_tr<value_p> || pointer_tr<value_p>
-    constexpr value_p           Default_Max() noexcept;
+    constexpr value_p                   Default_Max() noexcept;
 
     template <array_tr array_p>
-    constexpr positive::count_t Array_Capacity() noexcept;
-
-}}
-
-// nkr::cpp::constant_t
-namespace nkr { namespace cpp {
-
-    template <type_tr type_p, type_p value_p>
-    class constant_t;
-
-    template <typename type_p>
-    concept constant_tr =
-        is_any_tr<type_p, constant_t<typename type_p::value_t, type_p::Value()>>;
-
-    template <typename type_p, typename value_p>
-    concept constant_of_tr =
-        constant_tr<type_p> &&
-        is_tr<typename type_p::value_t, value_p>;
-
-    template <type_tr type_p, type_p value_p>
-    class constant_t
-    {
-    public:
-        using value_t   = type_p;
-
-    public:
-        static constexpr constant_t::value_t    Value() noexcept;
-
-    public:
-        constexpr constant_t() noexcept;
-
-        constexpr constant_t(const constant_t& other) noexcept;
-        constexpr constant_t(const volatile constant_t& other) noexcept;
-        constexpr constant_t(constant_t&& other) noexcept;
-        constexpr constant_t(volatile constant_t&& other) noexcept;
-
-        constexpr constant_t&           operator =(const constant_t& other) noexcept                                = delete;
-        constexpr volatile constant_t&  operator =(const constant_t& other) volatile noexcept                       = delete;
-        constexpr constant_t&           operator =(const volatile constant_t& other) noexcept                       = delete;
-        constexpr volatile constant_t&  operator =(const volatile constant_t& other) volatile noexcept              = delete;
-        constexpr constant_t&           operator =(constant_t&& other) noexcept                                     = delete;
-        constexpr volatile constant_t&  operator =(constant_t&& other) volatile noexcept                            = delete;
-        constexpr constant_t&           operator =(is_just_volatile_tr<constant_t> auto&& other) noexcept           = delete;
-        constexpr volatile constant_t&  operator =(is_just_volatile_tr<constant_t> auto&& other) volatile noexcept  = delete;
-
-#if defined(nkr_IS_DEBUG)
-        constexpr ~constant_t() noexcept;
-#endif
-
-    public:
-        constexpr operator  constant_t::value_t() const noexcept;
-        constexpr operator  constant_t::value_t() const volatile noexcept;
-
-    public:
-        constexpr constant_t::value_t   operator ()() const noexcept;
-        constexpr constant_t::value_t   operator ()() const volatile noexcept;
-    };
+    constexpr nkr::positive::count_t    Array_Capacity() noexcept;
 
 }}
 
@@ -700,11 +574,5 @@ namespace nkr { namespace cpp {
 
     static_assert(Is_Big_Endian() || Is_Little_Endian(), "This library requires either a big or little endian machine.");
     static_assert(Byte_Bit_Count() == 8, "This library requires that there be 8 bits in a byte.");
-
-    static_assert(sizeof(negatable::real_32_t) == sizeof(negatable::integer_32_t), "Mismatching size for 32 bit real and integer types!");
-    static_assert(sizeof(negatable::real_64_t) == sizeof(negatable::integer_64_t), "Mismatching size for 64 bit real and integer types!");
-    
-    static_assert(sizeof(none::pointer_t) == sizeof(positive::word_t), "Mismatching size for pointer and word types!");
-    static_assert(sizeof(none::type_t*) == sizeof(positive::word_t), "Mismatching size for pointer and word types!");
 
 }}

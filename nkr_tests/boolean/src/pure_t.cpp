@@ -4,6 +4,7 @@
 
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
+#include "nkr/constant/positive/index_t.h"
 #include "nkr/generic/boolean_tr.h"
 #include "nkr/generic/boolean/any_tr.h"
 #include "nkr/generic/boolean/pure_tr.h"
@@ -733,8 +734,8 @@ namespace nkr {
                     {
                         TEST_CASE_TEMPLATE("value", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -745,8 +746,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -757,8 +758,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -773,8 +774,8 @@ namespace nkr {
                     {
                         TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_const_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -788,8 +789,8 @@ namespace nkr {
                     {
                         TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -800,8 +801,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -816,8 +817,8 @@ namespace nkr {
                     {
                         TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
                             using value_t = pure_t::value_t;
 
                             nkr::cpp::just_const_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
@@ -1050,8 +1051,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("non-qualified", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                             nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
                             pure_t pure;
@@ -1062,8 +1063,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("const", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                             nkr::cpp::just_const_t<from_t> from = nkr::randomness::Value<from_t>();
                             pure_t pure;
@@ -1074,8 +1075,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("volatile", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                             nkr::cpp::just_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
                             pure_t pure;
@@ -1086,8 +1087,8 @@ namespace nkr {
 
                         TEST_CASE_TEMPLATE("const volatile", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                         {
-                            using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                            using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                            using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                            using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                             nkr::cpp::just_const_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
                             pure_t pure;
@@ -1216,8 +1217,8 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("value", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                             {
-                                using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                                using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                                using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                                using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                                 nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
                                 pure_t pure;
@@ -1228,8 +1229,8 @@ namespace nkr {
 
                             TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                             {
-                                using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                                using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                                using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                                using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                                 nkr::cpp::just_non_qualified_t<from_t> from = nkr::randomness::Value<from_t>();
                                 pure_t pure;
@@ -1243,8 +1244,8 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_FROM_BUILT_IN_TUPLES)
                             {
-                                using pure_t = tuple_p::template at_t<nkr::positive::index_c<0>>::head_t;
-                                using from_t = tuple_p::template at_t<nkr::positive::index_c<1>>::head_t;
+                                using pure_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                                using from_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                                 nkr::cpp::just_volatile_t<from_t> from = nkr::randomness::Value<from_t>();
                                 pure_t pure;
