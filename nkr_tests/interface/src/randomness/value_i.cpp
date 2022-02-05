@@ -2,6 +2,7 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/enumeration/cpp_t.h"
 #include "nkr/interface/randomness/value_i.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/randomness/value.h" // temp

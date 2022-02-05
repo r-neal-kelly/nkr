@@ -3,6 +3,7 @@
 */
 
 #include "nkr/array/cpp_t.h"
+#include "nkr/constant/positive/count_t.h"
 #include "nkr/generic/array_tr.h"
 #include "nkr/generic/negatable_tr.h"
 #include "nkr/generic/positive_tr.h"
@@ -21,8 +22,8 @@ namespace nkr { namespace boolean {
         using template_i = nkr::interface::template_i<nkr::array::cpp_t>;
 
         static_assert(nkr::cpp::is_tr<
-                      nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
-                      template_i::template template_t<nkr::positive::integer_t, nkr::positive::count_c<1>>
+                      nkr::array::cpp_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>,
+                      template_i::template template_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>
         >);
 
         static_assert(!nkr::cpp::is_ttr<
@@ -33,15 +34,15 @@ namespace nkr { namespace boolean {
         static_assert(nkr::cpp::is_any_ttr<
                       nkr::array::cpp_t,
                       template_i::template template_t,
-                      nkr::positive::integer_t, nkr::positive::count_c<1>
+                      nkr::positive::integer_t, nkr::constant::positive::count_t<1>
         >);
 
         static_assert(nkr::array::cpp_tr<
-                      template_i::template of_tuple_t<nkr::tuple::types_t<nkr::positive::integer_t, nkr::positive::count_c<1>>>
+                      template_i::template of_tuple_t<nkr::tuple::types_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>>
         >);
 
         static_assert(nkr::array::cpp_tr<
-                      template_i::template of_pack_t<nkr::positive::integer_t, nkr::positive::count_c<1>>
+                      template_i::template of_pack_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>
         >);
 
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t> && nkr::array::cpp_ttr<template_i::template template_t>);
@@ -54,11 +55,11 @@ namespace nkr { namespace boolean {
 
     TEST_CASE("temp")
     {
-        nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>> array;
+        nkr::array::cpp_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>> array;
 
         CHECK(sizeof(array) == sizeof(positive::integer_t) * 1);
 
-        static_assert(tr<array::cpp_t<const positive::integer_t, positive::count_c<1>>,
+        static_assert(tr<array::cpp_t<const positive::integer_t, nkr::constant::positive::count_t<1>>,
                       any_tg, tt<array::cpp_ttg>, of_just_const_tg, t<positive::integer_t>>);
     }
 
@@ -66,20 +67,20 @@ namespace nkr { namespace boolean {
     {
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t>);
         static_assert(nkr::cpp::is_tr<
-                      nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
-                      nkr::tuple::templates_t<nkr::array::cpp_t>::head_t<nkr::positive::integer_t, nkr::positive::count_c<1>>
+                      nkr::array::cpp_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>,
+                      nkr::tuple::templates_t<nkr::array::cpp_t>::head_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>
         >);
 
         static_assert(nkr::array::cpp_ttr<nkr::array::cpp_t>);
         static_assert(nkr::array::cpp_ttr<nkr::tuple::templates_t<nkr::array::cpp_t>::head_t>);
 
-        static_assert(tr<nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
+        static_assert(tr<nkr::array::cpp_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>,
                       any_tg, tt<nkr::array::cpp_t>, of_any_tg, t<nkr::positive::integer_t>>);
 
         static_assert(TR<
                       ts<AND_tg,
-                      const nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
-                      nkr::array::cpp_t<const nkr::positive::integer_t, nkr::positive::count_c<2>>>,
+                      const nkr::array::cpp_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>,
+                      nkr::array::cpp_t<const nkr::positive::integer_t, nkr::constant::positive::count_t<2>>>,
 
                       any_tg, tts<AND_tg, nkr::array::cpp_t, nkr::array::cpp_ttg>,
                       of_any_access_const_tg, ts<AND_tg, nkr::positive::integer_t, nkr::positive::integer_tg, nkr::generic::positive_tg>
@@ -87,8 +88,8 @@ namespace nkr { namespace boolean {
 
         static_assert(TR<
                       ts<AND_tg,
-                      const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::positive::count_c<3>>,
-                      nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::positive::count_c<4>>>,
+                      const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::constant::positive::count_t<3>>,
+                      nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::constant::positive::count_t<4>>>,
 
                       any_tg, tts<AND_tg, nkr::array::cpp_t, nkr::array::cpp_ttg>,
                       of_any_access_const_tg, ts<AND_tg, nkr::negatable::integer_t, nkr::negatable::integer_tg, nkr::generic::negatable_tg>
@@ -96,10 +97,10 @@ namespace nkr { namespace boolean {
 
         static_assert(TR<
                       ts<AND_tg,
-                      const nkr::array::cpp_t<nkr::positive::integer_t, nkr::positive::count_c<1>>,
-                      nkr::array::cpp_t<const nkr::positive::integer_t, nkr::positive::count_c<2>>,
-                      const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::positive::count_c<3>>,
-                      nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::positive::count_c<4>>>,
+                      const nkr::array::cpp_t<nkr::positive::integer_t, nkr::constant::positive::count_t<1>>,
+                      nkr::array::cpp_t<const nkr::positive::integer_t, nkr::constant::positive::count_t<2>>,
+                      const volatile nkr::array::cpp_t<nkr::negatable::integer_t, nkr::constant::positive::count_t<3>>,
+                      nkr::array::cpp_t<const volatile nkr::negatable::integer_t, nkr::constant::positive::count_t<4>>>,
 
                       any_tg, tts<AND_tg, nkr::array::cpp_t, nkr::array::cpp_ttg>,
                       of_any_access_const_tg, ts<OR_tg, nkr::positive::integer_t, nkr::negatable::integer_t>

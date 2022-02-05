@@ -2,6 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/constant/positive/integer_t.h"
+#include "nkr/constant/positive/size_t.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_t.h"
 
 #include "doctest.h"
@@ -13,21 +15,21 @@ namespace nkr {
         using mersenne_twister_a_t = nkr::cpp::randomness::generator::software::mersenne_twister_t<
             nkr::positive::integer_t,
 
-            nkr::positive::size_c<3>,
-            nkr::positive::size_c<1>,
-            nkr::positive::size_c<1>,
-            nkr::positive::size_c<3>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<3>,
 
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
 
-            nkr::positive::integer_c<0>
+            nkr::constant::positive::integer_t<0>
         >;
 
         static_assert(nkr::cpp::randomness::generator::software::mersenne_twister_tr<mersenne_twister_a_t>);
@@ -42,21 +44,21 @@ namespace nkr {
         using mersenne_twister_parameters_t = nkr::tuple::types_t<
             nkr::positive::integer_t,
 
-            nkr::positive::size_c<3>,
-            nkr::positive::size_c<1>,
-            nkr::positive::size_c<1>,
-            nkr::positive::size_c<3>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<3>,
 
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
-            nkr::positive::integer_c<0>,
-            nkr::positive::size_c<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::integer_t<0>,
+            nkr::constant::positive::size_t<3>,
 
-            nkr::positive::integer_c<0>
+            nkr::constant::positive::integer_t<0>
         >;
 
         static_assert(nkr::cpp::randomness::generator::software::mersenne_twister_tr<template_i::template of_tuple_t<mersenne_twister_parameters_t>>);

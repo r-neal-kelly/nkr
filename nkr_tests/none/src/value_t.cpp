@@ -115,13 +115,15 @@ namespace nkr {
 
     }
 
+    template <nkr::cpp::is_any_tr<non_none_default_t> type_p>
     class non_none_default_t_none_value_i_sp
     {
     public:
-        using type_t    = non_none_default_t;
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
 
     public:
-        static constexpr non_none_default_t
+        static constexpr value_t
             Value()
             noexcept
         {
@@ -135,11 +137,11 @@ namespace nkr {
 
     namespace interface { namespace none {
 
-        template <>
-        class value_i_sp<non_none_default_t>
+        template <nkr::cpp::is_any_tr<non_none_default_t> type_p>
+        class value_i_sp<type_p>
         {
         public:
-            using type_t    = non_none_default_t_none_value_i_sp;
+            using type_t    = non_none_default_t_none_value_i_sp<type_p>;
         };
 
     }}

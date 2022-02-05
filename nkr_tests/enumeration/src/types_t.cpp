@@ -3,6 +3,9 @@
 */
 
 #include "nkr/array/cpp_t.h"
+#include "nkr/constant/negatable/integer_t.h"
+#include "nkr/constant/positive/count_t.h"
+#include "nkr/constant/positive/integer_t.h"
 #include "nkr/enumeration/types_t.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
@@ -22,8 +25,8 @@ namespace nkr {
         using value_t   = nkr::positive::integer_t;
 
     public:
-        value_t                                                 value;
-        nkr::array::cpp_t<value_t, nkr::positive::count_c<8>>   unused_but_exemplary_values = { 0 };
+        value_t                                                         value;
+        nkr::array::cpp_t<value_t, nkr::constant::positive::count_t<8>> unused_but_exemplary_values = { 0 };
 
     public:
 #if 1
@@ -243,21 +246,21 @@ namespace nkr {
         nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(example_e, base_t);
     };
 
-    #define nkr_TYPES                                                           \
-        enumeration::types_t<positive::integer_t>,                              \
-        enumeration::types_t<positive::integer_t, positive::integer_c<0>>,      \
-        enumeration::types_t<negatable::integer_t>,                             \
-        enumeration::types_t<negatable::integer_t, negatable::integer_c<0>>,    \
-        enumeration::types_t<user_defined_t>,                                   \
-        enumeration::types_t<user_defined_t, positive::integer_c<1>>
+    #define nkr_TYPES                                                                       \
+        enumeration::types_t<positive::integer_t>,                                          \
+        enumeration::types_t<positive::integer_t, nkr::constant::positive::integer_t<0>>,   \
+        enumeration::types_t<negatable::integer_t>,                                         \
+        enumeration::types_t<negatable::integer_t, nkr::constant::negatable::integer_t<0>>, \
+        enumeration::types_t<user_defined_t>,                                               \
+        enumeration::types_t<user_defined_t, nkr::constant::positive::integer_t<1>>         \
 
-    #define nkr_EXAMPLES                                            \
-        example_e<positive::integer_t>,                             \
-        example_e<positive::integer_t, positive::integer_c<0>>,     \
-        example_e<negatable::integer_t>,                            \
-        example_e<negatable::integer_t, negatable::integer_c<0>>,   \
-        example_e<user_defined_t>,                                  \
-        example_e<user_defined_t, positive::integer_c<1>>
+    #define nkr_EXAMPLES                                                            \
+        example_e<positive::integer_t>,                                             \
+        example_e<positive::integer_t, nkr::constant::positive::integer_t<0>>,      \
+        example_e<negatable::integer_t>,                                            \
+        example_e<negatable::integer_t, nkr::constant::negatable::integer_t<0>>,    \
+        example_e<user_defined_t>,                                                  \
+        example_e<user_defined_t, nkr::constant::positive::integer_t<1>>            \
 
     #define nkr_BOTH    \
         nkr_TYPES,      \
@@ -279,13 +282,13 @@ namespace nkr {
             {
                 static_assert(generic::implementing::interface::type_tr<enumeration::types_tg>);
                 static_assert(generic::implementing::interface::type_tr<enumeration::types_t<positive::integer_t>>);
-                static_assert(generic::implementing::interface::type_tr<enumeration::types_t<positive::integer_t, positive::integer_c<0>>>);
+                static_assert(generic::implementing::interface::type_tr<enumeration::types_t<positive::integer_t, nkr::constant::positive::integer_t<0>>>);
 
                 static_assert(generic::implementing::interface::template_ttr<enumeration::types_ttg>);
                 static_assert(generic::implementing::interface::template_ttr<enumeration::types_t>);
 
                 static_assert(generic::implementing::interface::none::value_tr<enumeration::types_t<positive::integer_t>>);
-                static_assert(generic::implementing::interface::none::value_tr<enumeration::types_t<positive::integer_t, positive::integer_c<0>>>);
+                static_assert(generic::implementing::interface::none::value_tr<enumeration::types_t<positive::integer_t, nkr::constant::positive::integer_t<0>>>);
             }
 
             TEST_CASE("should instantiate with built-in types that correctly interface")

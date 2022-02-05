@@ -4,6 +4,9 @@
 
 #include "nkr/array/cpp_t.h"
 
+#include "nkr/constant/positive/count_t.h"
+#include "nkr/constant/positive/integer_t.h"
+
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
 
@@ -177,12 +180,12 @@ namespace nkr {
 
     TEST_SUITE("the following types should implement this interface")
     {
-        static_assert(generic::implementing::interface::type_tr<array::cpp_t<positive::integer_t, positive::count_c<1>>>);
+        static_assert(generic::implementing::interface::type_tr<array::cpp_t<positive::integer_t, nkr::constant::positive::count_t<1>>>);
 
         static_assert(generic::implementing::interface::type_tr<boolean::cpp_t>);
         static_assert(generic::implementing::interface::type_tr<boolean::pure_t>);
 
-        static_assert(generic::implementing::interface::type_tr<enumeration::types_t<positive::integer_t, positive::integer_c<0>>>);
+        static_assert(generic::implementing::interface::type_tr<enumeration::types_t<positive::integer_t, nkr::constant::positive::integer_t<0>>>);
 
         static_assert(generic::implementing::interface::type_tr<interface::enumeration::types_i<positive::integer_t>>);
         static_assert(generic::implementing::interface::type_tr<interface::none::value_i<positive::integer_t>>);
