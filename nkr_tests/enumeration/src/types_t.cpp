@@ -14,6 +14,7 @@
 #include "nkr/none/value_t.h"
 #include "nkr/positive/count_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/tr.h"
 
 #include "doctest.h"
 
@@ -160,29 +161,62 @@ namespace nkr {
         }
     };
 
-    namespace interface {
+    TEST_CASE("temp")
+    {
+        static_assert(nkr::generic::implementing::self::assigner::non_volatile::move::non_volatile_tr<user_defined_t>);
+        static_assert(nkr::generic::implementing::self::assigner::non_volatile::move::volatile_tr<user_defined_t>);
 
-        template <nkr::cpp::is_any_tr<user_defined_t> type_p>
-        class type_i<type_p>
+        static_assert(nkr::generic::implementing::self::assigner::volatile_::move::non_volatile_tr<user_defined_t>);
+        static_assert(nkr::generic::implementing::self::assigner::volatile_::move::volatile_tr<user_defined_t>);
+
         {
-        public:
-            using type_t    = type_p;
-            using of_t      = type_t::value_t;
+            user_defined_t a(1);
+            user_defined_t b(2);
 
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return nkr::cpp::is_any_tr<other_p, user_defined_t>;
-            }
+            CHECK(a == 1);
+            CHECK(b == 2);
 
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
+            a = nkr::cpp::Move(b);
 
+            CHECK(a == 2);
+            CHECK(b == 0);
+        }
+        {
+            volatile user_defined_t a(1);
+            user_defined_t b(2);
+
+            CHECK(a == 1);
+            CHECK(b == 2);
+
+            a = nkr::cpp::Move(b);
+
+            CHECK(a == 2);
+            CHECK(b == 0);
+        }
+        {
+            user_defined_t a(1);
+            volatile user_defined_t b(2);
+
+            CHECK(a == 1);
+            CHECK(b == 2);
+
+            a = nkr::cpp::Move(b);
+
+            CHECK(a == 2);
+            CHECK(b == 0);
+        }
+        {
+            volatile user_defined_t a(1);
+            volatile user_defined_t b(2);
+
+            CHECK(a == 1);
+            CHECK(b == 2);
+
+            a = nkr::cpp::Move(b);
+
+            CHECK(a == 2);
+            CHECK(b == 0);
+        }
     }
 
     namespace interface { namespace enumeration {
@@ -306,9 +340,9 @@ namespace nkr {
 
             TEST_CASE("should instantiate with user-defined types that correctly interface")
             {
-                using user_defined_types_e = enumeration::types_t<user_defined_t>;
-                static_assert(cpp::is_tr<user_defined_types_e, user_defined_types_e>);
-                static_assert(cpp::is_tr<user_defined_types_e::value_t, user_defined_t>);
+                using user_defined_types_e = nkr::enumeration::types_t<user_defined_t>;
+                static_assert(nkr::cpp::is_tr<user_defined_types_e, user_defined_types_e>);
+                static_assert(nkr::cpp::is_tr<user_defined_types_e::value_t, user_defined_t>);
                 static_assert(user_defined_types_e::none_t::Value() == 0);
             }
         }
