@@ -14,7 +14,6 @@
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/negatable/real_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/randomness/generator/software/default_t_dec.h"
 #include "nkr/tr_dec.h"
@@ -45,22 +44,12 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::number::integer_tr type_p>
-    class   integer_sp;
-
     template <nkr::generic::built_in::number::real_tr type_p>
     class   real_sp;
 
 }}}}
 
 namespace nkr { namespace interface { namespace randomness {
-
-    template <nkr::generic::built_in::number::integer_tr type_p>
-    class value_i_sp<type_p>
-    {
-    public:
-        using type_t    = $value_i::integer_sp<type_p>;
-    };
 
     template <nkr::generic::built_in::number::real_tr type_p>
     class value_i_sp<type_p>
@@ -163,29 +152,6 @@ namespace nkr { namespace interface {
     };
 
 }}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
-    template <nkr::generic::built_in::number::integer_tr type_p>
-    class integer_sp
-    {
-    public:
-        using type_t    = type_p;
-        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
-
-    public:
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(value_t min = nkr::cpp::Default_Min<value_t>(), value_t max = nkr::cpp::Default_Max<value_t>()) noexcept;
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              value_t min = nkr::cpp::Default_Min<value_t>(), value_t max = nkr::cpp::Default_Max<value_t>()) noexcept;
-
-    public:
-        template <typename ...>
-        constexpr integer_sp(...) noexcept  = delete;
-    };
-
-}}}}
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 

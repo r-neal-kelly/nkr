@@ -6,9 +6,7 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-#include "nkr/enumeration/cpp_t_dec.h"
 #include "nkr/generic/built_in/boolean_tr_dec.h"
-#include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 #include "nkr/generic/built_in/number/integer_tr_dec.h"
 #include "nkr/generic/built_in/number/real_tr_dec.h"
 #include "nkr/generic/built_in/pointer_tr_dec.h"
@@ -16,16 +14,6 @@
 #include "nkr/generic/implementing/self_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/negatable/integer_t_dec.h"
-#include "nkr/negatable/integer_8_t_dec.h"
-#include "nkr/negatable/integer_16_t_dec.h"
-#include "nkr/negatable/integer_32_t_dec.h"
-#include "nkr/negatable/integer_64_t_dec.h"
-#include "nkr/positive/integer_t_dec.h"
-#include "nkr/positive/integer_8_t_dec.h"
-#include "nkr/positive/integer_16_t_dec.h"
-#include "nkr/positive/integer_32_t_dec.h"
-#include "nkr/positive/integer_64_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
@@ -69,9 +57,6 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     template <nkr::generic::built_in::boolean_tr type_p>
     class   boolean_sp;
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    class   enumeration_limited_sp;
-
     template <nkr::generic::built_in::number::integer_tr type_p>
     class   integer_sp;
 
@@ -93,13 +78,6 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     {
     public:
         using type_t    = $uniform_i::boolean_sp<type_p>;
-    };
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    class uniform_i_sp<type_p>
-    {
-    public:
-        using type_t    = $uniform_i::enumeration_limited_sp<type_p>;
     };
 
     template <nkr::generic::built_in::number::integer_tr type_p>
@@ -237,29 +215,6 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     public:
         template <typename ...>
         constexpr boolean_sp(...) noexcept  = delete;
-    };
-
-}}}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    class enumeration_limited_sp
-    {
-    public:
-        using type_t    = type_p;
-        using number_t  = nkr::enumeration::cpp_value_t<type_t>;
-
-    public:
-        static constexpr type_t     Default_Min() noexcept;
-        static constexpr type_t     Default_Max() noexcept;
-
-        static constexpr number_t   To_Number(type_t object) noexcept;
-        static constexpr type_t     From_Number(number_t number) noexcept;
-
-    public:
-        template <typename ...>
-        constexpr enumeration_limited_sp(...) noexcept  = delete;
     };
 
 }}}}}

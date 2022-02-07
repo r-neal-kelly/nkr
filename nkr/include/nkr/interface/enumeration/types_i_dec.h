@@ -13,7 +13,6 @@
 #include "nkr/generic/number/integer_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 

@@ -14,17 +14,9 @@
 #include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/negatable/integer_t_dec.h"
-#include "nkr/negatable/integer_8_t_dec.h"
-#include "nkr/negatable/integer_16_t_dec.h"
-#include "nkr/negatable/integer_32_t_dec.h"
-#include "nkr/negatable/integer_64_t_dec.h"
-#include "nkr/positive/integer_t_dec.h"
-#include "nkr/positive/integer_8_t_dec.h"
-#include "nkr/positive/integer_16_t_dec.h"
-#include "nkr/positive/integer_32_t_dec.h"
-#include "nkr/positive/integer_64_t_dec.h"
 #include "nkr/tr_dec.h"
+
+// may want to pull in nkr/positive/integer_t and nkr/negatable/integer_t for the sake of their interfaces.
 
 namespace nkr { namespace enumeration {
 
@@ -264,6 +256,40 @@ namespace nkr { namespace interface { namespace none {
     };
 
 }}}
+
+namespace nkr { namespace enumeration { namespace $cpp_t {
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    class randomness_distributor_uniform_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using number_t  = nkr::enumeration::cpp_value_t<type_t>;
+
+    public:
+        static constexpr type_t     Default_Min() noexcept;
+        static constexpr type_t     Default_Max() noexcept;
+
+        static constexpr number_t   To_Number(type_t object) noexcept;
+        static constexpr type_t     From_Number(number_t number) noexcept;
+
+    public:
+        template <typename ...>
+        constexpr randomness_distributor_uniform_i_sp(...) noexcept = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace randomness { namespace distributor {
+
+    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
+    class uniform_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::$cpp_t::randomness_distributor_uniform_i_sp<type_p>;
+    };
+
+}}}}
 
 namespace nkr { namespace enumeration { namespace $cpp_t {
 

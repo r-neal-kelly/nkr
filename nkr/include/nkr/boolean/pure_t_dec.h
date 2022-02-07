@@ -10,7 +10,6 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/randomness/value_i_dec.h"
-#include "nkr/negatable/real_t_dec.h"
 #include "nkr/tr_dec.h"
 
 /*

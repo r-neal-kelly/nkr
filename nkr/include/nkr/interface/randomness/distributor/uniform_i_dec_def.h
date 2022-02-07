@@ -68,42 +68,6 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
 
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr enumeration_limited_sp<type_p>::type_t
-        enumeration_limited_sp<type_p>::Default_Min()
-        noexcept
-    {
-        return type_t::MIN_tg;
-    }
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr enumeration_limited_sp<type_p>::type_t
-        enumeration_limited_sp<type_p>::Default_Max()
-        noexcept
-    {
-        return type_t::MAX_tg;
-    }
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr enumeration_limited_sp<type_p>::number_t
-        enumeration_limited_sp<type_p>::To_Number(type_t object)
-        noexcept
-    {
-        return static_cast<number_t>(object);
-    }
-
-    template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr enumeration_limited_sp<type_p>::type_t
-        enumeration_limited_sp<type_p>::From_Number(number_t number)
-        noexcept
-    {
-        return static_cast<type_t>(number);
-    }
-
-}}}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
-
     template <nkr::generic::built_in::number::integer_tr type_p>
     inline constexpr integer_sp<type_p>::type_t
         integer_sp<type_p>::Default_Min()

@@ -16,10 +16,6 @@
 #include "nkr/generic/positive_tr_def.h"
 #include "nkr/interface/forward_def.h"
 #include "nkr/interface/randomness/distributor/uniform_i_def.h"
-#include "nkr/negatable/real_t_def.h"
-#include "nkr/negatable/word_t_def.h"
-#include "nkr/positive/integer_t_def.h"
-#include "nkr/positive/word_t_def.h"
 #include "nkr/tr_def.h"
 #include "nkr/tuple/types_t_def.h"
 

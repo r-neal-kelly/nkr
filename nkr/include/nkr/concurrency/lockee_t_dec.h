@@ -10,7 +10,6 @@
 #include "nkr/cpp/concurrency/locker/exclusive_t_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
 
 /*

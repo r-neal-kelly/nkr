@@ -16,10 +16,6 @@
 #include "nkr/generic/positive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/randomness/distributor/uniform_i_dec.h"
-#include "nkr/negatable/real_t_dec.h"
-#include "nkr/negatable/word_t_dec.h"
-#include "nkr/positive/integer_t_dec.h"
-#include "nkr/positive/word_t_dec.h"
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 

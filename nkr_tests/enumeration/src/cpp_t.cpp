@@ -17,6 +17,7 @@
 #include "nkr/generic/type_tr.h"
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/type_i.h"
+#include "nkr/negatable/integer_t.h"
 #include "nkr/none/value_t.h"
 #include "nkr/positive/index_t.h"
 #include "nkr/positive/integer_t.h"

@@ -5,6 +5,7 @@
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/cpp/randomness/generator/hardware_t.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_19937_64_t.h"
+#include "nkr/enumeration/cpp_t.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/implementing/interface/type_tr.h"
 #include "nkr/generic/randomness/distributor_tr.h"
