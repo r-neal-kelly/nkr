@@ -17,3 +17,15 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+namespace nkr { namespace boolean { namespace $cpp_t {
+
+    template <nkr::boolean::cpp_tr type_p>
+    inline constexpr none_value_i_sp<type_p>::value_t
+        none_value_i_sp<type_p>::Value()
+        noexcept
+    {
+        return false;
+    }
+
+}}}

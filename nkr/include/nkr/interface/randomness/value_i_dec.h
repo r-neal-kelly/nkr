@@ -45,9 +45,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 
-    template <nkr::generic::built_in::boolean_tr type_p>
-    class   boolean_sp;
-
     template <nkr::generic::built_in::number::integer_tr type_p>
     class   integer_sp;
 
@@ -57,13 +54,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 }}}}
 
 namespace nkr { namespace interface { namespace randomness {
-
-    template <nkr::generic::built_in::boolean_tr type_p>
-    class value_i_sp<type_p>
-    {
-    public:
-        using type_t    = $value_i::boolean_sp<type_p>;
-    };
 
     template <nkr::generic::built_in::number::integer_tr type_p>
     class value_i_sp<type_p>
@@ -173,35 +163,6 @@ namespace nkr { namespace interface {
     };
 
 }}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
-    template <nkr::generic::built_in::boolean_tr type_p>
-    class boolean_sp
-    {
-    public:
-        using type_t    = type_p;
-        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
-
-    public:
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(nkr::negatable::real_t probability_for_true = 0.5) noexcept;
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              nkr::negatable::real_t probability_for_true = 0.5) noexcept;
-
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(value_t min, value_t max) noexcept;
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              value_t min, value_t max) noexcept;
-
-    public:
-        template <typename ...>
-        constexpr boolean_sp(...) noexcept  = delete;
-    };
-
-}}}}
 
 namespace nkr { namespace interface { namespace randomness { namespace $value_i {
 

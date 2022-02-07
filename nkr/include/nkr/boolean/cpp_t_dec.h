@@ -6,8 +6,9 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-//#include "nkr/cpp/generic/randomness/generator_tr_dec.h"
+#include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/tr_dec.h"
 
 namespace nkr { namespace boolean {
 
@@ -50,7 +51,37 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace boolean { namespace $cpp_t {
 
-    /*template <nkr::boolean::cpp_tr type_p>
+    template <nkr::boolean::cpp_tr type_p>
+    class none_value_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+
+    public:
+        static constexpr value_t    Value() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr none_value_i_sp(...) noexcept = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::boolean::cpp_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::boolean::$cpp_t::none_value_i_sp<type_p>;
+    };
+
+}}}
+
+namespace nkr { namespace boolean { namespace $cpp_t {
+
+    template <nkr::boolean::cpp_tr type_p>
     class randomness_value_i_sp
     {
     public:
@@ -73,18 +104,18 @@ namespace nkr { namespace boolean { namespace $cpp_t {
     public:
         template <typename ...>
         constexpr randomness_value_i_sp(...) noexcept   = delete;
-    };*/
+    };
 
 }}}
 
 namespace nkr { namespace interface { namespace randomness {
 
-    /*template <nkr::boolean::cpp_tr type_p>
+    template <nkr::boolean::cpp_tr type_p>
     class value_i_sp<type_p>
     {
     public:
         using type_t    = nkr::boolean::$cpp_t::randomness_value_i_sp<type_p>;
-    };*/
+    };
 
 }}}
 

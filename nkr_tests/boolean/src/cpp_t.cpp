@@ -4,6 +4,7 @@
 
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
+#include "nkr/none/value_t.h"
 
 #include "doctest.h"
 
@@ -30,6 +31,11 @@ namespace nkr { namespace boolean {
         CHECK((boolean::pure_t(true) == boolean::cpp_t(true)));
         CHECK((boolean::cpp_t(true) != boolean::pure_t(false)));
         CHECK((boolean::pure_t(true) != boolean::cpp_t(false)));
+    }
+
+    TEST_CASE("temp")
+    {
+        CHECK(nkr::none::value_t<nkr::boolean::cpp_t>() == false);
     }
 
 }}

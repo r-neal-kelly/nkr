@@ -6,14 +6,19 @@
 
 #include "nkr/built_in/forward_def.h"
 #include "nkr/cpp_def.h"
-//#include "nkr/cpp/generic/randomness/generator_tr_def.h"
+#include "nkr/cpp/generic/randomness/generator_tr_def.h"
 #include "nkr/interface/forward_def.h"
+#include "nkr/tr_def.h"
 
 #include "nkr/boolean/cpp_t_dec.h"
 
+#include "nkr/cpp/randomness/distributor/bernoulli_t_def.h"
+#include "nkr/randomness/distributor/uniform_t_def.h"
+#include "nkr/randomness/generator/software/default_t_def.h"
+
 namespace nkr { namespace boolean { namespace $cpp_t {
 
-    /*template <nkr::boolean::cpp_tr type_p>
+    template <nkr::boolean::cpp_tr type_p>
     template <typename unused_p>
     inline randomness_value_i_sp<type_p>::value_t
         randomness_value_i_sp<type_p>::Value(nkr::negatable::real_t probability_for_true)
@@ -58,6 +63,6 @@ namespace nkr { namespace boolean { namespace $cpp_t {
         nkr_ASSERT_THAT(min <= max);
 
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);
-    }*/
+    }
 
 }}}
