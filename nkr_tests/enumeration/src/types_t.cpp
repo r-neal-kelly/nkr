@@ -158,60 +158,57 @@ namespace nkr {
         }
     };
 
-    namespace interface
-    {
-        namespace enumeration {
+    namespace interface { namespace enumeration {
 
-            template <>
-            class types_i<user_defined_t>
+        template <>
+        class types_i<user_defined_t>
+        {
+        public:
+            using type_t    = user_defined_t;
+            using integer_t = type_t::value_t;
+
+        public:
+            static constexpr integer_t
+                Default_None_Value()
+                noexcept
             {
-            public:
-                using type_t = user_defined_t;
-                using integer_t = type_t::value_t;
+                return 0;
+            }
 
-            public:
-                static constexpr integer_t
-                    Default_None_Value()
-                    noexcept
-                {
-                    return 0;
-                }
+            static constexpr integer_t
+                Value(const tr<any_tg, t<type_t>> auto& type)
+                noexcept
+            {
+                return type.value;
+            }
 
-                static constexpr integer_t
-                    Value(const tr<any_tg, t<type_t>> auto& type)
-                    noexcept
-                {
-                    return type.value;
-                }
+            static constexpr nkr::none::type_t
+                Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
+                noexcept
+            {
+                type.value = integer;
+            }
 
-                static constexpr nkr::none::type_t
-                    Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
-                    noexcept
-                {
-                    type.value = integer;
-                }
+        public:
+            template <typename ...>
+            constexpr types_i(...) noexcept = delete;
+        };
 
-            public:
-                template <typename ...>
-                constexpr types_i(...) noexcept = delete;
-            };
-
-        }
-    }
+    }}
 
     template <typename ...base_parameters_p>
     class example_e :
         public nkr::enumeration::types_t<base_parameters_p...>
     {
     public:
-        using base_t = nkr::enumeration::types_t<base_parameters_p...>;
+        using base_t    = nkr::enumeration::types_t<base_parameters_p...>;
 
     public:
         enum : typename base_t::integer_t
         {
             NONE_tg = base_t::none_t::Value(),
 
-            A = NONE_tg + 1, // avoid potential unsigned int overflow warning
+            A       = NONE_tg + 1, // avoid potential unsigned int overflow warning
             B,
             C,
 
@@ -222,7 +219,7 @@ namespace nkr {
         nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(example_e, base_t);
     };
 
-#define nkr_TYPES                                                                       \
+    #define nkr_TYPES                                                                       \
         enumeration::types_t<positive::integer_t>,                                          \
         enumeration::types_t<positive::integer_t, nkr::constant::positive::integer_t<0>>,   \
         enumeration::types_t<negatable::integer_t>,                                         \
@@ -230,7 +227,7 @@ namespace nkr {
         enumeration::types_t<user_defined_t>,                                               \
         enumeration::types_t<user_defined_t, nkr::constant::positive::integer_t<1>>         \
 
-#define nkr_EXAMPLES                                                            \
+    #define nkr_EXAMPLES                                                            \
         example_e<positive::integer_t>,                                             \
         example_e<positive::integer_t, nkr::constant::positive::integer_t<0>>,      \
         example_e<negatable::integer_t>,                                            \
@@ -238,7 +235,7 @@ namespace nkr {
         example_e<user_defined_t>,                                                  \
         example_e<user_defined_t, nkr::constant::positive::integer_t<1>>            \
 
-#define nkr_BOTH    \
+    #define nkr_BOTH    \
         nkr_TYPES,      \
         nkr_EXAMPLES
 
