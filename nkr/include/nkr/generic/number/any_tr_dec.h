@@ -4,12 +4,11 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
-#include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace generic { namespace number {
 

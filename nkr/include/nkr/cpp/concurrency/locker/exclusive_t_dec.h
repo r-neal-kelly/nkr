@@ -4,12 +4,11 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/cpp/concurrency/lock/perpetual/unary_t_dec.h"
 #include "nkr/cpp/generic/concurrency/lock/exclusive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace concurrency { namespace locker {

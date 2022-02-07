@@ -6,11 +6,11 @@
 
 #include "nkr/boolean/cpp_t_def.h"
 #include "nkr/boolean/deleted_operators_t_def.h"
+#include "nkr/built_in/forward_def.h"
 #include "nkr/cpp_def.h"
 #include "nkr/interface/forward_def.h"
 #include "nkr/interface/randomness/value_i_def.h"
 #include "nkr/negatable/real_t_def.h"
-#include "nkr/none/type_t_def.h"
 #include "nkr/tr_def.h"
 
 #include "nkr/boolean/pure_t_def.h"

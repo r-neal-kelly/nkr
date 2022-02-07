@@ -2,6 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/tr.h"
+
 #include "nkr/array/cpp_t.h"
 #include "nkr/constant/negatable/integer_t.h"
 #include "nkr/constant/positive/count_t.h"
@@ -14,7 +16,6 @@
 #include "nkr/none/value_t.h"
 #include "nkr/positive/count_t.h"
 #include "nkr/positive/integer_t.h"
-#include "nkr/tr.h"
 
 #include "doctest.h"
 
@@ -30,9 +31,6 @@ namespace nkr {
         nkr::array::cpp_t<value_t, nkr::constant::positive::count_t<8>> unused_but_exemplary_values = { 0 };
 
     public:
-#if 1
-        // should contribute to satisfying the interface, else should give a good error message
-
         constexpr user_defined_t(value_t value) noexcept :
             value(value)
         {
@@ -49,12 +47,12 @@ namespace nkr {
         }
 
         constexpr user_defined_t(user_defined_t&& other) noexcept :
-            value(cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
+            value(nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
         {
         }
 
         constexpr user_defined_t(volatile user_defined_t&& other) noexcept :
-            value(cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
+            value(nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
         {
         }
 
@@ -62,7 +60,7 @@ namespace nkr {
             operator =(const user_defined_t& other)
             noexcept
         {
-            if (this != cpp::Address(other)) {
+            if (this != nkr::cpp::Address(other)) {
                 this->value = other.value;
             }
 
@@ -73,7 +71,7 @@ namespace nkr {
             operator =(const user_defined_t& other)
             volatile noexcept
         {
-            if (this != cpp::Address(other)) {
+            if (this != nkr::cpp::Address(other)) {
                 this->value = other.value;
             }
 
@@ -84,7 +82,7 @@ namespace nkr {
             operator =(const volatile user_defined_t& other)
             noexcept
         {
-            if (this != cpp::Address(other)) {
+            if (this != nkr::cpp::Address(other)) {
                 this->value = other.value;
             }
 
@@ -95,7 +93,7 @@ namespace nkr {
             operator =(const volatile user_defined_t& other)
             volatile noexcept
         {
-            if (this != cpp::Address(other)) {
+            if (this != nkr::cpp::Address(other)) {
                 this->value = other.value;
             }
 
@@ -106,8 +104,8 @@ namespace nkr {
             operator =(user_defined_t&& other)
             noexcept
         {
-            if (this != cpp::Address(other)) {
-                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            if (this != nkr::cpp::Address(other)) {
+                this->value = nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>());
             }
 
             return *this;
@@ -117,8 +115,8 @@ namespace nkr {
             operator =(user_defined_t&& other)
             volatile noexcept
         {
-            if (this != cpp::Address(other)) {
-                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            if (this != nkr::cpp::Address(other)) {
+                this->value = nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>());
             }
 
             return *this;
@@ -128,8 +126,8 @@ namespace nkr {
             operator =(tr<just_volatile_tg, t<user_defined_t>> auto&& other)
             noexcept
         {
-            if (this != cpp::Address(other)) {
-                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            if (this != nkr::cpp::Address(other)) {
+                this->value = nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>());
             }
 
             return *this;
@@ -139,13 +137,12 @@ namespace nkr {
             operator =(tr<just_volatile_tg, t<user_defined_t>> auto&& other)
             volatile noexcept
         {
-            if (this != cpp::Address(other)) {
-                this->value = cpp::Exchange(other.value, none::value_t<value_t>());
+            if (this != nkr::cpp::Address(other)) {
+                this->value = nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>());
             }
 
             return *this;
         }
-#endif
 
     public:
         constexpr operator value_t()
@@ -161,57 +158,60 @@ namespace nkr {
         }
     };
 
-    namespace interface { namespace enumeration {
+    namespace interface
+    {
+        namespace enumeration {
 
-        template <>
-        class types_i<user_defined_t>
-        {
-        public:
-            using type_t    = user_defined_t;
-            using integer_t = type_t::value_t;
-
-        public:
-            static constexpr integer_t
-                Default_None_Value()
-                noexcept
+            template <>
+            class types_i<user_defined_t>
             {
-                return 0;
-            }
+            public:
+                using type_t = user_defined_t;
+                using integer_t = type_t::value_t;
 
-            static constexpr integer_t
-                Value(const tr<any_tg, t<type_t>> auto& type)
-                noexcept
-            {
-                return type.value;
-            }
+            public:
+                static constexpr integer_t
+                    Default_None_Value()
+                    noexcept
+                {
+                    return 0;
+                }
 
-            static constexpr nkr::none::type_t
-                Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
-                noexcept
-            {
-                type.value = integer;
-            }
+                static constexpr integer_t
+                    Value(const tr<any_tg, t<type_t>> auto& type)
+                    noexcept
+                {
+                    return type.value;
+                }
 
-        public:
-            template <typename ...>
-            constexpr types_i(...) noexcept = delete;
-        };
+                static constexpr nkr::none::type_t
+                    Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
+                    noexcept
+                {
+                    type.value = integer;
+                }
 
-    }}
+            public:
+                template <typename ...>
+                constexpr types_i(...) noexcept = delete;
+            };
+
+        }
+    }
 
     template <typename ...base_parameters_p>
     class example_e :
         public nkr::enumeration::types_t<base_parameters_p...>
     {
     public:
-        using base_t    = nkr::enumeration::types_t<base_parameters_p...>;
+        using base_t = nkr::enumeration::types_t<base_parameters_p...>;
 
     public:
         enum : typename base_t::integer_t
         {
             NONE_tg = base_t::none_t::Value(),
 
-            A       = NONE_tg + 1, // avoid potential unsigned int overflow warning
+            A = NONE_tg + 1, // avoid potential unsigned int overflow warning
             B,
             C,
 
@@ -222,7 +222,7 @@ namespace nkr {
         nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(example_e, base_t);
     };
 
-    #define nkr_TYPES                                                                       \
+#define nkr_TYPES                                                                       \
         enumeration::types_t<positive::integer_t>,                                          \
         enumeration::types_t<positive::integer_t, nkr::constant::positive::integer_t<0>>,   \
         enumeration::types_t<negatable::integer_t>,                                         \
@@ -230,7 +230,7 @@ namespace nkr {
         enumeration::types_t<user_defined_t>,                                               \
         enumeration::types_t<user_defined_t, nkr::constant::positive::integer_t<1>>         \
 
-    #define nkr_EXAMPLES                                                            \
+#define nkr_EXAMPLES                                                            \
         example_e<positive::integer_t>,                                             \
         example_e<positive::integer_t, nkr::constant::positive::integer_t<0>>,      \
         example_e<negatable::integer_t>,                                            \
@@ -238,7 +238,7 @@ namespace nkr {
         example_e<user_defined_t>,                                                  \
         example_e<user_defined_t, nkr::constant::positive::integer_t<1>>            \
 
-    #define nkr_BOTH    \
+#define nkr_BOTH    \
         nkr_TYPES,      \
         nkr_EXAMPLES
 

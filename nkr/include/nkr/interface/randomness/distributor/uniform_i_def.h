@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_def.h"
+#include "nkr/built_in/forward_def.h"
 #include "nkr/cpp_def.h"
 #include "nkr/generic/built_in/boolean_tr_def.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_def.h"
@@ -20,7 +20,6 @@
 #include "nkr/negatable/integer_16_t_def.h"
 #include "nkr/negatable/integer_32_t_def.h"
 #include "nkr/negatable/integer_64_t_def.h"
-#include "nkr/none/type_t_def.h"
 #include "nkr/positive/integer_t_def.h"
 #include "nkr/positive/integer_8_t_def.h"
 #include "nkr/positive/integer_16_t_def.h"

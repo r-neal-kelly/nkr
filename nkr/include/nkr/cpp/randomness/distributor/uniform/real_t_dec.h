@@ -4,11 +4,10 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/negatable/real_t_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace uniform {

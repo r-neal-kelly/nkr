@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "nkr/boolean/cpp_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/generic/built_in/boolean_tr_dec.h"
@@ -15,7 +15,6 @@
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/negatable/real_t_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/randomness/generator/software/default_t_dec.h"
 #include "nkr/tr_dec.h"

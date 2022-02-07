@@ -6,11 +6,11 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/randomness/value_i_dec.h"
 #include "nkr/negatable/real_t_dec.h"
-#include "nkr/none/type_t_dec.h"
 #include "nkr/tr_dec.h"
 
 /*
