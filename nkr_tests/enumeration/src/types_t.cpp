@@ -161,64 +161,6 @@ namespace nkr {
         }
     };
 
-    TEST_CASE("temp")
-    {
-        static_assert(nkr::generic::implementing::self::assigner::non_volatile::move::non_volatile_tr<user_defined_t>);
-        static_assert(nkr::generic::implementing::self::assigner::non_volatile::move::volatile_tr<user_defined_t>);
-
-        static_assert(nkr::generic::implementing::self::assigner::volatile_::move::non_volatile_tr<user_defined_t>);
-        static_assert(nkr::generic::implementing::self::assigner::volatile_::move::volatile_tr<user_defined_t>);
-
-        {
-            user_defined_t a(1);
-            user_defined_t b(2);
-
-            CHECK(a == 1);
-            CHECK(b == 2);
-
-            a = nkr::cpp::Move(b);
-
-            CHECK(a == 2);
-            CHECK(b == 0);
-        }
-        {
-            volatile user_defined_t a(1);
-            user_defined_t b(2);
-
-            CHECK(a == 1);
-            CHECK(b == 2);
-
-            a = nkr::cpp::Move(b);
-
-            CHECK(a == 2);
-            CHECK(b == 0);
-        }
-        {
-            user_defined_t a(1);
-            volatile user_defined_t b(2);
-
-            CHECK(a == 1);
-            CHECK(b == 2);
-
-            a = nkr::cpp::Move(b);
-
-            CHECK(a == 2);
-            CHECK(b == 0);
-        }
-        {
-            volatile user_defined_t a(1);
-            volatile user_defined_t b(2);
-
-            CHECK(a == 1);
-            CHECK(b == 2);
-
-            a = nkr::cpp::Move(b);
-
-            CHECK(a == 2);
-            CHECK(b == 0);
-        }
-    }
-
     namespace interface { namespace enumeration {
 
         template <>
