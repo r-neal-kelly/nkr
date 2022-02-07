@@ -514,47 +514,50 @@ namespace nkr { namespace $tr {
         noexcept
     {
         if constexpr (nkr::$tr::NOR_operator_tr<typename subjects_p::operator_t>) {
-            return !Evaluate_Subjects<typename subjects_p::template with_operator_t<OR_tg>, expression_parts_p>();
+            return !Evaluate_Subjects<nkr::cpp::access_qualification_of_t<to_ts<OR_tg, subjects_p>, subjects_p>, expression_parts_p>();
         } else if constexpr (nkr::$tr::NAND_operator_tr<typename subjects_p::operator_t>) {
-            return !Evaluate_Subjects<typename subjects_p::template with_operator_t<AND_tg>, expression_parts_p>();
+            return !Evaluate_Subjects<nkr::cpp::access_qualification_of_t<to_ts<AND_tg, subjects_p>, subjects_p>, expression_parts_p>();
         } else if constexpr (nkr::$tr::XNOR_operator_tr<typename subjects_p::operator_t>) {
-            return !Evaluate_Subjects<typename subjects_p::template with_operator_t<XOR_tg>, expression_parts_p>();
+            return !Evaluate_Subjects<nkr::cpp::access_qualification_of_t<to_ts<XOR_tg, subjects_p>, subjects_p>, expression_parts_p>();
         } else {
+            using subjects_head_t = nkr::cpp::access_qualification_of_t<typename subjects_p::head_t, subjects_p>;
+            using subjects_tail_t = nkr::cpp::access_qualification_of_t<typename subjects_p::tail_t, subjects_p>;
+
             if constexpr (subjects_p::Count() == 1) {
                 if constexpr (nkr::$tr::XOR_operator_tr<typename subjects_p::operator_t>) {
                     if constexpr (XOR_state_p::Value()) {
-                        return !Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>();
+                        return !Evaluate_Expression<subjects_head_t, expression_parts_p>();
                     } else {
-                        return Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>();
+                        return Evaluate_Expression<subjects_head_t, expression_parts_p>();
                     }
                 } else {
-                    return Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>();
+                    return Evaluate_Expression<subjects_head_t, expression_parts_p>();
                 }
             } else {
                 if constexpr (nkr::$tr::OR_operator_tr<typename subjects_p::operator_t>) {
-                    if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                    if constexpr (Evaluate_Expression<subjects_head_t, expression_parts_p>()) {
                         return true;
                     } else {
-                        return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
+                        return Evaluate_Subjects<subjects_tail_t, expression_parts_p>();
                     }
                 } else if constexpr (nkr::$tr::AND_operator_tr<typename subjects_p::operator_t>) {
-                    if constexpr (!Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                    if constexpr (!Evaluate_Expression<subjects_head_t, expression_parts_p>()) {
                         return false;
                     } else {
-                        return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p>();
+                        return Evaluate_Subjects<subjects_tail_t, expression_parts_p>();
                     }
                 } else if constexpr (nkr::$tr::XOR_operator_tr<typename subjects_p::operator_t>) {
                     if constexpr (XOR_state_p::Value()) {
-                        if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
+                        if constexpr (Evaluate_Expression<subjects_head_t, expression_parts_p>()) {
                             return false;
                         } else {
-                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<true>>();
+                            return Evaluate_Subjects<subjects_tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<true>>();
                         }
                     } else {
-                        if constexpr (Evaluate_Expression<typename subjects_p::head_t, expression_parts_p>()) {
-                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<true>>();
+                        if constexpr (Evaluate_Expression<subjects_head_t, expression_parts_p>()) {
+                            return Evaluate_Subjects<subjects_tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<true>>();
                         } else {
-                            return Evaluate_Subjects<typename subjects_p::tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<false>>();
+                            return Evaluate_Subjects<subjects_tail_t, expression_parts_p, nkr::constant::boolean::cpp_t<false>>();
                         }
                     }
                 } else {

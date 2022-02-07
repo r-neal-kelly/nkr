@@ -108,5 +108,8 @@
     <ClCompile Include="src\implementing\interface\enumeration\types_tr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\implementing\self_tr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
