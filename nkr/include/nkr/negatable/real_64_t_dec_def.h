@@ -50,10 +50,10 @@ namespace nkr { namespace negatable { namespace $real_64_t {
 
     template <nkr::negatable::real_64_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
-        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t value)
         noexcept
     {
-        return object;
+        return value;
     }
 
     template <nkr::negatable::real_64_tr type_p>

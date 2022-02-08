@@ -78,10 +78,10 @@ namespace nkr { namespace positive { namespace $integer_32_t {
 
     template <nkr::positive::integer_32_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
-        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t value)
         noexcept
     {
-        return object;
+        return value;
     }
 
     template <nkr::positive::integer_32_tr type_p>

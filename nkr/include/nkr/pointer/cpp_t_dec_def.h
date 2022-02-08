@@ -62,12 +62,12 @@ namespace nkr { namespace pointer { namespace $cpp_t {
 
     template <nkr::pointer::cpp_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
-        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t value)
         noexcept
     {
         static_assert(sizeof(value_t) == sizeof(number_t));
 
-        return *reinterpret_cast<number_t*>(&object);
+        return *reinterpret_cast<number_t*>(&value);
     }
 
     template <nkr::pointer::cpp_tr type_p>

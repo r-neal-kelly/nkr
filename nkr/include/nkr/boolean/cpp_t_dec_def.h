@@ -50,10 +50,10 @@ namespace nkr { namespace boolean { namespace $cpp_t {
 
     template <nkr::boolean::cpp_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
-        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t value)
         noexcept
     {
-        return static_cast<number_t>(object);
+        return static_cast<number_t>(value);
     }
 
     template <nkr::boolean::cpp_tr type_p>

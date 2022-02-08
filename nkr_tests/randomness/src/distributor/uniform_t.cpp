@@ -57,10 +57,10 @@ namespace nkr {
                 }
 
                 static constexpr number_t
-                    To_Number(type_t object)
+                    To_Number(type_t value)
                     noexcept
                 {
-                    return static_cast<number_t>(object);
+                    return static_cast<number_t>(value);
                 }
 
                 static constexpr type_t

@@ -94,7 +94,7 @@ namespace nkr { namespace negatable { namespace $real_64_t {
         static constexpr value_t    Default_Min() noexcept;
         static constexpr value_t    Default_Max() noexcept;
 
-        static constexpr number_t   To_Number(value_t object) noexcept;
+        static constexpr number_t   To_Number(value_t value) noexcept;
         static constexpr value_t    From_Number(number_t number) noexcept;
 
     public:

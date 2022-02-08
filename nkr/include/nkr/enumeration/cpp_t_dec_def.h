@@ -54,10 +54,10 @@ namespace nkr { namespace enumeration { namespace $cpp_t {
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
-        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t value)
         noexcept
     {
-        return static_cast<number_t>(object);
+        return static_cast<number_t>(value);
     }
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
