@@ -83,6 +83,40 @@ namespace nkr { namespace interface { namespace none {
 namespace nkr { namespace positive { namespace $integer_8_t {
 
     template <nkr::positive::integer_8_tr type_p>
+    class enumeration_types_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+        using integer_t = value_t;
+
+    public:
+        static constexpr integer_t          Default_Integer() noexcept;
+
+        static constexpr integer_t          Integer(const tr<any_tg, t<value_t>> auto& value) noexcept;
+        static constexpr nkr::none::type_t  Integer(tr<any_non_const_tg, t<value_t>> auto& value, integer_t integer) noexcept;
+
+    public:
+        template <typename ...>
+        constexpr enumeration_types_i_sp(...) noexcept  = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace enumeration {
+
+    template <nkr::positive::integer_8_tr type_p>
+    class types_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::positive::$integer_8_t::enumeration_types_i_sp<type_p>;
+    };
+
+}}}
+
+namespace nkr { namespace positive { namespace $integer_8_t {
+
+    template <nkr::positive::integer_8_tr type_p>
     class randomness_distributor_uniform_i_sp
     {
     public:

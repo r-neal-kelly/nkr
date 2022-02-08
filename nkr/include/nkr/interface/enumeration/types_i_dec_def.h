@@ -6,6 +6,34 @@
 
 #include "nkr/interface/enumeration/types_i_dec.h"
 
+namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+
+    template <nkr::cpp::is_any_tr<example_t> type_p>
+    inline constexpr example_types_i_sp<type_p>::integer_t
+        example_types_i_sp<type_p>::Default_Integer()
+        noexcept
+    {
+        return value_t(~0);
+    }
+
+    template <nkr::cpp::is_any_tr<example_t> type_p>
+    inline constexpr example_types_i_sp<type_p>::integer_t
+        example_types_i_sp<type_p>::Integer(const tr<any_tg, t<value_t>> auto& value)
+        noexcept
+    {
+        return static_cast<integer_t>(value);
+    }
+
+    template <nkr::cpp::is_any_tr<example_t> type_p>
+    inline constexpr nkr::none::type_t
+        example_types_i_sp<type_p>::Integer(tr<any_non_const_tg, t<value_t>> auto& value, integer_t integer)
+        noexcept
+    {
+        value = static_cast<value_t>(integer);
+    }
+
+}}}}
+
 namespace nkr { namespace interface {
 
     template <typename other_p>
@@ -29,37 +57,3 @@ namespace nkr { namespace interface {
     }
 
 }}
-
-namespace nkr { namespace interface { namespace enumeration {
-
-    template <$types_i::default_tr type_p>
-    inline constexpr types_i<type_p>::integer_t
-        types_i<type_p>::Default_None_Value()
-        noexcept
-    {
-        if constexpr (nkr::generic::positive_tr<integer_t>) {
-            return ~integer_t(0);
-        } else if constexpr (nkr::generic::negatable_tr<integer_t>) {
-            return integer_t(-1);
-        } else {
-            static_assert(false);
-        }
-    }
-
-    template <$types_i::default_tr type_p>
-    inline constexpr types_i<type_p>::integer_t
-        types_i<type_p>::Value(const tr<any_tg, t<type_t>> auto& type)
-        noexcept
-    {
-        return type;
-    }
-
-    template <$types_i::default_tr type_p>
-    inline constexpr nkr::none::type_t
-        types_i<type_p>::Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
-        noexcept
-    {
-        type = integer;
-    }
-
-}}}

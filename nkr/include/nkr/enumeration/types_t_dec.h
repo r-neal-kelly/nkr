@@ -11,6 +11,7 @@
 #include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
 #include "nkr/interface/enumeration/types_i_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
@@ -23,7 +24,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
     using integer_t         = interface_t<value_p>::integer_t;
 
     template <typename value_p>
-    using default_none_t    = nkr::constant_t<integer_t<value_p>, interface_t<value_p>::Default_None_Value()>;
+    using default_none_t    = nkr::constant_t<integer_t<value_p>, interface_t<value_p>::Default_Integer()>;
 
 }}}
 
@@ -41,7 +42,7 @@ namespace nkr { namespace enumeration {
 
     template <typename type_p>
     concept types_tr =
-        nkr::cpp::is_any_tr<type_p, types_t<typename type_p::value_t, typename type_p::none_t>>;
+        nkr::cpp::is_any_tr<type_p, types_t<typename type_p::type_t, typename type_p::none_t>>;
 
     template <template <typename ...> typename template_p>
     concept types_ttr =
@@ -128,9 +129,11 @@ namespace nkr { namespace enumeration {
     > class types_t
     {
     public:
-        using value_t       = value_p;
+        using type_t        = value_p;
         using none_t        = none_p;
-        using interface_t   = nkr::interface::enumeration::types_i<value_t>;
+
+        using interface_t   = nkr::interface::enumeration::types_i<value_p>;
+        using value_t       = interface_t::value_t;
         using integer_t     = interface_t::integer_t;
 
     private:

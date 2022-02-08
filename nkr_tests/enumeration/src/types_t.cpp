@@ -158,40 +158,48 @@ namespace nkr {
         }
     };
 
+    template <nkr::cpp::is_any_tr<user_defined_t> type_p>
+    class user_defined_enumeration_types_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+        using integer_t = value_t::value_t;
+
+    public:
+        static constexpr integer_t
+            Default_Integer()
+            noexcept
+        {
+            return 0;
+        }
+
+        static constexpr integer_t
+            Integer(const tr<any_tg, t<value_t>> auto& value)
+            noexcept
+        {
+            return value.value;
+        }
+
+        static constexpr nkr::none::type_t
+            Integer(tr<any_non_const_tg, t<value_t>> auto& value, integer_t integer)
+            noexcept
+        {
+            value.value = integer;
+        }
+
+    public:
+        template <typename ...>
+        constexpr user_defined_enumeration_types_i_sp(...) noexcept = delete;
+    };
+
     namespace interface { namespace enumeration {
 
-        template <>
-        class types_i<user_defined_t>
+        template <nkr::cpp::is_any_tr<user_defined_t> type_p>
+        class types_i_sp<type_p>
         {
         public:
-            using type_t    = user_defined_t;
-            using integer_t = type_t::value_t;
-
-        public:
-            static constexpr integer_t
-                Default_None_Value()
-                noexcept
-            {
-                return 0;
-            }
-
-            static constexpr integer_t
-                Value(const tr<any_tg, t<type_t>> auto& type)
-                noexcept
-            {
-                return type.value;
-            }
-
-            static constexpr nkr::none::type_t
-                Value(tr<any_non_const_tg, t<type_t>> auto& type, integer_t integer)
-                noexcept
-            {
-                type.value = integer;
-            }
-
-        public:
-            template <typename ...>
-            constexpr types_i(...) noexcept = delete;
+            using type_t    = user_defined_enumeration_types_i_sp<type_p>;
         };
 
     }}

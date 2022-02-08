@@ -40,7 +40,7 @@ namespace nkr { namespace enumeration {
                                                  const tr<any_to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
-        interface_t::Value(self.value, static_cast<integer_t>(to_integer));
+        interface_t::Integer(self.value, static_cast<integer_t>(to_integer));
 
         return self;
     }
@@ -367,7 +367,7 @@ namespace nkr { namespace enumeration {
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::~types_t() noexcept
     {
-        interface_t::Value(this->value, none_t::Value());
+        interface_t::Integer(this->value, none_t::Value());
     }
 #endif
 
@@ -477,7 +477,7 @@ namespace nkr { namespace enumeration {
     > inline constexpr types_t<value_p, none_p>::operator types_t<value_p, none_p>::integer_t()
         const noexcept
     {
-        return interface_t::Value(this->value);
+        return interface_t::Integer(this->value);
     }
 
     template <
@@ -486,7 +486,7 @@ namespace nkr { namespace enumeration {
     > inline constexpr types_t<value_p, none_p>::operator types_t<value_p, none_p>::integer_t()
         const volatile noexcept
     {
-        return interface_t::Value(this->value);
+        return interface_t::Integer(this->value);
     }
 
     template <
@@ -495,7 +495,7 @@ namespace nkr { namespace enumeration {
     > inline constexpr types_t<value_p, none_p>::operator nkr::boolean::cpp_t()
         const noexcept
     {
-        return interface_t::Value(this->value) != none_t::Value();
+        return interface_t::Integer(this->value) != none_t::Value();
     }
 
     template <
@@ -504,7 +504,7 @@ namespace nkr { namespace enumeration {
     > inline constexpr types_t<value_p, none_p>::operator nkr::boolean::cpp_t()
         const volatile noexcept
     {
-        return interface_t::Value(this->value) != none_t::Value();
+        return interface_t::Integer(this->value) != none_t::Value();
     }
 
 }}

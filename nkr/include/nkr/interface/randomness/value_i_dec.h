@@ -23,7 +23,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
     template <typename type_p>
     concept aliases_i =
-        nkr::cpp::is_any_tr<type_p, nkr::interface::randomness::value_i<typename type_p::type_t>> &&
         nkr::generic::type_tr<typename type_p::type_t> &&
 
         nkr::cpp::is_tr<typename type_p::value_t, nkr::cpp::just_non_qualified_t<typename type_p::type_t>>;
@@ -55,6 +54,7 @@ namespace nkr { namespace interface { namespace randomness {
 
     template <typename type_p>
     concept value_tr =
+        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
         $value_i::aliases_i<type_p> &&
         $value_i::static_functions_i<type_p> &&
         $value_i::objects_i<type_p>;

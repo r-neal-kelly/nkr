@@ -6,12 +6,10 @@
 
 #include "nkr/macros_dec.h"
 
-// these should eventually all use the i_sp pattern until the compilers can fix the_concept_bug
-
 namespace nkr { namespace interface { namespace enumeration {
 
     template <typename type_p>
-    class   types_i;
+    class   types_i_sp;
 
 }}}
 

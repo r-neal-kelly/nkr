@@ -16,13 +16,12 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
     template <typename type_p>
     concept aliases_i =
-        nkr::cpp::is_any_tr<type_p, nkr::interface::none::value_i<typename type_p::type_t>> &&
         nkr::generic::type_tr<typename type_p::type_t> &&
 
         nkr::cpp::is_tr<typename type_p::value_t, nkr::cpp::just_non_qualified_t<typename type_p::type_t>>;
 
     template <typename type_p>
-    concept static_constexpr_functions_i = requires
+    concept static_functions_i = requires
     {
         { type_p::Value() } -> nkr::cpp::is_just_non_qualified_tr<typename type_p::value_t>;
     };
@@ -35,9 +34,9 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <typename value_p>
+    template <typename type_p>
     using   value_i =
-        value_i_sp<value_p>::type_t;
+        value_i_sp<type_p>::type_t;
 
     struct  value_tg    {};
 
@@ -46,8 +45,9 @@ namespace nkr { namespace interface { namespace none {
 
     template <typename type_p>
     concept value_tr =
+        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
         $value_i::aliases_i<type_p> &&
-        $value_i::static_constexpr_functions_i<type_p> &&
+        $value_i::static_functions_i<type_p> &&
         $value_i::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>

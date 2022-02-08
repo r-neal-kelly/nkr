@@ -33,6 +33,34 @@ namespace nkr { namespace negatable { namespace $integer_64_t {
 namespace nkr { namespace negatable { namespace $integer_64_t {
 
     template <nkr::negatable::integer_64_tr type_p>
+    inline constexpr enumeration_types_i_sp<type_p>::integer_t
+        enumeration_types_i_sp<type_p>::Default_Integer()
+        noexcept
+    {
+        return value_t(~0);
+    }
+
+    template <nkr::negatable::integer_64_tr type_p>
+    inline constexpr enumeration_types_i_sp<type_p>::integer_t
+        enumeration_types_i_sp<type_p>::Integer(const tr<any_tg, t<value_t>> auto& value)
+        noexcept
+    {
+        return value;
+    }
+
+    template <nkr::negatable::integer_64_tr type_p>
+    inline constexpr nkr::none::type_t
+        enumeration_types_i_sp<type_p>::Integer(tr<any_non_const_tg, t<value_t>> auto& value, integer_t integer)
+        noexcept
+    {
+        value = integer;
+    }
+
+}}}
+
+namespace nkr { namespace negatable { namespace $integer_64_t {
+
+    template <nkr::negatable::integer_64_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
         randomness_distributor_uniform_i_sp<type_p>::Default_Min()
         noexcept

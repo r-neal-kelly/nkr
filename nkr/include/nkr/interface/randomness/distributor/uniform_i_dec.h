@@ -20,7 +20,6 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
     template <typename type_p>
     concept aliases_i =
-        nkr::cpp::is_any_tr<type_p, nkr::interface::randomness::distributor::uniform_i<typename type_p::type_t>> &&
         nkr::generic::type_tr<typename type_p::type_t> &&
 
         nkr::cpp::is_tr<typename type_p::value_t, nkr::cpp::just_non_qualified_t<typename type_p::type_t>> &&
@@ -52,7 +51,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     concept objects_i =
         !nkr::generic::implementing::constructor::default_tr<type_p>;
 
-    class dummy_t;
+    class   dummy_t;
 
 }}}}}
 
@@ -69,10 +68,10 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
     template <typename type_p>
     concept uniform_tr =
-        ($uniform_i::aliases_i<type_p> &&
+        (nkr::cpp::is_any_tr<type_p, uniform_i<typename type_p::type_t>> &&
+         $uniform_i::aliases_i<type_p> &&
          $uniform_i::static_functions_i<type_p> &&
          $uniform_i::objects_i<type_p>) ||
-
         nkr::cpp::is_any_tr<type_p, $uniform_i::dummy_t>;
 
     template <template <typename ...> typename template_p>
