@@ -29,3 +29,39 @@ namespace nkr { namespace negatable { namespace $integer_32_t {
     }
 
 }}}
+
+namespace nkr { namespace negatable { namespace $integer_32_t {
+
+    template <nkr::negatable::integer_32_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
+        randomness_distributor_uniform_i_sp<type_p>::Default_Min()
+        noexcept
+    {
+        return nkr::cpp::Default_Min<value_t>();
+    }
+
+    template <nkr::negatable::integer_32_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
+        randomness_distributor_uniform_i_sp<type_p>::Default_Max()
+        noexcept
+    {
+        return nkr::cpp::Default_Max<value_t>();
+    }
+
+    template <nkr::negatable::integer_32_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        noexcept
+    {
+        return object;
+    }
+
+    template <nkr::negatable::integer_32_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
+        randomness_distributor_uniform_i_sp<type_p>::From_Number(number_t number)
+        noexcept
+    {
+        return number;
+    }
+
+}}}

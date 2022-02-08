@@ -264,14 +264,15 @@ namespace nkr { namespace enumeration { namespace $cpp_t {
     {
     public:
         using type_t    = type_p;
-        using number_t  = nkr::enumeration::cpp_value_t<type_t>;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+        using number_t  = nkr::enumeration::cpp_value_t<value_t>;
 
     public:
-        static constexpr type_t     Default_Min() noexcept;
-        static constexpr type_t     Default_Max() noexcept;
+        static constexpr value_t    Default_Min() noexcept;
+        static constexpr value_t    Default_Max() noexcept;
 
-        static constexpr number_t   To_Number(type_t object) noexcept;
-        static constexpr type_t     From_Number(number_t number) noexcept;
+        static constexpr number_t   To_Number(value_t object) noexcept;
+        static constexpr value_t    From_Number(number_t number) noexcept;
 
     public:
         template <typename ...>

@@ -83,6 +83,41 @@ namespace nkr { namespace interface { namespace none {
 namespace nkr { namespace negatable { namespace $integer_32_t {
 
     template <nkr::negatable::integer_32_tr type_p>
+    class randomness_distributor_uniform_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+        using number_t  = value_t;
+
+    public:
+        static constexpr value_t    Default_Min() noexcept;
+        static constexpr value_t    Default_Max() noexcept;
+
+        static constexpr number_t   To_Number(value_t object) noexcept;
+        static constexpr value_t    From_Number(number_t number) noexcept;
+
+    public:
+        template <typename ...>
+        constexpr randomness_distributor_uniform_i_sp(...) noexcept = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace randomness { namespace distributor {
+
+    template <nkr::negatable::integer_32_tr type_p>
+    class uniform_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::negatable::$integer_32_t::randomness_distributor_uniform_i_sp<type_p>;
+    };
+
+}}}}
+
+namespace nkr { namespace negatable { namespace $integer_32_t {
+
+    template <nkr::negatable::integer_32_tr type_p>
     class randomness_value_i_sp
     {
     public:

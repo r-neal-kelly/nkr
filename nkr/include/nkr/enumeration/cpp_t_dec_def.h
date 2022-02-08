@@ -37,35 +37,35 @@ namespace nkr { namespace enumeration { namespace $cpp_t {
 namespace nkr { namespace enumeration { namespace $cpp_t {
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr randomness_distributor_uniform_i_sp<type_p>::type_t
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
         randomness_distributor_uniform_i_sp<type_p>::Default_Min()
         noexcept
     {
-        return type_t::MIN_tg;
+        return value_t::MIN_tg;
     }
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr randomness_distributor_uniform_i_sp<type_p>::type_t
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
         randomness_distributor_uniform_i_sp<type_p>::Default_Max()
         noexcept
     {
-        return type_t::MAX_tg;
+        return value_t::MAX_tg;
     }
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
-        randomness_distributor_uniform_i_sp<type_p>::To_Number(type_t object)
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
         noexcept
     {
         return static_cast<number_t>(object);
     }
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
-    inline constexpr randomness_distributor_uniform_i_sp<type_p>::type_t
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
         randomness_distributor_uniform_i_sp<type_p>::From_Number(number_t number)
         noexcept
     {
-        return static_cast<type_t>(number);
+        return static_cast<value_t>(number);
     }
 
 }}}

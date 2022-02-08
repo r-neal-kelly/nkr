@@ -25,7 +25,43 @@ namespace nkr { namespace boolean { namespace $cpp_t {
         none_value_i_sp<type_p>::Value()
         noexcept
     {
-        return false;
+        return value_t();
+    }
+
+}}}
+
+namespace nkr { namespace boolean { namespace $cpp_t {
+
+    template <nkr::boolean::cpp_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
+        randomness_distributor_uniform_i_sp<type_p>::Default_Min()
+        noexcept
+    {
+        return nkr::cpp::Default_Min<value_t>();
+    }
+
+    template <nkr::boolean::cpp_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
+        randomness_distributor_uniform_i_sp<type_p>::Default_Max()
+        noexcept
+    {
+        return nkr::cpp::Default_Max<value_t>();
+    }
+
+    template <nkr::boolean::cpp_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::number_t
+        randomness_distributor_uniform_i_sp<type_p>::To_Number(value_t object)
+        noexcept
+    {
+        return static_cast<number_t>(object);
+    }
+
+    template <nkr::boolean::cpp_tr type_p>
+    inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t
+        randomness_distributor_uniform_i_sp<type_p>::From_Number(number_t number)
+        noexcept
+    {
+        return static_cast<value_t>(number);
     }
 
 }}}

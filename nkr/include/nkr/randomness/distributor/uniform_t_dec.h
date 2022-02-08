@@ -114,8 +114,8 @@ namespace nkr { namespace randomness { namespace distributor {
     class uniform_t<value_p>
     {
     public:
-        using value_t       = value_p;
-        using interface_t   = nkr::interface::randomness::distributor::uniform_i<value_t>;
+        using interface_t   = nkr::interface::randomness::distributor::uniform_i<value_p>;
+        using value_t       = interface_t::value_t;
 
     public:
         static constexpr value_t    Default_Min() noexcept;

@@ -6,6 +6,7 @@
 #include "nkr/enumeration/cpp_t.h"
 #include "nkr/interface/randomness/value_i.h"
 #include "nkr/negatable/integer_t.h"
+#include "nkr/negatable/real_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
 #include "nkr/randomness/value.h" // temp

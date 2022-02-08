@@ -18,13 +18,12 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
     concept aliases_i =
         nkr::generic::type_tr<typename type_p::type_t> &&
 
-        nkr::cpp::just_non_qualified_tr<typename type_p::value_t> &&
-        nkr::generic::type_tr<typename type_p::value_t>;
+        nkr::cpp::is_tr<typename type_p::value_t, nkr::cpp::just_non_qualified_t<typename type_p::type_t>>;
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::Value() } -> nkr::cpp::is_just_non_qualified_tr<typename type_p::type_t>;
+        { type_p::Value() } -> nkr::cpp::is_just_non_qualified_tr<typename type_p::value_t>;
     };
 
     template <typename type_p>

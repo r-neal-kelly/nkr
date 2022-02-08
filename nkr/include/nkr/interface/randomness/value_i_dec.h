@@ -25,8 +25,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     concept aliases_i =
         nkr::generic::type_tr<typename type_p::type_t> &&
 
-        nkr::cpp::just_non_qualified_tr<typename type_p::value_t> &&
-        nkr::generic::type_tr<typename type_p::value_t>;
+        nkr::cpp::is_tr<typename type_p::value_t, nkr::cpp::just_non_qualified_t<typename type_p::type_t>>;
 
     template <typename type_p>
     concept static_functions_i =
@@ -41,24 +40,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         !nkr::generic::implementing::constructor::default_tr<type_p>;
 
 }}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
-    template <nkr::generic::built_in::number::real_tr type_p>
-    class   real_sp;
-
-}}}}
-
-namespace nkr { namespace interface { namespace randomness {
-
-    template <nkr::generic::built_in::number::real_tr type_p>
-    class value_i_sp<type_p>
-    {
-    public:
-        using type_t    = $value_i::real_sp<type_p>;
-    };
-
-}}}
 
 namespace nkr { namespace interface { namespace randomness {
 
@@ -152,28 +133,5 @@ namespace nkr { namespace interface {
     };
 
 }}
-
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
-
-    template <nkr::generic::built_in::number::real_tr type_p>
-    class real_sp
-    {
-    public:
-        using type_t    = type_p;
-        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
-
-    public:
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(value_t min = nkr::cpp::Default_Min<value_t>(), value_t max = nkr::cpp::Default_Max<value_t>()) noexcept;
-        template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              value_t min = nkr::cpp::Default_Min<value_t>(), value_t max = nkr::cpp::Default_Max<value_t>()) noexcept;
-
-    public:
-        template <typename ...>
-        constexpr real_sp(...) noexcept = delete;
-    };
-
-}}}}
 
 #include "nkr/interface/randomness/value_i_dec_def.h"
