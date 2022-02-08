@@ -16,6 +16,7 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
     template <typename type_p>
     concept aliases_i =
+        nkr::cpp::is_any_tr<type_p, nkr::interface::none::value_i<typename type_p::type_t>> &&
         nkr::generic::type_tr<typename type_p::type_t> &&
 
         nkr::cpp::is_tr<typename type_p::value_t, nkr::cpp::just_non_qualified_t<typename type_p::type_t>>;
@@ -45,7 +46,6 @@ namespace nkr { namespace interface { namespace none {
 
     template <typename type_p>
     concept value_tr =
-        nkr::cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
         $value_i::aliases_i<type_p> &&
         $value_i::static_constexpr_functions_i<type_p> &&
         $value_i::objects_i<type_p>;
