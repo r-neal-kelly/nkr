@@ -435,6 +435,10 @@ namespace nkr {
         {
             static_assert(TR<const ts<AND_tg, int, int, int, int, int>,
                           just_tg, const ts<AND_tg, int, int, int, int, int, int>>());
+
+            static_assert(TR<t<const int* const volatile>,
+                          just_tg, const volatile tts<AND_tg, nkr::pointer::cpp_t, nkr::pointer::cpp_t, nkr::pointer::cpp_t, nkr::pointer::cpp_t>,
+                          of_just_tg, const ts<AND_tg, int, int, int, int, int, int, int, int, int, int>>());
         }
     }
 
