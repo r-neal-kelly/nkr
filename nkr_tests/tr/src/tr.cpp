@@ -430,6 +430,12 @@ namespace nkr {
                           to_tg, tt<nkr::pointer::cpp_t>,
                           of_just_tg, const t<test_t>>());
         }
+
+        TEST_CASE("making sure Evaluate_Expression maintains qualification on expression parts")
+        {
+            static_assert(TR<const ts<AND_tg, int, int, int, int, int>,
+                          just_tg, const ts<AND_tg, int, int, int, int, int, int>>());
+        }
     }
 
 }
