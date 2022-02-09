@@ -291,7 +291,7 @@ namespace nkr {
                           to_tg, tt<nkr::reference::rvalue_t>,
                           of_just_tg, t<int>>());
 
-            static_assert(!TR<t<int>,
+            static_assert(TR<t<int>,
                           to_tg, tt<nkr::reference::lvalue_t>,
                           of_just_tg, t<int>>());
             static_assert(TR<t<int>,
@@ -325,6 +325,45 @@ namespace nkr {
                 {
                 }
             };
+
+            static_assert(TR<t<test_t>,
+                          to_tg, t<test_t>>());
+            static_assert(TR<t<test_t>,
+                          to_tg, t<const test_t>>());
+            static_assert(TR<t<test_t>,
+                          to_tg, t<volatile test_t>>());
+            static_assert(TR<t<test_t>,
+                          to_tg, t<const volatile test_t>>());
+
+            static_assert(TR<t<const test_t>,
+                          to_tg, t<test_t>>());
+            static_assert(TR<t<const test_t>,
+                          to_tg, t<const test_t>>());
+            static_assert(TR<t<const test_t>,
+                          to_tg, t<volatile test_t>>());
+            static_assert(TR<t<const test_t>,
+                          to_tg, t<const volatile test_t>>());
+
+            static_assert(TR<t<volatile test_t>,
+                          to_tg, t<test_t>>());
+            static_assert(TR<t<volatile test_t>,
+                          to_tg, t<const test_t>>());
+            static_assert(TR<t<volatile test_t>,
+                          to_tg, t<volatile test_t>>());
+            static_assert(TR<t<volatile test_t>,
+                          to_tg, t<const volatile test_t>>());
+
+            static_assert(TR<t<const volatile test_t>,
+                          to_tg, t<test_t>>());
+            static_assert(TR<t<const volatile test_t>,
+                          to_tg, t<const test_t>>());
+            static_assert(TR<t<const volatile test_t>,
+                          to_tg, t<volatile test_t>>());
+            static_assert(TR<t<const volatile test_t>,
+                          to_tg, t<const volatile test_t>>());
+
+            const volatile test_t a;
+            const volatile test_t b(a);
 
             static_assert(TR<t<const test_t*>,
                           to_tg, tt<nkr::pointer::cpp_t>,

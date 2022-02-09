@@ -213,7 +213,8 @@ namespace nkr { namespace cpp {
 
     template <typename from_p, typename to_p>
     concept to_tr =
-        std::is_convertible<from_p, to_p>::value;
+        //std::is_convertible<from_p, to_p>::value ||
+        (requires(from_p from) { std::remove_cv_t<to_p>(from); });
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
     concept is_ttr =
