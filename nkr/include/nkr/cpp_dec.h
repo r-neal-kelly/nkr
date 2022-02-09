@@ -213,8 +213,15 @@ namespace nkr { namespace cpp {
 
     template <typename from_p, typename to_p>
     concept to_tr =
-        //std::is_convertible<from_p, to_p>::value ||
-        (requires(from_p from) { std::remove_cv_t<to_p>(from); });
+        (std::is_rvalue_reference<from_p>::value &&
+         !std::is_const<std::remove_reference_t<from_p>>::value &&
+         (std::is_volatile<std::remove_reference_t<from_p>>::value &&
+          (requires(volatile std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { std::remove_cv_t<to_p>(std::move(from)); }) ||
+          (requires(std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { std::remove_cv_t<to_p>(std::move(from)); }))) ||
+        (std::is_lvalue_reference<from_p>::value &&
+         (requires(std::add_lvalue_reference_t<std::remove_reference_t<from_p>> from) { std::remove_cv_t<to_p>(from); })) ||
+        (!std::is_reference<from_p>::value &&
+         (requires(std::remove_reference_t<from_p> from) { std::remove_cv_t<to_p>(from); }));
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
     concept is_ttr =
