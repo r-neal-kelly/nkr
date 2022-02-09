@@ -273,30 +273,62 @@ namespace nkr {
                           any_tg, ts<XNOR_tg, short, long, long>>());
         }
 
-        TEST_SUITE("to")
+        TEST_CASE("to")
         {
             static_assert(TR<t<int>,
-                          any_to_tg, t<int>>());
+                          to_tg, t<int>>());
             static_assert(TR<t<int*>,
-                          any_to_tg, tt<nkr::pointer::cpp_t>,
-                          of_any_tg, t<int>>());
+                          to_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_tg, t<int>>());
             static_assert(TR<t<int**>,
-                          any_to_tg, tt<nkr::pointer::cpp_t>,
-                          of_any_tg, tt<nkr::pointer::cpp_t>,
-                          of_any_tg, t<int>>());
+                          to_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_tg, t<int>>());
             static_assert(TR<t<int&>,
-                          any_to_tg, tt<nkr::reference::lvalue_t>,
-                          of_any_tg, t<int>>());
+                          to_tg, tt<nkr::reference::lvalue_t>,
+                          of_just_tg, t<int>>());
             static_assert(TR<t<int&&>,
-                          any_to_tg, tt<nkr::reference::rvalue_t>,
-                          of_any_tg, t<int>>());
+                          to_tg, tt<nkr::reference::rvalue_t>,
+                          of_just_tg, t<int>>());
 
+            static_assert(!TR<t<int>,
+                          to_tg, tt<nkr::reference::lvalue_t>,
+                          of_just_tg, t<int>>());
             static_assert(TR<t<int>,
-                          any_to_tg, tt<nkr::reference::lvalue_t>,
-                          of_any_tg, t<int>>());
-            static_assert(TR<t<int>,
-                          any_to_tg, tt<nkr::reference::rvalue_t>,
-                          of_any_tg, t<int>>());
+                          to_tg, tt<nkr::reference::rvalue_t>,
+                          of_just_tg, t<int>>());
+        }
+
+        TEST_CASE("to with qualification")
+        {
+            class test_t
+            {
+            public:
+                constexpr test_t() noexcept
+                {
+                }
+
+                constexpr test_t(const test_t& other) noexcept
+                {
+                }
+
+                constexpr test_t(const volatile test_t& other) noexcept
+                {
+                }
+
+                constexpr test_t(test_t&& other) noexcept
+                {
+
+                }
+
+                constexpr test_t(volatile test_t&& other) noexcept
+                {
+                }
+            };
+
+            static_assert(TR<t<const test_t*>,
+                          to_tg, tt<nkr::pointer::cpp_t>,
+                          of_just_tg, const t<test_t>>());
         }
     }
 

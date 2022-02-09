@@ -589,7 +589,7 @@ namespace nkr { namespace $tr {
             static_assert(operator_tr<operator_t>,
                           "The only expression part is not an operator.");
             static_assert(!to_operator_tr<operator_t>,
-                          "An expression with a length of 1 cannot use a 'to' operator.");
+                          "An expression with a length of 1 cannot use the 'to' operator.");
             static_assert(!of_operator_tr<operator_t>,
                           "An expression with a length of 1 cannot use an 'of' operator.");
 
@@ -614,8 +614,8 @@ namespace nkr { namespace $tr {
                               "Every operator after the first in an expression must be an 'of' operator.");
 
                 if constexpr (to_operator_tr<first_operator_t>) {
-                    static_assert(nkr::cpp::is_any_tr<operator_t, of_any_tg>,
-                                  "Every operator after a 'to' operator must be the 'of_any_tg' operator.");
+                    static_assert(nkr::cpp::is_any_tr<operator_t, of_just_tg>,
+                                  "Every operator after the 'to' operator must be the 'of_just_tg' operator.");
                 }
             }
 
