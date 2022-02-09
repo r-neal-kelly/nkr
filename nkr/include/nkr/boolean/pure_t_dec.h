@@ -79,8 +79,7 @@ namespace nkr { namespace boolean {
     public:
         constexpr pure_t() noexcept;
 
-        constexpr pure_t(const tr<any_to_tg, t<value_t>> auto& from) noexcept;
-        constexpr pure_t(tr<any_non_const_to_tg, t<value_t>> auto&& from) noexcept;
+        constexpr pure_t(tr<to_tg, t<value_t>> auto&& from) noexcept;
 
         constexpr pure_t(const pure_t& other) noexcept;
         constexpr pure_t(const volatile pure_t& other) noexcept;

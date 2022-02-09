@@ -37,7 +37,7 @@ namespace nkr { namespace enumeration {
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
     > inline constexpr auto&
         types_t<value_p, none_p>::Assign_Integer(tr<any_non_const_tg, t<types_t>> auto& self,
-                                                 const tr<any_to_tg, t<integer_t>> auto& to_integer)
+                                                 const tr<to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
         interface_t::Integer(self.value, static_cast<integer_t>(to_integer));
@@ -112,7 +112,7 @@ namespace nkr { namespace enumeration {
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
-    > inline constexpr types_t<value_p, none_p>::types_t(const tr<any_to_tg, t<integer_t>> auto& to_integer) noexcept :
+    > inline constexpr types_t<value_p, none_p>::types_t(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept :
         value(static_cast<integer_t>(to_integer))
     {
     }
@@ -185,7 +185,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const tr<any_to_tg, t<integer_t>> auto& to_integer)
+        types_t<value_p, none_p>::operator =(const tr<to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -195,7 +195,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::operator =(const tr<any_to_tg, t<integer_t>> auto& to_integer)
+        types_t<value_p, none_p>::operator =(const tr<to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -395,7 +395,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Integer(const tr<any_to_tg, t<integer_t>> auto& to_integer)
+        types_t<value_p, none_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
         noexcept
     {
         return Assign_Integer(*this, to_integer);
@@ -405,7 +405,7 @@ namespace nkr { namespace enumeration {
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
-        types_t<value_p, none_p>::Integer(const tr<any_to_tg, t<integer_t>> auto& to_integer)
+        types_t<value_p, none_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept
     {
         return Assign_Integer(*this, to_integer);

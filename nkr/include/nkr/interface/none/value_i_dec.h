@@ -9,7 +9,6 @@
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/positive/integer_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface { namespace none { namespace $value_i {
@@ -32,6 +31,39 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
 }}}}
 
+namespace nkr { namespace interface { namespace none { namespace $value_i {
+
+    using example_t =
+        nkr::positive::integer_t;
+
+    template <nkr::cpp::is_any_tr<example_t> type_p>
+    class example_value_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+
+    public:
+        static constexpr value_t    Value() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr example_value_i_sp(...) noexcept  = delete;
+    };
+
+}}}}
+
+namespace nkr { namespace interface { namespace none {
+
+    template <nkr::cpp::is_any_tr<$value_i::example_t> type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = $value_i::example_value_i_sp<type_p>;
+    };
+
+}}}
+
 namespace nkr { namespace interface { namespace none {
 
     template <typename type_p>
@@ -52,7 +84,7 @@ namespace nkr { namespace interface { namespace none {
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
-        nkr::cpp::is_any_ttr<template_p, value_i, nkr::positive::integer_t>;
+        nkr::cpp::is_any_ttr<template_p, value_i, $value_i::example_t>;
 
 }}}
 
@@ -104,7 +136,7 @@ namespace nkr { namespace interface {
         template <typename ...parameters_p>
         using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t     = of_t<nkr::positive::integer_t>;
+        using example_t     = of_t<nkr::interface::none::$value_i::example_t>;
 
     public:
         template <template <typename ...> typename other_p>

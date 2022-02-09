@@ -138,7 +138,7 @@ namespace nkr { namespace enumeration {
 
     private:
         static constexpr auto&  Assign_Integer(tr<any_non_const_tg, t<types_t>> auto& self,
-                                               const tr<any_to_tg, t<integer_t>> auto& to_integer) noexcept;
+                                               const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
 
         static constexpr auto&  Assign_Value(tr<any_non_const_tg, t<types_t>> auto& self,
                                              const tr<any_tg, t<value_t>> auto& other) noexcept;
@@ -156,7 +156,7 @@ namespace nkr { namespace enumeration {
     public:
         constexpr types_t() noexcept;
 
-        constexpr types_t(const tr<any_to_tg, t<integer_t>> auto& to_integer) noexcept;
+        constexpr types_t(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
 
         constexpr types_t(const value_t& value) noexcept;
         constexpr types_t(const volatile value_t& value) noexcept;
@@ -168,8 +168,8 @@ namespace nkr { namespace enumeration {
         constexpr types_t(types_t&& other) noexcept;
         constexpr types_t(volatile types_t&& other) noexcept;
 
-        constexpr types_t&          operator =(const tr<any_to_tg, t<integer_t>> auto& to_integer) noexcept;
-        constexpr volatile types_t& operator =(const tr<any_to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr types_t&          operator =(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+        constexpr volatile types_t& operator =(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
 
         constexpr types_t&          operator =(const value_t& value) noexcept;
         constexpr volatile types_t& operator =(const value_t& value) volatile noexcept;
@@ -196,8 +196,8 @@ namespace nkr { namespace enumeration {
     public:
         constexpr integer_t                 Integer() const noexcept;
         constexpr integer_t                 Integer() const volatile noexcept;
-        constexpr types_t&                  Integer(const tr<any_to_tg, t<integer_t>> auto& to_integer) noexcept;
-        constexpr volatile types_t&         Integer(const tr<any_to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr types_t&                  Integer(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+        constexpr volatile types_t&         Integer(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
 
         constexpr const value_t&            Value() const noexcept;
         constexpr const volatile value_t&   Value() const volatile noexcept;

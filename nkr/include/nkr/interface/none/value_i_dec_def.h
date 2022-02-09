@@ -6,6 +6,18 @@
 
 #include "nkr/interface/none/value_i_dec.h"
 
+namespace nkr { namespace interface { namespace none { namespace $value_i {
+
+    template <nkr::cpp::is_any_tr<example_t> type_p>
+    inline constexpr example_value_i_sp<type_p>::value_t
+        example_value_i_sp<type_p>::Value()
+        noexcept
+    {
+        return value_t();
+    }
+
+}}}}
+
 namespace nkr { namespace interface {
 
     template <typename other_p>
