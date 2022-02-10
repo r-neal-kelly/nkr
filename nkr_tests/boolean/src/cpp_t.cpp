@@ -527,10 +527,11 @@ namespace nkr {
                 using value_t = nkr::boolean::cpp_t;
 
                 for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                    boolean_p a =
-                        nkr::randomness::Value<boolean_p>();
+                    {
+                        boolean_p a = nkr::randomness::Value<boolean_p>();
 
-                    CHECK(!a == !value_t(a));
+                        CHECK(!value_t(a) == !a);
+                    }
                 }
             }
 
@@ -544,24 +545,28 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a || non_qualified_t(b)) == (value_t(a) || value_t(b)));
-                        CHECK((non_qualified_t(b) || a) == (value_t(b) || value_t(a)));
-                        CHECK((non_qualified_t(a) || b) == (value_t(a) || value_t(b)));
-                        CHECK((b || non_qualified_t(a)) == (value_t(b) || value_t(a)));
-                        CHECK((non_qualified_t(a) || non_qualified_t(b)) == (value_t(a) || value_t(b)));
-                        CHECK((non_qualified_t(b) || non_qualified_t(a)) == (value_t(b) || value_t(a)));
+                            CHECK((value_t(a) || value_t(b)) == (a || non_qualified_t(b)));
+                            CHECK((value_t(b) || value_t(a)) == (non_qualified_t(b) || a));
+                            CHECK((value_t(a) || value_t(b)) == (non_qualified_t(a) || b));
+                            CHECK((value_t(b) || value_t(a)) == (b || non_qualified_t(a)));
+                            CHECK((value_t(a) || value_t(b)) == (non_qualified_t(a) || non_qualified_t(b)));
+                            CHECK((value_t(b) || value_t(a)) == (non_qualified_t(b) || non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a && non_qualified_t(b)) == (value_t(a) && value_t(b)));
-                        CHECK((non_qualified_t(b) && a) == (value_t(b) && value_t(a)));
-                        CHECK((non_qualified_t(a) && b) == (value_t(a) && value_t(b)));
-                        CHECK((b && non_qualified_t(a)) == (value_t(b) && value_t(a)));
-                        CHECK((non_qualified_t(a) && non_qualified_t(b)) == (value_t(a) && value_t(b)));
-                        CHECK((non_qualified_t(b) && non_qualified_t(a)) == (value_t(b) && value_t(a)));
+                            CHECK((value_t(a) && value_t(b)) == (a && non_qualified_t(b)));
+                            CHECK((value_t(b) && value_t(a)) == (non_qualified_t(b) && a));
+                            CHECK((value_t(a) && value_t(b)) == (non_qualified_t(a) && b));
+                            CHECK((value_t(b) && value_t(a)) == (b && non_qualified_t(a)));
+                            CHECK((value_t(a) && value_t(b)) == (non_qualified_t(a) && non_qualified_t(b)));
+                            CHECK((value_t(b) && value_t(a)) == (non_qualified_t(b) && non_qualified_t(a)));
+                        }
                     }
                 }
 
@@ -572,16 +577,20 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a || b) == (value_t(a) || value_t(b)));
-                        CHECK((b || a) == (value_t(b) || value_t(a)));
+                            CHECK((value_t(a) || value_t(b)) == (a || b));
+                            CHECK((value_t(b) || value_t(a)) == (b || a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a && b) == (value_t(a) && value_t(b)));
-                        CHECK((b && a) == (value_t(b) && value_t(a)));
+                            CHECK((value_t(a) && value_t(b)) == (a && b));
+                            CHECK((value_t(b) && value_t(a)) == (b && a));
+                        }
                     }
                 }
 
@@ -592,27 +601,31 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a || nkr::cpp::Move(b)) == (value_t(a) || value_t(b)));
-                        CHECK((nkr::cpp::Move(b) || a) == (value_t(b) || value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) || b) == (value_t(a) || value_t(b)));
-                            CHECK((b || nkr::cpp::Move(a)) == (value_t(b) || value_t(a)));
-                            CHECK((nkr::cpp::Move(a) || nkr::cpp::Move(b)) == (value_t(a) || value_t(b)));
-                            CHECK((nkr::cpp::Move(b) || nkr::cpp::Move(a)) == (value_t(b) || value_t(a)));
+                            CHECK((value_t(a) || value_t(b)) == (a || nkr::cpp::Move(b)));
+                            CHECK((value_t(b) || value_t(a)) == (nkr::cpp::Move(b) || a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) || value_t(b)) == (nkr::cpp::Move(a) || b));
+                                CHECK((value_t(b) || value_t(a)) == (b || nkr::cpp::Move(a)));
+                                CHECK((value_t(a) || value_t(b)) == (nkr::cpp::Move(a) || nkr::cpp::Move(b)));
+                                CHECK((value_t(b) || value_t(a)) == (nkr::cpp::Move(b) || nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a && nkr::cpp::Move(b)) == (value_t(a) && value_t(b)));
-                        CHECK((nkr::cpp::Move(b) && a) == (value_t(b) && value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) && b) == (value_t(a) && value_t(b)));
-                            CHECK((b && nkr::cpp::Move(a)) == (value_t(b) && value_t(a)));
-                            CHECK((nkr::cpp::Move(a) && nkr::cpp::Move(b)) == (value_t(a) && value_t(b)));
-                            CHECK((nkr::cpp::Move(b) && nkr::cpp::Move(a)) == (value_t(b) && value_t(a)));
+                            CHECK((value_t(a) && value_t(b)) == (a && nkr::cpp::Move(b)));
+                            CHECK((value_t(b) && value_t(a)) == (nkr::cpp::Move(b) && a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) && value_t(b)) == (nkr::cpp::Move(a) && b));
+                                CHECK((value_t(b) && value_t(a)) == (b && nkr::cpp::Move(a)));
+                                CHECK((value_t(a) && value_t(b)) == (nkr::cpp::Move(a) && nkr::cpp::Move(b)));
+                                CHECK((value_t(b) && value_t(a)) == (nkr::cpp::Move(b) && nkr::cpp::Move(a)));
+                            }
                         }
                     }
                 }
@@ -628,31 +641,30 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t c =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+                            other_t c = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a ? non_qualified_t(b) : non_qualified_t(c)) == (value_t(a) ? value_t(b) : value_t(c)));
-                        CHECK((a ? non_qualified_t(c) : non_qualified_t(b)) == (value_t(a) ? value_t(c) : value_t(b)));
-                        CHECK((non_qualified_t(b) ? a : non_qualified_t(c)) == (value_t(b) ? value_t(a) : value_t(c)));
-                        CHECK((non_qualified_t(b) ? non_qualified_t(c) : a) == (value_t(b) ? value_t(c) : value_t(a)));
-                        CHECK((non_qualified_t(c) ? a : non_qualified_t(b)) == (value_t(c) ? value_t(a) : value_t(b)));
-                        CHECK((non_qualified_t(c) ? non_qualified_t(b) : a) == (value_t(c) ? value_t(b) : value_t(a)));
-                        CHECK((non_qualified_t(a) ? b : c) == (value_t(a) ? value_t(b) : value_t(c)));
-                        CHECK((non_qualified_t(a) ? c : b) == (value_t(a) ? value_t(c) : value_t(b)));
-                        CHECK((b ? non_qualified_t(a) : c) == (value_t(b) ? value_t(a) : value_t(c)));
-                        CHECK((b ? c : non_qualified_t(a)) == (value_t(b) ? value_t(c) : value_t(a)));
-                        CHECK((c ? non_qualified_t(a) : b) == (value_t(c) ? value_t(a) : value_t(b)));
-                        CHECK((c ? b : non_qualified_t(a)) == (value_t(c) ? value_t(b) : value_t(a)));
-                        CHECK((non_qualified_t(a) ? non_qualified_t(b) : non_qualified_t(c)) == (value_t(a) ? value_t(b) : value_t(c)));
-                        CHECK((non_qualified_t(a) ? non_qualified_t(c) : non_qualified_t(b)) == (value_t(a) ? value_t(c) : value_t(b)));
-                        CHECK((non_qualified_t(b) ? non_qualified_t(a) : non_qualified_t(c)) == (value_t(b) ? value_t(a) : value_t(c)));
-                        CHECK((non_qualified_t(b) ? non_qualified_t(c) : non_qualified_t(a)) == (value_t(b) ? value_t(c) : value_t(a)));
-                        CHECK((non_qualified_t(c) ? non_qualified_t(a) : non_qualified_t(b)) == (value_t(c) ? value_t(a) : value_t(b)));
-                        CHECK((non_qualified_t(c) ? non_qualified_t(b) : non_qualified_t(a)) == (value_t(c) ? value_t(b) : value_t(a)));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (a ? non_qualified_t(b) : non_qualified_t(c)));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (a ? non_qualified_t(c) : non_qualified_t(b)));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (non_qualified_t(b) ? a : non_qualified_t(c)));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (non_qualified_t(b) ? non_qualified_t(c) : a));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (non_qualified_t(c) ? a : non_qualified_t(b)));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (non_qualified_t(c) ? non_qualified_t(b) : a));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (non_qualified_t(a) ? b : c));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (non_qualified_t(a) ? c : b));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (b ? non_qualified_t(a) : c));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (b ? c : non_qualified_t(a)));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (c ? non_qualified_t(a) : b));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (c ? b : non_qualified_t(a)));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (non_qualified_t(a) ? non_qualified_t(b) : non_qualified_t(c)));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (non_qualified_t(a) ? non_qualified_t(c) : non_qualified_t(b)));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (non_qualified_t(b) ? non_qualified_t(a) : non_qualified_t(c)));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (non_qualified_t(b) ? non_qualified_t(c) : non_qualified_t(a)));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (non_qualified_t(c) ? non_qualified_t(a) : non_qualified_t(b)));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (non_qualified_t(c) ? non_qualified_t(b) : non_qualified_t(a)));
+                        }
                     }
                 }
 
@@ -663,19 +675,18 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t c =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+                            other_t c = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a ? b : c) == (value_t(a) ? value_t(b) : value_t(c)));
-                        CHECK((a ? c : b) == (value_t(a) ? value_t(c) : value_t(b)));
-                        CHECK((b ? a : c) == (value_t(b) ? value_t(a) : value_t(c)));
-                        CHECK((b ? c : a) == (value_t(b) ? value_t(c) : value_t(a)));
-                        CHECK((c ? a : b) == (value_t(c) ? value_t(a) : value_t(b)));
-                        CHECK((c ? b : a) == (value_t(c) ? value_t(b) : value_t(a)));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (a ? b : c));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (a ? c : b));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (b ? a : c));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (b ? c : a));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (c ? a : b));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (c ? b : a));
+                        }
                     }
                 }
 
@@ -686,32 +697,31 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t c =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+                            other_t c = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a ? nkr::cpp::Move(b) : nkr::cpp::Move(c)) == (value_t(a) ? value_t(b) : value_t(c)));
-                        CHECK((a ? nkr::cpp::Move(c) : nkr::cpp::Move(b)) == (value_t(a) ? value_t(c) : value_t(b)));
-                        CHECK((nkr::cpp::Move(b) ? a : nkr::cpp::Move(c)) == (value_t(b) ? value_t(a) : value_t(c)));
-                        CHECK((nkr::cpp::Move(b) ? nkr::cpp::Move(c) : a) == (value_t(b) ? value_t(c) : value_t(a)));
-                        CHECK((nkr::cpp::Move(c) ? a : nkr::cpp::Move(b)) == (value_t(c) ? value_t(a) : value_t(b)));
-                        CHECK((nkr::cpp::Move(c) ? nkr::cpp::Move(b) : a) == (value_t(c) ? value_t(b) : value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) ? b : c) == (value_t(a) ? value_t(b) : value_t(c)));
-                            CHECK((nkr::cpp::Move(a) ? c : b) == (value_t(a) ? value_t(c) : value_t(b)));
-                            CHECK((b ? nkr::cpp::Move(a) : c) == (value_t(b) ? value_t(a) : value_t(c)));
-                            CHECK((b ? c : nkr::cpp::Move(a)) == (value_t(b) ? value_t(c) : value_t(a)));
-                            CHECK((c ? nkr::cpp::Move(a) : b) == (value_t(c) ? value_t(a) : value_t(b)));
-                            CHECK((c ? b : nkr::cpp::Move(a)) == (value_t(c) ? value_t(b) : value_t(a)));
-                            CHECK((nkr::cpp::Move(a) ? nkr::cpp::Move(b) : nkr::cpp::Move(c)) == (value_t(a) ? value_t(b) : value_t(c)));
-                            CHECK((nkr::cpp::Move(a) ? nkr::cpp::Move(c) : nkr::cpp::Move(b)) == (value_t(a) ? value_t(c) : value_t(b)));
-                            CHECK((nkr::cpp::Move(b) ? nkr::cpp::Move(a) : nkr::cpp::Move(c)) == (value_t(b) ? value_t(a) : value_t(c)));
-                            CHECK((nkr::cpp::Move(b) ? nkr::cpp::Move(c) : nkr::cpp::Move(a)) == (value_t(b) ? value_t(c) : value_t(a)));
-                            CHECK((nkr::cpp::Move(c) ? nkr::cpp::Move(a) : nkr::cpp::Move(b)) == (value_t(c) ? value_t(a) : value_t(b)));
-                            CHECK((nkr::cpp::Move(c) ? nkr::cpp::Move(b) : nkr::cpp::Move(a)) == (value_t(c) ? value_t(b) : value_t(a)));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (a ? nkr::cpp::Move(b) : nkr::cpp::Move(c)));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (a ? nkr::cpp::Move(c) : nkr::cpp::Move(b)));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (nkr::cpp::Move(b) ? a : nkr::cpp::Move(c)));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (nkr::cpp::Move(b) ? nkr::cpp::Move(c) : a));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (nkr::cpp::Move(c) ? a : nkr::cpp::Move(b)));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (nkr::cpp::Move(c) ? nkr::cpp::Move(b) : a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) ? value_t(b) : value_t(c)) == (nkr::cpp::Move(a) ? b : c));
+                                CHECK((value_t(a) ? value_t(c) : value_t(b)) == (nkr::cpp::Move(a) ? c : b));
+                                CHECK((value_t(b) ? value_t(a) : value_t(c)) == (b ? nkr::cpp::Move(a) : c));
+                                CHECK((value_t(b) ? value_t(c) : value_t(a)) == (b ? c : nkr::cpp::Move(a)));
+                                CHECK((value_t(c) ? value_t(a) : value_t(b)) == (c ? nkr::cpp::Move(a) : b));
+                                CHECK((value_t(c) ? value_t(b) : value_t(a)) == (c ? b : nkr::cpp::Move(a)));
+                                CHECK((value_t(a) ? value_t(b) : value_t(c)) == (nkr::cpp::Move(a) ? nkr::cpp::Move(b) : nkr::cpp::Move(c)));
+                                CHECK((value_t(a) ? value_t(c) : value_t(b)) == (nkr::cpp::Move(a) ? nkr::cpp::Move(c) : nkr::cpp::Move(b)));
+                                CHECK((value_t(b) ? value_t(a) : value_t(c)) == (nkr::cpp::Move(b) ? nkr::cpp::Move(a) : nkr::cpp::Move(c)));
+                                CHECK((value_t(b) ? value_t(c) : value_t(a)) == (nkr::cpp::Move(b) ? nkr::cpp::Move(c) : nkr::cpp::Move(a)));
+                                CHECK((value_t(c) ? value_t(a) : value_t(b)) == (nkr::cpp::Move(c) ? nkr::cpp::Move(a) : nkr::cpp::Move(b)));
+                                CHECK((value_t(c) ? value_t(b) : value_t(a)) == (nkr::cpp::Move(c) ? nkr::cpp::Move(b) : nkr::cpp::Move(a)));
+                            }
                         }
                     }
                 }
@@ -727,59 +737,83 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a == non_qualified_t(b)) == (value_t(a) == value_t(b)));
-                        CHECK((non_qualified_t(b) == a) == (value_t(b) == value_t(a)));
-                        CHECK((non_qualified_t(a) == b) == (value_t(a) == value_t(b)));
-                        CHECK((b == non_qualified_t(a)) == (value_t(b) == value_t(a)));
-                        CHECK((non_qualified_t(a) == non_qualified_t(b)) == (value_t(a) == value_t(b)));
-                        CHECK((non_qualified_t(b) == non_qualified_t(a)) == (value_t(b) == value_t(a)));
+                            CHECK((value_t(a) == value_t(b)) == (a == non_qualified_t(b)));
+                            CHECK((value_t(b) == value_t(a)) == (non_qualified_t(b) == a));
+                            CHECK((value_t(a) == value_t(b)) == (non_qualified_t(a) == b));
+                            CHECK((value_t(b) == value_t(a)) == (b == non_qualified_t(a)));
+                            CHECK((value_t(a) == value_t(b)) == (non_qualified_t(a) == non_qualified_t(b)));
+                            CHECK((value_t(b) == value_t(a)) == (non_qualified_t(b) == non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a != non_qualified_t(b)) == (value_t(a) != value_t(b)));
-                        CHECK((non_qualified_t(b) != a) == (value_t(b) != value_t(a)));
-                        CHECK((non_qualified_t(a) != b) == (value_t(a) != value_t(b)));
-                        CHECK((b != non_qualified_t(a)) == (value_t(b) != value_t(a)));
-                        CHECK((non_qualified_t(a) != non_qualified_t(b)) == (value_t(a) != value_t(b)));
-                        CHECK((non_qualified_t(b) != non_qualified_t(a)) == (value_t(b) != value_t(a)));
+                            CHECK((value_t(a) != value_t(b)) == (a != non_qualified_t(b)));
+                            CHECK((value_t(b) != value_t(a)) == (non_qualified_t(b) != a));
+                            CHECK((value_t(a) != value_t(b)) == (non_qualified_t(a) != b));
+                            CHECK((value_t(b) != value_t(a)) == (b != non_qualified_t(a)));
+                            CHECK((value_t(a) != value_t(b)) == (non_qualified_t(a) != non_qualified_t(b)));
+                            CHECK((value_t(b) != value_t(a)) == (non_qualified_t(b) != non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a < non_qualified_t(b)) == (value_t(a) < value_t(b)));
-                        CHECK((non_qualified_t(b) < a) == (value_t(b) < value_t(a)));
-                        CHECK((non_qualified_t(a) < b) == (value_t(a) < value_t(b)));
-                        CHECK((b < non_qualified_t(a)) == (value_t(b) < value_t(a)));
-                        CHECK((non_qualified_t(a) < non_qualified_t(b)) == (value_t(a) < value_t(b)));
-                        CHECK((non_qualified_t(b) < non_qualified_t(a)) == (value_t(b) < value_t(a)));
+                            CHECK((value_t(a) < value_t(b)) == (a < non_qualified_t(b)));
+                            CHECK((value_t(b) < value_t(a)) == (non_qualified_t(b) < a));
+                            CHECK((value_t(a) < value_t(b)) == (non_qualified_t(a) < b));
+                            CHECK((value_t(b) < value_t(a)) == (b < non_qualified_t(a)));
+                            CHECK((value_t(a) < value_t(b)) == (non_qualified_t(a) < non_qualified_t(b)));
+                            CHECK((value_t(b) < value_t(a)) == (non_qualified_t(b) < non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a > non_qualified_t(b)) == (value_t(a) > value_t(b)));
-                        CHECK((non_qualified_t(b) > a) == (value_t(b) > value_t(a)));
-                        CHECK((non_qualified_t(a) > b) == (value_t(a) > value_t(b)));
-                        CHECK((b > non_qualified_t(a)) == (value_t(b) > value_t(a)));
-                        CHECK((non_qualified_t(a) > non_qualified_t(b)) == (value_t(a) > value_t(b)));
-                        CHECK((non_qualified_t(b) > non_qualified_t(a)) == (value_t(b) > value_t(a)));
+                            CHECK((value_t(a) > value_t(b)) == (a > non_qualified_t(b)));
+                            CHECK((value_t(b) > value_t(a)) == (non_qualified_t(b) > a));
+                            CHECK((value_t(a) > value_t(b)) == (non_qualified_t(a) > b));
+                            CHECK((value_t(b) > value_t(a)) == (b > non_qualified_t(a)));
+                            CHECK((value_t(a) > value_t(b)) == (non_qualified_t(a) > non_qualified_t(b)));
+                            CHECK((value_t(b) > value_t(a)) == (non_qualified_t(b) > non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a <= non_qualified_t(b)) == (value_t(a) <= value_t(b)));
-                        CHECK((non_qualified_t(b) <= a) == (value_t(b) <= value_t(a)));
-                        CHECK((non_qualified_t(a) <= b) == (value_t(a) <= value_t(b)));
-                        CHECK((b <= non_qualified_t(a)) == (value_t(b) <= value_t(a)));
-                        CHECK((non_qualified_t(a) <= non_qualified_t(b)) == (value_t(a) <= value_t(b)));
-                        CHECK((non_qualified_t(b) <= non_qualified_t(a)) == (value_t(b) <= value_t(a)));
+                            CHECK((value_t(a) <= value_t(b)) == (a <= non_qualified_t(b)));
+                            CHECK((value_t(b) <= value_t(a)) == (non_qualified_t(b) <= a));
+                            CHECK((value_t(a) <= value_t(b)) == (non_qualified_t(a) <= b));
+                            CHECK((value_t(b) <= value_t(a)) == (b <= non_qualified_t(a)));
+                            CHECK((value_t(a) <= value_t(b)) == (non_qualified_t(a) <= non_qualified_t(b)));
+                            CHECK((value_t(b) <= value_t(a)) == (non_qualified_t(b) <= non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a >= non_qualified_t(b)) == (value_t(a) >= value_t(b)));
-                        CHECK((non_qualified_t(b) >= a) == (value_t(b) >= value_t(a)));
-                        CHECK((non_qualified_t(a) >= b) == (value_t(a) >= value_t(b)));
-                        CHECK((b >= non_qualified_t(a)) == (value_t(b) >= value_t(a)));
-                        CHECK((non_qualified_t(a) >= non_qualified_t(b)) == (value_t(a) >= value_t(b)));
-                        CHECK((non_qualified_t(b) >= non_qualified_t(a)) == (value_t(b) >= value_t(a)));
+                            CHECK((value_t(a) >= value_t(b)) == (a >= non_qualified_t(b)));
+                            CHECK((value_t(b) >= value_t(a)) == (non_qualified_t(b) >= a));
+                            CHECK((value_t(a) >= value_t(b)) == (non_qualified_t(a) >= b));
+                            CHECK((value_t(b) >= value_t(a)) == (b >= non_qualified_t(a)));
+                            CHECK((value_t(a) >= value_t(b)) == (non_qualified_t(a) >= non_qualified_t(b)));
+                            CHECK((value_t(b) >= value_t(a)) == (non_qualified_t(b) >= non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a <=> non_qualified_t(b)) == (value_t(a) <=> value_t(b)));
-                        CHECK((non_qualified_t(b) <=> a) == (value_t(b) <=> value_t(a)));
-                        CHECK((non_qualified_t(a) <=> b) == (value_t(a) <=> value_t(b)));
-                        CHECK((b <=> non_qualified_t(a)) == (value_t(b) <=> value_t(a)));
-                        CHECK((non_qualified_t(a) <=> non_qualified_t(b)) == (value_t(a) <=> value_t(b)));
-                        CHECK((non_qualified_t(b) <=> non_qualified_t(a)) == (value_t(b) <=> value_t(a)));
+                            CHECK((value_t(a) <=> value_t(b)) == (a <=> non_qualified_t(b)));
+                            CHECK((value_t(b) <=> value_t(a)) == (non_qualified_t(b) <=> a));
+                            CHECK((value_t(a) <=> value_t(b)) == (non_qualified_t(a) <=> b));
+                            CHECK((value_t(b) <=> value_t(a)) == (b <=> non_qualified_t(a)));
+                            CHECK((value_t(a) <=> value_t(b)) == (non_qualified_t(a) <=> non_qualified_t(b)));
+                            CHECK((value_t(b) <=> value_t(a)) == (non_qualified_t(b) <=> non_qualified_t(a)));
+                        }
                     }
                 }
 
@@ -790,31 +824,55 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a == b) == (value_t(a) == value_t(b)));
-                        CHECK((b == a) == (value_t(b) == value_t(a)));
+                            CHECK((value_t(a) == value_t(b)) == (a == b));
+                            CHECK((value_t(b) == value_t(a)) == (b == a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a != b) == (value_t(a) != value_t(b)));
-                        CHECK((b != a) == (value_t(b) != value_t(a)));
+                            CHECK((value_t(a) != value_t(b)) == (a != b));
+                            CHECK((value_t(b) != value_t(a)) == (b != a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a < b) == (value_t(a) < value_t(b)));
-                        CHECK((b < a) == (value_t(b) < value_t(a)));
+                            CHECK((value_t(a) < value_t(b)) == (a < b));
+                            CHECK((value_t(b) < value_t(a)) == (b < a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a > b) == (value_t(a) > value_t(b)));
-                        CHECK((b > a) == (value_t(b) > value_t(a)));
+                            CHECK((value_t(a) > value_t(b)) == (a > b));
+                            CHECK((value_t(b) > value_t(a)) == (b > a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a <= b) == (value_t(a) <= value_t(b)));
-                        CHECK((b <= a) == (value_t(b) <= value_t(a)));
+                            CHECK((value_t(a) <= value_t(b)) == (a <= b));
+                            CHECK((value_t(b) <= value_t(a)) == (b <= a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a >= b) == (value_t(a) >= value_t(b)));
-                        CHECK((b >= a) == (value_t(b) >= value_t(a)));
+                            CHECK((value_t(a) >= value_t(b)) == (a >= b));
+                            CHECK((value_t(b) >= value_t(a)) == (b >= a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a <=> b) == (value_t(a) <=> value_t(b)));
-                        CHECK((b <=> a) == (value_t(b) <=> value_t(a)));
+                            CHECK((value_t(a) <=> value_t(b)) == (a <=> b));
+                            CHECK((value_t(b) <=> value_t(a)) == (b <=> a));
+                        }
                     }
                 }
 
@@ -825,72 +883,96 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>();
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>();
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a == nkr::cpp::Move(b)) == (value_t(a) == value_t(b)));
-                        CHECK((nkr::cpp::Move(b) == a) == (value_t(b) == value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) == b) == (value_t(a) == value_t(b)));
-                            CHECK((b == nkr::cpp::Move(a)) == (value_t(b) == value_t(a)));
-                            CHECK((nkr::cpp::Move(a) == nkr::cpp::Move(b)) == (value_t(a) == value_t(b)));
-                            CHECK((nkr::cpp::Move(b) == nkr::cpp::Move(a)) == (value_t(b) == value_t(a)));
+                            CHECK((value_t(a) == value_t(b)) == (a == nkr::cpp::Move(b)));
+                            CHECK((value_t(b) == value_t(a)) == (nkr::cpp::Move(b) == a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) == value_t(b)) == (nkr::cpp::Move(a) == b));
+                                CHECK((value_t(b) == value_t(a)) == (b == nkr::cpp::Move(a)));
+                                CHECK((value_t(a) == value_t(b)) == (nkr::cpp::Move(a) == nkr::cpp::Move(b)));
+                                CHECK((value_t(b) == value_t(a)) == (nkr::cpp::Move(b) == nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a != nkr::cpp::Move(b)) == (value_t(a) != value_t(b)));
-                        CHECK((nkr::cpp::Move(b) != a) == (value_t(b) != value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) != b) == (value_t(a) != value_t(b)));
-                            CHECK((b != nkr::cpp::Move(a)) == (value_t(b) != value_t(a)));
-                            CHECK((nkr::cpp::Move(a) != nkr::cpp::Move(b)) == (value_t(a) != value_t(b)));
-                            CHECK((nkr::cpp::Move(b) != nkr::cpp::Move(a)) == (value_t(b) != value_t(a)));
+                            CHECK((value_t(a) != value_t(b)) == (a != nkr::cpp::Move(b)));
+                            CHECK((value_t(b) != value_t(a)) == (nkr::cpp::Move(b) != a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) != value_t(b)) == (nkr::cpp::Move(a) != b));
+                                CHECK((value_t(b) != value_t(a)) == (b != nkr::cpp::Move(a)));
+                                CHECK((value_t(a) != value_t(b)) == (nkr::cpp::Move(a) != nkr::cpp::Move(b)));
+                                CHECK((value_t(b) != value_t(a)) == (nkr::cpp::Move(b) != nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a < nkr::cpp::Move(b)) == (value_t(a) < value_t(b)));
-                        CHECK((nkr::cpp::Move(b) < a) == (value_t(b) < value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) < b) == (value_t(a) < value_t(b)));
-                            CHECK((b < nkr::cpp::Move(a)) == (value_t(b) < value_t(a)));
-                            CHECK((nkr::cpp::Move(a) < nkr::cpp::Move(b)) == (value_t(a) < value_t(b)));
-                            CHECK((nkr::cpp::Move(b) < nkr::cpp::Move(a)) == (value_t(b) < value_t(a)));
+                            CHECK((value_t(a) < value_t(b)) == (a < nkr::cpp::Move(b)));
+                            CHECK((value_t(b) < value_t(a)) == (nkr::cpp::Move(b) < a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) < value_t(b)) == (nkr::cpp::Move(a) < b));
+                                CHECK((value_t(b) < value_t(a)) == (b < nkr::cpp::Move(a)));
+                                CHECK((value_t(a) < value_t(b)) == (nkr::cpp::Move(a) < nkr::cpp::Move(b)));
+                                CHECK((value_t(b) < value_t(a)) == (nkr::cpp::Move(b) < nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a > nkr::cpp::Move(b)) == (value_t(a) > value_t(b)));
-                        CHECK((nkr::cpp::Move(b) > a) == (value_t(b) > value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) > b) == (value_t(a) > value_t(b)));
-                            CHECK((b > nkr::cpp::Move(a)) == (value_t(b) > value_t(a)));
-                            CHECK((nkr::cpp::Move(a) > nkr::cpp::Move(b)) == (value_t(a) > value_t(b)));
-                            CHECK((nkr::cpp::Move(b) > nkr::cpp::Move(a)) == (value_t(b) > value_t(a)));
+                            CHECK((value_t(a) > value_t(b)) == (a > nkr::cpp::Move(b)));
+                            CHECK((value_t(b) > value_t(a)) == (nkr::cpp::Move(b) > a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) > value_t(b)) == (nkr::cpp::Move(a) > b));
+                                CHECK((value_t(b) > value_t(a)) == (b > nkr::cpp::Move(a)));
+                                CHECK((value_t(a) > value_t(b)) == (nkr::cpp::Move(a) > nkr::cpp::Move(b)));
+                                CHECK((value_t(b) > value_t(a)) == (nkr::cpp::Move(b) > nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a <= nkr::cpp::Move(b)) == (value_t(a) <= value_t(b)));
-                        CHECK((nkr::cpp::Move(b) <= a) == (value_t(b) <= value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) <= b) == (value_t(a) <= value_t(b)));
-                            CHECK((b <= nkr::cpp::Move(a)) == (value_t(b) <= value_t(a)));
-                            CHECK((nkr::cpp::Move(a) <= nkr::cpp::Move(b)) == (value_t(a) <= value_t(b)));
-                            CHECK((nkr::cpp::Move(b) <= nkr::cpp::Move(a)) == (value_t(b) <= value_t(a)));
+                            CHECK((value_t(a) <= value_t(b)) == (a <= nkr::cpp::Move(b)));
+                            CHECK((value_t(b) <= value_t(a)) == (nkr::cpp::Move(b) <= a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) <= value_t(b)) == (nkr::cpp::Move(a) <= b));
+                                CHECK((value_t(b) <= value_t(a)) == (b <= nkr::cpp::Move(a)));
+                                CHECK((value_t(a) <= value_t(b)) == (nkr::cpp::Move(a) <= nkr::cpp::Move(b)));
+                                CHECK((value_t(b) <= value_t(a)) == (nkr::cpp::Move(b) <= nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a >= nkr::cpp::Move(b)) == (value_t(a) >= value_t(b)));
-                        CHECK((nkr::cpp::Move(b) >= a) == (value_t(b) >= value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) >= b) == (value_t(a) >= value_t(b)));
-                            CHECK((b >= nkr::cpp::Move(a)) == (value_t(b) >= value_t(a)));
-                            CHECK((nkr::cpp::Move(a) >= nkr::cpp::Move(b)) == (value_t(a) >= value_t(b)));
-                            CHECK((nkr::cpp::Move(b) >= nkr::cpp::Move(a)) == (value_t(b) >= value_t(a)));
+                            CHECK((value_t(a) >= value_t(b)) == (a >= nkr::cpp::Move(b)));
+                            CHECK((value_t(b) >= value_t(a)) == (nkr::cpp::Move(b) >= a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) >= value_t(b)) == (nkr::cpp::Move(a) >= b));
+                                CHECK((value_t(b) >= value_t(a)) == (b >= nkr::cpp::Move(a)));
+                                CHECK((value_t(a) >= value_t(b)) == (nkr::cpp::Move(a) >= nkr::cpp::Move(b)));
+                                CHECK((value_t(b) >= value_t(a)) == (nkr::cpp::Move(b) >= nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a <=> nkr::cpp::Move(b)) == (value_t(a) <=> value_t(b)));
-                        CHECK((nkr::cpp::Move(b) <=> a) == (value_t(b) <=> value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) <=> b) == (value_t(a) <=> value_t(b)));
-                            CHECK((b <=> nkr::cpp::Move(a)) == (value_t(b) <=> value_t(a)));
-                            CHECK((nkr::cpp::Move(a) <=> nkr::cpp::Move(b)) == (value_t(a) <=> value_t(b)));
-                            CHECK((nkr::cpp::Move(b) <=> nkr::cpp::Move(a)) == (value_t(b) <=> value_t(a)));
+                            CHECK((value_t(a) <=> value_t(b)) == (a <=> nkr::cpp::Move(b)));
+                            CHECK((value_t(b) <=> value_t(a)) == (nkr::cpp::Move(b) <=> a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) <=> value_t(b)) == (nkr::cpp::Move(a) <=> b));
+                                CHECK((value_t(b) <=> value_t(a)) == (b <=> nkr::cpp::Move(a)));
+                                CHECK((value_t(a) <=> value_t(b)) == (nkr::cpp::Move(a) <=> nkr::cpp::Move(b)));
+                                CHECK((value_t(b) <=> value_t(a)) == (nkr::cpp::Move(b) <=> nkr::cpp::Move(a)));
+                            }
                         }
                     }
                 }
@@ -901,12 +983,16 @@ namespace nkr {
                 using value_t = nkr::boolean::cpp_t;
 
                 for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                    boolean_p a =
-                        nkr::randomness::Value<boolean_p>();
+                    {
+                        boolean_p a = nkr::randomness::Value<boolean_p>();
 
-                    CHECK(+a == +value_t(a));
+                        CHECK(+value_t(a) == +a);
+                    }
+                    {
+                        boolean_p a = nkr::randomness::Value<boolean_p>();
 
-                    CHECK(-a == -value_t(a));
+                        CHECK(-value_t(a) == -a);
+                    }
                 }
             }
 
@@ -920,45 +1006,61 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>(true, true);
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a + non_qualified_t(b)) == (value_t(a) + value_t(b)));
-                        CHECK((non_qualified_t(b) + a) == (value_t(b) + value_t(a)));
-                        CHECK((non_qualified_t(a) + b) == (value_t(a) + value_t(b)));
-                        CHECK((b + non_qualified_t(a)) == (value_t(b) + value_t(a)));
-                        CHECK((non_qualified_t(a) + non_qualified_t(b)) == (value_t(a) + value_t(b)));
-                        CHECK((non_qualified_t(b) + non_qualified_t(a)) == (value_t(b) + value_t(a)));
+                            CHECK((value_t(a) + value_t(b)) == (a + non_qualified_t(b)));
+                            CHECK((value_t(b) + value_t(a)) == (non_qualified_t(b) + a));
+                            CHECK((value_t(a) + value_t(b)) == (non_qualified_t(a) + b));
+                            CHECK((value_t(b) + value_t(a)) == (b + non_qualified_t(a)));
+                            CHECK((value_t(a) + value_t(b)) == (non_qualified_t(a) + non_qualified_t(b)));
+                            CHECK((value_t(b) + value_t(a)) == (non_qualified_t(b) + non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a - non_qualified_t(b)) == (value_t(a) - value_t(b)));
-                        CHECK((non_qualified_t(b) - a) == (value_t(b) - value_t(a)));
-                        CHECK((non_qualified_t(a) - b) == (value_t(a) - value_t(b)));
-                        CHECK((b - non_qualified_t(a)) == (value_t(b) - value_t(a)));
-                        CHECK((non_qualified_t(a) - non_qualified_t(b)) == (value_t(a) - value_t(b)));
-                        CHECK((non_qualified_t(b) - non_qualified_t(a)) == (value_t(b) - value_t(a)));
+                            CHECK((value_t(a) - value_t(b)) == (a - non_qualified_t(b)));
+                            CHECK((value_t(b) - value_t(a)) == (non_qualified_t(b) - a));
+                            CHECK((value_t(a) - value_t(b)) == (non_qualified_t(a) - b));
+                            CHECK((value_t(b) - value_t(a)) == (b - non_qualified_t(a)));
+                            CHECK((value_t(a) - value_t(b)) == (non_qualified_t(a) - non_qualified_t(b)));
+                            CHECK((value_t(b) - value_t(a)) == (non_qualified_t(b) - non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a * non_qualified_t(b)) == (value_t(a) * value_t(b)));
-                        CHECK((non_qualified_t(b) * a) == (value_t(b) * value_t(a)));
-                        CHECK((non_qualified_t(a) * b) == (value_t(a) * value_t(b)));
-                        CHECK((b * non_qualified_t(a)) == (value_t(b) * value_t(a)));
-                        CHECK((non_qualified_t(a) * non_qualified_t(b)) == (value_t(a) * value_t(b)));
-                        CHECK((non_qualified_t(b) * non_qualified_t(a)) == (value_t(b) * value_t(a)));
+                            CHECK((value_t(a) * value_t(b)) == (a * non_qualified_t(b)));
+                            CHECK((value_t(b) * value_t(a)) == (non_qualified_t(b) * a));
+                            CHECK((value_t(a) * value_t(b)) == (non_qualified_t(a) * b));
+                            CHECK((value_t(b) * value_t(a)) == (b * non_qualified_t(a)));
+                            CHECK((value_t(a) * value_t(b)) == (non_qualified_t(a) * non_qualified_t(b)));
+                            CHECK((value_t(b) * value_t(a)) == (non_qualified_t(b) * non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
 
-                        CHECK((a / non_qualified_t(b)) == (value_t(a) / value_t(b)));
-                        CHECK((non_qualified_t(b) / a) == (value_t(b) / value_t(a)));
-                        CHECK((non_qualified_t(a) / b) == (value_t(a) / value_t(b)));
-                        CHECK((b / non_qualified_t(a)) == (value_t(b) / value_t(a)));
-                        CHECK((non_qualified_t(a) / non_qualified_t(b)) == (value_t(a) / value_t(b)));
-                        CHECK((non_qualified_t(b) / non_qualified_t(a)) == (value_t(b) / value_t(a)));
+                            CHECK((value_t(a) / value_t(b)) == (a / non_qualified_t(b)));
+                            CHECK((value_t(b) / value_t(a)) == (non_qualified_t(b) / a));
+                            CHECK((value_t(a) / value_t(b)) == (non_qualified_t(a) / b));
+                            CHECK((value_t(b) / value_t(a)) == (b / non_qualified_t(a)));
+                            CHECK((value_t(a) / value_t(b)) == (non_qualified_t(a) / non_qualified_t(b)));
+                            CHECK((value_t(b) / value_t(a)) == (non_qualified_t(b) / non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
 
-                        CHECK((a % non_qualified_t(b)) == (value_t(a) % value_t(b)));
-                        CHECK((non_qualified_t(b) % a) == (value_t(b) % value_t(a)));
-                        CHECK((non_qualified_t(a) % b) == (value_t(a) % value_t(b)));
-                        CHECK((b % non_qualified_t(a)) == (value_t(b) % value_t(a)));
-                        CHECK((non_qualified_t(a) % non_qualified_t(b)) == (value_t(a) % value_t(b)));
-                        CHECK((non_qualified_t(b) % non_qualified_t(a)) == (value_t(b) % value_t(a)));
+                            CHECK((value_t(a) % value_t(b)) == (a % non_qualified_t(b)));
+                            CHECK((value_t(b) % value_t(a)) == (non_qualified_t(b) % a));
+                            CHECK((value_t(a) % value_t(b)) == (non_qualified_t(a) % b));
+                            CHECK((value_t(b) % value_t(a)) == (b % non_qualified_t(a)));
+                            CHECK((value_t(a) % value_t(b)) == (non_qualified_t(a) % non_qualified_t(b)));
+                            CHECK((value_t(b) % value_t(a)) == (non_qualified_t(b) % non_qualified_t(a)));
+                        }
                     }
                 }
 
@@ -969,25 +1071,41 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>(true, true);
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a + b) == (value_t(a) + value_t(b)));
-                        CHECK((b + a) == (value_t(b) + value_t(a)));
+                            CHECK((value_t(a) + value_t(b)) == (a + b));
+                            CHECK((value_t(b) + value_t(a)) == (b + a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a - b) == (value_t(a) - value_t(b)));
-                        CHECK((b - a) == (value_t(b) - value_t(a)));
+                            CHECK((value_t(a) - value_t(b)) == (a - b));
+                            CHECK((value_t(b) - value_t(a)) == (b - a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a * b) == (value_t(a) * value_t(b)));
-                        CHECK((b * a) == (value_t(b) * value_t(a)));
+                            CHECK((value_t(a) * value_t(b)) == (a * b));
+                            CHECK((value_t(b) * value_t(a)) == (b * a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
 
-                        CHECK((a / b) == (value_t(a) / value_t(b)));
-                        CHECK((b / a) == (value_t(b) / value_t(a)));
+                            CHECK((value_t(a) / value_t(b)) == (a / b));
+                            CHECK((value_t(b) / value_t(a)) == (b / a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
 
-                        CHECK((a % b) == (value_t(a) % value_t(b)));
-                        CHECK((b % a) == (value_t(b) % value_t(a)));
+                            CHECK((value_t(a) % value_t(b)) == (a % b));
+                            CHECK((value_t(b) % value_t(a)) == (b % a));
+                        }
                     }
                 }
 
@@ -998,54 +1116,70 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>(true, true);
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a + nkr::cpp::Move(b)) == (value_t(a) + value_t(b)));
-                        CHECK((nkr::cpp::Move(b) + a) == (value_t(b) + value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) + b) == (value_t(a) + value_t(b)));
-                            CHECK((b + nkr::cpp::Move(a)) == (value_t(b) + value_t(a)));
-                            CHECK((nkr::cpp::Move(a) + nkr::cpp::Move(b)) == (value_t(a) + value_t(b)));
-                            CHECK((nkr::cpp::Move(b) + nkr::cpp::Move(a)) == (value_t(b) + value_t(a)));
+                            CHECK((value_t(a) + value_t(b)) == (a + nkr::cpp::Move(b)));
+                            CHECK((value_t(b) + value_t(a)) == (nkr::cpp::Move(b) + a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) + value_t(b)) == (nkr::cpp::Move(a) + b));
+                                CHECK((value_t(b) + value_t(a)) == (b + nkr::cpp::Move(a)));
+                                CHECK((value_t(a) + value_t(b)) == (nkr::cpp::Move(a) + nkr::cpp::Move(b)));
+                                CHECK((value_t(b) + value_t(a)) == (nkr::cpp::Move(b) + nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a - nkr::cpp::Move(b)) == (value_t(a) - value_t(b)));
-                        CHECK((nkr::cpp::Move(b) - a) == (value_t(b) - value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) - b) == (value_t(a) - value_t(b)));
-                            CHECK((b - nkr::cpp::Move(a)) == (value_t(b) - value_t(a)));
-                            CHECK((nkr::cpp::Move(a) - nkr::cpp::Move(b)) == (value_t(a) - value_t(b)));
-                            CHECK((nkr::cpp::Move(b) - nkr::cpp::Move(a)) == (value_t(b) - value_t(a)));
+                            CHECK((value_t(a) - value_t(b)) == (a - nkr::cpp::Move(b)));
+                            CHECK((value_t(b) - value_t(a)) == (nkr::cpp::Move(b) - a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) - value_t(b)) == (nkr::cpp::Move(a) - b));
+                                CHECK((value_t(b) - value_t(a)) == (b - nkr::cpp::Move(a)));
+                                CHECK((value_t(a) - value_t(b)) == (nkr::cpp::Move(a) - nkr::cpp::Move(b)));
+                                CHECK((value_t(b) - value_t(a)) == (nkr::cpp::Move(b) - nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a * nkr::cpp::Move(b)) == (value_t(a) * value_t(b)));
-                        CHECK((nkr::cpp::Move(b) * a) == (value_t(b) * value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) * b) == (value_t(a) * value_t(b)));
-                            CHECK((b * nkr::cpp::Move(a)) == (value_t(b) * value_t(a)));
-                            CHECK((nkr::cpp::Move(a) * nkr::cpp::Move(b)) == (value_t(a) * value_t(b)));
-                            CHECK((nkr::cpp::Move(b) * nkr::cpp::Move(a)) == (value_t(b) * value_t(a)));
+                            CHECK((value_t(a) * value_t(b)) == (a * nkr::cpp::Move(b)));
+                            CHECK((value_t(b) * value_t(a)) == (nkr::cpp::Move(b) * a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) * value_t(b)) == (nkr::cpp::Move(a) * b));
+                                CHECK((value_t(b) * value_t(a)) == (b * nkr::cpp::Move(a)));
+                                CHECK((value_t(a) * value_t(b)) == (nkr::cpp::Move(a) * nkr::cpp::Move(b)));
+                                CHECK((value_t(b) * value_t(a)) == (nkr::cpp::Move(b) * nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
 
-                        CHECK((a / nkr::cpp::Move(b)) == (value_t(a) / value_t(b)));
-                        CHECK((nkr::cpp::Move(b) / a) == (value_t(b) / value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) / b) == (value_t(a) / value_t(b)));
-                            CHECK((b / nkr::cpp::Move(a)) == (value_t(b) / value_t(a)));
-                            CHECK((nkr::cpp::Move(a) / nkr::cpp::Move(b)) == (value_t(a) / value_t(b)));
-                            CHECK((nkr::cpp::Move(b) / nkr::cpp::Move(a)) == (value_t(b) / value_t(a)));
+                            CHECK((value_t(a) / value_t(b)) == (a / nkr::cpp::Move(b)));
+                            CHECK((value_t(b) / value_t(a)) == (nkr::cpp::Move(b) / a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) / value_t(b)) == (nkr::cpp::Move(a) / b));
+                                CHECK((value_t(b) / value_t(a)) == (b / nkr::cpp::Move(a)));
+                                CHECK((value_t(a) / value_t(b)) == (nkr::cpp::Move(a) / nkr::cpp::Move(b)));
+                                CHECK((value_t(b) / value_t(a)) == (nkr::cpp::Move(b) / nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
 
-                        CHECK((a % nkr::cpp::Move(b)) == (value_t(a) % value_t(b)));
-                        CHECK((nkr::cpp::Move(b) % a) == (value_t(b) % value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) % b) == (value_t(a) % value_t(b)));
-                            CHECK((b % nkr::cpp::Move(a)) == (value_t(b) % value_t(a)));
-                            CHECK((nkr::cpp::Move(a) % nkr::cpp::Move(b)) == (value_t(a) % value_t(b)));
-                            CHECK((nkr::cpp::Move(b) % nkr::cpp::Move(a)) == (value_t(b) % value_t(a)));
+                            CHECK((value_t(a) % value_t(b)) == (a % nkr::cpp::Move(b)));
+                            CHECK((value_t(b) % value_t(a)) == (nkr::cpp::Move(b) % a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) % value_t(b)) == (nkr::cpp::Move(a) % b));
+                                CHECK((value_t(b) % value_t(a)) == (b % nkr::cpp::Move(a)));
+                                CHECK((value_t(a) % value_t(b)) == (nkr::cpp::Move(a) % nkr::cpp::Move(b)));
+                                CHECK((value_t(b) % value_t(a)) == (nkr::cpp::Move(b) % nkr::cpp::Move(a)));
+                            }
                         }
                     }
                 }
@@ -1180,10 +1314,11 @@ namespace nkr {
                 using value_t = nkr::boolean::cpp_t;
 
                 for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                    boolean_p a =
-                        nkr::randomness::Value<boolean_p>();
+                    {
+                        boolean_p a = nkr::randomness::Value<boolean_p>();
 
-                    CHECK(~a == ~value_t(a));
+                        CHECK(~value_t(a) == ~a);
+                    }
                 }
             }
 
@@ -1197,47 +1332,61 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t c =
-                            nkr::randomness::Value<boolean_t>(false, true);
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a | non_qualified_t(b)) == (value_t(a) | value_t(b)));
-                        CHECK((non_qualified_t(b) | a) == (value_t(b) | value_t(a)));
-                        CHECK((non_qualified_t(a) | b) == (value_t(a) | value_t(b)));
-                        CHECK((b | non_qualified_t(a)) == (value_t(b) | value_t(a)));
-                        CHECK((non_qualified_t(a) | non_qualified_t(b)) == (value_t(a) | value_t(b)));
-                        CHECK((non_qualified_t(b) | non_qualified_t(a)) == (value_t(b) | value_t(a)));
+                            CHECK((value_t(a) | value_t(b)) == (a | non_qualified_t(b)));
+                            CHECK((value_t(b) | value_t(a)) == (non_qualified_t(b) | a));
+                            CHECK((value_t(a) | value_t(b)) == (non_qualified_t(a) | b));
+                            CHECK((value_t(b) | value_t(a)) == (b | non_qualified_t(a)));
+                            CHECK((value_t(a) | value_t(b)) == (non_qualified_t(a) | non_qualified_t(b)));
+                            CHECK((value_t(b) | value_t(a)) == (non_qualified_t(b) | non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a & non_qualified_t(b)) == (value_t(a) & value_t(b)));
-                        CHECK((non_qualified_t(b) & a) == (value_t(b) & value_t(a)));
-                        CHECK((non_qualified_t(a) & b) == (value_t(a) & value_t(b)));
-                        CHECK((b & non_qualified_t(a)) == (value_t(b) & value_t(a)));
-                        CHECK((non_qualified_t(a) & non_qualified_t(b)) == (value_t(a) & value_t(b)));
-                        CHECK((non_qualified_t(b) & non_qualified_t(a)) == (value_t(b) & value_t(a)));
+                            CHECK((value_t(a) & value_t(b)) == (a & non_qualified_t(b)));
+                            CHECK((value_t(b) & value_t(a)) == (non_qualified_t(b) & a));
+                            CHECK((value_t(a) & value_t(b)) == (non_qualified_t(a) & b));
+                            CHECK((value_t(b) & value_t(a)) == (b & non_qualified_t(a)));
+                            CHECK((value_t(a) & value_t(b)) == (non_qualified_t(a) & non_qualified_t(b)));
+                            CHECK((value_t(b) & value_t(a)) == (non_qualified_t(b) & non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a ^ non_qualified_t(b)) == (value_t(a) ^ value_t(b)));
-                        CHECK((non_qualified_t(b) ^ a) == (value_t(b) ^ value_t(a)));
-                        CHECK((non_qualified_t(a) ^ b) == (value_t(a) ^ value_t(b)));
-                        CHECK((b ^ non_qualified_t(a)) == (value_t(b) ^ value_t(a)));
-                        CHECK((non_qualified_t(a) ^ non_qualified_t(b)) == (value_t(a) ^ value_t(b)));
-                        CHECK((non_qualified_t(b) ^ non_qualified_t(a)) == (value_t(b) ^ value_t(a)));
+                            CHECK((value_t(a) ^ value_t(b)) == (a ^ non_qualified_t(b)));
+                            CHECK((value_t(b) ^ value_t(a)) == (non_qualified_t(b) ^ a));
+                            CHECK((value_t(a) ^ value_t(b)) == (non_qualified_t(a) ^ b));
+                            CHECK((value_t(b) ^ value_t(a)) == (b ^ non_qualified_t(a)));
+                            CHECK((value_t(a) ^ value_t(b)) == (non_qualified_t(a) ^ non_qualified_t(b)));
+                            CHECK((value_t(b) ^ value_t(a)) == (non_qualified_t(b) ^ non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a << non_qualified_t(c)) == (value_t(a) << value_t(c)));
-                        CHECK((non_qualified_t(c) << a) == (value_t(c) << value_t(a)));
-                        CHECK((non_qualified_t(a) << c) == (value_t(a) << value_t(c)));
-                        CHECK((c << non_qualified_t(a)) == (value_t(c) << value_t(a)));
-                        CHECK((non_qualified_t(a) << non_qualified_t(c)) == (value_t(a) << value_t(c)));
-                        CHECK((non_qualified_t(c) << non_qualified_t(a)) == (value_t(c) << value_t(a)));
+                            CHECK((value_t(a) << value_t(b)) == (a << non_qualified_t(b)));
+                            CHECK((value_t(b) << value_t(a)) == (non_qualified_t(b) << a));
+                            CHECK((value_t(a) << value_t(b)) == (non_qualified_t(a) << b));
+                            CHECK((value_t(b) << value_t(a)) == (b << non_qualified_t(a)));
+                            CHECK((value_t(a) << value_t(b)) == (non_qualified_t(a) << non_qualified_t(b)));
+                            CHECK((value_t(b) << value_t(a)) == (non_qualified_t(b) << non_qualified_t(a)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a >> non_qualified_t(c)) == (value_t(a) >> value_t(c)));
-                        CHECK((non_qualified_t(c) >> a) == (value_t(c) >> value_t(a)));
-                        CHECK((non_qualified_t(a) >> c) == (value_t(a) >> value_t(c)));
-                        CHECK((c >> non_qualified_t(a)) == (value_t(c) >> value_t(a)));
-                        CHECK((non_qualified_t(a) >> non_qualified_t(c)) == (value_t(a) >> value_t(c)));
-                        CHECK((non_qualified_t(c) >> non_qualified_t(a)) == (value_t(c) >> value_t(a)));
+                            CHECK((value_t(a) >> value_t(b)) == (a >> non_qualified_t(b)));
+                            CHECK((value_t(b) >> value_t(a)) == (non_qualified_t(b) >> a));
+                            CHECK((value_t(a) >> value_t(b)) == (non_qualified_t(a) >> b));
+                            CHECK((value_t(b) >> value_t(a)) == (b >> non_qualified_t(a)));
+                            CHECK((value_t(a) >> value_t(b)) == (non_qualified_t(a) >> non_qualified_t(b)));
+                            CHECK((value_t(b) >> value_t(a)) == (non_qualified_t(b) >> non_qualified_t(a)));
+                        }
                     }
                 }
 
@@ -1248,27 +1397,41 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t c =
-                            nkr::randomness::Value<boolean_t>(false, true);
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a | b) == (value_t(a) | value_t(b)));
-                        CHECK((b | a) == (value_t(b) | value_t(a)));
+                            CHECK((value_t(a) | value_t(b)) == (a | b));
+                            CHECK((value_t(b) | value_t(a)) == (b | a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a & b) == (value_t(a) & value_t(b)));
-                        CHECK((b & a) == (value_t(b) & value_t(a)));
+                            CHECK((value_t(a) & value_t(b)) == (a & b));
+                            CHECK((value_t(b) & value_t(a)) == (b & a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a ^ b) == (value_t(a) ^ value_t(b)));
-                        CHECK((b ^ a) == (value_t(b) ^ value_t(a)));
+                            CHECK((value_t(a) ^ value_t(b)) == (a ^ b));
+                            CHECK((value_t(b) ^ value_t(a)) == (b ^ a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a << c) == (value_t(a) << value_t(c)));
-                        CHECK((c << a) == (value_t(c) << value_t(a)));
+                            CHECK((value_t(a) << value_t(b)) == (a << b));
+                            CHECK((value_t(b) << value_t(a)) == (b << a));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a >> c) == (value_t(a) >> value_t(c)));
-                        CHECK((c >> a) == (value_t(c) >> value_t(a)));
+                            CHECK((value_t(a) >> value_t(b)) == (a >> b));
+                            CHECK((value_t(b) >> value_t(a)) == (b >> a));
+                        }
                     }
                 }
 
@@ -1279,56 +1442,70 @@ namespace nkr {
                     using value_t = nkr::boolean::cpp_t;
 
                     for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
-                        boolean_t a =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t b =
-                            nkr::randomness::Value<boolean_t>(true, true);
-                        other_t c =
-                            nkr::randomness::Value<boolean_t>(false, true);
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a | nkr::cpp::Move(b)) == (value_t(a) | value_t(b)));
-                        CHECK((nkr::cpp::Move(b) | a) == (value_t(b) | value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) | b) == (value_t(a) | value_t(b)));
-                            CHECK((b | nkr::cpp::Move(a)) == (value_t(b) | value_t(a)));
-                            CHECK((nkr::cpp::Move(a) | nkr::cpp::Move(b)) == (value_t(a) | value_t(b)));
-                            CHECK((nkr::cpp::Move(b) | nkr::cpp::Move(a)) == (value_t(b) | value_t(a)));
+                            CHECK((value_t(a) | value_t(b)) == (a | nkr::cpp::Move(b)));
+                            CHECK((value_t(b) | value_t(a)) == (nkr::cpp::Move(b) | a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) | value_t(b)) == (nkr::cpp::Move(a) | b));
+                                CHECK((value_t(b) | value_t(a)) == (b | nkr::cpp::Move(a)));
+                                CHECK((value_t(a) | value_t(b)) == (nkr::cpp::Move(a) | nkr::cpp::Move(b)));
+                                CHECK((value_t(b) | value_t(a)) == (nkr::cpp::Move(b) | nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a & nkr::cpp::Move(b)) == (value_t(a) & value_t(b)));
-                        CHECK((nkr::cpp::Move(b) & a) == (value_t(b) & value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) & b) == (value_t(a) & value_t(b)));
-                            CHECK((b & nkr::cpp::Move(a)) == (value_t(b) & value_t(a)));
-                            CHECK((nkr::cpp::Move(a) & nkr::cpp::Move(b)) == (value_t(a) & value_t(b)));
-                            CHECK((nkr::cpp::Move(b) & nkr::cpp::Move(a)) == (value_t(b) & value_t(a)));
+                            CHECK((value_t(a) & value_t(b)) == (a & nkr::cpp::Move(b)));
+                            CHECK((value_t(b) & value_t(a)) == (nkr::cpp::Move(b) & a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) & value_t(b)) == (nkr::cpp::Move(a) & b));
+                                CHECK((value_t(b) & value_t(a)) == (b & nkr::cpp::Move(a)));
+                                CHECK((value_t(a) & value_t(b)) == (nkr::cpp::Move(a) & nkr::cpp::Move(b)));
+                                CHECK((value_t(b) & value_t(a)) == (nkr::cpp::Move(b) & nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a ^ nkr::cpp::Move(b)) == (value_t(a) ^ value_t(b)));
-                        CHECK((nkr::cpp::Move(b) ^ a) == (value_t(b) ^ value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) ^ b) == (value_t(a) ^ value_t(b)));
-                            CHECK((b ^ nkr::cpp::Move(a)) == (value_t(b) ^ value_t(a)));
-                            CHECK((nkr::cpp::Move(a) ^ nkr::cpp::Move(b)) == (value_t(a) ^ value_t(b)));
-                            CHECK((nkr::cpp::Move(b) ^ nkr::cpp::Move(a)) == (value_t(b) ^ value_t(a)));
+                            CHECK((value_t(a) ^ value_t(b)) == (a ^ nkr::cpp::Move(b)));
+                            CHECK((value_t(b) ^ value_t(a)) == (nkr::cpp::Move(b) ^ a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) ^ value_t(b)) == (nkr::cpp::Move(a) ^ b));
+                                CHECK((value_t(b) ^ value_t(a)) == (b ^ nkr::cpp::Move(a)));
+                                CHECK((value_t(a) ^ value_t(b)) == (nkr::cpp::Move(a) ^ nkr::cpp::Move(b)));
+                                CHECK((value_t(b) ^ value_t(a)) == (nkr::cpp::Move(b) ^ nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a << nkr::cpp::Move(c)) == (value_t(a) << value_t(c)));
-                        CHECK((nkr::cpp::Move(c) << a) == (value_t(c) << value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) << c) == (value_t(a) << value_t(c)));
-                            CHECK((c << nkr::cpp::Move(a)) == (value_t(c) << value_t(a)));
-                            CHECK((nkr::cpp::Move(a) << nkr::cpp::Move(c)) == (value_t(a) << value_t(c)));
-                            CHECK((nkr::cpp::Move(c) << nkr::cpp::Move(a)) == (value_t(c) << value_t(a)));
+                            CHECK((value_t(a) << value_t(b)) == (a << nkr::cpp::Move(b)));
+                            CHECK((value_t(b) << value_t(a)) == (nkr::cpp::Move(b) << a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) << value_t(b)) == (nkr::cpp::Move(a) << b));
+                                CHECK((value_t(b) << value_t(a)) == (b << nkr::cpp::Move(a)));
+                                CHECK((value_t(a) << value_t(b)) == (nkr::cpp::Move(a) << nkr::cpp::Move(b)));
+                                CHECK((value_t(b) << value_t(a)) == (nkr::cpp::Move(b) << nkr::cpp::Move(a)));
+                            }
                         }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
-                        CHECK((a >> nkr::cpp::Move(c)) == (value_t(a) >> value_t(c)));
-                        CHECK((nkr::cpp::Move(c) >> a) == (value_t(c) >> value_t(a)));
-                        if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
-                            CHECK((nkr::cpp::Move(a) >> c) == (value_t(a) >> value_t(c)));
-                            CHECK((c >> nkr::cpp::Move(a)) == (value_t(c) >> value_t(a)));
-                            CHECK((nkr::cpp::Move(a) >> nkr::cpp::Move(c)) == (value_t(a) >> value_t(c)));
-                            CHECK((nkr::cpp::Move(c) >> nkr::cpp::Move(a)) == (value_t(c) >> value_t(a)));
+                            CHECK((value_t(a) >> value_t(b)) == (a >> nkr::cpp::Move(b)));
+                            CHECK((value_t(b) >> value_t(a)) == (nkr::cpp::Move(b) >> a));
+                            if constexpr (nkr::cpp::any_non_const_tr<boolean_t>) {
+                                CHECK((value_t(a) >> value_t(b)) == (nkr::cpp::Move(a) >> b));
+                                CHECK((value_t(b) >> value_t(a)) == (b >> nkr::cpp::Move(a)));
+                                CHECK((value_t(a) >> value_t(b)) == (nkr::cpp::Move(a) >> nkr::cpp::Move(b)));
+                                CHECK((value_t(b) >> value_t(a)) == (nkr::cpp::Move(b) >> nkr::cpp::Move(a)));
+                            }
                         }
                     }
                 }
@@ -1364,13 +1541,13 @@ namespace nkr {
                         }
                         {
                             boolean_t a = nkr::randomness::Value<boolean_t>();
-                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
                             CHECK(value_t(value_t(a) << value_t(b)) == (a <<= non_qualified_t(b)));
                         }
                         {
                             boolean_t a = nkr::randomness::Value<boolean_t>();
-                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
                             CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= non_qualified_t(b)));
                         }
@@ -1404,13 +1581,13 @@ namespace nkr {
                         }
                         {
                             boolean_t a = nkr::randomness::Value<boolean_t>();
-                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
                             CHECK(value_t(value_t(a) << value_t(b)) == (a <<= b));
                         }
                         {
                             boolean_t a = nkr::randomness::Value<boolean_t>();
-                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
                             CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= b));
                         }
@@ -1444,13 +1621,13 @@ namespace nkr {
                         }
                         {
                             boolean_t a = nkr::randomness::Value<boolean_t>();
-                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
                             CHECK(value_t(value_t(a) << value_t(b)) == (a <<= nkr::cpp::Move(b)));
                         }
                         {
                             boolean_t a = nkr::randomness::Value<boolean_t>();
-                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+                            other_t b = nkr::randomness::Value<boolean_t>();
 
                             CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= nkr::cpp::Move(b)));
                         }
