@@ -502,6 +502,26 @@ namespace nkr {
             nkr::tuple::types_t<const volatile nkr::boolean::cpp_t, nkr::boolean::cpp_t>,           \
             nkr::tuple::types_t<const volatile nkr::boolean::cpp_t, volatile nkr::boolean::cpp_t>   \
 
+        #define nkr_NON_CONST_WITH_VALUE                                            \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, nkr::boolean::cpp_t>,          \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, nkr::boolean::cpp_t>  \
+
+        #define nkr_NON_CONST_WITH_LVALUE                                                           \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, nkr::boolean::cpp_t>,                          \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, const nkr::boolean::cpp_t>,                    \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, volatile nkr::boolean::cpp_t>,                 \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, const volatile nkr::boolean::cpp_t>,           \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, nkr::boolean::cpp_t>,                 \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, const nkr::boolean::cpp_t>,           \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, volatile nkr::boolean::cpp_t>,        \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, const volatile nkr::boolean::cpp_t>   \
+
+        #define nkr_NON_CONST_WITH_RVALUE                                                   \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, nkr::boolean::cpp_t>,                  \
+            nkr::tuple::types_t<nkr::boolean::cpp_t, volatile nkr::boolean::cpp_t>,         \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, nkr::boolean::cpp_t>,         \
+            nkr::tuple::types_t<volatile nkr::boolean::cpp_t, volatile nkr::boolean::cpp_t> \
+
             TEST_CASE_TEMPLATE("unary logical operators: !", boolean_p, nkr_ANY)
             {
                 using value_t = nkr::boolean::cpp_t;
@@ -1033,19 +1053,125 @@ namespace nkr {
 
             TEST_SUITE("binary arithmetic operators: +=, -=, *=, /=, %=")
             {
-                TEST_CASE_TEMPLATE("value", boolean_p, nkr_ANY)
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_NON_CONST_WITH_VALUE)
                 {
+                    using boolean_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<boolean_t>;
+                    using value_t = nkr::boolean::cpp_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) + value_t(b)) == (a += non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= non_qualified_t(b)));
+                        }
+                    }
                 }
 
-                TEST_CASE_TEMPLATE("lvalue", boolean_p, nkr_ANY)
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_NON_CONST_WITH_LVALUE)
                 {
+                    using boolean_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::boolean::cpp_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) + value_t(b)) == (a += b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= b));
+                        }
+                    }
                 }
 
-                TEST_CASE_TEMPLATE("rvalue", boolean_p, nkr_ANY)
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_NON_CONST_WITH_RVALUE)
                 {
+                    using boolean_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::boolean::cpp_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) + value_t(b)) == (a += nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= nkr::cpp::Move(b)));
+                        }
+                    }
                 }
             }
 
@@ -1210,25 +1336,134 @@ namespace nkr {
 
             TEST_SUITE("binary bitwise operators: |=, &=, ^=, <<=, >>=")
             {
-                TEST_CASE_TEMPLATE("value", boolean_p, nkr_ANY)
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_NON_CONST_WITH_VALUE)
                 {
+                    using boolean_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<boolean_t>;
+                    using value_t = nkr::boolean::cpp_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= non_qualified_t(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= non_qualified_t(b)));
+                        }
+                    }
                 }
 
-                TEST_CASE_TEMPLATE("lvalue", boolean_p, nkr_ANY)
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_NON_CONST_WITH_LVALUE)
                 {
+                    using boolean_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::boolean::cpp_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= b));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= b));
+                        }
+                    }
                 }
 
-                TEST_CASE_TEMPLATE("rvalue", boolean_p, nkr_ANY)
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_NON_CONST_WITH_RVALUE)
                 {
+                    using boolean_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::boolean::cpp_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>();
+
+                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= nkr::cpp::Move(b)));
+                        }
+                        {
+                            boolean_t a = nkr::randomness::Value<boolean_t>();
+                            other_t b = nkr::randomness::Value<boolean_t>(true, true);
+
+                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= nkr::cpp::Move(b)));
+                        }
+                    }
                 }
             }
 
         #undef nkr_ANY_WITH_VALUE
         #undef nkr_ANY_WITH_LVALUE
         #undef nkr_ANY_WITH_RVALUE
+        #undef nkr_NON_CONST_WITH_VALUE
+        #undef nkr_NON_CONST_WITH_LVALUE
+        #undef nkr_NON_CONST_WITH_RVALUE
         }
     }
 
