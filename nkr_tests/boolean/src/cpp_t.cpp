@@ -13,6 +13,7 @@
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/randomness/distributor/uniform_i.h"
 #include "nkr/interface/randomness/value_i.h"
+#include "nkr/negatable/real_t.h"
 #include "nkr/positive/integer_t.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 #include "nkr/randomness/value.h"
@@ -475,7 +476,6 @@ namespace nkr {
                             {
                                 using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
-                                constexpr nkr::positive::count_t difference_threshold = Interface_Difference_Threshold();
                                 nkr::positive::count_t false_count = 0;
                                 nkr::positive::count_t true_count = 0;
 
@@ -483,13 +483,13 @@ namespace nkr {
                                     interface_t::template Value<>() ? true_count += 1 : false_count += 1;
                                 }
 
-                                CAPTURE(difference_threshold);
+                                CAPTURE(Interface_Difference_Threshold());
                                 CAPTURE(false_count);
                                 CAPTURE(true_count);
                                 if (false_count > true_count) {
-                                    WARN(false_count - true_count <= difference_threshold);
+                                    WARN(false_count - true_count <= Interface_Difference_Threshold());
                                 } else {
-                                    WARN(true_count - false_count <= difference_threshold);
+                                    WARN(true_count - false_count <= Interface_Difference_Threshold());
                                 }
                             }
                         }
@@ -498,7 +498,24 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("should return false or true uniformly", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                nkr::positive::count_t false_count = 0;
+                                nkr::positive::count_t true_count = 0;
+
+                                auto generator_lockee = nkr::randomness::generator::software::Default();
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    interface_t::template Value<>(generator_lockee.Value()) ? true_count += 1 : false_count += 1;
+                                }
+
+                                CAPTURE(Interface_Difference_Threshold());
+                                CAPTURE(false_count);
+                                CAPTURE(true_count);
+                                if (false_count > true_count) {
+                                    WARN(false_count - true_count <= Interface_Difference_Threshold());
+                                } else {
+                                    WARN(true_count - false_count <= Interface_Difference_Threshold());
+                                }
                             }
                         }
 
@@ -506,17 +523,37 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("should always return false when given 0.0", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    CHECK(interface_t::template Value<>(nkr::negatable::real_t(0.0)) == false);
+                                }
                             }
 
                             TEST_CASE_TEMPLATE("should always return true when given 1.0", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    CHECK(interface_t::template Value<>(nkr::negatable::real_t(1.0)) == true);
+                                }
                             }
 
-                            TEST_CASE_TEMPLATE("should return false or true when given any other probability", boolean_p, nkr_ANY)
+                            TEST_CASE_TEMPLATE("should return false or true when given other probabilities", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                const nkr::negatable::real_t probability_for_true =
+                                    nkr::randomness::Value<nkr::negatable::real_t>(nkr::negatable::real_t(0.1), nkr::negatable::real_t(0.9));
+                                nkr::positive::count_t false_count = 0;
+                                nkr::positive::count_t true_count = 0;
+
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    interface_t::template Value<>(probability_for_true) ? true_count += 1 : false_count += 1;
+                                }
+
+                                CHECK(false_count > 0);
+                                CHECK(true_count > 0);
                             }
                         }
 
@@ -524,17 +561,41 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("should always return false when given 0.0", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                auto generator_lockee = nkr::randomness::generator::software::Default();
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    CHECK(interface_t::template Value<>(generator_lockee.Value(), nkr::negatable::real_t(0.0)) == false);
+                                }
                             }
 
                             TEST_CASE_TEMPLATE("should always return true when given 1.0", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                auto generator_lockee = nkr::randomness::generator::software::Default();
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    CHECK(interface_t::template Value<>(generator_lockee.Value(), nkr::negatable::real_t(1.0)) == true);
+                                }
                             }
 
-                            TEST_CASE_TEMPLATE("should return false or true when given any other probability", boolean_p, nkr_ANY)
+                            TEST_CASE_TEMPLATE("should return false or true when given other probabilities", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                const nkr::negatable::real_t probability_for_true =
+                                    nkr::randomness::Value<nkr::negatable::real_t>(nkr::negatable::real_t(0.1), nkr::negatable::real_t(0.9));
+                                nkr::positive::count_t false_count = 0;
+                                nkr::positive::count_t true_count = 0;
+
+                                auto generator_lockee = nkr::randomness::generator::software::Default();
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    interface_t::template Value<>(generator_lockee.Value(), probability_for_true) ?
+                                        true_count += 1 : false_count += 1;
+                                }
+
+                                CHECK(false_count > 0);
+                                CHECK(true_count > 0);
                             }
                         }
 
@@ -542,7 +603,24 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("should return a value between min and max", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    const auto constraint_a = interface_t::template Value<>();
+                                    const auto constraint_b = interface_t::template Value<>();
+
+                                    if (constraint_a < constraint_b) {
+                                        const auto boolean = interface_t::template Value<>(constraint_a, constraint_b);
+
+                                        CHECK(boolean >= constraint_a);
+                                        CHECK(boolean <= constraint_b);
+                                    } else {
+                                        const auto boolean = interface_t::template Value<>(constraint_b, constraint_a);
+
+                                        CHECK(boolean >= constraint_b);
+                                        CHECK(boolean <= constraint_a);
+                                    }
+                                }
                             }
                         }
 
@@ -550,7 +628,25 @@ namespace nkr {
                         {
                             TEST_CASE_TEMPLATE("should return a value between min and max", boolean_p, nkr_ANY)
                             {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                auto generator_lockee = nkr::randomness::generator::software::Default();
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    const auto constraint_a = interface_t::template Value<>();
+                                    const auto constraint_b = interface_t::template Value<>();
+
+                                    if (constraint_a < constraint_b) {
+                                        const auto boolean = interface_t::template Value<>(generator_lockee.Value(), constraint_a, constraint_b);
+
+                                        CHECK(boolean >= constraint_a);
+                                        CHECK(boolean <= constraint_b);
+                                    } else {
+                                        const auto boolean = interface_t::template Value<>(generator_lockee.Value(), constraint_b, constraint_a);
+
+                                        CHECK(boolean >= constraint_b);
+                                        CHECK(boolean <= constraint_a);
+                                    }
+                                }
                             }
                         }
                     }
