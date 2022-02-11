@@ -93,7 +93,14 @@ namespace nkr {
             Interface_Iteration_Count()
             noexcept
         {
-            return 128;
+            return 512;
+        }
+
+        inline constexpr nkr::positive::count_t
+            Interface_Difference_Threshold()
+            noexcept
+        {
+            return Interface_Iteration_Count() >> 3;
         }
 
         inline constexpr nkr::positive::count_t
@@ -462,9 +469,89 @@ namespace nkr {
                 {
                     TEST_SUITE("Value()")
                     {
-                        TEST_CASE_TEMPLATE("should return a random value when given a probability for true", boolean_p, nkr_ANY)
+                        TEST_SUITE("parameters: ()")
                         {
+                            TEST_CASE_TEMPLATE("should return false or true uniformly", boolean_p, nkr_ANY)
+                            {
+                                using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                constexpr nkr::positive::count_t difference_threshold = Interface_Difference_Threshold();
+                                nkr::positive::count_t false_count = 0;
+                                nkr::positive::count_t true_count = 0;
+
+                                for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                    interface_t::template Value<>() ? true_count += 1 : false_count += 1;
+                                }
+
+                                CAPTURE(difference_threshold);
+                                CAPTURE(false_count);
+                                CAPTURE(true_count);
+                                if (false_count > true_count) {
+                                    WARN(false_count - true_count <= difference_threshold);
+                                } else {
+                                    WARN(true_count - false_count <= difference_threshold);
+                                }
+                            }
+                        }
+
+                        TEST_SUITE("parameters: (generator)")
+                        {
+                            TEST_CASE_TEMPLATE("should return false or true uniformly", boolean_p, nkr_ANY)
+                            {
+
+                            }
+                        }
+
+                        TEST_SUITE("parameters: (probability_for_true)")
+                        {
+                            TEST_CASE_TEMPLATE("should always return false when given 0.0", boolean_p, nkr_ANY)
+                            {
+
+                            }
+
+                            TEST_CASE_TEMPLATE("should always return true when given 1.0", boolean_p, nkr_ANY)
+                            {
+
+                            }
+
+                            TEST_CASE_TEMPLATE("should return false or true when given any other probability", boolean_p, nkr_ANY)
+                            {
+
+                            }
+                        }
+
+                        TEST_SUITE("parameters: (generator, probability_for_true)")
+                        {
+                            TEST_CASE_TEMPLATE("should always return false when given 0.0", boolean_p, nkr_ANY)
+                            {
+
+                            }
+
+                            TEST_CASE_TEMPLATE("should always return true when given 1.0", boolean_p, nkr_ANY)
+                            {
+
+                            }
+
+                            TEST_CASE_TEMPLATE("should return false or true when given any other probability", boolean_p, nkr_ANY)
+                            {
+
+                            }
+                        }
+
+                        TEST_SUITE("parameters: (min, max)")
+                        {
+                            TEST_CASE_TEMPLATE("should return a value between min and max", boolean_p, nkr_ANY)
+                            {
+
+                            }
+                        }
+
+                        TEST_SUITE("parameters: (generator, min, max)")
+                        {
+                            TEST_CASE_TEMPLATE("should return a value between min and max", boolean_p, nkr_ANY)
+                            {
+
+                            }
                         }
                     }
                 }
