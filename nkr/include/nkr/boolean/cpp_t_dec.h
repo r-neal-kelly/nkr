@@ -116,6 +116,9 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 namespace nkr { namespace boolean { namespace $cpp_t {
 
+    // eventually I would like to have a dedicated type for the probability_for_true
+    // and also a dedicated type for percentages that can also take a real
+
     template <nkr::boolean::cpp_tr type_p>
     class randomness_value_i_sp
     {

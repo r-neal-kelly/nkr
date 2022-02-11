@@ -13,8 +13,8 @@
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/randomness/distributor/uniform_i.h"
 #include "nkr/interface/randomness/value_i.h"
-#include "nkr/none/value_t.h"
-#include "nkr/randomness/distributor/uniform_t.h"
+#include "nkr/positive/integer_t.h"
+#include "nkr/randomness/generator/software/default_t_def.h"
 #include "nkr/randomness/value.h"
 #include "nkr/tuple/types_t.h"
 
@@ -282,7 +282,7 @@ namespace nkr {
             static_assert(TR<to_ts<AND_tg, non_subject_ts>, just_not_const_volatile_tg, target_ts>());
         }
 
-        TEST_SUITE("interface")
+        TEST_SUITE("interfaces")
         {
             TEST_SUITE("nkr::interface::none::value_i")
             {
@@ -292,7 +292,9 @@ namespace nkr {
                     {
                         TEST_CASE_TEMPLATE("should equate to the type used to instantiate the interface", boolean_p, nkr_ANY)
                         {
-                            static_assert(nkr::cpp::is_tr<typename nkr::interface::none::value_i<boolean_p>::type_t, boolean_p>);
+                            using interface_t = nkr::interface::none::value_i<boolean_p>;
+
+                            static_assert(nkr::cpp::is_tr<typename interface_t::type_t, boolean_p>);
                         }
                     }
 
@@ -300,7 +302,9 @@ namespace nkr {
                     {
                         TEST_CASE_TEMPLATE("should equate to non-qualified type_t", boolean_p, nkr_ANY)
                         {
-                            static_assert(nkr::cpp::is_tr<typename nkr::interface::none::value_i<boolean_p>::value_t, nkr::cpp::just_non_qualified_t<boolean_p>>);
+                            using interface_t = nkr::interface::none::value_i<boolean_p>;
+
+                            static_assert(nkr::cpp::is_tr<typename interface_t::value_t, nkr::cpp::just_non_qualified_t<boolean_p>>);
                         }
                     }
                 }
@@ -309,21 +313,14 @@ namespace nkr {
                 {
                     TEST_SUITE("Value()")
                     {
-                        TEST_CASE_TEMPLATE("should return false, the manual default value", boolean_p, nkr_ANY)
+                        TEST_CASE_TEMPLATE("should always return false, the manual default value", boolean_p, nkr_ANY)
                         {
-                            static_assert(nkr::interface::none::value_i<boolean_p>::Value() == false);
-                            static_assert(nkr::interface::none::value_i<boolean_p>::Value() == nkr::cpp::just_non_qualified_t<boolean_p>());
-                        }
-                    }
-                }
+                            using interface_t = nkr::interface::none::value_i<boolean_p>;
 
-                TEST_SUITE("implementors")
-                {
-                    TEST_SUITE("nkr::none::value_t")
-                    {
-                        TEST_CASE_TEMPLATE("should equate to the Value()", boolean_p, nkr_ANY)
-                        {
-                            static_assert(nkr::none::value_t<boolean_p>() == nkr::interface::none::value_i<boolean_p>::Value());
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::Value() == false);
+                                CHECK(interface_t::Value() == nkr::cpp::just_non_qualified_t<boolean_p>());
+                            }
                         }
                     }
                 }
@@ -331,22 +328,144 @@ namespace nkr {
 
             TEST_SUITE("nkr::interface::randomness::distributor::uniform_i")
             {
-                TEST_SUITE("implementors")
+                TEST_SUITE("aliases")
                 {
-                    TEST_SUITE("nkr::randomness::distributor::uniform_t")
+                    TEST_SUITE("type_t")
                     {
+                        TEST_CASE_TEMPLATE("should equate to the type used to instantiate the interface", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
 
+                            static_assert(nkr::cpp::is_tr<typename interface_t::type_t, boolean_p>);
+                        }
+                    }
+
+                    TEST_SUITE("value_t")
+                    {
+                        TEST_CASE_TEMPLATE("should equate to non-qualified type_t", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+
+                            static_assert(nkr::cpp::is_tr<typename interface_t::value_t, nkr::cpp::just_non_qualified_t<boolean_p>>);
+                        }
+                    }
+
+                    TEST_SUITE("number_t")
+                    {
+                        TEST_CASE_TEMPLATE("should equate to nkr::positive::integer_t", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+
+                            static_assert(nkr::cpp::is_tr<typename interface_t::number_t, nkr::positive::integer_t>);
+                        }
+                    }
+                }
+
+                TEST_SUITE("static functions")
+                {
+                    TEST_SUITE("Default_Min()")
+                    {
+                        TEST_CASE_TEMPLATE("should always return false", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::Default_Min() == false);
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("Default_Max()")
+                    {
+                        TEST_CASE_TEMPLATE("should always return true", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::Default_Max() == true);
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("To_Number()")
+                    {
+                        TEST_CASE_TEMPLATE("should always return 0 for false", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::To_Number(false) == 0);
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("should always return 1 for true", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::To_Number(true) == 1);
+                            }
+                        }
+                    }
+
+                    TEST_SUITE("From_Number()")
+                    {
+                        TEST_CASE_TEMPLATE("should always return false for 0", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+                            using number_t = interface_t::number_t;
+
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::From_Number(nkr::randomness::Value<number_t>(number_t(0), number_t(0))) == false);
+                            }
+                        }
+
+                        TEST_CASE_TEMPLATE("should always return true for any non-zero number", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
+                            using number_t = interface_t::number_t;
+
+                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
+                                CHECK(interface_t::From_Number(nkr::randomness::Value<number_t>(number_t(1))) == true);
+                            }
+                        }
                     }
                 }
             }
 
             TEST_SUITE("nkr::interface::randomness::value_i")
             {
-                TEST_SUITE("implementors")
+                TEST_SUITE("aliases")
                 {
-                    TEST_SUITE("nkr::randomness::Value()")
+                    TEST_SUITE("type_t")
                     {
+                        TEST_CASE_TEMPLATE("should equate to the type used to instantiate the interface", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                            static_assert(nkr::cpp::is_tr<typename interface_t::type_t, boolean_p>);
+                        }
+                    }
+
+                    TEST_SUITE("value_t")
+                    {
+                        TEST_CASE_TEMPLATE("should equate to non-qualified type_t", boolean_p, nkr_ANY)
+                        {
+                            using interface_t = nkr::interface::randomness::value_i<boolean_p>;
+
+                            static_assert(nkr::cpp::is_tr<typename interface_t::value_t, nkr::cpp::just_non_qualified_t<boolean_p>>);
+                        }
+                    }
+                }
+
+                TEST_SUITE("static functions")
+                {
+                    TEST_SUITE("Value()")
+                    {
+                        TEST_CASE_TEMPLATE("should return a random value when given a probability for true", boolean_p, nkr_ANY)
+                        {
+
+                        }
                     }
                 }
             }
