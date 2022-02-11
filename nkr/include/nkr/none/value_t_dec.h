@@ -107,8 +107,8 @@ namespace nkr { namespace none {
     class value_t<type_p>
     {
     public:
-        using type_t        = type_p;
-        using interface_t   = nkr::interface::none::value_i<type_t>;
+        using interface_t   = nkr::interface::none::value_i<type_p>;
+        using type_t        = interface_t::value_t;
 
     public:
         static constexpr value_t::type_t    Value() noexcept;

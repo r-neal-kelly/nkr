@@ -10,7 +10,11 @@
 #include "nkr/constant/positive/index_t.h"
 #include "nkr/cpp.h"
 #include "nkr/generic/non_type_tr.h"
+#include "nkr/interface/none/value_i.h"
+#include "nkr/interface/randomness/distributor/uniform_i.h"
+#include "nkr/interface/randomness/value_i.h"
 #include "nkr/none/value_t.h"
+#include "nkr/randomness/distributor/uniform_t.h"
 #include "nkr/randomness/value.h"
 #include "nkr/tuple/types_t.h"
 
@@ -282,17 +286,69 @@ namespace nkr {
         {
             TEST_SUITE("nkr::interface::none::value_i")
             {
+                TEST_SUITE("aliases")
+                {
+                    TEST_SUITE("type_t")
+                    {
+                        TEST_CASE_TEMPLATE("should equate to the type used to instantiate the interface", boolean_p, nkr_ANY)
+                        {
+                            static_assert(nkr::cpp::is_tr<typename nkr::interface::none::value_i<boolean_p>::type_t, boolean_p>);
+                        }
+                    }
 
+                    TEST_SUITE("value_t")
+                    {
+                        TEST_CASE_TEMPLATE("should equate to non-qualified type_t", boolean_p, nkr_ANY)
+                        {
+                            static_assert(nkr::cpp::is_tr<typename nkr::interface::none::value_i<boolean_p>::value_t, nkr::cpp::just_non_qualified_t<boolean_p>>);
+                        }
+                    }
+                }
+
+                TEST_SUITE("static functions")
+                {
+                    TEST_SUITE("Value()")
+                    {
+                        TEST_CASE_TEMPLATE("should return false, the manual default value", boolean_p, nkr_ANY)
+                        {
+                            static_assert(nkr::interface::none::value_i<boolean_p>::Value() == false);
+                            static_assert(nkr::interface::none::value_i<boolean_p>::Value() == nkr::cpp::just_non_qualified_t<boolean_p>());
+                        }
+                    }
+                }
+
+                TEST_SUITE("implementors")
+                {
+                    TEST_SUITE("nkr::none::value_t")
+                    {
+                        TEST_CASE_TEMPLATE("should equate to the Value()", boolean_p, nkr_ANY)
+                        {
+                            static_assert(nkr::none::value_t<boolean_p>() == nkr::interface::none::value_i<boolean_p>::Value());
+                        }
+                    }
+                }
             }
 
             TEST_SUITE("nkr::interface::randomness::distributor::uniform_i")
             {
+                TEST_SUITE("implementors")
+                {
+                    TEST_SUITE("nkr::randomness::distributor::uniform_t")
+                    {
 
+                    }
+                }
             }
 
             TEST_SUITE("nkr::interface::randomness::value_i")
             {
+                TEST_SUITE("implementors")
+                {
+                    TEST_SUITE("nkr::randomness::Value()")
+                    {
 
+                    }
+                }
             }
         }
 
@@ -460,10 +516,6 @@ namespace nkr {
                     CHECK(boolean == backup);
                 }
             }
-        }
-
-        TEST_SUITE("casts")
-        {
         }
 
         TEST_SUITE("global operators")
