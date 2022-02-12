@@ -9,6 +9,8 @@
 #include "nkr/built_in/forward.h"
 #include "nkr/constant/positive/index_t.h"
 #include "nkr/cpp.h"
+#include "nkr/generic/built_in/boolean_tr.h"
+#include "nkr/generic/built_in/number_tr.h"
 #include "nkr/generic/non_type_tr.h"
 #include "nkr/interface/none/value_i.h"
 #include "nkr/interface/randomness/distributor/uniform_i.h"
@@ -17,6 +19,7 @@
 #include "nkr/positive/integer_t.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 #include "nkr/randomness/value.h"
+#include "nkr/tr.h"
 #include "nkr/tuple/types_t.h"
 
 #include "doctest.h"
@@ -94,14 +97,7 @@ namespace nkr {
             Interface_Iteration_Count()
             noexcept
         {
-            return 512;
-        }
-
-        inline constexpr nkr::positive::count_t
-            Interface_Difference_Threshold()
-            noexcept
-        {
-            return Interface_Iteration_Count() >> 3;
+            return 128;
         }
 
         inline constexpr nkr::positive::count_t
@@ -132,10 +128,13 @@ namespace nkr {
             using any_not_just_const_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE>;
 
             using target_ts = ts<AND_tg,
-                nkr::boolean::cpp_tg
+                nkr::boolean::cpp_tg,
+
+                nkr::generic::built_in::boolean_tg
             >;
 
             using non_target_ts = ts<AND_tg,
+                nkr::generic::built_in::number_tg,
                 nkr::generic::non_type_tg
             >;
 
@@ -325,10 +324,8 @@ namespace nkr {
                         {
                             using interface_t = nkr::interface::none::value_i<boolean_p>;
 
-                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
-                                CHECK(interface_t::Value() == false);
-                                CHECK(interface_t::Value() == nkr::cpp::just_non_qualified_t<boolean_p>());
-                            }
+                            static_assert(interface_t::Value() == false);
+                            static_assert(interface_t::Value() == nkr::cpp::just_non_qualified_t<boolean_p>());
                         }
                     }
                 }
@@ -377,9 +374,7 @@ namespace nkr {
                         {
                             using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
 
-                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
-                                CHECK(interface_t::Default_Min() == false);
-                            }
+                            static_assert(interface_t::Default_Min() == false);
                         }
                     }
 
@@ -389,9 +384,7 @@ namespace nkr {
                         {
                             using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
 
-                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
-                                CHECK(interface_t::Default_Max() == true);
-                            }
+                            static_assert(interface_t::Default_Max() == true);
                         }
                     }
 
@@ -401,18 +394,14 @@ namespace nkr {
                         {
                             using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
 
-                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
-                                CHECK(interface_t::To_Number(false) == 0);
-                            }
+                            static_assert(interface_t::To_Number(false) == 0);
                         }
 
                         TEST_CASE_TEMPLATE("should always return 1 for true", boolean_p, nkr_ANY)
                         {
                             using interface_t = nkr::interface::randomness::distributor::uniform_i<boolean_p>;
 
-                            for (nkr::positive::index_t idx = 0, end = Interface_Iteration_Count(); idx < end; idx += 1) {
-                                CHECK(interface_t::To_Number(true) == 1);
-                            }
+                            static_assert(interface_t::To_Number(true) == 1);
                         }
                     }
 
@@ -476,6 +465,7 @@ namespace nkr {
                             {
                                 using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                constexpr nkr::positive::count_t difference_threshold = Interface_Iteration_Count() >> 2;
                                 nkr::positive::count_t false_count = 0;
                                 nkr::positive::count_t true_count = 0;
 
@@ -483,13 +473,13 @@ namespace nkr {
                                     interface_t::template Value<>() ? true_count += 1 : false_count += 1;
                                 }
 
-                                CAPTURE(Interface_Difference_Threshold());
+                                CAPTURE(difference_threshold);
                                 CAPTURE(false_count);
                                 CAPTURE(true_count);
                                 if (false_count > true_count) {
-                                    WARN(false_count - true_count <= Interface_Difference_Threshold());
+                                    WARN(false_count - true_count <= difference_threshold);
                                 } else {
-                                    WARN(true_count - false_count <= Interface_Difference_Threshold());
+                                    WARN(true_count - false_count <= difference_threshold);
                                 }
                             }
                         }
@@ -500,6 +490,7 @@ namespace nkr {
                             {
                                 using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
+                                constexpr nkr::positive::count_t difference_threshold = Interface_Iteration_Count() >> 2;
                                 nkr::positive::count_t false_count = 0;
                                 nkr::positive::count_t true_count = 0;
 
@@ -508,13 +499,13 @@ namespace nkr {
                                     interface_t::template Value<>(generator_lockee.Value()) ? true_count += 1 : false_count += 1;
                                 }
 
-                                CAPTURE(Interface_Difference_Threshold());
+                                CAPTURE(difference_threshold);
                                 CAPTURE(false_count);
                                 CAPTURE(true_count);
                                 if (false_count > true_count) {
-                                    WARN(false_count - true_count <= Interface_Difference_Threshold());
+                                    WARN(false_count - true_count <= difference_threshold);
                                 } else {
-                                    WARN(true_count - false_count <= Interface_Difference_Threshold());
+                                    WARN(true_count - false_count <= difference_threshold);
                                 }
                             }
                         }
