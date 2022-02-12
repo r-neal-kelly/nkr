@@ -2,6 +2,9 @@
     Copyright 2021 r-neal-kelly
 */
 
+#pragma warning (disable : 4146)
+#pragma warning (disable : 26498)
+
 #include <unordered_set> // until we finish our own
 
 #include "nkr/cpp.h"
@@ -28,6 +31,7 @@
 #include "nkr/randomness/generator/software/default_t.h"
 #include "nkr/randomness/value.h"
 #include "nkr/tr.h"
+#include "nkr/tuple/types_t.h"
 
 #include "doctest.h"
 
@@ -679,6 +683,1531 @@ namespace nkr {
                     }
                 }
             }
+        }
+
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("manual_default_constructor()")
+            {
+                TEST_CASE_TEMPLATE("should set its value to 0", integer_p, nkr_ANY)
+                {
+                    integer_p integer = nkr::cpp::just_non_qualified_t<integer_p>();
+
+                    CHECK((integer == 0));
+                }
+            }
+
+            TEST_SUITE("copy_constructor()"
+                       * doctest::description("should copy other without changing it"))
+            {
+                TEST_CASE_TEMPLATE("non-qualified", integer_p, nkr_ANY)
+                {
+                    nkr::cpp::just_non_qualified_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer = other;
+
+                    CHECK((integer == other));
+                }
+
+                TEST_CASE_TEMPLATE("const", integer_p, nkr_ANY)
+                {
+                    nkr::cpp::just_const_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer = other;
+
+                    CHECK((integer == other));
+                }
+
+                TEST_CASE_TEMPLATE("volatile", integer_p, nkr_ANY)
+                {
+                    nkr::cpp::just_volatile_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer = other;
+
+                    CHECK((integer == other));
+                }
+
+                TEST_CASE_TEMPLATE("const volatile", integer_p, nkr_ANY)
+                {
+                    nkr::cpp::just_const_volatile_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer = other;
+
+                    CHECK((integer == other));
+                }
+            }
+
+            TEST_SUITE("move_constructor()"
+                       * doctest::description("should move other and leave its value alone"))
+            {
+                TEST_CASE_TEMPLATE("non-qualified", integer_p, nkr_ANY)
+                {
+                    nkr::cpp::just_non_qualified_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    nkr::cpp::just_non_qualified_t<integer_p> backup = other;
+                    integer_p integer = nkr::cpp::Move(other);
+
+                    CHECK((integer == backup));
+                    CHECK((other == backup));
+                }
+
+                TEST_CASE_TEMPLATE("volatile", integer_p, nkr_ANY)
+                {
+                    nkr::cpp::just_volatile_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    nkr::cpp::just_volatile_t<integer_p> backup = other;
+                    integer_p integer = nkr::cpp::Move(other);
+
+                    CHECK((integer == backup));
+                    CHECK((other == backup));
+                }
+            }
+
+            TEST_SUITE("copy_assigner()"
+                       * doctest::description("should always copy other without changing it"))
+            {
+                TEST_CASE_TEMPLATE("non-qualified", integer_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_non_qualified_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer;
+                    integer = other;
+
+                    CHECK((integer == other));
+                }
+
+                TEST_CASE_TEMPLATE("const", integer_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_const_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer;
+                    integer = other;
+
+                    CHECK((integer == other));
+                }
+
+                TEST_CASE_TEMPLATE("volatile", integer_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_volatile_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer;
+                    integer = other;
+
+                    CHECK((integer == other));
+                }
+
+                TEST_CASE_TEMPLATE("const volatile", integer_p, nkr_ANY_NON_CONST)
+                {
+                    nkr::cpp::just_const_volatile_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                    integer_p integer;
+                    integer = other;
+
+                    CHECK((integer == other));
+                }
+            }
+
+            TEST_SUITE("move_assigner()"
+                       * doctest::description("should move other and leave its value alone"))
+            {
+                TEST_SUITE("non-qualified")
+                {
+                    TEST_CASE_TEMPLATE("value", integer_p, nkr_ANY_NON_CONST)
+                    {
+                        nkr::cpp::just_non_qualified_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                        integer_p integer;
+                        integer = nkr::cpp::just_non_qualified_t<integer_p>(other);
+
+                        CHECK((integer == other));
+                    }
+
+                    TEST_CASE_TEMPLATE("rvalue", integer_p, nkr_ANY_NON_CONST)
+                    {
+                        nkr::cpp::just_non_qualified_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                        nkr::cpp::just_non_qualified_t<integer_p> backup = other;
+                        integer_p integer;
+                        integer = nkr::cpp::Move(other);
+
+                        CHECK((integer == backup));
+                        CHECK((other == backup));
+                    }
+                }
+
+                TEST_SUITE("volatile")
+                {
+                    TEST_CASE_TEMPLATE("rvalue", integer_p, nkr_ANY_NON_CONST)
+                    {
+                        nkr::cpp::just_volatile_t<integer_p> other = nkr::randomness::Value<integer_p>();
+                        nkr::cpp::just_volatile_t<integer_p> backup = other;
+                        integer_p integer;
+                        integer = nkr::cpp::Move(other);
+
+                        CHECK((integer == backup));
+                        CHECK((other == backup));
+                    }
+                }
+            }
+
+            TEST_SUITE("dtor()")
+            {
+                TEST_CASE_TEMPLATE("should leave its value alone", integer_p, nkr_ANY)
+                {
+                    integer_p integer = nkr::randomness::Value<integer_p>();
+                    integer_p backup = integer;
+                    integer.~integer_p();
+
+                    CHECK(integer == backup);
+                }
+            }
+        }
+
+        TEST_SUITE("casts")
+        {
+            TEST_SUITE("nkr::boolean::cpp_t")
+            {
+                TEST_SUITE("should convert to false if 0")
+                {
+                    TEST_CASE_TEMPLATE("explicit", integer_p, nkr_ANY)
+                    {
+                        using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                        integer_p integer = value_t(0);
+
+                        CHECK(static_cast<nkr::boolean::cpp_t>(integer) == false);
+                    }
+
+                    TEST_CASE_TEMPLATE("implicit", integer_p, nkr_ANY)
+                    {
+                        using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                        integer_p integer = value_t(0);
+
+                        if (integer) {
+                            CHECK(false);
+                        } else {
+                            CHECK(true);
+                        }
+                    }
+                }
+
+                TEST_SUITE("should convert to true if not 0")
+                {
+                    TEST_CASE_TEMPLATE("explicit", integer_p, nkr_ANY)
+                    {
+                        using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                        integer_p integer = nkr::randomness::Value<integer_p>(value_t(1), value_t(~0));
+
+                        CHECK(static_cast<nkr::boolean::cpp_t>(integer) == true);
+                    }
+
+                    TEST_CASE_TEMPLATE("implicit", integer_p, nkr_ANY)
+                    {
+                        using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                        integer_p integer = nkr::randomness::Value<integer_p>(value_t(1), value_t(~0));
+
+                        if (integer) {
+                            CHECK(true);
+                        } else {
+                            CHECK(false);
+                        }
+                    }
+                }
+            }
+        }
+
+        TEST_SUITE("global operators")
+        {
+        #define nkr_ANY_WITH_VALUE                                                                          \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                    \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, nkr::positive::integer_8_t>,              \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,           \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,     \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                  \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, nkr::positive::integer_16_t>,            \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,         \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,   \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                  \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, nkr::positive::integer_32_t>,            \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,         \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,   \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                  \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, nkr::positive::integer_64_t>,            \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,         \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>    \
+
+        #define nkr_ANY_WITH_LVALUE                                                                                         \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                                    \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, const nkr::positive::integer_8_t>,                              \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,                           \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, const volatile nkr::positive::integer_8_t>,                     \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                              \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, const nkr::positive::integer_8_t>,                        \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,                     \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, const volatile nkr::positive::integer_8_t>,               \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, const nkr::positive::integer_8_t>,                     \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,                  \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, const volatile nkr::positive::integer_8_t>,            \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                     \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, const nkr::positive::integer_8_t>,               \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,            \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, const volatile nkr::positive::integer_8_t>,      \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                                  \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, const nkr::positive::integer_16_t>,                            \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,                         \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, const volatile nkr::positive::integer_16_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                            \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, const nkr::positive::integer_16_t>,                      \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, const volatile nkr::positive::integer_16_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                         \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, const nkr::positive::integer_16_t>,                   \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,                \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, const volatile nkr::positive::integer_16_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                   \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, const nkr::positive::integer_16_t>,             \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, const volatile nkr::positive::integer_16_t>,    \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                                  \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, const nkr::positive::integer_32_t>,                            \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,                         \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, const volatile nkr::positive::integer_32_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                            \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, const nkr::positive::integer_32_t>,                      \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, const volatile nkr::positive::integer_32_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                         \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, const nkr::positive::integer_32_t>,                   \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,                \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, const volatile nkr::positive::integer_32_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                   \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, const nkr::positive::integer_32_t>,             \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, const volatile nkr::positive::integer_32_t>,    \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                                  \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, const nkr::positive::integer_64_t>,                            \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,                         \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, const volatile nkr::positive::integer_64_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                            \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, const nkr::positive::integer_64_t>,                      \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, const volatile nkr::positive::integer_64_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                         \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, const nkr::positive::integer_64_t>,                   \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,                \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, const volatile nkr::positive::integer_64_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                   \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, const nkr::positive::integer_64_t>,             \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, const volatile nkr::positive::integer_64_t>     \
+
+        #define nkr_ANY_WITH_RVALUE                                                                                 \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                            \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,                   \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                      \
+            nkr::tuple::types_t<const nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                   \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,          \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,             \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,    \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                          \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,                 \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                    \
+            nkr::tuple::types_t<const nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                 \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,        \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,           \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,  \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                          \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,                 \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                    \
+            nkr::tuple::types_t<const nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                 \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,        \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,           \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,  \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                          \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,                 \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                    \
+            nkr::tuple::types_t<const nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                 \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,        \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,           \
+            nkr::tuple::types_t<const volatile nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>   \
+
+        #define nkr_NON_CONST_WITH_VALUE                                                            \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_8_t>,            \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,   \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, nkr::positive::integer_16_t>,          \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>, \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, nkr::positive::integer_32_t>,          \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>, \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, nkr::positive::integer_64_t>,          \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>  \
+
+        #define nkr_NON_CONST_WITH_LVALUE                                                                           \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                            \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, const nkr::positive::integer_8_t>,                      \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,                   \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, const volatile nkr::positive::integer_8_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                   \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, const nkr::positive::integer_8_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,          \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, const volatile nkr::positive::integer_8_t>,    \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                          \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, const nkr::positive::integer_16_t>,                    \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,                 \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, const volatile nkr::positive::integer_16_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                 \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, const nkr::positive::integer_16_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,        \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, const volatile nkr::positive::integer_16_t>,  \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                          \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, const nkr::positive::integer_32_t>,                    \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,                 \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, const volatile nkr::positive::integer_32_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                 \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, const nkr::positive::integer_32_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,        \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, const volatile nkr::positive::integer_32_t>,  \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                          \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, const nkr::positive::integer_64_t>,                    \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,                 \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, const volatile nkr::positive::integer_64_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                 \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, const nkr::positive::integer_64_t>,           \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,        \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, const volatile nkr::positive::integer_64_t>   \
+
+        #define nkr_NON_CONST_WITH_RVALUE                                                                       \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, nkr::positive::integer_8_t>,                        \
+            nkr::tuple::types_t<nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,               \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, nkr::positive::integer_8_t>,               \
+            nkr::tuple::types_t<volatile nkr::positive::integer_8_t, volatile nkr::positive::integer_8_t>,      \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, nkr::positive::integer_16_t>,                      \
+            nkr::tuple::types_t<nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, nkr::positive::integer_16_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_16_t, volatile nkr::positive::integer_16_t>,    \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, nkr::positive::integer_32_t>,                      \
+            nkr::tuple::types_t<nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, nkr::positive::integer_32_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_32_t, volatile nkr::positive::integer_32_t>,    \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, nkr::positive::integer_64_t>,                      \
+            nkr::tuple::types_t<nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, nkr::positive::integer_64_t>,             \
+            nkr::tuple::types_t<volatile nkr::positive::integer_64_t, volatile nkr::positive::integer_64_t>     \
+
+            TEST_CASE_TEMPLATE("unary logical operators: !", integer_p, nkr_ANY)
+            {
+                using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+
+                        CHECK(!value_t(a) == !a);
+                    }
+                }
+            }
+
+            TEST_SUITE("binary logical operators: ||, &&")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_ANY_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) || value_t(b)) == (a || non_qualified_t(b)));
+                            CHECK((value_t(b) || value_t(a)) == (non_qualified_t(b) || a));
+                            CHECK((value_t(a) || value_t(b)) == (non_qualified_t(a) || b));
+                            CHECK((value_t(b) || value_t(a)) == (b || non_qualified_t(a)));
+                            CHECK((value_t(a) || value_t(b)) == (non_qualified_t(a) || non_qualified_t(b)));
+                            CHECK((value_t(b) || value_t(a)) == (non_qualified_t(b) || non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) && value_t(b)) == (a && non_qualified_t(b)));
+                            CHECK((value_t(b) && value_t(a)) == (non_qualified_t(b) && a));
+                            CHECK((value_t(a) && value_t(b)) == (non_qualified_t(a) && b));
+                            CHECK((value_t(b) && value_t(a)) == (b && non_qualified_t(a)));
+                            CHECK((value_t(a) && value_t(b)) == (non_qualified_t(a) && non_qualified_t(b)));
+                            CHECK((value_t(b) && value_t(a)) == (non_qualified_t(b) && non_qualified_t(a)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_ANY_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) || value_t(b)) == (a || b));
+                            CHECK((value_t(b) || value_t(a)) == (b || a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) && value_t(b)) == (a && b));
+                            CHECK((value_t(b) && value_t(a)) == (b && a));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_ANY_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) || value_t(b)) == (a || nkr::cpp::Move(b)));
+                            CHECK((value_t(b) || value_t(a)) == (nkr::cpp::Move(b) || a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) || value_t(b)) == (nkr::cpp::Move(a) || b));
+                                CHECK((value_t(b) || value_t(a)) == (b || nkr::cpp::Move(a)));
+                                CHECK((value_t(a) || value_t(b)) == (nkr::cpp::Move(a) || nkr::cpp::Move(b)));
+                                CHECK((value_t(b) || value_t(a)) == (nkr::cpp::Move(b) || nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) && value_t(b)) == (a && nkr::cpp::Move(b)));
+                            CHECK((value_t(b) && value_t(a)) == (nkr::cpp::Move(b) && a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) && value_t(b)) == (nkr::cpp::Move(a) && b));
+                                CHECK((value_t(b) && value_t(a)) == (b && nkr::cpp::Move(a)));
+                                CHECK((value_t(a) && value_t(b)) == (nkr::cpp::Move(a) && nkr::cpp::Move(b)));
+                                CHECK((value_t(b) && value_t(a)) == (nkr::cpp::Move(b) && nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("trinary logical operators: ? :")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_ANY_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+                            other_t c = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (a ? non_qualified_t(b) : non_qualified_t(c)));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (a ? non_qualified_t(c) : non_qualified_t(b)));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (non_qualified_t(b) ? a : non_qualified_t(c)));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (non_qualified_t(b) ? non_qualified_t(c) : a));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (non_qualified_t(c) ? a : non_qualified_t(b)));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (non_qualified_t(c) ? non_qualified_t(b) : a));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (non_qualified_t(a) ? b : c));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (non_qualified_t(a) ? c : b));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (b ? non_qualified_t(a) : c));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (b ? c : non_qualified_t(a)));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (c ? non_qualified_t(a) : b));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (c ? b : non_qualified_t(a)));
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (non_qualified_t(a) ? non_qualified_t(b) : non_qualified_t(c)));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (non_qualified_t(a) ? non_qualified_t(c) : non_qualified_t(b)));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (non_qualified_t(b) ? non_qualified_t(a) : non_qualified_t(c)));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (non_qualified_t(b) ? non_qualified_t(c) : non_qualified_t(a)));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (non_qualified_t(c) ? non_qualified_t(a) : non_qualified_t(b)));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (non_qualified_t(c) ? non_qualified_t(b) : non_qualified_t(a)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_ANY_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+                            other_t c = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (a ? b : c));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (a ? c : b));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (b ? a : c));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (b ? c : a));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (c ? a : b));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (c ? b : a));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_ANY_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+                            other_t c = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) ? value_t(b) : value_t(c)) == (a ? nkr::cpp::Move(b) : nkr::cpp::Move(c)));
+                            CHECK((value_t(a) ? value_t(c) : value_t(b)) == (a ? nkr::cpp::Move(c) : nkr::cpp::Move(b)));
+                            CHECK((value_t(b) ? value_t(a) : value_t(c)) == (nkr::cpp::Move(b) ? a : nkr::cpp::Move(c)));
+                            CHECK((value_t(b) ? value_t(c) : value_t(a)) == (nkr::cpp::Move(b) ? nkr::cpp::Move(c) : a));
+                            CHECK((value_t(c) ? value_t(a) : value_t(b)) == (nkr::cpp::Move(c) ? a : nkr::cpp::Move(b)));
+                            CHECK((value_t(c) ? value_t(b) : value_t(a)) == (nkr::cpp::Move(c) ? nkr::cpp::Move(b) : a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) ? value_t(b) : value_t(c)) == (nkr::cpp::Move(a) ? b : c));
+                                CHECK((value_t(a) ? value_t(c) : value_t(b)) == (nkr::cpp::Move(a) ? c : b));
+                                CHECK((value_t(b) ? value_t(a) : value_t(c)) == (b ? nkr::cpp::Move(a) : c));
+                                CHECK((value_t(b) ? value_t(c) : value_t(a)) == (b ? c : nkr::cpp::Move(a)));
+                                CHECK((value_t(c) ? value_t(a) : value_t(b)) == (c ? nkr::cpp::Move(a) : b));
+                                CHECK((value_t(c) ? value_t(b) : value_t(a)) == (c ? b : nkr::cpp::Move(a)));
+                                CHECK((value_t(a) ? value_t(b) : value_t(c)) == (nkr::cpp::Move(a) ? nkr::cpp::Move(b) : nkr::cpp::Move(c)));
+                                CHECK((value_t(a) ? value_t(c) : value_t(b)) == (nkr::cpp::Move(a) ? nkr::cpp::Move(c) : nkr::cpp::Move(b)));
+                                CHECK((value_t(b) ? value_t(a) : value_t(c)) == (nkr::cpp::Move(b) ? nkr::cpp::Move(a) : nkr::cpp::Move(c)));
+                                CHECK((value_t(b) ? value_t(c) : value_t(a)) == (nkr::cpp::Move(b) ? nkr::cpp::Move(c) : nkr::cpp::Move(a)));
+                                CHECK((value_t(c) ? value_t(a) : value_t(b)) == (nkr::cpp::Move(c) ? nkr::cpp::Move(a) : nkr::cpp::Move(b)));
+                                CHECK((value_t(c) ? value_t(b) : value_t(a)) == (nkr::cpp::Move(c) ? nkr::cpp::Move(b) : nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("binary comparison operators: ==, !=, <, >, <=, >=, <=>")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_ANY_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) == value_t(b)) == (a == non_qualified_t(b)));
+                            CHECK((value_t(b) == value_t(a)) == (non_qualified_t(b) == a));
+                            CHECK((value_t(a) == value_t(b)) == (non_qualified_t(a) == b));
+                            CHECK((value_t(b) == value_t(a)) == (b == non_qualified_t(a)));
+                            CHECK((value_t(a) == value_t(b)) == (non_qualified_t(a) == non_qualified_t(b)));
+                            CHECK((value_t(b) == value_t(a)) == (non_qualified_t(b) == non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) != value_t(b)) == (a != non_qualified_t(b)));
+                            CHECK((value_t(b) != value_t(a)) == (non_qualified_t(b) != a));
+                            CHECK((value_t(a) != value_t(b)) == (non_qualified_t(a) != b));
+                            CHECK((value_t(b) != value_t(a)) == (b != non_qualified_t(a)));
+                            CHECK((value_t(a) != value_t(b)) == (non_qualified_t(a) != non_qualified_t(b)));
+                            CHECK((value_t(b) != value_t(a)) == (non_qualified_t(b) != non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) < value_t(b)) == (a < non_qualified_t(b)));
+                            CHECK((value_t(b) < value_t(a)) == (non_qualified_t(b) < a));
+                            CHECK((value_t(a) < value_t(b)) == (non_qualified_t(a) < b));
+                            CHECK((value_t(b) < value_t(a)) == (b < non_qualified_t(a)));
+                            CHECK((value_t(a) < value_t(b)) == (non_qualified_t(a) < non_qualified_t(b)));
+                            CHECK((value_t(b) < value_t(a)) == (non_qualified_t(b) < non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) > value_t(b)) == (a > non_qualified_t(b)));
+                            CHECK((value_t(b) > value_t(a)) == (non_qualified_t(b) > a));
+                            CHECK((value_t(a) > value_t(b)) == (non_qualified_t(a) > b));
+                            CHECK((value_t(b) > value_t(a)) == (b > non_qualified_t(a)));
+                            CHECK((value_t(a) > value_t(b)) == (non_qualified_t(a) > non_qualified_t(b)));
+                            CHECK((value_t(b) > value_t(a)) == (non_qualified_t(b) > non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) <= value_t(b)) == (a <= non_qualified_t(b)));
+                            CHECK((value_t(b) <= value_t(a)) == (non_qualified_t(b) <= a));
+                            CHECK((value_t(a) <= value_t(b)) == (non_qualified_t(a) <= b));
+                            CHECK((value_t(b) <= value_t(a)) == (b <= non_qualified_t(a)));
+                            CHECK((value_t(a) <= value_t(b)) == (non_qualified_t(a) <= non_qualified_t(b)));
+                            CHECK((value_t(b) <= value_t(a)) == (non_qualified_t(b) <= non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) >= value_t(b)) == (a >= non_qualified_t(b)));
+                            CHECK((value_t(b) >= value_t(a)) == (non_qualified_t(b) >= a));
+                            CHECK((value_t(a) >= value_t(b)) == (non_qualified_t(a) >= b));
+                            CHECK((value_t(b) >= value_t(a)) == (b >= non_qualified_t(a)));
+                            CHECK((value_t(a) >= value_t(b)) == (non_qualified_t(a) >= non_qualified_t(b)));
+                            CHECK((value_t(b) >= value_t(a)) == (non_qualified_t(b) >= non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) <=> value_t(b)) == (a <=> non_qualified_t(b)));
+                            CHECK((value_t(b) <=> value_t(a)) == (non_qualified_t(b) <=> a));
+                            CHECK((value_t(a) <=> value_t(b)) == (non_qualified_t(a) <=> b));
+                            CHECK((value_t(b) <=> value_t(a)) == (b <=> non_qualified_t(a)));
+                            CHECK((value_t(a) <=> value_t(b)) == (non_qualified_t(a) <=> non_qualified_t(b)));
+                            CHECK((value_t(b) <=> value_t(a)) == (non_qualified_t(b) <=> non_qualified_t(a)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_ANY_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) == value_t(b)) == (a == b));
+                            CHECK((value_t(b) == value_t(a)) == (b == a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) != value_t(b)) == (a != b));
+                            CHECK((value_t(b) != value_t(a)) == (b != a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) < value_t(b)) == (a < b));
+                            CHECK((value_t(b) < value_t(a)) == (b < a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) > value_t(b)) == (a > b));
+                            CHECK((value_t(b) > value_t(a)) == (b > a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) <= value_t(b)) == (a <= b));
+                            CHECK((value_t(b) <= value_t(a)) == (b <= a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) >= value_t(b)) == (a >= b));
+                            CHECK((value_t(b) >= value_t(a)) == (b >= a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) <=> value_t(b)) == (a <=> b));
+                            CHECK((value_t(b) <=> value_t(a)) == (b <=> a));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_ANY_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) == value_t(b)) == (a == nkr::cpp::Move(b)));
+                            CHECK((value_t(b) == value_t(a)) == (nkr::cpp::Move(b) == a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) == value_t(b)) == (nkr::cpp::Move(a) == b));
+                                CHECK((value_t(b) == value_t(a)) == (b == nkr::cpp::Move(a)));
+                                CHECK((value_t(a) == value_t(b)) == (nkr::cpp::Move(a) == nkr::cpp::Move(b)));
+                                CHECK((value_t(b) == value_t(a)) == (nkr::cpp::Move(b) == nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) != value_t(b)) == (a != nkr::cpp::Move(b)));
+                            CHECK((value_t(b) != value_t(a)) == (nkr::cpp::Move(b) != a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) != value_t(b)) == (nkr::cpp::Move(a) != b));
+                                CHECK((value_t(b) != value_t(a)) == (b != nkr::cpp::Move(a)));
+                                CHECK((value_t(a) != value_t(b)) == (nkr::cpp::Move(a) != nkr::cpp::Move(b)));
+                                CHECK((value_t(b) != value_t(a)) == (nkr::cpp::Move(b) != nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) < value_t(b)) == (a < nkr::cpp::Move(b)));
+                            CHECK((value_t(b) < value_t(a)) == (nkr::cpp::Move(b) < a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) < value_t(b)) == (nkr::cpp::Move(a) < b));
+                                CHECK((value_t(b) < value_t(a)) == (b < nkr::cpp::Move(a)));
+                                CHECK((value_t(a) < value_t(b)) == (nkr::cpp::Move(a) < nkr::cpp::Move(b)));
+                                CHECK((value_t(b) < value_t(a)) == (nkr::cpp::Move(b) < nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) > value_t(b)) == (a > nkr::cpp::Move(b)));
+                            CHECK((value_t(b) > value_t(a)) == (nkr::cpp::Move(b) > a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) > value_t(b)) == (nkr::cpp::Move(a) > b));
+                                CHECK((value_t(b) > value_t(a)) == (b > nkr::cpp::Move(a)));
+                                CHECK((value_t(a) > value_t(b)) == (nkr::cpp::Move(a) > nkr::cpp::Move(b)));
+                                CHECK((value_t(b) > value_t(a)) == (nkr::cpp::Move(b) > nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) <= value_t(b)) == (a <= nkr::cpp::Move(b)));
+                            CHECK((value_t(b) <= value_t(a)) == (nkr::cpp::Move(b) <= a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) <= value_t(b)) == (nkr::cpp::Move(a) <= b));
+                                CHECK((value_t(b) <= value_t(a)) == (b <= nkr::cpp::Move(a)));
+                                CHECK((value_t(a) <= value_t(b)) == (nkr::cpp::Move(a) <= nkr::cpp::Move(b)));
+                                CHECK((value_t(b) <= value_t(a)) == (nkr::cpp::Move(b) <= nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) >= value_t(b)) == (a >= nkr::cpp::Move(b)));
+                            CHECK((value_t(b) >= value_t(a)) == (nkr::cpp::Move(b) >= a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) >= value_t(b)) == (nkr::cpp::Move(a) >= b));
+                                CHECK((value_t(b) >= value_t(a)) == (b >= nkr::cpp::Move(a)));
+                                CHECK((value_t(a) >= value_t(b)) == (nkr::cpp::Move(a) >= nkr::cpp::Move(b)));
+                                CHECK((value_t(b) >= value_t(a)) == (nkr::cpp::Move(b) >= nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) <=> value_t(b)) == (a <=> nkr::cpp::Move(b)));
+                            CHECK((value_t(b) <=> value_t(a)) == (nkr::cpp::Move(b) <=> a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) <=> value_t(b)) == (nkr::cpp::Move(a) <=> b));
+                                CHECK((value_t(b) <=> value_t(a)) == (b <=> nkr::cpp::Move(a)));
+                                CHECK((value_t(a) <=> value_t(b)) == (nkr::cpp::Move(a) <=> nkr::cpp::Move(b)));
+                                CHECK((value_t(b) <=> value_t(a)) == (nkr::cpp::Move(b) <=> nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            TEST_CASE_TEMPLATE("unary arithmetic operators: +, -", integer_p, nkr_ANY)
+            {
+                using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+
+                        CHECK(+value_t(a) == +a);
+                    }
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+
+                        CHECK(-value_t(a) == -a);
+                    }
+                }
+            }
+
+            TEST_SUITE("binary arithmetic operators: +, -, *, /, %")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_ANY_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) + value_t(b)) == (a + non_qualified_t(b)));
+                            CHECK((value_t(b) + value_t(a)) == (non_qualified_t(b) + a));
+                            CHECK((value_t(a) + value_t(b)) == (non_qualified_t(a) + b));
+                            CHECK((value_t(b) + value_t(a)) == (b + non_qualified_t(a)));
+                            CHECK((value_t(a) + value_t(b)) == (non_qualified_t(a) + non_qualified_t(b)));
+                            CHECK((value_t(b) + value_t(a)) == (non_qualified_t(b) + non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) - value_t(b)) == (a - non_qualified_t(b)));
+                            CHECK((value_t(b) - value_t(a)) == (non_qualified_t(b) - a));
+                            CHECK((value_t(a) - value_t(b)) == (non_qualified_t(a) - b));
+                            CHECK((value_t(b) - value_t(a)) == (b - non_qualified_t(a)));
+                            CHECK((value_t(a) - value_t(b)) == (non_qualified_t(a) - non_qualified_t(b)));
+                            CHECK((value_t(b) - value_t(a)) == (non_qualified_t(b) - non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) * value_t(b)) == (a * non_qualified_t(b)));
+                            CHECK((value_t(b) * value_t(a)) == (non_qualified_t(b) * a));
+                            CHECK((value_t(a) * value_t(b)) == (non_qualified_t(a) * b));
+                            CHECK((value_t(b) * value_t(a)) == (b * non_qualified_t(a)));
+                            CHECK((value_t(a) * value_t(b)) == (non_qualified_t(a) * non_qualified_t(b)));
+                            CHECK((value_t(b) * value_t(a)) == (non_qualified_t(b) * non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK((value_t(a) / value_t(b)) == (a / non_qualified_t(b)));
+                            CHECK((value_t(b) / value_t(a)) == (non_qualified_t(b) / a));
+                            CHECK((value_t(a) / value_t(b)) == (non_qualified_t(a) / b));
+                            CHECK((value_t(b) / value_t(a)) == (b / non_qualified_t(a)));
+                            CHECK((value_t(a) / value_t(b)) == (non_qualified_t(a) / non_qualified_t(b)));
+                            CHECK((value_t(b) / value_t(a)) == (non_qualified_t(b) / non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK((value_t(a) % value_t(b)) == (a % non_qualified_t(b)));
+                            CHECK((value_t(b) % value_t(a)) == (non_qualified_t(b) % a));
+                            CHECK((value_t(a) % value_t(b)) == (non_qualified_t(a) % b));
+                            CHECK((value_t(b) % value_t(a)) == (b % non_qualified_t(a)));
+                            CHECK((value_t(a) % value_t(b)) == (non_qualified_t(a) % non_qualified_t(b)));
+                            CHECK((value_t(b) % value_t(a)) == (non_qualified_t(b) % non_qualified_t(a)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_ANY_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) + value_t(b)) == (a + b));
+                            CHECK((value_t(b) + value_t(a)) == (b + a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) - value_t(b)) == (a - b));
+                            CHECK((value_t(b) - value_t(a)) == (b - a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) * value_t(b)) == (a * b));
+                            CHECK((value_t(b) * value_t(a)) == (b * a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK((value_t(a) / value_t(b)) == (a / b));
+                            CHECK((value_t(b) / value_t(a)) == (b / a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK((value_t(a) % value_t(b)) == (a % b));
+                            CHECK((value_t(b) % value_t(a)) == (b % a));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_ANY_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) + value_t(b)) == (a + nkr::cpp::Move(b)));
+                            CHECK((value_t(b) + value_t(a)) == (nkr::cpp::Move(b) + a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) + value_t(b)) == (nkr::cpp::Move(a) + b));
+                                CHECK((value_t(b) + value_t(a)) == (b + nkr::cpp::Move(a)));
+                                CHECK((value_t(a) + value_t(b)) == (nkr::cpp::Move(a) + nkr::cpp::Move(b)));
+                                CHECK((value_t(b) + value_t(a)) == (nkr::cpp::Move(b) + nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) - value_t(b)) == (a - nkr::cpp::Move(b)));
+                            CHECK((value_t(b) - value_t(a)) == (nkr::cpp::Move(b) - a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) - value_t(b)) == (nkr::cpp::Move(a) - b));
+                                CHECK((value_t(b) - value_t(a)) == (b - nkr::cpp::Move(a)));
+                                CHECK((value_t(a) - value_t(b)) == (nkr::cpp::Move(a) - nkr::cpp::Move(b)));
+                                CHECK((value_t(b) - value_t(a)) == (nkr::cpp::Move(b) - nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) * value_t(b)) == (a * nkr::cpp::Move(b)));
+                            CHECK((value_t(b) * value_t(a)) == (nkr::cpp::Move(b) * a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) * value_t(b)) == (nkr::cpp::Move(a) * b));
+                                CHECK((value_t(b) * value_t(a)) == (b * nkr::cpp::Move(a)));
+                                CHECK((value_t(a) * value_t(b)) == (nkr::cpp::Move(a) * nkr::cpp::Move(b)));
+                                CHECK((value_t(b) * value_t(a)) == (nkr::cpp::Move(b) * nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK((value_t(a) / value_t(b)) == (a / nkr::cpp::Move(b)));
+                            CHECK((value_t(b) / value_t(a)) == (nkr::cpp::Move(b) / a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) / value_t(b)) == (nkr::cpp::Move(a) / b));
+                                CHECK((value_t(b) / value_t(a)) == (b / nkr::cpp::Move(a)));
+                                CHECK((value_t(a) / value_t(b)) == (nkr::cpp::Move(a) / nkr::cpp::Move(b)));
+                                CHECK((value_t(b) / value_t(a)) == (nkr::cpp::Move(b) / nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK((value_t(a) % value_t(b)) == (a % nkr::cpp::Move(b)));
+                            CHECK((value_t(b) % value_t(a)) == (nkr::cpp::Move(b) % a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) % value_t(b)) == (nkr::cpp::Move(a) % b));
+                                CHECK((value_t(b) % value_t(a)) == (b % nkr::cpp::Move(a)));
+                                CHECK((value_t(a) % value_t(b)) == (nkr::cpp::Move(a) % nkr::cpp::Move(b)));
+                                CHECK((value_t(b) % value_t(a)) == (nkr::cpp::Move(b) % nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("binary arithmetic operators: +=, -=, *=, /=, %=")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_NON_CONST_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) + value_t(b)) == (a += non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= non_qualified_t(b)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_NON_CONST_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) + value_t(b)) == (a += b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= b));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_NON_CONST_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) + value_t(b)) == (a += nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>(value_t(1), value_t(~0));
+
+                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= nkr::cpp::Move(b)));
+                        }
+                    }
+                }
+            }
+
+            TEST_CASE_TEMPLATE("unary bitwise operators: ~", integer_p, nkr_ANY)
+            {
+                using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+
+                        CHECK(~value_t(a) == ~a);
+                    }
+                }
+            }
+
+            TEST_SUITE("binary bitwise operators: |, &, ^, <<, >>")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_ANY_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) | value_t(b)) == (a | non_qualified_t(b)));
+                            CHECK((value_t(b) | value_t(a)) == (non_qualified_t(b) | a));
+                            CHECK((value_t(a) | value_t(b)) == (non_qualified_t(a) | b));
+                            CHECK((value_t(b) | value_t(a)) == (b | non_qualified_t(a)));
+                            CHECK((value_t(a) | value_t(b)) == (non_qualified_t(a) | non_qualified_t(b)));
+                            CHECK((value_t(b) | value_t(a)) == (non_qualified_t(b) | non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) & value_t(b)) == (a & non_qualified_t(b)));
+                            CHECK((value_t(b) & value_t(a)) == (non_qualified_t(b) & a));
+                            CHECK((value_t(a) & value_t(b)) == (non_qualified_t(a) & b));
+                            CHECK((value_t(b) & value_t(a)) == (b & non_qualified_t(a)));
+                            CHECK((value_t(a) & value_t(b)) == (non_qualified_t(a) & non_qualified_t(b)));
+                            CHECK((value_t(b) & value_t(a)) == (non_qualified_t(b) & non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) ^ value_t(b)) == (a ^ non_qualified_t(b)));
+                            CHECK((value_t(b) ^ value_t(a)) == (non_qualified_t(b) ^ a));
+                            CHECK((value_t(a) ^ value_t(b)) == (non_qualified_t(a) ^ b));
+                            CHECK((value_t(b) ^ value_t(a)) == (b ^ non_qualified_t(a)));
+                            CHECK((value_t(a) ^ value_t(b)) == (non_qualified_t(a) ^ non_qualified_t(b)));
+                            CHECK((value_t(b) ^ value_t(a)) == (non_qualified_t(b) ^ non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) << value_t(b)) == (a << non_qualified_t(b)));
+                            CHECK((value_t(b) << value_t(a)) == (non_qualified_t(b) << a));
+                            CHECK((value_t(a) << value_t(b)) == (non_qualified_t(a) << b));
+                            CHECK((value_t(b) << value_t(a)) == (b << non_qualified_t(a)));
+                            CHECK((value_t(a) << value_t(b)) == (non_qualified_t(a) << non_qualified_t(b)));
+                            CHECK((value_t(b) << value_t(a)) == (non_qualified_t(b) << non_qualified_t(a)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) >> value_t(b)) == (a >> non_qualified_t(b)));
+                            CHECK((value_t(b) >> value_t(a)) == (non_qualified_t(b) >> a));
+                            CHECK((value_t(a) >> value_t(b)) == (non_qualified_t(a) >> b));
+                            CHECK((value_t(b) >> value_t(a)) == (b >> non_qualified_t(a)));
+                            CHECK((value_t(a) >> value_t(b)) == (non_qualified_t(a) >> non_qualified_t(b)));
+                            CHECK((value_t(b) >> value_t(a)) == (non_qualified_t(b) >> non_qualified_t(a)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_ANY_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) | value_t(b)) == (a | b));
+                            CHECK((value_t(b) | value_t(a)) == (b | a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) & value_t(b)) == (a & b));
+                            CHECK((value_t(b) & value_t(a)) == (b & a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) ^ value_t(b)) == (a ^ b));
+                            CHECK((value_t(b) ^ value_t(a)) == (b ^ a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) << value_t(b)) == (a << b));
+                            CHECK((value_t(b) << value_t(a)) == (b << a));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) >> value_t(b)) == (a >> b));
+                            CHECK((value_t(b) >> value_t(a)) == (b >> a));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_ANY_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) | value_t(b)) == (a | nkr::cpp::Move(b)));
+                            CHECK((value_t(b) | value_t(a)) == (nkr::cpp::Move(b) | a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) | value_t(b)) == (nkr::cpp::Move(a) | b));
+                                CHECK((value_t(b) | value_t(a)) == (b | nkr::cpp::Move(a)));
+                                CHECK((value_t(a) | value_t(b)) == (nkr::cpp::Move(a) | nkr::cpp::Move(b)));
+                                CHECK((value_t(b) | value_t(a)) == (nkr::cpp::Move(b) | nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) & value_t(b)) == (a & nkr::cpp::Move(b)));
+                            CHECK((value_t(b) & value_t(a)) == (nkr::cpp::Move(b) & a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) & value_t(b)) == (nkr::cpp::Move(a) & b));
+                                CHECK((value_t(b) & value_t(a)) == (b & nkr::cpp::Move(a)));
+                                CHECK((value_t(a) & value_t(b)) == (nkr::cpp::Move(a) & nkr::cpp::Move(b)));
+                                CHECK((value_t(b) & value_t(a)) == (nkr::cpp::Move(b) & nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) ^ value_t(b)) == (a ^ nkr::cpp::Move(b)));
+                            CHECK((value_t(b) ^ value_t(a)) == (nkr::cpp::Move(b) ^ a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) ^ value_t(b)) == (nkr::cpp::Move(a) ^ b));
+                                CHECK((value_t(b) ^ value_t(a)) == (b ^ nkr::cpp::Move(a)));
+                                CHECK((value_t(a) ^ value_t(b)) == (nkr::cpp::Move(a) ^ nkr::cpp::Move(b)));
+                                CHECK((value_t(b) ^ value_t(a)) == (nkr::cpp::Move(b) ^ nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) << value_t(b)) == (a << nkr::cpp::Move(b)));
+                            CHECK((value_t(b) << value_t(a)) == (nkr::cpp::Move(b) << a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) << value_t(b)) == (nkr::cpp::Move(a) << b));
+                                CHECK((value_t(b) << value_t(a)) == (b << nkr::cpp::Move(a)));
+                                CHECK((value_t(a) << value_t(b)) == (nkr::cpp::Move(a) << nkr::cpp::Move(b)));
+                                CHECK((value_t(b) << value_t(a)) == (nkr::cpp::Move(b) << nkr::cpp::Move(a)));
+                            }
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK((value_t(a) >> value_t(b)) == (a >> nkr::cpp::Move(b)));
+                            CHECK((value_t(b) >> value_t(a)) == (nkr::cpp::Move(b) >> a));
+                            if constexpr (nkr::cpp::any_non_const_tr<integer_t>) {
+                                CHECK((value_t(a) >> value_t(b)) == (nkr::cpp::Move(a) >> b));
+                                CHECK((value_t(b) >> value_t(a)) == (b >> nkr::cpp::Move(a)));
+                                CHECK((value_t(a) >> value_t(b)) == (nkr::cpp::Move(a) >> nkr::cpp::Move(b)));
+                                CHECK((value_t(b) >> value_t(a)) == (nkr::cpp::Move(b) >> nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                }
+            }
+
+            TEST_SUITE("binary bitwise operators: |=, &=, ^=, <<=, >>=")
+            {
+                TEST_CASE_TEMPLATE("value", tuple_p, nkr_NON_CONST_WITH_VALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using non_qualified_t = nkr::cpp::just_non_qualified_t<integer_t>;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= non_qualified_t(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= non_qualified_t(b)));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("lvalue", tuple_p, nkr_NON_CONST_WITH_LVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= b));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= b));
+                        }
+                    }
+                }
+
+                TEST_CASE_TEMPLATE("rvalue", tuple_p, nkr_NON_CONST_WITH_RVALUE)
+                {
+                    using integer_t = tuple_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = tuple_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using value_t = nkr::cpp::just_non_qualified_t<integer_t>;
+
+                    for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= nkr::cpp::Move(b)));
+                        }
+                        {
+                            integer_t a = nkr::randomness::Value<integer_t>();
+                            other_t b = nkr::randomness::Value<integer_t>();
+
+                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= nkr::cpp::Move(b)));
+                        }
+                    }
+                }
+            }
+
+        #undef nkr_ANY_WITH_VALUE
+        #undef nkr_ANY_WITH_LVALUE
+        #undef nkr_ANY_WITH_RVALUE
+        #undef nkr_NON_CONST_WITH_VALUE
+        #undef nkr_NON_CONST_WITH_LVALUE
+        #undef nkr_NON_CONST_WITH_RVALUE
         }
     }
 

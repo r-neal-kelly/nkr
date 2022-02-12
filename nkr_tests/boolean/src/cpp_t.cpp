@@ -3,6 +3,7 @@
 */
 
 #pragma warning (disable : 4804)
+#pragma warning (disable : 26498)
 
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
