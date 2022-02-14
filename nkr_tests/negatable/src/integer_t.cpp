@@ -7,7 +7,9 @@
 #include "nkr/cpp.h"
 #include "nkr/generic/built_in/boolean_tr.h"
 #include "nkr/generic/built_in/number/integer_tr.h"
+#include "nkr/generic/built_in/number/real_tr.h"
 #include "nkr/generic/negatable/integer_tr.h"
+#include "nkr/generic/negatable/real_tr.h"
 #include "nkr/generic/non_type_tr.h"
 #include "nkr/interface/enumeration/types_i.h"
 #include "nkr/interface/none/value_i.h"
@@ -239,6 +241,8 @@ namespace nkr {
 
             using non_target_ts = ts<AND_tg,
                 nkr::generic::built_in::boolean_tg,
+                nkr::generic::built_in::number::real_tg,
+                nkr::generic::negatable::real_tg,
                 nkr::generic::non_type_tg
             >;
 
