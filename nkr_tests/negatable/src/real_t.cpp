@@ -2,6 +2,8 @@
     Copyright 2021 r-neal-kelly
 */
 
+#pragma warning (disable : 26498)
+
 #include <unordered_set> // until we finish our own
 
 #include "nkr/cpp.h"
