@@ -65,6 +65,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_tr", "nkr_tests\tr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_constant", "nkr_tests\constant\constant.vcxproj", "{3E379580-21F0-4187-A38F-2F3325092EBB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_negatable", "nkr_tests\negatable\negatable.vcxproj", "{D6C74D01-B166-4DEF-A474-7E25C4FEF990}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -321,6 +323,14 @@ Global
 		{3E379580-21F0-4187-A38F-2F3325092EBB}.Release|x64.Build.0 = Release|x64
 		{3E379580-21F0-4187-A38F-2F3325092EBB}.Release|x86.ActiveCfg = Release|Win32
 		{3E379580-21F0-4187-A38F-2F3325092EBB}.Release|x86.Build.0 = Release|Win32
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Debug|x64.ActiveCfg = Debug|x64
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Debug|x64.Build.0 = Debug|x64
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Debug|x86.ActiveCfg = Debug|Win32
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Debug|x86.Build.0 = Debug|Win32
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Release|x64.ActiveCfg = Release|x64
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Release|x64.Build.0 = Release|x64
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Release|x86.ActiveCfg = Release|Win32
+		{D6C74D01-B166-4DEF-A474-7E25C4FEF990}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

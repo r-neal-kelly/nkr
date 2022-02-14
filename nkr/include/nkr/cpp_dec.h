@@ -536,6 +536,72 @@ namespace nkr { namespace cpp {
 
 }}
 
+namespace nkr { namespace cpp {
+
+    template <integer_tr integer_p>
+    class relative_integer_tmpl;
+
+    template <>
+    class relative_integer_tmpl<nkr::positive::integer_8_t>
+    {
+    public:
+        using type_t    = nkr::negatable::integer_8_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::positive::integer_16_t>
+    {
+    public:
+        using type_t    = nkr::negatable::integer_16_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::positive::integer_32_t>
+    {
+    public:
+        using type_t    = nkr::negatable::integer_32_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::positive::integer_64_t>
+    {
+    public:
+        using type_t    = nkr::negatable::integer_64_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::negatable::integer_8_t>
+    {
+    public:
+        using type_t    = nkr::positive::integer_8_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::negatable::integer_16_t>
+    {
+    public:
+        using type_t    = nkr::positive::integer_16_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::negatable::integer_32_t>
+    {
+    public:
+        using type_t    = nkr::positive::integer_32_t;
+    };
+
+    template <>
+    class relative_integer_tmpl<nkr::negatable::integer_64_t>
+    {
+    public:
+        using type_t    = nkr::positive::integer_64_t;
+    };
+
+    template <integer_tr integer_p>
+    using relative_integer_t = relative_integer_tmpl<integer_p>::type_t;
+
+}}
+
 // nkr::cpp functions
 namespace nkr { namespace cpp {
 

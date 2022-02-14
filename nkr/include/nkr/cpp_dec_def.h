@@ -114,9 +114,9 @@ namespace nkr { namespace cpp {
         if constexpr (boolean_tr<value_p>) {
             return false;
         } else if constexpr (integer_tr<value_p>) {
-            return std::numeric_limits<value_p>::min();
+            return std::numeric_limits<std::remove_cv_t<value_p>>::min();
         } else if constexpr (real_tr<value_p>) {
-            return std::numeric_limits<value_p>::lowest();
+            return std::numeric_limits<std::remove_cv_t<value_p>>::lowest();
         } else if constexpr (pointer_tr<value_p>) {
             return nullptr;
         }
@@ -131,11 +131,11 @@ namespace nkr { namespace cpp {
         if constexpr (boolean_tr<value_p>) {
             return true;
         } else if constexpr (integer_tr<value_p>) {
-            return std::numeric_limits<value_p>::max();
+            return std::numeric_limits<std::remove_cv_t<value_p>>::max();
         } else if constexpr (real_tr<value_p>) {
-            return std::numeric_limits<value_p>::max();
+            return std::numeric_limits<std::remove_cv_t<value_p>>::max();
         } else if constexpr (pointer_tr<value_p>) {
-            return reinterpret_cast<value_p>(std::numeric_limits<positive::word_t>::max());
+            return reinterpret_cast<std::remove_cv_t<value_p>>(std::numeric_limits<nkr::positive::word_t>::max());
         }
     }
 

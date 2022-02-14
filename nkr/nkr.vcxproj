@@ -656,6 +656,11 @@
     <ClInclude Include="include\nkr\cpp\randomness\distributor\uniform\real_t_dec_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\distributor\uniform\real_t_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\distributor\uniform\real_t_dox.h" />
+    <ClInclude Include="include\nkr\math.h" />
+    <ClInclude Include="include\nkr\math_dec.h" />
+    <ClInclude Include="include\nkr\math_dec_def.h" />
+    <ClInclude Include="include\nkr\math_def.h" />
+    <ClInclude Include="include\nkr\math_dox.h" />
     <ClInclude Include="include\nkr\negatable\integer_16_t.h" />
     <ClInclude Include="include\nkr\negatable\integer_16_t_dec.h" />
     <ClInclude Include="include\nkr\negatable\integer_16_t_dec_def.h" />
