@@ -1752,6 +1752,42 @@ namespace nkr {
                 }
             }
 
+            TEST_CASE_TEMPLATE("unary arithmetic operators: ++, ++(int), --, --(int)", integer_p, nkr_ANY_NON_CONST)
+            {
+                using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup + 1) == ++a);
+                        CHECK(value_t(backup + 1) == a);
+                    }
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup + 0) == a++);
+                        CHECK(value_t(backup + 1) == a);
+                    }
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup - 1) == --a);
+                        CHECK(value_t(backup - 1) == a);
+                    }
+                    {
+                        integer_p a = nkr::randomness::Value<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup - 0) == a--);
+                        CHECK(value_t(backup - 1) == a);
+                    }
+                }
+            }
+
             TEST_SUITE("binary arithmetic operators: +=, -=, *=, /=, %=")
             {
                 TEST_CASE_TEMPLATE("value", tuple_p, nkr_NON_CONST_WITH_VALUE)

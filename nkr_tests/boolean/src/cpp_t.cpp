@@ -466,7 +466,7 @@ namespace nkr {
                             {
                                 using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
-                                constexpr nkr::positive::count_t difference_threshold = Interface_Iteration_Count() >> 2;
+                                constexpr nkr::positive::count_t difference_threshold = Interface_Iteration_Count() / 3;
                                 nkr::positive::count_t false_count = 0;
                                 nkr::positive::count_t true_count = 0;
 
@@ -491,7 +491,7 @@ namespace nkr {
                             {
                                 using interface_t = nkr::interface::randomness::value_i<boolean_p>;
 
-                                constexpr nkr::positive::count_t difference_threshold = Interface_Iteration_Count() >> 2;
+                                constexpr nkr::positive::count_t difference_threshold = Interface_Iteration_Count() / 3;
                                 nkr::positive::count_t false_count = 0;
                                 nkr::positive::count_t true_count = 0;
 

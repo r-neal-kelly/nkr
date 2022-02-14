@@ -214,6 +214,22 @@ namespace nkr {
             }
         }
 
+        template <typename integer_p>
+        inline nkr::cpp::just_non_qualified_t<integer_p>
+            Random_Non_Min()
+            noexcept
+        {
+            return nkr::randomness::Value<integer_p>(nkr::cpp::Default_Min<integer_p>() + 1, nkr::cpp::Default_Max<integer_p>());
+        }
+
+        template <typename integer_p>
+        inline nkr::cpp::just_non_qualified_t<integer_p>
+            Random_Non_Max()
+            noexcept
+        {
+            return nkr::randomness::Value<integer_p>(nkr::cpp::Default_Min<integer_p>(), nkr::cpp::Default_Max<integer_p>() - 1);
+        }
+
         TEST_CASE("tr")
         {
             using just_non_qualified_ts = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
@@ -1823,6 +1839,42 @@ namespace nkr {
                                 CHECK((value_t(b) % value_t(a)) == (nkr::cpp::Move(b) % nkr::cpp::Move(a)));
                             }
                         }
+                    }
+                }
+            }
+
+            TEST_CASE_TEMPLATE("unary arithmetic operators: ++, ++(int), --, --(int)", integer_p, nkr_ANY_NON_CONST)
+            {
+                using value_t = nkr::cpp::just_non_qualified_t<integer_p>;
+
+                for (nkr::positive::index_t idx = 0, end = Global_Operator_Iteration_Count(); idx < end; idx += 1) {
+                    {
+                        integer_p a = Random_Non_Max<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup + 1) == ++a);
+                        CHECK(value_t(backup + 1) == a);
+                    }
+                    {
+                        integer_p a = Random_Non_Max<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup + 0) == a++);
+                        CHECK(value_t(backup + 1) == a);
+                    }
+                    {
+                        integer_p a = Random_Non_Min<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup - 1) == --a);
+                        CHECK(value_t(backup - 1) == a);
+                    }
+                    {
+                        integer_p a = Random_Non_Min<integer_p>();
+                        integer_p backup = a;
+
+                        CHECK(value_t(backup - 0) == a--);
+                        CHECK(value_t(backup - 1) == a);
                     }
                 }
             }
