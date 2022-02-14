@@ -237,7 +237,7 @@ namespace nkr {
             Random_Shift()
             noexcept
         {
-            return nkr::randomness::Value<integer_p>(0, nkr::cpp::just_non_qualified_t<integer_p>(sizeof(integer_p) * nkr::cpp::Byte_Bit_Count()));
+            return nkr::randomness::Value<integer_p>(0, nkr::cpp::just_non_qualified_t<integer_p>(sizeof(integer_p) * nkr::cpp::Byte_Bit_Count() - 1));
         }
 
         TEST_CASE("tr")
