@@ -232,6 +232,14 @@ namespace nkr {
             return nkr::randomness::Value<integer_p>(nkr::cpp::Default_Min<integer_p>(), nkr::cpp::Default_Max<integer_p>() - 1);
         }
 
+        template <typename integer_p>
+        inline nkr::cpp::just_non_qualified_t<integer_p>
+            Random_Shift()
+            noexcept
+        {
+            return nkr::randomness::Value<integer_p>(0, nkr::cpp::just_non_qualified_t<integer_p>(sizeof(integer_p) * nkr::cpp::Byte_Bit_Count()));
+        }
+
         TEST_CASE("tr")
         {
             using just_non_qualified_ts = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
@@ -2062,8 +2070,8 @@ namespace nkr {
                             CHECK((value_t(b) ^ value_t(a)) == (non_qualified_t(b) ^ non_qualified_t(a)));
                         }
                         {
-                            integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            integer_t a = Random_Shift<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK((value_t(a) << value_t(b)) == (a << non_qualified_t(b)));
                             CHECK((value_t(b) << value_t(a)) == (non_qualified_t(b) << a));
@@ -2073,8 +2081,8 @@ namespace nkr {
                             CHECK((value_t(b) << value_t(a)) == (non_qualified_t(b) << non_qualified_t(a)));
                         }
                         {
-                            integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            integer_t a = Random_Shift<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK((value_t(a) >> value_t(b)) == (a >> non_qualified_t(b)));
                             CHECK((value_t(b) >> value_t(a)) == (non_qualified_t(b) >> a));
@@ -2115,15 +2123,15 @@ namespace nkr {
                             CHECK((value_t(b) ^ value_t(a)) == (b ^ a));
                         }
                         {
-                            integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            integer_t a = Random_Shift<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK((value_t(a) << value_t(b)) == (a << b));
                             CHECK((value_t(b) << value_t(a)) == (b << a));
                         }
                         {
-                            integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            integer_t a = Random_Shift<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK((value_t(a) >> value_t(b)) == (a >> b));
                             CHECK((value_t(b) >> value_t(a)) == (b >> a));
@@ -2178,8 +2186,8 @@ namespace nkr {
                             }
                         }
                         {
-                            integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            integer_t a = Random_Shift<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK((value_t(a) << value_t(b)) == (a << nkr::cpp::Move(b)));
                             CHECK((value_t(b) << value_t(a)) == (nkr::cpp::Move(b) << a));
@@ -2191,8 +2199,8 @@ namespace nkr {
                             }
                         }
                         {
-                            integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            integer_t a = Random_Shift<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK((value_t(a) >> value_t(b)) == (a >> nkr::cpp::Move(b)));
                             CHECK((value_t(b) >> value_t(a)) == (nkr::cpp::Move(b) >> a));
@@ -2237,13 +2245,13 @@ namespace nkr {
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK(value_t(value_t(a) << value_t(b)) == (a <<= non_qualified_t(b)));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= non_qualified_t(b)));
                         }
@@ -2277,13 +2285,13 @@ namespace nkr {
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK(value_t(value_t(a) << value_t(b)) == (a <<= b));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= b));
                         }
@@ -2317,13 +2325,13 @@ namespace nkr {
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK(value_t(value_t(a) << value_t(b)) == (a <<= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
-                            other_t b = Random_Non_Negative<integer_t>();
+                            other_t b = Random_Shift<integer_t>();
 
                             CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= nkr::cpp::Move(b)));
                         }
