@@ -65,67 +65,7 @@ namespace nkr {
         TYPE_QUALIFIER_p nkr::positive::integer_32_t,   \
         TYPE_QUALIFIER_p nkr::positive::integer_64_t    \
 
-    #define nkr_JUST_NON_QUALIFIED  \
-        nkr_TYPES(nkr_BLANK)        \
-
-    #define nkr_JUST_CONST  \
-        nkr_TYPES(const)    \
-
-    #define nkr_JUST_VOLATILE   \
-        nkr_TYPES(volatile)     \
-
-    #define nkr_JUST_CONST_VOLATILE \
-        nkr_TYPES(const volatile)   \
-
-    #define nkr_ANY             \
-        nkr_JUST_NON_QUALIFIED, \
-        nkr_JUST_CONST,         \
-        nkr_JUST_VOLATILE,      \
-        nkr_JUST_CONST_VOLATILE \
-
-    #define nkr_ANY_QUALIFIED   \
-        nkr_JUST_CONST,         \
-        nkr_JUST_VOLATILE,      \
-        nkr_JUST_CONST_VOLATILE \
-
-    #define nkr_ANY_NON_QUALIFIED   \
-        nkr_JUST_NON_QUALIFIED      \
-
-    #define nkr_ANY_CONST       \
-        nkr_JUST_CONST,         \
-        nkr_JUST_CONST_VOLATILE \
-
-    #define nkr_ANY_NON_CONST   \
-        nkr_JUST_NON_QUALIFIED, \
-        nkr_JUST_VOLATILE       \
-
-    #define nkr_ANY_VOLATILE    \
-        nkr_JUST_VOLATILE,      \
-        nkr_JUST_CONST_VOLATILE \
-
-    #define nkr_ANY_NON_VOLATILE    \
-        nkr_JUST_NON_QUALIFIED,     \
-        nkr_JUST_CONST              \
-
-    #define nkr_ANY_NOT_JUST_NON_QUALIFIED  \
-        nkr_JUST_CONST,                     \
-        nkr_JUST_VOLATILE,                  \
-        nkr_JUST_CONST_VOLATILE             \
-
-    #define nkr_ANY_NOT_JUST_CONST  \
-        nkr_JUST_NON_QUALIFIED,     \
-        nkr_JUST_VOLATILE,          \
-        nkr_JUST_CONST_VOLATILE     \
-
-    #define nkr_ANY_NOT_JUST_VOLATILE   \
-        nkr_JUST_NON_QUALIFIED,         \
-        nkr_JUST_CONST,                 \
-        nkr_JUST_CONST_VOLATILE         \
-
-    #define nkr_ANY_NOT_JUST_CONST_VOLATILE \
-        nkr_JUST_NON_QUALIFIED,             \
-        nkr_JUST_CONST,                     \
-        nkr_JUST_VOLATILE                   \
+    #include "nkr/macro/qualified_types.h"
 
         inline constexpr nkr::positive::count_t
             Interface_Iteration_Count()
