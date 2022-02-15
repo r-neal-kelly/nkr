@@ -6,6 +6,8 @@
 #include "nkr/generic/built_in/number_tr.h"
 #include "nkr/generic/built_in/pointer_tr.h"
 #include "nkr/generic/non_type_tr.h"
+#include "nkr/macro/qualified_templates.h"
+#include "nkr/macro/qualified_types.h"
 #include "nkr/negatable/integer_t.h"
 #include "nkr/negatable/real_t.h"
 #include "nkr/pointer/cpp_t.h"
@@ -20,8 +22,6 @@ namespace nkr {
     #define nkr_TEMPLATES(TEMPLATE_QUALIFIER_p, TYPE_p)     \
         TEMPLATE_QUALIFIER_p nkr::pointer::cpp_t<TYPE_p>    \
 
-    #include "nkr/macro/qualified_templates.h"
-
     #define nkr_TEMPLATE_INNERS(TEMPLATE_QUALIFIER_p, TEMPLATE_p, TYPE_QUALIFIER_p)     \
         TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_t>,     \
         TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_t>,    \
@@ -33,7 +33,8 @@ namespace nkr {
         nkr_TEMPLATE_INNERS(TYPE_QUALIFIER_p, nkr::pointer::cpp_t, volatile),       \
         nkr_TEMPLATE_INNERS(TYPE_QUALIFIER_p, nkr::pointer::cpp_t, const volatile)  \
 
-    #include "nkr/macro/qualified_types.h"
+        nkr_DEFINE_QUALIFIED_TEMPLATE_TS;
+        nkr_DEFINE_QUALIFIED_TYPE_TS;
 
         inline constexpr nkr::positive::count_t
             Interface_Iteration_Count()
@@ -53,24 +54,6 @@ namespace nkr {
         {
             TEST_SUITE("container")
             {
-                using just_non_qualified_ts = ts<AND_tg, nkr_JUST_NON_QUALIFIED>;
-                using just_const_ts = ts<AND_tg, nkr_JUST_CONST>;
-                using just_volatile_ts = ts<AND_tg, nkr_JUST_VOLATILE>;
-                using just_const_volatile_ts = ts<AND_tg, nkr_JUST_CONST_VOLATILE>;
-
-                using any_ts = ts<AND_tg, nkr_ANY>;
-                using any_qualified_ts = ts<AND_tg, nkr_ANY_QUALIFIED>;
-                using any_non_qualified_ts = ts<AND_tg, nkr_ANY_NON_QUALIFIED>;
-                using any_const_ts = ts<AND_tg, nkr_ANY_CONST>;
-                using any_non_const_ts = ts<AND_tg, nkr_ANY_NON_CONST>;
-                using any_volatile_ts = ts<AND_tg, nkr_ANY_VOLATILE>;
-                using any_non_volatile_ts = ts<AND_tg, nkr_ANY_NON_VOLATILE>;
-
-                using any_not_just_non_qualified_ts = ts<AND_tg, nkr_ANY_NOT_JUST_NON_QUALIFIED>;
-                using any_not_just_const_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST>;
-                using any_not_just_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_VOLATILE>;
-                using any_not_just_const_volatile_ts = ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE>;
-
                 using target_ts = ts<AND_tg,
                     nkr::pointer::cpp_tg,
 
