@@ -13,6 +13,7 @@
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
 #include "nkr/tr.h"
+#include "nkr/tuple/templates_t.h"
 #include "nkr/tuple/types_t.h"
 
 #include "doctest.h"
@@ -249,28 +250,28 @@ namespace nkr {
                 static_assert(TR<to_ts<NOR_tg, any_ts>, any_tg, non_target_ts>());
                 static_assert(TR<to_ts<NOR_tg, non_subject_ts>, any_tg, target_ts>());*/
 
-                template <nkr::tuple::types_tr tuple_p>
+                template <nkr::tuple::types_tr inners_p>
                 inline constexpr nkr::boolean::cpp_t
-                    TR_Each()
+                    TR_Each_Inner()
                     noexcept
                 {
-                    using inner_t = tuple_p::head_t;
+                    using inner_t = nkr::cpp::just_non_qualified_t<typename inners_p::head_t>;
 
-                    if constexpr (tuple_p::Count() > 0) {
-                        static_assert(TR<to_ts<AND_tg, any_of_any_ts<nkr::positive::integer_t>>,
-                                      any_tg, tt<nkr::pointer::cpp_t>,
-                                      of_any_tg, t<nkr::positive::integer_t>
+                    if constexpr (inners_p::Count() > 0) {
+                        static_assert(TR<to_ts<AND_tg, any_of_any_ts<inner_t>>,
+                                      any_tg, tt<nkr::pointer::cpp_t>, of_any_tg, t<inner_t>
                         >());
 
-                        return TR_Each<typename tuple_p::tail_t>();
+                        return TR_Each_Inner<typename inners_p::tail_t>();
                     } else {
                         return true;
                     }
                 }
-                static_assert(TR_Each<nkr::tuple::types_t<
+                static_assert(TR_Each_Inner<nkr::tuple::types_t<
                               nkr::positive::integer_t,
                               nkr::negatable::integer_t,
-                              nkr::negatable::real_t>>());
+                              nkr::negatable::real_t>
+                >());
             }
         }
     }
