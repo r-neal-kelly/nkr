@@ -12,6 +12,8 @@
 #include "nkr/negatable/real_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/tr.h"
+#include "nkr/tuple/types_t.h"
 
 #include "doctest.h"
 
@@ -247,10 +249,28 @@ namespace nkr {
                 static_assert(TR<to_ts<NOR_tg, any_ts>, any_tg, non_target_ts>());
                 static_assert(TR<to_ts<NOR_tg, non_subject_ts>, any_tg, target_ts>());*/
 
-                static_assert(TR<ts<AND_tg, nkr_ANY_OF_ANY(nkr::positive::integer_t)>,
-                              any_tg, tt<nkr::pointer::cpp_t>,
-                              of_any_tg, t<nkr::positive::integer_t>
-                >());
+                template <nkr::tuple::types_tr tuple_p>
+                inline constexpr nkr::boolean::cpp_t
+                    TR_Each()
+                    noexcept
+                {
+                    using inner_t = tuple_p::head_t;
+
+                    if constexpr (tuple_p::Count() > 0) {
+                        static_assert(TR<to_ts<AND_tg, any_of_any_ts<nkr::positive::integer_t>>,
+                                      any_tg, tt<nkr::pointer::cpp_t>,
+                                      of_any_tg, t<nkr::positive::integer_t>
+                        >());
+
+                        return TR_Each<typename tuple_p::tail_t>();
+                    } else {
+                        return true;
+                    }
+                }
+                static_assert(TR_Each<nkr::tuple::types_t<
+                              nkr::positive::integer_t,
+                              nkr::negatable::integer_t,
+                              nkr::negatable::real_t>>());
             }
         }
     }

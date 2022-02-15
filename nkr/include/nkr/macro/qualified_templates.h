@@ -1015,7 +1015,7 @@
     nkr_ANY_NOT_JUST_CONST_VOLATILE_OF_JUST_CONST(TYPE_p),                      \
     nkr_ANY_NOT_JUST_CONST_VOLATILE_OF_JUST_VOLATILE(TYPE_p)                    \
 
-#define nkr_DEFINE_QUALIFIED_TEMPLATE_TS                                                                                                                \
+#define nkr_DEFINE_QUALIFIED_TEMPLATE_TS                                                            \
     template <typename type_p>                                                                      \
     using just_non_qualified_of_just_non_qualified_ts =                                             \
         nkr::ts<AND_tg, nkr_JUST_NON_QUALIFIED_OF_JUST_NON_QUALIFIED(type_p)>;                      \
