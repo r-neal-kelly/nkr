@@ -3,6 +3,12 @@
 */
 
 #include "nkr/array/cpp_t.h"
+#include "nkr/boolean/cpp_t.h"
+#include "nkr/boolean/pure_t.h"
+#include "nkr/generic/boolean_tr.h"
+#include "nkr/generic/negatable_tr.h"
+#include "nkr/generic/number_tr.h"
+#include "nkr/generic/user_defined_tr.h"
 #include "nkr/negatable/integer_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
@@ -16,8 +22,42 @@ namespace nkr {
 
     TEST_SUITE("tr")
     {
-        TEST_SUITE("subject logic gates")
+        TEST_CASE("constrain to more than one type")
         {
+            // [_2e80ad9f_7fa0_4d4f_ba2c_7f56d92659d3]
+            static_assert(TR<t<nkr::negatable::integer_t>,
+                          any_tg, ts<OR_tg, nkr::negatable::integer_t, nkr::negatable::real_t>>() == true);
+
+            static_assert(TR<t<nkr::negatable::real_t>,
+                          any_tg, ts<OR_tg, nkr::negatable::integer_t, nkr::negatable::real_t>>() == true);
+            // [_2e80ad9f_7fa0_4d4f_ba2c_7f56d92659d3]
+        }
+
+        TEST_CASE("constrain to more than one generic")
+        {
+            // [_898208a2_8cc9_48cb_a4b5_c7bdada49152]
+            static_assert(TR<t<nkr::negatable::integer_t>,
+                          any_tg, ts<AND_tg, nkr::generic::negatable_tg, nkr::generic::number_tg>>() == true);
+
+            static_assert(TR<t<nkr::negatable::real_t>,
+                          any_tg, ts<AND_tg, nkr::generic::negatable_tg, nkr::generic::number_tg>>() == true);
+            // [_898208a2_8cc9_48cb_a4b5_c7bdada49152]
+        }
+
+        TEST_CASE("constrain to just one generic")
+        {
+            // [_ea052059_b418_4201_9690_5166d46ff670]
+            static_assert(TR<t<nkr::boolean::cpp_t>,
+                          any_tg, ts<XOR_tg, nkr::generic::boolean_tg, nkr::generic::user_defined_tg>>() == true);
+
+            static_assert(TR<t<nkr::boolean::pure_t>,
+                          any_tg, ts<XOR_tg, nkr::generic::boolean_tg, nkr::generic::user_defined_tg>>() == false);
+            // [_ea052059_b418_4201_9690_5166d46ff670]
+        }
+
+        TEST_CASE("truth tables for the logical operators")
+        {
+            // [_01233b5b_1059_4d1d_a06b_50643a3f30eb]
             using true_t = nkr::positive::integer_t;
             using false_t = nkr::negatable::integer_t;
 
@@ -35,6 +75,15 @@ namespace nkr {
             static_assert(TR<ts<XOR_tg, false_t, true_t>, any_tg, t<true_t>>() == true);
             static_assert(TR<ts<XOR_tg, true_t, false_t>, any_tg, t<true_t>>() == true);
             static_assert(TR<ts<XOR_tg, true_t, true_t>, any_tg, t<true_t>>() == false);
+
+            static_assert(TR<ts<XOR_tg, false_t, false_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XOR_tg, true_t, false_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XOR_tg, false_t, true_t, false_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XOR_tg, false_t, false_t, true_t>, any_tg, t<true_t>>() == true);
+            static_assert(TR<ts<XOR_tg, true_t, true_t, false_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XOR_tg, false_t, true_t, true_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XOR_tg, true_t, false_t, true_t>, any_tg, t<true_t>>() == false);
+            static_assert(TR<ts<XOR_tg, true_t, true_t, true_t>, any_tg, t<true_t>>() == false);
 
             static_assert(TR<ts<NOR_tg, false_t, false_t>, any_tg, t<true_t>>() == true);
             static_assert(TR<ts<NOR_tg, false_t, true_t>, any_tg, t<true_t>>() == false);
@@ -59,6 +108,7 @@ namespace nkr {
             static_assert(TR<ts<XNOR_tg, false_t, true_t, true_t>, any_tg, t<true_t>>() == true);
             static_assert(TR<ts<XNOR_tg, true_t, false_t, true_t>, any_tg, t<true_t>>() == true);
             static_assert(TR<ts<XNOR_tg, true_t, true_t, true_t>, any_tg, t<true_t>>() == true);
+            // [_01233b5b_1059_4d1d_a06b_50643a3f30eb]
         }
 
         static_assert(tr<nkr::positive::integer_t, any_tg, t<nkr::positive::integer_t>>);

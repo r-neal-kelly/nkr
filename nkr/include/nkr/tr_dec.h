@@ -176,7 +176,7 @@ namespace nkr {
     template <nkr::generic::tag::logic_gate_tr operator_p, typename ...types_p>
         requires (nkr::tuple::types_t<types_p...>::Count() > 0)
     using   ts =
-        nkr::$tr::ts<operator_p, nkr::tuple::types_t<types_p...>>;
+        nkr::$tr::ts<operator_p, nkr::tuple::types_t<types_p...>>;                                                      ///< @copydoc _65d1963a_c1d4_4110_a6bb_a52a9e9150fe
 
     template <typename type_p>
     concept ts_tr =
@@ -189,7 +189,7 @@ namespace nkr {
     template <nkr::generic::tag::logic_gate_tr operator_p, template <typename ...> typename ...templates_p>
         requires (nkr::tuple::templates_t<templates_p...>::Count() > 0)
     using   tts =
-        nkr::$tr::tts<operator_p, nkr::tuple::templates_t<templates_p...>>;
+        nkr::$tr::tts<operator_p, nkr::tuple::templates_t<templates_p...>>;                                             ///< @copydoc _7d64d462_bbf9_452a_9d76_322daed0989e
 
     template <typename type_p>
     concept tts_tr =
