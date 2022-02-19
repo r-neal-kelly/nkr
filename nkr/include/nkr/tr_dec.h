@@ -171,7 +171,7 @@ namespace nkr {
 
     template <typename type_p>
     using   t =
-        nkr::$tr::ts<AND_tg, nkr::tuple::types_t<type_p>>;
+        nkr::$tr::ts<AND_tg, nkr::tuple::types_t<type_p>>;                                                              ///< @copydoc _13d670d2_5498_4b84_9648_94b1cd8f2c89
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename ...types_p>
         requires (nkr::tuple::types_t<types_p...>::Count() > 0)
@@ -184,7 +184,7 @@ namespace nkr {
 
     template <template <typename ...> typename template_p>
     using   tt =
-        nkr::$tr::tts<AND_tg, nkr::tuple::templates_t<template_p>>;
+        nkr::$tr::tts<AND_tg, nkr::tuple::templates_t<template_p>>;                                                     ///< @copydoc _24a5dd1f_5bfc_4cc2_a831_302413bf8087
 
     template <nkr::generic::tag::logic_gate_tr operator_p, template <typename ...> typename ...templates_p>
         requires (nkr::tuple::templates_t<templates_p...>::Count() > 0)

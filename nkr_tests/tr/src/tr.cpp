@@ -408,6 +408,92 @@ namespace nkr {
 }
 
 // dox examples
+TEST_CASE("grammar parts with names")
+{
+    // [_19a3f5b7_c3aa_4e86_bb68_1cfd8c306cda]
+    using namespace nkr;
+
+    static_assert(TR<
+               /* subject */
+                  t<int>,
+
+               /* operator, operand */
+                  any_tg, t<int>
+    >() == true);
+    // [_19a3f5b7_c3aa_4e86_bb68_1cfd8c306cda]
+}
+
+TEST_CASE("grammar parts without names")
+{
+    // [_008550d1_21e3_4bae_8844_b85ca680e16a]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  any_tg, t<int>
+    >() == true);
+    // [_008550d1_21e3_4bae_8844_b85ca680e16a]
+}
+
+TEST_CASE("grammar parts with no operand")
+{
+    // [_236e3aa6_fd72_446d_ad8e_10d3afce07a3]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  any_tg
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  any_tg
+    >() == true);
+    // [_236e3aa6_fd72_446d_ad8e_10d3afce07a3]
+}
+
+TEST_CASE("grammar parts with multiple operators and operands")
+{
+    // [_f06311f0_df34_4df8_af3b_4753b1c4d6b1]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int*>,
+                  any_tg, tt<nkr::pointer::cpp_t>,
+                  of_any_tg, t<int>
+    >() == true);
+    // [_f06311f0_df34_4df8_af3b_4753b1c4d6b1]
+}
+
+TEST_CASE("grammar parts with multiple operators and operands with tag")
+{
+    // [_59ddfa80_4281_4c2c_9838_d215d7528058]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int*>,
+                  any_tg, tt<nkr::pointer::cpp_ttg>,
+                  of_any_tg, t<int>
+    >() == true);
+    // [_59ddfa80_4281_4c2c_9838_d215d7528058]
+}
+
+TEST_CASE("grammar parts with template type tag")
+{
+    // [_b0d595d6_4012_4b2b_89ac_3a861aca7af7]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int*>,
+                  any_tg, t<nkr::pointer::cpp_tg>
+    >() == true);
+
+    static_assert(TR<
+                  t<float*>,
+                  any_tg, t<nkr::pointer::cpp_tg>
+    >() == true);
+    // [_b0d595d6_4012_4b2b_89ac_3a861aca7af7]
+}
 
 TEST_CASE("constrain to more than one type")
 {
@@ -504,4 +590,19 @@ TEST_CASE("truth tables for the logical operators")
     static_assert(TR<ts<XNOR_tg, true_t, false_t, true_t>, any_tg, t<true_t>>() == true);
     static_assert(TR<ts<XNOR_tg, true_t, true_t, true_t>, any_tg, t<true_t>>() == true);
     // [_01233b5b_1059_4d1d_a06b_50643a3f30eb]
+}
+
+TEST_CASE("use multiple templates")
+{
+    // [_76decf6a_1e47_43c3_9413_4b9a895b73e3]
+    using namespace nkr;
+
+    static_assert(TR<t<nkr::positive::integer_t*>,
+                  any_tg, tts<OR_tg, nkr::pointer::cpp_ttg, nkr::array::cpp_ttg>,
+                  of_any_tg, t<nkr::positive::integer_t>>());
+
+    static_assert(TR<t<nkr::positive::integer_t[1]>,
+                  any_tg, tts<OR_tg, nkr::pointer::cpp_ttg, nkr::array::cpp_ttg>,
+                  of_any_tg, t<nkr::positive::integer_t>>());
+    // [_76decf6a_1e47_43c3_9413_4b9a895b73e3]
 }
