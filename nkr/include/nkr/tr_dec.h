@@ -252,13 +252,13 @@ namespace nkr {
     template <
         nkr::ts_tr  subjects_p,
         typename    ...expression_parts_p
-    > constexpr nkr::boolean::cpp_t TR() noexcept;
+    > constexpr nkr::boolean::cpp_t TR() noexcept;  ///< @copydoc _6dffcf53_72e8_40f7_9f3a_5b6b515aed1d
 
     template <
         typename    subject_p,
         typename    ...expression_parts_p
     > concept tr =
-        TR<t<subject_p>, expression_parts_p...>();
+        TR<t<subject_p>, expression_parts_p...>();  ///< @copydoc _fbaf0b62_578a_48b1_b4e2_43ad69c9980c
 
 }
 
