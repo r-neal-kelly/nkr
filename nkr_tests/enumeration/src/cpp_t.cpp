@@ -1,5 +1,5 @@
 /*
-    Copyright 2021 r-neal-kelly
+    Copyright 2022 r-neal-kelly
 */
 
 #pragma warning (disable : 26812)

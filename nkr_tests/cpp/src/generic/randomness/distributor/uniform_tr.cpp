@@ -1,5 +1,5 @@
 /*
-    Copyright 2021 r-neal-kelly
+    Copyright 2022 r-neal-kelly
 */
 
 #include "nkr/cpp/randomness/distributor/uniform/integer_t.h"

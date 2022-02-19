@@ -1,5 +1,5 @@
 /*
-    Copyright 2021 r-neal-kelly
+    Copyright 2022 r-neal-kelly
 */
 
 #define nkr_JUST_NON_QUALIFIED  \

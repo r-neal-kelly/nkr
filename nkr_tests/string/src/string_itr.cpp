@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright 2021 r-neal-kelly
+    Copyright 2022 r-neal-kelly
 */
 
 #include "nkr/z_intrinsics.h"
