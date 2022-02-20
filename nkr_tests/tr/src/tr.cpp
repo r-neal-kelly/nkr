@@ -407,8 +407,8 @@ namespace nkr {
 
 }
 
-// dox examples
-TEST_CASE("grammar parts with names")
+// Examples: nkr::TR
+TEST_CASE("")
 {
     // [_19a3f5b7_c3aa_4e86_bb68_1cfd8c306cda]
     using namespace nkr;
@@ -423,7 +423,7 @@ TEST_CASE("grammar parts with names")
     // [_19a3f5b7_c3aa_4e86_bb68_1cfd8c306cda]
 }
 
-TEST_CASE("grammar parts without names")
+TEST_CASE("")
 {
     // [_008550d1_21e3_4bae_8844_b85ca680e16a]
     using namespace nkr;
@@ -435,7 +435,7 @@ TEST_CASE("grammar parts without names")
     // [_008550d1_21e3_4bae_8844_b85ca680e16a]
 }
 
-TEST_CASE("grammar parts with no operand")
+TEST_CASE("")
 {
     // [_236e3aa6_fd72_446d_ad8e_10d3afce07a3]
     using namespace nkr;
@@ -452,7 +452,73 @@ TEST_CASE("grammar parts with no operand")
     // [_236e3aa6_fd72_446d_ad8e_10d3afce07a3]
 }
 
-TEST_CASE("grammar parts with multiple operators and operands")
+TEST_CASE("")
+{
+    // [_6d5532ca_8399_4a97_9e58_60e7bf7f7eb2]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  any_const_tg
+    >() == false);
+
+    static_assert(TR<
+                  t<const int>,
+                  any_const_tg
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  any_const_tg
+    >() == false);
+
+    static_assert(TR<
+                  t<const float>,
+                  any_const_tg
+    >() == true);
+    // [_6d5532ca_8399_4a97_9e58_60e7bf7f7eb2]
+}
+
+TEST_CASE("")
+{
+    // [_655eeb36_08b4_4a4c_bd0c_e36f89db9736]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  any_const_tg, t<int>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int>,
+                  any_const_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  any_const_tg, t<float>
+    >() == false);
+
+    static_assert(TR<
+                  t<const float>,
+                  any_const_tg, t<float>
+    >() == true);
+    // [_655eeb36_08b4_4a4c_bd0c_e36f89db9736]
+}
+
+TEST_CASE("")
+{
+    // [_371738b1_f8c5_4ebf_b8e4_a7bd23e4ab44]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int*>,
+                  any_tg, t<nkr::pointer::cpp_t<int>>
+    >() == true);
+    // [_371738b1_f8c5_4ebf_b8e4_a7bd23e4ab44]
+}
+
+TEST_CASE("")
 {
     // [_f06311f0_df34_4df8_af3b_4753b1c4d6b1]
     using namespace nkr;
@@ -465,7 +531,7 @@ TEST_CASE("grammar parts with multiple operators and operands")
     // [_f06311f0_df34_4df8_af3b_4753b1c4d6b1]
 }
 
-TEST_CASE("grammar parts with multiple operators and operands with tag")
+TEST_CASE("")
 {
     // [_59ddfa80_4281_4c2c_9838_d215d7528058]
     using namespace nkr;
@@ -478,7 +544,7 @@ TEST_CASE("grammar parts with multiple operators and operands with tag")
     // [_59ddfa80_4281_4c2c_9838_d215d7528058]
 }
 
-TEST_CASE("grammar parts with template type tag")
+TEST_CASE("")
 {
     // [_b0d595d6_4012_4b2b_89ac_3a861aca7af7]
     using namespace nkr;
@@ -495,7 +561,37 @@ TEST_CASE("grammar parts with template type tag")
     // [_b0d595d6_4012_4b2b_89ac_3a861aca7af7]
 }
 
-TEST_CASE("constrain to more than one type")
+TEST_CASE("")
+{
+    // [_15b00d3d_2838_4308_a2ce_77071393e5d5]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int****>,
+                  any_tg, tt<nkr::pointer::cpp_t>,
+                  of_any_tg, tt<nkr::pointer::cpp_t>,
+                  of_any_tg, tt<nkr::pointer::cpp_t>,
+                  of_any_tg, tt<nkr::pointer::cpp_t>,
+                  of_any_tg, t<int>
+    >() == true);
+    // [_15b00d3d_2838_4308_a2ce_77071393e5d5]
+}
+
+TEST_CASE("")
+{
+    // [_1374a6bc_a3e9_4663_90d7_45bf338a9077]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<const int* volatile&>,
+                  any_tg, tt<nkr::reference::lvalue_t>,
+                  of_any_non_const_tg, tt<nkr::pointer::cpp_t>,
+                  of_any_tg, t<int>
+    >() == true);
+    // [_1374a6bc_a3e9_4663_90d7_45bf338a9077]
+}
+
+TEST_CASE("")
 {
     // [_2e80ad9f_7fa0_4d4f_ba2c_7f56d92659d3]
     using namespace nkr;
@@ -508,7 +604,7 @@ TEST_CASE("constrain to more than one type")
     // [_2e80ad9f_7fa0_4d4f_ba2c_7f56d92659d3]
 }
 
-TEST_CASE("constrain to more than one generic")
+TEST_CASE("")
 {
     // [_898208a2_8cc9_48cb_a4b5_c7bdada49152]
     using namespace nkr;
@@ -521,7 +617,7 @@ TEST_CASE("constrain to more than one generic")
     // [_898208a2_8cc9_48cb_a4b5_c7bdada49152]
 }
 
-TEST_CASE("constrain to just one generic")
+TEST_CASE("")
 {
     // [_ea052059_b418_4201_9690_5166d46ff670]
     using namespace nkr;
@@ -534,7 +630,7 @@ TEST_CASE("constrain to just one generic")
     // [_ea052059_b418_4201_9690_5166d46ff670]
 }
 
-TEST_CASE("truth tables for the logical operators")
+TEST_CASE("")
 {
     // [_01233b5b_1059_4d1d_a06b_50643a3f30eb]
     using namespace nkr;
@@ -592,7 +688,7 @@ TEST_CASE("truth tables for the logical operators")
     // [_01233b5b_1059_4d1d_a06b_50643a3f30eb]
 }
 
-TEST_CASE("use multiple templates")
+TEST_CASE("")
 {
     // [_76decf6a_1e47_43c3_9413_4b9a895b73e3]
     using namespace nkr;

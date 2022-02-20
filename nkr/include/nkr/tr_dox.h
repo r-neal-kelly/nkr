@@ -54,29 +54,50 @@
 * @par Purpose
 *   The primary rationale for the existence of this function is to prevent the need of defining and redefining the same concepts over and over again with only minor variations. It keeps the focus on your static tests, and more importantly when using nkr::tr, it keeps the focus on the signature of your types and functions, and what kind of types are acceptable inputs for their parameters.
 *
-* @par Grammar Parts
+* @par Grammatical Parts
 *   A full nkr::TR expression is made of two component parts, the `subject`, and an arbitrary number of `operators` paired with an `operand`:
 *   @snippet "./tr/src/tr.cpp" _19a3f5b7_c3aa_4e86_bb68_1cfd8c306cda
-*   In the above example we statically asserted that `int` is `any` `int`. Again, but without the comments:
+*   In the above example we statically asserted that `int` is `any` `int`. This time without comments:
 *   @snippet "./tr/src/tr.cpp" _008550d1_21e3_4bae_8844_b85ca680e16a
-*   It is possible to use just a `subject` and an `operator`. In the following example we are asserting the subject is `any` subject:
+
+* @par Implicit Operands
+*   It is possible to use just a `subject` and an `operator` without use of an `operand`. This trivial example will always return true because `any` `subject` will always be `any` `subject`:
 *   @snippet "./tr/src/tr.cpp" _236e3aa6_fd72_446d_ad8e_10d3afce07a3
-*   And it is also possible to use templates when working with multiple pairs of `operators` and `operands`. Here we are asserting that `int*` is `any` nkr::pointer::cpp_t `of any` `int`. This will result in `true` because nkr::pointer::cpp_t<int> is an alias for `int*`:
-*   @snippet "./tr/src/tr.cpp" _f06311f0_df34_4df8_af3b_4753b1c4d6b1
-*   Alternatively, we can use a `tg`, that is a `tag` of nkr::pointer::cpp_t to achieve the same result:
-*   @snippet "./tr/src/tr.cpp" _59ddfa80_4281_4c2c_9838_d215d7528058
-*   Like nkr::pointer::cpp_t whose `tag` is used in the above example, many templates provide the means to test any type directly belonging to it, regardless of the subject's actual `inner type`. Below we are simply asserting that the subject is `any` nkr::pointer::cpp_t:
-*   @snippet "./tr/src/tr.cpp" _b0d595d6_4012_4b2b_89ac_3a861aca7af7
-*   Note the use of the `ttg` postfix to constrain a template of an explicit type and the `tg` postifx to constrain a template of any type, both modifying `nkr:pointer::cpp`. These two `tags` nkr::pointer::cpp_tg and nkr::pointer::cpp_ttg are `identities` of nkr::pointer::cpp_t, respectively the `type indentity tag` and the `template identity tag`. Suffice it to say these grammatical artifices provide the ability to semantically alter an nkr::TR expression as we have shown above.
 *
 * @par Qualification Operators
+*   Implicit operands become critical for operators besides `any_tg`. Sometimes it is desireable to constrain a subject to qualification regardless of type:
+*   @snippet "./tr/src/tr.cpp" _6d5532ca_8399_4a97_9e58_60e7bf7f7eb2
+*   More commonly it is desirable to constrain to qualification and the type:
+*   @snippet "./tr/src/tr.cpp" _655eeb36_08b4_4a4c_bd0c_e36f89db9736
+*
+* @par Template Operands
+*   It is also possible to use templates. Here we simply constrain to an instantiated nkr::pointer::cpp_t, which will result in `true` because nkr::pointer::cpp_t<int> is an alias of `int*`:
+*   @snippet "./tr/src/tr.cpp" _371738b1_f8c5_4ebf_b8e4_a7bd23e4ab44
+*   Often it is useful to separate the template from its `inner type` which would be `int` in this case. This allows for more flexible expressions that make use of more than just the `any_tg` operator. Here we are asserting the same as above, that `int*` is `any` nkr::pointer::cpp_t `of any` `int`:
+*   @snippet "./tr/src/tr.cpp" _f06311f0_df34_4df8_af3b_4753b1c4d6b1
+*
+* @par Tag Operands
+*   Alternatively we can use a `ttg`, that is a `template tag` of nkr::pointer::cpp_t to achieve the same result:
+*   @snippet "./tr/src/tr.cpp" _59ddfa80_4281_4c2c_9838_d215d7528058
+*   The use of `tags` can bring even more flexibility to an expression. For example, most templates provide a `tag` to test if a type is instantiated from it, regardless of the subject's actual `inner type`. Below we simply assert that the `subject` needs to be instantiated from `any` nkr::pointer::cpp_t by use of its `tg` or `type tag`:
+*   @snippet "./tr/src/tr.cpp" _b0d595d6_4012_4b2b_89ac_3a861aca7af7
+*   Note the symetrical use of `tt` with `ttg` to constrain a `template tag` and `t` with `tg` to constrain a `type tag`.
+*
+* @par Type Wrappers and Template Wrappers
+*   Types are wrapped with nkr::t or nkr::ts, that is `type` or `types` respectively. This syntactical feature differentiates between using a singluar type or multiple types in a subject or operand. It also differentiates between using types or templates as an operand. To use templates as an operand you would use nkr::tt or nkr::tts, that is 'template type' or 'template types' respectively. It is necessary to wrap the templates this way for the sake of arbitrary length expressions, which cannot be made up of both types and templates but only one or the other.
+*
+* @par Generic Operands
+*   `Tags` become absolutely critical when we start to introduce `generics` into our expressions.
 *
 * @par Arbitrary Length
+*   Arbitrary length expressions allow for the constraint of templates of templates of templates, ..., of templates of types. Here we have an intentionally complex example:
+*   @snippet "./tr/src/tr.cpp" _15b00d3d_2838_4308_a2ce_77071393e5d5
+*   However it is possible to find real-world examples of two or even three operands in use with an nkr::TR expression throughout the library, with various templates and types coming into play. A classic C++ example would be an lvalue reference to a pointer which one might pass to a function for initialization:
+*   @snippet "./tr/src/tr.cpp" _1374a6bc_a3e9_4663_90d7_45bf338a9077
+*   In this case our function would not care what the pointer is pointing to, or that its `inner type` is `const`. It only cares that it is a reference to a pointer that is `non_const`, else it wouldn't be able to set it. It doesn't actualy care if the pointer is `volatile` or not because its functionality remains the same in that event.
 *
-* @par Wrapping Types and Templates
-*   You will have noticed that types are wrapped with nkr::t or nkr::ts, that is `type` or `types` respectively. This syntactical feature differentiates between using a singluar type or multiple types in a subject or operand. It also differentiates between using types or templates as an operand. To use templates as an operand you would use nkr::tt or nkr::tts, that is 'template type' or 'template types' respectively.
-* @par
-*   It is necessary to wrap the templates into a type for the sake of arbitrary length expressions, which cannot be made up of both types and templates but only one or the other.
+* @par Target Operand
+*   Finally, because the subject of nkr::TR must always be a type and not a template, so too must the last operand be a type and not a template, even if that type is a `type tag` representing a template.
 *
 * @par Using Multiple Types as an Operand
 *   Naturally there are times when using more than one type as a single operand in an nkr::TR expression is desirable. Sometimes one may wish to constrain to several operands parenthetically, to be evaluated by a logical operator. That's where nkr::ts comes in.
