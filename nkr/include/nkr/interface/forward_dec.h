@@ -44,7 +44,7 @@ namespace nkr { namespace interface {
 namespace nkr { namespace interface {
 
     template <typename type_p>
-    class   type_i;
+    class   type_i_sp;
 
 }}
 

@@ -29,31 +29,60 @@ namespace nkr { namespace boolean {
 
 }}
 
-namespace nkr { namespace interface {
-
-    template <>
-    class type_i<nkr::boolean::pure_tg>
-    {
-    public:
-        using type_t    = nkr::boolean::pure_tg;
-        using of_t      = nkr::none::type_t;
-
-    public:
-        template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr type_i(...) noexcept  = delete;
-    };
+namespace nkr { namespace boolean { namespace $pure_t {
 
     template <nkr::boolean::pure_tr type_p>
-    class type_i<type_p> :
-        public type_i<nkr::boolean::pure_tg>
+    class type_i_type_sp
     {
     public:
         using type_t    = type_p;
         using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::boolean::pure_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::boolean::pure_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::boolean::$pure_t::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::boolean::pure_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::boolean::$pure_t::type_i_tag_sp<type_p>;
     };
 
 }}

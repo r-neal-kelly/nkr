@@ -41,31 +41,60 @@ namespace nkr { namespace concurrency {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace concurrency { namespace $lockee_t {
 
-    template <>
-    class type_i<nkr::concurrency::lockee_tg>
+    template <nkr::concurrency::lockee_tr type_p>
+    class type_i_type_sp
     {
     public:
-        using type_t    = nkr::concurrency::lockee_tg;
+        using type_t    = type_p;
+        using of_t      = type_t::value_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::concurrency::lockee_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
         using of_t      = nkr::none::type_t;
 
     public:
         template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
 
     public:
         template <typename ...>
-        constexpr type_i(...) noexcept  = delete;
+        constexpr type_i_tag_sp(...) noexcept   = delete;
     };
 
+}}}
+
+namespace nkr { namespace interface {
+
     template <nkr::concurrency::lockee_tr type_p>
-    class type_i<type_p> :
-        public type_i<nkr::concurrency::lockee_tg>
+    class type_i_sp<type_p>
     {
     public:
-        using type_t    = type_p;
-        using of_t      = type_p::value_t;
+        using type_t    = nkr::concurrency::$lockee_t::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::concurrency::lockee_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::concurrency::$lockee_t::type_i_tag_sp<type_p>;
     };
 
 }}
