@@ -20,15 +20,35 @@ namespace nkr { namespace negatable {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace negatable { namespace $byte_t {
 
-    template <>
-    class type_i<nkr::negatable::byte_tg> :
-        public type_i<nkr::negatable::byte_t>
+    template <nkr::cpp::is_any_tr<nkr::negatable::byte_tg> type_p>
+    class type_i_tag_sp
     {
     public:
-        using type_t    = nkr::negatable::byte_tg;
+        using type_t    = type_p;
         using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::cpp::is_any_tr<nkr::negatable::byte_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::negatable::$byte_t::type_i_tag_sp<type_p>;
     };
 
 }}
