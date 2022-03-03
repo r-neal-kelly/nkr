@@ -46,14 +46,16 @@ namespace nkr { namespace array { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace array { namespace $cpp_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::array::cpp_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::array::cpp_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::array::cpp_ttr<other_p>;
     }
 
-}}
+}}}
