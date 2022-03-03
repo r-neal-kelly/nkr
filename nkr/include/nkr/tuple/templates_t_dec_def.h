@@ -6,17 +6,45 @@
 
 #include "nkr/tuple/templates_t_dec.h"
 
-namespace nkr { namespace interface {
+namespace nkr { namespace tuple { namespace $templates_t {
 
+    template <nkr::tuple::templates_tr type_p>
     template <typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        type_i<nkr::tuple::templates_tg>::Is_Any()
+        type_i_type_sp<type_p>::Is_Any_General()
         noexcept
     {
         return nkr::tuple::templates_tr<other_p>;
     }
 
-}}
+    template <nkr::tuple::templates_tr type_p>
+    template <typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        type_i_type_sp<type_p>::Is_Any_Specific()
+        noexcept
+    {
+        return nkr::cpp::is_any_tr<other_p, type_t>;
+    }
+
+    template <nkr::cpp::is_any_tr<nkr::tuple::templates_tg> type_p>
+    template <typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        type_i_tag_sp<type_p>::Is_Any_General()
+        noexcept
+    {
+        return nkr::tuple::templates_tr<other_p>;
+    }
+
+    template <nkr::cpp::is_any_tr<nkr::tuple::templates_tg> type_p>
+    template <typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        type_i_tag_sp<type_p>::Is_Any_Specific()
+        noexcept
+    {
+        return nkr::cpp::is_any_tr<other_p, type_t>;
+    }
+
+}}}
 
 namespace nkr { namespace tuple {
 

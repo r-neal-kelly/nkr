@@ -30,31 +30,60 @@ namespace nkr { namespace reference {
 
 }}
 
-namespace nkr { namespace interface {
-
-    template <>
-    class type_i<nkr::reference::rvalue_tg>
-    {
-    public:
-        using type_t    = nkr::reference::rvalue_tg;
-        using of_t      = nkr::none::type_t;
-
-    public:
-        template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr type_i(...) noexcept  = delete;
-    };
+namespace nkr { namespace reference { namespace $rvalue_t {
 
     template <nkr::reference::rvalue_tr type_p>
-    class type_i<type_p> :
-        public type_i<nkr::reference::rvalue_tg>
+    class type_i_type_sp
     {
     public:
         using type_t    = type_p;
         using of_t      = nkr::cpp::reference_value_t<type_t>;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::reference::rvalue_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::reference::rvalue_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::cpp::concurrency::lock::perpetual::$deep_t::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::reference::rvalue_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::cpp::concurrency::lock::perpetual::$deep_t::type_i_tag_sp<type_p>;
     };
 
 }}

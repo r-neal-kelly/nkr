@@ -21,31 +21,60 @@ namespace nkr { namespace negatable {
 
 }}
 
-namespace nkr { namespace interface {
-
-    template <>
-    class type_i<nkr::negatable::integer_32_tg>
-    {
-    public:
-        using type_t    = nkr::negatable::integer_32_tg;
-        using of_t      = nkr::none::type_t;
-
-    public:
-        template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr type_i(...) noexcept  = delete;
-    };
+namespace nkr { namespace negatable { namespace $integer_32_t {
 
     template <nkr::negatable::integer_32_tr type_p>
-    class type_i<type_p> :
-        public type_i<nkr::negatable::integer_32_tg>
+    class type_i_type_sp
     {
     public:
         using type_t    = type_p;
         using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::negatable::integer_32_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::negatable::integer_32_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::negatable::$integer_32_t::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::negatable::integer_32_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::negatable::$integer_32_t::type_i_tag_sp<type_p>;
     };
 
 }}

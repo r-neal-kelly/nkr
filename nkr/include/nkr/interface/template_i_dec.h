@@ -68,31 +68,60 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
-
-    template <>
-    class type_i<nkr::interface::template_tg>
-    {
-    public:
-        using type_t    = nkr::interface::template_tg;
-        using of_t      = nkr::none::type_t;
-
-    public:
-        template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr type_i(...) noexcept  = delete;
-    };
+namespace nkr { namespace interface { namespace $template_i {
 
     template <nkr::interface::template_tr type_p>
-    class type_i<type_p> :
-        public type_i<nkr::interface::template_tg>
+    class type_i_type_sp
     {
     public:
         using type_t    = type_p;
         using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::interface::template_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::interface::template_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::interface::$template_i::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::interface::template_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::interface::$template_i::type_i_tag_sp<type_p>;
     };
 
 }}
