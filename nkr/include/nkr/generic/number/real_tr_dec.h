@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace number {
 
 }}}
 
-namespace nkr { namespace generic { namespace number {
+namespace nkr { namespace generic { namespace number { namespace $real_tr {
 
     template <nkr::cpp::is_any_tr<nkr::generic::number::real_tg> type_p>
     class type_i_tag_sp
@@ -48,7 +48,7 @@ namespace nkr { namespace generic { namespace number {
         constexpr type_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}
+}}}}
 
 namespace nkr { namespace interface {
 
@@ -61,10 +61,11 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace generic { namespace number { namespace $real_tr {
 
-    template <>
-    class template_i<nkr::generic::number::real_ttg> :
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::number::real_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
         public nkr::interface::template_i_generic_aliases_t<nkr::generic::number::real_tg>
     {
     public:
@@ -73,7 +74,19 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::number::real_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::generic::number::$real_tr::template_i_tag_sp<template_p>;
     };
 
 }}

@@ -59,13 +59,32 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace generic { namespace $array_tr {
 
-    template <>
-    class template_i<nkr::generic::array_ttg> :
-        public template_i<nkr::generic::array::any_ttg>
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::array_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
+        public nkr::interface::template_i_generic_aliases_t<nkr::generic::array_tg>
     {
     public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr template_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::array_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::generic::$array_tr::template_i_tag_sp<template_p>;
     };
 
 }}

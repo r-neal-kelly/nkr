@@ -6,7 +6,7 @@
 
 #include "nkr/generic/number/real_tr_dec.h"
 
-namespace nkr { namespace generic { namespace number {
+namespace nkr { namespace generic { namespace number { namespace $real_tr {
 
     template <nkr::cpp::is_any_tr<nkr::generic::number::real_tg> type_p>
     template <typename other_p>
@@ -26,16 +26,18 @@ namespace nkr { namespace generic { namespace number {
         return nkr::cpp::is_any_tr<other_p, type_t>;
     }
 
-}}}
+}}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace generic { namespace number { namespace $real_tr {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::number::real_ttg, nkr::none::type_t>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::generic::number::real_ttg>::Is_Any()
+        template_i_tag_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::generic::number::real_ttr<other_p>;
     }
 
-}}
+}}}}
