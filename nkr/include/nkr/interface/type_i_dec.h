@@ -25,7 +25,8 @@ namespace nkr { namespace interface { namespace $type_i {
     template <typename type_p>
     concept static_constexpr_functions_i = requires
     {
-        { type_p::template Is_Any<typename type_p::type_t>() }  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { type_p::template Is_Any_General<typename type_p::type_t>() }  -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
+        { type_p::template Is_Any_Specific<typename type_p::type_t>() } -> nkr::cpp::is_tr<nkr::boolean::cpp_t>;
     };
 
     template <typename type_p>
