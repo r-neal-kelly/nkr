@@ -46,17 +46,19 @@ namespace nkr { namespace tuple { namespace $types_t {
 
 }}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace tuple { namespace $types_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::tuple::types_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::tuple::types_ttg>::Is_Any()
+        template_i_template_sp<nkr::tuple::types_ttg>::Is_Any()
         noexcept
     {
         return nkr::tuple::types_ttr<other_p>;
     }
 
-}}
+}}}
 
 namespace nkr { namespace tuple {
 

@@ -46,14 +46,16 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
 
 }}}}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace uniform { namespace $real_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::randomness::distributor::uniform::real_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::cpp::randomness::distributor::uniform::real_ttg>::Is_Any()
+        template_i_template_sp<nkr::cpp::randomness::distributor::uniform::real_ttg>::Is_Any()
         noexcept
     {
         return nkr::cpp::randomness::distributor::uniform::real_ttr<other_p>;
     }
 
-}}
+}}}}}}

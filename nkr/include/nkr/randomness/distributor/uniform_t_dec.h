@@ -97,10 +97,11 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace randomness { namespace distributor { namespace $uniform_t {
 
-    template <>
-    class template_i<nkr::randomness::distributor::uniform_ttg>
+    template <template <typename ...> typename template_p>
+        requires nkr::randomness::distributor::uniform_ttr<template_p>
+    class template_i_template_sp
     {
     public:
         template <typename value_p>
@@ -124,15 +125,35 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_template_sp(...) noexcept  = delete;
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::randomness::distributor::uniform_ttr<template_p>
-    class template_i<template_p> :
-        public template_i<nkr::randomness::distributor::uniform_ttg>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::randomness::distributor::uniform_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
+        public template_i_template_sp<nkr::randomness::distributor::uniform_t>
     {
     public:
+    };
+
+}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::randomness::distributor::uniform_ttr<template_p>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::randomness::distributor::$uniform_t::template_i_template_sp<template_p>;
+    };
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::randomness::distributor::uniform_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::randomness::distributor::$uniform_t::template_i_tag_sp<template_p>;
     };
 
 }}

@@ -118,7 +118,7 @@ namespace nkr { namespace array { namespace $cpp_t {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_template_sp(...) noexcept  = delete;
     };
 
     template <template <typename ...> typename template_p>

@@ -58,14 +58,16 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
 }}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace interface { namespace none { namespace $value_i {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::interface::none::value_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::interface::none::value_ttg>::Is_Any()
+        template_i_template_sp<nkr::interface::none::value_ttg>::Is_Any()
         noexcept
     {
         return nkr::interface::none::value_ttr<other_p>;
     }
 
-}}
+}}}}

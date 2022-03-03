@@ -46,17 +46,19 @@ namespace nkr { namespace pointer { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace pointer { namespace $cpp_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::pointer::cpp_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::pointer::cpp_ttg>::Is_Any()
+        template_i_template_sp<nkr::pointer::cpp_ttg>::Is_Any()
         noexcept
     {
         return nkr::pointer::cpp_ttr<other_p>;
     }
 
-}}
+}}}
 
 namespace nkr { namespace pointer { namespace $cpp_t {
 

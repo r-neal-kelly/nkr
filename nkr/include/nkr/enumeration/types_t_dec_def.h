@@ -46,17 +46,19 @@ namespace nkr { namespace enumeration { namespace $types_t {
 
 }}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace enumeration { namespace $types_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::enumeration::types_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::enumeration::types_ttg>::Is_Any()
+        template_i_template_sp<nkr::enumeration::types_ttg>::Is_Any()
         noexcept
     {
         return nkr::enumeration::types_ttr<other_p>;
     }
 
-}}
+}}}
 
 namespace nkr { namespace enumeration {
 

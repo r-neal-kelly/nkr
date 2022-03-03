@@ -46,14 +46,16 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
 
 }}}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $inclusive_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::concurrency::locker::inclusive_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::cpp::concurrency::locker::inclusive_ttg>::Is_Any()
+        template_i_template_sp<nkr::cpp::concurrency::locker::inclusive_ttg>::Is_Any()
         noexcept
     {
         return nkr::cpp::concurrency::locker::inclusive_ttr<other_p>;
     }
 
-}}
+}}}}}

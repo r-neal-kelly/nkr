@@ -46,17 +46,19 @@ namespace nkr { namespace concurrency { namespace $lockee_t {
 
 }}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace concurrency { namespace $lockee_t {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::concurrency::lockee_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::concurrency::lockee_ttg>::Is_Any()
+        template_i_template_sp<nkr::concurrency::lockee_ttg>::Is_Any()
         noexcept
     {
         return nkr::concurrency::lockee_ttr<other_p>;
     }
 
-}}
+}}}
 
 namespace nkr { namespace concurrency {
 
