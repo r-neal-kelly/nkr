@@ -28,14 +28,16 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
 
 }}}}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace generic { namespace implementing { namespace interface { namespace none { namespace $value_tr {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::interface::none::value_ttg, nkr::none::type_t>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::generic::implementing::interface::none::value_ttg>::Is_Any()
+        template_i_tag_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::generic::implementing::interface::none::value_ttr<other_p>;
     }
 
-}}
+}}}}}}

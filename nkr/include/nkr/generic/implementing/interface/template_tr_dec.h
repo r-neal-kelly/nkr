@@ -20,11 +20,12 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
 
 }}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace generic { namespace implementing { namespace interface { namespace $template_tr {
 
-    template <>
-    class template_i<nkr::generic::implementing::interface::template_ttg> :
-        public nkr::interface::template_i_generic_aliases_t<nkr::none::type_t>
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::interface::template_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
+        public nkr::interface::template_i_generic_aliases_t<nkr::generic::implementing::interface::template_tg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -32,7 +33,19 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::interface::template_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::generic::implementing::interface::$template_tr::template_i_tag_sp<template_p>;
     };
 
 }}
