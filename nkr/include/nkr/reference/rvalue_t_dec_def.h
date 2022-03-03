@@ -52,7 +52,7 @@ namespace nkr { namespace reference { namespace $rvalue_t {
         requires nkr::reference::rvalue_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<nkr::reference::rvalue_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::reference::rvalue_ttr<other_p>;

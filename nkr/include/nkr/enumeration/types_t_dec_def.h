@@ -52,7 +52,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
         requires nkr::enumeration::types_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<nkr::enumeration::types_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::enumeration::types_ttr<other_p>;

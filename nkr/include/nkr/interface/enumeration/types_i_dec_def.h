@@ -80,7 +80,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
         requires nkr::interface::enumeration::types_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<nkr::interface::enumeration::types_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::interface::enumeration::types_ttr<other_p>;

@@ -52,7 +52,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<nkr::cpp::randomness::generator::software::mersenne_twister_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::cpp::randomness::generator::software::mersenne_twister_ttr<other_p>;

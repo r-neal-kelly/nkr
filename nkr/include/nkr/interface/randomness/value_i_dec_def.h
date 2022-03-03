@@ -52,7 +52,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
         requires nkr::interface::randomness::value_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<nkr::interface::randomness::value_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::interface::randomness::value_ttr<other_p>;
