@@ -37,7 +37,7 @@ namespace nkr { namespace interface { namespace randomness {
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-    class   template_i;
+    class   template_i_sp;
 
 }}
 

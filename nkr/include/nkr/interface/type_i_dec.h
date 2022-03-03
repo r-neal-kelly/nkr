@@ -39,7 +39,7 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     using   type_i =
-        type_i_sp<type_p>::type_t;
+        nkr::interface::type_i_sp<type_p>::type_t;
 
     struct  type_tg     {};
 
