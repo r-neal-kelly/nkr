@@ -27,3 +27,17 @@ namespace nkr { namespace generic { namespace built_in { namespace $number_tr {
     }
 
 }}}}
+
+namespace nkr { namespace generic { namespace built_in { namespace $number_tr {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number_ttg, nkr::none::type_t>
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_tag_sp<template_p>::Is_Any()
+        noexcept
+    {
+        return nkr::generic::built_in::number_ttr<other_p>;
+    }
+
+}}}}

@@ -187,10 +187,11 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
 
-    template <>
-    class template_i<nkr::generic::boolean::any_ttg> :
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::boolean::any_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
         public nkr::interface::template_i_generic_aliases_t<nkr::generic::boolean::any_tg>
     {
     public:
@@ -199,7 +200,19 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::boolean::any_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::generic::boolean::$any_tr::template_i_tag_sp<template_p>;
     };
 
 }}
