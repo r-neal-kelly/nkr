@@ -600,7 +600,7 @@ namespace nkr {
         template <typename other_p>
         static constexpr c_bool_t   Is_Any()
         {
-            static_assert(false, "you need to implement a type_traits_i for this type");
+            [] <bool _ = false>() { static_assert(_, "you need to implement a type_traits_i for this type"); }();
         }
     };
 
@@ -614,7 +614,7 @@ namespace nkr {
     public:
         static constexpr c_bool_t   Is_Implemented()
         {
-            static_assert(false, "you need to implement a template_traits_i for this template");
+            [] <bool _ = false>() { static_assert(_, "you need to implement a template_traits_i for this template"); }();
         }
     };
 
@@ -896,7 +896,7 @@ namespace nkr {
         else if constexpr (is_tr<operator_p, just_not_volatile_tg>)         return not_just_volatile_tr<subject_t>;
         else if constexpr (is_tr<operator_p, just_not_const_volatile_tg>)   return not_just_const_volatile_tr<subject_t>;
 
-        else                                                                static_assert(false, "undefined operator");
+        else                                                                [] <bool _ = false>() { static_assert(_, "undefined operator"); }();
     }
 
     template <

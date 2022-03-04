@@ -227,7 +227,7 @@ namespace nkr { namespace string {
                     unit_t(0),
                 };
             } else {
-                static_assert(false);
+                [] <bool _ = false>() { static_assert(_); }();
             }
 
             if constexpr (tr1<string_p, any_tg, static_tg>) {

@@ -1222,7 +1222,10 @@
     <ClInclude Include="include\nkr\z_utils_dox.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\placeholder.cpp" />
+    <ClCompile Include="src\z_allocator_heap_t.cpp" />
+    <ClCompile Include="src\z_allocator_heap_zeros_t.cpp" />
+    <ClCompile Include="src\z_pointer_t.cpp" />
+    <ClCompile Include="src\z_utils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

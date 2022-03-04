@@ -157,10 +157,10 @@ namespace nkr { namespace os { namespace atomic {
                                                         reinterpret_cast<long long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -187,7 +187,7 @@ namespace nkr { namespace os { namespace atomic {
                                                            reinterpret_cast<long long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else if constexpr (real_32_tr<atom_p>) {
             atom_p snapshot = Access(atom);
@@ -199,10 +199,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot + atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -238,7 +238,7 @@ namespace nkr { namespace os { namespace atomic {
                                                            -reinterpret_cast<long long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else if constexpr (real_32_tr<atom_p>) {
             atom_p snapshot = Access(atom);
@@ -250,10 +250,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot - atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -285,10 +285,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot * atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -311,10 +311,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot / atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -335,10 +335,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot % atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -365,10 +365,10 @@ namespace nkr { namespace os { namespace atomic {
                                                   reinterpret_cast<long long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -395,10 +395,10 @@ namespace nkr { namespace os { namespace atomic {
                                                    reinterpret_cast<long long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -425,10 +425,10 @@ namespace nkr { namespace os { namespace atomic {
                                                    reinterpret_cast<long long&>(atom_value));
             return reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -449,10 +449,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot << atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -473,10 +473,10 @@ namespace nkr { namespace os { namespace atomic {
             while (!Exchange_If_Equals(atom, snapshot, snapshot >> atom_value));
             return snapshot;
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
     }
 
@@ -516,10 +516,10 @@ namespace nkr { namespace os { namespace atomic {
                                                                reinterpret_cast<long long&>(snapshot));
             atom_result = reinterpret_cast<atom_p&>(result);
         #else
-            static_assert(false, "64 bit atomic unavailable");
+            [] <bool _ = false>() { static_assert(_, "64 bit atomic unavailable"); }();
         #endif
         } else {
-            static_assert(false, "invalid atom_p");
+            [] <bool _ = false>() { static_assert(_, "invalid atom_p"); }();
         }
 
         if (snapshot == atom_result) {

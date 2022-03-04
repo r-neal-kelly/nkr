@@ -222,7 +222,7 @@ namespace nkr { namespace randomness { namespace distributor {
                 );
             }
         } else {
-            static_assert(false);
+            [] <nkr::boolean::cpp_t _ = false>() { static_assert(_); }();
         }
     }
 

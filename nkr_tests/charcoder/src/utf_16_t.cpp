@@ -58,7 +58,7 @@ namespace nkr { namespace charcoder {
                 }
                 string.Push(charcoder_p::unit_t(0)).Ignore_Error();
             } else {
-                static_assert(false);
+                [] <bool _ = false>() { static_assert(_); }();
             }
 
             return string;
@@ -76,7 +76,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Surrogate()))).Ignore_Error();
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 } else {
                     if constexpr (has_native_endianness_tr<charcoder_p>) {
@@ -84,7 +84,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_BMP_Scalar()))).Ignore_Error();
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 }
             }
@@ -528,7 +528,7 @@ namespace nkr { namespace charcoder {
                             index -= 1;
                         }
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
 
                     utf_p utf;
@@ -555,7 +555,7 @@ namespace nkr { namespace charcoder {
                             index -= 1;
                         }
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
 
                     utf_p utf;
@@ -602,7 +602,7 @@ namespace nkr { namespace charcoder {
                             index += 1;
                         }
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
 
                     utf_p utf;
@@ -627,7 +627,7 @@ namespace nkr { namespace charcoder {
                             index += 1;
                         }
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
 
                     utf_p utf;
@@ -770,7 +770,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<utf_p>) {
                         CHECK(utf[0] == os::endian::Swap(utf_p::unit_t(random)));
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 }
 
@@ -789,7 +789,7 @@ namespace nkr { namespace charcoder {
                         CHECK(utf_32_t::Is_Surrogate_High(os::endian::Swap(utf[0])));
                         CHECK(utf_32_t::Is_Surrogate_Low(os::endian::Swap(utf[1])));
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 }
             }

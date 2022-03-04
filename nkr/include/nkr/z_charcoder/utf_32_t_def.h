@@ -570,7 +570,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Is_Well_Formed_Swapped();
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -582,7 +582,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Encode_Swapped(point);
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -594,7 +594,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Decode_Swapped();
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -606,7 +606,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Read_Forward_Swapped(from);
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -618,7 +618,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Read_Reverse_Swapped(from, first);
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -703,7 +703,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Is_Well_Formed_Normal();
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -715,7 +715,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Encode_Normal(point);
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -727,7 +727,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Decode_Normal();
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -739,7 +739,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Read_Forward_Normal(from);
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 
@@ -751,7 +751,7 @@ namespace nkr { namespace charcoder {
         } else if constexpr (os::endian::Is_Little()) {
             return self.Read_Reverse_Normal(from, first);
         } else {
-            static_assert(false);
+            [] <bool _ = false>() { static_assert(_); }();
         }
     }
 

@@ -1065,19 +1065,19 @@ namespace nkr {
             if constexpr (can_equal_to_tr<decltype(a.Units()), decltype(b)>) {
                 return a.Units() == b;
             } else {
-                static_assert(false, "these two values can not be equal to each other.");
+                [] <bool _ = false>() { static_assert(_, "these two values can not be equal to each other."); }();
             }
         } else if constexpr (tr1<b_t, any_tg, pointer_tg>) {
             if constexpr (can_equal_to_tr<decltype(a.Units()), decltype(b.Units())>) {
                 return a.Units() == b.Units() && a.Unit_Count() == b.Unit_Count();
             } else {
-                static_assert(false, "these two values can not be equal to each other.");
+                [] <bool _ = false>() { static_assert(_, "these two values can not be equal to each other."); }();
             }
         } else {
             if constexpr (can_equal_to_tr<decltype(a.Units()), decltype(b)>) {
                 return a.Units() == b;
             } else {
-                static_assert(false, "these two values can not be equal to each other.");
+                [] <bool _ = false>() { static_assert(_, "these two values can not be equal to each other."); }();
             }
         }
     }

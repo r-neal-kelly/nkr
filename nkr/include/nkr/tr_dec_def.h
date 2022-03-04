@@ -307,7 +307,7 @@ namespace nkr { namespace $tr {
         else if constexpr (nkr::cpp::is_tr<operator_p, just_not_volatile_tg>)       return !nkr::cpp::just_volatile_tr<subject_t>;
         else if constexpr (nkr::cpp::is_tr<operator_p, just_not_const_volatile_tg>) return !nkr::cpp::just_const_volatile_tr<subject_t>;
 
-        else                                                                        static_assert(false, "Undefined or invalid operator.");
+        else                                                                        [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Undefined or invalid operator."); }();
     }
 
     template <
@@ -498,7 +498,7 @@ namespace nkr { namespace $tr {
                             }
                         }
                     } else {
-                        static_assert(false);
+                        [] <nkr::boolean::cpp_t _ = false>() { static_assert(_); }();
                     }
                 }
             }
@@ -561,7 +561,7 @@ namespace nkr { namespace $tr {
                         }
                     }
                 } else {
-                    static_assert(false);
+                    [] <nkr::boolean::cpp_t _ = false>() { static_assert(_); }();
                 }
             }
         }

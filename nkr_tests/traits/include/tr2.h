@@ -15,25 +15,25 @@ namespace nkr { namespace traits {
         template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
         static void_t constexpr Is()
         {
-            static_assert(false, "missing specialization for this tag");
+            [] <bool _ = false>() { static_assert(_, "missing specialization for this tag"); }();
         }
 
         template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
         static void_t constexpr Is_Opposite()
         {
-            static_assert(false, "missing specialization for this tag");
+            [] <bool _ = false>() { static_assert(_, "missing specialization for this tag"); }();
         }
 
         template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
         static void_t constexpr Not_Is()
         {
-            static_assert(false, "missing specialization for this tag");
+            [] <bool _ = false>() { static_assert(_, "missing specialization for this tag"); }();
         }
 
         template <typename subject_p, template <typename ...> typename template_p, typename of_tag_p, typename of_p>
         static void_t constexpr Not_Is_Opposite()
         {
-            static_assert(false, "missing specialization for this tag");
+            [] <bool _ = false>() { static_assert(_, "missing specialization for this tag"); }();
         }
     };
 

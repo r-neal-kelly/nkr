@@ -89,7 +89,7 @@ namespace nkr { namespace math {
             result |= result >> 64;
         }
         if constexpr (bit_count > 128) {
-            static_assert(false, "unimplemented type");
+            [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "unimplemented type"); }();
         }
         result += 1;
         result += (result == 0);

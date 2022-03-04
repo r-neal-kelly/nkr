@@ -46,7 +46,7 @@ namespace nkr { namespace charcoder {
                 }
                 string.Push(charcoder_p::unit_t(0)).Ignore_Error();
             } else {
-                static_assert(false);
+                [] <bool _ = false>() { static_assert(_); }();
             }
 
             return string;
@@ -65,7 +65,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Scalar()))).Ignore_Error();
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 } else if (random == 1) {
                     if constexpr (has_native_endianness_tr<charcoder_p>) {
@@ -73,7 +73,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Surrogate()))).Ignore_Error();
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 } else if (random == 2) {
                     if constexpr (has_native_endianness_tr<charcoder_p>) {
@@ -81,7 +81,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<charcoder_p>) {
                         string.Push(os::endian::Swap(charcoder_p::unit_t(Random_Non_Point()))).Ignore_Error();
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 } else {
                     nkr_ASSERT_THAT(false);
@@ -649,7 +649,7 @@ namespace nkr { namespace charcoder {
                     } else if constexpr (has_non_native_endianness_tr<utf_p>) {
                         CHECK(utf[0] == os::endian::Swap(utf_p::unit_t(random)));
                     } else {
-                        static_assert(false);
+                        [] <bool _ = false>() { static_assert(_); }();
                     }
                 }
             }
