@@ -61,10 +61,11 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace $unary_tr {
 
-    template <>
-    class template_i<nkr::cpp::generic::concurrency::lock::unary_ttg> :
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::unary_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
         public nkr::interface::template_i_generic_aliases_t<nkr::cpp::generic::concurrency::lock::unary_tg>
     {
     public:
@@ -73,7 +74,19 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::unary_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::cpp::generic::concurrency::lock::$unary_tr::template_i_tag_sp<template_p>;
     };
 
 }}

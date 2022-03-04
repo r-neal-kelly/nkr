@@ -26,16 +26,18 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness { names
         return nkr::cpp::is_any_tr<other_p, type_t>;
     }
 
-}}}}}}
+}}}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace cpp { namespace generic { namespace randomness { namespace $generator_tr {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::generator_ttg, nkr::none::type_t>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::cpp::generic::randomness::generator_ttg>::Is_Any()
+        template_i_tag_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::cpp::generic::randomness::generator_ttr<other_p>;
     }
 
-}}
+}}}}}

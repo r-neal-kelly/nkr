@@ -28,14 +28,16 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
 
 }}}}}}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace $wide_tr {
 
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::wide_ttg, nkr::none::type_t>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i<nkr::cpp::generic::concurrency::lock::wide_ttg>::Is_Any()
+        template_i_tag_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::cpp::generic::concurrency::lock::wide_ttr<other_p>;
     }
 
-}}
+}}}}}}
