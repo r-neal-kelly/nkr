@@ -9,6 +9,7 @@
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/none/type_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface { namespace $type_i {
@@ -218,7 +219,7 @@ namespace nkr { namespace interface { namespace $type_i {
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::interface::type_ttg, nkr::none::type_t>
     class template_i_tag_sp :
-        public template_i_template_sp<nkr::interface::type_t>
+        public template_i_template_sp<nkr::interface::type_i>
     {
     public:
     };

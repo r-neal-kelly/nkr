@@ -55,9 +55,18 @@ namespace nkr { namespace interface {
     template <template <typename ...> typename template_p>
     class   template_i_sp;
 
-    template <template <typename ...> typename template_p>
+    /*template <template <typename ...> typename template_p>
     using   template_i =
-        nkr::interface::template_i_sp<template_p>::type_t;
+        nkr::interface::template_i_sp<template_p>::type_t;*/
+
+    // for whatever reason, the using version does not allow nkr::interface::$template_i::is_tmpl.
+    // for right now the inheritance version is okay because all data is static on the class
+    template <template <typename ...> typename template_p>
+    class template_i :
+        public nkr::interface::template_i_sp<template_p>::type_t
+    {
+    public:
+    };
 
 }}
 

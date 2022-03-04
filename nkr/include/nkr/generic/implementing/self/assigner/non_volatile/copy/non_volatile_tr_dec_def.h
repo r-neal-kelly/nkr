@@ -7,7 +7,7 @@
 #include "nkr/generic/implementing/self/assigner/non_volatile/copy/non_volatile_tr_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace $non_volatile_tr {
+namespace non_volatile { namespace copy { namespace $non_volatile_tr {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::assigner::non_volatile::copy::non_volatile_tg> type_p>
     template <typename other_p>
@@ -27,10 +27,10 @@ namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace
         return nkr::cpp::is_any_tr<other_p, type_t>;
     }
 
-}}}}}}}}}
+}}}}}}}}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace $non_volatile_tr {
+namespace non_volatile { namespace copy { namespace $non_volatile_tr {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::copy::non_volatile_ttg, nkr::none::type_t>
@@ -42,4 +42,4 @@ namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace
         return nkr::generic::implementing::self::assigner::non_volatile::copy::non_volatile_ttr<other_p>;
     }
 
-}}}}}}}}}
+}}}}}}}}

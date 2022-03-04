@@ -44,7 +44,7 @@ namespace non_volatile { namespace copy {
 }}}}}}}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace $non_volatile_tr {
+namespace non_volatile { namespace copy { namespace $non_volatile_tr {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::assigner::non_volatile::copy::non_volatile_tg> type_p>
     class type_i_tag_sp
@@ -64,7 +64,7 @@ namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace
         constexpr type_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}}}}}}}
+}}}}}}}}
 
 namespace nkr { namespace interface {
 
@@ -78,7 +78,7 @@ namespace nkr { namespace interface {
 }}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace $non_volatile_tr {
+namespace non_volatile { namespace copy { namespace $non_volatile_tr {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::copy::non_volatile_ttg, nkr::none::type_t>
@@ -94,7 +94,7 @@ namespace non_volatile { namespace copy { namespace $non_volatile_tr { namespace
         constexpr template_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}}}}}}}
+}}}}}}}}
 
 namespace nkr { namespace interface {
 

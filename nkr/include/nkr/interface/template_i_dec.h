@@ -20,7 +20,7 @@ namespace nkr { namespace interface { namespace $template_i {
     };
 
     template <template <typename ...> typename template_p>
-    class is_tmpl<template_i<template_p>> :
+    class is_tmpl<nkr::interface::template_i<template_p>> :
         public nkr::constant::boolean::cpp_t<true>
     {
     public:

@@ -153,7 +153,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::interface::randomness::value_ttg, nkr::none::type_t>
     class template_i_tag_sp :
-        public template_i_template_sp<nkr::interface::randomness::value_t>
+        public template_i_template_sp<nkr::interface::randomness::value_i>
     {
     public:
     };

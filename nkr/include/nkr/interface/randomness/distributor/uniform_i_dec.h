@@ -203,7 +203,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::interface::randomness::distributor::uniform_ttg, nkr::none::type_t>
     class template_i_tag_sp :
-        public template_i_template_sp<nkr::interface::randomness::distributor::uniform_t>
+        public template_i_template_sp<nkr::interface::randomness::distributor::uniform_i>
     {
     public:
     };

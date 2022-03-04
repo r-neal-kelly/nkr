@@ -25,7 +25,7 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::interface::template_ttg, nkr::none::type_t>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::implementing::interface::template_tg>
+        public nkr::interface::template_i_generic_aliases_t<nkr::none::type_t>
     {
     public:
         template <template <typename ...> typename other_p>

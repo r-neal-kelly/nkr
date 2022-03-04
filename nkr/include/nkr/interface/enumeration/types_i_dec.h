@@ -200,7 +200,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::interface::enumeration::types_ttg, nkr::none::type_t>
     class template_i_tag_sp :
-        public template_i_template_sp<nkr::interface::enumeration::types_t>
+        public template_i_template_sp<nkr::interface::enumeration::types_i>
     {
     public:
     };
