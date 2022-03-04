@@ -37,10 +37,6 @@ namespace nkr { namespace interface { namespace $type_i {
 
 namespace nkr { namespace interface {
 
-    template <typename type_p>
-    using   type_i =
-        nkr::interface::type_i_sp<type_p>::type_t;
-
     struct  type_tg     {};
 
     template <typename>
@@ -188,10 +184,11 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface {
+namespace nkr { namespace interface { namespace $type_i {
 
-    template <>
-    class template_i<nkr::interface::type_ttg>
+    template <template <typename ...> typename template_p>
+        requires nkr::interface::type_ttr<template_p>
+    class template_i_template_sp
     {
     public:
         template <typename type_p>
@@ -215,15 +212,35 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i(...) noexcept  = delete;
+        constexpr template_i_template_sp(...) noexcept  = delete;
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::interface::type_ttr<template_p>
-    class template_i<template_p> :
-        public template_i<nkr::interface::type_ttg>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::interface::type_ttg, nkr::none::type_t>
+    class template_i_tag_sp :
+        public template_i_template_sp<nkr::interface::type_t>
     {
     public:
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::interface::type_ttr<template_p>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::interface::$type_i::template_i_template_sp<template_p>;
+    };
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::interface::type_ttg, nkr::none::type_t>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::interface::$type_i::template_i_tag_sp<template_p>;
     };
 
 }}

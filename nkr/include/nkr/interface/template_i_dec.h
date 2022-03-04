@@ -51,10 +51,6 @@ namespace nkr { namespace interface { namespace $template_i {
 
 namespace nkr { namespace interface {
 
-    template <template <typename ...> typename template_p>
-    using   template_i =
-        nkr::interface::template_i_sp<template_p>::type_t;
-
     struct  template_tg     {};
 
     template <template <typename ...> typename>

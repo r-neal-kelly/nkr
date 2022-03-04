@@ -93,10 +93,6 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor {
 
-    template <typename type_p>
-    using   uniform_i =
-        uniform_i_sp<type_p>::type_t;
-
     struct  uniform_tg  {};
 
     template <typename>

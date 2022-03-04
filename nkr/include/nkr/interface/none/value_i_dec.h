@@ -66,10 +66,6 @@ namespace nkr { namespace interface { namespace none {
 
 namespace nkr { namespace interface { namespace none {
 
-    template <typename type_p>
-    using   value_i =
-        value_i_sp<type_p>::type_t;
-
     struct  value_tg    {};
 
     template <typename>

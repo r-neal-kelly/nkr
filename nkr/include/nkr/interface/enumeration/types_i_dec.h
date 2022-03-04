@@ -90,10 +90,6 @@ namespace nkr { namespace interface { namespace enumeration {
 
 namespace nkr { namespace interface { namespace enumeration {
 
-    template <typename type_p>
-    using   types_i =
-        types_i_sp<type_p>::type_t;
-
     struct  types_tg    {};
 
     template <typename>

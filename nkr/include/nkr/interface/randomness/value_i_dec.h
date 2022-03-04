@@ -43,10 +43,6 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness {
 
-    template <typename type_p>
-    using   value_i =
-        value_i_sp<type_p>::type_t;
-
     struct  value_tg    {};
 
     template <typename>
