@@ -42,7 +42,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 }}}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_tr {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
 
     template <nkr::interface::randomness::distributor::uniform_tr type_p>
     template <typename other_p>
@@ -82,7 +82,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 }}}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_tr {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::randomness::distributor::uniform_ttr<template_p>

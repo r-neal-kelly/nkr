@@ -52,7 +52,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
         requires nkr::cpp::concurrency::locker::inclusive_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<nkr::cpp::concurrency::locker::inclusive_ttg>::Is_Any()
+        template_i_template_sp<template_p>::Is_Any()
         noexcept
     {
         return nkr::cpp::concurrency::locker::inclusive_ttr<other_p>;

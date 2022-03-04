@@ -90,31 +90,6 @@ namespace nkr {
         }
     };
 
-    namespace interface {
-
-        template <nkr::cpp::is_any_tr<non_none_default_t> type_p>
-        class type_i<type_p>
-        {
-        public:
-            using type_t    = type_p;
-            using of_t      = type_t::value_t;
-
-        public:
-            template <typename other_p>
-            static constexpr nkr::boolean::cpp_t
-                Is_Any()
-                noexcept
-            {
-                return nkr::cpp::is_any_tr<other_p, non_none_default_t>;
-            }
-
-        public:
-            template <typename ...>
-            constexpr type_i(...) noexcept  = delete;
-        };
-
-    }
-
     template <nkr::cpp::is_any_tr<non_none_default_t> type_p>
     class non_none_default_t_none_value_i_sp
     {

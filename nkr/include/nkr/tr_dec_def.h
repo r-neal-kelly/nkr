@@ -86,7 +86,7 @@ namespace nkr { namespace $tr {
     public:
         template <typename other_p>
         static constexpr nkr::boolean::cpp_t
-            Is_Any()
+            Is_Any_General()
             noexcept
         {
             return nkr::cpp::is_any_tr<other_p, type_t>;
@@ -324,7 +324,7 @@ namespace nkr { namespace $tr {
         using subject_t = subject_p;
         using object_t = operand_p;
 
-        if constexpr (type_i<object_t>::template Is_Any<nkr::cpp::just_non_qualified_t<subject_t>>()) {
+        if constexpr (type_i<object_t>::template Is_Any_General<nkr::cpp::just_non_qualified_t<subject_t>>()) {
             if constexpr (nkr::cpp::is_tr<operator_p, just_tg>) {
                 return nkr::cpp::is_tr<object_t, nkr::cpp::same_qualification_as_t<object_t, subject_p>>;
             } else if constexpr (nkr::cpp::is_tr<operator_p, just_not_tg>) {

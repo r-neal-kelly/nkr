@@ -76,14 +76,14 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::lock::perpetual::$deep_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::reference::$rvalue_t::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::reference::rvalue_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::lock::perpetual::$deep_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::reference::$rvalue_t::type_i_tag_sp<type_p>;
     };
 
 }}
