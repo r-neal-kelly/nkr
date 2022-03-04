@@ -1221,6 +1221,9 @@
     <ClInclude Include="include\nkr\z_utils_def.h" />
     <ClInclude Include="include\nkr\z_utils_dox.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\placeholder.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
