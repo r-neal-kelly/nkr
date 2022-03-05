@@ -37,7 +37,8 @@ const child_process = require("child_process");
     return "_" + uuid.replace(/-/g, "_").replace(/[\n\r]/g, "");
 }
 
-(/*void_t*/ async function Main() {
+(/*void_t*/ async function Main()
+{
     const [has_npm, ] = await Execute_Child_Process(`npm -v`);
     if (has_npm) {
         const [has_uuid, uuid_or_error] = await Execute_Child_Process(`uuid`);
