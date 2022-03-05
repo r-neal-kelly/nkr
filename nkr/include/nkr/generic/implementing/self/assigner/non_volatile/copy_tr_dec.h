@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner { namespace non_volatile {
 
-    struct  copy_tg     { class tag_lb; class generic; };
+    struct  copy_tg     { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  copy_ttg    {};

@@ -12,7 +12,7 @@
 
 namespace nkr { namespace cpp { namespace generic { namespace randomness {
 
-    struct  distributor_tg  { class tag_lb; class generic; };
+    struct  distributor_tg  { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  distributor_ttg {};

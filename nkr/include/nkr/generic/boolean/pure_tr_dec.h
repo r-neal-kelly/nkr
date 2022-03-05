@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace boolean {
 
-    struct  pure_tg     { class tag_lb; class generic; };
+    struct  pure_tg     { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  pure_ttg    {};

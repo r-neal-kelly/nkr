@@ -12,7 +12,7 @@
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 
-    struct  unary_tg    { class tag_lb; class generic; };
+    struct  unary_tg    { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  unary_ttg   {};

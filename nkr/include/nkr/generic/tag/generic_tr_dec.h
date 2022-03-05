@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace tag {
 
-    struct  generic_tg  { class tag_lb; class generic; };
+    struct  generic_tg  { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  generic_ttg {};
@@ -20,7 +20,7 @@ namespace nkr { namespace generic { namespace tag {
     template <typename type_p>
     concept generic_tr =
         nkr::generic::tag_tr<type_p> &&
-        (requires { typename type_p::generic; });
+        (requires { typename type_p::generic_lb; });
 
     template <template <typename ...> typename template_p>
     concept generic_ttr =

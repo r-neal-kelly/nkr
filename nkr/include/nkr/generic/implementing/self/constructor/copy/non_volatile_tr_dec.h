@@ -28,7 +28,7 @@ namespace copy { namespace $non_volatile_tr {
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor {
 namespace copy {
 
-    struct  non_volatile_tg     { class tag_lb; class generic; };
+    struct  non_volatile_tg     { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  non_volatile_ttg    {};

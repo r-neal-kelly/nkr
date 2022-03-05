@@ -10,67 +10,67 @@ namespace nkr { namespace $tr {
 
     template <typename type_p>
     concept operator_tr =
-        (requires { typename type_p::operator_; });
+        (requires { typename type_p::operator_lb; });
 
     template <typename type_p>
     concept any_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::any; });
+        (requires { typename type_p::any_lb; });
 
     template <typename type_p>
     concept just_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::just; });
+        (requires { typename type_p::just_lb; });
 
     template <typename type_p>
     concept not_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::not_; });
+        (requires { typename type_p::not_lb; });
 
     template <typename type_p>
     concept of_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::of; });
+        (requires { typename type_p::of_lb; });
 
     template <typename type_p>
     concept to_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::to; });
+        (requires { typename type_p::to_lb; });
 
     template <typename type_p>
     concept access_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::access; });
+        (requires { typename type_p::access_lb; });
 
     template <typename type_p>
     concept OR_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::OR; });
+        (requires { typename type_p::OR_lb; });
 
     template <typename type_p>
     concept AND_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::AND; });
+        (requires { typename type_p::AND_lb; });
 
     template <typename type_p>
     concept XOR_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::XOR; });
+        (requires { typename type_p::XOR_lb; });
 
     template <typename type_p>
     concept NOR_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::NOR; });
+        (requires { typename type_p::NOR_lb; });
 
     template <typename type_p>
     concept NAND_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::NAND; });
+        (requires { typename type_p::NAND_lb; });
 
     template <typename type_p>
     concept XNOR_operator_tr =
         operator_tr<type_p> &&
-        (requires { typename type_p::XNOR; });
+        (requires { typename type_p::XNOR_lb; });
 
 }}
 

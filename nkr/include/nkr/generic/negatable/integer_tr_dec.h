@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace negatable {
 
-    struct  integer_tg  { class tag_lb; class generic; };
+    struct  integer_tg  { class tag_lb; class generic_lb; };
 
     template <typename>
     struct  integer_ttg {};
