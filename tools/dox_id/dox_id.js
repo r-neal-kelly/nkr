@@ -2,9 +2,9 @@
 
 const child_process = require("child_process");
 
-/*tuple_t[boolean_t did_succeed, string_t result]*/ async function Execute_Child_Process(/*string_t*/ command, /*object_t*/ options)
+/* tuple_t[boolean_t, string_t] */ async function Execute_Child_Process(/* string_t */ command, /* object_t */ options)
 {
-    return new Promise(function (Resolve, Reject) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
         child_process.exec(command, options, function (error, stdout, stderr) {
             if (error) {
                 Resolve([false, stderr]);
@@ -15,15 +15,15 @@ const child_process = require("child_process");
     });
 }
 
-/*void_t*/ async function Write_To_Clipboard(/*string_t*/ string)
+/* void_t */ async function Write_To_Clipboard(/* string_t */ string)
 {
-    return new Promise(function (Resolve, Reject) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
         // We need powershell for the copy to clipboard command.
         // This technique is safe because JavaScript is single threaded.
         // However, the switch back to cmd is necessary because NodeJS doesn't work well with powershell generally.
         // But make sure it's switched back right after making the shell because doing it out of sync may lead to unexpected results.
         process.env.ComSpec = `C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`;
-        shell = child_process.spawn(`Write-Output`, [`"${string}"`, `|`, `Set-Clipboard`], { shell: true });
+        /* object_t */ shell = child_process.spawn(`Write-Output`, [`"${string}"`, `|`, `Set-Clipboard`], { shell: true });
         process.env.ComSpec = `C:\\Windows\\System32\\cmd.exe`;
 
         shell.on(`close`, function () {
@@ -32,12 +32,12 @@ const child_process = require("child_process");
     });
 }
 
-/*string_t formatted_uuid*/ function Formatted_UUID(/*string_t*/ uuid)
+/* string_t */ function Formatted_UUID(/* string_t */ uuid)
 {
     return "_" + uuid.replace(/-/g, "_").replace(/[\n\r]/g, "");
 }
 
-(/*void_t*/ async function Main()
+(/* void_t */ async function Main()
 {
     const [has_npm, ] = await Execute_Child_Process(`npm -v`);
     if (has_npm) {

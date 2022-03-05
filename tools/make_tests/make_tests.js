@@ -9,12 +9,12 @@ const /* string_t */ test_file_prefix   = `run_tests`;
 
 /* string_t[] */ async function Test_Suite_Names()
 {
-    return new Promise(function (/* function_t */ resolve, /* function_t */ reject) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
         fs.readdir(nkr_tests_dir, function (/* error_t */ error, /* string_t[] */ files) {
             if (error) {
-                reject(error);
+                Reject(error);
             } else {
-                resolve(files);
+                Resolve(files);
             }
         });
     });
@@ -22,12 +22,12 @@ const /* string_t */ test_file_prefix   = `run_tests`;
 
 /* void_t */ async function Make_Test_File(/* string_t */ file_name, /* string_t */ data)
 {
-    return new Promise(function (/* function_t */ resolve, /* function_t */ reject) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
         fs.writeFile(`${tools_dir}/${file_name}`, data, function (/* error_t */ error) {
             if (error) {
-                reject(error);
+                Reject(error);
             } else {
-                resolve();
+                Resolve();
             }
         });
     });
