@@ -12,7 +12,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  real_64_tg  { class tag; };
+    struct  real_64_tg  { class tag_lb; };
 
     template <typename type_p>
     concept real_64_tr =

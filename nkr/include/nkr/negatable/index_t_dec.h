@@ -11,7 +11,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  index_tg    { class tag; };
+    struct  index_tg    { class tag_lb; };
 
     template <typename type_p>
     concept index_tr =

@@ -35,7 +35,7 @@ namespace nkr { namespace enumeration {
         nkr::constant_of_tr<$types_t::integer_t<value_p>>               none_p      = $types_t::default_none_t<value_p>
     > class types_t;
 
-    struct  types_tg    { class tag; };
+    struct  types_tg    { class tag_lb; };
 
     template <typename>
     struct  types_ttg   {};

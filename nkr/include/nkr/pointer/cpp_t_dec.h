@@ -17,7 +17,7 @@ namespace nkr { namespace pointer {
     using   cpp_t =
         type_p*;
 
-    struct  cpp_tg  { class tag; };
+    struct  cpp_tg  { class tag_lb; };
 
     template <typename>
     struct  cpp_ttg {};

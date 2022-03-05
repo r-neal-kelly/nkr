@@ -13,7 +13,7 @@ namespace nkr { namespace cpp { namespace concurrency {
     using   thread_t =
         std::jthread;
 
-    struct  thread_tg   { class tag; };
+    struct  thread_tg   { class tag_lb; };
 
     template <typename type_p>
     concept thread_tr =

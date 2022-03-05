@@ -10,7 +10,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data {
 
-    struct  min_tg  { class tag; class generic; };
+    struct  min_tg  { class tag_lb; class generic; };
 
     template <typename>
     struct  min_ttg {};

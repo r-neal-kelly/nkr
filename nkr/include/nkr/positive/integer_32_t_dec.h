@@ -12,7 +12,7 @@
 
 namespace nkr { namespace positive {
 
-    struct  integer_32_tg   { class tag; };
+    struct  integer_32_tg   { class tag_lb; };
 
     template <typename type_p>
     concept integer_32_tr =

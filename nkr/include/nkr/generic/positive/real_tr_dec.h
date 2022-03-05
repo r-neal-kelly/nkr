@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace positive {
 
-    struct  real_tg     { class tag; class generic; };
+    struct  real_tg     { class tag_lb; class generic; };
 
     template <typename>
     struct  real_ttg    {};

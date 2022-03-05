@@ -93,7 +93,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor {
 
-    struct  uniform_tg  { class tag; };
+    struct  uniform_tg  { class tag_lb; };
 
     template <typename>
     struct  uniform_ttg {};

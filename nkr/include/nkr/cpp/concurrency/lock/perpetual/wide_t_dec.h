@@ -13,7 +13,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespa
     using   wide_t =
         std::shared_mutex;
 
-    struct  wide_tg { class tag; };
+    struct  wide_tg { class tag_lb; };
 
     template <typename type_p>
     concept wide_tr =

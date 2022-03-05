@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner { namespace volatile_ {
 
-    struct  copy_tg     { class tag; class generic; };
+    struct  copy_tg     { class tag_lb; class generic; };
 
     template <typename>
     struct  copy_ttg    {};

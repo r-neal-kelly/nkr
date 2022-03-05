@@ -51,7 +51,7 @@ namespace nkr { namespace interface { namespace $template_i {
 
 namespace nkr { namespace interface {
 
-    struct  template_tg     { class tag; };
+    struct  template_tg     { class tag_lb; };
 
     template <template <typename ...> typename>
     struct  template_tttg   {};

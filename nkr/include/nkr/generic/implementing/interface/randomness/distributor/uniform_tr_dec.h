@@ -11,7 +11,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace interface { namespace randomness { namespace distributor {
 
-    struct  uniform_tg  { class tag; class generic; };
+    struct  uniform_tg  { class tag_lb; class generic; };
 
     template <typename>
     struct  uniform_ttg {};

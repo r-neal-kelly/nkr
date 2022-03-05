@@ -13,7 +13,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespa
     using   unary_t =
         std::mutex;
 
-    struct  unary_tg    { class tag; };
+    struct  unary_tg    { class tag_lb; };
 
     template <typename type_p>
     concept unary_tr =

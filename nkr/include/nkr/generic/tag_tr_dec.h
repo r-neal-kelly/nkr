@@ -11,14 +11,14 @@
 
 namespace nkr { namespace generic {
 
-    struct  tag_tg  { class tag; class generic; };
+    struct  tag_tg  { class tag_lb; class generic; };
 
     template <typename>
     struct  tag_ttg {};
 
     template <typename type_p>
     concept tag_tr =
-        (requires { typename type_p::tag; });
+        (requires { typename type_p::tag_lb; });
 
     template <template <typename ...> typename template_p>
     concept tag_ttr =

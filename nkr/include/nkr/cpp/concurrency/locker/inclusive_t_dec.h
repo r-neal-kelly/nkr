@@ -17,7 +17,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker {
     using   inclusive_t =
         std::shared_lock<lock_p>;
 
-    struct  inclusive_tg    { class tag; };
+    struct  inclusive_tg    { class tag_lb; };
 
     template <typename>
     struct  inclusive_ttg   {};

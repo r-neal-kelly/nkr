@@ -90,7 +90,7 @@ namespace nkr { namespace interface { namespace enumeration {
 
 namespace nkr { namespace interface { namespace enumeration {
 
-    struct  types_tg    { class tag; };
+    struct  types_tg    { class tag_lb; };
 
     template <typename>
     struct  types_ttg   {};

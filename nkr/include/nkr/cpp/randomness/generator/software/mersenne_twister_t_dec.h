@@ -60,7 +60,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         f_p::Value()
     >;
 
-    struct  mersenne_twister_tg     { class tag; };
+    struct  mersenne_twister_tg     { class tag_lb; };
 
     template <typename>
     struct  mersenne_twister_ttg    {};

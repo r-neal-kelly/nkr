@@ -15,7 +15,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
     using   integer_t =
         std::uniform_int_distribution<integer_p>;
 
-    struct  integer_tg  { class tag; };
+    struct  integer_tg  { class tag_lb; };
 
     template <typename>
     struct  integer_ttg {};

@@ -11,7 +11,7 @@
 
 namespace nkr { namespace positive {
 
-    struct  byte_tg { class tag; };
+    struct  byte_tg { class tag_lb; };
 
     template <typename type_p>
     concept byte_tr =

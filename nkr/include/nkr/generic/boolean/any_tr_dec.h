@@ -136,7 +136,7 @@ namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
 
 namespace nkr { namespace generic { namespace boolean {
 
-    struct  any_tg  { class tag; class generic; };
+    struct  any_tg  { class tag_lb; class generic; };
 
     template <typename>
     struct  any_ttg {};

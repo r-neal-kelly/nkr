@@ -21,7 +21,7 @@ namespace nkr { namespace boolean {
 
     class   pure_t;
 
-    struct  pure_tg { class tag; };
+    struct  pure_tg { class tag_lb; };
 
     template <typename type_p>
     concept pure_tr =

@@ -11,7 +11,7 @@
 
 namespace nkr { namespace positive {
 
-    struct  size_tg { class tag; };
+    struct  size_tg { class tag_lb; };
 
     template <typename type_p>
     concept size_tr =

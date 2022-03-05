@@ -17,7 +17,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker {
     using   exclusive_t =
         std::unique_lock<lock_p>;
 
-    struct  exclusive_tg    { class tag; };
+    struct  exclusive_tg    { class tag_lb; };
 
     template <typename>
     struct  exclusive_ttg   {};

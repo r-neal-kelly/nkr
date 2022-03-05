@@ -22,7 +22,7 @@ namespace nkr { namespace generic { namespace implementing { namespace construct
 
 namespace nkr { namespace generic { namespace implementing { namespace constructor {
 
-    struct  default_tg  { class tag; class generic; };
+    struct  default_tg  { class tag_lb; class generic; };
 
     template <typename>
     struct  default_ttg {};

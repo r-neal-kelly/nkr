@@ -24,7 +24,7 @@ namespace nkr { namespace randomness { namespace distributor {
     template <typename value_p>
     class   uniform_t;
 
-    struct  uniform_tg  { class tag; };
+    struct  uniform_tg  { class tag_lb; };
 
     template <typename>
     struct  uniform_ttg {};

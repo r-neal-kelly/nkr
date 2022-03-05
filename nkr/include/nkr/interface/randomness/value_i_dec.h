@@ -43,7 +43,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 namespace nkr { namespace interface { namespace randomness {
 
-    struct  value_tg    { class tag; };
+    struct  value_tg    { class tag_lb; };
 
     template <typename>
     struct  value_ttg   {};

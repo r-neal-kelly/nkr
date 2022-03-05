@@ -12,7 +12,7 @@
 
 namespace nkr { namespace boolean {
 
-    struct  cpp_tg  { class tag; };
+    struct  cpp_tg  { class tag_lb; };
 
     template <typename type_p>
     concept cpp_tr =

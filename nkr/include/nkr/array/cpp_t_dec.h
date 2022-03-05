@@ -17,7 +17,7 @@ namespace nkr { namespace array {
     using   cpp_t =
         type_p[capacity_p::Value()];
 
-    struct  cpp_tg  { class tag; };
+    struct  cpp_tg  { class tag_lb; };
 
     template <typename>
     struct  cpp_ttg {};
