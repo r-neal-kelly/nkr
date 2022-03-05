@@ -10,67 +10,67 @@ namespace nkr { namespace $tr {
 
     template <typename type_p>
     concept operator_tr =
-        (requires { typename type_p::operator_t; });
+        (requires { typename type_p::operator_; });
 
     template <typename type_p>
     concept any_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::any_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::any; });
 
     template <typename type_p>
     concept just_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::just_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::just; });
 
     template <typename type_p>
     concept not_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::not_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::not_; });
 
     template <typename type_p>
     concept of_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::of_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::of; });
 
     template <typename type_p>
     concept to_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::to_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::to; });
 
     template <typename type_p>
     concept access_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::access_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::access; });
 
     template <typename type_p>
     concept OR_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::OR_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::OR; });
 
     template <typename type_p>
     concept AND_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::AND_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::AND; });
 
     template <typename type_p>
     concept XOR_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::XOR_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::XOR; });
 
     template <typename type_p>
     concept NOR_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::NOR_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::NOR; });
 
     template <typename type_p>
     concept NAND_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::NAND_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::NAND; });
 
     template <typename type_p>
     concept XNOR_operator_tr =
-        (requires { typename type_p::operator_t; }) &&
-        (requires { typename type_p::XNOR_t; });
+        operator_tr<type_p> &&
+        (requires { typename type_p::XNOR; });
 
 }}
 
