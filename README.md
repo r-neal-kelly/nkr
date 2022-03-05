@@ -1,7 +1,7 @@
 # nkr
 A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
 
-### Why Use nkr?
+## Why Use nkr?
 Hindsight is always 20/20. The stalwart standard C++ library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design by providing:
 - **well-rounded and easy to use types**
   - strings natively handle Unicode and are easily extended
@@ -43,7 +43,7 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
   - all of the above come together in an expressive, dynamic, and compile-time filtering language which cuts down on the need for one-time-use concepts. It covers frequently used operations, such as identification by trait, functionality by interface, comparison of the primary inner type of a template, and whether a type can be cast into another.
   - the operators used in the filter are grammatically close to English and can express any qualification or combination thereof, helping to consistently cut down on the need for frequent overload definitions in the most versatile of types. Its shorthand reusability makes for a cleaner and easier to read API.
 
-### Goals
+## Goals
 - **a smart and thorough set of test suites**
   - 100% coverage is the goal
   - this library better a.) compile and b.) pass all tests in 10 years, or I will consider it a failure on this point.
@@ -53,28 +53,28 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
 
 [Go to the (still in the works) documentation](https://r-neal-kelly.github.io/nkr_docs)
 
-### Building
+## Building
 Currently the only supported platform is Windows.
 
 Please keep in mind that until the library stabilizes, there may be breaking changes if you use it in your code. It is still in the pre-alpha phase and has not yet had an official release. The first official release will occur once we have the regex engine designed, implemented, tested, and documented.
 
-#### For Windows
-This library currently has no other code dependencies, and is thus extremely straightforward to build with.
+### For Windows
+This library currently has no other code dependencies, and is thus extremely straightforward to build with. The details below are only for **Visual Studio** users. If you are using a different compiler or the MSVC compiler in a different IDE or perhaps even using it directly, you already know what you're doing.
 
-##### Requirements
+#### Requirements
 - Visual Studio 2022 (unless you are willing to backport all the project files)
 
-##### Steps
+#### Steps
 1. This is a static library, so include the `nkr.vcxproj` in your own solution. Do *not* use the `nkr.sln` file to build your own projects.
 2. With the `Solution Explorer` tab open, right click on the nkr project and select `Build`. This is header library, but there are a few `.cpp` files that it comes with.
 3. Include whatever header files you need in your own code, and you should be good to start using the library in your own code.
 4. Only if necessary, make adjustments to either your own project files or the nkr project file to make sure everything compiles nicely together. Generally you should not need to change the nkr project file.
 
-##### Requirements for Test-Suites
+#### Requirements for Test-Suites
 - Visual Studio 2022
 - Node.js to generate the .ps1 scripts
 
-##### Steps for Test-Suites
+#### Steps for Test-Suites
 1. Double-click the `nkr.sln` file to load it into Visual Studio
 2. Click the `Solution Explorer` tab located near the top-left of the screen
 3. Right click on the top item listed in the explorer called `Solution 'nkr'`
@@ -83,5 +83,5 @@ This library currently has no other code dependencies, and is thus extremely str
 6. Double-click the file called `make_tests.ps1`, which will generate several more `.ps1` files in the same directory.
 7. If you built just the current target architecture in Visual Studio, double-click the corresponding `.ps1` file that was just generated, or else if you batch built all architectures, then double-click the `run_tests_all.ps1` file.
 
-### Status
+## Status
 I'm currently moving all the existent types to a new traits system and I'm taking this opportunity to update each type to address issues the original design may have had. For example, the enumeration types now accept more than just signed integers and have reasonable defaults set up for each kind of integer. All of the old files have the prefix 'z_' to indicate that they are the old implementation. Doing this kind of major overhaul allows us to sync everything to a new and improved traits system. That means removal of any of the very old-style macro trait definitions which turned out to lead to slow compilation times and hence the need for the second iteration of the traits system. We are now on our third and so far, it's looking like a real keeper!
