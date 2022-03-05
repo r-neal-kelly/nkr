@@ -10,6 +10,7 @@
 #include "nkr/constant/positive/index_t_dec.h"
 #include "nkr/generic/implementing/interface/template_tr_dec.h"
 #include "nkr/generic/implementing/interface/type_tr_dec.h"
+#include "nkr/generic/tag_tr_dec.h"
 #include "nkr/generic/tag/logic_gate_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/tuple/templates_t_dec.h"
@@ -120,12 +121,12 @@ namespace nkr {
 
 namespace nkr {
 
-    struct  OR_tg   { class operator_t; class logic_gate_t; class OR_t; };
-    struct  AND_tg  { class operator_t; class logic_gate_t; class AND_t; };
-    struct  XOR_tg  { class operator_t; class logic_gate_t; class XOR_t; };
-    struct  NOR_tg  { class operator_t; class logic_gate_t; class NOR_t; };
-    struct  NAND_tg { class operator_t; class logic_gate_t; class NAND_t; };
-    struct  XNOR_tg { class operator_t; class logic_gate_t; class XNOR_t; };
+    struct  OR_tg   { class tag; class operator_t; class logic_gate; class OR_t; };
+    struct  AND_tg  { class tag; class operator_t; class logic_gate; class AND_t; };
+    struct  XOR_tg  { class tag; class operator_t; class logic_gate; class XOR_t; };
+    struct  NOR_tg  { class tag; class operator_t; class logic_gate; class NOR_t; };
+    struct  NAND_tg { class tag; class operator_t; class logic_gate; class NAND_t; };
+    struct  XNOR_tg { class tag; class operator_t; class logic_gate; class XNOR_t; };
 
 }
 

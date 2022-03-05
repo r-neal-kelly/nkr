@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace type { namespace self {
 
-    struct  non_copyable_non_moveable_tg    {};
+    struct  non_copyable_non_moveable_tg    { class tag; };
 
     template <typename>
     struct  non_copyable_non_moveable_ttg   {};

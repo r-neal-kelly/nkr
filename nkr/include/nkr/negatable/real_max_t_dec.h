@@ -12,7 +12,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  real_max_tg {};
+    struct  real_max_tg { class tag; };
 
     template <typename type_p>
     concept real_max_tr =

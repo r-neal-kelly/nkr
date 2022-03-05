@@ -10,6 +10,7 @@
 #include "nkr/constant/positive/index_t_def.h"
 #include "nkr/generic/implementing/interface/template_tr_def.h"
 #include "nkr/generic/implementing/interface/type_tr_def.h"
+#include "nkr/generic/tag_tr_def.h"
 #include "nkr/generic/tag/logic_gate_tr_def.h"
 #include "nkr/interface/forward_def.h"
 #include "nkr/tuple/templates_t_def.h"

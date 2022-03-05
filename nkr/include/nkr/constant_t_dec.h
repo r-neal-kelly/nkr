@@ -13,7 +13,7 @@ namespace nkr {
     template <nkr::generic::type_tr type_p, type_p value_p>
     class   constant_t;
 
-    struct  constant_tg     {};
+    struct  constant_tg     { class tag; };
 
     template <typename>
     struct  constant_ttg    {};

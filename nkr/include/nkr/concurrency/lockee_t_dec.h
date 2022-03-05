@@ -26,7 +26,7 @@ namespace nkr { namespace concurrency {
     template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
     class   lockee_t;
 
-    struct  lockee_tg   {};
+    struct  lockee_tg   { class tag; };
 
     template <typename>
     struct  lockee_ttg  {};

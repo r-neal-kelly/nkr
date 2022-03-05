@@ -27,7 +27,7 @@ namespace non_volatile { namespace move { namespace $non_volatile_tr {
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
 namespace non_volatile { namespace move {
 
-    struct  non_volatile_tg     {};
+    struct  non_volatile_tg     { class tag; };
 
     template <typename>
     struct  non_volatile_ttg    {};

@@ -6,19 +6,21 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/generic/tag_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
 namespace nkr { namespace generic { namespace tag {
 
-    struct  logic_gate_tg   {};
+    struct  logic_gate_tg   { class tag; };
 
     template <typename>
     struct  logic_gate_ttg  {};
 
     template <typename type_p>
     concept logic_gate_tr =
-        (requires { typename type_p::logic_gate_t; });
+        nkr::generic::tag_tr<type_p> &&
+        (requires { typename type_p::logic_gate; });
 
     template <template <typename ...> typename template_p>
     concept logic_gate_ttr =

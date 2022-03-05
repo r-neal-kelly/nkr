@@ -13,7 +13,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator {
     using   hardware_t =
         std::random_device;
 
-    struct  hardware_tg {};
+    struct  hardware_tg { class tag; };
 
     template <typename type_p>
     concept hardware_tr =

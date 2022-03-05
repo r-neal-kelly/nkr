@@ -10,7 +10,7 @@
 
 namespace nkr { namespace none {
 
-    struct  type_tg {};
+    struct  type_tg { class tag; };
 
     template <typename type_p>
     concept type_tr =

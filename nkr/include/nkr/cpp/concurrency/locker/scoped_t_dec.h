@@ -52,7 +52,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker {
     using   scoped_t =
         std::scoped_lock<locks_p...>;
 
-    struct  scoped_tg   {};
+    struct  scoped_tg   { class tag; };
 
     template <typename>
     struct  scoped_ttg  {};

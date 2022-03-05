@@ -13,7 +13,7 @@
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 
-    struct  temporal_tg     {};
+    struct  temporal_tg     { class tag; };
 
     template <typename>
     struct  temporal_ttg    {};

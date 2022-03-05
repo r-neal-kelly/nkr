@@ -15,7 +15,7 @@ namespace nkr { namespace reference {
     using   rvalue_t =
         type_p&&;
 
-    struct  rvalue_tg   {};
+    struct  rvalue_tg   { class tag; };
 
     template <typename>
     struct  rvalue_ttg  {};

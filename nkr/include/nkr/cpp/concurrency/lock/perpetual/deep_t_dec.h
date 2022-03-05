@@ -13,7 +13,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespa
     using   deep_t =
         std::recursive_mutex;
 
-    struct  deep_tg {};
+    struct  deep_tg { class tag; };
 
     template <typename type_p>
     concept deep_tr =

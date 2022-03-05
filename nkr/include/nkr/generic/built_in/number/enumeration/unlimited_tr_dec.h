@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration {
 
-    struct  unlimited_tg    {};
+    struct  unlimited_tg    { class tag; };
 
     template <typename>
     struct  unlimited_ttg   {};

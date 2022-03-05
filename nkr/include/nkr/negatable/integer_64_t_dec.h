@@ -12,7 +12,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  integer_64_tg   {};
+    struct  integer_64_tg   { class tag; };
 
     template <typename type_p>
     concept integer_64_tr =

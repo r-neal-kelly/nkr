@@ -66,7 +66,7 @@ namespace nkr { namespace interface { namespace none {
 
 namespace nkr { namespace interface { namespace none {
 
-    struct  value_tg    {};
+    struct  value_tg    { class tag; };
 
     template <typename>
     struct  value_ttg   {};

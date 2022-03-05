@@ -6,31 +6,29 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-#include "nkr/generic/negatable/any_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
-namespace nkr { namespace generic { namespace negatable {
+namespace nkr { namespace generic {
 
-    struct  real_tg     { class tag; };
+    struct  tag_tg  { class tag; };
 
     template <typename>
-    struct  real_ttg    {};
+    struct  tag_ttg {};
 
     template <typename type_p>
-    concept real_tr =
-        nkr::generic::negatable::any_tr<type_p> &&
-        nkr::cpp::real_tr<type_p>;
+    concept tag_tr =
+        (requires { typename type_p::tag; });
 
     template <template <typename ...> typename template_p>
-    concept real_ttr =
-        real_tr<typename interface::template_i<template_p>::example_t>;
+    concept tag_ttr =
+        tag_tr<typename interface::template_i<template_p>::example_t>;
 
-}}}
+}}
 
-namespace nkr { namespace generic { namespace negatable { namespace $real_tr {
+namespace nkr { namespace generic { namespace $tag_tr {
 
-    template <nkr::cpp::is_any_tr<nkr::generic::negatable::real_tg> type_p>
+    template <nkr::cpp::is_any_tr<nkr::generic::tag_tg> type_p>
     class type_i_tag_sp
     {
     public:
@@ -48,25 +46,25 @@ namespace nkr { namespace generic { namespace negatable { namespace $real_tr {
         constexpr type_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}}
+}}}
 
 namespace nkr { namespace interface {
 
-    template <nkr::cpp::is_any_tr<nkr::generic::negatable::real_tg> type_p>
+    template <nkr::cpp::is_any_tr<nkr::generic::tag_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::negatable::$real_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::$tag_tr::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace generic { namespace negatable { namespace $real_tr {
+namespace nkr { namespace generic { namespace $tag_tr {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::negatable::real_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag_ttg, nkr::none::type_t>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::negatable::real_tg>
+        public nkr::interface::template_i_generic_aliases_t<nkr::generic::tag_tg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -77,18 +75,18 @@ namespace nkr { namespace generic { namespace negatable { namespace $real_tr {
         constexpr template_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}}
+}}}
 
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::negatable::real_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag_ttg, nkr::none::type_t>
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::negatable::$real_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::$tag_tr::template_i_tag_sp<template_p>;
     };
 
 }}
 
-#include "nkr/generic/negatable/real_tr_dec_def.h"
+#include "nkr/generic/tag_tr_dec_def.h"

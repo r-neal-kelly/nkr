@@ -11,7 +11,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace interface { namespace none {
 
-    struct  value_tg    {};
+    struct  value_tg    { class tag; };
 
     template <typename>
     struct  value_ttg   {};

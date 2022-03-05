@@ -13,7 +13,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor {
     using   bernoulli_t =
         std::bernoulli_distribution;
 
-    struct  bernoulli_tg    {};
+    struct  bernoulli_tg    { class tag; };
 
     template <typename type_p>
     concept bernoulli_tr =

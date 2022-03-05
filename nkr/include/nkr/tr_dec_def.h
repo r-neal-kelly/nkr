@@ -92,6 +92,14 @@ namespace nkr { namespace $tr {
             return nkr::cpp::is_any_tr<other_p, type_t>;
         }
 
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t
+            Is_Any_Specific()
+            noexcept
+        {
+            return nkr::cpp::is_any_tr<other_p, type_t>;
+        }
+
     public:
         template <typename ...>
         constexpr type_i(...) noexcept  = delete;
@@ -271,6 +279,21 @@ namespace nkr { namespace $tr {
 namespace nkr { namespace $tr {
 
     template <
+        typename    type_p,
+        typename    other_p,
+        typename    do_specific_p   = nkr::constant::boolean::cpp_t<false>
+    > inline constexpr nkr::boolean::cpp_t
+        Is_Any()
+        noexcept
+    {
+        if constexpr (do_specific_p::Value() == true) {
+            return type_i<type_p>::template Is_Any_Specific<nkr::cpp::just_non_qualified_t<other_p>>();
+        } else {
+            return type_i<type_p>::template Is_Any_General<nkr::cpp::just_non_qualified_t<other_p>>();
+        }
+    }
+
+    template <
         typename    subject_p,
         typename    operator_p
     > inline constexpr nkr::boolean::cpp_t
@@ -313,7 +336,8 @@ namespace nkr { namespace $tr {
     template <
         typename    subject_p,
         typename    operator_p,
-        typename    operand_p
+        typename    operand_p,
+        typename    is_last_p   = nkr::constant::boolean::cpp_t<false>
     > inline constexpr nkr::boolean::cpp_t
         Evaluate_1()
         noexcept
@@ -323,8 +347,9 @@ namespace nkr { namespace $tr {
 
         using subject_t = subject_p;
         using object_t = operand_p;
+        using do_specific_t = nkr::constant::boolean::cpp_t<is_last_p::Value() && !nkr::generic::tag_tr<object_t>>;
 
-        if constexpr (type_i<object_t>::template Is_Any_General<nkr::cpp::just_non_qualified_t<subject_t>>()) {
+        if constexpr (Is_Any<object_t, subject_t, do_specific_t>()) {
             if constexpr (nkr::cpp::is_tr<operator_p, just_tg>) {
                 return nkr::cpp::is_tr<object_t, nkr::cpp::same_qualification_as_t<object_t, subject_p>>;
             } else if constexpr (nkr::cpp::is_tr<operator_p, just_not_tg>) {
@@ -371,7 +396,7 @@ namespace nkr { namespace $tr {
                     using operator_t = operators_p::head_t;
                     using object_t = objects_p::head_t;
 
-                    return Evaluate_1<subject_t, typename operator_t::non_of_tg, object_t>();
+                    return Evaluate_1<subject_t, typename operator_t::non_of_tg, object_t, nkr::constant::boolean::cpp_t<true>>();
                 }
             } else {
                 static_assert(subjects_p::Count() == operators_p::Count());

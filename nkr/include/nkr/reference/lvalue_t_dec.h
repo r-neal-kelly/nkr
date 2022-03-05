@@ -15,7 +15,7 @@ namespace nkr { namespace reference {
     using   lvalue_t =
         type_p&;
 
-    struct  lvalue_tg   {};
+    struct  lvalue_tg   { class tag; };
 
     template <typename>
     struct  lvalue_ttg  {};

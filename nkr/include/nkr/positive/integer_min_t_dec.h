@@ -14,7 +14,7 @@
 
 namespace nkr { namespace positive {
 
-    struct  integer_min_tg  {};
+    struct  integer_min_tg  { class tag; };
 
     template <typename type_p>
     concept integer_min_tr =

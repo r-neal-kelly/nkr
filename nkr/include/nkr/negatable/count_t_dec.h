@@ -11,7 +11,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  count_tg    {};
+    struct  count_tg    { class tag; };
 
     template <typename type_p>
     concept count_tr =

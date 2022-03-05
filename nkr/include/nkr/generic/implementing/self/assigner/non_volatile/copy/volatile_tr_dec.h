@@ -28,7 +28,7 @@ namespace non_volatile { namespace copy { namespace $volatile_tr {
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
 namespace non_volatile { namespace copy {
 
-    struct  volatile_tg     {};
+    struct  volatile_tg     { class tag; };
 
     template <typename>
     struct  volatile_ttg    {};

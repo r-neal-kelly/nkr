@@ -17,7 +17,7 @@ namespace nkr { namespace none {
     template <typename type_p>
     class   value_t;
 
-    struct  value_tg    {};
+    struct  value_tg    { class tag; };
 
     template <typename>
     struct  value_ttg   {};

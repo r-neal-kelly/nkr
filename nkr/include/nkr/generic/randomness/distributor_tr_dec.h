@@ -49,7 +49,7 @@ namespace nkr { namespace generic { namespace randomness { namespace $distributo
 
 namespace nkr { namespace generic { namespace randomness {
 
-    struct  distributor_tg  {};
+    struct  distributor_tg  { class tag; };
 
     template <typename>
     struct  distributor_ttg {};

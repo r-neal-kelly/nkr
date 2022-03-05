@@ -14,7 +14,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
     using   mersenne_twister_19937_64_t =
         std::mt19937_64;
 
-    struct  mersenne_twister_19937_64_tg    {};
+    struct  mersenne_twister_19937_64_tg    { class tag; };
 
     template <typename type_p>
     concept mersenne_twister_19937_64_tr =

@@ -11,7 +11,7 @@
 
 namespace nkr { namespace positive {
 
-    struct  index_tg    {};
+    struct  index_tg    { class tag; };
 
     template <typename type_p>
     concept index_tr =

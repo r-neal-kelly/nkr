@@ -12,7 +12,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  real_min_tg {};
+    struct  real_min_tg { class tag; };
 
     template <typename type_p>
     concept real_min_tr =

@@ -15,7 +15,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
     using   real_t =
         std::uniform_real_distribution<real_p>;
 
-    struct  real_tg     {};
+    struct  real_tg     { class tag; };
 
     template <typename>
     struct  real_ttg    {};

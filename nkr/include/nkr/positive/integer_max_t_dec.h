@@ -14,7 +14,7 @@
 
 namespace nkr { namespace positive {
 
-    struct  integer_max_tg  {};
+    struct  integer_max_tg  { class tag; };
 
     template <typename type_p>
     concept integer_max_tr =

@@ -27,7 +27,7 @@ namespace volatile_ { namespace move { namespace $volatile_tr {
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
 namespace volatile_ { namespace move {
 
-    struct  volatile_tg     {};
+    struct  volatile_tg     { class tag; };
 
     template <typename>
     struct  volatile_ttg    {};

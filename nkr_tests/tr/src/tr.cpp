@@ -515,6 +515,11 @@ TEST_CASE("")
                   t<int*>,
                   any_tg, t<nkr::pointer::cpp_t<int>>
     >() == true);
+
+    static_assert(TR<
+                  t<int*>,
+                  any_tg, t<nkr::pointer::cpp_t<float>>
+    >() == false);
     // [_371738b1_f8c5_4ebf_b8e4_a7bd23e4ab44]
 }
 

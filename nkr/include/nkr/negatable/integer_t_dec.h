@@ -14,7 +14,7 @@
 
 namespace nkr { namespace negatable {
 
-    struct  integer_tg  {};
+    struct  integer_tg  { class tag; };
 
     template <typename type_p>
     concept integer_tr =

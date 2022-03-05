@@ -11,7 +11,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace interface { namespace enumeration {
 
-    struct  types_tg    {};
+    struct  types_tg    { class tag; };
 
     template <typename>
     struct  types_ttg   {};

@@ -11,7 +11,7 @@
 
 namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration {
 
-    struct  any_tg  {};
+    struct  any_tg  { class tag; };
 
     template <typename>
     struct  any_ttg {};

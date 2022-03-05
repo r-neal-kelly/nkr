@@ -20,7 +20,7 @@
 
 namespace nkr { namespace enumeration {
 
-    struct  cpp_tg  {};
+    struct  cpp_tg  { class tag; };
 
     template <typename type_p>
     concept cpp_tr =

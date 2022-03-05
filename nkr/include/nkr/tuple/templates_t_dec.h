@@ -27,7 +27,7 @@ namespace nkr { namespace tuple {
     template <template <typename ...> typename ...templates_p>
     class   templates_t;
 
-    struct  templates_tg    {};
+    struct  templates_tg    { class tag; };
 
     template <template <typename ...> typename>
     struct  templates_tttg  {};
