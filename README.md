@@ -54,9 +54,34 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
 [Go to the (still in the works) documentation](https://r-neal-kelly.github.io/nkr_docs)
 
 ### Building
-This library currently has no other code requirements, and is thus extremely straightforward to build on Windows, currently the only supported platform. However, you will need a Visual Studio 2022 instance to build unless you are willing to go through the trouble of backporting all of the library's project files. To build the tests, simply batch build all of the solution's projects and use the PowerShell script called 'make_tests.ps1' in the tools folder to automatically generate a set of scripts that you can use to execute all of the test suites.
+Currently the only supported platform is Windows.
 
-Please keep in mind that until the library stabilizes, there may be breaking changes to consumer's code because it is still in the pre-alpha phase and has not yet had an official release. The first official release will probably occur once we have the regex engine designed, implemented, tested, and documented.
+Please keep in mind that until the library stabilizes, there may be breaking changes if you use it in your code. It is still in the pre-alpha phase and has not yet had an official release. The first official release will occur once we have the regex engine designed, implemented, tested, and documented.
+
+#### For Windows
+This library currently has no other code dependencies, and is thus extremely straightforward to build with.
+
+##### Requirements
+- Visual Studio 2022 (unless you are willing to backport all the project files)
+
+##### Steps
+1. This is a static library, so include the `nkr.vcxproj` in your own solution. Do *not* use the `nkr.sln` file to build your own projects.
+2. With the `Solution Explorer` tab open, right click on the nkr project and select `Build`. This is header library, but there are a few `.cpp` files that it comes with.
+3. Include whatever header files you need in your own code, and you should be good to start using the library in your own code.
+4. Only if necessary, make adjustments to either your own project files or the nkr project file to make sure everything compiles nicely together. Generally you should not need to change the nkr project file.
+
+##### Requirements for Test-Suites
+- Visual Studio 2022
+- Node.js to generate the .ps1 scripts
+
+##### Steps for Test-Suites
+1. Double-click the `nkr.sln` file to load it into Visual Studio
+2. Click the `Solution Explorer` tab located near the top-left of the screen
+3. Right click on the top item listed in the explorer called `Solution 'nkr'`
+4. If you wish to build just the current target architecture click `Rebuild Solution`. Else click on `Batch Build`, `Select All` in the prompt, and finally `Rebuild` in the same prompt.
+5. After the build process is complete, navigate to the `./tools` directory found in the top directory of the nkr repository.
+6. Double-click the file called `make_tests.ps1`, which will generate several more `.ps1` files in the same directory.
+7. If you built just the current target architecture in Visual Studio, double-click the corresponding `.ps1` file that was just generated, or else if you batch built all architectures, then double-click the `run_tests_all.ps1` file.
 
 ### Status
 I'm currently moving all the existent types to a new traits system and I'm taking this opportunity to update each type to address issues the original design may have had. For example, the enumeration types now accept more than just signed integers and have reasonable defaults set up for each kind of integer. All of the old files have the prefix 'z_' to indicate that they are the old implementation. Doing this kind of major overhaul allows us to sync everything to a new and improved traits system. That means removal of any of the very old-style macro trait definitions which turned out to lead to slow compilation times and hence the need for the second iteration of the traits system. We are now on our third and so far, it's looking like a real keeper!
