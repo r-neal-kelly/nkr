@@ -12,3 +12,5 @@
 /nkr_tests/*/x64
 /Win32
 /x64
+
+/tools/run_tests_*.ps1
