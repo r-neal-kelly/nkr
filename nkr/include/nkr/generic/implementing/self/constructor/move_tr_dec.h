@@ -12,7 +12,7 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor {
 
-    struct  move_tg     { class tag; };
+    struct  move_tg     { class tag; class generic; };
 
     template <typename>
     struct  move_ttg    {};

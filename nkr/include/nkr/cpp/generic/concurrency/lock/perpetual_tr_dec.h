@@ -13,7 +13,7 @@
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 
-    struct  perpetual_tg    { class tag; };
+    struct  perpetual_tg    { class tag; class generic; };
 
     template <typename>
     struct  perpetual_ttg   {};

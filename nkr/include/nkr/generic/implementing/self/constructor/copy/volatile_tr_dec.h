@@ -28,7 +28,7 @@ namespace copy { namespace $volatile_tr {
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor {
 namespace copy {
 
-    struct  volatile_tg     { class tag; };
+    struct  volatile_tg     { class tag; class generic; };
 
     template <typename>
     struct  volatile_ttg    {};

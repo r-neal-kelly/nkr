@@ -56,7 +56,7 @@ namespace nkr { namespace generic { namespace boolean { namespace $impure_tr {
 
 namespace nkr { namespace generic { namespace boolean {
 
-    struct  impure_tg   { class tag; };
+    struct  impure_tg   { class tag; class generic; };
 
     template <typename>
     struct  impure_ttg  {};

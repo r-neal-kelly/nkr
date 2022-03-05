@@ -11,7 +11,7 @@
 
 namespace nkr { namespace generic {
 
-    struct  type_tg     { class tag; };
+    struct  type_tg     { class tag; class generic; };
 
     template <typename>
     struct  type_ttg    {};

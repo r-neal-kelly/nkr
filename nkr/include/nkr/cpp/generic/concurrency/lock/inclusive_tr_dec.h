@@ -11,7 +11,7 @@
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 
-    struct  inclusive_tg    { class tag; };
+    struct  inclusive_tg    { class tag; class generic; };
 
     template <typename>
     struct  inclusive_ttg   {};
