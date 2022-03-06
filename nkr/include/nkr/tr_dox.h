@@ -4,7 +4,7 @@
 
 #pragma once
 
-// t
+// nkr::t
 /**
 * @class _13d670d2_5498_4b84_9648_94b1cd8f2c89
 * @private
@@ -13,7 +13,7 @@
 *   A way to wrap a single type for use with an nkr::TR expression, to differentiate it from a template.
 */
 
-// ts
+// nkr::ts
 /**
 * @class _65d1963a_c1d4_4110_a6bb_a52a9e9150fe
 * @private
@@ -22,7 +22,7 @@
 *   A way to parenthesize and perform logical operations on several types in an nkr::TR expression.
 */
 
-// tt
+// nkr::tt
 /**
 * @class _24a5dd1f_5bfc_4cc2_a831_302413bf8087
 * @private
@@ -31,7 +31,7 @@
 *   A way to wrap a single template for use with an nkr::TR expression, to differentiate it from a type.
 */
 
-// tts
+// nkr::tts
 /**
 * @class _7d64d462_bbf9_452a_9d76_322daed0989e
 * @private
@@ -40,7 +40,7 @@
 *   A way to parenthesize and perform logical operations on several templates in an nkr::TR expression.
 */
 
-// TR
+// nkr::TR
 /**
 * @class _6dffcf53_72e8_40f7_9f3a_5b6b515aed1d
 * @private
@@ -147,7 +147,7 @@
 *
 */
 
-// tr
+// nkr::tr
 /**
 * @class _fbaf0b62_578a_48b1_b4e2_43ad69c9980c
 * @private
