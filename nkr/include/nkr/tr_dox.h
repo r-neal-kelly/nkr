@@ -59,16 +59,44 @@
 *   @snippet "./tr/src/tr.cpp" _19a3f5b7_c3aa_4e86_bb68_1cfd8c306cda
 *   In the above example we statically asserted that `int` is `any` `int`. This time without comments:
 *   @snippet "./tr/src/tr.cpp" _008550d1_21e3_4bae_8844_b85ca680e16a
-
+*
+* @par Type Wrappers
+*   A single type is wrapped with an nkr::t, or `type`. This syntactical addition to a nkr::TR expression allows for two powerful distinctions to occur, both of which we will learn in more detail below.
+*
 * @par Implicit Operands
-*   It is possible to use just a `subject` and an `operator` without use of an `operand`. This trivial example will always return true because `any` `subject` will always be `any` `subject`:
+*   It is possible to use just a `subject` and an `operator` without using an `operand`. This trivial example will always return `true` because `any` `subject` will always be `any` `subject`:
 *   @snippet "./tr/src/tr.cpp" _236e3aa6_fd72_446d_ad8e_10d3afce07a3
 *
-* @par Qualification Operators
-*   Implicit operands become critical for operators besides `any_tg`. Sometimes it is desireable to constrain a subject to qualification regardless of type:
+* @par Any Qualification Operators
+*   The above example may be trivial, but implicit operands become critical for operators besides `any_tg`. How else would we constrain a subject to a qualification regardless of type?:
 *   @snippet "./tr/src/tr.cpp" _6d5532ca_8399_4a97_9e58_60e7bf7f7eb2
-*   More commonly it is desirable to constrain to qualification and the type:
+*   And by including an operand, you can constrain a subject to qualification as well as type:
 *   @snippet "./tr/src/tr.cpp" _655eeb36_08b4_4a4c_bd0c_e36f89db9736
+*   The reason why these are `any` operators is that `any_const_tg` will work with a volatile type as long as it's also const, and the `any_volatile_tg` with a const type, as long as it's also volatile:
+*   @snippet "./tr/src/tr.cpp" _24f822e7_6c8f_4ce5_8ecc_f8b142a8f635
+*   Likewise, `any_qualified_tg` merely requires that a type have any qualification:
+*   @snippet "./tr/src/tr.cpp" _b760cc4f_cd3c_49e7_b19d_ebecb0c444fc
+*   And inversely, the `any_non_qualified_tg` will only allow types without qualification:
+*   @snippet "./tr/src/tr.cpp" _2db89416_6998_4dcb_91d1_4ff326956702
+*   Yet more variants exist, such as `any_non_const_tg` and `any_non_volatile_tg` to help you explictly declare not only how to constrain the subjects of your nkr::TR expressions, but quite literally to declare the intent of your constraint in reasonably plain English.
+*
+* @par Just Qualification Operators
+*   It is sometimes convenient to constrain to the **exact** qualification of an operand. The `just_tg` does just that:
+*   @snippet "./tr/src/tr.cpp" _c5229a18_0f89_4919_b18f_2a87a5c6ded5
+*   There are several variants of the `just_tg` that allow for exactitude through use of the operator, as opposed to the operand:
+*   @snippet "./tr/src/tr.cpp" _d43e49fd_9953_4e45_b787_da4dd4be0018
+*   Notice how the operand's qualification is completely respected with `just_tg` but entirely ignored for any of the variant operators:
+*   @snippet "./tr/src/tr.cpp" _3a337d2c_afd1_4cf0_abb9_f7565d351f84
+*   At first, this may seem strange, but these operators are defined this way so that it is easy to avoid any errors that could result from using an alias hiding a qualification:
+*   @snippet "./tr/src/tr.cpp" _4f3d5c98_22ec_4d5a_bf75_08462f1be395
+*   Whereas the `just_tg` allows for the standard combination of qualifications, even with the hidden qualification of an alias:
+*   @snippet "./tr/src/tr.cpp" _17ac0ffa_ab9b_4e98_a3ff_91f45a911c09
+*
+* @par Pointer, Array, and Reference Operands
+*   It's actually possible to test for compound built-in C++ types too:
+*   @snippet "./tr/src/tr.cpp" _de9f97b4_db90_42bf_b9b9_f2166a5d4fcb
+*   Notice how qualification is respected for the whole type in the following examples. We use the `just_tg` for the sake of simplicity:
+*   @snippet "./tr/src/tr.cpp" _19915f22_ec07_4242_99e1_43cc4599420c
 *
 * @par Template Operands
 *   It is also possible to use templates. Here we simply constrain to an instantiated nkr::pointer::cpp_t, which will result in `true` because nkr::pointer::cpp_t<int> is an alias of `int*`:

@@ -476,6 +476,26 @@ TEST_CASE("")
                   t<const float>,
                   any_const_tg
     >() == true);
+
+    static_assert(TR<
+                  t<int>,
+                  any_volatile_tg
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile int>,
+                  any_volatile_tg
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  any_volatile_tg
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile float>,
+                  any_volatile_tg
+    >() == true);
     // [_6d5532ca_8399_4a97_9e58_60e7bf7f7eb2]
 }
 
@@ -495,15 +515,356 @@ TEST_CASE("")
     >() == true);
 
     static_assert(TR<
-                  t<float>,
+                  t<const int>,
                   any_const_tg, t<float>
     >() == false);
 
     static_assert(TR<
-                  t<const float>,
-                  any_const_tg, t<float>
+                  t<float>,
+                  any_volatile_tg, t<float>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile float>,
+                  any_volatile_tg, t<float>
     >() == true);
+
+    static_assert(TR<
+                  t<volatile float>,
+                  any_volatile_tg, t<int>
+    >() == false);
     // [_655eeb36_08b4_4a4c_bd0c_e36f89db9736]
+}
+
+TEST_CASE("")
+{
+    // [_24f822e7_6c8f_4ce5_8ecc_f8b142a8f635]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<const int>,
+                  any_const_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<const volatile int>,
+                  any_const_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<volatile float>,
+                  any_volatile_tg, t<float>
+    >() == true);
+
+    static_assert(TR<
+                  t<const volatile float>,
+                  any_volatile_tg, t<float>
+    >() == true);
+    // [_24f822e7_6c8f_4ce5_8ecc_f8b142a8f635]
+}
+
+TEST_CASE("")
+{
+    // [_b760cc4f_cd3c_49e7_b19d_ebecb0c444fc]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  any_qualified_tg, t<int>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int>,
+                  any_qualified_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<volatile int>,
+                  any_qualified_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<const volatile int>,
+                  any_qualified_tg, t<int>
+    >() == true);
+    // [_b760cc4f_cd3c_49e7_b19d_ebecb0c444fc]
+}
+
+TEST_CASE("")
+{
+    // [_2db89416_6998_4dcb_91d1_4ff326956702]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  any_non_qualified_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<const int>,
+                  any_non_qualified_tg, t<int>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile int>,
+                  any_non_qualified_tg, t<int>
+    >() == false);
+
+    static_assert(TR<
+                  t<const volatile int>,
+                  any_non_qualified_tg, t<int>
+    >() == false);
+    // [_2db89416_6998_4dcb_91d1_4ff326956702]
+}
+
+TEST_CASE("")
+{
+    // [_c5229a18_0f89_4919_b18f_2a87a5c6ded5]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int>,
+                  just_tg, t<const int>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int>,
+                  just_tg, t<const int>
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  just_tg, t<volatile float>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile float>,
+                  just_tg, t<volatile float>
+    >() == true);
+    // [_c5229a18_0f89_4919_b18f_2a87a5c6ded5]
+}
+
+TEST_CASE("")
+{
+    // [_d43e49fd_9953_4e45_b787_da4dd4be0018]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<const int>,
+                  just_non_qualified_tg, t<int>
+    >() == false);
+
+    static_assert(TR<
+                  t<int>,
+                  just_non_qualified_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  just_const_tg, t<float>
+    >() == false);
+
+    static_assert(TR<
+                  t<const float>,
+                  just_const_tg, t<float>
+    >() == true);
+
+    static_assert(TR<
+                  t<int>,
+                  just_volatile_tg, t<int>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile int>,
+                  just_volatile_tg, t<int>
+    >() == true);
+
+    static_assert(TR<
+                  t<float>,
+                  just_const_volatile_tg, t<float>
+    >() == false);
+
+    static_assert(TR<
+                  t<const float>,
+                  just_const_volatile_tg, t<float>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile float>,
+                  just_const_volatile_tg, t<float>
+    >() == false);
+
+    static_assert(TR<
+                  t<const volatile float>,
+                  just_const_volatile_tg, t<float>
+    >() == true);
+    // [_d43e49fd_9953_4e45_b787_da4dd4be0018]
+}
+
+TEST_CASE("")
+{
+    // [_3a337d2c_afd1_4cf0_abb9_f7565d351f84]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<const int>,
+                  just_tg, t<const int>
+    >() == true);
+
+    static_assert(TR<
+                  t<const int>,
+                  just_const_tg, t<volatile int>
+    >() == true);
+
+    static_assert(TR<
+                  t<const volatile int>,
+                  just_const_tg, t<volatile int>
+    >() == false);
+    // [_3a337d2c_afd1_4cf0_abb9_f7565d351f84]
+}
+
+TEST_CASE("")
+{
+    // [_4f3d5c98_22ec_4d5a_bf75_08462f1be395]
+    using namespace nkr;
+
+    using alias_of_int_t = volatile int;
+
+    static_assert(TR<
+                  t<const volatile int>,
+                  just_const_tg, t<alias_of_int_t>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int>,
+                  just_const_tg, t<alias_of_int_t>
+    >() == true);
+    // [_4f3d5c98_22ec_4d5a_bf75_08462f1be395]
+}
+
+TEST_CASE("")
+{
+    // [_17ac0ffa_ab9b_4e98_a3ff_91f45a911c09]
+    using namespace nkr;
+
+    using alias_of_int_t = volatile int;
+
+    static_assert(TR<
+                  t<const volatile int>,
+                  just_tg, t<const alias_of_int_t>
+    >() == true);
+
+    static_assert(TR<
+                  t<const int>,
+                  just_tg, t<const alias_of_int_t>
+    >() == false);
+    // [_17ac0ffa_ab9b_4e98_a3ff_91f45a911c09]
+}
+
+TEST_CASE("")
+{
+    // [_de9f97b4_db90_42bf_b9b9_f2166a5d4fcb]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int*>,
+                  any_tg, t<int*>
+    >() == true);
+
+    static_assert(TR<
+                  t<int[256]>,
+                  any_tg, t<int[256]>
+    >() == true);
+
+    static_assert(TR<
+                  t<int&>,
+                  any_tg, t<int&>
+    >() == true);
+
+    static_assert(TR<
+                  t<int&&>,
+                  any_tg, t<int&&>
+    >() == true);
+    // [_de9f97b4_db90_42bf_b9b9_f2166a5d4fcb]
+}
+
+TEST_CASE("")
+{
+    // [_19915f22_ec07_4242_99e1_43cc4599420c]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int*>,
+                  just_tg, t<const int*>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int*>,
+                  just_tg, t<const int*>
+    >() == true);
+
+    static_assert(TR<
+                  t<int*>,
+                  just_tg, t<int* const>
+    >() == false);
+
+    static_assert(TR<
+                  t<int* const>,
+                  just_tg, t<int* const>
+    >() == true);
+
+    static_assert(TR<
+                  t<int* const>,
+                  just_tg, t<const int* const>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int* const>,
+                  just_tg, t<const int* const>
+    >() == true);
+
+    static_assert(TR<
+                  t<int[256]>,
+                  just_tg, t<volatile int[256]>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile int[256]>,
+                  just_tg, t<volatile int[256]>
+    >() == true);
+
+    static_assert(TR<
+                  t<int&>,
+                  just_tg, t<const int&>
+    >() == false);
+
+    static_assert(TR<
+                  t<const int&>,
+                  just_tg, t<const int&>
+    >() == true);
+
+    static_assert(TR<
+                  t<int&&>,
+                  just_tg, t<volatile int&&>
+    >() == false);
+
+    static_assert(TR<
+                  t<volatile int&&>,
+                  just_tg, t<volatile int&&>
+    >() == true);
+    // [_19915f22_ec07_4242_99e1_43cc4599420c]
+}
+
+TEST_CASE("")
+{
+    // [_78dd14b0_5e07_4515_bf85_67522602406b]
+    using namespace nkr;
+
+    static_assert(TR<
+                  t<int[1]>,
+                  any_tg, t<int[2]>
+    >() == false);
+    // [_78dd14b0_5e07_4515_bf85_67522602406b]
 }
 
 TEST_CASE("")
