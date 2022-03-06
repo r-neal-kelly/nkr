@@ -6,7 +6,7 @@
 
 #include "nkr/generic/boolean/impure_tr_dec.h"
 
-namespace nkr { namespace generic { namespace boolean { namespace $impure_tr {
+namespace nkr { namespace generic { namespace boolean { namespace impure_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::boolean::impure_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace boolean { namespace $impure_tr {
 
 }}}}
 
-namespace nkr { namespace generic { namespace boolean { namespace $impure_tr {
+namespace nkr { namespace generic { namespace boolean { namespace impure_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::boolean::impure_ttg, nkr::none::type_t>

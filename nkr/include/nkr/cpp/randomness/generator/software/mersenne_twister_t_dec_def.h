@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_t_dec.h"
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_t$ {
 
     template <nkr::cpp::randomness::generator::software::mersenne_twister_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
 }}}}}}
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>

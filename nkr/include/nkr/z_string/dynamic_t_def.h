@@ -17,7 +17,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<string::dynamic_tg>::Is_Any()
     {
-        return string::$dynamic_t::any_tr<other_p>;
+        return string::dynamic_t$::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t

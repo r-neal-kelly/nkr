@@ -6,7 +6,7 @@
 
 #include "nkr/generic/positive/real_tr_dec.h"
 
-namespace nkr { namespace generic { namespace positive { namespace $real_tr {
+namespace nkr { namespace generic { namespace positive { namespace real_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::positive::real_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace positive { namespace $real_tr {
 
 }}}}
 
-namespace nkr { namespace generic { namespace positive { namespace $real_tr {
+namespace nkr { namespace generic { namespace positive { namespace real_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::positive::real_ttg, nkr::none::type_t>

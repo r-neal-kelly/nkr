@@ -6,7 +6,7 @@
 
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace tuple { namespace $types_t {
+namespace nkr { namespace tuple { namespace types_t$ {
 
     template <nkr::tuple::types_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace tuple { namespace $types_t {
 
 }}}
 
-namespace nkr { namespace tuple { namespace $types_t {
+namespace nkr { namespace tuple { namespace types_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::tuple::types_ttr<template_p>

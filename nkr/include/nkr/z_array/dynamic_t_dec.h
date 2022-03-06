@@ -30,7 +30,7 @@ namespace nkr { namespace array {
 
 }}
 
-namespace nkr { namespace array { namespace $dynamic_t {
+namespace nkr { namespace array { namespace dynamic_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -51,7 +51,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <array::$dynamic_t::any_tr type_p>
+    template <array::dynamic_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<array::dynamic_tg>
     {

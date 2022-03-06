@@ -130,7 +130,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $tr {
+namespace nkr { namespace tr$ {
 
     template <nkr::generic::tag::logic_gate_tr operator_p, nkr::tuple::types_tr types_p>
     class ts :
@@ -172,33 +172,33 @@ namespace nkr {
 
     template <typename type_p>
     using   t =
-        nkr::$tr::ts<AND_tg, nkr::tuple::types_t<type_p>>;                                                              ///< @copydoc _13d670d2_5498_4b84_9648_94b1cd8f2c89
+        nkr::tr$::ts<AND_tg, nkr::tuple::types_t<type_p>>;                                                              ///< @copydoc _13d670d2_5498_4b84_9648_94b1cd8f2c89
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename ...types_p>
         requires (nkr::tuple::types_t<types_p...>::Count() > 0)
     using   ts =
-        nkr::$tr::ts<operator_p, nkr::tuple::types_t<types_p...>>;                                                      ///< @copydoc _65d1963a_c1d4_4110_a6bb_a52a9e9150fe
+        nkr::tr$::ts<operator_p, nkr::tuple::types_t<types_p...>>;                                                      ///< @copydoc _65d1963a_c1d4_4110_a6bb_a52a9e9150fe
 
     template <typename type_p>
     concept ts_tr =
-        nkr::cpp::is_any_tr<type_p, typename nkr::$tr::ts<typename type_p::operator_t, typename type_p::types_t>>;
+        nkr::cpp::is_any_tr<type_p, typename nkr::tr$::ts<typename type_p::operator_t, typename type_p::types_t>>;
 
     template <template <typename ...> typename template_p>
     using   tt =
-        nkr::$tr::tts<AND_tg, nkr::tuple::templates_t<template_p>>;                                                     ///< @copydoc _24a5dd1f_5bfc_4cc2_a831_302413bf8087
+        nkr::tr$::tts<AND_tg, nkr::tuple::templates_t<template_p>>;                                                     ///< @copydoc _24a5dd1f_5bfc_4cc2_a831_302413bf8087
 
     template <nkr::generic::tag::logic_gate_tr operator_p, template <typename ...> typename ...templates_p>
         requires (nkr::tuple::templates_t<templates_p...>::Count() > 0)
     using   tts =
-        nkr::$tr::tts<operator_p, nkr::tuple::templates_t<templates_p...>>;                                             ///< @copydoc _7d64d462_bbf9_452a_9d76_322daed0989e
+        nkr::tr$::tts<operator_p, nkr::tuple::templates_t<templates_p...>>;                                             ///< @copydoc _7d64d462_bbf9_452a_9d76_322daed0989e
 
     template <typename type_p>
     concept tts_tr =
-        nkr::cpp::is_any_tr<type_p, typename nkr::$tr::tts<typename type_p::operator_t, typename type_p::templates_t>>;
+        nkr::cpp::is_any_tr<type_p, typename nkr::tr$::tts<typename type_p::operator_t, typename type_p::templates_t>>;
 
 }
 
-namespace nkr { namespace $tr {
+namespace nkr { namespace tr$ {
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
     class to_ts_sp;
@@ -240,11 +240,11 @@ namespace nkr {
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
     using   to_ts =
-        nkr::$tr::to_ts_sp<operator_p, type_p>::type_t;
+        nkr::tr$::to_ts_sp<operator_p, type_p>::type_t;
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
     using   to_tts =
-        nkr::$tr::to_tts_sp<operator_p, type_p>::type_t;
+        nkr::tr$::to_tts_sp<operator_p, type_p>::type_t;
 
 }
 

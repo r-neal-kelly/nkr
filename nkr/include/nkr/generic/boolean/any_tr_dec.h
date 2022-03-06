@@ -10,7 +10,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
-namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
+namespace nkr { namespace generic { namespace boolean { namespace any_tr$ {
 
     template <typename type_p>
     concept constructors_i =
@@ -144,9 +144,9 @@ namespace nkr { namespace generic { namespace boolean {
     template <typename type_p>
     concept any_tr =
         nkr::generic::implementing::self_tr<type_p> &&
-        $any_tr::constructors_i<type_p> &&
-        $any_tr::casts_i<type_p> &&
-        $any_tr::operators_i<type_p>;
+        any_tr$::constructors_i<type_p> &&
+        any_tr$::casts_i<type_p> &&
+        any_tr$::operators_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept any_ttr =
@@ -154,7 +154,7 @@ namespace nkr { namespace generic { namespace boolean {
 
 }}}
 
-namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
+namespace nkr { namespace generic { namespace boolean { namespace any_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::boolean::any_tg> type_p>
     class type_i_tag_sp
@@ -182,12 +182,12 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::boolean::$any_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::boolean::any_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace generic { namespace boolean { namespace $any_tr {
+namespace nkr { namespace generic { namespace boolean { namespace any_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::boolean::any_ttg, nkr::none::type_t>
@@ -212,7 +212,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::boolean::$any_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::boolean::any_tr$::template_i_tag_sp<template_p>;
     };
 
 }}

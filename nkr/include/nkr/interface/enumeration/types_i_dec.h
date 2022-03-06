@@ -14,7 +14,7 @@
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     template <typename type_p>
     concept aliases_i =
@@ -51,7 +51,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
 }}}}
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     using example_t =
         nkr::positive::integer_t;
@@ -79,11 +79,11 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
 namespace nkr { namespace interface { namespace enumeration {
 
-    template <nkr::cpp::is_any_tr<$types_i::example_t> type_p>
+    template <nkr::cpp::is_any_tr<types_i$::example_t> type_p>
     class types_i_sp<type_p>
     {
     public:
-        using type_t    = $types_i::example_types_i_sp<type_p>;
+        using type_t    = types_i$::example_types_i_sp<type_p>;
     };
 
 }}}
@@ -98,17 +98,17 @@ namespace nkr { namespace interface { namespace enumeration {
     template <typename type_p>
     concept types_tr =
         nkr::cpp::is_any_tr<type_p, types_i<typename type_p::type_t>> &&
-        $types_i::aliases_i<type_p> &&
-        $types_i::static_functions_i<type_p> &&
-        $types_i::objects_i<type_p>;
+        types_i$::aliases_i<type_p> &&
+        types_i$::static_functions_i<type_p> &&
+        types_i$::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept types_ttr =
-        nkr::cpp::is_any_ttr<template_p, types_i, $types_i::example_t>;
+        nkr::cpp::is_any_ttr<template_p, types_i, types_i$::example_t>;
 
 }}}
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     template <nkr::interface::enumeration::types_tr type_p>
     class type_i_type_sp
@@ -154,19 +154,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::enumeration::$types_i::type_i_type_sp<type_p>;
+        using type_t    = nkr::interface::enumeration::types_i$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::interface::enumeration::types_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::enumeration::$types_i::type_i_tag_sp<type_p>;
+        using type_t    = nkr::interface::enumeration::types_i$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::enumeration::types_ttr<template_p>
@@ -186,7 +186,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
         template <typename ...parameters_p>
         using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t     = of_t<nkr::interface::enumeration::$types_i::example_t>;
+        using example_t     = of_t<nkr::interface::enumeration::types_i$::example_t>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -214,7 +214,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::enumeration::$types_i::template_i_template_sp<template_p>;
+        using type_t    = nkr::interface::enumeration::types_i$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -222,7 +222,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::enumeration::$types_i::template_i_tag_sp<template_p>;
+        using type_t    = nkr::interface::enumeration::types_i$::template_i_tag_sp<template_p>;
     };
 
 }}

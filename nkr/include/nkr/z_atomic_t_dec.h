@@ -17,7 +17,7 @@ namespace nkr {
 
     /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
     /// @copydoc _80ba6268_583c_45c1_8d5c_d5d84565dae8
-    namespace $atomic_t {};
+    namespace atomic_t$ {};
 
 }
 
@@ -49,7 +49,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $atomic_t {
+namespace nkr { namespace atomic_t$ {
 
     /// @nosubgrouping
     /// @copydoc _ec77c539_2ae5_4aa5_a156_d961c5ac098d
@@ -720,10 +720,10 @@ namespace nkr {
     /// @copydoc _7179dda8_8fb2_43e5_9c7a_dbc08cedcbbb
     template <boolean_tr boolean_p>
     class atomic_t<boolean_p> :
-        public $atomic_t::boolean_sp<boolean_p>
+        public atomic_t$::boolean_sp<boolean_p>
     {
     public:
-        using base_t    = $atomic_t::boolean_sp<boolean_p>;
+        using base_t    = atomic_t$::boolean_sp<boolean_p>;
 
     public:
         /// @name objects
@@ -737,10 +737,10 @@ namespace nkr {
     /// @copydoc _d976569a_30d5_4a15_8729_b7505132263c
     template <integer_tr integer_p>
     class atomic_t<integer_p> :
-        public $atomic_t::integer_sp<integer_p>
+        public atomic_t$::integer_sp<integer_p>
     {
     public:
-        using base_t    = $atomic_t::integer_sp<integer_p>;
+        using base_t    = atomic_t$::integer_sp<integer_p>;
 
     public:
         /// @name objects
@@ -754,10 +754,10 @@ namespace nkr {
     /// @copydoc _b40d083f_64f4_4a9d_b384_331d91c07b57
     template <real_tr real_p>
     class atomic_t<real_p> :
-        public $atomic_t::real_sp<real_p>
+        public atomic_t$::real_sp<real_p>
     {
     public:
-        using base_t    = $atomic_t::real_sp<real_p>;
+        using base_t    = atomic_t$::real_sp<real_p>;
 
     public:
         /// @name objects
@@ -771,10 +771,10 @@ namespace nkr {
     /// @copydoc _f8ce2e6d_230a_4ef2_801f_aecbc3571487
     template <c_pointer_tr c_pointer_p>
     class atomic_t<c_pointer_p> :
-        public $atomic_t::c_pointer_sp<c_pointer_p>
+        public atomic_t$::c_pointer_sp<c_pointer_p>
     {
     public:
-        using base_t    = $atomic_t::c_pointer_sp<c_pointer_p>;
+        using base_t    = atomic_t$::c_pointer_sp<c_pointer_p>;
 
     public:
         /// @name objects
@@ -788,10 +788,10 @@ namespace nkr {
     /// @copydoc _99ace0a0_9530_4fb1_8179_90b7dd50e9ed
     template <>
     class atomic_t<void_t*> :
-        public $atomic_t::void_pointer_sp
+        public atomic_t$::void_pointer_sp
     {
     public:
-        using base_t    = $atomic_t::void_pointer_sp;
+        using base_t    = atomic_t$::void_pointer_sp;
 
     public:
         /// @name objects

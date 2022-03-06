@@ -15,7 +15,7 @@
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <typename value_p>
     using interface_t       = nkr::interface::enumeration::types_i<value_p>;
@@ -32,7 +32,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr    value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>>               none_p      = $types_t::default_none_t<value_p>
+        nkr::constant_of_tr<types_t$::integer_t<value_p>>               none_p      = types_t$::default_none_t<value_p>
     > class types_t;
 
     struct  types_tg    { class tag_lb; };
@@ -50,7 +50,7 @@ namespace nkr { namespace enumeration {
 
 }}
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <nkr::enumeration::types_tr type_p>
     class type_i_type_sp
@@ -96,19 +96,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::enumeration::$types_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::enumeration::types_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::enumeration::types_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::enumeration::$types_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::enumeration::types_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::enumeration::types_ttr<template_p>
@@ -117,7 +117,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
     public:
         template <
             nkr::generic::implementing::interface::enumeration::types_tr        value_p,
-            nkr::constant_of_tr<nkr::enumeration::$types_t::integer_t<value_p>> none_p      = nkr::enumeration::$types_t::default_none_t<value_p>
+            nkr::constant_of_tr<nkr::enumeration::types_t$::integer_t<value_p>> none_p      = nkr::enumeration::types_t$::default_none_t<value_p>
         > using template_t  = nkr::enumeration::types_t<value_p, none_p>;
 
         template <typename inner_p>
@@ -158,7 +158,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::enumeration::$types_t::template_i_template_sp<template_p>;
+        using type_t    = nkr::enumeration::types_t$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -166,7 +166,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::enumeration::$types_t::template_i_tag_sp<template_p>;
+        using type_t    = nkr::enumeration::types_t$::template_i_tag_sp<template_p>;
     };
 
 }}
@@ -175,7 +175,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr    value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>>               none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>>               none_p
     > class types_t
     {
     public:
@@ -266,7 +266,7 @@ namespace nkr { namespace enumeration {
 
 }}
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <nkr::enumeration::types_tr type_p>
     class none_value_i_sp
@@ -291,7 +291,7 @@ namespace nkr { namespace interface { namespace none {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::enumeration::$types_t::none_value_i_sp<type_p>;
+        using type_t    = nkr::enumeration::types_t$::none_value_i_sp<type_p>;
     };
 
 }}}

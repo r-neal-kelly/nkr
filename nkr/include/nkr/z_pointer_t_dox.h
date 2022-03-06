@@ -245,7 +245,7 @@
 */
 
 /////////////////////////////////////////////////////////////////////////////// Docs
-// nkr::$pointer_t
+// nkr::pointer_t$
 /**
 * @class _a5a2b1f5_e0b0_474a_949d_8fdcbaf67557
 * @private
@@ -263,7 +263,7 @@
     *   A specialization for nkr::pointer_t through nkr::pointer_t<any_type_p>. Accepts any type that has a size.
     * 
     * @details
-    *   Unlike nkr::$pointer_t::any_non_type_sp, this specialization defines several more operators with which to operate upon both the underlying pointer and its unit count simultaneously.
+    *   Unlike nkr::pointer_t$::any_non_type_sp, this specialization defines several more operators with which to operate upon both the underlying pointer and its unit count simultaneously.
     */
 
         // aliases
@@ -815,7 +815,7 @@
     *   A specialization for nkr::pointer_t through nkr::pointer_t<any_non_type_p>. Accepts any type that does not have a size, in particular the void_t.
     * 
     * @details
-    *   Unlike nkr::$pointer_t::any_type_sp, because the underlying pointer has no size only a handful of operators have been defined.
+    *   Unlike nkr::pointer_t$::any_type_sp, because the underlying pointer has no size only a handful of operators have been defined.
     */
 
         // aliases
@@ -1240,8 +1240,8 @@
 *   Additionally, this class provides methods which alter both the pointer and the number of units as you increment or decrement the object. It also plays things safe and defaults the pointer's data on construction and destruction, which can help track down bugs when trying to access data that has for example, been deallocated. Allows you to work with the underlying pointer easily by providing the expected methods and operators.
 * 
 * @par Specializations
-*   - pointer_t<any_type_p> (wrapper for $pointer_t::any_type_sp)
-*   - pointer_t<any_non_type_p> (wrapper for $pointer_t::any_non_type_sp)
+*   - pointer_t<any_type_p> (wrapper for pointer_t$::any_type_sp)
+*   - pointer_t<any_non_type_p> (wrapper for pointer_t$::any_non_type_sp)
 * 
 * @copydoc _bce7ac69_38d5_4477_a659_c8cf291f1173
 */
@@ -1252,7 +1252,7 @@
 * @private
 * 
 * @brief
-*   A specialization of nkr::pointer_t and a wrapper for nkr::$pointer_t::any_type_sp.
+*   A specialization of nkr::pointer_t and a wrapper for nkr::pointer_t$::any_type_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
@@ -1264,7 +1264,7 @@
 * @private
 * 
 * @brief
-*   A specialization of nkr::pointer_t and a wrapper for nkr::$pointer_t::any_non_type_sp.
+*   A specialization of nkr::pointer_t and a wrapper for nkr::pointer_t$::any_non_type_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff

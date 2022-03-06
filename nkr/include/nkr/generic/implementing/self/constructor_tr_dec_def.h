@@ -6,7 +6,7 @@
 
 #include "nkr/generic/implementing/self/constructor_tr_dec.h"
 
-namespace nkr { namespace generic { namespace implementing { namespace self { namespace $constructor_tr {
+namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::constructor_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace implementing { namespace self { na
 
 }}}}}
 
-namespace nkr { namespace generic { namespace implementing { namespace self { namespace $constructor_tr {
+namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::constructor_ttg, nkr::none::type_t>

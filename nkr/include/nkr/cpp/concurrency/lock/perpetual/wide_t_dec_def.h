@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/concurrency/lock/perpetual/wide_t_dec.h"
 
-namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespace perpetual { namespace $wide_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespace perpetual { namespace wide_t$ {
 
     template <nkr::cpp::concurrency::lock::perpetual::wide_tr type_p>
     template <typename other_p>

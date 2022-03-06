@@ -7,7 +7,7 @@
 #include "nkr/generic/implementing/self/assigner/non_volatile/move/volatile_tr_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace move { namespace $volatile_tr {
+namespace non_volatile { namespace move { namespace volatile_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::assigner::non_volatile::move::volatile_tg> type_p>
     template <typename other_p>
@@ -30,7 +30,7 @@ namespace non_volatile { namespace move { namespace $volatile_tr {
 }}}}}}}}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace move { namespace $volatile_tr {
+namespace non_volatile { namespace move { namespace volatile_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::move::volatile_ttg, nkr::none::type_t>

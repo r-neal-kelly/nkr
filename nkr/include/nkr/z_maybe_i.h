@@ -8,7 +8,7 @@
 #include "nkr/z_none_i.h"
 #include "nkr/z_utils.h"
 
-namespace nkr { namespace $maybe_i {
+namespace nkr { namespace maybe_i$ {
 
     template <typename type_p>
     concept assignment_i = requires(std::remove_cv_t<type_p> instance,
@@ -53,6 +53,6 @@ namespace nkr {
     template <typename type_p>
     concept maybe_i =
         none_i<type_p> &&
-        $maybe_i::assignment_i<type_p>;
+        maybe_i$::assignment_i<type_p>;
 
 }

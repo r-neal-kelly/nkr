@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/generic/concurrency/lock_tr_dec.h"
 
-namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace $lock_tr {
+namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::cpp::generic::concurrency::lock_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
 
 }}}}}
 
-namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace $lock_tr {
+namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock_ttg, nkr::none::type_t>

@@ -6,7 +6,7 @@
 
 #include "nkr/positive/word_t_dec.h"
 
-namespace nkr { namespace positive { namespace $word_t {
+namespace nkr { namespace positive { namespace word_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::positive::word_tg> type_p>
     template <typename other_p>

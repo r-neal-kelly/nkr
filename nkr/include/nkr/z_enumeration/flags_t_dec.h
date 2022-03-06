@@ -24,7 +24,7 @@ namespace nkr { namespace enumeration {
 
 }}
 
-namespace nkr { namespace enumeration { namespace $flags_t {
+namespace nkr { namespace enumeration { namespace flags_t$ {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     class any_sp
@@ -131,10 +131,10 @@ namespace nkr { namespace enumeration {
 
     template <integer_unsigned_tr integer_p>
     class flags_t<integer_p> :
-        public $flags_t::any_sp<integer_p, integer_p>
+        public flags_t$::any_sp<integer_p, integer_p>
     {
     private:
-        using base_t    = $flags_t::any_sp<integer_p, integer_p>;
+        using base_t    = flags_t$::any_sp<integer_p, integer_p>;
 
     public:
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(flags_t, base_t);
@@ -142,10 +142,10 @@ namespace nkr { namespace enumeration {
 
     template <any_non_const_atomic_of_any_non_const_unsigned_integer_tr atomic_p>
     class flags_t<atomic_p> :
-        public $flags_t::any_sp<typename atomic_p::value_t, atomic_p>
+        public flags_t$::any_sp<typename atomic_p::value_t, atomic_p>
     {
     private:
-        using base_t    = $flags_t::any_sp<typename atomic_p::value_t, atomic_p>;
+        using base_t    = flags_t$::any_sp<typename atomic_p::value_t, atomic_p>;
 
     public:
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(flags_t, base_t);

@@ -42,7 +42,7 @@
 /// @copydoc _627e5174_65ef_4aee_bb2a_034d9715cb0d
 namespace nkr::allocator {};
 
-namespace nkr { namespace $allocator_i {
+namespace nkr { namespace allocator_i$ {
 
     template <typename allocator_p>
     concept allocator_aliases_i =

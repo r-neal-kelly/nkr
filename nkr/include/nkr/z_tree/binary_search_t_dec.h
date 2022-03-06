@@ -36,7 +36,7 @@ namespace nkr { namespace tree { namespace stack {
 
 }}}
 
-namespace nkr { namespace tree { namespace stack { namespace $binary_search_t {
+namespace nkr { namespace tree { namespace stack { namespace binary_search_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -58,7 +58,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <tree::stack::$binary_search_t::any_tr type_p>
+    template <tree::stack::binary_search_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<tree::stack::binary_search_tg>
     {

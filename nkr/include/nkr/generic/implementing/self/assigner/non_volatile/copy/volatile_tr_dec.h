@@ -10,7 +10,7 @@
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $volatile_tr {
+namespace non_volatile { namespace copy { namespace volatile_tr$ {
 
     template <typename type_p>
     concept assigners_i =
@@ -35,7 +35,7 @@ namespace non_volatile { namespace copy {
 
     template <typename type_p>
     concept volatile_tr =
-        $volatile_tr::assigners_i<nkr::cpp::just_non_qualified_t<type_p>>;
+        volatile_tr$::assigners_i<nkr::cpp::just_non_qualified_t<type_p>>;
 
     template <template <typename ...> typename template_p>
     concept volatile_ttr =
@@ -44,7 +44,7 @@ namespace non_volatile { namespace copy {
 }}}}}}}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $volatile_tr {
+namespace non_volatile { namespace copy { namespace volatile_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::assigner::non_volatile::copy::volatile_tg> type_p>
     class type_i_tag_sp
@@ -72,13 +72,13 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::copy::$volatile_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::copy::volatile_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace copy { namespace $volatile_tr {
+namespace non_volatile { namespace copy { namespace volatile_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::copy::volatile_ttg, nkr::none::type_t>
@@ -103,7 +103,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::copy::$volatile_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::copy::volatile_tr$::template_i_tag_sp<template_p>;
     };
 
 }}

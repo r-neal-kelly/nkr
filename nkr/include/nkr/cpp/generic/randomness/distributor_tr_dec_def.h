@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/generic/randomness/distributor_tr_dec.h"
 
-namespace nkr { namespace cpp { namespace generic { namespace randomness { namespace $distributor_tr {
+namespace nkr { namespace cpp { namespace generic { namespace randomness { namespace distributor_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::cpp::generic::randomness::distributor_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness { names
 
 }}}}}
 
-namespace nkr { namespace cpp { namespace generic { namespace randomness { namespace $distributor_tr {
+namespace nkr { namespace cpp { namespace generic { namespace randomness { namespace distributor_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::distributor_ttg, nkr::none::type_t>

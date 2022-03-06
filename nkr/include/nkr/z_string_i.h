@@ -25,7 +25,7 @@ namespace nkr { namespace string {
 
 }}
 
-namespace nkr { namespace $string_i {
+namespace nkr { namespace string_i$ {
 
     template <typename string_p>
     concept aliases_i =
@@ -123,20 +123,20 @@ namespace nkr {
 
     template <typename string_p>
     concept string_i =
-        $string_i::aliases_i<string_p> &&
-        $string_i::static_constexpr_functions_i<string_p> &&
-        $string_i::static_functions_i<string_p> &&
-        $string_i::shared_methods_i<string_p>;
+        string_i$::aliases_i<string_p> &&
+        string_i$::static_constexpr_functions_i<string_p> &&
+        string_i$::static_functions_i<string_p> &&
+        string_i$::shared_methods_i<string_p>;
 
     template <typename string_p>
     concept aggregate_string_i =
         string_i<string_p> &&
-        $string_i::aggregate_methods_i<string_p>;
+        string_i$::aggregate_methods_i<string_p>;
 
     template <typename string_p>
     concept non_aggregate_string_i =
         string_i<string_p> &&
-        !$string_i::aggregate_methods_i<string_p>;
+        !string_i$::aggregate_methods_i<string_p>;
 
 }
 

@@ -6,7 +6,7 @@
 
 #include "nkr/enumeration/types_t_dec.h"
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <nkr::enumeration::types_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace enumeration { namespace $types_t {
 
 }}}
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::enumeration::types_ttr<template_p>
@@ -64,7 +64,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr auto&
         types_t<value_p, none_p>::Assign_Integer(tr<any_non_const_tg, t<types_t>> auto& self,
                                                  const tr<to_tg, t<integer_t>> auto& to_integer)
@@ -77,7 +77,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr auto&
         types_t<value_p, none_p>::Assign_Value(tr<any_non_const_tg, t<types_t>> auto& self,
                                                const tr<any_tg, t<value_t>> auto& other)
@@ -90,7 +90,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr auto&
         types_t<value_p, none_p>::Assign_Value(tr<any_non_const_tg, t<types_t>> auto& self,
                                                tr<any_non_const_tg, t<value_t>> auto&& other)
@@ -103,7 +103,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr auto&
         types_t<value_p, none_p>::Assign_Types(tr<any_non_const_tg, t<types_t>> auto& self,
                                                const tr<any_tg, t<types_t>> auto& other)
@@ -118,7 +118,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr auto&
         types_t<value_p, none_p>::Assign_Types(tr<any_non_const_tg, t<types_t>> auto& self,
                                                tr<any_non_const_tg, t<types_t>> auto&& other)
@@ -133,7 +133,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t() noexcept :
         value(none_t::Value())
     {
@@ -141,7 +141,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept :
         value(static_cast<integer_t>(to_integer))
     {
@@ -149,7 +149,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(const value_t& value) noexcept :
         value(value)
     {
@@ -157,7 +157,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(const volatile value_t& value) noexcept :
         value(value)
     {
@@ -165,7 +165,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(value_t&& value) noexcept :
         value(nkr::cpp::Move(value))
     {
@@ -173,7 +173,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(volatile value_t&& value) noexcept :
         value(nkr::cpp::Move(value))
     {
@@ -181,7 +181,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(const types_t& other) noexcept :
         value(other.value)
     {
@@ -189,7 +189,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(const volatile types_t& other) noexcept :
         value(other.value)
     {
@@ -197,7 +197,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(types_t&& other) noexcept :
         value(nkr::cpp::Move(other.value))
     {
@@ -205,7 +205,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::types_t(volatile types_t&& other) noexcept :
         value(nkr::cpp::Move(other.value))
     {
@@ -213,7 +213,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const tr<to_tg, t<integer_t>> auto& to_integer)
         noexcept
@@ -223,7 +223,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const tr<to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept
@@ -233,7 +233,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const value_t& value)
         noexcept
@@ -243,7 +243,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const value_t& value)
         volatile noexcept
@@ -253,7 +253,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const volatile value_t& value)
         noexcept
@@ -263,7 +263,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const volatile value_t& value)
         volatile noexcept
@@ -273,7 +273,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(value_t&& value)
         noexcept
@@ -283,7 +283,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(value_t&& value)
         volatile noexcept
@@ -293,7 +293,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<value_t>> auto&& value)
         noexcept
@@ -303,7 +303,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<value_t>> auto&& value)
         volatile noexcept
@@ -313,7 +313,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const types_t& other)
         noexcept
@@ -323,7 +323,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const types_t& other)
         volatile noexcept
@@ -333,7 +333,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const volatile types_t& other)
         noexcept
@@ -343,7 +343,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(const volatile types_t& other)
         volatile noexcept
@@ -353,7 +353,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(types_t&& other)
         noexcept
@@ -363,7 +363,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(types_t&& other)
         volatile noexcept
@@ -373,7 +373,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<types_t>> auto&& other)
         noexcept
@@ -383,7 +383,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::operator =(tr<just_volatile_tg, t<types_t>> auto&& other)
         volatile noexcept
@@ -394,7 +394,7 @@ namespace nkr { namespace enumeration {
 #if defined(nkr_IS_DEBUG)
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::~types_t() noexcept
     {
         interface_t::Integer(this->value, none_t::Value());
@@ -403,7 +403,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::integer_t
         types_t<value_p, none_p>::Integer()
         const noexcept
@@ -413,7 +413,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::integer_t
         types_t<value_p, none_p>::Integer()
         const volatile noexcept
@@ -423,7 +423,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
         noexcept
@@ -433,7 +433,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept
@@ -443,7 +443,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr const types_t<value_p, none_p>::value_t&
         types_t<value_p, none_p>::Value()
         const noexcept
@@ -453,7 +453,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr const volatile types_t<value_p, none_p>::value_t&
         types_t<value_p, none_p>::Value()
         const volatile noexcept
@@ -463,7 +463,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         noexcept
@@ -473,7 +473,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         volatile noexcept
@@ -483,7 +483,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>&
         types_t<value_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         noexcept
@@ -493,7 +493,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         volatile noexcept
@@ -503,7 +503,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::operator types_t<value_p, none_p>::integer_t()
         const noexcept
     {
@@ -512,7 +512,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::operator types_t<value_p, none_p>::integer_t()
         const volatile noexcept
     {
@@ -521,7 +521,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::operator nkr::boolean::cpp_t()
         const noexcept
     {
@@ -530,7 +530,7 @@ namespace nkr { namespace enumeration {
 
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
-        nkr::constant_of_tr<$types_t::integer_t<value_p>> none_p
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr types_t<value_p, none_p>::operator nkr::boolean::cpp_t()
         const volatile noexcept
     {
@@ -539,7 +539,7 @@ namespace nkr { namespace enumeration {
 
 }}
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <nkr::enumeration::types_tr type_p>
     inline constexpr none_value_i_sp<type_p>::value_t

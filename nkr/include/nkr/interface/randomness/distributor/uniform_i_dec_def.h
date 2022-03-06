@@ -6,7 +6,7 @@
 
 #include "nkr/interface/randomness/distributor/uniform_i_dec.h"
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     template <nkr::cpp::is_any_tr<example_t> type_p>
     inline constexpr example_uniform_i_sp<type_p>::value_t
@@ -42,7 +42,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 }}}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     template <nkr::interface::randomness::distributor::uniform_tr type_p>
     template <typename other_p>
@@ -82,7 +82,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 }}}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::randomness::distributor::uniform_ttr<template_p>

@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/word_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $word_t {
+namespace nkr { namespace negatable { namespace word_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::word_tg> type_p>
     template <typename other_p>

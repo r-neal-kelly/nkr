@@ -4,7 +4,7 @@
 
 #pragma once
 
-// nkr::$maybe_t
+// nkr::maybe_t$
 /**
 * @class _c8a34890_b904_42a7_a88c_ada39529db42
 * @private
@@ -15,7 +15,7 @@
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
 */
 
-    // nkr::$maybe_t::$built_in_sp
+    // nkr::maybe_t$::built_in_sp$
     /**
     * @class _1145e7f5_3595_468d_8aca_2c1336bdc5b8
     * @private
@@ -202,7 +202,7 @@
         *   The nkr::maybe_t specialization for built-in real numbers.
         * 
         * @details
-        *   This inherits the default specialization nkr::$maybe_t::$built_in_sp::any_sp and additionally defines the increment and decrement operators, because at least in the MS compiler they do not work even with implicit `operator value_t&()`.
+        *   This inherits the default specialization nkr::maybe_t$::built_in_sp$::any_sp and additionally defines the increment and decrement operators, because at least in the MS compiler they do not work even with implicit `operator value_t&()`.
         */
 
             // aliases
@@ -256,7 +256,7 @@
         *   The nkr::maybe_t specialization for built-in pointers.
         *
         * @details
-        *   This inherits the default specialization nkr::$maybe_t::$built_in_sp::any_sp and additionally defines `operator ->()`, because at least in the MS compiler it does not work even with implicit `operator value_t&()`.
+        *   This inherits the default specialization nkr::maybe_t$::built_in_sp$::any_sp and additionally defines `operator ->()`, because at least in the MS compiler it does not work even with implicit `operator value_t&()`.
         */
 
             // aliases
@@ -443,7 +443,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$maybe_t::built_in_sp.
+*   A wrapper for nkr::maybe_t$::built_in_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
@@ -461,7 +461,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$maybe_t::user_defined_sp.
+*   A wrapper for nkr::maybe_t$::user_defined_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff

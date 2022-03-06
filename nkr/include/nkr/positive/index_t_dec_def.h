@@ -6,7 +6,7 @@
 
 #include "nkr/positive/index_t_dec.h"
 
-namespace nkr { namespace positive { namespace $index_t {
+namespace nkr { namespace positive { namespace index_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::positive::index_tg> type_p>
     template <typename other_p>

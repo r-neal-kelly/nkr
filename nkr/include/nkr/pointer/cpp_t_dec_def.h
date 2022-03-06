@@ -6,7 +6,7 @@
 
 #include "nkr/pointer/cpp_t_dec.h"
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace pointer { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::pointer::cpp_ttr<template_p>
@@ -60,7 +60,7 @@ namespace nkr { namespace pointer { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     inline constexpr none_value_i_sp<type_p>::value_t
@@ -72,7 +72,7 @@ namespace nkr { namespace pointer { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t

@@ -6,7 +6,7 @@
 
 #include "nkr/positive/integer_32_t_dec.h"
 
-namespace nkr { namespace positive { namespace $integer_32_t {
+namespace nkr { namespace positive { namespace integer_32_t$ {
 
     template <nkr::positive::integer_32_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace positive { namespace $integer_32_t {
 
 }}}
 
-namespace nkr { namespace positive { namespace $integer_32_t {
+namespace nkr { namespace positive { namespace integer_32_t$ {
 
     template <nkr::positive::integer_32_tr type_p>
     inline constexpr none_value_i_sp<type_p>::value_t
@@ -58,7 +58,7 @@ namespace nkr { namespace positive { namespace $integer_32_t {
 
 }}}
 
-namespace nkr { namespace positive { namespace $integer_32_t {
+namespace nkr { namespace positive { namespace integer_32_t$ {
 
     template <nkr::positive::integer_32_tr type_p>
     inline constexpr enumeration_types_i_sp<type_p>::integer_t
@@ -86,7 +86,7 @@ namespace nkr { namespace positive { namespace $integer_32_t {
 
 }}}
 
-namespace nkr { namespace positive { namespace $integer_32_t {
+namespace nkr { namespace positive { namespace integer_32_t$ {
 
     template <nkr::positive::integer_32_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t

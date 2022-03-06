@@ -15,7 +15,7 @@
 #include "nkr/randomness/distributor/uniform_t_def.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 
-namespace nkr { namespace negatable { namespace $integer_16_t {
+namespace nkr { namespace negatable { namespace integer_16_t$ {
 
     template <nkr::negatable::integer_16_tr type_p>
     template <typename unused_p>

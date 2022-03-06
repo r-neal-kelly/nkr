@@ -10,7 +10,7 @@
 
 #include "nkr/z_enumeration/flags_t_dec.h"
 
-namespace nkr { namespace enumeration { namespace $flags_t {
+namespace nkr { namespace enumeration { namespace flags_t$ {
 
     template <integer_unsigned_tr integer_p, typename actual_value_p>
     inline constexpr index_t

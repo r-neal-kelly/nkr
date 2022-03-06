@@ -11,7 +11,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $scoped_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace scoped_t$ {
 
     template <typename type_p>
     class is_tmpl :
@@ -59,7 +59,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker {
 
     template <typename type_p>
     concept scoped_tr =
-        $scoped_t::is_tmpl<nkr::cpp::just_non_qualified_t<type_p>>::value;
+        scoped_t$::is_tmpl<nkr::cpp::just_non_qualified_t<type_p>>::value;
 
     template <template <typename ...> typename template_p>
     concept scoped_ttr =
@@ -67,14 +67,14 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker {
 
 }}}}
 
-namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $scoped_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace scoped_t$ {
 
     template <nkr::cpp::concurrency::locker::scoped_tr type_p>
     class type_i_type_sp
     {
     public:
         using type_t    = type_p;
-        using of_t      = nkr::cpp::concurrency::locker::$scoped_t::inner_t<type_t>;
+        using of_t      = nkr::cpp::concurrency::locker::scoped_t$::inner_t<type_t>;
 
     public:
         template <typename other_p>
@@ -113,19 +113,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::locker::$scoped_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::cpp::concurrency::locker::scoped_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::cpp::concurrency::locker::scoped_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::locker::$scoped_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::cpp::concurrency::locker::scoped_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $scoped_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace scoped_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::concurrency::locker::scoped_ttr<template_p>
@@ -173,7 +173,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::locker::$scoped_t::template_i_template_sp<template_p>;
+        using type_t    = nkr::cpp::concurrency::locker::scoped_t$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -181,7 +181,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::locker::$scoped_t::template_i_tag_sp<template_p>;
+        using type_t    = nkr::cpp::concurrency::locker::scoped_t$::template_i_tag_sp<template_p>;
     };
 
 }}

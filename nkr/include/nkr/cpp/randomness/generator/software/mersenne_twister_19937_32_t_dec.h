@@ -22,7 +22,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
 }}}}}
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_19937_32_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_19937_32_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::cpp::randomness::generator::software::mersenne_twister_19937_32_tg> type_p>
     class type_i_tag_sp
@@ -50,7 +50,7 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::generator::software::$mersenne_twister_19937_32_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::cpp::randomness::generator::software::mersenne_twister_19937_32_t$::type_i_tag_sp<type_p>;
     };
 
 }}

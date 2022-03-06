@@ -11,7 +11,7 @@
 
 namespace nkr {
 
-    namespace $some_t {};
+    namespace some_t$ {};
 
 }
 
@@ -25,7 +25,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $some_t {
+namespace nkr { namespace some_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -46,7 +46,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <$some_t::any_tr type_p>
+    template <some_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<some_tg>
     {

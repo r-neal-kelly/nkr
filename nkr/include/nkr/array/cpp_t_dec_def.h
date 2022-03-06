@@ -6,7 +6,7 @@
 
 #include "nkr/array/cpp_t_dec.h"
 
-namespace nkr { namespace array { namespace $cpp_t {
+namespace nkr { namespace array { namespace cpp_t$ {
 
     template <nkr::array::cpp_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace array { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace array { namespace $cpp_t {
+namespace nkr { namespace array { namespace cpp_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::array::cpp_ttr<template_p>

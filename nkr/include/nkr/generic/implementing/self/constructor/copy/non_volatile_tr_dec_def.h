@@ -7,7 +7,7 @@
 #include "nkr/generic/implementing/self/constructor/copy/non_volatile_tr_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor {
-namespace copy { namespace $non_volatile_tr {
+namespace copy { namespace non_volatile_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::constructor::copy::non_volatile_tg> type_p>
     template <typename other_p>
@@ -30,7 +30,7 @@ namespace copy { namespace $non_volatile_tr {
 }}}}}}}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace constructor {
-namespace copy { namespace $non_volatile_tr {
+namespace copy { namespace non_volatile_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::constructor::copy::non_volatile_ttg, nkr::none::type_t>

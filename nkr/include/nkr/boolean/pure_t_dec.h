@@ -29,7 +29,7 @@ namespace nkr { namespace boolean {
 
 }}
 
-namespace nkr { namespace boolean { namespace $pure_t {
+namespace nkr { namespace boolean { namespace pure_t$ {
 
     template <nkr::boolean::pure_tr type_p>
     class type_i_type_sp
@@ -75,14 +75,14 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$pure_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::boolean::pure_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::boolean::pure_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$pure_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::boolean::pure_t$::type_i_tag_sp<type_p>;
     };
 
 }}
@@ -139,7 +139,7 @@ namespace nkr { namespace boolean {
 
 }}
 
-namespace nkr { namespace boolean { namespace $pure_t {
+namespace nkr { namespace boolean { namespace pure_t$ {
 
     template <nkr::boolean::pure_tr type_p>
     class none_value_i_sp
@@ -164,12 +164,12 @@ namespace nkr { namespace interface { namespace none {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$pure_t::none_value_i_sp<type_p>;
+        using type_t    = nkr::boolean::pure_t$::none_value_i_sp<type_p>;
     };
 
 }}}
 
-namespace nkr { namespace boolean { namespace $pure_t {
+namespace nkr { namespace boolean { namespace pure_t$ {
 
     template <nkr::boolean::pure_tr type_p>
     class randomness_value_i_sp
@@ -204,7 +204,7 @@ namespace nkr { namespace interface { namespace randomness {
     class value_i_sp<value_p>
     {
     public:
-        using type_t    = nkr::boolean::$pure_t::randomness_value_i_sp<nkr::cpp::just_non_qualified_t<value_p>>;
+        using type_t    = nkr::boolean::pure_t$::randomness_value_i_sp<nkr::cpp::just_non_qualified_t<value_p>>;
     };
 
 }}}

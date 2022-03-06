@@ -14,7 +14,7 @@
 
 #include "nkr/z_allocator_err.h"
 
-namespace nkr { namespace $array_i {
+namespace nkr { namespace array_i$ {
 
     template <typename array_p>
     concept aliases_i =
@@ -90,13 +90,13 @@ namespace nkr {
 
     template <typename array_p>
     concept array_i =
-        $array_i::aliases_i<array_p> &&
-        $array_i::methods_i<array_p>;
+        array_i$::aliases_i<array_p> &&
+        array_i$::methods_i<array_p>;
 
     template <typename array_p>
     concept aggregate_array_i =
         array_i<array_p> &&
-        $array_i::aggregate_methods_i<array_p>;
+        array_i$::aggregate_methods_i<array_p>;
 
     template <typename array_p>
     concept non_aggregate_array_i =
@@ -106,7 +106,7 @@ namespace nkr {
     template <typename array_p>
     concept pointable_array_i =
         array_i<array_p> &&
-        $array_i::pointable_methods_i<array_p>;
+        array_i$::pointable_methods_i<array_p>;
 
     template <typename array_p>
     concept non_pointable_array_i =

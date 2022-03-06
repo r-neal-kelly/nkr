@@ -10,7 +10,7 @@
 #include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 
-namespace nkr { namespace interface { namespace $template_i {
+namespace nkr { namespace interface { namespace template_i$ {
 
     template <typename type_p>
     class is_tmpl :
@@ -58,14 +58,14 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     concept template_tr =
-        $template_i::is_tmpl<type_p>::Value() &&
-        $template_i::aliases_i<type_p> &&
-        $template_i::static_constexpr_functions_i<type_p> &&
-        $template_i::objects_i<type_p>;
+        template_i$::is_tmpl<type_p>::Value() &&
+        template_i$::aliases_i<type_p> &&
+        template_i$::static_constexpr_functions_i<type_p> &&
+        template_i$::objects_i<type_p>;
 
 }}
 
-namespace nkr { namespace interface { namespace $template_i {
+namespace nkr { namespace interface { namespace template_i$ {
 
     template <nkr::interface::template_tr type_p>
     class type_i_type_sp
@@ -111,14 +111,14 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::$template_i::type_i_type_sp<type_p>;
+        using type_t    = nkr::interface::template_i$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::interface::template_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::$template_i::type_i_tag_sp<type_p>;
+        using type_t    = nkr::interface::template_i$::type_i_tag_sp<type_p>;
     };
 
 }}

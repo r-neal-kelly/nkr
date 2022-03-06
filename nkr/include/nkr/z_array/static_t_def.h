@@ -15,7 +15,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<array::static_tg>::Is_Any()
     {
-        return array::$static_t::any_tr<other_p>;
+        return array::static_t$::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t

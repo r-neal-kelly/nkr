@@ -6,7 +6,7 @@
 
 #include "nkr/positive/byte_t_dec.h"
 
-namespace nkr { namespace positive { namespace $byte_t {
+namespace nkr { namespace positive { namespace byte_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::positive::byte_tg> type_p>
     template <typename other_p>

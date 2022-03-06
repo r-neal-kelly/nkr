@@ -14,7 +14,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<pointer_tg>::Is_Any()
     {
-        return $pointer_t::any_tr<other_p>;
+        return pointer_t$::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t
@@ -25,7 +25,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $pointer_t {
+namespace nkr { namespace pointer_t$ {
 
     template <any_type_tr unit_p>
     inline any_type_sp<unit_p>::any_type_sp() :

@@ -32,7 +32,7 @@ namespace nkr { namespace array {
 
 }}
 
-namespace nkr { namespace array { namespace $cpp_t {
+namespace nkr { namespace array { namespace cpp_t$ {
 
     template <nkr::array::cpp_tr type_p>
     class type_i_type_sp
@@ -78,19 +78,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::array::$cpp_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::array::cpp_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::array::cpp_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::array::$cpp_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::array::cpp_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace array { namespace $cpp_t {
+namespace nkr { namespace array { namespace cpp_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::array::cpp_ttr<template_p>
@@ -138,7 +138,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::array::$cpp_t::template_i_template_sp<template_p>;
+        using type_t    = nkr::array::cpp_t$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -146,7 +146,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::array::$cpp_t::template_i_tag_sp<template_p>;
+        using type_t    = nkr::array::cpp_t$::template_i_tag_sp<template_p>;
     };
 
 }}

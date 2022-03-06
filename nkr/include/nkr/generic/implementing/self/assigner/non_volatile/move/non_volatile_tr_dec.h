@@ -10,7 +10,7 @@
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace move { namespace $non_volatile_tr {
+namespace non_volatile { namespace move { namespace non_volatile_tr$ {
 
     template <typename type_p>
     concept assigners_i =
@@ -34,7 +34,7 @@ namespace non_volatile { namespace move {
 
     template <typename type_p>
     concept non_volatile_tr =
-        $non_volatile_tr::assigners_i<nkr::cpp::just_non_qualified_t<type_p>>;
+        non_volatile_tr$::assigners_i<nkr::cpp::just_non_qualified_t<type_p>>;
 
     template <template <typename ...> typename template_p>
     concept non_volatile_ttr =
@@ -43,7 +43,7 @@ namespace non_volatile { namespace move {
 }}}}}}}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace move { namespace $non_volatile_tr {
+namespace non_volatile { namespace move { namespace non_volatile_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::assigner::non_volatile::move::non_volatile_tg> type_p>
     class type_i_tag_sp
@@ -71,13 +71,13 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::move::$non_volatile_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::move::non_volatile_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
 namespace nkr { namespace generic { namespace implementing { namespace self { namespace assigner {
-namespace non_volatile { namespace move { namespace $non_volatile_tr {
+namespace non_volatile { namespace move { namespace non_volatile_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::move::non_volatile_ttg, nkr::none::type_t>
@@ -102,7 +102,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::move::$non_volatile_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::implementing::self::assigner::non_volatile::move::non_volatile_tr$::template_i_tag_sp<template_p>;
     };
 
 }}

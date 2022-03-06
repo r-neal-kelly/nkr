@@ -11,7 +11,7 @@
 
 #include "nkr/z_atomic_t_dec.h"
 
-namespace nkr { namespace $atomic_t {
+namespace nkr { namespace atomic_t$ {
 
     template <boolean_tr boolean_p>
     inline typename const boolean_sp<boolean_p>::value_t

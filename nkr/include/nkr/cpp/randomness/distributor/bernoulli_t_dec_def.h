@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/randomness/distributor/bernoulli_t_dec.h"
 
-namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace $bernoulli_t {
+namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace bernoulli_t$ {
 
     template <nkr::cpp::randomness::distributor::bernoulli_tr type_p>
     template <typename other_p>

@@ -21,9 +21,9 @@
 
 namespace nkr {
 
-    namespace $regex_t {
+    namespace regex_t$ {
     
-        namespace $syntax_tree_t {
+        namespace syntax_tree_t$ {
         
 
         
@@ -33,7 +33,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $regex_t { namespace $syntax_tree_t {
+namespace nkr { namespace regex_t$ { namespace syntax_tree_t$ {
 
     // It makes sense to sacrifice the space in memory for execution speed,
     // because the size of text that will be searched will be magnitudes larger
@@ -193,7 +193,7 @@ namespace nkr { namespace $regex_t { namespace $syntax_tree_t {
 
 }}}
 
-namespace nkr { namespace $regex_t {
+namespace nkr { namespace regex_t$ {
 
     class general_flags_e :
         public enumeration::flags_t<unsigned_word_t>
@@ -219,9 +219,9 @@ namespace nkr { namespace $regex_t {
     public:
         using allocator_t   = allocator_p;
 
-        using node_type_e   = $syntax_tree_t::node_type_e;
-        using node_t        = $syntax_tree_t::node_t;
-        using node_u        = $syntax_tree_t::node_u;
+        using node_type_e   = syntax_tree_t$::node_type_e;
+        using node_t        = syntax_tree_t$::node_t;
+        using node_u        = syntax_tree_t$::node_u;
 
     public:
         array::dynamic_t<node_u, allocator_t>   nodes;
@@ -246,8 +246,8 @@ namespace nkr {
         using allocator_t       = allocator_p;
         using unit_t            = charcoder_p::unit_t;
 
-        using general_flags_e   = $regex_t::general_flags_e;
-        using syntax_tree_t     = $regex_t::syntax_tree_t<allocator_t>;
+        using general_flags_e   = regex_t$::general_flags_e;
+        using syntax_tree_t     = regex_t$::syntax_tree_t<allocator_t>;
 
     public:
         string::dynamic_t<charcoder_t, allocator_t> expression;

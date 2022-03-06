@@ -6,7 +6,7 @@
 
 #include "nkr/boolean/cpp_t_dec.h"
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     template <nkr::boolean::cpp_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace boolean { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     template <nkr::boolean::cpp_tr type_p>
     inline constexpr none_value_i_sp<type_p>::value_t
@@ -58,7 +58,7 @@ namespace nkr { namespace boolean { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     template <nkr::boolean::cpp_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t

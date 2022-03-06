@@ -8,7 +8,7 @@
 
 #include "nkr/z_enumeration/types_t_dec.h"
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <integer_tr value_p, any_tr actual_value_p, value_p none_p>
     inline any_sp<value_p, actual_value_p, none_p>::any_sp() :

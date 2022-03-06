@@ -21,7 +21,7 @@
 #include "nkr/randomness/distributor/uniform_t_def.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 
-namespace nkr { namespace enumeration { namespace $cpp_t {
+namespace nkr { namespace enumeration { namespace cpp_t$ {
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     template <typename unused_p>

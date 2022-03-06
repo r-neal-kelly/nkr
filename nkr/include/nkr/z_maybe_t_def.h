@@ -12,7 +12,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<maybe_tg>::Is_Any()
     {
-        return $maybe_t::any_tr<other_p>;
+        return maybe_t$::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t
@@ -23,7 +23,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $maybe_t { namespace $built_in_sp {
+namespace nkr { namespace maybe_t$ { namespace built_in_sp$ {
 
     template <typename any_p>
     inline any_sp<any_p>::any_sp() :
@@ -354,7 +354,7 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
 }}}
 
-namespace nkr { namespace $maybe_t {
+namespace nkr { namespace maybe_t$ {
 
     template <maybe_i user_defined_p>
     inline user_defined_sp<user_defined_p>::operator c_bool_t()

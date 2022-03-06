@@ -14,7 +14,7 @@ namespace nkr { namespace charcoder {
 
 }}
 
-namespace nkr { namespace $charcoder_i {
+namespace nkr { namespace charcoder_i$ {
 
     /*
         Requirements:
@@ -127,10 +127,10 @@ namespace nkr {
 
     template <typename type_p>
     concept charcoder_i =
-        $charcoder_i::unit_i<type_p> &&
-        $charcoder_i::static_constexpr_functions_i<type_p> &&
-        $charcoder_i::objects_i<type_p> &&
-        $charcoder_i::methods_i<type_p> &&
+        charcoder_i$::unit_i<type_p> &&
+        charcoder_i$::static_constexpr_functions_i<type_p> &&
+        charcoder_i$::objects_i<type_p> &&
+        charcoder_i$::methods_i<type_p> &&
         none_i<type_p>;
 
 }

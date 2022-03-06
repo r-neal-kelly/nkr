@@ -6,7 +6,7 @@
 
 #include "nkr/randomness/distributor/uniform_t_dec.h"
 
-namespace nkr { namespace randomness { namespace distributor { namespace $uniform_t {
+namespace nkr { namespace randomness { namespace distributor { namespace uniform_t$ {
 
     template <nkr::randomness::distributor::uniform_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace randomness { namespace distributor { namespace $unifor
 
 }}}}
 
-namespace nkr { namespace randomness { namespace distributor { namespace $uniform_t {
+namespace nkr { namespace randomness { namespace distributor { namespace uniform_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::randomness::distributor::uniform_ttr<template_p>

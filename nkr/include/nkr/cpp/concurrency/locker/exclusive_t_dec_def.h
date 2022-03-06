@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/concurrency/locker/exclusive_t_dec.h"
 
-namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $exclusive_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace exclusive_t$ {
 
     template <nkr::cpp::concurrency::locker::exclusive_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
 
 }}}}}
 
-namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace $exclusive_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace locker { namespace exclusive_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::concurrency::locker::exclusive_ttr<template_p>

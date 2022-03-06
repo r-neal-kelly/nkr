@@ -6,7 +6,7 @@
 
 #include "nkr/interface/template_i_dec.h"
 
-namespace nkr { namespace interface { namespace $template_i {
+namespace nkr { namespace interface { namespace template_i$ {
 
     template <nkr::interface::template_tr type_p>
     template <typename other_p>

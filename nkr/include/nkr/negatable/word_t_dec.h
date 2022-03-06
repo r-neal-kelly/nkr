@@ -20,7 +20,7 @@ namespace nkr { namespace negatable {
 
 }}
 
-namespace nkr { namespace negatable { namespace $word_t {
+namespace nkr { namespace negatable { namespace word_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::word_tg> type_p>
     class type_i_tag_sp
@@ -48,7 +48,7 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$word_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::negatable::word_t$::type_i_tag_sp<type_p>;
     };
 
 }}

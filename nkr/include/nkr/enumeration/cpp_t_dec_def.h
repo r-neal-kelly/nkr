@@ -6,7 +6,7 @@
 
 #include "nkr/enumeration/cpp_t_dec.h"
 
-namespace nkr { namespace enumeration { namespace $cpp_t {
+namespace nkr { namespace enumeration { namespace cpp_t$ {
 
     template <nkr::enumeration::cpp_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace enumeration { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace enumeration { namespace $cpp_t {
+namespace nkr { namespace enumeration { namespace cpp_t$ {
 
     template <nkr::enumeration::cpp_tr type_p>
     inline constexpr none_value_i_sp<type_p>::value_t
@@ -62,7 +62,7 @@ namespace nkr { namespace enumeration { namespace $cpp_t {
 
 }}}
 
-namespace nkr { namespace enumeration { namespace $cpp_t {
+namespace nkr { namespace enumeration { namespace cpp_t$ {
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
     inline constexpr randomness_distributor_uniform_i_sp<type_p>::value_t

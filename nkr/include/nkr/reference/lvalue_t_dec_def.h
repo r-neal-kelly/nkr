@@ -6,7 +6,7 @@
 
 #include "nkr/reference/lvalue_t_dec.h"
 
-namespace nkr { namespace reference { namespace $lvalue_t {
+namespace nkr { namespace reference { namespace lvalue_t$ {
 
     template <nkr::reference::lvalue_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace reference { namespace $lvalue_t {
 
 }}}
 
-namespace nkr { namespace reference { namespace $lvalue_t {
+namespace nkr { namespace reference { namespace lvalue_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::reference::lvalue_ttr<template_p>

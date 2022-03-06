@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/count_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $count_t {
+namespace nkr { namespace negatable { namespace count_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::count_tg> type_p>
     template <typename other_p>

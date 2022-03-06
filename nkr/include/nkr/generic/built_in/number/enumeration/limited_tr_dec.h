@@ -31,7 +31,7 @@ namespace nkr { namespace generic { namespace built_in { namespace number { name
 
 }}}}}
 
-namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration { namespace $limited_tr {
+namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration { namespace limited_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::built_in::number::enumeration::limited_tg> type_p>
     class type_i_tag_sp
@@ -59,12 +59,12 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::built_in::number::enumeration::$limited_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::built_in::number::enumeration::limited_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration { namespace $limited_tr {
+namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration { namespace limited_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number::enumeration::limited_ttg, nkr::none::type_t>
@@ -89,7 +89,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::built_in::number::enumeration::$limited_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::built_in::number::enumeration::limited_tr$::template_i_tag_sp<template_p>;
     };
 
 }}

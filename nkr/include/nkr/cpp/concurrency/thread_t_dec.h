@@ -21,7 +21,7 @@ namespace nkr { namespace cpp { namespace concurrency {
 
 }}}
 
-namespace nkr { namespace cpp { namespace concurrency { namespace $thread_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace thread_t$ {
 
     template <nkr::cpp::concurrency::thread_tr type_p>
     class type_i_type_sp
@@ -67,14 +67,14 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::$thread_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::cpp::concurrency::thread_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::cpp::concurrency::thread_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::concurrency::$thread_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::cpp::concurrency::thread_t$::type_i_tag_sp<type_p>;
     };
 
 }}

@@ -16,7 +16,7 @@
 #include "nkr/randomness/distributor/uniform_t_def.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     template <typename unused_p>

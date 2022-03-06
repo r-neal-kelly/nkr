@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/index_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $index_t {
+namespace nkr { namespace negatable { namespace index_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::index_tg> type_p>
     template <typename other_p>

@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/randomness/generator/hardware_t_dec.h"
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace $hardware_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace hardware_t$ {
 
     template <nkr::cpp::randomness::generator::hardware_tr type_p>
     template <typename other_p>

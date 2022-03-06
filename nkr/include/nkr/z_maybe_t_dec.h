@@ -15,11 +15,11 @@ namespace nkr {
 
     /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
     /// @copydoc _c8a34890_b904_42a7_a88c_ada39529db42
-    namespace $maybe_t {
+    namespace maybe_t$ {
     
         /// @ingroup _d1cd4369_e0f4_4062_8f58_611395da215e
         /// @copydoc _1145e7f5_3595_468d_8aca_2c1336bdc5b8
-        namespace $built_in_sp {};
+        namespace built_in_sp$ {};
     
     }
 
@@ -35,7 +35,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $maybe_t {
+namespace nkr { namespace maybe_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -56,7 +56,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <$maybe_t::any_tr type_p>
+    template <maybe_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<maybe_tg>
     {
@@ -84,7 +84,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $maybe_t { namespace $built_in_sp {
+namespace nkr { namespace maybe_t$ { namespace built_in_sp$ {
 
     /// @nosubgrouping
     /// @copydoc _0d45c64a_558d_4bd7_baa2_6f521f6656d5
@@ -237,16 +237,16 @@ namespace nkr { namespace $maybe_t { namespace $built_in_sp {
 
 }}}
 
-namespace nkr { namespace $maybe_t {
+namespace nkr { namespace maybe_t$ {
 
     /// @nosubgrouping
     /// @copydoc _476cf1d5_7332_4bfc_acfb_d3a5e3802c6f
     template <typename any_p>
     class built_in_sp :
-        public $built_in_sp::any_sp<any_p>
+        public built_in_sp$::any_sp<any_p>
     {
     private:
-        using base_t    = $built_in_sp::any_sp<any_p>;
+        using base_t    = built_in_sp$::any_sp<any_p>;
 
     public:
         /// @name objects
@@ -260,10 +260,10 @@ namespace nkr { namespace $maybe_t {
     /// @copydoc _54610ffc_35de_47f2_9b0a_03da52782104
     template <real_tr real_p>
     class built_in_sp<real_p> :
-        public $built_in_sp::real_sp<real_p>
+        public built_in_sp$::real_sp<real_p>
     {
     private:
-        using base_t    = $built_in_sp::real_sp<real_p>;
+        using base_t    = built_in_sp$::real_sp<real_p>;
 
     public:
         /// @name objects
@@ -277,10 +277,10 @@ namespace nkr { namespace $maybe_t {
     /// @copydoc _eb401275_a224_48ec_ab23_6d0c82b83d8a
     template <c_pointer_tr c_pointer_p>
     class built_in_sp<c_pointer_p> :
-        public $built_in_sp::c_pointer_sp<c_pointer_p>
+        public built_in_sp$::c_pointer_sp<c_pointer_p>
     {
     private:
-        using base_t    = $built_in_sp::c_pointer_sp<c_pointer_p>;
+        using base_t    = built_in_sp$::c_pointer_sp<c_pointer_p>;
 
     public:
         /// @name objects
@@ -365,10 +365,10 @@ namespace nkr {
     /// @copydoc _b0155c57_e98a_479c_b659_c2e869035bec
     template <built_in_tr built_in_p>
     class maybe_t<built_in_p> :
-        public $maybe_t::built_in_sp<built_in_p>
+        public maybe_t$::built_in_sp<built_in_p>
     {
     private:
-        using base_t    = $maybe_t::built_in_sp<built_in_p>;
+        using base_t    = maybe_t$::built_in_sp<built_in_p>;
 
     public:
         /// @name objects
@@ -383,10 +383,10 @@ namespace nkr {
     /// @copydoc _28243913_2a03_428d_95ac_cbabc3cb3baa
     template <maybe_i user_defined_p>
     class maybe_t<user_defined_p> :
-        public $maybe_t::user_defined_sp<user_defined_p>
+        public maybe_t$::user_defined_sp<user_defined_p>
     {
     private:
-        using base_t    = $maybe_t::user_defined_sp<user_defined_p>;
+        using base_t    = maybe_t$::user_defined_sp<user_defined_p>;
 
     public:
         /// @name objects

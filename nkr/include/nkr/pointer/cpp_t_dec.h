@@ -32,7 +32,7 @@ namespace nkr { namespace pointer {
 
 }}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     class type_i_type_sp
@@ -78,19 +78,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::pointer::cpp_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::pointer::cpp_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::pointer::cpp_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::pointer::cpp_ttr<template_p>
@@ -138,7 +138,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::template_i_template_sp<template_p>;
+        using type_t    = nkr::pointer::cpp_t$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -146,12 +146,12 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::template_i_tag_sp<template_p>;
+        using type_t    = nkr::pointer::cpp_t$::template_i_tag_sp<template_p>;
     };
 
 }}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     class none_value_i_sp
@@ -176,12 +176,12 @@ namespace nkr { namespace interface { namespace none {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::none_value_i_sp<type_p>;
+        using type_t    = nkr::pointer::cpp_t$::none_value_i_sp<type_p>;
     };
 
 }}}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     class randomness_distributor_uniform_i_sp
@@ -211,12 +211,12 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     class uniform_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::randomness_distributor_uniform_i_sp<type_p>;
+        using type_t    = nkr::pointer::cpp_t$::randomness_distributor_uniform_i_sp<type_p>;
     };
 
 }}}}
 
-namespace nkr { namespace pointer { namespace $cpp_t {
+namespace nkr { namespace pointer { namespace cpp_t$ {
 
     template <nkr::pointer::cpp_tr type_p>
     class randomness_value_i_sp
@@ -245,7 +245,7 @@ namespace nkr { namespace interface { namespace randomness {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::pointer::$cpp_t::randomness_value_i_sp<type_p>;
+        using type_t    = nkr::pointer::cpp_t$::randomness_value_i_sp<type_p>;
     };
 
 }}}

@@ -14,7 +14,7 @@
 
 #include "nkr/boolean/pure_t_def.h"
 
-namespace nkr { namespace boolean { namespace $pure_t {
+namespace nkr { namespace boolean { namespace pure_t$ {
 
     template <nkr::boolean::pure_tr type_p>
     template <typename unused_p>

@@ -4,7 +4,7 @@
 
 #pragma once
 
-// nkr::$atomic_t
+// nkr::atomic_t$
 /**
 * @class _80ba6268_583c_45c1_8d5c_d5d84565dae8
 * @private
@@ -1333,7 +1333,7 @@
     *   A specialization for pointers to be used atomically.
     * 
     * @note
-    *   nkr::$atomic_t::void_pointer_sp is closely related to this specialization.
+    *   nkr::atomic_t$::void_pointer_sp is closely related to this specialization.
     */
 
         // aliases
@@ -1758,7 +1758,7 @@
     *   A specialization for nkr::void_t* to be used atomically.
     * 
     * @details
-    *   This exists in conjunction with nkr::$atomic_t::c_pointer_sp because nkr::void_t* cannot compile with some of the operators that a regular pointer can.
+    *   This exists in conjunction with nkr::atomic_t$::c_pointer_sp because nkr::void_t* cannot compile with some of the operators that a regular pointer can.
     */
 
         // aliases
@@ -2104,7 +2104,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::boolean_sp.
+*   A wrapper for nkr::atomic_t$::boolean_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
@@ -2116,7 +2116,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::integer_sp.
+*   A wrapper for nkr::atomic_t$::integer_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
@@ -2128,7 +2128,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::real_sp.
+*   A wrapper for nkr::atomic_t$::real_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
@@ -2140,7 +2140,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::c_pointer_sp.
+*   A wrapper for nkr::atomic_t$::c_pointer_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff
@@ -2152,7 +2152,7 @@
 * @private
 * 
 * @brief
-*   A wrapper for nkr::$atomic_t::void_pointer_sp.
+*   A wrapper for nkr::atomic_t$::void_pointer_sp.
 * 
 * @copydoc _f66dddf5_07cc_4240_b2e2_39253f780892
 * @copydoc _e245fac0_078f_4cf6_852c_a42932c2ffff

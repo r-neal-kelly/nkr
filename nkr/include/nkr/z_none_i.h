@@ -8,7 +8,7 @@
 #include "nkr/z_intrinsics.h"
 #include "nkr/z_none_t.h"
 
-namespace nkr { namespace $none_i {
+namespace nkr { namespace none_i$ {
 
     template <typename type_p>
     concept assignment_i = requires(std::remove_cv_t<type_p> instance,
@@ -48,7 +48,7 @@ namespace nkr {
     /// @copydoc _9d52d2e1_c6dc_4dbb_ad58_01a219c6e510
     template <typename type_p>
     concept none_i =
-        $none_i::assignment_i<type_p> &&
-        $none_i::comparison_i<type_p>;
+        none_i$::assignment_i<type_p> &&
+        none_i$::comparison_i<type_p>;
 
 }

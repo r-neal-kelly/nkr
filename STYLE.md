@@ -325,15 +325,15 @@ Snake case is used for all names. Names are intended to follow natural grammars 
     }
     ```
 
-- **Collisions**: On occasion there will be name collisions with lower case labels and keywords. In those instances, it is recommended to prefix a *$* before the label name:
+- **Collisions**: On occasion there will be name collisions with lower case labels and keywords. In those instances, it is recommended to postfix a *$* before the label name:
 
     ```cpp
-    namespace nkr { namespace $static {
+    namespace nkr { namespace static$ {
 
         class type_t
         {
         public:
-            word_t $operator;
+            word_t operator$;
         };
 
     }}

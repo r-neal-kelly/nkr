@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/real_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $real_t {
+namespace nkr { namespace negatable { namespace real_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::real_tg> type_p>
     template <typename other_p>

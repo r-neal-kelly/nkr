@@ -6,7 +6,7 @@
 
 #include "nkr/generic/built_in/number/enumeration_tr_dec.h"
 
-namespace nkr { namespace generic { namespace built_in { namespace number { namespace $enumeration_tr {
+namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::built_in::number::enumeration_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace built_in { namespace number { name
 
 }}}}}
 
-namespace nkr { namespace generic { namespace built_in { namespace number { namespace $enumeration_tr {
+namespace nkr { namespace generic { namespace built_in { namespace number { namespace enumeration_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number::enumeration_ttg, nkr::none::type_t>

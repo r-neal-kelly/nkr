@@ -10,7 +10,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
-namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace $default_tr {
+namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace default_tr$ {
 
     template <typename type_p>
     concept constructors_i = requires
@@ -30,7 +30,7 @@ namespace nkr { namespace generic { namespace implementing { namespace construct
     template <typename type_p>
     concept default_tr =
         nkr::generic::type_tr<type_p> &&
-        $default_tr::constructors_i<type_p>;
+        default_tr$::constructors_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept default_ttr =
@@ -38,7 +38,7 @@ namespace nkr { namespace generic { namespace implementing { namespace construct
 
 }}}}
 
-namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace $default_tr {
+namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace default_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::constructor::default_tg> type_p>
     class type_i_tag_sp
@@ -66,12 +66,12 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::constructor::$default_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::implementing::constructor::default_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace $default_tr {
+namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace default_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::constructor::default_ttg, nkr::none::type_t>
@@ -96,7 +96,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::constructor::$default_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::implementing::constructor::default_tr$::template_i_tag_sp<template_p>;
     };
 
 }}

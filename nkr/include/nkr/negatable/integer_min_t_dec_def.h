@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/integer_min_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $integer_min_t {
+namespace nkr { namespace negatable { namespace integer_min_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::integer_min_tg> type_p>
     template <typename other_p>

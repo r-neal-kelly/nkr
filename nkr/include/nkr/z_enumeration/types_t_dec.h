@@ -24,7 +24,7 @@ namespace nkr { namespace enumeration {
 
 }}
 
-namespace nkr { namespace enumeration { namespace $types_t {
+namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <integer_tr value_p, any_tr actual_value_p, value_p none_p>
     class any_sp
@@ -121,10 +121,10 @@ namespace nkr { namespace enumeration {
     // I would think the intellisense would tell me about the incompatible type, but it didn't.
     template <integer_signed_tr integer_p, integer_p none_p>
     class types_t<integer_p, none_p> :
-        public $types_t::any_sp<integer_p, integer_p, none_p>
+        public types_t$::any_sp<integer_p, integer_p, none_p>
     {
     private:
-        using base_t    = $types_t::any_sp<integer_p, integer_p, none_p>;
+        using base_t    = types_t$::any_sp<integer_p, integer_p, none_p>;
 
     public:
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(types_t, base_t);
@@ -132,10 +132,10 @@ namespace nkr { namespace enumeration {
 
     template <any_non_const_atomic_of_any_non_const_signed_integer_tr atomic_p, typename atomic_p::value_t none_p>
     class types_t<atomic_p, none_p> :
-        public $types_t::any_sp<typename atomic_p::value_t, atomic_p, none_p>
+        public types_t$::any_sp<typename atomic_p::value_t, atomic_p, none_p>
     {
     private:
-        using base_t    = $types_t::any_sp<typename atomic_p::value_t, atomic_p, none_p>;
+        using base_t    = types_t$::any_sp<typename atomic_p::value_t, atomic_p, none_p>;
 
     public:
         nkr_DEFINE_INHERITANCE_WRAPPER_CTORS_AND_DTOR(types_t, base_t);

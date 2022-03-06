@@ -6,7 +6,7 @@
 
 #include "nkr/interface/none/value_i_dec.h"
 
-namespace nkr { namespace interface { namespace none { namespace $value_i {
+namespace nkr { namespace interface { namespace none { namespace value_i$ {
 
     template <nkr::cpp::is_any_tr<example_t> type_p>
     inline constexpr example_value_i_sp<type_p>::value_t
@@ -18,7 +18,7 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
 }}}}
 
-namespace nkr { namespace interface { namespace none { namespace $value_i {
+namespace nkr { namespace interface { namespace none { namespace value_i$ {
 
     template <nkr::interface::none::value_tr type_p>
     template <typename other_p>
@@ -58,7 +58,7 @@ namespace nkr { namespace interface { namespace none { namespace $value_i {
 
 }}}}
 
-namespace nkr { namespace interface { namespace none { namespace $value_i {
+namespace nkr { namespace interface { namespace none { namespace value_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::none::value_ttr<template_p>

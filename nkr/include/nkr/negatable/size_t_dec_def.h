@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/size_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $size_t {
+namespace nkr { namespace negatable { namespace size_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::size_tg> type_p>
     template <typename other_p>

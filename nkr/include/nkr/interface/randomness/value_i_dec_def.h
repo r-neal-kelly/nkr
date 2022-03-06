@@ -6,7 +6,7 @@
 
 #include "nkr/interface/randomness/value_i_dec.h"
 
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
+namespace nkr { namespace interface { namespace randomness { namespace value_i$ {
 
     template <nkr::interface::randomness::value_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace interface { namespace randomness { namespace $value_i 
 
 }}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
+namespace nkr { namespace interface { namespace randomness { namespace value_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::randomness::value_ttr<template_p>

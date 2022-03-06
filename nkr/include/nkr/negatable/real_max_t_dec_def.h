@@ -6,7 +6,7 @@
 
 #include "nkr/negatable/real_max_t_dec.h"
 
-namespace nkr { namespace negatable { namespace $real_max_t {
+namespace nkr { namespace negatable { namespace real_max_t$ {
 
     template <nkr::cpp::is_any_tr<nkr::negatable::real_max_tg> type_p>
     template <typename other_p>

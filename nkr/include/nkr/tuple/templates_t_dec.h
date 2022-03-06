@@ -12,7 +12,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace tuple { namespace $templates_t {
+namespace nkr { namespace tuple { namespace templates_t$ {
 
     template <typename type_p>
     class   is_tmpl;
@@ -34,15 +34,15 @@ namespace nkr { namespace tuple {
 
     template <typename type_p>
     concept templates_tr =
-        $templates_t::is_tmpl<nkr::cpp::just_non_qualified_t<type_p>>::Value();
+        templates_t$::is_tmpl<nkr::cpp::just_non_qualified_t<type_p>>::Value();
 
     template <template <template <typename ...> typename ...> typename template_template_p>
     concept templates_tttr =
-        nkr::cpp::is_any_tttr<template_template_p, templates_t, $templates_t::dummy_t>;
+        nkr::cpp::is_any_tttr<template_template_p, templates_t, templates_t$::dummy_t>;
 
 }}
 
-namespace nkr { namespace tuple { namespace $templates_t {
+namespace nkr { namespace tuple { namespace templates_t$ {
 
     template <nkr::tuple::templates_tr type_p>
     class type_i_type_sp
@@ -88,19 +88,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::tuple::$templates_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::tuple::templates_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::tuple::templates_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::tuple::$templates_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::tuple::templates_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace tuple { namespace $templates_t {
+namespace nkr { namespace tuple { namespace templates_t$ {
 
     template <typename type_p>
     class is_tmpl :
@@ -125,7 +125,7 @@ namespace nkr { namespace tuple { namespace $templates_t {
 
 }}}
 
-namespace nkr { namespace tuple { namespace $templates_t {
+namespace nkr { namespace tuple { namespace templates_t$ {
 
     template <typename tuple_p, nkr::positive::index_t index_p>
     class at_tmpl;
@@ -221,11 +221,11 @@ namespace nkr { namespace tuple {
 
         template <nkr::constant::positive::index_tr index_p>
             requires (index_p::Value() <= 1 + sizeof...(tail_p))
-        using at_t          = $templates_t::at_tmpl<templates_t, index_p::Value()>::type_t;
+        using at_t          = templates_t$::at_tmpl<templates_t, index_p::Value()>::type_t;
 
         template <nkr::constant::positive::count_tr count_p>
             requires (count_p::Value() <= 1 + sizeof...(tail_p))
-        using take_t        = $templates_t::take_tmpl<templates_t, count_p::Value()>::type_t;
+        using take_t        = templates_t$::take_tmpl<templates_t, count_p::Value()>::type_t;
 
         template <template <template <typename ...> typename ...> typename template_template_p>
         using into_t        = template_template_p<head_p, tail_p...>;

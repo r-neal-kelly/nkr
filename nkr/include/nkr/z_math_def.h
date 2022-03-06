@@ -9,7 +9,7 @@
 #include "nkr/z_fors.h"
 #include "nkr/z_math_dec.h"
 
-namespace nkr { namespace math { namespace $fraction_t {
+namespace nkr { namespace math { namespace fraction_t$ {
 
     template <auto NUMERATOR_p, auto DENOMINATOR_p>
     inline constexpr typename integer_sp<NUMERATOR_p, DENOMINATOR_p>::numerator_t

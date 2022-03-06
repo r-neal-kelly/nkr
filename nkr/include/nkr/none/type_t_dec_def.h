@@ -6,7 +6,7 @@
 
 #include "nkr/none/type_t_dec.h"
 
-namespace nkr { namespace none { namespace $type_t {
+namespace nkr { namespace none { namespace type_t$ {
 
     template <nkr::none::type_tr type_p>
     template <typename other_p>

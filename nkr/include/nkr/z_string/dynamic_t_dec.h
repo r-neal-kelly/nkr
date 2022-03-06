@@ -49,7 +49,7 @@ namespace nkr { namespace string {
 
 }}
 
-namespace nkr { namespace string { namespace $dynamic_t {
+namespace nkr { namespace string { namespace dynamic_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -70,7 +70,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <string::$dynamic_t::any_tr type_p>
+    template <string::dynamic_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<string::dynamic_tg>
     {

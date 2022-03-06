@@ -11,7 +11,7 @@
 #include "nkr/z_utils.h"
 
 /// @copydoc _a5a2b1f5_e0b0_474a_949d_8fdcbaf67557
-namespace nkr::$pointer_t {};
+namespace nkr::pointer_t$ {};
 
 namespace nkr {
 
@@ -23,7 +23,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $pointer_t {
+namespace nkr { namespace pointer_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -44,7 +44,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <$pointer_t::any_tr type_p>
+    template <pointer_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<pointer_tg>
     {
@@ -72,7 +72,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $pointer_t {
+namespace nkr { namespace pointer_t$ {
 
     /// @nosubgrouping
     /// @copydoc _4cac11ea_20bf_436b_a218_bd7a024c25ea
@@ -350,13 +350,13 @@ namespace nkr {
     /// @copydoc _7598e667_809c_4a66_99a0_4a061980c7f9
     template <any_type_tr any_type_p>
     class pointer_t<any_type_p> :
-        public $pointer_t::any_type_sp<any_type_p>
+        public pointer_t$::any_type_sp<any_type_p>
     {
     public:
         /// @name aliases
         /// @copydoc 
         /// @{
-        using base_t    = $pointer_t::any_type_sp<any_type_p>;
+        using base_t    = pointer_t$::any_type_sp<any_type_p>;
         /// @}
 
     public:
@@ -374,13 +374,13 @@ namespace nkr {
     /// @copydoc _f850063c_8453_4b64_959a_562c8cf9037b
     template <any_non_type_tr any_non_type_p>
     class pointer_t<any_non_type_p> :
-        public $pointer_t::any_non_type_sp<any_non_type_p>
+        public pointer_t$::any_non_type_sp<any_non_type_p>
     {
     public:
         /// @name aliases
         /// @copydoc 
         /// @{
-        using base_t    = $pointer_t::any_non_type_sp<any_non_type_p>;
+        using base_t    = pointer_t$::any_non_type_sp<any_non_type_p>;
         /// @}
 
     public:

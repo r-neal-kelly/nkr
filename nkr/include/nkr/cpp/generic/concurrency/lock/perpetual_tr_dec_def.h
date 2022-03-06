@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/generic/concurrency/lock/perpetual_tr_dec.h"
 
-namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace $perpetual_tr {
+namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace perpetual_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::cpp::generic::concurrency::lock::perpetual_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
 
 }}}}}}
 
-namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace $perpetual_tr {
+namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace perpetual_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::perpetual_ttg, nkr::none::type_t>

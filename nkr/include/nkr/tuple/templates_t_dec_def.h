@@ -6,7 +6,7 @@
 
 #include "nkr/tuple/templates_t_dec.h"
 
-namespace nkr { namespace tuple { namespace $templates_t {
+namespace nkr { namespace tuple { namespace templates_t$ {
 
     template <nkr::tuple::templates_tr type_p>
     template <typename other_p>

@@ -21,7 +21,7 @@ namespace nkr { namespace negatable {
 
 }}
 
-namespace nkr { namespace negatable { namespace $integer_32_t {
+namespace nkr { namespace negatable { namespace integer_32_t$ {
 
     template <nkr::negatable::integer_32_tr type_p>
     class type_i_type_sp
@@ -67,19 +67,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$integer_32_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::negatable::integer_32_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::negatable::integer_32_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$integer_32_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::negatable::integer_32_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace negatable { namespace $integer_32_t {
+namespace nkr { namespace negatable { namespace integer_32_t$ {
 
     template <nkr::negatable::integer_32_tr type_p>
     class none_value_i_sp
@@ -104,12 +104,12 @@ namespace nkr { namespace interface { namespace none {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$integer_32_t::none_value_i_sp<type_p>;
+        using type_t    = nkr::negatable::integer_32_t$::none_value_i_sp<type_p>;
     };
 
 }}}
 
-namespace nkr { namespace negatable { namespace $integer_32_t {
+namespace nkr { namespace negatable { namespace integer_32_t$ {
 
     template <nkr::negatable::integer_32_tr type_p>
     class enumeration_types_i_sp
@@ -138,12 +138,12 @@ namespace nkr { namespace interface { namespace enumeration {
     class types_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$integer_32_t::enumeration_types_i_sp<type_p>;
+        using type_t    = nkr::negatable::integer_32_t$::enumeration_types_i_sp<type_p>;
     };
 
 }}}
 
-namespace nkr { namespace negatable { namespace $integer_32_t {
+namespace nkr { namespace negatable { namespace integer_32_t$ {
 
     template <nkr::negatable::integer_32_tr type_p>
     class randomness_distributor_uniform_i_sp
@@ -173,12 +173,12 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     class uniform_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$integer_32_t::randomness_distributor_uniform_i_sp<type_p>;
+        using type_t    = nkr::negatable::integer_32_t$::randomness_distributor_uniform_i_sp<type_p>;
     };
 
 }}}}
 
-namespace nkr { namespace negatable { namespace $integer_32_t {
+namespace nkr { namespace negatable { namespace integer_32_t$ {
 
     template <nkr::negatable::integer_32_tr type_p>
     class randomness_value_i_sp
@@ -207,7 +207,7 @@ namespace nkr { namespace interface { namespace randomness {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::negatable::$integer_32_t::randomness_value_i_sp<type_p>;
+        using type_t    = nkr::negatable::integer_32_t$::randomness_value_i_sp<type_p>;
     };
 
 }}}

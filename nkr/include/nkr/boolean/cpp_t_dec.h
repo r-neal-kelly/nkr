@@ -20,7 +20,7 @@ namespace nkr { namespace boolean {
 
 }}
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     template <nkr::boolean::cpp_tr type_p>
     class type_i_type_sp
@@ -66,19 +66,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$cpp_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::boolean::cpp_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::boolean::cpp_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$cpp_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::boolean::cpp_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     template <nkr::boolean::cpp_tr type_p>
     class none_value_i_sp
@@ -103,12 +103,12 @@ namespace nkr { namespace interface { namespace none {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$cpp_t::none_value_i_sp<type_p>;
+        using type_t    = nkr::boolean::cpp_t$::none_value_i_sp<type_p>;
     };
 
 }}}
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     template <nkr::boolean::cpp_tr type_p>
     class randomness_distributor_uniform_i_sp
@@ -138,12 +138,12 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     class uniform_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$cpp_t::randomness_distributor_uniform_i_sp<type_p>;
+        using type_t    = nkr::boolean::cpp_t$::randomness_distributor_uniform_i_sp<type_p>;
     };
 
 }}}}
 
-namespace nkr { namespace boolean { namespace $cpp_t {
+namespace nkr { namespace boolean { namespace cpp_t$ {
 
     // eventually I would like to have a dedicated type for the probability_for_true
     // and also a dedicated type for percentages that can also take a real
@@ -181,7 +181,7 @@ namespace nkr { namespace interface { namespace randomness {
     class value_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::boolean::$cpp_t::randomness_value_i_sp<type_p>;
+        using type_t    = nkr::boolean::cpp_t$::randomness_value_i_sp<type_p>;
     };
 
 }}}

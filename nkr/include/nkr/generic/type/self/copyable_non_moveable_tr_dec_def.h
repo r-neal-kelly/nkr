@@ -6,7 +6,7 @@
 
 #include "nkr/generic/type/self/copyable_non_moveable_tr_dec.h"
 
-namespace nkr { namespace generic { namespace type { namespace self { namespace $copyable_non_moveable_tr {
+namespace nkr { namespace generic { namespace type { namespace self { namespace copyable_non_moveable_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::type::self::copyable_non_moveable_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace type { namespace self { namespace 
 
 }}}}}
 
-namespace nkr { namespace generic { namespace type { namespace self { namespace $copyable_non_moveable_tr {
+namespace nkr { namespace generic { namespace type { namespace self { namespace copyable_non_moveable_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::type::self::copyable_non_moveable_ttg, nkr::none::type_t>

@@ -6,7 +6,7 @@
 
 #include "nkr/none/pointer_t_dec.h"
 
-namespace nkr { namespace none { namespace $pointer_t {
+namespace nkr { namespace none { namespace pointer_t$ {
 
     template <nkr::none::pointer_tr type_p>
     template <typename other_p>

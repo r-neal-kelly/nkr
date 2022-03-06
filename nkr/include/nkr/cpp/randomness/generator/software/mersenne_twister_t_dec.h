@@ -13,7 +13,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_t$ {
 
     template <typename type_p>
     class   is_tmpl;
@@ -67,7 +67,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
     template <typename type_p>
     concept mersenne_twister_tr =
-        $mersenne_twister_t::is_tmpl<just_non_qualified_t<type_p>>::Value();
+        mersenne_twister_t$::is_tmpl<just_non_qualified_t<type_p>>::Value();
 
     template <template <typename ...> typename template_p>
     concept mersenne_twister_ttr = nkr::cpp::is_any_ttr<template_p, mersenne_twister_t,
@@ -92,7 +92,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
 }}}}}
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_t$ {
 
     template <typename type_p>
     class is_tmpl :
@@ -144,7 +144,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
 }}}}}}
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_t$ {
 
     template <nkr::cpp::randomness::generator::software::mersenne_twister_tr type_p>
     class type_i_type_sp
@@ -190,19 +190,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::generator::software::$mersenne_twister_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::cpp::randomness::generator::software::mersenne_twister_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::cpp::randomness::generator::software::mersenne_twister_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::generator::software::$mersenne_twister_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::cpp::randomness::generator::software::mersenne_twister_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace $mersenne_twister_t {
+namespace nkr { namespace cpp { namespace randomness { namespace generator { namespace software { namespace mersenne_twister_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
@@ -303,7 +303,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::generator::software::$mersenne_twister_t::template_i_template_sp<template_p>;
+        using type_t    = nkr::cpp::randomness::generator::software::mersenne_twister_t$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -311,7 +311,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::generator::software::$mersenne_twister_t::template_i_tag_sp<template_p>;
+        using type_t    = nkr::cpp::randomness::generator::software::mersenne_twister_t$::template_i_tag_sp<template_p>;
     };
 
 }}

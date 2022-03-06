@@ -6,7 +6,7 @@
 
 #include "nkr/interface/enumeration/types_i_dec.h"
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     template <nkr::cpp::is_any_tr<example_t> type_p>
     inline constexpr example_types_i_sp<type_p>::integer_t
@@ -34,7 +34,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
 }}}}
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     template <nkr::interface::enumeration::types_tr type_p>
     template <typename other_p>
@@ -74,7 +74,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace $types_i
 
 }}}}
 
-namespace nkr { namespace interface { namespace enumeration { namespace $types_i {
+namespace nkr { namespace interface { namespace enumeration { namespace types_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::enumeration::types_ttr<template_p>

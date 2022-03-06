@@ -6,7 +6,7 @@
 
 #include "nkr/generic/implementing/tag/data/min_tr_dec.h"
 
-namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace $min_tr {
+namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace min_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::tag::data::min_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
 
 }}}}}}
 
-namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace $min_tr {
+namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace min_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::tag::data::min_ttg, nkr::none::type_t>

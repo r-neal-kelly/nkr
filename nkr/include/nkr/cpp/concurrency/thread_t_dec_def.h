@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/concurrency/thread_t_dec.h"
 
-namespace nkr { namespace cpp { namespace concurrency { namespace $thread_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace thread_t$ {
 
     template <nkr::cpp::concurrency::thread_tr type_p>
     template <typename other_p>

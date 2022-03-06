@@ -16,7 +16,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     template <typename type_p>
     concept aliases_i =
@@ -53,7 +53,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 }}}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     using example_t =
         nkr::positive::integer_t;
@@ -82,11 +82,11 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
 
 namespace nkr { namespace interface { namespace randomness { namespace distributor {
 
-    template <nkr::cpp::is_any_tr<$uniform_i::example_t> type_p>
+    template <nkr::cpp::is_any_tr<uniform_i$::example_t> type_p>
     class uniform_i_sp<type_p>
     {
     public:
-        using type_t    = $uniform_i::example_uniform_i_sp<type_p>;
+        using type_t    = uniform_i$::example_uniform_i_sp<type_p>;
     };
 
 }}}}
@@ -101,17 +101,17 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     template <typename type_p>
     concept uniform_tr =
         nkr::cpp::is_any_tr<type_p, uniform_i<typename type_p::type_t>> &&
-        $uniform_i::aliases_i<type_p> &&
-        $uniform_i::static_functions_i<type_p> &&
-        $uniform_i::objects_i<type_p>;
+        uniform_i$::aliases_i<type_p> &&
+        uniform_i$::static_functions_i<type_p> &&
+        uniform_i$::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept uniform_ttr =
-        nkr::cpp::is_any_ttr<template_p, uniform_i, $uniform_i::example_t>;
+        nkr::cpp::is_any_ttr<template_p, uniform_i, uniform_i$::example_t>;
 
 }}}}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     template <nkr::interface::randomness::distributor::uniform_tr type_p>
     class type_i_type_sp
@@ -157,19 +157,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::distributor::$uniform_i::type_i_type_sp<type_p>;
+        using type_t    = nkr::interface::randomness::distributor::uniform_i$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::interface::randomness::distributor::uniform_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::distributor::$uniform_i::type_i_tag_sp<type_p>;
+        using type_t    = nkr::interface::randomness::distributor::uniform_i$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace $uniform_i {
+namespace nkr { namespace interface { namespace randomness { namespace distributor { namespace uniform_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::randomness::distributor::uniform_ttr<template_p>
@@ -189,7 +189,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         template <typename ...parameters_p>
         using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t     = of_t<nkr::interface::randomness::distributor::$uniform_i::example_t>;
+        using example_t     = of_t<nkr::interface::randomness::distributor::uniform_i$::example_t>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -217,7 +217,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::distributor::$uniform_i::template_i_template_sp<template_p>;
+        using type_t    = nkr::interface::randomness::distributor::uniform_i$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -225,7 +225,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::distributor::$uniform_i::template_i_tag_sp<template_p>;
+        using type_t    = nkr::interface::randomness::distributor::uniform_i$::template_i_tag_sp<template_p>;
     };
 
 }}

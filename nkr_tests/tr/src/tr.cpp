@@ -92,9 +92,9 @@ namespace nkr {
                 of_not_any_access_const_tg, tt<nkr::pointer::cpp_t>,
                 of_not_any_volatile_tg, t<int>>;
 
-            using operators_t = nkr::$tr::operators_t<expression_parts_t>;
-            using subjects_t = nkr::$tr::subjects_t<subject_t, operators_t>;
-            using objects_t = nkr::$tr::objects_t<expression_parts_t>;
+            using operators_t = nkr::tr$::operators_t<expression_parts_t>;
+            using subjects_t = nkr::tr$::subjects_t<subject_t, operators_t>;
+            using objects_t = nkr::tr$::objects_t<expression_parts_t>;
 
             static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<
                           any_tg,
@@ -120,9 +120,9 @@ namespace nkr {
                 of_any_access_const_tg, tt<nkr::pointer::cpp_t>,
                 of_any_access_const_tg, t<int>>;
 
-            using operators_t = nkr::$tr::operators_t<expression_parts_t>;
-            using subjects_t = nkr::$tr::subjects_t<subject_t, operators_t>;
-            using objects_t = nkr::$tr::objects_t<expression_parts_t>;
+            using operators_t = nkr::tr$::operators_t<expression_parts_t>;
+            using subjects_t = nkr::tr$::subjects_t<subject_t, operators_t>;
+            using objects_t = nkr::tr$::objects_t<expression_parts_t>;
 
             static_assert(nkr::cpp::is_tr<operators_t, nkr::tuple::types_t<
                           any_tg,
@@ -137,7 +137,7 @@ namespace nkr {
                           nkr::pointer::cpp_t<int>,
                           int>>);
 
-            static_assert(nkr::$tr::Evaluate<subjects_t, operators_t, objects_t>());
+            static_assert(nkr::tr$::Evaluate<subjects_t, operators_t, objects_t>());
         }
 
         TEST_SUITE("temp")

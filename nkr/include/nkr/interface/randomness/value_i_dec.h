@@ -19,7 +19,7 @@
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
+namespace nkr { namespace interface { namespace randomness { namespace value_i$ {
 
     template <typename type_p>
     concept aliases_i =
@@ -51,9 +51,9 @@ namespace nkr { namespace interface { namespace randomness {
     template <typename type_p>
     concept value_tr =
         nkr::cpp::is_any_tr<type_p, value_i<typename type_p::type_t>> &&
-        $value_i::aliases_i<type_p> &&
-        $value_i::static_functions_i<type_p> &&
-        $value_i::objects_i<type_p>;
+        value_i$::aliases_i<type_p> &&
+        value_i$::static_functions_i<type_p> &&
+        value_i$::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept value_ttr =
@@ -61,7 +61,7 @@ namespace nkr { namespace interface { namespace randomness {
 
 }}}
 
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
+namespace nkr { namespace interface { namespace randomness { namespace value_i$ {
 
     template <nkr::interface::randomness::value_tr type_p>
     class type_i_type_sp
@@ -107,19 +107,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::$value_i::type_i_type_sp<type_p>;
+        using type_t    = nkr::interface::randomness::value_i$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::interface::randomness::value_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::$value_i::type_i_tag_sp<type_p>;
+        using type_t    = nkr::interface::randomness::value_i$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace interface { namespace randomness { namespace $value_i {
+namespace nkr { namespace interface { namespace randomness { namespace value_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::randomness::value_ttr<template_p>
@@ -167,7 +167,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::$value_i::template_i_template_sp<template_p>;
+        using type_t    = nkr::interface::randomness::value_i$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -175,7 +175,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::randomness::$value_i::template_i_tag_sp<template_p>;
+        using type_t    = nkr::interface::randomness::value_i$::template_i_tag_sp<template_p>;
     };
 
 }}

@@ -8,7 +8,7 @@
 #include "nkr/z_intrinsics.h"
 #include "nkr/z_traits.h"
 
-namespace nkr { namespace math { namespace $fraction_t {
+namespace nkr { namespace math { namespace fraction_t$ {
 
     template <auto NUMERATOR_p, auto DENOMINATOR_p>
     class integer_sp
@@ -41,7 +41,7 @@ namespace nkr { namespace math {
 
     template <integer_tr auto NUMERATOR_p, integer_tr auto DENOMINATOR_p>
     class fraction_t :
-        public $fraction_t::integer_sp<NUMERATOR_p, DENOMINATOR_p>
+        public fraction_t$::integer_sp<NUMERATOR_p, DENOMINATOR_p>
     {
     };
     static_assert(fraction_i<fraction_t<1, 1>>);

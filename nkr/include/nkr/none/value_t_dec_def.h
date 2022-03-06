@@ -6,7 +6,7 @@
 
 #include "nkr/none/value_t_dec.h"
 
-namespace nkr { namespace none { namespace $value_t {
+namespace nkr { namespace none { namespace value_t$ {
 
     template <nkr::none::value_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace none { namespace $value_t {
 
 }}}
 
-namespace nkr { namespace none { namespace $value_t {
+namespace nkr { namespace none { namespace value_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::none::value_ttr<template_p>

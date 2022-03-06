@@ -6,7 +6,7 @@
 
 #include "nkr/generic/user_defined_tr_dec.h"
 
-namespace nkr { namespace generic { namespace $user_defined_tr {
+namespace nkr { namespace generic { namespace user_defined_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::user_defined_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace $user_defined_tr {
 
 }}}
 
-namespace nkr { namespace generic { namespace $user_defined_tr {
+namespace nkr { namespace generic { namespace user_defined_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::user_defined_ttg, nkr::none::type_t>

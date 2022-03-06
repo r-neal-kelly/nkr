@@ -41,7 +41,7 @@ namespace nkr { namespace concurrency {
 
 }}
 
-namespace nkr { namespace concurrency { namespace $lockee_t {
+namespace nkr { namespace concurrency { namespace lockee_t$ {
 
     template <nkr::concurrency::lockee_tr type_p>
     class type_i_type_sp
@@ -87,19 +87,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::concurrency::$lockee_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::concurrency::lockee_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::concurrency::lockee_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::concurrency::$lockee_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::concurrency::lockee_t$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace concurrency { namespace $lockee_t {
+namespace nkr { namespace concurrency { namespace lockee_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::concurrency::lockee_ttr<template_p>
@@ -147,7 +147,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::concurrency::$lockee_t::template_i_template_sp<template_p>;
+        using type_t    = nkr::concurrency::lockee_t$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -155,7 +155,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::concurrency::$lockee_t::template_i_tag_sp<template_p>;
+        using type_t    = nkr::concurrency::lockee_t$::template_i_tag_sp<template_p>;
     };
 
 }}

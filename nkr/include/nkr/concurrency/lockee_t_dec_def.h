@@ -6,7 +6,7 @@
 
 #include "nkr/concurrency/lockee_t_dec.h"
 
-namespace nkr { namespace concurrency { namespace $lockee_t {
+namespace nkr { namespace concurrency { namespace lockee_t$ {
 
     template <nkr::concurrency::lockee_tr type_p>
     template <typename other_p>
@@ -46,7 +46,7 @@ namespace nkr { namespace concurrency { namespace $lockee_t {
 
 }}}
 
-namespace nkr { namespace concurrency { namespace $lockee_t {
+namespace nkr { namespace concurrency { namespace lockee_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::concurrency::lockee_ttr<template_p>

@@ -16,11 +16,11 @@ namespace nkr {
     template <typename value_p>
     class optional_t;
 
-    namespace $optional_t {
+    namespace optional_t$ {
 
-        namespace $non_const_sp {};
+        namespace non_const_sp$ {};
 
-        namespace $const_sp     {};
+        namespace const_sp$     {};
 
     }
 
@@ -36,7 +36,7 @@ namespace nkr {
 
 }
 
-namespace nkr { namespace $optional_t {
+namespace nkr { namespace optional_t$ {
 
     template <typename type_p>
     concept any_tr =
@@ -57,7 +57,7 @@ namespace nkr {
         static constexpr c_bool_t   Is_Any();
     };
 
-    template <$optional_t::any_tr type_p>
+    template <optional_t$::any_tr type_p>
     class type_traits_i<type_p> :
         public type_traits_i<optional_tg>
     {

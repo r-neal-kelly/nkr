@@ -13,7 +13,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_aliases_t_dec.h"
 
-namespace nkr { namespace generic { namespace randomness { namespace $distributor_tr {
+namespace nkr { namespace generic { namespace randomness { namespace distributor_tr$ {
 
     template <typename type_p>
     concept aliases_i =
@@ -56,9 +56,9 @@ namespace nkr { namespace generic { namespace randomness {
 
     template <typename type_p>
     concept distributor_tr =
-        $distributor_tr::aliases_i<type_p> &&
-        $distributor_tr::methods_i<type_p> &&
-        $distributor_tr::objects_i<type_p>;
+        distributor_tr$::aliases_i<type_p> &&
+        distributor_tr$::methods_i<type_p> &&
+        distributor_tr$::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept distributor_ttr =
@@ -66,7 +66,7 @@ namespace nkr { namespace generic { namespace randomness {
 
 }}}
 
-namespace nkr { namespace generic { namespace randomness { namespace $distributor_tr {
+namespace nkr { namespace generic { namespace randomness { namespace distributor_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::randomness::distributor_tg> type_p>
     class type_i_tag_sp
@@ -94,12 +94,12 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::randomness::$distributor_tr::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::randomness::distributor_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace generic { namespace randomness { namespace $distributor_tr {
+namespace nkr { namespace generic { namespace randomness { namespace distributor_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::randomness::distributor_ttg, nkr::none::type_t>
@@ -124,7 +124,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::randomness::$distributor_tr::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::randomness::distributor_tr$::template_i_tag_sp<template_p>;
     };
 
 }}

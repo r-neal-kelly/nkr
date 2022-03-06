@@ -6,7 +6,7 @@
 
 #include "nkr/cpp/concurrency/lock/perpetual/unary_t_dec.h"
 
-namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespace perpetual { namespace $unary_t {
+namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespace perpetual { namespace unary_t$ {
 
     template <nkr::cpp::concurrency::lock::perpetual::unary_tr type_p>
     template <typename other_p>

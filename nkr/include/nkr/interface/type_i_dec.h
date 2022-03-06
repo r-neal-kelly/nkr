@@ -12,7 +12,7 @@
 #include "nkr/none/type_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
-namespace nkr { namespace interface { namespace $type_i {
+namespace nkr { namespace interface { namespace type_i$ {
 
     template <typename type_p>
     concept aliases_i = requires
@@ -46,9 +46,9 @@ namespace nkr { namespace interface {
     template <typename type_p>
     concept type_tr =
         nkr::cpp::is_any_tr<type_p, type_i<typename type_p::type_t>> &&
-        $type_i::aliases_i<type_p> &&
-        $type_i::static_constexpr_functions_i<type_p> &&
-        $type_i::objects_i<type_p>;
+        type_i$::aliases_i<type_p> &&
+        type_i$::static_constexpr_functions_i<type_p> &&
+        type_i$::objects_i<type_p>;
 
     template <template <typename ...> typename template_p>
     concept type_ttr =
@@ -56,7 +56,7 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace interface { namespace $type_i {
+namespace nkr { namespace interface { namespace type_i$ {
 
     template <typename type_p>
     concept inner_type_tr = requires
@@ -127,7 +127,7 @@ namespace nkr { namespace interface { namespace $type_i {
 
 }}}
 
-namespace nkr { namespace interface { namespace $type_i {
+namespace nkr { namespace interface { namespace type_i$ {
 
     template <nkr::interface::type_tr type_p>
     class type_i_type_sp
@@ -173,19 +173,19 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::$type_i::type_i_type_sp<type_p>;
+        using type_t    = nkr::interface::type_i$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::interface::type_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::interface::$type_i::type_i_tag_sp<type_p>;
+        using type_t    = nkr::interface::type_i$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace interface { namespace $type_i {
+namespace nkr { namespace interface { namespace type_i$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::interface::type_ttr<template_p>
@@ -233,7 +233,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::$type_i::template_i_template_sp<template_p>;
+        using type_t    = nkr::interface::type_i$::template_i_template_sp<template_p>;
     };
 
     template <template <typename ...> typename template_p>
@@ -241,7 +241,7 @@ namespace nkr { namespace interface {
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::interface::$type_i::template_i_tag_sp<template_p>;
+        using type_t    = nkr::interface::type_i$::template_i_tag_sp<template_p>;
     };
 
 }}

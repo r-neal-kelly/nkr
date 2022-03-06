@@ -9,7 +9,7 @@
 
 // ideas:
 // we should basically make types for each c_type, and group everything into folders.
-// instead of $type_t::any_tr, just use type_tr instead, e.g. $optional_t::any_tr becomes optional_tr.
+// instead of type_t$::any_tr, just use type_tr instead, e.g. optional_t$::any_tr becomes optional_tr.
 
 namespace nkr {
 

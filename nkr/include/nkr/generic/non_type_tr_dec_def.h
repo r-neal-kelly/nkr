@@ -6,7 +6,7 @@
 
 #include "nkr/generic/non_type_tr_dec.h"
 
-namespace nkr { namespace generic { namespace $non_type_tr {
+namespace nkr { namespace generic { namespace non_type_tr$ {
 
     template <nkr::cpp::is_any_tr<nkr::generic::non_type_tg> type_p>
     template <typename other_p>
@@ -28,7 +28,7 @@ namespace nkr { namespace generic { namespace $non_type_tr {
 
 }}}
 
-namespace nkr { namespace generic { namespace $non_type_tr {
+namespace nkr { namespace generic { namespace non_type_tr$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::non_type_ttg, nkr::none::type_t>

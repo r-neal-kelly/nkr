@@ -13,7 +13,7 @@ namespace nkr {
     inline constexpr c_bool_t
         type_traits_i<optional_tg>::Is_Any()
     {
-        return $optional_t::any_tr<other_p>;
+        return optional_t$::any_tr<other_p>;
     }
 
     inline constexpr c_bool_t

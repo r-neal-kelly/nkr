@@ -21,7 +21,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor {
 
 }}}}
 
-namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace $bernoulli_t {
+namespace nkr { namespace cpp { namespace randomness { namespace distributor { namespace bernoulli_t$ {
 
     template <nkr::cpp::randomness::distributor::bernoulli_tr type_p>
     class type_i_type_sp
@@ -67,14 +67,14 @@ namespace nkr { namespace interface {
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::distributor::$bernoulli_t::type_i_type_sp<type_p>;
+        using type_t    = nkr::cpp::randomness::distributor::bernoulli_t$::type_i_type_sp<type_p>;
     };
 
     template <nkr::cpp::is_any_tr<nkr::cpp::randomness::distributor::bernoulli_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::cpp::randomness::distributor::$bernoulli_t::type_i_tag_sp<type_p>;
+        using type_t    = nkr::cpp::randomness::distributor::bernoulli_t$::type_i_tag_sp<type_p>;
     };
 
 }}
