@@ -46,7 +46,7 @@ namespace nkr {
     public:
         /// @name aliases
         /// @{
-        using value_t   = type_p;
+        using value_t   = type_p;   ///< @copydoc _3930c6fb_a15c_42cd_a6db_b41d3318b998
         /// @}
 
     public:

@@ -19,3 +19,12 @@
 * @note
 *   This type is similar to the standard C++ [std::integral_constant](https://en.cppreference.com/w/cpp/types/integral_constant).
 */
+
+    // nkr::constant_t::value_t
+    /**
+    * @class _3930c6fb_a15c_42cd_a6db_b41d3318b998
+    * @private
+    *
+    * @brief
+    *   The [primary inner type](@ref _8f6a1988_bbdb_46ba_8746_40c02acda41c) of nkr::constant_t.
+    */
