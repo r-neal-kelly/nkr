@@ -161,7 +161,7 @@ namespace nkr { namespace none {
         using type_t        = interface_t::value_t;
 
     public:
-        static constexpr value_t::type_t    Value() noexcept;
+        static constexpr type_t Value() noexcept;
 
     public:
         constexpr value_t() noexcept;
@@ -185,12 +185,12 @@ namespace nkr { namespace none {
 #endif
 
     public:
-        constexpr operator  value_t::type_t() const noexcept;
-        constexpr operator  value_t::type_t() const volatile noexcept;
+        constexpr operator  value_t<type_p>::type_t() const noexcept;
+        constexpr operator  value_t<type_p>::type_t() const volatile noexcept;
 
     public:
-        constexpr value_t::type_t   operator ()() const noexcept;
-        constexpr value_t::type_t   operator ()() const volatile noexcept;
+        constexpr type_t    operator ()() const noexcept;
+        constexpr type_t    operator ()() const volatile noexcept;
     };
 
 }}

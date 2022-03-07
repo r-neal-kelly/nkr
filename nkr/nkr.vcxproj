@@ -675,6 +675,11 @@
     <ClInclude Include="include\nkr\math_dec_def.h" />
     <ClInclude Include="include\nkr\math_def.h" />
     <ClInclude Include="include\nkr\math_dox.h" />
+    <ClInclude Include="include\nkr\namespaces.h" />
+    <ClInclude Include="include\nkr\namespaces_dec.h" />
+    <ClInclude Include="include\nkr\namespaces_dec_def.h" />
+    <ClInclude Include="include\nkr\namespaces_def.h" />
+    <ClInclude Include="include\nkr\namespaces_dox.h" />
     <ClInclude Include="include\nkr\negatable\integer_16_t.h" />
     <ClInclude Include="include\nkr\negatable\integer_16_t_dec.h" />
     <ClInclude Include="include\nkr\negatable\integer_16_t_dec_def.h" />

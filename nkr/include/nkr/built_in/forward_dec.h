@@ -8,25 +8,7 @@
 #include <cstdint>
 
 #include "nkr/macros_dec.h"
-
-/// @copydoc _54e0fcc6_0af9_4a88_b5fd_830d997bb327
-namespace nkr {};
-
-namespace nkr {
-
-    /// @copydoc _9730e15e_a0a8_4b22_b55b_771a4ea09486
-    namespace boolean   {};
-
-    /// @copydoc _f94a7a61_bc8b_467c_ad48_177ebf2a6288
-    namespace negatable {};
-
-    /// @copydoc _ae416188_7c4b_42b5_8a3d_05060328e8cb
-    namespace none      {};
-
-    /// @copydoc _e03a80e9_3550_4f45_94b2_afe505b344f1
-    namespace positive  {};
-
-}
+#include "nkr/namespaces_dec.h"
 
 namespace nkr { namespace none {
 

@@ -132,6 +132,13 @@ namespace nkr {
         CHECK(non_none_default.Value() == non_none_default_t::NONE);
     }
 
+    TEST_CASE("should implicitly cast to its type_t")
+    {
+        nkr::none::value_t<nkr::positive::integer_t> none;
+
+        CHECK(static_cast<nkr::positive::integer_t>(none) == 0);
+    }
+
     static_assert(nkr::interface::template_i<nkr::generic::implementing::interface::template_ttg>::Is_Any<nkr::none::value_t>());
 
 }

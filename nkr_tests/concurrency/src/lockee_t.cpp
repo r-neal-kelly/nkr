@@ -36,6 +36,14 @@ namespace nkr {
 
             CHECK(moved == 2);
         }
+
+        TEST_CASE("should implictly cast to value_t")
+        {
+            auto shared_positive_integer = Shared_Positive_Integer();
+            nkr::positive::integer_t positive_integer = shared_positive_integer;
+
+            CHECK(positive_integer == 2);
+        }
     }
 
 }

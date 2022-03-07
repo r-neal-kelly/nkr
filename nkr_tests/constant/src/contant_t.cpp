@@ -18,6 +18,12 @@ namespace nkr {
 
             CHECK(false_t::Value() == false);
             CHECK(true_t::Value() == true);
+
+            CHECK(static_cast<nkr::boolean::cpp_t>(false_t()) == false);
+            CHECK(static_cast<nkr::boolean::cpp_t>(true_t()) == true);
+
+            CHECK(false_t()() == false);
+            CHECK(true_t()() == true);
         }
     }
 

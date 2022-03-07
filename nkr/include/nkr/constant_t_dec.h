@@ -10,6 +10,7 @@
 
 namespace nkr {
 
+    /// @copydoc _09f6d63e_f4b7_46e1_b499_fcfa5132d76f
     template <nkr::generic::type_tr type_p, type_p value_p>
     class   constant_t;
 
@@ -43,19 +44,30 @@ namespace nkr {
     class constant_t
     {
     public:
+        /// @name aliases
+        /// @{
         using value_t   = type_p;
+        /// @}
 
     public:
-        static constexpr constant_t::value_t    Value() noexcept;
+        /// @name static functions
+        /// @{
+        static constexpr value_t    Value() noexcept;
+        /// @}
 
     public:
+        /// @name constructors
+        /// @{
         constexpr constant_t() noexcept;
 
         constexpr constant_t(const constant_t& other) noexcept;
         constexpr constant_t(const volatile constant_t& other) noexcept;
         constexpr constant_t(constant_t&& other) noexcept;
         constexpr constant_t(volatile constant_t&& other) noexcept;
+        /// @}
 
+        /// @name assigners
+        /// @{
         constexpr constant_t&           operator =(const constant_t& other) noexcept                    = delete;
         constexpr volatile constant_t&  operator =(const constant_t& other) volatile noexcept           = delete;
         constexpr constant_t&           operator =(const volatile constant_t& other) noexcept           = delete;
@@ -64,14 +76,21 @@ namespace nkr {
         constexpr volatile constant_t&  operator =(constant_t&& other) volatile noexcept                = delete;
         constexpr constant_t&           operator =(volatile constant_t&& other) noexcept                = delete;
         constexpr volatile constant_t&  operator =(volatile constant_t&& other) volatile noexcept       = delete;
+        /// @}
 
     public:
-        constexpr operator  constant_t::value_t() const noexcept;
-        constexpr operator  constant_t::value_t() const volatile noexcept;
+        /// @name casts
+        /// @{
+        constexpr operator  constant_t<type_p, value_p>::value_t() const noexcept;
+        constexpr operator  constant_t<type_p, value_p>::value_t() const volatile noexcept;
+        /// @}
 
     public:
-        constexpr constant_t::value_t   operator ()() const noexcept;
-        constexpr constant_t::value_t   operator ()() const volatile noexcept;
+        /// @name operators
+        /// @{
+        constexpr value_t   operator ()() const noexcept;
+        constexpr value_t   operator ()() const volatile noexcept;
+        /// @}
     };
 
 }

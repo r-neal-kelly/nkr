@@ -222,10 +222,10 @@ namespace nkr { namespace concurrency {
         const volatile lockee_t&    Value(tr<any_non_const_tg, t<value_t>> auto&& value) const volatile noexcept    = delete;
 
     public:
-        operator                lockee_t::value_t&() noexcept;
-        operator const          lockee_t::value_t&() const noexcept;
-        operator volatile       lockee_t::value_t&() volatile noexcept          = delete;
-        operator const volatile lockee_t::value_t&() const volatile noexcept    = delete;
+        operator                lockee_t<value_p>::value_t&() noexcept;
+        operator const          lockee_t<value_p>::value_t&() const noexcept;
+        operator volatile       lockee_t<value_p>::value_t&() volatile noexcept        = delete;
+        operator const volatile lockee_t<value_p>::value_t&() const volatile noexcept  = delete;
     };
 
 }}

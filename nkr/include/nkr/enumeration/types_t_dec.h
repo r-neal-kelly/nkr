@@ -257,8 +257,8 @@ namespace nkr { namespace enumeration {
         constexpr volatile types_t&         Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
 
     public:
-        constexpr operator          types_t::integer_t() const noexcept;
-        constexpr operator          types_t::integer_t() const volatile noexcept;
+        constexpr operator          types_t<value_p, none_p>::integer_t() const noexcept;
+        constexpr operator          types_t<value_p, none_p>::integer_t() const volatile noexcept;
 
         explicit constexpr operator nkr::boolean::cpp_t() const noexcept;
         explicit constexpr operator nkr::boolean::cpp_t() const volatile noexcept;
