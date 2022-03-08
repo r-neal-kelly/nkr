@@ -2,12 +2,305 @@
     Copyright 2021 r-neal-kelly
 */
 
+#include "nkr/boolean/cpp_t.h"
 #include "nkr/cpp.h"
 #include "nkr/interface/type_i.h"
 #include "nkr/namespaces.h"
 #include "nkr/pointer/cpp_t.h"
+#include "nkr/tr.h"
 
 #include "doctest.h"
+
+// Global Equality Operators
+// [_e18507aa_b4f3_4469_b0a6_ff276fabf1b6]
+    namespace nkr {
+
+        class constexpr_t;
+
+    }
+
+    constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto& a, const auto&& b) noexcept;
+    constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto&& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t   operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto&& a, const auto&& b) noexcept;
+
+    constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto& a, const auto&& b) noexcept;
+    constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto&& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::constexpr_t>> auto&& a, const auto&& b) noexcept;
+// [_e18507aa_b4f3_4469_b0a6_ff276fabf1b6]
+
+// [_fc99f829_b919_4aae_bdfb_b45b355c2614]
+    namespace nkr {
+
+        class non_constexpr_t;
+
+    }
+
+    nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto& a, const auto& b) noexcept;
+    nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto& a, const auto&& b) noexcept;
+    nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto&& a, const auto& b) noexcept;
+    nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto&& a, const auto&& b) noexcept;
+
+    nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto& a, const auto& b) noexcept;
+    nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto& a, const auto&& b) noexcept;
+    nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto&& a, const auto& b) noexcept;
+    nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::non_constexpr_t>> auto&& a, const auto&& b) noexcept;
+// [_fc99f829_b919_4aae_bdfb_b45b355c2614]
+
+// [_26b07298_7839_4099_9253_a58ba962aa0b]
+    namespace nkr {
+
+        class equality_a_t
+        {
+        public:
+            // The primary inner type.
+            using value_t   = long;
+
+        public:
+            value_t value;
+
+        public:
+            constexpr equality_a_t(value_t value) noexcept :
+                value(value)
+            {
+            }
+        };
+
+        class equality_b_t
+        {
+        public:
+            // The primary inner type. It's different from equality_a_t's.
+            using value_t   = long long;
+
+        public:
+            value_t value;
+
+        public:
+            constexpr equality_b_t(value_t value) noexcept :
+                value(value)
+            {
+            }
+
+            // Notice that we can construct this type with equality_a_t.
+            constexpr equality_b_t(equality_a_t value) noexcept :
+                value(value.value)
+            {
+            }
+        };
+
+    }
+
+    // Forward declare equality_a_t's ops so it can see equality_b_t's ops.
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto&& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto&& b) noexcept;
+
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto&& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto&& b) noexcept;
+
+    // And vice versa.
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto&& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto&& b) noexcept;
+
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto&& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto& b) noexcept;
+    constexpr nkr::boolean::cpp_t operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto&& b) noexcept;
+
+    // Here we define equality_a_t's operators.
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto& b)
+        noexcept
+    {
+        // We want the value_t and not a value_t& type.
+        using a_t = nkr::cpp::reference_value_t<decltype(a)>;
+        using b_t = nkr::cpp::reference_value_t<decltype(b)>;
+
+        if constexpr (nkr::cpp::is_any_tr<b_t, a_t>) {
+            // If b_t is equality_a_t, it's super easy to compare the two.
+            return a.value == b.value;
+        } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::value_t>>) {
+            // If b_t is equality_b_t, then this won't be branched to because it doesn't have a cast to
+            // value_t operator. However another type might, and because our type defines equality based on
+            // its primary inner type, it makes sense to have this branch. However if our type doesn't have
+            // a primary inner type, it maybe should be excluded. This technique relies on a good design of
+            // b_t, which should be castable to other types only when it's meaningful.
+            return a.value == static_cast<nkr::cpp::just_non_qualified_t<typename a_t::value_t>>(b);
+        } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
+            // If b_t is equality_b_t, then this won't be branched to because a_t cannot be constructed from
+            // an equality_b_t, nor can equality_b_t be cast to a_t. Notice that this recursively calls this
+            // operator, we don't need to define a_t == a_t twice!
+            return a == static_cast<nkr::cpp::just_non_qualified_t<a_t>>(b);
+        } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
+            // If b_t is equality_b_t, then even though equality_a_t cannot be cast to equality_b_t,
+            // equality_b_t can be constructed with equality_a_t, so this is the branch that will compile.
+            // However take note that equality_b_t's operators must be defined!
+            return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
+        } else {
+            // Bail, because there's no defined way to compare these two types. Make sure to let the user
+            // know what happend. As complicated as it is, this standards compliant technique works great:
+            [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "these two values can not be compared."); }();
+        }
+    }
+
+    // The rest of these just call the above operator.
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto& a, const auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_a_t>> auto&& a, const auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    // Here we do the same thing as above, but for equality_b_t.
+    // We have the same algorithm because the two types are similar, but other types may have different algorithms.
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto& b)
+        noexcept
+    {
+        using a_t = nkr::cpp::reference_value_t<decltype(a)>;
+        using b_t = nkr::cpp::reference_value_t<decltype(b)>;
+
+        if constexpr (nkr::cpp::is_any_tr<b_t, a_t>) {
+            return a.value == b.value;
+        } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::value_t>>) {
+            return a.value == static_cast<nkr::cpp::just_non_qualified_t<typename a_t::value_t>>(b);
+        } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
+            return a == static_cast<nkr::cpp::just_non_qualified_t<a_t>>(b);
+        } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
+            return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
+        } else {
+            [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "these two values can not be compared."); }();
+        }
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator ==(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto&& b)
+        noexcept
+    {
+        return operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto& a, const auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+
+    inline constexpr nkr::boolean::cpp_t
+        operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::equality_b_t>> auto&& a, const auto&& b)
+        noexcept
+    {
+        return !operator ==(a, b);
+    }
+// [_26b07298_7839_4099_9253_a58ba962aa0b]
+
+TEST_CASE("")
+{
+    // [_4cb072ae_149f_4024_9145_7592e38ea63e]
+    // This calls equality_a_t branch 1
+    static_assert(nkr::equality_a_t(1) == nkr::equality_a_t(1));
+
+    // This calls equality_a_t branch 3 then equality_b_t branch 1
+    static_assert(nkr::equality_a_t(1) == nkr::equality_b_t(1));
+
+    // This calls equality_b_t branch 1
+    static_assert(nkr::equality_b_t(1) == nkr::equality_b_t(1));
+
+    // This calls equality_b_t branch 3 then equality_b_t branch 1
+    static_assert(nkr::equality_b_t(1) == nkr::equality_a_t(1));
+
+    // Even const and/or volatile values play nicely:
+    const nkr::equality_a_t equality_a = 1;
+    volatile nkr::equality_a_t equality_b = 1;
+
+    CHECK((equality_a == equality_b));
+    CHECK((equality_b == equality_a));
+
+    // Any combination of lvalues, rvalues, and temp values will just work:
+    CHECK((nkr::equality_a_t(1) == equality_b));
+    CHECK((equality_a == nkr::cpp::Move(equality_b)));
+
+    CHECK((nkr::equality_b_t(1) == equality_a));
+    CHECK((nkr::cpp::Move(equality_b) == nkr::equality_a_t(1)));
+    // [_4cb072ae_149f_4024_9145_7592e38ea63e]
+}
 
 // Label Postfixes
 TEST_SUITE("")
