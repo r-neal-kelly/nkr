@@ -11,7 +11,8 @@
 
 #include "doctest.h"
 
-// Global Equality Operators
+/* Global Equality Operators */
+
 // [_e18507aa_b4f3_4469_b0a6_ff276fabf1b6]
     namespace nkr {
 
@@ -277,7 +278,7 @@ TEST_CASE("")
     // This calls equality_a_t branch 1
     static_assert(nkr::equality_a_t(1) == nkr::equality_a_t(1));
 
-    // This calls equality_a_t branch 3 then equality_b_t branch 1
+    // This calls equality_a_t branch 4 then equality_b_t branch 1
     static_assert(nkr::equality_a_t(1) == nkr::equality_b_t(1));
 
     // This calls equality_b_t branch 1
@@ -302,7 +303,168 @@ TEST_CASE("")
     // [_4cb072ae_149f_4024_9145_7592e38ea63e]
 }
 
-// Label Postfixes
+/* Identities */
+
+TEST_SUITE("")
+{
+    // [_54c5c7e1_91a3_4d5b_b41d_c158d3b4c573]
+    class a_t
+    {
+    public:
+    };
+
+    // the "type indentity trait" for a_t
+    template <typename type_p>
+    concept a_tr =
+        nkr::cpp::is_any_tr<type_p, a_t>;
+
+    // should constrain to any qualification of a_t
+    static_assert(a_tr<a_t> == true);
+    static_assert(a_tr<const a_t> == true);
+    static_assert(a_tr<volatile a_t> == true);
+    static_assert(a_tr<const volatile a_t> == true);
+
+    using alias_of_a_t = a_t;
+
+    // and naturally any qualification of an alias of a_t
+    static_assert(a_tr<alias_of_a_t> == true);
+    static_assert(a_tr<const alias_of_a_t> == true);
+    static_assert(a_tr<volatile alias_of_a_t> == true);
+    static_assert(a_tr<const volatile alias_of_a_t> == true);
+
+    class b_t
+    {
+    public:
+    };
+
+    // but never any qualification of any other type
+    static_assert(a_tr<b_t> == false);
+    static_assert(a_tr<const b_t> == false);
+    static_assert(a_tr<volatile b_t> == false);
+    static_assert(a_tr<const volatile b_t> == false);
+    // [_54c5c7e1_91a3_4d5b_b41d_c158d3b4c573]
+}
+
+TEST_SUITE("")
+{
+    // [_fbae0c33_830c_4106_8c8d_bcbae9a82433]
+    template <typename ...parameters_p>
+    class a_t
+    {
+    public:
+        using parameters_t = nkr::tuple::types_t<parameters_p...>;
+    };
+
+    // the "instantiated type indentity trait" for a_t
+    template <typename type_p>
+    concept a_tr =
+        nkr::cpp::is_any_tr<type_p, typename type_p::parameters_t::template into_t<a_t>>;
+
+    // should constrain to any qualification of an instantiated a_t
+    static_assert(a_tr<a_t<>> == true);
+    static_assert(a_tr<const a_t<>> == true);
+    static_assert(a_tr<volatile a_t<>> == true);
+    static_assert(a_tr<const volatile a_t<>> == true);
+
+    template <typename ...parameters_p>
+    using alias_of_a_t = a_t<parameters_p...>;
+
+    // and naturally any qualification of an instantiated alias of a_t
+    static_assert(a_tr<alias_of_a_t<>> == true);
+    static_assert(a_tr<const alias_of_a_t<>> == true);
+    static_assert(a_tr<volatile alias_of_a_t<>> == true);
+    static_assert(a_tr<const volatile alias_of_a_t<>> == true);
+
+    template <typename ...parameters_p>
+    class b_t
+    {
+    public:
+        using parameters_t = nkr::tuple::types_t<parameters_p...>;
+    };
+
+    // but never any qualification of any other type
+    static_assert(a_tr<b_t<>> == false);
+    static_assert(a_tr<const b_t<>> == false);
+    static_assert(a_tr<volatile b_t<>> == false);
+    static_assert(a_tr<const volatile b_t<>> == false);
+
+    // the "template indentity trait" for a_t
+    template <template <typename ...> typename template_p>
+    concept a_ttr =
+        nkr::cpp::is_any_ttr<template_p, a_t>;
+
+    // should constrain to a_t
+    static_assert(a_ttr<a_t> == true);
+
+    // and any alias of a_t
+    static_assert(a_ttr<alias_of_a_t> == true);
+
+    // but never any other template
+    static_assert(a_ttr<b_t> == false);
+    // [_fbae0c33_830c_4106_8c8d_bcbae9a82433]
+}
+
+TEST_SUITE("")
+{
+    // [_7e0fe0cd_2eac_4f85_9539_4a1399492ab0]
+    template <template <typename ...> typename ...parameters_p>
+    class a_t
+    {
+    public:
+        using parameters_t = nkr::tuple::templates_t<parameters_p...>;
+    };
+
+    // the "instantiated type indentity trait" for a_t
+    template <typename type_p>
+    concept a_tr =
+        nkr::cpp::is_any_tr<type_p, typename type_p::parameters_t::template into_t<a_t>>;
+
+    // should constrain to any qualification of an instantiated a_t
+    static_assert(a_tr<a_t<>> == true);
+    static_assert(a_tr<const a_t<>> == true);
+    static_assert(a_tr<volatile a_t<>> == true);
+    static_assert(a_tr<const volatile a_t<>> == true);
+
+    template <template <typename ...> typename ...parameters_p>
+    using alias_of_a_t = a_t<parameters_p...>;
+
+    // and naturally any qualification of an instantiated alias of a_t
+    static_assert(a_tr<alias_of_a_t<>> == true);
+    static_assert(a_tr<const alias_of_a_t<>> == true);
+    static_assert(a_tr<volatile alias_of_a_t<>> == true);
+    static_assert(a_tr<const volatile alias_of_a_t<>> == true);
+
+    template <template <typename ...> typename ...parameters_p>
+    class b_t
+    {
+    public:
+        using parameters_t = nkr::tuple::templates_t<parameters_p...>;
+    };
+
+    // but never any qualification of any other type
+    static_assert(a_tr<b_t<>> == false);
+    static_assert(a_tr<const b_t<>> == false);
+    static_assert(a_tr<volatile b_t<>> == false);
+    static_assert(a_tr<const volatile b_t<>> == false);
+
+    // the "template template indentity trait" for a_t
+    template <template <template <typename ...> typename ...> typename template_template_p>
+    concept a_tttr =
+        nkr::cpp::is_any_tttr<template_template_p, a_t>;
+
+    // should constrain to a_t
+    static_assert(a_tttr<a_t> == true);
+
+    // and any alias of a_t
+    static_assert(a_tttr<alias_of_a_t> == true);
+
+    // but never any other template
+    static_assert(a_tttr<b_t> == false);
+    // [_7e0fe0cd_2eac_4f85_9539_4a1399492ab0]
+}
+
+/* Label Postfixes */
+
 TEST_SUITE("")
 {
     // [_b516dddc_3630_470a_acf5_f070b2d4ffd1]
@@ -420,7 +582,8 @@ TEST_SUITE("")
     #include "nkr/pointer/cpp_t_dox.h"
 // [_dda6b4f4_9596_4713_8d31_f48990e0c898]
 
-// Primary Inner Type
+/* Primary Inner Type */
+
 TEST_SUITE("")
 {
     // [_71d0edc7_85b8_40e5_a79b_4d46a8ff2f08]
@@ -497,3 +660,5 @@ TEST_SUITE("")
     static_assert(nkr::cpp::is_tr<interface_of_interface_of_type_t::of_t, type_t>);
     // [_7c1eacd8_f30a_4dd8_80e7_c4e02c2b88a2]
 }
+
+/* One Kind of Template Parameter */
