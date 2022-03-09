@@ -14,15 +14,19 @@ namespace nkr {
     template <nkr::generic::type_tr type_p, type_p value_p>
     class   constant_t;
 
+    /// @copydoc _c8ccd7aa_610c_4f1b_ba49_de22374f3b78
     struct  constant_tg     { class tag_lb; };
 
+    /// @copydoc _96f44ebd_b97a_46fc_b2cc_8ed5ac09da45
     template <typename>
     struct  constant_ttg    {};
 
+    /// @copydoc _7011a9e2_12cb_4fb5_b2b0_83080a091ab4
     template <typename type_p>
     concept constant_tr =
         nkr::cpp::is_any_tr<type_p, constant_t<typename type_p::value_t, type_p::Value()>>;
 
+    /// @copydoc _651a47d3_40f7_4a6f_be9c_5fbc92a159ec
     template <template <typename ...> typename template_p>
     concept constant_ttr =
         nkr::cpp::is_any_ttr<template_p, constant_t, nkr::positive::integer_t>;
