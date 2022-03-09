@@ -582,6 +582,28 @@ TEST_SUITE("")
     #include "nkr/pointer/cpp_t_dox.h"
 // [_dda6b4f4_9596_4713_8d31_f48990e0c898]
 
+/* Move Assignment of Volatile Instances */
+
+TEST_SUITE("")
+{
+    // [_77c0f598_a0d0_44d9_be46_7751b857d956]
+    using namespace nkr;
+
+    class example_t
+    {
+    public:
+        example_t&          operator =(const example_t& other);
+        volatile example_t& operator =(const example_t& other) volatile;
+        example_t&          operator =(const volatile example_t& other);
+        volatile example_t& operator =(const volatile example_t& other) volatile;
+        example_t&          operator =(example_t&& other);                                          // may match any rvalue or temp value of example_t or anything implicitly convertible
+        volatile example_t& operator =(example_t&& other) volatile;                                 // ""
+        example_t&          operator =(tr<just_volatile_tg, t<example_t>> auto&& other);            // is only ever resolved to when given a volatile example_t&& and nothing else
+        volatile example_t& operator =(tr<just_volatile_tg, t<example_t>> auto&& other) volatile;   // ""
+    };
+    // [_77c0f598_a0d0_44d9_be46_7751b857d956]
+}
+
 /* Primary Inner Type */
 
 TEST_SUITE("")

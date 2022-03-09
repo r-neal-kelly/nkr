@@ -1,5 +1,7 @@
+[blank]: blank
+
 # nkr
-A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a set of comprehensive test suites. Currently for Windows, with future plans to expand to Linux.
+A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a formal meta-programming language to dynamically define C++20 concepts in-place with arbitrary constraints and arbitrary precision. nkr comes with a robust and comprehensive set of test suites to ensure correctness and performance, as well as an all-encompassing set of documentation to guarantee understanding and usability. Currently available for Windows with future plans for a port to Linux.
 
 ## Why Use nkr?
 Hindsight is always 20/20. The stalwart standard C++ library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design by providing:
@@ -77,7 +79,7 @@ This library currently has no other code dependencies, and is thus extremely str
 #### Steps for Test-Suites
 1. Double-click the `nkr.sln` file to load it into Visual Studio
 2. Click the `Solution Explorer` tab located near the top-left of the screen
-3. Right click on the top item listed in the explorer called `Solution 'nkr'`
+3. Right click on the top item listed in the explorer called `Solution nkr`
 4. If you wish to build just the current target architecture click `Rebuild Solution`. Else click on `Batch Build`, `Select All` in the prompt, and finally `Rebuild` in the same prompt.
 5. After the build process is complete, navigate to the `./tools` directory found in the top directory of the nkr repository.
 6. Double-click the file called `make_tests.ps1`, which will generate several more `.ps1` files in the same directory.
