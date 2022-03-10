@@ -4,6 +4,14 @@
 
 #pragma once
 
+// modules
+/**
+    @defgroup _c8774f4a_9a1a_4339_9147_4d0ded6c301f identities
+
+    @brief
+    A list of all available [identities](@ref _fd6e7324_a83c_4317_a5a8_9edfabfa7fce) in the library.
+*/
+
 // nkr
 /**
 * @class _54e0fcc6_0af9_4a88_b5fd_830d997bb327
