@@ -1,3 +1,7 @@
+/*
+    Copyright 2022 r-neal-kelly
+*/
+
 `use strict`;
 
 const /* object_t */ fs                 = require(`fs`);
