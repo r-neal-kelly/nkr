@@ -32,7 +32,7 @@ namespace nkr {
     class constant_tg
     {
     public:
-        /// @name labels
+        /// @name label labels
         /// @{
         class   tag_lb      {}; ///< @copydoc _ce94d1e4_a278_45b7_810b_cefc31748bb7
         class   type_lb     {}; ///< @copydoc _ecc4588e_6d37_42e1_a034_46d91bc1105b
@@ -46,7 +46,7 @@ namespace nkr {
     class constant_ttg
     {
     public:
-        /// @name labels
+        /// @name label labels
         /// @{
         class   tag_lb      {}; ///< @copydoc _f2b5c812_c49d_48ce_b4f0_a3747def4f5f
         class   template_lb {}; ///< @copydoc _4fe39de6_ce5d_4ecd_985f_d214044ce654
