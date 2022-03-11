@@ -182,13 +182,13 @@ namespace nkr { namespace boolean {
     }
 #endif
 
-    inline constexpr pure_t::operator pure_t::value_t()
+    inline constexpr pure_t::operator nkr::boolean::pure_t::value_t()
         const noexcept
     {
         return Value(*this);
     }
 
-    inline constexpr pure_t::operator pure_t::value_t()
+    inline constexpr pure_t::operator nkr::boolean::pure_t::value_t()
         const volatile noexcept
     {
         return Value(*this);

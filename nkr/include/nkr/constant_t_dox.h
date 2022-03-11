@@ -19,6 +19,7 @@
     [Traits](@ref _a7aaad0a_73cd_4237_92ee_0ea24814c2a7):
     - nkr::constant_tr
     - nkr::constant_ttr
+    - nkr::constant_of_tr
 
     [Tags](@ref _aa695b0f_e642_4521_928e_5deba76d9bc6):
     - nkr::constant_tg
@@ -54,6 +55,56 @@
         The [primary inner type](@ref _8f6a1988_bbdb_46ba_8746_40c02acda41c) of nkr::constant_t.
     */
 
+    // nkr::constant_t::Value
+    /**
+        @class _0e8b0f54_647f_4838_a696_bc19fd0ef14f
+        @private
+
+        @brief
+        Returns the [primary inner value](@ref _efa732b7_12bb_4ff3_bdf7_d309717a1699) of an [instantiated](@ref _be26724f_df26_4658_8cab_109d0b853c27) nkr::constant_t.
+
+        @details
+        This is a [static function](@ref _320d56ae_eec3_4d75_8ef3_677f4dd31c82) and not a [method](@ref _c6831e56_fbb1_445d_b3fc_7b35c60286a5) because the most frequent use case for nkr::constant_t is to be passed as a [template argument](@ref _c1c0e928_ba39_4137_babb_17726e128d1c). Therefore it should be easily accessible through an [instantiated type](@ref _be26724f_df26_4658_8cab_109d0b853c27) as opposed to a [type instance](@ref _7c636ccf_7f4b_40c1_a955_2dca05506ac4).
+
+        Because C++ does not allow for both a [static function](@ref _320d56ae_eec3_4d75_8ef3_677f4dd31c82) and a [method](@ref _c6831e56_fbb1_445d_b3fc_7b35c60286a5) to have the same [label](@ref _f2d4e658_c44a_4b89_b00b_35184f78db10), we can only define one or the other. However, according to the [primary inner value design](@ref _94c723c3_0213_4866_a383_50edc6ef02bd) the [primary inner value](@ref _efa732b7_12bb_4ff3_bdf7_d309717a1699) is also accessible through @ref nkr::constant_t::operator ()() const and through a static cast to nkr::constant_t::value_t.
+    */
+
+    // nkr::constant_t::operator value_t const
+    /**
+        @class _92c0cf7e_3299_4b26_8925_51a2bb742f40
+        @private
+
+        @details
+        This [caster](@ref _7cc08c80_b12d_4849_abac_d2e553b74267) returns the same result as nkr::constant_t::Value.
+    */
+
+    // nkr::constant_t::operator value_t const volatile
+    /**
+        @class _fb9e9b09_08ef_4200_8b62_650ee3288bf6
+        @private
+
+        @details
+        See @ref nkr::constant_t::operator nkr::constant_t<type_p, value_p>::value_t() const.
+    */
+
+    // nkr::constant_t::operator () const
+    /**
+        @class _88bb3161_7ba1_4e16_9e75_db8a07e0adaa
+        @private
+
+        @details
+        This [operator](@ref _611647a3_9703_4f6c_bb5f_84132533dc23) returns the same result as nkr::constant_t::Value.
+    */
+
+    // nkr::constant_t::operator () const volatile
+    /**
+        @class _c3f090d1_cfa0_4212_b596_01d86b9c4a07
+        @private
+
+        @details
+        See @ref nkr::constant_t::operator ()() const.
+    */
+
 // nkr::constant_tr
 /**
     @class _7011a9e2_12cb_4fb5_b2b0_83080a091ab4
@@ -78,6 +129,19 @@
     @par
     @note
     nkr::constant_ttr is an [entity](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) of the [nkr::constant_t Identity](@ref _144407f2_f15c_4e13_9507_168de44b2b1f).
+*/
+
+// nkr::constant_of_tr
+/**
+    @class _fba50840_494c_4a81_8772_9c5315bc8cd2
+    @private
+
+    @brief
+    The [identity inner type trait](@ref _c4966e47_6f21_49bc_b253_75a881583731) for nkr::constant_t.
+
+    @par
+    @note
+    nkr::constant_of_tr is an [entity](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) of the [nkr::constant_t Identity](@ref _144407f2_f15c_4e13_9507_168de44b2b1f).
 */
 
 // nkr::constant_tg

@@ -27,6 +27,13 @@ namespace nkr {
     concept constant_ttr =
         nkr::cpp::is_any_ttr<template_p, constant_t, nkr::positive::integer_t>;
 
+    /// @copydoc _fba50840_494c_4a81_8772_9c5315bc8cd2
+    /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
+    template <typename type_p, typename value_p>
+    concept constant_of_tr =
+        nkr::constant_tr<type_p> &&
+        nkr::cpp::is_tr<typename type_p::value_t, value_p>;
+
     /// @copydoc _c8ccd7aa_610c_4f1b_ba49_de22374f3b78
     /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
     class constant_tg
@@ -58,15 +65,6 @@ namespace nkr {
 
 namespace nkr {
 
-    template <typename type_p, typename value_p>
-    concept constant_of_tr =
-        nkr::constant_tr<type_p> &&
-        nkr::cpp::is_tr<typename type_p::value_t, value_p>;
-
-}
-
-namespace nkr {
-
     template <nkr::generic::type_tr type_p, type_p value_p>
     class constant_t
     {
@@ -79,7 +77,7 @@ namespace nkr {
     public:
         /// @name static functions
         /// @{
-        static constexpr value_t    Value() noexcept;
+        static constexpr value_t    Value() noexcept;   ///< @copydoc _0e8b0f54_647f_4838_a696_bc19fd0ef14f
         /// @}
 
     public:
@@ -106,17 +104,17 @@ namespace nkr {
         /// @}
 
     public:
-        /// @name casts
+        /// @name casters
         /// @{
-        constexpr operator  constant_t<type_p, value_p>::value_t() const noexcept;
-        constexpr operator  constant_t<type_p, value_p>::value_t() const volatile noexcept;
+        constexpr operator  nkr::constant_t<type_p, value_p>::value_t() const noexcept;             ///< @copydoc _92c0cf7e_3299_4b26_8925_51a2bb742f40
+        constexpr operator  nkr::constant_t<type_p, value_p>::value_t() const volatile noexcept;    ///< @copydoc _fb9e9b09_08ef_4200_8b62_650ee3288bf6
         /// @}
 
     public:
         /// @name operators
         /// @{
-        constexpr value_t   operator ()() const noexcept;
-        constexpr value_t   operator ()() const volatile noexcept;
+        constexpr value_t   operator ()() const noexcept;           ///< @copydoc _88bb3161_7ba1_4e16_9e75_db8a07e0adaa
+        constexpr value_t   operator ()() const volatile noexcept;  ///< @copydoc _c3f090d1_cfa0_4212_b596_01d86b9c4a07
         /// @}
     };
 

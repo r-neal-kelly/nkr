@@ -42,14 +42,14 @@ namespace nkr {
     }
 
     template <nkr::generic::type_tr type_p, type_p value_p>
-    inline constexpr constant_t<type_p, value_p>::operator constant_t<type_p, value_p>::value_t()
+    inline constexpr constant_t<type_p, value_p>::operator nkr::constant_t<type_p, value_p>::value_t()
         const noexcept
     {
         return Value();
     }
 
     template <nkr::generic::type_tr type_p, type_p value_p>
-    inline constexpr constant_t<type_p, value_p>::operator constant_t<type_p, value_p>::value_t()
+    inline constexpr constant_t<type_p, value_p>::operator nkr::constant_t<type_p, value_p>::value_t()
         const volatile noexcept
     {
         return Value();
