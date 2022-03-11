@@ -42,7 +42,7 @@ namespace nkr {
 
     /// @copydoc _96f44ebd_b97a_46fc_b2cc_8ed5ac09da45
     /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
-    template <typename>
+    template <typename ...>
     class constant_ttg
     {
     public:

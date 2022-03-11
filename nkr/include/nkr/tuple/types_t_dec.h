@@ -260,6 +260,14 @@ namespace nkr { namespace tuple {
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
 
+        template <typename iterator_p>
+        static constexpr nkr::none::type_t      Iterate_Forward() noexcept;
+        static constexpr nkr::none::type_t      Iterate_Forward(auto& iterator) noexcept;
+
+        template <typename algorithm_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
+        static constexpr nkr::boolean::cpp_t    AND(auto& algorithm) noexcept;
+
     public:
         template <typename ...>
         constexpr types_t(...) noexcept = delete;
@@ -298,6 +306,14 @@ namespace nkr { namespace tuple {
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
+
+        template <typename iterator_p>
+        static constexpr nkr::none::type_t      Iterate_Forward() noexcept;
+        static constexpr nkr::none::type_t      Iterate_Forward(auto& iterator) noexcept;
+
+        template <typename algorithm_p>
+        static constexpr nkr::boolean::cpp_t    AND() noexcept;
+        static constexpr nkr::boolean::cpp_t    AND(auto& algorithm) noexcept;
 
     public:
         template <typename ...>

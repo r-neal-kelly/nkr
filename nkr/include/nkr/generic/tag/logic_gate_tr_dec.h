@@ -24,7 +24,7 @@ namespace nkr { namespace generic { namespace tag {
 
     template <template <typename ...> typename template_p>
     concept logic_gate_ttr =
-        logic_gate_tr<typename interface::template_i<template_p>::example_t>;
+        logic_gate_tr<template_p<nkr::none::type_t>>;
 
 }}}
 

@@ -70,6 +70,40 @@ namespace nkr { namespace tuple {
         return 0;
     }
 
+    template <typename ...types_p>
+    template <typename iterator_p>
+    inline constexpr nkr::none::type_t
+        types_t<types_p...>::Iterate_Forward()
+        noexcept
+    {
+        return;
+    }
+
+    template <typename ...types_p>
+    inline constexpr nkr::none::type_t
+        types_t<types_p...>::Iterate_Forward(auto& iterator)
+        noexcept
+    {
+        return;
+    }
+
+    template <typename ...types_p>
+    template <typename algorithm_p>
+    inline constexpr nkr::boolean::cpp_t
+        types_t<types_p...>::AND()
+        noexcept
+    {
+        return true;
+    }
+
+    template <typename ...types_p>
+    inline constexpr nkr::boolean::cpp_t
+        types_t<types_p...>::AND(auto& algorithm)
+        noexcept
+    {
+        return true;
+    }
+
 }}
 
 namespace nkr { namespace tuple {
@@ -80,6 +114,48 @@ namespace nkr { namespace tuple {
         noexcept
     {
         return 1 + sizeof...(tail_p);
+    }
+
+    template <typename head_p, typename ...tail_p>
+    template <typename iterator_p>
+    inline constexpr nkr::none::type_t
+        types_t<head_p, tail_p...>::Iterate_Forward()
+        noexcept
+    {
+        iterator_p iterator;
+        Iterate_Forward(iterator);
+    }
+
+    template <typename head_p, typename ...tail_p>
+    inline constexpr nkr::none::type_t
+        types_t<head_p, tail_p...>::Iterate_Forward(auto& iterator)
+        noexcept
+    {
+        iterator.template operator ()<head_p>();
+        tail_t::Iterate_Forward(iterator);
+    }
+
+    template <typename head_p, typename ...tail_p>
+    template <typename algorithm_p>
+    inline constexpr nkr::boolean::cpp_t
+        types_t<head_p, tail_p...>::AND()
+        noexcept
+    {
+        algorithm_p algorithm;
+
+        return AND(algorithm);
+    }
+
+    template <typename head_p, typename ...tail_p>
+    inline constexpr nkr::boolean::cpp_t
+        types_t<head_p, tail_p...>::AND(auto& algorithm)
+        noexcept
+    {
+        if (algorithm.template operator ()<head_p>()) {
+            return tail_t::AND(algorithm);
+        } else {
+            return false;
+        }
     }
 
 }}

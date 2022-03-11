@@ -22,7 +22,7 @@ namespace nkr { namespace generic {
 
     template <template <typename ...> typename template_p>
     concept tag_ttr =
-        tag_tr<typename interface::template_i<template_p>::example_t>;
+        tag_tr<template_p<nkr::none::type_t>>;
 
 }}
 
