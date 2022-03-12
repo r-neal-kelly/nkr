@@ -4,6 +4,8 @@
 
 #include "nkr/built_in/forward.h"
 #include "nkr/constant_t.h"
+#include "nkr/generic/implementing/interface/template_tr.h"
+#include "nkr/generic/implementing/interface/type_tr.h"
 #include "nkr/generic/tag_tr.h"
 #include "nkr/generic/tag/identity_tr.h"
 #include "nkr/generic/tag/template_tr.h"
@@ -18,8 +20,9 @@ namespace nkr {
     TEST_SUITE("nkr::constant_tg")
     {
         // [_a75ee664_019d_4764_a2fc_947dc3d384e7]
-        TEST_CASE_TEMPLATE("each should satisfy the following generic type traits",
+        TEST_CASE_TEMPLATE("all qualifications should satisfy the following generic type traits",
                            type_tag_p,
+
                            nkr::constant_tg,
                            const nkr::constant_tg,
                            volatile nkr::constant_tg,
@@ -121,8 +124,9 @@ namespace nkr {
         // [_1f16a7a9_ef47_4a1c_8755_3b0d4f953087]
 
         // [_61c47f9b_a744_4135_96a8_74caa38a4b63]
-        TEST_CASE_TEMPLATE("each instantiated type should satisfy the following generic type traits",
+        TEST_CASE_TEMPLATE("each qualification of any instantiated type should satisfy the following generic type traits",
                            instantiated_type_tag_p,
+
                            nkr::constant_ttg<>,
                            const nkr::constant_ttg<>,
                            volatile nkr::constant_ttg<>,
@@ -200,6 +204,11 @@ namespace nkr {
 
     TEST_SUITE("nkr::constant_t")
     {
+
+
+
+
+
         TEST_CASE("temp")
         {
             using false_t = nkr::constant_t<nkr::boolean::cpp_t, false>;
@@ -213,6 +222,13 @@ namespace nkr {
 
             CHECK(false_t()() == false);
             CHECK(true_t()() == true);
+
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::constant_t<bool, false>>);
+            static_assert(nkr::generic::implementing::interface::type_tr<nkr::constant_tg>);
+
+            // unlike most template identities, nkr::constant_t can only satisfy nkr::interface::template_i with its template tag
+            // because it necessarily takes a template value argument
+            static_assert(nkr::generic::implementing::interface::template_ttr<nkr::constant_ttg>);
         }
     }
 

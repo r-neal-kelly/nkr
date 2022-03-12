@@ -7,6 +7,7 @@
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/type_tr_dec.h"
+#include "nkr/interface/forward_dec.h"
 
 namespace nkr {
 
@@ -117,6 +118,63 @@ namespace nkr { namespace interface {
     {
     public:
         using type_t    = nkr::constant_t$::type_i_tag_sp<type_p>;
+    };
+
+}}
+
+namespace nkr { namespace constant_t$ {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    class template_i_tag_sp
+    {
+    private:
+        template <typename ...parameters_p>
+        class parameters_to_value_t;
+
+        template <typename value_p>
+        class parameters_to_value_t<value_p>
+        {
+        public:
+            using type_t    = value_p;
+        };
+
+    public:
+        template <nkr::generic::type_tr type_p, type_p value_p>
+        using template_t    = nkr::constant_t<type_p, value_p>;
+
+        template <typename inner_p>
+        using of_t          = template_t<inner_p, nkr::interface::none::value_i<inner_p>::Value()>;
+
+        template <typename tuple_p>
+            requires (tuple_p::Count() == 1)
+        using of_tuple_t    = tuple_p::template into_t<of_t>;
+
+        template <typename ...parameters_p>
+            requires (sizeof...(parameters_p) == 1)
+        using of_pack_t     = of_t<typename parameters_to_value_t<parameters_p...>::type_t>;
+
+        using example_t     = template_t<nkr::boolean::cpp_t, false>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr template_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::constant_t$::template_i_tag_sp<template_p>;
     };
 
 }}

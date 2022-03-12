@@ -46,6 +46,20 @@ namespace nkr { namespace constant_t$ {
 
 }}
 
+namespace nkr { namespace constant_t$ {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_tag_sp<template_p>::Is_Any()
+        noexcept
+    {
+        return nkr::constant_ttr<other_p>;
+    }
+
+}}
+
 namespace nkr {
 
     template <nkr::generic::type_tr type_p, type_p value_p>
