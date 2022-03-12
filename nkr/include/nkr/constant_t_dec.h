@@ -141,20 +141,35 @@ namespace nkr { namespace constant_t$ {
 
     public:
         template <nkr::generic::type_tr type_p, type_p value_p>
-        using template_t    = nkr::constant_t<type_p, value_p>;
+        using template_t        = nkr::constant_t<type_p, value_p>;
 
         template <typename inner_p>
-        using of_t          = template_t<inner_p, nkr::interface::none::value_i<inner_p>::Value()>;
+            requires requires { { nkr::interface::none::value_i<inner_p>::Value() } -> nkr::cpp::is_any_tr<inner_p>; }
+        using of_t              = template_t<inner_p, nkr::interface::none::value_i<inner_p>::Value()>;
 
-        template <typename tuple_p>
-            requires (tuple_p::Count() == 1)
-        using of_tuple_t    = tuple_p::template into_t<of_t>;
+        template <typename parameters_p>
+            requires (parameters_p::Count() == 1)
+        using of_tuple_t        = parameters_p::template into_t<of_t>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) == 1)
-        using of_pack_t     = of_t<typename parameters_to_value_t<parameters_p...>::type_t>;
+        using of_pack_t         = of_t<typename parameters_to_value_t<parameters_p...>::type_t>;
 
-        using example_t     = template_t<nkr::boolean::cpp_t, false>;
+        using example_t         = template_t<nkr::boolean::cpp_t, false>;
+
+        template <typename ...parameters_p>
+        using actual_template_t = nkr::constant_ttg<parameters_p...>;
+
+        template <typename inner_p>
+        using actual_of_t       = actual_template_t<inner_p>;
+
+        template <typename parameters_p>
+        using actual_of_tuple_t = parameters_p::template into_t<actual_of_t>;
+
+        template <typename ...parameters_p>
+        using actual_of_pack_t  = actual_template_t<parameters_p...>;
+
+        using actual_example_t  = actual_template_t<>;
 
     public:
         template <template <typename ...> typename other_p>

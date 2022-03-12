@@ -216,7 +216,7 @@ namespace nkr { namespace tuple {
     {
     public:
         template <typename ...types_p>
-        using head_t        = nkr::interface::template_i<head_p>::template of_tuple_t<nkr::tuple::types_t<types_p...>>;
+        using head_t        = nkr::interface::template_i<head_p>::template actual_of_pack_t<types_p...>;
         using tail_t        = templates_t<tail_p...>;
 
         template <nkr::constant::positive::index_tr index_p>

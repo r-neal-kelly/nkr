@@ -2,6 +2,7 @@
     Copyright 2022 r-neal-kelly
 */
 
+#include "nkr/boolean/cpp_t.h"
 #include "nkr/built_in/forward.h"
 #include "nkr/constant_t.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
@@ -229,6 +230,22 @@ namespace nkr {
             // unlike most template identities, nkr::constant_t can only satisfy nkr::interface::template_i with its template tag
             // because it necessarily takes a template value argument
             static_assert(nkr::generic::implementing::interface::template_ttr<nkr::constant_ttg>);
+
+            using template_interface_t = nkr::interface::template_i<nkr::constant_ttg>;
+            static_assert(nkr::cpp::is_any_tr<template_interface_t::template template_t<bool, false>, nkr::constant_t<bool, false>>);
+
+            static_assert(nkr::TR<
+                          t<nkr::constant_t<bool, false>>,
+
+                          just_tg, t<nkr::constant_tg>
+            >() == true);
+
+            static_assert(nkr::TR<
+                          t<nkr::constant_t<bool, false>>,
+
+                          any_tg, tt<nkr::constant_ttg>,
+                          of_any_tg, t<bool>
+            >() == true);
         }
     }
 
