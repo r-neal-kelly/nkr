@@ -13,7 +13,7 @@ namespace nkr { namespace generic { namespace built_in {
 
     struct  number_tg   { class tag_lb; class generic_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  number_ttg  {};
 
     template <typename type_p>
@@ -62,9 +62,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace generic { namespace built_in { namespace number_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::built_in::number_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::generic::built_in::number_tg,
+        nkr::generic::built_in::number_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -80,7 +82,7 @@ namespace nkr { namespace generic { namespace built_in { namespace number_tr$ {
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number_ttg>
     class template_i_sp<template_p>
     {
     public:

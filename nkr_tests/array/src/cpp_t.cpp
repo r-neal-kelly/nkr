@@ -5,6 +5,7 @@
 #include "nkr/array/cpp_t.h"
 #include "nkr/constant/positive/count_t.h"
 #include "nkr/generic/array_tr.h"
+#include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/negatable_tr.h"
 #include "nkr/generic/positive_tr.h"
 #include "nkr/negatable/integer_t.h"
@@ -15,7 +16,12 @@
 
 #include "doctest.h"
 
-namespace nkr { namespace boolean {
+namespace nkr { namespace array {
+
+    TEST_CASE("temp")
+    {
+        static_assert(nkr::generic::implementing::interface::template_ttr<nkr::array::cpp_t>);
+    }
 
     TEST_CASE("temp")
     {

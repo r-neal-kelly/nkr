@@ -11,10 +11,10 @@
 
 namespace nkr { namespace generic { namespace implementing { namespace parameter_list {
 
-    template <typename>
+    template <typename ...>
     struct  default_ttg     {};
 
-    template <template <typename ...> typename>
+    template <template <typename ...> typename ...>
     struct  default_tttg    {};
 
     template <template <typename ...> typename template_p>
@@ -30,9 +30,11 @@ namespace nkr { namespace generic { namespace implementing { namespace parameter
 namespace nkr { namespace generic { namespace implementing { namespace parameter_list { namespace default_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::parameter_list::default_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::parameter_list::default_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::implementing::parameter_list::default_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::generic::implementing::parameter_list::default_tg,
+        nkr::generic::implementing::parameter_list::default_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -48,7 +50,7 @@ namespace nkr { namespace generic { namespace implementing { namespace parameter
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::parameter_list::default_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::parameter_list::default_ttg>
     class template_i_sp<template_p>
     {
     public:

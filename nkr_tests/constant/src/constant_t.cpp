@@ -246,6 +246,11 @@ namespace nkr {
                           any_tg, tt<nkr::constant_ttg>,
                           of_any_tg, t<bool>
             >() == true);
+
+            static_assert(template_interface_t::Is_Any<nkr::constant_t>() == true);
+            static_assert(template_interface_t::Is_Any<nkr::constant_ttg>() == false);
+            static_assert(template_interface_t::Is_Any_Actual<nkr::constant_t>() == false);
+            static_assert(template_interface_t::Is_Any_Actual<nkr::constant_ttg>() == true);
         }
     }
 

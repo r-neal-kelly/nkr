@@ -62,7 +62,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
     struct  mersenne_twister_tg     { class tag_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  mersenne_twister_ttg    {};
 
     template <typename type_p>
@@ -227,7 +227,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
             nkr::constant::positive::size_tr    l_p,
 
             nkr::constant_of_tr<result_p>       f_p
-        > using template_t  = nkr::cpp::randomness::generator::software::mersenne_twister_t<
+        > using template_t          = nkr::cpp::randomness::generator::software::mersenne_twister_t<
             result_p,
 
             w_p,
@@ -248,7 +248,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         >;
 
         template <typename inner_p>
-        using   of_t        = template_t<
+        using   of_t                = template_t<
             inner_p,
 
             nkr::constant::positive::size_t<3>,
@@ -270,16 +270,67 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() == 14)
-        using   of_tuple_t  = parameters_p::template into_t<template_t>;
+        using   of_tuple_t          = parameters_p::template into_t<template_t>;
 
         template <typename ...parameters_p>
-        using   of_pack_t   = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+        using   of_pack_t           = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using   example_t   = of_t<nkr::positive::integer_t>;
+        using   example_t           = of_t<nkr::positive::integer_t>;
+
+        template <
+            typename                            result_p,
+
+            nkr::constant::positive::size_tr    w_p,
+            nkr::constant::positive::size_tr    n_p,
+            nkr::constant::positive::size_tr    m_p,
+            nkr::constant::positive::size_tr    r_p,
+
+            nkr::constant_of_tr<result_p>       a_p,
+            nkr::constant::positive::size_tr    u_p,
+            nkr::constant_of_tr<result_p>       d_p,
+            nkr::constant::positive::size_tr    s_p,
+            nkr::constant_of_tr<result_p>       b_p,
+            nkr::constant::positive::size_tr    t_p,
+            nkr::constant_of_tr<result_p>       c_p,
+            nkr::constant::positive::size_tr    l_p,
+
+            nkr::constant_of_tr<result_p>       f_p
+        > using actual_template_t   = template_t<
+            result_p,
+
+            w_p,
+            n_p,
+            m_p,
+            r_p,
+
+            a_p,
+            u_p,
+            d_p,
+            s_p,
+            b_p,
+            t_p,
+            c_p,
+            l_p,
+
+            f_p
+        >;
+
+        template <typename inner_p>
+        using actual_of_t           = of_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+        using actual_of_tuple_t     = of_tuple_t<parameters_p>;
+
+        template <typename ...parameters_p>
+        using actual_of_pack_t      = of_pack_t<parameters_p...>;
+
+        using actual_example_t      = example_t;
 
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
 
     public:
         template <typename ...>
@@ -287,11 +338,28 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::randomness::generator::software::mersenne_twister_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::randomness::generator::software::mersenne_twister_ttg>
     class template_i_tag_sp :
         public template_i_template_sp<nkr::cpp::randomness::generator::software::mersenne_twister_t>
     {
     public:
+        template <typename ...parameters_p>
+        using actual_template_t = nkr::cpp::randomness::generator::software::mersenne_twister_ttg<parameters_p...>;
+
+        template <typename inner_p>
+        using actual_of_t       = actual_template_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+        using actual_of_tuple_t = parameters_p::template into_t<actual_template_t>;
+
+        template <typename ...parameters_p>
+        using actual_of_pack_t  = actual_template_t<parameters_p...>;
+
+        using actual_example_t  = actual_template_t<>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
     };
 
 }}}}}}
@@ -307,7 +375,7 @@ namespace nkr { namespace interface {
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::randomness::generator::software::mersenne_twister_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::randomness::generator::software::mersenne_twister_ttg>
     class template_i_sp<template_p>
     {
     public:

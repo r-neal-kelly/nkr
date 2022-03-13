@@ -31,7 +31,7 @@ namespace nkr { namespace generic { namespace tag { namespace type_tr$ {
 namespace nkr { namespace generic { namespace tag { namespace type_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::type_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::type_ttg>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_tag_sp<template_p>::Is_Any()

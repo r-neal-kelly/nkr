@@ -517,7 +517,7 @@ TEST_SUITE("")
     struct entity_tg    {};
 
     // whereas this "template tag" can represent the template itself
-    template <typename>
+    template <typename ...>
     struct entity_ttg   {};
 
     // a "trait" can be used to constrain to an instantiated type

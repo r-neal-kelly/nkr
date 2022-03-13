@@ -55,7 +55,37 @@ namespace nkr { namespace constant_t$ {
         template_i_tag_sp<template_p>::Is_Any()
         noexcept
     {
+        return false;
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    template <template <typename inner_p, inner_p> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_tag_sp<template_p>::Is_Any()
+        noexcept
+    {
         return nkr::constant_ttr<other_p>;
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_tag_sp<template_p>::Is_Any_Actual()
+        noexcept
+    {
+        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    template <template <typename inner_p, inner_p> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_tag_sp<template_p>::Is_Any_Actual()
+        noexcept
+    {
+        return false;
     }
 
 }}

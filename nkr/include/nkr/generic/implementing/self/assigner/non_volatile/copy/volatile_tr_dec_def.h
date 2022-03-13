@@ -33,7 +33,7 @@ namespace nkr { namespace generic { namespace implementing { namespace self { na
 namespace non_volatile { namespace copy { namespace volatile_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::copy::volatile_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::self::assigner::non_volatile::copy::volatile_ttg>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_tag_sp<template_p>::Is_Any()

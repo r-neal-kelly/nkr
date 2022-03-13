@@ -24,7 +24,7 @@ namespace nkr { namespace generic { namespace implementing { namespace construct
 
     struct  default_tg  { class tag_lb; class generic_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  default_ttg {};
 
     template <typename type_p>
@@ -74,9 +74,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace generic { namespace implementing { namespace constructor { namespace default_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::constructor::default_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::constructor::default_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::implementing::constructor::default_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::generic::implementing::constructor::default_tg,
+        nkr::generic::implementing::constructor::default_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -92,7 +94,7 @@ namespace nkr { namespace generic { namespace implementing { namespace construct
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::constructor::default_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::constructor::default_ttg>
     class template_i_sp<template_p>
     {
     public:

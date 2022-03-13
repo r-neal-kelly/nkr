@@ -14,7 +14,7 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness {
 
     struct  distributor_tg  { class tag_lb; class generic_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  distributor_ttg {};
 
     template <typename type_p>
@@ -64,9 +64,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace cpp { namespace generic { namespace randomness { namespace distributor_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::distributor_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::distributor_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::cpp::generic::randomness::distributor_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::cpp::generic::randomness::distributor_tg,
+        nkr::cpp::generic::randomness::distributor_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -82,7 +84,7 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness { names
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::distributor_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::distributor_ttg>
     class template_i_sp<template_p>
     {
     public:

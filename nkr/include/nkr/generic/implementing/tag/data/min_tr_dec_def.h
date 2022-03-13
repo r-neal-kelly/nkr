@@ -31,7 +31,7 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
 namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace min_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::tag::data::min_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::tag::data::min_ttg>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_tag_sp<template_p>::Is_Any()

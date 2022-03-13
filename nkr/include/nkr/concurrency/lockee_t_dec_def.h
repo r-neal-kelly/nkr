@@ -58,6 +58,26 @@ namespace nkr { namespace concurrency { namespace lockee_t$ {
         return nkr::concurrency::lockee_ttr<other_p>;
     }
 
+    template <template <typename ...> typename template_p>
+        requires nkr::concurrency::lockee_ttr<template_p>
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_template_sp<template_p>::Is_Any_Actual()
+        noexcept
+    {
+        return nkr::concurrency::lockee_ttr<other_p>;
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::concurrency::lockee_ttg>
+    template <template <typename ...> typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        template_i_tag_sp<template_p>::Is_Any_Actual()
+        noexcept
+    {
+        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
+    }
+
 }}}
 
 namespace nkr { namespace concurrency {

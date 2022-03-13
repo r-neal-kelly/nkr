@@ -24,9 +24,9 @@ namespace nkr {
 
     /// @copydoc _651a47d3_40f7_4a6f_be9c_5fbc92a159ec
     /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
-    template <template <typename ...> typename template_p>
+    template <template <typename inner_p, inner_p value_p> typename template_p>
     concept constant_ttr =
-        nkr::cpp::is_any_ttr<template_p, constant_t, nkr::positive::integer_t>;
+        nkr::cpp::is_any_tr<template_p<nkr::boolean::cpp_t, false>, constant_t<nkr::boolean::cpp_t, false>>;
 
     /// @copydoc _fba50840_494c_4a81_8772_9c5315bc8cd2
     /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
@@ -164,7 +164,7 @@ namespace nkr { namespace constant_t$ {
         using actual_of_t       = actual_template_t<inner_p>;
 
         template <typename parameters_p>
-        using actual_of_tuple_t = parameters_p::template into_t<actual_of_t>;
+        using actual_of_tuple_t = parameters_p::template into_t<actual_template_t>;
 
         template <typename ...parameters_p>
         using actual_of_pack_t  = actual_template_t<parameters_p...>;
@@ -174,6 +174,12 @@ namespace nkr { namespace constant_t$ {
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+        template <template <typename inner_p, inner_p> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
+        template <template <typename inner_p, inner_p> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
 
     public:
         template <typename ...>

@@ -14,7 +14,7 @@ namespace nkr { namespace generic { namespace type { namespace self {
 
     struct  copyable_moveable_tg    { class tag_lb; class generic_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  copyable_moveable_ttg   {};
 
     template <typename type_p>
@@ -77,9 +77,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace generic { namespace type { namespace self { namespace copyable_moveable_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::type::self::copyable_moveable_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::type::self::copyable_moveable_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::type::self::copyable_moveable_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::generic::type::self::copyable_moveable_tg,
+        nkr::generic::type::self::copyable_moveable_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -95,7 +97,7 @@ namespace nkr { namespace generic { namespace type { namespace self { namespace 
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::type::self::copyable_moveable_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::type::self::copyable_moveable_ttg>
     class template_i_sp<template_p>
     {
     public:

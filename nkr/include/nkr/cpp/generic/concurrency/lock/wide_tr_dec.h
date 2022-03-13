@@ -14,7 +14,7 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
 
     struct  wide_tg     { class tag_lb; class generic_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  wide_ttg    {};
 
     template <typename type_p>
@@ -64,9 +64,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock { namespace wide_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::wide_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::wide_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::cpp::generic::concurrency::lock::wide_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::cpp::generic::concurrency::lock::wide_tg,
+        nkr::cpp::generic::concurrency::lock::wide_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -82,7 +84,7 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::wide_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::wide_ttg>
     class template_i_sp<template_p>
     {
     public:

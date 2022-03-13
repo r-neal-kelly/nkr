@@ -14,7 +14,7 @@ namespace nkr { namespace generic { namespace tag {
 
     struct  identity_tg     { class tag_lb; class generic_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  identity_ttg    {};
 
     template <typename type_p>
@@ -64,9 +64,11 @@ namespace nkr { namespace interface {
 namespace nkr { namespace generic { namespace tag { namespace identity_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::identity_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::identity_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<nkr::generic::tag::identity_tg>
+        public nkr::interface::template_i_generic_aliases_t<
+        nkr::generic::tag::identity_tg,
+        nkr::generic::tag::identity_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -82,7 +84,7 @@ namespace nkr { namespace generic { namespace tag { namespace identity_tr$ {
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::identity_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::identity_ttg>
     class template_i_sp<template_p>
     {
     public:

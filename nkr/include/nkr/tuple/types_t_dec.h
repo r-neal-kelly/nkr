@@ -27,7 +27,7 @@ namespace nkr { namespace tuple {
 
     struct  types_tg    { class tag_lb; };
 
-    template <typename>
+    template <typename ...>
     struct  types_ttg   {};
 
     template <typename type_p>
@@ -106,23 +106,39 @@ namespace nkr { namespace tuple { namespace types_t$ {
     {
     public:
         template <typename ...types_p>
-        using template_t    = nkr::tuple::types_t<types_p...>;
+        using template_t        = nkr::tuple::types_t<types_p...>;
 
         template <typename inner_p>
-        using of_t          = template_t<inner_p>;
+        using of_t              = template_t<inner_p>;
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() >= 0)
-        using of_tuple_t    = parameters_p::template into_t<template_t>;
+        using of_tuple_t        = parameters_p::template into_t<template_t>;
 
         template <typename ...parameters_p>
-        using of_pack_t     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+        using of_pack_t         = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t     = of_t<nkr::tuple::types_t$::dummy_t>;
+        using example_t         = of_t<nkr::tuple::types_t$::dummy_t>;
+
+        template <typename ...types_p>
+        using actual_template_t = template_t<types_p...>;
+
+        template <typename inner_p>
+        using actual_of_t       = of_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+        using actual_of_tuple_t = of_tuple_t<parameters_p>;
+
+        template <typename ...parameters_p>
+        using actual_of_pack_t  = of_pack_t<parameters_p...>;
+
+        using actual_example_t  = example_t;
 
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
 
     public:
         template <typename ...>
@@ -130,11 +146,28 @@ namespace nkr { namespace tuple { namespace types_t$ {
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::tuple::types_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::tuple::types_ttg>
     class template_i_tag_sp :
         public template_i_template_sp<nkr::tuple::types_t>
     {
     public:
+        template <typename ...parameters_p>
+        using actual_template_t = nkr::tuple::types_ttg<parameters_p...>;
+
+        template <typename inner_p>
+        using actual_of_t       = actual_template_t<inner_p>;
+
+        template <nkr::tuple::types_tr parameters_p>
+        using actual_of_tuple_t = parameters_p::template into_t<actual_template_t>;
+
+        template <typename ...parameters_p>
+        using actual_of_pack_t  = actual_template_t<parameters_p...>;
+
+        using actual_example_t  = actual_template_t<>;
+
+    public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
     };
 
 }}}
@@ -150,7 +183,7 @@ namespace nkr { namespace interface {
     };
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::tuple::types_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::tuple::types_ttg>
     class template_i_sp<template_p>
     {
     public:

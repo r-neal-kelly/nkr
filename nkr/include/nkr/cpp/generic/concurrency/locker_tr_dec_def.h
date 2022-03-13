@@ -31,7 +31,7 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace locker_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::locker_ttg, nkr::none::type_t>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::locker_ttg>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_tag_sp<template_p>::Is_Any()
