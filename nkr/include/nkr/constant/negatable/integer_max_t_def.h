@@ -7,6 +7,7 @@
 #include "nkr/built_in/forward_def.h"
 #include "nkr/constant_t_def.h"
 #include "nkr/cpp_def.h"
+#include "nkr/interface/forward_def.h"
 
 #include "nkr/constant/negatable/integer_max_t_dec.h"
 
