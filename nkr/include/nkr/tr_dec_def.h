@@ -226,6 +226,27 @@ namespace nkr { namespace tr$ {
 
 namespace nkr { namespace tr$ {
 
+    template <typename operand_p>
+        requires (operand_p::Count() == 1)
+    class objects_last_type_tmpl;
+
+    template <nkr::ts_tr operand_p>
+    class objects_last_type_tmpl<operand_p>
+    {
+    public:
+        using type_t    = nkr::cpp::access_qualification_of_t<typename operand_p::head_t, operand_p>;
+    };
+
+    template <nkr::tts_tr operand_p>
+    class objects_last_type_tmpl<operand_p>
+    {
+    public:
+        using type_t    = nkr::cpp::access_qualification_of_t<typename template_i<operand_p::template head_t>::type_tg, operand_p>;
+    };
+
+    template <typename operand_p>
+    using objects_last_type_t   = objects_last_type_tmpl<operand_p>::type_t;
+
     template <nkr::tuple::types_tr expression_parts_p>
         requires (expression_parts_p::Count() == 1 || !(expression_parts_p::Count() & 1))
     class objects_tmpl;
@@ -246,11 +267,11 @@ namespace nkr { namespace tr$ {
         using object_t  = expression_parts_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
     private:
-        static_assert(nkr::ts_tr<object_t>);
+        static_assert(nkr::ts_tr<object_t> || nkr::tts_tr<object_t>);
         static_assert(object_t::Count() == 1);
 
     public:
-        using type_t    = nkr::tuple::types_t<nkr::cpp::access_qualification_of_t<typename object_t::head_t, object_t>>;
+        using type_t    = nkr::tuple::types_t<objects_last_type_t<object_t>>;
     };
 
     template <nkr::tuple::types_tr expression_parts_p>
@@ -650,8 +671,8 @@ namespace nkr { namespace tr$ {
 
                 return Validate<subjects_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
             } else {
-                static_assert(ts_tr<operand_t>,
-                              "The last operand must either be a t<> or a ts<> operand.");
+                static_assert(ts_tr<operand_t> || tts_tr<operand_t>,
+                              "The last operand must either be a t<>, a ts<>, a tt<>, or a tts<>.");
 
                 return true;
             }

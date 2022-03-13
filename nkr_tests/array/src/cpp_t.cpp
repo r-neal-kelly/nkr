@@ -7,8 +7,10 @@
 #include "nkr/generic/array_tr.h"
 #include "nkr/generic/implementing/interface/template_tr.h"
 #include "nkr/generic/negatable_tr.h"
+#include "nkr/generic/pointer_tr.h"
 #include "nkr/generic/positive_tr.h"
 #include "nkr/negatable/integer_t.h"
+#include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
 #include "nkr/tr.h"
 #include "nkr/tuple/templates_t.h"
@@ -21,6 +23,58 @@ namespace nkr { namespace array {
     TEST_CASE("temp")
     {
         static_assert(nkr::generic::implementing::interface::template_ttr<nkr::array::cpp_t>);
+
+        // now tt works as a last argument
+        static_assert(nkr::TR<
+                      t<int[1]>,
+                      any_tg, tt<nkr::array::cpp_t>
+        >() == true);
+
+        static_assert(nkr::TR<
+                      t<int[1]>,
+                      any_tg, tt<nkr::array::cpp_ttg>
+        >() == true);
+
+        static_assert(nkr::TR<
+                      t<int[1]>,
+                      any_tg, tt<nkr::generic::array_ttg>
+        >() == true);
+
+        static_assert(nkr::TR<
+                      t<int*>,
+                      any_tg, tt<nkr::array::cpp_t>
+        >() == false);
+
+        static_assert(nkr::TR<
+                      t<int*>,
+                      any_tg, tt<nkr::array::cpp_ttg>
+        >() == false);
+
+        static_assert(nkr::TR<
+                      t<int*>,
+                      any_tg, tt<nkr::generic::array_ttg>
+        >() == false);
+
+        // even tts<>
+        static_assert(nkr::TR<
+                      ts<AND_tg, int[1], int*>,
+                      any_tg, tts<OR_tg, nkr::array::cpp_t, nkr::pointer::cpp_t>
+        >() == true);
+
+        static_assert(nkr::TR<
+                      ts<AND_tg, volatile int[1], int* volatile>,
+                      just_tg, volatile tts<OR_tg, nkr::array::cpp_t, nkr::pointer::cpp_t>
+        >() == true);
+
+        static_assert(nkr::TR<
+                      ts<AND_tg, int[1], int*>,
+                      just_tg, volatile tts<OR_tg, nkr::array::cpp_t, nkr::pointer::cpp_t>
+        >() == false);
+
+        static_assert(nkr::TR<
+                      ts<AND_tg, volatile int[1], int* volatile>,
+                      just_tg, volatile ts<OR_tg, nkr::array::cpp_t<int, nkr::constant::positive::integer_t<1>>, nkr::pointer::cpp_t<int>>
+        >() == true);
     }
 
     TEST_CASE("temp")

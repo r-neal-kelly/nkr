@@ -124,6 +124,11 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
 
         using actual_example_t  = example_t;
 
+        using type_tg           = nkr::cpp::randomness::distributor::uniform::real_tg;
+
+        template <typename ...parameters_p>
+        using template_tg       = nkr::cpp::randomness::distributor::uniform::real_ttg<parameters_p...>;
+
     public:
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
