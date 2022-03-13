@@ -73,7 +73,7 @@ namespace nkr { namespace array {
 
         static_assert(nkr::TR<
                       ts<AND_tg, volatile int[1], int* volatile>,
-                      just_tg, volatile ts<OR_tg, nkr::array::cpp_t<int, nkr::constant::positive::integer_t<1>>, nkr::pointer::cpp_t<int>>
+                      just_tg, volatile ts<OR_tg, nkr::array::cpp_t<int, nkr::constant::positive::count_t<1>>, nkr::pointer::cpp_t<int>>
         >() == true);
     }
 
