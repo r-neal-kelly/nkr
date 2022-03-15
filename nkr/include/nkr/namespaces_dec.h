@@ -34,6 +34,14 @@ namespace nkr {
     /// @copydoc _7c03d996_023c_4733_b350_769f6a1fb26d
     namespace error         {};
 
+    /// @copydoc _7db721bf_b698_4557_aef4_4c647d688f05
+    namespace interface     {
+
+        /// @copydoc _351033ca_04c8_4515_a615_7faeea2ab6e5
+        namespace none  {};
+
+    };
+
     /// @copydoc _f94a7a61_bc8b_467c_ad48_177ebf2a6288
     namespace negatable     {};
 

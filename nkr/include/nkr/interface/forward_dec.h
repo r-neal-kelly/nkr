@@ -22,6 +22,7 @@ namespace nkr { namespace interface { namespace none {
     template <typename type_p>
     class   value_i_sp;
 
+    /// @copydoc _fb7ae328_adb0_41f6_83fa_435b1c12cfb4
     template <typename type_p>
     using   value_i =
         nkr::interface::none::value_i_sp<type_p>::type_t;

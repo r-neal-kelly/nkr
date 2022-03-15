@@ -150,6 +150,33 @@
         @ref nkr makes use of various error types where both a runtime problem can occur and it is desirable for your program to be able to recover from it, e.g. running out of main memory. For the most part they inherit from nkr::enumeration::errors_t. Error types **do not** represent a frivolous problem-set of programmer errors, most of which can be detailed to the developer by other more efficient means, usually during compile time. Error types **do** represent problems that can occur during runtime, such as dynamically registering a user-error for further processing.
     */
 
+    // nkr::interface
+    /**
+        @class _7db721bf_b698_4557_aef4_4c647d688f05
+        @private
+
+        @brief
+        [Interfaces](@ref _530148d0_cb32_40a7_9288_99cff1c667fe) provide a small abstraction over different [entities](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) so that they can be utilized in the same way.
+
+        @details
+        [Interfaces](@ref _530148d0_cb32_40a7_9288_99cff1c667fe) are usually introduced when working with [generics](@ref _90dbd4cc_851e_429c_bae1_b9b4285cb1ee) so that syntactically different [entities](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) that are otherwise semantically similar or equivalent can be treated with the same syntax. Put another way, interfaces help to avoid unnecessary constraints on program design and thus directly increase the robustness of code.
+        
+        For example, nkr::interface::none::value_i can return a none value for a [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) that doesn't have a default constructor or for a [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) that does have a default constructor but which doesn't default its [type instances](@ref _7c636ccf_7f4b_40c1_a955_2dca05506ac4) to a value that can be equated to none. Importantly, because this [interface](@ref _530148d0_cb32_40a7_9288_99cff1c667fe) must be opted into, this allows the designer of an [entity](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) to avoid having to fulfill the concept of none when it doesn't make sense, or if they simpy want to avoid using the concept of none according to design principles. For a concrete example, please see nkr::interface::none::value_i.
+        
+        There is a cost to using [interfaces](@ref _530148d0_cb32_40a7_9288_99cff1c667fe) and it is two fold:
+        1. Designers of [entities](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) almost always have to opt into an [interface](@ref _530148d0_cb32_40a7_9288_99cff1c667fe) if they want their [entity](@ref _beac6b26_2cf9_4051_99ba_4ae5a39e66ec) to be useful with it, and thus they need to make [implementations](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) which can run up development time.
+        2. Although [run-time](@ref _6486340c_e540_4c05_8d06_90e4cc18c1b3) is almost never (if not actually never) affected, [compile-time](@ref _b11fed50_b607_4f57_b5e7_af27886ddb6a) increases due to the extra [template](@ref _a13ace0b_d5fa_4445_87cc_c6beca57ff12) abstractions.
+    */
+
+        // nkr::interface::none
+        /**
+            @class _351033ca_04c8_4515_a615_7faeea2ab6e5
+            @private
+
+            @brief
+            None [interfaces](@ref _530148d0_cb32_40a7_9288_99cff1c667fe) handle semantics revolving around the lack of something.
+        */
+
     // nkr::negatable
     /**
         @class _f94a7a61_bc8b_467c_ad48_177ebf2a6288

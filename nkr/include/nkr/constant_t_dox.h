@@ -248,3 +248,39 @@
         @snippet "./constant/src/constant_t.cpp" _2050293a_1fb1_4f94_bfc4_23ef2b32f123
         @snippet "./constant/src/constant_t.cpp" _0c11ab3d_1046_4492_8bcf_cda94bbc48a9
     */
+
+// nkr::constant_t$
+/**
+    @class _b8badf6a_299c_4743_a288_9ba6f3291672
+    @private
+
+    @brief
+    The [private namespace](@ref _31e7e083_2557_4598_b990_1b76deabd5fc) of nkr::constant_t.
+*/
+
+    // nkr::constant_t$::type_i_type_sp
+    /**
+        @class _c15eb0da_f76f_4d1d_be3d_2b422553f090
+        @private
+
+        @brief
+        The [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::type_i for [type instantiations](@ref _be26724f_df26_4658_8cab_109d0b853c27) of nkr::constant_t.
+    */
+
+    // nkr::constant_t$::type_i_tag_sp
+    /**
+        @class _fb5c885f_76ed_4ca7_bbcc_b926514253f9
+        @private
+
+        @brief
+        The [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::type_i for nkr::constant_tg.
+    */
+
+    // nkr::constant_t$::template_i_tag_sp
+    /**
+        @class _925b6ca6_622f_44d1_9c35_30b158addbc7
+        @private
+
+        @brief
+        The [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::template_i for nkr::constant_ttg.
+    */

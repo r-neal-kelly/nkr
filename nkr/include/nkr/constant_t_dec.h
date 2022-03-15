@@ -11,6 +11,13 @@
 
 namespace nkr {
 
+    /// @copydoc _b8badf6a_299c_4743_a288_9ba6f3291672
+    namespace constant_t$   {};
+
+}
+
+namespace nkr {
+
     /// @copydoc _09f6d63e_f4b7_46e1_b499_fcfa5132d76f
     /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
     template <nkr::generic::type_tr type_p, type_p value_p>
@@ -66,6 +73,7 @@ namespace nkr {
 
 namespace nkr { namespace constant_t$ {
 
+    /// @copydoc _c15eb0da_f76f_4d1d_be3d_2b422553f090
     template <nkr::constant_tr type_p>
     class type_i_type_sp
     {
@@ -84,6 +92,7 @@ namespace nkr { namespace constant_t$ {
         constexpr type_i_type_sp(...) noexcept  = delete;
     };
 
+    /// @copydoc _fb5c885f_76ed_4ca7_bbcc_b926514253f9
     template <nkr::cpp::is_any_tr<nkr::constant_tg> type_p>
     class type_i_tag_sp
     {
@@ -124,6 +133,7 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace constant_t$ {
 
+    /// @copydoc _925b6ca6_622f_44d1_9c35_30b158addbc7
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
     class template_i_tag_sp
