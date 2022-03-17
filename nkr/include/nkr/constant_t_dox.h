@@ -267,6 +267,45 @@
         The [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::type_i for [type instantiations](@ref _be26724f_df26_4658_8cab_109d0b853c27) of nkr::constant_t.
     */
 
+        // nkr::constant_t$::type_i_type_sp::type_t
+        /**
+            @class _fac7a231_ac0a_438e_87e3_e3e442ccca46
+            @private
+
+            @brief
+            The [qualified](@ref _db33c623_ed4b_4daf_809a_2e105d0d76dd) [instantiation](@ref _be26724f_df26_4658_8cab_109d0b853c27) of nkr::constant_t that is the subject of this [implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::type_i.
+        */
+
+        // nkr::constant_t$::type_i_type_sp::of_t
+        /**
+            @class _e41a23cd_be1c_454b_ae8a_e3cbf986c095
+            @private
+
+            @brief
+            The [primary inner type](@ref _4e605182_03fd_45fe_ad99_66ef95f8af15) of nkr::constant_t$::type_i_type_sp::type_t.
+        */
+
+        // nkr::constant_t$::type_i_type_sp::Is_Any_General
+        /**
+            @class _421197dc_59cd_48ab_a5ce_68c5c425d35b
+            @private
+
+            @brief
+            Checks if the passed in [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) is any [qualification](@ref _db33c623_ed4b_4daf_809a_2e105d0d76dd) of any [instantiation](@ref _be26724f_df26_4658_8cab_109d0b853c27) of nkr::constant_t regardless of its [template arguments](@ref _c1c0e928_ba39_4137_babb_17726e128d1c).
+
+            @details
+            Fulfills the generic need to determine if two potentially different [types](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) come from the same [template](@ref _a13ace0b_d5fa_4445_87cc_c6beca57ff12). Because nkr::constant_t$::type_i_type_sp::type_t is passed in to [instantiate](@ref _be26724f_df26_4658_8cab_109d0b853c27) this [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568), this essentially acts as an equality operator for [templates](@ref _a13ace0b_d5fa_4445_87cc_c6beca57ff12) with [types](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) as operands.
+        */
+
+        // nkr::constant_t$::type_i_type_sp::Is_Any_Specific
+        /**
+            @class _0097b52c_af79_4c0c_bf25_8276d5c12c9b
+            @private
+
+            @brief
+            Checks if the passed in [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) is any [qualification](@ref _db33c623_ed4b_4daf_809a_2e105d0d76dd) of nkr::constant_t$::type_i_type_sp::type_t.
+        */
+
     // nkr::constant_t$::type_i_tag_sp
     /**
         @class _fb5c885f_76ed_4ca7_bbcc_b926514253f9
@@ -275,6 +314,48 @@
         @brief
         The [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::type_i for nkr::constant_tg.
     */
+
+        // nkr::constant_t$::type_i_tag_sp::type_t
+        /**
+            @class _df6ca327_f69b_47c6_8a1f_34d42baf44ea
+            @private
+
+            @brief
+            The [qualified](@ref _db33c623_ed4b_4daf_809a_2e105d0d76dd) nkr::constant_tg that is the subject of this [implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::type_i.
+        */
+
+        // nkr::constant_t$::type_i_tag_sp::of_t
+        /**
+            @class _adec56d0_18cf_477f_8211_75e297395bc7
+            @private
+
+            @brief
+            The [primary inner type](@ref _4e605182_03fd_45fe_ad99_66ef95f8af15) of nkr::constant_t$::type_i_tag_sp::type_t.
+
+            @details
+            The subject of this [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) is nkr::constant_tg and so it has no [primary inner type](@ref _4e605182_03fd_45fe_ad99_66ef95f8af15). One would need to use the interface for an actual [instantiation](@ref _be26724f_df26_4658_8cab_109d0b853c27) of nkr::constant_t to get a [primary inner type](@ref _4e605182_03fd_45fe_ad99_66ef95f8af15).
+        */
+
+        // nkr::constant_t$::type_i_tag_sp::Is_Any_General
+        /**
+            @class _f6286d5e_a240_463d_a47e_96b6cd5a8c54
+            @private
+
+            @brief
+            Checks if the passed in [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) is any [qualification](@ref _db33c623_ed4b_4daf_809a_2e105d0d76dd) of any [instantiation](@ref _be26724f_df26_4658_8cab_109d0b853c27) of nkr::constant_t regardless of its [template arguments](@ref _c1c0e928_ba39_4137_babb_17726e128d1c).
+
+            @details
+            Fulfills the generic need to determine if a [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) comes from the same [template](@ref _a13ace0b_d5fa_4445_87cc_c6beca57ff12) represented by a [tag](@ref _aa695b0f_e642_4521_928e_5deba76d9bc6). Because nkr::constant_t$::type_i_tag_sp::type_t is a [tag](@ref _aa695b0f_e642_4521_928e_5deba76d9bc6) and is passed in to [instantiate](@ref _be26724f_df26_4658_8cab_109d0b853c27) this [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568), this essentially acts as an equality operator for [templates](@ref _a13ace0b_d5fa_4445_87cc_c6beca57ff12) with a [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) and [tag](@ref _aa695b0f_e642_4521_928e_5deba76d9bc6) as operands.
+        */
+
+        // nkr::constant_t$::type_i_tag_sp::Is_Any_Specific
+        /**
+            @class _a16deaf5_8c03_4f30_83b0_c8aa636832b6
+            @private
+
+            @brief
+            Checks if the passed in [type](@ref _d5fa5645_f7f9_446a_936d_459b0e0e4982) is any [qualification](@ref _db33c623_ed4b_4daf_809a_2e105d0d76dd) of nkr::constant_t$::type_i_tag_sp::type_t.
+        */
 
     // nkr::constant_t$::template_i_tag_sp
     /**

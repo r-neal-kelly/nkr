@@ -78,14 +78,20 @@ namespace nkr { namespace constant_t$ {
     class type_i_type_sp
     {
     public:
-        using type_t    = type_p;
-        using of_t      = type_t::value_t;
+        /// @name aliases
+        /// @{
+        using type_t    = type_p;           ///< @copydoc _fac7a231_ac0a_438e_87e3_e3e442ccca46
+        using of_t      = type_t::value_t;  ///< @copydoc _e41a23cd_be1c_454b_ae8a_e3cbf986c095
+        /// @}
 
     public:
+        /// @name static functions
+        /// @{
         template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;  ///< @copydoc _421197dc_59cd_48ab_a5ce_68c5c425d35b
         template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept; ///< @copydoc _0097b52c_af79_4c0c_bf25_8276d5c12c9b
+        /// @}
 
     public:
         template <typename ...>
@@ -97,14 +103,20 @@ namespace nkr { namespace constant_t$ {
     class type_i_tag_sp
     {
     public:
-        using type_t    = type_p;
-        using of_t      = nkr::none::type_t;
+        /// @name aliases
+        /// @{
+        using type_t    = type_p;               ///< @copydoc _df6ca327_f69b_47c6_8a1f_34d42baf44ea
+        using of_t      = nkr::none::type_t;    ///< @copydoc _adec56d0_18cf_477f_8211_75e297395bc7
+        /// @}
 
     public:
+        /// @name static functions
+        /// @{
         template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;  ///< @copydoc _f6286d5e_a240_463d_a47e_96b6cd5a8c54
         template <typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept; ///< @copydoc _a16deaf5_8c03_4f30_83b0_c8aa636832b6
+        /// @}
 
     public:
         template <typename ...>
