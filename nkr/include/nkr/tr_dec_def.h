@@ -544,7 +544,7 @@ namespace nkr { namespace tr$ {
                             }
                         }
                     } else {
-                        [] <nkr::boolean::cpp_t _ = false>() { static_assert(_); }();
+                        [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Internal evaluation error."); }();
                     }
                 }
             }
@@ -607,18 +607,17 @@ namespace nkr { namespace tr$ {
                         }
                     }
                 } else {
-                    [] <nkr::boolean::cpp_t _ = false>() { static_assert(_); }();
+                    [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Internal evaluation error."); }();
                 }
             }
         }
     }
 
     template <
-        nkr::ts_tr              subjects_p,
         nkr::tuple::types_tr    expression_parts_p,
         typename                index_p             = nkr::constant::positive::index_t<0>
     > inline constexpr nkr::boolean::cpp_t
-        Validate()
+        Validate_Expression()
         noexcept
     {
         static_assert(expression_parts_p::Count() > 0,
@@ -669,13 +668,30 @@ namespace nkr { namespace tr$ {
                 static_assert(tts_tr<operand_t>,
                               "Every operand except the last must either be a tt<> or a tts<> operand.");
 
-                return Validate<subjects_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
+                return Validate_Expression<expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
             } else {
                 static_assert(ts_tr<operand_t> || tts_tr<operand_t>,
                               "The last operand must either be a t<>, a ts<>, a tt<>, or a tts<>.");
 
                 return true;
             }
+        }
+    }
+
+    template <nkr::ts_tr subjects_p>
+    inline constexpr nkr::boolean::cpp_t
+        Validate_Subjects()
+        noexcept
+    {
+        if (subjects_p::Count() > 0) {
+            using subject_t = subjects_p::head_t;
+
+            static_assert(!nkr::generic::tag_tr<subject_t>,
+                          "A tag cannot be a subject.");
+
+            return Validate_Subjects<typename subjects_p::tail_t>();
+        } else {
+            return true;
         }
     }
 
@@ -692,7 +708,8 @@ namespace nkr {
     {
         using expression_parts_t = nkr::tuple::types_t<expression_parts_p...>;
 
-        static_assert(nkr::tr$::Validate<subjects_p, expression_parts_t>());
+        static_assert(nkr::tr$::Validate_Subjects<subjects_p>());
+        static_assert(nkr::tr$::Validate_Expression<expression_parts_t>());
 
         return nkr::tr$::Evaluate_Subjects<subjects_p, expression_parts_t>();
     }
