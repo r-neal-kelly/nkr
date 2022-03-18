@@ -14,7 +14,9 @@ namespace nkr { namespace negatable { namespace integer_max_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::negatable::integer_max_tr<other_p>;
+        return
+            nkr::negatable::integer_max_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::negatable::integer_max_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::negatable::integer_max_tg> type_p>

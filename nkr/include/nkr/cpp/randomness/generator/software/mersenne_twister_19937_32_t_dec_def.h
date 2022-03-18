@@ -14,7 +14,9 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::cpp::randomness::generator::software::mersenne_twister_19937_32_tr<other_p>;
+        return
+            nkr::cpp::randomness::generator::software::mersenne_twister_19937_32_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::cpp::randomness::generator::software::mersenne_twister_19937_32_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::cpp::randomness::generator::software::mersenne_twister_19937_32_tg> type_p>

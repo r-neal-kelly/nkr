@@ -14,7 +14,9 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::cpp::generic::concurrency::lock::inclusive_tr<other_p>;
+        return
+            nkr::cpp::generic::concurrency::lock::inclusive_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::cpp::generic::concurrency::lock::inclusive_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::cpp::generic::concurrency::lock::inclusive_tg> type_p>

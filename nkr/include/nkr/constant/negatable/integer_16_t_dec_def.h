@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace negatable { namespace integer_16_
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::negatable::integer_16_tr<other_p>;
+        return
+            nkr::constant::negatable::integer_16_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::negatable::integer_16_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::negatable::integer_16_tg> type_p>

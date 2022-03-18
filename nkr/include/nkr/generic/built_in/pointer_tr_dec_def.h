@@ -14,7 +14,9 @@ namespace nkr { namespace generic { namespace built_in { namespace pointer_tr$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::generic::built_in::pointer_tr<other_p>;
+        return
+            nkr::generic::built_in::pointer_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::generic::built_in::pointer_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::generic::built_in::pointer_tg> type_p>

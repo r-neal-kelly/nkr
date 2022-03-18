@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace positive { namespace integer_min_
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::positive::integer_min_tr<other_p>;
+        return
+            nkr::constant::positive::integer_min_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::positive::integer_min_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::positive::integer_min_tg> type_p>

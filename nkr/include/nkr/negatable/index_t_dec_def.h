@@ -14,7 +14,9 @@ namespace nkr { namespace negatable { namespace index_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::negatable::index_tr<other_p>;
+        return
+            nkr::negatable::index_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::negatable::index_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::negatable::index_tg> type_p>

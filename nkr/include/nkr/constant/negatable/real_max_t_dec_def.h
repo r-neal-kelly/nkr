@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace negatable { namespace real_max_t$
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::negatable::real_max_tr<other_p>;
+        return
+            nkr::constant::negatable::real_max_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::negatable::real_max_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::negatable::real_max_tg> type_p>

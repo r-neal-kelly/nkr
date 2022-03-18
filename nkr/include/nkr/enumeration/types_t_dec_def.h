@@ -8,13 +8,23 @@
 
 namespace nkr { namespace enumeration { namespace types_t$ {
 
+    template <typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        Is_Any_General()
+        noexcept
+    {
+        return
+            nkr::enumeration::types_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::enumeration::types_tg>;
+    }
+
     template <nkr::enumeration::types_tr type_p>
     template <typename other_p>
     inline constexpr nkr::boolean::cpp_t
         type_i_type_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::enumeration::types_tr<other_p>;
+        return nkr::enumeration::types_t$::Is_Any_General<other_p>();
     }
 
     template <nkr::enumeration::types_tr type_p>
@@ -32,7 +42,7 @@ namespace nkr { namespace enumeration { namespace types_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::enumeration::types_tr<other_p>;
+        return nkr::enumeration::types_t$::Is_Any_General<other_p>();
     }
 
     template <nkr::cpp::is_any_tr<nkr::enumeration::types_tg> type_p>

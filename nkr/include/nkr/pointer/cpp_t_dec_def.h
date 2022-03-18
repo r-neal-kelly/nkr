@@ -8,13 +8,23 @@
 
 namespace nkr { namespace pointer { namespace cpp_t$ {
 
+    template <typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        Is_Any_General()
+        noexcept
+    {
+        return
+            nkr::pointer::cpp_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::pointer::cpp_tg>;
+    }
+
     template <nkr::pointer::cpp_tr type_p>
     template <typename other_p>
     inline constexpr nkr::boolean::cpp_t
         type_i_type_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::pointer::cpp_tr<other_p>;
+        return nkr::pointer::cpp_t$::Is_Any_General<other_p>();
     }
 
     template <nkr::pointer::cpp_tr type_p>
@@ -32,7 +42,7 @@ namespace nkr { namespace pointer { namespace cpp_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::pointer::cpp_tr<other_p>;
+        return nkr::pointer::cpp_t$::Is_Any_General<other_p>();
     }
 
     template <nkr::cpp::is_any_tr<nkr::pointer::cpp_tg> type_p>

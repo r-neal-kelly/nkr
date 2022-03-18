@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace reference { namespace lvalue_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::reference::lvalue_tr<other_p>;
+        return
+            nkr::constant::reference::lvalue_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::reference::lvalue_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::reference::lvalue_tg> type_p>

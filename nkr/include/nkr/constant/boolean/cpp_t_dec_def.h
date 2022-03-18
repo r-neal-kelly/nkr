@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace boolean { namespace cpp_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::boolean::cpp_tr<other_p>;
+        return
+            nkr::constant::boolean::cpp_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::boolean::cpp_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::boolean::cpp_tg> type_p>

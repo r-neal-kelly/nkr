@@ -21,6 +21,8 @@ namespace nkr {
                       t<nkr::constant::boolean::cpp_t<false>>,
                       any_tg, tt<nkr::constant_ttg>
         >() == true);
+
+        static_assert(nkr::interface::type_i<nkr::constant::boolean::cpp_tg>::template Is_Any_General<nkr::constant::boolean::cpp_t<false>>());
     }
 
 }

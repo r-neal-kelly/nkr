@@ -22,6 +22,21 @@ namespace nkr { namespace array {
 
     TEST_CASE("temp")
     {
+        using type_t = nkr::array::cpp_t<int, nkr::constant::positive::count_t<1>>;
+        using tag_t = nkr::array::cpp_tg;
+
+        using type_type_i = nkr::interface::type_i<type_t>;
+        using type_tag_i = nkr::interface::type_i<tag_t>;
+
+        static_assert(type_type_i::template Is_Any_General<type_t>() == true);
+        static_assert(type_type_i::template Is_Any_General<tag_t>() == true);
+
+        static_assert(type_tag_i::template Is_Any_General<type_t>() == true);
+        static_assert(type_tag_i::template Is_Any_General<tag_t>() == true);
+    }
+
+    TEST_CASE("temp")
+    {
         static_assert(nkr::generic::implementing::interface::template_ttr<nkr::array::cpp_t>);
 
         // now tt works as a last argument

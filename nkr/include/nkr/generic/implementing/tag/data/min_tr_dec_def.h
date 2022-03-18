@@ -14,7 +14,9 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::generic::implementing::tag::data::min_tr<other_p>;
+        return
+            nkr::generic::implementing::tag::data::min_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::generic::implementing::tag::data::min_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::tag::data::min_tg> type_p>

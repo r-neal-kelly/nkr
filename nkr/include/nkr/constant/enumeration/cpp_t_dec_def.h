@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace enumeration { namespace cpp_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::enumeration::cpp_tr<other_p>;
+        return
+            nkr::constant::enumeration::cpp_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::enumeration::cpp_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::enumeration::cpp_tg> type_p>

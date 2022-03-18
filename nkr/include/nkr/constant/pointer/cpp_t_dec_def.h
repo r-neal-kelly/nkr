@@ -14,7 +14,9 @@ namespace nkr { namespace constant { namespace pointer { namespace cpp_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::constant::pointer::cpp_tr<other_p>;
+        return
+            nkr::constant::pointer::cpp_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::constant::pointer::cpp_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::constant::pointer::cpp_tg> type_p>

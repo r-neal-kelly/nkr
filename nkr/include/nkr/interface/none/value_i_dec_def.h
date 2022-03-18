@@ -20,13 +20,23 @@ namespace nkr { namespace interface { namespace none { namespace value_i$ {
 
 namespace nkr { namespace interface { namespace none { namespace value_i$ {
 
+    template <typename other_p>
+    inline constexpr nkr::boolean::cpp_t
+        Is_Any_General()
+        noexcept
+    {
+        return
+            nkr::interface::none::value_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::interface::none::value_tg>;
+    }
+
     template <nkr::interface::none::value_tr type_p>
     template <typename other_p>
     inline constexpr nkr::boolean::cpp_t
         type_i_type_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::interface::none::value_tr<other_p>;
+        return nkr::interface::none::value_i$::Is_Any_General<other_p>();
     }
 
     template <nkr::interface::none::value_tr type_p>
@@ -44,7 +54,7 @@ namespace nkr { namespace interface { namespace none { namespace value_i$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::interface::none::value_tr<other_p>;
+        return nkr::interface::none::value_i$::Is_Any_General<other_p>();
     }
 
     template <nkr::cpp::is_any_tr<nkr::interface::none::value_tg> type_p>

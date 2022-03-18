@@ -14,7 +14,9 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness { names
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::cpp::generic::randomness::generator_tr<other_p>;
+        return
+            nkr::cpp::generic::randomness::generator_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::cpp::generic::randomness::generator_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::cpp::generic::randomness::generator_tg> type_p>

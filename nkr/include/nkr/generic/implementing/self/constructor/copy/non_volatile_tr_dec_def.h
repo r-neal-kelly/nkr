@@ -15,7 +15,9 @@ namespace copy { namespace non_volatile_tr$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::generic::implementing::self::constructor::copy::non_volatile_tr<other_p>;
+        return
+            nkr::generic::implementing::self::constructor::copy::non_volatile_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::generic::implementing::self::constructor::copy::non_volatile_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::generic::implementing::self::constructor::copy::non_volatile_tg> type_p>

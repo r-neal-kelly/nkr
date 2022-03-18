@@ -755,6 +755,8 @@ namespace nkr {
                 static_assert(nkr::interface::type_i<enum_p>::template Is_Any_General<nkr::cpp::just_const_t<enum_p>>());
                 static_assert(nkr::interface::type_i<enum_p>::template Is_Any_General<nkr::cpp::just_volatile_t<enum_p>>());
                 static_assert(nkr::interface::type_i<enum_p>::template Is_Any_General<nkr::cpp::just_const_volatile_t<enum_p>>());
+
+                static_assert(nkr::interface::type_i<nkr::enumeration::cpp_tg>::template Is_Any_General<enum_p>() == true);
             }
         }
 

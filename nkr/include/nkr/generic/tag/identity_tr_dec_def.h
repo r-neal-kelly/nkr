@@ -14,7 +14,9 @@ namespace nkr { namespace generic { namespace tag { namespace identity_tr$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::generic::tag::identity_tr<other_p>;
+        return
+            nkr::generic::tag::identity_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::generic::tag::identity_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::generic::tag::identity_tg> type_p>

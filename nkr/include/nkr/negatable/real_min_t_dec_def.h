@@ -14,7 +14,9 @@ namespace nkr { namespace negatable { namespace real_min_t$ {
         type_i_tag_sp<type_p>::Is_Any_General()
         noexcept
     {
-        return nkr::negatable::real_min_tr<other_p>;
+        return
+            nkr::negatable::real_min_tr<other_p> ||
+            nkr::cpp::is_any_tr<other_p, nkr::negatable::real_min_tg>;
     }
 
     template <nkr::cpp::is_any_tr<nkr::negatable::real_min_tg> type_p>
