@@ -16,4 +16,4 @@ namespace nkr { namespace randomness {
 
 }}
 
-#include "nkr/randomness/value_dec_def.h"
+#include "nkr/randomness_dec_def.h"

@@ -21,8 +21,8 @@
 #include "nkr/none/value_t.h"
 #include "nkr/positive/index_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/randomness.h"
 #include "nkr/randomness/generator/software/default_t.h"
-#include "nkr/randomness/value.h"
 #include "nkr/tr.h"
 
 #include "doctest.h"

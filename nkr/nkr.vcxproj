@@ -785,7 +785,7 @@
     <ClInclude Include="include\nkr\cpp\randomness\generator\software\mersenne_twister_t_dec_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\generator\software\mersenne_twister_t_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\generator\software\mersenne_twister_t_dox.h" />
-    <ClInclude Include="include\nkr\randomness\value.h" />
+    <ClInclude Include="include\nkr\randomness.h" />
     <ClInclude Include="include\nkr\randomness\generator\hardware\default_t.h" />
     <ClInclude Include="include\nkr\randomness\generator\hardware\default_t_dec.h" />
     <ClInclude Include="include\nkr\randomness\generator\hardware\default_t_dec_def.h" />
@@ -796,10 +796,10 @@
     <ClInclude Include="include\nkr\randomness\generator\software\default_t_dec_def.h" />
     <ClInclude Include="include\nkr\randomness\generator\software\default_t_def.h" />
     <ClInclude Include="include\nkr\randomness\generator\software\default_t_dox.h" />
-    <ClInclude Include="include\nkr\randomness\value_dec.h" />
-    <ClInclude Include="include\nkr\randomness\value_dec_def.h" />
-    <ClInclude Include="include\nkr\randomness\value_def.h" />
-    <ClInclude Include="include\nkr\randomness\value_dox.h" />
+    <ClInclude Include="include\nkr\randomness_dec.h" />
+    <ClInclude Include="include\nkr\randomness_dec_def.h" />
+    <ClInclude Include="include\nkr\randomness_def.h" />
+    <ClInclude Include="include\nkr\randomness_dox.h" />
     <ClInclude Include="include\nkr\reference\lvalue_t.h" />
     <ClInclude Include="include\nkr\reference\lvalue_t_dec.h" />
     <ClInclude Include="include\nkr\reference\lvalue_t_dec_def.h" />

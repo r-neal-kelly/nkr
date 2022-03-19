@@ -29,8 +29,8 @@
 #include "nkr/positive/integer_min_t.h"
 #include "nkr/positive/size_t.h"
 #include "nkr/positive/word_t.h"
+#include "nkr/randomness.h"
 #include "nkr/randomness/generator/software/default_t.h"
-#include "nkr/randomness/value.h"
 #include "nkr/tr.h"
 #include "nkr/tuple/types_t.h"
 

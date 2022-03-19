@@ -6,7 +6,7 @@
 
 #include "nkr/generic/implementing/interface/randomness/value_tr_def.h"
 
-#include "nkr/randomness/value_dec.h"
+#include "nkr/randomness_dec.h"
 
 #include "nkr/cpp_def.h"
 #include "nkr/interface/forward_def.h"

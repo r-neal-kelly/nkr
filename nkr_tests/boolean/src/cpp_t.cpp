@@ -18,8 +18,8 @@
 #include "nkr/interface/randomness/value_i.h"
 #include "nkr/negatable/real_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/randomness.h"
 #include "nkr/randomness/generator/software/default_t_def.h"
-#include "nkr/randomness/value.h"
 #include "nkr/tr.h"
 #include "nkr/tuple/types_t.h"
 

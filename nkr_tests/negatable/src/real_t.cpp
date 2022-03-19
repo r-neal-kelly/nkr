@@ -21,8 +21,8 @@
 #include "nkr/negatable/real_64_t.h"
 #include "nkr/negatable/real_max_t.h"
 #include "nkr/negatable/real_min_t.h"
+#include "nkr/randomness.h"
 #include "nkr/randomness/generator/software/default_t.h"
-#include "nkr/randomness/value.h"
 #include "nkr/tr.h"
 #include "nkr/tuple/types_t.h"
 

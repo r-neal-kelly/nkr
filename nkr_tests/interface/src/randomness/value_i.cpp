@@ -9,7 +9,7 @@
 #include "nkr/negatable/real_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
-#include "nkr/randomness/value.h" // temp
+#include "nkr/randomness.h" // temp
 
 #include "doctest.h"
 

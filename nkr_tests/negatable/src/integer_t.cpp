@@ -30,8 +30,8 @@
 #include "nkr/negatable/integer_min_t.h"
 #include "nkr/negatable/size_t.h"
 #include "nkr/negatable/word_t.h"
+#include "nkr/randomness.h"
 #include "nkr/randomness/generator/software/default_t.h"
-#include "nkr/randomness/value.h"
 #include "nkr/tr.h"
 #include "nkr/tuple/types_t.h"
 
