@@ -2,9 +2,13 @@
     Copyright 2022 r-neal-kelly
 */
 
+#include <unordered_map>
+
 #include "nkr/array/cpp_t.h"
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
+#include "nkr/cpp/array/remote/dynamic_t.h"
+#include "nkr/cpp/tuple_t.h"
 #include "nkr/generic/boolean_tr.h"
 #include "nkr/generic/negatable_tr.h"
 #include "nkr/generic/number_tr.h"
@@ -1067,4 +1071,247 @@ TEST_CASE("")
                   any_tg, tts<OR_tg, nkr::pointer::cpp_ttg, nkr::array::cpp_ttg>,
                   of_any_tg, t<nkr::positive::integer_t>>());
     // [_76decf6a_1e47_43c3_9413_4b9a895b73e3]
+}
+
+TEST_SUITE("Use-Cases")
+{
+    TEST_SUITE("dynamically define concepts")
+    {
+        // [_1eb89575_6738_4a9f_970d_ec9694d4b9d7]
+        void Combine(auto& vector_a, auto& vector_b)
+        {
+            using vector_a_t = std::remove_reference_t<decltype(vector_a)>;
+
+            vector_a.reserve(vector_a.size() + vector_b.size());
+            for (auto itr = vector_b.begin(); itr != vector_b.end(); ++itr) {
+                vector_a.push_back(static_cast<typename vector_a_t::value_type>(*itr));
+            }
+
+            vector_b.clear();
+        }
+
+        TEST_CASE("should move elements from vector_b to vector_a")
+        {
+            std::vector<float> vector_a{ 10.0f, 20.0f };
+            std::vector<int> vector_b{ 30, 40 };
+
+            CHECK(vector_a.size() == 2);
+            CHECK(vector_b.size() == 2);
+
+            Combine(vector_a, vector_b);
+
+            CHECK(vector_a.size() == 4);
+            CHECK(vector_b.size() == 0);
+
+            CHECK(vector_a[0] == 10.0f);
+            CHECK(vector_a[1] == 20.0f);
+            CHECK(vector_a[2] == 30.0f);
+            CHECK(vector_a[3] == 40.0f);
+        }
+        // [_1eb89575_6738_4a9f_970d_ec9694d4b9d7]
+
+        // [_67458ff6_c7f5_46e6_b24e_24f4c565ab62]
+        TEST_CASE("will give a compile error not very friendly towards the user of our function")
+        {
+            std::vector<float> vector{ 10.0f, 20.0f };
+            std::forward_list<int> forward_list{ 30, 40 };
+
+            // Combine(vector, forward_list);
+            // ERROR: 'size': is not a member of 'std::forward_list<int,std::allocator<int>>'
+        }
+        // [_67458ff6_c7f5_46e6_b24e_24f4c565ab62]
+
+        // [_69e2f254_d945_4a7b_a8f1_09264cd66821]
+        template <typename type_p>
+        concept has_size =
+            requires(type_p instance)
+        {
+            { instance.size() } -> std::same_as<std::size_t>;
+        };
+
+        void Combine_If_Has_Size(has_size auto& vector_a, has_size auto& vector_b)
+        {
+            // ...
+        }
+
+        TEST_CASE("should give a more user-friendly compile error")
+        {
+            std::vector<float> vector{ 10.0f, 20.0f };
+            std::forward_list<int> forward_list{ 30, 40 };
+
+            // Combine_If_Has_Size(vector, forward_list);
+            // ERROR: 'Combine_If_Has_Size': no matching overloaded function found
+            // ERROR: 'Combine_If_Has_Size': the associated constraints are not satisfied
+        }
+        // [_69e2f254_d945_4a7b_a8f1_09264cd66821]
+
+        // [_80ac1030_b280_42c4_9c4f_e70b43e05f11]
+        TEST_CASE("will not give a user-friendly compile error")
+        {
+            std::vector<float> vector{ 10.0f, 20.0f };
+            std::unordered_map<std::string, int> unordered_map;
+
+            // Combine_If_Has_Size(vector, unordered_map);
+            // ERROR: 'static_cast': cannot convert from 'std::pair<const std::string,int>' to 'float'
+        }
+        // [_80ac1030_b280_42c4_9c4f_e70b43e05f11]
+
+        // [_33593243_fddd_4839_b95d_32f1ef8aba3b]
+        class user_defined_t
+        {
+        public:
+            std::size_t size()
+            {
+                return 42;
+            }
+        };
+
+        TEST_CASE("will also not give a user-friendly compile error")
+        {
+            std::vector<float> vector{ 10.0f, 20.0f };
+            user_defined_t user_defined;
+
+            CHECK(user_defined.size() == 42);
+
+            // Combine_If_Has_Size(vector, user_defined);
+            // ERROR: 'begin': is not a member of 'user_defined_t'
+        }
+        // [_33593243_fddd_4839_b95d_32f1ef8aba3b]
+
+        // [_d244a6f8_6154_41f6_8a41_f8eba234289b]
+        template <typename type_p>
+        struct is_vector :
+            public std::false_type
+        {
+        };
+
+        template <typename value_type, typename allocator_type>
+        struct is_vector<std::vector<value_type, allocator_type>> :
+            public std::true_type
+        {
+        };
+
+        template <typename type_p>
+        concept is_vector_1 =
+            is_vector<type_p>::value;
+
+        static_assert(is_vector_1<std::vector<int>> == true);
+        static_assert(is_vector_1<std::forward_list<int>> == false);
+        static_assert(is_vector_1<std::unordered_map<std::string, int>> == false);
+        static_assert(is_vector_1<user_defined_t> == false);
+
+        void Combine_If_Is_Vector_1(is_vector_1 auto& vector_a, is_vector_1 auto& vector_b);
+        // [_d244a6f8_6154_41f6_8a41_f8eba234289b]
+
+        // [_d87f347d_24a8_43f9_a87a_e0ec26b25bd6]
+        template <typename type_p>
+        concept is_vector_2 = std::same_as<
+            type_p,
+            std::vector<typename type_p::value_type, typename type_p::allocator_type>
+        >;
+
+        static_assert(is_vector_2<std::vector<int>> == true);
+        static_assert(is_vector_2<std::forward_list<int>> == false);
+        static_assert(is_vector_2<std::unordered_map<std::string, int>> == false);
+        static_assert(is_vector_2<user_defined_t> == false);
+
+        void Combine_If_Is_Vector_2(is_vector_2 auto& vector_a, is_vector_2 auto& vector_b);
+        // [_d87f347d_24a8_43f9_a87a_e0ec26b25bd6]
+
+        // [_f3feb95c_c2e0_47f9_9bbb_0ddae4e4de2e]
+        static_assert(is_vector_1<const std::vector<int>> == false);
+        static_assert(is_vector_2<const std::vector<int>> == false);
+        // [_f3feb95c_c2e0_47f9_9bbb_0ddae4e4de2e]
+
+        // [_bdba9807_d875_4e5f_8b01_66662833310d]
+        void Combine_Non_Const_Vectors(nkr::tr<nkr::any_non_const_tg, nkr::tt<std::vector>> auto& vector_a,
+                                       nkr::tr<nkr::any_non_const_tg, nkr::tt<std::vector>> auto& vector_b)
+        {
+            using vector_a_t = std::remove_reference_t<decltype(vector_a)>;
+
+            vector_a.reserve(vector_a.size() + vector_b.size());
+            for (auto itr = vector_b.begin(); itr != vector_b.end(); ++itr) {
+                vector_a.push_back(static_cast<typename vector_a_t::value_type>(*itr));
+            }
+
+            vector_b.clear();
+        }
+
+        TEST_CASE("should fulfill most of our design specifications")
+        {
+            std::vector<float> vector_a;
+            std::vector<int> vector_b;
+            std::forward_list<int> forward_list;
+            std::unordered_map<std::string, int> unordered_map;
+            const std::vector<float> const_vector_a;
+            const std::vector<int> const_vector_b;
+
+            // works beautifully
+            Combine_Non_Const_Vectors(vector_a, vector_b);
+
+            // and all of these fail to compile: "the associated constraints are not satisfied"
+            // Combine_Non_Const_Vectors(vector_a, forward_list);
+            // Combine_Non_Const_Vectors(vector_a, unordered_map);
+            // Combine_Non_Const_Vectors(const_vector_a, vector_b);
+            // Combine_Non_Const_Vectors(vector_a, const_vector_b);
+        }
+        // [_bdba9807_d875_4e5f_8b01_66662833310d]
+        
+        // [_9728b2d9_8986_46b7_b27b_a0d777cf2c90]
+        void Combine_Non_Const_Compatible_Vectors(nkr::tr<nkr::any_non_const_tg, nkr::tt<std::vector>> auto& vector_a,
+                                                  nkr::tr<nkr::any_non_const_tg, nkr::tt<std::vector>> auto& vector_b)
+        {
+            using vector_a_t = std::remove_reference_t<decltype(vector_a)>;
+            using vector_b_t = std::remove_reference_t<decltype(vector_b)>;
+
+            static_assert(nkr::tr<
+                          typename vector_b_t::value_type,
+                          nkr::to_tg, nkr::t<typename vector_a_t::value_type>
+            >, "the values of vector_b cannot be converted to the value_type of vector_a");
+
+            vector_a.reserve(vector_a.size() + vector_b.size());
+            for (auto itr = vector_b.begin(); itr != vector_b.end(); ++itr) {
+                vector_a.push_back(static_cast<typename vector_a_t::value_type>(*itr));
+            }
+
+            vector_b.clear();
+        }
+
+        TEST_CASE("should fulfill the rest of our design specifications")
+        {
+            std::vector<float> vector_a;
+            std::vector<int> vector_b;
+            std::vector<void*> vector_c;
+
+            // works perfectly
+            Combine_Non_Const_Compatible_Vectors(vector_a, vector_b);
+
+            // fails with our error message: "the values of vector_b cannot be converted to the value_type of vector_a"
+            // Combine_Non_Const_Compatible_Vectors(vector_a, vector_c);
+        }
+        // [_9728b2d9_8986_46b7_b27b_a0d777cf2c90]
+    }
+
+    TEST_SUITE("constrain to inner types, even when there is more than one template")
+    {
+
+    }
+
+    // ensuring qualifications
+
+    // volatile methods
+
+    // deleting other methods through not operators because concepts can't be NOTed in place
+
+    // class specializations
+
+    // static assertions
+
+    // easy to read and understand at a glance as compared to arbitrarily named and private concepts which don't have to work with other concepts
+
+    // how annoying it is to define concepts outside of a class, the temptation to make reusable concepts which need to be more specific/less specific
+
+    // having better assignment operators
+
+    // easily ensure that interfaces are satisfied
 }

@@ -212,6 +212,11 @@
     <ClInclude Include="include\nkr\constant_t_dec_def.h" />
     <ClInclude Include="include\nkr\constant_t_def.h" />
     <ClInclude Include="include\nkr\constant_t_dox.h" />
+    <ClInclude Include="include\nkr\cpp\array\remote\dynamic_t.h" />
+    <ClInclude Include="include\nkr\cpp\array\remote\dynamic_t_dec.h" />
+    <ClInclude Include="include\nkr\cpp\array\remote\dynamic_t_dec_def.h" />
+    <ClInclude Include="include\nkr\cpp\array\remote\dynamic_t_def.h" />
+    <ClInclude Include="include\nkr\cpp\array\remote\dynamic_t_dox.h" />
     <ClInclude Include="include\nkr\cpp\concurrency\locker\exclusive_t.h" />
     <ClInclude Include="include\nkr\cpp\concurrency\locker\exclusive_t_dec.h" />
     <ClInclude Include="include\nkr\cpp\concurrency\locker\exclusive_t_dec_def.h" />
@@ -327,6 +332,11 @@
     <ClInclude Include="include\nkr\cpp\randomness\generator\hardware_t_dec_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\generator\hardware_t_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\generator\hardware_t_dox.h" />
+    <ClInclude Include="include\nkr\cpp\tuple_t.h" />
+    <ClInclude Include="include\nkr\cpp\tuple_t_dec.h" />
+    <ClInclude Include="include\nkr\cpp\tuple_t_dec_def.h" />
+    <ClInclude Include="include\nkr\cpp\tuple_t_def.h" />
+    <ClInclude Include="include\nkr\cpp\tuple_t_dox.h" />
     <ClInclude Include="include\nkr\enumeration\cpp_t.h" />
     <ClInclude Include="include\nkr\enumeration\cpp_t_dec.h" />
     <ClInclude Include="include\nkr\enumeration\cpp_t_dec_def.h" />
