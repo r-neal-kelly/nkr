@@ -8,6 +8,7 @@
 #include "nkr/boolean/cpp_t.h"
 #include "nkr/boolean/pure_t.h"
 #include "nkr/cpp/array/remote/dynamic_t.h"
+#include "nkr/cpp/list/remote/forward_t.h"
 #include "nkr/cpp/tuple_t.h"
 #include "nkr/generic/boolean_tr.h"
 #include "nkr/generic/negatable_tr.h"
@@ -1075,7 +1076,7 @@ TEST_CASE("")
 
 TEST_SUITE("Use-Cases")
 {
-    TEST_SUITE("dynamically define concepts")
+    TEST_SUITE("Dynamically Define Concepts In-Place")
     {
         // [_1eb89575_6738_4a9f_970d_ec9694d4b9d7]
         void Combine(auto& vector_a, auto& vector_b)
@@ -1290,6 +1291,33 @@ TEST_SUITE("Use-Cases")
             // Combine_Non_Const_Compatible_Vectors(vector_a, vector_c);
         }
         // [_9728b2d9_8986_46b7_b27b_a0d777cf2c90]
+
+        // [_0642efde_b645_4ca3_bb58_f094905d5c2e]
+        void Combine_With_Overloads(nkr::tr<nkr::any_non_const_tg, nkr::tt<std::vector>> auto& vector_a,
+                                    nkr::tr<nkr::any_non_const_tg, nkr::tt<std::vector>> auto& vector_b)
+        {
+            // ...
+        }
+
+        void Combine_With_Overloads(nkr::tr<nkr::any_non_const_tg, nkr::tt<std::forward_list>> auto& forward_list_a,
+                                    nkr::tr<nkr::any_non_const_tg, nkr::tt<std::forward_list>> auto& forward_list_b)
+        {
+            // ...
+        }
+
+        TEST_CASE("should work with non-const std::vectors or non-const std::forward_lists")
+        {
+            std::vector<float> vector_a;
+            std::vector<int> vector_b;
+
+            Combine_With_Overloads(vector_a, vector_b);
+
+            std::forward_list<float> forward_list_a;
+            std::forward_list<int> forward_list_b;
+
+            Combine_With_Overloads(forward_list_a, forward_list_b);
+        }
+        // [_0642efde_b645_4ca3_bb58_f094905d5c2e]
     }
 
     TEST_SUITE("constrain to inner types, even when there is more than one template")
