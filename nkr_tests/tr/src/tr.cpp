@@ -11,6 +11,7 @@
 #include "nkr/cpp/list/remote/forward_t.h"
 #include "nkr/cpp/tuple_t.h"
 #include "nkr/generic/boolean_tr.h"
+#include "nkr/generic/built_in/number/integer_tr.h"
 #include "nkr/generic/negatable_tr.h"
 #include "nkr/generic/number_tr.h"
 #include "nkr/generic/user_defined_tr.h"
@@ -1074,6 +1075,8 @@ TEST_CASE("")
     // [_76decf6a_1e47_43c3_9413_4b9a895b73e3]
 }
 
+#pragma warning (disable : 4101)
+
 TEST_SUITE("Use-Cases")
 {
     TEST_SUITE("Dynamically Define Concepts In-Place")
@@ -1325,11 +1328,270 @@ TEST_SUITE("Use-Cases")
 
     }
 
-    // ensuring qualifications
-
     // volatile methods
 
-    // deleting other methods through not operators because concepts can't be NOTed in place
+    TEST_SUITE("Easy to Logically NOT Concepts")
+    {
+        TEST_SUITE("")
+        {
+            // [_4d0e3bec_7bd6_4a17_ae41_691eb0d71080]
+            enum class result_e
+            {
+                WILL_COPY,
+                WILL_CONVERT,
+                WILL_MOVE,
+            };
+
+            template <typename element_p>
+            class container_t
+            {
+            public:
+                using element_t = element_p;
+
+            public:
+                result_e Push_Back(std::convertible_to<element_t> auto& element_to_copy_or_non_element_to_convert)
+                {
+                    using argument_t = std::remove_cvref_t<decltype(element_to_copy_or_non_element_to_convert)>;
+
+                    if constexpr (std::same_as<argument_t, element_t>) {
+                        return result_e::WILL_COPY;
+                    } else {
+                        return result_e::WILL_CONVERT;
+                    }
+                }
+
+                result_e Push_Back(std::same_as<element_t> auto&& element_to_move)
+                {
+                    return result_e::WILL_MOVE;
+                }
+            };
+
+            TEST_CASE("should select the appropriate overload depending on the type and qualification")
+            {
+                container_t<long long> container;
+                long long element_to_copy = 0;
+                long other_to_convert = 0;
+                long long element_to_move = 0;
+
+                CHECK(container.Push_Back(element_to_copy) == result_e::WILL_COPY);
+                CHECK(container.Push_Back(other_to_convert) == result_e::WILL_CONVERT);
+                CHECK(container.Push_Back(std::move(element_to_move)) == result_e::WILL_MOVE);
+            }
+            // [_4d0e3bec_7bd6_4a17_ae41_691eb0d71080]
+
+            // [_891ccf29_a571_4cf2_b6d6_f4cb1596d13e]
+            TEST_CASE("will have a confusing compile-time error if we try to move a non-element")
+            {
+                container_t<long long> container;
+                long other_to_move = 0;
+
+                // ERROR: result_e container_t<__int64>::Push_Back<long>(_T0 &)': cannot convert argument 1 from 'long' to '_T0 &'
+                // container.Push_Back(std::move(other_to_move));
+            }
+            // [_891ccf29_a571_4cf2_b6d6_f4cb1596d13e]
+        }
+
+        TEST_SUITE("")
+        {
+            // [_c7c83cab_5715_4153_b61b_7e2aa3ab2fe4]
+            template <typename element_p>
+            class container_t
+            {
+            public:
+                using element_t = element_p;
+
+            public:
+                void Push_Back(std::convertible_to<element_t> auto& element_to_copy_or_non_element_to_convert)
+                {
+                    // ...
+                }
+
+                void Push_Back(std::same_as<element_t> auto&& element_to_move)
+                {
+                    // ...
+                }
+
+                // ERROR: syntax error: '!'
+                // void Push_Back(!std::same_as<element_t> auto&&) = delete;
+            };
+            // [_c7c83cab_5715_4153_b61b_7e2aa3ab2fe4]
+        }
+
+        TEST_SUITE("")
+        {
+            // [_71f8326b_8eff_41d5_aaff_159d7b731959]
+            template <typename element_p>
+            class container_t
+            {
+            public:
+                using element_t = element_p;
+
+            public:
+                void Push_Back(std::convertible_to<element_t> auto& element_to_copy_or_non_element_to_convert)
+                {
+                    // ...
+                }
+
+                void Push_Back(std::same_as<element_t> auto&& element_to_move)
+                {
+                    // ...
+                }
+
+                // inconsist signature with the above method. It may not even be clear to the user that these two methods are related
+                template <typename type_p>
+                void Push_Back(type_p&&) requires (!std::same_as<type_p, element_t>) = delete;
+            };
+
+            TEST_CASE("will have a better compile-time error but a worse method signature")
+            {
+                container_t<long long> container;
+                long other_to_move = 0;
+
+                // ERROR: attempting to reference a deleted function
+                // container.Push_Back(std::move(other_to_move));
+            }
+            // [_71f8326b_8eff_41d5_aaff_159d7b731959]
+        }
+
+        TEST_SUITE("")
+        {
+            // [_eb3e5c90_332f_44a4_9a2d_5c42bdc11403]
+            template <typename a, typename b>
+            concept not_same_as =
+                !std::same_as<a, b>;
+
+            template <typename element_p>
+            class container_t
+            {
+            public:
+                using element_t = element_p;
+
+            public:
+                void Push_Back(std::convertible_to<element_t> auto& element_to_copy_or_non_element_to_convert)
+                {
+                    // ...
+                }
+
+                void Push_Back(std::same_as<element_t> auto&& element_to_move)
+                {
+                    // ...
+                }
+
+                void Push_Back(not_same_as<element_t> auto&&) = delete;
+            };
+
+            TEST_CASE("will have a better compile-time error but introduces out-of-class concepts to do it")
+            {
+                container_t<long long> container;
+                long other_to_move = 0;
+
+                // ERROR: attempting to reference a deleted function
+                // container.Push_Back(std::move(other_to_move));
+            }
+            // [_eb3e5c90_332f_44a4_9a2d_5c42bdc11403]
+        }
+
+        TEST_SUITE("")
+        {
+            // [_2e0e2f4b_2dca_45a9_9915_be7041b222f9]
+            template <typename a, typename b, typename c>
+            concept same_as_either =
+                std::same_as<a, b> || std::same_as<a, c>;
+
+            template <typename a, typename b, typename c>
+            concept not_same_as_either =
+                !same_as_either<a, b, c>;
+
+            template <typename element_p>
+            class container_t
+            {
+            public:
+                using element_t = element_p;
+
+            public:
+                class cheap_t
+                {
+                public:
+                };
+
+            public:
+                void Push_Back(std::convertible_to<element_t> auto& element_to_copy_or_non_element_to_convert)
+                {
+                    // ...
+                }
+
+                void Push_Back(same_as_either<element_t, cheap_t> auto&& element_to_move)
+                {
+                    // ...
+                }
+
+                void Push_Back(not_same_as_either<element_t, cheap_t> auto&&) = delete;
+            };
+            // [_2e0e2f4b_2dca_45a9_9915_be7041b222f9]
+        }
+        
+        TEST_SUITE("")
+        {
+            enum class result_e
+            {
+                WILL_COPY,
+                WILL_CONVERT,
+                WILL_MOVE,
+            };
+
+            // [_8e9ee60f_0c2c_4d3f_a843_84072362921b]
+            template <typename element_p>
+            class container_t
+            {
+            public:
+                using element_t = element_p;
+
+            public:
+                class cheap_t
+                {
+                public:
+                };
+
+            public:
+                result_e Push_Back(nkr::tr<nkr::to_tg, nkr::t<element_t>> auto& element_to_copy_or_non_element_to_convert)
+                {
+                    using argument_t = std::remove_cvref_t<decltype(element_to_copy_or_non_element_to_convert)>;
+
+                    if constexpr (std::same_as<argument_t, element_t>) {
+                        return result_e::WILL_COPY;
+                    } else {
+                        return result_e::WILL_CONVERT;
+                    }
+                }
+
+                result_e Push_Back(nkr::tr<nkr::any_non_const_tg, nkr::ts<nkr::OR_tg, element_t, cheap_t>> auto&& element_to_move)
+                {
+                    return result_e::WILL_MOVE;
+                }
+
+                result_e Push_Back(nkr::tr<nkr::not_any_non_const_tg, nkr::ts<nkr::AND_tg, element_t, cheap_t>> auto&&) = delete;
+            };
+
+            TEST_CASE("should allow for an easier to read API, correct overload resolution, and better compile-time errors")
+            {
+                container_t<long long> container;
+                long long element_to_copy = 0;
+                long other_to_convert = 0;
+                long long element_to_move = 0;
+                container_t<long long>::cheap_t cheap_to_use_in_move;
+                long other_to_move = 0;
+
+                CHECK(container.Push_Back(element_to_copy) == result_e::WILL_COPY);
+                CHECK(container.Push_Back(other_to_convert) == result_e::WILL_CONVERT);
+                CHECK(container.Push_Back(std::move(element_to_move)) == result_e::WILL_MOVE);
+                CHECK(container.Push_Back(std::move(cheap_to_use_in_move)) == result_e::WILL_MOVE);
+
+                // ERROR: attempting to reference a deleted function
+                // container.Push_Back(std::move(other_to_move));
+            }
+            // [_8e9ee60f_0c2c_4d3f_a843_84072362921b]
+        }
+    }
 
     // class specializations
 
