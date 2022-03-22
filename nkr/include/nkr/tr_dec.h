@@ -50,65 +50,65 @@ namespace nkr {
 
 namespace nkr {
 
-    struct  of_any_tg                       { class tag_lb; class operator_lb; class of_lb; class any_lb;                                           using non_of_tg = any_tg; };
-    struct  of_any_qualified_tg             { class tag_lb; class operator_lb; class of_lb; class any_lb; class qualified_lb;                       using non_of_tg = any_qualified_tg; };
-    struct  of_any_non_qualified_tg         { class tag_lb; class operator_lb; class of_lb; class any_lb; class non_qualified_lb;                   using non_of_tg = any_non_qualified_tg; };
-    struct  of_any_const_tg                 { class tag_lb; class operator_lb; class of_lb; class any_lb; class const_lb;                           using non_of_tg = any_const_tg; };
-    struct  of_any_non_const_tg             { class tag_lb; class operator_lb; class of_lb; class any_lb; class non_const_lb;                       using non_of_tg = any_non_const_tg; };
-    struct  of_any_volatile_tg              { class tag_lb; class operator_lb; class of_lb; class any_lb; class volatile_lb;                        using non_of_tg = any_volatile_tg; };
-    struct  of_any_non_volatile_tg          { class tag_lb; class operator_lb; class of_lb; class any_lb; class non_volatile_lb;                    using non_of_tg = any_non_volatile_tg; };
+    struct  of_any_tg                       { class tag_lb; class operator_lb; class of_lb; class any_lb;                                           using non_of_tg = any_tg;                       using is_tg = of_any_tg; };
+    struct  of_any_qualified_tg             { class tag_lb; class operator_lb; class of_lb; class any_lb; class qualified_lb;                       using non_of_tg = any_qualified_tg;             using is_tg = of_any_qualified_tg; };
+    struct  of_any_non_qualified_tg         { class tag_lb; class operator_lb; class of_lb; class any_lb; class non_qualified_lb;                   using non_of_tg = any_non_qualified_tg;         using is_tg = of_any_non_qualified_tg; };
+    struct  of_any_const_tg                 { class tag_lb; class operator_lb; class of_lb; class any_lb; class const_lb;                           using non_of_tg = any_const_tg;                 using is_tg = of_any_const_tg; };
+    struct  of_any_non_const_tg             { class tag_lb; class operator_lb; class of_lb; class any_lb; class non_const_lb;                       using non_of_tg = any_non_const_tg;             using is_tg = of_any_non_const_tg; };
+    struct  of_any_volatile_tg              { class tag_lb; class operator_lb; class of_lb; class any_lb; class volatile_lb;                        using non_of_tg = any_volatile_tg;              using is_tg = of_any_volatile_tg; };
+    struct  of_any_non_volatile_tg          { class tag_lb; class operator_lb; class of_lb; class any_lb; class non_volatile_lb;                    using non_of_tg = any_non_volatile_tg;          using is_tg = of_any_non_volatile_tg; };
 
-    struct  of_just_tg                      { class tag_lb; class operator_lb; class of_lb; class just_lb;                                          using non_of_tg = just_tg; };
-    struct  of_just_non_qualified_tg        { class tag_lb; class operator_lb; class of_lb; class just_lb; class non_qualified_lb;                  using non_of_tg = just_non_qualified_tg; };
-    struct  of_just_const_tg                { class tag_lb; class operator_lb; class of_lb; class just_lb; class const_lb;                          using non_of_tg = just_const_tg; };
-    struct  of_just_volatile_tg             { class tag_lb; class operator_lb; class of_lb; class just_lb; class volatile_lb;                       using non_of_tg = just_volatile_tg; };
-    struct  of_just_const_volatile_tg       { class tag_lb; class operator_lb; class of_lb; class just_lb; class const_volatile_lb;                 using non_of_tg = just_const_volatile_tg; };
+    struct  of_just_tg                      { class tag_lb; class operator_lb; class of_lb; class just_lb;                                          using non_of_tg = just_tg;                      using is_tg = of_just_tg; };
+    struct  of_just_non_qualified_tg        { class tag_lb; class operator_lb; class of_lb; class just_lb; class non_qualified_lb;                  using non_of_tg = just_non_qualified_tg;        using is_tg = of_just_non_qualified_tg; };
+    struct  of_just_const_tg                { class tag_lb; class operator_lb; class of_lb; class just_lb; class const_lb;                          using non_of_tg = just_const_tg;                using is_tg = of_just_const_tg; };
+    struct  of_just_volatile_tg             { class tag_lb; class operator_lb; class of_lb; class just_lb; class volatile_lb;                       using non_of_tg = just_volatile_tg;             using is_tg = of_just_volatile_tg; };
+    struct  of_just_const_volatile_tg       { class tag_lb; class operator_lb; class of_lb; class just_lb; class const_volatile_lb;                 using non_of_tg = just_const_volatile_tg;       using is_tg = of_just_const_volatile_tg; };
 
-    struct  of_not_any_tg                   { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb;                             using non_of_tg = not_any_tg; };
-    struct  of_not_any_qualified_tg         { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class qualified_lb;         using non_of_tg = not_any_qualified_tg; };
-    struct  of_not_any_non_qualified_tg     { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class non_qualified_lb;     using non_of_tg = not_any_non_qualified_tg; };
-    struct  of_not_any_const_tg             { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class const_lb;             using non_of_tg = not_any_const_tg; };
-    struct  of_not_any_non_const_tg         { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class non_const_lb;         using non_of_tg = not_any_non_const_tg; };
-    struct  of_not_any_volatile_tg          { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class volatile_lb;          using non_of_tg = not_any_volatile_tg; };
-    struct  of_not_any_non_volatile_tg      { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class non_volatile_lb;      using non_of_tg = not_any_non_volatile_tg; };
+    struct  of_not_any_tg                   { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb;                             using non_of_tg = not_any_tg;                   using is_tg = of_any_tg; };
+    struct  of_not_any_qualified_tg         { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class qualified_lb;         using non_of_tg = not_any_qualified_tg;         using is_tg = of_any_qualified_tg; };
+    struct  of_not_any_non_qualified_tg     { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class non_qualified_lb;     using non_of_tg = not_any_non_qualified_tg;     using is_tg = of_any_non_qualified_tg; };
+    struct  of_not_any_const_tg             { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class const_lb;             using non_of_tg = not_any_const_tg;             using is_tg = of_any_const_tg; };
+    struct  of_not_any_non_const_tg         { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class non_const_lb;         using non_of_tg = not_any_non_const_tg;         using is_tg = of_any_non_const_tg; };
+    struct  of_not_any_volatile_tg          { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class volatile_lb;          using non_of_tg = not_any_volatile_tg;          using is_tg = of_any_volatile_tg; };
+    struct  of_not_any_non_volatile_tg      { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class non_volatile_lb;      using non_of_tg = not_any_non_volatile_tg;      using is_tg = of_any_non_volatile_tg; };
 
-    struct  of_just_not_tg                  { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb;                            using non_of_tg = just_not_tg; };
-    struct  of_just_not_non_qualified_tg    { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class non_qualified_lb;    using non_of_tg = just_not_non_qualified_tg; };
-    struct  of_just_not_const_tg            { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class const_lb;            using non_of_tg = just_not_const_tg; };
-    struct  of_just_not_volatile_tg         { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class volatile_lb;         using non_of_tg = just_not_volatile_tg; };
-    struct  of_just_not_const_volatile_tg   { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class const_volatile_lb;   using non_of_tg = just_not_const_volatile_tg; };
+    struct  of_just_not_tg                  { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb;                            using non_of_tg = just_not_tg;                  using is_tg = of_just_tg; };
+    struct  of_just_not_non_qualified_tg    { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class non_qualified_lb;    using non_of_tg = just_not_non_qualified_tg;    using is_tg = of_just_non_qualified_tg; };
+    struct  of_just_not_const_tg            { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class const_lb;            using non_of_tg = just_not_const_tg;            using is_tg = of_just_const_tg; };
+    struct  of_just_not_volatile_tg         { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class volatile_lb;         using non_of_tg = just_not_volatile_tg;         using is_tg = of_just_volatile_tg; };
+    struct  of_just_not_const_volatile_tg   { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class const_volatile_lb;   using non_of_tg = just_not_const_volatile_tg;   using is_tg = of_just_const_volatile_tg; };
 
 }
 
 namespace nkr {
 
-    struct  of_any_access_tg                        { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb;                                          using non_of_tg = any_tg; };
-    struct  of_any_access_qualified_tg              { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class qualified_lb;                      using non_of_tg = any_qualified_tg; };
-    struct  of_any_access_non_qualified_tg          { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class non_qualified_lb;                  using non_of_tg = any_non_qualified_tg; };
-    struct  of_any_access_const_tg                  { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class const_lb;                          using non_of_tg = any_const_tg; };
-    struct  of_any_access_non_const_tg              { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class non_const_lb;                      using non_of_tg = any_non_const_tg; };
-    struct  of_any_access_volatile_tg               { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class volatile_lb;                       using non_of_tg = any_volatile_tg; };
-    struct  of_any_access_non_volatile_tg           { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class non_volatile_lb;                   using non_of_tg = any_non_volatile_tg; };
+    struct  of_any_access_tg                        { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb;                                          using non_of_tg = any_tg;                       using is_tg = of_any_access_tg; };
+    struct  of_any_access_qualified_tg              { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class qualified_lb;                      using non_of_tg = any_qualified_tg;             using is_tg = of_any_access_qualified_tg; };
+    struct  of_any_access_non_qualified_tg          { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class non_qualified_lb;                  using non_of_tg = any_non_qualified_tg;         using is_tg = of_any_access_non_qualified_tg; };
+    struct  of_any_access_const_tg                  { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class const_lb;                          using non_of_tg = any_const_tg;                 using is_tg = of_any_access_const_tg; };
+    struct  of_any_access_non_const_tg              { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class non_const_lb;                      using non_of_tg = any_non_const_tg;             using is_tg = of_any_access_non_const_tg; };
+    struct  of_any_access_volatile_tg               { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class volatile_lb;                       using non_of_tg = any_volatile_tg;              using is_tg = of_any_access_volatile_tg; };
+    struct  of_any_access_non_volatile_tg           { class tag_lb; class operator_lb; class of_lb; class any_lb; class access_lb; class non_volatile_lb;                   using non_of_tg = any_non_volatile_tg;          using is_tg = of_any_access_non_volatile_tg; };
 
-    struct  of_just_access_tg                       { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb;                                         using non_of_tg = just_tg; };
-    struct  of_just_access_non_qualified_tg         { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class non_qualified_lb;                 using non_of_tg = just_non_qualified_tg; };
-    struct  of_just_access_const_tg                 { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class const_lb;                         using non_of_tg = just_const_tg; };
-    struct  of_just_access_volatile_tg              { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class volatile_lb;                      using non_of_tg = just_volatile_tg; };
-    struct  of_just_access_const_volatile_tg        { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class const_volatile_lb;                using non_of_tg = just_const_volatile_tg; };
+    struct  of_just_access_tg                       { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb;                                         using non_of_tg = just_tg;                      using is_tg = of_just_access_tg; };
+    struct  of_just_access_non_qualified_tg         { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class non_qualified_lb;                 using non_of_tg = just_non_qualified_tg;        using is_tg = of_just_access_non_qualified_tg; };
+    struct  of_just_access_const_tg                 { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class const_lb;                         using non_of_tg = just_const_tg;                using is_tg = of_just_access_const_tg; };
+    struct  of_just_access_volatile_tg              { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class volatile_lb;                      using non_of_tg = just_volatile_tg;             using is_tg = of_just_access_volatile_tg; };
+    struct  of_just_access_const_volatile_tg        { class tag_lb; class operator_lb; class of_lb; class just_lb; class access_lb; class const_volatile_lb;                using non_of_tg = just_const_volatile_tg;       using is_tg = of_just_access_const_volatile_tg; };
 
-    struct  of_not_any_access_tg                    { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb;                            using non_of_tg = not_any_tg; };
-    struct  of_not_any_access_qualified_tg          { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class qualified_lb;        using non_of_tg = not_any_qualified_tg; };
-    struct  of_not_any_access_non_qualified_tg      { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class non_qualified_lb;    using non_of_tg = not_any_non_qualified_tg; };
-    struct  of_not_any_access_const_tg              { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class const_lb;            using non_of_tg = not_any_const_tg; };
-    struct  of_not_any_access_non_const_tg          { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class non_const_lb;        using non_of_tg = not_any_non_const_tg; };
-    struct  of_not_any_access_volatile_tg           { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class volatile_lb;         using non_of_tg = not_any_volatile_tg; };
-    struct  of_not_any_access_non_volatile_tg       { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class non_volatile_lb;     using non_of_tg = not_any_non_volatile_tg; };
+    struct  of_not_any_access_tg                    { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb;                            using non_of_tg = not_any_tg;                   using is_tg = of_any_access_tg; };
+    struct  of_not_any_access_qualified_tg          { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class qualified_lb;        using non_of_tg = not_any_qualified_tg;         using is_tg = of_any_access_qualified_tg; };
+    struct  of_not_any_access_non_qualified_tg      { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class non_qualified_lb;    using non_of_tg = not_any_non_qualified_tg;     using is_tg = of_any_access_non_qualified_tg; };
+    struct  of_not_any_access_const_tg              { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class const_lb;            using non_of_tg = not_any_const_tg;             using is_tg = of_any_access_const_tg; };
+    struct  of_not_any_access_non_const_tg          { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class non_const_lb;        using non_of_tg = not_any_non_const_tg;         using is_tg = of_any_access_non_const_tg; };
+    struct  of_not_any_access_volatile_tg           { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class volatile_lb;         using non_of_tg = not_any_volatile_tg;          using is_tg = of_any_access_volatile_tg; };
+    struct  of_not_any_access_non_volatile_tg       { class tag_lb; class operator_lb; class of_lb; class not_lb; class any_lb; class access_lb; class non_volatile_lb;     using non_of_tg = not_any_non_volatile_tg;      using is_tg = of_any_access_non_volatile_tg; };
 
-    struct  of_just_not_access_tg                   { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb;                           using non_of_tg = just_not_tg; };
-    struct  of_just_not_access_non_qualified_tg     { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class non_qualified_lb;   using non_of_tg = just_not_non_qualified_tg; };
-    struct  of_just_not_access_const_tg             { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class const_lb;           using non_of_tg = just_not_const_tg; };
-    struct  of_just_not_access_volatile_tg          { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class volatile_lb;        using non_of_tg = just_not_volatile_tg; };
-    struct  of_just_not_access_const_volatile_tg    { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class const_volatile_lb;  using non_of_tg = just_not_const_volatile_tg; };
+    struct  of_just_not_access_tg                   { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb;                           using non_of_tg = just_not_tg;                  using is_tg = of_just_access_tg; };
+    struct  of_just_not_access_non_qualified_tg     { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class non_qualified_lb;   using non_of_tg = just_not_non_qualified_tg;    using is_tg = of_just_access_non_qualified_tg; };
+    struct  of_just_not_access_const_tg             { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class const_lb;           using non_of_tg = just_not_const_tg;            using is_tg = of_just_access_const_tg; };
+    struct  of_just_not_access_volatile_tg          { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class volatile_lb;        using non_of_tg = just_not_volatile_tg;         using is_tg = of_just_access_volatile_tg; };
+    struct  of_just_not_access_const_volatile_tg    { class tag_lb; class operator_lb; class of_lb; class just_lb; class not_lb; class access_lb; class const_volatile_lb;  using non_of_tg = just_not_const_volatile_tg;   using is_tg = of_just_access_const_volatile_tg; };
 
 }
 

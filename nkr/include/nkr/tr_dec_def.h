@@ -458,93 +458,105 @@ namespace nkr { namespace tr$ {
 
             return Evaluate<subjects_t, operators_t, objects_t>();
         } else {
-            using operand_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 1>>::head_t;
-            using expression_front_t = expression_parts_p::template take_t<nkr::constant::positive::count_t<index_p::Value() + 1>>;
-            using expression_back_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 2>>;
+            using operator_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value()>>::head_t;
 
-            if constexpr (nkr::tr$::NOR_operator_tr<typename operand_t::operator_t>) {
-                using expression_with_operand_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<typename operand_t::template with_operator_t<OR_tg>>::template push_back_t
+            if constexpr (index_p::Value() == 0 && nkr::tr$::not_operator_tr<operator_t>) {
+                using expression_front_t = expression_parts_p::template take_t<nkr::constant::positive::count_t<index_p::Value()>>;
+                using expression_back_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 1>>;
+                using expression_with_operator_t = expression_back_t::template into_t<
+                    expression_front_t::template push_back_t<typename operator_t::is_tg>::template push_back_t
                 >;
 
-                return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
-            } else if constexpr (nkr::tr$::NAND_operator_tr<typename operand_t::operator_t>) {
-                using expression_with_operand_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<typename operand_t::template with_operator_t<AND_tg>>::template push_back_t
-                >;
-
-                return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
-            } else if constexpr (nkr::tr$::XNOR_operator_tr<typename operand_t::operator_t>) {
-                using expression_with_operand_t = expression_back_t::template into_t<
-                    expression_front_t::template push_back_t<typename operand_t::template with_operator_t<XOR_tg>>::template push_back_t
-                >;
-
-                return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
+                return !Evaluate_Expression<subject_p, expression_with_operator_t, index_p>();
             } else {
-                if constexpr (operand_t::Count() == 1) {
-                    if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
-                        if constexpr (nkr::tr$::XOR_operator_tr<typename operand_t::operator_t>) {
-                            if constexpr (XOR_state_p::Value()) {
-                                return !Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
+                using operand_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 1>>::head_t;
+                using expression_front_t = expression_parts_p::template take_t<nkr::constant::positive::count_t<index_p::Value() + 1>>;
+                using expression_back_t = expression_parts_p::template at_t<nkr::constant::positive::index_t<index_p::Value() + 2>>;
+
+                if constexpr (nkr::tr$::NOR_operator_tr<typename operand_t::operator_t>) {
+                    using expression_with_operand_t = expression_back_t::template into_t<
+                        expression_front_t::template push_back_t<typename operand_t::template with_operator_t<OR_tg>>::template push_back_t
+                    >;
+
+                    return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
+                } else if constexpr (nkr::tr$::NAND_operator_tr<typename operand_t::operator_t>) {
+                    using expression_with_operand_t = expression_back_t::template into_t<
+                        expression_front_t::template push_back_t<typename operand_t::template with_operator_t<AND_tg>>::template push_back_t
+                    >;
+
+                    return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
+                } else if constexpr (nkr::tr$::XNOR_operator_tr<typename operand_t::operator_t>) {
+                    using expression_with_operand_t = expression_back_t::template into_t<
+                        expression_front_t::template push_back_t<typename operand_t::template with_operator_t<XOR_tg>>::template push_back_t
+                    >;
+
+                    return !Evaluate_Expression<subject_p, expression_with_operand_t, index_p>();
+                } else {
+                    if constexpr (operand_t::Count() == 1) {
+                        if constexpr (index_p::Value() < expression_parts_p::Count() - 2) {
+                            if constexpr (nkr::tr$::XOR_operator_tr<typename operand_t::operator_t>) {
+                                if constexpr (XOR_state_p::Value()) {
+                                    return !Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
+                                } else {
+                                    return Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
+                                }
                             } else {
                                 return Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
                             }
                         } else {
-                            return Evaluate_Expression<subject_p, expression_parts_p, nkr::constant::positive::index_t<index_p::Value() + 2>>();
-                        }
-                    } else {
-                        using operators_t = nkr::tr$::operators_t<expression_parts_p>;
-                        using subjects_t = nkr::tr$::subjects_t<subject_p, operators_t>;
-                        using objects_t = nkr::tr$::objects_t<expression_parts_p>;
+                            using operators_t = nkr::tr$::operators_t<expression_parts_p>;
+                            using subjects_t = nkr::tr$::subjects_t<subject_p, operators_t>;
+                            using objects_t = nkr::tr$::objects_t<expression_parts_p>;
 
-                        if constexpr (nkr::tr$::XOR_operator_tr<typename operand_t::operator_t>) {
-                            if constexpr (XOR_state_p::Value()) {
-                                return !Evaluate<subjects_t, operators_t, objects_t>();
+                            if constexpr (nkr::tr$::XOR_operator_tr<typename operand_t::operator_t>) {
+                                if constexpr (XOR_state_p::Value()) {
+                                    return !Evaluate<subjects_t, operators_t, objects_t>();
+                                } else {
+                                    return Evaluate<subjects_t, operators_t, objects_t>();
+                                }
                             } else {
                                 return Evaluate<subjects_t, operators_t, objects_t>();
                             }
-                        } else {
-                            return Evaluate<subjects_t, operators_t, objects_t>();
-                        }
-                    }
-                } else {
-                    using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::constant::positive::count_t<1>>, operand_t>;
-                    using operand_tail_t = nkr::cpp::access_qualification_of_t<typename operand_t::tail_t, operand_t>;
-                    using expression_with_head_t = expression_back_t::template into_t<
-                        expression_front_t::template push_back_t<operand_head_t>::template push_back_t
-                    >;
-                    using expression_with_tail_t = expression_back_t::template into_t<
-                        expression_front_t::template push_back_t<operand_tail_t>::template push_back_t
-                    >;
-
-                    if constexpr (nkr::tr$::OR_operator_tr<typename operand_t::operator_t>) {
-                        if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                            return true;
-                        } else {
-                            return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
-                        }
-                    } else if constexpr (nkr::tr$::AND_operator_tr<typename operand_t::operator_t>) {
-                        if constexpr (!Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                            return false;
-                        } else {
-                            return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
-                        }
-                    } else if constexpr (nkr::tr$::XOR_operator_tr<typename operand_t::operator_t>) {
-                        if constexpr (XOR_state_p::Value()) {
-                            if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                                return false;
-                            } else {
-                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<true>>();
-                            }
-                        } else {
-                            if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
-                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<true>>();
-                            } else {
-                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<false>>();
-                            }
                         }
                     } else {
-                        [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Internal evaluation error."); }();
+                        using operand_head_t = nkr::cpp::access_qualification_of_t<typename operand_t::template take_t<nkr::constant::positive::count_t<1>>, operand_t>;
+                        using operand_tail_t = nkr::cpp::access_qualification_of_t<typename operand_t::tail_t, operand_t>;
+                        using expression_with_head_t = expression_back_t::template into_t<
+                            expression_front_t::template push_back_t<operand_head_t>::template push_back_t
+                        >;
+                        using expression_with_tail_t = expression_back_t::template into_t<
+                            expression_front_t::template push_back_t<operand_tail_t>::template push_back_t
+                        >;
+
+                        if constexpr (nkr::tr$::OR_operator_tr<typename operand_t::operator_t>) {
+                            if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                                return true;
+                            } else {
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
+                            }
+                        } else if constexpr (nkr::tr$::AND_operator_tr<typename operand_t::operator_t>) {
+                            if constexpr (!Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                                return false;
+                            } else {
+                                return Evaluate_Expression<subject_p, expression_with_tail_t, index_p>();
+                            }
+                        } else if constexpr (nkr::tr$::XOR_operator_tr<typename operand_t::operator_t>) {
+                            if constexpr (XOR_state_p::Value()) {
+                                if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                                    return false;
+                                } else {
+                                    return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<true>>();
+                                }
+                            } else {
+                                if constexpr (Evaluate_Expression<subject_p, expression_with_head_t, index_p>()) {
+                                    return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<true>>();
+                                } else {
+                                    return Evaluate_Expression<subject_p, expression_with_tail_t, index_p, nkr::constant::boolean::cpp_t<false>>();
+                                }
+                            }
+                        } else {
+                            [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Internal evaluation error."); }();
+                        }
                     }
                 }
             }

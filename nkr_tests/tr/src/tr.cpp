@@ -83,11 +83,85 @@ namespace nkr {
                           of_not_any_const_tg, tt<nkr::pointer::cpp_t>,
                           of_not_any_volatile_tg, t<int>>);
 
-            // I think this is kind of unexpected behavior. shouldn't OR become NOR because of the not?
             static_assert(tr<volatile int* const*,
                           not_any_non_qualified_tg, tt<nkr::pointer::cpp_t>,
                           of_any_const_tg, tt<nkr::pointer::cpp_t>,
-                          of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>>);
+                          of_any_volatile_tg, ts<OR_tg, nkr::positive::integer_t, int>> == false);
+        }
+
+        TEST_SUITE("should invert an entire expression when negated")
+        {
+            using namespace nkr;
+
+            static_assert(tr<
+                          const long long*,
+                          any_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_const_tg, ts<OR_tg, int, short>
+            >);
+
+            class a_t
+            {
+            public:
+            };
+
+            class b_t
+            {
+            public:
+            };
+
+            static_assert(tr<
+                          a_t,
+                          any_tg, ts<OR_tg, a_t, b_t>
+            > == true);
+
+            static_assert(tr<
+                          b_t,
+                          any_tg, ts<OR_tg, a_t, b_t>
+            > == true);
+
+            static_assert(tr<
+                          a_t,
+                          not_any_tg, ts<OR_tg, a_t, b_t>
+            > == false);
+
+            static_assert(tr<
+                          b_t,
+                          not_any_tg, ts<OR_tg, a_t, b_t>
+            > == false);
+        }
+
+        TEST_SUITE("must work with multiple not operators")
+        {
+            static_assert(tr<
+                          volatile int* volatile,
+                          not_any_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_any_volatile_tg, t<short>
+            >);
+
+            static_assert(tr<
+                          volatile int* volatile,
+                          not_any_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_volatile_tg, t<int>
+            >);
+
+            static_assert(tr<
+                          volatile int* const,
+                          not_any_volatile_tg, tt<nkr::pointer::cpp_t>
+            >);
+
+            static_assert(tr<
+                          volatile int* const,
+                          not_any_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_volatile_tg, t<int>
+            >);
+
+            static_assert(tr<
+                          volatile int* const,
+                          any_volatile_tg, tt<nkr::pointer::cpp_t>,
+                          of_not_any_volatile_tg, t<int>
+            > == false);
+
+            static_assert(nkr::tr$::not_operator_tr<any_volatile_tg> == false);
         }
 
         TEST_SUITE("temp")
