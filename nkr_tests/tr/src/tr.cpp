@@ -1649,11 +1649,234 @@ TEST_SUITE("Use-Cases")
 
     // static assertions
 
-    // easy to read and understand at a glance as compared to arbitrarily named and private concepts which don't have to work with other concepts
-
-    // how annoying it is to define concepts outside of a class, the temptation to make reusable concepts which need to be more specific/less specific
-
     // having better assignment operators
+
+    TEST_SUITE("Succinctly Disambiguate Assignment Operators")
+    {
+        TEST_SUITE("")
+        {
+            // [_bccbe189_fffc_4af0_a71a_8077d835593a]
+            class safe_bool_t
+            {
+            public:
+                bool value = false;
+
+            public:
+                safe_bool_t()
+                {
+                }
+
+                safe_bool_t(bool value)
+                {
+                    // ...
+                }
+
+                safe_bool_t& operator =(safe_bool_t&& other) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                volatile safe_bool_t& operator =(safe_bool_t&& other) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                safe_bool_t& operator =(volatile safe_bool_t&& other) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                volatile safe_bool_t& operator =(volatile safe_bool_t&& other) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+            };
+
+            TEST_CASE("should be able to assign value and rvalue references of itself whether volatile or not")
+            {
+                safe_bool_t safe_bool;
+                volatile safe_bool_t volatile_safe_bool;
+
+                safe_bool = safe_bool_t();
+                safe_bool = std::move(safe_bool);
+                safe_bool = std::move(volatile_safe_bool);
+                volatile_safe_bool = safe_bool_t();
+                volatile_safe_bool = std::move(safe_bool);
+                volatile_safe_bool = std::move(volatile_safe_bool);
+            }
+            // [_bccbe189_fffc_4af0_a71a_8077d835593a]
+
+            // [_797c89f6_f562_4052_9c68_01a7a7be8f37]
+            TEST_CASE("may fail to disambiguate when implicitly assigning through a constructor")
+            {
+                safe_bool_t safe_bool;
+                volatile safe_bool_t volatile_safe_bool;
+                bool unsafe_bool = false;
+
+                // ERROR: 'operator =' is ambiguous
+                // safe_bool = bool(false);
+                // safe_bool = unsafe_bool;
+                // volatile_safe_bool = bool(false);
+                // volatile_safe_bool = unsafe_bool;
+            }
+            // [_797c89f6_f562_4052_9c68_01a7a7be8f37]
+        }
+
+        TEST_SUITE("")
+        {
+            // [_3639ae18_40aa_4473_92d7_efc6b93d54ba]
+            class safe_bool_t
+            {
+            public:
+                bool value = false;
+
+            public:
+                safe_bool_t()
+                {
+                }
+
+                safe_bool_t(bool value)
+                {
+                    // ...
+                }
+
+                // will handle assignment of bool for non-volatile this
+                safe_bool_t& operator =(bool value) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                // will handle assignment of bool for volatile this
+                volatile safe_bool_t& operator =(bool value) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                safe_bool_t& operator =(safe_bool_t&& other) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                volatile safe_bool_t& operator =(safe_bool_t&& other) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                safe_bool_t& operator =(volatile safe_bool_t&& other) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                volatile safe_bool_t& operator =(volatile safe_bool_t&& other) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+            };
+
+            TEST_CASE("should be able to disambiguate when implicitly assigning through a constructor")
+            {
+                safe_bool_t safe_bool;
+                volatile safe_bool_t volatile_safe_bool;
+                bool unsafe_bool = false;
+
+                // works
+                safe_bool = bool(false);
+                safe_bool = unsafe_bool;
+                volatile_safe_bool = bool(false);
+                volatile_safe_bool = unsafe_bool;
+            }
+            // [_3639ae18_40aa_4473_92d7_efc6b93d54ba]
+        }
+
+        TEST_SUITE("")
+        {
+            // [_16b843a2_25b4_48fa_8dc1_70069b6b22ed]
+            class safe_bool_t
+            {
+            public:
+                bool value = false;
+
+            public:
+                safe_bool_t()
+                {
+                }
+
+                safe_bool_t(bool value)
+                {
+                    // ...
+                }
+
+                safe_bool_t& operator =(safe_bool_t&& other) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                volatile safe_bool_t& operator =(safe_bool_t&& other) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                // just volatile safe_bool_t will be accepted by this operator
+                safe_bool_t& operator =(nkr::tr<nkr::just_tg, nkr::t<volatile safe_bool_t>> auto&& other) noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+
+                // just volatile safe_bool_t will be accepted by this operator
+                volatile safe_bool_t& operator =(nkr::tr<nkr::just_tg, nkr::t<volatile safe_bool_t>> auto&& other) volatile noexcept
+                {
+                    // ...
+
+                    return *this;
+                }
+            };
+
+            TEST_CASE("should work with all assignment possibilities")
+            {
+                safe_bool_t safe_bool;
+                volatile safe_bool_t volatile_safe_bool;
+                bool unsafe_bool = false;
+
+                safe_bool = safe_bool_t();
+                safe_bool = std::move(safe_bool);
+                safe_bool = std::move(volatile_safe_bool);
+                safe_bool = bool(false);
+                safe_bool = unsafe_bool;
+                volatile_safe_bool = safe_bool_t();
+                volatile_safe_bool = std::move(safe_bool);
+                volatile_safe_bool = std::move(volatile_safe_bool);
+                volatile_safe_bool = bool(false);
+                volatile_safe_bool = unsafe_bool;
+            }
+            // [_16b843a2_25b4_48fa_8dc1_70069b6b22ed]
+        }
+    }
 
     // easily ensure that interfaces are satisfied
 }
