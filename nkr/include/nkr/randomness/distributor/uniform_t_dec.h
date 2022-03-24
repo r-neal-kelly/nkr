@@ -136,7 +136,7 @@ namespace nkr { namespace randomness { namespace distributor { namespace uniform
         using type_tg           = nkr::randomness::distributor::uniform_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::randomness::distributor::uniform_ttg<parameters_p...>;
+        using template_ttg      = nkr::randomness::distributor::uniform_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

@@ -129,7 +129,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
         using type_tg           = nkr::cpp::concurrency::locker::exclusive_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::cpp::concurrency::locker::exclusive_ttg<parameters_p...>;
+        using template_ttg      = nkr::cpp::concurrency::locker::exclusive_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

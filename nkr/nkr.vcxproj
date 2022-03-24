@@ -676,6 +676,16 @@
     <ClInclude Include="include\nkr\interface\template_i_generic_aliases_t_dec_def.h" />
     <ClInclude Include="include\nkr\interface\template_i_generic_aliases_t_def.h" />
     <ClInclude Include="include\nkr\interface\template_i_generic_aliases_t_dox.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_t.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_tag_t.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_tag_t_dec.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_tag_t_dec_def.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_tag_t_def.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_tag_t_dox.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_t_dec.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_t_dec_def.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_t_def.h" />
+    <ClInclude Include="include\nkr\interface\template_i_identity_template_t_dox.h" />
     <ClInclude Include="include\nkr\macros.h" />
     <ClInclude Include="include\nkr\macros_dec.h" />
     <ClInclude Include="include\nkr\macros_dec_def.h" />

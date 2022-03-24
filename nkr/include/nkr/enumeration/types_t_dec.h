@@ -151,7 +151,7 @@ namespace nkr { namespace enumeration { namespace types_t$ {
         using type_tg               = nkr::enumeration::types_tg;
 
         template <typename ...parameters_p>
-        using template_tg           = nkr::enumeration::types_ttg<parameters_p...>;
+        using template_ttg          = nkr::enumeration::types_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

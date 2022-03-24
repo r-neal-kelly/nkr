@@ -137,7 +137,7 @@ namespace nkr { namespace tuple { namespace types_t$ {
         using type_tg           = nkr::tuple::types_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::tuple::types_ttg<parameters_p...>;
+        using template_ttg      = nkr::tuple::types_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

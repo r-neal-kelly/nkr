@@ -205,7 +205,7 @@ namespace nkr { namespace interface { namespace enumeration { namespace types_i$
         using type_tg           = nkr::interface::enumeration::types_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::interface::enumeration::types_ttg<parameters_p...>;
+        using template_ttg      = nkr::interface::enumeration::types_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

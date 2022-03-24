@@ -60,5 +60,8 @@
     <ClCompile Include="src\randomness\generator\software\mersenne_twister_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\array\remote\dynamic_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

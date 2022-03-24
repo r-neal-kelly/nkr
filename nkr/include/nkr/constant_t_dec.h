@@ -196,7 +196,7 @@ namespace nkr { namespace constant_t$ {
         using type_tg           = nkr::constant_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::constant_ttg<parameters_p...>;
+        using template_ttg      = nkr::constant_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

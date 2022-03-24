@@ -44,7 +44,7 @@ namespace nkr { namespace interface { namespace template_i$ {
         nkr::cpp::is_tr<typename type_p::actual_example_t, typename type_p::actual_example_t> &&
         
         nkr::cpp::is_tr<typename type_p::type_tg, typename type_p::type_tg> &&
-        nkr::cpp::is_ttr<type_p::template template_tg, type_p::template template_tg>;
+        nkr::cpp::is_ttr<type_p::template template_ttg, type_p::template template_ttg>;
 
     template <typename type_p>
     concept static_constexpr_functions_i = requires

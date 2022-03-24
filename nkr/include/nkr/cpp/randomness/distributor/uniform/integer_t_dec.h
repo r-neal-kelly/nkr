@@ -127,7 +127,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
         using type_tg           = nkr::cpp::randomness::distributor::uniform::integer_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::cpp::randomness::distributor::uniform::integer_ttg<parameters_p...>;
+        using template_ttg      = nkr::cpp::randomness::distributor::uniform::integer_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

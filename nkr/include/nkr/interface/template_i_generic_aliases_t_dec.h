@@ -45,7 +45,7 @@ namespace nkr { namespace interface {
         using type_tg           = tag_p;
 
         template <typename ...parameters_p>
-        using template_tg       = template_tag_p<parameters_p...>;
+        using template_ttg      = template_tag_p<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

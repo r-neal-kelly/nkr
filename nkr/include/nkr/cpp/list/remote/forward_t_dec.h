@@ -129,7 +129,7 @@ namespace nkr { namespace cpp { namespace list { namespace remote { namespace fo
         using type_tg           = nkr::cpp::list::remote::forward_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::cpp::list::remote::forward_ttg<parameters_p...>;
+        using template_ttg      = nkr::cpp::list::remote::forward_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>
@@ -149,7 +149,7 @@ namespace nkr { namespace cpp { namespace list { namespace remote { namespace fo
     {
     public:
         template <typename ...parameters_p>
-        using actual_template_t = template_tg<parameters_p...>;
+        using actual_template_t = template_ttg<parameters_p...>;
 
         template <typename inner_p>
         using actual_of_t       = actual_template_t<inner_p>;

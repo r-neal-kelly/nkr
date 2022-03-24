@@ -224,7 +224,7 @@ namespace nkr { namespace interface { namespace type_i$ {
         using type_tg           = nkr::interface::type_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::interface::type_ttg<parameters_p...>;
+        using template_ttg      = nkr::interface::type_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

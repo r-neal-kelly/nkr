@@ -329,7 +329,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         using type_tg               = nkr::cpp::randomness::generator::software::mersenne_twister_tg;
 
         template <typename ...parameters_p>
-        using template_tg           = nkr::cpp::randomness::generator::software::mersenne_twister_ttg<parameters_p...>;
+        using template_ttg          = nkr::cpp::randomness::generator::software::mersenne_twister_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

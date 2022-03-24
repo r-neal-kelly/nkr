@@ -158,7 +158,7 @@ namespace nkr { namespace interface { namespace randomness { namespace value_i$ 
         using type_tg           = nkr::interface::randomness::value_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::interface::randomness::value_ttg<parameters_p...>;
+        using template_ttg      = nkr::interface::randomness::value_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

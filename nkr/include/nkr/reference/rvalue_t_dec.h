@@ -127,7 +127,7 @@ namespace nkr { namespace reference { namespace rvalue_t$ {
         using type_tg           = nkr::reference::rvalue_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::reference::rvalue_ttg<parameters_p...>;
+        using template_ttg      = nkr::reference::rvalue_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

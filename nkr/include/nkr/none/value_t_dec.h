@@ -129,7 +129,7 @@ namespace nkr { namespace none { namespace value_t$ {
         using type_tg           = nkr::none::value_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::none::value_ttg<parameters_p...>;
+        using template_ttg      = nkr::none::value_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>

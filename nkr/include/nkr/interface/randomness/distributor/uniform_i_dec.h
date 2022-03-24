@@ -208,7 +208,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
         using type_tg           = nkr::interface::randomness::distributor::uniform_tg;
 
         template <typename ...parameters_p>
-        using template_tg       = nkr::interface::randomness::distributor::uniform_ttg<parameters_p...>;
+        using template_ttg      = nkr::interface::randomness::distributor::uniform_ttg<parameters_p...>;
 
     public:
         template <template <typename ...> typename other_p>
