@@ -20,6 +20,7 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename ...parameters_p>
+            requires (sizeof...(parameters_p) >= min_argument_count_p && sizeof...(parameters_p) <= max_argument_count_p)
         using template_t        = nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
 
         template <nkr::tuple::types_tr parameters_p>
