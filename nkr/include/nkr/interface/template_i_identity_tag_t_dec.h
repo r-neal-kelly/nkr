@@ -10,7 +10,7 @@
 namespace nkr { namespace interface {
 
     template <typename template_specialization_p>
-    class template_i_identity_template_tag_t :
+    class template_i_identity_tag_t :
         public template_specialization_p
     {
     public:
@@ -37,9 +37,9 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i_identity_template_tag_t(...) noexcept  = delete;
+        constexpr template_i_identity_tag_t(...) noexcept   = delete;
     };
 
 }}
 
-#include "nkr/interface/template_i_identity_template_tag_t_dec_def.h"
+#include "nkr/interface/template_i_identity_tag_t_dec_def.h"

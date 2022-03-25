@@ -10,8 +10,8 @@
 #include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/interface/template_i_identity_tag_t_dec.h"
 #include "nkr/interface/template_i_identity_template_t_dec.h"
-#include "nkr/interface/template_i_identity_template_tag_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace cpp { namespace array { namespace remote {
@@ -113,7 +113,7 @@ namespace nkr { namespace cpp { namespace array { namespace remote { namespace d
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::array::remote::dynamic_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_identity_template_tag_t<
+        public nkr::interface::template_i_identity_tag_t<
             template_i_template_sp<nkr::cpp::array::remote::dynamic_t>
         >
     {

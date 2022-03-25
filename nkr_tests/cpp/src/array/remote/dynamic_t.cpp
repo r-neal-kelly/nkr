@@ -9,7 +9,7 @@
 
 namespace nkr {
 
-    TEST_SUITE("temp")
+    TEST_SUITE("nkr::interface::template_i")
     {
         static_assert(nkr::generic::implementing::interface::template_ttr<nkr::cpp::array::remote::dynamic_t>);
         using template_i = nkr::interface::template_i<nkr::cpp::array::remote::dynamic_t>;
