@@ -60,6 +60,42 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Min_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(14);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Max_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(14);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Actual_Min_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(14);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Actual_Max_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(14);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::randomness::generator::software::mersenne_twister_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_template_sp<template_p>::Is_Any()
@@ -76,16 +112,6 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
         noexcept
     {
         return nkr::cpp::randomness::generator::software::mersenne_twister_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::randomness::generator::software::mersenne_twister_ttg>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_tag_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
     }
 
 }}}}}}

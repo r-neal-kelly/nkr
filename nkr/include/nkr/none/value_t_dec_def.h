@@ -56,40 +56,6 @@ namespace nkr { namespace none { namespace value_t$ {
 
 }}}
 
-namespace nkr { namespace none { namespace value_t$ {
-
-    template <template <typename ...> typename template_p>
-        requires nkr::none::value_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any()
-        noexcept
-    {
-        return nkr::none::value_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::none::value_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::none::value_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::none::value_ttg>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_tag_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
-    }
-
-}}}
-
 namespace nkr { namespace none {
 
     template <nkr::generic::implementing::interface::none::value_tr type_p>

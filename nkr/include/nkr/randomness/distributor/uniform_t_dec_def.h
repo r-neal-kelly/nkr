@@ -56,40 +56,6 @@ namespace nkr { namespace randomness { namespace distributor { namespace uniform
 
 }}}}
 
-namespace nkr { namespace randomness { namespace distributor { namespace uniform_t$ {
-
-    template <template <typename ...> typename template_p>
-        requires nkr::randomness::distributor::uniform_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any()
-        noexcept
-    {
-        return nkr::randomness::distributor::uniform_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::randomness::distributor::uniform_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::randomness::distributor::uniform_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::randomness::distributor::uniform_ttg>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_tag_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
-    }
-
-}}}}
-
 namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>

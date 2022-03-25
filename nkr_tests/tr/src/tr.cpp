@@ -9,7 +9,6 @@
 #include "nkr/boolean/pure_t.h"
 #include "nkr/cpp/array/remote/dynamic_t.h"
 #include "nkr/cpp/list/remote/forward_t.h"
-#include "nkr/cpp/tuple_t.h"
 #include "nkr/generic/boolean_tr.h"
 #include "nkr/generic/built_in/number/integer_tr.h"
 #include "nkr/generic/negatable_tr.h"

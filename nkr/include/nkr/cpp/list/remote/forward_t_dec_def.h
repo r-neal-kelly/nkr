@@ -55,37 +55,3 @@ namespace nkr { namespace cpp { namespace list { namespace remote { namespace fo
     }
 
 }}}}}
-
-namespace nkr { namespace cpp { namespace list { namespace remote { namespace forward_t$ {
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::list::remote::forward_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any()
-        noexcept
-    {
-        return nkr::cpp::list::remote::forward_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::list::remote::forward_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::cpp::list::remote::forward_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::list::remote::forward_ttg>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_tag_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
-    }
-
-}}}}}

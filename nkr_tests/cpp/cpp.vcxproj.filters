@@ -63,5 +63,14 @@
     <ClCompile Include="src\array\remote\dynamic_t.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\concurrency\locker\exclusive_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\concurrency\locker\inclusive_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\list\remote\forward_t.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

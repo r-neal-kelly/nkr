@@ -32,36 +32,40 @@ namespace nkr { namespace interface {
     public:
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
-        using template_t        = nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
+        using template_t                    = nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
+
+        using default_arguments_t           = default_arguments_p;
 
         template <typename parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
-        using of_tuple_t        = parameters_p::template into_t<template_p>;
+        using of_tuple_t                    = parameters_p::template into_t<template_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
-        using of_pack_t         = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+        using of_pack_t                     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t         = default_arguments_p::template into_t<template_p>;
+        using example_t                     = default_arguments_p::template into_t<template_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
-        using actual_template_t = template_t<parameters_p...>;
+        using actual_template_t             = template_t<parameters_p...>;
+
+        using actual_default_arguments_t    = default_arguments_t;
 
         template <typename parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
-        using actual_of_tuple_t = of_tuple_t<parameters_p>;
+        using actual_of_tuple_t             = of_tuple_t<parameters_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
-        using actual_of_pack_t  = of_pack_t<parameters_p...>;
+        using actual_of_pack_t              = of_pack_t<parameters_p...>;
 
-        using actual_example_t  = example_t;
+        using actual_example_t              = example_t;
 
-        using type_tg           = type_tag_p;
+        using type_tg                       = type_tag_p;
 
         template <typename ...parameters_p>
-        using template_ttg      = template_tag_p<parameters_p...>;
+        using template_ttg                  = template_tag_p<parameters_p...>;
 
     public:
         static constexpr nkr::positive::count_t Min_Argument_Count() noexcept;

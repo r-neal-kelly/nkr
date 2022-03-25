@@ -60,6 +60,42 @@ namespace nkr { namespace constant_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    inline constexpr nkr::positive::count_t
+        template_i_tag_sp<template_p>::Min_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(1);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    inline constexpr nkr::positive::count_t
+        template_i_tag_sp<template_p>::Max_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(1);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    inline constexpr nkr::positive::count_t
+        template_i_tag_sp<template_p>::Actual_Min_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(0);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
+    inline constexpr nkr::positive::count_t
+        template_i_tag_sp<template_p>::Actual_Max_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(~0);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::constant_ttg>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_tag_sp<template_p>::Is_Any()

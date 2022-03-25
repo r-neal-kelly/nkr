@@ -55,37 +55,3 @@ namespace nkr { namespace interface { namespace randomness { namespace value_i$ 
     }
 
 }}}}
-
-namespace nkr { namespace interface { namespace randomness { namespace value_i$ {
-
-    template <template <typename ...> typename template_p>
-        requires nkr::interface::randomness::value_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any()
-        noexcept
-    {
-        return nkr::interface::randomness::value_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::interface::randomness::value_ttr<template_p>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_template_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::interface::randomness::value_ttr<other_p>;
-    }
-
-    template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::interface::randomness::value_ttg>
-    template <template <typename ...> typename other_p>
-    inline constexpr nkr::boolean::cpp_t
-        template_i_tag_sp<template_p>::Is_Any_Actual()
-        noexcept
-    {
-        return nkr::cpp::is_any_ttr<other_p, actual_template_t>;
-    }
-
-}}}}

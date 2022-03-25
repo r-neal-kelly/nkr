@@ -6,11 +6,14 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant_t_dec.h"
+#include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/constant/positive/integer_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
 #include "nkr/interface/enumeration/types_i_dec.h"
 #include "nkr/interface/forward_dec.h"
+#include "nkr/interface/template_i_identity_tag_t_dec.h"
+#include "nkr/interface/template_i_identity_template_t_dec.h"
 #include "nkr/positive/integer_t_dec.h"
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
@@ -112,81 +115,27 @@ namespace nkr { namespace enumeration { namespace types_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::enumeration::types_ttr<template_p>
-    class template_i_template_sp
+    class template_i_template_sp :
+        public nkr::interface::template_i_identity_template_t<
+            nkr::enumeration::types_t,
+            nkr::tuple::types_t<nkr::positive::integer_t>,
+            nkr::constant::positive::count_t<1>,
+            nkr::constant::positive::count_t<2>,
+            nkr::enumeration::types_tg,
+            nkr::enumeration::types_ttg
+        >
     {
     public:
-        template <
-            nkr::generic::implementing::interface::enumeration::types_tr        value_p,
-            nkr::constant_of_tr<nkr::enumeration::types_t$::integer_t<value_p>> none_p      = nkr::enumeration::types_t$::default_none_t<value_p>
-        > using template_t          = nkr::enumeration::types_t<value_p, none_p>;
-
-        template <typename inner_p>
-        using   of_t                = template_t<inner_p>;
-
-        template <nkr::tuple::types_tr parameters_p>
-            requires (parameters_p::Count() >= 1 && parameters_p::Count() <= 2)
-        using   of_tuple_t          = parameters_p::template into_t<template_t>;
-
-        template <typename ...parameters_p>
-        using   of_pack_t           = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
-
-        using   example_t           = of_t<nkr::positive::integer_t>;
-
-        template <
-            nkr::generic::implementing::interface::enumeration::types_tr        value_p,
-            nkr::constant_of_tr<nkr::enumeration::types_t$::integer_t<value_p>> none_p = nkr::enumeration::types_t$::default_none_t<value_p>
-        > using actual_template_t   = template_t<value_p, none_p>;
-
-        template <typename inner_p>
-        using actual_of_t           = of_t<inner_p>;
-
-        template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t     = of_tuple_t<parameters_p>;
-
-        template <typename ...parameters_p>
-        using actual_of_pack_t      = of_pack_t<parameters_p...>;
-
-        using actual_example_t      = example_t;
-
-        using type_tg               = nkr::enumeration::types_tg;
-
-        template <typename ...parameters_p>
-        using template_ttg          = nkr::enumeration::types_ttg<parameters_p...>;
-
-    public:
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr template_i_template_sp(...) noexcept  = delete;
     };
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::enumeration::types_ttg>
     class template_i_tag_sp :
-        public template_i_template_sp<nkr::enumeration::types_t>
+        public nkr::interface::template_i_identity_tag_t<
+            template_i_template_sp<nkr::enumeration::types_t>
+        >
     {
     public:
-        template <typename ...parameters_p>
-        using actual_template_t = nkr::enumeration::types_ttg<parameters_p...>;
-
-        template <typename inner_p>
-        using actual_of_t       = actual_template_t<inner_p>;
-
-        template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t = parameters_p::template into_t<actual_template_t>;
-
-        template <typename ...parameters_p>
-        using actual_of_pack_t  = actual_template_t<parameters_p...>;
-
-        using actual_example_t  = actual_template_t<>;
-
-    public:
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
     };
 
 }}}

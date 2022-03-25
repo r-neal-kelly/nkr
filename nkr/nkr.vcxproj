@@ -337,11 +337,11 @@
     <ClInclude Include="include\nkr\cpp\randomness\generator\hardware_t_dec_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\generator\hardware_t_def.h" />
     <ClInclude Include="include\nkr\cpp\randomness\generator\hardware_t_dox.h" />
-    <ClInclude Include="include\nkr\cpp\tuple_t.h" />
-    <ClInclude Include="include\nkr\cpp\tuple_t_dec.h" />
-    <ClInclude Include="include\nkr\cpp\tuple_t_dec_def.h" />
-    <ClInclude Include="include\nkr\cpp\tuple_t_def.h" />
-    <ClInclude Include="include\nkr\cpp\tuple_t_dox.h" />
+    <ClInclude Include="include\nkr\cpp\tuple\values_t.h" />
+    <ClInclude Include="include\nkr\cpp\tuple\values_t_dec.h" />
+    <ClInclude Include="include\nkr\cpp\tuple\values_t_dec_def.h" />
+    <ClInclude Include="include\nkr\cpp\tuple\values_t_def.h" />
+    <ClInclude Include="include\nkr\cpp\tuple\values_t_dox.h" />
     <ClInclude Include="include\nkr\enumeration\cpp_t.h" />
     <ClInclude Include="include\nkr\enumeration\cpp_t_dec.h" />
     <ClInclude Include="include\nkr\enumeration\cpp_t_dec_def.h" />

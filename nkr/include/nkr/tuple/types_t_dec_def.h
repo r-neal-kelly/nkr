@@ -60,6 +60,42 @@ namespace nkr { namespace tuple { namespace types_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::tuple::types_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Min_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(0);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::tuple::types_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Max_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(~0);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::tuple::types_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Actual_Min_Argument_Count()
+        noexcept
+    {
+        return Min_Argument_Count();
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::tuple::types_ttr<template_p>
+    inline constexpr nkr::positive::count_t
+        template_i_template_sp<template_p>::Actual_Max_Argument_Count()
+        noexcept
+    {
+        return Max_Argument_Count();
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::tuple::types_ttr<template_p>
     template <template <typename ...> typename other_p>
     inline constexpr nkr::boolean::cpp_t
         template_i_template_sp<template_p>::Is_Any()
@@ -76,6 +112,24 @@ namespace nkr { namespace tuple { namespace types_t$ {
         noexcept
     {
         return nkr::tuple::types_ttr<other_p>;
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::tuple::types_ttg>
+    inline constexpr nkr::positive::count_t
+        template_i_tag_sp<template_p>::Actual_Min_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(0);
+    }
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::tuple::types_ttg>
+    inline constexpr nkr::positive::count_t
+        template_i_tag_sp<template_p>::Actual_Max_Argument_Count()
+        noexcept
+    {
+        return nkr::positive::count_t(~0);
     }
 
     template <template <typename ...> typename template_p>
