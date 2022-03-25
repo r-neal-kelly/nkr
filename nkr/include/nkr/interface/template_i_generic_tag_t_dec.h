@@ -12,7 +12,7 @@
 namespace nkr { namespace interface {
 
     template <typename tag_p, template <typename ...> typename template_tag_p>
-    class template_i_generic_aliases_t
+    class template_i_generic_tag_t
     {
     public:
         template <typename ...parameters_p>
@@ -64,4 +64,4 @@ namespace nkr { namespace interface {
 
 }}
 
-#include "nkr/interface/template_i_generic_aliases_t_dec_def.h"
+#include "nkr/interface/template_i_generic_tag_t_dec_def.h"

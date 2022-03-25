@@ -8,7 +8,7 @@
 #include "nkr/cpp/randomness/generator/hardware_t_dec.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_t_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr { namespace cpp { namespace generic { namespace randomness {
 
@@ -66,7 +66,7 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness { names
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::randomness::generator_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::cpp::generic::randomness::generator_tg,
         nkr::cpp::generic::randomness::generator_ttg>
     {

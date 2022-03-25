@@ -9,7 +9,7 @@
 #include "nkr/cpp/generic/concurrency/lock/unary_tr_def.h"
 #include "nkr/cpp/generic/concurrency/lock/wide_tr_def.h"
 #include "nkr/interface/forward_def.h"
-#include "nkr/interface/template_i_generic_aliases_t_def.h"
+#include "nkr/interface/template_i_generic_tag_t_def.h"
 
 #include "nkr/cpp/generic/concurrency/lock/exclusive_tr_dec.h"
 

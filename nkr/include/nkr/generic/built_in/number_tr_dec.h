@@ -6,7 +6,7 @@
 
 #include "nkr/generic/built_in/number/any_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 #include "nkr/none/type_t_dec.h"
 
 namespace nkr { namespace generic { namespace built_in {
@@ -64,7 +64,7 @@ namespace nkr { namespace generic { namespace built_in { namespace number_tr$ {
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::built_in::number_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::generic::built_in::number_tg,
         nkr::generic::built_in::number_ttg>
     {

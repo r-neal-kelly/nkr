@@ -9,7 +9,7 @@
 #include "nkr/macros_def.h"
 #include "nkr/tuple/types_t_def.h"
 
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr {
 

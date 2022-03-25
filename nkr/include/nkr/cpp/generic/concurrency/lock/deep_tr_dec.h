@@ -8,7 +8,7 @@
 #include "nkr/cpp/concurrency/lock/perpetual/deep_t_dec.h"
 #include "nkr/cpp/concurrency/lock/temporal/deep_t_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr { namespace cpp { namespace generic { namespace concurrency { namespace lock {
 
@@ -66,7 +66,7 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::generic::concurrency::lock::deep_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::cpp::generic::concurrency::lock::deep_tg,
         nkr::cpp::generic::concurrency::lock::deep_ttg>
     {

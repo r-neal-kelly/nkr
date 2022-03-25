@@ -8,7 +8,7 @@
 #include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr { namespace generic { namespace number {
 
@@ -66,7 +66,7 @@ namespace nkr { namespace generic { namespace number { namespace any_tr$ {
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::number::any_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::generic::number::any_tg,
         nkr::generic::number::any_ttg>
     {

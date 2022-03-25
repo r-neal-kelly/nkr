@@ -8,7 +8,7 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/tag_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr { namespace generic { namespace tag {
 
@@ -66,7 +66,7 @@ namespace nkr { namespace generic { namespace tag { namespace template_tr$ {
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::tag::template_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::generic::tag::template_tg,
         nkr::generic::tag::template_ttg>
     {

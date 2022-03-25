@@ -8,7 +8,7 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/implementing/self_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr { namespace generic { namespace boolean { namespace any_tr$ {
 
@@ -192,7 +192,7 @@ namespace nkr { namespace generic { namespace boolean { namespace any_tr$ {
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::boolean::any_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::generic::boolean::any_tg,
         nkr::generic::boolean::any_ttg>
     {

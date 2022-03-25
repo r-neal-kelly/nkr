@@ -11,7 +11,7 @@
 #include "nkr/generic/implementing/self_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_generic_aliases_t_dec.h"
+#include "nkr/interface/template_i_generic_tag_t_dec.h"
 
 namespace nkr { namespace generic { namespace randomness { namespace distributor_tr$ {
 
@@ -104,7 +104,7 @@ namespace nkr { namespace generic { namespace randomness { namespace distributor
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::generic::randomness::distributor_ttg>
     class template_i_tag_sp :
-        public nkr::interface::template_i_generic_aliases_t<
+        public nkr::interface::template_i_generic_tag_t<
         nkr::generic::randomness::distributor_tg,
         nkr::generic::randomness::distributor_ttg>
     {
