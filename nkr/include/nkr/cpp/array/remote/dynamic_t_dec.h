@@ -100,11 +100,11 @@ namespace nkr { namespace cpp { namespace array { namespace remote { namespace d
     class template_i_template_sp :
         public nkr::interface::template_i_identity_template_t<
             nkr::cpp::array::remote::dynamic_t,
-            nkr::cpp::array::remote::dynamic_tg,
-            nkr::cpp::array::remote::dynamic_ttg,
             nkr::tuple::types_t<nkr::positive::integer_t>,
             nkr::constant::positive::count_t<1>,
-            nkr::constant::positive::count_t<2>
+            nkr::constant::positive::count_t<2>,
+            nkr::cpp::array::remote::dynamic_tg,
+            nkr::cpp::array::remote::dynamic_ttg
         >
     {
     public:

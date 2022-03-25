@@ -12,12 +12,12 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            type_tag_p,
-        template <typename ...> typename    template_tag_p,
         nkr::tuple::types_tr                default_arguments_p,
         typename                            min_argument_count_p    = nkr::constant::positive::count_t<default_arguments_p::Count()>,
-        typename                            max_argument_count_p    = min_argument_count_p
-    > class template_i_identity_template_without_of_t
+        typename                            max_argument_count_p    = min_argument_count_p,
+        typename                            type_tag_p              = nkr::none::type_t,
+        template <typename ...> typename    template_tag_p          = nkr::none::template_t
+    > class template_i_identity_template_basic_t
     {
     public:
         static_assert(default_arguments_p::Count() >= min_argument_count_p::Value() &&
@@ -57,6 +57,11 @@ namespace nkr { namespace interface {
         using template_ttg      = template_tag_p<parameters_p...>;
 
     public:
+        static constexpr nkr::positive::count_t Min_Argument_Count() noexcept;
+        static constexpr nkr::positive::count_t Max_Argument_Count() noexcept;
+        static constexpr nkr::positive::count_t Actual_Min_Argument_Count() noexcept;
+        static constexpr nkr::positive::count_t Actual_Max_Argument_Count() noexcept;
+
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
         template <template <typename ...> typename other_p>
@@ -64,7 +69,7 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i_identity_template_without_of_t(...) noexcept   = delete;
+        constexpr template_i_identity_template_basic_t(...) noexcept    = delete;
     };
 
     /*
@@ -73,7 +78,7 @@ namespace nkr { namespace interface {
         these aliases causes compiler error in all major compilers, so it's a no go.
     */
     template <template <typename ...> typename template_p>
-    class template_i_identity_template_with_of_t
+    class template_i_identity_template_of_t
     {
     public:
         template <typename inner_p>
@@ -84,26 +89,26 @@ namespace nkr { namespace interface {
 
     public:
         template <typename ...>
-        constexpr template_i_identity_template_with_of_t(...) noexcept   = delete;
+        constexpr template_i_identity_template_of_t(...) noexcept   = delete;
     };
 
     template <
         template <typename ...> typename    template_p,
-        typename                            type_tag_p,
-        template <typename ...> typename    template_tag_p,
         nkr::tuple::types_tr                default_arguments_p,
         typename                            min_argument_count_p    = nkr::constant::positive::count_t<default_arguments_p::Count()>,
-        typename                            max_argument_count_p    = min_argument_count_p
+        typename                            max_argument_count_p    = min_argument_count_p,
+        typename                            type_tag_p              = nkr::none::type_t,
+        template <typename ...> typename    template_tag_p          = nkr::none::template_t
     > class template_i_identity_template_t :
-        public template_i_identity_template_without_of_t<
+        public template_i_identity_template_basic_t<
             template_p,
-            type_tag_p,
-            template_tag_p,
             default_arguments_p,
             min_argument_count_p,
-            max_argument_count_p
+            max_argument_count_p,
+            type_tag_p,
+            template_tag_p
         >,
-        public template_i_identity_template_with_of_t<
+        public template_i_identity_template_of_t<
             template_p
         >
     {

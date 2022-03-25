@@ -29,6 +29,9 @@ namespace nkr { namespace interface {
         using actual_example_t  = actual_template_t<>;
 
     public:
+        static constexpr nkr::positive::count_t Actual_Min_Argument_Count() noexcept;
+        static constexpr nkr::positive::count_t Actual_Max_Argument_Count() noexcept;
+
         template <template <typename ...> typename other_p>
         static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
 

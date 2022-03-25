@@ -12,8 +12,13 @@
 
 namespace nkr { namespace none {
 
-    using   type_t      = void;
-    using   pointer_t   = std::nullptr_t;
+    using   type_t              = void;
+    template <typename ...>
+    using   template_t          = void;
+    template <template <typename ...> typename ...>
+    using   template_template_t = void;
+
+    using   pointer_t           = std::nullptr_t;
 
 }}
 
