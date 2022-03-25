@@ -45,6 +45,7 @@ namespace nkr { namespace interface {
         using example_t         = default_arguments_p::template into_t<template_p>;
 
         template <typename ...parameters_p>
+            requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
         using actual_template_t = template_t<parameters_p...>;
 
         template <typename parameters_p>
