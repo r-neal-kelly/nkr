@@ -29,6 +29,10 @@ namespace nkr { namespace interface {
         using actual_example_t  = actual_template_t<>;
 
     public:
+        template <template <typename ...> typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
+
+    public:
         template <typename ...>
         constexpr template_i_identity_template_tag_t(...) noexcept  = delete;
     };

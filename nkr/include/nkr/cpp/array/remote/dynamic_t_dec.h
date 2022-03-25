@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "nkr/built_in/forward_dec.h"
+#include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_identity_template_t_dec.h"
@@ -98,35 +99,25 @@ namespace nkr { namespace cpp { namespace array { namespace remote { namespace d
         requires nkr::cpp::array::remote::dynamic_ttr<template_p>
     class template_i_template_sp :
         public nkr::interface::template_i_identity_template_t<
-        nkr::cpp::array::remote::dynamic_t,
-        nkr::cpp::array::remote::dynamic_tg,
-        nkr::cpp::array::remote::dynamic_ttg,
-        nkr::cpp::array::remote::dynamic_t<nkr::positive::integer_t>,
-        1, 2>
+            nkr::cpp::array::remote::dynamic_t,
+            nkr::cpp::array::remote::dynamic_tg,
+            nkr::cpp::array::remote::dynamic_ttg,
+            nkr::tuple::types_t<nkr::positive::integer_t>,
+            nkr::constant::positive::count_t<1>,
+            nkr::constant::positive::count_t<2>
+        >
     {
     public:
-        template <typename inner_p>
-        using of_t          = template_p<inner_p>;
-
-        template <typename inner_p>
-        using actual_of_t   = of_t<inner_p>;
-
-    public:
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
     };
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::cpp::array::remote::dynamic_ttg>
     class template_i_tag_sp :
         public nkr::interface::template_i_identity_template_tag_t<
-        template_i_template_sp<nkr::cpp::array::remote::dynamic_t>>
+            template_i_template_sp<nkr::cpp::array::remote::dynamic_t>
+        >
     {
     public:
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
     };
 
 }}}}}
