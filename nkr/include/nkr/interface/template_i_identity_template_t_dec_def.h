@@ -29,7 +29,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -50,7 +50,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -71,7 +71,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -92,7 +92,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -113,7 +113,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -138,7 +138,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,

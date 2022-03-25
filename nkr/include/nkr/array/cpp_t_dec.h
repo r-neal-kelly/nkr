@@ -9,7 +9,7 @@
 #include "nkr/cpp_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_identity_tag_t.h"
+#include "nkr/interface/template_i_identity_tag_t_dec.h"
 #include "nkr/interface/template_i_identity_template_t_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 

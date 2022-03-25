@@ -6,13 +6,19 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-#include "nkr/tuple/types_t_dec.h"
+
+namespace nkr { namespace tuple {
+
+    template <typename ...types_p>
+    class types_t;
+
+}}
 
 namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p    = nkr::constant::positive::count_t<default_arguments_p::Count()>,
         typename                            max_argument_count_p    = min_argument_count_p,
         typename                            type_tag_p              = nkr::none::type_t,
@@ -28,7 +34,7 @@ namespace nkr { namespace interface {
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
         using template_t        = nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
 
-        template <nkr::tuple::types_tr parameters_p>
+        template <typename parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
         using of_tuple_t        = parameters_p::template into_t<template_p>;
 
@@ -41,7 +47,7 @@ namespace nkr { namespace interface {
         template <typename ...parameters_p>
         using actual_template_t = template_t<parameters_p...>;
 
-        template <nkr::tuple::types_tr parameters_p>
+        template <typename parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
         using actual_of_tuple_t = of_tuple_t<parameters_p>;
 
@@ -94,7 +100,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        nkr::tuple::types_tr                default_arguments_p,
+        typename                            default_arguments_p,
         typename                            min_argument_count_p    = nkr::constant::positive::count_t<default_arguments_p::Count()>,
         typename                            max_argument_count_p    = min_argument_count_p,
         typename                            type_tag_p              = nkr::none::type_t,

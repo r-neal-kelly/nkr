@@ -4,8 +4,8 @@
 
 #pragma once
 
+#include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface {
 
@@ -20,7 +20,7 @@ namespace nkr { namespace interface {
         template <typename inner_p>
         using actual_of_t       = actual_template_t<inner_p>;
 
-        template <nkr::tuple::types_tr parameters_p>
+        template <typename parameters_p>
         using actual_of_tuple_t = parameters_p::template into_t<actual_template_t>;
 
         template <typename ...parameters_p>

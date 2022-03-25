@@ -9,6 +9,39 @@
 
 namespace nkr {
 
+    TEST_SUITE("nkr::interface::template_i")
+    {
+        static_assert(nkr::generic::implementing::interface::template_ttr<nkr::concurrency::lockee_t>);
+        using template_i = nkr::interface::template_i<nkr::concurrency::lockee_t>;
+
+        static_assert(nkr::cpp::is_tr<template_i::template_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::of_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::of_tuple_t<nkr::tuple::types_t<int>>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::of_pack_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::example_t, nkr::concurrency::lockee_t<nkr::positive::integer_t>>);
+
+        static_assert(nkr::cpp::is_tr<template_i::actual_template_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::actual_of_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::actual_of_tuple_t<nkr::tuple::types_t<int>>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::actual_of_pack_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_i::actual_example_t, nkr::concurrency::lockee_t<nkr::positive::integer_t>>);
+
+        static_assert(nkr::generic::implementing::interface::template_ttr<nkr::concurrency::lockee_ttg>);
+        using template_tag_i = nkr::interface::template_i<nkr::concurrency::lockee_ttg>;
+
+        static_assert(nkr::cpp::is_tr<template_tag_i::template_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::of_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::of_tuple_t<nkr::tuple::types_t<int>>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::of_pack_t<int>, nkr::concurrency::lockee_t<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::example_t, nkr::concurrency::lockee_t<nkr::positive::integer_t>>);
+
+        static_assert(nkr::cpp::is_tr<template_tag_i::actual_template_t<int>, nkr::concurrency::lockee_ttg<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::actual_of_t<int>, nkr::concurrency::lockee_ttg<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::actual_of_tuple_t<nkr::tuple::types_t<int>>, nkr::concurrency::lockee_ttg<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::actual_of_pack_t<int>, nkr::concurrency::lockee_ttg<int>>);
+        static_assert(nkr::cpp::is_tr<template_tag_i::actual_example_t, nkr::concurrency::lockee_ttg<>>);
+    }
+
     nkr::concurrency::lockee_t<nkr::positive::integer_t> Shared_Positive_Integer()
     {
         static nkr::positive::integer_t positive_integer = 0;
