@@ -6,7 +6,6 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-#include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 
 namespace nkr {
@@ -20,7 +19,7 @@ namespace nkr {
 
     /// @copydoc _09f6d63e_f4b7_46e1_b499_fcfa5132d76f
     /// @ingroup _144407f2_f15c_4e13_9507_168de44b2b1f
-    template <nkr::generic::type_tr type_p, type_p value_p>
+    template <nkr::cpp::type_tr type_p, type_p value_p>
     class constant_t;
 
     /// @copydoc _7011a9e2_12cb_4fb5_b2b0_83080a091ab4
@@ -162,10 +161,8 @@ namespace nkr { namespace constant_t$ {
         };
 
     public:
-        template <nkr::generic::type_tr type_p, type_p value_p>
+        template <nkr::cpp::type_tr type_p, type_p value_p>
         using template_t                    = nkr::constant_t<type_p, value_p>;
-
-        using default_arguments_t           = nkr::none::type_t;
 
         template <typename inner_p>
             requires requires { { nkr::interface::none::value_i<inner_p>::Value() } -> nkr::cpp::is_any_tr<inner_p>; }
@@ -179,12 +176,12 @@ namespace nkr { namespace constant_t$ {
             requires (sizeof...(parameters_p) == 1)
         using of_pack_t                     = of_t<typename parameters_to_value_t<parameters_p...>::type_t>;
 
+        using example_arguments_t           = nkr::none::type_t;
+
         using example_t                     = template_t<nkr::boolean::cpp_t, false>;
 
         template <typename ...parameters_p>
         using actual_template_t             = nkr::constant_ttg<parameters_p...>;
-
-        using actual_default_arguments_t    = nkr::none::type_t;
 
         template <typename inner_p>
         using actual_of_t                   = actual_template_t<inner_p>;
@@ -194,6 +191,8 @@ namespace nkr { namespace constant_t$ {
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = actual_template_t<parameters_p...>;
+
+        using actual_example_arguments_t    = nkr::none::type_t;
 
         using actual_example_t              = actual_template_t<>;
 
@@ -238,7 +237,7 @@ namespace nkr { namespace interface {
 
 namespace nkr {
 
-    template <nkr::generic::type_tr type_p, type_p value_p>
+    template <nkr::cpp::type_tr type_p, type_p value_p>
     class constant_t
     {
     public:

@@ -249,26 +249,6 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
             f_p
         >;
 
-        using default_arguments_t           = nkr::tuple::types_t<
-            nkr::positive::integer_t,
-
-            nkr::constant::positive::size_t<3>,
-            nkr::constant::positive::size_t<1>,
-            nkr::constant::positive::size_t<1>,
-            nkr::constant::positive::size_t<3>,
-
-            nkr::constant_t<nkr::positive::integer_t, 0>,
-            nkr::constant::positive::size_t<3>,
-            nkr::constant_t<nkr::positive::integer_t, 0>,
-            nkr::constant::positive::size_t<3>,
-            nkr::constant_t<nkr::positive::integer_t, 0>,
-            nkr::constant::positive::size_t<3>,
-            nkr::constant_t<nkr::positive::integer_t, 0>,
-            nkr::constant::positive::size_t<3>,
-
-            nkr::constant_t<nkr::positive::integer_t, 0>
-        >;
-
         template <typename inner_p>
         using   of_t                        = template_t<
             inner_p,
@@ -296,6 +276,26 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
         template <typename ...parameters_p>
         using   of_pack_t                   = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
+
+        using   example_arguments_t         = nkr::tuple::types_t<
+            nkr::positive::integer_t,
+
+            nkr::constant::positive::size_t<3>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<1>,
+            nkr::constant::positive::size_t<3>,
+
+            nkr::constant_t<nkr::positive::integer_t, 0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant_t<nkr::positive::integer_t, 0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant_t<nkr::positive::integer_t, 0>,
+            nkr::constant::positive::size_t<3>,
+            nkr::constant_t<nkr::positive::integer_t, 0>,
+            nkr::constant::positive::size_t<3>,
+
+            nkr::constant_t<nkr::positive::integer_t, 0>
+        >;
 
         using   example_t                   = of_t<nkr::positive::integer_t>;
 
@@ -337,8 +337,6 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
             f_p
         >;
 
-        using actual_default_arguments_t    = default_arguments_t;
-
         template <typename inner_p>
         using actual_of_t                   = of_t<inner_p>;
 
@@ -347,6 +345,8 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = of_pack_t<parameters_p...>;
+
+        using actual_example_arguments_t    = example_arguments_t;
 
         using actual_example_t              = example_t;
 

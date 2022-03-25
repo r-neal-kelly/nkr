@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/built_in/forward_def.h"
+#include "nkr/constant/positive/count_t_def.h"
 #include "nkr/cpp_def.h"
 #include "nkr/cpp/concurrency/lock/perpetual/deep_t_def.h"
 #include "nkr/cpp/concurrency/locker/exclusive_t_def.h"

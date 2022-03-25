@@ -15,10 +15,6 @@ namespace nkr {
         using template_template_i = nkr::interface::template_i<nkr::cpp::list::remote::forward_t>;
 
         static_assert(nkr::cpp::is_tr<
-                      template_template_i::default_arguments_t,
-                      nkr::tuple::types_t<nkr::positive::integer_t>
-        >);
-        static_assert(nkr::cpp::is_tr<
                       template_template_i::template_t<nkr::positive::integer_t>,
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t>
         >);
@@ -43,14 +39,14 @@ namespace nkr {
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t, std::allocator<nkr::positive::integer_t>>
         >);
         static_assert(nkr::cpp::is_tr<
+                      template_template_i::example_arguments_t,
+                      nkr::tuple::types_t<nkr::positive::integer_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
                       template_template_i::example_t,
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t>
         >);
 
-        static_assert(nkr::cpp::is_tr<
-                      template_template_i::actual_default_arguments_t,
-                      nkr::tuple::types_t<nkr::positive::integer_t>
-        >);
         static_assert(nkr::cpp::is_tr<
                       template_template_i::actual_template_t<nkr::positive::integer_t>,
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t>
@@ -76,6 +72,10 @@ namespace nkr {
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t, std::allocator<nkr::positive::integer_t>>
         >);
         static_assert(nkr::cpp::is_tr<
+                      template_template_i::actual_example_arguments_t,
+                      nkr::tuple::types_t<nkr::positive::integer_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
                       template_template_i::actual_example_t,
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t>
         >);
@@ -83,10 +83,6 @@ namespace nkr {
         static_assert(nkr::generic::implementing::interface::template_ttr<nkr::cpp::list::remote::forward_ttg>);
         using template_tag_i = nkr::interface::template_i<nkr::cpp::list::remote::forward_ttg>;
 
-        static_assert(nkr::cpp::is_tr<
-                      template_tag_i::default_arguments_t,
-                      nkr::tuple::types_t<nkr::positive::integer_t>
-        >);
         static_assert(nkr::cpp::is_tr<
                       template_tag_i::template_t<nkr::positive::integer_t>,
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t>
@@ -112,14 +108,14 @@ namespace nkr {
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t, std::allocator<nkr::positive::integer_t>>
         >);
         static_assert(nkr::cpp::is_tr<
+                      template_tag_i::example_arguments_t,
+                      nkr::tuple::types_t<nkr::positive::integer_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
                       template_tag_i::example_t,
                       nkr::cpp::list::remote::forward_t<nkr::positive::integer_t>
         >);
 
-        static_assert(nkr::cpp::is_tr<
-                      template_tag_i::actual_default_arguments_t,
-                      nkr::tuple::types_t<>
-        >);
         static_assert(nkr::cpp::is_tr<
                       template_tag_i::actual_template_t<nkr::positive::integer_t>,
                       nkr::cpp::list::remote::forward_ttg<nkr::positive::integer_t>
@@ -143,6 +139,10 @@ namespace nkr {
         static_assert(nkr::cpp::is_tr<
                       template_tag_i::actual_of_pack_t<nkr::positive::integer_t, std::allocator<nkr::positive::integer_t>>,
                       nkr::cpp::list::remote::forward_ttg<nkr::positive::integer_t, std::allocator<nkr::positive::integer_t>>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      template_tag_i::actual_example_arguments_t,
+                      nkr::tuple::types_t<>
         >);
         static_assert(nkr::cpp::is_tr<
                       template_tag_i::actual_example_t,

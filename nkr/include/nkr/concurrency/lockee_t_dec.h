@@ -5,6 +5,7 @@
 #pragma once
 
 #include "nkr/built_in/forward_dec.h"
+#include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/cpp/concurrency/lock/perpetual/deep_t_dec.h"
 #include "nkr/cpp/concurrency/locker/exclusive_t_dec.h"
@@ -104,91 +105,27 @@ namespace nkr { namespace concurrency { namespace lockee_t$ {
 
     template <template <typename ...> typename template_p>
         requires nkr::concurrency::lockee_ttr<template_p>
-    class template_i_template_sp
+    class template_i_template_sp :
+        public nkr::interface::template_i_identity_template_t<
+            nkr::concurrency::lockee_t,
+            nkr::tuple::types_t<nkr::positive::integer_t>,
+            nkr::constant::positive::count_t<1>,
+            nkr::constant::positive::count_t<1>,
+            nkr::concurrency::lockee_tg,
+            nkr::concurrency::lockee_ttg
+        >
     {
     public:
-        template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
-        using template_t                    = nkr::concurrency::lockee_t<value_p>;
-
-        using default_arguments_t           = nkr::tuple::types_t<nkr::positive::integer_t>;
-
-        template <typename inner_p>
-        using of_t                          = template_t<inner_p>;
-
-        template <nkr::tuple::types_tr parameters_p>
-            requires (parameters_p::Count() == 1)
-        using of_tuple_t                    = parameters_p::template into_t<template_t>;
-
-        template <typename ...parameters_p>
-        using of_pack_t                     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
-
-        using example_t                     = of_t<nkr::positive::integer_t>;
-
-        template <tr<just_non_qualified_tg, t<nkr::generic::type_tg>> value_p>
-        using actual_template_t             = template_t<value_p>;
-
-        using actual_default_arguments_t    = default_arguments_t;
-
-        template <typename inner_p>
-        using actual_of_t                   = of_t<inner_p>;
-
-        template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t             = of_tuple_t<parameters_p>;
-
-        template <typename ...parameters_p>
-        using actual_of_pack_t              = of_pack_t<parameters_p...>;
-
-        using actual_example_t              = example_t;
-
-        using type_tg                       = nkr::concurrency::lockee_tg;
-
-        template <typename ...parameters_p>
-        using template_ttg                  = nkr::concurrency::lockee_ttg<parameters_p...>;
-
-    public:
-        static constexpr nkr::positive::count_t Min_Argument_Count() noexcept;
-        static constexpr nkr::positive::count_t Max_Argument_Count() noexcept;
-        static constexpr nkr::positive::count_t Actual_Min_Argument_Count() noexcept;
-        static constexpr nkr::positive::count_t Actual_Max_Argument_Count() noexcept;
-
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any() noexcept;
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
-
-    public:
-        template <typename ...>
-        constexpr template_i_template_sp(...) noexcept  = delete;
     };
 
     template <template <typename ...> typename template_p>
         requires nkr::cpp::is_any_ttr<template_p, nkr::concurrency::lockee_ttg>
     class template_i_tag_sp :
-        public template_i_template_sp<nkr::concurrency::lockee_t>
+        public nkr::interface::template_i_identity_tag_t<
+            template_i_template_sp<nkr::concurrency::lockee_t>
+        >
     {
     public:
-        template <typename ...parameters_p>
-        using actual_template_t             = nkr::concurrency::lockee_ttg<parameters_p...>;
-
-        using actual_default_arguments_t    = nkr::tuple::types_t<>;
-
-        template <typename inner_p>
-        using actual_of_t                   = actual_template_t<inner_p>;
-
-        template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t             = parameters_p::template into_t<actual_template_t>;
-
-        template <typename ...parameters_p>
-        using actual_of_pack_t              = actual_template_t<parameters_p...>;
-
-        using actual_example_t              = actual_template_t<>;
-
-    public:
-        static constexpr nkr::positive::count_t Actual_Min_Argument_Count() noexcept;
-        static constexpr nkr::positive::count_t Actual_Max_Argument_Count() noexcept;
-
-        template <template <typename ...> typename other_p>
-        static constexpr nkr::boolean::cpp_t    Is_Any_Actual() noexcept;
     };
 
 }}}

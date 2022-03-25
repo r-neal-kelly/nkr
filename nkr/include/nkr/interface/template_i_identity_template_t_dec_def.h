@@ -29,7 +29,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
+        nkr::tuple::types_tr                example_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -37,7 +37,7 @@ namespace nkr { namespace interface {
     > inline constexpr nkr::positive::count_t
         template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,
@@ -50,7 +50,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
+        nkr::tuple::types_tr                example_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -58,7 +58,7 @@ namespace nkr { namespace interface {
     > inline constexpr nkr::positive::count_t
         template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,
@@ -71,7 +71,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
+        nkr::tuple::types_tr                example_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -79,7 +79,7 @@ namespace nkr { namespace interface {
     > inline constexpr nkr::positive::count_t
         template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,
@@ -92,7 +92,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
+        nkr::tuple::types_tr                example_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -100,7 +100,7 @@ namespace nkr { namespace interface {
     > inline constexpr nkr::positive::count_t
         template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,
@@ -113,7 +113,7 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
+        nkr::tuple::types_tr                example_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -123,7 +123,7 @@ namespace nkr { namespace interface {
     > inline constexpr nkr::boolean::cpp_t
         template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,
@@ -131,14 +131,14 @@ namespace nkr { namespace interface {
         >::Is_Any()
         noexcept
     {
-        return default_arguments_p::template into_t<
+        return example_arguments_t::template into_t<
             template_i_identity_template_t$::is_any_tmpl<other_p, template_t>::template with_t
         >::value;
     }
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
+        nkr::tuple::types_tr                example_arguments_p,
         typename                            min_argument_count_p,
         typename                            max_argument_count_p,
         typename                            type_tag_p,
@@ -148,7 +148,7 @@ namespace nkr { namespace interface {
     > inline constexpr nkr::boolean::cpp_t
         template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,

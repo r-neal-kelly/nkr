@@ -6,37 +6,29 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
-
-namespace nkr { namespace tuple {
-
-    template <typename ...types_p>
-    class types_t;
-
-}}
+#include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
-        typename                            min_argument_count_p    = nkr::constant::positive::count_t<default_arguments_p::Count()>,
+        nkr::tuple::types_tr                example_arguments_p,
+        typename                            min_argument_count_p    = nkr::constant::positive::count_t<example_arguments_p::Count()>,
         typename                            max_argument_count_p    = min_argument_count_p,
         typename                            type_tag_p              = nkr::none::type_t,
         template <typename ...> typename    template_tag_p          = nkr::none::template_t
     > class template_i_identity_template_basic_t
     {
     public:
-        static_assert(default_arguments_p::Count() >= min_argument_count_p::Value() &&
-                      default_arguments_p::Count() <= max_argument_count_p::Value());
+        static_assert(example_arguments_p::Count() >= min_argument_count_p::Value() &&
+                      example_arguments_p::Count() <= max_argument_count_p::Value());
 
     public:
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
         using template_t                    = nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
 
-        using default_arguments_t           = default_arguments_p;
-
-        template <typename parameters_p>
+        template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
         using of_tuple_t                    = parameters_p::template into_t<template_p>;
 
@@ -44,21 +36,23 @@ namespace nkr { namespace interface {
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
         using of_pack_t                     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
-        using example_t                     = default_arguments_p::template into_t<template_p>;
+        using example_arguments_t           = example_arguments_p;
+
+        using example_t                     = example_arguments_p::template into_t<template_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
         using actual_template_t             = template_t<parameters_p...>;
 
-        using actual_default_arguments_t    = default_arguments_t;
-
-        template <typename parameters_p>
+        template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
         using actual_of_tuple_t             = of_tuple_t<parameters_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
         using actual_of_pack_t              = of_pack_t<parameters_p...>;
+
+        using actual_example_arguments_t    = example_arguments_t;
 
         using actual_example_t              = example_t;
 
@@ -105,15 +99,15 @@ namespace nkr { namespace interface {
 
     template <
         template <typename ...> typename    template_p,
-        typename                            default_arguments_p,
-        typename                            min_argument_count_p    = nkr::constant::positive::count_t<default_arguments_p::Count()>,
+        nkr::tuple::types_tr                example_arguments_p,
+        typename                            min_argument_count_p    = nkr::constant::positive::count_t<example_arguments_p::Count()>,
         typename                            max_argument_count_p    = min_argument_count_p,
         typename                            type_tag_p              = nkr::none::type_t,
         template <typename ...> typename    template_tag_p          = nkr::none::template_t
     > class template_i_identity_template_t :
         public template_i_identity_template_basic_t<
             template_p,
-            default_arguments_p,
+            example_arguments_p,
             min_argument_count_p,
             max_argument_count_p,
             type_tag_p,

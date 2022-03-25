@@ -10,8 +10,6 @@
 #include "nkr/constant/positive/index_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/interface/forward_dec.h"
-#include "nkr/interface/template_i_identity_tag_t_dec.h"
-#include "nkr/interface/template_i_identity_template_t_dec.h"
 
 namespace nkr { namespace tuple { namespace types_t$ {
 
@@ -110,8 +108,6 @@ namespace nkr { namespace tuple { namespace types_t$ {
         template <typename ...types_p>
         using template_t                    = nkr::tuple::types_t<types_p...>;
 
-        using default_arguments_t           = nkr::tuple::types_t<>;
-
         template <typename inner_p>
         using of_t                          = template_t<inner_p>;
 
@@ -122,12 +118,12 @@ namespace nkr { namespace tuple { namespace types_t$ {
         template <typename ...parameters_p>
         using of_pack_t                     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
 
+        using example_arguments_t           = nkr::tuple::types_t<>;
+
         using example_t                     = of_t<nkr::tuple::types_t$::dummy_t>;
 
         template <typename ...types_p>
         using actual_template_t             = template_t<types_p...>;
-
-        using actual_default_arguments_t    = default_arguments_t;
 
         template <typename inner_p>
         using actual_of_t                   = of_t<inner_p>;
@@ -137,6 +133,8 @@ namespace nkr { namespace tuple { namespace types_t$ {
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = of_pack_t<parameters_p...>;
+
+        using actual_example_arguments_t    = example_arguments_t;
 
         using actual_example_t              = example_t;
 
@@ -170,8 +168,6 @@ namespace nkr { namespace tuple { namespace types_t$ {
         template <typename ...parameters_p>
         using actual_template_t             = nkr::tuple::types_ttg<parameters_p...>;
 
-        using actual_default_arguments_t    = nkr::tuple::types_t<>;
-
         template <typename inner_p>
         using actual_of_t                   = actual_template_t<inner_p>;
 
@@ -180,6 +176,8 @@ namespace nkr { namespace tuple { namespace types_t$ {
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = actual_template_t<parameters_p...>;
+
+        using actual_example_arguments_t    = nkr::tuple::types_t<>;
 
         using actual_example_t              = actual_template_t<>;
 
