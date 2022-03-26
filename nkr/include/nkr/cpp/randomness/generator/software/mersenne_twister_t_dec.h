@@ -297,9 +297,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
             nkr::constant_t<nkr::positive::integer_t, 0>
         >;
 
-        // causes clang-cl to crash
         using   example_t                   = typename example_arguments_t::template into_t<template_t>;
-        //using   example_t                   = nkr::none::type_t;
 
         template <
             typename                            result_p,
