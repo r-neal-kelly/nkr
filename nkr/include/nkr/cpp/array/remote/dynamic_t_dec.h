@@ -42,7 +42,7 @@ namespace nkr { namespace cpp { namespace array { namespace remote { namespace d
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::value_type;
+        using of_t      = typename type_t::value_type;
 
     public:
         template <typename other_p>

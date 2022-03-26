@@ -45,7 +45,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
     };
 
     template <typename type_p>
-    using inner_t   = inner_tmpl<type_p>::type_t;
+    using inner_t   = typename inner_tmpl<type_p>::type_t;
 
 }}}}}
 
@@ -137,7 +137,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
             nkr::cpp::concurrency::locker::scoped_t,
             nkr::tuple::types_t<nkr::cpp::concurrency::lock::perpetual::unary_t>,
             nkr::constant::positive::count_t<1>,
-            nkr::constant::positive::count_t<~0>,
+            nkr::constant::positive::count_t<~0ull>,
             nkr::cpp::concurrency::locker::scoped_tg,
             nkr::cpp::concurrency::locker::scoped_ttg
         >

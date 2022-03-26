@@ -198,7 +198,7 @@ namespace nkr { namespace cpp {
     using   pointer_unit_t      = std::remove_pointer_t<type_p>;
 
     template <array_tr type_p>
-    using   array_unit_t        = array_tmpl<type_p>::unit_t;
+    using   array_unit_t        = typename array_tmpl<type_p>::unit_t;
 
     template <reference_tr type_p>
     using   reference_value_t   = std::remove_reference_t<type_p>;
@@ -314,27 +314,27 @@ namespace nkr { namespace cpp {
 
     template <typename type_p>
     concept just_non_qualified_tr =
-        !reference_tr<type_p> && std::same_as<type_p, std::remove_cv_t<type_p>> ||
-        lvalue_reference_tr<type_p> && std::same_as<type_p, std::remove_cvref_t<type_p>&> ||
-        rvalue_reference_tr<type_p> && std::same_as<type_p, std::remove_cvref_t<type_p>&&>;
+        (!reference_tr<type_p> && std::same_as<type_p, std::remove_cv_t<type_p>>) ||
+        (lvalue_reference_tr<type_p> && std::same_as<type_p, std::remove_cvref_t<type_p>&>) ||
+        (rvalue_reference_tr<type_p> && std::same_as<type_p, std::remove_cvref_t<type_p>&&>);
 
     template <typename type_p>
     concept just_const_tr =
-        !reference_tr<type_p> && std::same_as<type_p, const std::remove_cv_t<type_p>> ||
-        lvalue_reference_tr<type_p> && std::same_as<type_p, const std::remove_cvref_t<type_p>&> ||
-        rvalue_reference_tr<type_p> && std::same_as<type_p, const std::remove_cvref_t<type_p>&&>;
+        (!reference_tr<type_p> && std::same_as<type_p, const std::remove_cv_t<type_p>>) ||
+        (lvalue_reference_tr<type_p> && std::same_as<type_p, const std::remove_cvref_t<type_p>&>) ||
+        (rvalue_reference_tr<type_p> && std::same_as<type_p, const std::remove_cvref_t<type_p>&&>);
 
     template <typename type_p>
     concept just_volatile_tr =
-        !reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cv_t<type_p>> ||
-        lvalue_reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cvref_t<type_p>&> ||
-        rvalue_reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cvref_t<type_p>&&>;
+        (!reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cv_t<type_p>>) ||
+        (lvalue_reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cvref_t<type_p>&>) ||
+        (rvalue_reference_tr<type_p> && std::same_as<type_p, volatile std::remove_cvref_t<type_p>&&>);
 
     template <typename type_p>
     concept just_const_volatile_tr =
-        !reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cv_t<type_p>> ||
-        lvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&> ||
-        rvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&&>;
+        (!reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cv_t<type_p>>) ||
+        (lvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&>) ||
+        (rvalue_reference_tr<type_p> && std::same_as<type_p, const volatile std::remove_cvref_t<type_p>&&>);
 
     template <typename type_a_p, typename type_b_p>
     concept is_any_tr =
@@ -451,7 +451,7 @@ namespace nkr { namespace cpp {
     };
 
     template <typename subject_p, typename object_p>
-    using same_qualification_as_t   = same_qualification_as_tmpl<subject_p, object_p>::type_t;
+    using same_qualification_as_t   = typename same_qualification_as_tmpl<subject_p, object_p>::type_t;
 
 }}
 
@@ -489,7 +489,7 @@ namespace nkr { namespace cpp {
     };
 
     template <typename child_p, typename parent_p>
-    using access_qualification_of_t = access_qualification_of_tmpl<child_p, parent_p>::type_t;
+    using access_qualification_of_t = typename access_qualification_of_tmpl<child_p, parent_p>::type_t;
 
 }}
 
@@ -598,7 +598,7 @@ namespace nkr { namespace cpp {
     };
 
     template <integer_tr integer_p>
-    using relative_integer_t = relative_integer_tmpl<integer_p>::type_t;
+    using relative_integer_t = typename relative_integer_tmpl<integer_p>::type_t;
 
 }}
 

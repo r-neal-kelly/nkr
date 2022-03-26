@@ -38,7 +38,7 @@ namespace nkr { namespace interface {
         using actual_of_t                   = actual_template_t<inner_p>;
 
         template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t             = parameters_p::template into_t<actual_template_t>;
+        using actual_of_tuple_t             = typename parameters_p::template into_t<actual_template_t>;
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = actual_template_t<parameters_p...>;

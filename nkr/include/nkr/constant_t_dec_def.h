@@ -139,7 +139,7 @@ namespace nkr { namespace constant_t$ {
 namespace nkr {
 
     template <nkr::cpp::type_tr type_p, type_p value_p>
-    inline constexpr constant_t<type_p, value_p>::value_t
+    inline constexpr typename constant_t<type_p, value_p>::value_t
         constant_t<type_p, value_p>::Value()
         noexcept
     {
@@ -186,7 +186,7 @@ namespace nkr {
     }
 
     template <nkr::cpp::type_tr type_p, type_p value_p>
-    inline constexpr constant_t<type_p, value_p>::value_t
+    inline constexpr typename constant_t<type_p, value_p>::value_t
         constant_t<type_p, value_p>::operator ()()
         const noexcept
     {
@@ -194,7 +194,7 @@ namespace nkr {
     }
 
     template <nkr::cpp::type_tr type_p, type_p value_p>
-    inline constexpr constant_t<type_p, value_p>::value_t
+    inline constexpr typename constant_t<type_p, value_p>::value_t
         constant_t<type_p, value_p>::operator ()()
         const volatile noexcept
     {

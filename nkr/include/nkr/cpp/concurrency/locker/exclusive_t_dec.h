@@ -42,7 +42,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::mutex_type;
+        using of_t      = typename type_t::mutex_type;
 
     public:
         template <typename other_p>

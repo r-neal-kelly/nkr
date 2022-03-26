@@ -26,11 +26,11 @@ namespace nkr { namespace interface {
     public:
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
-        using template_t                    = nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
+        using template_t                    = typename nkr::tuple::types_t<parameters_p...>::template into_t<template_p>;
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() >= min_argument_count_p::Value() && parameters_p::Count() <= max_argument_count_p::Value())
-        using of_tuple_t                    = parameters_p::template into_t<template_p>;
+        using of_tuple_t                    = typename parameters_p::template into_t<template_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())
@@ -38,7 +38,7 @@ namespace nkr { namespace interface {
 
         using example_arguments_t           = example_arguments_p;
 
-        using example_t                     = example_arguments_p::template into_t<template_p>;
+        using example_t                     = typename example_arguments_p::template into_t<template_p>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) >= min_argument_count_p::Value() && sizeof...(parameters_p) <= max_argument_count_p::Value())

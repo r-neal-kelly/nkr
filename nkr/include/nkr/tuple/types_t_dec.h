@@ -47,7 +47,7 @@ namespace nkr { namespace tuple { namespace types_t$ {
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::head_t;
+        using of_t      = typename type_t::head_t;
 
     public:
         template <typename other_p>
@@ -113,7 +113,7 @@ namespace nkr { namespace tuple { namespace types_t$ {
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() >= 0)
-        using of_tuple_t                    = parameters_p::template into_t<template_t>;
+        using of_tuple_t                    = typename parameters_p::template into_t<template_t>;
 
         template <typename ...parameters_p>
         using of_pack_t                     = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;
@@ -172,7 +172,7 @@ namespace nkr { namespace tuple { namespace types_t$ {
         using actual_of_t                   = actual_template_t<inner_p>;
 
         template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t             = parameters_p::template into_t<actual_template_t>;
+        using actual_of_tuple_t             = typename parameters_p::template into_t<actual_template_t>;
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = actual_template_t<parameters_p...>;
@@ -252,7 +252,7 @@ namespace nkr { namespace tuple { namespace types_t$ {
     class at_tmpl
     {
     public:
-        using type_t    = at_tmpl<tuple_p, index_p - 1>::type_t::tail_t;
+        using type_t    = typename at_tmpl<tuple_p, index_p - 1>::type_t::tail_t;
     };
 
     template <typename tuple_p, nkr::positive::count_t count_p>
@@ -270,10 +270,10 @@ namespace nkr { namespace tuple { namespace types_t$ {
     class take_tmpl<tuple_p, count_p>
     {
     private:
-        using front_t   = take_tmpl<tuple_p, count_p - 1>::type_t;
+        using front_t   = typename take_tmpl<tuple_p, count_p - 1>::type_t;
 
     public:
-        using type_t    = front_t::template push_back_t<
+        using type_t    = typename front_t::template push_back_t<
             typename tuple_p::template at_t<nkr::constant::positive::index_t<count_p - 1>>::head_t
         >;
     };
@@ -304,10 +304,10 @@ namespace nkr { namespace tuple {
         template <template <typename ...> typename template_p, typename ...front_types_p>
         using into_back_t   = template_p<front_types_p...>;
 
-        template <typename ...types_p>
-        using push_front_t  = types_t<types_p...>;
-        template <typename ...types_p>
-        using push_back_t   = types_t<types_p...>;
+        template <typename ...types_to_push_p>
+        using push_front_t  = types_t<types_to_push_p...>;
+        template <typename ...types_to_push_p>
+        using push_back_t   = types_t<types_to_push_p...>;
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
@@ -338,11 +338,11 @@ namespace nkr { namespace tuple {
 
         template <nkr::constant::positive::index_tr index_p>
             requires (index_p::Value() <= 1 + sizeof...(tail_p))
-        using at_t          = types_t$::at_tmpl<types_t, index_p::Value()>::type_t;
+        using at_t          = typename types_t$::at_tmpl<types_t, index_p::Value()>::type_t;
 
         template <nkr::constant::positive::count_tr count_p>
             requires (count_p::Value() <= 1 + sizeof...(tail_p))
-        using take_t        = types_t$::take_tmpl<types_t, count_p::Value()>::type_t;
+        using take_t        = typename types_t$::take_tmpl<types_t, count_p::Value()>::type_t;
 
         template <template <typename ...> typename template_p>
         using into_t        = template_p<head_p, tail_p...>;
@@ -351,10 +351,10 @@ namespace nkr { namespace tuple {
         template <template <typename ...> typename template_p, typename ...front_types_p>
         using into_back_t   = template_p<front_types_p..., head_p, tail_p...>;
 
-        template <typename ...types_p>
-        using push_front_t  = types_t<types_p..., head_p, tail_p...>;
-        template <typename ...types_p>
-        using push_back_t   = types_t<head_p, tail_p..., types_p...>;
+        template <typename ...types_to_push_p>
+        using push_front_t  = types_t<types_to_push_p..., head_p, tail_p...>;
+        template <typename ...types_to_push_p>
+        using push_back_t   = types_t<head_p, tail_p..., types_to_push_p...>;
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;

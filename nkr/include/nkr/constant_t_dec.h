@@ -79,8 +79,8 @@ namespace nkr { namespace constant_t$ {
     public:
         /// @name aliases
         /// @{
-        using type_t    = type_p;           ///< @copydoc _fac7a231_ac0a_438e_87e3_e3e442ccca46
-        using of_t      = type_t::value_t;  ///< @copydoc _e41a23cd_be1c_454b_ae8a_e3cbf986c095
+        using type_t    = type_p;                   ///< @copydoc _fac7a231_ac0a_438e_87e3_e3e442ccca46
+        using of_t      = typename type_t::value_t; ///< @copydoc _e41a23cd_be1c_454b_ae8a_e3cbf986c095
         /// @}
 
     public:
@@ -170,7 +170,7 @@ namespace nkr { namespace constant_t$ {
 
         template <typename parameters_p>
             requires (parameters_p::Count() == 1)
-        using of_tuple_t                    = parameters_p::template into_t<of_t>;
+        using of_tuple_t                    = typename parameters_p::template into_t<of_t>;
 
         template <typename ...parameters_p>
             requires (sizeof...(parameters_p) == 1)
@@ -187,7 +187,7 @@ namespace nkr { namespace constant_t$ {
         using actual_of_t                   = actual_template_t<inner_p>;
 
         template <typename parameters_p>
-        using actual_of_tuple_t             = parameters_p::template into_t<actual_template_t>;
+        using actual_of_tuple_t             = typename parameters_p::template into_t<actual_template_t>;
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = actual_template_t<parameters_p...>;

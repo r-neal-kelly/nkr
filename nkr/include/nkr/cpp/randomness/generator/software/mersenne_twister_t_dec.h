@@ -153,7 +153,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::result_type;
+        using of_t      = typename type_t::result_type;
 
     public:
         template <typename other_p>
@@ -272,7 +272,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
 
         template <nkr::tuple::types_tr parameters_p>
             requires (parameters_p::Count() == 14)
-        using   of_tuple_t                  = parameters_p::template into_t<template_t>;
+        using   of_tuple_t                  = typename parameters_p::template into_t<template_t>;
 
         template <typename ...parameters_p>
         using   of_pack_t                   = of_tuple_t<nkr::tuple::types_t<parameters_p...>>;

@@ -16,20 +16,20 @@ namespace nkr { namespace interface {
     {
     public:
         template <typename ...parameters_p>
-        using actual_template_t             = template_specialization_p::template template_ttg<parameters_p...>;
+        using actual_template_t             = typename template_specialization_p::template template_ttg<parameters_p...>;
 
         template <typename inner_p>
         using actual_of_t                   = actual_template_t<inner_p>;
 
         template <nkr::tuple::types_tr parameters_p>
-        using actual_of_tuple_t             = parameters_p::template into_t<actual_template_t>;
+        using actual_of_tuple_t             = typename parameters_p::template into_t<actual_template_t>;
 
         template <typename ...parameters_p>
         using actual_of_pack_t              = actual_template_t<parameters_p...>;
 
         using actual_example_arguments_t    = nkr::tuple::types_t<>;
 
-        using actual_example_t              = actual_example_arguments_t::template into_t<actual_template_t>;
+        using actual_example_t              = typename actual_example_arguments_t::template into_t<actual_template_t>;
 
     public:
         static constexpr nkr::positive::count_t Actual_Min_Argument_Count() noexcept;
