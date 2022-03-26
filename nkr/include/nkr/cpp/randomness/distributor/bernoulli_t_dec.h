@@ -28,7 +28,7 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::result_type;
+        using of_t      = typename type_t::result_type;
 
     public:
         template <typename other_p>

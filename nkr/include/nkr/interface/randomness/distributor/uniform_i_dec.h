@@ -121,7 +121,7 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::type_t;
+        using of_t      = typename type_t::type_t;
 
     public:
         template <typename other_p>

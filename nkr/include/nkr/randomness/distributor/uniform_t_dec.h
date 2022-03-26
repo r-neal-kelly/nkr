@@ -49,7 +49,7 @@ namespace nkr { namespace randomness { namespace distributor { namespace uniform
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::value_t;
+        using of_t      = typename type_t::value_t;
 
     public:
         template <typename other_p>
@@ -156,7 +156,7 @@ namespace nkr { namespace randomness { namespace distributor {
     {
     public:
         using interface_t   = nkr::interface::randomness::distributor::uniform_i<value_p>;
-        using value_t       = interface_t::value_t;
+        using value_t       = typename interface_t::value_t;
 
     public:
         static constexpr value_t    Default_Min() noexcept;

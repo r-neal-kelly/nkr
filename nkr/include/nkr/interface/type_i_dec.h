@@ -108,25 +108,25 @@ namespace nkr { namespace interface { namespace type_i$ {
     class default_inner_tmpl<type_p>
     {
     public:
-        using type_t    = type_p::type_t;
+        using type_t    = typename type_p::type_t;
     };
 
     template <just_inner_value_tr type_p>
     class default_inner_tmpl<type_p>
     {
     public:
-        using type_t    = type_p::value_t;
+        using type_t    = typename type_p::value_t;
     };
 
     template <just_inner_unit_tr type_p>
     class default_inner_tmpl<type_p>
     {
     public:
-        using type_t    = type_p::unit_t;
+        using type_t    = typename type_p::unit_t;
     };
 
     template <typename type_p>
-    using default_inner_t   = default_inner_tmpl<type_p>::type_t;
+    using default_inner_t   = typename default_inner_tmpl<type_p>::type_t;
 
 }}}
 
@@ -137,7 +137,7 @@ namespace nkr { namespace interface { namespace type_i$ {
     {
     public:
         using type_t    = type_p;
-        using of_t      = type_t::type_t;
+        using of_t      = typename type_t::type_t;
 
     public:
         template <typename other_p>

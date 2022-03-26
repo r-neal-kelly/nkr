@@ -59,7 +59,7 @@ namespace nkr { namespace randomness { namespace distributor { namespace uniform
 namespace nkr { namespace randomness { namespace distributor {
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
-    inline constexpr uniform_t<value_p>::value_t
+    inline constexpr typename uniform_t<value_p>::value_t
         uniform_t<value_p>::Default_Min()
         noexcept
     {
@@ -67,7 +67,7 @@ namespace nkr { namespace randomness { namespace distributor {
     }
 
     template <nkr::generic::implementing::interface::randomness::distributor::uniform_tr value_p>
-    inline constexpr uniform_t<value_p>::value_t
+    inline constexpr typename uniform_t<value_p>::value_t
         uniform_t<value_p>::Default_Max()
         noexcept
     {

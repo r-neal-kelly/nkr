@@ -240,11 +240,11 @@ namespace nkr {
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
     using   to_ts =
-        nkr::tr$::to_ts_sp<operator_p, type_p>::type_t;
+        typename nkr::tr$::to_ts_sp<operator_p, type_p>::type_t;
 
     template <nkr::generic::tag::logic_gate_tr operator_p, typename type_p>
     using   to_tts =
-        nkr::tr$::to_tts_sp<operator_p, type_p>::type_t;
+        typename nkr::tr$::to_tts_sp<operator_p, type_p>::type_t;
 
 }
 

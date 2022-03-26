@@ -215,8 +215,8 @@ namespace nkr { namespace cpp {
     concept to_tr =
         (std::is_rvalue_reference<from_p>::value &&
          !std::is_const<std::remove_reference_t<from_p>>::value &&
-         (std::is_volatile<std::remove_reference_t<from_p>>::value &&
-          (requires(volatile std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { std::remove_cv_t<to_p>(std::move(from)); }) ||
+         ((std::is_volatile<std::remove_reference_t<from_p>>::value &&
+           (requires(volatile std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { std::remove_cv_t<to_p>(std::move(from)); })) ||
           (requires(std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { std::remove_cv_t<to_p>(std::move(from)); }))) ||
         (std::is_lvalue_reference<from_p>::value &&
          (requires(std::add_lvalue_reference_t<std::remove_reference_t<from_p>> from) { std::remove_cv_t<to_p>(from); })) ||
