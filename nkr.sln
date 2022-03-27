@@ -69,6 +69,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_pointer", "nkr_tes
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nkr_test_docs", "nkr_tests\docs\docs.vcxproj", "{B0EC8394-6657-4016-BFEB-97D9914F5865}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{346A6396-2ADA-45BC-BB6D-BAFBA0E0BCAF}"
+	ProjectSection(SolutionItems) = preProject
+		CMakeLists.txt = CMakeLists.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

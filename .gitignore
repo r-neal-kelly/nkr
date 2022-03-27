@@ -1,6 +1,7 @@
 /.git
 /.vs
 /.VSCodeCounter
+/bin
 /doctest/.VSCodeCounter
 /doctest/Win32
 /doctest/x64
