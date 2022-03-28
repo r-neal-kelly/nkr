@@ -4,13 +4,13 @@ project(nkr
         LANGUAGES CXX)
 
 add_library(nkr STATIC
-            "src/z_allocator_heap_t.cpp"
-            "src/z_allocator_heap_zeros_t.cpp"
-            "src/z_pointer_t.cpp"
-            "src/z_utils.cpp")
+            "${NKR_NKR_SOURCE_DIR}/z_allocator_heap_t.cpp"
+            "${NKR_NKR_SOURCE_DIR}/z_allocator_heap_zeros_t.cpp"
+            "${NKR_NKR_SOURCE_DIR}/z_pointer_t.cpp"
+            "${NKR_NKR_SOURCE_DIR}/z_utils.cpp")
 
 target_include_directories(nkr
-                           PUBLIC "include")
+                           PUBLIC "${NKR_NKR_INCLUDE_DIR}")
 
 target_compile_features(nkr
                         PUBLIC cxx_std_20)
