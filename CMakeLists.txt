@@ -32,6 +32,7 @@ add_subdirectory("./nkr")
 #if (BUILD_TESTING)
     add_subdirectory("./doctest")
     add_subdirectory("./nkr_tests/boolean")
+    add_subdirectory("./nkr_tests/generic")
 #endif()
 
 # Just some helpful console ouput
