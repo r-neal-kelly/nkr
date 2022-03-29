@@ -211,36 +211,36 @@ Parameter #1:
 {
     for (let /* string_t */ test_name of test_names) {
         const /* string_t */ full_test_name = `nkr_test_${test_name}`;
-        let /* string_t */ data = ``;
+        let /* string_t */ data =
+        `# ${full_test_name}
 
-        data += `# ${full_test_name}\n\n`;
+        cmake_minimum_required(VERSION 3.23)
 
-        data += `cmake_minimum_required(VERSION 3.23)\n\n`;
+        project(${full_test_name}
+                LANGUAGES CXX)
 
-        data += `project(${full_test_name}\n`;
-        data += `        LANGUAGES CXX)\n\n`;
+        include("CMakeLists_Funcs.cmake")
 
-        data += `include("CMakeLists_Funcs.cmake")\n\n`;
+        get_include_files(THIS_INCLUDE_FILES)
+        get_source_files(THIS_SOURCE_FILES)
 
-        data += `get_include_files(THIS_INCLUDE_FILES)\n`;
-        data += `get_source_files(THIS_SOURCE_FILES)\n\n`;
+        add_executable(${full_test_name})
+        target_sources(${full_test_name} PUBLIC \${THIS_INCLUDE_FILES})
+        target_sources(${full_test_name} PRIVATE \${THIS_SOURCE_FILES})
 
-        data += `add_executable(${full_test_name})\n`;
-        data += `target_sources(${full_test_name} PUBLIC \${THIS_INCLUDE_FILES})\n`;
-        data += `target_sources(${full_test_name} PRIVATE \${THIS_SOURCE_FILES})\n\n`;
-        
-        data += `target_include_directories(${full_test_name}\n`;
-        data += `                           PRIVATE "\${NKR_NKR_INCLUDE_DIR}"\n`;
-        data += `                           PRIVATE "\${NKR_DOCTEST_INCLUDE_DIR}"\n`;
-        data += `                           PRIVATE "include")\n\n`;
+        target_include_directories(${full_test_name}
+                                   PRIVATE "\${NKR_NKR_INCLUDE_DIR}"
+                                   PRIVATE "\${NKR_DOCTEST_INCLUDE_DIR}"
+                                   PRIVATE "include")
 
-        data += `target_link_libraries(${full_test_name}\n`;
-        data += `                      PRIVATE nkr\n`;
-        data += `                      PRIVATE doctest)\n\n`;
+        target_link_libraries(${full_test_name}
+                              PRIVATE nkr
+                              PRIVATE doctest)
 
-        data += `source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"\n`;
-        data += `             PREFIX "File Tree"\n`;
-        data += `             FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})\n`;
+        source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"
+                     PREFIX "File Tree"
+                     FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})
+        `.replace(/^        /gm, "");
 
         const /* string_t */ data_path = `${tests_path}/${test_name}/${lists_file_name}`;
         try {
