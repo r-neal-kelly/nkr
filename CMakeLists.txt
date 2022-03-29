@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.23)
 
+project(nkr
+        LANGUAGES CXX)
+
+include(CheckCXXCompilerFlag)
+
 # Commonly needed directories
 set(NKR_BUILD_DIR "${CMAKE_BINARY_DIR}")
 set(NKR_BUILD_LIB_DIR "${NKR_BUILD_DIR}/lib")
@@ -17,22 +22,50 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${NKR_BUILD_LIB_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${NKR_BUILD_BIN_DIR}")
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-project(nkr
-        LANGUAGES CXX)
+# We need to check if certain flags are available and set them if so
+unset(NKR_COMPILER_HAS_STD_CPP_LATEST CACHE)
+check_cxx_compiler_flag("/std:c++latest" NKR_COMPILER_HAS_STD_CPP_LATEST)
+if (NKR_COMPILER_HAS_STD_CPP_LATEST)
+    add_compile_options("/std:c++latest")
+endif()
 
+unset(NKR_COMPILER_HAS_STD_C17 CACHE)
+check_cxx_compiler_flag("/std:c17" NKR_COMPILER_HAS_STD_C17)
+if (NKR_COMPILER_HAS_STD_C17)
+    add_compile_options("/std:c17")
+endif()
 
+unset(NKR_COMPILER_HAS_W3 CACHE)
+check_cxx_compiler_flag("/W3" NKR_COMPILER_HAS_W3)
+if (NKR_COMPILER_HAS_W3)
+    add_compile_options("/W3")
+endif()
+
+unset(NKR_COMPILER_HAS_VOLATILE_ISO CACHE)
+check_cxx_compiler_flag("/volatile:iso" NKR_COMPILER_HAS_VOLATILE_ISO)
+if (NKR_COMPILER_HAS_VOLATILE_ISO)
+    add_compile_options("/volatile:iso")
+endif()
+
+unset(NKR_COMPILER_HAS_BIGOBJ CACHE)
+check_cxx_compiler_flag("/bigobj" NKR_COMPILER_HAS_BIGOBJ)
+if (NKR_COMPILER_HAS_BIGOBJ)
+    add_compile_options("/bigobj")
+endif()
 
 add_subdirectory("./nkr")
 
-#if (BUILD_TESTING)
+if (DEFINED ENV{NKR_GENERATE_TESTS})
     add_subdirectory("./doctest")
     add_subdirectory("./nkr_tests/boolean")
     add_subdirectory("./nkr_tests/generic")
-#endif()
+endif()
 
 # Just some helpful console ouput
-message("-- Will build from source at: ${NKR_DIR}")
-message("-- Will produce archives at: ${NKR_BUILD_LIB_DIR}")
-message("-- Will produce executables at: ${NKR_BUILD_BIN_DIR}")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    message("---- Configuring for MSVC...")
+endif()
+message("---- Generating configuration from source at: ${NKR_DIR}")
+message("---- Archives will be available at: ${NKR_BUILD_LIB_DIR}")
+message("---- Executables will be available at: ${NKR_BUILD_BIN_DIR}")

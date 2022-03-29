@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
 
-include("CMakeLists_Sources.cmake")
-
 project(nkr_test_boolean
         LANGUAGES CXX)
+
+include("CMakeLists_Sources.cmake")
 
 add_executable(nkr_test_boolean)
 
@@ -17,10 +17,3 @@ target_include_directories(nkr_test_boolean
 target_link_libraries(nkr_test_boolean
                       PRIVATE nkr
                       PRIVATE doctest)
-
-# target_compile_options for compiler options (we'll want to use private for our exe and
-# public for the libs. public adds it to INTERFACE usage req, making it added to any exec, I think)
-
-# target_compile_definitions for preprocessor defs
-
-# add_compile_options for everything in this directory and below

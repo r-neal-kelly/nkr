@@ -1,7 +1,7 @@
 /.git
 /.vs
 /.VSCodeCounter
-/build*
+/build
 /doctest/.VSCodeCounter
 /doctest/Win32
 /doctest/x64

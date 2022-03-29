@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
 
-include("CMakeLists_Sources.cmake")
-
 project(nkr_test_generic
         LANGUAGES CXX)
+
+include("CMakeLists_Sources.cmake")
 
 add_executable(nkr_test_generic)
 

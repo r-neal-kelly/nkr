@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
 
-include("CMakeLists_Sources.cmake")
-
 project(doctest
         LANGUAGES CXX)
+
+include("CMakeLists_Sources.cmake")
 
 add_library(doctest STATIC)
 

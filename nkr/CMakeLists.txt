@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
 
-include("CMakeLists_Sources.cmake")
-
 project(nkr
         LANGUAGES CXX)
+
+include("CMakeLists_Sources.cmake")
 
 add_library(nkr STATIC)
 

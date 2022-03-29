@@ -1,14 +1,19 @@
-$arch = "Win32"
-$mode = "Debug"
+param(
+    [string]$arch = "x64",
+    [string]$mode = "Debug",
+    [boolean]$gen_tests = $false
+)
 
-cd ../
+if ($gen_tests) {
+    $Env:NKR_GENERATE_TESTS = $true
+}
 
 node "./tools/update_cmake_lists/update_cmake_lists" "./"
 
 $path = Join-Path (Resolve-Path .) "build/$arch/$mode"
 
 cmake -B "$path" -A "$arch"
-cmake --build "$path" --config "$mode"
+cmake --build "$path" --config "$mode" --parallel
 
 Write-Host
 Write-Host "Generated and built project at $path"
