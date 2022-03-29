@@ -72,6 +72,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{346A6396-2ADA-45BC-BB6D-BAFBA0E0BCAF}"
 	ProjectSection(SolutionItems) = preProject
 		CMakeLists.txt = CMakeLists.txt
+		CMakeLists_Funcs.cmake = CMakeLists_Funcs.cmake
 	EndProjectSection
 EndProject
 Global

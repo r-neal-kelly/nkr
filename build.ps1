@@ -1,7 +1,7 @@
 param(
     [switch]$help,
     [string]$arch = "x64",
-    [string]$mode = "Debug",
+    [string]$mode = "",
     [switch]$test
 )
 
@@ -15,7 +15,7 @@ if ($help.IsPresent) {
     Write-Host "Parameters:"
     Write-Host "    -help: Brings up this help message."
     Write-Host "    -arch: The target architecture, e.g. 'x64', 'Win32'."
-    Write-Host "    -mode: The target mode, e.g. 'Debug', 'Release'."
+    Write-Host "    -mode: The target mode, e.g. 'Debug', 'Release'. If not provided, will skip compiling."
     Write-Host "    -test: Will build and compile the test suites."
     Write-Host
 } else {
@@ -35,14 +35,19 @@ if ($help.IsPresent) {
 
         node "./tools/update_cmake_lists/update_cmake_lists" "./"
 
-        $path = Join-Path (Resolve-Path .) "build/$arch/$mode"
+        $path = Join-Path (Resolve-Path .) "build/$arch"
 
         cmake -B "$path" -A "$arch"
-        cmake --build "$path" --config "$mode" --parallel
-
-        Write-Host
-        Write-Host "Generated and built project at $path"
-
+        if (-not "$mode" -eq "") {
+            cmake --build "$path" --config "$mode" --parallel
+            
+            Write-Host
+            Write-Host "Generated and compiled project at $path"
+        } else {
+            Write-Host
+            Write-Host "Generated project at $path"
+        }
+        
         Write-Host
         Write-Host press any key to continue...
         Write-Host

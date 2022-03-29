@@ -4,6 +4,7 @@ project(nkr
         LANGUAGES CXX)
 
 include(CheckCXXCompilerFlag)
+include("CMakeLists_Funcs.cmake")
 
 # Commonly needed directories
 set(NKR_BUILD_DIR "${CMAKE_BINARY_DIR}")
@@ -16,12 +17,16 @@ set(NKR_NKR_INCLUDE_DIR "${NKR_NKR_DIR}/include")
 set(NKR_DOCTEST_DIR "${NKR_DIR}/doctest")
 set(NKR_DOCTEST_INCLUDE_DIR "${NKR_DOCTEST_DIR}/include")
 
+get_test_directories(NKR_TEST_DIRS)
+
 # All libraries go in one folder and all executables in another.
 # This applies to all libraries and executables in this project.
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${NKR_BUILD_LIB_DIR}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${NKR_BUILD_BIN_DIR}")
 
 set(CMAKE_CXX_STANDARD 20)
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # We need to check if certain flags are available and set them if so
 unset(NKR_COMPILER_HAS_STD_CPP_LATEST CACHE)
@@ -57,9 +62,9 @@ endif()
 add_subdirectory("./nkr")
 
 if (DEFINED ENV{NKR_GENERATE_TESTS})
-    add_subdirectory("./doctest")
-    add_subdirectory("./nkr_tests/boolean")
-    add_subdirectory("./nkr_tests/generic")
+    foreach(NKR_TEST_DIR ${NKR_TEST_DIRS})
+        add_subdirectory("${NKR_TEST_DIR}")
+    endforeach()
 endif()
 
 # Just some helpful console ouput
