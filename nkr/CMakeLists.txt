@@ -12,6 +12,3 @@ add_target_sources(nkr)
 
 target_include_directories(nkr
                            PUBLIC "${NKR_NKR_INCLUDE_DIR}")
-
-target_compile_features(nkr
-                        PUBLIC cxx_std_20)

@@ -3,6 +3,8 @@ $mode = "Release"
 
 cd ../
 
+node "./tools/update_cmake_lists/update_cmake_lists" "./"
+
 $path = Join-Path (Resolve-Path .) "build/$arch/$mode"
 
 cmake -B "$path" -A "$arch"

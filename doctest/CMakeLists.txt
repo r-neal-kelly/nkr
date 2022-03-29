@@ -12,6 +12,3 @@ add_target_sources(doctest)
 
 target_include_directories(doctest
                            PUBLIC "${NKR_DOCTEST_INCLUDE_DIR}")
-
-target_compile_features(doctest
-                        PUBLIC cxx_std_20)

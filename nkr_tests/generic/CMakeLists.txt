@@ -17,6 +17,3 @@ target_include_directories(nkr_test_generic
 target_link_libraries(nkr_test_generic
                       PRIVATE nkr
                       PRIVATE doctest)
-
-target_compile_features(nkr_test_generic
-                        PRIVATE cxx_std_20)

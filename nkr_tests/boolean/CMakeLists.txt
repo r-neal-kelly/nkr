@@ -18,9 +18,6 @@ target_link_libraries(nkr_test_boolean
                       PRIVATE nkr
                       PRIVATE doctest)
 
-target_compile_features(nkr_test_boolean
-                        PRIVATE cxx_std_20)
-
 # target_compile_options for compiler options (we'll want to use private for our exe and
 # public for the libs. public adds it to INTERFACE usage req, making it added to any exec, I think)
 
