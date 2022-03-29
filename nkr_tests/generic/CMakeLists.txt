@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.23)
 
+include("CMakeLists_Sources.cmake")
+
 project(nkr_test_generic
         LANGUAGES CXX)
 
-add_executable(nkr_test_generic
-               "src/array/any_tr.cpp"
-               "src/boolean/any_tr.cpp")
+add_executable(nkr_test_generic)
+
+add_target_includes(nkr_test_generic)
+add_target_sources(nkr_test_generic)
 
 target_include_directories(nkr_test_generic
                            PRIVATE "${NKR_NKR_INCLUDE_DIR}"
