@@ -8,13 +8,11 @@ const /* object_t */ fs = require(`fs`);
 const /* object_t */ path = require(`path`);
 
 const /* string_t */ lists_file_name = `CMakeLists.txt`;
-const /* string_t */ funcs_file_name = `CMakeLists_Funcs.cmake`;
 const /* string_t */ help_message = `
 Info:
 
-    Will create a "${funcs_file_name}" file for all "${lists_file_name}" files.
-    The new file will contain a target_sources call to add each include and source file.
-    "${funcs_file_name}" needs to be manually include()'d in the "${lists_file_name}" file.
+    Will create a "${lists_file_name}" file for all parts of the library.
+    The file will properly include each header and source file.
 
 Parameter #1:
 
@@ -154,21 +152,84 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 }
 
 /*
-    Adds a funcs cmake file to the top repository and updates all library directories.
+    Generates the primary CMakeLists.txt file for the project.
 */
 /* void_t */ async function Update_Top(/* string_t */ repository_path, /* string_t[] */ test_names)
 {
-    let /* string_t */ data = '';
-    data += `# repository\n\n`;
+    let /* string_t */ data = `cmake_minimum_required(VERSION 3.23)
 
-    data += `function(get_test_directories RESULT)\n`;
-    data += `    set(\${RESULT}\n`;
-    data += `        "doctest"\n`;
-    data += `        ${test_names.map(s => `"nkr_tests/${s}"`).join(`\n        `)}\n`;
-    data += `        PARENT_SCOPE)\n`;
-    data += `endfunction()\n\n`;
+        project(nkr
+                LANGUAGES CXX)
 
-    const /* string_t */ data_path = `${repository_path}/${funcs_file_name}`;
+        include(CheckCXXCompilerFlag)
+
+        # Commonly needed directories
+        set(NKR_BUILD_DIR "\${CMAKE_BINARY_DIR}")
+        set(NKR_BUILD_LIB_DIR "\${NKR_BUILD_DIR}/lib")
+        set(NKR_BUILD_BIN_DIR "\${NKR_BUILD_DIR}/bin")
+
+        set(NKR_DIR "\${CMAKE_SOURCE_DIR}")
+        set(NKR_NKR_DIR "\${NKR_DIR}/nkr")
+        set(NKR_NKR_INCLUDE_DIR "\${NKR_NKR_DIR}/include")
+        set(NKR_DOCTEST_DIR "\${NKR_DIR}/doctest")
+        set(NKR_DOCTEST_INCLUDE_DIR "\${NKR_DOCTEST_DIR}/include")
+
+        # All libraries go in one folder and all executables in another.
+        # This applies to all libraries and executables in this project.
+        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "\${NKR_BUILD_LIB_DIR}")
+        set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "\${NKR_BUILD_BIN_DIR}")
+
+        set(CMAKE_CXX_STANDARD 20)
+
+        set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+        # We need to check if certain flags are available and set them if so
+        unset(NKR_COMPILER_HAS_STD_CPP_LATEST CACHE)
+        check_cxx_compiler_flag("/std:c++latest" NKR_COMPILER_HAS_STD_CPP_LATEST)
+        if (NKR_COMPILER_HAS_STD_CPP_LATEST)
+            add_compile_options("/std:c++latest")
+        endif()
+
+        unset(NKR_COMPILER_HAS_STD_C17 CACHE)
+        check_cxx_compiler_flag("/std:c17" NKR_COMPILER_HAS_STD_C17)
+        if (NKR_COMPILER_HAS_STD_C17)
+            add_compile_options("/std:c17")
+        endif()
+
+        unset(NKR_COMPILER_HAS_W3 CACHE)
+        check_cxx_compiler_flag("/W3" NKR_COMPILER_HAS_W3)
+        if (NKR_COMPILER_HAS_W3)
+            add_compile_options("/W3")
+        endif()
+
+        unset(NKR_COMPILER_HAS_VOLATILE_ISO CACHE)
+        check_cxx_compiler_flag("/volatile:iso" NKR_COMPILER_HAS_VOLATILE_ISO)
+        if (NKR_COMPILER_HAS_VOLATILE_ISO)
+            add_compile_options("/volatile:iso")
+        endif()
+
+        unset(NKR_COMPILER_HAS_BIGOBJ CACHE)
+        check_cxx_compiler_flag("/bigobj" NKR_COMPILER_HAS_BIGOBJ)
+        if (NKR_COMPILER_HAS_BIGOBJ)
+            add_compile_options("/bigobj")
+        endif()
+
+        add_subdirectory("nkr")
+
+        if (DEFINED ENV{NKR_GENERATE_TESTS})
+            add_subdirectory("doctest")
+            ${test_names.map(s => `add_subdirectory("nkr_tests/${s}")`).join(`\n            `)}
+        endif()
+
+        # Just some helpful console ouput
+        if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+            message("---- Configuring for MSVC...")
+        endif()
+        message("---- Generating configuration from source at: \${NKR_DIR}")
+        message("---- Archives will be available at: \${NKR_BUILD_LIB_DIR}")
+        message("---- Executables will be available at: \${NKR_BUILD_BIN_DIR}")\n`.replace(/^        /gm, "");
+
+    const /* string_t */ data_path = `${repository_path}/${lists_file_name}`;
     try {
         await Write_File(data_path, data);
     } catch (error) {

@@ -4,7 +4,6 @@ project(nkr
         LANGUAGES CXX)
 
 include(CheckCXXCompilerFlag)
-include("CMakeLists_Funcs.cmake")
 
 # Commonly needed directories
 set(NKR_BUILD_DIR "${CMAKE_BINARY_DIR}")
@@ -16,8 +15,6 @@ set(NKR_NKR_DIR "${NKR_DIR}/nkr")
 set(NKR_NKR_INCLUDE_DIR "${NKR_NKR_DIR}/include")
 set(NKR_DOCTEST_DIR "${NKR_DIR}/doctest")
 set(NKR_DOCTEST_INCLUDE_DIR "${NKR_DOCTEST_DIR}/include")
-
-get_test_directories(NKR_TEST_DIRS)
 
 # All libraries go in one folder and all executables in another.
 # This applies to all libraries and executables in this project.
@@ -59,12 +56,41 @@ if (NKR_COMPILER_HAS_BIGOBJ)
     add_compile_options("/bigobj")
 endif()
 
-add_subdirectory("./nkr")
+add_subdirectory("nkr")
 
 if (DEFINED ENV{NKR_GENERATE_TESTS})
-    foreach(NKR_TEST_DIR ${NKR_TEST_DIRS})
-        add_subdirectory("${NKR_TEST_DIR}")
-    endforeach()
+    add_subdirectory("doctest")
+    add_subdirectory("nkr_tests/allocator")
+    add_subdirectory("nkr_tests/array")
+    add_subdirectory("nkr_tests/atomic_t")
+    add_subdirectory("nkr_tests/boolean")
+    add_subdirectory("nkr_tests/charcoder")
+    add_subdirectory("nkr_tests/concurrency")
+    add_subdirectory("nkr_tests/constant")
+    add_subdirectory("nkr_tests/cpp")
+    add_subdirectory("nkr_tests/docs")
+    add_subdirectory("nkr_tests/enumeration")
+    add_subdirectory("nkr_tests/generic")
+    add_subdirectory("nkr_tests/hasher")
+    add_subdirectory("nkr_tests/interface")
+    add_subdirectory("nkr_tests/macros")
+    add_subdirectory("nkr_tests/math")
+    add_subdirectory("nkr_tests/maybe_t")
+    add_subdirectory("nkr_tests/negatable")
+    add_subdirectory("nkr_tests/none")
+    add_subdirectory("nkr_tests/number")
+    add_subdirectory("nkr_tests/optional")
+    add_subdirectory("nkr_tests/os")
+    add_subdirectory("nkr_tests/pointer")
+    add_subdirectory("nkr_tests/pointer_t")
+    add_subdirectory("nkr_tests/positive")
+    add_subdirectory("nkr_tests/randomness")
+    add_subdirectory("nkr_tests/regex_t")
+    add_subdirectory("nkr_tests/string")
+    add_subdirectory("nkr_tests/tr")
+    add_subdirectory("nkr_tests/tree")
+    add_subdirectory("nkr_tests/tuple")
+    add_subdirectory("nkr_tests/utils")
 endif()
 
 # Just some helpful console ouput
