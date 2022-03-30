@@ -8,7 +8,7 @@ const /* object_t */ fs = require(`fs`);
 const /* object_t */ path = require(`path`);
 
 const /* string_t */ lists_file_name = `CMakeLists.txt`;
-const /* string_t */ min_cmake_version = `3.21`;
+const /* string_t */ min_cmake_version = `3.18`;
 const /* string_t */ help_message = `
 Info:
 

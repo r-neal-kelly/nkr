@@ -1,6 +1,6 @@
 # nkr_test_generic
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.18)
 
 project(nkr_test_generic
         LANGUAGES CXX)

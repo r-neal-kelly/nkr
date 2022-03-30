@@ -1,6 +1,6 @@
 # nkr_test_negatable
 
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.18)
 
 project(nkr_test_negatable
         LANGUAGES CXX)
