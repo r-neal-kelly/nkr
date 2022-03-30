@@ -5,10 +5,15 @@ cmake_minimum_required(VERSION 3.23)
 project(nkr_test_atomic_t
         LANGUAGES CXX)
 
-include("CMakeLists_Funcs.cmake")
+set(THIS_INCLUDE_FILES
+    "")
 
-get_include_files(THIS_INCLUDE_FILES)
-get_source_files(THIS_SOURCE_FILES)
+set(THIS_SOURCE_FILES
+    "src/boolean_p.cpp"
+    "src/integer_p.cpp"
+    "src/pointer_p.cpp"
+    "src/real_p.cpp"
+    "src/void_pointer_p.cpp")
 
 add_executable(nkr_test_atomic_t)
 target_sources(nkr_test_atomic_t PUBLIC ${THIS_INCLUDE_FILES})

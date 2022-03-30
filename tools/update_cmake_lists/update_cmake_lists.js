@@ -4,8 +4,8 @@
 
 `use strict`;
 
-const /* object_t */ fs     = require(`fs`);
-const /* object_t */ path   = require(`path`);
+const /* object_t */ fs = require(`fs`);
+const /* object_t */ path = require(`path`);
 
 const /* string_t */ lists_file_name = `CMakeLists.txt`;
 const /* string_t */ funcs_file_name = `CMakeLists_Funcs.cmake`;
@@ -27,8 +27,10 @@ Parameter #1:
 
 /* string_t[] */ async function Read_Directory(directory_path)
 {
-    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
-        fs.readdir(directory_path, { withFileTypes: true }, function (/* error_t */ error, /* string_t[] */ files) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject)
+    {
+        fs.readdir(directory_path, { withFileTypes: true }, function (/* error_t */ error, /* string_t[] */ files)
+        {
             if (error) {
                 Reject(error);
             } else {
@@ -40,8 +42,10 @@ Parameter #1:
 
 /* string_t */ async function Read_File(/* string_t */ path_to_file)
 {
-    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
-        fs.readFile(path_to_file, `utf8`, function (/* error_t */ error, /* string_t */ file_text) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject)
+    {
+        fs.readFile(path_to_file, `utf8`, function (/* error_t */ error, /* string_t */ file_text)
+        {
             if (error) {
                 Reject(error);
             } else {
@@ -53,8 +57,10 @@ Parameter #1:
 
 /* void_t */ async function Write_File(/* string_t */ path_to_file, /* string_t */ file_text)
 {
-    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
-        fs.writeFile(path_to_file, file_text, `utf8`, function (/* error_t */ error) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject)
+    {
+        fs.writeFile(path_to_file, file_text, `utf8`, function (/* error_t */ error)
+        {
             if (error) {
                 Reject(error);
             } else {
@@ -73,7 +79,7 @@ Parameter #1:
 }
 
 /*
-    Recursively gets a list of all file names resolved by the passed in path. Excludes any directory itself.
+    Recursively gets a list of all file names resolved by the passed in path. Excludes any directories.
 */
 /* string_t[] */ async function Directory_File_Names(/* string_t */ directory_path, /* string_t */ directory_name)
 {
@@ -89,7 +95,7 @@ Parameter #1:
                     file_names.push(`${directory_name}/${entity.name}`);
                 }
             }
-        } catch(error) {
+        } catch (error) {
             Print_Error(`failed to read directory: ${directory_path}`, error);
         }
     }
@@ -104,76 +110,46 @@ Parameter #1:
 }
 
 /*
-    Creates the funcs cmake file for every lists cmake file, which contains functions that can get
-    include and source file names.
+    Generates an object containing two arrays of file names, one for includes and one for sources.
 */
-/* void_t */ async function Update_Directory(/* string_t */ directory_path, /* string_t */ directory_name)
+/* { include_file_names: string_t[], source_file_names: string_t[] } */
+async function Include_And_Source_File_Names(/* string_t */ directory_path,
+                                             /* string_t */ include_directory_name = `include`,
+                                             /* string_t */ source_directory_name = `src`)
 {
     try {
         const /* fs.Dirent[] */ entities = await Read_Directory(directory_path);
         let /* fs.Dirent */ include_directory = null;
         let /* fs.Dirent */ source_directory = null;
-        let /* fs.Dirent */ cmakelists_file = null;
 
         for (let /* fs.Dirent */ entity of entities) {
             if (entity.isDirectory()) {
-                if (entity.name === `include`) {
+                if (entity.name === include_directory_name) {
                     include_directory = entity;
-                } else if (entity.name === `src`) {
+                } else if (entity.name === source_directory_name) {
                     source_directory = entity;
-                } else {
-                    await Update_Directory(`${directory_path}/${entity.name}`, entity.name);
-                }
-            } else if (entity.isFile()) {
-                if (entity.name === lists_file_name) {
-                    cmakelists_file = entity;
                 }
             }
         }
 
-        if (cmakelists_file) {
-            const /* string_t[] */ include_file_names =
-                include_directory ? await Directory_File_Names(`${directory_path}/${include_directory.name}`, include_directory.name) : null;
-            const /* string_t[] */ source_file_names =
-                source_directory ? await Directory_File_Names(`${directory_path}/${source_directory.name}`, source_directory.name) : null;
+        const /* string_t[] */ include_file_names = include_directory ?
+            await Directory_File_Names(`${directory_path}/${include_directory.name}`, include_directory.name) :
+            null;
+        const /* string_t[] */ source_file_names = source_directory ?
+            await Directory_File_Names(`${directory_path}/${source_directory.name}`, source_directory.name) :
+            null;
 
-            let /* string_t */ data = `# ${directory_name}\n\n`;
-
-            data += `function(get_include_files RESULT)\n`;
-            data += `    set(\${RESULT}\n`;
-            data += `        "${lists_file_name}"\n`;
-            data += `        "${funcs_file_name}"\n`;
-            if (include_file_names) {
-                data += `        ${include_file_names.map(s => `"${s}"`).join(`\n        `)}\n`;
-            }
-            data += `        PARENT_SCOPE)\n`;
-            data += `endfunction()\n\n`;
-
-            data += `function(get_source_files RESULT)\n`;
-            data += `    set(\${RESULT}\n`;
-            if (source_file_names) {
-                data += `        ${source_file_names.map(s => `"${s}"`).join(`\n        `)}\n`;
-            } else {
-                data += `        ""\n`;
-            }
-            data += `        PARENT_SCOPE)\n`;
-            data += `endfunction()\n\n`;
-
-            data += `function(get_all_files RESULT)\n`;
-            data += `    get_include_files(THIS_INCLUDE_FILES)\n`;
-            data += `    get_source_files(THIS_SOURCE_FILES)\n`;
-            data += `    set(\${RESULT} \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES} PARENT_SCOPE)\n`;
-            data += `endfunction()\n`;
-
-            const /* string_t */ data_path = `${directory_path}/${funcs_file_name}`;
-            try {
-                await Write_File(data_path, data);
-            } catch(error) {
-                Print_Error(`failed to write file: ${data_path}`, error);
-            }
-        }
-    } catch(error) {
+        return ({
+            include_file_names: include_file_names || [``],
+            source_file_names: source_file_names || [``],
+        });
+    } catch (error) {
         Print_Error(`failed to read directory: ${directory_path}`, error);
+
+        return ({
+            include_file_names: [``],
+            source_file_names: [``],
+        });
     }
 }
 
@@ -195,58 +171,93 @@ Parameter #1:
     const /* string_t */ data_path = `${repository_path}/${funcs_file_name}`;
     try {
         await Write_File(data_path, data);
-    } catch(error) {
+    } catch (error) {
         Print_Error(`failed to write file: ${data_path}`, error);
-    }
-
-    for (let /* string_t */ directory_name of [`nkr`, `doctest`]) {
-        await Update_Directory(`${repository_path}/${directory_name}`, directory_name);
     }
 }
 
 /*
-    Creates the lists cmake file for all test suites and updates each test directory.
+    Generates the CMakeLists.txt file for each library in the project.
+*/
+/* void_t */ async function Update_Libraries(/* string_t */ repository_path, /* string_t */ library_names)
+{
+    for (let /* string_t */ library_name of library_names) {
+        const { /* string_t[] */ include_file_names, /* string_t[] */ source_file_names } =
+            await Include_And_Source_File_Names(`${repository_path}/${library_name}`, `include`, `src`);
+
+        let /* string_t */ data = `# ${library_name}
+
+            cmake_minimum_required(VERSION 3.23)
+
+            project(${library_name}
+                    LANGUAGES CXX)
+
+            set(THIS_INCLUDE_FILES${include_file_names.map(s => `\n                "${s}"`).join("")})
+
+            set(THIS_SOURCE_FILES${source_file_names.map(s => `\n                "${s}"`).join("")})
+
+            add_library(${library_name} STATIC)
+            target_sources(${library_name} PUBLIC \${THIS_INCLUDE_FILES})
+            target_sources(${library_name} PRIVATE \${THIS_SOURCE_FILES})
+
+            target_include_directories(${library_name}
+                                       PUBLIC "include")
+
+            source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"
+                         PREFIX "File Tree"
+                         FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})\n`.replace(/^            /gm, "");
+
+        const /* string_t */ data_path = `${repository_path}/${library_name}/${lists_file_name}`;
+        try {
+            await Write_File(data_path, data);
+        } catch (error) {
+            Print_Error(`failed to write file: ${data_path}`, error);
+        }
+    }
+}
+
+/*
+    Generates the CMakeLists.txt file for each test-suite in the project.
 */
 /* void_t */ async function Update_Tests(/* string_t */ tests_path, /* string_t[] */ test_names)
 {
     for (let /* string_t */ test_name of test_names) {
+        const { /* string_t[] */ include_file_names, /* string_t[] */ source_file_names } =
+            await Include_And_Source_File_Names(`${tests_path}/${test_name}`, `include`, `src`);
+
         const /* string_t */ full_test_name = `nkr_test_${test_name}`;
-        let /* string_t */ data =
-        `# ${full_test_name}
+        let /* string_t */ data = `# ${full_test_name}
 
-        cmake_minimum_required(VERSION 3.23)
+            cmake_minimum_required(VERSION 3.23)
 
-        project(${full_test_name}
-                LANGUAGES CXX)
+            project(${full_test_name}
+                    LANGUAGES CXX)
 
-        include("CMakeLists_Funcs.cmake")
+            set(THIS_INCLUDE_FILES${include_file_names.map(s => `\n                "${s}"`).join("")})
 
-        get_include_files(THIS_INCLUDE_FILES)
-        get_source_files(THIS_SOURCE_FILES)
+            set(THIS_SOURCE_FILES${source_file_names.map(s => `\n                "${s}"`).join("")})
 
-        add_executable(${full_test_name})
-        target_sources(${full_test_name} PUBLIC \${THIS_INCLUDE_FILES})
-        target_sources(${full_test_name} PRIVATE \${THIS_SOURCE_FILES})
+            add_executable(${full_test_name})
+            target_sources(${full_test_name} PUBLIC \${THIS_INCLUDE_FILES})
+            target_sources(${full_test_name} PRIVATE \${THIS_SOURCE_FILES})
 
-        target_include_directories(${full_test_name}
-                                   PRIVATE "\${NKR_NKR_INCLUDE_DIR}"
-                                   PRIVATE "\${NKR_DOCTEST_INCLUDE_DIR}"
-                                   PRIVATE "include")
+            target_include_directories(${full_test_name}
+                                       PRIVATE "\${NKR_NKR_INCLUDE_DIR}"
+                                       PRIVATE "\${NKR_DOCTEST_INCLUDE_DIR}"
+                                       PRIVATE "include")
 
-        target_link_libraries(${full_test_name}
-                              PRIVATE nkr
-                              PRIVATE doctest)
+            target_link_libraries(${full_test_name}
+                                  PRIVATE nkr
+                                  PRIVATE doctest)
 
-        source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"
-                     PREFIX "File Tree"
-                     FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})
-        `.replace(/^        /gm, "");
+            source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"
+                         PREFIX "File Tree"
+                         FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})\n`.replace(/^            /gm, "");
 
         const /* string_t */ data_path = `${tests_path}/${test_name}/${lists_file_name}`;
         try {
             await Write_File(data_path, data);
-            await Update_Directory(`${tests_path}/${test_name}`, test_name);
-        } catch(error) {
+        } catch (error) {
             Print_Error(`failed to write file: ${data_path}`, error);
         }
     }
@@ -272,8 +283,9 @@ Parameter #1:
             }
 
             await Update_Top(repository_path, test_names);
+            await Update_Libraries(repository_path, [`nkr`, `doctest`]);
             await Update_Tests(`${repository_path}/nkr_tests`, test_names);
-        } catch(error) {
+        } catch (error) {
             Print_Error(`failed to read directory: ${tests_path}`, error);
         }
     }

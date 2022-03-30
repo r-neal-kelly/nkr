@@ -5,10 +5,15 @@ cmake_minimum_required(VERSION 3.23)
 project(nkr_test_interface
         LANGUAGES CXX)
 
-include("CMakeLists_Funcs.cmake")
+set(THIS_INCLUDE_FILES
+    "")
 
-get_include_files(THIS_INCLUDE_FILES)
-get_source_files(THIS_SOURCE_FILES)
+set(THIS_SOURCE_FILES
+    "src/enumeration/types_i.cpp"
+    "src/none/value_i.cpp"
+    "src/randomness/value_i.cpp"
+    "src/template_i.cpp"
+    "src/type_i.cpp")
 
 add_executable(nkr_test_interface)
 target_sources(nkr_test_interface PUBLIC ${THIS_INCLUDE_FILES})

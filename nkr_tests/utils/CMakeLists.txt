@@ -5,10 +5,11 @@ cmake_minimum_required(VERSION 3.23)
 project(nkr_test_utils
         LANGUAGES CXX)
 
-include("CMakeLists_Funcs.cmake")
+set(THIS_INCLUDE_FILES
+    "")
 
-get_include_files(THIS_INCLUDE_FILES)
-get_source_files(THIS_SOURCE_FILES)
+set(THIS_SOURCE_FILES
+    "src/random.cpp")
 
 add_executable(nkr_test_utils)
 target_sources(nkr_test_utils PUBLIC ${THIS_INCLUDE_FILES})

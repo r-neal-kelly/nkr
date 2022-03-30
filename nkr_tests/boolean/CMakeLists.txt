@@ -5,10 +5,13 @@ cmake_minimum_required(VERSION 3.23)
 project(nkr_test_boolean
         LANGUAGES CXX)
 
-include("CMakeLists_Funcs.cmake")
+set(THIS_INCLUDE_FILES
+    "")
 
-get_include_files(THIS_INCLUDE_FILES)
-get_source_files(THIS_SOURCE_FILES)
+set(THIS_SOURCE_FILES
+    "src/bool_t.cpp"
+    "src/cpp_t.cpp"
+    "src/pure_t.cpp")
 
 add_executable(nkr_test_boolean)
 target_sources(nkr_test_boolean PUBLIC ${THIS_INCLUDE_FILES})

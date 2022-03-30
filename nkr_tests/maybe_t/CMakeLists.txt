@@ -5,10 +5,14 @@ cmake_minimum_required(VERSION 3.23)
 project(nkr_test_maybe_t
         LANGUAGES CXX)
 
-include("CMakeLists_Funcs.cmake")
+set(THIS_INCLUDE_FILES
+    "")
 
-get_include_files(THIS_INCLUDE_FILES)
-get_source_files(THIS_SOURCE_FILES)
+set(THIS_SOURCE_FILES
+    "src/maybe_t_built_in_sp.cpp"
+    "src/maybe_t_user_defined_sp.cpp"
+    "src/none_t.cpp"
+    "src/some_t.cpp")
 
 add_executable(nkr_test_maybe_t)
 target_sources(nkr_test_maybe_t PUBLIC ${THIS_INCLUDE_FILES})
