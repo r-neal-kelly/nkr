@@ -1,6 +1,6 @@
 # nkr_test_array
 
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.21)
 
 project(nkr_test_array
         LANGUAGES CXX)

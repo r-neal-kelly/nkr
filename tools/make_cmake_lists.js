@@ -8,6 +8,7 @@ const /* object_t */ fs = require(`fs`);
 const /* object_t */ path = require(`path`);
 
 const /* string_t */ lists_file_name = `CMakeLists.txt`;
+const /* string_t */ min_cmake_version = `3.21`;
 const /* string_t */ help_message = `
 Info:
 
@@ -156,7 +157,7 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 */
 /* void_t */ async function Update_Top(/* string_t */ repository_path, /* string_t[] */ test_names)
 {
-    let /* string_t */ data = `cmake_minimum_required(VERSION 3.23)
+    let /* string_t */ data = `cmake_minimum_required(VERSION ${min_cmake_version})
 
         project(nkr
                 LANGUAGES CXX)
@@ -248,7 +249,7 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 
         let /* string_t */ data = `# ${library_name}
 
-            cmake_minimum_required(VERSION 3.23)
+            cmake_minimum_required(VERSION ${min_cmake_version})
 
             project(${library_name}
                     LANGUAGES CXX)
@@ -289,7 +290,7 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
         const /* string_t */ full_test_name = `nkr_test_${test_name}`;
         let /* string_t */ data = `# ${full_test_name}
 
-            cmake_minimum_required(VERSION 3.23)
+            cmake_minimum_required(VERSION ${min_cmake_version})
 
             project(${full_test_name}
                     LANGUAGES CXX)
