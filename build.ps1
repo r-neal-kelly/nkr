@@ -47,10 +47,10 @@ if ($help.IsPresent) {
             Write-Host
             Write-Host "Generated project at $path"
         }
-		
-		if ($test.IsPresent) {
-			node "./tools/make_run_tests" "$path"
-		}
+        
+        if ($test.IsPresent) {
+            node "./tools/make_run_tests" "$path"
+        }
         
         Write-Host
         Write-Host press any key to continue...
