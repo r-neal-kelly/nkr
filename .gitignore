@@ -3,16 +3,6 @@
 /.VSCodeCounter
 /build
 /doctest/.VSCodeCounter
-/doctest/Win32
-/doctest/x64
 /nkr/.VSCodeCounter
-/nkr/Win32
-/nkr/x64
 /nkr_tests/.VSCodeCounter
 /nkr_tests/*/.VSCodeCounter
-/nkr_tests/*/Win32
-/nkr_tests/*/x64
-/Win32
-/x64
-
-/tools/run_tests_*.ps1
