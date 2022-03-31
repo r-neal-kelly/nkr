@@ -14,13 +14,7 @@
     #else
         #error "Cannot compile with this version of windows."
     #endif
-
-    #if _DEBUG
-        #define nkr_IS_DEBUG
-    #else
-        #define nkr_IS_RELEASE
-    #endif
-
+    
     #define array_ms        array
     #define generic_ms      generic
     #define interface_ms    interface
@@ -28,7 +22,7 @@
     #define array           array_
     #define generic         generic_
     #define interface       interface_
-#elif 0
+#elif __linux__
     #define nkr_IS_LINUX
 #else
     #error "Cannot compile with this architecture."

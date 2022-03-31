@@ -26,6 +26,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+# Definitions for all nkr targets
+add_compile_definitions(
+    $<$<CONFIG:Debug>:nkr_IS_DEBUG>
+    $<$<CONFIG:Release>:nkr_IS_RELEASE>
+)
+
 # We need to check if certain flags are available and set them if so
 unset(NKR_COMPILER_HAS_STD_CPP_LATEST CACHE)
 check_cxx_compiler_flag("/std:c++latest" NKR_COMPILER_HAS_STD_CPP_LATEST)
