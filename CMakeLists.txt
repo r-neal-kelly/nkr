@@ -27,6 +27,18 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Definitions for all nkr targets
+if (DEFINED ENV{nkr_IS_WINDOWS})
+    add_compile_definitions(nkr_IS_WINDOWS)
+elseif (DEFINED ENV{nkr_IS_LINUX})
+    add_compile_definitions(nkr_IS_LINUX)
+endif()
+
+if (DEFINED ENV{nkr_IS_32_BIT})
+    add_compile_definitions(nkr_IS_32_BIT)
+elseif (DEFINED ENV{nkr_IS_64_BIT})
+    add_compile_definitions(nkr_IS_64_BIT)
+endif()
+
 add_compile_definitions(
     $<$<CONFIG:Debug>:nkr_IS_DEBUG>
     $<$<CONFIG:Release>:nkr_IS_RELEASE>
@@ -35,39 +47,38 @@ add_compile_definitions(
 )
 
 # We need to check if certain flags are available and set them if so
-unset(NKR_COMPILER_HAS_STD_CPP_LATEST CACHE)
-check_cxx_compiler_flag("/std:c++latest" NKR_COMPILER_HAS_STD_CPP_LATEST)
-if (NKR_COMPILER_HAS_STD_CPP_LATEST)
-    add_compile_options("/std:c++latest")
-endif()
+function(try_add_compile_options OPTIONS)
+    foreach(OPTION ${OPTIONS})
+        unset(HAS_COMPILER_OPTION CACHE)
+        check_cxx_compiler_flag("${OPTION}" HAS_COMPILER_OPTION)
+        if (HAS_COMPILER_OPTION)
+            add_compile_options("${OPTION}")
+        else()
+            message(WARNING "Couldn't add compile option: ${OPTION}")
+        endif()
+    endforeach()
+endfunction()
 
-unset(NKR_COMPILER_HAS_STD_C17 CACHE)
-check_cxx_compiler_flag("/std:c17" NKR_COMPILER_HAS_STD_C17)
-if (NKR_COMPILER_HAS_STD_C17)
-    add_compile_options("/std:c17")
-endif()
-
-unset(NKR_COMPILER_HAS_W3 CACHE)
-check_cxx_compiler_flag("/W3" NKR_COMPILER_HAS_W3)
-if (NKR_COMPILER_HAS_W3)
-    add_compile_options("/W3")
-endif()
-
-unset(NKR_COMPILER_HAS_VOLATILE_ISO CACHE)
-check_cxx_compiler_flag("/volatile:iso" NKR_COMPILER_HAS_VOLATILE_ISO)
-if (NKR_COMPILER_HAS_VOLATILE_ISO)
-    add_compile_options("/volatile:iso")
-endif()
-
-unset(NKR_COMPILER_HAS_BIGOBJ CACHE)
-check_cxx_compiler_flag("/bigobj" NKR_COMPILER_HAS_BIGOBJ)
-if (NKR_COMPILER_HAS_BIGOBJ)
-    add_compile_options("/bigobj")
+# for some reason, CMake is failing to identity valid compile options.
+# could be because a previous option was already set? Need to experiment.
+if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    try_add_compile_options("/std:c++latest"
+                            "/std:c17"
+                            "/W3"
+                            "/volatile:iso"
+                            "/bigobj")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    if (DEFINED ENV{nkr_IS_32_BIT})
+        try_add_compile_options("-m32")
+    elseif (DEFINED ENV{nkr_IS_64_BIT})
+        try_add_compile_options("-m64")
+    endif()
+    try_add_compile_options("-fmax-errors=1")
 endif()
 
 add_subdirectory("nkr")
 
-if (DEFINED ENV{NKR_GENERATE_TESTS})
+if (DEFINED ENV{nkr_DO_GENERATE_TESTS})
     add_subdirectory("doctest")
     add_subdirectory("nkr_tests/allocator")
     add_subdirectory("nkr_tests/array")

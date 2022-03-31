@@ -4,17 +4,20 @@
 
 #pragma once
 
-#if _WIN64 || _WIN32
-    #define nkr_IS_WINDOWS
+// These must be defined by CMake.
+#if !defined(nkr_IS_WINDOWS) && !defined(nkr_IS_LINUX)
+    #error "Cannot compile with an unknown operating system."
+#endif
 
-    #if _WIN64
-        #define nkr_IS_64_BIT
-    #elif _WIN32
-        #define nkr_IS_32_BIT
-    #else
-        #error "Cannot compile with this version of windows."
-    #endif
-    
+#if !defined(nkr_IS_32_BIT) && !defined(nkr_IS_64_BIT)
+    #error "Cannot compile with an unknown word size."
+#endif
+
+#if !defined(nkr_IS_DEBUG) && !defined(nkr_IS_RELEASE)
+    #error "Cannot compile with an unknown build mode."
+#endif
+
+#if nkr_IS_WINDOWS
     #define array_ms        array
     #define generic_ms      generic
     #define interface_ms    interface
@@ -22,10 +25,6 @@
     #define array           array_
     #define generic         generic_
     #define interface       interface_
-#elif __linux__
-    #define nkr_IS_LINUX
-#else
-    #error "Cannot compile with this architecture."
 #endif
 
 #define nkr_BLANK

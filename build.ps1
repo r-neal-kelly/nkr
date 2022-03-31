@@ -1,6 +1,6 @@
 param(
     [switch]$help,
-    [string]$arch = "",
+    [string]$arch = "64",
     [string]$mode = "",
     [switch]$test
 )
@@ -14,9 +14,9 @@ if ($help.IsPresent) {
     Write-Host
     Write-Host "Parameters:"
     Write-Host "    -help: Brings up this help message."
-    Write-Host "    -arch: The target architecture, e.g. 'x64', 'Win32'."
+    Write-Host "    -arch: The target architecture: '64' or '32'."
     Write-Host "    -mode: The target mode, e.g. 'Debug', 'Release'. If not provided, will skip compiling."
-    Write-Host "    -test: Will build and compile the test suites."
+    Write-Host "    -test: Will build test suites and compile them if mode exists."
     Write-Host
 } else {
     if ((Get-Command "node" -ErrorAction SilentlyContinue) -eq $null) {
@@ -29,37 +29,60 @@ if ($help.IsPresent) {
         Write-Host "This program requires CMake to be installed and available in the PATH."
         Write-Host
     } else {
-        if ($test.IsPresent) {
-            $Env:NKR_GENERATE_TESTS = $true
-        }
-
-        node "./tools/make_cmake_lists" "./"
-
-        $path = Join-Path (Resolve-Path .) "build/$arch"
-
-        if (-not "$arch" -eq "") {
-            cmake -B "$path" -A "$arch"
+        if ($IsWindows -or $IsLinux) {
+            if ("$arch" -eq "32" -or "$arch" -eq "64") {
+                if ("$arch" -eq "32") {
+                    $Env:nkr_IS_32_BIT = $true
+                } else {
+                    $Env:nkr_IS_64_BIT = $true
+                }
+    
+                if ($test.IsPresent) {
+                    $Env:nkr_DO_GENERATE_TESTS = $true
+                }
+        
+                $path = Join-Path (Resolve-Path .) "build/$arch"
+    
+                node "./tools/make_cmake_lists" "./"
+        
+                if ($IsWindows) {
+                    $Env:nkr_IS_WINDOWS = $true
+    
+                    if ("$arch" -eq "32") {
+                        cmake -B "$path" -A "Win32"
+                    } else {
+                        cmake -B "$path" -A "x64"
+                    }
+                } elseif ($IsLinux) {
+                    $Env:nkr_IS_LINUX = $true
+    
+                    cmake -B "$path"
+                }
+                
+                if (-not "$mode" -eq "") {
+                    cmake --build "$path" --config "$mode" --parallel
+                    
+                    Write-Host
+                    Write-Host "Generated and compiled project at $path"
+                } else {
+                    Write-Host
+                    Write-Host "Generated project at $path"
+                }
+                
+                if ($test.IsPresent) {
+                    node "./tools/make_run_tests" "$path"
+                }
+                
+                Write-Host
+            } else {
+                Write-Host
+                Write-Host "This program requires an 'arch' of 32 or 64 (default is 64)."
+                Write-Host
+            }
         } else {
-            cmake -B "$path"
-        }
-        
-        if (-not "$mode" -eq "") {
-            cmake --build "$path" --config "$mode" --parallel
-            
             Write-Host
-            Write-Host "Generated and compiled project at $path"
-        } else {
+            Write-Host "This program requires Windows or Linux."
             Write-Host
-            Write-Host "Generated project at $path"
         }
-        
-        if ($test.IsPresent) {
-            node "./tools/make_run_tests" "$path"
-        }
-        
-        Write-Host
-        Write-Host press any key to continue...
-        Write-Host
-        Read-Host
     }
 }

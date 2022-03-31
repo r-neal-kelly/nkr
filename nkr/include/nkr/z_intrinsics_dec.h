@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef _2bbae1d9_984f_4d7e_a234_eb773bbec200
+#define _2bbae1d9_984f_4d7e_a234_eb773bbec200
 
 #include <cassert>
 #include <cerrno>
@@ -20,23 +21,20 @@ namespace nkr {
 
     /// @ingroup intrinsic_hints
     /// @{
-#if _WIN64 || _WIN32
-    #define nkr_IS_WINDOWS      ///< @copydoc doc_nkr_nkr_IS_WINDOWS
+// These must be defined by CMake.
+#if !defined(nkr_IS_WINDOWS) && !defined(nkr_IS_LINUX)
+    #error "Cannot compile with an unknown operating system."
+#endif
 
-    #if _WIN64
-        #define nkr_IS_64_BIT   ///< @copydoc doc_nkr_nkr_IS_64_BIT
-    #elif _WIN32
-        #define nkr_IS_32_BIT   ///< @copydoc doc_nkr_nkr_IS_32_BIT
-    #else
-        #error "Cannot compile with this version of windows."
-    #endif
+#if !defined(nkr_IS_32_BIT) && !defined(nkr_IS_64_BIT)
+    #error "Cannot compile with an unknown word size."
+#endif
 
-    #if _DEBUG
-        #define nkr_IS_DEBUG
-    #else
-        #define nkr_IS_RELEASE
-    #endif
+#if !defined(nkr_IS_DEBUG) && !defined(nkr_IS_RELEASE)
+    #error "Cannot compile with an unknown build mode."
+#endif
 
+#if nkr_IS_WINDOWS
     #define array_ms        array
     #define generic_ms      generic
     #define interface_ms    interface
@@ -44,10 +42,6 @@ namespace nkr {
     #define array           array_
     #define generic         generic_
     #define interface       interface_
-#elif 0
-    #define nkr_IS_LINUX        ///< @copydoc doc_nkr_nkr_IS_LINUX
-#else
-    #error "Cannot compile with this architecture."
 #endif
 
 #define nkr_BLANK
@@ -107,3 +101,5 @@ namespace nkr {
     /// @}
 
 }
+
+#endif
