@@ -29,7 +29,10 @@ if ($help.IsPresent) {
         Write-Host "This program requires CMake to be installed and available in the PATH."
         Write-Host
     } else {
-        if ($IsWindows -or $IsLinux) {
+        $Is_Windows = $IsWindows -or ([System.Environment]::OSVersion.Platform -eq "Win32NT")
+        $Is_Linux = $IsLinux
+
+        if ($Is_Windows -or $Is_Linux) {
             if ("$arch" -eq "32" -or "$arch" -eq "64") {
                 if ("$arch" -eq "32") {
                     $Env:nkr_IS_32_BIT = $true
@@ -45,7 +48,7 @@ if ($help.IsPresent) {
     
                 node "./tools/make_cmake_lists" "./"
         
-                if ($IsWindows) {
+                if ($Is_Windows) {
                     $Env:nkr_IS_WINDOWS = $true
     
                     if ("$arch" -eq "32") {
@@ -53,7 +56,7 @@ if ($help.IsPresent) {
                     } else {
                         cmake -B "$path" -A "x64"
                     }
-                } elseif ($IsLinux) {
+                } elseif ($Is_Linux) {
                     $Env:nkr_IS_LINUX = $true
     
                     cmake -B "$path"
