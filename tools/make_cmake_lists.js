@@ -181,6 +181,7 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
         set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "\${NKR_BUILD_BIN_DIR}")
 
         set(CMAKE_CXX_STANDARD 20)
+        set(CMAKE_CXX_EXTENSIONS OFF)
 
         set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 

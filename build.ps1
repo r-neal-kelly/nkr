@@ -1,6 +1,6 @@
 param(
     [switch]$help,
-    [string]$arch = "x64",
+    [string]$arch = "",
     [string]$mode = "",
     [switch]$test
 )
@@ -37,7 +37,12 @@ if ($help.IsPresent) {
 
         $path = Join-Path (Resolve-Path .) "build/$arch"
 
-        cmake -B "$path" -A "$arch"
+        if (-not "$arch" -eq "") {
+            cmake -B "$path" -A "$arch"
+        } else {
+            cmake -B "$path"
+        }
+        
         if (-not "$mode" -eq "") {
             cmake --build "$path" --config "$mode" --parallel
             
