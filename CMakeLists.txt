@@ -30,6 +30,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 add_compile_definitions(
     $<$<CONFIG:Debug>:nkr_IS_DEBUG>
     $<$<CONFIG:Release>:nkr_IS_RELEASE>
+    $<$<CONFIG:RelWithDebInfo>:nkr_IS_DEBUG>
+    $<$<CONFIG:MinSizeRel>:nkr_IS_RELEASE>
 )
 
 # We need to check if certain flags are available and set them if so

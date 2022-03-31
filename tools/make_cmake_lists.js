@@ -189,6 +189,8 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
         add_compile_definitions(
             $<$<CONFIG:Debug>:nkr_IS_DEBUG>
             $<$<CONFIG:Release>:nkr_IS_RELEASE>
+            $<$<CONFIG:RelWithDebInfo>:nkr_IS_DEBUG>
+            $<$<CONFIG:MinSizeRel>:nkr_IS_RELEASE>
         )
 
         # We need to check if certain flags are available and set them if so

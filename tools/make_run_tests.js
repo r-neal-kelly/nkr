@@ -110,7 +110,7 @@ Parameter #1:
         const /* string_t */ bin_path = `${build_path}/bin`;
 
         if (fs.existsSync(bin_path)) {
-            if (process.platform == `win32`) {
+            if (process.platform == `win32` || process.platform == `linux`) {
                 PS1(build_path, bin_path);
             } else {
                 console.log(`Currently unsupported operating system.`);
