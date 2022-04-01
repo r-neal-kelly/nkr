@@ -197,7 +197,7 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
         elseif (DEFINED ENV{nkr_IS_64_BIT})
             add_compile_definitions(nkr_IS_64_BIT)
         endif()
-
+        
         add_compile_definitions(
             $<$<CONFIG:Debug>:nkr_IS_DEBUG>
             $<$<CONFIG:Release>:nkr_IS_RELEASE>
@@ -212,8 +212,10 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
                 check_cxx_compiler_flag("\${OPTION}" HAS_COMPILER_OPTION)
                 if (HAS_COMPILER_OPTION)
                     add_compile_options("\${OPTION}")
+                    message("---- Added compile option: \${OPTION}")
                 else()
-                    message(WARNING "Couldn't add compile option: \${OPTION}")
+                    add_compile_options("\${OPTION}")
+                    message("---- Forcibly added compile option: \${OPTION}")
                 endif()
             endforeach()
         endfunction()

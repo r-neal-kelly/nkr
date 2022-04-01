@@ -1,8 +1,9 @@
 param(
     [switch]$help,
     [string]$arch = "64",
-    [string]$mode = "",
-    [switch]$test
+    [string]$mode = "Debug",
+    [switch]$test,
+    [switch]$make
 )
 
 if ($help.IsPresent) {
@@ -14,9 +15,10 @@ if ($help.IsPresent) {
     Write-Host
     Write-Host "Parameters:"
     Write-Host "    -help: Brings up this help message."
-    Write-Host "    -arch: The target architecture: '64' or '32'."
-    Write-Host "    -mode: The target mode, e.g. 'Debug', 'Release'. If not provided, will skip compiling."
-    Write-Host "    -test: Will build test suites and compile them if mode exists."
+    Write-Host "    -arch: The target architecture: '32' or '64'. Default: '64'."
+    Write-Host "    -mode: The target mode: e.g. 'Debug', 'Release'. Default: 'Debug'."
+    Write-Host "    -test: Will generate test suites."
+    Write-Host "    -make: Will compile the generated build files."
     Write-Host
 } else {
     if ((Get-Command "node" -ErrorAction SilentlyContinue) -eq $null) {
@@ -59,10 +61,10 @@ if ($help.IsPresent) {
                 } elseif ($Is_Linux) {
                     $Env:nkr_IS_LINUX = $true
     
-                    cmake -B "$path"
+                    cmake -B "$path" -DCMAKE_BUILD_TYPE="$mode"
                 }
                 
-                if (-not "$mode" -eq "") {
+                if ($make.IsPresent) {
                     cmake --build "$path" --config "$mode" --parallel
                     
                     Write-Host
