@@ -54,9 +54,9 @@ if ($help.IsPresent) {
                     $Env:nkr_IS_WINDOWS = $true
     
                     if ("$arch" -eq "32") {
-                        cmake -B "$path" -A "Win32"
+                        cmake -B "$path" -A "Win32" -DCMAKE_BUILD_TYPE="$mode"
                     } else {
-                        cmake -B "$path" -A "x64"
+                        cmake -B "$path" -A "x64" -DCMAKE_BUILD_TYPE="$mode"
                     }
                 } elseif ($Is_Linux) {
                     $Env:nkr_IS_LINUX = $true
@@ -76,6 +76,9 @@ if ($help.IsPresent) {
                 
                 if ($test.IsPresent) {
                     node "./tools/make_run_tests" "$path"
+
+                    Write-Host "Executing tests at $path..."
+                    Invoke-Expression "$path/run_tests.ps1"
                 }
                 
                 Write-Host

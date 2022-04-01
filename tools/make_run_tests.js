@@ -87,9 +87,7 @@ Parameter #1:
 
         ${executables.map(s => `Write-Host "Testing ${s}"...\n        ${s}\n        Write-Host\n`).join(``)}
         Write-Host
-        Write-Host press any key to continue...
-        Write-Host
-        Read-Host`.replace(/^        /gm, ``);
+        Write-Host "Finished executing tests."\n`.replace(/^        /gm, ``);
 
     const /* string_t */ data_path = `${build_path}/${run_tests_prefix}.ps1`;
     try {

@@ -219,9 +219,7 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
                 endif()
             endforeach()
         endfunction()
-
-        # for some reason, CMake is failing to identity valid compile options.
-        # could be because a previous option was already set? Need to experiment.
+        
         if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
             try_add_compile_options("/std:c++latest"
                                     "/std:c17"
