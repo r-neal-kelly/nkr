@@ -598,9 +598,13 @@ namespace nkr {
 
     public:
         template <typename other_p>
-        static constexpr c_bool_t   Is_Any()
+        static constexpr c_bool_t
+            Is_Any()
+            noexcept
         {
             [] <bool _ = false>() { static_assert(_, "you need to implement a type_traits_i for this type"); }();
+
+            return false;
         }
     };
 
@@ -612,9 +616,13 @@ namespace nkr {
         using type_t    = void_t;
 
     public:
-        static constexpr c_bool_t   Is_Implemented()
+        static constexpr c_bool_t
+            Is_Implemented()
+            noexcept
         {
             [] <bool _ = false>() { static_assert(_, "you need to implement a template_traits_i for this template"); }();
+
+            return false;
         }
     };
 

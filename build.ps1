@@ -77,8 +77,10 @@ if ($help.IsPresent) {
                 if ($test.IsPresent) {
                     node "./tools/make_run_tests" "$path"
 
-                    Write-Host "Executing tests at $path..."
-                    Invoke-Expression "$path/run_tests.ps1"
+                    if ($make.IsPresent) {
+                        Write-Host "Executing tests at $path..."
+                        Invoke-Expression "$path/run_tests.ps1"
+                    }
                 }
                 
                 Write-Host
