@@ -9,12 +9,7 @@ set(THIS_INCLUDE_FILES
     "")
 
 set(THIS_SOURCE_FILES
-    "src/cpp_t.cpp"
-    "src/dynamic_t.cpp"
-    "src/high_pad_t.cpp"
-    "src/instant_t.cpp"
-    "src/stack_t.cpp"
-    "src/static_t.cpp")
+    "src/cpp_t.cpp")
 
 add_executable(nkr_test_array)
 target_sources(nkr_test_array PUBLIC ${THIS_INCLUDE_FILES})

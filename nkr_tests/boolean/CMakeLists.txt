@@ -9,7 +9,6 @@ set(THIS_INCLUDE_FILES
     "")
 
 set(THIS_SOURCE_FILES
-    "src/bool_t.cpp"
     "src/cpp_t.cpp"
     "src/pure_t.cpp")
 
