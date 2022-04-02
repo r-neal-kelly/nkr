@@ -4,8 +4,14 @@
 
 `use strict`;
 
-const /* object_t */ fs = require(`fs`);
-const /* object_t */ path = require(`path`);
+import * as fs from "fs";
+import * as path from "path";
+
+import {
+    Read_Directory,
+    Write_File,
+    Print_Error,
+} from "./common.js"
 
 const /* string_t */ run_tests_prefix = `run_tests`;
 const /* string_t */ help_message = `
@@ -23,44 +29,6 @@ Parameter #1:
         Displays this message in the terminal.
 `;
 
-/* string_t[] */ async function Read_Directory(directory_path)
-{
-    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject)
-    {
-        fs.readdir(directory_path, { withFileTypes: true }, function (/* error_t */ error, /* string_t[] */ files)
-        {
-            if (error) {
-                Reject(error);
-            } else {
-                Resolve(files);
-            }
-        });
-    });
-}
-
-/* void_t */ async function Write_File(/* string_t */ path_to_file, /* string_t */ file_text)
-{
-    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject)
-    {
-        fs.writeFile(path_to_file, file_text, `utf8`, function (/* error_t */ error)
-        {
-            if (error) {
-                Reject(error);
-            } else {
-                Resolve();
-            }
-        });
-    });
-}
-
-/* void_t */ function Print_Error(/* string_t */ message, /* error_t */ error)
-{
-    console.log(`\n`);
-    console.log(message);
-    console.log(error);
-    console.log(`\n`);
-}
-
 /* void_t */ async function PS1(/* string_t */ build_path, /* string_t*/ bin_path) /* no_throw */
 {
     /* void_t */ async function Executable_Paths(/* string_t*/ path, /* string_t[] */ accumulator)
@@ -71,8 +39,14 @@ Parameter #1:
                 if (entity.isDirectory()) {
                     await Executable_Paths(`${path}/${entity.name}`, accumulator);
                 } else if (entity.isFile()) {
-                    if (/\.exe$/.test(entity.name)) {
-                        accumulator.push(`${path}/${entity.name}`);
+                    if (process.platform == `win32`) {
+                        if (/\.exe$/.test(entity.name)) {
+                            accumulator.push(`${path}/${entity.name}`);
+                        }
+                    } else {
+                        if (!/\./g.test(entity.name)) {
+                            accumulator.push(`${path}/${entity.name}`);
+                        }
                     }
                 }
             }
@@ -99,13 +73,13 @@ Parameter #1:
 
 (/* void_t */ async function Main()
 {
-    const /* string_t[] */ arguments = process.argv.slice(2);
+    const /* string_t[] */ args = process.argv.slice(2);
 
-    if (arguments[0] == `-h` || arguments[0] == `--help` || arguments[0] == null) {
+    if (args.includes(`-h`) || args.includes(`--help`) || args.length === 0) {
         console.log(help_message);
     } else {
-        const /* string_t */ build_path = path.resolve(arguments[0]);
-        const /* string_t */ bin_path = `${build_path}/bin`;
+        const /* string_t */ build_path = path.resolve(args[0]);
+        const /* string_t */ bin_path = path.resolve(`${build_path}/bin`);
 
         if (fs.existsSync(bin_path)) {
             if (process.platform == `win32` || process.platform == `linux`) {
