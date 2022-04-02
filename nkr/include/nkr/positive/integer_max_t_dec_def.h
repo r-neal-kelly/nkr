@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_2e3e84c1_1555_4571_a693_1d2ed2660943
+#define nkr_INCLUDE_GUARD_2e3e84c1_1555_4571_a693_1d2ed2660943
 
 #include "nkr/positive/integer_max_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace positive { namespace integer_max_t$ {
     }
 
 }}}
+
+#endif

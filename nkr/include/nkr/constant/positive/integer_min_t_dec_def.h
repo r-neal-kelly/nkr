@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_30f9de6b_aae8_4bdc_ac64_6c7f9e83c41a
+#define nkr_INCLUDE_GUARD_30f9de6b_aae8_4bdc_ac64_6c7f9e83c41a
 
 #include "nkr/constant/positive/integer_min_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace positive { namespace integer_min_
     }
 
 }}}}
+
+#endif

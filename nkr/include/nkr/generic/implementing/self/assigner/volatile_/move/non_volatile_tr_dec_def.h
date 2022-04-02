@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_49d92b70_3253_4ed7_b4ae_446daee86e28
+#define nkr_INCLUDE_GUARD_49d92b70_3253_4ed7_b4ae_446daee86e28
 
 #include "nkr/generic/implementing/self/assigner/volatile_/move/non_volatile_tr_dec.h"
 
@@ -45,3 +46,5 @@ namespace volatile_ { namespace move { namespace non_volatile_tr$ {
     }
 
 }}}}}}}}
+
+#endif

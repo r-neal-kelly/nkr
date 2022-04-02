@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_5d8e5926_442b_4fe0_baf6_1d441f1dbb07
+#define nkr_INCLUDE_GUARD_5d8e5926_442b_4fe0_baf6_1d441f1dbb07
 
 #include "nkr/generic/implementing/tag/data/min_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
     }
 
 }}}}}}
+
+#endif

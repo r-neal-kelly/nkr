@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_846d58ee_d7b0_44ba_bfaa_0688072f95f1
+#define nkr_INCLUDE_GUARD_846d58ee_d7b0_44ba_bfaa_0688072f95f1
 
 #include "nkr/constant/negatable/word_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace word_t$ {
     }
 
 }}}}
+
+#endif

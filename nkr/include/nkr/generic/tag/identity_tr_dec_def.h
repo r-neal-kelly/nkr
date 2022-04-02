@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_ec4e99ee_218d_4d4a_9a9c_7084f4730286
+#define nkr_INCLUDE_GUARD_ec4e99ee_218d_4d4a_9a9c_7084f4730286
 
 #include "nkr/generic/tag/identity_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace tag { namespace identity_tr$ {
     }
 
 }}}}
+
+#endif

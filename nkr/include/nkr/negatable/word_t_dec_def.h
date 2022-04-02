@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_e1547d15_55f9_4d65_8876_76585f3d00c1
+#define nkr_INCLUDE_GUARD_e1547d15_55f9_4d65_8876_76585f3d00c1
 
 #include "nkr/negatable/word_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace negatable { namespace word_t$ {
     }
 
 }}}
+
+#endif

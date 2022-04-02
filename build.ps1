@@ -85,6 +85,7 @@ if ($help.IsPresent) {
                     }
                 }
                 
+                Write-Host "Finished."
                 Write-Host
             } else {
                 Write-Host

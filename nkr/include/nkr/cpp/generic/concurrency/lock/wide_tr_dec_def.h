@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_02c476b3_cf8e_4b01_960d_99f016341de5
+#define nkr_INCLUDE_GUARD_02c476b3_cf8e_4b01_960d_99f016341de5
 
 #include "nkr/cpp/generic/concurrency/lock/wide_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
     }
 
 }}}}}}
+
+#endif

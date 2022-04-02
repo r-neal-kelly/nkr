@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_482acdac_43c2_4e46_83fc_7097153ed561
+#define nkr_INCLUDE_GUARD_482acdac_43c2_4e46_83fc_7097153ed561
 
 #include "nkr/concurrency/lockee_t_dec.h"
 
@@ -213,3 +214,5 @@ namespace nkr { namespace concurrency {
     }
 
 }}
+
+#endif

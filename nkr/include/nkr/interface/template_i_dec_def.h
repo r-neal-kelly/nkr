@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_02bb205b_1523_4a92_8c45_00ad157971f7
+#define nkr_INCLUDE_GUARD_02bb205b_1523_4a92_8c45_00ad157971f7
 
 #include "nkr/interface/template_i_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace interface { namespace template_i$ {
     }
 
 }}}
+
+#endif

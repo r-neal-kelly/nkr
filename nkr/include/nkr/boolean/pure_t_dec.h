@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_07cfb079_b318_4775_a320_921a833b175e
+#define nkr_INCLUDE_GUARD_07cfb079_b318_4775_a320_921a833b175e
 
 #include "nkr/boolean/cpp_t_dec.h"
 #include "nkr/boolean/deleted_operators_t_dec.h"
@@ -220,3 +221,5 @@ constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nk
 constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::boolean::pure_t>> auto&& a, const auto&& b) noexcept;
 
 #include "nkr/boolean/pure_t_dec_def.h"
+
+#endif

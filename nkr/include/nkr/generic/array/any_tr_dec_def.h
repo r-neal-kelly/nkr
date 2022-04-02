@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_56a3c523_6e62_4f96_afda_4a405f4a7372
+#define nkr_INCLUDE_GUARD_56a3c523_6e62_4f96_afda_4a405f4a7372
 
 #include "nkr/generic/array/any_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace array { namespace any_tr$ {
     }
 
 }}}}
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_65451a8d_b8b8_41d6_89fb_4a665d73dbed
+#define nkr_INCLUDE_GUARD_65451a8d_b8b8_41d6_89fb_4a665d73dbed
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant/positive/count_t_dec.h"
@@ -178,3 +179,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/cpp/concurrency/locker/scoped_t_dec_def.h"
+
+#endif

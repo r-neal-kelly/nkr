@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_c5b5b99f_f90a_49f8_82e3_c7b79ca00b98
+#define nkr_INCLUDE_GUARD_c5b5b99f_f90a_49f8_82e3_c7b79ca00b98
 
 #include "nkr/negatable/index_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace negatable { namespace index_t$ {
     }
 
 }}}
+
+#endif

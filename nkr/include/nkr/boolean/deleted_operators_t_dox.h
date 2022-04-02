@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_d6a4a498_cc81_4e69_8742_f36283efa3e2
+#define nkr_INCLUDE_GUARD_d6a4a498_cc81_4e69_8742_f36283efa3e2
 
 // nkr::boolean::deleted_operators_t
 /**
@@ -213,3 +214,5 @@
             @class _28e396ed_43f8_42b1_80ce_7042c690e66f
             @private
         */
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_c44f1dda_e11e_49b2_bdb7_97a31700d64e
+#define nkr_INCLUDE_GUARD_c44f1dda_e11e_49b2_bdb7_97a31700d64e
 
 #include "nkr/constant_t_dec.h"
 #include "nkr/cpp_dec.h"
@@ -64,3 +65,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/constant/enumeration/cpp_t_dec_def.h"
+
+#endif

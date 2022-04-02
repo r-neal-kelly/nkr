@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_1722c59b_8b14_4eed_8bfc_61206f9ae6a2
+#define nkr_INCLUDE_GUARD_1722c59b_8b14_4eed_8bfc_61206f9ae6a2
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/generic/implementing/self/assigner/non_volatile_tr_dec.h"
@@ -94,3 +95,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/generic/implementing/self/assigner_tr_dec_def.h"
+
+#endif

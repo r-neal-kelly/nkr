@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_19bea6c4_1803_4b2a_a763_e58fb51ca233
+#define nkr_INCLUDE_GUARD_19bea6c4_1803_4b2a_a763_e58fb51ca233
 
 #include "nkr/generic/implementing/interface/randomness/value_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
     }
 
 }}}}}}
+
+#endif

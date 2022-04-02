@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_44dcab77_2003_403e_8265_98c278acf108
+#define nkr_INCLUDE_GUARD_44dcab77_2003_403e_8265_98c278acf108
 
 #include "nkr/generic/none_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace none_tr$ {
     }
 
 }}}
+
+#endif

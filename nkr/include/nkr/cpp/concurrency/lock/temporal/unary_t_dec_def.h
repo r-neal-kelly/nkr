@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b4ea821d_d9b1_48c7_a041_80cabf7a5f8c
+#define nkr_INCLUDE_GUARD_b4ea821d_d9b1_48c7_a041_80cabf7a5f8c
 
 #include "nkr/cpp/concurrency/lock/temporal/unary_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespa
     }
 
 }}}}}}
+
+#endif

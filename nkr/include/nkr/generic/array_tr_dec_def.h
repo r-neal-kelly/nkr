@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_5b931e4b_4462_4f1d_a0f1_f699dbaa5c5c
+#define nkr_INCLUDE_GUARD_5b931e4b_4462_4f1d_a0f1_f699dbaa5c5c
 
 #include "nkr/generic/array_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace array_tr$ {
     }
 
 }}}
+
+#endif

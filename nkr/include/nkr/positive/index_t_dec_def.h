@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_5f7b9222_3696_4df7_81c4_1feaa9f974ac
+#define nkr_INCLUDE_GUARD_5f7b9222_3696_4df7_81c4_1feaa9f974ac
 
 #include "nkr/positive/index_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace positive { namespace index_t$ {
     }
 
 }}}
+
+#endif

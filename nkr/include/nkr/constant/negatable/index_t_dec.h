@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_c757a6d1_e939_4eec_aa11_2ddbd43b9d2c
+#define nkr_INCLUDE_GUARD_c757a6d1_e939_4eec_aa11_2ddbd43b9d2c
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant_t_dec.h"
@@ -64,3 +65,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/constant/negatable/index_t_dec_def.h"
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_1119ec0b_35d1_45f0_86e1_eef9fa9fa091
+#define nkr_INCLUDE_GUARD_1119ec0b_35d1_45f0_86e1_eef9fa9fa091
 
 #include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace built_in { namespace number { name
     }
 
 }}}}}}
+
+#endif

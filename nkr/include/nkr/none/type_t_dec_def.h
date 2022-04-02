@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_7d8934b4_4e44_4d3b_8bb5_acf2c11ad6c1
+#define nkr_INCLUDE_GUARD_7d8934b4_4e44_4d3b_8bb5_acf2c11ad6c1
 
 #include "nkr/none/type_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace none { namespace type_t$ {
     }
 
 }}}
+
+#endif

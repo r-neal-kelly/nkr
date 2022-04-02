@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_84b7fef4_e934_45d6_96e6_93ff71ec5279
+#define nkr_INCLUDE_GUARD_84b7fef4_e934_45d6_96e6_93ff71ec5279
 
 #include "nkr/cpp/concurrency/thread_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace concurrency { namespace thread_t$ {
     }
 
 }}}}
+
+#endif

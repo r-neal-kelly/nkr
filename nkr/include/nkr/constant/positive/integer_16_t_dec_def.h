@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b5de0a91_788a_4ce7_86e3_974e07edd629
+#define nkr_INCLUDE_GUARD_b5de0a91_788a_4ce7_86e3_974e07edd629
 
 #include "nkr/constant/positive/integer_16_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace positive { namespace integer_16_t
     }
 
 }}}}
+
+#endif

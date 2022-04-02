@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_6a054f09_912b_4442_9c4f_c75a3a3df358
+#define nkr_INCLUDE_GUARD_6a054f09_912b_4442_9c4f_c75a3a3df358
 
 #include "nkr/macros_dec.h"
 
@@ -169,3 +170,5 @@
                                                                                                 \
         return *this;                                                                           \
     }                                                                                           \
+
+#endif

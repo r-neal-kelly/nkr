@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_165a20fc_fb5b_454d_935a_8bf477476eb1
+#define nkr_INCLUDE_GUARD_165a20fc_fb5b_454d_935a_8bf477476eb1
 
 #include "nkr/built_in/forward_def.h"
 #include "nkr/cpp/randomness/distributor/uniform/integer_t_def.h"
@@ -17,3 +18,5 @@ namespace nkr {
 
 
 }
+
+#endif

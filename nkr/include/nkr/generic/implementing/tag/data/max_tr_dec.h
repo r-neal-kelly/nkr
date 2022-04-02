@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_ad8955af_dac5_4758_a024_bd3938674788
+#define nkr_INCLUDE_GUARD_ad8955af_dac5_4758_a024_bd3938674788
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/interface/forward_dec.h"
@@ -91,3 +92,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/generic/implementing/tag/data/max_tr_dec_def.h"
+
+#endif

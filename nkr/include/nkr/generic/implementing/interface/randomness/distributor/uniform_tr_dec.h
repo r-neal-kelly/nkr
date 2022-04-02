@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_fdbd9369_1824_45ad_a86f_9b6b0992486e
+#define nkr_INCLUDE_GUARD_fdbd9369_1824_45ad_a86f_9b6b0992486e
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/interface/forward_dec.h"
@@ -92,3 +93,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/generic/implementing/interface/randomness/distributor/uniform_tr_dec_def.h"
+
+#endif

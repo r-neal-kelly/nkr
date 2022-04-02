@@ -1,1 +1,5 @@
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_50772cb2_7ddb_4b58_a7c1_bee0dfb59246
+#define nkr_INCLUDE_GUARD_50772cb2_7ddb_4b58_a7c1_bee0dfb59246
+
+
+#endif

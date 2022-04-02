@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_cad4c4ee_e465_4dfb_8530_920f29943d59
+#define nkr_INCLUDE_GUARD_cad4c4ee_e465_4dfb_8530_920f29943d59
 
 #include "nkr/constant/negatable/size_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace size_t$ {
     }
 
 }}}}
+
+#endif

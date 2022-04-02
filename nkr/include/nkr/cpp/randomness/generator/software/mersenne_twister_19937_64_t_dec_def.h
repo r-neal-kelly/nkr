@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b8dc0e3b_cefc_4ef6_9e1e_355a80accee1
+#define nkr_INCLUDE_GUARD_b8dc0e3b_cefc_4ef6_9e1e_355a80accee1
 
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_19937_64_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
     }
 
 }}}}}}
+
+#endif

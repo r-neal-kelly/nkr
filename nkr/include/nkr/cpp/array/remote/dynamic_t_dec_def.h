@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_0b83f254_c2bd_40e3_8609_0109654087b4
+#define nkr_INCLUDE_GUARD_0b83f254_c2bd_40e3_8609_0109654087b4
 
 #include "nkr/cpp/array/remote/dynamic_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace array { namespace remote { namespace d
     }
 
 }}}}}
+
+#endif

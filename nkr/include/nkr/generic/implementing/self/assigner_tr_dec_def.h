@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_cdad926d_707f_4eb6_9d3e_f145e3a27a34
+#define nkr_INCLUDE_GUARD_cdad926d_707f_4eb6_9d3e_f145e3a27a34
 
 #include "nkr/generic/implementing/self/assigner_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace self { na
     }
 
 }}}}}
+
+#endif

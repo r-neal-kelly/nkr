@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_efed1057_a458_460d_a738_c7349100635f
+#define nkr_INCLUDE_GUARD_efed1057_a458_460d_a738_c7349100635f
 
 // nkr::t
 /**
@@ -169,3 +170,5 @@
     @note
     The most frequent use of this concept is found in method declarations which need to handle both volatile and non-volatile qualifications of variable types. What would otherwise have to be two or more functions can now be defined as one with these dynamically generated concepts produced by nkr::tr and the underlying nkr::TR function.
 */
+
+#endif

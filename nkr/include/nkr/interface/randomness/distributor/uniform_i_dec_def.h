@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_3d25b255_d125_46a9_bfe9_23df446c757a
+#define nkr_INCLUDE_GUARD_3d25b255_d125_46a9_bfe9_23df446c757a
 
 #include "nkr/interface/randomness/distributor/uniform_i_dec.h"
 
@@ -91,3 +92,5 @@ namespace nkr { namespace interface { namespace randomness { namespace distribut
     }
 
 }}}}}
+
+#endif

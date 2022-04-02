@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_5d173259_c039_4e23_af3a_0343cadb238f
+#define nkr_INCLUDE_GUARD_5d173259_c039_4e23_af3a_0343cadb238f
 
 #include "nkr/negatable/real_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace negatable { namespace real_t$ {
     }
 
 }}}
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_28f3a737_9b95_4630_bd44_0cd64295c5f5
+#define nkr_INCLUDE_GUARD_28f3a737_9b95_4630_bd44_0cd64295c5f5
 
 #include "nkr/cpp/tuple/values_t_dec.h"
 
@@ -96,3 +97,5 @@ namespace nkr { namespace cpp { namespace tuple { namespace values_t$ {
     }
 
 }}}}
+
+#endif

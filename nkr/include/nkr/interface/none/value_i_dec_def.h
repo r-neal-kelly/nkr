@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_79dff24d_ec80_4c17_8109_4f58f74271fc
+#define nkr_INCLUDE_GUARD_79dff24d_ec80_4c17_8109_4f58f74271fc
 
 #include "nkr/interface/none/value_i_dec.h"
 
@@ -67,3 +68,5 @@ namespace nkr { namespace interface { namespace none { namespace value_i$ {
     }
 
 }}}}
+
+#endif

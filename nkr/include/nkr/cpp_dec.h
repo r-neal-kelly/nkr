@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a75bb8b2_a429_4ad6_ad33_0b4aa603d6f8
+#define nkr_INCLUDE_GUARD_a75bb8b2_a429_4ad6_ad33_0b4aa603d6f8
 
 #include <bit>
 #include <cassert>
@@ -649,3 +650,5 @@ namespace nkr { namespace cpp {
     static_assert(Byte_Bit_Count() == 8, "This library requires that there be 8 bits in a byte.");
 
 }}
+
+#endif

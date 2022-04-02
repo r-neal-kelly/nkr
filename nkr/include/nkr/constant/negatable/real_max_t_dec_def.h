@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_d20f24e3_0d6b_417a_954b_ce44748a97ed
+#define nkr_INCLUDE_GUARD_d20f24e3_0d6b_417a_954b_ce44748a97ed
 
 #include "nkr/constant/negatable/real_max_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace real_max_t$
     }
 
 }}}}
+
+#endif

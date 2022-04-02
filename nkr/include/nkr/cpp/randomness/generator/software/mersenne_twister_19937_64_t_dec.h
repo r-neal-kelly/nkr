@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_99f4eb63_ad3e_48f9_b006_75ccf155788d
+#define nkr_INCLUDE_GUARD_99f4eb63_ad3e_48f9_b006_75ccf155788d
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
@@ -56,3 +57,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_19937_64_t_dec_def.h"
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_30599994_32e2_46bd_9381_75703a71d2dc
+#define nkr_INCLUDE_GUARD_30599994_32e2_46bd_9381_75703a71d2dc
 
 namespace nkr { namespace boolean {
 
@@ -52,3 +53,5 @@ namespace nkr { namespace boolean {
 }}
 
 #include "nkr/boolean/deleted_operators_t_dec_def.h"
+
+#endif

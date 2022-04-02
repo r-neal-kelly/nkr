@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b630a101_12a6_479b_a02e_9ce4183b6d07
+#define nkr_INCLUDE_GUARD_b630a101_12a6_479b_a02e_9ce4183b6d07
 
 #include "nkr/cpp/concurrency/lock/temporal/deep_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace concurrency { namespace lock { namespa
     }
 
 }}}}}}
+
+#endif

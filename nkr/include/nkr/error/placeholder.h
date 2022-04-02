@@ -1,1 +1,5 @@
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_6951898d_c101_485b_88c6_486ab10602c3
+#define nkr_INCLUDE_GUARD_6951898d_c101_485b_88c6_486ab10602c3
+
+
+#endif

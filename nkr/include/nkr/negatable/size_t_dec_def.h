@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b81991c5_8b36_4123_8df8_a22cac8817a2
+#define nkr_INCLUDE_GUARD_b81991c5_8b36_4123_8df8_a22cac8817a2
 
 #include "nkr/negatable/size_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace negatable { namespace size_t$ {
     }
 
 }}}
+
+#endif

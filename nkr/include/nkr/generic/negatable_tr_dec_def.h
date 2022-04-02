@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_e8a3a4a9_4ef1_490e_bd69_fa43a03f7cfd
+#define nkr_INCLUDE_GUARD_e8a3a4a9_4ef1_490e_bd69_fa43a03f7cfd
 
 #include "nkr/generic/negatable_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace negatable_tr$ {
     }
 
 }}}
+
+#endif

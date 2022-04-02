@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_20d2ea56_56ca_4186_80ca_9238599d6793
+#define nkr_INCLUDE_GUARD_20d2ea56_56ca_4186_80ca_9238599d6793
 
 #include "nkr/cpp/generic/concurrency/lock/exclusive_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace cpp { namespace generic { namespace concurrency { name
     }
 
 }}}}}}
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a6fc5879_caae_488f_8760_953c45bf9efb
+#define nkr_INCLUDE_GUARD_a6fc5879_caae_488f_8760_953c45bf9efb
 
 #include "nkr/tuple/types_t_dec.h"
 
@@ -243,3 +244,5 @@ namespace nkr { namespace tuple {
     }
 
 }}
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a624c175_f69a_4573_825c_c4d19fd5439c
+#define nkr_INCLUDE_GUARD_a624c175_f69a_4573_825c_c4d19fd5439c
 
 #include "nkr/generic/positive/real_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace positive { namespace real_tr$ {
     }
 
 }}}}
+
+#endif

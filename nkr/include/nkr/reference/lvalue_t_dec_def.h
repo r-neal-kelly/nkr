@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_521cff68_a89c_4bfd_8f1f_ef34f2eb536e
+#define nkr_INCLUDE_GUARD_521cff68_a89c_4bfd_8f1f_ef34f2eb536e
 
 #include "nkr/reference/lvalue_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace reference { namespace lvalue_t$ {
     }
 
 }}}
+
+#endif

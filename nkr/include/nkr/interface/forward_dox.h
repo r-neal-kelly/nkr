@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_9d1bd41d_8565_4d36_9eb3_1d3da731ab85
+#define nkr_INCLUDE_GUARD_9d1bd41d_8565_4d36_9eb3_1d3da731ab85
 
 // nkr::interface::none::value_i
 /**
@@ -19,3 +20,5 @@
 
     However, if you're using a local array with a similar problem set, perhaps the nkr::interface::none_i would be more suitable, which only requires a boolean check of an already existing value to determine if it equals none, avoiding any need to create a potentially large instance just for literal comparison. nkr::interface::none::value_i is useful for when a none value must be produced and not only if an already existing none value needs to be compared.
 */
+
+#endif

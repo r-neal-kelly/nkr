@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b2fc4ea0_1c21_4895_9d82_5d2186e18ac2
+#define nkr_INCLUDE_GUARD_b2fc4ea0_1c21_4895_9d82_5d2186e18ac2
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
@@ -80,3 +81,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/cpp/randomness/distributor/bernoulli_t_dec_def.h"
+
+#endif

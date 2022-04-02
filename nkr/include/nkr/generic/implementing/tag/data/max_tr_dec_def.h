@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_3c8663fc_a6ba_4f73_8f4f_48f1bd8a41cb
+#define nkr_INCLUDE_GUARD_3c8663fc_a6ba_4f73_8f4f_48f1bd8a41cb
 
 #include "nkr/generic/implementing/tag/data/max_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
     }
 
 }}}}}}
+
+#endif

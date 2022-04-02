@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_2966587c_cc58_4314_b68e_be4c6a9d2c0c
+#define nkr_INCLUDE_GUARD_2966587c_cc58_4314_b68e_be4c6a9d2c0c
 
 #include "nkr/generic/type/self/non_copyable_moveable_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace type { namespace self { namespace 
     }
 
 }}}}}
+
+#endif

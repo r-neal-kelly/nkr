@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_39b6390f_bff9_4650_8b40_184066163bdc
+#define nkr_INCLUDE_GUARD_39b6390f_bff9_4650_8b40_184066163bdc
 
 #include "nkr/enumeration/types_t_dec.h"
 
@@ -546,3 +547,5 @@ namespace nkr { namespace enumeration { namespace types_t$ {
     }
 
 }}}
+
+#endif

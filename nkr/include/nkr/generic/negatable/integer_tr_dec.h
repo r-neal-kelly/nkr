@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_0fe8edbf_6906_492f_bfdb_b40b824cd04a
+#define nkr_INCLUDE_GUARD_0fe8edbf_6906_492f_bfdb_b40b824cd04a
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
@@ -94,3 +95,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/generic/negatable/integer_tr_dec_def.h"
+
+#endif

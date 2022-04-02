@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_f83e3d6c_c72d_485b_b7ee_5954dc37c682
+#define nkr_INCLUDE_GUARD_f83e3d6c_c72d_485b_b7ee_5954dc37c682
 
 #include "nkr/generic/implementing/interface/randomness/distributor/uniform_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
     }
 
 }}}}}}}
+
+#endif

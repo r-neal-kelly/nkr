@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_cc1646c0_5f98_4654_abc8_067245fbc91a
+#define nkr_INCLUDE_GUARD_cc1646c0_5f98_4654_abc8_067245fbc91a
 
 #include "nkr/tr_dec.h"
 
@@ -723,3 +724,5 @@ namespace nkr {
     }
 
 }
+
+#endif

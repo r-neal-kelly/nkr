@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_aebfd2a0_5752_4723_9b49_23e5a372eaf4
+#define nkr_INCLUDE_GUARD_aebfd2a0_5752_4723_9b49_23e5a372eaf4
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant/boolean/cpp_t_dec.h"
@@ -267,3 +268,5 @@ namespace nkr {
 // Likewise we might even have a 'tttr' for templates of templates of types.
 
 #include "nkr/tr_dec_def.h"
+
+#endif

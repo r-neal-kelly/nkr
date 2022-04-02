@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a5ca7e22_b60b_43d5_ab9e_47489889d77c
+#define nkr_INCLUDE_GUARD_a5ca7e22_b60b_43d5_ab9e_47489889d77c
 
 #include "nkr/array/cpp_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace array { namespace cpp_t$ {
     }
 
 }}}
+
+#endif

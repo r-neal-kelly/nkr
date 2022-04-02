@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a3610953_2c56_4c2e_a876_1e2e36aceb93
+#define nkr_INCLUDE_GUARD_a3610953_2c56_4c2e_a876_1e2e36aceb93
 
 // nkr::constant_t Identity
 /**
@@ -365,3 +366,5 @@
         @brief
         The [interface implementation](@ref _e930ffa6_a82e_461e_9bd9_427f2d51d568) of nkr::interface::template_i for nkr::constant_ttg.
     */
+
+#endif

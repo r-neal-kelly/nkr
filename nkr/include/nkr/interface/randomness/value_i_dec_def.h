@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_794b2123_6371_4d63_80fb_b5c9be3f2c40
+#define nkr_INCLUDE_GUARD_794b2123_6371_4d63_80fb_b5c9be3f2c40
 
 #include "nkr/interface/randomness/value_i_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace interface { namespace randomness { namespace value_i$ 
     }
 
 }}}}
+
+#endif

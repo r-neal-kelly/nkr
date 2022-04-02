@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_875f905c_9df0_43e3_bf1e_3336574af96a
+#define nkr_INCLUDE_GUARD_875f905c_9df0_43e3_bf1e_3336574af96a
 
 #include "nkr/none/pointer_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace none { namespace pointer_t$ {
     }
 
 }}}
+
+#endif

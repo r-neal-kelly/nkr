@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_f37a7dc9_0a91_4904_b260_3fdcaa091912
+#define nkr_INCLUDE_GUARD_f37a7dc9_0a91_4904_b260_3fdcaa091912
 
 #include "nkr/generic/tag/logic_gate_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace tag { namespace logic_gate_tr$ {
     }
 
 }}}}
+
+#endif

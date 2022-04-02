@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_6d4cc9e1_a294_4ea8_924d_9e7ffa37bc97
+#define nkr_INCLUDE_GUARD_6d4cc9e1_a294_4ea8_924d_9e7ffa37bc97
 
 #include "nkr/concurrency/lockee_t_def.h"
 #include "nkr/cpp/randomness/generator/software/mersenne_twister_19937_32_t_def.h"
@@ -26,3 +27,5 @@ namespace nkr { namespace randomness { namespace generator { namespace software 
     }
 
 }}}}
+
+#endif

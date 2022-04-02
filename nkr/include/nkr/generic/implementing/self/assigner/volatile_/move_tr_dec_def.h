@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_5678e633_daa0_4371_84d4_83e28f37e6aa
+#define nkr_INCLUDE_GUARD_5678e633_daa0_4371_84d4_83e28f37e6aa
 
 #include "nkr/generic/implementing/self/assigner/volatile_/move_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace self { na
     }
 
 }}}}}}}
+
+#endif

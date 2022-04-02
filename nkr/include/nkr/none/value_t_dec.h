@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_431e7d18_9593_4816_9057_97375abd07b3
+#define nkr_INCLUDE_GUARD_431e7d18_9593_4816_9057_97375abd07b3
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant/positive/count_t_dec.h"
@@ -197,3 +198,5 @@ constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nk
 constexpr nkr::boolean::cpp_t   operator !=(const nkr::tr<nkr::any_tg, nkr::t<nkr::none::value_tg>> auto&& a, const auto&& b) noexcept;
 
 #include "nkr/none/value_t_dec_def.h"
+
+#endif

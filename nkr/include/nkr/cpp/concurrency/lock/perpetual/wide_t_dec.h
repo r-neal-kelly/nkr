@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_f60a4b5a_4abf_4570_a0cb_9a9fffa0e69f
+#define nkr_INCLUDE_GUARD_f60a4b5a_4abf_4570_a0cb_9a9fffa0e69f
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
@@ -80,3 +81,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/cpp/concurrency/lock/perpetual/wide_t_dec_def.h"
+
+#endif

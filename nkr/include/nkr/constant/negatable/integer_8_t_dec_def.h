@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_34fc17fa_9814_4eb0_9e31_d74f052d3416
+#define nkr_INCLUDE_GUARD_34fc17fa_9814_4eb0_9e31_d74f052d3416
 
 #include "nkr/constant/negatable/integer_8_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace integer_8_t
     }
 
 }}}}
+
+#endif

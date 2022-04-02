@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_e2593549_d9e9_4bbe_b3fb_bc9dbd65a006
+#define nkr_INCLUDE_GUARD_e2593549_d9e9_4bbe_b3fb_bc9dbd65a006
 
 #include "nkr/generic/boolean/any_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace boolean { namespace any_tr$ {
     }
 
 }}}}
+
+#endif

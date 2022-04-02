@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b41c8129_3d85_4a01_88ef_8bf0af84d86c
+#define nkr_INCLUDE_GUARD_b41c8129_3d85_4a01_88ef_8bf0af84d86c
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/generic/implementing/self_tr_dec.h"
@@ -107,3 +108,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/generic/type/self/copyable_moveable_tr_dec_def.h"
+
+#endif

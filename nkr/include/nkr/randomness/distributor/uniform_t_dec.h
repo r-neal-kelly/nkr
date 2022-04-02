@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_16a1b6a0_0626_4c55_a308_d6f849f6aff2
+#define nkr_INCLUDE_GUARD_16a1b6a0_0626_4c55_a308_d6f849f6aff2
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant/positive/count_t_dec.h"
@@ -227,3 +228,5 @@ namespace nkr { namespace randomness { namespace distributor {
 }}}
 
 #include "nkr/randomness/distributor/uniform_t_dec_def.h"
+
+#endif

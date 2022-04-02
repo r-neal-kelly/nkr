@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_89019349_0654_4974_b87c_387b2d1c30b0
+#define nkr_INCLUDE_GUARD_89019349_0654_4974_b87c_387b2d1c30b0
 
 #include "nkr/cpp/generic/randomness/distributor_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace cpp { namespace generic { namespace randomness { names
     }
 
 }}}}}
+
+#endif

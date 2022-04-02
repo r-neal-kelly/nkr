@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_2aea53a8_78b4_4804_be07_7dfb6227338c
+#define nkr_INCLUDE_GUARD_2aea53a8_78b4_4804_be07_7dfb6227338c
 
 #include "nkr/concurrency/lockee_t_def.h"
 #include "nkr/cpp/randomness/generator/hardware_t_def.h"
@@ -24,3 +25,5 @@ namespace nkr { namespace randomness { namespace generator { namespace hardware 
     }
 
 }}}}
+
+#endif

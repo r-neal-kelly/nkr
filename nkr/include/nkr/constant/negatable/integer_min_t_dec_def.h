@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a7068075_7f6a_4e7f_8461_9429594f891d
+#define nkr_INCLUDE_GUARD_a7068075_7f6a_4e7f_8461_9429594f891d
 
 #include "nkr/constant/negatable/integer_min_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace integer_min
     }
 
 }}}}
+
+#endif

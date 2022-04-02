@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_35216a61_3f46_4533_9209_0eb3f9c93ddc
+#define nkr_INCLUDE_GUARD_35216a61_3f46_4533_9209_0eb3f9c93ddc
 
 #include "nkr/constant/positive/byte_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace positive { namespace byte_t$ {
     }
 
 }}}}
+
+#endif

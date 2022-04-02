@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_65d4e1c4_1e32_4035_9c9e_4729942d831f
+#define nkr_INCLUDE_GUARD_65d4e1c4_1e32_4035_9c9e_4729942d831f
 
 #include "nkr/cpp/list/remote/forward_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace list { namespace remote { namespace fo
     }
 
 }}}}}
+
+#endif

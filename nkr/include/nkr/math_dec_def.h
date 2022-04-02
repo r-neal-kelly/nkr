@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_05703b88_5fdf_4d1b_9de8_6f3cbcdf3436
+#define nkr_INCLUDE_GUARD_05703b88_5fdf_4d1b_9de8_6f3cbcdf3436
 
 #include "nkr/math_dec.h"
 
@@ -140,3 +141,5 @@ namespace nkr { namespace math {
     }
 
 }}
+
+#endif

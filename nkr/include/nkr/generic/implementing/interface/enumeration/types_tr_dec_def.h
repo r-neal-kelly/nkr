@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_c643016f_2b3b_4f8e_95e7_3677543c2293
+#define nkr_INCLUDE_GUARD_c643016f_2b3b_4f8e_95e7_3677543c2293
 
 #include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
 
@@ -43,3 +44,5 @@ namespace nkr { namespace generic { namespace implementing { namespace interface
     }
 
 }}}}}}
+
+#endif

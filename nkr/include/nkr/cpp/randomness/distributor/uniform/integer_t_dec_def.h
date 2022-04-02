@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_55088867_a449_4bb4_a20b_f51de1364a8b
+#define nkr_INCLUDE_GUARD_55088867_a449_4bb4_a20b_f51de1364a8b
 
 #include "nkr/cpp/randomness/distributor/uniform/integer_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
     }
 
 }}}}}}
+
+#endif

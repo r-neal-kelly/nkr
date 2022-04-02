@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_e3d1c7fb_20ef_42f3_820a_cbc572bc9745
+#define nkr_INCLUDE_GUARD_e3d1c7fb_20ef_42f3_820a_cbc572bc9745
 
 #include <tuple>
 
@@ -154,3 +155,5 @@ namespace nkr { namespace interface {
 }}
 
 #include "nkr/cpp/tuple/values_t_dec_def.h"
+
+#endif

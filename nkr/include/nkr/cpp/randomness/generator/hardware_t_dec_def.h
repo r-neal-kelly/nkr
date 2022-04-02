@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_33663217_b388_47ec_bebb_a95c5c15f0e7
+#define nkr_INCLUDE_GUARD_33663217_b388_47ec_bebb_a95c5c15f0e7
 
 #include "nkr/cpp/randomness/generator/hardware_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace randomness { namespace generator { nam
     }
 
 }}}}}
+
+#endif

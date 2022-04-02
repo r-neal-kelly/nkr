@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_5ffeb379_6eec_45de_9706_794a55389188
+#define nkr_INCLUDE_GUARD_5ffeb379_6eec_45de_9706_794a55389188
 
 #include "nkr/built_in/forward_def.h"
 #include "nkr/cpp_def.h"
@@ -43,3 +44,5 @@ namespace nkr { namespace positive { namespace integer_8_t$ {
     }
 
 }}}
+
+#endif

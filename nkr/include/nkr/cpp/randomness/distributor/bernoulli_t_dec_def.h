@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_881c47a3_cea9_40c1_b2ac_51233c867939
+#define nkr_INCLUDE_GUARD_881c47a3_cea9_40c1_b2ac_51233c867939
 
 #include "nkr/cpp/randomness/distributor/bernoulli_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace randomness { namespace distributor { n
     }
 
 }}}}}
+
+#endif

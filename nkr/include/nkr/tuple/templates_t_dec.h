@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_932d6c04_9713_4270_a46e_c3f197d12aac
+#define nkr_INCLUDE_GUARD_932d6c04_9713_4270_a46e_c3f197d12aac
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant/boolean/cpp_t_dec.h"
@@ -250,3 +251,5 @@ namespace nkr { namespace tuple {
 }}
 
 #include "nkr/tuple/templates_t_dec_def.h"
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_80812b41_ece8_4666_9dd7_acb757d43a23
+#define nkr_INCLUDE_GUARD_80812b41_ece8_4666_9dd7_acb757d43a23
 
 #include "nkr/positive/integer_16_t_dec.h"
 
@@ -131,3 +132,5 @@ namespace nkr { namespace positive { namespace integer_16_t$ {
     }
 
 }}}
+
+#endif

@@ -2,6 +2,9 @@
     Copyright 2022 r-neal-kelly
 */
 
+#ifndef nkr_INCLUDE_GUARD_d2ad9118_0da8_42da_90f3_8f46db808952
+#define nkr_INCLUDE_GUARD_d2ad9118_0da8_42da_90f3_8f46db808952
+
 // JUST_NON_QUALIFIED
 #define nkr_JUST_NON_QUALIFIED_OF_JUST_NON_QUALIFIED(TYPE_p)    \
     nkr_TEMPLATES(nkr_BLANK, TYPE_p)                            \
@@ -1705,3 +1708,5 @@
     template <typename type_p>                                                                      \
     using any_not_just_const_volatile_of_any_not_just_const_volatile_ts =                           \
         nkr::ts<AND_tg, nkr_ANY_NOT_JUST_CONST_VOLATILE_OF_ANY_NOT_JUST_CONST_VOLATILE(type_p)>;    \
+
+#endif

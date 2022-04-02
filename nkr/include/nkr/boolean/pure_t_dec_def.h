@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_9c0c3053_0ee7_4326_9302_ee33afa05388
+#define nkr_INCLUDE_GUARD_9c0c3053_0ee7_4326_9302_ee33afa05388
 
 #include "nkr/boolean/pure_t_dec.h"
 
@@ -300,3 +301,5 @@ inline constexpr nkr::boolean::cpp_t
 {
     return !operator ==(a, b);
 }
+
+#endif

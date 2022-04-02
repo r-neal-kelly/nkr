@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_6660d30d_366a_4ea1_b913_f429ab4fc7db
+#define nkr_INCLUDE_GUARD_6660d30d_366a_4ea1_b913_f429ab4fc7db
 
 #include "nkr/negatable/integer_32_t_dec.h"
 
@@ -131,3 +132,5 @@ namespace nkr { namespace negatable { namespace integer_32_t$ {
     }
 
 }}}
+
+#endif

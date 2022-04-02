@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_596b43e3_1787_4bf8_b689_069478b343df
+#define nkr_INCLUDE_GUARD_596b43e3_1787_4bf8_b689_069478b343df
 
 #include "nkr/constant/boolean/cpp_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace boolean { namespace cpp_t$ {
     }
 
 }}}}
+
+#endif

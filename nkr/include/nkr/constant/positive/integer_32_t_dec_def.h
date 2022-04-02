@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_fc0135d0_54ba_411e_83e7_6387dfedc263
+#define nkr_INCLUDE_GUARD_fc0135d0_54ba_411e_83e7_6387dfedc263
 
 #include "nkr/constant/positive/integer_32_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace positive { namespace integer_32_t
     }
 
 }}}}
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_4749d08d_88b2_4454_b8c8_818d3eae93ec
+#define nkr_INCLUDE_GUARD_4749d08d_88b2_4454_b8c8_818d3eae93ec
 
 #include "nkr/constant/negatable/count_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace count_t$ {
     }
 
 }}}}
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_e89211f6_593a_452a_8159_9bc2412dfc0d
+#define nkr_INCLUDE_GUARD_e89211f6_593a_452a_8159_9bc2412dfc0d
 
 #include "nkr/interface/type_i_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace interface { namespace type_i$ {
     }
 
 }}}
+
+#endif

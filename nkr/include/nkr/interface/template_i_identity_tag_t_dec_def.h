@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_a6d902b3_8828_4eb6_808b_a328881fcfb4
+#define nkr_INCLUDE_GUARD_a6d902b3_8828_4eb6_808b_a328881fcfb4
 
 #include "nkr/interface/template_i_identity_tag_t_dec.h"
 
@@ -34,3 +35,5 @@ namespace nkr { namespace interface {
     }
 
 }}
+
+#endif

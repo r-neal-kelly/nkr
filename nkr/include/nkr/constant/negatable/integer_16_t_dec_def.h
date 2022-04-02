@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_010bbaa1_bfd2_482b_90e5_6e1841554e42
+#define nkr_INCLUDE_GUARD_010bbaa1_bfd2_482b_90e5_6e1841554e42
 
 #include "nkr/constant/negatable/integer_16_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace integer_16_
     }
 
 }}}}
+
+#endif

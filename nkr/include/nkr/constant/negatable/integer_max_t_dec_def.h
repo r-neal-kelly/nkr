@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_235d9674_2507_496d_a7f9_70f8bf85290d
+#define nkr_INCLUDE_GUARD_235d9674_2507_496d_a7f9_70f8bf85290d
 
 #include "nkr/constant/negatable/integer_max_t_dec.h"
 
@@ -29,3 +30,5 @@ namespace nkr { namespace constant { namespace negatable { namespace integer_max
     }
 
 }}}}
+
+#endif

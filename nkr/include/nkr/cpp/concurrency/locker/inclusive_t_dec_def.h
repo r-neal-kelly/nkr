@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_b1d66896_2bf5_4dd0_98bc_5b80878cf932
+#define nkr_INCLUDE_GUARD_b1d66896_2bf5_4dd0_98bc_5b80878cf932
 
 #include "nkr/cpp/concurrency/locker/inclusive_t_dec.h"
 
@@ -55,3 +56,5 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
     }
 
 }}}}}
+
+#endif

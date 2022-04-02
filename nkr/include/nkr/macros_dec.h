@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_4e84ae6c_af8d_49ac_85c6_6edc16080b6a
+#define nkr_INCLUDE_GUARD_4e84ae6c_af8d_49ac_85c6_6edc16080b6a
 
 // These must be defined by CMake.
 #if !defined(nkr_IS_WINDOWS) && !defined(nkr_IS_LINUX)
@@ -37,3 +38,5 @@
 #define nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(WRAPPER_p, BASE_p)
 
 #include "nkr/macros_dec_def.h"
+
+#endif

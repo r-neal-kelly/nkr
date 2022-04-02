@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_cd11aa0b_e047_44f1_8ec4_4e0e9a6e1e03
+#define nkr_INCLUDE_GUARD_cd11aa0b_e047_44f1_8ec4_4e0e9a6e1e03
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/cpp_dec.h"
@@ -213,3 +214,5 @@ namespace nkr { namespace interface { namespace randomness {
 }}}
 
 #include "nkr/positive/integer_32_t_dec_def.h"
+
+#endif

@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_2519e504_a646_4aff_b08b_2027e8bbcf44
+#define nkr_INCLUDE_GUARD_2519e504_a646_4aff_b08b_2027e8bbcf44
 
 #include "nkr/boolean/cpp_t_def.h"
 #include "nkr/boolean/deleted_operators_t_def.h"
@@ -55,3 +56,5 @@ namespace nkr { namespace boolean { namespace pure_t$ {
     }
 
 }}}
+
+#endif

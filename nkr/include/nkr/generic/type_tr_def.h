@@ -2,7 +2,8 @@
     Copyright 2022 r-neal-kelly
 */
 
-#pragma once
+#ifndef nkr_INCLUDE_GUARD_658bfa14_56ff_4e7a_9dd8_1e7bd9c337e9
+#define nkr_INCLUDE_GUARD_658bfa14_56ff_4e7a_9dd8_1e7bd9c337e9
 
 #include "nkr/built_in/forward_def.h"
 #include "nkr/cpp_def.h"
@@ -16,3 +17,5 @@ namespace nkr {
 
 
 }
+
+#endif
