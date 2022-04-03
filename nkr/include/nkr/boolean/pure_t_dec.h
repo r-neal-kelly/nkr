@@ -112,18 +112,18 @@ namespace nkr { namespace boolean {
         constexpr pure_t(tr<to_tg, t<value_t>> auto&& from) noexcept;
 
         constexpr pure_t(const pure_t& other) noexcept;
-        constexpr pure_t(const volatile pure_t& other) noexcept;
+                  pure_t(const volatile pure_t& other) noexcept;
         constexpr pure_t(pure_t&& other) noexcept;
-        constexpr pure_t(volatile pure_t&& other) noexcept;
+                  pure_t(volatile pure_t&& other) noexcept;
 
         constexpr pure_t&           operator =(const pure_t& other) noexcept;
-        constexpr volatile pure_t&  operator =(const pure_t& other) volatile noexcept;
-        constexpr pure_t&           operator =(const volatile pure_t& other) noexcept;
-        constexpr volatile pure_t&  operator =(const volatile pure_t& other) volatile noexcept;
+                  volatile pure_t&  operator =(const pure_t& other) volatile noexcept;
+                  pure_t&           operator =(const volatile pure_t& other) noexcept;
+                  volatile pure_t&  operator =(const volatile pure_t& other) volatile noexcept;
         constexpr pure_t&           operator =(pure_t&& other) noexcept;
-        constexpr volatile pure_t&  operator =(pure_t&& other) volatile noexcept;
-        constexpr pure_t&           operator =(tr<just_volatile_tg, t<pure_t>> auto&& other) noexcept;
-        constexpr volatile pure_t&  operator =(tr<just_volatile_tg, t<pure_t>> auto&& other) volatile noexcept;
+                  volatile pure_t&  operator =(pure_t&& other) volatile noexcept;
+                  pure_t&           operator =(tr<just_volatile_tg, t<pure_t>> auto&& other) noexcept;
+                  volatile pure_t&  operator =(tr<just_volatile_tg, t<pure_t>> auto&& other) volatile noexcept;
 
 #if defined(nkr_IS_DEBUG)
         constexpr ~pure_t() noexcept;
@@ -131,7 +131,7 @@ namespace nkr { namespace boolean {
 
     public:
         explicit constexpr operator nkr::boolean::pure_t::value_t() const noexcept;
-        explicit constexpr operator nkr::boolean::pure_t::value_t() const volatile noexcept;
+        explicit           operator nkr::boolean::pure_t::value_t() const volatile noexcept;
 
     public:
         constexpr value_t   operator ()() const noexcept;

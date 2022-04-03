@@ -182,7 +182,10 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
             elseif (DEFINED ENV{nkr_IS_64_BIT})
                 try_add_compile_option("-m64")
             endif()
+            try_add_compile_option("-pedantic")
+            try_add_compile_option("-w")
             try_add_compile_option("-fmax-errors=4")
+            try_add_compile_option("-Wno-volatile")
         endif()
 
         add_subdirectory("nkr")

@@ -107,7 +107,7 @@ namespace nkr { namespace boolean {
     {
     }
 
-    inline constexpr pure_t::pure_t(const volatile pure_t& other) noexcept :
+    inline pure_t::pure_t(const volatile pure_t& other) noexcept :
         value(other.value)
     {
     }
@@ -121,7 +121,7 @@ namespace nkr { namespace boolean {
     {
     }
 
-    inline constexpr pure_t::pure_t(volatile pure_t&& other) noexcept :
+    inline pure_t::pure_t(volatile pure_t&& other) noexcept :
     #if defined(nkr_IS_DEBUG)
         value(nkr::cpp::Exchange(other.value, false))
     #else
@@ -137,21 +137,21 @@ namespace nkr { namespace boolean {
         return Assign(*this, other);
     }
 
-    inline constexpr volatile pure_t&
+    inline volatile pure_t&
         pure_t::operator =(const pure_t& other)
         volatile noexcept
     {
         return Assign(*this, other);
     }
 
-    inline constexpr pure_t&
+    inline pure_t&
         pure_t::operator =(const volatile pure_t& other)
         noexcept
     {
         return Assign(*this, other);
     }
 
-    inline constexpr volatile pure_t&
+    inline volatile pure_t&
         pure_t::operator =(const volatile pure_t& other)
         volatile noexcept
     {
@@ -165,21 +165,21 @@ namespace nkr { namespace boolean {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    inline constexpr volatile pure_t&
+    inline volatile pure_t&
         pure_t::operator =(pure_t&& other)
         volatile noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    inline constexpr pure_t&
+    inline pure_t&
         pure_t::operator =(tr<just_volatile_tg, t<pure_t>> auto&& other)
         noexcept
     {
         return Assign(*this, nkr::cpp::Move(other));
     }
 
-    inline constexpr volatile pure_t&
+    inline volatile pure_t&
         pure_t::operator =(tr<just_volatile_tg, t<pure_t>> auto&& other)
         volatile noexcept
     {
@@ -199,7 +199,7 @@ namespace nkr { namespace boolean {
         return Value(*this);
     }
 
-    inline constexpr pure_t::operator nkr::boolean::pure_t::value_t()
+    inline pure_t::operator nkr::boolean::pure_t::value_t()
         const volatile noexcept
     {
         return Value(*this);

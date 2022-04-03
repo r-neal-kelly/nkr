@@ -683,6 +683,12 @@ namespace nkr {
 
             public:
                 constexpr operator from_user_defined_t::value_t()
+                    const noexcept
+                {
+                    return this->value;
+                }
+
+                operator from_user_defined_t::value_t()
                     const volatile noexcept
                 {
                     return this->value;
@@ -1784,7 +1790,7 @@ namespace nkr {
 
                     public:
                         constexpr nkr::boolean::cpp_t
-                            operator ==(to_user_defined_t other)
+                            operator ==(const volatile to_user_defined_t& other)
                             const volatile noexcept
                         {
                             return this->value == other.value;
