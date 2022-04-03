@@ -3,7 +3,8 @@ param(
     [string]$arch = "64",
     [string]$mode = "Debug",
     [switch]$test,
-    [switch]$make
+    [switch]$make,
+    [switch]$exec
 )
 
 if ($help.IsPresent) {
@@ -19,6 +20,7 @@ if ($help.IsPresent) {
     Write-Host "    -mode: The target mode: e.g. 'Debug', 'Release'. Default: 'Debug'."
     Write-Host "    -test: Will generate test suites."
     Write-Host "    -make: Will compile the generated build files."
+    Write-Host "    -exec: Will execute all compiled executable tests."
     Write-Host
 } else {
     if ((Get-Command "node" -ErrorAction SilentlyContinue) -eq $null) {
@@ -79,7 +81,7 @@ if ($help.IsPresent) {
                 if ($test.IsPresent) {
                     node "./tools/make_run_tests" "$path"
 
-                    if ($make.IsPresent) {
+                    if ($exec.IsPresent) {
                         Write-Host "Executing tests at $path..."
                         Invoke-Expression "$path/run_tests.ps1"
                     }

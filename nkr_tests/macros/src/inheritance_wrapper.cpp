@@ -47,7 +47,7 @@ namespace nkr {
         {
         }
 
-        constexpr original_t(const volatile original_t& other) noexcept :
+        original_t(const volatile original_t& other) noexcept :
             integer(other.integer),
             real(other.real)
         {
@@ -59,7 +59,7 @@ namespace nkr {
         {
         }
 
-        constexpr original_t(volatile original_t&& other) noexcept :
+        original_t(volatile original_t&& other) noexcept :
             integer(cpp::Exchange(other.integer, 0)),
             real(cpp::Exchange(other.real, negatable::real_t(0.0)))
         {
@@ -151,7 +151,7 @@ namespace nkr {
             return this->integer;
         }
 
-        constexpr positive::integer_t Integer() const volatile noexcept
+        positive::integer_t Integer() const volatile noexcept
         {
             return this->integer;
         }
@@ -161,7 +161,7 @@ namespace nkr {
             return this->real;
         }
 
-        constexpr negatable::real_t Real() const volatile noexcept
+        negatable::real_t Real() const volatile noexcept
         {
             return this->real;
         }
@@ -172,7 +172,7 @@ namespace nkr {
             return this->integer;
         }
 
-        constexpr operator positive::integer_t() const volatile noexcept
+        operator positive::integer_t() const volatile noexcept
         {
             return this->integer;
         }
@@ -182,7 +182,7 @@ namespace nkr {
             return this->real;
         }
 
-        constexpr operator negatable::real_t() const volatile noexcept
+        operator negatable::real_t() const volatile noexcept
         {
             return this->real;
         }
@@ -193,7 +193,7 @@ namespace nkr {
             return this->integer + integer;
         }
 
-        constexpr positive::integer_t operator +(positive::integer_t integer) const volatile noexcept
+        positive::integer_t operator +(positive::integer_t integer) const volatile noexcept
         {
             return this->integer + integer;
         }
@@ -211,7 +211,7 @@ namespace nkr {
             return *this;
         }
 
-        constexpr volatile original_t& operator =(boolean::cpp_t boolean) volatile noexcept
+        volatile original_t& operator =(boolean::cpp_t boolean) volatile noexcept
         {
             if (boolean) {
                 this->integer = 1;
@@ -276,7 +276,7 @@ namespace nkr {
                 {
                     using base_t = derived_p::base_t;
 
-                    static_assert(cpp::is_tr<derived_p::alias_t, base_t::alias_t>);
+                    static_assert(cpp::is_tr<typename derived_p::alias_t, typename base_t::alias_t>);
                 }
             }
 

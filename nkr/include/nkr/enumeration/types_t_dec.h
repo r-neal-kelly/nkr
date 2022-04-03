@@ -199,14 +199,14 @@ namespace nkr { namespace enumeration {
         constexpr types_t(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
 
         constexpr types_t(const value_t& value) noexcept;
-        constexpr types_t(const volatile value_t& value) noexcept;
+                  types_t(const volatile value_t& value) noexcept;
         constexpr types_t(value_t&& value) noexcept;
-        constexpr types_t(volatile value_t&& value) noexcept;
+                  types_t(volatile value_t&& value) noexcept;
 
         constexpr types_t(const types_t& other) noexcept;
-        constexpr types_t(const volatile types_t& other) noexcept;
+                  types_t(const volatile types_t& other) noexcept;
         constexpr types_t(types_t&& other) noexcept;
-        constexpr types_t(volatile types_t&& other) noexcept;
+                  types_t(volatile types_t&& other) noexcept;
 
         constexpr types_t&          operator =(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
         constexpr volatile types_t& operator =(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
@@ -248,10 +248,10 @@ namespace nkr { namespace enumeration {
 
     public:
         constexpr operator          types_t<value_p, none_p>::integer_t() const noexcept;
-        constexpr operator          types_t<value_p, none_p>::integer_t() const volatile noexcept;
+                  operator          types_t<value_p, none_p>::integer_t() const volatile noexcept;
 
         explicit constexpr operator nkr::boolean::cpp_t() const noexcept;
-        explicit constexpr operator nkr::boolean::cpp_t() const volatile noexcept;
+        explicit           operator nkr::boolean::cpp_t() const volatile noexcept;
     };
 
 }}

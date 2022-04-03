@@ -30,6 +30,17 @@ namespace nkr { namespace interface { namespace template_i$ {
     template <typename ...>
     class dummy_t;
 
+    /*
+        Because some special implementations cannot have the existence of their
+        template_t alias checked. This is a terrible solution. I really just
+        want to know if an implementation has an alias called 'template_t',
+        but the language affords no way to determine the existence of a
+        template alias that takes multiple kinds of template parameters.
+    */
+    template <typename type_p>
+    concept special_i =
+        nkr::cpp::is_any_tr<type_p, nkr::interface::template_i<nkr::constant_ttg>>;
+
     template <typename type_p>
     concept aliases_i =
         nkr::cpp::is_ttr<type_p::template template_t, type_p::template template_t> &&
@@ -76,10 +87,11 @@ namespace nkr { namespace interface {
 
     template <typename type_p>
     concept template_tr =
-        template_i$::is_tmpl<type_p>::Value() &&
-        template_i$::aliases_i<type_p> &&
-        template_i$::static_constexpr_functions_i<type_p> &&
-        template_i$::objects_i<type_p>;
+        template_i$::special_i<type_p> ||
+        (template_i$::is_tmpl<type_p>::Value() &&
+         template_i$::aliases_i<type_p> &&
+         template_i$::static_constexpr_functions_i<type_p> &&
+         template_i$::objects_i<type_p>);
 
 }}
 

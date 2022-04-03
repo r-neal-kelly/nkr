@@ -41,7 +41,7 @@ namespace nkr {
         {
         }
 
-        constexpr user_defined_t(const volatile user_defined_t& other) noexcept :
+        user_defined_t(const volatile user_defined_t& other) noexcept :
             value(other.value)
         {
         }
@@ -51,7 +51,7 @@ namespace nkr {
         {
         }
 
-        constexpr user_defined_t(volatile user_defined_t&& other) noexcept :
+        user_defined_t(volatile user_defined_t&& other) noexcept :
             value(nkr::cpp::Exchange(other.value, nkr::none::value_t<value_t>()))
         {
         }
@@ -151,7 +151,7 @@ namespace nkr {
             return this->value;
         }
 
-        constexpr operator value_t()
+        operator value_t()
             const volatile noexcept
         {
             return this->value;
