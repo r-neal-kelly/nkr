@@ -6,7 +6,8 @@
 
 import * as path from "path";
 
-import {
+import
+{
     Read_Directory,
     Write_File,
     Print_Error,

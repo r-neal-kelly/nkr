@@ -4,7 +4,8 @@
 
 `use strict`;
 
-import {
+import
+{
     Execute_Child_Process,
     Print_Error,
 } from "./common.js"
@@ -22,7 +23,7 @@ import {
                 await Execute_Child_Process(`npm install -g uuid`);
                 try {
                     await Execute_Child_Process(`uuid`);
-        
+
                     return true;
                 } catch (error) {
                     Print_Error("Failed to execute `uuid` from PATH even after a global install. It may need to be reinstalled manually.", error);
@@ -37,7 +38,7 @@ import {
         }
     } catch (error) {
         Print_Error("'npm' could not be found in the PATH. It may need to be installed or added to the PATH.", error);
-        
+
         return false;
     }
 }
@@ -57,7 +58,8 @@ import {
     return RegExp(`^${UUID_Regex()}$`).test(uuid);
 }
 
-export {
+export
+{
     Can_Create_UUID,
     Create_UUID,
     UUID_Regex,

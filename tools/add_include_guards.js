@@ -6,14 +6,16 @@
 
 import * as path from "path";
 
-import {
+import
+{
     Read_Directory,
     Read_File,
     Write_File,
     Print_Error,
 } from "./common.js"
 
-import {
+import
+{
     Can_Create_UUID,
     Create_UUID,
     UUID_Regex,
@@ -53,7 +55,7 @@ Parameter #1:
                     }
                 }
             }
-        } catch(error) {
+        } catch (error) {
             Print_Error(`failed to read directory: ${directory_path}`, error);
         }
     }
@@ -102,7 +104,7 @@ Parameter #1:
                 } catch (error) {
                     Print_Error(`failed to create a uuid for ${header_file_path}. Skipping file.`, error);
                     should_write_data = false;
-                }                
+                }
             }
 
             if (should_write_data) {

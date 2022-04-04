@@ -54,8 +54,10 @@ import * as fs from "fs";
 
 /* string_t */ async function Execute_Child_Process(/* string_t */ command, /* object_t */ options)
 {
-    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject) {
-        child_process.exec(command, options, function (error, stdout, stderr) {
+    return new Promise(function (/* function_t */ Resolve, /* function_t */ Reject)
+    {
+        child_process.exec(command, options, function (error, stdout, stderr)
+        {
             if (error) {
                 Reject(error);
             } else {
@@ -73,7 +75,8 @@ import * as fs from "fs";
     console.log(`\n`);
 }
 
-export {
+export
+{
     Read_Directory,
     Read_File,
     Write_File,
