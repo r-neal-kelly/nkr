@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.18)
 
+execute_process(COMMAND "node" "${CMAKE_SOURCE_DIR}/tools/make_cmake_lists" "${CMAKE_SOURCE_DIR}")
+execute_process(COMMAND "node" "${CMAKE_SOURCE_DIR}/tools/add_include_guards" "${CMAKE_SOURCE_DIR}")
+
 project(nkr
         LANGUAGES CXX)
 

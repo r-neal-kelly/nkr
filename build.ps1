@@ -49,10 +49,6 @@ if ($help.IsPresent) {
                 }
         
                 $path = Join-Path (Resolve-Path .) "build/$arch"
-    
-                node "./tools/make_cmake_lists" "./"
-
-                node "./tools/add_include_guards" "./"
         
                 if ($Is_Windows) {
                     $Env:nkr_IS_WINDOWS = $true
