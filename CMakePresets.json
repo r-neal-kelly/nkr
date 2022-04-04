@@ -1,5 +1,5 @@
 {
-    "version": 4,
+    "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
         "minor": 18,
@@ -15,8 +15,8 @@
                 "value": "Win32"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_32_BIT": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_32_BIT": "1"
             }
         },
         {
@@ -28,9 +28,9 @@
                 "value": "Win32"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_32_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_32_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             }
         },
         {
@@ -42,8 +42,8 @@
                 "value": "Win32"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_32_BIT": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_32_BIT": "1"
             }
         },
         {
@@ -55,9 +55,9 @@
                 "value": "Win32"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_32_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_32_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             }
         },
         {
@@ -69,8 +69,8 @@
                 "value": "x64"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_64_BIT": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_64_BIT": "1"
             }
         },
         {
@@ -82,9 +82,9 @@
                 "value": "x64"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_64_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_64_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             }
         },
         {
@@ -96,8 +96,8 @@
                 "value": "x64"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_64_BIT": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_64_BIT": "1"
             }
         },
         {
@@ -109,9 +109,9 @@
                 "value": "x64"
             },
             "environment": {
-                "nkr_IS_WINDOWS": null,
-                "nkr_IS_64_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_WINDOWS": "1",
+                "nkr_IS_64_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             }
         },
         {
@@ -120,8 +120,8 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/32",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_32_BIT": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_32_BIT": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -133,9 +133,9 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/32",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_32_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_32_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -147,8 +147,8 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/32",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_32_BIT": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_32_BIT": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -160,9 +160,9 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/32",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_32_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_32_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -174,8 +174,8 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/64",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_64_BIT": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_64_BIT": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -187,9 +187,9 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/64",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_64_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_64_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -201,8 +201,8 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/64",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_64_BIT": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_64_BIT": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -214,9 +214,9 @@
             "generator": "Unix Makefiles",
             "binaryDir": "./build/64",
             "environment": {
-                "nkr_IS_LINUX": null,
-                "nkr_IS_64_BIT": null,
-                "nkr_DO_GENERATE_TESTS": null
+                "nkr_IS_LINUX": "1",
+                "nkr_IS_64_BIT": "1",
+                "nkr_DO_GENERATE_TESTS": "1"
             },
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
