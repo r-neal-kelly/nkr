@@ -138,7 +138,7 @@ namespace nkr { namespace cpp { namespace concurrency { namespace locker { names
             nkr::cpp::concurrency::locker::scoped_t,
             nkr::tuple::types_t<nkr::cpp::concurrency::lock::perpetual::unary_t>,
             nkr::constant::positive::count_t<1>,
-            nkr::constant::positive::count_t<~0ull>,
+            nkr::constant::positive::count_t<~nkr::positive::count_t(0)>,
             nkr::cpp::concurrency::locker::scoped_tg,
             nkr::cpp::concurrency::locker::scoped_ttg
         >
