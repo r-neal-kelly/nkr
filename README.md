@@ -1,7 +1,7 @@
 [blank]: blank
 
 # nkr
-A static 64 and 32 bit C++20 library providing powerfully generic types, versatile traits and interfaces, and a formal meta-programming language to dynamically define C++20 concepts in-place with arbitrary constraints and arbitrary precision. nkr comes with a robust and comprehensive set of test suites to ensure correctness and performance, as well as an all-encompassing set of documentation to guarantee understanding and usability. Currently available for Windows with future plans for a port to Linux.
+A static C++20 library providing powerfully generic types, versatile traits and interfaces, and a formal meta-programming language to dynamically define C++20 concepts in-place with arbitrary constraints and arbitrary precision. Comes with a robust and comprehensive set of test suites to ensure correctness and performance, as well as an all-encompassing set of documentation to guarantee understanding and usability. Currently available for 64 bit and 32 bit Windows and Linux machines.
 
 ## Why Use nkr?
 Hindsight is always 20/20. The stalwart standard C++ library is an impressive feat that's taken decades to create. But in that time many design choices were made that negatively impact its usability to this day. We have the opportunity to reflect and make changes to that design by providing:
@@ -56,34 +56,27 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
 [Go to the (still in the works) documentation](https://r-neal-kelly.github.io/nkr_docs)
 
 ## Building
-Currently the only supported platform is Windows.
+Please keep in mind that until the library stabilizes, there may be breaking changes if you use nkr in your code. It is still in the alpha phase and has not yet had an official release. The first official release will occur once we have the regex engine designed, implemented, tested, and documented.
 
-Please keep in mind that until the library stabilizes, there may be breaking changes if you use it in your code. It is still in the pre-alpha phase and has not yet had an official release. The first official release will occur once we have the regex engine designed, implemented, tested, and documented.
+The provided build script `build.ps1` is capable of updating, generating, compiling, and executing the library and its test suites. It's really only necessary for test-suites or if you wish to alter the library. Ohterwise as a static library, nkr is as simple as including headers into your code, with no extra dependencies.
 
-### For Windows
-This library currently has no other code dependencies, and is thus extremely straightforward to build with. The details below are only for **Visual Studio** users. If you are using a different compiler or the MSVC compiler in a different IDE or perhaps even using it directly, you already know what you're doing.
+### Requirements for Test-Suites
+- Compatible C++20 compiler (e.g. Visual Studio 2022 for Windows, GCC 11.2 for Linux)
+- CMake (https://cmake.org/)
+- Node.js + NPM (https://nodejs.org/en/. Installer comes with NPM, Linux will need to install explicitly.)
+- PowerShell (Preinstalled on Windows and also available for install on Linux.)
 
-#### Requirements
-- Visual Studio 2022 (unless you are willing to backport all the project files)
+### Steps for Test-Suites (Windows)
+1. Open the start button, search for `PowerShell` and set the nkr repository as the current working directory.
+2. Execute `./build.ps1 --help` to bring up the help info.
+3. Execute `./build.ps1 -arch 64 -mode Debug -make` to generate and compile the library's few .cpp files. It's a good way to test that everything is working on your system properly.
+4. Execute `./build.ps1 -arch 64 -mode Debug -test -make -exec` to generate, compile, and execute all of the library's test suites.
 
-#### Steps
-1. This is a static library, so include the `nkr.vcxproj` in your own solution. Do *not* use the `nkr.sln` file to build your own projects.
-2. With the `Solution Explorer` tab open, right click on the nkr project and select `Build`. This is header library, but there are a few `.cpp` files that it comes with.
-3. Include whatever header files you need in your own code, and you should be good to start using the library in your own code.
-4. Only if necessary, make adjustments to either your own project files or the nkr project file to make sure everything compiles nicely together. Generally you should not need to change the nkr project file.
-
-#### Requirements for Test-Suites
-- Visual Studio 2022
-- Node.js to generate the .ps1 scripts
-
-#### Steps for Test-Suites
-1. Double-click the `nkr.sln` file to load it into Visual Studio
-2. Click the `Solution Explorer` tab located near the top-left of the screen
-3. Right click on the top item listed in the explorer called `Solution nkr`
-4. If you wish to build just the current target architecture click `Rebuild Solution`. Else click on `Batch Build`, `Select All` in the prompt, and finally `Rebuild` in the same prompt.
-5. After the build process is complete, navigate to the `./tools` directory found in the top directory of the nkr repository.
-6. Double-click the file called `make_tests.ps1`, which will generate several more `.ps1` files in the same directory.
-7. If you built just the current target architecture in Visual Studio, double-click the corresponding `.ps1` file that was just generated, or else if you batch built all architectures, then double-click the `run_tests_all.ps1` file.
+### Steps for Test-Suites (Linux)
+1. Open a terminal and set the nkr repository as the current working directory.
+2. Execute `pwsh ./build.ps1 --help` to bring up the help info.
+3. Execute `pwsh ./build.ps1 -arch 64 -mode Debug -make` to generate and compile the library's few .cpp files. It's a good way to test that everything is working on your system properly.
+4. Execute `pwsh ./build.ps1 -arch 64 -mode Debug -test -make -exec` to generate, compile, and execute all of the library's test suites.
 
 ## Status
-Porting to Linux.
+Adding types from the second iteration into the final form of the library.
