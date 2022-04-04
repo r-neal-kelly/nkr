@@ -58,7 +58,7 @@ Hindsight is always 20/20. The stalwart standard C++ library is an impressive fe
 ## Building
 Please keep in mind that until the library stabilizes, there may be breaking changes if you use nkr in your code. It is still in the alpha phase and has not yet had an official release. The first official release will occur once we have the regex engine designed, implemented, tested, and documented.
 
-The provided build script `build.ps1` is capable of updating, generating, compiling, and executing the library and its test suites. It's really only necessary for test-suites or if you wish to alter the library. Ohterwise as a static library, nkr is as simple as including headers into your code, with no extra dependencies.
+The provided build script `build.ps1` is capable of updating, generating, compiling, and executing the library and its test suites. It's really only necessary for test-suites or if you wish to alter the library. Otherwise as a static library, nkr is as simple as including its headers into your code and making sure you link to its static .lib file. It requires no extra dependencies.
 
 ### Requirements for Test-Suites
 - Compatible C++20 compiler (e.g. Visual Studio 2022 for Windows, GCC 11.2 for Linux)
