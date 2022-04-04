@@ -1,0 +1,300 @@
+{
+    "version": 4,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 18,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "windows_32_debug",
+            "displayName": "Windows 32 Debug",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/32",
+            "architecture": {
+                "value": "Win32"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_32_BIT": null
+            }
+        },
+        {
+            "name": "windows_32_debug_tests",
+            "displayName": "Windows 32 Debug with Tests",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/32",
+            "architecture": {
+                "value": "Win32"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_32_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            }
+        },
+        {
+            "name": "windows_32_release",
+            "displayName": "Windows 32 Release",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/32",
+            "architecture": {
+                "value": "Win32"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_32_BIT": null
+            }
+        },
+        {
+            "name": "windows_32_release_tests",
+            "displayName": "Windows 32 Release with Tests",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/32",
+            "architecture": {
+                "value": "Win32"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_32_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            }
+        },
+        {
+            "name": "windows_64_debug",
+            "displayName": "Windows 64 Debug",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/64",
+            "architecture": {
+                "value": "x64"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_64_BIT": null
+            }
+        },
+        {
+            "name": "windows_64_debug_tests",
+            "displayName": "Windows 64 Debug with Tests",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/64",
+            "architecture": {
+                "value": "x64"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_64_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            }
+        },
+        {
+            "name": "windows_64_release",
+            "displayName": "Windows 64 Release",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/64",
+            "architecture": {
+                "value": "x64"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_64_BIT": null
+            }
+        },
+        {
+            "name": "windows_64_release_tests",
+            "displayName": "Windows 64 Release with Tests",
+            "generator": "Visual Studio 17 2022",
+            "binaryDir": "./build/64",
+            "architecture": {
+                "value": "x64"
+            },
+            "environment": {
+                "nkr_IS_WINDOWS": null,
+                "nkr_IS_64_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            }
+        },
+        {
+            "name": "linux_32_debug",
+            "displayName": "Linux 32 Debug",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/32",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_32_BIT": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux_32_debug_tests",
+            "displayName": "Linux 32 Debug with Tests",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/32",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_32_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux_32_release",
+            "displayName": "Linux 32 Release",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/32",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_32_BIT": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux_32_release_tests",
+            "displayName": "Linux 32 Release with Tests",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/32",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_32_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux_64_debug",
+            "displayName": "Linux 64 Debug",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/64",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_64_BIT": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux_64_debug_tests",
+            "displayName": "Linux 64 Debug with Tests",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/64",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_64_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux_64_release",
+            "displayName": "Linux 64 Release",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/64",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_64_BIT": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux_64_release_tests",
+            "displayName": "Linux 64 Release with Tests",
+            "generator": "Unix Makefiles",
+            "binaryDir": "./build/64",
+            "environment": {
+                "nkr_IS_LINUX": null,
+                "nkr_IS_64_BIT": null,
+                "nkr_DO_GENERATE_TESTS": null
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "windows_32_debug",
+            "configurePreset": "windows_32_debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows_32_debug_tests",
+            "configurePreset": "windows_32_debug_tests",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows_32_release",
+            "configurePreset": "windows_32_release",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows_32_release_tests",
+            "configurePreset": "windows_32_release_tests",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows_64_debug",
+            "configurePreset": "windows_64_debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows_64_debug_tests",
+            "configurePreset": "windows_64_debug_tests",
+            "configuration": "Debug"
+        },
+        {
+            "name": "windows_64_release",
+            "configurePreset": "windows_64_release",
+            "configuration": "Release"
+        },
+        {
+            "name": "windows_64_release_tests",
+            "configurePreset": "windows_64_release_tests",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux_32_debug",
+            "configurePreset": "linux_32_debug"
+        },
+        {
+            "name": "linux_32_debug_tests",
+            "configurePreset": "linux_32_debug_tests"
+        },
+        {
+            "name": "linux_32_release",
+            "configurePreset": "linux_32_release"
+        },
+        {
+            "name": "linux_32_release_tests",
+            "configurePreset": "linux_32_release_tests"
+        },
+        {
+            "name": "linux_64_debug",
+            "configurePreset": "linux_64_debug"
+        },
+        {
+            "name": "linux_64_debug_tests",
+            "configurePreset": "linux_64_debug_tests"
+        },
+        {
+            "name": "linux_64_release",
+            "configurePreset": "linux_64_release"
+        },
+        {
+            "name": "linux_64_release_tests",
+            "configurePreset": "linux_64_release_tests"
+        }
+    ]
+}
