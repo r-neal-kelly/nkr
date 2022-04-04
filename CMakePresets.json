@@ -228,89 +228,105 @@
             "name": "windows_32_debug",
             "displayName": "Default",
             "configurePreset": "windows_32_debug",
-            "configuration": "Debug"
+            "configuration": "Debug",
+            "cleanFirst": true
         },
         {
             "name": "windows_32_debug_tests",
             "displayName": "Default",
             "configurePreset": "windows_32_debug_tests",
-            "configuration": "Debug"
+            "configuration": "Debug",
+            "cleanFirst": true
         },
         {
             "name": "windows_32_release",
             "displayName": "Default",
             "configurePreset": "windows_32_release",
-            "configuration": "Release"
+            "configuration": "Release",
+            "cleanFirst": true
         },
         {
             "name": "windows_32_release_tests",
             "displayName": "Default",
             "configurePreset": "windows_32_release_tests",
-            "configuration": "Release"
+            "configuration": "Release",
+            "cleanFirst": true
         },
         {
             "name": "windows_64_debug",
             "displayName": "Default",
             "configurePreset": "windows_64_debug",
-            "configuration": "Debug"
+            "configuration": "Debug",
+            "cleanFirst": true
         },
         {
             "name": "windows_64_debug_tests",
             "displayName": "Default",
             "configurePreset": "windows_64_debug_tests",
-            "configuration": "Debug"
+            "configuration": "Debug",
+            "cleanFirst": true
         },
         {
             "name": "windows_64_release",
             "displayName": "Default",
             "configurePreset": "windows_64_release",
-            "configuration": "Release"
+            "configuration": "Release",
+            "cleanFirst": true
         },
         {
             "name": "windows_64_release_tests",
             "displayName": "Default",
             "configurePreset": "windows_64_release_tests",
-            "configuration": "Release"
+            "configuration": "Release",
+            "cleanFirst": true
         },
         {
             "name": "linux_32_debug",
             "displayName": "Default",
-            "configurePreset": "linux_32_debug"
+            "configurePreset": "linux_32_debug",
+            "cleanFirst": true
         },
         {
             "name": "linux_32_debug_tests",
             "displayName": "Default",
-            "configurePreset": "linux_32_debug_tests"
+            "configurePreset": "linux_32_debug_tests",
+            "cleanFirst": true
         },
         {
             "name": "linux_32_release",
             "displayName": "Default",
-            "configurePreset": "linux_32_release"
+            "configurePreset": "linux_32_release",
+            "cleanFirst": true
         },
         {
             "name": "linux_32_release_tests",
             "displayName": "Default",
-            "configurePreset": "linux_32_release_tests"
+            "configurePreset": "linux_32_release_tests",
+            "cleanFirst": true
         },
         {
             "name": "linux_64_debug",
             "displayName": "Default",
-            "configurePreset": "linux_64_debug"
+            "configurePreset": "linux_64_debug",
+            "cleanFirst": true
         },
         {
             "name": "linux_64_debug_tests",
             "displayName": "Default",
-            "configurePreset": "linux_64_debug_tests"
+            "configurePreset": "linux_64_debug_tests",
+            "cleanFirst": true
         },
         {
             "name": "linux_64_release",
             "displayName": "Default",
-            "configurePreset": "linux_64_release"
+            "configurePreset": "linux_64_release",
+            "cleanFirst": true
         },
         {
             "name": "linux_64_release_tests",
             "displayName": "Default",
-            "configurePreset": "linux_64_release_tests"
+            "configurePreset": "linux_64_release_tests",
+            "cleanFirst": true
         }
     ]
 }

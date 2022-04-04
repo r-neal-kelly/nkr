@@ -9,12 +9,14 @@ import * as path from "path";
 import
 {
     Read_Directory,
+    Read_File,
     Write_File,
     Print_Error,
 } from "./common.js"
 
 const /* string_t */ lists_file_name = `CMakeLists.txt`;
 const /* string_t */ min_cmake_version = `3.18`;
+const /* string_t */ line_break = process.platform === "win32" ? `\r\n` : `\n`;
 const /* string_t */ help_message = `
 Info:
 
@@ -106,6 +108,29 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 }
 
 /*
+    Returns true if the current data read from the file does not equate to the new data.
+    Returns true if the file does not exist.
+    Returns false if the current data read from the file equates to the new data.
+*/
+/* bool_t */ async function Try_Update_File(/* string_t */ file_path, /* string_t */ new_file_data)
+{
+    try {
+        const /* string_t */ current_file_data = await Read_File(file_path);
+        if (current_file_data !== new_file_data) {
+            await Write_File(file_path, new_file_data);
+
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        await Write_File(file_path, new_file_data);
+
+        return true;
+    }
+}
+
+/*
     Generates the CMakeLists.txt file for each library in the project.
 */
 /* void_t */ async function Update_Libraries(/* string_t */ repository_path, /* string_t */ library_names)
@@ -121,9 +146,9 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
             project(${library_name}
                     LANGUAGES CXX)
 
-            set(THIS_INCLUDE_FILES${include_file_names.map(s => `\n                "${s}"`).join("")})
+            set(THIS_INCLUDE_FILES${include_file_names.map(s => `${line_break}                "${s}"`).join("")})
 
-            set(THIS_SOURCE_FILES${source_file_names.map(s => `\n                "${s}"`).join("")})
+            set(THIS_SOURCE_FILES${source_file_names.map(s => `${line_break}                "${s}"`).join("")})
 
             add_library(${library_name} STATIC)
             target_sources(${library_name} PUBLIC \${THIS_INCLUDE_FILES})
@@ -134,13 +159,13 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 
             source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"
                          PREFIX "File Tree"
-                         FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})\n`.replace(/^            /gm, "");
+                         FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})${line_break}`.replace(/^            /gm, "");
 
         const /* string_t */ data_path = `${repository_path}/${library_name}/${lists_file_name}`;
         try {
-            await Write_File(data_path, data);
+            await Try_Update_File(data_path, data);
         } catch (error) {
-            Print_Error(`failed to write file: ${data_path}`, error);
+            Print_Error(`failed to update file: ${data_path}`, error);
         }
     }
 }
@@ -154,13 +179,13 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 
         cmake_minimum_required(VERSION ${min_cmake_version})
 
-        ${test_names.map(s => `add_subdirectory("${s}")`).join(`\n        `)}\n`.replace(/^        /gm, "");
+        ${test_names.map(s => `add_subdirectory("${s}")`).join(`${line_break}        `)}${line_break}`.replace(/^        /gm, "");
 
     const /* string_t */ data_path = `${tests_path}/${lists_file_name}`;
     try {
-        await Write_File(data_path, data);
+        await Try_Update_File(data_path, data);
     } catch (error) {
-        Print_Error(`failed to write file: ${data_path}`, error);
+        Print_Error(`failed to update file: ${data_path}`, error);
     }
 
     for (let /* string_t */ test_name of test_names) {
@@ -175,9 +200,9 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
             project(${full_test_name}
                     LANGUAGES CXX)
 
-            set(THIS_INCLUDE_FILES${include_file_names.map(s => `\n                "${s}"`).join("")})
+            set(THIS_INCLUDE_FILES${include_file_names.map(s => `${line_break}                "${s}"`).join("")})
 
-            set(THIS_SOURCE_FILES${source_file_names.map(s => `\n                "${s}"`).join("")})
+            set(THIS_SOURCE_FILES${source_file_names.map(s => `${line_break}                "${s}"`).join("")})
 
             add_executable(${full_test_name})
             target_sources(${full_test_name} PUBLIC \${THIS_INCLUDE_FILES})
@@ -194,13 +219,13 @@ async function Include_And_Source_File_Names(/* string_t */ directory_path,
 
             source_group(TREE "\${CMAKE_CURRENT_SOURCE_DIR}"
                          PREFIX "File Tree"
-                         FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})\n`.replace(/^            /gm, "");
+                         FILES \${THIS_INCLUDE_FILES} \${THIS_SOURCE_FILES})${line_break}`.replace(/^            /gm, "");
 
         const /* string_t */ data_path = `${tests_path}/${test_name}/${lists_file_name}`;
         try {
-            await Write_File(data_path, data);
+            await Try_Update_File(data_path, data);
         } catch (error) {
-            Print_Error(`failed to write file: ${data_path}`, error);
+            Print_Error(`failed to update file: ${data_path}`, error);
         }
     }
 }
