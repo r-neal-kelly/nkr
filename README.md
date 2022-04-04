@@ -67,7 +67,7 @@ The provided build script `build.ps1` is capable of updating, generating, compil
 - PowerShell (Preinstalled on Windows and also available for install on Linux.)
 
 ### Steps for Test-Suites (Windows)
-1. Open the start button, search for `PowerShell` and set the nkr repository as the current working directory.
+1. Open the start button, search for `PowerShell`, open it, and set the nkr repository as the current working directory.
 2. Execute `./build.ps1 --help` to bring up the help info.
 3. Execute `./build.ps1 -arch 64 -mode Debug -make` to generate and compile the library's few .cpp files. It's a good way to test that everything is working on your system properly.
 4. Execute `./build.ps1 -arch 64 -mode Debug -test -make -exec` to generate, compile, and execute all of the library's test suites.
