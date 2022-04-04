@@ -5,19 +5,12 @@ execute_process(COMMAND "node" "${CMAKE_SOURCE_DIR}/tools/add_include_guards" "$
 
 project(nkr
         LANGUAGES CXX)
-
-include(CheckCXXCompilerFlag)
-
+        
 # Commonly needed directories
-set(NKR_BUILD_DIR "${CMAKE_BINARY_DIR}")
-set(NKR_BUILD_LIB_DIR "${NKR_BUILD_DIR}/lib")
-set(NKR_BUILD_BIN_DIR "${NKR_BUILD_DIR}/bin")
-
-set(NKR_DIR "${CMAKE_SOURCE_DIR}")
-set(NKR_NKR_DIR "${NKR_DIR}/nkr")
-set(NKR_NKR_INCLUDE_DIR "${NKR_NKR_DIR}/include")
-set(NKR_DOCTEST_DIR "${NKR_DIR}/doctest")
-set(NKR_DOCTEST_INCLUDE_DIR "${NKR_DOCTEST_DIR}/include")
+set(NKR_BUILD_LIB_DIR "${CMAKE_BINARY_DIR}/lib")
+set(NKR_BUILD_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
+set(NKR_NKR_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/nkr/include")
+set(NKR_DOCTEST_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/doctest/include")
 
 # All libraries go in one folder and all executables in another.
 # This applies to all libraries and executables in this project.
@@ -49,48 +42,29 @@ add_compile_definitions(
     $<$<CONFIG:MinSizeRel>:nkr_IS_RELEASE>
 )
 
-# We need to check if certain flags are available and set them if so
-function(try_add_compile_option OPTION)
-    unset(HAS_COMPILER_OPTION CACHE)
-    check_cxx_compiler_flag("${OPTION}" HAS_COMPILER_OPTION)
-    if (HAS_COMPILER_OPTION)
-        add_compile_options("${OPTION}")
-        message("---- Added compile option: ${OPTION}")
-    else()
-        add_compile_options("${OPTION}")
-        message("---- Forcibly added compile option: ${OPTION}")
-    endif()
-endfunction()
-
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    try_add_compile_option("/std:c++latest")
-    #try_add_compile_option("/std:c17")
-    try_add_compile_option("/W3")
-    try_add_compile_option("/volatile:iso")
-    try_add_compile_option("/bigobj")
+    add_compile_options("/std:c++latest")
+    add_compile_options("/W3")
+    add_compile_options("/volatile:iso")
+    add_compile_options("/bigobj")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     if (DEFINED ENV{nkr_IS_32_BIT})
-        try_add_compile_option("-m32")
+        add_compile_options("-m32")
     elseif (DEFINED ENV{nkr_IS_64_BIT})
-        try_add_compile_option("-m64")
+        add_compile_options("-m64")
     endif()
-    try_add_compile_option("-pedantic")
-    try_add_compile_option("-w")
-    try_add_compile_option("-fmax-errors=4")
-    try_add_compile_option("-Wno-volatile")
+    add_compile_options("-pedantic")
+    add_compile_options("-w")
+    add_compile_options("-fmax-errors=4")
+    add_compile_options("-Wno-volatile")
 endif()
 
 add_subdirectory("nkr")
-
 if (DEFINED ENV{nkr_DO_GENERATE_TESTS})
     add_subdirectory("doctest")
     add_subdirectory("nkr_tests")
 endif()
 
-# Just some helpful console ouput
-if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    message("---- Configuring for MSVC...")
-endif()
-message("---- Generating configuration from source at: ${NKR_DIR}")
-message("---- Archives will be available at: ${NKR_BUILD_LIB_DIR}")
-message("---- Executables will be available at: ${NKR_BUILD_BIN_DIR}")
+message("-- Generating configuration from source at: ${CMAKE_SOURCE_DIR}")
+message("-- Archives will be available at: ${NKR_BUILD_LIB_DIR}")
+message("-- Executables will be available at: ${NKR_BUILD_BIN_DIR}")
