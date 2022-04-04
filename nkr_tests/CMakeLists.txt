@@ -1,0 +1,21 @@
+# nkr_tests
+
+cmake_minimum_required(VERSION 3.18)
+        
+add_subdirectory("array")
+add_subdirectory("boolean")
+add_subdirectory("concurrency")
+add_subdirectory("constant")
+add_subdirectory("cpp")
+add_subdirectory("docs")
+add_subdirectory("enumeration")
+add_subdirectory("generic")
+add_subdirectory("interface")
+add_subdirectory("macros")
+add_subdirectory("negatable")
+add_subdirectory("none")
+add_subdirectory("pointer")
+add_subdirectory("positive")
+add_subdirectory("randomness")
+add_subdirectory("tr")
+add_subdirectory("tuple")
