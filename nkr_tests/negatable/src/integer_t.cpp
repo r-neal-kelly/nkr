@@ -1902,32 +1902,37 @@ namespace nkr {
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Add<integer_t>(a);
+                            value_t c = value_t(a) + value_t(b);
 
-                            CHECK(value_t(value_t(a) + value_t(b)) == (a += non_qualified_t(b)));
+                            CHECK(c == (a += non_qualified_t(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Subtract<integer_t>(a);
+                            value_t c = value_t(a) - value_t(b);
 
-                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= non_qualified_t(b)));
+                            CHECK(c == (a -= non_qualified_t(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Multiply<integer_t>(a);
+                            value_t c = value_t(a) * value_t(b);
 
-                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= non_qualified_t(b)));
+                            CHECK(c == (a *= non_qualified_t(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Divide<integer_t>(a);
+                            value_t c = value_t(a) / value_t(b);
 
-                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= non_qualified_t(b)));
+                            CHECK(c == (a /= non_qualified_t(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Divide<integer_t>(a);
+                            value_t c = value_t(a) % value_t(b);
 
-                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= non_qualified_t(b)));
+                            CHECK(c == (a %= non_qualified_t(b)));
                         }
                     }
                 }
@@ -1942,32 +1947,37 @@ namespace nkr {
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Add<integer_t>(a);
+                            value_t c = value_t(a) + value_t(b);
 
-                            CHECK(value_t(value_t(a) + value_t(b)) == (a += b));
+                            CHECK(c == (a += b));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Subtract<integer_t>(a);
+                            value_t c = value_t(a) - value_t(b);
 
-                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= b));
+                            CHECK(c == (a -= b));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Multiply<integer_t>(a);
+                            value_t c = value_t(a) * value_t(b);
 
-                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= b));
+                            CHECK(c == (a *= b));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Divide<integer_t>(a);
+                            value_t c = value_t(a) / value_t(b);
 
-                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= b));
+                            CHECK(c == (a /= b));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Divide<integer_t>(a);
+                            value_t c = value_t(a) % value_t(b);
 
-                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= b));
+                            CHECK(c == (a %= b));
                         }
                     }
                 }
@@ -1982,32 +1992,37 @@ namespace nkr {
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Add<integer_t>(a);
+                            value_t c = value_t(a) + value_t(b);
 
-                            CHECK(value_t(value_t(a) + value_t(b)) == (a += nkr::cpp::Move(b)));
+                            CHECK(c == (a += nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Subtract<integer_t>(a);
+                            value_t c = value_t(a) - value_t(b);
 
-                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= nkr::cpp::Move(b)));
+                            CHECK(c == (a -= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Multiply<integer_t>(a);
+                            value_t c = value_t(a) * value_t(b);
 
-                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= nkr::cpp::Move(b)));
+                            CHECK(c == (a *= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Divide<integer_t>(a);
+                            value_t c = value_t(a) / value_t(b);
 
-                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= nkr::cpp::Move(b)));
+                            CHECK(c == (a /= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = Random_Non_Overflow_Divide<integer_t>(a);
+                            value_t c = value_t(a) % value_t(b);
 
-                            CHECK(value_t(value_t(a) % value_t(b)) == (a %= nkr::cpp::Move(b)));
+                            CHECK(c == (a %= nkr::cpp::Move(b)));
                         }
                     }
                 }
@@ -2228,32 +2243,37 @@ namespace nkr {
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) | value_t(b);
 
-                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= non_qualified_t(b)));
+                            CHECK(c == (a |= non_qualified_t(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) & value_t(b);
 
-                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= non_qualified_t(b)));
+                            CHECK(c == (a &= non_qualified_t(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) ^ value_t(b);
 
-                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= non_qualified_t(b)));
+                            CHECK(c == (a ^= non_qualified_t(b)));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
                             other_t b = Random_Shift<integer_t>();
+                            value_t c = value_t(a) << value_t(b);
 
-                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= non_qualified_t(b)));
+                            CHECK(c == (a <<= non_qualified_t(b)));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
                             other_t b = Random_Shift<integer_t>();
+                            value_t c = value_t(a) >> value_t(b);
 
-                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= non_qualified_t(b)));
+                            CHECK(c == (a >>= non_qualified_t(b)));
                         }
                     }
                 }
@@ -2268,32 +2288,37 @@ namespace nkr {
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) | value_t(b);
 
-                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= b));
+                            CHECK(c == (a |= b));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) & value_t(b);
 
-                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= b));
+                            CHECK(c == (a &= b));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) ^ value_t(b);
 
-                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= b));
+                            CHECK(c == (a ^= b));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
                             other_t b = Random_Shift<integer_t>();
+                            value_t c = value_t(a) << value_t(b);
 
-                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= b));
+                            CHECK(c == (a <<= b));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
                             other_t b = Random_Shift<integer_t>();
+                            value_t c = value_t(a) >> value_t(b);
 
-                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= b));
+                            CHECK(c == (a >>= b));
                         }
                     }
                 }
@@ -2308,32 +2333,37 @@ namespace nkr {
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) | value_t(b);
 
-                            CHECK(value_t(value_t(a) | value_t(b)) == (a |= nkr::cpp::Move(b)));
+                            CHECK(c == (a |= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) & value_t(b);
 
-                            CHECK(value_t(value_t(a) & value_t(b)) == (a &= nkr::cpp::Move(b)));
+                            CHECK(c == (a &= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = nkr::randomness::Value<integer_t>();
                             other_t b = nkr::randomness::Value<integer_t>();
+                            value_t c = value_t(a) ^ value_t(b);
 
-                            CHECK(value_t(value_t(a) ^ value_t(b)) == (a ^= nkr::cpp::Move(b)));
+                            CHECK(c == (a ^= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
                             other_t b = Random_Shift<integer_t>();
+                            value_t c = value_t(a) << value_t(b);
 
-                            CHECK(value_t(value_t(a) << value_t(b)) == (a <<= nkr::cpp::Move(b)));
+                            CHECK(c == (a <<= nkr::cpp::Move(b)));
                         }
                         {
                             integer_t a = Random_Non_Negative<integer_t>();
                             other_t b = Random_Shift<integer_t>();
+                            value_t c = value_t(a) >> value_t(b);
 
-                            CHECK(value_t(value_t(a) >> value_t(b)) == (a >>= nkr::cpp::Move(b)));
+                            CHECK(c == (a >>= nkr::cpp::Move(b)));
                         }
                     }
                 }

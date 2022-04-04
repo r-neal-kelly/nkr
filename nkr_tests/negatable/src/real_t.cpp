@@ -1667,26 +1667,30 @@ namespace nkr {
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Add<real_t>(a);
+                            value_t c = value_t(a) + value_t(b);
 
-                            CHECK(value_t(value_t(a) + value_t(b)) == (a += non_qualified_t(b)));
+                            CHECK(c == (a += non_qualified_t(b)));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Subtract<real_t>(a);
+                            value_t c = value_t(a) - value_t(b);
 
-                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= non_qualified_t(b)));
+                            CHECK(c == (a -= non_qualified_t(b)));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Multiply<real_t>(a);
+                            value_t c = value_t(a) * value_t(b);
 
-                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= non_qualified_t(b)));
+                            CHECK(c == (a *= non_qualified_t(b)));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Divide<real_t>(a);
+                            value_t c = value_t(a) / value_t(b);
 
-                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= non_qualified_t(b)));
+                            CHECK(c == (a /= non_qualified_t(b)));
                         }
                     }
                 }
@@ -1701,26 +1705,30 @@ namespace nkr {
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Add<real_t>(a);
+                            value_t c = value_t(a) + value_t(b);
 
-                            CHECK(value_t(value_t(a) + value_t(b)) == (a += b));
+                            CHECK(c == (a += b));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Subtract<real_t>(a);
+                            value_t c = value_t(a) - value_t(b);
 
-                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= b));
+                            CHECK(c == (a -= b));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Multiply<real_t>(a);
+                            value_t c = value_t(a) * value_t(b);
 
-                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= b));
+                            CHECK(c == (a *= b));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Divide<real_t>(a);
+                            value_t c = value_t(a) / value_t(b);
 
-                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= b));
+                            CHECK(c == (a /= b));
                         }
                     }
                 }
@@ -1735,26 +1743,30 @@ namespace nkr {
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Add<real_t>(a);
+                            value_t c = value_t(a) + value_t(b);
 
-                            CHECK(value_t(value_t(a) + value_t(b)) == (a += nkr::cpp::Move(b)));
+                            CHECK(c == (a += nkr::cpp::Move(b)));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Subtract<real_t>(a);
+                            value_t c = value_t(a) - value_t(b);
 
-                            CHECK(value_t(value_t(a) - value_t(b)) == (a -= nkr::cpp::Move(b)));
+                            CHECK(c == (a -= nkr::cpp::Move(b)));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Multiply<real_t>(a);
+                            value_t c = value_t(a) * value_t(b);
 
-                            CHECK(value_t(value_t(a) * value_t(b)) == (a *= nkr::cpp::Move(b)));
+                            CHECK(c == (a *= nkr::cpp::Move(b)));
                         }
                         {
                             real_t a = nkr::randomness::Value<real_t>();
                             other_t b = Random_Non_Overflow_Divide<real_t>(a);
+                            value_t c = value_t(a) / value_t(b);
 
-                            CHECK(value_t(value_t(a) / value_t(b)) == (a /= nkr::cpp::Move(b)));
+                            CHECK(c == (a /= nkr::cpp::Move(b)));
                         }
                     }
                 }
