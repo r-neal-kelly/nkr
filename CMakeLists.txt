@@ -64,7 +64,7 @@ endfunction()
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     try_add_compile_option("/std:c++latest")
-    try_add_compile_option("/std:c17")
+    #try_add_compile_option("/std:c17")
     try_add_compile_option("/W3")
     try_add_compile_option("/volatile:iso")
     try_add_compile_option("/bigobj")
