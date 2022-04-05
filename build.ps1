@@ -65,7 +65,7 @@ if ($help.IsPresent) {
                 }
                 
                 if ($make.IsPresent) {
-                    cmake --build "$path" --config "$mode" --parallel
+                    cmake --build "$path" --config "$mode" --parallel --clean-first
                     
                     Write-Host
                     Write-Host "Generated and compiled project at $path"
