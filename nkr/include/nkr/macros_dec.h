@@ -19,11 +19,11 @@
 #endif
 
 #if nkr_IS_WINDOWS
-    #define array_ms        array
+    //#define array_ms        array
     #define generic_ms      generic
     #define interface_ms    interface
 
-    #define array           array_
+    //#define array           array_
     #define generic         generic_
     #define interface       interface_
 #endif

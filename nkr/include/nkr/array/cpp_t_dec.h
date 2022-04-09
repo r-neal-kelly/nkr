@@ -16,9 +16,9 @@
 
 namespace nkr { namespace array {
 
-    template <nkr::generic::type_tr type_p, nkr::constant::positive::count_tr capacity_p>
+    template <nkr::generic::type_tr unit_p, nkr::constant::positive::count_tr capacity_p>
     using   cpp_t =
-        type_p[capacity_p::Value()];
+        unit_p[capacity_p::Value()];
 
     struct  cpp_tg  { class tag_lb; };
 

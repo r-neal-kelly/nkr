@@ -90,20 +90,20 @@ namespace nkr {
     static_assert(sizeof(nkr::positive::integer_8_t) == 1,
                   "nkr::positive::integer_8_t must have a size of 1 bytes.");
     static_assert(sizeof(nkr::positive::integer_16_t) == 2,
-                  "nkr::positive::integer_16_t must have a size of 1 bytes.");
+                  "nkr::positive::integer_16_t must have a size of 2 bytes.");
     static_assert(sizeof(nkr::positive::integer_32_t) == 4,
-                  "nkr::positive::integer_32_t must have a size of 1 bytes.");
+                  "nkr::positive::integer_32_t must have a size of 4 bytes.");
     static_assert(sizeof(nkr::positive::integer_64_t) == 8,
-                  "nkr::positive::integer_64_t must have a size of 1 bytes.");
+                  "nkr::positive::integer_64_t must have a size of 8 bytes.");
 
     static_assert(sizeof(nkr::negatable::integer_8_t) == 1,
                   "nkr::negatable::integer_8_t must have a size of 1 bytes.");
     static_assert(sizeof(nkr::negatable::integer_16_t) == 2,
-                  "nkr::negatable::integer_16_t must have a size of 1 bytes.");
+                  "nkr::negatable::integer_16_t must have a size of 2 bytes.");
     static_assert(sizeof(nkr::negatable::integer_32_t) == 4,
-                  "nkr::negatable::integer_32_t must have a size of 1 bytes.");
+                  "nkr::negatable::integer_32_t must have a size of 4 bytes.");
     static_assert(sizeof(nkr::negatable::integer_64_t) == 8,
-                  "nkr::negatable::integer_64_t must have a size of 1 bytes.");
+                  "nkr::negatable::integer_64_t must have a size of 8 bytes.");
 
     static_assert(sizeof(nkr::negatable::real_32_t) == 4,
                   "nkr::negatable::real_32_t must have a size of 4 bytes.");
@@ -111,7 +111,7 @@ namespace nkr {
                   "nkr::negatable::real_64_t must have a size of 8 bytes.");
 
     static_assert(sizeof(nkr::none::pointer_t) == sizeof(nkr::positive::word_t),
-                  "nkr::none::pointeR_t must have the same byte size as that of nkr::positive::word_t.");
+                  "nkr::none::pointer_t must have the same byte size as that of nkr::positive::word_t.");
     static_assert(sizeof(nkr::none::type_t*) == sizeof(nkr::positive::word_t),
                   "nkr::none::type_t* must have the same byte size as that of nkr::positive::word_t.");
 
