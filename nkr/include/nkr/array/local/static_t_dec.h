@@ -8,6 +8,7 @@
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/generic/implementing/constructor/default_tr_dec.h"
 #include "nkr/generic/type_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_identity_tag_t_dec.h"
@@ -26,16 +27,19 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     class common_t;
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (capacity_p::Value() < 1)
     class empty_sp;
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg> && capacity_p::Value() > 0)
-    class non_const_sp;
+    class non_const_default_sp;
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_const_tg> && capacity_p::Value() > 0)
-    class const_sp;
+    class non_const_non_default_sp;
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class const_default_sp;
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class const_non_default_sp;
 
 }}}}
 
@@ -53,19 +57,35 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     };
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
+        requires (capacity_p::Value() > 0 && tr<unit_p, any_non_const_tg> && nkr::generic::implementing::constructor::default_tr<unit_p>)
     class specialization_tmpl<unit_p, capacity_p>
     {
     public:
-        using type_t    = non_const_sp<unit_p, capacity_p>;
+        using type_t    = non_const_default_sp<unit_p, capacity_p>;
     };
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_const_tg>&& capacity_p::Value() > 0)
+        requires (capacity_p::Value() > 0 && tr<unit_p, any_non_const_tg> && !nkr::generic::implementing::constructor::default_tr<unit_p>)
     class specialization_tmpl<unit_p, capacity_p>
     {
     public:
-        using type_t    = const_sp<unit_p, capacity_p>;
+        using type_t    = non_const_non_default_sp<unit_p, capacity_p>;
+    };
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+        requires (capacity_p::Value() > 0 && tr<unit_p, any_const_tg> && nkr::generic::implementing::constructor::default_tr<unit_p>)
+    class specialization_tmpl<unit_p, capacity_p>
+    {
+    public:
+        using type_t    = const_default_sp<unit_p, capacity_p>;
+    };
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+        requires (capacity_p::Value() > 0 && tr<unit_p, any_const_tg> && !nkr::generic::implementing::constructor::default_tr<unit_p>)
+    class specialization_tmpl<unit_p, capacity_p>
+    {
+    public:
+        using type_t    = const_non_default_sp<unit_p, capacity_p>;
     };
 
 }}}}
@@ -218,12 +238,45 @@ namespace nkr { namespace interface {
 namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (capacity_p::Value() < 1)
     class empty_sp
     {
     public:
         using unit_t        = unit_p;
         using capacity_t    = capacity_p;
+        using units_t       = unit_t[];
+
+    public:
+        friend  nkr::array::local::static_t$::common_t;
+
+    public:
+        constexpr empty_sp() noexcept;
+        constexpr empty_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept         = delete;
+        constexpr empty_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept    = delete;
+
+        constexpr empty_sp(const empty_sp& other) noexcept;
+                  empty_sp(const volatile empty_sp& other) noexcept;
+        constexpr empty_sp(empty_sp&& other) noexcept;
+                  empty_sp(volatile empty_sp&& other) noexcept;
+
+        constexpr empty_sp&             operator =(const empty_sp& other) noexcept;
+                  volatile empty_sp&    operator =(const empty_sp& other) volatile noexcept;
+                  empty_sp&             operator =(const volatile empty_sp& other) noexcept;
+                  volatile empty_sp&    operator =(const volatile empty_sp& other) volatile noexcept;
+        constexpr empty_sp&             operator =(empty_sp&& other) noexcept;
+                  volatile empty_sp&    operator =(empty_sp&& other) volatile noexcept;
+                  empty_sp&             operator =(volatile empty_sp&& other) noexcept;
+                  volatile empty_sp&    operator =(volatile empty_sp&& other) volatile noexcept;
+
+    public:
+        constexpr units_t&                  Units() noexcept                            = delete;
+        constexpr const units_t&            Units() const noexcept                      = delete;
+                  volatile units_t&         Units() volatile noexcept                   = delete;
+                  const volatile units_t&   Units() const volatile noexcept             = delete;
+
+        constexpr nkr::positive::count_t    Count() const noexcept;
+                  nkr::positive::count_t    Count() const volatile noexcept;
+        constexpr nkr::positive::count_t    Capacity() const noexcept;
+                  nkr::positive::count_t    Capacity() const volatile noexcept;
     };
 
 }}}}
@@ -231,8 +284,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg> && capacity_p::Value() > 0)
-    class non_const_sp
+    class non_const_default_sp
     {
     public:
         using unit_t        = unit_p;
@@ -246,23 +298,23 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         units_t units;
 
     public:
-        constexpr non_const_sp() noexcept                                                                       = delete;
-        constexpr non_const_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
-        constexpr non_const_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
+        constexpr non_const_default_sp() noexcept;
+        constexpr non_const_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr non_const_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 
-        constexpr non_const_sp(const non_const_sp& other) noexcept;
-                  non_const_sp(const volatile non_const_sp& other) noexcept;
-        constexpr non_const_sp(non_const_sp&& other) noexcept;
-                  non_const_sp(volatile non_const_sp&& other) noexcept;
+        constexpr non_const_default_sp(const non_const_default_sp& other) noexcept;
+                  non_const_default_sp(const volatile non_const_default_sp& other) noexcept;
+        constexpr non_const_default_sp(non_const_default_sp&& other) noexcept;
+                  non_const_default_sp(volatile non_const_default_sp&& other) noexcept;
 
-        constexpr non_const_sp&             operator =(const non_const_sp& other) noexcept;
-                  volatile non_const_sp&    operator =(const non_const_sp& other) volatile noexcept;
-                  non_const_sp&             operator =(const volatile non_const_sp& other) noexcept;
-                  volatile non_const_sp&    operator =(const volatile non_const_sp& other) volatile noexcept;
-        constexpr non_const_sp&             operator =(non_const_sp&& other) noexcept;
-                  volatile non_const_sp&    operator =(non_const_sp&& other) volatile noexcept;
-                  non_const_sp&             operator =(volatile non_const_sp&& other) noexcept;
-                  volatile non_const_sp&    operator =(volatile non_const_sp&& other) volatile noexcept;
+        constexpr non_const_default_sp&             operator =(const non_const_default_sp& other) noexcept;
+                  volatile non_const_default_sp&    operator =(const non_const_default_sp& other) volatile noexcept;
+                  non_const_default_sp&             operator =(const volatile non_const_default_sp& other) noexcept;
+                  volatile non_const_default_sp&    operator =(const volatile non_const_default_sp& other) volatile noexcept;
+        constexpr non_const_default_sp&             operator =(non_const_default_sp&& other) noexcept;
+                  volatile non_const_default_sp&    operator =(non_const_default_sp&& other) volatile noexcept;
+                  non_const_default_sp&             operator =(volatile non_const_default_sp&& other) noexcept;
+                  volatile non_const_default_sp&    operator =(volatile non_const_default_sp&& other) volatile noexcept;
 
     public:
         constexpr units_t&                  Units() noexcept;
@@ -281,37 +333,142 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_const_tg>&& capacity_p::Value() > 0)
-    class const_sp
+    class non_const_non_default_sp
     {
     public:
         using unit_t        = unit_p;
         using capacity_t    = capacity_p;
         using units_t       = unit_t[capacity_t::Value()];
 
+    public:
+        friend  nkr::array::local::static_t$::common_t;
+
     protected:
         units_t units;
 
     public:
-        constexpr const_sp() noexcept                                                                   = delete;
-        constexpr const_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
-        constexpr const_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
+        constexpr non_const_non_default_sp() noexcept                                                                                   = delete;
+        constexpr non_const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr non_const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 
-        constexpr const_sp(const const_sp& other) noexcept;
-                  const_sp(const volatile const_sp& other) noexcept;
-        constexpr const_sp(const_sp&& other) noexcept;
-                  const_sp(volatile const_sp&& other) noexcept;
+        constexpr non_const_non_default_sp(const non_const_non_default_sp& other) noexcept;
+                  non_const_non_default_sp(const volatile non_const_non_default_sp& other) noexcept;
+        constexpr non_const_non_default_sp(non_const_non_default_sp&& other) noexcept;
+                  non_const_non_default_sp(volatile non_const_non_default_sp&& other) noexcept;
 
-        constexpr const_sp&             operator =(const const_sp& other) noexcept                      = delete;
-                  volatile const_sp&    operator =(const const_sp& other) volatile noexcept             = delete;
-                  const_sp&             operator =(const volatile const_sp& other) noexcept             = delete;
-                  volatile const_sp&    operator =(const volatile const_sp& other) volatile noexcept    = delete;
-        constexpr const_sp&             operator =(const_sp&& other) noexcept                           = delete;
-                  volatile const_sp&    operator =(const_sp&& other) volatile noexcept                  = delete;
-                  const_sp&             operator =(volatile const_sp&& other) noexcept                  = delete;
-                  volatile const_sp&    operator =(volatile const_sp&& other) volatile noexcept         = delete;
+        constexpr non_const_non_default_sp&             operator =(const non_const_non_default_sp& other) noexcept;
+                  volatile non_const_non_default_sp&    operator =(const non_const_non_default_sp& other) volatile noexcept;
+                  non_const_non_default_sp&             operator =(const volatile non_const_non_default_sp& other) noexcept;
+                  volatile non_const_non_default_sp&    operator =(const volatile non_const_non_default_sp& other) volatile noexcept;
+        constexpr non_const_non_default_sp&             operator =(non_const_non_default_sp&& other) noexcept;
+                  volatile non_const_non_default_sp&    operator =(non_const_non_default_sp&& other) volatile noexcept;
+                  non_const_non_default_sp&             operator =(volatile non_const_non_default_sp&& other) noexcept;
+                  volatile non_const_non_default_sp&    operator =(volatile non_const_non_default_sp&& other) volatile noexcept;
 
     public:
+        constexpr units_t&                  Units() noexcept;
+        constexpr const units_t&            Units() const noexcept;
+                  volatile units_t&         Units() volatile noexcept;
+                  const volatile units_t&   Units() const volatile noexcept;
+
+        constexpr nkr::positive::count_t    Count() const noexcept;
+                  nkr::positive::count_t    Count() const volatile noexcept;
+        constexpr nkr::positive::count_t    Capacity() const noexcept;
+                  nkr::positive::count_t    Capacity() const volatile noexcept;
+    };
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace static_t$ {
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class const_default_sp
+    {
+    public:
+        using unit_t        = unit_p;
+        using capacity_t    = capacity_p;
+        using units_t       = unit_t[capacity_t::Value()];
+
+    public:
+        friend  nkr::array::local::static_t$::common_t;
+
+    protected:
+        units_t units;
+
+    public:
+        constexpr const_default_sp() noexcept;
+        constexpr const_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr const_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
+
+        constexpr const_default_sp(const const_default_sp& other) noexcept;
+                  const_default_sp(const volatile const_default_sp& other) noexcept;
+        constexpr const_default_sp(const_default_sp&& other) noexcept;
+                  const_default_sp(volatile const_default_sp&& other) noexcept;
+
+        constexpr const_default_sp&             operator =(const const_default_sp& other) noexcept                      = delete;
+                  volatile const_default_sp&    operator =(const const_default_sp& other) volatile noexcept             = delete;
+                  const_default_sp&             operator =(const volatile const_default_sp& other) noexcept             = delete;
+                  volatile const_default_sp&    operator =(const volatile const_default_sp& other) volatile noexcept    = delete;
+        constexpr const_default_sp&             operator =(const_default_sp&& other) noexcept                           = delete;
+                  volatile const_default_sp&    operator =(const_default_sp&& other) volatile noexcept                  = delete;
+                  const_default_sp&             operator =(volatile const_default_sp&& other) noexcept                  = delete;
+                  volatile const_default_sp&    operator =(volatile const_default_sp&& other) volatile noexcept         = delete;
+
+    public:
+        constexpr units_t&                  Units() noexcept;
+        constexpr const units_t&            Units() const noexcept;
+                  volatile units_t&         Units() volatile noexcept;
+                  const volatile units_t&   Units() const volatile noexcept;
+
+        constexpr nkr::positive::count_t    Count() const noexcept;
+                  nkr::positive::count_t    Count() const volatile noexcept;
+        constexpr nkr::positive::count_t    Capacity() const noexcept;
+                  nkr::positive::count_t    Capacity() const volatile noexcept;
+    };
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace static_t$ {
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class const_non_default_sp
+    {
+    public:
+        using unit_t        = unit_p;
+        using capacity_t    = capacity_p;
+        using units_t       = unit_t[capacity_t::Value()];
+
+    public:
+        friend  nkr::array::local::static_t$::common_t;
+
+    protected:
+        units_t units;
+
+    public:
+        constexpr const_non_default_sp() noexcept                                                                               = delete;
+        constexpr const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
+
+        constexpr const_non_default_sp(const const_non_default_sp& other) noexcept;
+                  const_non_default_sp(const volatile const_non_default_sp& other) noexcept;
+        constexpr const_non_default_sp(const_non_default_sp&& other) noexcept;
+                  const_non_default_sp(volatile const_non_default_sp&& other) noexcept;
+
+        constexpr const_non_default_sp&             operator =(const const_non_default_sp& other) noexcept                      = delete;
+                  volatile const_non_default_sp&    operator =(const const_non_default_sp& other) volatile noexcept             = delete;
+                  const_non_default_sp&             operator =(const volatile const_non_default_sp& other) noexcept             = delete;
+                  volatile const_non_default_sp&    operator =(const volatile const_non_default_sp& other) volatile noexcept    = delete;
+        constexpr const_non_default_sp&             operator =(const_non_default_sp&& other) noexcept                           = delete;
+                  volatile const_non_default_sp&    operator =(const_non_default_sp&& other) volatile noexcept                  = delete;
+                  const_non_default_sp&             operator =(volatile const_non_default_sp&& other) noexcept                  = delete;
+                  volatile const_non_default_sp&    operator =(volatile const_non_default_sp&& other) volatile noexcept         = delete;
+
+    public:
+        constexpr units_t&                  Units() noexcept;
+        constexpr const units_t&            Units() const noexcept;
+                  volatile units_t&         Units() volatile noexcept;
+                  const volatile units_t&   Units() const volatile noexcept;
+
         constexpr nkr::positive::count_t    Count() const noexcept;
                   nkr::positive::count_t    Count() const volatile noexcept;
         constexpr nkr::positive::count_t    Capacity() const noexcept;

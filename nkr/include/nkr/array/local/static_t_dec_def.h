@@ -168,186 +168,121 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr non_const_sp<unit_p, capacity_p>::non_const_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept :
-        units{ units... }
+    inline constexpr empty_sp<unit_p, capacity_p>::empty_sp() noexcept
     {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr non_const_sp<unit_p, capacity_p>::non_const_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept :
-        units{ nkr::cpp::Move(units)... }
+    inline constexpr empty_sp<unit_p, capacity_p>::empty_sp(const empty_sp& other) noexcept
     {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr non_const_sp<unit_p, capacity_p>::non_const_sp(const non_const_sp& other) noexcept :
-        units(other.units)
+    inline empty_sp<unit_p, capacity_p>::empty_sp(const volatile empty_sp& other) noexcept
     {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline non_const_sp<unit_p, capacity_p>::non_const_sp(const volatile non_const_sp& other) noexcept :
-        units(other.units)
+    inline constexpr empty_sp<unit_p, capacity_p>::empty_sp(empty_sp&& other) noexcept
     {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr non_const_sp<unit_p, capacity_p>::non_const_sp(non_const_sp&& other) noexcept :
-        units(nkr::cpp::Move(other.units))
+    inline empty_sp<unit_p, capacity_p>::empty_sp(volatile empty_sp&& other) noexcept
     {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline non_const_sp<unit_p, capacity_p>::non_const_sp(volatile non_const_sp&& other) noexcept :
-        units(nkr::cpp::Move(other.units))
-    {
-    }
-
-    template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(const non_const_sp& other)
+    inline constexpr empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(const empty_sp& other)
         noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline volatile non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(const non_const_sp& other)
+    inline volatile empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(const empty_sp& other)
         volatile noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(const volatile non_const_sp& other)
+    inline empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(const volatile empty_sp& other)
         noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline volatile non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(const volatile non_const_sp& other)
+    inline volatile empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(const volatile empty_sp& other)
         volatile noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(non_const_sp&& other)
+    inline constexpr empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(empty_sp&& other)
         noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline volatile non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(non_const_sp&& other)
+    inline volatile empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(empty_sp&& other)
         volatile noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(volatile non_const_sp&& other)
+    inline empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(volatile empty_sp&& other)
         noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline volatile non_const_sp<unit_p, capacity_p>&
-        non_const_sp<unit_p, capacity_p>::operator =(volatile non_const_sp&& other)
+    inline volatile empty_sp<unit_p, capacity_p>&
+        empty_sp<unit_p, capacity_p>::operator =(volatile empty_sp&& other)
         volatile noexcept
     {
-        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+        return *this;
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr typename non_const_sp<unit_p, capacity_p>::units_t&
-        non_const_sp<unit_p, capacity_p>::Units()
-        noexcept
-    {
-        return nkr::array::local::static_t$::common_t::Units(*this);
-    }
-
-    template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline constexpr const typename non_const_sp<unit_p, capacity_p>::units_t&
-        non_const_sp<unit_p, capacity_p>::Units()
-        const noexcept
-    {
-        return nkr::array::local::static_t$::common_t::Units(*this);
-    }
-
-    template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline volatile typename non_const_sp<unit_p, capacity_p>::units_t&
-        non_const_sp<unit_p, capacity_p>::Units()
-        volatile noexcept
-    {
-        return nkr::array::local::static_t$::common_t::Units(*this);
-    }
-
-    template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
-    inline const volatile typename non_const_sp<unit_p, capacity_p>::units_t&
-        non_const_sp<unit_p, capacity_p>::Units()
-        const volatile noexcept
-    {
-        return nkr::array::local::static_t$::common_t::Units(*this);
-    }
-
-    template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
     inline constexpr nkr::positive::count_t
-        non_const_sp<unit_p, capacity_p>::Count()
+        empty_sp<unit_p, capacity_p>::Count()
         const noexcept
     {
         return nkr::array::local::static_t$::common_t::Count(*this);
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
     inline nkr::positive::count_t
-        non_const_sp<unit_p, capacity_p>::Count()
+        empty_sp<unit_p, capacity_p>::Count()
         const volatile noexcept
     {
         return nkr::array::local::static_t$::common_t::Count(*this);
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
     inline constexpr nkr::positive::count_t
-        non_const_sp<unit_p, capacity_p>::Capacity()
+        empty_sp<unit_p, capacity_p>::Capacity()
         const noexcept
     {
         return nkr::array::local::static_t$::common_t::Capacity(*this);
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-        requires (tr<unit_p, any_non_const_tg>&& capacity_p::Value() > 0)
     inline nkr::positive::count_t
-        non_const_sp<unit_p, capacity_p>::Capacity()
+        empty_sp<unit_p, capacity_p>::Capacity()
         const volatile noexcept
     {
         return nkr::array::local::static_t$::common_t::Capacity(*this);
@@ -355,44 +290,560 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
 }}}}
 
-namespace nkr { namespace array { namespace local {
+namespace nkr { namespace array { namespace local { namespace static_t$ {
 
-    /*template <tr<any_const_tg, t<nkr::generic::type_tg>> unit_p, typename capacity_p>
-    inline constexpr static_t<unit_p, capacity_p>::static_t(const tr<any_tg, t<unit_t>> auto& ...units) noexcept :
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>::non_const_default_sp() noexcept :
+        units()
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>::non_const_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept :
         units{ units... }
     {
     }
 
-    template <tr<any_const_tg, t<nkr::generic::type_tg>> unit_p, typename capacity_p>
-    inline constexpr static_t<unit_p, capacity_p>::static_t(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept :
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>::non_const_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept :
         units{ nkr::cpp::Move(units)... }
     {
     }
 
-    template <tr<any_const_tg, t<nkr::generic::type_tg>> unit_p, typename capacity_p>
-    inline constexpr static_t<unit_p, capacity_p>::static_t(const static_t& other) noexcept :
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>::non_const_default_sp(const non_const_default_sp& other) noexcept :
         units(other.units)
     {
     }
 
-    template <tr<any_const_tg, t<nkr::generic::type_tg>> unit_p, typename capacity_p>
-    inline static_t<unit_p, capacity_p>::static_t(const volatile static_t& other) noexcept :
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_default_sp<unit_p, capacity_p>::non_const_default_sp(const volatile non_const_default_sp& other) noexcept :
         units(other.units)
     {
     }
 
-    template <tr<any_const_tg, t<nkr::generic::type_tg>> unit_p, typename capacity_p>
-    inline constexpr static_t<unit_p, capacity_p>::static_t(static_t&& other) noexcept :
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>::non_const_default_sp(non_const_default_sp&& other) noexcept :
         units(nkr::cpp::Move(other.units))
     {
     }
 
-    template <tr<any_const_tg, t<nkr::generic::type_tg>> unit_p, typename capacity_p>
-    inline static_t<unit_p, capacity_p>::static_t(volatile static_t&& other) noexcept :
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_default_sp<unit_p, capacity_p>::non_const_default_sp(volatile non_const_default_sp&& other) noexcept :
         units(nkr::cpp::Move(other.units))
     {
-    }*/
+    }
 
-}}}
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(const non_const_default_sp& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(const non_const_default_sp& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(const volatile non_const_default_sp& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(const volatile non_const_default_sp& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(non_const_default_sp&& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(non_const_default_sp&& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(volatile non_const_default_sp&& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_default_sp<unit_p, capacity_p>&
+        non_const_default_sp<unit_p, capacity_p>::operator =(volatile non_const_default_sp&& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr typename non_const_default_sp<unit_p, capacity_p>::units_t&
+        non_const_default_sp<unit_p, capacity_p>::Units()
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const typename non_const_default_sp<unit_p, capacity_p>::units_t&
+        non_const_default_sp<unit_p, capacity_p>::Units()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile typename non_const_default_sp<unit_p, capacity_p>::units_t&
+        non_const_default_sp<unit_p, capacity_p>::Units()
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const volatile typename non_const_default_sp<unit_p, capacity_p>::units_t&
+        non_const_default_sp<unit_p, capacity_p>::Units()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        non_const_default_sp<unit_p, capacity_p>::Count()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        non_const_default_sp<unit_p, capacity_p>::Count()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        non_const_default_sp<unit_p, capacity_p>::Capacity()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        non_const_default_sp<unit_p, capacity_p>::Capacity()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace static_t$ {
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_non_default_sp<unit_p, capacity_p>::non_const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept :
+        units{ units... }
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_non_default_sp<unit_p, capacity_p>::non_const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept :
+        units{ nkr::cpp::Move(units)... }
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_non_default_sp<unit_p, capacity_p>::non_const_non_default_sp(const non_const_non_default_sp& other) noexcept :
+        units(other.units)
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_non_default_sp<unit_p, capacity_p>::non_const_non_default_sp(const volatile non_const_non_default_sp& other) noexcept :
+        units(other.units)
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_non_default_sp<unit_p, capacity_p>::non_const_non_default_sp(non_const_non_default_sp&& other) noexcept :
+        units(nkr::cpp::Move(other.units))
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_non_default_sp<unit_p, capacity_p>::non_const_non_default_sp(volatile non_const_non_default_sp&& other) noexcept :
+        units(nkr::cpp::Move(other.units))
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(const non_const_non_default_sp& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(const non_const_non_default_sp& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(const volatile non_const_non_default_sp& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(const volatile non_const_non_default_sp& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(non_const_non_default_sp&& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(non_const_non_default_sp&& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(volatile non_const_non_default_sp&& other)
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile non_const_non_default_sp<unit_p, capacity_p>&
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(volatile non_const_non_default_sp&& other)
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr typename non_const_non_default_sp<unit_p, capacity_p>::units_t&
+        non_const_non_default_sp<unit_p, capacity_p>::Units()
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const typename non_const_non_default_sp<unit_p, capacity_p>::units_t&
+        non_const_non_default_sp<unit_p, capacity_p>::Units()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile typename non_const_non_default_sp<unit_p, capacity_p>::units_t&
+        non_const_non_default_sp<unit_p, capacity_p>::Units()
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const volatile typename non_const_non_default_sp<unit_p, capacity_p>::units_t&
+        non_const_non_default_sp<unit_p, capacity_p>::Units()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        non_const_non_default_sp<unit_p, capacity_p>::Count()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        non_const_non_default_sp<unit_p, capacity_p>::Count()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        non_const_non_default_sp<unit_p, capacity_p>::Capacity()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        non_const_non_default_sp<unit_p, capacity_p>::Capacity()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace static_t$ {
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_default_sp<unit_p, capacity_p>::const_default_sp() noexcept :
+        units()
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_default_sp<unit_p, capacity_p>::const_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept :
+        units{ units... }
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_default_sp<unit_p, capacity_p>::const_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept :
+        units{ nkr::cpp::Move(units)... }
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_default_sp<unit_p, capacity_p>::const_default_sp(const const_default_sp& other) noexcept :
+        units(other.units)
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const_default_sp<unit_p, capacity_p>::const_default_sp(const volatile const_default_sp& other) noexcept :
+        units(other.units)
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_default_sp<unit_p, capacity_p>::const_default_sp(const_default_sp&& other) noexcept :
+        units(nkr::cpp::Move(other.units))
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const_default_sp<unit_p, capacity_p>::const_default_sp(volatile const_default_sp&& other) noexcept :
+        units(nkr::cpp::Move(other.units))
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr typename const_default_sp<unit_p, capacity_p>::units_t&
+        const_default_sp<unit_p, capacity_p>::Units()
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const typename const_default_sp<unit_p, capacity_p>::units_t&
+        const_default_sp<unit_p, capacity_p>::Units()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile typename const_default_sp<unit_p, capacity_p>::units_t&
+        const_default_sp<unit_p, capacity_p>::Units()
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const volatile typename const_default_sp<unit_p, capacity_p>::units_t&
+        const_default_sp<unit_p, capacity_p>::Units()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        const_default_sp<unit_p, capacity_p>::Count()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        const_default_sp<unit_p, capacity_p>::Count()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        const_default_sp<unit_p, capacity_p>::Capacity()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        const_default_sp<unit_p, capacity_p>::Capacity()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace static_t$ {
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_non_default_sp<unit_p, capacity_p>::const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept :
+        units{ units... }
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_non_default_sp<unit_p, capacity_p>::const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept :
+        units{ nkr::cpp::Move(units)... }
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_non_default_sp<unit_p, capacity_p>::const_non_default_sp(const const_non_default_sp& other) noexcept :
+        units(other.units)
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const_non_default_sp<unit_p, capacity_p>::const_non_default_sp(const volatile const_non_default_sp& other) noexcept :
+        units(other.units)
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const_non_default_sp<unit_p, capacity_p>::const_non_default_sp(const_non_default_sp&& other) noexcept :
+        units(nkr::cpp::Move(other.units))
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const_non_default_sp<unit_p, capacity_p>::const_non_default_sp(volatile const_non_default_sp&& other) noexcept :
+        units(nkr::cpp::Move(other.units))
+    {
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr typename const_non_default_sp<unit_p, capacity_p>::units_t&
+        const_non_default_sp<unit_p, capacity_p>::Units()
+        noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr const typename const_non_default_sp<unit_p, capacity_p>::units_t&
+        const_non_default_sp<unit_p, capacity_p>::Units()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline volatile typename const_non_default_sp<unit_p, capacity_p>::units_t&
+        const_non_default_sp<unit_p, capacity_p>::Units()
+        volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline const volatile typename const_non_default_sp<unit_p, capacity_p>::units_t&
+        const_non_default_sp<unit_p, capacity_p>::Units()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        const_non_default_sp<unit_p, capacity_p>::Count()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        const_non_default_sp<unit_p, capacity_p>::Count()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline constexpr nkr::positive::count_t
+        const_non_default_sp<unit_p, capacity_p>::Capacity()
+        const noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    inline nkr::positive::count_t
+        const_non_default_sp<unit_p, capacity_p>::Capacity()
+        const volatile noexcept
+    {
+        return nkr::array::local::static_t$::common_t::Capacity(*this);
+    }
+
+}}}}
 
 #endif
