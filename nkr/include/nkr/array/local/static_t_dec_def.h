@@ -131,7 +131,6 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         noexcept
     {
         for (nkr::positive::index_t idx = 0, end = capacity_t::Value(); idx < end; idx += 1) {
-            self.units[idx].~unit_t();
             self.units[idx] = other.units[idx];
         }
     }
@@ -143,7 +142,6 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         noexcept
     {
         for (nkr::positive::index_t idx = 0, end = capacity_t::Value(); idx < end; idx += 1) {
-            self.units[idx].~unit_t();
             self.units[idx] = nkr::cpp::Move(other.units[idx]);
         }
     }

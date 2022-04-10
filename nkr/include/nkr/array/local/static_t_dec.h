@@ -253,8 +253,8 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         This type REQUIRES that all unit_t elements in the array are valid by the time of destruction,
         because it calls the destructor on each element as if it were a unit_t.
 
-        This type REQUIRES that all unit_t elements are valid before any copy or move construction
-        or assignment takes place, because each element's unit_t destructor is called.
+        This type REQUIRES that all unit_t elements are valid before any copy or move assignment
+        takes place, because each element's unit_t destructor is called.
     */
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     union units_or_bytes_u
