@@ -27,6 +27,9 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     class common_t;
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
+    union units_or_bytes_u;
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
     class empty_sp;
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
@@ -237,6 +240,93 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace array { namespace local { namespace static_t$ {
 
+    // TODO: Move this comment to the docs.
+    /*
+        We want to be able to copy and move C arrays through constructors.
+        But C arrays have no construction/assignment semantics for their own type.
+        This means we have to iterate over the right-hand array and set each element individually.
+        But we want to support unit types that do not have a default constructor or
+        which have an expensive default constructor. So we necessarily avoid calling any unit_t
+        default constructor by uniting this with a byte array which does not need to be constructed.
+        Then we can iterate over the given unit_t array and copy/move elements freely.
+
+        This type REQUIRES that all unit_t elements in the array are valid by the time of destruction,
+        because it calls the destructor on each element as if it were a unit_t.
+
+        This type REQUIRES that all unit_t elements are valid before any copy or move construction
+        or assignment takes place, because each element's unit_t destructor is called.
+    */
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    union units_or_bytes_u
+    {
+    public:
+        using unit_t        = unit_p;
+        using capacity_t    = capacity_p;
+        using units_t       = unit_t[capacity_t::Value()];
+        using bytes_t       = nkr::positive::byte_t[capacity_t::Value() * sizeof(unit_t)];
+
+    public:
+        class common_t
+        {
+        public:
+            static constexpr void   Construct(tr<any_non_const_tg, t<units_or_bytes_u>> auto& self,
+                                              const tr<any_tg, t<units_or_bytes_u>> auto& other) noexcept;
+            static constexpr void   Construct(tr<any_non_const_tg, t<units_or_bytes_u>> auto& self,
+                                              tr<any_non_const_tg, t<units_or_bytes_u>> auto&& other) noexcept;
+
+            static constexpr auto&  Assign(tr<any_non_const_tg, t<units_or_bytes_u>> auto& self,
+                                           const tr<any_tg, t<units_or_bytes_u>> auto& other) noexcept;
+            static constexpr auto&  Assign(tr<any_non_const_tg, t<units_or_bytes_u>> auto& self,
+                                           tr<any_non_const_tg, t<units_or_bytes_u>> auto&& other) noexcept;
+
+            static constexpr void   Destruct(tr<any_tg, t<units_or_bytes_u>> auto& self) noexcept;
+
+            static constexpr auto&  Units(tr<any_tg, t<units_or_bytes_u>> auto& self) noexcept;
+        };
+
+        class default_units_t
+        {
+        public:
+        };
+
+    public:
+        units_t units;
+        bytes_t bytes;
+
+    public:
+        constexpr units_or_bytes_u() noexcept;
+
+        constexpr units_or_bytes_u(tr<any_tg, t<default_units_t>> auto default_units) noexcept;
+        constexpr units_or_bytes_u(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr units_or_bytes_u(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
+
+        constexpr units_or_bytes_u(const units_or_bytes_u& other) noexcept;
+                  units_or_bytes_u(const volatile units_or_bytes_u& other) noexcept;
+        constexpr units_or_bytes_u(units_or_bytes_u&& other) noexcept;
+                  units_or_bytes_u(volatile units_or_bytes_u&& other) noexcept;
+
+        constexpr units_or_bytes_u&             operator =(const units_or_bytes_u& other) noexcept;
+                  volatile units_or_bytes_u&    operator =(const units_or_bytes_u& other) volatile noexcept;
+                  units_or_bytes_u&             operator =(const volatile units_or_bytes_u& other) noexcept;
+                  volatile units_or_bytes_u&    operator =(const volatile units_or_bytes_u& other) volatile noexcept;
+        constexpr units_or_bytes_u&             operator =(units_or_bytes_u&& other) noexcept;
+                  volatile units_or_bytes_u&    operator =(units_or_bytes_u&& other) volatile noexcept;
+                  units_or_bytes_u&             operator =(volatile units_or_bytes_u&& other) noexcept;
+                  volatile units_or_bytes_u&    operator =(volatile units_or_bytes_u&& other) volatile noexcept;
+
+        constexpr ~units_or_bytes_u() noexcept;
+
+    public:
+        constexpr units_t&                  Units() noexcept;
+        constexpr const units_t&            Units() const noexcept;
+                  volatile units_t&         Units() volatile noexcept;
+                  const volatile units_t&   Units() const volatile noexcept;
+    };
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace static_t$ {
+
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     class empty_sp
     {
@@ -250,6 +340,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     public:
         constexpr empty_sp() noexcept;
+
         constexpr empty_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept         = delete;
         constexpr empty_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept    = delete;
 
@@ -287,18 +378,20 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     class non_const_default_sp
     {
     public:
-        using unit_t        = unit_p;
-        using capacity_t    = capacity_p;
-        using units_t       = unit_t[capacity_t::Value()];
+        using unit_t            = unit_p;
+        using capacity_t        = capacity_p;
+        using units_or_bytes_u  = units_or_bytes_u<unit_t, capacity_t>;
+        using units_t           = typename units_or_bytes_u::units_t;
 
     public:
         friend  nkr::array::local::static_t$::common_t;
 
-    protected:
-        units_t units;
+    public:
+        units_or_bytes_u    units_or_bytes;
 
     public:
         constexpr non_const_default_sp() noexcept;
+
         constexpr non_const_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
         constexpr non_const_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 
@@ -336,18 +429,20 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     class non_const_non_default_sp
     {
     public:
-        using unit_t        = unit_p;
-        using capacity_t    = capacity_p;
-        using units_t       = unit_t[capacity_t::Value()];
+        using unit_t            = unit_p;
+        using capacity_t        = capacity_p;
+        using units_or_bytes_u  = units_or_bytes_u<unit_t, capacity_t>;
+        using units_t           = typename units_or_bytes_u::units_t;
 
     public:
         friend  nkr::array::local::static_t$::common_t;
 
-    protected:
-        units_t units;
+    public:
+        units_or_bytes_u    units_or_bytes;
 
     public:
         constexpr non_const_non_default_sp() noexcept                                                                                   = delete;
+        
         constexpr non_const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
         constexpr non_const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 
@@ -385,18 +480,20 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     class const_default_sp
     {
     public:
-        using unit_t        = unit_p;
-        using capacity_t    = capacity_p;
-        using units_t       = unit_t[capacity_t::Value()];
+        using unit_t            = unit_p;
+        using capacity_t        = capacity_p;
+        using units_or_bytes_u  = units_or_bytes_u<unit_t, capacity_t>;
+        using units_t           = typename units_or_bytes_u::units_t;
 
     public:
         friend  nkr::array::local::static_t$::common_t;
 
-    protected:
-        units_t units;
+    public:
+        units_or_bytes_u    units_or_bytes;
 
     public:
         constexpr const_default_sp() noexcept;
+
         constexpr const_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
         constexpr const_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 
@@ -434,18 +531,20 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     class const_non_default_sp
     {
     public:
-        using unit_t        = unit_p;
-        using capacity_t    = capacity_p;
-        using units_t       = unit_t[capacity_t::Value()];
+        using unit_t            = unit_p;
+        using capacity_t        = capacity_p;
+        using units_or_bytes_u  = units_or_bytes_u<unit_t, capacity_t>;
+        using units_t           = typename units_or_bytes_u::units_t;
 
     public:
         friend  nkr::array::local::static_t$::common_t;
 
-    protected:
-        units_t units;
+    public:
+        units_or_bytes_u    units_or_bytes;
 
     public:
         constexpr const_non_default_sp() noexcept                                                                               = delete;
+        
         constexpr const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
         constexpr const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 

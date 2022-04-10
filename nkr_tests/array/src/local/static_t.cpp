@@ -25,14 +25,15 @@ namespace nkr {
         {
             nkr::array::local::static_t<int, nkr::constant::positive::count_t<2>> a{ 1, 2 };
             nkr::array::local::static_t<int, nkr::constant::positive::count_t<2>> b{ 3, 4 };
+            nkr::array::local::static_t<int, nkr::constant::positive::count_t<2>> c(a);
 
             a = b;
             a = nkr::cpp::Move(b);
 
-            // check if we can move a c array or if we have to do it manually.
-
             CHECK(a.Units()[0] == b.Units()[0]);
             CHECK(a.Units()[1] == b.Units()[1]);
+            CHECK(c.Units()[0] == 1);
+            CHECK(c.Units()[1] == 2);
         }
 
         TEST_CASE("non_const_non_default_sp")
