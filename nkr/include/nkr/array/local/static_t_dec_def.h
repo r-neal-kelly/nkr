@@ -104,14 +104,14 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         }
 
         static inline constexpr auto
-            Count(tr<any_tg, t<nkr::array::local::static_tg>> auto& self)
+            Count(const tr<any_tg, t<nkr::array::local::static_tg>> auto& self)
             noexcept
         {
             return Capacity(self);
         }
 
         static inline constexpr auto
-            Capacity(tr<any_tg, t<nkr::array::local::static_tg>> auto& self)
+            Capacity(const tr<any_tg, t<nkr::array::local::static_tg>> auto& self)
             noexcept
         {
             using self_t = nkr::cpp::reference_value_t<decltype(self)>;

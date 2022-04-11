@@ -266,19 +266,6 @@ namespace nkr { namespace cpp {
 
 namespace nkr { namespace cpp {
 
-    template <typename type_a_p, typename type_b_p>
-    concept can_be_equal_to_tr =
-        requires(type_a_p type_a, type_b_p type_b)
-    {
-        type_a == type_b;
-    };
-
-    // etc.
-
-}}
-
-namespace nkr { namespace cpp {
-
     template <typename type_p>
     concept any_tr =
         true;
@@ -396,10 +383,19 @@ namespace nkr { namespace cpp {
 namespace nkr { namespace cpp {
 
     template <any_tr type_p>
+    using   any_non_qualified_t     = std::remove_cv_t<type_p>;
+
+    template <any_tr type_p>
     using   any_const_t             = std::add_const_t<type_p>;
 
     template <any_tr type_p>
+    using   any_non_const_t         = std::remove_const_t<type_p>;
+
+    template <any_tr type_p>
     using   any_volatile_t          = std::add_volatile_t<type_p>;
+
+    template <any_tr type_p>
+    using   any_non_volatile_t      = std::remove_volatile_t<type_p>;
 
     template <any_tr type_p>
     using   any_const_volatile_t    = std::add_const_t<std::add_volatile_t<type_p>>;

@@ -207,12 +207,17 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
     class non_empty_sp
     {
     public:
-        using unit_t        = unit_p;
-        using capacity_t    = capacity_p;
-        using units_t       = unit_t[capacity_t::Value()];
-        using bytes_t       = nkr::positive::byte_t[capacity_t::Value() * sizeof(unit_t)];
+        using unit_t            = unit_p;
+        using non_const_unit_t  = nkr::cpp::any_non_const_t<unit_t>;
+        using capacity_t        = capacity_p;
+        using units_t           = unit_t[capacity_t::Value()];
+        using non_const_units_t = non_const_unit_t[capacity_t::Value()];
+        using bytes_t           = nkr::positive::byte_t[capacity_t::Value() * sizeof(unit_t)];
 
-    protected:
+    public:
+        friend  nkr::array::local::dynamic_t$::common_t;
+
+    public:
         nkr::positive::count_t  count;
         bytes_t                 bytes;
 
@@ -236,16 +241,19 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
                   non_empty_sp&             operator =(volatile non_empty_sp&& other) noexcept;
                   volatile non_empty_sp&    operator =(volatile non_empty_sp&& other) volatile noexcept;
 
+        constexpr ~non_empty_sp() noexcept;
+
     public:
+        constexpr nkr::positive::count_t    Capacity() const noexcept;
+                  nkr::positive::count_t    Capacity() const volatile noexcept;
+
+        constexpr nkr::positive::count_t    Count() const noexcept;
+                  nkr::positive::count_t    Count() const volatile noexcept;
+
         constexpr units_t&                  Units() noexcept;
         constexpr const units_t&            Units() const noexcept;
                   volatile units_t&         Units() volatile noexcept;
                   const volatile units_t&   Units() const volatile noexcept;
-
-        constexpr nkr::positive::count_t    Count() const noexcept;
-                  nkr::positive::count_t    Count() const volatile noexcept;
-        constexpr nkr::positive::count_t    Capacity() const noexcept;
-                  nkr::positive::count_t    Capacity() const volatile noexcept;
     };
 
 }}}}
