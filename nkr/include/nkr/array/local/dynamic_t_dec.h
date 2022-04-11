@@ -21,11 +21,46 @@ namespace nkr { namespace array { namespace local {
 
 }}}
 
+namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
+
+    class common_t;
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class empty_sp;
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class non_empty_sp;
+
+}}}}
+
+namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+    class specialization_tmpl;
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+        requires (capacity_p::Value() < 1)
+    class specialization_tmpl<unit_p, capacity_p>
+    {
+    public:
+        using type_t    = empty_sp<unit_p, capacity_p>;
+    };
+
+    template <nkr::generic::type_tr unit_p, typename capacity_p>
+        requires (capacity_p::Value() > 0)
+    class specialization_tmpl<unit_p, capacity_p>
+    {
+    public:
+        using type_t    = non_empty_sp<unit_p, capacity_p>;
+    };
+
+}}}}
+
 namespace nkr { namespace array { namespace local {
 
-    // capacity_p should be constrained by nkr::constant::positive::count_tr, but intellisense keeps crashing.
-    template <nkr::generic::type_tr unit_p, typename capacity_p>
-    class dynamic_t;
+    template <nkr::generic::type_tr unit_p, nkr::constant::positive::count_tr capacity_p>
+    using dynamic_t =
+        typename nkr::array::local::dynamic_t$::specialization_tmpl<unit_p, capacity_p>::type_t;
 
     template <typename type_p>
     concept dynamic_tr =
@@ -166,46 +201,54 @@ namespace nkr { namespace interface {
 
 }}
 
-namespace nkr { namespace array { namespace local {
+namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-    class dynamic_t
+    class non_empty_sp
     {
     public:
         using unit_t        = unit_p;
         using capacity_t    = capacity_p;
-        using bytes_t       = nkr::positive::byte_t[capacity_t::Value() * sizeof(unit_t)];
         using units_t       = unit_t[capacity_t::Value()];
+        using bytes_t       = nkr::positive::byte_t[capacity_t::Value() * sizeof(unit_t)];
 
     protected:
         nkr::positive::count_t  count;
         bytes_t                 bytes;
 
     public:
-        constexpr dynamic_t() noexcept;
+        constexpr non_empty_sp() noexcept;
 
-        constexpr dynamic_t(const dynamic_t& other) noexcept;
-                  dynamic_t(const volatile dynamic_t& other) noexcept;
-        constexpr dynamic_t(dynamic_t&& other) noexcept;
-                  dynamic_t(volatile dynamic_t&& other) noexcept;
+        constexpr non_empty_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr non_empty_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
 
-        constexpr dynamic_t&            operator =(const dynamic_t& other) noexcept;
-                  volatile dynamic_t&   operator =(const dynamic_t& other) volatile noexcept;
-                  dynamic_t&            operator =(const volatile dynamic_t& other) noexcept;
-                  volatile dynamic_t&   operator =(const volatile dynamic_t& other) volatile noexcept;
-        constexpr dynamic_t&            operator =(dynamic_t&& other) noexcept;
-                  volatile dynamic_t&   operator =(dynamic_t&& other) volatile noexcept;
-                  dynamic_t&            operator =(volatile dynamic_t&& other) noexcept;
-                  volatile dynamic_t&   operator =(volatile dynamic_t&& other) volatile noexcept;
+        constexpr non_empty_sp(const non_empty_sp& other) noexcept;
+                  non_empty_sp(const volatile non_empty_sp& other) noexcept;
+        constexpr non_empty_sp(non_empty_sp&& other) noexcept;
+                  non_empty_sp(volatile non_empty_sp&& other) noexcept;
+
+        constexpr non_empty_sp&             operator =(const non_empty_sp& other) noexcept;
+                  volatile non_empty_sp&    operator =(const non_empty_sp& other) volatile noexcept;
+                  non_empty_sp&             operator =(const volatile non_empty_sp& other) noexcept;
+                  volatile non_empty_sp&    operator =(const volatile non_empty_sp& other) volatile noexcept;
+        constexpr non_empty_sp&             operator =(non_empty_sp&& other) noexcept;
+                  volatile non_empty_sp&    operator =(non_empty_sp&& other) volatile noexcept;
+                  non_empty_sp&             operator =(volatile non_empty_sp&& other) noexcept;
+                  volatile non_empty_sp&    operator =(volatile non_empty_sp&& other) volatile noexcept;
 
     public:
+        constexpr units_t&                  Units() noexcept;
+        constexpr const units_t&            Units() const noexcept;
+                  volatile units_t&         Units() volatile noexcept;
+                  const volatile units_t&   Units() const volatile noexcept;
+
         constexpr nkr::positive::count_t    Count() const noexcept;
                   nkr::positive::count_t    Count() const volatile noexcept;
         constexpr nkr::positive::count_t    Capacity() const noexcept;
                   nkr::positive::count_t    Capacity() const volatile noexcept;
     };
 
-}}}
+}}}}
 
 #include "nkr/array/local/dynamic_t_dec_def.h"
 

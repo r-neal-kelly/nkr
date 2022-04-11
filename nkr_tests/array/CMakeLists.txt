@@ -10,6 +10,7 @@ set(THIS_INCLUDE_FILES
 
 set(THIS_SOURCE_FILES
     "src/cpp_t.cpp"
+    "src/local/dynamic_t.cpp"
     "src/local/static_t.cpp")
 
 add_executable(nkr_test_array)

@@ -266,6 +266,11 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         using bytes_t       = nkr::positive::byte_t[capacity_t::Value() * sizeof(unit_t)];
 
     public:
+        class default_units_t
+        {
+        public:
+        };
+
         class common_t
         {
         public:
@@ -282,11 +287,6 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
             static constexpr void   Destruct(tr<any_tg, t<units_or_bytes_u>> auto& self) noexcept;
 
             static constexpr auto&  Units(tr<any_tg, t<units_or_bytes_u>> auto& self) noexcept;
-        };
-
-        class default_units_t
-        {
-        public:
         };
 
     public:
