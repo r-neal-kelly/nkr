@@ -125,7 +125,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-    inline constexpr void
+    inline constexpr nkr::none::type_t
         units_or_bytes_u<unit_p, capacity_p>::common_t::Construct(tr<any_non_const_tg, t<units_or_bytes_u>> auto& self,
                                                                   const tr<any_tg, t<units_or_bytes_u>> auto& other)
         noexcept
@@ -136,7 +136,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-    inline constexpr void
+    inline constexpr nkr::none::type_t
         units_or_bytes_u<unit_p, capacity_p>::common_t::Construct(tr<any_non_const_tg, t<units_or_bytes_u>> auto& self,
                                                                   tr<any_non_const_tg, t<units_or_bytes_u>> auto&& other)
         noexcept
@@ -179,7 +179,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     }
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
-    inline constexpr void
+    inline constexpr nkr::none::type_t
         units_or_bytes_u<unit_p, capacity_p>::common_t::Destruct(tr<any_tg, t<units_or_bytes_u>> auto& self)
         noexcept
     {
