@@ -22,8 +22,8 @@ namespace nkr {
             CHECK(c.Unit(1) == 2);
 
             CHECK(d.Unit_Count() == 2);
-            CHECK(d.Units()[0] == 1);
-            CHECK(d.Units()[1] == 2);
+            CHECK(d[0] == 1);
+            CHECK(d[1] == 2);
 
             c = a;
             CHECK(c.Unit_Count() == 0);

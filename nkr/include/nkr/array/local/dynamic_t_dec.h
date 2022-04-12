@@ -224,6 +224,9 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
         friend  nkr::array::local::dynamic_t$::common_t;
 
     public:
+        static constexpr nkr::positive::count_t Unit_Capacity() noexcept;
+
+    public:
         nkr::positive::count_t  unit_count;
         bytes_t                 bytes;
 
@@ -250,9 +253,6 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
         constexpr ~non_empty_sp() noexcept;
 
     public:
-        constexpr nkr::positive::count_t            Unit_Capacity() const noexcept;
-                  nkr::positive::count_t            Unit_Capacity() const volatile noexcept;
-
         constexpr nkr::positive::count_t            Unit_Count() const noexcept;
                   nkr::positive::count_t            Unit_Count() const volatile noexcept;
         constexpr nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) noexcept;
@@ -273,10 +273,16 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
                   volatile unit_t&                  Unit(nkr::positive::index_t unit_index) volatile noexcept;
                   const volatile unit_t&            Unit(nkr::positive::index_t unit_index) const volatile noexcept;
 
-        constexpr non_const_unit_t&                 Non_Const_Unit(nkr::positive::index_t unit_index) noexcept;
-        constexpr const non_const_unit_t&           Non_Const_Unit(nkr::positive::index_t unit_index) const noexcept;
-                  volatile non_const_unit_t&        Non_Const_Unit(nkr::positive::index_t unit_index) volatile noexcept;
-                  const volatile non_const_unit_t&  Non_Const_Unit(nkr::positive::index_t unit_index) const volatile noexcept;
+        constexpr non_const_unit_t&                 Non_Const_Unit(nkr::positive::index_t non_const_unit_index) noexcept;
+        constexpr const non_const_unit_t&           Non_Const_Unit(nkr::positive::index_t non_const_unit_index) const noexcept;
+                  volatile non_const_unit_t&        Non_Const_Unit(nkr::positive::index_t non_const_unit_index) volatile noexcept;
+                  const volatile non_const_unit_t&  Non_Const_Unit(nkr::positive::index_t non_const_unit_index) const volatile noexcept;
+
+    public:
+        constexpr unit_t&                   operator [](nkr::positive::index_t unit_index) noexcept;
+        constexpr const unit_t&             operator [](nkr::positive::index_t unit_index) const noexcept;
+                  volatile unit_t&          operator [](nkr::positive::index_t unit_index) volatile noexcept;
+                  const volatile unit_t&    operator [](nkr::positive::index_t unit_index) const volatile noexcept;
     };
 
 }}}}
