@@ -13,7 +13,6 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_identity_tag_t_dec.h"
 #include "nkr/interface/template_i_identity_template_t_dec.h"
-#include "nkr/pointer/cpp_t_dec.h"
 #include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
@@ -251,33 +250,33 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
         constexpr ~non_empty_sp() noexcept;
 
     public:
-        constexpr nkr::positive::count_t                                        Unit_Capacity() const noexcept;
-                  nkr::positive::count_t                                        Unit_Capacity() const volatile noexcept;
+        constexpr nkr::positive::count_t            Unit_Capacity() const noexcept;
+                  nkr::positive::count_t            Unit_Capacity() const volatile noexcept;
 
-        constexpr nkr::positive::count_t                                        Unit_Count() const noexcept;
-                  nkr::positive::count_t                                        Unit_Count() const volatile noexcept;
-        constexpr nkr::none::type_t                                             Unit_Count(nkr::positive::count_t unit_count) noexcept;
-                  nkr::none::type_t                                             Unit_Count(nkr::positive::count_t unit_count) volatile noexcept;
+        constexpr nkr::positive::count_t            Unit_Count() const noexcept;
+                  nkr::positive::count_t            Unit_Count() const volatile noexcept;
+        constexpr nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) noexcept;
+                  nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) volatile noexcept;
 
-        constexpr units_t&                                                      Units() noexcept;
-        constexpr const units_t&                                                Units() const noexcept;
-                  volatile units_t&                                             Units() volatile noexcept;
-                  const volatile units_t&                                       Units() const volatile noexcept;
+        constexpr units_t&                          Units() noexcept;
+        constexpr const units_t&                    Units() const noexcept;
+                  volatile units_t&                 Units() volatile noexcept;
+                  const volatile units_t&           Units() const volatile noexcept;
 
-        constexpr unit_t&                                                       Unit(nkr::positive::index_t unit_index) noexcept;
-        constexpr const unit_t&                                                 Unit(nkr::positive::index_t unit_index) const noexcept;
-                  volatile unit_t&                                              Unit(nkr::positive::index_t unit_index) volatile noexcept;
-                  const volatile unit_t&                                        Unit(nkr::positive::index_t unit_index) const volatile noexcept;
+        constexpr non_const_units_t&                Non_Const_Units() noexcept;
+        constexpr const non_const_units_t&          Non_Const_Units() const noexcept;
+                  volatile non_const_units_t&       Non_Const_Units() volatile noexcept;
+                  const volatile non_const_units_t& Non_Const_Units() const volatile noexcept;
 
-        constexpr nkr::array::cpp_t<unit_t, unit_capacity_t>&                   Array() noexcept;
-        constexpr const nkr::array::cpp_t<unit_t, unit_capacity_t>&             Array() const noexcept;
-                  volatile nkr::array::cpp_t<unit_t, unit_capacity_t>&          Array() volatile noexcept;
-                  const volatile nkr::array::cpp_t<unit_t, unit_capacity_t>&    Array() const volatile noexcept;
+        constexpr unit_t&                           Unit(nkr::positive::index_t unit_index) noexcept;
+        constexpr const unit_t&                     Unit(nkr::positive::index_t unit_index) const noexcept;
+                  volatile unit_t&                  Unit(nkr::positive::index_t unit_index) volatile noexcept;
+                  const volatile unit_t&            Unit(nkr::positive::index_t unit_index) const volatile noexcept;
 
-        constexpr nkr::pointer::cpp_t<unit_t>                                   Pointer() noexcept;
-        constexpr nkr::pointer::cpp_t<const unit_t>                             Pointer() const noexcept;
-                  nkr::pointer::cpp_t<volatile unit_t>                          Pointer() volatile noexcept;
-                  nkr::pointer::cpp_t<const volatile unit_t>                    Pointer() const volatile noexcept;
+        constexpr non_const_unit_t&                 Non_Const_Unit(nkr::positive::index_t unit_index) noexcept;
+        constexpr const non_const_unit_t&           Non_Const_Unit(nkr::positive::index_t unit_index) const noexcept;
+                  volatile non_const_unit_t&        Non_Const_Unit(nkr::positive::index_t unit_index) volatile noexcept;
+                  const volatile non_const_unit_t&  Non_Const_Unit(nkr::positive::index_t unit_index) const volatile noexcept;
     };
 
 }}}}

@@ -280,24 +280,20 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
             Units(tr<any_tg, t<nkr::array::local::dynamic_tg>> auto& self)
             noexcept
         {
-            using self_t =
-                nkr::cpp::reference_value_t<decltype(self)>;
-            using access_qualified_units_t =
-                nkr::cpp::access_qualification_of_t<typename self_t::units_t, self_t>;
+            using self_t = nkr::cpp::reference_value_t<decltype(self)>;
+            using units_t = nkr::cpp::access_qualification_of_t<typename self_t::units_t, self_t>;
 
-            return reinterpret_cast<access_qualified_units_t&>(self.bytes);
+            return reinterpret_cast<units_t&>(self.bytes);
         }
 
         static inline constexpr auto&
             Non_Const_Units(tr<any_tg, t<nkr::array::local::dynamic_tg>> auto& self)
             noexcept
         {
-            using self_t =
-                nkr::cpp::reference_value_t<decltype(self)>;
-            using access_qualified_non_const_units_t =
-                nkr::cpp::access_qualification_of_t<typename self_t::non_const_units_t, self_t>;
+            using self_t = nkr::cpp::reference_value_t<decltype(self)>;
+            using non_const_units_t = nkr::cpp::access_qualification_of_t<typename self_t::non_const_units_t, self_t>;
 
-            return reinterpret_cast<access_qualified_non_const_units_t&>(self.bytes);
+            return reinterpret_cast<non_const_units_t&>(self.bytes);
         }
 
         static inline constexpr auto&
@@ -437,6 +433,182 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
     inline constexpr non_empty_sp<unit_p, unit_capacity_p>::~non_empty_sp() noexcept
     {
         nkr::array::local::dynamic_t$::common_t::Destruct(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr nkr::positive::count_t
+        non_empty_sp<unit_p, unit_capacity_p>::Unit_Capacity()
+        const noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit_Capacity(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline nkr::positive::count_t
+        non_empty_sp<unit_p, unit_capacity_p>::Unit_Capacity()
+        const volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit_Capacity(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr nkr::positive::count_t
+        non_empty_sp<unit_p, unit_capacity_p>::Unit_Count()
+        const noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit_Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline nkr::positive::count_t
+        non_empty_sp<unit_p, unit_capacity_p>::Unit_Count()
+        const volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit_Count(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr nkr::none::type_t
+        non_empty_sp<unit_p, unit_capacity_p>::Unit_Count(nkr::positive::count_t unit_count)
+        noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit_Count(*this, unit_count);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline nkr::none::type_t
+        non_empty_sp<unit_p, unit_capacity_p>::Unit_Count(nkr::positive::count_t unit_count)
+        volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit_Count(*this, unit_count);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr typename non_empty_sp<unit_p, unit_capacity_p>::units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Units()
+        noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr const typename non_empty_sp<unit_p, unit_capacity_p>::units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Units()
+        const noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline volatile typename non_empty_sp<unit_p, unit_capacity_p>::units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Units()
+        volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline const volatile typename non_empty_sp<unit_p, unit_capacity_p>::units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Units()
+        const volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr typename non_empty_sp<unit_p, unit_capacity_p>::non_const_units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Units()
+        noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr const typename non_empty_sp<unit_p, unit_capacity_p>::non_const_units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Units()
+        const noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline volatile typename non_empty_sp<unit_p, unit_capacity_p>::non_const_units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Units()
+        volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline const volatile typename non_empty_sp<unit_p, unit_capacity_p>::non_const_units_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Units()
+        const volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Units(*this);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr typename non_empty_sp<unit_p, unit_capacity_p>::unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Unit(nkr::positive::index_t unit_index)
+        noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr const typename non_empty_sp<unit_p, unit_capacity_p>::unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Unit(nkr::positive::index_t unit_index)
+        const noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline volatile typename non_empty_sp<unit_p, unit_capacity_p>::unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Unit(nkr::positive::index_t unit_index)
+        volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline const volatile typename non_empty_sp<unit_p, unit_capacity_p>::unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Unit(nkr::positive::index_t unit_index)
+        const volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr typename non_empty_sp<unit_p, unit_capacity_p>::non_const_unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Unit(nkr::positive::index_t unit_index)
+        noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline constexpr const typename non_empty_sp<unit_p, unit_capacity_p>::non_const_unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Unit(nkr::positive::index_t unit_index)
+        const noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline volatile typename non_empty_sp<unit_p, unit_capacity_p>::non_const_unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Unit(nkr::positive::index_t unit_index)
+        volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Unit(*this, unit_index);
+    }
+
+    template <nkr::generic::type_tr unit_p, typename unit_capacity_p>
+    inline const volatile typename non_empty_sp<unit_p, unit_capacity_p>::non_const_unit_t&
+        non_empty_sp<unit_p, unit_capacity_p>::Non_Const_Unit(nkr::positive::index_t unit_index)
+        const volatile noexcept
+    {
+        return nkr::array::local::dynamic_t$::common_t::Non_Const_Unit(*this, unit_index);
     }
 
 }}}}

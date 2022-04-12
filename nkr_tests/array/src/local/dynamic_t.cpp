@@ -17,16 +17,16 @@ namespace nkr {
             nkr::array::local::dynamic_t<int, nkr::constant::positive::count_t<2>> c{ int(1), int(2) };
             nkr::array::local::dynamic_t<int, nkr::constant::positive::count_t<2>> d(c);
 
-            CHECK(c.unit_count == 2);
-            CHECK(c.bytes[0] == 1);
-            CHECK(c.bytes[4] == 2);
+            CHECK(c.Unit_Count() == 2);
+            CHECK(c.Unit(0) == 1);
+            CHECK(c.Unit(1) == 2);
 
-            CHECK(d.unit_count == 2);
-            CHECK(d.bytes[0] == 1);
-            CHECK(d.bytes[4] == 2);
+            CHECK(d.Unit_Count() == 2);
+            CHECK(d.Units()[0] == 1);
+            CHECK(d.Units()[1] == 2);
 
             c = a;
-            CHECK(c.unit_count == 0);
+            CHECK(c.Unit_Count() == 0);
         }
     }
 
