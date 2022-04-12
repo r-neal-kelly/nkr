@@ -1,0 +1,5 @@
+#ifndef nkr_INCLUDE_GUARD_4d767367_0b14_49af_994e_7d2809a007af
+#define nkr_INCLUDE_GUARD_4d767367_0b14_49af_994e_7d2809a007af
+
+
+#endif

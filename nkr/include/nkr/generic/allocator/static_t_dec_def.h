@@ -1,0 +1,5 @@
+#ifndef nkr_INCLUDE_GUARD_ad91eb21_46e1_4992_9700_1deb321ada7b
+#define nkr_INCLUDE_GUARD_ad91eb21_46e1_4992_9700_1deb321ada7b
+
+
+#endif
