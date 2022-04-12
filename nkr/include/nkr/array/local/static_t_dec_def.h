@@ -293,7 +293,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline units_or_bytes_u<unit_p, capacity_p>&
-        units_or_bytes_u<unit_p, capacity_p>::operator =(volatile units_or_bytes_u&& other)
+        units_or_bytes_u<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<units_or_bytes_u>> auto&& other)
         noexcept
     {
         return common_t::Assign(*this, nkr::cpp::Move(other));
@@ -301,7 +301,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline volatile units_or_bytes_u<unit_p, capacity_p>&
-        units_or_bytes_u<unit_p, capacity_p>::operator =(volatile units_or_bytes_u&& other)
+        units_or_bytes_u<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<units_or_bytes_u>> auto&& other)
         volatile noexcept
     {
         return common_t::Assign(*this, nkr::cpp::Move(other));
@@ -424,7 +424,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline empty_sp<unit_p, capacity_p>&
-        empty_sp<unit_p, capacity_p>::operator =(volatile empty_sp&& other)
+        empty_sp<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<empty_sp>> auto&& other)
         noexcept
     {
         return *this;
@@ -432,7 +432,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline volatile empty_sp<unit_p, capacity_p>&
-        empty_sp<unit_p, capacity_p>::operator =(volatile empty_sp&& other)
+        empty_sp<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<empty_sp>> auto&& other)
         volatile noexcept
     {
         return *this;
@@ -566,7 +566,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline non_const_default_sp<unit_p, capacity_p>&
-        non_const_default_sp<unit_p, capacity_p>::operator =(volatile non_const_default_sp&& other)
+        non_const_default_sp<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<non_const_default_sp>> auto&& other)
         noexcept
     {
         return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
@@ -574,7 +574,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline volatile non_const_default_sp<unit_p, capacity_p>&
-        non_const_default_sp<unit_p, capacity_p>::operator =(volatile non_const_default_sp&& other)
+        non_const_default_sp<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<non_const_default_sp>> auto&& other)
         volatile noexcept
     {
         return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
@@ -734,7 +734,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline non_const_non_default_sp<unit_p, capacity_p>&
-        non_const_non_default_sp<unit_p, capacity_p>::operator =(volatile non_const_non_default_sp&& other)
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<non_const_non_default_sp>> auto&& other)
         noexcept
     {
         return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));
@@ -742,7 +742,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
 
     template <nkr::generic::type_tr unit_p, typename capacity_p>
     inline volatile non_const_non_default_sp<unit_p, capacity_p>&
-        non_const_non_default_sp<unit_p, capacity_p>::operator =(volatile non_const_non_default_sp&& other)
+        non_const_non_default_sp<unit_p, capacity_p>::operator =(tr<just_volatile_tg, t<non_const_non_default_sp>> auto&& other)
         volatile noexcept
     {
         return nkr::array::local::static_t$::common_t::Assign(*this, nkr::cpp::Move(other));

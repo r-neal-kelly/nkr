@@ -311,8 +311,8 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
                   volatile units_or_bytes_u&    operator =(const volatile units_or_bytes_u& other) volatile noexcept;
         constexpr units_or_bytes_u&             operator =(units_or_bytes_u&& other) noexcept;
                   volatile units_or_bytes_u&    operator =(units_or_bytes_u&& other) volatile noexcept;
-                  units_or_bytes_u&             operator =(volatile units_or_bytes_u&& other) noexcept;
-                  volatile units_or_bytes_u&    operator =(volatile units_or_bytes_u&& other) volatile noexcept;
+                  units_or_bytes_u&             operator =(tr<just_volatile_tg, t<units_or_bytes_u>> auto&& other) noexcept;
+                  volatile units_or_bytes_u&    operator =(tr<just_volatile_tg, t<units_or_bytes_u>> auto&& other) volatile noexcept;
 
         constexpr ~units_or_bytes_u() noexcept;
 
@@ -341,8 +341,8 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
     public:
         constexpr empty_sp() noexcept;
 
-        constexpr empty_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept         = delete;
-        constexpr empty_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept    = delete;
+        constexpr empty_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept                                         = delete;
+        constexpr empty_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept                                    = delete;
 
         constexpr empty_sp(const empty_sp& other) noexcept;
                   empty_sp(const volatile empty_sp& other) noexcept;
@@ -355,8 +355,8 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
                   volatile empty_sp&    operator =(const volatile empty_sp& other) volatile noexcept;
         constexpr empty_sp&             operator =(empty_sp&& other) noexcept;
                   volatile empty_sp&    operator =(empty_sp&& other) volatile noexcept;
-                  empty_sp&             operator =(volatile empty_sp&& other) noexcept;
-                  volatile empty_sp&    operator =(volatile empty_sp&& other) volatile noexcept;
+                  empty_sp&             operator =(tr<just_volatile_tg, t<empty_sp>> auto&& other) noexcept;
+                  volatile empty_sp&    operator =(tr<just_volatile_tg, t<empty_sp>> auto&& other) volatile noexcept;
 
     public:
         constexpr units_t&                  Units() noexcept                            = delete;
@@ -406,8 +406,8 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
                   volatile non_const_default_sp&    operator =(const volatile non_const_default_sp& other) volatile noexcept;
         constexpr non_const_default_sp&             operator =(non_const_default_sp&& other) noexcept;
                   volatile non_const_default_sp&    operator =(non_const_default_sp&& other) volatile noexcept;
-                  non_const_default_sp&             operator =(volatile non_const_default_sp&& other) noexcept;
-                  volatile non_const_default_sp&    operator =(volatile non_const_default_sp&& other) volatile noexcept;
+                  non_const_default_sp&             operator =(tr<just_volatile_tg, t<non_const_default_sp>> auto&& other) noexcept;
+                  volatile non_const_default_sp&    operator =(tr<just_volatile_tg, t<non_const_default_sp>> auto&& other) volatile noexcept;
 
     public:
         constexpr units_t&                  Units() noexcept;
@@ -441,7 +441,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         units_or_bytes_u    units_or_bytes;
 
     public:
-        constexpr non_const_non_default_sp() noexcept                                                                                   = delete;
+        constexpr non_const_non_default_sp() noexcept                                                                                                   = delete;
         
         constexpr non_const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
         constexpr non_const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
@@ -457,8 +457,8 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
                   volatile non_const_non_default_sp&    operator =(const volatile non_const_non_default_sp& other) volatile noexcept;
         constexpr non_const_non_default_sp&             operator =(non_const_non_default_sp&& other) noexcept;
                   volatile non_const_non_default_sp&    operator =(non_const_non_default_sp&& other) volatile noexcept;
-                  non_const_non_default_sp&             operator =(volatile non_const_non_default_sp&& other) noexcept;
-                  volatile non_const_non_default_sp&    operator =(volatile non_const_non_default_sp&& other) volatile noexcept;
+                  non_const_non_default_sp&             operator =(tr<just_volatile_tg, t<non_const_non_default_sp>> auto&& other) noexcept;
+                  volatile non_const_non_default_sp&    operator =(tr<just_volatile_tg, t<non_const_non_default_sp>> auto&& other) volatile noexcept;
 
     public:
         constexpr units_t&                  Units() noexcept;
@@ -502,14 +502,14 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         constexpr const_default_sp(const_default_sp&& other) noexcept;
                   const_default_sp(volatile const_default_sp&& other) noexcept;
 
-        constexpr const_default_sp&             operator =(const const_default_sp& other) noexcept                      = delete;
-                  volatile const_default_sp&    operator =(const const_default_sp& other) volatile noexcept             = delete;
-                  const_default_sp&             operator =(const volatile const_default_sp& other) noexcept             = delete;
-                  volatile const_default_sp&    operator =(const volatile const_default_sp& other) volatile noexcept    = delete;
-        constexpr const_default_sp&             operator =(const_default_sp&& other) noexcept                           = delete;
-                  volatile const_default_sp&    operator =(const_default_sp&& other) volatile noexcept                  = delete;
-                  const_default_sp&             operator =(volatile const_default_sp&& other) noexcept                  = delete;
-                  volatile const_default_sp&    operator =(volatile const_default_sp&& other) volatile noexcept         = delete;
+        constexpr const_default_sp&             operator =(const const_default_sp& other) noexcept                                      = delete;
+                  volatile const_default_sp&    operator =(const const_default_sp& other) volatile noexcept                             = delete;
+                  const_default_sp&             operator =(const volatile const_default_sp& other) noexcept                             = delete;
+                  volatile const_default_sp&    operator =(const volatile const_default_sp& other) volatile noexcept                    = delete;
+        constexpr const_default_sp&             operator =(const_default_sp&& other) noexcept                                           = delete;
+                  volatile const_default_sp&    operator =(const_default_sp&& other) volatile noexcept                                  = delete;
+                  const_default_sp&             operator =(tr<just_volatile_tg, t<const_default_sp>> auto&& other) noexcept             = delete;
+                  volatile const_default_sp&    operator =(tr<just_volatile_tg, t<const_default_sp>> auto&& other) volatile noexcept    = delete;
 
     public:
         constexpr units_t&                  Units() noexcept;
@@ -543,7 +543,7 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         units_or_bytes_u    units_or_bytes;
 
     public:
-        constexpr const_non_default_sp() noexcept                                                                               = delete;
+        constexpr const_non_default_sp() noexcept                                                                                               = delete;
         
         constexpr const_non_default_sp(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
         constexpr const_non_default_sp(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
@@ -553,14 +553,14 @@ namespace nkr { namespace array { namespace local { namespace static_t$ {
         constexpr const_non_default_sp(const_non_default_sp&& other) noexcept;
                   const_non_default_sp(volatile const_non_default_sp&& other) noexcept;
 
-        constexpr const_non_default_sp&             operator =(const const_non_default_sp& other) noexcept                      = delete;
-                  volatile const_non_default_sp&    operator =(const const_non_default_sp& other) volatile noexcept             = delete;
-                  const_non_default_sp&             operator =(const volatile const_non_default_sp& other) noexcept             = delete;
-                  volatile const_non_default_sp&    operator =(const volatile const_non_default_sp& other) volatile noexcept    = delete;
-        constexpr const_non_default_sp&             operator =(const_non_default_sp&& other) noexcept                           = delete;
-                  volatile const_non_default_sp&    operator =(const_non_default_sp&& other) volatile noexcept                  = delete;
-                  const_non_default_sp&             operator =(volatile const_non_default_sp&& other) noexcept                  = delete;
-                  volatile const_non_default_sp&    operator =(volatile const_non_default_sp&& other) volatile noexcept         = delete;
+        constexpr const_non_default_sp&             operator =(const const_non_default_sp& other) noexcept                                      = delete;
+                  volatile const_non_default_sp&    operator =(const const_non_default_sp& other) volatile noexcept                             = delete;
+                  const_non_default_sp&             operator =(const volatile const_non_default_sp& other) noexcept                             = delete;
+                  volatile const_non_default_sp&    operator =(const volatile const_non_default_sp& other) volatile noexcept                    = delete;
+        constexpr const_non_default_sp&             operator =(const_non_default_sp&& other) noexcept                                           = delete;
+                  volatile const_non_default_sp&    operator =(const_non_default_sp&& other) volatile noexcept                                  = delete;
+                  const_non_default_sp&             operator =(tr<just_volatile_tg, t<const_non_default_sp>> auto&& other) noexcept             = delete;
+                  volatile const_non_default_sp&    operator =(tr<just_volatile_tg, t<const_non_default_sp>> auto&& other) volatile noexcept    = delete;
 
     public:
         constexpr units_t&                  Units() noexcept;

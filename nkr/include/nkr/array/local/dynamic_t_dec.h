@@ -247,8 +247,8 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
                   volatile non_empty_sp&    operator =(const volatile non_empty_sp& other) volatile noexcept;
         constexpr non_empty_sp&             operator =(non_empty_sp&& other) noexcept;
                   volatile non_empty_sp&    operator =(non_empty_sp&& other) volatile noexcept;
-                  non_empty_sp&             operator =(volatile non_empty_sp&& other) noexcept;
-                  volatile non_empty_sp&    operator =(volatile non_empty_sp&& other) volatile noexcept;
+                  non_empty_sp&             operator =(tr<just_volatile_tg, t<non_empty_sp>> auto&& other) noexcept;
+                  volatile non_empty_sp&    operator =(tr<just_volatile_tg, t<non_empty_sp>> auto&& other) volatile noexcept;
 
         constexpr ~non_empty_sp() noexcept;
 
@@ -256,7 +256,9 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
         constexpr nkr::positive::count_t            Unit_Count() const noexcept;
                   nkr::positive::count_t            Unit_Count() const volatile noexcept;
         constexpr nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) noexcept;
+        constexpr nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) const noexcept                        = delete;
                   nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) volatile noexcept;
+                  nkr::none::type_t                 Unit_Count(nkr::positive::count_t unit_count) const volatile noexcept               = delete;
 
         constexpr units_t&                          Units() noexcept;
         constexpr const units_t&                    Units() const noexcept;
@@ -264,9 +266,9 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
                   const volatile units_t&           Units() const volatile noexcept;
 
         constexpr non_const_units_t&                Non_Const_Units() noexcept;
-        constexpr const non_const_units_t&          Non_Const_Units() const noexcept;
+        constexpr const non_const_units_t&          Non_Const_Units() const noexcept                                                    = delete;
                   volatile non_const_units_t&       Non_Const_Units() volatile noexcept;
-                  const volatile non_const_units_t& Non_Const_Units() const volatile noexcept;
+                  const volatile non_const_units_t& Non_Const_Units() const volatile noexcept                                           = delete;
 
         constexpr unit_t&                           Unit(nkr::positive::index_t unit_index) noexcept;
         constexpr const unit_t&                     Unit(nkr::positive::index_t unit_index) const noexcept;
@@ -274,9 +276,23 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
                   const volatile unit_t&            Unit(nkr::positive::index_t unit_index) const volatile noexcept;
 
         constexpr non_const_unit_t&                 Non_Const_Unit(nkr::positive::index_t non_const_unit_index) noexcept;
-        constexpr const non_const_unit_t&           Non_Const_Unit(nkr::positive::index_t non_const_unit_index) const noexcept;
+        constexpr const non_const_unit_t&           Non_Const_Unit(nkr::positive::index_t non_const_unit_index) const noexcept          = delete;
                   volatile non_const_unit_t&        Non_Const_Unit(nkr::positive::index_t non_const_unit_index) volatile noexcept;
-                  const volatile non_const_unit_t&  Non_Const_Unit(nkr::positive::index_t non_const_unit_index) const volatile noexcept;
+                  const volatile non_const_unit_t&  Non_Const_Unit(nkr::positive::index_t non_const_unit_index) const volatile noexcept = delete;
+
+        constexpr nkr::none::type_t                 Push_Units(const tr<any_tg, t<unit_t>> auto& ...units) noexcept;
+        constexpr nkr::none::type_t                 Push_Units(const tr<any_tg, t<unit_t>> auto& ...units) const noexcept               = delete;
+                  nkr::none::type_t                 Push_Units(const tr<any_tg, t<unit_t>> auto& ...units) volatile noexcept;
+                  nkr::none::type_t                 Push_Units(const tr<any_tg, t<unit_t>> auto& ...units) const volatile noexcept      = delete;
+        constexpr nkr::none::type_t                 Push_Units(tr<any_non_const_tg, t<unit_t>> auto&& ...units) noexcept;
+        constexpr nkr::none::type_t                 Push_Units(tr<any_non_const_tg, t<unit_t>> auto&& ...units) const noexcept          = delete;
+                  nkr::none::type_t                 Push_Units(tr<any_non_const_tg, t<unit_t>> auto&& ...units) volatile noexcept;
+                  nkr::none::type_t                 Push_Units(tr<any_non_const_tg, t<unit_t>> auto&& ...units) const volatile noexcept = delete;
+
+        constexpr unit_t                            Pop_Unit() noexcept;
+        constexpr const unit_t                      Pop_Unit() const noexcept                                                           = delete;
+                  volatile unit_t                   Pop_Unit() volatile noexcept;
+                  const volatile unit_t             Pop_Unit() const volatile noexcept                                                  = delete;
 
     public:
         constexpr unit_t&                   operator [](nkr::positive::index_t unit_index) noexcept;

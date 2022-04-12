@@ -20,6 +20,8 @@ namespace nkr {
             CHECK(c.Unit_Count() == 2);
             CHECK(c.Unit(0) == 1);
             CHECK(c.Unit(1) == 2);
+            CHECK(c.Pop_Unit() == 2);
+            CHECK(c.Unit_Count() == 1);
 
             CHECK(d.Unit_Count() == 2);
             CHECK(d[0] == 1);
@@ -27,6 +29,13 @@ namespace nkr {
 
             c = a;
             CHECK(c.Unit_Count() == 0);
+
+            nkr::array::local::dynamic_t<volatile int, nkr::constant::positive::count_t<2>> e{ int(1), int(2) };
+            CHECK(e.Unit_Count() == 2);
+            CHECK(e[0] == 1);
+            CHECK(e[1] == 2);
+            CHECK(e.Pop_Unit() == 2);
+            CHECK(e.Unit_Count() == 1);
         }
     }
 
