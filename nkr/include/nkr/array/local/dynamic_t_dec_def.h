@@ -329,7 +329,7 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
 
             nkr_ASSERT_THAT(sizeof...(units) <= Unit_Capacity<self_t>() - Unit_Count(self));
 
-            new (&Non_Const_Unit(self, Unit_Count(self))) unit_t[sizeof...(units)]{ units... };
+            new (&Non_Const_Units(self)[Unit_Count(self)]) unit_t[sizeof...(units)]{ units... };
             Unit_Count(self, Unit_Count(self) + sizeof...(units));
         }
 
@@ -344,7 +344,7 @@ namespace nkr { namespace array { namespace local { namespace dynamic_t$ {
 
             nkr_ASSERT_THAT(sizeof...(units) <= Unit_Capacity<self_t>() - Unit_Count(self));
 
-            new (&Non_Const_Unit(self, Unit_Count(self))) unit_t[sizeof...(units)]{ nkr::cpp::Move(units)... };
+            new (&Non_Const_Units(self)[Unit_Count(self)]) unit_t[sizeof...(units)]{ nkr::cpp::Move(units)... };
             Unit_Count(self, Unit_Count(self) + sizeof...(units));
         }
 
