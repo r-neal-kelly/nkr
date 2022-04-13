@@ -28,29 +28,25 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
     class common_t;
 
-    template <tr<any_non_const_tg, t<nkr::generic::implementing::interface::enumeration::types_tg>> value_p>
-    class types_sp;
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    class generic_sp;
 
 }}}
 
 namespace nkr { namespace enumeration { namespace errors_t$ {
 
-    template <typename value_p>
-    class specialization_tmpl;
-
-    template <typename value_p>
-        requires (tr<value_p, any_non_const_tg, t<nkr::generic::implementing::interface::enumeration::types_tg>>)
-    class specialization_tmpl<value_p>
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    class specialization_tmpl
     {
     public:
-        using type_t    = types_sp<value_p>;
+        using type_t    = generic_sp<value_p>;
     };
 
 }}}
 
 namespace nkr { namespace enumeration {
 
-    template <typename value_p>
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     using errors_t =
         typename nkr::enumeration::errors_t$::specialization_tmpl<value_p>::type_t;
 
@@ -190,8 +186,8 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace enumeration { namespace errors_t$ {
 
-    template <tr<any_non_const_tg, t<nkr::generic::implementing::interface::enumeration::types_tg>> value_p>
-    class types_sp
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    class generic_sp
     {
     public:
         using type_t        = value_p;
@@ -209,71 +205,71 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     #endif
 
     public:
-        constexpr types_sp() noexcept;
+        constexpr generic_sp() noexcept;
 
-        constexpr types_sp(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
-        constexpr types_sp(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
+        constexpr generic_sp(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+        constexpr generic_sp(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
 
-        constexpr types_sp(const value_t& value) noexcept;
-                  types_sp(const volatile value_t& value) noexcept;
-        constexpr types_sp(value_t&& value) noexcept;
-                  types_sp(volatile value_t&& value) noexcept;
+        constexpr generic_sp(const value_t& value) noexcept;
+                  generic_sp(const volatile value_t& value) noexcept;
+        constexpr generic_sp(value_t&& value) noexcept;
+                  generic_sp(volatile value_t&& value) noexcept;
 
-        constexpr types_sp(const types_sp& other) noexcept;
-                  types_sp(const volatile types_sp& other) noexcept;
-        constexpr types_sp(types_sp&& other) noexcept;
-                  types_sp(volatile types_sp&& other) noexcept;
+        constexpr generic_sp(const generic_sp& other) noexcept;
+                  generic_sp(const volatile generic_sp& other) noexcept;
+        constexpr generic_sp(generic_sp&& other) noexcept;
+                  generic_sp(volatile generic_sp&& other) noexcept;
 
-        constexpr types_sp&             operator =(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
-                  volatile types_sp&    operator =(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
-        constexpr types_sp&             operator =(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
-                  volatile types_sp&    operator =(tr<to_tg, t<integer_t>> auto&& to_integer) volatile noexcept;
+        constexpr generic_sp&           operator =(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+                  volatile generic_sp&  operator =(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr generic_sp&           operator =(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
+                  volatile generic_sp&  operator =(tr<to_tg, t<integer_t>> auto&& to_integer) volatile noexcept;
 
-        constexpr types_sp&             operator =(const value_t& value) noexcept;
-                  volatile types_sp&    operator =(const value_t& value) volatile noexcept;
-                  types_sp&             operator =(const volatile value_t& value) noexcept;
-                  volatile types_sp&    operator =(const volatile value_t& value) volatile noexcept;
-        constexpr types_sp&             operator =(value_t&& value) noexcept;
-                  volatile types_sp&    operator =(value_t&& value) volatile noexcept;
-                  types_sp&             operator =(tr<just_volatile_tg, t<value_t>> auto&& value) noexcept;
-                  volatile types_sp&    operator =(tr<just_volatile_tg, t<value_t>> auto&& value) volatile noexcept;
+        constexpr generic_sp&           operator =(const value_t& value) noexcept;
+                  volatile generic_sp&  operator =(const value_t& value) volatile noexcept;
+                  generic_sp&           operator =(const volatile value_t& value) noexcept;
+                  volatile generic_sp&  operator =(const volatile value_t& value) volatile noexcept;
+        constexpr generic_sp&           operator =(value_t&& value) noexcept;
+                  volatile generic_sp&  operator =(value_t&& value) volatile noexcept;
+                  generic_sp&           operator =(tr<just_volatile_tg, t<value_t>> auto&& value) noexcept;
+                  volatile generic_sp&  operator =(tr<just_volatile_tg, t<value_t>> auto&& value) volatile noexcept;
 
-        constexpr types_sp&             operator =(const types_sp& other) noexcept;
-                  volatile types_sp&    operator =(const types_sp& other) volatile noexcept;
-                  types_sp&             operator =(const volatile types_sp& other) noexcept;
-                  volatile types_sp&    operator =(const volatile types_sp& other) volatile noexcept;
-        constexpr types_sp&             operator =(types_sp&& other) noexcept;
-                  volatile types_sp&    operator =(types_sp&& other) volatile noexcept;
-                  types_sp&             operator =(tr<just_volatile_tg, t<types_sp>> auto&& other) noexcept;
-                  volatile types_sp&    operator =(tr<just_volatile_tg, t<types_sp>> auto&& other) volatile noexcept;
+        constexpr generic_sp&           operator =(const generic_sp& other) noexcept;
+                  volatile generic_sp&  operator =(const generic_sp& other) volatile noexcept;
+                  generic_sp&           operator =(const volatile generic_sp& other) noexcept;
+                  volatile generic_sp&  operator =(const volatile generic_sp& other) volatile noexcept;
+        constexpr generic_sp&           operator =(generic_sp&& other) noexcept;
+                  volatile generic_sp&  operator =(generic_sp&& other) volatile noexcept;
+                  generic_sp&           operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other) noexcept;
+                  volatile generic_sp&  operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other) volatile noexcept;
 
     #if defined(nkr_IS_DEBUG)
-        constexpr ~types_sp() noexcept;
+        constexpr ~generic_sp() noexcept;
     #endif
 
     public:
         constexpr integer_t                 Integer() const noexcept;
                   integer_t                 Integer() const volatile noexcept;
-        constexpr types_sp&                 Integer(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
-                  volatile types_sp&        Integer(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
-        constexpr types_sp&                 Integer(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
-                  volatile types_sp&        Integer(tr<to_tg, t<integer_t>> auto&& to_integer) volatile noexcept;
+        constexpr generic_sp&               Integer(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+                  volatile generic_sp&      Integer(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr generic_sp&               Integer(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
+                  volatile generic_sp&      Integer(tr<to_tg, t<integer_t>> auto&& to_integer) volatile noexcept;
 
         constexpr value_t&                  Value() noexcept;
         constexpr const value_t&            Value() const noexcept;
                   volatile value_t&         Value() volatile noexcept;
                   const volatile value_t&   Value() const volatile noexcept;
-        constexpr types_sp&                 Value(const tr<any_tg, t<value_t>> auto& value) noexcept;
-                  volatile types_sp&        Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept;
-        constexpr types_sp&                 Value(tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
-                  volatile types_sp&        Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
+        constexpr generic_sp&               Value(const tr<any_tg, t<value_t>> auto& value) noexcept;
+                  volatile generic_sp&      Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept;
+        constexpr generic_sp&               Value(tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
+                  volatile generic_sp&      Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
 
-        constexpr nkr::none::type_t         Ignore_Error() const noexcept;
-                  nkr::none::type_t         Ignore_Error() const volatile noexcept;
+        constexpr nkr::none::type_t         Ignore() const noexcept;
+                  nkr::none::type_t         Ignore() const volatile noexcept;
 
     public:
-        constexpr operator          types_sp<value_p>::integer_t() const noexcept;
-                  operator          types_sp<value_p>::integer_t() const volatile noexcept;
+        constexpr operator          generic_sp<value_p>::integer_t() const noexcept;
+                  operator          generic_sp<value_p>::integer_t() const volatile noexcept;
 
         explicit constexpr operator nkr::boolean::cpp_t() const noexcept;
         explicit           operator nkr::boolean::cpp_t() const volatile noexcept;
