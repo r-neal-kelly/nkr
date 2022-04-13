@@ -52,7 +52,7 @@ namespace nkr { namespace enumeration {
 
     template <typename type_p>
     concept errors_tr =
-        nkr::cpp::is_any_tr<type_p, errors_t<typename type_p::value_t>>;
+        nkr::cpp::is_any_tr<type_p, errors_t<typename type_p::type_t>>;
 
     template <template <typename ...> typename template_p>
     concept errors_ttr =
@@ -84,7 +84,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     {
     public:
         using type_t    = type_p;
-        using of_t      = typename type_t::unit_t;
+        using of_t      = typename type_t::type_t;
 
     public:
         template <typename other_p>
@@ -199,6 +199,9 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         using types_t       = nkr::enumeration::types_t<type_t, nkr::constant_t<integer_t, integer_t(0)>>;
 
     public:
+        friend  nkr::enumeration::errors_t$::common_t;
+
+    public:
         types_t                     types;
     #if defined(nkr_IS_DEBUG)
         mutable nkr::boolean::cpp_t has_been_checked;
@@ -207,8 +210,10 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     public:
         constexpr generic_sp() noexcept;
 
-        constexpr generic_sp(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+        constexpr generic_sp(tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+        //constexpr generic_sp(tr<not_to_tg, t<integer_t>> auto& not_to_integer) noexcept                                 = delete;
         constexpr generic_sp(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
+        //constexpr generic_sp(tr<not_to_tg, t<integer_t>> auto&& not_to_integer) noexcept                                = delete;
 
         constexpr generic_sp(const value_t& value) noexcept;
                   generic_sp(const volatile value_t& value) noexcept;
@@ -220,8 +225,8 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         constexpr generic_sp(generic_sp&& other) noexcept;
                   generic_sp(volatile generic_sp&& other) noexcept;
 
-        constexpr generic_sp&           operator =(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
-                  volatile generic_sp&  operator =(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr generic_sp&           operator =(tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+                  volatile generic_sp&  operator =(tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
         constexpr generic_sp&           operator =(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
                   volatile generic_sp&  operator =(tr<to_tg, t<integer_t>> auto&& to_integer) volatile noexcept;
 
@@ -250,8 +255,8 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     public:
         constexpr integer_t                 Integer() const noexcept;
                   integer_t                 Integer() const volatile noexcept;
-        constexpr generic_sp&               Integer(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
-                  volatile generic_sp&      Integer(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr generic_sp&               Integer(tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
+                  volatile generic_sp&      Integer(tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
         constexpr generic_sp&               Integer(tr<to_tg, t<integer_t>> auto&& to_integer) noexcept;
                   volatile generic_sp&      Integer(tr<to_tg, t<integer_t>> auto&& to_integer) volatile noexcept;
 
