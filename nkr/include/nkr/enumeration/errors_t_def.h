@@ -15,6 +15,8 @@
 #include "nkr/interface/template_i_identity_tag_t_def.h"
 #include "nkr/interface/template_i_identity_template_t_def.h"
 #include "nkr/positive/integer_t_def.h"
+#include "nkr/reference/lvalue_t_def.h"
+#include "nkr/reference/rvalue_t_def.h"
 #include "nkr/tr_def.h"
 #include "nkr/tuple/types_t_def.h"
 

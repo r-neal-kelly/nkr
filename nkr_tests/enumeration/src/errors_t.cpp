@@ -218,42 +218,56 @@ namespace nkr {
     {
         TEST_CASE("temp")
         {
-            class test_t
-            {
-            private:
-                nkr::positive::integer_t integer = 10;
+            nkr::enumeration::errors_t<int> error_1;
+            nkr::enumeration::errors_t<int> error_2(error_1);
 
-            public:
-                operator long int() const volatile noexcept
-                {
-                    return static_cast<long int>(this->integer);
-                }
-            };
-
-            volatile test_t value;
-            nkr::enumeration::errors_t<int> errors = nkr::cpp::Move(value);
-
-            CHECK((errors.types.Integer() == 10));
-
-            errors.has_been_checked = true;
+            CHECK(error_1 == 0);
+            CHECK(error_2 == error_1);
         }
 
-        TEST_CASE("non-built-in")
+        TEST_CASE("temp")
         {
-            /*nkr::enumeration::errors_t<non_built_in_t> errors_1;
+            int integer = 1;
+            nkr::enumeration::errors_t<int> error_1(integer);
+            nkr::enumeration::errors_t<int> error_2(error_1);
 
-            CHECK(errors_1.types.Integer() == 0);
-            errors_1.has_been_checked = true;
-
-            convert_to_non_built_in_t convert_to_non_built_in(10);
-
-            //non_built_in_t non_built_in = 10;
-            nkr::enumeration::errors_t<non_built_in_t> errors_2;
-            errors_2 = errors_1;
-
-            CHECK(errors_2.types.Integer() == 10);
-            errors_2.has_been_checked = true;*/
+            CHECK(error_1 == integer);
+            CHECK(error_2 == error_1);
         }
+
+        TEST_CASE("temp")
+        {
+            int integer = 1;
+            nkr::enumeration::errors_t<int> error_1(nkr::cpp::Move(integer));
+            nkr::enumeration::errors_t<int> error_2(error_1);
+
+            CHECK(error_1 == integer);
+            CHECK(error_2 == error_1);
+        }
+
+        TEST_CASE("temp")
+        {
+            nkr::enumeration::errors_t<int> error_1(1);
+            nkr::enumeration::errors_t<int> error_2(error_1);
+
+            CHECK(error_1 == 1);
+            CHECK(error_2 == error_1);
+        }
+
+        /*TEST_CASE("temp")
+        {
+            nkr::enumeration::errors_t<non_built_in_t> error;
+
+            CHECK(error == 0);
+        }
+
+        TEST_CASE("temp")
+        {
+            nkr::enumeration::errors_t<non_built_in_t> error_1;
+            nkr::enumeration::errors_t<non_built_in_t> error_2(error_1);
+
+            CHECK(error_2 == error_1);
+        }*/
     }
 
 }

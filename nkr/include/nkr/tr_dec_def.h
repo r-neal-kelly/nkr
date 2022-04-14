@@ -393,10 +393,16 @@ namespace nkr { namespace tr$ {
         if constexpr (to_operator_tr<typename operators_p::head_t>) {
             static_assert(objects_p::Count() > 0);
 
-            if constexpr (not_operator_tr<typename operators_p::head_t>) {
-                return !nkr::cpp::to_tr<typename subjects_p::head_t, typename objects_p::head_t>;
+            using subject_t = typename subjects_p::head_t;
+            using operator_t = typename operators_p::head_t;
+            using object_t = typename objects_p::head_t;
+
+            if constexpr (not_operator_tr<operator_t>) {
+                return !(Evaluate_0<subject_t, typename operator_t::is_tg::non_to_tg>() &&
+                         nkr::cpp::to_tr<subject_t, object_t>);
             } else {
-                return nkr::cpp::to_tr<typename subjects_p::head_t, typename objects_p::head_t>;
+                return (Evaluate_0<subject_t, typename operator_t::non_to_tg>() &&
+                        nkr::cpp::to_tr<subject_t, object_t>);
             }
         } else {
             if constexpr (subjects_p::Count() == 1) {

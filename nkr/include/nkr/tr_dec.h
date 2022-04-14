@@ -115,8 +115,13 @@ namespace nkr {
 
 namespace nkr {
 
-    struct  to_tg       { class tag_lb; class operator_lb; class to_lb;                 using non_of_tg = to_tg;        using is_tg = to_tg; };
-    struct  not_to_tg   { class tag_lb; class operator_lb; class not_lb; class to_lb;   using non_of_tg = not_to_tg;    using is_tg = to_tg; };
+    struct  to_tg                   { class tag_lb; class operator_lb; class to_lb;                                                 using non_of_tg = to_tg;                using non_to_tg = any_tg;           using is_tg = to_tg; };
+    struct  any_to_tg               { class tag_lb; class operator_lb; class any_lb; class to_lb;                                   using non_of_tg = any_to_tg;            using non_to_tg = any_tg;           using is_tg = any_to_tg; };
+    struct  any_non_const_to_tg     { class tag_lb; class operator_lb; class any_lb; class non_const_lb; class to_lb;               using non_of_tg = any_non_const_to_tg;  using non_to_tg = any_non_const_tg; using is_tg = any_non_const_to_tg; };
+    
+    struct  not_to_tg               { class tag_lb; class operator_lb; class not_lb; class to_lb;                                   using non_of_tg = not_to_tg;                using non_to_tg = not_any_tg;           using is_tg = to_tg; };
+    struct  not_any_to_tg           { class tag_lb; class operator_lb; class not_lb; class any_lb; class to_lb;                     using non_of_tg = not_any_to_tg;            using non_to_tg = not_any_tg;           using is_tg = any_to_tg; };
+    struct  not_any_non_const_to_tg { class tag_lb; class operator_lb; class not_lb; class any_lb; class non_const_lb; class to_lb; using non_of_tg = not_any_non_const_to_tg;  using non_to_tg = not_any_non_const_tg; using is_tg = any_non_const_to_tg; };
 
 }
 
