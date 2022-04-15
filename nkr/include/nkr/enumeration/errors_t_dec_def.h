@@ -75,16 +75,16 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         }
 
         template <
-            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>> self_p,
-            tr<any_to_tg, typename self_p::any_usable_ts> other_p
+            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
+            tr<any_tg>                                              other_p
         > static inline constexpr nkr::none::type_t
             Construct(self_p& self, other_p& other)
             noexcept
         {
             using self_t = self_p;
-            using integer_t = typename self_t::integer_t;
-            using value_t = typename self_t::value_t;
             using other_t = other_p;
+            using value_t = typename self_t::value_t;
+            using integer_t = typename self_t::integer_t;
 
             if constexpr (tr<other_t, any_tg, t<self_t>>) {
                 new (&self.deferred.data.types)
@@ -93,29 +93,45 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 new (&self.deferred.data.has_been_checked)
                     decltype(self.deferred.data.has_been_checked)(false);
             #endif
-            } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
+            } else if constexpr (tr<other_t, any_tg, t<value_t>>) {
                 new (&self.deferred.data.types)
-                    decltype(self.deferred.data.types)(static_cast<integer_t>(other));
+                    decltype(self.deferred.data.types)(other);
             #if defined(nkr_IS_DEBUG)
                 new (&self.deferred.data.has_been_checked)
                     decltype(self.deferred.data.has_been_checked)(false);
             #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
+                new (&self.deferred.data.types)
+                    decltype(self.deferred.data.types)(integer_t(other));
+            #if defined(nkr_IS_DEBUG)
+                new (&self.deferred.data.has_been_checked)
+                    decltype(self.deferred.data.has_been_checked)(false);
+            #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<value_t>>) {
+                new (&self.deferred.data.types)
+                    decltype(self.deferred.data.types)(value_t(other));
+            #if defined(nkr_IS_DEBUG)
+                new (&self.deferred.data.has_been_checked)
+                    decltype(self.deferred.data.has_been_checked)(false);
+            #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<self_t>>) {
+                Construct(self, self_t(other));
             } else {
-                [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Invalid type for construction."); }();
+                [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Invalid type for lvalue construction."); }();
             }
         }
 
         template <
-            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>> self_p,
-            tr<any_non_const_to_tg, typename self_p::any_usable_ts> other_p
+            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
+            tr<any_non_const_tg>                                    other_p
         > static inline constexpr nkr::none::type_t
             Construct(self_p& self, other_p&& other)
             noexcept
         {
             using self_t = self_p;
-            using integer_t = typename self_t::integer_t;
-            using value_t = typename self_t::value_t;
             using other_t = other_p;
+            using value_t = typename self_t::value_t;
+            using integer_t = typename self_t::integer_t;
 
             if constexpr (tr<other_t, any_non_const_tg, t<self_t>>) {
                 new (&self.deferred.data.types)
@@ -124,80 +140,119 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 new (&self.deferred.data.has_been_checked)
                     decltype(self.deferred.data.has_been_checked)(nkr::cpp::Exchange(other.deferred.data.has_been_checked, true));
             #endif
-            } else if constexpr (tr<other_t, any_non_const_to_tg, t<integer_t>>) {
+            } else if constexpr (tr<other_t, any_non_const_tg, t<value_t>>) {
                 new (&self.deferred.data.types)
-                    decltype(self.deferred.data.types)(static_cast<integer_t>(other));
+                    decltype(self.deferred.data.types)(nkr::cpp::Move(other));
             #if defined(nkr_IS_DEBUG)
                 new (&self.deferred.data.has_been_checked)
                     decltype(self.deferred.data.has_been_checked)(false);
             #endif
+            } else if constexpr (tr<other_t, any_non_const_to_tg, t<integer_t>>) {
+                new (&self.deferred.data.types)
+                    decltype(self.deferred.data.types)(integer_t(other));
+            #if defined(nkr_IS_DEBUG)
+                new (&self.deferred.data.has_been_checked)
+                    decltype(self.deferred.data.has_been_checked)(false);
+            #endif
+            } else if constexpr (tr<other_t, any_non_const_to_tg, t<value_t>>) {
+                new (&self.deferred.data.types)
+                    decltype(self.deferred.data.types)(value_t(other));
+            #if defined(nkr_IS_DEBUG)
+                new (&self.deferred.data.has_been_checked)
+                    decltype(self.deferred.data.has_been_checked)(false);
+            #endif
+            } else if constexpr (tr<other_t, any_non_const_to_tg, t<self_t>>) {
+                Construct(self, self_t(other));
             } else {
-                [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Invalid type for construction."); }();
+                [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Invalid type for rvalue construction."); }();
             }
         }
 
-        /*template <
-            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>> self_p,
-            tr<to_tg, t<typename self_p::integer_t>> to_integer_p
-        >
-            requires (tr<to_integer_p, not_any_tg, tt<nkr::enumeration::errors_t>>)
-        static inline constexpr auto&
-            Assign(self_p& self, const to_integer_p& to_integer)
+        template <
+            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
+            tr<any_tg>                                              other_p
+        > static inline constexpr auto&
+            Assign(self_p& self, other_p& other)
             noexcept
         {
-            printf("assigning to_integer\n");
-            using self_t = nkr::cpp::reference_value_t<decltype(self)>;
+            using self_t = self_p;
+            using other_t = other_p;
+            using value_t = typename self_t::value_t;
             using integer_t = typename self_t::integer_t;
 
-            self.types = static_cast<integer_t>(to_integer);
-        #if defined(nkr_IS_DEBUG)
-            self.has_been_checked = false;
-        #endif
-
-            return self;
-        }
-
-        static inline constexpr auto&
-            Assign(tr<any_non_const_tg, tt<nkr::enumeration::errors_t>> auto& self,
-                   const tr<any_tg, tt<nkr::enumeration::errors_t>> auto& other)
-            noexcept
-        {
-            printf("assigning lvalue other\n");
-            using self_t = nkr::cpp::reference_value_t<decltype(self)>;
-            using other_t = nkr::cpp::reference_value_t<decltype(other)>;
-
-            static_assert(tr<other_t, any_tg, t<self_t>>);
-
-            if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
-                self.types = other.types;
+            if constexpr (tr<other_t, any_tg, t<self_t>>) {
+                if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
+                    self.deferred.data.types = other.deferred.data.types;
+                #if defined(nkr_IS_DEBUG)
+                    self.deferred.data.has_been_checked = false;
+                #endif
+                }
+            } else if constexpr (tr<other_t, any_tg, t<value_t>>) {
+                self.deferred.data.types = other;
             #if defined(nkr_IS_DEBUG)
-                self.has_been_checked = false;
+                self.deferred.data.has_been_checked = false;
             #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
+                self.deferred.data.types = integer_t(other);
+            #if defined(nkr_IS_DEBUG)
+                self.deferred.data.has_been_checked = false;
+            #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<value_t>>) {
+                self.deferred.data.types = value_t(other);
+            #if defined(nkr_IS_DEBUG)
+                self.deferred.data.has_been_checked = false;
+            #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<self_t>>) {
+                Assign(self, self_t(other));
+            } else {
+                [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Invalid type for lvalue assignment."); }();
             }
 
             return self;
         }
 
-        static inline constexpr auto&
-            Assign(tr<any_non_const_tg, tt<nkr::enumeration::errors_t>> auto& self,
-                   tr<any_non_const_tg, tt<nkr::enumeration::errors_t>> auto&& other)
+        template <
+            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
+            tr<any_non_const_tg>                                    other_p
+        > static inline constexpr auto&
+            Assign(self_p& self, other_p&& other)
             noexcept
         {
-            printf("assigning rvalue other\n");
-            using self_t = nkr::cpp::reference_value_t<decltype(self)>;
-            using other_t = nkr::cpp::reference_value_t<decltype(other)>;
+            using self_t = self_p;
+            using other_t = other_p;
+            using value_t = typename self_t::value_t;
+            using integer_t = typename self_t::integer_t;
 
-            static_assert(tr<other_t, any_tg, t<self_t>>);
-
-            if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
-                self.types = nkr::cpp::Move(other.types);
+            if constexpr (tr<other_t, any_tg, t<self_t>>) {
+                if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
+                    self.deferred.data.types = nkr::cpp::Move(other.deferred.data.types);
+                #if defined(nkr_IS_DEBUG)
+                    self.deferred.data.has_been_checked = nkr::cpp::Exchange(other.deferred.data.has_been_checked, true);
+                #endif
+                }
+            } else if constexpr (tr<other_t, any_tg, t<value_t>>) {
+                self.deferred.data.types = nkr::cpp::Move(other);
             #if defined(nkr_IS_DEBUG)
-                self.has_been_checked = nkr::cpp::Exchange(other.has_been_checked, true);
+                self.deferred.data.has_been_checked = false;
             #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
+                self.deferred.data.types = integer_t(other);
+            #if defined(nkr_IS_DEBUG)
+                self.deferred.data.has_been_checked = false;
+            #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<value_t>>) {
+                self.deferred.data.types = value_t(other);
+            #if defined(nkr_IS_DEBUG)
+                self.deferred.data.has_been_checked = false;
+            #endif
+            } else if constexpr (tr<other_t, any_to_tg, t<self_t>>) {
+                Assign(self, self_t(other));
+            } else {
+                [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "Invalid type for rvalue assignment."); }();
             }
 
             return self;
-        }*/
+        }
 
         static inline constexpr nkr::none::type_t
             Destruct(tr<any_tg, tt<nkr::enumeration::errors_t>> auto& self)
@@ -239,6 +294,44 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
             return self.deferred.data.types.Integer();
         }
+
+        template <tr<any_tg, tt<nkr::enumeration::errors_t>> self_p>
+        static inline constexpr auto&
+            Value(self_p& self)
+            noexcept
+        {
+        #if defined(nkr_IS_DEBUG)
+            self.deferred.data.has_been_checked = true;
+        #endif
+
+            return self.deferred.data.types.Value();
+        }
+
+        template <tr<any_tg, tt<nkr::enumeration::errors_t>> self_p>
+        static inline constexpr auto&
+            Value(self_p& self, const tr<any_tg, t<typename self_p::value_t>> auto& value)
+            noexcept
+        {
+            self.deferred.data.types.Value(value);
+        #if defined(nkr_IS_DEBUG)
+            self.deferred.data.has_been_checked = false;
+        #endif
+
+            return self;
+        }
+
+        template <tr<any_tg, tt<nkr::enumeration::errors_t>> self_p>
+        static inline constexpr auto&
+            Value(self_p& self, tr<any_non_const_tg, t<typename self_p::value_t>> auto&& value)
+            noexcept
+        {
+            self.deferred.data.types.Value(nkr::cpp::Move(value));
+        #if defined(nkr_IS_DEBUG)
+            self.deferred.data.has_been_checked = false;
+        #endif
+
+            return self;
+        }
     };
 
 }}}
@@ -249,6 +342,30 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     inline constexpr generic_sp<value_p>::generic_sp() noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline constexpr generic_sp<value_p>::generic_sp(const generic_sp& other) noexcept
+    {
+        nkr::enumeration::errors_t$::common_t::Construct(*this, other);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline generic_sp<value_p>::generic_sp(const volatile generic_sp& other) noexcept
+    {
+        nkr::enumeration::errors_t$::common_t::Construct(*this, other);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline constexpr generic_sp<value_p>::generic_sp(generic_sp&& other) noexcept
+    {
+        nkr::enumeration::errors_t$::common_t::Construct(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline generic_sp<value_p>::generic_sp(volatile generic_sp&& other) noexcept
+    {
+        nkr::enumeration::errors_t$::common_t::Construct(*this, nkr::cpp::Move(other));
     }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
@@ -263,23 +380,100 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         nkr::enumeration::errors_t$::common_t::Construct(*this, nkr::cpp::Move(other));
     }
 
-    /*
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const tr<to_tg, t<integer_t>> auto& to_integer)
+        generic_sp<value_p>::operator =(const generic_sp& other)
         noexcept
     {
-        return nkr::enumeration::errors_t$::common_t::Assign(*this, to_integer);
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const tr<to_tg, t<integer_t>> auto& to_integer)
+        generic_sp<value_p>::operator =(const generic_sp& other)
         volatile noexcept
     {
-        return nkr::enumeration::errors_t$::common_t::Assign(*this, to_integer);
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
-    */
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline generic_sp<value_p>& generic_sp<value_p>::operator =(const volatile generic_sp& other)
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline volatile generic_sp<value_p>&
+        generic_sp<value_p>::operator =(const volatile generic_sp& other)
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline constexpr generic_sp<value_p>&
+        generic_sp<value_p>::operator =(generic_sp&& other)
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline volatile generic_sp<value_p>&
+        generic_sp<value_p>::operator =(generic_sp&& other)
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline generic_sp<value_p>&
+        generic_sp<value_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline volatile generic_sp<value_p>&
+        generic_sp<value_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline constexpr generic_sp<value_p>&
+        generic_sp<value_p>::operator =(const tr<any_to_tg, any_usable_ts> auto& other)
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline volatile generic_sp<value_p>&
+        generic_sp<value_p>::operator =(const tr<any_to_tg, any_usable_ts> auto& other)
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline constexpr generic_sp<value_p>&
+        generic_sp<value_p>::operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other)
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline volatile generic_sp<value_p>&
+        generic_sp<value_p>::operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other)
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr generic_sp<value_p>::~generic_sp() noexcept
@@ -332,42 +526,66 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr typename generic_sp<value_p>::value_t&
         generic_sp<value_p>::Value()
-        noexcept;
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this);
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr const typename generic_sp<value_p>::value_t&
         generic_sp<value_p>::Value()
-        const noexcept;
+        const noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this);
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline volatile typename generic_sp<value_p>::value_t&
         generic_sp<value_p>::Value()
-        volatile noexcept;
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this);
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline const volatile typename generic_sp<value_p>::value_t&
         generic_sp<value_p>::Value()
-        const volatile noexcept;
+        const volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this);
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr generic_sp<value_p>&
         generic_sp<value_p>::Value(const tr<any_tg, t<value_t>> auto& value)
-        noexcept;
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this, value);
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline volatile generic_sp<value_p>&
         generic_sp<value_p>::Value(const tr<any_tg, t<value_t>> auto& value)
-        volatile noexcept;
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this, value);
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr generic_sp<value_p>&
         generic_sp<value_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
-        noexcept;
+        noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this, nkr::cpp::Move(value));
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline volatile generic_sp<value_p>&
         generic_sp<value_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
-        volatile noexcept;
+        volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Value(*this, nkr::cpp::Move(value));
+    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr nkr::none::type_t
@@ -378,20 +596,6 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     inline nkr::none::type_t
         generic_sp<value_p>::Ignore()
         const volatile noexcept;
-
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::operator generic_sp<value_p>::integer_t()
-        const noexcept
-    {
-        return nkr::enumeration::errors_t$::common_t::Integer(*this);
-    }
-
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>::operator generic_sp<value_p>::integer_t()
-        const volatile noexcept
-    {
-        return nkr::enumeration::errors_t$::common_t::Integer(*this);
-    }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
     inline constexpr generic_sp<value_p>::operator nkr::boolean::cpp_t()
@@ -407,6 +611,19 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         return nkr::enumeration::errors_t$::common_t::Boolean(*this);
     }
 
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline constexpr generic_sp<value_p>::operator generic_sp<value_p>::integer_t()
+        const noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Integer(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    inline generic_sp<value_p>::operator generic_sp<value_p>::integer_t()
+        const volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Integer(*this);
+    }
 }}}
 
 #endif

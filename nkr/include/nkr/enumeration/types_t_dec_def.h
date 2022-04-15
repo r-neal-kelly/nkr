@@ -441,6 +441,16 @@ namespace nkr { namespace enumeration {
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
+    > inline constexpr types_t<value_p, none_p>::value_t&
+        types_t<value_p, none_p>::Value()
+        noexcept
+    {
+        return this->value;
+    }
+
+    template <
+        nkr::generic::implementing::interface::enumeration::types_tr value_p,
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
     > inline constexpr const types_t<value_p, none_p>::value_t&
         types_t<value_p, none_p>::Value()
         const noexcept
@@ -451,7 +461,17 @@ namespace nkr { namespace enumeration {
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
-    > inline constexpr const volatile types_t<value_p, none_p>::value_t&
+    > inline volatile types_t<value_p, none_p>::value_t&
+        types_t<value_p, none_p>::Value()
+        volatile noexcept
+    {
+        return this->value;
+    }
+
+    template <
+        nkr::generic::implementing::interface::enumeration::types_tr value_p,
+        nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
+    > inline const volatile types_t<value_p, none_p>::value_t&
         types_t<value_p, none_p>::Value()
         const volatile noexcept
     {
@@ -471,7 +491,7 @@ namespace nkr { namespace enumeration {
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
-    > inline constexpr volatile types_t<value_p, none_p>&
+    > inline volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         volatile noexcept
     {
@@ -491,7 +511,7 @@ namespace nkr { namespace enumeration {
     template <
         nkr::generic::implementing::interface::enumeration::types_tr value_p,
         nkr::constant_of_tr<types_t$::integer_t<value_p>> none_p
-    > inline constexpr volatile types_t<value_p, none_p>&
+    > inline volatile types_t<value_p, none_p>&
         types_t<value_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         volatile noexcept
     {

@@ -4,149 +4,187 @@
 
 #include "nkr/enumeration/errors_t.h"
 #include "nkr/interface/forward.h"
-#include "nkr/positive/integer_t.h"
+#include "nkr/macro/qualified_templates.h"
+#include "nkr/macro/qualified_types.h"
 #include "nkr/negatable/integer_t.h"
+#include "nkr/pointer/cpp_t.h"
+#include "nkr/positive/integer_t.h"
 
 #include "doctest.h"
 
 namespace nkr {
 
-    class non_built_in_t
+    class user_defined_t
     {
     public:
         using integer_t = nkr::positive::integer_t;
 
     public:
-        integer_t   integer;
+        integer_t   error_integer;
+
+    private:
+        nkr::boolean::cpp_t is_live;
 
     public:
-        constexpr non_built_in_t(integer_t integer) noexcept :
-            integer(integer)
+        constexpr user_defined_t(integer_t error_integer) noexcept :
+            error_integer(error_integer),
+            is_live(true)
         {
         }
 
-        constexpr non_built_in_t(const non_built_in_t& other) noexcept :
-            integer(other.integer)
+        constexpr user_defined_t(const user_defined_t& other) noexcept :
+            error_integer(other.error_integer),
+            is_live(true)
         {
         }
 
-        non_built_in_t(const volatile non_built_in_t& other) noexcept :
-            integer(other.integer)
+        user_defined_t(const volatile user_defined_t& other) noexcept :
+            error_integer(other.error_integer),
+            is_live(true)
         {
         }
 
-        constexpr non_built_in_t(non_built_in_t&& other) noexcept :
-            integer(nkr::cpp::Move(other.integer))
+        constexpr user_defined_t(user_defined_t&& other) noexcept :
+            error_integer(nkr::cpp::Move(other.error_integer)),
+            is_live(true)
         {
+            other.is_live = false;
         }
 
-        non_built_in_t(volatile non_built_in_t&& other) noexcept :
-            integer(nkr::cpp::Move(other.integer))
+        user_defined_t(volatile user_defined_t&& other) noexcept :
+            error_integer(nkr::cpp::Move(other.error_integer)),
+            is_live(true)
         {
+            other.is_live = false;
         }
 
-        constexpr non_built_in_t&
-            operator =(const non_built_in_t& other)
+        constexpr user_defined_t&
+            operator =(const user_defined_t& other)
             noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = other.integer;
+                this->error_integer = other.error_integer;
+                this->is_live = true;
             }
 
             return *this;
         }
 
-        volatile non_built_in_t&
-            operator =(const non_built_in_t& other)
+        volatile user_defined_t&
+            operator =(const user_defined_t& other)
             volatile noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = other.integer;
+                this->error_integer = other.error_integer;
+                this->is_live = true;
             }
 
             return *this;
         }
 
-        non_built_in_t&
-            operator =(const volatile non_built_in_t& other)
+        user_defined_t&
+            operator =(const volatile user_defined_t& other)
             noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = other.integer;
+                this->error_integer = other.error_integer;
+                this->is_live = true;
             }
 
             return *this;
         }
 
-        volatile non_built_in_t&
-            operator =(const volatile non_built_in_t& other)
+        volatile user_defined_t&
+            operator =(const volatile user_defined_t& other)
             volatile noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = other.integer;
+                this->error_integer = other.error_integer;
+                this->is_live = true;
             }
 
             return *this;
         }
 
-        constexpr non_built_in_t&
-            operator =(non_built_in_t&& other)
+        constexpr user_defined_t&
+            operator =(user_defined_t&& other)
             noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = nkr::cpp::Move(other.integer);
+                this->error_integer = nkr::cpp::Move(other.error_integer);
+                this->is_live = true;
+                other.is_live = false;
             }
 
             return *this;
         }
 
-        volatile non_built_in_t&
-            operator =(non_built_in_t&& other)
+        volatile user_defined_t&
+            operator =(user_defined_t&& other)
             volatile noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = nkr::cpp::Move(other.integer);
+                this->error_integer = nkr::cpp::Move(other.error_integer);
+                this->is_live = true;
+                other.is_live = false;
             }
 
             return *this;
         }
 
-        non_built_in_t&
-            operator =(tr<just_volatile_tg, t<non_built_in_t>> auto&& other)
+        user_defined_t&
+            operator =(tr<just_volatile_tg, t<user_defined_t>> auto&& other)
             noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = nkr::cpp::Move(other.integer);
+                this->error_integer = nkr::cpp::Move(other.error_integer);
+                this->is_live = true;
+                other.is_live = false;
             }
 
             return *this;
         }
 
-        volatile non_built_in_t&
-            operator =(tr<just_volatile_tg, t<non_built_in_t>> auto&& other)
+        volatile user_defined_t&
+            operator =(tr<just_volatile_tg, t<user_defined_t>> auto&& other)
             volatile noexcept
         {
             if (nkr::cpp::Address(*this) != nkr::cpp::Address(other)) {
-                this->integer = nkr::cpp::Move(other.integer);
+                this->error_integer = nkr::cpp::Move(other.error_integer);
+                this->is_live = true;
+                other.is_live = false;
             }
 
             return *this;
+        }
+
+        constexpr ~user_defined_t() noexcept
+        {
+            this->is_live = false;
+        }
+
+    public:
+        constexpr nkr::boolean::cpp_t
+            Is_Live()
+            const volatile noexcept
+        {
+            return this->is_live;
         }
 
     public:
         constexpr operator integer_t() const noexcept
         {
-            return this->integer;
+            return this->error_integer;
         }
 
         operator integer_t() const volatile noexcept
         {
-            return this->integer;
+            return this->error_integer;
         }
     };
 
-    template <nkr::cpp::is_any_tr<non_built_in_t> type_p>
-    class non_built_in_t_interface_enumeration_types_sp
+    template <nkr::cpp::is_any_tr<user_defined_t> type_p>
+    class user_defined_t_interface_enumeration_types_sp
     {
     public:
         using type_t    = type_p;
@@ -165,50 +203,50 @@ namespace nkr {
             Integer(const tr<any_tg, t<value_t>> auto& value)
             noexcept
         {
-            return value.integer;
+            return value.error_integer;
         }
 
         static constexpr nkr::none::type_t
             Integer(tr<any_non_const_tg, t<value_t>> auto& value, integer_t integer)
             noexcept
         {
-            value.integer = integer;
+            value.error_integer = integer;
         }
 
     public:
         template <typename ...>
-        constexpr non_built_in_t_interface_enumeration_types_sp(...) noexcept   = delete;
+        constexpr user_defined_t_interface_enumeration_types_sp(...) noexcept   = delete;
     };
 
     namespace interface { namespace enumeration {
 
-        template <nkr::cpp::is_any_tr<non_built_in_t> type_p>
+        template <nkr::cpp::is_any_tr<user_defined_t> type_p>
         class types_i_sp<type_p>
         {
         public:
-            using type_t    = non_built_in_t_interface_enumeration_types_sp<type_p>;
+            using type_t    = user_defined_t_interface_enumeration_types_sp<type_p>;
         };
 
     }}
 
-    class convert_to_non_built_in_t
+    class convertible_to_user_defined_t
     {
     public:
-        non_built_in_t  non_built_in;
+        user_defined_t  non_built_in;
 
     public:
-        constexpr convert_to_non_built_in_t(non_built_in_t non_built_in) noexcept :
+        constexpr convertible_to_user_defined_t(user_defined_t non_built_in) noexcept :
             non_built_in(non_built_in)
         {
         }
 
     public:
-        constexpr operator non_built_in_t() const noexcept
+        constexpr operator user_defined_t() const noexcept
         {
             return non_built_in;
         }
 
-        operator non_built_in_t() const volatile noexcept
+        operator user_defined_t() const volatile noexcept
         {
             return non_built_in;
         }
@@ -216,58 +254,78 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::errors_t")
     {
-        TEST_CASE("temp")
-        {
-            nkr::enumeration::errors_t<int> error_1;
-            nkr::enumeration::errors_t<int> error_2(error_1);
+    #define nkr_TEMPLATES(TEMPLATE_QUALIFIER_p, TYPE_p)         \
+        TEMPLATE_QUALIFIER_p nkr::enumeration::errors_t<TYPE_p> \
 
-            CHECK(error_1 == 0);
-            CHECK(error_2 == error_1);
+    #define nkr_TEMPLATE_TYPES(TEMPLATE_QUALIFIER_p, TEMPLATE_p, TYPE_QUALIFIER_p)      \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_32_t>,  \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_64_t>,  \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_32_t>, \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_64_t>  \
+
+    #define nkr_TYPES(TYPE_QUALIFIER_p)                                                     \
+        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, nkr_BLANK),        \
+        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, const),            \
+        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, volatile),         \
+        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, const volatile)    \
+
+        nkr_DEFINE_QUALIFIED_TEMPLATE_TS;
+        nkr_DEFINE_QUALIFIED_TYPE_TS;
+
+        TEST_SUITE("objects")
+        {
+            TEST_SUITE("default_constructor()")
+            {
+                TEST_CASE_TEMPLATE("should equal the default integer", errors_p, nkr_ANY)
+                {
+                    // I am still considering allowng a default other than zero, like we do with types_t
+
+                    errors_p error;
+
+                    CHECK(error == 0);
+                }
+            }
+
+            TEST_SUITE("to_constructor()"
+                       * doctest::description("should convert other without changing it"))
+            {
+                TEST_SUITE("lvalue")
+                {
+
+                }
+
+                TEST_SUITE("rvalue")
+                {
+
+                }
+            }
+
+            TEST_SUITE("copy_constructor()"
+                       * doctest::description("should copy other without changing it"))
+            {
+
+            }
+
+            TEST_SUITE("move_constructor()"
+                       * doctest::description("should move other and disarm it"))
+            {
+
+            }
+
+            TEST_SUITE("destructor()")
+            {
+                TEST_CASE_TEMPLATE("should call the destructors of its data members", errors_p, nkr_ANY_OF_ANY(user_defined_t))
+                {
+                    errors_p error;
+
+                    CHECK(error.Value().Is_Live() == true);
+
+                    error.~errors_p();
+
+                    CHECK(error.Value().Is_Live() == false);
+                }
+            }
         }
-
-        TEST_CASE("temp")
-        {
-            int integer = 1;
-            nkr::enumeration::errors_t<int> error_1(integer);
-            nkr::enumeration::errors_t<int> error_2(error_1);
-
-            CHECK(error_1 == integer);
-            CHECK(error_2 == error_1);
-        }
-
-        TEST_CASE("temp")
-        {
-            int integer = 1;
-            nkr::enumeration::errors_t<int> error_1(nkr::cpp::Move(integer));
-            nkr::enumeration::errors_t<int> error_2(error_1);
-
-            CHECK(error_1 == integer);
-            CHECK(error_2 == error_1);
-        }
-
-        TEST_CASE("temp")
-        {
-            nkr::enumeration::errors_t<int> error_1(1);
-            nkr::enumeration::errors_t<int> error_2(error_1);
-
-            CHECK(error_1 == 1);
-            CHECK(error_2 == error_1);
-        }
-
-        /*TEST_CASE("temp")
-        {
-            nkr::enumeration::errors_t<non_built_in_t> error;
-
-            CHECK(error == 0);
-        }
-
-        TEST_CASE("temp")
-        {
-            nkr::enumeration::errors_t<non_built_in_t> error_1;
-            nkr::enumeration::errors_t<non_built_in_t> error_2(error_1);
-
-            CHECK(error_2 == error_1);
-        }*/
     }
 
 }

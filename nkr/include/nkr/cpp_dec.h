@@ -213,7 +213,19 @@ namespace nkr { namespace cpp {
         std::same_as<type_a_p, type_b_p>;
 
     template <typename from_p, typename to_p>
-    concept to_tr =
+    concept cast_to_tr =
+        (std::is_rvalue_reference<from_p>::value &&
+         !std::is_const<std::remove_reference_t<from_p>>::value &&
+         ((std::is_volatile<std::remove_reference_t<from_p>>::value &&
+           (requires(volatile std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { static_cast<std::remove_cv_t<to_p>>(std::move(from)); })) ||
+          (requires(std::add_rvalue_reference_t<std::remove_cvref_t<from_p>> from) { static_cast<std::remove_cv_t<to_p>>(std::move(from)); }))) ||
+        (std::is_lvalue_reference<from_p>::value &&
+         (requires(std::add_lvalue_reference_t<std::remove_reference_t<from_p>> from) { static_cast<std::remove_cv_t<to_p>>(from); })) ||
+        (!std::is_reference<from_p>::value &&
+         (requires(std::remove_reference_t<from_p> from) { static_cast<std::remove_cv_t<to_p>>(from); }));
+
+    template <typename from_p, typename to_p>
+    concept construct_to_tr =
         (std::is_rvalue_reference<from_p>::value &&
          !std::is_const<std::remove_reference_t<from_p>>::value &&
          ((std::is_volatile<std::remove_reference_t<from_p>>::value &&
@@ -223,6 +235,11 @@ namespace nkr { namespace cpp {
          (requires(std::add_lvalue_reference_t<std::remove_reference_t<from_p>> from) { std::remove_cv_t<to_p>(from); })) ||
         (!std::is_reference<from_p>::value &&
          (requires(std::remove_reference_t<from_p> from) { std::remove_cv_t<to_p>(from); }));
+
+    template <typename from_p, typename to_p>
+    concept to_tr =
+        (built_in_tr<to_p> && cast_to_tr<from_p, to_p>) ||
+        (user_defined_tr<to_p> && construct_to_tr<from_p, to_p>);
 
     template <template <typename ...> typename template_a_p, template <typename ...> typename template_b_p>
     concept is_ttr =

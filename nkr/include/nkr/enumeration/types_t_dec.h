@@ -239,12 +239,14 @@ namespace nkr { namespace enumeration {
         constexpr types_t&                  Integer(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
         constexpr volatile types_t&         Integer(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
 
+        constexpr value_t&                  Value() noexcept;
         constexpr const value_t&            Value() const noexcept;
-        constexpr const volatile value_t&   Value() const volatile noexcept;
+                  volatile value_t&         Value() volatile noexcept;
+                  const volatile value_t&   Value() const volatile noexcept;
         constexpr types_t&                  Value(const tr<any_tg, t<value_t>> auto& value) noexcept;
-        constexpr volatile types_t&         Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept;
+                  volatile types_t&         Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept;
         constexpr types_t&                  Value(tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
-        constexpr volatile types_t&         Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
+                  volatile types_t&         Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
 
     public:
         constexpr operator          types_t<value_p, none_p>::integer_t() const noexcept;
