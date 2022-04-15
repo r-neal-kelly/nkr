@@ -6,6 +6,7 @@
 #define nkr_INCLUDE_GUARD_52bd638f_b753_464e_8733_efe64b5e8714
 
 #include "nkr/built_in/forward_def.h"
+#include "nkr/constant_t_def.h"
 #include "nkr/constant/positive/count_t_def.h"
 #include "nkr/cpp_def.h"
 #include "nkr/enumeration/types_t_def.h"

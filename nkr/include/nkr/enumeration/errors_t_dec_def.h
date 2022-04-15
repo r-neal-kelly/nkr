@@ -338,292 +338,381 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
 namespace nkr { namespace enumeration { namespace errors_t$ {
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::generic_sp() noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::generic_sp() noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::generic_sp(const generic_sp& other) noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::generic_sp(const generic_sp& other) noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>::generic_sp(const volatile generic_sp& other) noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline generic_sp<type_p, none_p>::generic_sp(const volatile generic_sp& other) noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::generic_sp(generic_sp&& other) noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::generic_sp(generic_sp&& other) noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>::generic_sp(volatile generic_sp&& other) noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline generic_sp<type_p, none_p>::generic_sp(volatile generic_sp&& other) noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::generic_sp(tr<any_to_tg, any_usable_ts> auto& other) noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::generic_sp(tr<any_to_tg, any_usable_ts> auto& other) noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::generic_sp(tr<any_non_const_to_tg, any_usable_ts> auto&& other) noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::generic_sp(tr<any_non_const_to_tg, any_usable_ts> auto&& other) noexcept
     {
         nkr::enumeration::errors_t$::common_t::Construct(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const generic_sp& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(const generic_sp& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const generic_sp& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(const generic_sp& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>& generic_sp<value_p>::operator =(const volatile generic_sp& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline generic_sp<type_p, none_p>& generic_sp<type_p, none_p>::operator =(const volatile generic_sp& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const volatile generic_sp& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(const volatile generic_sp& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::operator =(generic_sp&& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(generic_sp&& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(generic_sp&& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(generic_sp&& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>&
-        generic_sp<value_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const tr<any_to_tg, any_usable_ts> auto& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(const tr<any_to_tg, any_usable_ts> auto& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(const tr<any_to_tg, any_usable_ts> auto& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(const tr<any_to_tg, any_usable_ts> auto& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, other);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::~generic_sp() noexcept
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::~generic_sp() noexcept
     {
         nkr::enumeration::errors_t$::common_t::Destruct(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     inline constexpr nkr::boolean::cpp_t
-        generic_sp<value_p>::Boolean()
+        generic_sp<type_p, none_p>::Boolean()
         const noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Boolean(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     inline nkr::boolean::cpp_t
-        generic_sp<value_p>::Boolean()
+        generic_sp<type_p, none_p>::Boolean()
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Boolean(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr typename generic_sp<value_p>::integer_t
-        generic_sp<value_p>::Integer()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr typename generic_sp<type_p, none_p>::integer_t
+        generic_sp<type_p, none_p>::Integer()
         const noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Integer(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline typename generic_sp<value_p>::integer_t
-        generic_sp<value_p>::Integer()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline typename generic_sp<type_p, none_p>::integer_t
+        generic_sp<type_p, none_p>::Integer()
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Integer(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
         noexcept;
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::Integer(const tr<to_tg, t<integer_t>> auto& to_integer)
         volatile noexcept;
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr typename generic_sp<value_p>::value_t&
-        generic_sp<value_p>::Value()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr typename generic_sp<type_p, none_p>::value_t&
+        generic_sp<type_p, none_p>::Value()
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr const typename generic_sp<value_p>::value_t&
-        generic_sp<value_p>::Value()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr const typename generic_sp<type_p, none_p>::value_t&
+        generic_sp<type_p, none_p>::Value()
         const noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile typename generic_sp<value_p>::value_t&
-        generic_sp<value_p>::Value()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile typename generic_sp<type_p, none_p>::value_t&
+        generic_sp<type_p, none_p>::Value()
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline const volatile typename generic_sp<value_p>::value_t&
-        generic_sp<value_p>::Value()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline const volatile typename generic_sp<type_p, none_p>::value_t&
+        generic_sp<type_p, none_p>::Value()
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::Value(const tr<any_tg, t<value_t>> auto& value)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this, value);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::Value(const tr<any_tg, t<value_t>> auto& value)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::Value(const tr<any_tg, t<value_t>> auto& value)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this, value);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>&
-        generic_sp<value_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this, nkr::cpp::Move(value));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline volatile generic_sp<value_p>&
-        generic_sp<value_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline volatile generic_sp<type_p, none_p>&
+        generic_sp<type_p, none_p>::Value(tr<any_non_const_tg, t<value_t>> auto&& value)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Value(*this, nkr::cpp::Move(value));
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     inline constexpr nkr::none::type_t
-        generic_sp<value_p>::Ignore()
+        generic_sp<type_p, none_p>::Ignore()
         const noexcept;
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     inline nkr::none::type_t
-        generic_sp<value_p>::Ignore()
+        generic_sp<type_p, none_p>::Ignore()
         const volatile noexcept;
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::operator nkr::boolean::cpp_t()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::operator nkr::boolean::cpp_t()
         const noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Boolean(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>::operator nkr::boolean::cpp_t()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline generic_sp<type_p, none_p>::operator nkr::boolean::cpp_t()
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Boolean(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline constexpr generic_sp<value_p>::operator generic_sp<value_p>::integer_t()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr generic_sp<type_p, none_p>::operator generic_sp<type_p, none_p>::integer_t()
         const noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Integer(*this);
     }
 
-    template <nkr::generic::implementing::interface::enumeration::types_tr value_p>
-    inline generic_sp<value_p>::operator generic_sp<value_p>::integer_t()
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline generic_sp<type_p, none_p>::operator generic_sp<type_p, none_p>::integer_t()
+        const volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Integer(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr typename generic_sp<type_p, none_p>::integer_t
+        generic_sp<type_p, none_p>::operator ()()
+        const noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Integer(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline typename generic_sp<type_p, none_p>::integer_t
+        generic_sp<type_p, none_p>::operator ()()
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Integer(*this);
     }
 }}}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto& a, auto& b)
+    noexcept
+{
+    using a_t = nkr::cpp::reference_value_t<decltype(a)>;
+    using b_t = nkr::cpp::reference_value_t<decltype(b)>;
+
+    if constexpr (nkr::cpp::is_any_tr<a_t, b_t>) {
+        return a() == b();
+    } else if constexpr (nkr::cpp::cast_to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
+        return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
+    } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
+        return nkr::cpp::just_non_qualified_t<b_t>(a) == b;
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::integer_t>>) {
+        return a.Integer() == nkr::cpp::just_non_qualified_t<typename a_t::integer_t>(b);
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::value_t>>) {
+        return a.Value() == nkr::cpp::just_non_qualified_t<typename a_t::value_t>(b);
+    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
+        return a == nkr::cpp::just_non_qualified_t<a_t>(b);
+    } else {
+        [] <nkr::boolean::cpp_t _ = false>() { static_assert(_, "these two values can not be compared."); }();
+    }
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto& a, auto&& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto&& a, auto& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto&& a, auto&& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto& a, auto& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto& a, auto&& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto&& a, auto& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+inline constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t>> auto&& a, auto&& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
 
 #endif

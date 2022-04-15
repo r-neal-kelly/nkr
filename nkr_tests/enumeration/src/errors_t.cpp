@@ -196,7 +196,7 @@ namespace nkr {
             Default_Integer()
             noexcept
         {
-            return integer_t();
+            return integer_t(0);
         }
 
         static constexpr integer_t
@@ -261,7 +261,8 @@ namespace nkr {
         TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_32_t>,  \
         TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_64_t>,  \
         TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_32_t>, \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_64_t>  \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_64_t>, \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p user_defined_t>                \
 
     #define nkr_TYPES(TYPE_QUALIFIER_p)                                                     \
         nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, nkr_BLANK),        \
@@ -278,11 +279,20 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE("should equal the default integer", errors_p, nkr_ANY)
                 {
-                    // I am still considering allowng a default other than zero, like we do with types_t
+                    using none_t = typename errors_p::none_t;
 
                     errors_p error;
 
-                    CHECK(error == 0);
+                    CHECK((error == none_t::Value()));
+                }
+
+                TEST_CASE_TEMPLATE("should cast to false", errors_p, nkr_ANY)
+                {
+                    using none_t = typename errors_p::none_t;
+
+                    errors_p error;
+
+                    CHECK((error == false));
                 }
             }
 
@@ -321,7 +331,6 @@ namespace nkr {
                     CHECK(error.Value().Is_Live() == true);
 
                     error.~errors_p();
-
                     CHECK(error.Value().Is_Live() == false);
                 }
             }
