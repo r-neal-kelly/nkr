@@ -9,10 +9,11 @@
 #include "nkr/negatable/integer_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
+#include "nkr/randomness.h"
 
 #include "doctest.h"
 
-namespace nkr {
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
 
     class user_defined_t
     {
@@ -218,51 +219,55 @@ namespace nkr {
         constexpr user_defined_t_interface_enumeration_types_sp(...) noexcept   = delete;
     };
 
-    namespace interface { namespace enumeration {
-
-        template <nkr::cpp::is_any_tr<user_defined_t> type_p>
-        class types_i_sp<type_p>
-        {
-        public:
-            using type_t    = user_defined_t_interface_enumeration_types_sp<type_p>;
-        };
-
-    }}
-
     class convertible_to_user_defined_t
     {
     public:
-        user_defined_t  non_built_in;
+        user_defined_t  user_defined;
 
     public:
-        constexpr convertible_to_user_defined_t(user_defined_t non_built_in) noexcept :
-            non_built_in(non_built_in)
+        constexpr convertible_to_user_defined_t(user_defined_t user_defined) noexcept :
+            user_defined(user_defined)
         {
         }
 
     public:
         constexpr operator user_defined_t() const noexcept
         {
-            return non_built_in;
+            return user_defined;
         }
 
         operator user_defined_t() const volatile noexcept
         {
-            return non_built_in;
+            return user_defined;
         }
     };
+
+}}}}
+
+namespace nkr { namespace interface { namespace enumeration {
+
+    template <nkr::cpp::is_any_tr<nkr::enumeration::errors_t$::test::user_defined_t> type_p>
+    class types_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::test::user_defined_t_interface_enumeration_types_sp<type_p>;
+    };
+
+}}}
+
+namespace nkr {
 
     TEST_SUITE("nkr::enumeration::errors_t")
     {
     #define nkr_TEMPLATES(TEMPLATE_QUALIFIER_p, TYPE_p)         \
         TEMPLATE_QUALIFIER_p nkr::enumeration::errors_t<TYPE_p> \
 
-    #define nkr_TEMPLATE_TYPES(TEMPLATE_QUALIFIER_p, TEMPLATE_p, TYPE_QUALIFIER_p)      \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_32_t>,  \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_64_t>,  \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_32_t>, \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_64_t>, \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p user_defined_t>                \
+    #define nkr_TEMPLATE_TYPES(TEMPLATE_QUALIFIER_p, TEMPLATE_p, TYPE_QUALIFIER_p)                          \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_32_t>,                      \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_64_t>,                      \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_32_t>,                     \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_64_t>,                     \
+        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::enumeration::errors_t$::test::user_defined_t> \
 
     #define nkr_TYPES(TYPE_QUALIFIER_p)                                                     \
         nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, nkr_BLANK),        \
@@ -281,18 +286,18 @@ namespace nkr {
                 {
                     using none_t = typename errors_p::none_t;
 
-                    errors_p error;
+                    errors_p errors;
 
-                    CHECK((error == none_t::Value()));
+                    CHECK((errors == none_t::Value()));
                 }
 
                 TEST_CASE_TEMPLATE("should cast to false", errors_p, nkr_ANY)
                 {
                     using none_t = typename errors_p::none_t;
 
-                    errors_p error;
+                    errors_p errors;
 
-                    CHECK((error == false));
+                    CHECK((errors == false));
                 }
             }
 
@@ -313,7 +318,30 @@ namespace nkr {
             TEST_SUITE("copy_constructor()"
                        * doctest::description("should copy other without changing it"))
             {
+                TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
+                {
+                    using integer_t = typename errors_p::integer_t;
 
+                    nkr::cpp::just_non_qualified_t<errors_p> other = nkr::randomness::Value<integer_t>();
+                    errors_p errors = other;
+
+                    CHECK((errors == other));
+                }
+
+                TEST_CASE_TEMPLATE("const", errors_p, nkr_ANY)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("volatile", errors_p, nkr_ANY)
+                {
+
+                }
+
+                TEST_CASE_TEMPLATE("const_volatile", errors_p, nkr_ANY)
+                {
+
+                }
             }
 
             TEST_SUITE("move_constructor()"
@@ -324,14 +352,16 @@ namespace nkr {
 
             TEST_SUITE("destructor()")
             {
-                TEST_CASE_TEMPLATE("should call the destructors of its data members", errors_p, nkr_ANY_OF_ANY(user_defined_t))
+                TEST_CASE_TEMPLATE("should call the destructors of its data members",
+                                   errors_p,
+                                   nkr_ANY_OF_ANY(nkr::enumeration::errors_t$::test::user_defined_t))
                 {
-                    errors_p error;
+                    errors_p errors;
 
-                    CHECK(error.Value().Is_Live() == true);
+                    CHECK(errors.Value().Is_Live() == true);
 
-                    error.~errors_p();
-                    CHECK(error.Value().Is_Live() == false);
+                    errors.~errors_p();
+                    CHECK(errors.Value().Is_Live() == false);
                 }
             }
         }

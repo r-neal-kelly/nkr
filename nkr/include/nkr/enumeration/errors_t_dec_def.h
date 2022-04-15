@@ -68,9 +68,11 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         {
             using self_t = nkr::cpp::reference_value_t<decltype(self)>;
 
-            new (&self.deferred.data.types) decltype(self.deferred.data.types)();
+            new (&self.deferred.data.types)
+                decltype(self.deferred.data.types)();
         #if defined(nkr_IS_DEBUG)
-            new (&self.deferred.data.has_been_checked) decltype(self.deferred.data.has_been_checked)(false);
+            new (&self.deferred.data.has_been_checked)
+                decltype(self.deferred.data.has_been_checked)(false);
         #endif
         }
 
@@ -651,14 +653,14 @@ inline constexpr nkr::boolean::cpp_t
 
     if constexpr (nkr::cpp::is_any_tr<a_t, b_t>) {
         return a() == b();
-    } else if constexpr (nkr::cpp::cast_to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
-        return static_cast<nkr::cpp::just_non_qualified_t<b_t>>(a) == b;
+    } else if constexpr (nkr::cpp::is_any_tr<b_t, nkr::boolean::cpp_t>) {
+        return a.Boolean() == b;
+    } else if constexpr (nkr::cpp::is_any_tr<b_t, typename a_t::integer_t>) {
+        return a.Integer() == b;
+    } else if constexpr (nkr::cpp::is_any_tr<b_t, typename a_t::value_t>) {
+        return a.Value() == b;
     } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
         return nkr::cpp::just_non_qualified_t<b_t>(a) == b;
-    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::integer_t>>) {
-        return a.Integer() == nkr::cpp::just_non_qualified_t<typename a_t::integer_t>(b);
-    } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<typename a_t::value_t>>) {
-        return a.Value() == nkr::cpp::just_non_qualified_t<typename a_t::value_t>(b);
     } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
         return a == nkr::cpp::just_non_qualified_t<a_t>(b);
     } else {
