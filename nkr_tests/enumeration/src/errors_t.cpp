@@ -2,6 +2,7 @@
     Copyright 2022 r-neal-kelly
 */
 
+#include "nkr/cpp/tuple/values_t.h"
 #include "nkr/enumeration/errors_t.h"
 #include "nkr/interface/forward.h"
 #include "nkr/macro/qualified_templates.h"
@@ -261,121 +262,94 @@ namespace nkr {
     {
         using user_defined_t = nkr::enumeration::errors_t$::test::user_defined_t;
 
-    #define nkr_TEMPLATES(TEMPLATE_QUALIFIER_p, TYPE_p)         \
-        TEMPLATE_QUALIFIER_p nkr::enumeration::errors_t<TYPE_p> \
-
-    #define nkr_TEMPLATE_TYPES(TEMPLATE_QUALIFIER_p, TEMPLATE_p, TYPE_QUALIFIER_p)      \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_32_t>,  \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::positive::integer_64_t>,  \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_32_t>, \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p nkr::negatable::integer_64_t>, \
-        TEMPLATE_QUALIFIER_p TEMPLATE_p<TYPE_QUALIFIER_p user_defined_t>                \
-
-    #define nkr_TYPES(TYPE_QUALIFIER_p)                                                     \
-        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, nkr_BLANK),        \
-        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, const),            \
-        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, volatile),         \
-        nkr_TEMPLATE_TYPES(TYPE_QUALIFIER_p, nkr::enumeration::errors_t, const volatile)    \
-
-        nkr_DEFINE_QUALIFIED_TEMPLATE_TS;
-        nkr_DEFINE_QUALIFIED_TYPE_TS;
-
         namespace types_accumulator_t$ {
 
-            template <nkr::tuple::types_tr types_p, template <typename ...> typename algorithm_p>
+            template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
             class accumulate_tmpl;
 
-            template <nkr::tuple::types_tr types_p, template <typename ...> typename algorithm_p>
+            template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
                 requires (types_p::Count() == 0)
-            class accumulate_tmpl<types_p, algorithm_p>
+            class accumulate_tmpl<algorithm_p, types_p>
             {
             public:
                 using type_t = nkr::tuple::types_t<>;
             };
 
-            template <nkr::tuple::types_tr types_p, template <typename ...> typename algorithm_p>
+            template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
                 requires (types_p::Count() > 0)
-            class accumulate_tmpl<types_p, algorithm_p>
+            class accumulate_tmpl<algorithm_p, types_p>
             {
             public:
                 using type_t = typename accumulate_tmpl<
-                    typename types_p::tail_t, algorithm_p
+                    algorithm_p, typename types_p::tail_t
                 >::type_t::template apply_front_t<
                     algorithm_p<typename types_p::head_t>
                 >;
             };
 
-            template <nkr::tuple::types_tr types_p, template <typename ...> typename algorithm_p>
+            template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
             using accumulate_t =
-                typename accumulate_tmpl<types_p, algorithm_p>::type_t;
+                typename accumulate_tmpl<algorithm_p, types_p>::type_t;
 
             template <typename type_p>
-            using just_const_for_t = nkr::tuple::types_t<
+            using just_const_t = nkr::tuple::types_t<
                 nkr::cpp::just_const_t<type_p>
             >;
 
             template <typename type_p>
-            using any_const_for_t = nkr::tuple::types_t<
+            using any_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<type_p>,
+                nkr::cpp::just_const_t<type_p>,
+                nkr::cpp::just_volatile_t<type_p>,
+                nkr::cpp::just_const_volatile_t<type_p>
+            >;
+
+            template <typename type_p>
+            using any_const_t = nkr::tuple::types_t<
                 nkr::cpp::just_const_t<type_p>,
                 nkr::cpp::just_const_volatile_t<type_p>
             >;
 
-        }
-
-        namespace template_types_accumulator_t$ {
+            template <
+                template <typename ...> typename algorithm_a_p,
+                template <typename ...> typename algorithm_b_p,
+                nkr::tuple::types_tr types_p
+            > class accumulate_per_tmpl;
 
             template <
-                template <typename ...> typename                                            template_p,
-                nkr::tuple::types_tr                                                        primary_inner_types_p,
-                nkr::tuple::types_tr                                                        per_primary_default_types_p,
-                template <template <typename ...> typename, typename, typename> typename    algorithm_p
-            > class accumulate_tmpl;
-
-            template <
-                template <typename ...> typename                                            template_p,
-                nkr::tuple::types_tr                                                        primary_inner_types_p,
-                nkr::tuple::types_tr                                                        per_primary_default_types_p,
-                template <template <typename ...> typename, typename, typename> typename    algorithm_p
+                template <typename ...> typename algorithm_a_p,
+                template <typename ...> typename algorithm_b_p,
+                nkr::tuple::types_tr types_p
             >
-                requires (primary_inner_types_p::Count() == 0)
-            class accumulate_tmpl<template_p, primary_inner_types_p, per_primary_default_types_p, algorithm_p>
+                requires (types_p::Count() > 0)
+            class accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, types_p>
+            {
+            public:
+                using type_t = typename accumulate_per_tmpl<
+                    algorithm_a_p, algorithm_b_p, typename types_p::tail_t
+                >::type_t::template apply_front_t<
+                    algorithm_a_p<typename types_p::head_t>::template each_with_each_t<algorithm_b_p<typename types_p::head_t>>
+                >;
+            };
+
+            template <
+                template <typename ...> typename algorithm_a_p,
+                template <typename ...> typename algorithm_b_p,
+                nkr::tuple::types_tr types_p
+            >
+                requires (types_p::Count() == 0)
+            class accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, types_p>
             {
             public:
                 using type_t = nkr::tuple::types_t<>;
             };
 
             template <
-                template <typename ...> typename                                            template_p,
-                nkr::tuple::types_tr                                                        primary_inner_types_p,
-                nkr::tuple::types_tr                                                        per_primary_default_types_p,
-                template <template <typename ...> typename, typename, typename> typename    algorithm_p
-            >
-                requires (primary_inner_types_p::Count() > 0)
-            class accumulate_tmpl<template_p, primary_inner_types_p, per_primary_default_types_p, algorithm_p>
-            {
-            public:
-                using type_t = typename accumulate_tmpl<
-                    template_p, typename primary_inner_types_p::tail_t, per_primary_default_types_p, algorithm_p
-                >::type_t::template apply_front_t<
-                    algorithm_p<template_p, typename primary_inner_types_p::head_t, per_primary_default_types_p>
-                >;
-            };
-
-            template <
-                template <typename ...> typename                                            template_p,
-                nkr::tuple::types_tr                                                        primary_inner_types_p,
-                nkr::tuple::types_tr                                                        per_primary_default_types_p,
-                template <template <typename ...> typename, typename, typename> typename    algorithm_p
-            > using accumulate_t =
-                typename accumulate_tmpl<template_p, primary_inner_types_p, per_primary_default_types_p, algorithm_p>::type_t;
-
-            template <
-                template <typename ...> typename    template_p,
-                typename                            primary_inner_type_p,
-                nkr::tuple::types_tr                more_types_p
-            > using of_just_const_for_t = nkr::tuple::types_t<
-                typename more_types_p::template push_front_t<nkr::cpp::just_const_t<primary_inner_type_p>>::template into_t<template_p>
-            >;
+                template <typename ...> typename algorithm_a_p,
+                template <typename ...> typename algorithm_b_p,
+                nkr::tuple::types_tr types_p
+            > using accumulate_per_t =
+                typename accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, types_p>::type_t;
 
         }
 
@@ -384,56 +358,227 @@ namespace nkr {
         > class types_accumulator_t
         {
         public:
-            using types_t = types_p;
+            using types_t   = types_p;
 
         public:
-            using just_const_ts = types_accumulator_t$::accumulate_t<types_t, types_accumulator_t$::just_const_for_t>;
-        };
+            using just_const_ts = types_accumulator_t$::accumulate_t<types_accumulator_t$::just_const_t, types_t>;
 
-        template <
-            template <typename ...> typename    template_p,
-            nkr::tuple::types_tr                primary_inner_types_p,
-            nkr::tuple::types_tr                per_primary_default_types_p = nkr::tuple::types_t<>
-        > class template_types_accumulator_t
-        {
+            using any_ts        = types_accumulator_t$::accumulate_t<types_accumulator_t$::any_t, types_t>;
+            using any_const_ts  = types_accumulator_t$::accumulate_t<types_accumulator_t$::any_const_t, types_t>;
+
         public:
-            using just_const_of_just_const_ts = types_accumulator_t$::accumulate_t<
-                template_types_accumulator_t$::accumulate_t<
-                    template_p,
-                    primary_inner_types_p,
-                    per_primary_default_types_p,
-                    template_types_accumulator_t$::of_just_const_for_t
-                >,
-                types_accumulator_t$::just_const_for_t
+            using any_per_any_ts = types_accumulator_t$::accumulate_per_t<
+                types_accumulator_t$::any_t,
+                types_accumulator_t$::any_t,
+                types_t
             >;
         };
 
-        using primary_inner_types_t = nkr::tuple::types_t<
-            nkr::positive::integer_32_t,
-            nkr::positive::integer_64_t,
-            nkr::negatable::integer_32_t,
-            nkr::negatable::integer_64_t/*,
-            user_defined_t*/
-        >;
-        using template_types_t = template_types_accumulator_t<nkr::enumeration::errors_t, primary_inner_types_t>;
+        namespace template_types_accumulator_t$ {
 
-        using test_ts = template_types_t::just_const_of_just_const_ts;
-        static_assert(nkr::cpp::is_tr<
-                      typename test_ts::template at_t<nkr::constant::positive::index_t<0>>::head_t,
-                      const nkr::enumeration::errors_t<const nkr::positive::integer_32_t>
-        >);
-        static_assert(nkr::cpp::is_tr<
-                      typename test_ts::template at_t<nkr::constant::positive::index_t<1>>::head_t,
-                      const nkr::enumeration::errors_t<const nkr::positive::integer_64_t>
-        >);
-        static_assert(nkr::cpp::is_tr<
-                      typename test_ts::template at_t<nkr::constant::positive::index_t<2>>::head_t,
-                      const nkr::enumeration::errors_t<const nkr::negatable::integer_32_t>
-        >);
-        static_assert(nkr::cpp::is_tr<
-                      typename test_ts::template at_t<nkr::constant::positive::index_t<3>>::head_t,
-                      const nkr::enumeration::errors_t<const nkr::negatable::integer_64_t>
-        >);
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <typename ...> typename                                            template_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            > class accumulate_tmpl;
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <typename ...> typename                                            template_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            >
+                requires (argument_tuples_p::Count() == 0)
+            class accumulate_tmpl<algorithm_a_p, template_p, algorithm_b_p, argument_tuples_p>
+            {
+            public:
+                using type_t = nkr::tuple::types_t<>;
+            };
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <typename ...> typename                                            template_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            >
+                requires (argument_tuples_p::Count() > 0)
+            class accumulate_tmpl<algorithm_a_p, template_p, algorithm_b_p, argument_tuples_p>
+            {
+            private:
+                using accumulation_b_t = algorithm_b_p<
+                    template_p,
+                    typename argument_tuples_p::head_t::head_t,
+                    typename argument_tuples_p::head_t::tail_t
+                >;
+
+            public:
+                using type_t = typename accumulate_tmpl<
+                    algorithm_a_p, template_p, algorithm_b_p, typename argument_tuples_p::tail_t
+                >::type_t::template apply_front_t<
+                    types_accumulator_t$::accumulate_t<algorithm_a_p, accumulation_b_t>
+                >;
+            };
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <typename ...> typename                                            template_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            > using accumulate_t =
+                typename accumulate_tmpl<algorithm_a_p, template_p, algorithm_b_p, argument_tuples_p>::type_t;
+
+            template <
+                template <typename ...> typename    template_p,
+                typename                            head_type_p,
+                nkr::tuple::types_tr                tail_types_p
+            > using of_just_const_t = nkr::tuple::types_t<
+                typename tail_types_p::template push_front_t<nkr::cpp::just_const_t<head_type_p>>::template into_t<template_p>
+            >;
+
+            template <
+                template <typename ...> typename    template_p,
+                typename                            head_type_p,
+                nkr::tuple::types_tr                tail_types_p
+            > using of_any_t = nkr::tuple::types_t<
+                typename tail_types_p::template push_front_t<nkr::cpp::just_non_qualified_t<head_type_p>>::template into_t<template_p>,
+                typename tail_types_p::template push_front_t<nkr::cpp::just_const_t<head_type_p>>::template into_t<template_p>,
+                typename tail_types_p::template push_front_t<nkr::cpp::just_volatile_t<head_type_p>>::template into_t<template_p>,
+                typename tail_types_p::template push_front_t<nkr::cpp::just_const_volatile_t<head_type_p>>::template into_t<template_p>
+            >;
+
+            template <
+                template <typename ...> typename    template_p,
+                typename                            head_type_p,
+                nkr::tuple::types_tr                tail_types_p
+            > using of_any_const_t = nkr::tuple::types_t<
+                typename tail_types_p::template push_front_t<nkr::cpp::just_const_t<head_type_p>>::template into_t<template_p>,
+                typename tail_types_p::template push_front_t<nkr::cpp::just_const_volatile_t<head_type_p>>::template into_t<template_p>
+            >;
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                template <typename ...> typename                                            algorithm_c_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_d_p,
+                template <typename ...> typename                                            template_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            > class accumulate_per_tmpl;
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                template <typename ...> typename                                            algorithm_c_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_d_p,
+                template <typename ...> typename                                            template_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            >
+                requires (argument_tuples_p::Count() > 0)
+            class accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>
+            {
+            private:
+                using accumulation_b_t = algorithm_b_p<
+                    template_p,
+                    typename argument_tuples_p::head_t::head_t,
+                    typename argument_tuples_p::head_t::tail_t
+                >;
+
+                using accumulation_a_t = types_accumulator_t$::accumulate_t<algorithm_a_p, accumulation_b_t>;
+
+                using accumulation_d_t = algorithm_d_p<
+                    template_p,
+                    typename argument_tuples_p::head_t::head_t,
+                    typename argument_tuples_p::head_t::tail_t
+                >;
+
+                using accumulation_c_t = types_accumulator_t$::accumulate_t<algorithm_c_p, accumulation_d_t>;
+
+            public:
+                using type_t = typename accumulate_per_tmpl<
+                    algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, typename argument_tuples_p::tail_t
+                >::type_t::template apply_front_t<
+                    accumulation_a_t::template each_with_each_t<accumulation_c_t>
+                >;
+            };
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                template <typename ...> typename                                            algorithm_c_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_d_p,
+                template <typename ...> typename                                            template_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            >
+                requires (argument_tuples_p::Count() == 0)
+            class accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>
+            {
+            public:
+                using type_t = nkr::tuple::types_t<>;
+            };
+
+            template <
+                template <typename ...> typename                                            algorithm_a_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
+                template <typename ...> typename                                            algorithm_c_p,
+                template <template <typename ...> typename, typename, typename> typename    algorithm_d_p,
+                template <typename ...> typename                                            template_p,
+                nkr::tuple::types_tr                                                        argument_tuples_p
+            > using accumulate_per_t =
+                typename accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>::type_t;
+
+        }
+
+        template <
+            template <typename ...> typename    template_p,
+            nkr::tuple::types_tr                argument_tuples_p
+        > class template_types_accumulator_t
+        {
+        public:
+            using just_const_of_just_const_ts = template_types_accumulator_t$::accumulate_t<
+                types_accumulator_t$::just_const_t,
+                template_p,
+                template_types_accumulator_t$::of_just_const_t,
+                argument_tuples_p
+            >;
+
+            using any_of_any_ts = template_types_accumulator_t$::accumulate_t<
+                types_accumulator_t$::any_t,
+                template_p,
+                template_types_accumulator_t$::of_any_t,
+                argument_tuples_p
+            >;
+
+            using any_const_of_any_const_ts = template_types_accumulator_t$::accumulate_t<
+                types_accumulator_t$::any_const_t,
+                template_p,
+                template_types_accumulator_t$::of_any_const_t,
+                argument_tuples_p
+            >;
+
+        public:
+            using any_of_any_per_any_of_any_ts = template_types_accumulator_t$::accumulate_per_t<
+                types_accumulator_t$::any_t,
+                template_types_accumulator_t$::of_any_t,
+                types_accumulator_t$::any_t,
+                template_types_accumulator_t$::of_any_t,
+                template_p,
+                argument_tuples_p
+            >;
+
+        public:
+            using cpp_any_of_any_ts = any_of_any_ts::template into_t<nkr::cpp::tuple::values_t>;
+        };
+
+        using test_ts = template_types_accumulator_t<
+            nkr::enumeration::errors_t,
+            nkr::tuple::types_t<
+                nkr::tuple::types_t<nkr::positive::integer_32_t>,
+                nkr::tuple::types_t<nkr::positive::integer_64_t>,
+                nkr::tuple::types_t<nkr::negatable::integer_32_t>,
+                nkr::tuple::types_t<nkr::negatable::integer_64_t>/*,
+                nkr::tuple::types_t<user_defined_t>*/
+            >
+        >;
 
         TEST_SUITE("objects")
         {
@@ -447,9 +592,9 @@ namespace nkr {
 
                     CHECK((errors == none_t::Value()));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6, std::tuple<nkr::enumeration::errors_t<int>>);
+                TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6, test_ts::cpp_any_of_any_ts);
 
-                TEST_CASE_TEMPLATE("should cast to false", errors_p, nkr_ANY)
+                TEST_CASE_TEMPLATE_DEFINE("should cast to false", errors_p, _c4babb07_37d8_487c_b655_a3406c8445c6)
                 {
                     using none_t = typename errors_p::none_t;
 
@@ -457,6 +602,7 @@ namespace nkr {
 
                     CHECK((errors == false));
                 }
+                TEST_CASE_TEMPLATE_APPLY(_c4babb07_37d8_487c_b655_a3406c8445c6, test_ts::cpp_any_of_any_ts);
             }
 
             TEST_SUITE("to_constructor()"
@@ -478,7 +624,7 @@ namespace nkr {
             {
                 TEST_SUITE("lvalue")
                 {
-                    TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
+                    /*TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
                     {
                         using integer_t = typename errors_p::integer_t;
 
@@ -516,7 +662,7 @@ namespace nkr {
                         errors_p errors = other;
 
                         CHECK((errors == other));
-                    }
+                    }*/
                 }
             }
 
@@ -525,7 +671,7 @@ namespace nkr {
             {
                 TEST_SUITE("value")
                 {
-                    TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
+                    /*TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
                     {
                         using integer_t = typename errors_p::integer_t;
 
@@ -533,12 +679,12 @@ namespace nkr {
                         errors_p errors = nkr::cpp::just_non_qualified_t<errors_p>(integer);
 
                         CHECK((errors == integer));
-                    }
+                    }*/
                 }
 
                 TEST_SUITE("rvalue")
                 {
-                    TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
+                    /*TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
                     {
                         using integer_t = typename errors_p::integer_t;
 
@@ -558,13 +704,13 @@ namespace nkr {
                         errors_p errors = nkr::cpp::Move(other);
 
                         CHECK((errors == backup));
-                    }
+                    }*/
                 }
             }
 
             TEST_SUITE("destructor()")
             {
-                TEST_CASE_TEMPLATE("should call the destructors of its data members", errors_p, nkr_ANY_OF_ANY(user_defined_t))
+                /*TEST_CASE_TEMPLATE("should call the destructors of its data members", errors_p, nkr_ANY_OF_ANY(user_defined_t))
                 {
                     errors_p errors;
 
@@ -572,7 +718,7 @@ namespace nkr {
 
                     errors.~errors_p();
                     CHECK(errors.Value().Is_Live() == false);
-                }
+                }*/
             }
         }
     }
