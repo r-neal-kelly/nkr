@@ -12,6 +12,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_identity_tag_t_dec.h"
 #include "nkr/interface/template_i_identity_template_t_dec.h"
+#include "nkr/tr_dec.h"
 #include "nkr/tuple/types_t_dec.h"
 
 namespace nkr { namespace accumulator {
@@ -185,219 +186,308 @@ namespace nkr { namespace accumulator { namespace types_t$ {
     class common_t
     {
     public:
-        template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
+        template <typename operator_p, typename operand_p>
+        class algorithm_tmpl;
+
+        template <nkr::cpp::is_any_tr<just_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                operand_p
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_non_qualified_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_const_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_const_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_qualified_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_non_qualified_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_const_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_non_const_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<any_non_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_const_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_not_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                typename nkr::cpp::other_qualifications_of_t<operand_p>::type_a_t,
+                typename nkr::cpp::other_qualifications_of_t<operand_p>::type_b_t,
+                typename nkr::cpp::other_qualifications_of_t<operand_p>::type_c_t
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_not_non_qualified_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_not_const_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_not_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<just_not_const_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_qualified_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_non_qualified_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_const_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_non_const_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_const_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_non_qualified_t<operand_p>,
+                nkr::cpp::just_const_t<operand_p>
+            >;
+        };
+
+        template <nkr::cpp::is_any_tr<not_any_non_volatile_tg> operator_p, typename operand_p>
+        class algorithm_tmpl<operator_p, operand_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<
+                nkr::cpp::just_volatile_t<operand_p>,
+                nkr::cpp::just_const_volatile_t<operand_p>
+            >;
+        };
+
+        template <typename operator_p, typename operand_p>
+        using algorithm_t =
+            typename algorithm_tmpl<operator_p, operand_p>::type_t;
+
+    public:
+        template <typename operator_p, nkr::tuple::types_tr types_p>
         class accumulate_tmpl;
 
-        template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
+        template <typename operator_p, nkr::tuple::types_tr types_p>
             requires (types_p::Count() == 0)
-        class accumulate_tmpl<algorithm_p, types_p>
+        class accumulate_tmpl<operator_p, types_p>
         {
         public:
             using type_t = nkr::tuple::types_t<>;
         };
 
-        template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
+        template <typename operator_p, nkr::tuple::types_tr types_p>
             requires (types_p::Count() > 0)
-        class accumulate_tmpl<algorithm_p, types_p>
+        class accumulate_tmpl<operator_p, types_p>
         {
         public:
             using type_t = typename accumulate_tmpl<
-                algorithm_p, typename types_p::tail_t
+                operator_p, typename types_p::tail_t
             >::type_t::template apply_front_t<
-                algorithm_p<typename types_p::head_t>
+                algorithm_t<operator_p, typename types_p::head_t>
             >;
         };
 
-        template <template <typename ...> typename algorithm_p, nkr::tuple::types_tr types_p>
+        template <typename operator_p, nkr::tuple::types_tr types_p>
         using accumulate_t =
-            typename accumulate_tmpl<algorithm_p, types_p>::type_t;
+            typename accumulate_tmpl<operator_p, types_p>::type_t;
 
     public:
-        template <
-            template <typename ...> typename algorithm_a_p,
-            template <typename ...> typename algorithm_b_p,
-            nkr::tuple::types_tr types_p
-        > class accumulate_with_tmpl;
+        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
+        class accumulate_with_tmpl;
 
-        template <
-            template <typename ...> typename algorithm_a_p,
-            template <typename ...> typename algorithm_b_p,
-            nkr::tuple::types_tr types_p
-        >
+        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
             requires (types_p::Count() > 0)
-        class accumulate_with_tmpl<algorithm_a_p, algorithm_b_p, types_p>
+        class accumulate_with_tmpl<operator_a_p, operator_b_p, types_p>
         {
         public:
             using type_t = typename accumulate_with_tmpl<
-                algorithm_a_p, algorithm_b_p, typename types_p::tail_t
+                operator_a_p, operator_b_p, typename types_p::tail_t
             >::type_t::template apply_front_t<
-                algorithm_a_p<typename types_p::head_t>::template each_with_each_t<algorithm_b_p<typename types_p::head_t>>
+                algorithm_t<operator_a_p, typename types_p::head_t>::template each_with_each_t<algorithm_t<operator_b_p, typename types_p::head_t>>
             >;
         };
 
-        template <
-            template <typename ...> typename algorithm_a_p,
-            template <typename ...> typename algorithm_b_p,
-            nkr::tuple::types_tr types_p
-        >
+        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
             requires (types_p::Count() == 0)
-        class accumulate_with_tmpl<algorithm_a_p, algorithm_b_p, types_p>
+        class accumulate_with_tmpl<operator_a_p, operator_b_p, types_p>
         {
         public:
             using type_t = nkr::tuple::types_t<>;
         };
 
-        template <
-            template <typename ...> typename algorithm_a_p,
-            template <typename ...> typename algorithm_b_p,
-            nkr::tuple::types_tr types_p
-        > using accumulate_with_t =
-            typename accumulate_with_tmpl<algorithm_a_p, algorithm_b_p, types_p>::type_t;
-
-    public:
-        template <typename type_p>
-        using just_ts = nkr::tuple::types_t<
-            type_p
-        >;
-
-        template <typename type_p>
-        using just_non_qualified_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_const_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_const_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_qualified_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_non_qualified_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_const_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_non_const_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using any_non_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_const_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_not_ts = nkr::tuple::types_t<
-            typename nkr::cpp::other_qualifications_of_t<type_p>::type_a_t,
-            typename nkr::cpp::other_qualifications_of_t<type_p>::type_b_t,
-            typename nkr::cpp::other_qualifications_of_t<type_p>::type_c_t
-        >;
-
-        template <typename type_p>
-        using just_not_non_qualified_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_not_const_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_not_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using just_not_const_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using not_any_ts = nkr::tuple::types_t<
-        >;
-
-        template <typename type_p>
-        using not_any_qualified_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>
-        >;
-
-        template <typename type_p>
-        using not_any_non_qualified_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using not_any_const_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using not_any_non_const_ts = nkr::tuple::types_t<
-            nkr::cpp::just_const_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
-
-        template <typename type_p>
-        using not_any_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_non_qualified_t<type_p>,
-            nkr::cpp::just_const_t<type_p>
-        >;
-
-        template <typename type_p>
-        using not_any_non_volatile_ts = nkr::tuple::types_t<
-            nkr::cpp::just_volatile_t<type_p>,
-            nkr::cpp::just_const_volatile_t<type_p>
-        >;
+        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
+        using accumulate_with_t =
+            typename accumulate_with_tmpl<operator_a_p, operator_b_p, types_p>::type_t;
     };
 
 }}}
@@ -411,50 +501,21 @@ namespace nkr { namespace accumulator { namespace types_t$ {
         using types_t   = types_p;
 
     public:
-        using common_t          = nkr::accumulator::types_t$::common_t;
-        template <template <typename ...> typename algorithm_p>
-        using accumulate_t      = common_t::template accumulate_t<algorithm_p, types_t>;
-        template <template <typename ...> typename algorithm_a_p, template <typename ...> typename algorithm_b_p>
-        using accumulate_with_t = common_t::template accumulate_with_t<algorithm_a_p, algorithm_b_p, types_t>;
+        template <typename operator_p>
+        using get_t =
+            nkr::accumulator::types_t$::common_t::template accumulate_t<operator_p, types_t>;
 
-    public:
-        using just_ts                       = accumulate_t<common_t::template just_ts>;
-        using just_non_qualified_ts         = accumulate_t<common_t::template just_non_qualified_ts>;
-        using just_const_ts                 = accumulate_t<common_t::template just_const_ts>;
-        using just_volatile_ts              = accumulate_t<common_t::template just_volatile_ts>;
-        using just_const_volatile_ts        = accumulate_t<common_t::template just_const_volatile_ts>;
+        template <typename operator_a_p, typename operator_b_p>
+        using get_with_t =
+            nkr::accumulator::types_t$::common_t::template accumulate_with_t<operator_a_p, operator_b_p, types_t>;
 
-        using any_ts                        = accumulate_t<common_t::template any_ts>;
-        using any_qualified_ts              = accumulate_t<common_t::template any_qualified_ts>;
-        using any_non_qualified_ts          = accumulate_t<common_t::template any_non_qualified_ts>;
-        using any_const_ts                  = accumulate_t<common_t::template any_const_ts>;
-        using any_non_const_ts              = accumulate_t<common_t::template any_non_const_ts>;
-        using any_volatile_ts               = accumulate_t<common_t::template any_volatile_ts>;
-        using any_non_volatile_ts           = accumulate_t<common_t::template any_non_volatile_ts>;
+        template <typename operator_p>
+        using get_cpp_t =
+            get_t<operator_p>::template into_t<nkr::cpp::tuple::values_t>;
 
-        using just_not_ts                   = accumulate_t<common_t::template just_not_ts>;
-        using just_not_non_qualified_ts     = accumulate_t<common_t::template just_not_non_qualified_ts>;
-        using just_not_const_ts             = accumulate_t<common_t::template just_not_const_ts>;
-        using just_not_volatile_ts          = accumulate_t<common_t::template just_not_volatile_ts>;
-        using just_not_const_volatile_ts    = accumulate_t<common_t::template just_not_const_volatile_ts>;
-
-        using not_any_ts                    = accumulate_t<common_t::template not_any_ts>;
-        using not_any_qualified_ts          = accumulate_t<common_t::template not_any_qualified_ts>;
-        using not_any_non_qualified_ts      = accumulate_t<common_t::template not_any_non_qualified_ts>;
-        using not_any_const_ts              = accumulate_t<common_t::template not_any_const_ts>;
-        using not_any_non_const_ts          = accumulate_t<common_t::template not_any_non_const_ts>;
-        using not_any_volatile_ts           = accumulate_t<common_t::template not_any_volatile_ts>;
-        using not_any_non_volatile_ts       = accumulate_t<common_t::template not_any_non_volatile_ts>;
-
-    public:
-        using any_with_any_ts   = accumulate_with_t<common_t::template any_ts, common_t::template any_ts>;
-
-    public:
-        class cpp_t
-        {
-        public:
-            using any_ts    = any_ts::template into_t<nkr::cpp::tuple::values_t>;
-        };
+        template <typename operator_a_p, typename operator_b_p>
+        using get_cpp_with_t =
+            get_with_t<operator_a_p, operator_b_p>::template into_t<nkr::cpp::tuple::values_t>;
 
     public:
         template <typename ...>

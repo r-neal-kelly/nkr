@@ -9,6 +9,7 @@
 #include "nkr/built_in/forward_def.h"
 #include "nkr/cpp_def.h"
 #include "nkr/cpp/tuple/values_t_def.h"
+#include "nkr/tr_def.h"
 #include "nkr/tuple/types_t_def.h"
 
 #include "nkr/accumulator/instantiations_t_dec.h"

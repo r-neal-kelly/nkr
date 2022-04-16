@@ -283,7 +283,7 @@ namespace nkr {
 
                     CHECK((errors == none_t::Value()));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6, test_ts::cpp_t::any_of_any_ts);
+                TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6, test_ts::get_cpp_t<any_tg, of_any_tg>);
 
                 TEST_CASE_TEMPLATE_DEFINE("should cast to false", errors_p, _c4babb07_37d8_487c_b655_a3406c8445c6)
                 {
@@ -293,7 +293,7 @@ namespace nkr {
 
                     CHECK((errors == false));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_c4babb07_37d8_487c_b655_a3406c8445c6, test_ts::cpp_t::any_of_any_ts);
+                TEST_CASE_TEMPLATE_APPLY(_c4babb07_37d8_487c_b655_a3406c8445c6, test_ts::get_cpp_t<any_tg, of_any_tg>);
             }
 
             TEST_SUITE("to_constructor()"
