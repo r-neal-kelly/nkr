@@ -272,7 +272,11 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
         >;
 
     public:
-        using cpp_any_of_any_ts = any_of_any_ts::template into_t<nkr::cpp::tuple::values_t>;
+        class cpp_t
+        {
+        public:
+            using any_of_any_ts = any_of_any_ts::template into_t<nkr::cpp::tuple::values_t>;
+        };
 
     public:
         template <typename ...>

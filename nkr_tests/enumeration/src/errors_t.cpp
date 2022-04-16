@@ -5,8 +5,6 @@
 #include "nkr/accumulator/instantiations_t.h"
 #include "nkr/enumeration/errors_t.h"
 #include "nkr/interface/forward.h"
-#include "nkr/macro/qualified_templates.h"
-#include "nkr/macro/qualified_types.h"
 #include "nkr/negatable/integer_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
@@ -265,11 +263,11 @@ namespace nkr {
         using test_ts = nkr::accumulator::instantiations_t<
             nkr::enumeration::errors_t,
             nkr::tuple::types_t<
-            nkr::tuple::types_t<nkr::positive::integer_32_t>,
-            nkr::tuple::types_t<nkr::positive::integer_64_t>,
-            nkr::tuple::types_t<nkr::negatable::integer_32_t>,
-            nkr::tuple::types_t<nkr::negatable::integer_64_t>/*,
-            nkr::tuple::types_t<user_defined_t>*/
+                nkr::tuple::types_t<nkr::positive::integer_32_t>,
+                nkr::tuple::types_t<nkr::positive::integer_64_t>,
+                nkr::tuple::types_t<nkr::negatable::integer_32_t>,
+                nkr::tuple::types_t<nkr::negatable::integer_64_t>/*,
+                nkr::tuple::types_t<user_defined_t>*/
             >
         >;
 
@@ -285,7 +283,7 @@ namespace nkr {
 
                     CHECK((errors == none_t::Value()));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6, test_ts::cpp_any_of_any_ts);
+                TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6, test_ts::cpp_t::any_of_any_ts);
 
                 TEST_CASE_TEMPLATE_DEFINE("should cast to false", errors_p, _c4babb07_37d8_487c_b655_a3406c8445c6)
                 {
@@ -295,7 +293,7 @@ namespace nkr {
 
                     CHECK((errors == false));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_c4babb07_37d8_487c_b655_a3406c8445c6, test_ts::cpp_any_of_any_ts);
+                TEST_CASE_TEMPLATE_APPLY(_c4babb07_37d8_487c_b655_a3406c8445c6, test_ts::cpp_t::any_of_any_ts);
             }
 
             TEST_SUITE("to_constructor()"

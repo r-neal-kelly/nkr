@@ -301,7 +301,11 @@ namespace nkr { namespace accumulator { namespace types_t$ {
         using any_per_any_ts    = accumulate_per_t<common_t::template any_t, common_t::template any_t>;
 
     public:
-        using cpp_any_ts        = any_ts::template into_t<nkr::cpp::tuple::values_t>;
+        class cpp_t
+        {
+        public:
+            using any_ts    = any_ts::template into_t<nkr::cpp::tuple::values_t>;
+        };
 
     public:
         template <typename ...>
