@@ -310,6 +310,11 @@ namespace nkr { namespace tuple {
         template <typename ...types_to_push_p>
         using push_back_t   = types_t<types_to_push_p...>;
 
+        template <nkr::tuple::types_tr tuple_p>
+        using apply_front_t = tuple_p::template into_t<push_front_t>;
+        template <nkr::tuple::types_tr tuple_p>
+        using apply_back_t  = tuple_p::template into_t<push_back_t>;
+
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
 
@@ -356,6 +361,11 @@ namespace nkr { namespace tuple {
         using push_front_t  = types_t<types_to_push_p..., head_p, tail_p...>;
         template <typename ...types_to_push_p>
         using push_back_t   = types_t<head_p, tail_p..., types_to_push_p...>;
+
+        template <nkr::tuple::types_tr tuple_p>
+        using apply_front_t = tuple_p::template into_t<push_front_t>;
+        template <nkr::tuple::types_tr tuple_p>
+        using apply_back_t  = tuple_p::template into_t<push_back_t>;
 
     public:
         static constexpr nkr::positive::count_t Count() noexcept;
