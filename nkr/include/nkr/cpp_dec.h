@@ -510,10 +510,10 @@ namespace nkr { namespace cpp {
 namespace nkr { namespace cpp {
 
     template <typename type_p>
-    class other_qualifications_of_tmpl;
+    class other_qualifications_of_t;
 
     template <just_non_qualified_tr type_p>
-    class other_qualifications_of_tmpl<type_p>
+    class other_qualifications_of_t<type_p>
     {
     public:
         using type_a_t  = just_const_t<type_p>;
@@ -522,7 +522,7 @@ namespace nkr { namespace cpp {
     };
 
     template <just_const_tr type_p>
-    class other_qualifications_of_tmpl<type_p>
+    class other_qualifications_of_t<type_p>
     {
     public:
         using type_a_t  = just_non_qualified_t<type_p>;
@@ -531,7 +531,7 @@ namespace nkr { namespace cpp {
     };
 
     template <just_volatile_tr type_p>
-    class other_qualifications_of_tmpl<type_p>
+    class other_qualifications_of_t<type_p>
     {
     public:
         using type_a_t  = just_non_qualified_t<type_p>;
@@ -540,7 +540,7 @@ namespace nkr { namespace cpp {
     };
 
     template <just_const_volatile_tr type_p>
-    class other_qualifications_of_tmpl<type_p>
+    class other_qualifications_of_t<type_p>
     {
     public:
         using type_a_t  = just_non_qualified_t<type_p>;

@@ -50,16 +50,59 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
     class common_t
     {
     public:
-        using types_common_t    = nkr::accumulator::types_t$::common_t;
+        using types_common_t                = nkr::accumulator::types_t$::common_t;
 
         template <typename type_p>
-        using just_const_t      = types_common_t::template just_const_t<type_p>;
+        using just_ts                       = types_common_t::template just_ts<type_p>;
+        template <typename type_p>
+        using just_non_qualified_ts         = types_common_t::template just_non_qualified_ts<type_p>;
+        template <typename type_p>
+        using just_const_ts                 = types_common_t::template just_const_ts<type_p>;
+        template <typename type_p>
+        using just_volatile_ts              = types_common_t::template just_volatile_ts<type_p>;
+        template <typename type_p>
+        using just_const_volatile_ts        = types_common_t::template just_const_volatile_ts<type_p>;
 
         template <typename type_p>
-        using any_t             = types_common_t::template any_t<type_p>;
+        using any_ts                        = types_common_t::template any_ts<type_p>;
+        template <typename type_p>
+        using any_qualified_ts              = types_common_t::template any_qualified_ts<type_p>;
+        template <typename type_p>
+        using any_non_qualified_ts          = types_common_t::template any_non_qualified_ts<type_p>;
+        template <typename type_p>
+        using any_const_ts                  = types_common_t::template any_const_ts<type_p>;
+        template <typename type_p>
+        using any_non_const_ts              = types_common_t::template any_non_const_ts<type_p>;
+        template <typename type_p>
+        using any_volatile_ts               = types_common_t::template any_volatile_ts<type_p>;
+        template <typename type_p>
+        using any_non_volatile_ts           = types_common_t::template any_non_volatile_ts<type_p>;
 
         template <typename type_p>
-        using any_const_t       = types_common_t::template any_const_t<type_p>;
+        using just_not_ts                   = types_common_t::template just_not_ts<type_p>;
+        template <typename type_p>
+        using just_not_non_qualified_ts     = types_common_t::template just_not_non_qualified_ts<type_p>;
+        template <typename type_p>
+        using just_not_const_ts             = types_common_t::template just_not_const_ts<type_p>;
+        template <typename type_p>
+        using just_not_volatile_ts          = types_common_t::template just_not_volatile_ts<type_p>;
+        template <typename type_p>
+        using just_not_const_volatile_ts    = types_common_t::template just_not_const_volatile_ts<type_p>;
+
+        template <typename type_p>
+        using not_any_ts                    = types_common_t::template not_any_ts<type_p>;
+        template <typename type_p>
+        using not_any_qualified_ts          = types_common_t::template not_any_qualified_ts<type_p>;
+        template <typename type_p>
+        using not_any_non_qualified_ts      = types_common_t::template not_any_non_qualified_ts<type_p>;
+        template <typename type_p>
+        using not_any_const_ts              = types_common_t::template not_any_const_ts<type_p>;
+        template <typename type_p>
+        using not_any_non_const_ts          = types_common_t::template not_any_non_const_ts<type_p>;
+        template <typename type_p>
+        using not_any_volatile_ts           = types_common_t::template not_any_volatile_ts<type_p>;
+        template <typename type_p>
+        using not_any_non_volatile_ts       = types_common_t::template not_any_non_volatile_ts<type_p>;
 
     public:
         template <
@@ -122,7 +165,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
             template <template <typename ...> typename, typename, typename> typename    algorithm_d_p,
             template <typename ...> typename                                            template_p,
             nkr::tuple::types_tr                                                        argument_tuples_p
-        > class accumulate_per_tmpl;
+        > class accumulate_with_tmpl;
 
         template <
             template <typename ...> typename                                            algorithm_a_p,
@@ -133,7 +176,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
             nkr::tuple::types_tr                                                        argument_tuples_p
         >
             requires (argument_tuples_p::Count() > 0)
-        class accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>
+        class accumulate_with_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>
         {
         private:
             using accumulation_b_t = algorithm_b_p<
@@ -153,7 +196,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
             using accumulation_c_t = types_common_t::template accumulate_t<algorithm_c_p, accumulation_d_t>;
 
         public:
-            using type_t = typename accumulate_per_tmpl<
+            using type_t = typename accumulate_with_tmpl<
                 algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, typename argument_tuples_p::tail_t
             >::type_t::template apply_front_t<
                 accumulation_a_t::template each_with_each_t<accumulation_c_t>
@@ -169,7 +212,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
             nkr::tuple::types_tr                                                        argument_tuples_p
         >
             requires (argument_tuples_p::Count() == 0)
-        class accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>
+        class accumulate_with_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>
         {
         public:
             using type_t = nkr::tuple::types_t<>;
@@ -182,34 +225,25 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
             template <template <typename ...> typename, typename, typename> typename    algorithm_d_p,
             template <typename ...> typename                                            template_p,
             nkr::tuple::types_tr                                                        argument_tuples_p
-        > using accumulate_per_t =
-            typename accumulate_per_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>::type_t;
+        > using accumulate_with_t =
+            typename accumulate_with_tmpl<algorithm_a_p, algorithm_b_p, algorithm_c_p, algorithm_d_p, template_p, argument_tuples_p>::type_t;
 
     public:
-        template <
-            template <typename ...> typename    template_p,
-            typename                            head_type_p,
-            nkr::tuple::types_tr                tail_types_p
-        > using of_just_const_t = nkr::tuple::types_t<
+        template <template <typename ...> typename template_p, typename head_type_p, nkr::tuple::types_tr tail_types_p>
+        using of_just_const_ts = nkr::tuple::types_t<
             typename tail_types_p::template push_front_t<nkr::cpp::just_const_t<head_type_p>>::template into_t<template_p>
         >;
 
-        template <
-            template <typename ...> typename    template_p,
-            typename                            head_type_p,
-            nkr::tuple::types_tr                tail_types_p
-        > using of_any_t = nkr::tuple::types_t<
+        template <template <typename ...> typename template_p, typename head_type_p, nkr::tuple::types_tr tail_types_p>
+        using of_any_ts = nkr::tuple::types_t<
             typename tail_types_p::template push_front_t<nkr::cpp::just_non_qualified_t<head_type_p>>::template into_t<template_p>,
             typename tail_types_p::template push_front_t<nkr::cpp::just_const_t<head_type_p>>::template into_t<template_p>,
             typename tail_types_p::template push_front_t<nkr::cpp::just_volatile_t<head_type_p>>::template into_t<template_p>,
             typename tail_types_p::template push_front_t<nkr::cpp::just_const_volatile_t<head_type_p>>::template into_t<template_p>
         >;
 
-        template <
-            template <typename ...> typename    template_p,
-            typename                            head_type_p,
-            nkr::tuple::types_tr                tail_types_p
-        > using of_any_const_t = nkr::tuple::types_t<
+        template <template <typename ...> typename template_p, typename head_type_p, nkr::tuple::types_tr tail_types_p>
+        using of_any_const_ts = nkr::tuple::types_t<
             typename tail_types_p::template push_front_t<nkr::cpp::just_const_t<head_type_p>>::template into_t<template_p>,
             typename tail_types_p::template push_front_t<nkr::cpp::just_const_volatile_t<head_type_p>>::template into_t<template_p>
         >;
@@ -239,7 +273,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
             template <template <typename ...> typename, typename, typename> typename    algorithm_b_p,
             template <typename ...> typename                                            algorithm_c_p,
             template <template <typename ...> typename, typename, typename> typename    algorithm_d_p
-        > using accumulate_per_t = common_t::template accumulate_per_t<
+        > using accumulate_with_t = common_t::template accumulate_with_t<
             algorithm_a_p,
             algorithm_b_p,
             algorithm_c_p,
@@ -249,26 +283,18 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
         >;
 
     public:
-        using just_const_of_just_const_ts = accumulate_t<
-            common_t::template just_const_t,
-            common_t::template of_just_const_t
-        >;
+        using just_const_of_just_const_ts   = accumulate_t<common_t::template just_const_ts, common_t::template of_just_const_ts>;
 
-        using any_of_any_ts = accumulate_t<
-            common_t::template any_t,
-            common_t::template of_any_t
-        >;
+        using any_of_any_ts                 = accumulate_t<common_t::template any_ts, common_t::template of_any_ts>;
 
-        using any_const_of_any_const_ts = accumulate_t<
-            common_t::template any_const_t,
-            common_t::template of_any_const_t
-        >;
+        using any_const_of_any_const_ts     = accumulate_t<common_t::template any_const_ts, common_t::template of_any_const_ts>;
 
-        using any_of_any_per_any_of_any_ts = accumulate_per_t<
-            common_t::template any_t,
-            common_t::template of_any_t,
-            common_t::template any_t,
-            common_t::template of_any_t
+    public:
+        using any_of_any_with_any_of_any_ts = accumulate_with_t<
+            common_t::template any_ts,
+            common_t::template of_any_ts,
+            common_t::template any_ts,
+            common_t::template of_any_ts
         >;
 
     public:
