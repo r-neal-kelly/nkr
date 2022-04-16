@@ -6,6 +6,16 @@ project(nkr
         LANGUAGES CXX)
 
 set(THIS_INCLUDE_FILES
+    "include/nkr/accumulator/instantiations_t.h"
+    "include/nkr/accumulator/instantiations_t_dec.h"
+    "include/nkr/accumulator/instantiations_t_dec_def.h"
+    "include/nkr/accumulator/instantiations_t_def.h"
+    "include/nkr/accumulator/instantiations_t_dox.h"
+    "include/nkr/accumulator/types_t.h"
+    "include/nkr/accumulator/types_t_dec.h"
+    "include/nkr/accumulator/types_t_dec_def.h"
+    "include/nkr/accumulator/types_t_def.h"
+    "include/nkr/accumulator/types_t_dox.h"
     "include/nkr/allocator/dynamic/heap_t.h"
     "include/nkr/allocator/dynamic/heap_t_dec.h"
     "include/nkr/allocator/dynamic/heap_t_dec_def.h"
