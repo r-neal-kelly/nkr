@@ -266,8 +266,15 @@ namespace nkr {
                 nkr::tuple::types_t<nkr::positive::integer_32_t>,
                 nkr::tuple::types_t<nkr::positive::integer_64_t>,
                 nkr::tuple::types_t<nkr::negatable::integer_32_t>,
-                nkr::tuple::types_t<nkr::negatable::integer_64_t>/*,
-                nkr::tuple::types_t<user_defined_t>*/
+                nkr::tuple::types_t<nkr::negatable::integer_64_t>,
+                nkr::tuple::types_t<user_defined_t>
+            >
+        >;
+
+        using test_user_defined_ts = nkr::accumulator::instantiations_t<
+            nkr::enumeration::errors_t,
+            nkr::tuple::types_t<
+                nkr::tuple::types_t<user_defined_t>
             >
         >;
 
@@ -277,9 +284,10 @@ namespace nkr {
             {
                 TEST_CASE_TEMPLATE_DEFINE("should equal the default integer", errors_p, _2c02690b_6d3c_4079_88f5_cff123b952c6)
                 {
-                    using none_t = typename errors_p::none_t;
+                    using errors_t = errors_p;
+                    using none_t = typename errors_t::none_t;
 
-                    errors_p errors;
+                    errors_t errors;
 
                     CHECK((errors == none_t::Value()));
                 }
@@ -287,9 +295,9 @@ namespace nkr {
 
                 TEST_CASE_TEMPLATE_DEFINE("should cast to false", errors_p, _c4babb07_37d8_487c_b655_a3406c8445c6)
                 {
-                    using none_t = typename errors_p::none_t;
+                    using errors_t = errors_p;
 
-                    errors_p errors;
+                    errors_t errors;
 
                     CHECK((errors == false));
                 }
@@ -299,6 +307,11 @@ namespace nkr {
             TEST_SUITE("to_constructor()"
                        * doctest::description("should convert other without changing it"))
             {
+                TEST_SUITE("value")
+                {
+
+                }
+
                 TEST_SUITE("lvalue")
                 {
 
@@ -313,103 +326,64 @@ namespace nkr {
             TEST_SUITE("copy_constructor()"
                        * doctest::description("should copy other without changing it"))
             {
-                TEST_SUITE("lvalue")
+                TEST_CASE_TEMPLATE_DEFINE("lvalue", pair_p, _7a836d8f_350f_4ed5_907e_2f6eee77cd61)
                 {
-                    /*TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using integer_t = typename errors_t::integer_t;
 
-                        nkr::cpp::just_non_qualified_t<errors_p> other = nkr::randomness::Value<integer_t>();
-                        errors_p errors = other;
+                    other_t other = nkr::randomness::Value<integer_t>();
+                    errors_t errors = other;
 
-                        CHECK((errors == other));
-                    }
-
-                    TEST_CASE_TEMPLATE("const", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
-
-                        nkr::cpp::just_const_t<errors_p> other = nkr::randomness::Value<integer_t>();
-                        errors_p errors = other;
-
-                        CHECK((errors == other));
-                    }
-
-                    TEST_CASE_TEMPLATE("volatile", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
-
-                        nkr::cpp::just_volatile_t<errors_p> other = nkr::randomness::Value<integer_t>();
-                        errors_p errors = other;
-
-                        CHECK((errors == other));
-                    }
-
-                    TEST_CASE_TEMPLATE("const_volatile", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
-
-                        nkr::cpp::just_const_volatile_t<errors_p> other = nkr::randomness::Value<integer_t>();
-                        errors_p errors = other;
-
-                        CHECK((errors == other));
-                    }*/
+                    CHECK((errors == other));
                 }
+                TEST_CASE_TEMPLATE_APPLY(_7a836d8f_350f_4ed5_907e_2f6eee77cd61, test_ts::get_cpp_with_t<any_tg, of_any_tg, any_tg, of_any_tg>);
             }
 
             TEST_SUITE("move_constructor()"
                        * doctest::description("should move other and disarm it"))
             {
-                TEST_SUITE("value")
+                TEST_CASE_TEMPLATE_DEFINE("value", pair_p, _8ca47671_ce56_4438_8174_7212e97b76d1)
                 {
-                    /*TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using integer_t = typename errors_t::integer_t;
 
-                        integer_t integer = nkr::randomness::Value<integer_t>();
-                        errors_p errors = nkr::cpp::just_non_qualified_t<errors_p>(integer);
+                    integer_t integer = nkr::randomness::Value<integer_t>();
+                    errors_t errors = other_t(integer);
 
-                        CHECK((errors == integer));
-                    }*/
+                    CHECK((errors == integer));
                 }
+                TEST_CASE_TEMPLATE_APPLY(_8ca47671_ce56_4438_8174_7212e97b76d1, test_ts::get_cpp_with_t<any_tg, of_any_tg, just_non_qualified_tg, of_any_non_const_tg>);
 
-                TEST_SUITE("rvalue")
+                TEST_CASE_TEMPLATE_DEFINE("rvalue", pair_p, _6f2104e7_030c_44fe_9224_7003d0a40c20)
                 {
-                    /*TEST_CASE_TEMPLATE("non_qualified", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using integer_t = typename errors_t::integer_t;
 
-                        nkr::cpp::just_non_qualified_t<errors_p> other = nkr::randomness::Value<integer_t>();
-                        nkr::cpp::just_non_qualified_t<errors_p> backup = other;
-                        errors_p errors = nkr::cpp::Move(other);
+                    other_t other = nkr::randomness::Value<integer_t>();
+                    other_t backup = other;
+                    errors_t errors = nkr::cpp::Move(other);
 
-                        CHECK((errors == backup));
-                    }
-
-                    TEST_CASE_TEMPLATE("volatile", errors_p, nkr_ANY)
-                    {
-                        using integer_t = typename errors_p::integer_t;
-
-                        nkr::cpp::just_volatile_t<errors_p> other = nkr::randomness::Value<integer_t>();
-                        nkr::cpp::just_volatile_t<errors_p> backup = other;
-                        errors_p errors = nkr::cpp::Move(other);
-
-                        CHECK((errors == backup));
-                    }*/
+                    CHECK((errors == backup));
                 }
+                TEST_CASE_TEMPLATE_APPLY(_6f2104e7_030c_44fe_9224_7003d0a40c20, test_ts::get_cpp_with_t<any_tg, of_any_tg, any_non_const_tg, of_any_non_const_tg>);
             }
 
             TEST_SUITE("destructor()")
             {
-                /*TEST_CASE_TEMPLATE("should call the destructors of its data members", errors_p, nkr_ANY_OF_ANY(user_defined_t))
+                TEST_CASE_TEMPLATE_DEFINE("should call the destructors of its data members", errors_p, _7b7bcbde_9473_49a9_969d_97b2be2de0b7)
                 {
-                    errors_p errors;
+                    using errors_t = errors_p;
+
+                    errors_t errors;
 
                     CHECK(errors.Value().Is_Live() == true);
-
-                    errors.~errors_p();
+                    errors.~errors_t();
                     CHECK(errors.Value().Is_Live() == false);
-                }*/
+                }
+                TEST_CASE_TEMPLATE_APPLY(_7b7bcbde_9473_49a9_969d_97b2be2de0b7, test_user_defined_ts::get_cpp_t<any_tg, of_any_tg>);
             }
         }
     }
