@@ -337,7 +337,7 @@ namespace nkr {
 
                     CHECK((errors == other));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_7a836d8f_350f_4ed5_907e_2f6eee77cd61, test_ts::get_cpp_with_t<any_tg, of_any_tg, any_tg, of_any_tg>);
+                TEST_CASE_TEMPLATE_APPLY(_7a836d8f_350f_4ed5_907e_2f6eee77cd61, test_ts::get_cpp_pairs_t<any_tg, of_any_tg, any_tg, of_any_tg>);
             }
 
             TEST_SUITE("move_constructor()"
@@ -354,7 +354,7 @@ namespace nkr {
 
                     CHECK((errors == integer));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_8ca47671_ce56_4438_8174_7212e97b76d1, test_ts::get_cpp_with_t<any_tg, of_any_tg, just_non_qualified_tg, of_any_non_const_tg>);
+                TEST_CASE_TEMPLATE_APPLY(_8ca47671_ce56_4438_8174_7212e97b76d1, test_ts::get_cpp_pairs_t<any_tg, of_any_tg, just_non_qualified_tg, of_any_non_const_tg>);
 
                 TEST_CASE_TEMPLATE_DEFINE("rvalue", pair_p, _6f2104e7_030c_44fe_9224_7003d0a40c20)
                 {
@@ -368,7 +368,7 @@ namespace nkr {
 
                     CHECK((errors == backup));
                 }
-                TEST_CASE_TEMPLATE_APPLY(_6f2104e7_030c_44fe_9224_7003d0a40c20, test_ts::get_cpp_with_t<any_tg, of_any_tg, any_non_const_tg, of_any_non_const_tg>);
+                TEST_CASE_TEMPLATE_APPLY(_6f2104e7_030c_44fe_9224_7003d0a40c20, test_ts::get_cpp_pairs_t<any_tg, of_any_tg, any_non_const_tg, of_any_non_const_tg>);
             }
 
             TEST_SUITE("destructor()")

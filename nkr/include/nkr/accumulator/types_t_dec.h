@@ -462,32 +462,32 @@ namespace nkr { namespace accumulator { namespace types_t$ {
             typename accumulate_tmpl<operator_p, types_p>::type_t;
 
     public:
-        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
-        class accumulate_with_tmpl;
+        template <typename operator_a_p, nkr::tuple::types_tr types_p, typename operator_b_p>
+        class accumulate_pairs_tmpl;
 
-        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
+        template <typename operator_a_p, nkr::tuple::types_tr types_p, typename operator_b_p>
             requires (types_p::Count() > 0)
-        class accumulate_with_tmpl<operator_a_p, operator_b_p, types_p>
+        class accumulate_pairs_tmpl<operator_a_p, types_p, operator_b_p>
         {
         public:
-            using type_t = typename accumulate_with_tmpl<
-                operator_a_p, operator_b_p, typename types_p::tail_t
+            using type_t = typename accumulate_pairs_tmpl<
+                operator_a_p, typename types_p::tail_t, operator_b_p
             >::type_t::template apply_front_t<
                 algorithm_t<operator_a_p, typename types_p::head_t>::template each_with_each_t<algorithm_t<operator_b_p, typename types_p::head_t>>
             >;
         };
 
-        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
+        template <typename operator_a_p, nkr::tuple::types_tr types_p, typename operator_b_p>
             requires (types_p::Count() == 0)
-        class accumulate_with_tmpl<operator_a_p, operator_b_p, types_p>
+        class accumulate_pairs_tmpl<operator_a_p, types_p, operator_b_p>
         {
         public:
             using type_t = nkr::tuple::types_t<>;
         };
 
-        template <typename operator_a_p, typename operator_b_p, nkr::tuple::types_tr types_p>
-        using accumulate_with_t =
-            typename accumulate_with_tmpl<operator_a_p, operator_b_p, types_p>::type_t;
+        template <typename operator_a_p, nkr::tuple::types_tr types_p, typename operator_b_p>
+        using accumulate_pairs_t =
+            typename accumulate_pairs_tmpl<operator_a_p, types_p, operator_b_p>::type_t;
     };
 
 }}}
@@ -506,16 +506,16 @@ namespace nkr { namespace accumulator { namespace types_t$ {
             nkr::accumulator::types_t$::common_t::template accumulate_t<operator_p, types_t>;
 
         template <typename operator_a_p, typename operator_b_p>
-        using get_with_t =
-            nkr::accumulator::types_t$::common_t::template accumulate_with_t<operator_a_p, operator_b_p, types_t>;
+        using get_pairs_t =
+            nkr::accumulator::types_t$::common_t::template accumulate_pairs_t<operator_a_p, types_t, operator_b_p>;
 
         template <typename operator_p>
         using get_cpp_t =
             get_t<operator_p>::template into_t<nkr::cpp::tuple::values_t>;
 
         template <typename operator_a_p, typename operator_b_p>
-        using get_cpp_with_t =
-            get_with_t<operator_a_p, operator_b_p>::template into_t<nkr::cpp::tuple::values_t>;
+        using get_cpp_pairs_t =
+            get_pairs_t<operator_a_p, operator_b_p>::template into_t<nkr::cpp::tuple::values_t>;
 
     public:
         template <typename ...>
