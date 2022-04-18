@@ -431,7 +431,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
     template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     inline generic_sp<type_p, none_p>&
-        generic_sp<type_p, none_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
+        generic_sp<type_p, none_p>::operator =(volatile generic_sp&& other)
         noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));
@@ -439,7 +439,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
     template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     inline volatile generic_sp<type_p, none_p>&
-        generic_sp<type_p, none_p>::operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other)
+        generic_sp<type_p, none_p>::operator =(volatile generic_sp&& other)
         volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Assign(*this, nkr::cpp::Move(other));

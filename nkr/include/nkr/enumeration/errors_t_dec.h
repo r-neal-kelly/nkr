@@ -253,8 +253,8 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                   volatile generic_sp&  operator =(const volatile generic_sp& other) volatile noexcept;
         constexpr generic_sp&           operator =(generic_sp&& other) noexcept;
                   volatile generic_sp&  operator =(generic_sp&& other) volatile noexcept;
-                  generic_sp&           operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other) noexcept;
-                  volatile generic_sp&  operator =(tr<just_volatile_tg, t<generic_sp>> auto&& other) volatile noexcept;
+                  generic_sp&           operator =(volatile generic_sp&& other) noexcept;
+                  volatile generic_sp&  operator =(volatile generic_sp&& other) volatile noexcept;
 
         constexpr generic_sp&           operator =(const tr<any_to_tg, any_usable_ts> auto& other) noexcept;
         constexpr generic_sp&           operator =(const tr<not_any_to_tg, any_usable_ts> auto& other) noexcept                 = delete;

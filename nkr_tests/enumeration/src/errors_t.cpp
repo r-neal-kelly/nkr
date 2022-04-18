@@ -465,6 +465,126 @@ namespace nkr {
                                          test_ts::get_cpp_pairs_t<any_tg, of_any_tg, any_non_const_tg, of_any_non_const_tg>);
             }
 
+            TEST_SUITE("to_assigner()"
+                       * doctest::description("should convert 'from' without changing it"))
+            {
+                template <
+                    template <nkr::tuple::types_tr> typename    accumulator_p,
+                    typename                                    instantiation_p,
+                    template <typename ...> typename            instantiator_p,
+                    nkr::tuple::types_tr                        arguments_p
+                > using from_ts = accumulator_p<nkr::tuple::types_t<
+                    typename instantiation_p::integer_t,
+                    typename instantiation_p::value_t>>;
+
+                TEST_CASE_TEMPLATE_DEFINE("value",
+                                          pair_p, _a827c31a_144d_4e39_88b4_8df42077f667)
+                {
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using from_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+
+                    from_t backup = nkr::randomness::Value<from_t>();
+                    errors_t errors;
+                    errors = from_t(backup);
+
+                    CHECK((errors == backup));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_a827c31a_144d_4e39_88b4_8df42077f667,
+                                         test_ts::get_cpp_paired_types_t<any_non_const_tg, of_any_non_const_tg, just_non_qualified_tg, from_ts>);
+
+                TEST_CASE_TEMPLATE_DEFINE("lvalue",
+                                          pair_p, _7522e053_c58b_48f0_a055_fdfb6019f4d8)
+                {
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using from_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+
+                    from_t from = nkr::randomness::Value<from_t>();
+                    from_t backup = from;
+                    errors_t errors;
+                    errors = from;
+
+                    CHECK((errors == from));
+                    CHECK((from == backup));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_7522e053_c58b_48f0_a055_fdfb6019f4d8,
+                                         test_ts::get_cpp_paired_types_t<any_non_const_tg, of_any_non_const_tg, any_tg, from_ts>);
+
+                TEST_CASE_TEMPLATE_DEFINE("rvalue",
+                                          pair_p, _12fc82b3_6b08_4743_988e_8c44bd1817bd)
+                {
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using from_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+
+                    from_t from = nkr::randomness::Value<from_t>();
+                    from_t backup = from;
+                    errors_t errors;
+                    errors = nkr::cpp::Move(from);
+
+                    CHECK((errors == backup));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
+                                         test_ts::get_cpp_paired_types_t<any_non_const_tg, of_any_non_const_tg, any_non_const_tg, from_ts>);
+            }
+
+            TEST_SUITE("copy_assigner()"
+                       * doctest::description("should copy 'other' without changing it"))
+            {
+                TEST_CASE_TEMPLATE_DEFINE("lvalue",
+                                          pair_p, _7a836d8f_350f_4ed5_907e_2f6eee77cd61)
+                {
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using integer_t = typename errors_t::integer_t;
+
+                    integer_t backup = nkr::randomness::Value<integer_t>();
+                    other_t other = backup;
+                    errors_t errors;
+                    errors = other;
+
+                    CHECK((errors == other));
+                    CHECK((other == backup));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_7a836d8f_350f_4ed5_907e_2f6eee77cd61,
+                                         test_ts::get_cpp_pairs_t<any_non_const_tg, of_any_non_const_tg, any_tg, of_any_tg>);
+            }
+
+            TEST_SUITE("move_assigner()"
+                       * doctest::description("should move 'other' and disarm it"))
+            {
+                TEST_CASE_TEMPLATE_DEFINE("value",
+                                          pair_p, _8ca47671_ce56_4438_8174_7212e97b76d1)
+                {
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using integer_t = typename errors_t::integer_t;
+
+                    integer_t backup = nkr::randomness::Value<integer_t>();
+                    errors_t errors;
+                    errors = other_t(backup);
+
+                    CHECK((errors == backup));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_8ca47671_ce56_4438_8174_7212e97b76d1,
+                                         test_ts::get_cpp_pairs_t<any_non_const_tg, of_any_non_const_tg, just_non_qualified_tg, of_any_non_const_tg>);
+
+                TEST_CASE_TEMPLATE_DEFINE("rvalue",
+                                          pair_p, _6f2104e7_030c_44fe_9224_7003d0a40c20)
+                {
+                    using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                    using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                    using integer_t = typename errors_t::integer_t;
+
+                    integer_t backup = nkr::randomness::Value<integer_t>();
+                    other_t other = backup;
+                    errors_t errors;
+                    errors = nkr::cpp::Move(other);
+
+                    CHECK((errors == backup));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_6f2104e7_030c_44fe_9224_7003d0a40c20,
+                                         test_ts::get_cpp_pairs_t<any_non_const_tg, of_any_non_const_tg, any_non_const_tg, of_any_non_const_tg>);
+            }
+
             TEST_SUITE("destructor()")
             {
                 TEST_CASE_TEMPLATE_DEFINE("should call the destructors of its data members",
