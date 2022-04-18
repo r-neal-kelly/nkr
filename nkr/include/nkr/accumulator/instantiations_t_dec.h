@@ -186,9 +186,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         > class accumulate_paired_types_tmpl;
 
@@ -204,9 +202,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         >
             requires (argument_tuples_p::Count() > 0)
@@ -231,9 +227,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 algorithm_accumulator_t,
                 typename argument_tuples_p::head_t::template into_t<template_p>,
                 template_p,
-                typename argument_tuples_p::head_t,
-                typename argument_tuples_p::head_t::head_t,
-                typename argument_tuples_p::head_t::tail_t
+                typename argument_tuples_p::head_t
             >;
             static_assert(nkr::tuple::types_tr<algorithm_accumulation_t>);
 
@@ -257,9 +251,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         >
             requires (argument_tuples_p::Count() == 0)
@@ -281,9 +273,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         > using accumulate_paired_types_t =
             typename accumulate_paired_types_tmpl<operator_a_p, template_p, operator_b_p, argument_tuples_p, operator_c_p, algorithm_p>::type_t;
@@ -303,9 +293,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         > class accumulate_paired_instantiations_tmpl;
 
@@ -323,9 +311,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         >
             requires (argument_tuples_p::Count() > 0)
@@ -353,9 +339,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 algorithm_accumulator_t,
                 typename argument_tuples_p::head_t::template into_t<template_p>,
                 template_p,
-                typename argument_tuples_p::head_t,
-                typename argument_tuples_p::head_t::head_t,
-                typename argument_tuples_p::head_t::tail_t
+                typename argument_tuples_p::head_t
             >;
             static_assert(nkr::tuple::types_tr<algorithm_accumulation_t>);
 
@@ -381,9 +365,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         >
             requires (argument_tuples_p::Count() == 0)
@@ -407,9 +389,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename                          algorithm_p
         > using accumulate_paired_instantiations_t =
             typename accumulate_paired_instantiations_tmpl<operator_a_p, template_p, operator_b_p, argument_tuples_p, operator_c_p, operator_d_p, algorithm_p>::type_t;
@@ -443,9 +423,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename  algorithm_p
         > using get_paired_types_t = nkr::accumulator::instantiations_t$::common_t::template accumulate_paired_types_t<
             operator_a_p, instantiator_p, operator_b_p, argument_tuples_p, operator_c_p, algorithm_p
@@ -463,9 +441,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename  algorithm_p
         > using get_paired_instantiations_t = nkr::accumulator::instantiations_t$::common_t::template accumulate_paired_instantiations_t<
             operator_a_p, instantiator_p, operator_b_p, argument_tuples_p, operator_c_p, operator_d_p, algorithm_p
@@ -490,9 +466,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename  algorithm_p
         > using get_cpp_paired_types_t =
             get_paired_types_t<operator_a_p, operator_b_p, operator_c_p, algorithm_p>::template into_t<nkr::cpp::tuple::values_t>;
@@ -509,9 +483,7 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
                 > typename                          accumulator_p,
                 typename                            instantiation_p,
                 template <typename ...> typename    instantiator_p,
-                nkr::tuple::types_tr                arguments_p,
-                typename                            head_argument_p,
-                nkr::tuple::types_tr                tail_arguments_p
+                nkr::tuple::types_tr                arguments_p
             > typename  algorithm_p
         > using get_cpp_paired_instantiations_t =
             get_paired_instantiations_t<operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p>::template into_t<nkr::cpp::tuple::values_t>;
