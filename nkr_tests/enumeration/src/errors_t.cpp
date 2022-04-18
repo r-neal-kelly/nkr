@@ -278,6 +278,106 @@ namespace nkr {
             >
         >;
 
+        //temp
+        template <
+            template <
+                    template <typename ...> typename    instantiator_p,
+                    nkr::tuple::types_tr                argument_tuples_p
+            > typename                          accumulator_p,
+            typename                            instantiation_p,
+            template <typename ...> typename    instantiator_p,
+            nkr::tuple::types_tr                arguments_p,
+            typename                            head_argument_p,
+            nkr::tuple::types_tr                tail_arguments_p
+        > using with_self =
+            accumulator_p<instantiator_p, nkr::tuple::types_t<arguments_p>>;
+
+        using test_a_t = test_ts::get_pairs_t<any_tg, of_any_tg, any_tg, of_any_tg>;
+        using test_b_t = test_ts::get_paired_instantiations_t<any_tg, of_any_tg, any_tg, of_any_tg, with_self>;
+        template <typename tuple_a_p, typename tuple_b_p, typename index_p = nkr::constant::positive::index_t<0>>
+        inline constexpr nkr::boolean::cpp_t
+            Test()
+            noexcept
+        {
+            static_assert(tuple_a_p::Count() == tuple_b_p::Count());
+
+            if constexpr (tuple_a_p::Count() < index_p::Value()) {
+                static_assert(nkr::cpp::is_tr<
+                              typename tuple_a_p::template at_t<index_p>::head_t,
+                              typename tuple_b_p::template at_t<index_p>::head_t
+                >);
+
+                return Test<typename tuple_a_p::tail_t, typename tuple_b_p::tail_t>();
+            } else {
+                return true;
+            }
+        }
+        static_assert(Test<test_a_t, test_b_t>());
+
+        template <
+            template <
+                    nkr::tuple::types_tr            types_p
+            > typename                          accumulator_p,
+            typename                            instantiation_p,
+            template <typename ...> typename    instantiator_p,
+            nkr::tuple::types_tr                arguments_p,
+            typename                            head_argument_p,
+            nkr::tuple::types_tr                tail_arguments_p
+        > using with_integer =
+            accumulator_p<nkr::tuple::types_t<typename instantiation_p::integer_t>>;
+
+        using test_c_t = test_ts::get_paired_types_t<any_tg, of_any_tg, any_tg, with_integer>;
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<0>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<nkr::positive::integer_32_t>, nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<1>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<nkr::positive::integer_32_t>, const nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<2>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<nkr::positive::integer_32_t>, volatile nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<3>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<nkr::positive::integer_32_t>, const volatile nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<4>>::head_t,
+                      nkr::tuple::types_t<const nkr::enumeration::errors_t<nkr::positive::integer_32_t>, nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<5>>::head_t,
+                      nkr::tuple::types_t<const nkr::enumeration::errors_t<nkr::positive::integer_32_t>, const nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<6>>::head_t,
+                      nkr::tuple::types_t<const nkr::enumeration::errors_t<nkr::positive::integer_32_t>, volatile nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<7>>::head_t,
+                      nkr::tuple::types_t<const nkr::enumeration::errors_t<nkr::positive::integer_32_t>, const volatile nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<16>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<const nkr::positive::integer_32_t>, nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<17>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<const nkr::positive::integer_32_t>, const nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<18>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<const nkr::positive::integer_32_t>, volatile nkr::positive::integer_32_t>
+        >);
+        static_assert(nkr::cpp::is_tr<
+                      typename test_c_t::template at_t<nkr::constant::positive::integer_t<19>>::head_t,
+                      nkr::tuple::types_t<nkr::enumeration::errors_t<const nkr::positive::integer_32_t>, const volatile nkr::positive::integer_32_t>
+        >);
+
+        //temp
+
         TEST_SUITE("objects")
         {
             TEST_SUITE("default_constructor()")
