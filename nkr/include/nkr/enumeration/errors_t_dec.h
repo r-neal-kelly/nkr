@@ -208,8 +208,6 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
         using types_t       = nkr::enumeration::types_t<type_t, none_t>;
 
-        using any_usable_ts = ts<OR_tg, nkr::enumeration::errors_tg, integer_t, value_t>;
-
     public:
         friend  nkr::enumeration::errors_t$::common_t;
 

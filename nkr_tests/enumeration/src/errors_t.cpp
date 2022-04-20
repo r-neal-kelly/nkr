@@ -239,52 +239,6 @@ namespace nkr { namespace interface { namespace enumeration {
 
 }}}
 
-//namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
-//
-//    template <nkr::cpp::is_any_tr<user_defined_t> type_p>
-//    class user_defined_t_interface_randomness_value_sp
-//    {
-//    public:
-//        using type_t    = type_p;
-//        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
-//        using integer_t = typename type_t::integer_t;
-//
-//    public:
-//        template <typename unused_p = nkr::none::type_t>
-//        static value_t
-//            Value(integer_t min = nkr::cpp::Default_Min<integer_t>(), integer_t max = nkr::cpp::Default_Max<integer_t>())
-//            noexcept
-//        {
-//            return nkr::interface::randomness::value_i<integer_t>::template Value<>(min, max);
-//        }
-//
-//        template <typename unused_p = nkr::none::type_t>
-//        static value_t
-//            Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-//                  integer_t min = nkr::cpp::Default_Min<integer_t>(), integer_t max = nkr::cpp::Default_Max<integer_t>())
-//            noexcept
-//        {
-//            return nkr::interface::randomness::value_i<integer_t>::template Value<>(generator, min, max);
-//        }
-//
-//    public:
-//        template <typename ...>
-//        constexpr user_defined_t_interface_randomness_value_sp(...) noexcept    = delete;
-//    };
-//
-//}}}}
-//
-//namespace nkr { namespace interface { namespace randomness {
-//
-//    template <nkr::cpp::is_any_tr<nkr::enumeration::errors_t$::test::user_defined_t> type_p>
-//    class value_i_sp<type_p>
-//    {
-//    public:
-//        using type_t    = nkr::enumeration::errors_t$::test::user_defined_t_interface_randomness_value_sp<type_p>;
-//    };
-//
-//}}}
-
 namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
 
     template <typename type_p>
@@ -431,7 +385,7 @@ namespace nkr {
                                          test_ts::get_cpp_t<any_tg, of_any_tg>);
             }
 
-            /*TEST_SUITE("to_constructor()"
+            TEST_SUITE("enumeration_constructor()"
                        * doctest::description("should convert 'from' without changing it"))
             {
                 template <
@@ -440,8 +394,7 @@ namespace nkr {
                     template <typename ...> typename            instantiator_p,
                     nkr::tuple::types_tr                        arguments_p
                 > using from_ts = accumulator_p<nkr::tuple::types_t<
-                    typename instantiation_p::integer_t,
-                    typename instantiation_p::value_t>>;
+                    typename instantiation_p::enumeration_t>>;
 
                 TEST_CASE_TEMPLATE_DEFINE("value",
                                           pair_p, _a827c31a_144d_4e39_88b4_8df42077f667)
@@ -488,7 +441,7 @@ namespace nkr {
                 }
                 TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
                                          test_ts::get_cpp_paired_types_t<any_tg, of_any_tg, any_non_const_tg, from_ts>);
-            }*/
+            }
 
             TEST_SUITE("copy_constructor()"
                        * doctest::description("should copy 'other' without changing it"))
@@ -557,7 +510,7 @@ namespace nkr {
                                          test_ts::get_cpp_pairs_t<any_tg, of_any_tg, any_non_const_tg, of_any_tg>);
             }
 
-            /*TEST_SUITE("to_assigner()"
+            TEST_SUITE("enumeration_assigner()"
                        * doctest::description("should convert 'from' without changing it"))
             {
                 template <
@@ -566,8 +519,7 @@ namespace nkr {
                     template <typename ...> typename            instantiator_p,
                     nkr::tuple::types_tr                        arguments_p
                 > using from_ts = accumulator_p<nkr::tuple::types_t<
-                    typename instantiation_p::integer_t,
-                    typename instantiation_p::value_t>>;
+                    typename instantiation_p::enumeration_t>>;
 
                 TEST_CASE_TEMPLATE_DEFINE("value",
                                           pair_p, _a827c31a_144d_4e39_88b4_8df42077f667)
@@ -617,7 +569,7 @@ namespace nkr {
                 }
                 TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
                                          test_ts::get_cpp_paired_types_t<any_non_const_tg, of_any_non_const_tg, any_non_const_tg, from_ts>);
-            }*/
+            }
 
             TEST_SUITE("copy_assigner()"
                        * doctest::description("should copy 'other' without changing it"))
