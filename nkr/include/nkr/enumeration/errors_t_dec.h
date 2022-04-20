@@ -9,6 +9,7 @@
 #include "nkr/constant_t_dec.h"
 #include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/enumeration/cpp_t_dec.h"
 #include "nkr/enumeration/types_t_dec.h"
 #include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
 #include "nkr/interface/enumeration/types_i_dec.h"
