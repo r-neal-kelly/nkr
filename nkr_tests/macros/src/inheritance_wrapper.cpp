@@ -125,7 +125,7 @@ namespace nkr {
             return *this;
         }
 
-        constexpr original_t& operator =(tr<just_volatile_tg, t<original_t>> auto&& other) noexcept
+        constexpr original_t& operator =(volatile original_t&& other) noexcept
         {
             if (this != cpp::Address(other)) {
                 this->integer = cpp::Exchange(other.integer, 0);
@@ -135,7 +135,7 @@ namespace nkr {
             return *this;
         }
 
-        constexpr volatile original_t& operator =(tr<just_volatile_tg, t<original_t>> auto&& other) volatile noexcept
+        constexpr volatile original_t& operator =(volatile original_t&& other) volatile noexcept
         {
             if (this != cpp::Address(other)) {
                 this->integer = cpp::Exchange(other.integer, 0);
@@ -357,6 +357,25 @@ namespace nkr {
                         CHECK(derived.real == 0.0);
                     }
 
+                    TEST_CASE_TEMPLATE("should assign-copy base by value", derived_p, derived_1_t, derived_2_t, derived_3_t)
+                    {
+                        using base_t = derived_p::base_t;
+
+                        base_t base = positive::integer_t(1);
+                        derived_p derived = positive::integer_t(0);
+
+                        static_assert(cpp::is_tr<decltype(derived = base_t(base)), derived_p&>);
+
+                        CHECK(base.integer == 1);
+                        CHECK(derived.integer == 0);
+                        derived = base_t(base);
+                        CHECK(base.integer == 1);
+                        CHECK(derived.integer == 1);
+                        derived.operator =(base_t(base));
+                        CHECK(base.integer == 1);
+                        CHECK(derived.integer == 1);
+                    }
+
                     TEST_CASE_TEMPLATE("should assign-copy base", derived_p, derived_1_t, derived_2_t, derived_3_t)
                     {
                         using base_t = derived_p::base_t;
@@ -431,6 +450,25 @@ namespace nkr {
                         derived.operator =(base);
                         CHECK(base.integer == 1);
                         CHECK(derived.integer == 1);
+                    }
+
+                    TEST_CASE_TEMPLATE("should assign-move base by value", derived_p, derived_1_t, derived_2_t, derived_3_t)
+                    {
+                        using base_t = derived_p::base_t;
+
+                        base_t base = positive::integer_t(1);
+                        derived_p derived = positive::integer_t(0);
+
+                        static_assert(cpp::is_tr<decltype(derived = base_t(cpp::Move(base))), derived_p&>);
+
+                        CHECK(base.integer == 1);
+                        CHECK(derived.integer == 0);
+                        derived = base_t(cpp::Move(base));
+                        CHECK(base.integer == 0);
+                        CHECK(derived.integer == 1);
+                        derived.operator =(base_t(cpp::Move(base)));
+                        CHECK(base.integer == 0);
+                        CHECK(derived.integer == 0);
                     }
 
                     TEST_CASE_TEMPLATE("should assign-move base", derived_p, derived_1_t, derived_2_t, derived_3_t)
@@ -556,6 +594,23 @@ namespace nkr {
                         CHECK(derived.real == 0.0);
                     }
 
+                    TEST_CASE_TEMPLATE("should assign-copy derived by value", derived_p, derived_1_t, derived_2_t, derived_3_t)
+                    {
+                        derived_p other = positive::integer_t(1);
+                        derived_p derived = positive::integer_t(0);
+
+                        static_assert(cpp::is_tr<decltype(derived = derived_p(other)), derived_p&>);
+
+                        CHECK(other.integer == 1);
+                        CHECK(derived.integer == 0);
+                        derived = derived_p(other);
+                        CHECK(other.integer == 1);
+                        CHECK(derived.integer == 1);
+                        derived.operator =(derived_p(other));
+                        CHECK(other.integer == 1);
+                        CHECK(derived.integer == 1);
+                    }
+
                     TEST_CASE_TEMPLATE("should assign-copy derived", derived_p, derived_1_t, derived_2_t, derived_3_t)
                     {
                         derived_p other = positive::integer_t(1);
@@ -624,6 +679,23 @@ namespace nkr {
                         CHECK(derived.integer == 1);
                     }
 
+                    TEST_CASE_TEMPLATE("should assign-move derived by value", derived_p, derived_1_t, derived_2_t, derived_3_t)
+                    {
+                        derived_p other = positive::integer_t(1);
+                        derived_p derived = positive::integer_t(0);
+
+                        static_assert(cpp::is_tr<decltype(derived = derived_p(cpp::Move(other))), derived_p&>);
+
+                        CHECK(other.integer == 1);
+                        CHECK(derived.integer == 0);
+                        derived = derived_p(cpp::Move(other));
+                        CHECK(other.integer == 0);
+                        CHECK(derived.integer == 1);
+                        derived.operator =(derived_p(cpp::Move(other)));
+                        CHECK(other.integer == 0);
+                        CHECK(derived.integer == 0);
+                    }
+
                     TEST_CASE_TEMPLATE("should assign-move derived", derived_p, derived_1_t, derived_2_t, derived_3_t)
                     {
                         derived_p other = positive::integer_t(1);
@@ -654,6 +726,23 @@ namespace nkr {
                         CHECK(other.integer == 0);
                         CHECK(derived.integer == 1);
                         derived.operator =(cpp::Move(other));
+                        CHECK(other.integer == 0);
+                        CHECK(derived.integer == 0);
+                    }
+
+                    TEST_CASE_TEMPLATE("should assign-move volatile derived by value", derived_p, derived_1_t, derived_2_t, derived_3_t)
+                    {
+                        volatile derived_p other = positive::integer_t(1);
+                        derived_p derived = positive::integer_t(0);
+
+                        static_assert(cpp::is_tr<decltype(derived = derived_p(cpp::Move(other))), derived_p&>);
+
+                        CHECK(other.integer == 1);
+                        CHECK(derived.integer == 0);
+                        derived = derived_p(cpp::Move(other));
+                        CHECK(other.integer == 0);
+                        CHECK(derived.integer == 1);
+                        derived.operator =(derived_p(cpp::Move(other)));
                         CHECK(other.integer == 0);
                         CHECK(derived.integer == 0);
                     }

@@ -4,7 +4,10 @@
 
 #include "nkr/accumulator/instantiations_t.h"
 #include "nkr/enumeration/errors_t.h"
-#include "nkr/interface/forward.h"
+#include "nkr/interface/forward_dec.h"
+#include "nkr/interface/template_i_identity_tag_t_dec.h"
+#include "nkr/interface/template_i_identity_template_t_dec.h"
+#include "nkr/macros.h"
 #include "nkr/negatable/integer_t.h"
 #include "nkr/pointer/cpp_t.h"
 #include "nkr/positive/integer_t.h"
@@ -183,6 +186,10 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
         }
     };
 
+}}}}
+
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
+
     template <nkr::cpp::is_any_tr<user_defined_t> type_p>
     class user_defined_t_interface_enumeration_types_sp
     {
@@ -218,6 +225,21 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
         constexpr user_defined_t_interface_enumeration_types_sp(...) noexcept   = delete;
     };
 
+}}}}
+
+namespace nkr { namespace interface { namespace enumeration {
+
+    template <nkr::cpp::is_any_tr<nkr::enumeration::errors_t$::test::user_defined_t> type_p>
+    class types_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::test::user_defined_t_interface_enumeration_types_sp<type_p>;
+    };
+
+}}}
+
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
+
     template <nkr::cpp::is_any_tr<user_defined_t> type_p>
     class user_defined_t_interface_randomness_value_sp
     {
@@ -249,41 +271,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
         constexpr user_defined_t_interface_randomness_value_sp(...) noexcept    = delete;
     };
 
-    class convertible_to_user_defined_t
-    {
-    public:
-        user_defined_t  user_defined;
-
-    public:
-        constexpr convertible_to_user_defined_t(user_defined_t user_defined) noexcept :
-            user_defined(user_defined)
-        {
-        }
-
-    public:
-        constexpr operator user_defined_t() const noexcept
-        {
-            return user_defined;
-        }
-
-        operator user_defined_t() const volatile noexcept
-        {
-            return user_defined;
-        }
-    };
-
 }}}}
-
-namespace nkr { namespace interface { namespace enumeration {
-
-    template <nkr::cpp::is_any_tr<nkr::enumeration::errors_t$::test::user_defined_t> type_p>
-    class types_i_sp<type_p>
-    {
-    public:
-        using type_t    = nkr::enumeration::errors_t$::test::user_defined_t_interface_enumeration_types_sp<type_p>;
-    };
-
-}}}
 
 namespace nkr { namespace interface { namespace randomness {
 
@@ -296,6 +284,249 @@ namespace nkr { namespace interface { namespace randomness {
 
 }}}
 
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
+
+    template <typename type_p>
+    class example_e :
+        public nkr::enumeration::errors_t<type_p>
+    {
+    public:
+        using base_t    = nkr::enumeration::errors_t<type_p>;
+
+    public:
+        enum : typename base_t::integer_t
+        {
+            NONE_lb     = base_t::none_t::Value(),
+
+            ERROR_A     = NONE_lb + 1,
+            ERROR_B,
+            ERROR_C,
+
+            END_lb,
+        };
+
+    public:
+        nkr_CONSTEXPR_INHERITANCE_WRAPPER_DEFINE_CTORS(example_e, base_t);
+    };
+
+    template <typename type_p>
+    concept example_tr =
+        nkr::cpp::is_any_tr<type_p, example_e<typename type_p::base_t::type_t>>;
+
+    template <template <typename ...> typename template_p>
+    concept example_ttr =
+        nkr::cpp::is_any_ttr<template_p, example_e, nkr::positive::integer_t>;
+
+    class example_tg
+    {
+    public:
+        class   tag_lb      {};
+        class   type_lb     {};
+        class   identity_lb {};
+    };
+
+    template <typename ...>
+    class example_ttg
+    {
+    public:
+        class   tag_lb      {};
+        class   template_lb {};
+        class   identity_lb {};
+    };
+
+}}}}
+
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test { namespace example_e$ {
+
+    template <nkr::enumeration::errors_t$::test::example_tr type_p>
+    class type_i_type_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = typename type_t::base_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t
+            Is_Any_General()
+            noexcept
+        {
+            return
+                nkr::enumeration::errors_t$::test::example_tr<other_p> ||
+                nkr::cpp::is_any_tr<other_p, nkr::enumeration::errors_t$::test::example_tg>;
+        }
+
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t
+            Is_Any_Specific()
+            noexcept
+        {
+            return nkr::cpp::is_any_tr<other_p, type_t>;
+        }
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::enumeration::errors_t$::test::example_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t
+            Is_Any_General()
+            noexcept
+        {
+            return
+                nkr::enumeration::errors_t$::test::example_tr<other_p> ||
+                nkr::cpp::is_any_tr<other_p, nkr::enumeration::errors_t$::test::example_tg>;
+        }
+
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t
+            Is_Any_Specific()
+            noexcept
+        {
+            return nkr::cpp::is_any_tr<other_p, type_t>;
+        }
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::enumeration::errors_t$::test::example_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::test::example_e$::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::enumeration::errors_t$::test::example_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t = nkr::enumeration::errors_t$::test::example_e$::type_i_tag_sp<type_p>;
+    };
+
+}}
+
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test { namespace example_e$ {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::enumeration::errors_t$::test::example_ttr<template_p>
+    class template_i_template_sp :
+        public nkr::interface::template_i_identity_template_t<
+            nkr::enumeration::errors_t$::test::example_e,
+            nkr::tuple::types_t<nkr::positive::integer_t>,
+            nkr::constant::positive::count_t<1>,
+            nkr::constant::positive::count_t<1>,
+            nkr::enumeration::errors_t$::test::example_tg,
+            nkr::enumeration::errors_t$::test::example_ttg
+        >
+    {
+    public:
+    };
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::enumeration::errors_ttg>
+    class template_i_tag_sp :
+        public nkr::interface::template_i_identity_tag_t<
+            template_i_template_sp<nkr::enumeration::errors_t$::test::example_e>
+        >
+    {
+    public:
+    };
+
+}}}}}
+
+namespace nkr { namespace interface {
+
+    template <template <typename ...> typename template_p>
+        requires nkr::enumeration::errors_t$::test::example_ttr<template_p>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::test::example_e$::template_i_template_sp<template_p>;
+    };
+
+    template <template <typename ...> typename template_p>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::enumeration::errors_t$::test::example_ttg>
+    class template_i_sp<template_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::test::example_e$::template_i_tag_sp<template_p>;
+    };
+
+}}
+
+constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto& a, auto& b)
+    noexcept
+{
+    using a_t = nkr::cpp::reference_value_t<decltype(a)>;
+
+    return operator ==(static_cast<nkr::cpp::same_qualification_as_t<typename a_t::base_t, a_t>&>(a), b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto& a, auto&& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto&& a, auto& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator ==(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto&& a, auto&& b)
+    noexcept
+{
+    return operator ==(a, b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto& a, auto& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto& a, auto&& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto&& a, auto& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
+constexpr nkr::boolean::cpp_t
+    operator !=(nkr::tr<nkr::any_tg, nkr::tt<nkr::enumeration::errors_t$::test::example_e>> auto&& a, auto&& b)
+    noexcept
+{
+    return !operator ==(a, b);
+}
+
 namespace nkr {
 
     TEST_SUITE("nkr::enumeration::errors_t")
@@ -303,7 +534,8 @@ namespace nkr {
         using user_defined_t = nkr::enumeration::errors_t$::test::user_defined_t;
 
         using test_ts = nkr::accumulator::instantiations_t<
-            nkr::enumeration::errors_t,
+            //nkr::enumeration::errors_t,
+            nkr::enumeration::errors_t$::test::example_e,
             nkr::tuple::types_t<
                 nkr::tuple::types_t<nkr::positive::integer_32_t>,
                 nkr::tuple::types_t<nkr::positive::integer_64_t>,
@@ -320,7 +552,6 @@ namespace nkr {
             >
         >;
 
-        // should copying disarm the error? It seems to get disarmed, so double check that this is occuring only where we want it to.
         TEST_SUITE("objects")
         {
             TEST_SUITE("default_constructor()")
@@ -404,6 +635,7 @@ namespace nkr {
                     errors_t errors = nkr::cpp::Move(from);
 
                     CHECK((errors == backup));
+                    CHECK((from == backup));
                 }
                 TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
                                          test_ts::get_cpp_paired_types_t<any_tg, of_any_tg, any_non_const_tg, from_ts>);
@@ -423,6 +655,7 @@ namespace nkr {
                     other_t other = backup;
                     errors_t errors = other;
 
+                    //CHECK(other.Is_Armed() == true); // failing for errors_t with a different qualification of integer
                     CHECK((errors == other));
                     CHECK((other == backup));
                 }
@@ -459,6 +692,7 @@ namespace nkr {
                     other_t other = backup;
                     errors_t errors = nkr::cpp::Move(other);
 
+                    CHECK(other.Is_Armed() == false);
                     CHECK((errors == backup));
                 }
                 TEST_CASE_TEMPLATE_APPLY(_6f2104e7_030c_44fe_9224_7003d0a40c20,
@@ -521,6 +755,7 @@ namespace nkr {
                     errors = nkr::cpp::Move(from);
 
                     CHECK((errors == backup));
+                    CHECK((from == backup));
                 }
                 TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
                                          test_ts::get_cpp_paired_types_t<any_non_const_tg, of_any_non_const_tg, any_non_const_tg, from_ts>);
@@ -541,6 +776,7 @@ namespace nkr {
                     errors_t errors;
                     errors = other;
 
+                    //CHECK(other.Is_Armed() == true); // failing for errors_t with a different qualification of integer
                     CHECK((errors == other));
                     CHECK((other == backup));
                 }
@@ -579,6 +815,7 @@ namespace nkr {
                     errors_t errors;
                     errors = nkr::cpp::Move(other);
 
+                    CHECK(other.Is_Armed() == false);
                     CHECK((errors == backup));
                 }
                 TEST_CASE_TEMPLATE_APPLY(_6f2104e7_030c_44fe_9224_7003d0a40c20,

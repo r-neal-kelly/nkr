@@ -207,7 +207,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
         using types_t       = nkr::enumeration::types_t<type_t, none_t>;
 
-        using any_usable_ts = ts<OR_tg, integer_t, value_t>;
+        using any_usable_ts = ts<OR_tg, nkr::enumeration::errors_tg, integer_t, value_t>;
 
     public:
         friend  nkr::enumeration::errors_t$::common_t;
@@ -242,10 +242,10 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         constexpr generic_sp(generic_sp&& other) noexcept;
                   generic_sp(volatile generic_sp&& other) noexcept;
 
-        constexpr generic_sp(tr<any_to_tg, any_usable_ts> auto& other) noexcept;
-        constexpr generic_sp(tr<not_any_to_tg, any_usable_ts> auto& other) noexcept                                             = delete;
-        constexpr generic_sp(tr<any_non_const_to_tg, any_usable_ts> auto&& other) noexcept;
-        constexpr generic_sp(tr<not_any_non_const_to_tg, any_usable_ts> auto&& other) noexcept                                  = delete;
+        constexpr generic_sp(tr<any_to_tg, any_usable_ts> auto& from) noexcept;
+        constexpr generic_sp(tr<not_any_to_tg, any_usable_ts> auto& from) noexcept                                              = delete;
+        constexpr generic_sp(tr<any_non_const_to_tg, any_usable_ts> auto&& from) noexcept;
+        constexpr generic_sp(tr<not_any_non_const_to_tg, any_usable_ts> auto&& from) noexcept                                   = delete;
 
         constexpr generic_sp&           operator =(const generic_sp& other) noexcept;
                   volatile generic_sp&  operator =(const generic_sp& other) volatile noexcept;
@@ -256,14 +256,14 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                   generic_sp&           operator =(volatile generic_sp&& other) noexcept;
                   volatile generic_sp&  operator =(volatile generic_sp&& other) volatile noexcept;
 
-        constexpr generic_sp&           operator =(const tr<any_to_tg, any_usable_ts> auto& other) noexcept;
-        constexpr generic_sp&           operator =(const tr<not_any_to_tg, any_usable_ts> auto& other) noexcept                 = delete;
-                  volatile generic_sp&  operator =(const tr<any_to_tg, any_usable_ts> auto& other) volatile noexcept;
-                  volatile generic_sp&  operator =(const tr<not_any_to_tg, any_usable_ts> auto& other) volatile noexcept        = delete;
-        constexpr generic_sp&           operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other) noexcept;
-        constexpr generic_sp&           operator =(tr<not_any_non_const_to_tg, any_usable_ts> auto&& other) noexcept            = delete;
-                  volatile generic_sp&  operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& other) volatile noexcept;
-                  volatile generic_sp&  operator =(tr<not_any_non_const_to_tg, any_usable_ts> auto&& other) volatile noexcept   = delete;
+        constexpr generic_sp&           operator =(tr<any_to_tg, any_usable_ts> auto& from) noexcept;
+        constexpr generic_sp&           operator =(tr<not_any_to_tg, any_usable_ts> auto& from) noexcept                        = delete;
+                  volatile generic_sp&  operator =(tr<any_to_tg, any_usable_ts> auto& from) volatile noexcept;
+                  volatile generic_sp&  operator =(tr<not_any_to_tg, any_usable_ts> auto& from) volatile noexcept               = delete;
+        constexpr generic_sp&           operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& from) noexcept;
+        constexpr generic_sp&           operator =(tr<not_any_non_const_to_tg, any_usable_ts> auto&& from) noexcept             = delete;
+                  volatile generic_sp&  operator =(tr<any_non_const_to_tg, any_usable_ts> auto&& from) volatile noexcept;
+                  volatile generic_sp&  operator =(tr<not_any_non_const_to_tg, any_usable_ts> auto&& from) volatile noexcept    = delete;
 
         constexpr ~generic_sp() noexcept;
 
@@ -273,20 +273,26 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
 
         constexpr integer_t                 Integer() const noexcept;
                   integer_t                 Integer() const volatile noexcept;
-        constexpr generic_sp&               Integer(const tr<to_tg, t<integer_t>> auto& to_integer) noexcept;
-                  volatile generic_sp&      Integer(const tr<to_tg, t<integer_t>> auto& to_integer) volatile noexcept;
+        constexpr generic_sp&               Integer(tr<any_to_tg, t<integer_t>> auto& from) noexcept;
+                  volatile generic_sp&      Integer(tr<any_to_tg, t<integer_t>> auto& from) volatile noexcept;
+        constexpr generic_sp&               Integer(tr<any_non_const_to_tg, t<integer_t>> auto&& from) noexcept;
+                  volatile generic_sp&      Integer(tr<any_non_const_to_tg, t<integer_t>> auto&& from) volatile noexcept;
 
         constexpr value_t&                  Value() noexcept;
         constexpr const value_t&            Value() const noexcept;
                   volatile value_t&         Value() volatile noexcept;
                   const volatile value_t&   Value() const volatile noexcept;
-        constexpr generic_sp&               Value(const tr<any_tg, t<value_t>> auto& value) noexcept;
-                  volatile generic_sp&      Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept;
-        constexpr generic_sp&               Value(tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
-                  volatile generic_sp&      Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
+        constexpr generic_sp&               Value(tr<any_to_tg, t<value_t>> auto& from) noexcept;
+                  volatile generic_sp&      Value(tr<any_to_tg, t<value_t>> auto& from) volatile noexcept;
+        constexpr generic_sp&               Value(tr<any_non_const_to_tg, t<value_t>> auto&& from) noexcept;
+                  volatile generic_sp&      Value(tr<any_non_const_to_tg, t<value_t>> auto&& from) volatile noexcept;
 
-        constexpr nkr::none::type_t         Ignore() const noexcept;
-                  nkr::none::type_t         Ignore() const volatile noexcept;
+        constexpr nkr::boolean::cpp_t       Is_Armed() const noexcept;
+                  nkr::boolean::cpp_t       Is_Armed() const volatile noexcept;
+        constexpr nkr::none::type_t         Arm() const noexcept;
+                  nkr::none::type_t         Arm() const volatile noexcept;
+        constexpr nkr::none::type_t         Disarm() const noexcept;
+                  nkr::none::type_t         Disarm() const volatile noexcept;
 
     public:
         explicit constexpr operator nkr::boolean::cpp_t() const noexcept;
