@@ -221,7 +221,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             public:
                 types_t                     types;
             #if defined(nkr_IS_DEBUG)
-                mutable nkr::boolean::cpp_t has_been_checked;
+                mutable nkr::boolean::cpp_t has_been_read;
             #endif
 
             public:

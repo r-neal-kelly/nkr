@@ -71,8 +71,8 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             new (&self.deferred.data.types)
                 decltype(self.deferred.data.types)();
         #if defined(nkr_IS_DEBUG)
-            new (&self.deferred.data.has_been_checked)
-                decltype(self.deferred.data.has_been_checked)(false);
+            new (&self.deferred.data.has_been_read)
+                decltype(self.deferred.data.has_been_read)(false);
         #endif
         }
 
@@ -92,29 +92,30 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(other.deferred.data.types);
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
+                other.deferred.data.has_been_read = true;
             #endif
             } else if constexpr (tr<other_t, any_tg, t<value_t>>) {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(other);
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(integer_t(other));
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<value_t>>) {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(value_t(other));
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<self_t>>) {
                 Construct(self, self_t(other));
@@ -139,30 +140,30 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(nkr::cpp::Move(other.deferred.data.types));
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
-                other.deferred.data.has_been_checked = true;
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
+                other.deferred.data.has_been_read = true;
             #endif
             } else if constexpr (tr<other_t, any_non_const_tg, t<value_t>>) {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(nkr::cpp::Move(other));
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
             #endif
             } else if constexpr (tr<other_t, any_non_const_to_tg, t<integer_t>>) {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(integer_t(other));
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
             #endif
             } else if constexpr (tr<other_t, any_non_const_to_tg, t<value_t>>) {
                 new (&self.deferred.data.types)
                     decltype(self.deferred.data.types)(value_t(other));
             #if defined(nkr_IS_DEBUG)
-                new (&self.deferred.data.has_been_checked)
-                    decltype(self.deferred.data.has_been_checked)(false);
+                new (&self.deferred.data.has_been_read)
+                    decltype(self.deferred.data.has_been_read)(false);
             #endif
             } else if constexpr (tr<other_t, any_non_const_to_tg, t<self_t>>) {
                 Construct(self, self_t(other));
@@ -187,23 +188,24 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
                     self.deferred.data.types = other.deferred.data.types;
                 #if defined(nkr_IS_DEBUG)
-                    self.deferred.data.has_been_checked = false;
+                    self.deferred.data.has_been_read = false;
+                    other.deferred.data.has_been_read = true;
                 #endif
                 }
             } else if constexpr (tr<other_t, any_tg, t<value_t>>) {
                 self.deferred.data.types = other;
             #if defined(nkr_IS_DEBUG)
-                self.deferred.data.has_been_checked = false;
+                self.deferred.data.has_been_read = false;
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
                 self.deferred.data.types = integer_t(other);
             #if defined(nkr_IS_DEBUG)
-                self.deferred.data.has_been_checked = false;
+                self.deferred.data.has_been_read = false;
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<value_t>>) {
                 self.deferred.data.types = value_t(other);
             #if defined(nkr_IS_DEBUG)
-                self.deferred.data.has_been_checked = false;
+                self.deferred.data.has_been_read = false;
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<self_t>>) {
                 Assign(self, self_t(other));
@@ -230,24 +232,24 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 if (nkr::cpp::Address(self) != nkr::cpp::Address(other)) {
                     self.deferred.data.types = nkr::cpp::Move(other.deferred.data.types);
                 #if defined(nkr_IS_DEBUG)
-                    self.deferred.data.has_been_checked = false;
-                    other.deferred.data.has_been_checked = true;
+                    self.deferred.data.has_been_read = false;
+                    other.deferred.data.has_been_read = true;
                 #endif
                 }
             } else if constexpr (tr<other_t, any_tg, t<value_t>>) {
                 self.deferred.data.types = nkr::cpp::Move(other);
             #if defined(nkr_IS_DEBUG)
-                self.deferred.data.has_been_checked = false;
+                self.deferred.data.has_been_read = false;
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<integer_t>>) {
                 self.deferred.data.types = integer_t(other);
             #if defined(nkr_IS_DEBUG)
-                self.deferred.data.has_been_checked = false;
+                self.deferred.data.has_been_read = false;
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<value_t>>) {
                 self.deferred.data.types = value_t(other);
             #if defined(nkr_IS_DEBUG)
-                self.deferred.data.has_been_checked = false;
+                self.deferred.data.has_been_read = false;
             #endif
             } else if constexpr (tr<other_t, any_to_tg, t<self_t>>) {
                 Assign(self, self_t(other));
@@ -268,12 +270,12 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             // It helps you identify where you might not be handling an error correctly.
             // Follow the stack frames before this one to find the exact error in question.
             // These asserts are completely removed from release builds.
-            nkr_ASSERT_THAT(self.deferred.data.has_been_checked == true);
+            nkr_ASSERT_THAT(self.deferred.data.has_been_read == true);
         #endif
 
             self.deferred.data.types.~decltype(self.deferred.data.types)();
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked.~decltype(self.deferred.data.has_been_checked)();
+            self.deferred.data.has_been_read.~decltype(self.deferred.data.has_been_read)();
         #endif
         }
 
@@ -282,7 +284,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             noexcept
         {
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = true;
+            self.deferred.data.has_been_read = true;
         #endif
 
             return static_cast<nkr::boolean::cpp_t>(self.deferred.data.types);
@@ -293,7 +295,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             noexcept
         {
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = true;
+            self.deferred.data.has_been_read = true;
         #endif
 
             return self.deferred.data.types.Integer();
@@ -310,7 +312,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             using integer_t = typename self_t::integer_t;
 
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = false;
+            self.deferred.data.has_been_read = false;
         #endif
 
             self.deferred.data.types.Integer(integer_t(from));
@@ -329,7 +331,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             using integer_t = typename self_t::integer_t;
 
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = false;
+            self.deferred.data.has_been_read = false;
         #endif
 
             self.deferred.data.types.Integer(integer_t(from));
@@ -343,7 +345,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             noexcept
         {
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = true;
+            self.deferred.data.has_been_read = true;
         #endif
 
             return self.deferred.data.types.Value();
@@ -361,7 +363,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             using value_t = typename self_t::value_t;
 
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = false;
+            self.deferred.data.has_been_read = false;
         #endif
 
             if constexpr (tr<from_t, any_tg, t<value_t>>) {
@@ -385,7 +387,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             using value_t = typename self_t::value_t;
 
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = false;
+            self.deferred.data.has_been_read = false;
         #endif
 
             if constexpr (tr<from_t, any_non_const_tg, t<value_t>>) {
@@ -404,7 +406,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             noexcept
         {
         #if defined(nkr_IS_DEBUG)
-            return !self.deferred.data.has_been_checked;
+            return !self.deferred.data.has_been_read;
         #else
             return false;
         #endif
@@ -417,7 +419,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             noexcept
         {
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = false;
+            self.deferred.data.has_been_read = false;
         #endif
         }
 
@@ -428,7 +430,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             noexcept
         {
         #if defined(nkr_IS_DEBUG)
-            self.deferred.data.has_been_checked = true;
+            self.deferred.data.has_been_read = true;
         #endif
         }
     };
@@ -817,7 +819,6 @@ inline constexpr nkr::boolean::cpp_t
     } else if constexpr (nkr::cpp::is_any_tr<b_t, typename a_t::value_t>) {
         return a.Value() == b;
     } else if constexpr (nkr::cpp::to_tr<a_t, nkr::cpp::just_non_qualified_t<b_t>>) {
-        a.Disarm();
         return nkr::cpp::just_non_qualified_t<b_t>(a) == b;
     } else if constexpr (nkr::cpp::to_tr<b_t, nkr::cpp::just_non_qualified_t<a_t>>) {
         return a == nkr::cpp::just_non_qualified_t<a_t>(b);
