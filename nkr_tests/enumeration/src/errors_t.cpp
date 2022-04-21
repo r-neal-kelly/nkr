@@ -328,10 +328,10 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
 
     template <typename type_p>
     class example_e :
-        public nkr::enumeration::errors_t<type_p>
+        public nkr::enumeration::errors_t<type_p, nkr::constant_t<typename nkr::enumeration::errors_t<type_p>::integer_t, 0>>
     {
     public:
-        using base_t    = nkr::enumeration::errors_t<type_p>;
+        using base_t    = nkr::enumeration::errors_t<type_p, nkr::constant_t<typename nkr::enumeration::errors_t<type_p>::integer_t, 0>>;
 
     public:
         enum enumeration_t :
@@ -339,19 +339,19 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
         {
             NONE_tg     = base_t::none_t::Value(),
 
-            ERROR_A     = NONE_tg + 1,
+            ERROR_A,
             ERROR_B,
             ERROR_C,
             ERROR_D,
             ERROR_E,
             ERROR_F,
 
-            MIN_tg      = ERROR_A,
+            MIN_tg      = NONE_tg,
             MAX_tg      = ERROR_F,
 
-            // The above two should be _lb, but we need to update some interfaces that requires _tg.
+            // The above should be _lb, but we need to update some interfaces that requires _tg.
             NONE_lb     = NONE_tg,
-            MIN_lb      = ERROR_A,
+            MIN_lb      = NONE_tg,
             MAX_lb      = ERROR_F,
         };
 
