@@ -258,10 +258,10 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         constexpr const value_t&            Value() const noexcept;
                   volatile value_t&         Value() volatile noexcept;
                   const volatile value_t&   Value() const volatile noexcept;
-        constexpr generic_sp&               Value(tr<any_to_tg, t<value_t>> auto& from) noexcept;
-                  volatile generic_sp&      Value(tr<any_to_tg, t<value_t>> auto& from) volatile noexcept;
-        constexpr generic_sp&               Value(tr<any_non_const_to_tg, t<value_t>> auto&& from) noexcept;
-                  volatile generic_sp&      Value(tr<any_non_const_to_tg, t<value_t>> auto&& from) volatile noexcept;
+        constexpr generic_sp&               Value(const tr<any_tg, t<value_t>> auto& value) noexcept;
+                  volatile generic_sp&      Value(const tr<any_tg, t<value_t>> auto& value) volatile noexcept;
+        constexpr generic_sp&               Value(tr<any_non_const_tg, t<value_t>> auto&& value) noexcept;
+                  volatile generic_sp&      Value(tr<any_non_const_tg, t<value_t>> auto&& value) volatile noexcept;
 
         constexpr nkr::boolean::cpp_t       Is_Armed() const noexcept;
                   nkr::boolean::cpp_t       Is_Armed() const volatile noexcept;

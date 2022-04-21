@@ -462,20 +462,20 @@ namespace nkr {
                     using errors_t = errors_p;
                     using none_t = typename errors_t::none_t;
 
-                    errors_t errors;
+                    errors_t error;
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == none_t::Value()));
+                    CHECK((error == none_t::Value()));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_2c02690b_6d3c_4079_88f5_cff123b952c6,
@@ -486,20 +486,20 @@ namespace nkr {
                 {
                     using errors_t = errors_p;
 
-                    errors_t errors;
+                    errors_t error;
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == false));
+                    CHECK((error == false));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_c4babb07_37d8_487c_b655_a3406c8445c6,
@@ -524,20 +524,20 @@ namespace nkr {
                     using from_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                     from_t backup = nkr::randomness::Value<from_t>();
-                    errors_t errors = from_t(backup);
+                    errors_t error = from_t(backup);
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == backup));
+                    CHECK((error == backup));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_a827c31a_144d_4e39_88b4_8df42077f667,
@@ -551,21 +551,21 @@ namespace nkr {
 
                     from_t from = nkr::randomness::Value<from_t>();
                     from_t backup = from;
-                    errors_t errors = from;
+                    errors_t error = from;
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == from));
+                    CHECK((error == from));
                     CHECK((from == backup));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_7522e053_c58b_48f0_a055_fdfb6019f4d8,
@@ -579,21 +579,21 @@ namespace nkr {
 
                     from_t from = nkr::randomness::Value<from_t>();
                     from_t backup = from;
-                    errors_t errors = nkr::cpp::Move(from);
+                    errors_t error = nkr::cpp::Move(from);
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == backup));
+                    CHECK((error == backup));
                     CHECK((from == backup));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
@@ -614,24 +614,24 @@ namespace nkr {
 
                         enumeration_t backup = nkr::randomness::Value<enumeration_t>();
                         other_t other = backup;
-                        errors_t errors = other;
+                        errors_t error = other;
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == true);
+                        CHECK(error.Is_Armed() == true);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
 
-                        CHECK((errors == other));
+                        CHECK((error == other));
                         CHECK((other == backup));
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
                     }
@@ -653,20 +653,20 @@ namespace nkr {
                         using enumeration_t = typename errors_t::enumeration_t;
 
                         enumeration_t backup = nkr::randomness::Value<enumeration_t>();
-                        errors_t errors = other_t(backup);
+                        errors_t error = other_t(backup);
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == true);
+                        CHECK(error.Is_Armed() == true);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                     #endif
 
-                        CHECK((errors == backup));
+                        CHECK((error == backup));
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                     #endif
                     }
                 }
@@ -684,23 +684,23 @@ namespace nkr {
 
                         enumeration_t backup = nkr::randomness::Value<enumeration_t>();
                         other_t other = backup;
-                        errors_t errors = nkr::cpp::Move(other);
+                        errors_t error = nkr::cpp::Move(other);
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == true);
+                        CHECK(error.Is_Armed() == true);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
 
-                        CHECK((errors == backup));
+                        CHECK((error == backup));
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
                     }
@@ -727,21 +727,21 @@ namespace nkr {
                     using from_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
 
                     from_t backup = nkr::randomness::Value<from_t>();
-                    errors_t errors;
-                    errors = from_t(backup);
+                    errors_t error;
+                    error = from_t(backup);
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == backup));
+                    CHECK((error == backup));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_a827c31a_144d_4e39_88b4_8df42077f667,
@@ -755,22 +755,22 @@ namespace nkr {
 
                     from_t from = nkr::randomness::Value<from_t>();
                     from_t backup = from;
-                    errors_t errors;
-                    errors = from;
+                    errors_t error;
+                    error = from;
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == from));
+                    CHECK((error == from));
                     CHECK((from == backup));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_7522e053_c58b_48f0_a055_fdfb6019f4d8,
@@ -784,22 +784,22 @@ namespace nkr {
 
                     from_t from = nkr::randomness::Value<from_t>();
                     from_t backup = from;
-                    errors_t errors;
-                    errors = nkr::cpp::Move(from);
+                    errors_t error;
+                    error = nkr::cpp::Move(from);
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == true);
+                    CHECK(error.Is_Armed() == true);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
 
-                    CHECK((errors == backup));
+                    CHECK((error == backup));
                     CHECK((from == backup));
 
                 #if defined(nkr_IS_DEBUG)
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #else
-                    CHECK(errors.Is_Armed() == false);
+                    CHECK(error.Is_Armed() == false);
                 #endif
                 }
                 TEST_CASE_TEMPLATE_APPLY(_12fc82b3_6b08_4743_988e_8c44bd1817bd,
@@ -820,25 +820,25 @@ namespace nkr {
 
                         enumeration_t backup = nkr::randomness::Value<enumeration_t>();
                         other_t other = backup;
-                        errors_t errors;
-                        errors = other;
+                        errors_t error;
+                        error = other;
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == true);
+                        CHECK(error.Is_Armed() == true);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
 
-                        CHECK((errors == other));
+                        CHECK((error == other));
                         CHECK((other == backup));
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
                     }
@@ -860,21 +860,21 @@ namespace nkr {
                         using enumeration_t = typename errors_t::enumeration_t;
 
                         enumeration_t backup = nkr::randomness::Value<enumeration_t>();
-                        errors_t errors;
-                        errors = other_t(backup);
+                        errors_t error;
+                        error = other_t(backup);
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == true);
+                        CHECK(error.Is_Armed() == true);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                     #endif
 
-                        CHECK((errors == backup));
+                        CHECK((error == backup));
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                     #endif
                     }
                 }
@@ -892,24 +892,24 @@ namespace nkr {
 
                         enumeration_t backup = nkr::randomness::Value<enumeration_t>();
                         other_t other = backup;
-                        errors_t errors;
-                        errors = nkr::cpp::Move(other);
+                        errors_t error;
+                        error = nkr::cpp::Move(other);
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == true);
+                        CHECK(error.Is_Armed() == true);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
 
-                        CHECK((errors == backup));
+                        CHECK((error == backup));
 
                     #if defined(nkr_IS_DEBUG)
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #else
-                        CHECK(errors.Is_Armed() == false);
+                        CHECK(error.Is_Armed() == false);
                         CHECK(other.Is_Armed() == false);
                     #endif
                     }
@@ -925,11 +925,11 @@ namespace nkr {
                 {
                     using errors_t = errors_p;
 
-                    errors_t errors;
+                    errors_t error;
 
-                    CHECK(errors.Value().Is_Live() == true);
-                    errors.~errors_t();
-                    CHECK(errors.Value().Is_Live() == false);
+                    CHECK(error.Value().Is_Live() == true);
+                    error.~errors_t();
+                    CHECK(error.Value().Is_Live() == false);
                 }
                 TEST_CASE_TEMPLATE_APPLY(_7b7bcbde_9473_49a9_969d_97b2be2de0b7,
                                          test_user_defined_ts::get_cpp_t<any_tg, of_any_tg>);
@@ -948,6 +948,7 @@ namespace nkr {
 
                     for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
                         errors_t error = nkr::randomness::Value<enumeration_t>();
+
                         if (error == enumeration_t::NONE_lb) {
                             CHECK(error.Boolean() == false);
                         } else {
@@ -961,7 +962,88 @@ namespace nkr {
 
             TEST_SUITE("Integer()")
             {
+                template <
+                    template <nkr::tuple::types_tr> typename    accumulator_p,
+                    typename                                    instantiation_p,
+                    template <typename ...> typename            instantiator_p,
+                    nkr::tuple::types_tr                        arguments_p
+                > using from_ts = accumulator_p<nkr::tuple::types_t<
+                    typename instantiation_p::enumeration_t,
+                    typename instantiation_p::integer_t,
+                    typename nkr::positive::byte_t>>;
 
+                TEST_CASE_TEMPLATE_DEFINE("should return an integer equatable to the enumeration_t passed in",
+                                          errors_p, _467cbb35_f233_461b_b744_f9bf8601ff85)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
+
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        enumeration_t enumeration = nkr::randomness::Value<enumeration_t>();
+                        errors_t error = enumeration;
+
+                        CHECK(enumeration_t(error.Integer()) == enumeration);
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_467cbb35_f233_461b_b744_f9bf8601ff85,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+
+                TEST_SUITE("should set anything passed in that can be constructed as an integer_t")
+                {
+                    TEST_CASE_TEMPLATE_DEFINE("value",
+                                              pair_p, _a5662bce_4b36_4bc7_8b60_b361eeb1fa3e)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            other_t backup = nkr::randomness::Value<other_t>();
+                            errors_t error;
+                            error.Integer(other_t(backup));
+
+                            CHECK((error == backup));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_a5662bce_4b36_4bc7_8b60_b361eeb1fa3e,
+                                             test_ts::get_cpp_paired_types_t<any_non_const_tg, of_just_non_qualified_tg, just_non_qualified_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("lvalue",
+                                              pair_p, _b0ef003f_c21b_437d_963e_be962b947da4)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            other_t backup = nkr::randomness::Value<other_t>();
+                            other_t other = backup;
+                            errors_t error;
+                            error.Integer(other);
+
+                            CHECK((error == other));
+                            CHECK((other == backup));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_b0ef003f_c21b_437d_963e_be962b947da4,
+                                             test_ts::get_cpp_paired_types_t<any_non_const_tg, of_just_non_qualified_tg, any_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("rvalue",
+                                              pair_p, _23d3895a_32a1_4b60_850c_40318b60aa27)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            other_t backup = nkr::randomness::Value<other_t>();
+                            other_t other = backup;
+                            errors_t error;
+                            error.Integer(nkr::cpp::Move(other));
+
+                            CHECK((error == backup));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_23d3895a_32a1_4b60_850c_40318b60aa27,
+                                             test_ts::get_cpp_paired_types_t<any_non_const_tg, of_just_non_qualified_tg, any_non_const_tg, from_ts>);
+                }
             }
 
             TEST_SUITE("Value()")
