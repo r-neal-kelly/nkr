@@ -507,7 +507,7 @@ namespace nkr {
             }
 
             TEST_SUITE("enumeration_constructor()"
-                       * doctest::description("should convert 'from' without changing it"))
+                       * doctest::description("should set itself to the passed in enumeration"))
             {
                 template <
                     template <nkr::tuple::types_tr> typename    accumulator_p,
@@ -962,16 +962,6 @@ namespace nkr {
 
             TEST_SUITE("Integer()")
             {
-                template <
-                    template <nkr::tuple::types_tr> typename    accumulator_p,
-                    typename                                    instantiation_p,
-                    template <typename ...> typename            instantiator_p,
-                    nkr::tuple::types_tr                        arguments_p
-                > using from_ts = accumulator_p<nkr::tuple::types_t<
-                    typename instantiation_p::enumeration_t,
-                    typename instantiation_p::integer_t,
-                    typename nkr::positive::byte_t>>;
-
                 TEST_CASE_TEMPLATE_DEFINE("should return an integer equatable to the enumeration_t passed in",
                                           errors_p, _467cbb35_f233_461b_b744_f9bf8601ff85)
                 {
@@ -988,8 +978,18 @@ namespace nkr {
                 TEST_CASE_TEMPLATE_APPLY(_467cbb35_f233_461b_b744_f9bf8601ff85,
                                          test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
 
-                TEST_SUITE("should set anything passed in that can be constructed as an integer_t")
+                TEST_SUITE("should set itself to anything passed in that can be constructed as an integer_t")
                 {
+                    template <
+                        template <nkr::tuple::types_tr> typename    accumulator_p,
+                        typename                                    instantiation_p,
+                        template <typename ...> typename            instantiator_p,
+                        nkr::tuple::types_tr                        arguments_p
+                    > using from_ts = accumulator_p<nkr::tuple::types_t<
+                        typename instantiation_p::enumeration_t,
+                        typename instantiation_p::integer_t,
+                        typename nkr::positive::byte_t>>;
+
                     TEST_CASE_TEMPLATE_DEFINE("value",
                                               pair_p, _a5662bce_4b36_4bc7_8b60_b361eeb1fa3e)
                     {
@@ -1048,7 +1048,91 @@ namespace nkr {
 
             TEST_SUITE("Value()")
             {
+                TEST_CASE_TEMPLATE_DEFINE("should return a reference to the actual value of the enum",
+                                          errors_p, _e43d45a0_f512_4fb7_8917_e4cb73d039fe)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
+                    using integer_t = typename errors_t::integer_t;
+                    using value_t = typename errors_t::value_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        value_t value = nkr::randomness::Value<enumeration_t>();
+                        errors_t error = enumeration_t(integer_t(value));
+
+                        CHECK(error.Value() == value);
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_e43d45a0_f512_4fb7_8917_e4cb73d039fe,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+
+                TEST_SUITE("should set itself to the value_t passed in")
+                {
+                    template <
+                        template <nkr::tuple::types_tr> typename    accumulator_p,
+                        typename                                    instantiation_p,
+                        template <typename ...> typename            instantiator_p,
+                        nkr::tuple::types_tr                        arguments_p
+                    > using from_ts = accumulator_p<nkr::tuple::types_t<
+                        typename instantiation_p::value_t>>;
+
+                    TEST_CASE_TEMPLATE_DEFINE("value",
+                                              pair_p, _a7ad03b2_2d04_47d9_ad75_e53d61b4925b)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using enumeration_t = typename errors_t::enumeration_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            other_t backup = nkr::randomness::Value<enumeration_t>();
+                            errors_t error;
+                            error.Value(other_t(backup));
+
+                            CHECK((error == backup));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_a7ad03b2_2d04_47d9_ad75_e53d61b4925b,
+                                             test_ts::get_cpp_paired_types_t<any_non_const_tg, of_just_non_qualified_tg, just_non_qualified_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("lvalue",
+                                              pair_p, _578358b5_fba3_4231_9d3a_db141f813716)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using enumeration_t = typename errors_t::enumeration_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            other_t backup = nkr::randomness::Value<enumeration_t>();
+                            other_t other = backup;
+                            errors_t error;
+                            error.Value(other);
+
+                            CHECK((error == other));
+                            CHECK((other == backup));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_578358b5_fba3_4231_9d3a_db141f813716,
+                                             test_ts::get_cpp_paired_types_t<any_non_const_tg, of_just_non_qualified_tg, any_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("rvalue",
+                                              pair_p, _967e7fd2_f011_44f9_99c7_4a7a31147add)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using enumeration_t = typename errors_t::enumeration_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            other_t backup = nkr::randomness::Value<enumeration_t>();
+                            other_t other = backup;
+                            errors_t error;
+                            error.Value(nkr::cpp::Move(other));
+
+                            CHECK((error == backup));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_967e7fd2_f011_44f9_99c7_4a7a31147add,
+                                             test_ts::get_cpp_paired_types_t<any_non_const_tg, of_just_non_qualified_tg, any_non_const_tg, from_ts>);
+                }
             }
 
             TEST_SUITE("Is_Armed()")
@@ -1084,12 +1168,80 @@ namespace nkr {
 
             TEST_SUITE("Arm()")
             {
+                TEST_CASE_TEMPLATE_DEFINE("should arm the error even if it's already been read",
+                                          errors_p, _333efb73_2fd7_46d5_9d8f_ca3577a0d974)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        errors_t error = nkr::randomness::Value<enumeration_t>();
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == true);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+
+                        if (error) {
+                        }
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == false);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+
+                        error.Arm();
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == true);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+
+                        if (error) {
+                        }
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == false);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_333efb73_2fd7_46d5_9d8f_ca3577a0d974,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
             }
 
             TEST_SUITE("Disarm()")
             {
+                TEST_CASE_TEMPLATE_DEFINE("should disarm the error even if it's not been read",
+                                          errors_p, _8800f3e7_9989_4c97_ad1f_2bdd4d92b944)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        errors_t error = nkr::randomness::Value<enumeration_t>();
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == true);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+
+                        error.Disarm();
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == false);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_8800f3e7_9989_4c97_ad1f_2bdd4d92b944,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
             }
         }
     }
