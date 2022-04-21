@@ -445,6 +445,13 @@ namespace nkr {
             >
         >;
 
+        inline constexpr nkr::positive::count_t
+            Default_Iteration_Count()
+            noexcept
+        {
+            return 128;
+        }
+
         TEST_SUITE("objects")
         {
             TEST_SUITE("default_constructor()")
@@ -933,7 +940,23 @@ namespace nkr {
         {
             TEST_SUITE("Boolean()")
             {
+                TEST_CASE_TEMPLATE_DEFINE("should return false when there is no error, else true",
+                                          errors_p, _467cbb35_f233_461b_b744_f9bf8601ff85)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        errors_t error = nkr::randomness::Value<enumeration_t>();
+                        if (error == enumeration_t::NONE_lb) {
+                            CHECK(error.Boolean() == false);
+                        } else {
+                            CHECK(error.Boolean() == true);
+                        }
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_467cbb35_f233_461b_b744_f9bf8601ff85,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
             }
 
             TEST_SUITE("Integer()")
@@ -948,7 +971,33 @@ namespace nkr {
 
             TEST_SUITE("Is_Armed()")
             {
+                TEST_CASE_TEMPLATE_DEFINE("should return true only when in debug mode and if the error has not be read",
+                                          errors_p, _dc17e19f_b7d5_42d7_835a_9396f63638fb)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
 
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        errors_t error = nkr::randomness::Value<enumeration_t>();
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == true);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+
+                        if (error) {
+                        }
+
+                    #if defined(nkr_IS_DEBUG)
+                        CHECK(error.Is_Armed() == false);
+                    #else
+                        CHECK(error.Is_Armed() == false);
+                    #endif
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_dc17e19f_b7d5_42d7_835a_9396f63638fb,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
             }
 
             TEST_SUITE("Arm()")
