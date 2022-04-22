@@ -365,6 +365,56 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
 
 }}}}
 
+namespace nkr { namespace enumeration { namespace errors_t$ { namespace test { namespace example_e$ {
+
+    template <nkr::enumeration::errors_t$::test::example_tr type_p>
+    class randomness_value_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+
+    public:
+        template <typename unused_p = nkr::none::type_t>
+        static value_t
+            Value(value_t min = value_t::MIN_lb, value_t max = value_t::MAX_lb)
+            noexcept
+        {
+            return nkr::interface::randomness::value_i<typename value_t::enumeration_t>::template Value<>(
+                typename value_t::enumeration_t(min.Integer()),
+                typename value_t::enumeration_t(max.Integer()));
+        }
+
+        template <typename unused_p = nkr::none::type_t>
+        static value_t
+            Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                  value_t min = value_t::MIN_lb, value_t max = value_t::MAX_lb)
+            noexcept
+        {
+            return nkr::interface::randomness::value_i<typename value_t::enumeration_t>::template Value<>(
+                generator,
+                typename value_t::enumeration_t(min.Integer()),
+                typename value_t::enumeration_t(max.Integer()));
+        }
+
+    public:
+        template <typename ...>
+        constexpr randomness_value_i_sp(...) noexcept   = delete;
+    };
+
+}}}}}
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <nkr::enumeration::errors_t$::test::example_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::test::example_e$::randomness_value_i_sp<type_p>;
+    };
+
+}}}
+
 constexpr nkr::boolean::cpp_t
     operator ==(nkr::enumeration::errors_t$::test::example_tr auto& a, auto& b)
     noexcept
@@ -1242,6 +1292,221 @@ namespace nkr {
                 }
                 TEST_CASE_TEMPLATE_APPLY(_8800f3e7_9989_4c97_ad1f_2bdd4d92b944,
                                          test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+            }
+        }
+
+        TEST_SUITE("casters")
+        {
+            TEST_SUITE("nkr::boolean::cpp_t")
+            {
+
+            }
+
+            TEST_SUITE("integer_t")
+            {
+
+            }
+        }
+
+        TEST_SUITE("operators")
+        {
+            TEST_SUITE("()()")
+            {
+                TEST_CASE_TEMPLATE_DEFINE("should return the none value integer by default",
+                                          errors_p, _7e11ab31_5883_4df1_bac5_934362aedbb1)
+                {
+                    using errors_t = errors_p;
+                    using none_t = typename errors_t::none_t;
+
+                    errors_t error;
+
+                    CHECK((error() == none_t::Value()));
+                }
+                TEST_CASE_TEMPLATE_APPLY(_7e11ab31_5883_4df1_bac5_934362aedbb1,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+
+                TEST_CASE_TEMPLATE_DEFINE("should return an integer equatable to the enumeration_t passed in",
+                                          errors_p, _3a4a435e_6e75_49b3_a792_fbf3de42fa80)
+                {
+                    using errors_t = errors_p;
+                    using enumeration_t = typename errors_t::enumeration_t;
+
+                    for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                        enumeration_t enumeration = nkr::randomness::Value<enumeration_t>();
+                        errors_t error = enumeration;
+
+                        CHECK(enumeration_t(error()) == enumeration);
+                    }
+                }
+                TEST_CASE_TEMPLATE_APPLY(_3a4a435e_6e75_49b3_a792_fbf3de42fa80,
+                                         test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+            }
+
+            TEST_SUITE("unary_logical")
+            {
+                TEST_SUITE("!()")
+                {
+                    TEST_CASE_TEMPLATE_DEFINE("should return true when defaulted",
+                                              errors_p, _843a12d3_85ed_4118_97e3_56f0e09ae930)
+                    {
+                        using errors_t = errors_p;
+
+                        errors_t error;
+
+                        CHECK(!error);
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_843a12d3_85ed_4118_97e3_56f0e09ae930,
+                                             test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("should return the opposite of Boolean()",
+                                              errors_p, _4a7010ce_70da_4cd1_8e62_911268d271c5)
+                    {
+                        using errors_t = errors_p;
+                        using enumeration_t = typename errors_t::enumeration_t;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t error = nkr::randomness::Value<enumeration_t>();
+
+                            CHECK((!error == !error.Boolean()));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_4a7010ce_70da_4cd1_8e62_911268d271c5,
+                                             test_ts::get_cpp_t<any_tg, of_just_non_qualified_tg>);
+                }
+            }
+
+            TEST_SUITE("binary_logical")
+            {
+                TEST_SUITE("||()")
+                {
+                    template <
+                        template <nkr::tuple::types_tr> typename    accumulator_p,
+                        typename                                    instantiation_p,
+                        template <typename ...> typename            instantiator_p,
+                        nkr::tuple::types_tr                        arguments_p
+                    > using from_ts = accumulator_p<nkr::tuple::types_t<
+                        instantiation_p,
+                        typename instantiation_p::enumeration_t,
+                        typename instantiation_p::integer_t>>;
+
+                    TEST_CASE_TEMPLATE_DEFINE("value",
+                                              pair_p, _8cbdca82_4b95_4491_89e7_c7a3b347671a)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using non_qualified_errors_t = nkr::cpp::just_non_qualified_t<errors_t>;
+                        using non_qualified_other_t = nkr::cpp::just_non_qualified_t<other_t>;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t a = nkr::randomness::Value<errors_t>();
+                            other_t b = nkr::randomness::Value<other_t>();
+
+                            CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (a || non_qualified_other_t(b)));
+                            CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (non_qualified_other_t(b) || a));
+                            CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (non_qualified_errors_t(a) || b));
+                            CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (b || non_qualified_errors_t(a)));
+                            CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (non_qualified_errors_t(a) || non_qualified_other_t(b)));
+                            CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (non_qualified_other_t(b) || non_qualified_errors_t(a)));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_8cbdca82_4b95_4491_89e7_c7a3b347671a,
+                                             test_ts::get_cpp_paired_types_t<any_tg, of_just_non_qualified_tg, just_non_qualified_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("lvalue",
+                                              pair_p, _8f6172f9_34e8_47aa_9fc6_404b86450a51)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using non_qualified_errors_t = nkr::cpp::just_non_qualified_t<errors_t>;
+                        using non_qualified_other_t = nkr::cpp::just_non_qualified_t<other_t>;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t a = nkr::randomness::Value<errors_t>();
+                            other_t b = nkr::randomness::Value<other_t>();
+
+                            CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (a || b));
+                            CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (b || a));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_8f6172f9_34e8_47aa_9fc6_404b86450a51,
+                                             test_ts::get_cpp_paired_types_t<any_tg, of_just_non_qualified_tg, any_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("rvalue",
+                                              pair_p, _c4732c55_033e_49e8_b081_78da8fc31171)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using non_qualified_errors_t = nkr::cpp::just_non_qualified_t<errors_t>;
+                        using non_qualified_other_t = nkr::cpp::just_non_qualified_t<other_t>;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t a = nkr::randomness::Value<errors_t>();
+                            other_t b = nkr::randomness::Value<other_t>();
+
+                            CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (a || nkr::cpp::Move(b)));
+                            CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (nkr::cpp::Move(b) || a));
+                            if constexpr (nkr::cpp::any_non_const_tr<errors_t>) {
+                                CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (nkr::cpp::Move(a) || b));
+                                CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (b || nkr::cpp::Move(a)));
+                                CHECK((non_qualified_errors_t(a) || non_qualified_other_t(b)) == (nkr::cpp::Move(a) || nkr::cpp::Move(b)));
+                                CHECK((non_qualified_other_t(b) || non_qualified_errors_t(a)) == (nkr::cpp::Move(b) || nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_c4732c55_033e_49e8_b081_78da8fc31171,
+                                             test_ts::get_cpp_paired_types_t<any_tg, of_just_non_qualified_tg, any_non_const_tg, from_ts>);
+                }
+
+                TEST_SUITE("&&()")
+                {
+
+                }
+            }
+
+            TEST_SUITE("trinary_logical")
+            {
+                TEST_SUITE("?:()")
+                {
+
+                }
+            }
+
+            TEST_SUITE("binary_comparison")
+            {
+                TEST_SUITE("==()")
+                {
+
+                }
+
+                TEST_SUITE("!=()")
+                {
+
+                }
+
+                TEST_SUITE("<()")
+                {
+
+                }
+
+                TEST_SUITE(">()")
+                {
+
+                }
+
+                TEST_SUITE("<=()")
+                {
+
+                }
+
+                TEST_SUITE(">=()")
+                {
+
+                }
+
+                TEST_SUITE("<=>()")
+                {
+
+                }
             }
         }
     }

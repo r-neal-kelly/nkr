@@ -278,8 +278,11 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                   operator          generic_sp<type_p, none_p>::integer_t() const volatile noexcept;
 
     public:
-        constexpr integer_t operator ()() const noexcept;
-                  integer_t operator ()() const volatile noexcept;
+        constexpr integer_t             operator ()() const noexcept;
+                  integer_t             operator ()() const volatile noexcept;
+
+        constexpr nkr::boolean::cpp_t   operator !() const noexcept;
+                  nkr::boolean::cpp_t   operator !() const volatile noexcept;
     };
 
 }}}

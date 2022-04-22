@@ -64,6 +64,21 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
     public:
         template <
             tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
+            tr<any_tg, t<nkr::enumeration::cpp_tg>>                 other_p
+        > static inline constexpr auto&
+            Assign(self_p& self, other_p other)
+            noexcept
+        {
+            using self_t = self_p;
+            using integer_t = typename self_t::integer_t;
+
+            Integer(self, integer_t(other));
+
+            return self;
+        }
+
+        template <
+            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
             tr<any_tg, t<self_p>>                                   other_p
         > static inline constexpr auto&
             Assign(self_p& self, other_p& other)
@@ -73,7 +88,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 self.types = other.types;
             #if defined(nkr_IS_DEBUG)
                 self.has_been_read = false;
-                other.Disarm();
+                Disarm(other);
             #endif
             }
 
@@ -91,27 +106,9 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
                 self.types = nkr::cpp::Move(other.types);
             #if defined(nkr_IS_DEBUG)
                 self.has_been_read = false;
-                other.Disarm();
+                Disarm(other);
             #endif
             }
-
-            return self;
-        }
-
-        template <
-            tr<any_non_const_tg, tt<nkr::enumeration::errors_t>>    self_p,
-            tr<any_tg, t<nkr::enumeration::cpp_tg>>                 other_p
-        > static inline constexpr auto&
-            Assign(self_p& self, other_p other)
-            noexcept
-        {
-            using self_t = self_p;
-            using integer_t = typename self_t::integer_t;
-
-            self.Integer(integer_t(other));
-        #if defined(nkr_IS_DEBUG)
-            self.has_been_read = false;
-        #endif
 
             return self;
         }
@@ -128,10 +125,11 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
             // It helps you identify where you might not be handling an error correctly.
             // Follow the stack frames before this one to find the exact error in question.
             // These asserts are completely removed from release builds.
-            nkr_ASSERT_THAT(!self.Is_Armed());
+            nkr_ASSERT_THAT(!Is_Armed(self));
         }
     #endif
 
+    public:
         template <
             tr<any_tg, tt<nkr::enumeration::errors_t>>  self_p
         > static inline constexpr auto
@@ -279,6 +277,16 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         #if defined(nkr_IS_DEBUG)
             self.has_been_read = true;
         #endif
+        }
+
+    public:
+        template <
+            tr<any_tg, tt<nkr::enumeration::errors_t>>  self_p
+        > static inline constexpr auto
+            Logical_Not(const self_p& self)
+            noexcept
+        {
+            return !Boolean(self);
         }
     };
 
@@ -657,6 +665,22 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Integer(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline constexpr nkr::boolean::cpp_t
+        generic_sp<type_p, none_p>::operator !()
+        const noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Logical_Not(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    inline nkr::boolean::cpp_t
+        generic_sp<type_p, none_p>::operator !()
+        const volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Logical_Not(*this);
     }
 }}}
 
