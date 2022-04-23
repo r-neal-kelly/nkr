@@ -7,8 +7,8 @@
 
 #include "nkr/built_in/forward_dec.h"
 #include "nkr/generic/built_in/number/enumeration/any_tr_dec.h"
-#include "nkr/generic/implementing/tag/data/max_tr_dec.h"
-#include "nkr/generic/implementing/tag/data/min_tr_dec.h"
+#include "nkr/generic/implementing/label/max_tr_dec.h"
+#include "nkr/generic/implementing/label/min_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_tag_t_dec.h"
 
@@ -22,9 +22,9 @@ namespace nkr { namespace generic { namespace built_in { namespace number { name
     template <typename type_p>
     concept limited_tr =
         nkr::generic::built_in::number::enumeration::any_tr<type_p> &&
-        nkr::generic::implementing::tag::data::min_tr<type_p> &&
-        nkr::generic::implementing::tag::data::max_tr<type_p> &&
-        (type_p::MIN_tg <= type_p::MAX_tg);
+        nkr::generic::implementing::label::min_tr<type_p> &&
+        nkr::generic::implementing::label::max_tr<type_p> &&
+        (type_p::MIN_lb <= type_p::MAX_lb);
 
     template <template <typename ...> typename template_p>
     concept limited_ttr =

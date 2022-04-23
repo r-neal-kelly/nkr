@@ -35,8 +35,8 @@ namespace nkr {
             C,
             D,
 
-            MIN_tg = A,
-            MAX_tg = D,
+            MIN_lb = A,
+            MAX_lb = D,
         };
 
         using interface_t = nkr::interface::randomness::value_i<test_e>;
@@ -57,8 +57,8 @@ namespace nkr {
             C,
             D,
 
-            MIN_tg = A,
-            MAX_tg = D,
+            MIN_lb = A,
+            MAX_lb = D,
         };
 
         using interface_t = nkr::interface::randomness::value_i<test_e>;

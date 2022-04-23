@@ -31,23 +31,23 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::cpp_t")
     {
-        namespace c_positive_8_e    { enum enum_e   : nkr::positive::integer_8_t    { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_positive_16_e   { enum enum_e   : nkr::positive::integer_16_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_positive_32_e   { enum enum_e   : nkr::positive::integer_32_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_positive_64_e   { enum enum_e   : nkr::positive::integer_64_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_negatable_8_e   { enum enum_e   : nkr::negatable::integer_8_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_negatable_16_e  { enum enum_e   : nkr::negatable::integer_16_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_negatable_32_e  { enum enum_e   : nkr::negatable::integer_32_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
-        namespace c_negatable_64_e  { enum enum_e   : nkr::negatable::integer_64_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, }; }
+        namespace c_positive_8_e    { enum enum_e   : nkr::positive::integer_8_t    { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_positive_16_e   { enum enum_e   : nkr::positive::integer_16_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_positive_32_e   { enum enum_e   : nkr::positive::integer_32_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_positive_64_e   { enum enum_e   : nkr::positive::integer_64_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_negatable_8_e   { enum enum_e   : nkr::negatable::integer_8_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_negatable_16_e  { enum enum_e   : nkr::negatable::integer_16_t  { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_negatable_32_e  { enum enum_e   : nkr::negatable::integer_32_t  { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
+        namespace c_negatable_64_e  { enum enum_e   : nkr::negatable::integer_64_t  { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, }; }
 
-        enum class cpp_positive_8_e     : nkr::positive::integer_8_t    { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_positive_16_e    : nkr::positive::integer_16_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_positive_32_e    : nkr::positive::integer_32_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_positive_64_e    : nkr::positive::integer_64_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_negatable_8_e    : nkr::negatable::integer_8_t   { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_negatable_16_e   : nkr::negatable::integer_16_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_negatable_32_e   : nkr::negatable::integer_32_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
-        enum class cpp_negatable_64_e   : nkr::negatable::integer_64_t  { NONE_tg, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_tg = NONE_tg, MAX_tg = Z, };
+        enum class cpp_positive_8_e     : nkr::positive::integer_8_t    { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_positive_16_e    : nkr::positive::integer_16_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_positive_32_e    : nkr::positive::integer_32_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_positive_64_e    : nkr::positive::integer_64_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_negatable_8_e    : nkr::negatable::integer_8_t   { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_negatable_16_e   : nkr::negatable::integer_16_t  { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_negatable_32_e   : nkr::negatable::integer_32_t  { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
+        enum class cpp_negatable_64_e   : nkr::negatable::integer_64_t  { NONE_lb, A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, MIN_lb = NONE_lb, MAX_lb = Z, };
 
     #define nkr_INTEGERS(TYPE_QUALIFIER_p)              \
         TYPE_QUALIFIER_p nkr::positive::integer_8_t,    \
@@ -493,20 +493,20 @@ namespace nkr {
                         }
                     }
 
-                    TEST_SUITE("with NONE_tg"
-                               * doctest::description("should return NONE_tg"))
+                    TEST_SUITE("with NONE_lb"
+                               * doctest::description("should return NONE_lb"))
                     {
                         TEST_CASE_TEMPLATE("c_enumeration", integer_p, nkr_INTEGERS(nkr_BLANK))
                         {
                             enum enum_e :
                                 integer_p
                             {
-                                NONE_tg = 0,
+                                NONE_lb = 0,
                             };
 
                             static_assert(nkr::interface::none::value_i<enum_e>::Value() == integer_p(0));
                             static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e(0));
-                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e::NONE_tg);
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e::NONE_lb);
                         }
 
                         TEST_CASE_TEMPLATE("cpp_enumeration", integer_p, nkr_INTEGERS(nkr_BLANK))
@@ -514,11 +514,11 @@ namespace nkr {
                             enum class enum_e :
                                 integer_p
                             {
-                                NONE_tg = 0,
+                                NONE_lb = 0,
                             };
 
                             static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e(0));
-                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e::NONE_tg);
+                            static_assert(nkr::interface::none::value_i<enum_e>::Value() == enum_e::NONE_lb);
                         }
                     }
                 }
@@ -550,20 +550,20 @@ namespace nkr {
                         }
                     }
 
-                    TEST_SUITE("with NONE_tg"
-                               * doctest::description("should return NONE_tg"))
+                    TEST_SUITE("with NONE_lb"
+                               * doctest::description("should return NONE_lb"))
                     {
                         TEST_CASE_TEMPLATE("c_enumeration", integer_p, nkr_INTEGERS(nkr_BLANK))
                         {
                             enum enum_e :
                                 integer_p
                             {
-                                NONE_tg = 0,
+                                NONE_lb = 0,
                             };
 
                             static_assert(nkr::none::value_t<enum_e>() == integer_p(0));
                             static_assert(nkr::none::value_t<enum_e>() == enum_e(0));
-                            static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_tg);
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_lb);
                         }
 
                         TEST_CASE_TEMPLATE("cpp_enumeration", integer_p, nkr_INTEGERS(nkr_BLANK))
@@ -571,11 +571,11 @@ namespace nkr {
                             enum class enum_e :
                                 integer_p
                             {
-                                NONE_tg = 0,
+                                NONE_lb = 0,
                             };
 
                             static_assert(nkr::none::value_t<enum_e>() == enum_e(0));
-                            static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_tg);
+                            static_assert(nkr::none::value_t<enum_e>() == enum_e::NONE_lb);
                         }
                     }
                 }
@@ -587,26 +587,26 @@ namespace nkr {
                 {
                     TEST_SUITE("with default parameters")
                     {
-                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg", enumeration_p, nkr_ANY)
+                        TEST_CASE_TEMPLATE("should return any value from MIN_lb to MAX_lb", enumeration_p, nkr_ANY)
                         {
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
                                 enumeration_p enumeration =
                                     nkr::interface::randomness::value_i<enumeration_p>::template Value<>();
 
-                                CHECK(enumeration >= enumeration_p::MIN_tg);
-                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                                CHECK(enumeration >= enumeration_p::MIN_lb);
+                                CHECK(enumeration <= enumeration_p::MAX_lb);
                             }
                         }
 
-                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg with a given generator", enumeration_p, nkr_ANY)
+                        TEST_CASE_TEMPLATE("should return any value from MIN_lb to MAX_lb with a given generator", enumeration_p, nkr_ANY)
                         {
                             auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
                                 enumeration_p enumeration =
                                     nkr::interface::randomness::value_i<enumeration_p>::template Value<>(generator_lockee.Value());
 
-                                CHECK(enumeration >= enumeration_p::MIN_tg);
-                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                                CHECK(enumeration >= enumeration_p::MIN_lb);
+                                CHECK(enumeration <= enumeration_p::MAX_lb);
                             }
                         }
                     }
@@ -668,26 +668,26 @@ namespace nkr {
                 {
                     TEST_SUITE("with default parameters")
                     {
-                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg", enumeration_p, nkr_ANY)
+                        TEST_CASE_TEMPLATE("should return any value from MIN_lb to MAX_lb", enumeration_p, nkr_ANY)
                         {
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
                                 enumeration_p enumeration =
                                     nkr::randomness::Value<enumeration_p>();
 
-                                CHECK(enumeration >= enumeration_p::MIN_tg);
-                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                                CHECK(enumeration >= enumeration_p::MIN_lb);
+                                CHECK(enumeration <= enumeration_p::MAX_lb);
                             }
                         }
 
-                        TEST_CASE_TEMPLATE("should return any value from MIN_tg to MAX_tg with a given generator", enumeration_p, nkr_ANY)
+                        TEST_CASE_TEMPLATE("should return any value from MIN_lb to MAX_lb with a given generator", enumeration_p, nkr_ANY)
                         {
                             auto generator_lockee = nkr::randomness::generator::software::Default();
                             for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
                                 enumeration_p enumeration =
                                     nkr::randomness::Value<enumeration_p>(generator_lockee.Value());
 
-                                CHECK(enumeration >= enumeration_p::MIN_tg);
-                                CHECK(enumeration <= enumeration_p::MAX_tg);
+                                CHECK(enumeration >= enumeration_p::MIN_lb);
+                                CHECK(enumeration <= enumeration_p::MAX_lb);
                             }
                         }
                     }
@@ -897,8 +897,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::positive::integer_8_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_8_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_8_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_8_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_8_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -913,8 +913,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::positive::integer_16_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_16_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_16_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_16_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_16_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -929,8 +929,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::positive::integer_32_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_32_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_32_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_32_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_32_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -945,8 +945,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::positive::integer_64_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_64_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_64_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_64_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_64_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -964,8 +964,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::negatable::integer_8_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_8_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_8_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_8_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_8_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -980,8 +980,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::negatable::integer_16_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_16_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_16_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_16_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_16_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -996,8 +996,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::negatable::integer_32_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_32_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_32_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_32_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_32_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1012,8 +1012,8 @@ namespace nkr {
                                 enum enum_e :
                                     nkr::negatable::integer_64_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_64_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_64_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_64_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_64_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1160,8 +1160,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_8_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_8_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_8_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_8_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_8_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1176,8 +1176,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_16_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_16_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_16_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_16_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_16_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1192,8 +1192,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_32_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_32_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_32_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_32_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_32_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1208,8 +1208,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_64_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_64_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::positive::integer_64_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_64_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::positive::integer_64_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1227,8 +1227,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_8_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_8_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_8_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_8_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_8_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1243,8 +1243,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_16_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_16_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_16_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_16_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_16_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1259,8 +1259,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_32_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_32_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_32_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_32_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_32_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1275,8 +1275,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_64_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_64_t>(),
-                                    MAX_tg = nkr::cpp::Default_Max<nkr::negatable::integer_64_t>(),
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_64_t>(),
+                                    MAX_lb = nkr::cpp::Default_Max<nkr::negatable::integer_64_t>(),
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1298,8 +1298,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_8_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_8_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_8_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1314,8 +1314,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_16_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_16_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_16_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1330,8 +1330,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_32_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_32_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_32_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1346,8 +1346,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::positive::integer_64_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::positive::integer_64_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::positive::integer_64_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1365,8 +1365,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_8_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_8_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_8_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1381,8 +1381,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_16_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_16_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_16_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1397,8 +1397,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_32_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_32_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_32_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);
@@ -1413,8 +1413,8 @@ namespace nkr {
                                 enum class enum_e :
                                     nkr::negatable::integer_64_t
                                 {
-                                    MIN_tg = nkr::cpp::Default_Min<nkr::negatable::integer_64_t>(),
-                                    MAX_tg = MIN_tg,
+                                    MIN_lb = nkr::cpp::Default_Min<nkr::negatable::integer_64_t>(),
+                                    MAX_lb = MIN_lb,
                                 };
 
                                 static_assert(nkr::generic::built_in::number::enumeration::limited_tr<enum_e>);

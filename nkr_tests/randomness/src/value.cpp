@@ -21,8 +21,8 @@ namespace nkr {
             A, B, C, D, E, F, G, H, I, J, K, L, M,
             N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
 
-            MIN_tg = A,
-            MAX_tg = Z,
+            MIN_lb  = A,
+            MAX_lb  = Z,
         };
 
         enum class built_in_enumeration_class_e
@@ -30,8 +30,8 @@ namespace nkr {
             A, B, C, D, E, F, G, H, I, J, K, L, M,
             N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
 
-            MIN_tg = A,
-            MAX_tg = Z,
+            MIN_lb  = A,
+            MAX_lb  = Z,
         };
 
     #define nkr_BUILT_IN_BOOLEANS   \

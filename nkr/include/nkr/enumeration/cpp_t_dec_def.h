@@ -64,8 +64,8 @@ namespace nkr { namespace enumeration { namespace cpp_t$ {
         none_value_i_sp<type_p>::Value()
         noexcept
     {
-        if constexpr (nkr::generic::implementing::tag::data::none_tr<value_t>) {
-            return value_t::NONE_tg;
+        if constexpr (nkr::generic::implementing::label::none_tr<value_t>) {
+            return value_t::NONE_lb;
         } else {
             return value_t(~0);
         }
@@ -80,7 +80,7 @@ namespace nkr { namespace enumeration { namespace cpp_t$ {
         randomness_distributor_uniform_i_sp<type_p>::Default_Min()
         noexcept
     {
-        return value_t::MIN_tg;
+        return value_t::MIN_lb;
     }
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>
@@ -88,7 +88,7 @@ namespace nkr { namespace enumeration { namespace cpp_t$ {
         randomness_distributor_uniform_i_sp<type_p>::Default_Max()
         noexcept
     {
-        return value_t::MAX_tg;
+        return value_t::MAX_lb;
     }
 
     template <nkr::generic::built_in::number::enumeration::limited_tr type_p>

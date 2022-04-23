@@ -9,7 +9,7 @@
 #include "nkr/interface/forward_dec.h"
 #include "nkr/interface/template_i_generic_tag_t_dec.h"
 
-namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data {
+namespace nkr { namespace generic { namespace implementing { namespace label {
 
     struct  min_tg  { class tag_lb; class generic_lb; };
 
@@ -18,17 +18,17 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
 
     template <typename type_p>
     concept min_tr =
-        (requires { type_p::MIN_tg; });
+        (requires { type_p::MIN_lb; });
 
     template <template <typename ...> typename template_p>
     concept min_ttr =
         min_tr<typename nkr::interface::template_i<template_p>::example_t>;
 
-}}}}}
+}}}}
 
-namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace min_tr$ {
+namespace nkr { namespace generic { namespace implementing { namespace label { namespace min_tr$ {
 
-    template <nkr::cpp::is_any_tr<nkr::generic::implementing::tag::data::min_tg> type_p>
+    template <nkr::cpp::is_any_tr<nkr::generic::implementing::label::min_tg> type_p>
     class type_i_tag_sp
     {
     public:
@@ -46,27 +46,27 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
         constexpr type_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}}}}
+}}}}}
 
 namespace nkr { namespace interface {
 
-    template <nkr::cpp::is_any_tr<nkr::generic::implementing::tag::data::min_tg> type_p>
+    template <nkr::cpp::is_any_tr<nkr::generic::implementing::label::min_tg> type_p>
     class type_i_sp<type_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::tag::data::min_tr$::type_i_tag_sp<type_p>;
+        using type_t    = nkr::generic::implementing::label::min_tr$::type_i_tag_sp<type_p>;
     };
 
 }}
 
-namespace nkr { namespace generic { namespace implementing { namespace tag { namespace data { namespace min_tr$ {
+namespace nkr { namespace generic { namespace implementing { namespace label { namespace min_tr$ {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::tag::data::min_ttg>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::label::min_ttg>
     class template_i_tag_sp :
         public nkr::interface::template_i_generic_tag_t<
-        nkr::generic::implementing::tag::data::min_tg,
-        nkr::generic::implementing::tag::data::min_ttg>
+        nkr::generic::implementing::label::min_tg,
+        nkr::generic::implementing::label::min_ttg>
     {
     public:
         template <template <typename ...> typename other_p>
@@ -77,20 +77,20 @@ namespace nkr { namespace generic { namespace implementing { namespace tag { nam
         constexpr template_i_tag_sp(...) noexcept   = delete;
     };
 
-}}}}}}
+}}}}}
 
 namespace nkr { namespace interface {
 
     template <template <typename ...> typename template_p>
-        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::tag::data::min_ttg>
+        requires nkr::cpp::is_any_ttr<template_p, nkr::generic::implementing::label::min_ttg>
     class template_i_sp<template_p>
     {
     public:
-        using type_t    = nkr::generic::implementing::tag::data::min_tr$::template_i_tag_sp<template_p>;
+        using type_t    = nkr::generic::implementing::label::min_tr$::template_i_tag_sp<template_p>;
     };
 
 }}
 
-#include "nkr/generic/implementing/tag/data/min_tr_dec_def.h"
+#include "nkr/generic/implementing/label/min_tr_dec_def.h"
 
 #endif

@@ -11,7 +11,7 @@
 #include "nkr/generic/built_in/number/enumeration/any_tr_def.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_def.h"
 #include "nkr/generic/built_in/number/enumeration/unlimited_tr_def.h"
-#include "nkr/generic/implementing/tag/data/none_tr_def.h"
+#include "nkr/generic/implementing/label/none_tr_def.h"
 #include "nkr/generic/negatable_tr_def.h"
 #include "nkr/generic/positive_tr_def.h"
 #include "nkr/interface/forward_def.h"
@@ -42,8 +42,8 @@ namespace nkr { namespace enumeration { namespace cpp_t$ {
                                              value_t min, value_t max)
         noexcept
     {
-        nkr_ASSERT_THAT(min >= value_t::MIN_tg);
-        nkr_ASSERT_THAT(max <= value_t::MAX_tg);
+        nkr_ASSERT_THAT(min >= value_t::MIN_lb);
+        nkr_ASSERT_THAT(max <= value_t::MAX_lb);
         nkr_ASSERT_THAT(min <= max);
 
         return nkr::randomness::distributor::uniform_t<value_t>(min, max).Value(generator);

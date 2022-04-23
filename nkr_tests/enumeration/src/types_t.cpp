@@ -214,9 +214,9 @@ namespace nkr {
     public:
         enum : typename base_t::integer_t
         {
-            NONE_tg = base_t::none_t::Value(),
+            NONE_lb = base_t::none_t::Value(),
 
-            A       = NONE_tg + 1, // avoid potential unsigned int overflow warning
+            A       = NONE_lb + 1, // avoid potential unsigned int overflow warning
             B,
             C,
 

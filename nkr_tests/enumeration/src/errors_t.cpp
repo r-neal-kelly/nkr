@@ -337,7 +337,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
         enum enumeration_t :
             typename base_t::integer_t
         {
-            NONE_tg     = base_t::none_t::Value(),
+            NONE_lb     = base_t::none_t::Value(),
 
             ERROR_A,
             ERROR_B,
@@ -346,12 +346,7 @@ namespace nkr { namespace enumeration { namespace errors_t$ { namespace test {
             ERROR_E,
             ERROR_F,
 
-            MIN_tg      = NONE_tg,
-            MAX_tg      = ERROR_F,
-
-            // The above should be _lb, but we need to update some interfaces that requires _tg.
-            NONE_lb     = NONE_tg,
-            MIN_lb      = NONE_tg,
+            MIN_lb      = NONE_lb,
             MAX_lb      = ERROR_F,
         };
 

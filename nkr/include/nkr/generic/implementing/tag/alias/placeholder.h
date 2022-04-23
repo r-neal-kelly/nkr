@@ -1,5 +1,0 @@
-#ifndef nkr_INCLUDE_GUARD_36cf0135_3c26_4486_a01c_10812a26fb46
-#define nkr_INCLUDE_GUARD_36cf0135_3c26_4486_a01c_10812a26fb46
-
-
-#endif

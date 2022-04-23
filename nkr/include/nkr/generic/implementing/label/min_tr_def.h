@@ -9,7 +9,7 @@
 #include "nkr/interface/forward_def.h"
 #include "nkr/interface/template_i_generic_tag_t_def.h"
 
-#include "nkr/generic/implementing/tag/data/min_tr_dec.h"
+#include "nkr/generic/implementing/label/min_tr_dec.h"
 
 namespace nkr {
 

@@ -25,8 +25,8 @@ namespace nkr {
         B,
         C,
 
-        MIN_tg  = A,
-        MAX_tg  = C,
+        MIN_lb  = A,
+        MAX_lb  = C,
     };
 
     /*namespace interface { namespace randomness { namespace distributor {
@@ -46,14 +46,14 @@ namespace nkr {
                     Default_Min()
                     noexcept
                 {
-                    return type_t::MIN_tg;
+                    return type_t::MIN_lb;
                 }
 
                 static constexpr type_t
                     Default_Max()
                     noexcept
                 {
-                    return type_t::MAX_tg;
+                    return type_t::MAX_lb;
                 }
 
                 static constexpr number_t

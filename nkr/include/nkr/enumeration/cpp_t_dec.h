@@ -11,7 +11,7 @@
 #include "nkr/generic/built_in/number/enumeration/any_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/limited_tr_dec.h"
 #include "nkr/generic/built_in/number/enumeration/unlimited_tr_dec.h"
-#include "nkr/generic/implementing/tag/data/none_tr_dec.h"
+#include "nkr/generic/implementing/label/none_tr_dec.h"
 #include "nkr/generic/negatable_tr_dec.h"
 #include "nkr/generic/positive_tr_dec.h"
 #include "nkr/interface/forward_dec.h"
@@ -131,7 +131,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_8_t) && nkr::positive::integer_8_t(enumeration_p::MIN_tg) < nkr::positive::integer_8_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_8_t) && nkr::positive::integer_8_t(enumeration_p::MIN_lb) < nkr::positive::integer_8_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -139,7 +139,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_16_t) && nkr::positive::integer_16_t(enumeration_p::MIN_tg) < nkr::positive::integer_16_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_16_t) && nkr::positive::integer_16_t(enumeration_p::MIN_lb) < nkr::positive::integer_16_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -147,7 +147,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_32_t) && nkr::positive::integer_32_t(enumeration_p::MIN_tg) < nkr::positive::integer_32_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_32_t) && nkr::positive::integer_32_t(enumeration_p::MIN_lb) < nkr::positive::integer_32_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -155,7 +155,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_64_t) && nkr::positive::integer_64_t(enumeration_p::MIN_tg) < nkr::positive::integer_64_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::positive::integer_64_t) && nkr::positive::integer_64_t(enumeration_p::MIN_lb) < nkr::positive::integer_64_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -163,7 +163,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_8_t) && nkr::positive::integer_8_t(enumeration_p::MIN_tg) >= nkr::positive::integer_8_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_8_t) && nkr::positive::integer_8_t(enumeration_p::MIN_lb) >= nkr::positive::integer_8_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -171,7 +171,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_16_t) && nkr::positive::integer_16_t(enumeration_p::MIN_tg) >= nkr::positive::integer_16_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_16_t) && nkr::positive::integer_16_t(enumeration_p::MIN_lb) >= nkr::positive::integer_16_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -179,7 +179,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_32_t) && nkr::positive::integer_32_t(enumeration_p::MIN_tg) >= nkr::positive::integer_32_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_32_t) && nkr::positive::integer_32_t(enumeration_p::MIN_lb) >= nkr::positive::integer_32_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -187,7 +187,7 @@ namespace nkr { namespace enumeration {
     };
 
     template <nkr::cpp::cpp_enumeration_tr enumeration_p>
-        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_64_t) && nkr::positive::integer_64_t(enumeration_p::MIN_tg) >= nkr::positive::integer_64_t(enumeration_p::MAX_tg))
+        requires (nkr::generic::built_in::number::enumeration::limited_tr<enumeration_p> && sizeof(enumeration_p) == sizeof(nkr::negatable::integer_64_t) && nkr::positive::integer_64_t(enumeration_p::MIN_lb) >= nkr::positive::integer_64_t(enumeration_p::MAX_lb))
     class cpp_value_tmpl<enumeration_p>
     {
     public:
@@ -333,10 +333,10 @@ namespace nkr { namespace enumeration { namespace cpp_t$ {
 
     public:
         template <typename unused_p = nkr::none::type_t>
-        static value_t  Value(value_t min = value_t::MIN_tg, value_t max = value_t::MAX_tg) noexcept;
+        static value_t  Value(value_t min = value_t::MIN_lb, value_t max = value_t::MAX_lb) noexcept;
         template <typename unused_p = nkr::none::type_t>
         static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
-                              value_t min = value_t::MIN_tg, value_t max = value_t::MAX_tg) noexcept;
+                              value_t min = value_t::MIN_lb, value_t max = value_t::MAX_lb) noexcept;
 
     public:
         template <typename ...>
