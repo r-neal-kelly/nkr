@@ -9,6 +9,7 @@
 #include "nkr/constant_t_dec.h"
 #include "nkr/constant/positive/count_t_dec.h"
 #include "nkr/cpp_dec.h"
+#include "nkr/cpp/generic/randomness/generator_tr_dec.h"
 #include "nkr/enumeration/cpp_t_dec.h"
 #include "nkr/enumeration/types_t_dec.h"
 #include "nkr/generic/implementing/interface/enumeration/types_tr_dec.h"
@@ -195,6 +196,40 @@ namespace nkr { namespace interface {
 
 namespace nkr { namespace enumeration { namespace errors_t$ {
 
+    template <nkr::enumeration::errors_tr type_p>
+    class randomness_value_i_sp
+    {
+    public:
+        using type_t    = type_p;
+        using value_t   = nkr::cpp::just_non_qualified_t<type_t>;
+
+    public:
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(value_t min = value_t::MIN_lb, value_t max = value_t::MAX_lb) noexcept;
+        template <typename unused_p = nkr::none::type_t>
+        static value_t  Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                              value_t min = value_t::MIN_lb, value_t max = value_t::MAX_lb) noexcept;
+
+    public:
+        template <typename ...>
+        constexpr randomness_value_i_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface { namespace randomness {
+
+    template <nkr::enumeration::errors_tr type_p>
+    class value_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::enumeration::errors_t$::randomness_value_i_sp<type_p>;
+    };
+
+}}}
+
+namespace nkr { namespace enumeration { namespace errors_t$ {
+
     template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
     class generic_sp
     {
@@ -207,6 +242,16 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         using value_t       = typename interface_t::value_t;
 
         using types_t       = nkr::enumeration::types_t<type_t, none_t>;
+
+    public:
+        enum enumeration_t :
+            integer_t
+        {
+            NONE_lb = none_t::Value(),
+
+            MIN_lb  = nkr::cpp::Default_Min<integer_t>(),
+            MAX_lb  = nkr::cpp::Default_Max<integer_t>(),
+        };
 
     public:
         friend  nkr::enumeration::errors_t$::common_t;

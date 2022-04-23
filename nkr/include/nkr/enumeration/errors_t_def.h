@@ -9,6 +9,7 @@
 #include "nkr/constant_t_def.h"
 #include "nkr/constant/positive/count_t_def.h"
 #include "nkr/cpp_def.h"
+#include "nkr/cpp/generic/randomness/generator_tr_def.h"
 #include "nkr/enumeration/cpp_t_def.h"
 #include "nkr/enumeration/types_t_def.h"
 #include "nkr/generic/implementing/interface/enumeration/types_tr_def.h"
@@ -24,10 +25,32 @@
 
 #include "nkr/enumeration/errors_t_dec.h"
 
-namespace nkr {
+namespace nkr { namespace enumeration { namespace errors_t$ {
 
+    template <nkr::enumeration::errors_tr type_p>
+    template <typename unused_p>
+    inline randomness_value_i_sp<type_p>::value_t
+        randomness_value_i_sp<type_p>::Value(value_t min, value_t max)
+        noexcept
+    {
+        return nkr::interface::randomness::value_i<typename value_t::enumeration_t>::template Value<>(
+            typename value_t::enumeration_t(min.Integer()),
+            typename value_t::enumeration_t(max.Integer()));
+    }
 
+    template <nkr::enumeration::errors_tr type_p>
+    template <typename unused_p>
+    inline randomness_value_i_sp<type_p>::value_t
+        randomness_value_i_sp<type_p>::Value(tr<any_non_const_tg, t<nkr::cpp::generic::randomness::generator_tg>> auto& generator,
+                                             value_t min, value_t max)
+        noexcept
+    {
+        return nkr::interface::randomness::value_i<typename value_t::enumeration_t>::template Value<>(
+            generator,
+            typename value_t::enumeration_t(min.Integer()),
+            typename value_t::enumeration_t(max.Integer()));
+    }
 
-}
+}}}
 
 #endif

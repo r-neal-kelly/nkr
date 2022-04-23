@@ -472,6 +472,17 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::errors_t")
     {
+        /*using test_ts = nkr::accumulator::instantiations_t<
+            nkr::enumeration::errors_t,
+            nkr::tuple::types_t<
+                nkr::tuple::types_t<nkr::positive::integer_32_t>,
+                nkr::tuple::types_t<nkr::positive::integer_64_t>,
+                nkr::tuple::types_t<nkr::negatable::integer_32_t>,
+                nkr::tuple::types_t<nkr::negatable::integer_64_t>,
+                nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+            >
+        >;*/
+
         using test_ts = nkr::accumulator::instantiations_t<
             nkr::enumeration::errors_t$::test::example_e,
             nkr::tuple::types_t<
@@ -1454,7 +1465,82 @@ namespace nkr {
 
                 TEST_SUITE("&&()")
                 {
+                    template <
+                        template <nkr::tuple::types_tr> typename    accumulator_p,
+                        typename                                    instantiation_p,
+                        template <typename ...> typename            instantiator_p,
+                        nkr::tuple::types_tr                        arguments_p
+                    > using from_ts = accumulator_p<nkr::tuple::types_t<
+                        instantiation_p,
+                        typename instantiation_p::enumeration_t,
+                        typename instantiation_p::integer_t>>;
 
+                    TEST_CASE_TEMPLATE_DEFINE("value",
+                                              pair_p, _75d805a0_4afb_45b0_974c_13258325b634)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using non_qualified_errors_t = nkr::cpp::just_non_qualified_t<errors_t>;
+                        using non_qualified_other_t = nkr::cpp::just_non_qualified_t<other_t>;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t a = nkr::randomness::Value<errors_t>();
+                            other_t b = nkr::randomness::Value<other_t>();
+
+                            CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (a && non_qualified_other_t(b)));
+                            CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (non_qualified_other_t(b) && a));
+                            CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (non_qualified_errors_t(a) && b));
+                            CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (b && non_qualified_errors_t(a)));
+                            CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (non_qualified_errors_t(a) && non_qualified_other_t(b)));
+                            CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (non_qualified_other_t(b) && non_qualified_errors_t(a)));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_75d805a0_4afb_45b0_974c_13258325b634,
+                                             test_ts::get_cpp_paired_types_t<any_tg, of_just_non_qualified_tg, just_non_qualified_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("lvalue",
+                                              pair_p, _c9f54109_19d3_4f14_a2c2_bb4c840da743)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using non_qualified_errors_t = nkr::cpp::just_non_qualified_t<errors_t>;
+                        using non_qualified_other_t = nkr::cpp::just_non_qualified_t<other_t>;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t a = nkr::randomness::Value<errors_t>();
+                            other_t b = nkr::randomness::Value<other_t>();
+
+                            CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (a && b));
+                            CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (b && a));
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_c9f54109_19d3_4f14_a2c2_bb4c840da743,
+                                             test_ts::get_cpp_paired_types_t<any_tg, of_just_non_qualified_tg, any_tg, from_ts>);
+
+                    TEST_CASE_TEMPLATE_DEFINE("rvalue",
+                                              pair_p, _79a5f56d_d8fc_4794_a1cd_7ec38d3070ed)
+                    {
+                        using errors_t = typename pair_p::template at_t<nkr::constant::positive::index_t<0>>::head_t;
+                        using other_t = typename pair_p::template at_t<nkr::constant::positive::index_t<1>>::head_t;
+                        using non_qualified_errors_t = nkr::cpp::just_non_qualified_t<errors_t>;
+                        using non_qualified_other_t = nkr::cpp::just_non_qualified_t<other_t>;
+
+                        for (nkr::positive::index_t idx = 0, end = Default_Iteration_Count(); idx < end; idx += 1) {
+                            errors_t a = nkr::randomness::Value<errors_t>();
+                            other_t b = nkr::randomness::Value<other_t>();
+
+                            CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (a && nkr::cpp::Move(b)));
+                            CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (nkr::cpp::Move(b) && a));
+                            if constexpr (nkr::cpp::any_non_const_tr<errors_t>) {
+                                CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (nkr::cpp::Move(a) && b));
+                                CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (b && nkr::cpp::Move(a)));
+                                CHECK((non_qualified_errors_t(a) && non_qualified_other_t(b)) == (nkr::cpp::Move(a) && nkr::cpp::Move(b)));
+                                CHECK((non_qualified_other_t(b) && non_qualified_errors_t(a)) == (nkr::cpp::Move(b) && nkr::cpp::Move(a)));
+                            }
+                        }
+                    }
+                    TEST_CASE_TEMPLATE_APPLY(_79a5f56d_d8fc_4794_a1cd_7ec38d3070ed,
+                                             test_ts::get_cpp_paired_types_t<any_tg, of_just_non_qualified_tg, any_non_const_tg, from_ts>);
                 }
             }
 
