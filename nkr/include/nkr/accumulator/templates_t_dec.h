@@ -22,23 +22,23 @@ namespace nkr { namespace accumulator { namespace templates_t$ {
 
     class common_t;
 
-    template <nkr::accumulator::instantiations_tr ...accumulators_p>
+    template <nkr::tuple::types_tr instantiations_accumulators_p>
     class generic_sp;
 
 }}}
 
 namespace nkr { namespace accumulator { namespace templates_t$ {
 
-    template <nkr::accumulator::instantiations_tr ...accumulators_p>
+    template <nkr::tuple::types_tr instantiations_accumulators_p>
     class specialization_tmpl
     {
     public:
-        using type_t    = generic_sp<accumulators_p...>;
+        using type_t    = generic_sp<instantiations_accumulators_p>;
     };
 
-    template <nkr::accumulator::instantiations_tr ...accumulators_p>
+    template <nkr::tuple::types_tr instantiations_accumulators_p>
     using specialization_t =
-        typename specialization_tmpl<accumulators_p...>::type_t;
+        typename specialization_tmpl<instantiations_accumulators_p>::type_t;
 
 }}}
 
@@ -53,8 +53,8 @@ namespace nkr { namespace accumulator { namespace templates_t$ {
     public:
     };
 
-    template <nkr::accumulator::instantiations_tr ...accumulators_p>
-    class is_tmpl<generic_sp<accumulators_p...>> :
+    template <nkr::tuple::types_tr instantiations_accumulators_p>
+    class is_tmpl<generic_sp<instantiations_accumulators_p>> :
         public nkr::constant::boolean::cpp_t<true>
     {
     public:
@@ -64,13 +64,79 @@ namespace nkr { namespace accumulator { namespace templates_t$ {
 
 namespace nkr { namespace accumulator {
 
-    template <nkr::accumulator::instantiations_tr ...accumulators_p>
+    template <nkr::tuple::types_tr instantiations_accumulators_p>
     using templates_t =
-        nkr::accumulator::templates_t$::specialization_t<accumulators_p...>;
+        nkr::accumulator::templates_t$::specialization_t<instantiations_accumulators_p>;
 
     template <typename type_p>
     concept templates_tr =
         nkr::accumulator::templates_t$::is_tmpl<type_p>::Value();
+
+    class templates_tg
+    {
+    public:
+        class   tag_lb      {};
+        class   type_lb     {};
+        class   identity_lb {};
+    };
+
+}}
+
+namespace nkr { namespace accumulator { namespace templates_t$ {
+
+    template <nkr::accumulator::templates_tr type_p>
+    class type_i_type_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::accumulator::templates_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::accumulator::templates_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::accumulator::templates_t$::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::accumulator::templates_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::accumulator::templates_t$::type_i_tag_sp<type_p>;
+    };
 
 }}
 
@@ -79,24 +145,278 @@ namespace nkr { namespace accumulator { namespace templates_t$ {
     class common_t
     {
     public:
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p
+        > class accumulate_tmpl;
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p
+        >
+            requires (instantiations_accumulators_p::Count() == 0)
+        class accumulate_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<>;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p
+        >
+            requires (instantiations_accumulators_p::Count() > 0)
+        class accumulate_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p>
+        {
+        public:
+            using type_t = typename accumulate_tmpl<
+                typename instantiations_accumulators_p::tail_t, operator_a_p, operator_b_p
+            >::type_t::template apply_front_t<
+                typename instantiations_accumulators_p::head_t::template get_t<operator_a_p, operator_b_p>
+            >;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p
+        > using accumulate_t =
+            typename accumulate_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p>::type_t;
+
+    public:
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p
+        > class accumulate_pairs_tmpl;
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p
+        >
+            requires (instantiations_accumulators_p::Count() == 0)
+        class accumulate_pairs_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<>;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p
+        >
+            requires (instantiations_accumulators_p::Count() > 0)
+        class accumulate_pairs_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p>
+        {
+        public:
+            using type_t = typename accumulate_pairs_tmpl<
+                typename instantiations_accumulators_p::tail_t, operator_a_p, operator_b_p, operator_c_p, operator_d_p
+            >::type_t::template apply_front_t<
+                typename instantiations_accumulators_p::head_t::template get_pairs_t<operator_a_p, operator_b_p, operator_c_p, operator_d_p>
+            >;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p
+        > using accumulate_pairs_t =
+            typename accumulate_pairs_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p>::type_t;
+
+    public:
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            template <
+                template <
+                    nkr::tuple::types_tr                types_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        > class accumulate_paired_types_tmpl;
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            template <
+                template <
+                    nkr::tuple::types_tr                types_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        >
+            requires (instantiations_accumulators_p::Count() == 0)
+        class accumulate_paired_types_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, algorithm_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<>;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            template <
+                template <
+                    nkr::tuple::types_tr                types_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        >
+            requires (instantiations_accumulators_p::Count() > 0)
+        class accumulate_paired_types_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, algorithm_p>
+        {
+        public:
+            using type_t = typename accumulate_paired_types_tmpl<
+                typename instantiations_accumulators_p::tail_t, operator_a_p, operator_b_p, operator_c_p, algorithm_p
+            >::type_t::template apply_front_t<
+                typename instantiations_accumulators_p::head_t::template get_paired_types_t<operator_a_p, operator_b_p, operator_c_p, algorithm_p>
+            >;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            template <
+                template <
+                    nkr::tuple::types_tr                types_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        > using accumulate_paired_types_t =
+            typename accumulate_paired_types_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, algorithm_p>::type_t;
+
+    public:
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p,
+            template <
+                template <
+                    template <typename ...> typename    instantiator_p,
+                    nkr::tuple::types_tr                argument_tuples_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        > class accumulate_paired_instantiations_tmpl;
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p,
+            template <
+                template <
+                    template <typename ...> typename    instantiator_p,
+                    nkr::tuple::types_tr                argument_tuples_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        >
+            requires (instantiations_accumulators_p::Count() == 0)
+        class accumulate_paired_instantiations_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p>
+        {
+        public:
+            using type_t = nkr::tuple::types_t<>;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p,
+            template <
+                template <
+                    template <typename ...> typename    instantiator_p,
+                    nkr::tuple::types_tr                argument_tuples_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        >
+            requires (instantiations_accumulators_p::Count() > 0)
+        class accumulate_paired_instantiations_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p>
+        {
+        public:
+            using type_t = typename accumulate_paired_instantiations_tmpl<
+                typename instantiations_accumulators_p::tail_t, operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p
+            >::type_t::template apply_front_t<
+                typename instantiations_accumulators_p::head_t::template get_paired_instantiations_t<operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p>
+            >;
+        };
+
+        template <
+            nkr::tuple::types_tr    instantiations_accumulators_p,
+            typename                operator_a_p,
+            typename                operator_b_p,
+            typename                operator_c_p,
+            typename                operator_d_p,
+            template <
+                template <
+                    template <typename ...> typename    instantiator_p,
+                    nkr::tuple::types_tr                argument_tuples_p
+                > typename                          accumulator_p,
+                typename                            instantiation_p,
+                template <typename ...> typename    instantiator_p,
+                nkr::tuple::types_tr                arguments_p
+            > typename              algorithm_p
+        > using accumulate_paired_instantiations_t =
+            typename accumulate_paired_instantiations_tmpl<instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p>::type_t;
     };
 
 }}}
 
 namespace nkr { namespace accumulator { namespace templates_t$ {
 
-    template <nkr::accumulator::instantiations_tr ...accumulators_p>
+    template <nkr::tuple::types_tr instantiations_accumulators_p>
     class generic_sp
     {
     public:
         template <typename operator_a_p, typename operator_b_p>
         using get_t = nkr::accumulator::templates_t$::common_t::template accumulate_t<
-            operator_a_p, instantiator_p, operator_b_p, argument_tuples_p
+            instantiations_accumulators_p, operator_a_p, operator_b_p
         >;
 
         template <typename operator_a_p, typename operator_b_p, typename operator_c_p, typename operator_d_p>
         using get_pairs_t = nkr::accumulator::templates_t$::common_t::template accumulate_pairs_t<
-            operator_a_p, instantiator_p, operator_b_p, argument_tuples_p, operator_c_p, operator_d_p
+            instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p
         >;
 
         template <
@@ -112,7 +432,7 @@ namespace nkr { namespace accumulator { namespace templates_t$ {
                 nkr::tuple::types_tr                arguments_p
             > typename  algorithm_p
         > using get_paired_types_t = nkr::accumulator::templates_t$::common_t::template accumulate_paired_types_t<
-            operator_a_p, instantiator_p, operator_b_p, argument_tuples_p, operator_c_p, algorithm_p
+            instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, algorithm_p
         >;
 
         template <
@@ -130,7 +450,7 @@ namespace nkr { namespace accumulator { namespace templates_t$ {
                 nkr::tuple::types_tr                arguments_p
             > typename  algorithm_p
         > using get_paired_instantiations_t = nkr::accumulator::templates_t$::common_t::template accumulate_paired_instantiations_t<
-            operator_a_p, instantiator_p, operator_b_p, argument_tuples_p, operator_c_p, operator_d_p, algorithm_p
+            instantiations_accumulators_p, operator_a_p, operator_b_p, operator_c_p, operator_d_p, algorithm_p
         >;
 
     public:

@@ -39,6 +39,10 @@ namespace nkr { namespace accumulator { namespace types_t$ {
         using type_t    = generic_sp<types_p>;
     };
 
+    template <nkr::tuple::types_tr types_p>
+    using specialization_t =
+        typename specialization_tmpl<types_p>::type_t;
+
 }}}
 
 namespace nkr { namespace accumulator {

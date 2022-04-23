@@ -73,6 +73,72 @@ namespace nkr { namespace accumulator {
     concept instantiations_tr =
         nkr::accumulator::instantiations_t$::is_tmpl<type_p>::Value();
 
+    class instantiations_tg
+    {
+    public:
+        class   tag_lb      {};
+        class   type_lb     {};
+        class   identity_lb {};
+    };
+
+}}
+
+namespace nkr { namespace accumulator { namespace instantiations_t$ {
+
+    template <nkr::accumulator::instantiations_tr type_p>
+    class type_i_type_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_type_sp(...) noexcept  = delete;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::accumulator::instantiations_tg> type_p>
+    class type_i_tag_sp
+    {
+    public:
+        using type_t    = type_p;
+        using of_t      = nkr::none::type_t;
+
+    public:
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_General() noexcept;
+        template <typename other_p>
+        static constexpr nkr::boolean::cpp_t    Is_Any_Specific() noexcept;
+
+    public:
+        template <typename ...>
+        constexpr type_i_tag_sp(...) noexcept   = delete;
+    };
+
+}}}
+
+namespace nkr { namespace interface {
+
+    template <nkr::accumulator::instantiations_tr type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::accumulator::instantiations_t$::type_i_type_sp<type_p>;
+    };
+
+    template <nkr::cpp::is_any_tr<nkr::accumulator::instantiations_tg> type_p>
+    class type_i_sp<type_p>
+    {
+    public:
+        using type_t    = nkr::accumulator::instantiations_t$::type_i_tag_sp<type_p>;
+    };
+
 }}
 
 namespace nkr { namespace accumulator { namespace instantiations_t$ {

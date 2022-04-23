@@ -2,7 +2,7 @@
     Copyright 2022 r-neal-kelly
 */
 
-#include "nkr/accumulator/instantiations_t.h"
+#include "nkr/accumulator/templates_t.h"
 #include "nkr/enumeration/cpp_t.h"
 #include "nkr/enumeration/errors_t.h"
 #include "nkr/interface/forward_dec.h"
@@ -472,32 +472,45 @@ namespace nkr {
 
     TEST_SUITE("nkr::enumeration::errors_t")
     {
-        /*using test_ts = nkr::accumulator::instantiations_t<
-            nkr::enumeration::errors_t,
+        using test_ts = nkr::accumulator::templates_t<
             nkr::tuple::types_t<
-                nkr::tuple::types_t<nkr::positive::integer_32_t>,
-                nkr::tuple::types_t<nkr::positive::integer_64_t>,
-                nkr::tuple::types_t<nkr::negatable::integer_32_t>,
-                nkr::tuple::types_t<nkr::negatable::integer_64_t>,
-                nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
-            >
-        >;*/
-
-        using test_ts = nkr::accumulator::instantiations_t<
-            nkr::enumeration::errors_t$::test::example_e,
-            nkr::tuple::types_t<
-                nkr::tuple::types_t<nkr::positive::integer_32_t>,
-                nkr::tuple::types_t<nkr::positive::integer_64_t>,
-                nkr::tuple::types_t<nkr::negatable::integer_32_t>,
-                nkr::tuple::types_t<nkr::negatable::integer_64_t>,
-                nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+                nkr::accumulator::instantiations_t<
+                    nkr::enumeration::errors_t,
+                    nkr::tuple::types_t<
+                        nkr::tuple::types_t<nkr::positive::integer_32_t>,
+                        nkr::tuple::types_t<nkr::positive::integer_64_t>,
+                        nkr::tuple::types_t<nkr::negatable::integer_32_t>,
+                        nkr::tuple::types_t<nkr::negatable::integer_64_t>,
+                        nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+                    >
+                >,
+                nkr::accumulator::instantiations_t<
+                    nkr::enumeration::errors_t$::test::example_e,
+                    nkr::tuple::types_t<
+                        nkr::tuple::types_t<nkr::positive::integer_32_t>,
+                        nkr::tuple::types_t<nkr::positive::integer_64_t>,
+                        nkr::tuple::types_t<nkr::negatable::integer_32_t>,
+                        nkr::tuple::types_t<nkr::negatable::integer_64_t>,
+                        nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+                    >
+                >
             >
         >;
 
-        using test_user_defined_ts = nkr::accumulator::instantiations_t<
-            nkr::enumeration::errors_t$::test::example_e,
+        using test_user_defined_ts = nkr::accumulator::templates_t<
             nkr::tuple::types_t<
-                nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+                nkr::accumulator::instantiations_t<
+                    nkr::enumeration::errors_t,
+                    nkr::tuple::types_t<
+                        nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+                    >
+                >,
+                nkr::accumulator::instantiations_t<
+                    nkr::enumeration::errors_t$::test::example_e,
+                    nkr::tuple::types_t<
+                        nkr::tuple::types_t<nkr::enumeration::errors_t$::test::user_defined_t>
+                    >
+                >
             >
         >;
 
