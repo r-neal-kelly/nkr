@@ -7,6 +7,7 @@
 
 #include "nkr/accumulator/types_t_dec.h"
 #include "nkr/built_in/forward_dec.h"
+#include "nkr/constant/boolean/cpp_t_dec.h"
 #include "nkr/cpp_dec.h"
 #include "nkr/cpp/tuple/values_t_dec.h"
 #include "nkr/tr_dec.h"
@@ -36,13 +37,41 @@ namespace nkr { namespace accumulator { namespace instantiations_t$ {
         using type_t    = generic_sp<instantiator_p, argument_tuples_p>;
     };
 
+    template <template <typename ...> typename instantiator_p, nkr::tuple::types_tr argument_tuples_p>
+    using specialization_t =
+        typename specialization_tmpl<instantiator_p, argument_tuples_p>::type_t;
+
+}}}
+
+namespace nkr { namespace accumulator { namespace instantiations_t$ {
+
+    // Annoyingly enough, we can't seem to use the specialization_t in this template function, but only the actual types.
+
+    template <typename type_p>
+    class is_tmpl :
+        public nkr::constant::boolean::cpp_t<false>
+    {
+    public:
+    };
+
+    template <template <typename ...> typename instantiator_p, nkr::tuple::types_tr argument_tuples_p>
+    class is_tmpl<generic_sp<instantiator_p, argument_tuples_p>> :
+        public nkr::constant::boolean::cpp_t<true>
+    {
+    public:
+    };
+
 }}}
 
 namespace nkr { namespace accumulator {
 
     template <template <typename ...> typename instantiator_p, nkr::tuple::types_tr argument_tuples_p>
     using instantiations_t =
-        typename nkr::accumulator::instantiations_t$::specialization_tmpl<instantiator_p, argument_tuples_p>::type_t;
+        nkr::accumulator::instantiations_t$::specialization_t<instantiator_p, argument_tuples_p>;
+
+    template <typename type_p>
+    concept instantiations_tr =
+        nkr::accumulator::instantiations_t$::is_tmpl<type_p>::Value();
 
 }}
 

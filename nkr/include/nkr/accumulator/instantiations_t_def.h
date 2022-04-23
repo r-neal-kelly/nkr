@@ -7,6 +7,7 @@
 
 #include "nkr/accumulator/types_t_def.h"
 #include "nkr/built_in/forward_def.h"
+#include "nkr/constant/boolean/cpp_t_def.h"
 #include "nkr/cpp_def.h"
 #include "nkr/cpp/tuple/values_t_def.h"
 #include "nkr/tr_def.h"
