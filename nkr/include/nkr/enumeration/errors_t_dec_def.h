@@ -144,6 +144,20 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         }
 
         template <
+            tr<any_tg, tt<nkr::enumeration::errors_t>>  self_p,
+            nkr::enumeration::cpp_tr                    enumeration_p
+        > static inline constexpr auto
+            Enumeration(const self_p& self)
+            noexcept
+        {
+        #if defined(nkr_IS_DEBUG)
+            self.has_been_read = true;
+        #endif
+
+            return enumeration_p(self.types.Integer());
+        }
+
+        template <
             tr<any_tg, tt<nkr::enumeration::errors_t>>  self_p
         > static inline constexpr auto
             Integer(const self_p& self)
@@ -649,6 +663,22 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         const volatile noexcept
     {
         return nkr::enumeration::errors_t$::common_t::Integer(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    template <nkr::enumeration::cpp_tr enumeration_p>
+    inline constexpr generic_sp<type_p, none_p>::operator enumeration_p()
+        const noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Enumeration<nkr::cpp::reference_value_t<decltype(*this)>, enumeration_p>(*this);
+    }
+
+    template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>
+    template <nkr::enumeration::cpp_tr enumeration_p>
+    inline constexpr generic_sp<type_p, none_p>::operator enumeration_p()
+        const volatile noexcept
+    {
+        return nkr::enumeration::errors_t$::common_t::Enumeration<nkr::cpp::reference_value_t<decltype(*this)>, enumeration_p>(*this);
     }
 
     template <nkr::generic::implementing::interface::enumeration::types_tr type_p, nkr::constant_tr none_p>

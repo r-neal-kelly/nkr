@@ -322,6 +322,11 @@ namespace nkr { namespace enumeration { namespace errors_t$ {
         constexpr operator          generic_sp<type_p, none_p>::integer_t() const noexcept;
                   operator          generic_sp<type_p, none_p>::integer_t() const volatile noexcept;
 
+        template <nkr::enumeration::cpp_tr enumeration_p>
+        explicit constexpr operator enumeration_p() const noexcept;
+        template <nkr::enumeration::cpp_tr enumeration_p>
+        explicit constexpr operator enumeration_p() const volatile noexcept;
+
     public:
         constexpr integer_t             operator ()() const noexcept;
                   integer_t             operator ()() const volatile noexcept;
